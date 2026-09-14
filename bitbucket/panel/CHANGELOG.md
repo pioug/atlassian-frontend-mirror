@@ -1,5 +1,59 @@
 # @atlaskit/panel
 
+## 2.8.0
+
+### Minor Changes
+
+- [`243f107ca4fc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/243f107ca4fc8) -
+  Update i18n NPM package versions for discovery,navigation,web-platform,bitbucket,policy-platform
+  (Group 14)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.0
+
+### Minor Changes
+
+- [`d83cb6c1f23f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d83cb6c1f23f8) -
+  Add support for aria-label
+
+## 2.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.0
+
+### Minor Changes
+
+- [`d82e5d7f2fe7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e5d7f2fe7c) -
+  Update i18n NPM package versions for discovery,navigation,web-platform,bitbucket,policy-platform
+  (Group 14)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.1
 
 ### Patch Changes

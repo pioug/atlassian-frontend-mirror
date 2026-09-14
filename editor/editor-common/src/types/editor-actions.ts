@@ -1,4 +1,4 @@
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

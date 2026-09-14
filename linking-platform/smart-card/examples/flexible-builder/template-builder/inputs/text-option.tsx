@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { Field } from '@atlaskit/form';
-import Textfield from '@atlaskit/textfield';
+import Field from '@atlaskit/form/field';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import { type ChangeParams, handleOnChange } from '../../utils';
 

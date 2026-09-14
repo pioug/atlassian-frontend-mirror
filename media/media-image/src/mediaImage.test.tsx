@@ -1,8 +1,8 @@
-jest.mock('@atlaskit/media-file-preview', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-file-preview');
+jest.mock('@atlaskit/media-file-preview/use-file-preview', () => {
+	const actualModule = jest.requireActual('@atlaskit/media-file-preview/use-file-preview');
 	return {
+		...jest.requireActual('@atlaskit/media-file-preview/use-file-preview'),
 		__esModule: true,
-		...actualModule,
 		useFilePreview: jest.fn(actualModule.useFilePreview),
 	};
 });
@@ -12,7 +12,7 @@ import { type MediaClientConfig } from '@atlaskit/media-client';
 import { type MediaImageChildrenProps } from './types';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { MediaImageWithMediaClient } from './mediaImage';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;

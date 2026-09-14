@@ -1,9 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import Image from '@atlaskit/image';
-import Modal, { CloseButton, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';

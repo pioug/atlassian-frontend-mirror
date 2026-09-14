@@ -1,31 +1,6 @@
-const pad = (n: number) => {
-	return n < 10 ? `0${n}` : n;
-};
-
-export const isInvalidInput = (seconds: number): boolean => {
-	return isNaN(seconds) || seconds === Infinity || seconds < 0;
-};
-
-export const secondsToTime = (
-	seconds: number,
-): { seconds: number; minutes: number; hours: number } => {
-	if (isInvalidInput(seconds)) {
-		return { seconds: 0, minutes: 0, hours: 0 };
-	}
-
-	const totalSeconds = parseInt(`${seconds}`, 10);
-	const hours = Math.floor(totalSeconds / 3600);
-
-	let remainingSeconds = totalSeconds % 3600;
-	const minutes = Math.floor(remainingSeconds / 60);
-	remainingSeconds %= 60;
-
-	return {
-		seconds: remainingSeconds,
-		minutes,
-		hours,
-	};
-};
+import { isInvalidInput } from './isInvalidInput';
+import { pad } from './pad';
+import { secondsToTime } from './secondsToTime';
 
 export const formatDuration = (seconds: number): string => {
 	if (isInvalidInput(seconds)) {
@@ -39,3 +14,13 @@ export const formatDuration = (seconds: number): string => {
 
 	return `${prettyHoursWithSeparator}${prettyMinutes}:${pad(remainingSeconds)}`;
 };
+
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { isInvalidInput } from '@atlaskit/media-ui/isInvalidInput'` instead.
+ */
+export { isInvalidInput } from './isInvalidInput';
+/**
+ * @deprecated Use `import { secondsToTime } from '@atlaskit/media-ui/secondsToTime'` instead.
+ */
+export { secondsToTime } from './secondsToTime';

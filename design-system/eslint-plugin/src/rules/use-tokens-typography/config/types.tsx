@@ -1,4 +1,3 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
 type Pattern =
 	| 'style-object'
 	| 'font-weight'

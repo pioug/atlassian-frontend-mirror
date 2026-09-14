@@ -8,15 +8,16 @@ import { bind } from 'bind-event-listener';
 import Loadable from 'react-loadable';
 
 import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
-import type { DocNode } from '@atlaskit/adf-schema/schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { Placement } from '@atlaskit/popper/main';
 import type {
 	ProfileCardClientData,
 	TeamCentralReportingLinesData,
 } from '@atlaskit/profilecard/types';
-import { ProfileCardLazy } from '@atlaskit/profilecard/user';
+import { ProfileCardLazy } from '@atlaskit/profilecard/lazy-profile-card';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
@@ -124,11 +125,19 @@ export function ProfileCardComponent({
 	dom,
 	closeComponent,
 	onAgentMentionChatClick,
+	placement,
+	offset,
+	disableFocusTrap,
+	hideActions,
 }: {
 	activeMention: { attrs: MentionAttributes };
 	closeComponent: () => void;
+	disableFocusTrap?: boolean;
 	dom: HTMLElement;
+	hideActions?: boolean;
+	offset?: [number, number];
 	onAgentMentionChatClick?: (agentId: string, agentMentionContext?: DocNode) => void;
+	placement?: Placement;
 	profilecardProvider?: Promise<ProfilecardProvider> | undefined;
 }): JSX.Element {
 	const [provider, setProvider] = useState<ProfilecardProvider | undefined>(undefined);
@@ -151,10 +160,24 @@ export function ProfileCardComponent({
 		});
 	});
 
-	if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+	if (
+		!expVal('platform_editor_agent_mentions', 'isEnabled', false) &&
+		!fg('platform_editor_agent_card_fixes')
+	) {
 		return (
-			<Popup referenceElement={dom}>
-				<UserProfileCardContent accessLevel={accessLevel} id={id} provider={provider} text={text} />
+			<Popup
+				referenceElement={dom}
+				placement={placement}
+				offset={offset}
+				disableFocusTrap={disableFocusTrap}
+			>
+				<UserProfileCardContent
+					accessLevel={accessLevel}
+					id={id}
+					provider={provider}
+					text={text}
+					hideActions={hideActions}
+				/>
 			</Popup>
 		);
 	}
@@ -162,11 +185,17 @@ export function ProfileCardComponent({
 	const isAgentMention = isAgentMentionType(userType);
 
 	return (
-		<Popup referenceElement={dom}>
+		<Popup
+			referenceElement={dom}
+			placement={placement}
+			offset={offset}
+			disableFocusTrap={disableFocusTrap}
+		>
 			{isAgentMention && provider && id ? (
 				<AgentProfileCardContent
 					accountId={id}
 					provider={provider}
+					hideActions={hideActions}
 					text={
 						expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
 							? text
@@ -174,15 +203,26 @@ export function ProfileCardComponent({
 					}
 					onChatClick={
 						onAgentMentionChatClick && fg('platform_editor_agent_mentions_drop_one_fixes')
-							? (event: React.MouseEvent, agentStudioId?: string) =>
+							? (event: React.MouseEvent, agentStudioId?: string) => {
 									// agentMentionContext is already captured in the onAgentMentionChatClick
 									// closure built by profileCardRenderer at chip-click time via doc.descendants()
-									onAgentMentionChatClick(agentStudioId ?? id)
+									onAgentMentionChatClick(agentStudioId ?? id);
+									// Dismiss the profile card once the Rovo chat panel opens (EDITOR-8257).
+									if (fg('platform_editor_agent_card_close_on_chat')) {
+										closeComponent();
+									}
+								}
 							: undefined
 					}
 				/>
 			) : (
-				<UserProfileCardContent accessLevel={accessLevel} id={id} provider={provider} text={text} />
+				<UserProfileCardContent
+					accessLevel={accessLevel}
+					id={id}
+					provider={provider}
+					text={text}
+					hideActions={hideActions}
+				/>
 			)}
 		</Popup>
 	);
@@ -193,15 +233,17 @@ const UserProfileCardContent = ({
 	id,
 	provider,
 	text,
+	hideActions,
 }: {
 	accessLevel: MentionAttributes['accessLevel'];
+	hideActions?: boolean;
 	id: MentionAttributes['id'];
 	provider: ProfilecardProvider | undefined;
 	text: MentionAttributes['text'];
 }): JSX.Element => {
 	const actions = useMemo(
-		() => provider?.getActions(id, text ?? '', accessLevel),
-		[accessLevel, id, provider, text],
+		() => (hideActions ? [] : provider?.getActions(id, text ?? '', accessLevel)),
+		[hideActions, accessLevel, id, provider, text],
 	);
 
 	const { data, reportingLinesData, shouldShowGiveKudos, teamCentralBaseUrl, isLoading, hasError } =
@@ -246,8 +288,10 @@ const AgentProfileCardContent = ({
 	provider,
 	text,
 	onChatClick,
+	hideActions,
 }: {
 	accountId: MentionAttributes['id'];
+	hideActions?: boolean;
 	onChatClick?: (event: React.MouseEvent, agentStudioId?: string) => void;
 	provider: ProfilecardProvider;
 	text?: MentionAttributes['text'];
@@ -260,6 +304,11 @@ const AgentProfileCardContent = ({
 			resourceClient={provider.resourceClient}
 			agentName={agentName}
 			onChatClick={onChatClick}
+			hideAgentActions={hideActions}
+			hideConversationStarters={hideActions}
+			hideStarButton={hideActions}
+			hideAiDisclaimer={hideActions}
+			showCreatorNameWithoutLink={hideActions}
 		/>
 	) : (
 		<AgentProfileCardResourcedLazy
@@ -267,6 +316,11 @@ const AgentProfileCardContent = ({
 			cloudId={provider.cloudId}
 			resourceClient={provider.resourceClient}
 			onChatClick={onChatClick}
+			hideAgentActions={hideActions}
+			hideConversationStarters={hideActions}
+			hideStarButton={hideActions}
+			hideAiDisclaimer={hideActions}
+			showCreatorNameWithoutLink={hideActions}
 		/>
 	);
 };

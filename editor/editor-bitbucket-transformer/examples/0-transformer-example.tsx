@@ -14,7 +14,7 @@ import React from 'react';
 import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { token } from '@atlaskit/tokens';

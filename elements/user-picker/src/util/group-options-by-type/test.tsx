@@ -1,3 +1,4 @@
+import React from 'react';
 import { groupOptionsByType } from './index';
 import type { GroupedOptions } from '../../types';
 
@@ -56,6 +57,22 @@ describe('groupOptionsByType', () => {
 						value: '3',
 					},
 				],
+			},
+		]);
+	});
+
+	it('should use a custom label when provided', () => {
+		const options = [
+			{ data: { id: '1', name: 'John Doe', type: 'user' as const }, label: 'John Doe', value: '1' },
+		];
+		const customLabel = 'Suggested people';
+
+		const groupedOptions = groupOptionsByType(options, ['user'], { user: customLabel });
+
+		expect(groupedOptions).toEqual([
+			{
+				label: <>{customLabel}</>,
+				options,
 			},
 		]);
 	});

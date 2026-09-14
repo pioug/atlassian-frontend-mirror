@@ -1,5 +1,83 @@
 # @atlaskit/editor-plugin-ui-control-registry
 
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.1
+
+### Patch Changes
+
+- [`5f66a8c3706e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f66a8c3706e3) -
+  Add the registry-backed Block Controls Quick Insert surface behind
+  `platform_editor_block_control_migration`, including typed surface context, cached registry
+  lookup, stable left/right surface identities, and experiment-gated Quick Insert registration.
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.1
+
+### Patch Changes
+
+- [`f213e995cbb18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f213e995cbb18) -
+  Support replacing and removing registered snippet Quick Insert items behind
+  `platform_editor_slash_command`.
+- Updated dependencies
+
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`c0cf420333ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0cf420333ef1) -
+  Add public registration APIs for provider-backed Quick Insert components.
+
+  Providers can expose registered items directly:
+
+  ```tsx
+  const getComponents = async () => [
+  	{
+  		key: 'insert-table',
+  		component: TableItem,
+  		parents: [{ type: 'menu-section', key: 'quick-insert', rank: 1 }],
+  	},
+  ];
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

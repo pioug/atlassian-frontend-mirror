@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import type { EmojiUpload } from '@atlaskit/emoji/types';
 import { customCategory, customType } from '../emoji-constants';
 import { loggedUser } from './logged-user';

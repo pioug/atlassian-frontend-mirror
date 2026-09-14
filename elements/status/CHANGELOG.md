@@ -1,5 +1,343 @@
 # @atlaskit/status
 
+## 5.9.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.2
+
+### Patch Changes
+
+- [`501b7257aaa6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/501b7257aaa6d) -
+  Add a capped, scrollable status suggestion list with parent-constrained labels behind
+  platform_editor_status_popup_suggestions_patch_1.
+- Updated dependencies
+
+## 5.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.8.0
 
 ### Minor Changes

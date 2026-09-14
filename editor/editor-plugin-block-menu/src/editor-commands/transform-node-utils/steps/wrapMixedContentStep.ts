@@ -1,7 +1,8 @@
 import { getDefaultCodeBlockAttrs } from '@atlaskit/editor-common/code-block';
-import { breakoutResizableNodes } from '@atlaskit/editor-common/utils';
+import { breakoutResizableNodes, getBreakoutResizableNodes } from '@atlaskit/editor-common/utils';
 import type { Mark, Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { removeDisallowedMarks } from '../marks';
@@ -153,15 +154,20 @@ export const wrapMixedContentStep: TransformStep = (nodes, context) => {
 	const isCodeblock = targetNodeTypeName === 'codeBlock';
 	const { layoutSection, layoutColumn } = schema.nodes;
 
-	// platform_editor_lovability_resize_dividers_panels supports breakout resizing on panels and rules,
-	// but rule is NOT a supported transform source/target
-	const breakoutResizableNodesList = expValEquals(
-		'platform_editor_lovability_resize_dividers_panels',
-		'isEnabled',
-		true,
-	)
-		? [...breakoutResizableNodes, 'panel']
-		: breakoutResizableNodes;
+	let breakoutResizableNodesList: string[] = [];
+	if (isExperimentEnabled('platform_editor_lovability_resize_extensions')) {
+		breakoutResizableNodesList = getBreakoutResizableNodes();
+		// rule is NOT a supported transform source/target
+		breakoutResizableNodesList = breakoutResizableNodesList.filter((node) => node !== 'rule');
+	} else {
+		breakoutResizableNodesList = expValEquals(
+			'platform_editor_lovability_resize_dividers_panels',
+			'isEnabled',
+			true,
+		)
+			? [...breakoutResizableNodes, 'panel']
+			: breakoutResizableNodes;
+	}
 
 	const sourceSupportsBreakout = breakoutResizableNodesList.includes(fromNode.type.name);
 	const targetSupportsBreakout = breakoutResizableNodesList.includes(targetNodeTypeName);

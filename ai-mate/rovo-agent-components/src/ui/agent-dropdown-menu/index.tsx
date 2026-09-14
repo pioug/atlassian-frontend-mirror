@@ -6,18 +6,18 @@ import React, { useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import Button, { type ButtonProps } from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import DropdownMenu, {
-	type DropdownMenuProps,
-	DropdownItem,
-	DropdownItemGroup,
-} from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import type { DropdownMenuProps } from '@atlaskit/dropdown-menu/types';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../../common/ui/chat-icon';

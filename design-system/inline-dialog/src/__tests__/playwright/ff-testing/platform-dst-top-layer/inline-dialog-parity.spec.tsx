@@ -17,6 +17,7 @@ test.describe('InlineDialog top-layer — Content Rendering Parity', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -40,6 +41,7 @@ test.describe('InlineDialog top-layer — onClose Callback', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -61,6 +63,7 @@ test.describe('InlineDialog top-layer — onClose Callback', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -84,6 +87,7 @@ test.describe('InlineDialog top-layer — Reopening Behavior', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -109,6 +113,7 @@ test.describe('InlineDialog top-layer — Reopening Behavior', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -134,6 +139,7 @@ test.describe('InlineDialog top-layer — Multiple Dialogs', () => {
 			typeof import('../../../../../examples/08-multiple-inline-dialogs.tsx')
 		>('design-system', 'inline-dialog', 'multiple-inline-dialogs', {
 			featureFlag,
+			'react-18-mode': 'modern',
 		});
 
 		const dialog1Trigger = page.getByRole('button', { name: 'Click for dialog 1' });
@@ -158,6 +164,7 @@ test.describe('InlineDialog top-layer — Modal Nesting', () => {
 			'modal',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -184,6 +191,7 @@ test.describe('InlineDialog top-layer — Modal Nesting', () => {
 			'modal',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -215,6 +223,7 @@ test.describe('InlineDialog top-layer — Dropdown Nesting', () => {
 			'popup',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -240,6 +249,7 @@ test.describe('InlineDialog top-layer — Dropdown Nesting', () => {
 			'popup',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -272,6 +282,7 @@ test.describe('InlineDialog top-layer — Positioning', () => {
 			'positioning',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -288,6 +299,7 @@ test.describe('InlineDialog top-layer — Animation', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 

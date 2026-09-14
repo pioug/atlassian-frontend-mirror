@@ -1,5 +1,5 @@
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type CardState } from '@atlaskit/linking-common';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { CardState } from '@atlaskit/linking-common/store';
 
 export type LinkAnalyticsAttributes = Record<string, any>;
 

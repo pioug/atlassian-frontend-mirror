@@ -14,8 +14,8 @@ import { type HoverCardUnauthorisedProps } from '../types';
 
 mockSimpleIntersectionObserver();
 
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
+jest.mock('@atlaskit/link-provider/use-smart-link-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-link-context'),
 	useSmartLinkContext: () => ({
 		...mockGetContext(),
 		store: {
@@ -91,7 +91,7 @@ describe('RovoUnauthorisedView', () => {
 
 		expect(screen.getByTestId('hover-card-rovo-unauthorised-view')).toBeInTheDocument();
 		expect(
-			screen.getByText('Get smarter workflows by connecting your Google account'),
+			screen.getByText('Get smarter workflows by connecting your Google Drive account'),
 		).toBeInTheDocument();
 		expect(
 			screen.getByTestId('hover-card-rovo-unauthorised-view-feature-clear-link-names'),

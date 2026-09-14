@@ -5,17 +5,18 @@
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/new';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import Button from '@atlaskit/button/default/button';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
 import extractHostname from '../../../../../extractors/common/hostname/extractHostname';
 import { messages } from '../../../../../messages';
 import FlexibleCard from '../../../../FlexibleCard';
-import { CustomBlock, PreviewBlock } from '../../../../FlexibleCard/components/blocks';
+import { default as CustomBlock } from '../../../../FlexibleCard/components/blocks/block';
+import { default as PreviewBlock } from '../../../../FlexibleCard/components/blocks/preview-block';
 
 import { type HoverCardForbiddenProps } from './types';
 

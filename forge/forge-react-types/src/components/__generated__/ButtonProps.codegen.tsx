@@ -9,7 +9,7 @@
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type { ButtonProps as PlatformButtonProps } from '@atlaskit/button/new';
+import type { ButtonProps as PlatformButtonProps } from '@atlaskit/button/default/button';
 
 // TODO: File had to be manually updated as code gen is not correctly creating the Icon type
 export type Icon =

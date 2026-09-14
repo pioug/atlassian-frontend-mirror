@@ -1,6 +1,6 @@
 import { type ComponentType } from 'react';
 
-import Link, { type LinkProps } from '@atlaskit/link';
+import Link, { type LinkProps } from '@atlaskit/link/link';
 
 /**
  * Shared hook for link handling

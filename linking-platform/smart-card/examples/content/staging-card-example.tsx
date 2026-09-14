@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-import Link from '@atlaskit/link';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import Link from '@atlaskit/link/link';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { Card } from '@atlaskit/smart-card';
 
 const StagingCardExample = ({

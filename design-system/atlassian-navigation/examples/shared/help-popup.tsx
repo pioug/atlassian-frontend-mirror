@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Help } from '@atlaskit/atlassian-navigation';
-import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 
 const HelpContent = () => (
 	<MenuGroup>

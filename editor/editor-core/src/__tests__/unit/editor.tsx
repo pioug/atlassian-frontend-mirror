@@ -1,7 +1,7 @@
 const mockStopMeasureDuration = 1234;
 
 jest.mock('@atlaskit/editor-common/performance-measures', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
+	...jest.requireActual<object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
 	stopMeasure: jest.fn(
 		(measureName: string, onMeasureComplete?: (duration: number, startTime: number) => void) => {
@@ -13,9 +13,9 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 // Ignored via go/ees005
 // eslint-disable-next-line no-var
 var mockUuid = '12345abcdef';
-jest.mock('uuid/v4', () => ({
+jest.mock('uuid', () => ({
 	__esModule: true,
-	default: jest.fn(() => mockUuid),
+	v4: jest.fn(() => mockUuid),
 }));
 
 jest.mock('@atlaskit/editor-common/provider-factory');
@@ -25,7 +25,7 @@ jest.mock('@atlaskit/editor-common/provider-factory');
 // Invoked here: packages/editor/editor-common/src/utils/browser-extensions.ts
 jest.useFakeTimers();
 
-const { ActivityResource } = jest.genMockFromModule<typeof ActivityProviderModule>(
+const { ActivityResource } = jest.createMockFromModule<typeof ActivityProviderModule>(
 	'@atlaskit/activity-provider',
 );
 
@@ -38,9 +38,9 @@ import { IntlProvider } from 'react-intl';
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import type * as ActivityProviderModule from '@atlaskit/activity-provider';
 import type { GasPurePayload, GasPureScreenEventPayload } from '@atlaskit/analytics-gas-types';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
-import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import * as measure from '@atlaskit/editor-common/performance-measures';
 import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';

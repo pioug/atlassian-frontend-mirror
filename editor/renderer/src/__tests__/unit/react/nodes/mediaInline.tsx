@@ -1,15 +1,25 @@
+const mockMediaInlineCard = jest.fn();
+jest.mock('@atlaskit/media-card', () => {
+	const actual = jest.requireActual('@atlaskit/media-card');
+	const react = jest.requireActual('react');
+	return {
+		...actual,
+		MediaInlineCard: (props: Record<string, unknown>) => {
+			mockMediaInlineCard(props);
+			return react.createElement(actual.MediaInlineCard, props);
+		},
+	};
+});
+
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import type { InlineCardEvent } from '@atlaskit/media-card';
-import { MediaInlineCard } from '@atlaskit/media-card';
 import type { FileDetails } from '@atlaskit/media-client';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { act, screen, waitFor } from '@testing-library/react';
 import MediaInline from '../../../../react/nodes/mediaInline';
@@ -96,7 +106,7 @@ describe('MediaInline', () => {
 	});
 
 	it('should render with shouldOpenMediaViewer set to true when appearance is not mobile', async () => {
-		const wrapper = mountWithIntl(
+		renderWithIntl(
 			<MediaClientContext.Provider value={fakeMediaClient()}>
 				<MediaInline providers={providerFactory} {...mockFile} />
 			</MediaClientContext.Provider>,
@@ -104,9 +114,33 @@ describe('MediaInline', () => {
 		await act(async () => {
 			await flushPromises();
 		});
-		wrapper.update();
-		expect(wrapper.find(MediaInlineCard).prop('shouldOpenMediaViewer')).toEqual(true);
-		wrapper.unmount();
+
+		expect(mockMediaInlineCard).toHaveBeenLastCalledWith(
+			expect.objectContaining({ shouldOpenMediaViewer: true }),
+		);
+	});
+
+	it('passes the matching ssrMediaItem to MediaInlineCard', async () => {
+		const matchingItem = { id: mockFile.id, details: { name: 'inline.png' } };
+		const otherItem = { id: 'other-id', details: { name: 'other.png' } };
+		const ssr = {
+			mode: 'server' as const,
+			config: getDefaultMediaClientConfig(),
+			ssrMediaItems: [otherItem, matchingItem],
+		};
+
+		renderWithIntl(
+			<MediaClientContext.Provider value={fakeMediaClient()}>
+				<MediaInline providers={providerFactory} ssr={ssr} {...mockFile} />
+			</MediaClientContext.Provider>,
+		);
+		await act(async () => {
+			await flushPromises();
+		});
+
+		expect(mockMediaInlineCard).toHaveBeenLastCalledWith(
+			expect.objectContaining({ ssrMediaItem: matchingItem }),
+		);
 	});
 
 	it('should add media attrs for copy and paste', async () => {
@@ -142,10 +176,6 @@ describe('MediaInline', () => {
 	});
 
 	it('should invoke onclick callback with mediaItemDetails when click', async () => {
-		jest.mock('@atlaskit/media-card', () => ({
-			MediaInlineCard: () => <div>MediaInlineCard</div>,
-		}));
-
 		const mockCardEventClickHandler = jest.fn();
 		const eventHandlers: EventHandlers = {
 			media: {
@@ -153,7 +183,7 @@ describe('MediaInline', () => {
 			},
 		};
 
-		const wrapper = mountWithIntl(
+		renderWithIntl(
 			<MediaClientContext.Provider value={fakeMediaClient()}>
 				<MediaInline providers={providerFactory} eventHandlers={eventHandlers} {...mockFile} />
 			</MediaClientContext.Provider>,
@@ -162,7 +192,6 @@ describe('MediaInline', () => {
 		await act(async () => {
 			await flushPromises();
 		});
-		wrapper.update();
 
 		const mediaItemDetails: FileDetails = {
 			id: '7113fcea-49ea-4a46-9ed5-c0f2991841e0',
@@ -172,11 +201,11 @@ describe('MediaInline', () => {
 			event: {} as any,
 			mediaItemDetails: mediaItemDetails,
 		};
-		wrapper.find(MediaInlineCard).props().onClick!(event);
-		expect(mockCardEventClickHandler).toBeCalledTimes(1);
-		expect(mockCardEventClickHandler).toBeCalledWith(
+		mockMediaInlineCard.mock.lastCall?.[0].onClick(event);
+
+		expect(mockCardEventClickHandler).toHaveBeenCalledTimes(1);
+		expect(mockCardEventClickHandler).toHaveBeenCalledWith(
 			expect.objectContaining({ mediaItemDetails: mediaItemDetails }),
 		);
-		wrapper.unmount();
 	});
 });

@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group';
+import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group.vr.ap';
 
 snapshotInformational(BasicAvatarGroup, {
 	prepare: async (_page, component) => {

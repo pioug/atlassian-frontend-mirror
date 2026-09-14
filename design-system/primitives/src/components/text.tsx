@@ -152,7 +152,7 @@ const useColor = (
  *
  * @internal
  */
-const Text: React.ForwardRefExoticComponent<
+export const Text: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<TextProps<ElementType>> & React.RefAttributes<any>
 > = forwardRef(
 	<T extends ElementType = 'span'>(
@@ -217,4 +217,5 @@ const Text: React.ForwardRefExoticComponent<
 	},
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Text;

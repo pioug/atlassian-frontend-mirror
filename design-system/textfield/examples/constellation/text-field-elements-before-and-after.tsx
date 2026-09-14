@@ -4,12 +4,13 @@
  */
 import { Fragment } from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { cssMap, jsx } from '@atlaskit/css';
-import Form, { Field } from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Box } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const elemStyles = cssMap({

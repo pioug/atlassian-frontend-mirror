@@ -1,3 +1,4 @@
+/** @jest-environment node */
 /* eslint-disable */
 import { tsRuleTester } from './utils/_tester';
 import { rule } from '../rules/enforce-todo-comment-format';

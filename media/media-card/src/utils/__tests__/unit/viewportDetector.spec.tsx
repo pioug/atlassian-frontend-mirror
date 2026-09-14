@@ -49,7 +49,7 @@ describe('ViewportDetector logic:', () => {
 		it('should observe cardEl', () => {
 			const { cardEl } = setup();
 
-			expect(observeMock).toBeCalledTimes(1);
+			expect(observeMock).toHaveBeenCalledTimes(1);
 			expect(observeMock).toHaveBeenNthCalledWith(1, cardEl);
 		});
 
@@ -60,8 +60,8 @@ describe('ViewportDetector logic:', () => {
 
 			intersectionTrigger();
 
-			expect(callBack).toBeCalledTimes(1);
-			expect(disconnectMock).toBeCalledTimes(1);
+			expect(callBack).toHaveBeenCalledTimes(1);
+			expect(disconnectMock).toHaveBeenCalledTimes(1);
 		});
 	});
 });

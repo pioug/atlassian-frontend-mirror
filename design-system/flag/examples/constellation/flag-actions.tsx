@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Flag from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { token } from '@atlaskit/tokens';
 

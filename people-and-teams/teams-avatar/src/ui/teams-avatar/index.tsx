@@ -1,7 +1,9 @@
 import React from 'react';
 
-import Avatar, { AvatarContent, type AvatarPropTypes, type SizeType } from '@atlaskit/avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar/avatar';
+import { AvatarContent } from '@atlaskit/avatar/avatar-content';
+import type { SizeType } from '@atlaskit/avatar/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { TeamAvatarImage } from './teams-avatar-image';

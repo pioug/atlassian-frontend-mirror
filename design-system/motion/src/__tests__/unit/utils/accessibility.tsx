@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react';
+import { act, renderHook } from '@atlassian/testing-library';
 
 import { useIsReducedMotion } from '../../../utils/use-is-reduced-motion';
 
@@ -33,37 +33,37 @@ const mockPrefersReducedMotionUnsupported = () => {
 describe('useIsReducedMotion', () => {
 	test('reduced motion preference starts as FALSE', () => {
 		mockPrefersReducedMotion(false);
-		const { result: prefersReducedMotion } = renderHook(() => useIsReducedMotion());
-		expect(prefersReducedMotion.current).toBe(false);
+		const utils = renderHook(() => useIsReducedMotion());
+		expect(utils.current).toBe(false);
 	});
 
 	test('reduced motion preference starts as TRUE', () => {
 		mockPrefersReducedMotion(true);
-		const { result: prefersReducedMotion } = renderHook(() => useIsReducedMotion());
-		expect(prefersReducedMotion.current).toBe(true);
+		const utils = renderHook(() => useIsReducedMotion());
+		expect(utils.current).toBe(true);
 	});
 
 	test('reduced motion preference starts as FALSE and then changes to TRUE', () => {
 		const { updatePrefersReducedMotion } = mockPrefersReducedMotion(false);
-		const { result: prefersReducedMotion } = renderHook(() => useIsReducedMotion());
-		expect(prefersReducedMotion.current).toBe(false);
+		const utils = renderHook(() => useIsReducedMotion());
+		expect(utils.current).toBe(false);
 
 		act(() => updatePrefersReducedMotion(true));
-		expect(prefersReducedMotion.current).toBe(true);
+		expect(utils.current).toBe(true);
 	});
 
 	test('reduced motion preference starts as TRUE and then changes to FALSE', () => {
 		const { updatePrefersReducedMotion } = mockPrefersReducedMotion(true);
-		const { result: prefersReducedMotion } = renderHook(() => useIsReducedMotion());
-		expect(prefersReducedMotion.current).toBe(true);
+		const utils = renderHook(() => useIsReducedMotion());
+		expect(utils.current).toBe(true);
 
 		act(() => updatePrefersReducedMotion(false));
-		expect(prefersReducedMotion.current).toBe(false);
+		expect(utils.current).toBe(false);
 	});
 
 	test('reduced motion preference is not supported by the browser', () => {
 		mockPrefersReducedMotionUnsupported();
-		const { result: prefersReducedMotion } = renderHook(() => useIsReducedMotion());
-		expect(prefersReducedMotion.current).toBe(false);
+		const utils = renderHook(() => useIsReducedMotion());
+		expect(utils.current).toBe(false);
 	});
 });

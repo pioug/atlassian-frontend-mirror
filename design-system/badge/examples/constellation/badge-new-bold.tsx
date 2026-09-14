@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Badge from '@atlaskit/badge';
+import Badge from '@atlaskit/badge/badge';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 
 const BadgeNewBoldExample = (): React.JSX.Element => {

@@ -1,9 +1,11 @@
 import React, { useMemo, useRef, useLayoutEffect } from 'react';
 import type { IntlShape } from 'react-intl';
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+// oxlint-disable-next-line import/no-duplicates
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorPlugin } from '@atlaskit/editor-common/types';
@@ -13,7 +15,6 @@ import {
 	profileSSROperation,
 	SSRRenderMeasure,
 } from '@atlaskit/editor-common/performance/ssr-measures';
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import { createSSRPMPlugins } from './create-ssr-pm-plugins';
 import { createSSREditorState } from './create-ssr-editor-state';
 
@@ -26,6 +27,7 @@ type MarkViewConstructor = (mark: Mark, view: EditorView, inline: boolean) => No
 interface Props {
 	'aria-describedby'?: string;
 	'aria-label': string;
+	'aria-readonly'?: 'true';
 	className: string;
 	'data-editor-id': string;
 	doc: PMNode | undefined;
@@ -380,14 +382,10 @@ export function EditorSSRRenderer({
 				nodePositions.set(node, pos);
 			});
 
-			if (isSSRStreaming()) {
-				const fragment = serializer.serializeFragment(doc.content);
-				const wrapper = document.createElement('div');
-				wrapper.appendChild(fragment);
-				return wrapper.innerHTML;
-			} else {
-				return serializer.serializeFragment(doc.content);
-			}
+			const fragment = serializer.serializeFragment(doc.content);
+			const wrapper = document.createElement('div');
+			wrapper.appendChild(fragment);
+			return wrapper.innerHTML;
 		};
 
 		try {
@@ -406,17 +404,6 @@ export function EditorSSRRenderer({
 		// eslint-disable-next-line @atlassian/perf-linting/no-unstable-usememo-deps -- Ignored via go/ees017 (to be fixed)
 	}, [doc, serializer, nodePositions, onSSRMeasure]);
 
-	const containerRef = useRef<HTMLDivElement>(null);
-
-	useLayoutEffect(() => {
-		if (!isSSRStreaming()) {
-			if (containerRef.current && editorHTML && typeof editorHTML !== 'string') {
-				containerRef.current.innerHTML = '';
-				containerRef.current.appendChild(editorHTML);
-			}
-		}
-	}, [editorHTML]);
-
 	return (
 		<SSRRenderMeasure
 			segmentName={SSR_TRACE_SEGMENT_NAME}
@@ -424,11 +411,10 @@ export function EditorSSRRenderer({
 			onSSRMeasure={onSSRMeasure}
 		>
 			<div
-				ref={containerRef}
 				id={divProps.id}
 				// eslint-disable-next-line react/no-danger -- It's intentional by design
 				dangerouslySetInnerHTML={
-					typeof editorHTML === 'string' && isSSRStreaming() ? { __html: editorHTML } : undefined
+					typeof editorHTML === 'string' ? { __html: editorHTML } : undefined
 				}
 				// For some reason on SSR, the result `class` has a trailing space, that broke UFO,
 				// because ReactEditorView produces a div with `class` without space.
@@ -436,6 +422,8 @@ export function EditorSSRRenderer({
 				className={divProps.className.trim()}
 				aria-label={divProps['aria-label']}
 				aria-describedby={divProps['aria-describedby']}
+				// eslint-disable-next-line react/jsx-props-no-spreading -- aria-readonly must be omitted unless its value is true
+				{...(divProps['aria-readonly'] === 'true' ? { 'aria-readonly': 'true' } : {})}
 				data-editor-id={divProps['data-editor-id']}
 				data-vc-ignore-if-no-layout-shift={true}
 				data-ssr-placeholder="editor-view"

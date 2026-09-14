@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type StringType } from '@atlaskit/linking-types';
+import type { StringType } from '@atlaskit/linking-types/datasource';
 import { Text } from '@atlaskit/primitives/compiled';
 
 interface TextProps {

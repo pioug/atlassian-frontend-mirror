@@ -10,7 +10,6 @@ import type { KeyboardEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 

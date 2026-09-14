@@ -53,6 +53,7 @@ describe('getFMP', () => {
 		trace: null,
 		routeName: 'test-route',
 		...overrides,
+		preloadInfo: overrides.preloadInfo ?? [],
 	});
 
 	describe('FMP calculation', () => {

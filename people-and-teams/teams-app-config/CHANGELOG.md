@@ -1,5 +1,30 @@
 # @atlaskit/teams-app-config
 
+## 3.1.0
+
+### Minor Changes
+
+- [`d3ed772143469`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3ed772143469) -
+  Add dedicated public entrypoint imports for `@atlaskit/teams-app-config`:
+  - `@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app`
+  - `@atlaskit/teams-app-config/utils/teams-app-navigation/to-teams-app-url`
+
+  Root and deprecated compatibility imports remain supported for existing consumers.
+
+## 3.0.0
+
+### Major Changes
+
+- [`c5e5bfbbe0d18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5e5bfbbe0d18) -
+  Remove isTeamsAppEnabled utility and ./is-teams-app-enabled entrypoint
+
+## 2.2.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+
 ## 2.1.3
 
 ### Patch Changes

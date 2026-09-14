@@ -12,6 +12,13 @@ test.describe('React UFO: isOpenedInBackground detection', () => {
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'basic';
+			viewport: {
+				width: number;
+				height: number;
+			};
+			__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 		});
 
 		test('should report isOpenedInBackground as false when page is always visible', async ({
@@ -42,6 +49,13 @@ test.describe('React UFO: isOpenedInBackground detection', () => {
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'interactions-simple-button';
+			viewport: {
+				width: number;
+				height: number;
+			};
+			__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 		});
 
 		test('should report isOpenedInBackground as false when user switches tabs after page loads (tab switching scenario)', async ({
@@ -134,6 +148,13 @@ test.describe('React UFO: isOpenedInBackground detection', () => {
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'interactions-simple-button';
+			viewport: {
+				width: number;
+				height: number;
+			};
+			__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 		});
 
 		test('should report isOpenedInBackground as false for press interactions (non-page_load)', async ({
@@ -177,6 +198,9 @@ testWithBackgroundTab.describe(
 			() => {
 				testWithBackgroundTab.use({
 					simulateBackgroundTab: true,
+				} satisfies {
+					simulateBackgroundTab: boolean;
+					__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 				});
 
 				testWithBackgroundTab(
@@ -205,6 +229,9 @@ testWithBackgroundTab.describe(
 			() => {
 				testWithBackgroundTab.use({
 					simulateBackgroundTab: false,
+				} satisfies {
+					simulateBackgroundTab: boolean;
+					__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 				});
 
 				testWithBackgroundTab(

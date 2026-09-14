@@ -6,6 +6,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: Terminal Error Reporting', () => {
 	test.use({
 		examplePage: 'basic-with-terminal-error',
+	} satisfies {
+		examplePage: 'basic-with-terminal-error';
+		__exampleDependency?: typeof import('../../examples/38-basic-with-terminal-error.tsx');
 	});
 
 	test('custom.terminal-error metric should be fired when terminal error is reported after hold is finished', async ({

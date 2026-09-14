@@ -1,47 +1,22 @@
-import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNode, findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { TableMap } from '../table-map';
-import type { Rect } from '../table-map';
-
-// Ignored via go/ees005
-// eslint-disable-next-line require-unicode-regexp
-const CELL_ROLE_REGEX = /cell/i;
-
-// Iterates over parent nodes, returning the closest table node.
-export const findTable = (selection: Selection): ContentNodeWithPos | undefined =>
-	findParentNode((node) => node.type.spec.tableRole && node.type.spec.tableRole === 'table')(
-		selection,
-	);
-
-// Iterates over parent nodes, returning a table node closest to a given `$pos`.
-export const findTableClosestToPos = ($pos: ResolvedPos): ContentNodeWithPos | undefined => {
-	const predicate = (node: PMNode) =>
-		node.type.spec.tableRole && node.type.spec.tableRole === 'table';
-
-	return findParentNodeClosestToPos($pos, predicate);
-};
-
-// Iterates over parent nodes, returning a table cell or a table header node closest to a given `$pos`.
-export const findCellClosestToPos = ($pos: ResolvedPos): ContentNodeWithPos | undefined => {
-	const predicate = (node: PMNode) =>
-		node.type.spec.tableRole && CELL_ROLE_REGEX.test(node.type.spec.tableRole);
-
-	return findParentNodeClosestToPos($pos, predicate);
-};
-
-// Returns the rectangle spanning a cell closest to a given `$pos`.
-export const findCellRectClosestToPos = ($pos: ResolvedPos): Rect | undefined => {
-	const cell = findCellClosestToPos($pos);
-	if (cell) {
-		const table = findTableClosestToPos($pos);
-		if (table) {
-			const map = TableMap.get(table.node);
-			const cellPos = cell.pos - table.start;
-
-			return map.rectBetween(cellPos, cellPos);
-		}
-	}
-};
+/**
+ * @deprecated Use `import { findTable } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { findTable } from './find-table';
+/**
+ * @deprecated Use `import { findTableClosestToPos } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { findTableClosestToPos } from './find-table-closest-to-pos';
+/**
+ * @deprecated Use `import { findCellClosestToPos } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { findCellClosestToPos } from './find-cell-closest-to-pos';
+/**
+ * @deprecated Use `import { findCellRectClosestToPos } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { findCellRectClosestToPos } from './find-cell-rect-closest-to-pos';

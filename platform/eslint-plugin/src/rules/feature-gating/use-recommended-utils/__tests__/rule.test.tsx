@@ -36,6 +36,39 @@ tester.run('feature-flags/use-recommended-utils', rule, {
             };
             `,
 		},
+		{
+			name: 'Named-import call is out of scope (rule only inspects MemberExpression)',
+			code: outdent`
+                import { checkGate } from '@atlaskit/feature-gate-js-client';
+
+                checkGate('my_gate');
+            `,
+		},
+		{
+			name: 'Default: subpath imports are NOT flagged (opt-in preserves current behavior)',
+			code: outdent`
+                import AkFeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+
+                AkFeatureGates.checkGate('my_gate');
+            `,
+		},
+		{
+			name: 'Default: subpath `getExperimentValue` is NOT flagged',
+			code: outdent`
+                import AkFeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+
+                AkFeatureGates.getExperimentValue('my_experiment', 'is_enabled', false);
+            `,
+		},
+		{
+			name: 'includeSubpathImports=true: unrelated library still not flagged',
+			options: [{ includeSubpathImports: true }],
+			code: outdent`
+                import FeatureGates from 'some-other-lib/feature-gates';
+
+                FeatureGates.checkGate('my_gate');
+            `,
+		},
 	],
 	invalid: [
 		{
@@ -71,6 +104,74 @@ tester.run('feature-flags/use-recommended-utils', rule, {
 				{
 					message:
 						'Please do not use FeatureGates.getExperimentValue, use `isExperimentEnabled` or `expVal` from `@atlaskit/platform-feature-experiments` instead.',
+				},
+			],
+		},
+		{
+			name: 'includeSubpathImports=true: `checkGate` via subpath IS flagged',
+			options: [{ includeSubpathImports: true }],
+			code: outdent`
+                import AkFeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+
+                export const Component = () => {
+                    return AkFeatureGates.checkGate('my_gate') ? <HelloWorld /> : null;
+                };
+            `,
+			errors: [
+				{
+					message:
+						'Please do not use FeatureGates.checkGate, use `fg` from `@atlaskit/platform-feature-flags` instead.',
+				},
+			],
+		},
+		{
+			name: 'includeSubpathImports=true: `getExperimentValue` via subpath IS flagged',
+			options: [{ includeSubpathImports: true }],
+			code: outdent`
+                import AkFeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+
+                export const getThing = () => {
+                    if (AkFeatureGates.getExperimentValue('my_experiment', 'is_enabled', false)) {
+                        return newThing();
+                    }
+
+                    return oldThing();
+                };
+            `,
+			errors: [
+				{
+					message:
+						'Please do not use FeatureGates.getExperimentValue, use `isExperimentEnabled` or `expVal` from `@atlaskit/platform-feature-experiments` instead.',
+				},
+			],
+		},
+		{
+			name: 'includeSubpathImports=true: multi-segment subpath is also flagged',
+			options: [{ includeSubpathImports: true }],
+			code: outdent`
+                import AkFeatureGates from '@atlaskit/feature-gate-js-client/dynamic-config/experimental';
+
+                AkFeatureGates.checkGate('my_gate');
+            `,
+			errors: [
+				{
+					message:
+						'Please do not use FeatureGates.checkGate, use `fg` from `@atlaskit/platform-feature-flags` instead.',
+				},
+			],
+		},
+		{
+			name: 'includeSubpathImports=true: bare imports still flagged',
+			options: [{ includeSubpathImports: true }],
+			code: outdent`
+                import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+                FeatureGates.checkGate('my_gate');
+            `,
+			errors: [
+				{
+					message:
+						'Please do not use FeatureGates.checkGate, use `fg` from `@atlaskit/platform-feature-flags` instead.',
 				},
 			],
 		},

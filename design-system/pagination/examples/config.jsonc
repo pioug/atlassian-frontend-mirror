@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "06-disabled.tsx"
+    "06-disabled.vr.ap.tsx"
   ],
   "exampleDependencies": [
     "react-router-dom"

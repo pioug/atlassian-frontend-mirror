@@ -67,11 +67,13 @@ import type { LoomEventPayload } from './loom-events';
 import type { MediaEventPayload } from './media-events';
 import type { MentionEventPayload } from './mention-events';
 import type { MoveContentEventPayload } from './move-content-events';
+import type { NativeEmbedResizeErroredAEP } from './native-embed-events';
 import type { NcsSessionStepEventAEP } from './ncs-session-step-events';
 import type { NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
 import type { OfflineEditingEventPayload } from './offline-editing-event';
 import type { PasteActionsMenuEventPayload, PasteEventPayload } from './paste-events';
+import type { QuickInsertInformationEventPayload } from './quick-insert-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
 import type { SelectionEventPayload } from './selection-events';
 import type { SelectionExtensionEventPayload } from './selection-extension-events';
@@ -109,6 +111,7 @@ export type AnalyticsEventPayload<T = void> =
 	| TableEventPayload
 	| PasteEventPayload
 	| PasteActionsMenuEventPayload
+	| QuickInsertInformationEventPayload
 	| CutCopyEventPayload
 	| ErrorEventPayload
 	| TextColorEventPayload
@@ -398,6 +401,7 @@ export type ErrorEventPayload =
 	| ComponentCrashErrorAEP
 	| ComponentCrashAdditionalInfoErrorAEP
 	| SmartLinkErrorAEP
+	| NativeEmbedResizeErroredAEP
 	| ElementTransformErrorAEP;
 
 export type AnalyticsEventPayloadCallback = (

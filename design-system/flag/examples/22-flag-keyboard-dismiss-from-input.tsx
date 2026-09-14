@@ -1,13 +1,13 @@
 import React, { type ChangeEvent, type KeyboardEvent, type SyntheticEvent, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import Flag from '@atlaskit/flag/flag';
 import FlagGroup from '@atlaskit/flag/flag-group';
 import Heading from '@atlaskit/heading/heading';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import RadioGroup from '@atlaskit/radio/radio-group';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

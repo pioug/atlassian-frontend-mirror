@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { ExitingPersistence } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 
 import { SpotlightContext } from '../../../controllers/context';
 

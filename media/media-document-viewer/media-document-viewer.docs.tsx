@@ -29,7 +29,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Standard document viewer example.',
-					source: path.resolve(packagePath, './examples/basic.tsx'),
+					source: path.resolve(packagePath, './examples/basic.vr.ap.tsx'),
 				},
 			],
 			keywords: ['media', 'document', 'viewer', 'pdf', 'word', 'excel', 'preview'],

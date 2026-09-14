@@ -5,9 +5,11 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import Tabs from '@atlaskit/tabs';
+import Tabs from '@atlaskit/tabs/tabs';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
-import Modal, { ModalBody, type OnCloseHandler } from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
 import { type SelectedType } from '@atlaskit/tabs/types';
 import { Box } from '@atlaskit/primitives/compiled';
 

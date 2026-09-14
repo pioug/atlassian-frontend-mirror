@@ -3,8 +3,8 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import SiteSelector from '../../examples/vr/site-selector-vr';
-import SiteSelectorDisabled from '../../examples/vr/site-selector-vr-disabled';
+import SiteSelectorDisabled from '../../examples/vr/site-selector-vr-disabled.vr.ap';
+import SiteSelector from '../../examples/vr/site-selector-vr.vr.ap';
 
 snapshotInformational(SiteSelector, {
 	prepare: async (page: Page, component: Locator) => {

@@ -1,9 +1,7 @@
-import type {
-	DocNode,
-	TextDefinition,
-	BlockContent,
-	ParagraphDefinition,
-} from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { TextDefinition } from '@atlaskit/adf-schema/text';
+import type { BlockContent } from '@atlaskit/adf-schema/block-content';
+import type { ParagraphDefinition } from '@atlaskit/adf-schema/paragraph';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { DOMParser } from '@atlaskit/editor-prosemirror/model';
 

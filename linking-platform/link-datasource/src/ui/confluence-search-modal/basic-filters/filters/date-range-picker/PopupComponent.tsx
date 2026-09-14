@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 
 import { styled } from '@compiled/react';
 
-import type { PopupComponentProps } from '@atlaskit/popup';
+import type { PopupComponentProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled

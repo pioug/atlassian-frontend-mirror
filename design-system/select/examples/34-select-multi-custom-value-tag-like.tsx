@@ -1,22 +1,20 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import { AtlassianIcon } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Select, { type FormatOptionLabelMeta, type OptionType } from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import Select from '@atlaskit/select/default';
+import type { OptionType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
-const icon = <AtlassianIcon size="xxsmall" />;
-
-const elemBeforeOptions: OptionType[] = [
-	{ label: 'Adelaide', value: 'adelaide', elemBefore: icon },
-	{ label: 'Brisbane', value: 'brisbane', elemBefore: icon },
-	{ label: 'Canberra', value: 'canberra', elemBefore: icon },
-	{ label: 'Darwin', value: 'darwin', elemBefore: icon },
-	{ label: 'Hobart', value: 'hobart', elemBefore: icon },
-	{ label: 'Melbourne', value: 'melbourne', elemBefore: icon },
-	{ label: 'Perth', value: 'perth', elemBefore: icon },
-	{ label: 'Sydney', value: 'sydney', elemBefore: icon },
+const customValueOptions: OptionType[] = [
+	{ label: 'Adelaide', value: 'adelaide' },
+	{ label: 'Brisbane', value: 'brisbane' },
+	{ label: 'Canberra', value: 'canberra' },
+	{ label: 'Darwin', value: 'darwin' },
+	{ label: 'Hobart', value: 'hobart' },
+	{ label: 'Melbourne', value: 'melbourne' },
+	{ label: 'Perth', value: 'perth' },
+	{ label: 'Sydney', value: 'sydney' },
 ];
 
 const colorOptions: OptionType[] = [
@@ -30,9 +28,7 @@ const colorOptions: OptionType[] = [
 ];
 
 /**
- * When the feature flag `platform-dst-lozenge-tag-badge-visual-uplifts` is ON,
- * selected values render as Tag with `elemBefore` read from option data.
- * The menu still shows custom JSX (icon + label).
+ * Custom JSX is returned for selected values so the visual uplift uses the tag-like path.
  */
 const customJsx = (option: OptionType) => (
 	<div
@@ -43,11 +39,13 @@ const customJsx = (option: OptionType) => (
 			alignItems: 'center',
 		}}
 	>
-		<AtlassianIcon size="small" />
+		<AtlassianIcon size="xsmall" />
 		<span
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- example layout
-				paddingLeft: token('space.100'),
+				paddingLeft: token('space.025'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- example typography
+				font: token('font.body.small'),
 			}}
 		>
 			{option.label}
@@ -55,27 +53,16 @@ const customJsx = (option: OptionType) => (
 	</div>
 );
 
-const formatOptionLabel = (option: OptionType, meta: FormatOptionLabelMeta<OptionType>) => {
-	if (meta.context === 'value' && fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-		return option.label;
-	}
-	return customJsx(option);
-};
-
-const plainFormatOptionLabel = (option: OptionType, meta: FormatOptionLabelMeta<OptionType>) => {
-	if (meta.context === 'value' && fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
-		return option.label;
-	}
-	return option.label;
-};
+const formatOptionLabel = (option: OptionType) => customJsx(option);
+const plainFormatOptionLabel = (option: OptionType) => option.label;
 
 const SelectMultiCustomValueTagLikeExample = (): React.JSX.Element => (
 	<>
-		<Label htmlFor="multi-select-elem-before">Multi select with elemBefore (icon + label)</Label>
+		<Label htmlFor="multi-select-custom-value">Multi select with custom value (icon + label)</Label>
 		<Select
-			inputId="multi-select-elem-before"
+			inputId="multi-select-custom-value"
 			formatOptionLabel={formatOptionLabel}
-			options={elemBeforeOptions}
+			options={customValueOptions}
 			isMulti
 			placeholder="Select cities..."
 		/>

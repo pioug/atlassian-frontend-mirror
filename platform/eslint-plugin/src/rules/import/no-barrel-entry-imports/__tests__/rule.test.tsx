@@ -115,21 +115,41 @@ function runWithFs(
 	name: string,
 	fs: FileSystem,
 	tests: { valid: unknown[]; invalid: unknown[] },
+	defaultOptions?: Record<string, unknown>,
 ): void {
+	const applyDefaultOptions = (cases: unknown[]): unknown[] => {
+		if (!defaultOptions) {
+			return cases;
+		}
+		return cases.map((testCase) => {
+			if (typeof testCase !== 'object' || testCase === null || 'options' in testCase) {
+				return testCase;
+			}
+			return { ...testCase, options: [defaultOptions] };
+		});
+	};
+
 	// Create a rule instance with the mock file system
 	const rule = createRule(fs);
-	atlaskitRuleTester.run(name, rule, tests);
+	atlaskitRuleTester.run(name, rule, {
+		valid: applyDefaultOptions(tests.valid),
+		invalid: applyDefaultOptions(tests.invalid),
+	});
 }
 
 // Base paths used in tests
 const WORKSPACE_ROOT = '/workspace';
 const PLATFORM_PACKAGES = `${WORKSPACE_ROOT}/platform/packages`;
 const AI_MATE_DIR = `${PLATFORM_PACKAGES}/ai-mate`;
+const A11Y_COMMON_DIR = `${PLATFORM_PACKAGES}/accessibility/a11y-common`;
 const TEST_PACKAGE_DIR = `${AI_MATE_DIR}/conversation-assistant-instrumentation`;
 const TEST_FILE = `${AI_MATE_DIR}/agent-evaluation/src/ui/CreateDatasetModal.tsx`;
 
 // instead of using the package name directly, we use a constant so the ratcheting does not fail
 const TEST_PACKAGE_NAME = '@atlassian/conversation-assistant-instrumentation';
+
+/** Opt out of the default preferImportedPackageSubpath: true rewrite-to-bridge behaviour. */
+const rewriteToDependencyPackage = { preferImportedPackageSubpath: false };
 
 /**
  * Creates a standard mock file system for testing the rule.
@@ -1604,46 +1624,51 @@ describe('no-barrel-entry-imports', () => {
 			`,
 		});
 
-		runWithFs('no-barrel-entry-imports - cross-package re-exports', fsWithCrossPackageReexport, {
-			valid: [
-				// Importing local export from package-a (not a cross-package re-export)
-				{
-					code: `import { localThing } from '@atlassian/package-a/local-component';`,
-					filename: TEST_FILE,
-				},
-				// Importing from package-b's specific export path
-				{
-					code: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
-					filename: TEST_FILE,
-				},
-			],
-			invalid: [
-				// Simple cross-package re-export: should suggest importing from source package's subpath
-				{
-					code: `import { SomeComponent } from '@atlassian/package-a';`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryImport' }],
-					output: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
-				},
-				// Mixed: cross-package re-export AND local export
-				{
-					code: `import { SomeComponent, localThing } from '@atlassian/package-a';`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryImport' }],
-					output: tabindent`
+		runWithFs(
+			'no-barrel-entry-imports - cross-package re-exports',
+			fsWithCrossPackageReexport,
+			{
+				valid: [
+					// Importing local export from package-a (not a cross-package re-export)
+					{
+						code: `import { localThing } from '@atlassian/package-a/local-component';`,
+						filename: TEST_FILE,
+					},
+					// Importing from package-b's specific export path
+					{
+						code: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
+						filename: TEST_FILE,
+					},
+				],
+				invalid: [
+					// Simple cross-package re-export: should suggest importing from source package's subpath
+					{
+						code: `import { SomeComponent } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
+					},
+					// Mixed: cross-package re-export AND local export
+					{
+						code: `import { SomeComponent, localThing } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: tabindent`
 						import { SomeComponent } from '@atlassian/package-b/ui/components';
 						import { localThing } from '@atlassian/package-a/local-component';
 					`,
-				},
-				// Import from package-b's barrel can also be made more specific
-				{
-					code: `import { SomeComponent } from '@atlassian/package-b';`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryImport' }],
-					output: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
-				},
-			],
-		});
+					},
+					// Import from package-b's barrel can also be made more specific
+					{
+						code: `import { SomeComponent } from '@atlassian/package-b';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Barrel package exposes a subpath entry that only re-exports from the dependency
 		const fsWithCrossPackageBridgeSubpath = createMockFileSystem({
@@ -1716,7 +1741,23 @@ describe('no-barrel-entry-imports', () => {
 		);
 
 		runWithFs(
-			'no-barrel-entry-imports - bridge layout without prefer still targets dependency package',
+			'no-barrel-entry-imports - preferImportedPackageSubpath defaults to true when omitted',
+			fsWithCrossPackageBridgeSubpath,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import { SomeComponent } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { SomeComponent } from '@atlassian/package-a/bridge';`,
+					},
+				],
+			},
+		);
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath: false still targets dependency package',
 			fsWithCrossPackageBridgeSubpath,
 			{
 				valid: [],
@@ -1729,6 +1770,7 @@ describe('no-barrel-entry-imports', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 
 		// Bridge subpath with aliasing (`export { Original as Aliased }`) should keep
@@ -2042,10 +2084,12 @@ describe('no-barrel-entry-imports', () => {
 					},
 				],
 				invalid: [
-					// Without prefer, the rule still falls through to the dependency package
+					// With preferImportedPackageSubpath: false, the rule still falls through to the
+					// dependency package
 					{
 						code: `import { isIsolatedCloud } from '@atlassian/package-a';`,
 						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: false }],
 						errors: [{ messageId: 'barrelEntryImport' }],
 						output: `import { isIsolatedCloud } from '@atlassian/package-b/perimeter';`,
 					},
@@ -2159,6 +2203,7 @@ describe('no-barrel-entry-imports', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 
 		// Test with star re-exports (export * from)
@@ -2196,25 +2241,30 @@ describe('no-barrel-entry-imports', () => {
 			`,
 		});
 
-		runWithFs('no-barrel-entry-imports - star re-exports', fsWithStarReexport, {
-			valid: [],
-			invalid: [
-				// Star re-export: should suggest importing from source package's subpath
-				{
-					code: `import { ComponentOne } from '@atlassian/package-a';`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryImport' }],
-					output: `import { ComponentOne } from '@atlassian/package-b/ui/widgets';`,
-				},
-				// Multiple imports via star re-export
-				{
-					code: `import { ComponentOne, ComponentTwo } from '@atlassian/package-a';`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryImport' }],
-					output: `import { ComponentOne, ComponentTwo } from '@atlassian/package-b/ui/widgets';`,
-				},
-			],
-		});
+		runWithFs(
+			'no-barrel-entry-imports - star re-exports',
+			fsWithStarReexport,
+			{
+				valid: [],
+				invalid: [
+					// Star re-export: should suggest importing from source package's subpath
+					{
+						code: `import { ComponentOne } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { ComponentOne } from '@atlassian/package-b/ui/widgets';`,
+					},
+					// Multiple imports via star re-export
+					{
+						code: `import { ComponentOne, ComponentTwo } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { ComponentOne, ComponentTwo } from '@atlassian/package-b/ui/widgets';`,
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Test type-only cross-package re-exports
 		const fsWithTypeCrossPackageReexport = createMockFileSystem({
@@ -2281,6 +2331,7 @@ describe('no-barrel-entry-imports', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 
 		// Test Jest automocks with cross-package re-exports
@@ -2396,6 +2447,7 @@ describe('no-barrel-entry-imports', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 
 		// Test nested cross-package re-exports (A -> B -> C)
@@ -2515,6 +2567,7 @@ describe('no-barrel-entry-imports', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 
 		// Test cross-package re-export from a subpath of package-a
@@ -2627,6 +2680,7 @@ describe('no-barrel-entry-imports', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 	});
 
@@ -2832,13 +2886,16 @@ describe('no-barrel-entry-imports', () => {
 							import { DropdownItemGroup } from '${TEST_PACKAGE_NAME}/dropdown-menu-item-group';
 						`,
 				},
-				// Default and named imports used as type in the same line
+				// Default and named imports used as type in the same line.
+				// Note `import type Default, { Named }` is not valid TypeScript — a type-only import
+				// can specify a default import or named bindings, but not both — so the named binding
+				// carries its own inline `type` modifier here.
 				{
-					code: `import type DropdownMenu, { DropdownMenuProps } from '${TEST_PACKAGE_NAME}';`,
+					code: `import DropdownMenu, { type DropdownMenuProps } from '${TEST_PACKAGE_NAME}';`,
 					filename: TEST_FILE,
 					errors: [{ messageId: 'barrelEntryImport' }],
 					output: tabindent`
-							import type DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';
+							import DropdownMenu from '${TEST_PACKAGE_NAME}/dropdown-menu';
 							import type { DropdownMenuProps } from '${TEST_PACKAGE_NAME}/types';
 						`,
 				},
@@ -2865,6 +2922,20 @@ describe('no-barrel-entry-imports', () => {
 					export { helper } from './specific';
 				`,
 				[`${AI_MATE_DIR}/package-in-target/src/specific.ts`]: outdent`
+					export const helper = () => 'helper';
+				`,
+				// Package in debarrelPackageFolders list (a11y-common)
+				[`${A11Y_COMMON_DIR}/package-in-debarrel-target/package.json`]: JSON.stringify({
+					name: '@atlassian/package-in-debarrel-target',
+					exports: {
+						'.': './src/index.ts',
+						'./specific': './src/specific.ts',
+					},
+				}),
+				[`${A11Y_COMMON_DIR}/package-in-debarrel-target/src/index.ts`]: outdent`
+					export { helper } from './specific';
+				`,
+				[`${A11Y_COMMON_DIR}/package-in-debarrel-target/src/specific.ts`]: outdent`
 					export const helper = () => 'helper';
 				`,
 				// Consumer file
@@ -2920,5 +2991,202 @@ describe('no-barrel-entry-imports', () => {
 				invalid: [],
 			},
 		);
+
+		runWithFs(
+			'no-barrel-entry-imports - includeDebarrelPackages applies debarrel folders',
+			createFsForTargetTest(),
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import { helper } from '@atlassian/package-in-debarrel-target';`,
+						filename: `${AI_MATE_DIR}/consumer/src/test.ts`,
+						options: [{ applyToImportsFrom: [], includeDebarrelPackages: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { helper } from '@atlassian/package-in-debarrel-target/specific';`,
+					},
+				],
+			},
+		);
+
+		runWithFs(
+			'no-barrel-entry-imports - debarrel folders ignored without includeDebarrelPackages',
+			createFsForTargetTest(),
+			{
+				valid: [
+					{
+						code: `import { helper } from '@atlassian/package-in-debarrel-target';`,
+						filename: `${AI_MATE_DIR}/consumer/src/test.ts`,
+						options: [{ applyToImportsFrom: [] }],
+					},
+				],
+				invalid: [],
+			},
+		);
+	});
+
+	describe('Stage 1 Volt packages', () => {
+		const ROVO_AGENT_COMPONENTS_DIR = `${AI_MATE_DIR}/rovo-agent-components`;
+		const ROVO_CONSUMER = `${AI_MATE_DIR}/consumer/src/App.tsx`;
+
+		runWithFs(
+			'no-barrel-entry-imports - permits Stage 1 compatibility shims',
+			createMockFileSystem({
+				[`${WORKSPACE_ROOT}/package.json`]: '{}',
+				[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+				[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+				[`${ROVO_AGENT_COMPONENTS_DIR}/package.json`]: JSON.stringify({
+					name: '@atlaskit/rovo-agent-components',
+					exports: {
+						'./ui/AgentDropdownMenu': './src/ui/agent-dropdown-menu/index.tsx',
+						'./ui/agent-dropdown-menu/agent-dropdown-menu':
+							'./src/ui/agent-dropdown-menu/AgentDropdownMenu.tsx',
+					},
+				}),
+				[`${ROVO_AGENT_COMPONENTS_DIR}/src/ui/agent-dropdown-menu/index.tsx`]: outdent`
+					export { AgentDropdownMenu } from './AgentDropdownMenu';
+				`,
+				[`${ROVO_AGENT_COMPONENTS_DIR}/src/ui/agent-dropdown-menu/AgentDropdownMenu.tsx`]: outdent`
+					export const AgentDropdownMenu = () => null;
+				`,
+			}),
+			{
+				valid: [
+					{
+						code: `import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';`,
+						filename: ROVO_CONSUMER,
+					},
+				],
+				invalid: [],
+			},
+		);
+	});
+
+	describe('@deprecated re-export shim exclusion', () => {
+		const FLAG_PKG_DIR = `${AI_MATE_DIR}/flag-eap`;
+		const FLAG_CONSUMER = `${AI_MATE_DIR}/flag-consumer/src/App.tsx`;
+
+		function createFlagMockFs(): FileSystem {
+			return createMockFileSystem({
+				[`${WORKSPACE_ROOT}/package.json`]: '{}',
+				[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+				[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+				[`${FLAG_PKG_DIR}/package.json`]: JSON.stringify({
+					name: '@atlassian/flag-eap',
+					exports: {
+						'.': './src/index.ts',
+						'./flag-group': './src/entry-points/flag-group.tsx',
+						'./flag-group-context': './src/internal/flag-group-context.tsx',
+						'./use-flag-group': './src/internal/use-flag-group.tsx',
+					},
+				}),
+
+				// Root barrel re-exports directly from the internal source files.
+				[`${FLAG_PKG_DIR}/src/index.ts`]: outdent`
+					export { FlagGroupContext } from './internal/flag-group-context';
+					export { useFlagGroup } from './internal/use-flag-group';
+				`,
+
+				// Deprecated backward-compat shim (an entry-points wrapper).
+				[`${FLAG_PKG_DIR}/src/entry-points/flag-group.tsx`]: outdent`
+					/** @deprecated Import from the generated per-export subpath instead. */
+					export { FlagGroupContext } from '../internal/flag-group-context';
+					/** @deprecated Import from the generated per-export subpath instead. */
+					export { useFlagGroup } from '../internal/use-flag-group';
+				`,
+
+				[`${FLAG_PKG_DIR}/src/internal/flag-group-context.tsx`]: outdent`
+					export const FlagGroupContext = {};
+				`,
+				[`${FLAG_PKG_DIR}/src/internal/use-flag-group.tsx`]: outdent`
+					export const useFlagGroup = () => ({});
+				`,
+			});
+		}
+
+		runWithFs('no-barrel-entry-imports - deprecated shim exclusion', createFlagMockFs(), {
+			valid: [
+				// Already on the non-deprecated generated subpath.
+				{
+					code: `import { FlagGroupContext } from '@atlassian/flag-eap/flag-group-context';`,
+					filename: FLAG_CONSUMER,
+				},
+			],
+			invalid: [
+				// Root barrel import routes to the non-deprecated subpath, NOT the deprecated
+				// `./flag-group` shim.
+				{
+					code: `import { FlagGroupContext } from '@atlassian/flag-eap';`,
+					filename: FLAG_CONSUMER,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import { FlagGroupContext } from '@atlassian/flag-eap/flag-group-context';`,
+				},
+				// Consumer already on the deprecated shim subpath migrates onto the generated one.
+				{
+					code: `import { useFlagGroup } from '@atlassian/flag-eap/flag-group';`,
+					filename: FLAG_CONSUMER,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import { useFlagGroup } from '@atlassian/flag-eap/use-flag-group';`,
+				},
+			],
+		});
+	});
+
+	describe('@deprecated on the symbol declaration does not block a clean subpath', () => {
+		const MOTION_PKG_DIR = `${AI_MATE_DIR}/motion-like`;
+		const MOTION_CONSUMER = `${AI_MATE_DIR}/motion-consumer/src/App.tsx`;
+
+		// A package whose symbol is API-deprecated at its *declaration*, but whose granular
+		// subpath re-exports it via a NON-deprecated re-export. The barrel import must still
+		// be rewritten to that clean subpath: an API deprecation (the symbol is going away)
+		// is orthogonal to which import *path* to use, so it must not block the rewrite.
+		function createMotionMockFs(): FileSystem {
+			return createMockFileSystem({
+				[`${WORKSPACE_ROOT}/package.json`]: '{}',
+				[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+				[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+				[`${MOTION_PKG_DIR}/package.json`]: JSON.stringify({
+					name: '@atlassian/motion-like',
+					exports: {
+						'.': './src/index.ts',
+						'./use-resizing-height': './src/resizing/use-resizing-height.tsx',
+					},
+				}),
+
+				// Root barrel re-exports the symbol from its source file.
+				[`${MOTION_PKG_DIR}/src/index.ts`]: outdent`
+					export { useResizingHeight } from './resizing/use-resizing-height';
+				`,
+
+				// The clean granular subpath's re-export is NOT deprecated, but the local
+				// declaration below carries an API-level @deprecated tag.
+				[`${MOTION_PKG_DIR}/src/resizing/use-resizing-height.tsx`]: outdent`
+					/** @deprecated Use \`useResizing\` with \`dimension: 'height'\` instead. */
+					export const useResizingHeight = () => ({});
+				`,
+			});
+		}
+
+		runWithFs('no-barrel-entry-imports - declaration @deprecated', createMotionMockFs(), {
+			valid: [
+				// Already on the clean subpath — no rewrite, despite the API deprecation.
+				{
+					code: `import { useResizingHeight } from '@atlassian/motion-like/use-resizing-height';`,
+					filename: MOTION_CONSUMER,
+				},
+			],
+			invalid: [
+				// Barrel import is rewritten to the clean subpath even though the underlying
+				// declaration is @deprecated.
+				{
+					code: `import { useResizingHeight } from '@atlassian/motion-like';`,
+					filename: MOTION_CONSUMER,
+					errors: [{ messageId: 'barrelEntryImport' }],
+					output: `import { useResizingHeight } from '@atlassian/motion-like/use-resizing-height';`,
+				},
+			],
+		});
 	});
 });

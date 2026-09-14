@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export const codeBlockInBlockquoteADF: () => DocNode = () => ({
 	version: 1,

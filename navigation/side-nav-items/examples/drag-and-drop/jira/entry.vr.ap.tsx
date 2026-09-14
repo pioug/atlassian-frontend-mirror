@@ -1,0 +1,91 @@
+/**
+ * @jsxFrag
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
+import { jsx } from '@compiled/react';
+
+import Badge from '@atlaskit/badge/badge';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { JiraIcon } from '@atlaskit/logo';
+import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import { SideNav, SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
+import {
+	TopNav,
+	TopNavEnd,
+	TopNavMiddle,
+	TopNavStart,
+} from '@atlaskit/navigation-system/layout/top-nav';
+import {
+	AppLogo,
+	AppSwitcher,
+	CreateButton,
+	Help,
+	Notifications,
+	Profile,
+	Search,
+	Settings,
+} from '@atlaskit/navigation-system/top-nav-items';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
+
+import { WithResponsiveViewport } from '../../utils/with-responsive-viewport';
+
+import { Sidebar } from './sidebar';
+
+export function App(): JSX.Element {
+	return (
+		<WithResponsiveViewport>
+			<div>
+				<Root>
+					<TopNav>
+						<TopNavStart sideNavToggleButton={null}>
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed={false}
+							/>
+							<AppSwitcher label="Switch apps" />
+							<AppLogo href="" icon={JiraIcon} name="Jira" label="Home page" />
+						</TopNavStart>
+						<TopNavMiddle>
+							<Search label="Search" />
+							<CreateButton>Create</CreateButton>
+						</TopNavMiddle>
+						<TopNavEnd>
+							<Help label="Help" />
+							<Notifications
+								badge={() => (
+									<Badge max={9} appearance="dangerBold">
+										{99999}
+									</Badge>
+								)}
+								label="Notifications"
+							/>
+							<Settings label="Settings" />
+							<MenuListItem>
+								<DropdownMenu
+									shouldRenderToParent
+									trigger={({ triggerRef: ref, ...props }) => (
+										<Profile ref={ref} label="Profile" {...props} isListItem={false} />
+									)}
+								>
+									<DropdownItemGroup>
+										<DropdownItem>Account</DropdownItem>
+									</DropdownItemGroup>
+								</DropdownMenu>
+							</MenuListItem>
+						</TopNavEnd>
+					</TopNav>
+					<SideNav defaultCollapsed={false}>
+						<Sidebar />
+						<PanelSplitter label="Resize side nav" />
+					</SideNav>
+				</Root>
+			</div>
+		</WithResponsiveViewport>
+	);
+}

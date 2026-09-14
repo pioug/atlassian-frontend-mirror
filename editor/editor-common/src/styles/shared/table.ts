@@ -9,7 +9,7 @@ import {
 	akEditorTableNumberColumnWidth,
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
@@ -34,30 +34,12 @@ export const tableControlsSpacing: number = tableMarginTop + tablePadding - tabl
 
 /* first block node has 0 top margin */
 const firstNodeWithNotMarginTop = () =>
-	fg('platform_editor_nested_dnd_styles_changes')
-		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-			css`
-				> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
-					margin-top: 0;
-				}
-			`
-		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-			css`
-				> :first-child:not(style),
-				> style:first-child + * {
-					margin-top: 0;
-				}
-
-				> .ProseMirror-gapcursor:first-child + *,
-				> style:first-child + .ProseMirror-gapcursor + * {
-					margin-top: 0;
-				}
-
-				> .ProseMirror-gapcursor:first-child + span + *,
-				> style:first-child + .ProseMirror-gapcursor + span + * {
-					margin-top: 0;
-				}
-			`;
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+	css`
+		> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
+			margin-top: 0;
+		}
+	`;
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
@@ -171,6 +153,14 @@ const tableSharedStyle = (): SerializedStyles => {
 				border-radius: ${token('radius.xlarge')};
 				pointer-events: none;
 				z-index: 1;
+			}
+
+			/* When content-visibility is applied to the table (see editor-plugin-table nodeview), the
+			   implied \`contain: paint\` clips descendant painting to the table's border-box. The
+			   overlay above sits at \`inset: -0.5px\` (half a pixel outside), so it would be shaved —
+			   most visibly along the bottom. Pull it flush to the edge so it paints inside the clip. */
+			&[data-content-visibility]::after {
+				inset: 0;
 			}`
 				: ''}
 

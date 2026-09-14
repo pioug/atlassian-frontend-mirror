@@ -1,6 +1,6 @@
 export { default } from './tag/internal/removable';
 export { default as SimpleTag } from './tag/internal/simple';
-export { RemovableTag } from './tag/removable-tag';
+export { default as RemovableTag } from './tag/internal/removable';
 export type { RemovableTagProps } from './tag/internal/removable';
 export type { SimpleTagProps } from './tag/internal/shared/types';
 

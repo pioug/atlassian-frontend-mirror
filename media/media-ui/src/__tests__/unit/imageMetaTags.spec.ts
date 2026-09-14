@@ -21,14 +21,14 @@ describe('Image Meta Tags', () => {
 	describe('readImageMetaTags()', () => {
 		it('should use PNG parser on PNG file', async () => {
 			const metaData = await readImageMetaTags(pngFile);
-			expect(readPNGXMPMetaData).toBeCalledWith(pngFile);
-			expect(parseXMPMetaData).toBeCalled();
+			expect(readPNGXMPMetaData).toHaveBeenCalledWith(pngFile);
+			expect(parseXMPMetaData).toHaveBeenCalled();
 			expect(metaData).toEqual({});
 		});
 
 		it('should use JPEG parser on JPEG file', async () => {
 			const metaData = await readImageMetaTags(jpegFile);
-			expect(readJPEGExifMetaData).toBeCalledWith(jpegFile);
+			expect(readJPEGExifMetaData).toHaveBeenCalledWith(jpegFile);
 			expect(metaData).toEqual('jpgMetaData');
 		});
 

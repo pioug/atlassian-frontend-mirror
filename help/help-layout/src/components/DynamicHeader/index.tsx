@@ -3,13 +3,13 @@
  * @jsx jsx
  */
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import CloseButton from '../Header/CloseButton';
 import { Flex, Inline } from '@atlaskit/primitives/compiled';
 import { type HeaderContent } from '../../model/HelpLayout';
 import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { NewChatButton } from './NewChatButton';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 

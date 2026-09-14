@@ -2,7 +2,7 @@ import React from 'react';
 
 import { resetMatchMedia } from '@atlassian/test-utils';
 
-import CompositionExample from '../../../../../examples/composition';
+import CompositionExample from '../../../../../examples/composition.vr.ap';
 
 beforeEach(() => {
 	resetMatchMedia();

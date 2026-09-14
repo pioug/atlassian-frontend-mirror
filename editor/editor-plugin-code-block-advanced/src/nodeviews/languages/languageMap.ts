@@ -1,8 +1,8 @@
 import { LanguageDescription, LanguageSupport } from '@codemirror/language';
 import { languages } from '@codemirror/language-data';
 
-import type { LanguageAlias } from '@atlaskit/code';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { LanguageAlias } from '@atlaskit/code/constants';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 type LanguageAliasValue = LanguageAlias[0];
 

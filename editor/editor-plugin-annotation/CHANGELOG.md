@@ -1,5 +1,409 @@
 # @atlaskit/editor-plugin-annotation
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- [`962e8dc0188bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/962e8dc0188bf) -
+  Clean up `platform_editor_offline_editing_web` with `isEnabled: true` for Confluence, keeping
+  offline editing and recovery behavior enabled. Remove the retired experiment from the editor
+  Statsig configuration; consumers must stop querying or overriding this experiment.
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- [`12871125421d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12871125421d2) -
+  Remove `confluence_frontend_new_dangling_comments_ux` feature gate check. The
+  `setInlineCommentsFetched` call when annotations return empty is now unconditional.
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.14
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 15.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`e60449618db02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e60449618db02) -
+  Add safe coordination between inline comments and AI suggestion cards.
+
+  Inline comment providers can supply a close guard:
+
+  ```ts
+  const annotationProvider = {
+  	inlineComment: {
+  		...inlineCommentOptions,
+  		requestClose: async () => {
+  			// Prompt for confirmation when there is unsaved comment content.
+  			return canCloseComment;
+  		},
+  	},
+  };
+  ```
+
+  Plugins with an optional `AnnotationPlugin` dependency can request that the active comment close
+  before continuing:
+
+  ```ts
+  const canContinue = await api?.annotation?.actions.requestCloseInlineComment();
+
+  if (canContinue) {
+  	api?.aiSuggestions?.actions.selectSuggestion(suggestionId);
+  }
+  ```
+
+  The action resolves to `false` when closing is cancelled or fails. It resolves to `true` when the
+  comment closes or no close capability is configured.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

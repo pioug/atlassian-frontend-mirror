@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@atlassian/testing-library';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-
-import ModalDialog, { ModalTransition } from '../../index';
+import ModalDialog from '../../modal-dialog';
+import ModalTransition from '../../modal-transition';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('modal dialog analytics', () => {

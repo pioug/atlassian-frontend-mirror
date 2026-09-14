@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 import { type StrictXCSSProp } from '@atlaskit/css';
-import { type Direction } from '@atlaskit/motion';
+import type { Direction } from '@atlaskit/motion/entering/types';
 
 export type DrawerWidth = 'extended' | 'full' | 'medium' | 'narrow' | 'wide';
 

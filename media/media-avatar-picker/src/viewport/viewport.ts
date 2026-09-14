@@ -1,4 +1,6 @@
-import { Rectangle, Bounds, Vector2 } from '@atlaskit/media-ui';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
+import { Bounds } from '@atlaskit/media-ui/bounds';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
 
 /**
  * maximum amount to allow scaling up from "100%"

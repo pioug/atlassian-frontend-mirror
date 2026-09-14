@@ -8,7 +8,7 @@ import { jsx } from '@emotion/react';
 
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { Frame } from './frame';
 import { IconWrapper } from './icon-wrapper';

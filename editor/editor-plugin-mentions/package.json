@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "14.11.0",
+	"version": "20.0.0",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -22,7 +22,9 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./anchored-popup": "./src/entry-points/anchored-popup.tsx",
 		"./editor-commands": "./src/entry-points/editor-commands.ts",
+		"./mention-node-data-provider": "./src/entry-points/mention-node-data-provider.ts",
 		"./mentions-plugin": "./src/entry-points/mentions-plugin.tsx",
 		"./mentions-plugin-type": "./src/entry-points/mentions-plugin-type.ts",
 		"./types": "./src/entry-points/types.ts"
@@ -30,22 +32,28 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-base": "workspace:^",
 		"@atlaskit/editor-plugin-context-identifier": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/insm": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
+		"@atlaskit/node-data-provider": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
+		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/teams-app-config": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -66,48 +74,14 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-core": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"techstackIgnore": {
-		"stricter": [
-			"@atlassian/tangerine/project-structure"
-		]
 	},
 	"platform-feature-flags": {
 		"team-mention-inline-smartlink": {
@@ -119,17 +93,38 @@
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
-		"jira_invites_auto_tag_new_user_in_mentions_fg": {
+		"inline_invite_from_mentions_kill_switch": {
 			"type": "boolean"
 		},
 		"people-teams_migrate-user-profile-card": {
 			"type": "boolean"
 		},
-		"rovo_chat_agent_selection": {
-			"type": "boolean"
-		},
 		"platform_editor_agent_mentions_drop_one_fixes": {
 			"type": "boolean"
+		},
+		"platform_editor_agent_card_close_on_chat": {
+			"type": "boolean"
+		},
+		"platform_editor_mention_typeahead_profilecard": {
+			"type": "boolean"
+		},
+		"platform_editor_typeahead_profilecard_scrollbar": {
+			"type": "boolean"
+		},
+		"platform_editor_agent_mentions_invite_order": {
+			"type": "boolean"
+		},
+		"platform_editor_agent_mentions_no_task_autofire": {
+			"type": "boolean"
+		},
+		"platform_editor_agent_card_fixes": {
+			"type": "boolean"
+		}
+	},
+	"platform-experiments": {
+		"platform_editor_mention_node_avatar": {
+			"param": "isEnabled",
+			"defaultValue": false
 		}
 	}
 }

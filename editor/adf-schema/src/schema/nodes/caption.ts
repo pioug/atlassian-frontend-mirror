@@ -1,13 +1,13 @@
-import type { InlineFormattedText, InlineCode } from './types/inline-content';
-import type { HardBreakDefinition as HardBreak } from './hard-break';
-import type { MentionDefinition as Mention } from './mention';
-import type { EmojiDefinition as Emoji } from './emoji';
-import type { DateDefinition as Date } from './date';
-import type { PlaceholderDefinition as Placeholder } from './placeholder';
-import type { InlineCardDefinition as InlineCard } from './inline-card';
-import type { StatusDefinition as Status } from './status';
 import { caption as captionFactory } from '../../next-schema/generated/nodeTypes';
-import { uuid } from '../../utils';
+import { uuid } from '../../utils/uuid';
+import type { DateDefinition as Date } from './date';
+import type { EmojiDefinition as Emoji } from './emoji';
+import type { HardBreakDefinition as HardBreak } from './hard-break';
+import type { InlineCardDefinition as InlineCard } from './inline-card';
+import type { MentionDefinition as Mention } from './mention';
+import type { PlaceholderDefinition as Placeholder } from './placeholder';
+import type { StatusDefinition as Status } from './status';
+import type { InlineFormattedText, InlineCode } from './types/inline-content';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**

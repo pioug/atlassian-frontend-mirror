@@ -1,4 +1,4 @@
-import { type CSSColor } from '../theme-config';
+import { type CSSColor } from '../theme-options-schema';
 
 import { deltaE } from './delta-e';
 import { hexToRgb } from './hex-to-rgb';

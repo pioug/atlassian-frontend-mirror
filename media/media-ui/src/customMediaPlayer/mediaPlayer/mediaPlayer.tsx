@@ -1,9 +1,10 @@
 import React from 'react';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
-import { useFileState, useMediaSettings } from '@atlaskit/media-client-react';
+import { useFileState } from '@atlaskit/media-client-react/use-file-state';
+import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
 import { MediaPlayerBase } from './mediaPlayerBase';
 import { useTextTracks } from './useTextTracks';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { type MediaPlayerProps } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;

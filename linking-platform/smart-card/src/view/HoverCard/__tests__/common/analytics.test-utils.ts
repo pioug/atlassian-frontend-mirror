@@ -1,6 +1,6 @@
-import { type CardStore } from '@atlaskit/linking-common';
+import type { CardStore } from '@atlaskit/linking-common/store';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, screen, within } from '@atlassian/testing-library';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';

@@ -1,4 +1,4 @@
-import { getTraceId } from '@atlaskit/linking-common/utils';
+import { getTraceId } from '@atlaskit/linking-common/utils/get-trace-id';
 
 const getUrlPath = (url: string) => {
 	try {

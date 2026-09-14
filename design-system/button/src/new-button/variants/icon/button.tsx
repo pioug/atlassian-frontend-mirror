@@ -1,7 +1,7 @@
 import React from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import ButtonBase from '../shared/button-base';

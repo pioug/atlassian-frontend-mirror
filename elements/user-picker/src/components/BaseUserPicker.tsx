@@ -1,24 +1,28 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
-import debounce from 'lodash/debounce';
 import React from 'react';
+
+import debounce from 'lodash/debounce';
 import { FormattedMessage } from 'react-intl';
+
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
+import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import {
-	cancelEvent,
-	clearEvent,
 	createAndFireEventInElementsChannel,
-	deleteEvent,
 	type EventCreator,
-	failedEvent,
-	focusEvent,
-	searchedEvent,
-	selectEvent,
-	startSession,
 	type UserPickerSession,
 } from '../analytics';
+import { cancelEvent } from '../cancelEvent';
+import { clearEvent } from '../clearEvent';
+import { deleteEvent } from '../deleteEvent';
+import { failedEvent } from '../failedEvent';
+import { focusEvent } from '../focusEvent';
+import { searchedEvent } from '../searchedEvent';
+import { selectEvent } from '../selectEvent';
+import { startSession } from '../startSession';
 import type {
 	Appearance,
 	AtlasKitSelectChange,
@@ -38,22 +42,20 @@ import type {
 	UserPickerState,
 	Value,
 } from '../types';
-import { batchByKey } from './batch';
-import { messages } from './i18n';
-import {
-	callCallback,
-	extractOptionValue,
-	getOptions,
-	isIterable,
-	isPopupUserPickerByComponent,
-	isDefaultValuePopulated,
-	isSingleValue,
-	optionToSelectableOptions,
-} from './utils';
 import { groupOptionsByType } from '../util/group-options-by-type';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
+import { batchByKey } from './batch';
+import { callCallback } from './callCallback';
+import { extractOptionValue } from './extractOptionValue';
+import { messages } from './i18n';
+import { isDefaultValuePopulated } from './isDefaultValuePopulated';
+import { isIterable } from './isIterable';
+import { isPopupUserPickerByComponent } from './isPopupUserPickerByComponent';
+import { isSingleValue } from './isSingleValue';
+import { getOptions, optionToSelectableOptions } from './utils';
 import type { AriaAttributes } from 'react';
-import type { SelectComponentsConfig, PopupSelectProps, StylesConfig } from '@atlaskit/select';
+import type { SelectComponentsConfig, StylesConfig } from '@atlaskit/select/types';
+import type { PopupSelectProps } from '@atlaskit/select/popup-select';
 import type { EmailValidator } from './emailValidation';
 
 export type BaseUserPickerProps = UserPickerProps & {
@@ -538,29 +540,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		this.setState({ hoveringClearIndicator });
 	};
 
-	private getOptionsOld = (): Option[] | GroupedOptions[] => {
-		const options = getOptions(this.state.options) || [];
-		const { maxOptions, isMulti, groupByTypeOrder } = this.props;
-		if (maxOptions === 0) {
-			return [];
-		}
-		if (maxOptions && maxOptions > 0 && maxOptions < options.length) {
-			const { value } = this.state;
-			let filteredOptions = options;
-			// Filter out previously selected options
-			if (isMulti && Array.isArray(value)) {
-				const valueIds: string[] = value.map((item) => item.data.id);
-				filteredOptions = options.filter((option) => valueIds.indexOf(option.data.id) === -1);
-			}
-			return groupByTypeOrder
-				? groupOptionsByType(filteredOptions.slice(0, maxOptions), groupByTypeOrder)
-				: filteredOptions.slice(0, maxOptions);
-		}
-
-		return groupByTypeOrder ? groupOptionsByType(options, groupByTypeOrder) : options;
-	};
-
-	private getOptionsNew = (): Option[] | GroupedOptions[] => {
+	private getOptions = (): Option[] | GroupedOptions[] => {
 		const options = getOptions(this.state.options) || [];
 		const { maxOptions, isMulti, groupByTypeOrder, customGroupLabels } = this.props;
 		if (maxOptions === 0) {
@@ -586,12 +566,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		return groupByTypeOrder
 			? groupOptionsByType(options, groupByTypeOrder, customGroupLabels)
 			: options;
-	};
-
-	private getOptions = (): Option[] | GroupedOptions[] => {
-		return fg('jsm-wfo-assignee-recommendation-on-queues')
-			? this.getOptionsNew()
-			: this.getOptionsOld();
 	};
 
 	private getAppearance = (): Appearance =>

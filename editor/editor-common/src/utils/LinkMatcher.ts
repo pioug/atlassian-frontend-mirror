@@ -1,5 +1,5 @@
-import type { Match } from '@atlaskit/adf-schema';
-import { linkify } from '@atlaskit/adf-schema';
+import type { Match } from '@atlaskit/adf-schema/url';
+import { linkify } from '@atlaskit/adf-schema/url';
 
 import { DONTLINKIFY_REGEXP } from './hyperlink';
 

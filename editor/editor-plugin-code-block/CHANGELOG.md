@@ -1,5 +1,421 @@
 # @atlaskit/editor-plugin-code-block
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.11
+
+### Patch Changes
+
+- [`4603ff962783f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4603ff962783f) -
+  Clean up feature gate `platform_editor_code_block_language_detection_flow`
+- Updated dependencies
+
+## 19.0.10
+
+### Patch Changes
+
+- [`b615f1183f88d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b615f1183f88d) -
+  Clean up feature gate `platform_editor_code_block_ga_patch_1`
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.15
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 17.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- [`4d7433f9c93d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d7433f9c93d8) -
+  Clean up the enabled `platform_editor_code_block_fold_gutter` experiment for Confluence.
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- [`4273da2e1a648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4273da2e1a648) -
+  Register native Quick Insert items behind `platform_editor_slash_command`.
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.0
 
 ### Minor Changes

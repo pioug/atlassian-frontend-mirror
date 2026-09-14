@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { Identifier, MediaClientConfig } from '@atlaskit/media-client';
 import { MediaViewer, type MediaViewerExtensions } from '@atlaskit/media-viewer';
 

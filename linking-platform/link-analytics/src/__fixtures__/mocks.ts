@@ -1,13 +1,13 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient } from '@atlaskit/link-provider';
-import { type ServerErrorType } from '@atlaskit/linking-common';
-import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
+import type { ServerErrorType } from '@atlaskit/linking-common/api/errors';
+import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
 
 // Copied from smart-card
 export interface ErrorResponseBody {
-	type: ServerErrorType;
 	message: string;
 	status: number;
+	type: ServerErrorType;
 }
 
 // Copied from smart-card
@@ -17,15 +17,12 @@ export const fakeFactory: any = (
 	implementationPrefetch: () => Promise<JsonLd.Response | undefined>,
 ) =>
 	class CustomClient extends CardClient {
-		// @ts-ignore
 		async fetchData(url: string) {
 			return await implementation(url);
 		}
-		// @ts-ignore
 		async postData() {
 			return await implementationPost();
 		}
-		// @ts-ignore
 		async prefetchData() {
 			return await implementationPrefetch();
 		}

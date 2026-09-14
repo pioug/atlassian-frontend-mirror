@@ -4,13 +4,14 @@ import { screen } from '@testing-library/react';
 
 import AnnotateIcon from '@atlaskit/icon/core/edit';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { AnalyticsListener, type UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { UIAnalyticsEventHandler } from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
-import { CardActionsView } from '../..';
-import { CardActionButton } from '../../cardActionButton-compiled';
 import { type CardAction } from '../../../../../actions';
+import { CardActionButton } from '../../cardActionButton-compiled';
+import { CardActionsView } from '../../cardActionsView';
 
 describe('CardActions', () => {
 	const openAction = {
@@ -236,7 +237,7 @@ describe('CardActions', () => {
 			await clickIconButton(card1, 0);
 			await clickIconButton(card1, 1);
 
-			expect(analyticsEventHandler).toBeCalledTimes(2);
+			expect(analyticsEventHandler).toHaveBeenCalledTimes(2);
 			expect(analyticsEventHandler).toHaveBeenNthCalledWith(
 				1,
 				matchingPrimaryAction(twoActions[0].label),
@@ -270,7 +271,7 @@ describe('CardActions', () => {
 			openDropdownMenuIfExists(card2);
 			await clickDropdownItem(card2, 2); // dropdown[2] = fourActions[3]
 
-			expect(analyticsEventHandler).toBeCalledTimes(6);
+			expect(analyticsEventHandler).toHaveBeenCalledTimes(6);
 			expect(analyticsEventHandler).toHaveBeenNthCalledWith(
 				1,
 				matchingDropdownAnalyticsEvent,

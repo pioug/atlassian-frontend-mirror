@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import RendererDemo from './helper/RendererDemo';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 interface State {

@@ -7,10 +7,10 @@ import RendererActions from '../../../../actions/index';
 import { ProvidersContext } from '../../context';
 import React from 'react';
 import { AnnotationView } from '../../view';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { RendererContext } from '../../../RendererActionsContext';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 
 jest.mock('../../hooks/use-events', () => ({
 	useAnnotationClickEvent: jest.fn().mockReturnValue([
@@ -21,18 +21,19 @@ jest.mock('../../hooks/use-events', () => ({
 	]),
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotation view component', () => {
 	let providers: AnnotationProviders;
 	let actionsFake: RendererActions;
 	let updateSubscriberFake: AnnotationUpdateEmitter;
 	let getStateFake: jest.Mock;
-	let container: HTMLElement | null;
 
-	const DummyComponent: React.ComponentType<
-		React.PropsWithChildren<InlineCommentViewComponentProps>
-	> = (_props) => {
-		return <div></div>;
-	};
+	const DummyComponent = jest.fn<
+		React.ReactElement,
+		[React.PropsWithChildren<InlineCommentViewComponentProps>]
+	>(() => <div />);
+
+	const viewComponentProps = () => DummyComponent.mock.lastCall?.[0];
 
 	const adfDoc: JSONDocNode = {
 		version: 1,
@@ -57,39 +58,34 @@ describe('Annotation view component', () => {
 				viewComponent: DummyComponent,
 			},
 		};
-		container = document.createElement('div');
-		document.body.appendChild(container);
 	});
 
 	afterEach(() => {
-		document.body.removeChild(container!);
-		container = null;
 		jest.clearAllMocks();
 	});
 
 	it(`should pass delete annotation as props to the view component`, () => {
-		const wrapper = mount(
+		render(
 			<ProvidersContext.Provider value={providers}>
 				<AnnotationView isNestedRender={false} />
 			</ProvidersContext.Provider>,
 		);
 
-		expect(wrapper.find('DummyComponent').prop('deleteAnnotation')).toBeDefined();
+		expect((DummyComponent as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
+			expect.objectContaining({ deleteAnnotation: expect.any(Function) }),
+		);
 	});
 
 	it(`should call delete annotation of renderer action
     context when delete annotation prop method is called`, () => {
-		const wrapper = mount(
+		render(
 			<RendererContext.Provider value={actionsFake}>
 				<ProvidersContext.Provider value={providers}>
 					<AnnotationView isNestedRender={false} />
 				</ProvidersContext.Provider>
 			</RendererContext.Provider>,
 		);
-		const deleteAnnotationPropMethod: InlineCommentViewComponentProps['deleteAnnotation'] = wrapper
-			.find('DummyComponent')
-			.prop('deleteAnnotation');
-		const result = deleteAnnotationPropMethod({
+		const result = viewComponentProps()!.deleteAnnotation({
 			id: 'annotation-id',
 			type: AnnotationTypes.INLINE_COMMENT,
 		});

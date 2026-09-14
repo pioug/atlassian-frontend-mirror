@@ -1,3 +1,5 @@
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { errorCodeMapper } from '../error-code-mapper';
 import type { InternalError } from '../internal-errors';
 import { NCS_ERROR_CODE } from '../ncs-errors';
@@ -386,6 +388,31 @@ describe('Error code mapper', () => {
 			message: 'Some error without data',
 		} as unknown as InternalError);
 		expect(mappedError).toBeUndefined();
+	});
+
+	describe('ARI_BLACKLISTED (document blocked)', () => {
+		const blacklistedError = {
+			message: 'Document is blocked.',
+			data: {
+				code: NCS_ERROR_CODE.ARI_BLACKLISTED,
+				status: 423,
+			},
+		} as unknown as InternalError;
+
+		it('maps to DOCUMENT_BLOCKED when platform_editor_blocked_document_ux is on', () => {
+			passGate('platform_editor_blocked_document_ux');
+			expect(errorCodeMapper(blacklistedError)).toEqual({
+				code: PROVIDER_ERROR_CODE.DOCUMENT_BLOCKED,
+				message: 'The document is blocked and cannot be edited',
+				recoverable: false,
+				status: 423,
+			});
+		});
+
+		it('is dropped (undefined) when the gate is off, preserving current behaviour', () => {
+			failGate('platform_editor_blocked_document_ux');
+			expect(errorCodeMapper(blacklistedError)).toBeUndefined();
+		});
 	});
 
 	describe('Insufficient permission error', () => {

@@ -149,6 +149,9 @@
 		},
 		{
 			"path": "../../async/react-async/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ACTION, buildEditLinkPayload, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ACTION_SUBJECT_ID, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';

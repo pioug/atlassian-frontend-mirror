@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-import type { AnnotationId } from '@atlaskit/adf-schema';
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
 
 import type {
 	AnnotationDraftStartedData,

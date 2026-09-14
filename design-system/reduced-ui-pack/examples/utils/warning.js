@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 export default () => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

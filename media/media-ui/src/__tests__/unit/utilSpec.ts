@@ -1,13 +1,11 @@
 declare var global: any;
 
-import {
-	mockFileReader,
-	mockFileReaderWithError,
-	unmockFileReader,
-	mockFileReaderError,
-	enableMockGlobalImage,
-	disableMockGlobalImage,
-} from '../../test-helpers';
+import { disableMockGlobalImage } from '../../test-helpers/disableMockGlobalImage';
+import { enableMockGlobalImage } from '../../test-helpers/enableMockGlobalImage';
+import { mockFileReader } from '../../test-helpers/mockFileReader';
+import { mockFileReaderError } from '../../test-helpers/mockFileReaderError';
+import { mockFileReaderWithError } from '../../test-helpers/mockFileReaderWithError';
+import { unmockFileReader } from '../../test-helpers/unmockFileReader';
 
 const GlobalFile = global.File;
 const GlobalFileCtor = (blobParts: [], filename: string, flags?: {}) =>
@@ -15,13 +13,11 @@ const GlobalFileCtor = (blobParts: [], filename: string, flags?: {}) =>
 
 global.File = jest.fn().mockImplementation(GlobalFileCtor);
 
-import {
-	dataURItoFile,
-	fileToArrayBuffer,
-	fileToDataURI,
-	getFileInfo,
-	loadImage,
-} from '../../util';
+import { dataURItoFile } from '../../dataURItoFile';
+import { fileToArrayBuffer } from '../../fileToArrayBuffer';
+import { fileToDataURI } from '../../fileToDataURI';
+import { getFileInfo } from '../../getFileInfo';
+import { loadImage } from '../../loadImage';
 
 describe('Image Meta Data Util', () => {
 	describe('dataURItoFile()', () => {
@@ -55,7 +51,7 @@ describe('Image Meta Data Util', () => {
 		});
 
 		it('should throw message on empty dataURI', () => {
-			expect(() => dataURItoFile('')).toThrowError('dataURI not found');
+			expect(() => dataURItoFile('')).toThrow('dataURI not found');
 		});
 
 		it('should return File on IE11', () => {

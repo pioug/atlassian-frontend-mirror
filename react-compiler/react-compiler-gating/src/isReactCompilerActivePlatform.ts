@@ -1,4 +1,4 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 /**
  * Returns true if the React Compiler runtime is active for platform packages.

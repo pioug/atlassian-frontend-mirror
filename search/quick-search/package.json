@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/quick-search",
-	"version": "11.1.1",
+	"version": "11.4.1",
 	"description": "A quick-search component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,8 +30,10 @@
 	"dependencies": {
 		"@atlaskit/analytics": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -42,7 +44,8 @@
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
-		"enzyme": "root:*",
+		"@atlassian/workbench": "workspace:*",
+		"@testing-library/react": "root:*",
 		"prop-types": "root:*",
 		"react": "root:*",
 		"sinon": "root:*",

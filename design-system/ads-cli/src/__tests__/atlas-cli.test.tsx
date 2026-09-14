@@ -20,7 +20,9 @@ describe('Atlas CLI entrypoint', () => {
 
 		await main(['search', 'missing', '--json']);
 
-		expect(mockRun).toHaveBeenCalledWith(['search', 'missing', '--json']);
+		expect(mockRun).toHaveBeenCalledWith(['search', 'missing', '--json'], undefined, {
+			invocation: 'atlas ads',
+		});
 		expect(process.exitCode).toBe(3);
 	});
 

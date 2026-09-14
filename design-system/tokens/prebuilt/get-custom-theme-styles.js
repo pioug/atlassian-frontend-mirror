@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getCustomThemeStyles = getCustomThemeStyles;
 var _constants = require("./constants");
-var _themeConfig = require("./theme-config");
+var _themeStateDefaults = require("./theme-state-defaults");
 var _generateColors = require("./utils/generate-colors");
 var _generateTokenMapWithContrastCheck = require("./utils/generate-token-map-with-contrast-check");
 var _hash = require("./utils/hash");
@@ -24,7 +24,7 @@ var _reduceTokenMap = require("./utils/reduce-token-map");
 function getCustomThemeStyles(themeState) {
   var _themeState$UNSAFE_th;
   var brandColor = themeState === null || themeState === void 0 || (_themeState$UNSAFE_th = themeState.UNSAFE_themeOptions) === null || _themeState$UNSAFE_th === void 0 ? void 0 : _themeState$UNSAFE_th.brandColor;
-  var mode = (themeState === null || themeState === void 0 ? void 0 : themeState.colorMode) || _themeConfig.themeStateDefaults['colorMode'];
+  var mode = (themeState === null || themeState === void 0 ? void 0 : themeState.colorMode) || _themeStateDefaults.themeStateDefaults['colorMode'];
   var optionString = JSON.stringify(themeState === null || themeState === void 0 ? void 0 : themeState.UNSAFE_themeOptions);
   var uniqueId = (0, _hash.hash)(optionString);
   var themeRamp = (0, _generateColors.generateColors)(brandColor).ramp;

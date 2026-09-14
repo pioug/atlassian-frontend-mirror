@@ -2,24 +2,26 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
-import { FormattedDate } from 'react-intl';
 
-import AtlaskitLozenge, { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { SimpleTag as Tag } from '@atlaskit/tag';
+import { css, jsx } from '@compiled/react';
+
+import AtlaskitLozenge, {
+	type LozengeProps as AtlaskitLozengeProps,
+} from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Tag from '@atlaskit/tag/tag/simple';
 import { token } from '@atlaskit/tokens';
 
 import type { LinkLozengeInvokeActions } from '../../../../../../extractors/common/lozenge/types';
-import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
+import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
 import type { ElementProps } from '../../../elements';
-
 import LozengeAction from './lozenge-action';
 
 const styles = css({
 	display: 'inline-flex',
 	minWidth: 'fit-content',
 });
+
 const dueOnStyles = css({
 	marginTop: token('space.negative.050', '-4px'),
 	marginRight: token('space.negative.050', '-4px'),
@@ -129,22 +131,3 @@ const BaseLozengeElement = ({
 };
 
 export default BaseLozengeElement;
-
-export const toDateLozengeProps = (
-	dateString?: string,
-): Partial<BaseLozengeElementProps> | undefined => {
-	if (dateString) {
-		const text = Date.parse(dateString) ? (
-			<FormattedDate
-				value={new Date(dateString)}
-				year="numeric"
-				month="short"
-				day="numeric"
-				formatMatcher="best fit"
-			/>
-		) : (
-			dateString
-		);
-		return { text };
-	}
-};

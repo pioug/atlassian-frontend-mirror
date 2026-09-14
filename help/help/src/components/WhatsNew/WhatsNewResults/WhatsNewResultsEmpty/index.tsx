@@ -1,9 +1,7 @@
 import React from 'react';
-import {
-	useAnalyticsEvents,
-	type UIAnalyticsEvent,
-	AnalyticsContext,
-} from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import {
 	injectIntl,
 	FormattedMessage,
@@ -11,7 +9,7 @@ import {
 	type WrappedComponentProps,
 } from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 import NotFoundImage from '../../../../assets/NotFoundImage';
 import { messages } from '../../../../messages';

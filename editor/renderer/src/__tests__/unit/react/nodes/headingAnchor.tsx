@@ -1,4 +1,6 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import React from 'react';
 import { screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -10,13 +12,6 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 // the next line and associated import. For more information, see go/afm-a11y-tooling:jest
 skipAutoA11yFile();
-
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
-
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-const mockExpValEquals = expValEquals as jest.MockedFunction<typeof expValEquals>;
 
 describe('Heading Anchor', () => {
 	const onClickHandler = () => Promise.resolve();
@@ -78,16 +73,8 @@ describe('Heading Anchor', () => {
 
 	describe('a11y-fixes-week4-may-2026 experiment', () => {
 		describe('when experiment is ON', () => {
-			beforeEach(() => {
-				mockExpValEquals.mockImplementation((expName: string) => {
-					if (expName === 'a11y-fixes-week4-may-2026') {
-						return true;
-					}
-					return false;
-				});
-			});
-
 			it('should retain focus on the button after clicking copy (no Tooltip remount)', async () => {
+				mockExpEnabled('a11y-fixes-week4-may-2026');
 				act(() => {
 					renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
 				});
@@ -107,6 +94,7 @@ describe('Heading Anchor', () => {
 			});
 
 			it('should render tooltip with a meaningful message on hover', async () => {
+				mockExpEnabled('a11y-fixes-week4-may-2026');
 				act(() => {
 					renderWithIntl(<HeadingAnchor onCopyText={() => Promise.resolve()} level={1} />);
 				});
@@ -121,6 +109,7 @@ describe('Heading Anchor', () => {
 			});
 
 			it('should update the tooltip message after copy without unmounting the button', async () => {
+				mockExpEnabled('a11y-fixes-week4-may-2026');
 				act(() => {
 					renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
 				});
@@ -137,13 +126,8 @@ describe('Heading Anchor', () => {
 		});
 
 		describe('when experiment is OFF', () => {
-			beforeEach(() => {
-				mockExpValEquals.mockImplementation(() => {
-					return false;
-				});
-			});
-
 			it('should render tooltip with a meaningful message on hover', async () => {
+				mockExpDisabled('a11y-fixes-week4-may-2026');
 				act(() => {
 					renderWithIntl(<HeadingAnchor onCopyText={() => Promise.resolve()} level={1} />);
 				});
@@ -158,6 +142,7 @@ describe('Heading Anchor', () => {
 			});
 
 			it('should remount the button on copy and not retain focus', async () => {
+				mockExpDisabled('a11y-fixes-week4-may-2026');
 				act(() => {
 					renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
 				});

@@ -18,6 +18,11 @@ export type CommandInput = {
 	 * Parsed `--flag` values (numbers, strings, booleans, or repeated string arrays).
 	 */
 	flags: Record<string, unknown>;
+	/**
+	 * Original argv for commands whose grammar needs token boundaries that generic flag parsing
+	 * intentionally discards (currently the batch command's repeated `--command` boundaries).
+	 */
+	rawArgs?: string[];
 };
 
 /**
@@ -61,6 +66,13 @@ export type ToolCall = {
 };
 
 /**
+ * One independently-addressed command invocation in a composite batch.
+ */
+export type BatchRequest = {
+	argv: string[];
+};
+
+/**
  * The successful result of resolving a command: one or more ADS MCP tool calls.
  *
  * Most commands resolve to a single call. Unified commands (e.g. `search` with no `--type`)
@@ -72,6 +84,11 @@ export type ToolCall = {
 export type ResolvedCommand = {
 	tools: ToolCall[];
 	grouped?: boolean;
+	/**
+	 * When present, each request is executed through the command registry inside the current
+	 * process. Its existing envelope and rendering semantics are preserved independently.
+	 */
+	batch?: BatchRequest[];
 	meta?: Record<string, unknown>;
 };
 
@@ -94,26 +111,38 @@ export type ResolvedStatic = {
 export type ResolveResult = ResolvedCommand | ResolvedStatic | { error: string };
 
 /**
- * The kind of *listable row* a command renders, used by the default (non-`--json`) formatter to
- * pick a compact per-row renderer. Search results include concise documentation matches, while
- * standalone docs, a11y, and lint-rules commands render their full content via
- * {@link CommandDefinition.formatHuman} or the generic fallback.
+ * The kind of *listable row* a command returns. Search and list results use it to create the shared
+ * compact projection consumed by both human and `--json` output. Standalone docs, a11y, and
+ * lint-rules commands render their full content via {@link CommandDefinition.formatHuman} or the
+ * generic fallback.
  */
 export type RowKind = 'components' | 'tokens' | 'icons' | 'docs';
 
 /**
+ * Distribution-specific context for human-readable output.
+ */
+export type RenderContext = {
+	/**
+	 * Exact command prefix the user can run, e.g. `ads-cli`, `npx @atlaskit/ads-cli`, or
+	 * `atlas ads`. This is intentionally an open string so new wrappers can supply their own
+	 * prefix without changing the shared CLI API.
+	 */
+	invocation: string;
+};
+
+/**
  * A single CLI command definition.
  */
-export type CommandDefinition = {
+type CommandDefinitionBase = {
 	/**
 	 * The command name as typed on the CLI, e.g. `search`.
 	 */
 	name: string;
 	/**
-	 * The compact result kind for human output. When set, the default renderer prints one
-	 * line per result; when omitted, the command uses the generic fallback (JSON for objects,
-	 * verbatim for strings — e.g. guideline markdown). May depend on input, so it is a function
-	 * of {@link CommandInput} (e.g. `search --type tokens` renders as tokens).
+	 * The compact result kind for search/list output. When set, both JSON and the default human
+	 * renderer consume the same bounded record per result. When omitted, the command uses its detail
+	 * renderer or generic fallback. May depend on input, so it is a function of
+	 * {@link CommandInput} (e.g. `search --type tokens` renders as tokens).
 	 */
 	resultKind?: (input: CommandInput) => RowKind | undefined;
 	/**
@@ -154,7 +183,7 @@ export type CommandDefinition = {
 	 * doc, an a11y guide, or lint-rule markdown) instead of falling back to a raw JSON dump.
 	 * Returning `null` defers to the generic fallback. Never used for `--json` output.
 	 */
-	formatHuman?: (data: unknown) => string | null;
+	formatHuman?: (data: unknown, context: RenderContext) => string | null;
 	/**
 	 * Optional post-processor applied to a single-tool command's unwrapped result before
 	 * rendering (both human and `--json`). Used by the item commands (`component`/`token`/`icon`)
@@ -164,9 +193,20 @@ export type CommandDefinition = {
 	 * or error results.
 	 */
 	transform?: ({ data, input }: { data: unknown; input: CommandInput }) => unknown;
+};
+
+export type QueryCommandDefinition = CommandDefinitionBase & {
+	action?: never;
 	/**
 	 * Resolve which ADS MCP tool to run and with what arguments. Returning `{ error }` means
 	 * the input was invalid (a usage error); the CLI surfaces the message.
 	 */
 	resolve: (input: CommandInput) => ResolveResult;
 };
+
+export type ActionCommandDefinition = CommandDefinitionBase & {
+	action: 'init';
+	resolve?: never;
+};
+
+export type CommandDefinition = QueryCommandDefinition | ActionCommandDefinition;

@@ -9,7 +9,8 @@ import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 

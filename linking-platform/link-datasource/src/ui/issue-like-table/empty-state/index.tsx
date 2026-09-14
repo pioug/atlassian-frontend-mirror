@@ -5,8 +5,8 @@
  */
 import { css, jsx, styled } from '@compiled/react';
 
-import { Skeleton } from '@atlaskit/linking-common';
-import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { Skeleton } from '@atlaskit/linking-common/skeleton';
+import type { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types/datasource';
 import { token } from '@atlaskit/tokens';
 
 type Column = Omit<DatasourceResponseSchemaProperty, 'type' | 'title'> & {

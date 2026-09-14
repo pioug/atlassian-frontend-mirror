@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import Header from '../../index';
+import { Header } from '../../index';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Header />', () => {

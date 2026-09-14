@@ -34,7 +34,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'AI Agent Users',
 					description: 'JQL editor with support for AI agent users.',
-					source: path.resolve(packagePath, './examples/08-ai-agent-users.tsx'),
+					source: path.resolve(packagePath, './examples/08-ai-agent-users.vr.ap.tsx'),
 				},
 			],
 			keywords: ['jql', 'editor', 'jira', 'query', 'autocomplete', 'search'],

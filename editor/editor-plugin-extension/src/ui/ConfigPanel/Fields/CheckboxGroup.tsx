@@ -8,10 +8,11 @@ import { Fragment, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { Checkbox as AKCheckbox } from '@atlaskit/checkbox';
+import { Checkbox as AKCheckbox } from '@atlaskit/checkbox/checkbox';
 import type { EnumCheckboxField, Option } from '@atlaskit/editor-common/extensions';
-import type { FieldProps } from '@atlaskit/form';
-import { Fieldset as AKFieldset, Field } from '@atlaskit/form';
+import type { FieldProps } from '@atlaskit/form/field';
+import { Fieldset as AKFieldset } from '@atlaskit/form/fieldset';
+import Field from '@atlaskit/form/field';
 import { token } from '@atlaskit/tokens';
 
 import FieldMessages from '../FieldMessages';

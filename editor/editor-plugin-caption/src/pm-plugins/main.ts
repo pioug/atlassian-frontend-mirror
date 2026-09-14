@@ -14,9 +14,11 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { CaptionPlugin } from '../captionPluginType';
 import captionNodeView from '../nodeviews';
+import { captionNodeView as captionNodeViewVanilla } from '../nodeviews/captionNodeView';
 
 import { pluginKey } from './plugin-key';
 
@@ -75,7 +77,9 @@ export default (
 		key: pluginKey,
 		props: {
 			nodeViews: {
-				caption: captionNodeView(portalProviderAPI, eventDispatcher, pluginInjectionApi, intl),
+				caption: isExperimentEnabled('platform_editor_vanilla_node_views_phase1')
+					? captionNodeViewVanilla()
+					: captionNodeView(portalProviderAPI, eventDispatcher, pluginInjectionApi, intl),
 			},
 		},
 	});

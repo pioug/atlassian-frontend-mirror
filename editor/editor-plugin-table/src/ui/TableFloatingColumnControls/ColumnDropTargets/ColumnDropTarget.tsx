@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
-import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/attach-closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 
 import { getDragBehaviour } from '../../../pm-plugins/drag-and-drop/utils/getDragBehaviour';
 import type { DraggableSourceData } from '../../../types';

@@ -3,7 +3,8 @@ import { readdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { createPartialSignedArtifact, createSignedArtifact } from '@atlassian/codegen';
+import { createPartialSignedArtifact } from '@atlassian/codegen/partial-signed-artifact';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createElevationStylesFromTemplate } from './elevation-codegen-template';
@@ -31,6 +32,11 @@ const primitiveOutputDirectories = [
 	join(__dirname, '../src/xcss'),
 	join(__dirname, '../../css/codemods/0.5.2-primitives-emotion-to-compiled'),
 ];
+
+const legacyCssCodemodOutputPath = join(
+	__dirname,
+	'../../css/codemods/0.5.2-primitives-emotion-to-compiled/style-maps.partial.tsx',
+);
 
 const forgeOutputPath = join(
 	__dirname,
@@ -190,6 +196,65 @@ const primitiveOutputs = primitiveOutputDirectories.flatMap((outputDirectory) =>
 	})),
 );
 
+const legacyCssCodemodArtifactDefinitions = [
+	{
+		id: 'dimensions',
+		template: () => createStylesFromFileTemplate('dimensions').toString(),
+		dependencies: templateFiles.filter((v) => v.includes('dimensions')),
+	},
+	{
+		id: 'spacing',
+		template: () =>
+			(['positive', 'negative', 'all'] as const).map(createSpacingStylesFromTemplate).join('\n'),
+		dependencies: [spacingTokensDependencyPath],
+	},
+	{
+		id: 'inverse-colors',
+		template: createInverseColorMapTemplate,
+		dependencies: [colorTokensDependencyPath],
+	},
+	{
+		id: 'elevation',
+		template: () =>
+			(['opacity', 'shadow', 'surface'] as const).map(createElevationStylesFromTemplate).join('\n'),
+		dependencies: [colorTokensDependencyPath],
+	},
+	{
+		id: 'colors',
+		template: () =>
+			(['border', 'background', 'text', 'fill'] as const)
+				.map(createColorStylesFromTemplate)
+				.join('\n'),
+		dependencies: [colorTokensDependencyPath],
+	},
+	{
+		id: 'misc',
+		template: () => createStylesFromFileTemplate('layer').toString(),
+		dependencies: templateFiles,
+	},
+	{
+		id: 'border',
+		template: () => (['width', 'radius'] as const).map(createShapeStylesFromTemplate).join('\n'),
+		dependencies: [shapeTokensDependencyPath],
+	},
+	{
+		id: 'typography',
+		template: () =>
+			(['font', 'fontWeight', 'fontFamily'] as const)
+				.map(createTypographyStylesFromTemplate)
+				.join('\n'),
+		dependencies: templateFiles,
+	},
+	{
+		id: 'text',
+		template: () =>
+			(['textSize', 'textWeight', 'metricTextSize'] as const)
+				.map(createTextStylesFromTemplate)
+				.join('\n'),
+		dependencies: templateFiles,
+	},
+];
+
 /**
  * Generate Forge UI Kit tokens using partial codegen
  *
@@ -201,7 +266,7 @@ const primitiveOutputs = primitiveOutputDirectories.flatMap((outputDirectory) =>
  */
 const generateForgeTokensContent = (): string => {
 	const sections = [
-		'/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */',
+		'/* eslint @repo/internal/codegen/signed-source-integrity: "warn", perfectionist/sort-object-types: "off" */',
 		createStylesFromFileTemplate('dimensions'),
 		'',
 		...(['positive', 'negative', 'all'] as const).map(createSpacingStylesFromTemplate),
@@ -252,6 +317,17 @@ primitiveOutputs.forEach(({ outputPath, dependencies, template, needsTokenImport
 				outputFolder: dirname(outputPath),
 			},
 		),
+	);
+});
+
+legacyCssCodemodArtifactDefinitions.forEach(({ id, template, dependencies }) => {
+	writeFileSync(
+		legacyCssCodemodOutputPath,
+		createPartialSignedArtifact(template, 'yarn workspace @atlaskit/primitives codegen-styles', {
+			id,
+			absoluteFilePath: legacyCssCodemodOutputPath,
+			dependencies,
+		}),
 	);
 });
 

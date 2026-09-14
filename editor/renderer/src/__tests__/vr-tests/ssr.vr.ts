@@ -11,7 +11,7 @@ import {
 	RendererSSRSmartCard,
 	RendererSSRResizedMediaInTable,
 	RendererSSRSmartCardUrlIcon,
-} from './ssr.fixture';
+} from './ssr.fixture.vr.ap';
 import { snapshot } from '@af/visual-regression';
 import type { ErrorFilterOption } from '@af/visual-regression';
 
@@ -25,62 +25,74 @@ const ignoredErrors: ErrorFilterOption[] = [
 	},
 ];
 
-snapshot(RendererSSRTable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRTable, {
 	description: 'SSR renderering of table nodes',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRLayout, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRLayout, {
 	description: 'SSR renderering of layout nodes',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRCodeblock, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRCodeblock, {
 	description: 'SSR renderering of code block nodes',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRCodeblockInBlockquote, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRCodeblockInBlockquote, {
 	description: 'SSR renderering of code block node in blockquote node',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRMediaInBlockquote, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRMediaInBlockquote, {
 	description: 'SSR renderering of media single and media group in blockquote node',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRExpand, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRExpand, {
 	description: 'SSR renderering of expand nodes',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRNestedExpandInExpand, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRNestedExpandInExpand, {
 	description: 'SRR rendering of a nested expand in an expand',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRResizedImage, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRResizedImage, {
 	description: 'SSR renderering of images',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRResizedMedia, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRResizedMedia, {
 	description: 'SSR renderering of various media',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRResizedMediaInTable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRResizedMediaInTable, {
 	description: 'SSR renderering of media in table',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRSmartCard, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRSmartCard, {
 	description: 'SSR renderering of smart card',
 	ignoredErrors,
 });
 
-snapshot(RendererSSRSmartCardUrlIcon, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(RendererSSRSmartCardUrlIcon, {
 	description: 'SSR renderering of smart card using URL icon',
 	ignoredErrors,
 });

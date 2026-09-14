@@ -1,7 +1,7 @@
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { type DatasourceTableStatusType } from '@atlaskit/linking-types';
+import type { DatasourceTableStatusType } from '@atlaskit/linking-types/datasource';
 
-import { EVENT_CHANNEL } from '../../../../analytics';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import {
 	type LinkViewedCountAttributesType,
 	type LinkViewedSingleItemAttributesType,

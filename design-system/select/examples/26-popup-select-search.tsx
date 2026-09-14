@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import { RadioGroup } from '@atlaskit/radio';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import { type OptionsPropType } from '@atlaskit/radio/types';
-import { PopupSelect } from '@atlaskit/select';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 
 const cities = [
 	{ label: 'Adelaide', value: 'adelaide' },

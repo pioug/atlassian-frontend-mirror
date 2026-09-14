@@ -5,11 +5,11 @@
  */
 {
 	"testExamples": [
-		"10-popup.tsx",
+		"10-popup.vr.ap.tsx",
 		"11-asynchronous-popup.tsx",
 		"13-setting-focus.tsx",
 		"popup-disable-autofocus.tsx",
-		"surface-detection.tsx",
+		"surface-detection.vr.ap.tsx",
 		"should-not-return-focus.tsx",
 		"testing-popup-with-dropdown-escape.tsx"
 	],

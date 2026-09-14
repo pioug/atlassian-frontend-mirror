@@ -1,14 +1,12 @@
 import type React from 'react';
 
-import {
-	type EmojiInsertionAnalytic,
-	recordFailedEmoji,
-	recordSucceededEmoji,
-	ufoExperiences,
-} from '../../util/analytics';
-import type { EmojiId, OnEmojiEvent, OptionalEmojiDescription } from '../../types';
 import type { EmojiProvider } from '../../api/EmojiResource';
-import { extractErrorInfo } from '../../util/analytics/analytics';
+import type { EmojiId, OnEmojiEvent, OptionalEmojiDescription } from '../../types';
+import type { EmojiInsertionAnalytic } from '../../util/analytics/analytics';
+import { extractErrorInfo } from '../../util/analytics/extractErrorInfo';
+import { recordFailedEmoji } from '../../util/analytics/recordFailedEmoji';
+import { recordSucceededEmoji } from '../../util/analytics/recordSucceededEmoji';
+import { ufoExperiences } from '../../util/analytics/ufoExperiences';
 
 /**
  * A function that will wrap any configured Emoji 'onSelection' function to ensure recordSelection is always

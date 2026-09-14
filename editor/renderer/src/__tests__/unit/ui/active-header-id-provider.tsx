@@ -3,8 +3,9 @@ import {
 	ActiveHeaderIdProvider,
 } from '../../../ui/active-header-id-provider';
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ActiveHeaderIdProvider', () => {
 	const firstSpy = jest.fn();
 	const secondSpy = jest.fn();
@@ -26,46 +27,43 @@ describe('ActiveHeaderIdProvider', () => {
 	);
 
 	it('should not call any callback when nestedHeaderIds is undefined', () => {
-		mount(<Example />);
-		expect(firstSpy).toBeCalledTimes(0);
-		expect(secondSpy).toBeCalledTimes(0);
-		expect(thirdSpy).toBeCalledTimes(0);
+		render(<Example />);
+
+		expect(firstSpy).toHaveBeenCalledTimes(0);
+		expect(secondSpy).toHaveBeenCalledTimes(0);
+		expect(thirdSpy).toHaveBeenCalledTimes(0);
 	});
 
 	it(`should call onNestedHeaderIdMatch on the right consumers`, () => {
-		const wrapper = mount(<Example activeHeaderId="test1" />);
-		expect(firstSpy).toBeCalledTimes(1);
-		expect(secondSpy).toBeCalledTimes(0);
-		expect(thirdSpy).toBeCalledTimes(0);
+		const { rerender } = render(<Example activeHeaderId="test1" />);
+		expect(firstSpy).toHaveBeenCalledTimes(1);
+		expect(secondSpy).toHaveBeenCalledTimes(0);
+		expect(thirdSpy).toHaveBeenCalledTimes(0);
 
-		wrapper.setProps({
-			activeHeaderId: 'test1',
-		});
-		expect(firstSpy).toBeCalledTimes(1);
-		expect(secondSpy).toBeCalledTimes(0);
-		expect(thirdSpy).toBeCalledTimes(0);
+		// re-rendering with the same active header must not fire again
+		rerender(<Example activeHeaderId="test1" />);
+		expect(firstSpy).toHaveBeenCalledTimes(1);
+		expect(secondSpy).toHaveBeenCalledTimes(0);
+		expect(thirdSpy).toHaveBeenCalledTimes(0);
 
-		wrapper.setProps({
-			foo: 'bar',
-		});
-		expect(firstSpy).toBeCalledTimes(1);
-		expect(secondSpy).toBeCalledTimes(0);
-		expect(thirdSpy).toBeCalledTimes(0);
+		// nor must an unrelated prop change
+		rerender(<Example activeHeaderId="test1" foo="bar" />);
+		expect(firstSpy).toHaveBeenCalledTimes(1);
+		expect(secondSpy).toHaveBeenCalledTimes(0);
+		expect(thirdSpy).toHaveBeenCalledTimes(0);
 
 		firstSpy.mockReset();
 
-		wrapper.setProps({
-			activeHeaderId: 'test4',
-		});
-		expect(firstSpy).toBeCalledTimes(0);
-		expect(secondSpy).toBeCalledTimes(1);
-		expect(thirdSpy).toBeCalledTimes(0);
+		rerender(<Example activeHeaderId="test4" />);
+		expect(firstSpy).toHaveBeenCalledTimes(0);
+		expect(secondSpy).toHaveBeenCalledTimes(1);
+		expect(thirdSpy).toHaveBeenCalledTimes(0);
+
 		secondSpy.mockReset();
-		wrapper.setProps({
-			activeHeaderId: undefined,
-		});
-		expect(firstSpy).toBeCalledTimes(0);
-		expect(secondSpy).toBeCalledTimes(0);
-		expect(thirdSpy).toBeCalledTimes(0);
+
+		rerender(<Example activeHeaderId={undefined} />);
+		expect(firstSpy).toHaveBeenCalledTimes(0);
+		expect(secondSpy).toHaveBeenCalledTimes(0);
+		expect(thirdSpy).toHaveBeenCalledTimes(0);
 	});
 });

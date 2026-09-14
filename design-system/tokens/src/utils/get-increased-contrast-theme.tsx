@@ -1,4 +1,5 @@
-import themeConfig, { type ThemeIds, type ThemeOverrideIds } from '../theme-config';
+import themeConfig, { type ThemeOverrideIds } from '../theme-config';
+import { type ThemeIds } from '../theme-ids';
 
 /**
  * Finds any matching increased contrast theme available for a selected theme.

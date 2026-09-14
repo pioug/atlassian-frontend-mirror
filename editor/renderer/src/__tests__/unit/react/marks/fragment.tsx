@@ -1,10 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import FragmentMark from '../../../../react/marks/fragment';
 
 describe('Renderer - React/Marks/Fragment', () => {
 	const createMarkElement = (isInline: boolean) =>
-		mount(
+		render(
 			<FragmentMark
 				isInline={isInline}
 				localId="test-local-id"
@@ -16,22 +16,31 @@ describe('Renderer - React/Marks/Fragment', () => {
 			</FragmentMark>,
 		);
 
-	it('should wrap content with <div>-tag for block elements', () => {
-		const mark = createMarkElement(false);
-		expect(mark.find('div').length).toEqual(1);
-		mark.unmount();
+	it('should capture and report a11y violations', async () => {
+		const { container } = createMarkElement(false);
+
+		await expect(container).toBeAccessible();
 	});
+
+	it('should wrap content with <div>-tag for block elements', () => {
+		createMarkElement(false);
+
+		expect(screen.getByText('wrapped text').tagName).toBe('DIV');
+	});
+
 	it('should wrap content with <span>-tag for inline elements', () => {
-		const mark = createMarkElement(true);
-		expect(mark.find('span').length).toEqual(1);
-		mark.unmount();
+		createMarkElement(true);
+
+		expect(screen.getByText('wrapped text').tagName).toBe('SPAN');
 	});
 
 	it('should set data-localId to attrs.localId', () => {
-		const mark = createMarkElement(false);
-		expect(mark.find('div').props()).toHaveProperty('data-name', 'test-fragment-name');
-		expect(mark.find('div').props()).toHaveProperty('data-localId', 'test-local-id');
-		expect(mark.find('div').props()).toHaveProperty('data-mark-type', 'fragment');
-		mark.unmount();
+		createMarkElement(false);
+
+		const mark = screen.getByText('wrapped text');
+
+		expect(mark).toHaveAttribute('data-name', 'test-fragment-name');
+		expect(mark).toHaveAttribute('data-localId', 'test-local-id');
+		expect(mark).toHaveAttribute('data-mark-type', 'fragment');
 	});
 });

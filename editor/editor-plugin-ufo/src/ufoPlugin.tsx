@@ -1,5 +1,3 @@
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { traceUFOInteractionOnFirstInteraction } from './pm-plugins/traceUFOInteractionOnFirstInteraction';
 import type { UfoPlugin } from './ufoPluginType';
 
@@ -14,15 +12,11 @@ export const ufoPlugin: UfoPlugin = () => ({
 			return [];
 		}
 
-		if (expValEquals('platform_editor_abort_ufo_on_user_interaction', 'isEnabled', true)) {
-			return [
-				{
-					name: 'traceUFOInteractionOnFirstInteraction',
-					plugin: traceUFOInteractionOnFirstInteraction,
-				},
-			];
-		}
-
-		return [];
+		return [
+			{
+				name: 'traceUFOInteractionOnFirstInteraction',
+				plugin: traceUFOInteractionOnFirstInteraction,
+			},
+		];
 	},
 });

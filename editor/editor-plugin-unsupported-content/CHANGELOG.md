@@ -1,5 +1,125 @@
 # @atlaskit/editor-plugin-unsupported-content
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- [`27143ffe51a5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27143ffe51a5a) -
+  `@atlaskit/editor-common/vanilla-tooltip` now exports `VANILLA_TOOLTIP_DEFAULT_CLASS`. Compose
+  tooltip class names from it rather than repeating the `ak-editor-vanilla-tooltip-default` literal.
+
+  Behind the `platform_editor_use_vanilla_components` experiment, `VanillaTooltip`:
+  - no longer throws `InvalidStateError` when shown again before its open delay has elapsed
+  - is `pointer-events: none`, so it cannot swallow pointer events meant for the content beneath —
+    pass `pointerEvents` in `styles` to opt out
+  - closes its popover before `destroy()` removes it from the document
+
+  Remaining changes are internal: tooltip consumers adopt the new constant, and the emoji tooltip
+  uses the shared class in place of an equivalent inline style object.
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- [`d1701a4710adf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1701a4710adf) -
+  EDITOR-8658 improve vanilla tooltip api
+
+  `VanillaTooltip` now accepts any `HTMLElement` as its trigger, generates its own tooltip id when
+  none is passed, and only binds its Escape listener while the tooltip is visible.
+
+  These changes are behind the `platform_editor_use_vanilla_components` experiment.
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`d0590a8a13406`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0590a8a13406) -
+  Switched the `unsupportedInline` and `confluenceUnsupportedInline` node views to a vanilla DOM
+  implementation behind the `platform_editor_vanilla_node_views_phase1` experiment, and moved the
+  unsupported content tooltip styling into `@atlaskit/editor-core`'s `EditorContentContainer`. No
+  public API changes.
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`5ce0f8e29f818`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ce0f8e29f818) -
+  EDITOR-8535
+
+  Added `UnsupportedBlockNodeView` to `@atlaskit/editor-plugin-unsupported-content`, switching the
+  `unsupportedBlock` and `confluenceUnsupportedBlock` node views to vanilla DOM under the
+  `platform_editor_vanilla_node_views_phase1` experiment. Also added vanilla unsupported block CSS
+  to `@atlaskit/editor-core`'s `EditorContentContainer`.
+
+  `VanillaTooltip` accepts an optional `onShow` callback, called once the tooltip has become visible
+  after its delay has elapsed. It is not called when the pointer leaves beforehand, matching the
+  `onShow` semantics of `@atlaskit/tooltip`.
+
+  `VanillaTooltip.destroy()` now cancels any pending show/hide timeout. Previously a pending timeout
+  could run after destruction, writing styles to detached DOM and invoking callbacks for an owner
+  that no longer exists.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

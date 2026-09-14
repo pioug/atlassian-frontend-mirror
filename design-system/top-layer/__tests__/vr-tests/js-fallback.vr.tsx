@@ -13,7 +13,7 @@ import {
 	VrJsFallbackInlineStart,
 	VrJsFallbackInlineStartAlignEnd,
 	VrJsFallbackInlineStartAlignStart,
-} from '../../examples/82-vr-popover-js-fallback';
+} from '../../examples/82-vr-popover-js-fallback.vr.ap';
 
 const opts = { drawsOutsideBounds: true } as const;
 

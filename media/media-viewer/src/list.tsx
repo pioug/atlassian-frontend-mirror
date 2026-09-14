@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { type Identifier } from '@atlaskit/media-client';
-import { hideControlsClassName, type WithShowControlMethodProp } from '@atlaskit/media-ui';
+import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
+import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 import { ItemViewer } from './item-viewer';
 import { HeaderWrapper, ListWrapper } from './styleWrappers';
 import { Navigation } from './navigation';
@@ -10,7 +11,7 @@ import {
 	type MediaTraceContext,
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
-import Header from './header';
+import Header from './headerWithIntl';
 import { type ViewerOptionsProps } from './viewerOptions';
 
 export type Props = Readonly<

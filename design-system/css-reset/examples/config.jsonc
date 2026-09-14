@@ -9,6 +9,7 @@
     "02-links.tsx",
     "03-lists-flat.tsx",
     "05-tables-simple.tsx",
-    "09-misc-elements.tsx"
+    "09-misc-elements.tsx",
+    "11-scrollbars.tsx"
   ]
 }

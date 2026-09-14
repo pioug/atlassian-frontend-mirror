@@ -1,8 +1,11 @@
 import React, { type ElementType, forwardRef } from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { ButtonItem, CustomItem, type CustomItemComponentProps, LinkItem } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import CustomItem from '@atlaskit/menu/custom-item';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
+import LinkItem from '@atlaskit/menu/link-item';
 
 import { type getOverrides } from './get-overrides';
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';

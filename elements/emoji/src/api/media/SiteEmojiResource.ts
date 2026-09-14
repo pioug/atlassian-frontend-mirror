@@ -1,5 +1,6 @@
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import { type ServiceConfig, utils as serviceUtils } from '@atlaskit/util-service-support';
-import { getMediaClient } from '@atlaskit/media-client-react';
+
 import type {
 	EmojiDescription,
 	EmojiId,
@@ -10,19 +11,17 @@ import type {
 	MediaApiToken,
 	OptionalEmojiDescription,
 } from '../../types';
-
-import {
-	buildEmojiDescriptionWithAltRepresentation,
-	isMediaRepresentation,
-	isMediaEmoji,
-	convertImageToMediaRepresentation,
-	isLoadedMediaEmoji,
-} from '../../util/type-helpers';
-import MediaEmojiCache from './MediaEmojiCache';
-import { denormaliseEmojiServiceResponse, emojiRequest, getAltRepresentation } from '../EmojiUtils';
-import TokenManager from './TokenManager';
-
+import { buildEmojiDescriptionWithAltRepresentation } from '../../util/build-emoji-description-with-alt-representation';
+import { convertImageToMediaRepresentation } from '../../util/convert-image-to-media-representation';
+import { isLoadedMediaEmoji } from '../../util/is-loaded-media-emoji';
+import { isMediaEmoji } from '../../util/is-media-emoji';
+import { isMediaRepresentation } from '../../util/is-media-representation';
 import debug from '../../util/logger';
+import { denormaliseEmojiServiceResponse } from '../denormaliseEmojiServiceResponse';
+import { emojiRequest } from '../emojiRequest';
+import { getAltRepresentation } from '../getAltRepresentation';
+import MediaEmojiCache from './MediaEmojiCache';
+import TokenManager from './TokenManager';
 
 export interface EmojiUploadResponse {
 	emojis: EmojiServiceDescription[];
@@ -145,35 +144,38 @@ export default class SiteEmojiResource {
 					useSha256ForUploads: true,
 				});
 
-				const subscription = mediaClient.file
-					.upload({
-						content: upload.dataURL,
-						name: upload.filename,
-						collection: collectionName,
+				mediaClient.file
+					.uploadExternal(upload.dataURL, collectionName, undefined, true)
+					.then(({ uploadableFileUpfrontIds }) => {
+						const subscription = mediaClient.file
+							.getFileState(uploadableFileUpfrontIds.id, { collectionName })
+							.subscribe({
+								next: (state) => {
+									if (state.status === 'uploading' && progressCallback) {
+										progressCallback({
+											percent: state.progress * mediaProportionOfProgress,
+										});
+									} else if (state.status === 'processing' || state.status === 'processed') {
+										subscription.unsubscribe();
+										const totalUploadTime = Date.now() - startTime;
+										const mediaUploadTime = totalUploadTime - tokenLoadTime;
+										debug('total upload / media upload times', totalUploadTime, mediaUploadTime);
+										this.postToEmojiService(upload, uploadableFileUpfrontIds.id)
+											.then((emoji) => {
+												resolve(emoji);
+											})
+											.catch((httpError) => {
+												reject(httpError.reason || httpError);
+											});
+									}
+								},
+								error(error) {
+									reject(error);
+								},
+							});
 					})
-					.subscribe({
-						next: (state) => {
-							if (state.status === 'uploading' && progressCallback) {
-								progressCallback({
-									percent: state.progress * mediaProportionOfProgress,
-								});
-							} else if (state.status === 'processing' || state.status === 'processed') {
-								subscription.unsubscribe();
-								const totalUploadTime = Date.now() - startTime;
-								const mediaUploadTime = totalUploadTime - tokenLoadTime;
-								debug('total upload / media upload times', totalUploadTime, mediaUploadTime);
-								this.postToEmojiService(upload, state.id)
-									.then((emoji) => {
-										resolve(emoji);
-									})
-									.catch((httpError) => {
-										reject(httpError.reason || httpError);
-									});
-							}
-						},
-						error(error) {
-							reject(error);
-						},
+					.catch((error) => {
+						reject(error);
 					});
 			});
 		});

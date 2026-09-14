@@ -4,25 +4,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import {
 	type SmartLinkInternalTheme,
 	SmartLinkSize,
 	SmartLinkTheme,
 } from '../../../../../../constants';
-import { useMouseDownEvent } from '../../../../../../state/analytics/useLinkClicked';
+import { useMouseDownEvent } from '../../../../../../state/analytics/useMouseDownEvent';
 import type { ElementProps } from '../../../../components/elements';
 import type { AnchorTarget } from '../../../../components/types';
-import { hasWhiteSpace } from '../../../utils';
+import { hasWhiteSpace } from '../../../hasWhiteSpace';
 
 const DEFAULT_MAX_LINES = 2;
+
 const MAXIMUM_MAX_LINES = 2;
+
 const MINIMUM_MAX_LINES = 1;
 
 const containerStyles = css({
@@ -288,10 +291,3 @@ const BaseLinkElement = ({
 };
 
 export default BaseLinkElement;
-
-export const toLinkProps = (
-	text?: string,
-	url?: string,
-): Partial<BaseLinkElementProps> | undefined => {
-	return text ? { text, url } : undefined;
-};

@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::ced15b527a058bf8dcff2ee1bf042cfb>>
+ * @codegen <<SignedSource::4b388de7fc0c2c64936a765421d7cd71>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::1aa90ffdcfb58d322bcb08b186ba73bf>>
  */
@@ -93,7 +93,7 @@ const borderRadiusSupportedValues = [
 	...borderRadiusTokens,
 	'border.radius',
 ] as unknown as Array<BorderRadius>;
-const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator({
+type XCSSValidatorArg = {
 	// text related props
 	textAlign: {
 		allowCSS: true,
@@ -176,15 +176,15 @@ const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator(
 	paddingTop: true,
 
 	// other box related props
-	borderRadius: { supportedValues: borderRadiusSupportedValues },
-	borderBottomLeftRadius: { supportedValues: borderRadiusSupportedValues },
-	borderBottomRightRadius: { supportedValues: borderRadiusSupportedValues },
-	borderTopLeftRadius: { supportedValues: borderRadiusSupportedValues },
-	borderTopRightRadius: { supportedValues: borderRadiusSupportedValues },
-	borderEndEndRadius: { supportedValues: borderRadiusSupportedValues },
-	borderEndStartRadius: { supportedValues: borderRadiusSupportedValues },
-	borderStartEndRadius: { supportedValues: borderRadiusSupportedValues },
-	borderStartStartRadius: { supportedValues: borderRadiusSupportedValues },
+	borderRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderBottomLeftRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderBottomRightRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderTopLeftRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderTopRightRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderEndEndRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderEndStartRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderStartEndRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderStartStartRadius: { supportedValues: typeof borderRadiusSupportedValues },
 	borderWidth: true,
 	borderBlockWidth: true,
 	borderBlockEndWidth: true,
@@ -216,8 +216,8 @@ const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator(
 	position: {
 		supportedValues: ['relative', 'static'],
 	},
-}) as unknown as XCSSPropsValidator<XCSSValidatorParam>;
-type XCSSProp = ReturnType<typeof xcssValidator>;
+};
+type XCSSProp = ReturnType<XCSSPropsValidator<XCSSValidatorArg>>;
 
 export type PressableProps = {
 	/**

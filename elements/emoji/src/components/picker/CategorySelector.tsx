@@ -2,44 +2,32 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { css, jsx } from '@compiled/react';
-import { cssMap, cx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
+
+import { cssMap, cx } from '@atlaskit/css';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import Tooltip from '@atlaskit/tooltip';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import { usePrevious } from '../../hooks/usePrevious';
+import type { CategoryDescription, OnCategory } from '../../types';
 import {
 	CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED,
 	defaultCategories,
 	KeyboardKeys,
 } from '../../util/constants';
-import type { CategoryDescription, OnCategory } from '../../types';
 import { messages } from '../i18n';
-import {
-	CategoryDescriptionMap,
-	CategoryDescriptionMapNew,
-	type CategoryGroupKey,
-	type CategoryId,
-} from './categories';
-import { usePrevious } from '../../hooks/usePrevious';
+import { CategoryDescriptionMap, CategoryDescriptionMapNew, type CategoryId } from './categories';
+import { categorySelectorCategoryTestId } from './categorySelectorCategoryTestId';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { sortCategories } from './sortCategories';
+import { sortCategoriesNew } from './sortCategoriesNew';
+import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 
 const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
 	if (!FeatureGates.initializeCompleted()) {
@@ -184,12 +172,6 @@ export type CategoryMap = {
 	[id: string]: CategoryDescription;
 };
 
-export const sortCategories = (c1: CategoryGroupKey, c2: CategoryGroupKey): number =>
-	CategoryDescriptionMap[c1].order - CategoryDescriptionMap[c2].order;
-
-export const sortCategoriesNew = (c1: CategoryGroupKey, c2: CategoryGroupKey): number =>
-	CategoryDescriptionMapNew[c1].order - CategoryDescriptionMapNew[c2].order;
-
 const addNewCategories = (
 	oldCategories: CategoryId[],
 	newCategories?: CategoryId[],
@@ -210,8 +192,6 @@ const addNewCategories = (
 };
 
 export const categorySelectorComponentTestId = 'category-selector-component';
-export const categorySelectorCategoryTestId = (categoryId: string) =>
-	`category-selector-${categoryId}`;
 
 const CategorySelector = (props: Props): JSX.Element => {
 	const { disableCategories, dynamicCategories, activeCategoryId, onCategorySelected } = props;

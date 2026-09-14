@@ -24,7 +24,7 @@ import {
 	type MediaClient,
 	type FileIdentifier,
 } from '@atlaskit/media-client';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { filmstripWrapperStyles } from '../example-helpers/styles';
 import { Filmstrip, type FilmstripItem } from '../src';
 
@@ -163,6 +163,7 @@ class Example extends Component<{}, ExampleState> {
 			content: file,
 			name: file.name,
 			collection: defaultCollectionName,
+			size: file.size,
 		};
 
 		mediaClient.file.upload(uploadableFile).subscribe({

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-submit-editor",
-	"version": "12.1.0",
+	"version": "18.0.0",
 	"description": "Submit editor plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,41 +35,5 @@
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

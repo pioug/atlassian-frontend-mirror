@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import IssueLikeTableLoading from '../../examples/vr/issue-like-table-loading';
+import IssueLikeTableLoading from '../../examples/vr/issue-like-table-loading.vr.ap';
 
 snapshot(IssueLikeTableLoading, {
 	description: 'loading state Issue Like Table',

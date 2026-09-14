@@ -1,6 +1,6 @@
 import { type ComponentType, type MouseEvent, type ReactNode, type Ref } from 'react';
 
-import { type CustomThemeButtonProps } from '@atlaskit/button/types';
+import type { CustomThemeButtonProps } from '@atlaskit/button/custom-theme-button-types';
 
 interface Action extends Omit<CustomThemeButtonProps, 'children'> {
 	key?: string;

@@ -116,3 +116,44 @@ test('should support noMarks', () => {
 		type: 'array',
 	});
 });
+
+// `codeBlock` and `expand` declare `noMarks` on its own, and the property is what tells a node that
+// takes an empty `marks` array apart from one that takes no `marks` property at all.
+test('should support noMarks without a marks list', () => {
+	const child = adfNode('child').define({
+		noMarks: true,
+	});
+	const node = adfNode('paragraph').define({
+		root: true,
+		content: [$or(child)],
+	});
+	const result = adfToValidatorSpec(node);
+	expect((result.child.json as ValidatorSpecNode).props.marks).toEqual({
+		items: [],
+		maxItems: 0,
+		optional: true,
+		type: 'array',
+	});
+});
+
+test('should support a variant lifting noMarks off its base', () => {
+	const mark = adfMark('mark').define({});
+	const child = adfNode('child')
+		.define({
+			noMarks: true,
+		})
+		.variant('with_marks', {
+			marks: [mark],
+			noMarks: false,
+		});
+	const node = adfNode('paragraph').define({
+		root: true,
+		content: [$or(child.use('with_marks'))],
+	});
+	const result = adfToValidatorSpec(node);
+	expect((result.child_with_marks.json as [string, ValidatorSpecNode])[1].props.marks).toEqual({
+		items: ['mark'],
+		optional: true,
+		type: 'array',
+	});
+});

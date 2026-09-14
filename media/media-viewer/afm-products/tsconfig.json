@@ -71,6 +71,9 @@
 			"path": "../../media-ui/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/menu/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{

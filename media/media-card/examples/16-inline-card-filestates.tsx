@@ -19,8 +19,8 @@ import {
 import { MainWrapper } from '../example-helpers';
 import { MediaInlineCard, type MediaInlineCardProps } from '../src/inline/mediaInlineCard';
 
-import Button from '@atlaskit/button/new';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import Button from '@atlaskit/button/default/button';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 
 const defaultDimensions = { width: 200, height: 150 };
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bfca7e8c69d08b230a638cb452ab6ed9>>
+ * @codegen <<SignedSource::9bf97900fc169658f8c300e62f0ba8a4>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 73 24">
  *
  */
 export function AdminLogo({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Admin',
 	testId,

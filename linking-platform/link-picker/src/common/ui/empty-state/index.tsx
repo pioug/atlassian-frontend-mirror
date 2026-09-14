@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

@@ -1,35 +1,10 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { token } from '@atlaskit/tokens';
-
-export const ellipsis = (maxWidth: string | number = '100%') => {
-	const unit = typeof maxWidth === 'number' ? 'px' : '';
-
-	return `
-    max-width: ${maxWidth}${unit};
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  `;
-};
-
-export const size = (value: string | number = '100%') => {
-	const unit = typeof value === 'number' ? 'px' : '';
-
-	return `
-    width: ${value}${unit};
-    height: ${value}${unit};
-  `;
-};
 
 export const center = `
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-export const absolute = (top = 0, left = 0) => `
-  position: absolute;
-  top: ${top}px;
-  left: ${left}px;
 `;
 
 export const borderRadius: string = `
@@ -42,3 +17,16 @@ export const borderRadiusBottom: string = `
 `;
 
 export const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+
+/**
+ * @deprecated Use `import { ellipsis } from '@atlaskit/media-ui/ellipsis'` instead.
+ */
+export { ellipsis } from './ellipsis';
+/**
+ * @deprecated Use `import { size } from '@atlaskit/media-ui/size'` instead.
+ */
+export { size } from './size';
+/**
+ * @deprecated Use `import { absolute } from '@atlaskit/media-ui/absolute'` instead.
+ */
+export { absolute } from './absolute';

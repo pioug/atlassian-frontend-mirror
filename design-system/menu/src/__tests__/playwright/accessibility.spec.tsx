@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Menu should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/06-skeleton-items.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-skeleton-items.vr.ap.tsx')>(
 		'design-system',
 		'menu',
 		'skeleton-items',

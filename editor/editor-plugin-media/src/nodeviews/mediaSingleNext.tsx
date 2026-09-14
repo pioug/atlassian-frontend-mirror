@@ -9,10 +9,9 @@ import { css, jsx } from '@emotion/react';
 
 import type {
 	ExtendedMediaAttributes,
-	MediaADFAttrs,
-	MediaAttributes,
-	RichMediaLayout as MediaSingleLayout,
-} from '@atlaskit/adf-schema';
+	Layout as MediaSingleLayout,
+} from '@atlaskit/adf-schema/rich-media-common';
+import type { MediaADFAttrs, MediaAttributes } from '@atlaskit/adf-schema/media';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';

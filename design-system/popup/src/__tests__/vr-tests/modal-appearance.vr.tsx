@@ -1,13 +1,13 @@
 import { Device, snapshot } from '@af/visual-regression';
 
 import {
-	default as ModalPopupClassicAPI,
-	ModalPopupClassicAPILong,
-} from '../../../examples/22-modal-popup';
-import {
 	default as ModalPopupCompositionalAPI,
 	ModalPopupCompositionalAPILong,
-} from '../../../examples/22-modal-popup-composition';
+} from '../../../examples/22-modal-popup-composition.vr.ap';
+import {
+	default as ModalPopupClassicAPI,
+	ModalPopupClassicAPILong,
+} from '../../../examples/22-modal-popup.vr.ap';
 
 snapshot(ModalPopupClassicAPI, {
 	drawsOutsideBounds: true,

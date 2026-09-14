@@ -226,19 +226,129 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 		},
 		panel: {
 			enter: {
+				'[default]': {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '15.5.0',
+						description: 'Use for panel enter transitions.',
+					},
+				},
+				left: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.6.0',
+						description: 'Use for panel enter from the left.',
+					},
+				},
+				right: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.6.0',
+						description: 'Use for panel enter from the right.',
+					},
+				},
+			},
+			exit: {
+				'[default]': {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '15.5.0',
+						description: 'Use for panel exit transitions.',
+					},
+				},
+				left: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.6.0',
+						description: 'Use for panel exit towards the left.',
+					},
+				},
+				right: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.6.0',
+						description: 'Use for panel exit towards the right.',
+					},
+				},
+			},
+			content: {
+				enter: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.6.0',
+						description: 'Use for panel content enter.',
+					},
+				},
+				exit: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.6.0',
+						description: 'Use for panel content exit.',
+					},
+				},
+			},
+		},
+		sidenav: {
+			enter: {
+				left: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.4.0',
+						description: 'Use for side nav enter from the left.',
+					},
+				},
+				right: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.4.0',
+						description: 'Use for side nav enter from the right.',
+					},
+				},
+			},
+			exit: {
+				left: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.4.0',
+						description: 'Use for side nav exit towards the left.',
+					},
+				},
+				right: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '16.4.0',
+						description: 'Use for side nav exit towards the right.',
+					},
+				},
+			},
+		},
+		label: {
+			enter: {
 				attributes: {
 					group: 'motion',
 					state: 'active',
-					introduced: '15.5.0',
-					description: 'Use for panel enter transitions.',
+					introduced: '16.5.0',
+					description: 'Use for label enter transitions (e.g. tag component).',
 				},
 			},
 			exit: {
 				attributes: {
 					group: 'motion',
 					state: 'active',
-					introduced: '15.5.0',
-					description: 'Use for panel exit transitions.',
+					introduced: '16.5.0',
+					description: 'Use for label exit transitions (e.g. tag component).',
 				},
 			},
 		},

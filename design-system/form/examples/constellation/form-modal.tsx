@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { Field } from '@atlaskit/form';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
-import { RadioGroup } from '@atlaskit/radio';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Textfield from '@atlaskit/textfield/text-field';
 
 const FormModalDialogExample = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);

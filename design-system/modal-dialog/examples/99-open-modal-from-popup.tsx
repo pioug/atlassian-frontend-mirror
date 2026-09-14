@@ -8,17 +8,16 @@ import {
 	type StoreActionApi,
 } from 'react-sweet-state';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
-import Popup from '@atlaskit/popup';
+import Heading from '@atlaskit/heading/heading';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

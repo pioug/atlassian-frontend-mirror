@@ -1,1 +1,0 @@
-export { default as RequiredAsterisk } from '../required-asterisk';

@@ -11,7 +11,7 @@ import { UNSAFE_PROPERTY_SET_ERROR } from '../../../utils/performance/safer-tran
 const mockAnalyticsDispatch = jest.fn();
 
 jest.mock('../../../utils/performance/safer-transactions', () => {
-	const actual = jest.requireActual<Object>('../../../utils/performance/safer-transactions');
+	const actual = jest.requireActual<object>('../../../utils/performance/safer-transactions');
 	return {
 		...actual,
 		freezeUnsafeTransactionProperties: (opts: any) => {
@@ -152,8 +152,8 @@ describe('safer-runtime-transactions', () => {
 			const aTr = editorView.state.tr;
 			aTr.setMeta(metaName, true);
 			editorView.dispatch(aTr);
-		}).toThrowError(UNSAFE_PROPERTY_SET_ERROR);
-		expect(mockAnalyticsDispatch).toBeCalledWith(
+		}).toThrow(UNSAFE_PROPERTY_SET_ERROR);
+		expect(mockAnalyticsDispatch).toHaveBeenCalledWith(
 			expect.objectContaining({
 				action: ACTION.TRANSACTION_MUTATED_AFTER_DISPATCH,
 				actionSubject: ACTION_SUBJECT.EDITOR,
@@ -163,7 +163,7 @@ describe('safer-runtime-transactions', () => {
 				},
 			}),
 		);
-		expect(mockAnalyticsDispatch).not.toBeCalledWith(
+		expect(mockAnalyticsDispatch).not.toHaveBeenCalledWith(
 			expect.objectContaining({
 				nonPrivacySafeAttributes: expect.any(Object),
 			}),

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import EditIcon from '@atlaskit/icon/core/edit';
 
 const IconButtonDefaultExample = (): React.JSX.Element => {

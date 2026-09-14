@@ -15,6 +15,12 @@ import { renderSyncedBlockContent } from './renderSyncedBlockContent';
 export type SyncedBlockRendererProps = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 	getAccountId?: () => string | null;
+	/**
+	 * `localId` of the reference node, used to prefix heading ids rendered inside
+	 * the synced block content. Heading ids are only emitted when this is provided
+	 * alongside `syncBlockRendererOptions.allowHeadingAnchorLinks`.
+	 */
+	localId?: string;
 	syncBlockFetchResult: UseFetchSyncBlockDataResult;
 	syncBlockRendererOptions?: SyncedBlockRendererOptions;
 };
@@ -24,6 +30,7 @@ const SyncedBlockRendererComponent = ({
 	syncBlockFetchResult,
 	api,
 	getAccountId,
+	localId,
 }: SyncedBlockRendererProps): React.JSX.Element => {
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
@@ -83,6 +90,7 @@ const SyncedBlockRendererComponent = ({
 		resourceId: syncBlockInstance?.resourceId,
 		isOffline: isCollabOffline,
 		getAccountId,
+		headingIdPrefix: localId,
 	});
 	return result.element;
 };
@@ -93,5 +101,6 @@ export const SyncedBlockRenderer: React.MemoExoticComponent<
 		syncBlockFetchResult,
 		api,
 		getAccountId,
+		localId,
 	}: SyncedBlockRendererProps) => React.JSX.Element
 > = memo(SyncedBlockRendererComponent);

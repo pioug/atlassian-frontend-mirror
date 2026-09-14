@@ -2,7 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, type Ref, useCallback, useId, useLayoutEffect, useRef } from 'react';
+import React, {
+	forwardRef,
+	type Ref,
+	useCallback,
+	useId,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+} from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -13,16 +21,19 @@ import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-l
 import { token } from '@atlaskit/tokens';
 
 import {
-	shouldFocusIntoPopover,
+	resolvePlacement,
+	type TPlacementAxis,
+	type TPlacementEdge,
+} from '../internal/resolve-placement';
+import {
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
-import { setStyle } from '../internal/set-style';
+import { shouldFocusIntoPopover } from '../internal/should-focus-into-popover';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useInitialFocus } from '../internal/use-initial-focus';
 
-import { getPopupMotionStyles } from './animations';
 import { type TPopoverCloseReason, type TPopoverForwardedProps } from './types';
 
 /**
@@ -38,7 +49,8 @@ const supportsPopoverHint = once((): boolean => {
 	return element.popover === 'hint';
 });
 
-// Surface reset — neutralises inherited text-layout properties (e.g.
+// Surface reset — neutralises inherited interaction and text-layout properties
+// (e.g. `pointer-events: none` from an overlaid controls container and
 // `white-space: nowrap` from an `@atlaskit/select` option) that leak into a
 // top-layer element because, for CSS inheritance, it is still a DOM child of its
 // trigger (top-layer promotion is paint/stacking only; the legacy portal path
@@ -51,6 +63,7 @@ const supportsPopoverHint = once((): boolean => {
 // co-located and duplicated deliberately.
 const surfaceResetStyles = cssMap({
 	root: {
+		pointerEvents: 'auto',
 		whiteSpace: 'normal',
 		wordBreak: 'normal',
 		overflowWrap: 'normal',
@@ -95,6 +108,31 @@ const styles = cssMap({
 	},
 });
 
+// Intentionally using `Record<string, string>` instead of `React.CSSProperties`
+// to avoid type errors about the CSS variables not being valid property names
+const popupMotionStyles: Record<TPlacementAxis, Record<TPlacementEdge, Record<string, string>>> = {
+	block: {
+		start: {
+			'--ds-popover-motion-enter': token('motion.popup.enter.top'),
+			'--ds-popover-motion-exit': token('motion.popup.exit.top'),
+		},
+		end: {
+			'--ds-popover-motion-enter': token('motion.popup.enter.bottom'),
+			'--ds-popover-motion-exit': token('motion.popup.exit.bottom'),
+		},
+	},
+	inline: {
+		start: {
+			'--ds-popover-motion-enter': token('motion.popup.enter.left'),
+			'--ds-popover-motion-exit': token('motion.popup.exit.left'),
+		},
+		end: {
+			'--ds-popover-motion-enter': token('motion.popup.enter.right'),
+			'--ds-popover-motion-exit': token('motion.popup.exit.right'),
+		},
+	},
+};
+
 type TPopoverMode = 'auto' | 'hint' | 'manual';
 
 /**
@@ -122,11 +160,9 @@ const POPUP_ROLES: Set<TRoleRequiringAccessibleName | TRoleWithImplicitName> = n
  * ### 📜 Browser dismiss is non-cancellable
  *
  * Per the popover spec, `beforetoggle` is cancellable on open transitions
- * only, not on close. Consumers that need to ignore a specific dismiss
- * (e.g. a click on a logically-associated external trigger) must reconcile
- * inside their own `onClose` handler by calling `showPopover()` again.
- * `Popover` does not self-heal so consumers do not pay a reconcile cost
- * by default.
+ * only, not on close. Consumers should update controlled intent by setting
+ * `isOpen` to `false` from `onClose`. If controlled intent remains open after
+ * native close, the Popover remains closed until the prop changes.
  *
  * - Spec: <https://html.spec.whatwg.org/multipage/popover.html#the-popover-attribute>
  * - <https://github.com/whatwg/html/issues/8973>
@@ -149,7 +185,6 @@ export const Popover: React.ForwardRefExoticComponent<
 		children,
 		mode: modeProp = 'auto',
 		onClose,
-		onOpenChange,
 		onEnterFinish,
 		onExitFinish,
 		shouldAnimate = false,
@@ -174,33 +209,21 @@ export const Popover: React.ForwardRefExoticComponent<
 	// `useId()` colons are invalid in CSS selectors and popover target attributes.
 	const popoverId = idProp ?? `popover-${autoId.replace(/:/g, '')}`;
 
-	const { phase } = useAnimatedVisibility({
-		isOpen,
-		animationKind: 'popover',
-		shouldAnimate,
-		elementRef: ownRef,
-		onEnterFinish,
-		onExitFinish,
-	});
-
-	// True while the host element is mounted (any phase except `closed`).
-	// Used as a dep so listener-rebind effects re-attach after a remount.
-	const isVisible = phase !== 'closed';
-
-	// Focus management: initial focus on entry (role-dependent), Tab cycling
-	// for dialog roles. Restoration is native for outermost popovers; nested
-	// focus-capturing roles are handled below via the `beforetoggle` snapshot.
-	// Passing `phase` keeps `useFocusWrap` attached through the animated-exit
-	// window (WCAG 2.4.3 guard). See notes/architecture/focus-restoration.md.
-	useFocusWrap({ elementRef: ownRef, role, phase });
-	useInitialFocus({ elementRef: ownRef, phase, role });
+	// Keep semantic callbacks current without rebinding native lifecycle
+	// listeners during the same commit that calls showPopover()/hidePopover().
+	const onCloseRef = useRef(onClose);
+	const roleRef = useRef(role);
+	useLayoutEffect(() => {
+		onCloseRef.current = onClose;
+		roleRef.current = role;
+	}, [onClose, role]);
 
 	// Register with open layer observer so `closeLayers()` and open-count
 	// subscriptions work. Only popup-like roles register as `popup`; passive
 	// roles (tooltip, status, etc.) leave `type` undefined.
 	const handleObserverClose = useCallback(() => {
-		onClose?.({ reason: 'programmatic' });
-	}, [onClose]);
+		onCloseRef.current?.({ reason: 'programmatic' });
+	}, []);
 
 	useNotifyOpenLayerObserver({
 		type: role && POPUP_ROLES.has(role) ? 'popup' : undefined,
@@ -213,6 +236,14 @@ export const Popover: React.ForwardRefExoticComponent<
 	// will close other `auto` popovers when opened. Acceptable trade-off given
 	// shrinking browser set without `hint` support.
 	const mode: TPopoverMode = modeProp === 'hint' && !supportsPopoverHint() ? 'auto' : modeProp;
+
+	const popupMotionStyle = useMemo(() => {
+		if (!placement || !shouldAnimate) {
+			return undefined;
+		}
+		const { axis, edge } = resolvePlacement({ placement });
+		return popupMotionStyles[axis][edge];
+	}, [placement, shouldAnimate]);
 
 	// Prevents toggle handler from calling onClose for our own hidePopover() calls.
 	const programmaticCloseRef = useRef(false);
@@ -233,56 +264,65 @@ export const Popover: React.ForwardRefExoticComponent<
 		previouslyFocusedElementRef.current = active instanceof HTMLElement ? active : null;
 	}, []);
 
-	const handleToggle = useCallback(
-		(event: ToggleEvent) => {
-			const element = ownRef.current;
-			if (event.newState === 'open') {
-				if (element) {
-					onOpenChange?.({ isOpen: true, element: element });
-				}
+	const restorePreviouslyFocusedElement = useCallback(() => {
+		const previouslyFocused = previouslyFocusedElementRef.current;
+		previouslyFocusedElementRef.current = null;
+		if (
+			previouslyFocused !== null &&
+			previouslyFocused.isConnected &&
+			shouldFocusIntoPopover({ role: roleRef.current })
+		) {
+			previouslyFocused.focus({ preventScroll: true });
+		}
+	}, []);
+
+	const handleToggleClosed = useCallback(
+		(_event: ToggleEvent) => {
+			// Nested-popover focus restoration fallback (browser only
+			// restores outermost; Firefox skips nested entirely).
+			// Restore only when the role moved focus in on open AND the
+			// close was Escape/programmatic. For light dismiss, the
+			// click target keeps focus per HTML spec
+			// (`focusPreviousElement=false`).
+			const reason = closeReasonRef.current;
+			const isProgrammatic = programmaticCloseRef.current;
+			if (reason === 'escape' || isProgrammatic) {
+				restorePreviouslyFocusedElement();
+			} else {
+				previouslyFocusedElementRef.current = null;
+			}
+
+			// Reset reason so a stale 'escape' from a race with Escape keydown
+			// does not corrupt the next browser-dismiss cycle.
+			closeReasonRef.current = 'light-dismiss';
+
+			// Programmatic close: consumer already knows.
+			if (isProgrammatic) {
 				return;
 			}
-			if (event.newState === 'closed') {
-				if (element) {
-					onOpenChange?.({ isOpen: false, element: element });
 
-					// Nested-popover focus restoration fallback (browser only
-					// restores outermost; Firefox skips nested entirely).
-					// Restore only when the role moved focus in on open AND the
-					// close was Escape/programmatic. For light dismiss, the
-					// click target keeps focus per HTML spec
-					// (`focusPreviousElement=false`).
-					const previouslyFocused = previouslyFocusedElementRef.current;
-					const reason = closeReasonRef.current;
-					const isProgrammatic = programmaticCloseRef.current;
-					const shouldRestore =
-						previouslyFocused !== null &&
-						previouslyFocused.isConnected &&
-						shouldFocusIntoPopover({ role }) &&
-						(reason === 'escape' || isProgrammatic);
-					if (shouldRestore && previouslyFocused) {
-						previouslyFocused.focus({ preventScroll: true });
-					}
-					previouslyFocusedElementRef.current = null;
-				}
-
-				// Programmatic close: consumer already knows.
-				if (programmaticCloseRef.current) {
-					// Reset reason so a stale 'escape' from a race with Escape keydown
-					// does not corrupt the next browser-dismiss cycle.
-					closeReasonRef.current = 'light-dismiss';
-					return;
-				}
-
-				// Browser dismiss (Escape/click-outside).
-				const reason = closeReasonRef.current;
-				closeReasonRef.current = 'light-dismiss';
-				// Optional: `manual` mode has no `onClose` in the forwarded type.
-				onClose?.({ reason });
-			}
+			// Browser dismiss (Escape/click-outside).
+			// Optional: `manual` mode has no `onClose` in the forwarded type.
+			onCloseRef.current?.({ reason });
 		},
-		[onClose, onOpenChange, role],
+		[restorePreviouslyFocusedElement],
 	);
+
+	const { phase, isMounted, onBeforeToggle, onToggle } = useAnimatedVisibility({
+		isOpen,
+		shouldAnimate,
+		elementRef: ownRef,
+		onEnterFinish,
+		onExitFinish,
+	});
+
+	// Focus management: initial focus on entry (role-dependent), Tab cycling
+	// for dialog roles. Restoration is native for outermost popovers; nested
+	// focus-capturing roles are handled above via the `beforetoggle` snapshot.
+	// Passing `phase` keeps `useFocusWrap` attached through the animated-exit
+	// window (WCAG 2.4.3 guard). See notes/architecture/focus-restoration.md.
+	useFocusWrap({ elementRef: ownRef, role, phase });
+	useInitialFocus({ elementRef: ownRef, phase, role });
 
 	// Bind via `useLayoutEffect`, and BEFORE the show/hide layout effect
 	// below, so listeners are attached when `showPopover()` synchronously
@@ -306,11 +346,23 @@ export const Popover: React.ForwardRefExoticComponent<
 			},
 			options: { capture: true },
 		});
-		const unbindToggle = bind(element, { type: 'toggle', listener: handleToggle });
-		// Snapshot `document.activeElement` before `useInitialFocus` moves it.
+		const unbindToggle = bind(element, {
+			type: 'toggle',
+			listener: (event: ToggleEvent) => {
+				if (event.newState === 'closed') {
+					handleToggleClosed(event);
+				}
+				onToggle(event);
+			},
+		});
+		// Snapshot `document.activeElement` before `useInitialFocus` moves it,
+		// then advance the shared visibility lifecycle.
 		const unbindBeforeToggle = bind(element, {
 			type: 'beforetoggle',
-			listener: handleBeforeToggle,
+			listener: (event: ToggleEvent) => {
+				handleBeforeToggle(event);
+				onBeforeToggle(event);
+			},
 		});
 
 		return () => {
@@ -318,19 +370,7 @@ export const Popover: React.ForwardRefExoticComponent<
 			unbindToggle();
 			unbindBeforeToggle();
 		};
-	}, [handleToggle, handleBeforeToggle, isVisible]);
-
-	// Placement-dependent animation CSS vars. Kept separate from show/hide
-	// so preset reference changes do not re-trigger visibility. The cleanup
-	// restores the previous inline values so a preset change does not leave
-	// stale custom properties on the element.
-	useLayoutEffect(() => {
-		const element = ownRef.current;
-		if (!element || !placement) {
-			return;
-		}
-		return setStyle({ element, styles: getPopupMotionStyles({ placement }) });
-	}, [placement, isVisible]);
+	}, [handleBeforeToggle, handleToggleClosed, isMounted, onBeforeToggle, onToggle]);
 
 	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
 	// already in the target state. Try/catch guards `InvalidStateError` on
@@ -344,8 +384,8 @@ export const Popover: React.ForwardRefExoticComponent<
 		if (isOpen) {
 			programmaticCloseRef.current = false;
 			// Clear stale 'escape' from a prior cycle: the ref outlives
-			// the host element, and the no-animation path unmounts before
-			// `handleToggle` can reset it.
+			// the host element, and interrupted close lifecycles may not reach
+			// `handleToggleClosed` to reset it.
 			closeReasonRef.current = 'light-dismiss';
 			try {
 				element.showPopover();
@@ -367,7 +407,7 @@ export const Popover: React.ForwardRefExoticComponent<
 	// Unmount the host once exit completes so it does not leave an empty
 	// `role`/`popover` element in the accessibility tree. The element
 	// remounts on the next open; the `popoverId` is stable across opens.
-	if (!isVisible) {
+	if (!isMounted) {
 		return null;
 	}
 
@@ -382,6 +422,8 @@ export const Popover: React.ForwardRefExoticComponent<
 			aria-label={label}
 			aria-labelledby={labelledBy}
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Motion styles are selected at runtime from the placement.
+			style={popupMotionStyle}
 			css={[
 				styles.root,
 				surfaceResetStyles.root,

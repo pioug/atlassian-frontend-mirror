@@ -1,11 +1,13 @@
 import { act, renderHook } from '@atlassian/testing-library';
 
 import { useAnalyticsEvents } from '../../../../common/analytics/generated/use-analytics-events';
-import { useSmartLinkAnalyticsUtils } from '../../../../utils/analytics/SmartLinkAnalyticsContext';
+import { useSmartLinkAnalyticsUtils } from '../../../../utils/analytics/useSmartLinkAnalyticsUtils';
 import { useSmartLinkSeenEvent } from '../index';
 
 jest.mock('../../../../common/analytics/generated/use-analytics-events');
 jest.mock('../../../../utils/analytics/SmartLinkAnalyticsContext');
+jest.mock('../../../../utils/analytics/useSmartLinkAnalyticsContext');
+jest.mock('../../../../utils/analytics/useSmartLinkAnalyticsUtils');
 
 const mockFireEvent = jest.fn();
 const mockGetByUrl = jest.fn();

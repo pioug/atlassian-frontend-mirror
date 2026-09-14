@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import AkSpinner from '@atlaskit/spinner';
-import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
+import AkSpinner from '@atlaskit/spinner/spinner';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
 import { SpinnerContainer } from '../../styled/UserTrigger';
 import { PACKAGE_META_DATA } from '../../util/analytics';

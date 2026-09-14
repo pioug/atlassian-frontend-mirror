@@ -1,21 +1,23 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import {
 	SyncBlockError,
+	type SyncBlockSourceInfo,
+	type SyncBlockStoreManager,
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 
+import { getUnpublishedSourceType } from './getUnpublishedSourceType';
 import { SyncBlockLabel } from './SyncBlockLabel';
 
 type Props = {
@@ -37,6 +39,7 @@ const SyncBlockRendererWrapperComponent = ({
 	localId,
 	api,
 }: Props): React.JSX.Element => {
+	const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
 	const syncBlockFetchResult = useFetchSyncBlockData(
 		syncBlockStore,
 		resourceId,
@@ -47,11 +50,31 @@ const SyncBlockRendererWrapperComponent = ({
 
 	const contentUpdatedAt = syncBlockFetchResult?.syncBlockInstance?.data?.contentUpdatedAt;
 	const isUnpublishedBlock = syncBlockFetchResult.syncBlockInstance?.data?.status === 'unpublished';
+	const localSameDocumentSource = isSamePageSyncEnabled
+		? syncBlockFetchResult.syncBlockInstance?.localSameDocumentSource
+		: undefined;
+	const localSourceBlockInstanceId = localSameDocumentSource?.sourceBlockInstanceId;
+	const [localSourceInfo, setLocalSourceInfo] = useState<SyncBlockSourceInfo>();
+	useEffect(() => {
+		let isMounted = true;
+		if (!localSourceBlockInstanceId) {
+			setLocalSourceInfo(undefined);
+			return;
+		}
+		void syncBlockStore.sourceManager
+			?.getSyncBlockSourceInfo(localSourceBlockInstanceId)
+			.then((sourceInfo) => {
+				if (isMounted) {
+					setLocalSourceInfo(sourceInfo);
+				}
+			});
+		return () => {
+			isMounted = false;
+		};
+	}, [localSourceBlockInstanceId, syncBlockStore.sourceManager]);
 	const isUnsyncedBlock =
-		isUnpublishedBlock ||
+		(isUnpublishedBlock && !localSameDocumentSource) ||
 		syncBlockFetchResult?.syncBlockInstance?.error?.type === SyncBlockError.NotFound;
-
-	const isTextSelectionEnabled = fg('platform_synced_block_patch_14');
 
 	// Evaluated unconditionally so the experiment exposure is tracked correctly
 	// (recorded on every render, not lazily on first click).
@@ -79,7 +102,7 @@ const SyncBlockRendererWrapperComponent = ({
 
 	useEffect(() => {
 		const containerEl = rendererRef.current;
-		if (!containerEl || !isTextSelectionEnabled || !isSyncBlockActivationEnabled) {
+		if (!containerEl || !isSyncBlockActivationEnabled) {
 			return;
 		}
 		const unbind = bind(containerEl, {
@@ -103,7 +126,7 @@ const SyncBlockRendererWrapperComponent = ({
 			},
 		});
 		return unbind;
-	}, [isTextSelectionEnabled, isSyncBlockActivationEnabled]);
+	}, [isSyncBlockActivationEnabled]);
 
 	return (
 		<div>
@@ -117,20 +140,21 @@ const SyncBlockRendererWrapperComponent = ({
 				data-testid={SyncBlockRendererWrapperDataId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={SyncBlockSharedCssClassName.renderer}
-				contentEditable={isTextSelectionEnabled || undefined}
+				contentEditable
 				suppressContentEditableWarning
 				// Prevent the contentEditable div from being keyboard-focusable.
 				// It is only used to enable text selection, not as an input target.
 				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-				tabIndex={isTextSelectionEnabled ? -1 : undefined}
-				onBeforeInput={isTextSelectionEnabled ? preventInput : undefined}
-				onPaste={isTextSelectionEnabled ? preventInput : undefined}
+				tabIndex={-1}
+				onBeforeInput={preventInput}
+				onPaste={preventInput}
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
-				onDrop={isTextSelectionEnabled ? preventInput : undefined}
+				onDrop={preventInput}
 			>
 				{syncedBlockRenderer({
 					syncBlockFetchResult,
 					api,
+					localId,
 				})}
 			</div>
 			<SyncBlockLabel
@@ -139,6 +163,20 @@ const SyncBlockRendererWrapperComponent = ({
 				contentUpdatedAt={contentUpdatedAt}
 				localId={localId}
 				isUnsyncedBlock={isUnsyncedBlock}
+				unpublishedInfo={
+					localSameDocumentSource && isUnpublishedBlock
+						? {
+								sourceType: getUnpublishedSourceType({
+									sourceAri:
+										localSourceInfo?.sourceAri ??
+										syncBlockFetchResult.syncBlockInstance?.data?.sourceAri,
+									sourceProduct:
+										localSourceInfo?.productType ?? localSameDocumentSource.sourceProduct,
+								}),
+								variant: 'local-reference',
+							}
+						: undefined
+				}
 			/>
 		</div>
 	);

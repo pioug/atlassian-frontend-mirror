@@ -1,14 +1,13 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	MessageWrapper,
-	ValidMessage,
-} from '@atlaskit/form';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import { ValidMessage } from '@atlaskit/form/valid-message';
+import Textfield from '@atlaskit/textfield/text-field';
 
 export default function FormValidationExample(): React.JSX.Element {
 	const [fieldValue, setFieldValue] = useState<string | undefined>('');

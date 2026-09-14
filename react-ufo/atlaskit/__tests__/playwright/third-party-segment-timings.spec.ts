@@ -3,6 +3,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: UFOThirdPartySegment segment3pData', () => {
 	test.use({
 		examplePage: 'third-party-segment-timings',
+	} satisfies {
+		examplePage: 'third-party-segment-timings';
+		__exampleDependency?: typeof import('../../examples/40-third-party-segment-timings.tsx');
 	});
 
 	test('segment3pData from iframe analytics appear grouped by segmentId in interactionMetrics', async ({

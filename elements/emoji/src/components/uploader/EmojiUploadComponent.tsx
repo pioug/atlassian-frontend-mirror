@@ -2,25 +2,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useState, memo, useEffect, type MemoExoticComponent } from 'react';
+
 import { jsx, css } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
-import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { token } from '@atlaskit/tokens';
 
+import type { EmojiProvider } from '../../api/EmojiResource';
+import { supportsUploadFeature } from '../../api/supportsUploadFeature';
 import type { EmojiUpload } from '../../types';
-import { type EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
+import { createAndFireEventInElementsChannel } from '../../util/analytics/analytics';
+import { selectedFileEvent } from '../../util/analytics/selectedFileEvent';
+import { ufoExperiences } from '../../util/analytics/ufoExperiences';
+import { uploadCancelButton } from '../../util/analytics/uploadCancelButton';
+import { uploadConfirmButton } from '../../util/analytics/uploadConfirmButton';
+import { type EmojiPickerWidth } from '../../util/constants';
 import EmojiUploadPickerWithIntl from '../common/EmojiUploadPicker';
 import { uploadEmoji } from '../common/UploadEmoji';
-import {
-	createAndFireEventInElementsChannel,
-	selectedFileEvent,
-	uploadCancelButton,
-	uploadConfirmButton,
-} from '../../util/analytics';
-import { ufoExperiences } from '../../util/analytics/ufoExperiences';
 import { messages } from '../i18n';
-import { type EmojiPickerWidth } from '../../util/constants';
 
 export interface UploadRefHandler {
 	(ref: HTMLDivElement): void;
@@ -47,12 +50,12 @@ const emojiUploadFooter = css({
 });
 
 export interface Props {
+	/** Current Confluence page content id, enables AI emoji generation. */
+	contentId?: string;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	disableFocusLock?: boolean;
 	emojiProvider: EmojiProvider;
 	onUploaderRef?: UploadRefHandler;
-	/** Current Confluence page content id, enables AI emoji generation. */
-	contentId?: string;
 }
 
 const EmojiUploadComponent = (props: Props): JSX.Element => {

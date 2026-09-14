@@ -7,7 +7,7 @@ const disabledAvatar = "[data-testid='avataritem-disabled-0--itemInner']";
 
 test.describe('Avatar', () => {
 	test('Basic render', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/03-basic-avatar-item.tsx')>(
+		await page.visitExample<typeof import('../../../examples/03-basic-avatar-item.vr.ap.tsx')>(
 			'design-system',
 			'avatar',
 			'basic-avatar-item',
@@ -18,7 +18,7 @@ test.describe('Avatar', () => {
 		await expect(page.locator(disabledAvatar)).toBeVisible();
 	});
 	test('Interactive avatar should receive focus', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/03-basic-avatar-item.tsx')>(
+		await page.visitExample<typeof import('../../../examples/03-basic-avatar-item.vr.ap.tsx')>(
 			'design-system',
 			'avatar',
 			'basic-avatar-item',

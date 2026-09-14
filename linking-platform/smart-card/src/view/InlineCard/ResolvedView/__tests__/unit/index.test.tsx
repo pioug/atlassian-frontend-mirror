@@ -2,9 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { token } from '@atlaskit/tokens';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen } from '@atlassian/testing-library';
 
 import { type LozengeProps } from '../../../../../types';
@@ -212,7 +212,11 @@ describe('ResolvedView', () => {
 			'uses functional component implementation',
 			() => {
 				it('should render the title', async () => {
-					render(<InlineCardResolvedView title="functional component title" />);
+					render(
+						<Provider>
+							<InlineCardResolvedView title="functional component title" />
+						</Provider>,
+					);
 					expect(await screen.findByText('functional component title')).toBeVisible();
 				});
 
@@ -222,7 +226,11 @@ describe('ResolvedView', () => {
 						isBold: true,
 						appearance: 'inprogress',
 					};
-					render(<InlineCardResolvedView title="some text" lozenge={lozengeProps} />);
+					render(
+						<Provider>
+							<InlineCardResolvedView title="some text" lozenge={lozengeProps} />
+						</Provider>,
+					);
 					expect(
 						await screen.findByTestId('inline-card-resolved-view-lozenge'),
 					).toBeInTheDocument();
@@ -240,7 +248,11 @@ describe('ResolvedView', () => {
 				});
 
 				it('should not render a hover preview when prop is disabled', () => {
-					render(<InlineCardResolvedView showHoverPreview={false} link="www.test.com" />);
+					render(
+						<Provider>
+							<InlineCardResolvedView showHoverPreview={false} link="www.test.com" />
+						</Provider>,
+					);
 					expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
 				});
 			},

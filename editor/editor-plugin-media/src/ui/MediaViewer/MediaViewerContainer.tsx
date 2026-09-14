@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { isVideo } from '../../pm-plugins/utils/is-type';
 import { getSelectedNearestMediaContainerNodeAttrsFunction } from '../../ui/toolbar/utils';

@@ -1,39 +1,41 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { act, render } from '@testing-library/react';
 
 import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
 import WithEditorActions from '../../../ui/WithEditorActions';
 
 describe('WithEditorActions', () => {
-	it('should render component with editorActions', () => {
+	it('should render component with editorActions', async () => {
 		const editorActions = new EditorActions();
 		const component = jest.fn(() => null);
-		const wrapper = mount(
-			<EditorContext editorActions={editorActions}>
-				<WithEditorActions render={component} />
-			</EditorContext>,
+		const { container } = render(
+			<main>
+				<EditorContext editorActions={editorActions}>
+					<WithEditorActions render={component} />
+				</EditorContext>
+			</main>,
 		);
-		expect(component).toBeCalledWith(editorActions);
-		wrapper.unmount();
+		expect(component).toHaveBeenCalledWith(editorActions);
+		await expect(container).toBeAccessible();
 	});
 
 	it('should re-render component after editor is registered in editorActions', () => {
 		const mockEditorView: any = {};
 		const editorActions = new EditorActions();
 		const component = jest.fn(() => null);
-		const wrapper = mount(
+		render(
 			<EditorContext editorActions={editorActions}>
 				<WithEditorActions render={component} />
 			</EditorContext>,
 		);
-		editorActions._privateRegisterEditor(mockEditorView, {} as any);
-		wrapper.update();
+		act(() => {
+			editorActions._privateRegisterEditor(mockEditorView, {} as any);
+		});
 		const lastCall: any = component.mock.calls.pop();
 		const [actions]: [EditorActions] = lastCall;
 		expect(actions._privateGetEditorView()).toBe(mockEditorView);
-		wrapper.unmount();
 	});
 
 	it('should render component with editor actions even if they were registered before WithEditorActions component renders', () => {
@@ -41,15 +43,13 @@ describe('WithEditorActions', () => {
 		const editorActions = new EditorActions();
 		const component = jest.fn(() => null);
 		editorActions._privateRegisterEditor(mockEditorView, {} as any);
-		const wrapper = mount(
+		render(
 			<EditorContext editorActions={editorActions}>
 				<WithEditorActions render={component} />
 			</EditorContext>,
 		);
-		wrapper.update();
 		const lastCall: any = component.mock.calls.pop();
 		const [actions]: [EditorActions] = lastCall;
 		expect(actions._privateGetEditorView()).toBe(mockEditorView);
-		wrapper.unmount();
 	});
 });

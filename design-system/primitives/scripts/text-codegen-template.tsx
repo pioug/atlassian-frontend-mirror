@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import format from '@af/formatting/sync';
-import { typography as tokens } from '@atlaskit/tokens/tokens-raw';
+import tokens from '@atlaskit/tokens/atlassian-typography';
 
 import { capitalize } from './capitalize';
 import { generateTypeDefs } from './generate-type-defs';

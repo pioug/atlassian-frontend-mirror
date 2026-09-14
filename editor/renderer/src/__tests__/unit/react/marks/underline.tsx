@@ -1,17 +1,31 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import Underline from '../../../../react/marks/underline';
 
 describe('Renderer - React/Marks/Underline', () => {
-	const mark = shallow(
-		<Underline dataAttributes={{ 'data-renderer-mark': true }}>This is underlined</Underline>,
-	);
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<Underline dataAttributes={{ 'data-renderer-mark': true }}>This is underlined</Underline>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
 
 	it('should wrap content with <u>-tag', () => {
-		expect(mark.is('u')).toEqual(true);
+		render(
+			<Underline dataAttributes={{ 'data-renderer-mark': true }}>This is underlined</Underline>,
+		);
+
+		expect(screen.getByText('This is underlined').tagName).toBe('U');
 	});
 
 	it('should output correct html', () => {
-		expect(mark.html()).toEqual('<u data-renderer-mark="true">This is underlined</u>');
+		const { container } = render(
+			<Underline dataAttributes={{ 'data-renderer-mark': true }}>This is underlined</Underline>,
+		);
+
+		expect(container.querySelector('u')?.outerHTML).toEqual(
+			'<u data-renderer-mark="true">This is underlined</u>',
+		);
 	});
 });

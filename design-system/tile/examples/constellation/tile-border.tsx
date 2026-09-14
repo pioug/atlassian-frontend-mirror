@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Inline } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 
 export default function TileBorder(): React.JSX.Element {
 	return (

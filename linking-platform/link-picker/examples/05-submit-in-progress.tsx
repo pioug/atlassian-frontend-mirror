@@ -1,6 +1,6 @@
 import React, { Fragment, type SyntheticEvent, useMemo, useState } from 'react';
 
-import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics/use-smart-link-lifecycle-analytics';
 import { token } from '@atlaskit/tokens';
 import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';

@@ -1,4 +1,4 @@
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { CommentEditorWithIntlCompiled } from './Comment-compiled';

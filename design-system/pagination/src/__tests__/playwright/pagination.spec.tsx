@@ -11,7 +11,7 @@ const nextPageBtnSelector = '[data-testid="pagination--right-navigator"]';
 const ellipsisSelector = '[data-testid=pagination-ellipsis-text]';
 
 test('A user will be able to change page by clicking page number button', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',
@@ -28,7 +28,7 @@ test('A user will be able to change page by clicking page number button', async 
 });
 
 test('A user will be able to navigate to next page by clicking Next button', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',
@@ -42,7 +42,7 @@ test('A user will be able to navigate to next page by clicking Next button', asy
 test('A user will be able to navigate to previous page by clicking Previous button', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',
@@ -56,7 +56,7 @@ test('A user will be able to navigate to previous page by clicking Previous butt
 });
 
 test('A user will be able to see page buttons along with both ellipsis', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',

@@ -3,11 +3,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import UFOInteractionContext from '../../interaction-context';
-import { getInteractionId } from '../../interaction-id-context';
+import { getInteractionId } from '../../interaction-id-context/getInteractionId';
 import { addCohortingCustomData } from '../../interaction-metrics';
-import UFOCustomCohortData, { addUFOCustomCohortData } from '../index';
+import { addUFOCustomCohortData } from '../addUFOCustomCohortData';
+import UFOCustomCohortData from '../index';
 
-jest.mock('../../interaction-id-context');
+jest.mock('../../interaction-id-context/getInteractionId');
 jest.mock('../../interaction-metrics');
 
 const mockGetInteractionId = getInteractionId as jest.MockedFunction<typeof getInteractionId>;

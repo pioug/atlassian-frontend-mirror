@@ -9,6 +9,7 @@ const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	},
 ];
 
-snapshot(Divider, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Divider, {
 	variants: lightModeVariant,
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import InlineMessage from '@atlaskit/inline-message';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 

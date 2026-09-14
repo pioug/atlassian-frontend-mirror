@@ -1,55 +1,51 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
-import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
-import { useSmartLink } from '../../state';
-import { succeedUfoExperience } from '../../state/analytics';
-import {
-	getClickUrl,
-	getDefinitionId,
-	getExtensionKey,
-	getFirstPartyIdentifier,
-	getObjectAri,
-	getObjectIconUrl,
-	getObjectName,
-	getResourceType,
-	getServices,
-	getThirdPartyARI,
-	isFinalState,
-} from '../../state/helpers';
-import { useSmartLinkCrossProductUrlWrapperGated } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
-import { SmartLinkModalProvider } from '../../state/modal';
-import { isSpecialClick, isSpecialEvent, isSpecialKey } from '../../utils';
+import { succeedUfoExperience } from '../../state/analytics/succeedUfoExperience';
+import { getClickUrl } from '../../state/getClickUrl';
+import { getDefinitionId } from '../../state/getDefinitionId';
+import { getExtensionKey } from '../../state/getExtensionKey';
+import { getFirstPartyIdentifier } from '../../state/getFirstPartyIdentifier';
+import { getObjectAri } from '../../state/getObjectAri';
+import { getObjectIconUrl } from '../../state/getObjectIconUrl';
+import { getObjectName } from '../../state/getObjectName';
+import { getResourceType } from '../../state/getResourceType';
+import { getServices } from '../../state/getServices';
+import { getThirdPartyARI } from '../../state/getThirdPartyARI';
+import { useSmartLinkCrossProductUrlWrapper } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
+import { useSmartLink } from '../../state/hooks/useSmartLink';
+import { isFinalState } from '../../state/isFinalState';
+import { SmartLinkModalProvider } from '../../state/modal/SmartLinkModalProvider';
+import { isSpecialClick } from '../../utils/is-special-click';
+import { isSpecialEvent } from '../../utils/is-special-event';
+import { isSpecialKey } from '../../utils/is-special-key';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
-import { fireLinkClickedEvent } from '../../utils/analytics/click';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
-import {
-	getAnchorAttributesFromEvent,
-	isAuxClick,
-	updateAnchorHref,
-} from '../../utils/click-helpers';
-import { isFlexibleUiCard } from '../../utils/flexible';
-import * as measure from '../../utils/performance';
+import { fireLinkClickedEvent } from '../../utils/analytics/fireLinkClickedEvent';
+import { getAnchorAttributesFromEvent } from '../../utils/get-anchor-attributes-from-event';
+import { isAuxClick } from '../../utils/is-aux-click';
+import { isFlexibleUiCard } from '../../utils/is-flexible-ui-card';
+import { create } from '../../utils/create';
+import { getMeasure } from '../../utils/get-measure';
+import { mark } from '../../utils/mark';
+import { updateAnchorHref } from '../../utils/update-anchor-href';
 import { BlockCard } from '../BlockCard';
 import { EmbedCard } from '../EmbedCard';
 import FlexibleCard from '../FlexibleCard';
 import { InlineCard } from '../InlineCard';
-import { useFire3PWorkflowsClickEvent } from '../SmartLinkEvents/useSmartLinkEvents';
-
+import { useFire3PWorkflowsClickEvent } from '../SmartLinkEvents/useFire3PWorkflowsClickEvent';
 import withCardIntersectionObserver from './card-intersection-observer';
 import useExperimentMetaEventAttributes from './experiment-meta-event-attributes';
 import { type CardWithUrlContentProps } from './types';
 
 const thirdPartyARIPrefix = 'ari:third-party';
-const TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT = 'linking_platform_track_non_primary_3p_clicks';
 
 function Component({
 	id,
@@ -100,7 +96,7 @@ function Component({
 	const services = getServices(state.details);
 	const thirdPartyARI = getThirdPartyARI(state.details);
 	const firstPartyIdentifier = getFirstPartyIdentifier();
-	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapper({
 		details: state.details,
 	});
 
@@ -149,143 +145,83 @@ function Component({
 				fire3PClickEvent?.();
 			}
 
-			const isDisablePreviewPanel =
-				disablePreviewPanel &&
-				editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true });
+			// FIXME: InlineCard, BlockCard and EmbedCard call event.preventDefault() internally
+			// before the event bubbles up to this handler. This forces us to snapshot
+			// event.defaultPrevented before calling onClick to detect whether the consumer
+			// specifically prevented navigation. Ideally those components should not call
+			// preventDefault so this workaround can be removed.
+			const isEventDefaultPrevented = event.defaultPrevented;
 
-			if (fg('platform_smartlink_xpc_url_wrapping')) {
-				// FIXME: InlineCard, BlockCard and EmbedCard call event.preventDefault() internally
-				// before the event bubbles up to this handler. This forces us to snapshot
-				// event.defaultPrevented before calling onClick to detect whether the consumer
-				// specifically prevented navigation. Ideally those components should not call
-				// preventDefault so this workaround can be removed.
-				const isEventDefaultPrevented = event.defaultPrevented;
+			const canOpenPreviewPanel =
+				!isModifierKeyPressed &&
+				ari &&
+				name &&
+				openPreviewPanel &&
+				isPreviewPanelAvailable?.({ ari }) &&
+				!disablePreviewPanel;
 
-				const canOpenPreviewPanel =
-					!isModifierKeyPressed &&
-					ari &&
-					name &&
-					openPreviewPanel &&
-					isPreviewPanelAvailable?.({ ari }) &&
-					!isDisablePreviewPanel;
+			// Preview panel takes priority over link navigation when available.
+			if (canOpenPreviewPanel) {
+				event.preventDefault();
+				event.stopPropagation();
 
-				// Preview panel takes priority over link navigation when available.
-				if (canOpenPreviewPanel) {
-					event.preventDefault();
-					event.stopPropagation();
+				openPreviewPanel({
+					url,
+					ari,
+					name,
+					iconUrl: getObjectIconUrl(state.details),
+					panelData: {
+						embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
+							? extractSmartLinkEmbed(state.details)?.src
+							: undefined,
+					},
+				});
 
-					openPreviewPanel({
-						url,
-						ari,
-						name,
-						iconUrl: getObjectIconUrl(state.details),
-						panelData: {
-							embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
-								? extractSmartLinkEmbed(state.details)?.src
-								: undefined,
-						},
-					});
+				fireLinkClickedEvent(createAnalyticsEvent)(event, {
+					attributes: {
+						clickOutcome: 'previewPanel',
+					},
+				});
 
-					fireLinkClickedEvent(createAnalyticsEvent)(event, {
-						attributes: {
-							clickOutcome: 'previewPanel',
-						},
-					});
-
-					return;
-				}
-
-				const destinationUrl = getDestinationUrl();
-				updateAnchorHref(event, destinationUrl);
-
-				// For FlexibleCard, read target from the clicked anchor element (e.g. _blank for links
-				// rendered with explicit target). For classic cards, default to _self
-				const { target: anchorTarget } = getAnchorAttributesFromEvent(event);
-				const target = isSpecialEvent(event) ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
-
-				onClick?.(event, { url, destinationUrl });
-
-				// Check if the event is prevented via onClick callback
-				const consumerPreventedNavigation = event.defaultPrevented && !isEventDefaultPrevented;
-
-				// Classic cards (InlineCard, BlockCard, EmbedCard) rely on their own anchor navigation
-				// when onClick is provided, so this handler should not open the link for them.
-				// FlexibleCard's anchor is prevented from native navigation, so this handler always
-				// opens the link for FlexibleCard unless the consumer's onClick called preventDefault.
-				const shouldOpenLink = isFlexibleUi || !onClick;
-				const doOpenLink = shouldOpenLink && !consumerPreventedNavigation;
-				if (doOpenLink) {
-					event.preventDefault();
-					window.open(destinationUrl, target);
-				}
-
-				// Only set clickOutcome when this handler actually opened the link.
-				// If a parent onClick handled navigation, fire a generic click event instead.
-				fireLinkClickedEvent(createAnalyticsEvent)(
-					event,
-					doOpenLink
-						? {
-								attributes: {
-									clickOutcome: target === '_blank' ? 'clickThroughNewTabOrWindow' : 'clickThrough',
-								},
-							}
-						: undefined,
-				);
-			} else {
-				// If preview panel is available and the user clicked on the link,
-				// delegate the click to the preview panel handler
-				if (
-					!isModifierKeyPressed &&
-					ari &&
-					name &&
-					openPreviewPanel &&
-					isPreviewPanelAvailable?.({ ari }) &&
-					!isDisablePreviewPanel
-				) {
-					event.preventDefault();
-					event.stopPropagation();
-
-					openPreviewPanel({
-						url,
-						ari,
-						name,
-						iconUrl: getObjectIconUrl(state.details),
-						panelData: {
-							embedUrl: expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')
-								? extractSmartLinkEmbed(state.details)?.src
-								: undefined,
-						},
-					});
-
-					fireLinkClickedEvent(createAnalyticsEvent)(event, {
-						attributes: {
-							clickOutcome: 'previewPanel',
-						},
-					});
-					return;
-				} else if (!onClick && !isFlexibleUi) {
-					const clickUrl = getClickUrl(url, state.details);
-
-					// Ctrl+left click on mac typically doesn't trigger onClick
-					// The event could have potentially had `e.preventDefault()` called on it by now
-					// event by smart card internally
-					// If it has been called then only then can `isSpecialEvent` be true.
-					const target = isSpecialEvent(event) ? '_blank' : '_self';
-
-					window.open(clickUrl, target);
-
-					fireLinkClickedEvent(createAnalyticsEvent)(event, {
-						attributes: {
-							clickOutcome: target === '_blank' ? 'clickThroughNewTabOrWindow' : 'clickThrough',
-						},
-					});
-				} else {
-					if (onClick) {
-						onClick(event);
-					}
-					fireLinkClickedEvent(createAnalyticsEvent)(event);
-				}
+				return;
 			}
+
+			const destinationUrl = getDestinationUrl();
+			updateAnchorHref(event, destinationUrl);
+
+			// For FlexibleCard, read target from the clicked anchor element (e.g. _blank for links
+			// rendered with explicit target). For classic cards, default to _self
+			const { target: anchorTarget } = getAnchorAttributesFromEvent(event);
+			const target = isSpecialEvent(event) ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
+
+			onClick?.(event, { url, destinationUrl });
+
+			// Check if the event is prevented via onClick callback
+			const consumerPreventedNavigation = event.defaultPrevented && !isEventDefaultPrevented;
+
+			// Classic cards (InlineCard, BlockCard, EmbedCard) rely on their own anchor navigation
+			// when onClick is provided, so this handler should not open the link for them.
+			// FlexibleCard's anchor is prevented from native navigation, so this handler always
+			// opens the link for FlexibleCard unless the consumer's onClick called preventDefault.
+			const shouldOpenLink = isFlexibleUi || !onClick;
+			const doOpenLink = shouldOpenLink && !consumerPreventedNavigation;
+			if (doOpenLink) {
+				event.preventDefault();
+				window.open(destinationUrl, target);
+			}
+
+			// Only set clickOutcome when this handler actually opened the link.
+			// If a parent onClick handled navigation, fire a generic click event instead.
+			fireLinkClickedEvent(createAnalyticsEvent)(
+				event,
+				doOpenLink
+					? {
+							attributes: {
+								clickOutcome: target === '_blank' ? 'clickThroughNewTabOrWindow' : 'clickThrough',
+							},
+						}
+					: undefined,
+			);
 		},
 		[
 			fireEvent,
@@ -308,28 +244,15 @@ function Component({
 		],
 	);
 
-	// Exposure fires once per eligible mount; click-time reads use no-exposure variant.
-	useEffect(() => {
-		if (shouldFire3PClickEvent) {
-			expValEquals(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true);
-		}
-	}, [shouldFire3PClickEvent]);
-
 	// Middle-click handler to trigger fire3PClickEvent on middle-clicks.
-	// Scope is limited to 3P click analytics to keep the experiment focused.
+	// Scope is limited to 3P click analytics.
 	const handleFrameAuxClick = useCallback(
 		(event: MouseEvent) => {
-			if (fg('platform_smartlink_xpc_url_wrapping')) {
-				const destinationUrl = getDestinationUrl();
-				updateAnchorHref(event, destinationUrl);
-			}
+			const destinationUrl = getDestinationUrl();
+			updateAnchorHref(event, destinationUrl);
 
 			// isAuxClick filters Windows right-clicks (button === 2) that also fire onAuxClick.
-			if (
-				isAuxClick(event) &&
-				shouldFire3PClickEvent &&
-				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
-			) {
+			if (isAuxClick(event) && shouldFire3PClickEvent) {
 				fire3PClickEvent?.({ isAuxClick: true });
 			}
 		},
@@ -337,18 +260,13 @@ function Component({
 	);
 
 	// Right-click handler to trigger fire3PClickEvent on right-clicks.
-	// Scope is limited to 3P click analytics to keep the experiment focused.
+	// Scope is limited to 3P click analytics.
 	const handleFrameContextMenu = useCallback(
 		(event: MouseEvent) => {
-			if (fg('platform_smartlink_xpc_url_wrapping')) {
-				const destinationUrl = getDestinationUrl();
-				updateAnchorHref(event, destinationUrl);
-			}
+			const destinationUrl = getDestinationUrl();
+			updateAnchorHref(event, destinationUrl);
 
-			if (
-				shouldFire3PClickEvent &&
-				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
-			) {
+			if (shouldFire3PClickEvent) {
 				fire3PClickEvent?.({ isContextMenu: true });
 			}
 		},
@@ -396,14 +314,14 @@ function Component({
 	// NB: for each status change in a Smart Link, a performance mark is created.
 	// Measures are sent relative to the first mark, matching what a user sees.
 	useEffect(() => {
-		measure.mark(id, state.status);
+		mark(id, state.status);
 		if (state.status !== 'pending' && state.status !== 'resolving') {
-			measure.create(id, state.status);
+			create(id, state.status);
 
 			if (state.status === 'resolved') {
 				fireEvent('operational.smartLink.resolved', {
 					definitionId: definitionId ?? null,
-					duration: measure.getMeasure(id, state.status)?.duration ?? null,
+					duration: getMeasure(id, state.status)?.duration ?? null,
 				});
 			} else if (
 				state.error?.type !== 'ResolveUnsupportedError' &&

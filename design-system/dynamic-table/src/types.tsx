@@ -1,7 +1,8 @@
 /* eslint-disable @repo/internal/react/consistent-types-definitions */
 import { type default as React, type Ref } from 'react';
 
-import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { Size as SizeType } from '@atlaskit/spinner/types';
 
 export interface RowCellType {

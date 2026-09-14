@@ -1,4 +1,4 @@
-import { getBufferReader } from './utils';
+import { getBufferReader } from './getBufferReader';
 export async function* readStream<T>(response: Response): AsyncGenerator<T> {
 	const reader = getBufferReader(response);
 	let doneStreaming = false;

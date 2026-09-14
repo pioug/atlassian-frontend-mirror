@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

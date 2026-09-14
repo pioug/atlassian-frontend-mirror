@@ -1,4 +1,5 @@
-import { is5xx, withExponentialBackoff } from './http';
+import { is5xx } from './is5xx';
+import { withExponentialBackoff } from './with-exponential-backoff';
 
 describe('is5xx', () => {
 	test('200 is NOT 5xx', () => {

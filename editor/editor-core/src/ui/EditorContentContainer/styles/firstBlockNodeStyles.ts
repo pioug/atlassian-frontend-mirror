@@ -34,12 +34,10 @@ export const firstBlockNodeStyles: SerializedStyles = css({
 });
 
 /**
- * Gated behind the `platform_editor_first_node_fix` experiment.
- *
  * A leading ProseMirror widget (e.g. `ProseMirror-hide-cursor` when the editor is not editable)
  * renders as the first child, so the `:first-child` margin resets no longer match the first real
- * node. This zeroes its top margin. Mirrors `topLevelNodeMarginStyles` from the block-controls
- * plugin so the fix also applies where that plugin is not loaded (e.g. Jira chromeless editor).
+ * node. This zeroes its top margin in all editor content containers, including the Jira chromeless
+ * editor where block controls are not loaded.
  *
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in

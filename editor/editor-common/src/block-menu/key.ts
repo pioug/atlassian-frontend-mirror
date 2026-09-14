@@ -13,9 +13,12 @@ export const TRANSFORM_CREATE_MENU_SECTION = {
 	key: 'transform-create-menu-section',
 };
 
-export const TRANSFORM_HEADINGS_MENU_SECTION = {
+export const TRANSFORM_TEXTFORMATTING_MENU_SECTION = {
 	key: 'transform-headings-menu-secion',
 };
+
+export const TRANSFORM_HEADINGS_MENU_SECTION: typeof TRANSFORM_TEXTFORMATTING_MENU_SECTION =
+	TRANSFORM_TEXTFORMATTING_MENU_SECTION;
 
 export const TRANSFORM_HEADINGS_H1_MENU_ITEM = {
 	key: 'transform-headings-h1-menu-item',
@@ -85,12 +88,24 @@ export const TRANSFORM_STRUCTURE_QUOTE_MENU_ITEM = {
 	key: 'transform-structure-quote-menu-item',
 };
 
+export const TRANSFORM_STRUCTURE_EXTENSION_SLOT_MENU_ITEM = {
+	key: 'transform-structure-extension-slot-menu-item',
+};
+
 export const TRANSFORM_STRUCTURE_DECISION_MENU_ITEM = {
 	key: 'transform-structure-decision-menu-item',
 };
 
+export const TRANSFORM_STRUCTURE_STATUS_MENU_ITEM = {
+	key: 'transform-structure-status-menu-item',
+};
+
 export const TRANSFORM_STRUCTURE_PARAGRAPH_MENU_ITEM = {
 	key: 'transform-structure-paragraph-menu-item',
+};
+
+export const TRANSFORM_TEXT_FORMATTING_SMALL_TEXT_MENU_ITEM = {
+	key: 'transform-text-formatting-small-text-menu-item',
 };
 
 export const TRANSFORM_CLEAR_MENU_SECTION = {

@@ -3,7 +3,7 @@
  * @jsx jsx
  * @jsxFrag React.Fragment
  */
-import type { SyntheticEvent } from 'react';
+import type { MouseEvent, SyntheticEvent } from 'react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
@@ -15,16 +15,15 @@ import EmailIcon from '@atlaskit/icon/core/email';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import type { UserRole } from '@atlaskit/mention';
 import type { MentionDescription } from '@atlaskit/mention/resource';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import Pressable from '@atlaskit/primitives/pressable';
 import { token } from '@atlaskit/tokens';
-import { isValidEmail } from '@atlaskit/user-picker';
+import { isValidEmail } from '@atlaskit/user-picker/components/email-validation';
 
 const mentionItemStyle = css({
 	backgroundColor: 'transparent',
 	display: 'block',
 	overflow: 'hidden',
 	listStyleType: 'none',
+	cursor: 'pointer',
 });
 
 const mentionItemSelectedStyle = css({
@@ -93,31 +92,6 @@ const style = cssMap({
 	},
 	capitalize: {
 		textTransform: 'capitalize',
-	},
-	// Same as Button component except alignSelf: 'center' instead of 'baseline'
-	inviteButton: {
-		display: 'inline-flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		paddingTop: token('space.075'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.150'),
-		borderRadius: token('radius.small'),
-		borderColor: token('color.border'),
-		borderStyle: 'solid',
-		borderWidth: token('border.width'),
-		color: token('color.text.subtle'),
-		font: token('font.body'),
-		fontWeight: token('font.weight.medium'),
-		height: '2rem',
-		backgroundColor: token('color.background.neutral.subtle'),
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered'),
-		},
-		'&:disabled': {
-			backgroundColor: token('color.background.disabled'),
-		},
 	},
 });
 
@@ -198,6 +172,12 @@ interface OnMentionEvent {
 
 export const INVITE_ITEM_DESCRIPTION = { id: 'invite-teammate' };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const leftClick = (event: MouseEvent<any>): boolean => {
+	return event.button === 0 && !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey;
+};
+
 interface Props {
 	emailDomain?: string;
 	onMount?: () => void;
@@ -251,16 +231,27 @@ const InviteItemWithEmailDomain = ({
 		return intl.formatMessage(messages.sendInvite);
 	};
 
-	const onInviteButtonClick = useCallback(
+	const onSelected = useCallback(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(event: React.MouseEvent<any>) => {
+		(event: React.MouseEvent<any> | React.KeyboardEvent<any>) => {
+			if (showErrorIcon) {
+				return;
+			}
 			if (onSelection) {
+				// For mouse events, only handle left click
+				if ('button' in event && !leftClick(event)) {
+					return;
+				}
+				// For keyboard events, only handle Enter and Space
+				if ('key' in event && event.key !== 'Enter' && event.key !== ' ') {
+					return;
+				}
 				event.preventDefault();
 				onSelection(INVITE_ITEM_DESCRIPTION, event);
 			}
 		},
-		[onSelection],
+		[onSelection, showErrorIcon],
 	);
 
 	const onItemMouseEnter = useCallback(
@@ -322,7 +313,11 @@ const InviteItemWithEmailDomain = ({
 	return (
 		displayName && (
 			<div
+				role="button"
+				tabIndex={0}
 				css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
+				onMouseDown={onSelected}
+				onKeyDown={onSelected}
 				onMouseEnter={onItemMouseEnter}
 				onFocus={onItemFocus}
 				data-id={INVITE_ITEM_DESCRIPTION.id}
@@ -339,20 +334,13 @@ const InviteItemWithEmailDomain = ({
 						<DisplayName name={displayName} />
 						<div css={style.byline}>{getByline()}</div>
 					</div>
-					<Pressable
-						onClick={onInviteButtonClick}
-						xcss={style.inviteButton}
-						isDisabled={showErrorIcon}
-					>
-						{intl.formatMessage(messages.inviteButton)}
-					</Pressable>
 				</div>
 			</div>
 		)
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(InviteItemWithEmailDomain);

@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::af3c25c127bdcca927adcfc972a0d6cb>>
+ * @codegen <<SignedSource::3d0d3651f4ee8999c785e29eda73533b>>
  * @codegenCommand yarn workspace @atlaskit/link-create run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -37,6 +37,8 @@ export type ObjectCreatedLinkCreateAttributesType = {
 };
 export type ObjectCreateFailedLinkCreateAttributesType = {
 	failureType: string;
+	operation?: string | null;
+	status?: number | null;
 };
 export type LinkCreateExperienceFailedAttributesType = {
 	errorType?: string | null;

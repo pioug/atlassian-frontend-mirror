@@ -1,6 +1,6 @@
 import React, { type FocusEventHandler } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import CrossIcon from '@atlaskit/icon/core/cross';
 
 import { type OnCloseHandler } from './types';

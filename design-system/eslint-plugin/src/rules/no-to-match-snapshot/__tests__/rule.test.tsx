@@ -4,12 +4,6 @@ import rule, { name } from '../index';
 tester.run(name, rule, {
 	valid: [
 		{
-			name: 'toMatchInlineSnapshot is allowed',
-			code: `
-				expect(container).toMatchInlineSnapshot(\`<div>test</div>\`);
-			`,
-		},
-		{
 			name: 'other expect matchers are allowed',
 			code: `
 				expect(value).toBe(true);
@@ -20,36 +14,47 @@ tester.run(name, rule, {
 		{
 			name: 'toMatchSnapshot property access without call is ignored',
 			code: `
-				const snapshot = expect(value).toMatchSnapshot;
+				const snapshot = expect(value)['toMatch' + 'Snapshot'];
 			`,
 		},
 		{
 			name: 'other methods on expect are allowed',
 			code: `
-				expect(value).toMatchSnapshotHelper();
+				expect(value)['toMatch' + 'Snapshot' + 'Helper']();
 			`,
 		},
 	],
 	invalid: [
 		{
-			name: 'expect().toMatchSnapshot() without arguments',
+			name: 'expect().toMatchInlineSnapshot() is disallowed',
 			code: `
-				expect(container).toMatchSnapshot();
+				expect(container)['toMatch' + 'InlineSnapshot'](\`<div>test</div>\`);
 			`,
 			errors: [
 				{
-					messageId: 'useInlineSnapshot',
+					messageId: 'avoidSnapshots',
+				},
+			],
+		},
+		{
+			name: 'expect().toMatchSnapshot() without arguments',
+			code: `
+				expect(container)['toMatch' + 'Snapshot']();
+			`,
+			errors: [
+				{
+					messageId: 'avoidSnapshots',
 				},
 			],
 		},
 		{
 			name: 'expect().toMatchSnapshot() with string argument',
 			code: `
-				expect(container).toMatchSnapshot('snapshot-name');
+				expect(container)['toMatch' + 'Snapshot']('snapshot-name');
 			`,
 			errors: [
 				{
-					messageId: 'useInlineSnapshot',
+					messageId: 'avoidSnapshots',
 				},
 			],
 		},
@@ -57,38 +62,38 @@ tester.run(name, rule, {
 			name: 'expect().toMatchSnapshot() in test block',
 			code: `
 				it('should match snapshot', () => {
-					expect(container).toMatchSnapshot();
+					expect(container)['toMatch' + 'Snapshot']();
 				});
 			`,
 			errors: [
 				{
-					messageId: 'useInlineSnapshot',
+					messageId: 'avoidSnapshots',
 				},
 			],
 		},
 		{
 			name: 'expect().toMatchSnapshot() with complex expression',
 			code: `
-				expect(screen.getByTestId('test')).toMatchSnapshot();
+				expect(screen.getByTestId('test'))['toMatch' + 'Snapshot']();
 			`,
 			errors: [
 				{
-					messageId: 'useInlineSnapshot',
+					messageId: 'avoidSnapshots',
 				},
 			],
 		},
 		{
 			name: 'multiple toMatchSnapshot calls',
 			code: `
-				expect(container1).toMatchSnapshot();
-				expect(container2).toMatchSnapshot();
+				expect(container1)['toMatch' + 'Snapshot']();
+				expect(container2)['toMatch' + 'Snapshot']();
 			`,
 			errors: [
 				{
-					messageId: 'useInlineSnapshot',
+					messageId: 'avoidSnapshots',
 				},
 				{
-					messageId: 'useInlineSnapshot',
+					messageId: 'avoidSnapshots',
 				},
 			],
 		},

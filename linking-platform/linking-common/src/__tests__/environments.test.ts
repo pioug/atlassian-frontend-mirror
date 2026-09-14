@@ -1,4 +1,5 @@
-import { getResolverUrl, getBaseUrl } from '../environments';
+import { getBaseUrl } from '../getBaseUrl';
+import { getResolverUrl } from '../getResolverUrl';
 
 describe('getResolverUrl', () => {
 	it('should return a dev environment when passed a dev key', () => {

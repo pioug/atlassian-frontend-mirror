@@ -2,11 +2,27 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type ReactNode } from 'react';
+import { Children, forwardRef, isValidElement, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 type Alignment = 'start' | 'end';
+const tagMotionCapability = Symbol.for('@atlaskit/tag/motion-capable');
+
+const isMotionCapableTag = (child: ReactNode): boolean => {
+	if (!isValidElement(child)) {
+		return false;
+	}
+
+	const childType = child.type;
+	return (
+		(typeof childType === 'function' || (typeof childType === 'object' && childType !== null)) &&
+		Reflect.get(childType, tagMotionCapability) === true
+	);
+};
 
 export interface TagGroupProps {
 	/**
@@ -50,6 +66,11 @@ const justifyEndStyles = css({ justifyContent: 'flex-end' });
 const TagGroup: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<TagGroupProps> & React.RefAttributes<any>
 > = forwardRef<any, TagGroupProps>(({ alignment = 'start', titleId, label, children }, ref) => {
+	const isTagMotionEnabled =
+		fg('platform-dst-lozenge-tag-badge-visual-uplifts') && fg('platform-dst-motion-uplift-labels');
+	const shouldProvideMotionBoundary =
+		isTagMotionEnabled && Children.toArray(children).every(isMotionCapableTag);
+
 	return (
 		<div
 			role="group"
@@ -62,7 +83,7 @@ const TagGroup: React.ForwardRefExoticComponent<
 				alignment === 'end' && justifyEndStyles,
 			]}
 		>
-			{children}
+			{shouldProvideMotionBoundary ? <ExitingPersistence>{children}</ExitingPersistence> : children}
 		</div>
 	);
 });

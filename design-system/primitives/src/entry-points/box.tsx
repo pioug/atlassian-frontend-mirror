@@ -9,4 +9,4 @@ export type { BoxProps } from '../components/box';
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
-export { default } from '../components/box';
+export { Box as default } from '../components/box';

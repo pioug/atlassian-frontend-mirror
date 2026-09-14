@@ -4,11 +4,12 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { Code } from '@atlaskit/code';
-import Heading from '@atlaskit/heading';
+import Code from '@atlaskit/code/code';
+import Heading from '@atlaskit/heading/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import Tag from '@atlaskit/tag/new';
-import type { NewTagColor } from '@atlaskit/tag/new';
+import Tag from '@atlaskit/tag/tag-new';
+// oxlint-disable-next-line no-duplicate-imports
+import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({

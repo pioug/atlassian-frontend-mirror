@@ -1,18 +1,21 @@
-import { layers } from '@atlaskit/theme/constants';
 import React from 'react';
 import { Component } from 'react';
-import { onClose, onOpen, onSelection } from '../example-helpers';
-import {
-	ResourcedEmojiControl,
-	getEmojiConfig,
-	getRealEmojiProvider,
-} from '../example-helpers/demo-resource-control';
+
+import { IntlProvider } from 'react-intl';
+
+import { layers } from '@atlaskit/theme/constants';
+
 import SearchTextInput from '../example-helpers/demo-search-text-input';
+import { getEmojiConfig } from '../example-helpers/get-emoji-config';
+import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';
+import { onClose } from '../example-helpers/on-close';
+import { onOpen } from '../example-helpers/on-open';
+import { onSelection } from '../example-helpers/on-selection';
+import { ResourcedEmojiControl } from '../example-helpers/resourced-emoji-control';
 import type { TypeaheadProps, TypeaheadState } from '../example-helpers/typeahead-props';
 import { EmojiTypeAhead } from '../src/typeahead';
-import { emojiTypeAheadMaxHeight } from '../src/util/shared-styles';
 import type { EmojiId, OptionalEmojiDescription } from '../src/types';
-import { IntlProvider } from 'react-intl';
+import { emojiTypeAheadMaxHeight } from '../src/util/shared-styles';
 
 class EmojiTypeAheadTextInput extends Component<TypeaheadProps, TypeaheadState> {
 	private emojiTypeAheadRef?: EmojiTypeAhead | null;

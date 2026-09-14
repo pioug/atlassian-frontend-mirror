@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "5.1.1",
+	"version": "5.5.1",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,17 +35,19 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./app-provider": "./src/entry-points/app-provider.tsx",
-		"./use-color-mode-for-migration": "./src/entry-points/use-color-mode-for-migration.tsx",
-		"./use-color-mode": "./src/entry-points/use-color-mode.tsx",
-		"./use-is-inside-theme-provider": "./src/entry-points/use-is-inside-theme-provider.tsx",
-		"./use-set-color-mode": "./src/entry-points/use-set-color-mode.tsx",
-		"./use-set-theme": "./src/entry-points/use-set-theme.tsx",
-		"./use-theme": "./src/entry-points/use-theme.tsx",
-		"./theme": "./src/entry-points/theme.tsx",
-		"./theme-provider": "./src/entry-points/theme-provider.tsx",
-		"./router-link-provider": "./src/entry-points/router-link-provider.tsx",
-		"./use-router-link": "./src/entry-points/use-router-link.tsx"
+		"./app-provider": "./src/app-provider.tsx",
+		"./scrollbar-harmonisation": "./src/scrollbar-harmonisation/scrollbar-harmonisation.tsx",
+		"./use-scrollbar-harmonisation": "./src/scrollbar-harmonisation/use-scrollbar-harmonisation.tsx",
+		"./use-color-mode-for-migration": "./src/theme-provider/hooks/use-color-mode-for-migration.tsx",
+		"./use-color-mode": "./src/theme-provider/hooks/use-color-mode.tsx",
+		"./use-is-inside-theme-provider": "./src/theme-provider/hooks/use-is-inside-theme-provider.tsx",
+		"./use-set-color-mode": "./src/theme-provider/hooks/use-set-color-mode.tsx",
+		"./use-set-theme": "./src/theme-provider/hooks/use-set-theme.tsx",
+		"./use-theme": "./src/theme-provider/hooks/use-theme.tsx",
+		"./theme": "./src/theme-provider/context/theme.tsx",
+		"./theme-provider": "./src/theme-provider/index.tsx",
+		"./router-link-provider": "./src/router-link-provider/index.tsx",
+		"./use-router-link": "./src/router-link-provider/hooks/use-router-link.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
@@ -57,53 +59,35 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/form": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/select": "workspace:^",
+		"@atlaskit/tile": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"@atlassian/workbench": "workspace:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0",
 		"react-resource-router": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform_dst_scrollbar_harmonisation": {
+			"type": "boolean"
+		},
+		"platform_dst_scrollbar_harmonisation_transparent": {
+			"type": "boolean"
+		},
 		"platform_increased-contrast-themes": {
 			"type": "boolean"
-		}
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
 		}
 	},
 	"homepage": "https://atlassian.design/components/app-provider"

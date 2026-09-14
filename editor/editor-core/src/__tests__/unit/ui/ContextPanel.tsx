@@ -410,4 +410,80 @@ describe('ContextPanel', () => {
 		);
 		expect(editorFocusSpy).toHaveBeenCalled();
 	});
+
+	it('should focus the editor on close when focus is still inside the panel', () => {
+		const { editorAPI } = editorFactory({
+			doc: doc(p('hello')),
+		});
+
+		// @ts-expect-error
+		const editorFocusSpy = jest.spyOn(editorAPI?.core.actions, 'focus');
+		const renderPanel = (visible: boolean) => (
+			<ContextPanel editorAPI={editorAPI} visible={visible}>
+				<div>
+					<button type="button">Close panel</button>
+				</div>
+			</ContextPanel>
+		);
+		const { rerender } = renderWithIntl(renderPanel(true));
+		screen.getByRole('button', { name: 'Close panel' }).focus();
+
+		rerender(renderPanel(false));
+
+		expect(editorFocusSpy).toHaveBeenCalled();
+	});
+
+	it('should not steal focus on close when a consumer has already moved focus to an element outside the panel', () => {
+		const { editorAPI } = editorFactory({
+			doc: doc(p('hello')),
+		});
+
+		// @ts-expect-error
+		const editorFocusSpy = jest.spyOn(editorAPI?.core.actions, 'focus');
+		const renderWithTrigger = (visible: boolean) => (
+			<>
+				<button type="button">Open panel</button>
+				<ContextPanel editorAPI={editorAPI} visible={visible}>
+					<div>yoshi bongo</div>
+				</ContextPanel>
+			</>
+		);
+		const { rerender } = renderWithIntl(renderWithTrigger(true));
+		// Simulates the consumer returning focus to the panel's trigger (WAI-ARIA dialog pattern).
+		const trigger = screen.getByRole('button', { name: 'Open panel' });
+		trigger.focus();
+
+		rerender(renderWithTrigger(false));
+
+		expect(editorFocusSpy).not.toHaveBeenCalled();
+		expect(trigger).toHaveFocus();
+	});
+
+	it('should not steal focus on close when a consumer has moved focus to a focusable SVG element outside the panel', () => {
+		const { editorAPI } = editorFactory({
+			doc: doc(p('hello')),
+		});
+
+		// @ts-expect-error
+		const editorFocusSpy = jest.spyOn(editorAPI?.core.actions, 'focus');
+		const renderWithSvgTrigger = (visible: boolean) => (
+			<>
+				{/* SVG elements are focusable but are not HTMLElements. */}
+				<svg data-testid="svg-trigger" role="button" aria-label="Open panel" tabIndex={0} />
+				<ContextPanel editorAPI={editorAPI} visible={visible}>
+					<div>yoshi bongo</div>
+				</ContextPanel>
+			</>
+		);
+		const { rerender } = renderWithIntl(renderWithSvgTrigger(true));
+		const svgTrigger = screen.getByTestId('svg-trigger');
+		expect(svgTrigger).not.toBeInstanceOf(HTMLElement);
+		svgTrigger.focus();
+		expect(svgTrigger).toHaveFocus();
+
+		rerender(renderWithSvgTrigger(false));
+
+		expect(editorFocusSpy).not.toHaveBeenCalled();
+		expect(svgTrigger).toHaveFocus();
+	});
 });

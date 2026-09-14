@@ -1,14 +1,9 @@
 import faker from 'faker';
 
 import { teamsClientMocks } from '../../mocks/with-faker';
-import {
-	type LinkOrder,
-	type OrgScope,
-	type TeamLink,
-	type TeamWithImageUrls,
-	type TeamWithMemberships,
-} from '../../types';
-import { type ExternalReference } from '../../types/team';
+import { type LinkOrder, type TeamLink } from '../../types/links';
+import { type TeamWithMemberships } from '../../types/membership';
+import type { ExternalReference, OrgScope, TeamWithImageUrls } from '../../types/team';
 import { ContainerType } from '../../types/team-container';
 import { RestClient } from '../rest-client';
 
@@ -684,11 +679,7 @@ describe('legion-client', () => {
 			mockPatchResource.mockReturnValue(Promise.resolve(responseMock));
 
 			// action
-			const team = await legionClient.updateTeamById(
-				expectedTeam.id,
-				// @ts-ignore
-				newTeam,
-			);
+			const team = await legionClient.updateTeamById(expectedTeam.id, newTeam);
 
 			// Deprecated field, override to default value
 			if (expectedTeam.restriction) {
@@ -912,7 +903,7 @@ describe('legion-client', () => {
 	describe('getOrgScope', () => {
 		it('should not fetch and throw error if no orgId set in context', () => {
 			legionClient.setContext({});
-			expect(() => legionClient.getOrgScope()).rejects.toThrowError();
+			expect(() => legionClient.getOrgScope()).rejects.toThrow();
 			expect(mockGetResourceCached).not.toHaveBeenCalled();
 		});
 

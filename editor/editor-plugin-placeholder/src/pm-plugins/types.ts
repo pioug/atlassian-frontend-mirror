@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export interface PlaceHolderState {
@@ -33,6 +33,11 @@ export type CreatePlaceholderStateProps = {
 	typedAndDeleted?: boolean;
 	userHadTyped?: boolean;
 	withEmptyParagraph?: boolean;
+};
+
+export type PlaceholderPromptAnimationOptions = {
+	eraseDelay?: number;
+	pauseBeforeErase?: number;
 };
 
 export type UserInteractionState = {

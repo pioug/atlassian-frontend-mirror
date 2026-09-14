@@ -4,7 +4,8 @@
  */
 import { jsx } from '@compiled/react';
 
-import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
+import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
+import type { SizeType } from '@atlaskit/avatar/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
 

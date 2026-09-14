@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context/NavigationAnalyticsContext';
 import { FabricChannel } from '../../types';
 import { createDummyComponentWithAnalytics } from '../_testUtils';
 

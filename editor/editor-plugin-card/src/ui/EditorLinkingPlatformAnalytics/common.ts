@@ -1,4 +1,4 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

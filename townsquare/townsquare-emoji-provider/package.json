@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/townsquare-emoji-provider",
-	"version": "2.1.3",
+	"version": "2.1.6",
 	"description": "Townsquare emoji provider",
 	"atlassian": {
 		"react-compiler": {
@@ -37,43 +37,13 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-core": "workspace:^",
+		"@atlaskit/editor-plugins": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

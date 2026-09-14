@@ -3,14 +3,13 @@ import {
 	type GasPurePayload,
 	type GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import {
-	createAndFireEvent,
-	withAnalyticsEvents,
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
-	type AnalyticsEventPayload,
-	withAnalyticsContext,
-} from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/new';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { FabricChannel } from '../../src/types';

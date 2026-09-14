@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 const readViewContentWrapper = 'button[data-testid="custom-title--edit-button"] + div';
 
 test('PageHeader default should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/01-default.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/01-default.vr.ap.tsx')>(
 		'design-system',
 		'page-header',
 		'default',

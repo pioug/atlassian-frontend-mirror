@@ -1,9 +1,9 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import ActionsContainer from './styled/actions-container';
 import Container from './styled/container';
@@ -70,14 +70,9 @@ const EmptyState = ({
 			</ActionsContainer>
 		) : null;
 
-	const tag =
-		`h${headingLevel > 0 && headingLevel < 7 ? headingLevel : headingLevel > 6 ? 6 : 4}` as
-			| 'h1'
-			| 'h2'
-			| 'h3'
-			| 'h4'
-			| 'h5'
-			| 'h6';
+	const tag = `h${
+		headingLevel > 0 && headingLevel < 7 ? headingLevel : headingLevel > 6 ? 6 : 4
+	}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 	return (
 		<Container testId={testId} width={width || 'wide'}>
 			{imageUrl ? (

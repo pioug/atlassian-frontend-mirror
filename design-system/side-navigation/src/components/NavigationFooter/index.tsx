@@ -31,7 +31,7 @@ export interface NavigationFooterProps {
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const NavigationFooter: ({ children }: NavigationFooterProps) => JSX.Element = ({
+export const NavigationFooter: ({ children }: NavigationFooterProps) => JSX.Element = ({
 	children,
 }: NavigationFooterProps) => {
 	return (
@@ -40,5 +40,3 @@ const NavigationFooter: ({ children }: NavigationFooterProps) => JSX.Element = (
 		</Box>
 	);
 };
-
-export default NavigationFooter;

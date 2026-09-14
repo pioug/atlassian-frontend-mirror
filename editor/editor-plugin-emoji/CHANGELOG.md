@@ -1,5 +1,482 @@
 # @atlaskit/editor-plugin-emoji
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- [`962e8dc0188bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/962e8dc0188bf) -
+  Clean up `platform_editor_offline_editing_web` with `isEnabled: true` for Confluence, keeping
+  offline editing and recovery behavior enabled. Remove the retired experiment from the editor
+  Statsig configuration; consumers must stop querying or overriding this experiment.
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.6
+
+### Patch Changes
+
+- [`27143ffe51a5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27143ffe51a5a) -
+  `@atlaskit/editor-common/vanilla-tooltip` now exports `VANILLA_TOOLTIP_DEFAULT_CLASS`. Compose
+  tooltip class names from it rather than repeating the `ak-editor-vanilla-tooltip-default` literal.
+
+  Behind the `platform_editor_use_vanilla_components` experiment, `VanillaTooltip`:
+  - no longer throws `InvalidStateError` when shown again before its open delay has elapsed
+  - is `pointer-events: none`, so it cannot swallow pointer events meant for the content beneath —
+    pass `pointerEvents` in `styles` to opt out
+  - closes its popover before `destroy()` removes it from the document
+
+  Remaining changes are internal: tooltip consumers adopt the new constant, and the emoji tooltip
+  uses the shared class in place of an equivalent inline style object.
+
+- Updated dependencies
+
+## 17.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.3
+
+### Patch Changes
+
+- [`3ae04490ac0f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ae04490ac0f4) -
+  Render the disabled mention chip tooltip without React. Behind the
+  `platform_editor_use_vanilla_components` experiment, with no visual change.
+  - Disabled mention chips no longer mount a React tooltip, its portal, and the DOM-to-React event
+    bridge that fed it.
+  - Tooltips release their positioning instance when they close, rather than keeping one alive per
+    hovered chip.
+  - Tooltips remove their own element and attributes when destroyed, so mention and emoji chips no
+    longer leave orphaned popovers behind.
+  - Re-hovering a tooltip while it is closing keeps it open, matching `@atlaskit/tooltip`.
+    Previously the pending hide still landed and the tooltip disappeared under the pointer.
+  - Tooltips close when they hide, instead of waiting on a transition that nothing declares.
+    Required by the change above: releasing the positioning instance while the popover was still
+    open left it behind as an invisible hit target over the content.
+
+- Updated dependencies
+
+## 17.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`0eeaf807b043b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eeaf807b043b) -
+  Add an optional content ID to the inline emoji picker so Confluence users in the
+  `confluence_ai_generated_emojis` experiment can generate emojis from the editor.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- [`d1701a4710adf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1701a4710adf) -
+  EDITOR-8658 improve vanilla tooltip api
+
+  `VanillaTooltip` now accepts any `HTMLElement` as its trigger, generates its own tooltip id when
+  none is passed, and only binds its Escape listener while the tooltip is visible.
+
+  These changes are behind the `platform_editor_use_vanilla_components` experiment.
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- [`02f23e888be02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02f23e888be02) -
+  Use core icons for slash-menu items when platform_editor_slash_command is enabled.
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.16
+
+### Patch Changes
+
+- [`b4c4cd8f205e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4c4cd8f205e4) -
+  Clean up experiment `platform_editor_prevent_toolbar_layout_shifts` and keep the enabled toolbar
+  layout behavior.
+- Updated dependencies
+
+## 16.0.15
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.6
+
+### Patch Changes
+
+- [`2857e277050c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2857e277050c6) -
+  Behind the `platform-dst-top-layer` feature gate, `@atlaskit/popper/unsafe-imperative`'s
+  `createPopper` now renders and positions in the browser top layer via `@atlaskit/top-layer`
+  instead of running the Popper.js engine. Positioning and teardown are applied asynchronously, as
+  Popper.js' own first update is. Flag-off behaviour is unchanged.
+
+  `@atlaskit/top-layer`: the JavaScript positioning fallback no longer clears a consumer's own
+  inline positioning and visibility styles.
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.0
 
 ### Minor Changes

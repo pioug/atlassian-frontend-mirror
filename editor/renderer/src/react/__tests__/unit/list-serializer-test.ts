@@ -1,94 +1,75 @@
-import { create } from 'react-test-renderer';
-import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
+import { createElement, Fragment } from 'react';
+import { render } from '@atlassian/testing-library/render';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import type { Node as PMNode, Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import {
 	nestedBulletList,
 	nestedOrderedList,
 	nestedBulletAndOrderedList,
 } from './__fixtures__/documents';
-import BulletList from '../../../react/nodes/bulletList';
-import OrderedList from '../../../react/nodes/orderedList';
+
+const renderDocument = (document: object): HTMLElement => {
+	const reactSerializer = new ReactSerializer({
+		allowAnnotations: false,
+	});
+	const docFromSchema: PMNode = schema.nodeFromJSON(document);
+
+	return render(
+		createElement(Fragment, null, reactSerializer.serializeFragment(docFromSchema.content)),
+	).container;
+};
+
+const countListAncestors = (element: Element, selector: string): number => {
+	let count = 0;
+	let parent = element.parentElement;
+
+	while (parent) {
+		if (parent.matches(selector)) {
+			count++;
+		}
+		parent = parent.parentElement;
+	}
+
+	return count;
+};
 
 describe('Renderer - ReactSerializer - Lists', () => {
-	let docFromSchema: PMNode;
-	let reactRenderer: ReactTestRenderer;
-
 	describe('when the nested list is a bullet list', () => {
-		beforeAll(() => {
-			const reactSerializer = new ReactSerializer({
-				allowAnnotations: false,
-			});
-			docFromSchema = schema.nodeFromJSON(nestedBulletList);
-			reactRenderer = create(reactSerializer.serializeFragment(docFromSchema.content) as any);
-		});
-
 		it('should have the correct data-indent-level', () => {
-			const testInstance = reactRenderer.root;
-			const components = testInstance.findAllByType(BulletList);
-			expect(components).toHaveLength(6);
-			components.forEach(({ props, children }, idx) => {
-				const listHTMLComponent = children[0] as ReactTestInstance;
-				const listParentNodes = props['path'].filter(
-					(node: Node) => node.type.name === 'bulletList',
-				);
-				expect(listParentNodes).toHaveLength(idx);
-				expect(listHTMLComponent.props['data-indent-level']).toEqual(idx + 1);
+			const container = renderDocument(nestedBulletList);
+
+			const lists = Array.from(container.querySelectorAll('ul'));
+			expect(lists).toHaveLength(6);
+			lists.forEach((list, idx) => {
+				expect(countListAncestors(list, 'ul')).toBe(idx);
+				expect(list.getAttribute('data-indent-level')).toEqual(`${idx + 1}`);
 			});
 		});
 	});
 
 	describe('when the nested list is an ordered list', () => {
-		beforeAll(() => {
-			const reactSerializer = new ReactSerializer({
-				allowAnnotations: false,
-			});
-			docFromSchema = schema.nodeFromJSON(nestedOrderedList);
-			reactRenderer = create(reactSerializer.serializeFragment(docFromSchema.content) as any);
-		});
-
 		it('should have the correct data-indent-level', () => {
-			const testInstance = reactRenderer.root;
-			const components = testInstance.findAllByType(OrderedList);
-			expect(components).toHaveLength(6);
-			components.forEach(({ props, children }, idx) => {
-				const listHTMLComponent = children[0] as ReactTestInstance;
-				const listParentNodes = props['path'].filter(
-					(node: Node) => node.type.name === 'orderedList',
-				);
-				expect(listParentNodes).toHaveLength(idx);
-				expect(listHTMLComponent.props['data-indent-level']).toEqual(idx + 1);
+			const container = renderDocument(nestedOrderedList);
+
+			const lists = Array.from(container.querySelectorAll('ol'));
+			expect(lists).toHaveLength(6);
+			lists.forEach((list, idx) => {
+				expect(countListAncestors(list, 'ol')).toBe(idx);
+				expect(list.getAttribute('data-indent-level')).toEqual(`${idx + 1}`);
 			});
 		});
 	});
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line jest/no-identical-title
-	describe('when the nested list is an ordered list', () => {
-		beforeAll(() => {
-			const reactSerializer = new ReactSerializer({
-				allowAnnotations: false,
-			});
-			docFromSchema = schema.nodeFromJSON(nestedBulletAndOrderedList);
-			reactRenderer = create(reactSerializer.serializeFragment(docFromSchema.content) as any);
-		});
-
+	describe('when the nested list mixes bullet and ordered lists', () => {
 		it('should have the correct data-indent-level for a nested mixed bullet and ordered list', () => {
-			const testInstance = reactRenderer.root;
-			const isListType = (node: ReactTestInstance) => {
-				return node.type === BulletList || node.type === OrderedList ? true : false;
-			};
-			const components = testInstance.findAll(isListType);
-			expect(components).toHaveLength(6);
-			components.forEach(({ props, children }, idx) => {
-				const listHTMLComponent = children[0] as ReactTestInstance;
-				const listParentNodes = props['path'].filter(
-					(node: Node) => node.type.name === 'orderedList' || node.type.name === 'bulletList',
-				);
+			const container = renderDocument(nestedBulletAndOrderedList);
 
-				expect(listParentNodes).toHaveLength(idx);
-				expect(listHTMLComponent.props['data-indent-level']).toEqual(idx + 1);
+			const lists = Array.from(container.querySelectorAll('ul, ol'));
+			expect(lists).toHaveLength(6);
+			lists.forEach((list, idx) => {
+				expect(countListAncestors(list, 'ul, ol')).toBe(idx);
+				expect(list.getAttribute('data-indent-level')).toEqual(`${idx + 1}`);
 			});
 		});
 	});

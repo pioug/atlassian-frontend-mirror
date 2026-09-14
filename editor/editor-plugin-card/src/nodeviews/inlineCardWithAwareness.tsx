@@ -12,12 +12,11 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../cardPlugin';
 import { registerRemoveOverlay } from '../pm-plugins/actions';
@@ -124,9 +123,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 		);
 		const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
 		// This is a prop to show Hover card, Hover card should be shown only in Live View and Classic Renderer (note when only Editor controls enabled we don't show in Live view)
-		const showHoverPreview =
-			floatingToolbarNode !== node &&
-			editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true });
+		const showHoverPreview = floatingToolbarNode !== node;
 
 		const innerCardWithOpenButtonOverlay = useMemo(
 			() => (
@@ -212,11 +209,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 			const shouldShowOpenButtonOverlayInChomeless = editorAppearance === 'chromeless';
 
 			return (
-				(mode === 'edit' ||
-					editorAppearance === 'comment' ||
-					shouldShowOpenButtonOverlayInChomeless) &&
-				(editorExperiment('platform_editor_controls', 'variant1') ||
-					editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }))
+				mode === 'edit' || editorAppearance === 'comment' || shouldShowOpenButtonOverlayInChomeless
 			);
 		}, [mode, editorAppearance]);
 
@@ -224,10 +217,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 			? innerCardWithOpenButtonOverlay
 			: innerCardOriginal;
 
-		if (
-			mode === 'view' &&
-			editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
-		) {
+		if (mode === 'view') {
 			const url = node.attrs.url;
 			const cardState = cardContext?.value?.store?.getState()[url];
 			if (cardState) {

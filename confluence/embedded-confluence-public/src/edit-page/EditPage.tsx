@@ -3,7 +3,7 @@ import React from 'react';
 import {
 	EditPage as EditPageCommon,
 	type EditPageProps as Props,
-} from '@atlassian/embedded-confluence-common';
+} from '@atlassian/embedded-confluence-common/edit-page';
 import { useIntl } from 'react-intl';
 
 export type EditPageProps = Omit<Props, 'locale'>;

@@ -1,11 +1,11 @@
 import { snapshot } from '@af/visual-regression';
 
-import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group';
-import BorderColorExample from '../../../../examples/03-avatar-group-border-color';
-import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground';
-import OverridesMoreIndicatorExample from '../../../../examples/30-overrides-more-indicator';
-import AvatarGroupSizeExample from '../../../../examples/vr-avatar-group-sizes';
-import VRStackingContextExample from '../../../../examples/vr-stacking-context';
+import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group.vr.ap';
+import BorderColorExample from '../../../../examples/03-avatar-group-border-color.vr.ap';
+import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground.vr.ap';
+import OverridesMoreIndicatorExample from '../../../../examples/30-overrides-more-indicator.vr.ap';
+import AvatarGroupSizeExample from '../../../../examples/vr-avatar-group-sizes.vr.ap';
+import VRStackingContextExample from '../../../../examples/vr-stacking-context.vr.ap';
 
 snapshot(BasicAvatarGroup, {
 	states: [
@@ -33,9 +33,6 @@ snapshot(AvatarGroupSizeExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'platform-avatar-group-spacing-fix': [true, false],
-	},
 });
 
 snapshot(AvatarGroupPlayground, {

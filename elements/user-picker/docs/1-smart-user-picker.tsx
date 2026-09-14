@@ -1,7 +1,7 @@
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import React from 'react';
 import { md } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 const _default_1: any = md`
   ${(

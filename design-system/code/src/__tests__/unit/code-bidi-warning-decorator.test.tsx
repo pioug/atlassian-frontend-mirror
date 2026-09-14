@@ -9,7 +9,6 @@ describe('CodeBidiWarningDecorator', () => {
 	const id = 'id';
 
 	// custom test component to make the snapshots easier to read
-	// @ts-ignore
 	const DemoComponent = (props: { bidiCharacter: string }) => {
 		const hexCodePoint = props.bidiCharacter.codePointAt(0)!.toString(16);
 
@@ -19,11 +18,7 @@ describe('CodeBidiWarningDecorator', () => {
 	test.each(Object.entries(codeSnippets))(
 		'Adds decoration to %s example',
 		(_codeSnippetName, codeSnippet) => {
-			const decoratedExampleCode = codeBidiWarningDecorator(
-				codeSnippet,
-				// @ts-ignore
-				DemoComponent,
-			);
+			const decoratedExampleCode = codeBidiWarningDecorator(codeSnippet, DemoComponent);
 
 			render(<>{decoratedExampleCode}</>);
 

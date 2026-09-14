@@ -31,6 +31,9 @@
 		},
 		{
 			"path": "../../eslint-utils/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../volt/volt-components-entry-point-config/afm-products/tsconfig.json"
 		}
 	]
 }

@@ -38,6 +38,27 @@ test.describe('Popup - open and close', () => {
 		await expect(content).toBeHidden();
 	});
 
+	test('native light dismiss unmounts the non-animated popover host', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/92-testing-popover-escape.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-escape',
+		);
+
+		const trigger = page.getByTestId('popover-trigger');
+		const host = page.locator('[popover]');
+
+		await trigger.click();
+		await expect(host).toHaveCount(1);
+		await page.keyboard.press('Escape');
+		await expect(host).toHaveCount(0);
+
+		await trigger.click();
+		await expect(host).toHaveCount(1);
+		await page.getByTestId('outside-target').click();
+		await expect(host).toHaveCount(0);
+	});
+
 	test('closes programmatically via hidePopover()', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../examples/104-testing-popover-programmatic-close.tsx')
@@ -237,12 +258,9 @@ test.describe('Popup - ARIA attributes', () => {
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
 		// Non-animated close (this example does not pass `shouldAnimate`).
-		// Verifies the safety-net `setTimeout(unmount, 0)` in
-		// `useAnimatedVisibility` actually unmounts the host: in a real
-		// browser the `toggle` event is queued as a microtask, so our
-		// listener (bound in `useEffect`, after the layout effect that
-		// calls `hidePopover()`) misses the initial dispatch. The
-		// trailing `setTimeout` is what drives the unmount.
+		// Verifies that the native close handshake in `useAnimatedVisibility`
+		// keeps the host attached until the browser dispatches `toggle(closed)`,
+		// then unmounts it.
 		await trigger.click();
 		await expect(hostLocator).toHaveCount(0);
 	});

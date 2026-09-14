@@ -1,11 +1,11 @@
 import { context } from '@opentelemetry/api';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
 import { type Config, getSelectorConfig, isUFOEnabled, setUFOConfig } from '../config';
-import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload';
+import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload/sink-extra-search-page-interaction-handler';
 import {
 	setContextManager,
 	UFOContextManager,
@@ -17,7 +17,7 @@ import {
 	sinkInteractionHandler,
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
-import { getPerformanceObserver } from '../interactions-performance-observer';
+import { getPerformanceObserver } from '../interactions-performance-observer/get-performance-observer';
 import { initialiseMemoryObserver, initialisePressureObserver } from '../machine-utilisation';
 import {
 	sinkTerminalErrorHandler,

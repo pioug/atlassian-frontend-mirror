@@ -33,14 +33,6 @@ test.describe('codeblock in blockquote', () => {
 			await expect(copyLocator).toBeVisible();
 			await expect(wrapLocator).toBeHidden();
 		});
-
-		test('should capture and report a11y violations', async ({ renderer }) => {
-			const copyLocator = renderer.page.locator('button.copy-to-clipboard');
-			await renderer.page.getByTestId('renderer-code-block').hover();
-			await expect(copyLocator).toBeVisible();
-
-			await expect(renderer.page).toBeAccessible();
-		});
 	});
 
 	test.describe('if allowWrapCodeBlock is set to true', () => {

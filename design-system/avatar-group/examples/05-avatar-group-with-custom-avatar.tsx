@@ -1,8 +1,9 @@
 /**
  * @jsx jsx
  */
-import Avatar from '@atlaskit/avatar';
-import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
+import type { AvatarProps } from '@atlaskit/avatar-group/types';
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 

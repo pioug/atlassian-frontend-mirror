@@ -8,12 +8,13 @@ import { useEffect } from 'react';
 import createFocusTrap from 'focus-trap';
 
 export type FocusManagerHook = {
+	enabled?: boolean;
 	targetRef: HTMLDivElement | null;
 };
 
-export const useFocusTrap = ({ targetRef }: FocusManagerHook): void => {
+export const useFocusTrap = ({ targetRef, enabled = true }: FocusManagerHook): void => {
 	useEffect(() => {
-		if (!targetRef) {
+		if (!targetRef || !enabled) {
 			return;
 		}
 
@@ -40,5 +41,5 @@ export const useFocusTrap = ({ targetRef }: FocusManagerHook): void => {
 			}
 			focusTrap.deactivate();
 		};
-	}, [targetRef]);
+	}, [targetRef, enabled]);
 };

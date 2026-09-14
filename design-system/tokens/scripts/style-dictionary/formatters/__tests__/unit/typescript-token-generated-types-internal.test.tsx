@@ -2,7 +2,7 @@ import format from '@af/formatting/sync';
 
 jest.mock('@af/formatting/sync');
 
-import { typescriptFormatter as formatter } from '../../typescript-token-generated-types-internal';
+import { typescriptFormatter as formatter } from '../../typescript-formatter';
 
 describe('formatter', () => {
 	beforeEach(() => {

@@ -1,8 +1,28 @@
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaFeatureFlags, SSR } from '@atlaskit/media-common';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 
-export type MediaSSR = { config: MediaClientConfig; mode: SSR };
+export type MediaSSR = {
+	config: MediaClientConfig;
+	mode: SSR;
+	/**
+	 * Host SSR media payload. The renderer looks up each card's id with `.find()`
+	 * and passes the matching item as `ssrMediaItem` to Card. Missing entries fall
+	 * back to the normal remote fetch path.
+	 */
+	ssrMediaItems?: ReadonlyArray<{ id?: string }>;
+};
+
+export type MediaRenderEventPayload =
+	| { type: 'mounted' | 'unmounted' }
+	| { renderedMediaId?: string; type: 'preview-rendered' }
+	| { reason: string; type: 'error' };
+
+export type MediaRenderEvent = {
+	dataConsumerSource?: string;
+	mediaId?: string;
+	mediaInstance: object;
+} & MediaRenderEventPayload;
 
 export interface MediaOptions {
 	allowCaptions?: boolean;
@@ -18,5 +38,7 @@ export interface MediaOptions {
 	featureFlags?: MediaFeatureFlags;
 	/** Extensions for the media viewer header (e.g. comment navigation button). */
 	mediaViewerExtensions?: MediaViewerExtensions;
+	/** Receives lifecycle events for each rendered media node. */
+	onMediaRenderEvent?: (event: MediaRenderEvent) => void;
 	ssr?: MediaSSR;
 }

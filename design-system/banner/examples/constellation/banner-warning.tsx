@@ -2,7 +2,7 @@ import React from 'react';
 
 import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 const BannerWarningExample = (): React.JSX.Element => {
 	return (

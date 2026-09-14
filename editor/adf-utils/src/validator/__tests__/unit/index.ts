@@ -1,4 +1,4 @@
-import { validator } from '../../../validator';
+import { validator } from '../../validator';
 
 describe('validate', () => {
 	const validate = validator();
@@ -10,7 +10,7 @@ describe('validate', () => {
 				version: 1,
 			});
 		};
-		expect(run).toThrowError('doc: required prop missing.');
+		expect(run).toThrow('doc: required prop missing.');
 	});
 
 	/**
@@ -32,7 +32,7 @@ describe('validate', () => {
 				],
 			});
 		};
-		expect(run).toThrowError('blockCard: required prop missing.');
+		expect(run).toThrow('blockCard: required prop missing.');
 	});
 
 	/**
@@ -100,7 +100,7 @@ describe('validate', () => {
 				],
 			});
 		};
-		expect(run).toThrowError('doc: invalid content.');
+		expect(run).toThrow('doc: invalid content.');
 	});
 
 	it('should be able to validate attrs with union type - path-1', () => {
@@ -118,7 +118,7 @@ describe('validate', () => {
 				],
 			});
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should be able to validate attrs with union type - path-2', () => {
@@ -136,7 +136,7 @@ describe('validate', () => {
 				],
 			});
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should throw when required attrs are missing inside children', () => {
@@ -151,7 +151,7 @@ describe('validate', () => {
 				],
 			});
 		};
-		expect(run).toThrowError('heading: required prop missing.');
+		expect(run).toThrow('heading: required prop missing.');
 	});
 
 	it('should not throw when required attrs are available', () => {
@@ -167,7 +167,7 @@ describe('validate', () => {
 				],
 			});
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should not throw for valid document', () => {
@@ -200,7 +200,7 @@ describe('validate', () => {
 			const { entity } = validate(doc);
 			expect(entity).toEqual(doc);
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should be able to wrap invalid nodes', () => {
@@ -252,7 +252,7 @@ describe('validate', () => {
 			});
 		};
 
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should not remove valid marks', () => {
@@ -282,7 +282,7 @@ describe('validate', () => {
 			expect(result.entity).toEqual(doc);
 		};
 
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should be able to wrap invalid nodes - 2', () => {
@@ -321,7 +321,7 @@ describe('validate', () => {
 			});
 		};
 
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 });
 
@@ -352,7 +352,7 @@ describe('validator', () => {
 			});
 		};
 
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 });
 
@@ -404,7 +404,7 @@ describe('nested list validation', () => {
 			expect(valid).toBe(true);
 			expect(entity).toEqual(doc);
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should validate orderedList with nested list as first child in listItem', () => {
@@ -443,7 +443,7 @@ describe('nested list validation', () => {
 			expect(valid).toBe(true);
 			expect(entity).toEqual(doc);
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should validate mixed nested lists (bulletList inside orderedList)', () => {
@@ -482,7 +482,7 @@ describe('nested list validation', () => {
 			expect(valid).toBe(true);
 			expect(entity).toEqual(doc);
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should validate deeply nested lists', () => {
@@ -531,7 +531,7 @@ describe('nested list validation', () => {
 			expect(valid).toBe(true);
 			expect(entity).toEqual(doc);
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should validate taskList as first child in listItem', () => {
@@ -567,6 +567,6 @@ describe('nested list validation', () => {
 			expect(valid).toBe(true);
 			expect(entity).toEqual(doc);
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 });

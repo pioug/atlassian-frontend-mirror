@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::293db82116128e6c5304fad1be762b11>>
+ * @codegen <<SignedSource::9aea886ae883664b6f933ff09352e51d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "StatusDiscovery".
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const StatusDiscoveryIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const StatusDiscoveryIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "StatusDiscoveryIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M10.5 15.06v-3.81a.75.75 0 0 1 .75-.75h3.81z"/><path fill="currentcolor" fill-rule="evenodd" d="M13 1a2 2 0 0 1 2 2v6h-4.75C9.56 9 9 9.56 9 10.25V15H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zM4 9h3V7.5H4zm0-5v1.5h7V4z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

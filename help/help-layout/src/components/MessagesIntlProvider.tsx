@@ -13,15 +13,25 @@ export interface Props {
 }
 
 export const MessagesIntlProvider: React.FC<Props & WrappedComponentProps> = ({
-	locale = 'en',
+	locale,
 	children,
-}) => (
-	<ReactIntlProvider key={`v6-${locale}`} locale={locale}>
-		<ReactIntlNextProvider key={`v5-${locale}`} locale={locale}>
-			{children}
-		</ReactIntlNextProvider>
-	</ReactIntlProvider>
-);
+	intl,
+}) => {
+	const resolvedLocale = locale ?? intl.locale ?? 'en';
+	const messages = intl.messages;
+
+	return (
+		<ReactIntlProvider key={`v6-${resolvedLocale}`} locale={resolvedLocale} messages={messages}>
+			<ReactIntlNextProvider
+				key={`v5-${resolvedLocale}`}
+				locale={resolvedLocale}
+				messages={messages}
+			>
+				{children}
+			</ReactIntlNextProvider>
+		</ReactIntlProvider>
+	);
+};
 
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;

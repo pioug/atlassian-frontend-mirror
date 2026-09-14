@@ -28,7 +28,7 @@ const FLAG_STATES = [
 
 for (const { label, featureFlag } of FLAG_STATES) {
 	test(`max size is not applied if the viewport is large enough [${label}]`, async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
+		await page.visitExample<typeof import('../../../examples/00-basic-positioning.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'basic-positioning',
@@ -45,7 +45,7 @@ for (const { label, featureFlag } of FLAG_STATES) {
 	});
 
 	test(`max size is correctly applied [${label}]`, async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+		await page.visitExample<typeof import('../../../examples/03-max-size.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'max-size',
@@ -62,7 +62,7 @@ for (const { label, featureFlag } of FLAG_STATES) {
 	});
 
 	test(`max size updates when page gets smaller [${label}]`, async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+		await page.visitExample<typeof import('../../../examples/03-max-size.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'max-size',
@@ -90,7 +90,7 @@ for (const { label, featureFlag } of FLAG_STATES) {
 	});
 
 	test(`max size updates when page gets bigger [${label}]`, async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+		await page.visitExample<typeof import('../../../examples/03-max-size.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'max-size',

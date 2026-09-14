@@ -4,7 +4,7 @@
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 declare const AiGenerativeTextSummaryIcon: {
   (props: NewCoreIconProps): JSX.Element;

@@ -8,7 +8,7 @@ import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { PinIcon, PinnedIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 

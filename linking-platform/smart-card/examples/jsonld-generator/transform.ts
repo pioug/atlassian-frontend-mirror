@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 type FormLinkData = {
 	attachmentCount?: number;
@@ -134,7 +134,6 @@ const toStatus = (type: JsonLd.Primitives.Type, statusLabel?: string, stateAppea
 	const status = {
 		'@type': 'Object',
 		name: statusLabel,
-		// @ts-ignore appearance doesn't exist in JSON-LD 🙃
 		appearance: toStringOrUndefined(stateAppearance),
 	};
 	if (type === 'atlassian:Task') {

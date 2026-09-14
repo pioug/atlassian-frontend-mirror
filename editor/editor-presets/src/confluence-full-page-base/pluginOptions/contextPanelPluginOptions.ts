@@ -1,5 +1,5 @@
 import type { ContextPanelPluginOptions } from '@atlaskit/editor-plugin-context-panel';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 interface Props {
 	options:

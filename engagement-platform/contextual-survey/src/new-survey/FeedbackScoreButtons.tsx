@@ -5,10 +5,10 @@
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 interface Props {
 	onChange: (value: number) => void;

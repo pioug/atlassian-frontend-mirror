@@ -2,7 +2,7 @@
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
 import type { EditorAnalyticsAPI } from '../analytics';

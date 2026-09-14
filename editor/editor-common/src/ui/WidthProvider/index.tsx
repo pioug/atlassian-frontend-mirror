@@ -10,7 +10,7 @@ import memoizeOne from 'memoize-one';
 import type { MemoizedFn } from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
-import { WidthObserver } from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { isSSR } from '../../core-utils/is-ssr';
 

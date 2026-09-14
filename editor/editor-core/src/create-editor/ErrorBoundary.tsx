@@ -3,7 +3,7 @@ import type { ErrorInfo } from 'react';
 
 import type { Primitive } from '@sentry/types';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import {
 	default as AnalyticsReactContext,
@@ -24,8 +24,6 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 
 import { isOutdatedBrowser } from '../utils/outdatedBrowsers';
 
@@ -202,15 +200,11 @@ export class ErrorBoundaryWithEditorViewWithAnalyticsReactContext extends ErrorB
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<
 	Omit<ErrorBoundaryProps, 'editorView'> & {
 		children?: React.ReactNode | undefined;
 	}
-> = componentWithCondition(
-	() => fg('platform_editor_sentry_breadcrumbs'),
-	WithEditorView(ErrorBoundaryWithEditorViewWithAnalyticsReactContext),
-	WithEditorView(ErrorBoundaryWithEditorView),
-);
+> = WithEditorView(ErrorBoundaryWithEditorViewWithAnalyticsReactContext);
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default _default_1;

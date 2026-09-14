@@ -5,17 +5,17 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { messages } from '@atlaskit/editor-common/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { PureComponent, memo } from 'react';
 import type { FC, NamedExoticComponent } from 'react';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import type { EmojiId } from '@atlaskit/emoji/types';
+import type { EmojiId, EmojiProviderLookupOrder } from '@atlaskit/emoji/types';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
-import type { EmojiAttributes } from '@atlaskit/adf-schema';
+import type { EmojiAttributes } from '@atlaskit/adf-schema/emoji';
 
 /**
  * Check if the supplied fallback text is a single standard Unicode emoji.
@@ -28,7 +28,6 @@ import type { EmojiAttributes } from '@atlaskit/adf-schema';
 function isSingleEmoji(fallbackText: string): boolean {
 	const emojiRegex =
 		// Ignored via go/ees019
-		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 		// eslint-disable-next-line e18e/prefer-static-regex
 		/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
 	return emojiRegex.test(fallbackText);
@@ -36,6 +35,7 @@ function isSingleEmoji(fallbackText: string): boolean {
 
 export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes {
 	allowTextFallback?: boolean;
+	emojiProviderLookupOrder?: EmojiProviderLookupOrder;
 	fitToHeight?: number;
 	providers?: ProviderFactory;
 	resourceConfig?: EmojiResourceConfig;
@@ -65,8 +65,16 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 	}
 
 	private renderWithProvider = (providers: Providers) => {
-		const { allowTextFallback, shortName, id, fallback, fitToHeight, showTooltip, resourceConfig } =
-			this.props;
+		const {
+			allowTextFallback,
+			shortName,
+			id,
+			fallback,
+			fitToHeight,
+			showTooltip,
+			emojiProviderLookupOrder,
+			resourceConfig,
+		} = this.props;
 
 		if (allowTextFallback && !providers.emojiProvider) {
 			// When the gate is enabled and the fallback text is not a single
@@ -102,6 +110,7 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 			<ResourcedEmoji
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				emojiId={{ id, fallback, shortName }}
+				emojiProviderLookupOrder={emojiProviderLookupOrder}
 				emojiProvider={providers.emojiProvider}
 				showTooltip={showTooltip}
 				fitToHeight={fitToHeight}
@@ -132,7 +141,8 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 }
 
 export const EmojiItemComponent: FC<EmojiProps> = (props) => {
-	const { id, providers, shortName, text, fitToHeight, resourceConfig } = props;
+	const { id, providers, shortName, text, fitToHeight, emojiProviderLookupOrder, resourceConfig } =
+		props;
 
 	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
@@ -148,6 +158,7 @@ export const EmojiItemComponent: FC<EmojiProps> = (props) => {
 					fallback={text}
 					providers={providers}
 					fitToHeight={fitToHeight}
+					emojiProviderLookupOrder={emojiProviderLookupOrder}
 					resourceConfig={resourceConfig}
 				/>
 			</span>
@@ -162,6 +173,7 @@ export const EmojiItemComponent: FC<EmojiProps> = (props) => {
 			fallback={text}
 			providers={providers}
 			fitToHeight={fitToHeight}
+			emojiProviderLookupOrder={emojiProviderLookupOrder}
 			resourceConfig={resourceConfig}
 		/>
 	);

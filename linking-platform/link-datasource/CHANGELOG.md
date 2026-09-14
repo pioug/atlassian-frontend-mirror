@@ -1,5 +1,323 @@
 # @atlaskit/link-datasource
 
+## 6.13.2
+
+### Patch Changes
+
+- [`830f0495777fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/830f0495777fd) -
+  Gate the unit-compliant `accessible-products` endpoint on the org's units rollout settings.
+  `getAccessibleProducts` now reads `boundaryEnforced` and `endUsersLaunched` from AGG's
+  `Query.unitsRolloutSettings` and only switches to the unit-compliant endpoint when the units GA
+  master gate `cc-units-ga` is on (killswitch), the org has launched units with boundary
+  enforcement, and either the existing `linking_platform_link_datasource_unit_compliant` gate (org
+  id) or the new `linking_platform_link_datasource_unit_compliant_cloud_id` gate (cloud id) passes.
+
+  The settings are read from `Query.admin_unitSettings`, which is keyed by org id, so the org id is
+  first resolved from the current host with `Query.tenantContexts`. Both calls are made once per
+  page load and only when a rollout gate passes, and any failure falls back to the current,
+  non-isolated behaviour.
+
+## 6.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.13.0
+
+### Minor Changes
+
+- [`b2b9a6ccc8b79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2b9a6ccc8b79) -
+  Preserve datasource Suspense boundaries across equivalent renderer props behind
+  platform_datasource_hydration_stability. Add the platform experiment runtime dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.12.1
+
+### Patch Changes
+
+- [`b94131fcee276`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b94131fcee276) -
+  Removes the `platform_smartlink_xpc_url_wrapping` feature gate and makes cross-product URL
+  wrapping for Smart Links permanent, on for all consumers.
+
+  What this behavior does: when a resolved Smart Link points to a first-party Atlassian destination
+  (e.g. a Jira issue, Confluence page), the URL used for navigation — via click, "Open link", or any
+  other destination-URL usage — now has a short-lived interaction-session query parameter (`xpis`)
+  appended automatically. This lets the destination product attribute the visit back to the product
+  and surface the link was opened from, powering cross-product usage analytics. It has no effect on:
+  - third-party (non-Atlassian) links,
+  - links that are not yet resolved,
+  - URLs that already contain the parameter.
+
+  No API shape changes: this only affects the resolved value returned by existing Smart Link
+  URL/navigation behavior (e.g. `Card`, `useSmartLinkDestinationUrl`, inline/block/embed card
+  click-through, and datasource table link cells). No new props, exports, or configuration are
+  introduced, and no action is required from consumers.
+
+- Updated dependencies
+
+## 6.12.0
+
+### Minor Changes
+
+- [`942e8a15cbdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/942e8a15cbdf1) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.11.2
+
+### Patch Changes
+
+- [`d52a5b1c67047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d52a5b1c67047) -
+  Remove the navx-5509-sllv-link-new-tab-hint gate and permanently announce new-tab links to
+  assistive technologies.
+- Updated dependencies
+
+## 6.11.1
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 6.11.0
+
+### Minor Changes
+
+- [`0a39ae0f69a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a39ae0f69a25) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.10.1
+
+### Patch Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall`.
+- Updated dependencies
+
+## 6.10.0
+
+### Minor Changes
+
+- [`63d9eb9c7a7bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63d9eb9c7a7bd) -
+  [ux] Behind `platform-dst-top-layer-tooltip`, merge the ref from `@atlaskit/tooltip`'s render prop
+  with the trigger's own ref instead of letting the later spread replace it, so the tooltip resolves
+  an anchor element. With the gate off the trigger keeps the ref it had before. Adds
+  `use-callback-ref` as a runtime dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.9.0
+
+### Minor Changes
+
+- [`99286191a1786`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99286191a1786) -
+  Add dedicated public entrypoint imports for @atlaskit/link-datasource. Root and deprecated
+  compatibility imports remain supported for existing consumers.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.8.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.7.0
+
+### Minor Changes
+
+- [`a8fb048ddba1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8fb048ddba1a) -
+  Add a gated table settings menu next to the column picker. When
+  `platform_lp_sllv_table_settings_menu` is on, the menu includes a wrap-text toggle that turns
+  wrapping on for every visible column, or off for every visible column. Gate off keeps the previous
+  column-picker-only header, and the editor does not pass `onWrappedColumnsChange`.
+
+  `DatasourceTableView` now accepts an optional `onWrappedColumnsChange` callback that updates the
+  wrapped state of multiple columns at once.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.6.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+- [`7e9c520560753`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e9c520560753) -
+  Updated AI documentation for Post Office headless API. Other changes are from code generation and
+  are triggered by minor formatting changes.
+
+### Patch Changes
+
+- [`41b55f01fb4e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41b55f01fb4e1) -
+  Cleanup feature gate platform_lp_sllv_jira_type_as_link and keep linked Jira issue-type rendering.
+- Updated dependencies
+
+## 6.5.0
+
+### Minor Changes
+
+- [`f0073f4c89113`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0073f4c89113) -
+  Adds cross-product (XPC) MAU analytics to the datasource modals and the shared issue-like table
+  renderer, behind the `electric_issue_like_table_xpc_url_wrapping` feature gate. When the gate is
+  on, outbound issue/link URLs are enriched with XPC attribution query params; when it is off (or
+  when no host product context is present) the URL is returned untouched, so behaviour matches
+  `master`.
+
+  Attribution is host-driven and follows the same pattern as Smart Links: the host product identity
+  (`xpcProduct`, `xpcSubProduct`, `bridgeProduct`) is read from the surrounding `SmartCardProvider`
+  (`@atlaskit/link-provider`) — which datasource consumers already render — via the gated
+  `useDatasourceCrossProductAttribution` hook. There is no dedicated XPC provider to wire up;
+  consumers that already set `xpcProduct` on their `SmartCardProvider` get attribution
+  automatically.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.11
+
+### Patch Changes
+
+- [`24e05fa81e0c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24e05fa81e0c7) -
+  [ux] When a search resolves with no items but the response still describes its columns, the
+  datasource table now keeps its column headers and footer and renders the "no results" message in
+  place of the rows, instead of replacing the entire view. Behind the
+  platform_lp_sllv_ux_improvements feature gate.
+
+## 6.4.10
+
+### Patch Changes
+
+- [`83f61c8f828c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83f61c8f828c6) -
+  Cleaning up navx-5290-sllv-modal-a11y-updates
+- Updated dependencies
+
+## 6.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.6
+
+### Patch Changes
+
+- [`e0edc05cd52d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0edc05cd52d7) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall` as a 1:1 size rename with no visual
+  change.
+- [`0972600d28868`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0972600d28868) -
+  Add visually-hidden 'opens in a new tab' hint to Jira issue key links in Datasources tables
+- Updated dependencies
+
+## 6.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.1
 
 ### Patch Changes

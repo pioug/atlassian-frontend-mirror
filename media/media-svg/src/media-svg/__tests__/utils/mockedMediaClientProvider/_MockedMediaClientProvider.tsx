@@ -8,7 +8,7 @@ import {
 	type ResponseFileItem,
 	type UploadingFileState,
 } from '@atlaskit/media-client';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
 	createEmptyFileItem,
 	createErrorFileState,

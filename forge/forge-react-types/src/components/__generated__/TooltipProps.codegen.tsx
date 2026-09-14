@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformTooltip from '@atlaskit/tooltip';
+import PlatformTooltip from '@atlaskit/tooltip/Tooltip';
 
 type PlatformTooltipProps = React.ComponentProps<typeof PlatformTooltip>;
 

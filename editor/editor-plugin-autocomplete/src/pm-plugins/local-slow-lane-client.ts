@@ -5,11 +5,9 @@
  * a backend API, this client runs two models in the browser via WebGPU, in a
  * single MLCEngine, to reproduce the BE encoder's outputs on-device:
  *
- *   - Causal LM (SmolLM2-135M-Instruct): one decode step per word boundary. A
- *     registered LogitProcessor captures the raw next-token logits, which
- *     `computeBePayload` turns into a whole-word `lm_logits` payload — a faithful
- *     port of the BE `CausalLMEncoder._get_top_k_probs` (masked softmax over the
- *     vocab's first-tokens, prefix expansion, L2 reservation, log-space pooling).
+ *   - Causal LM (SmolLM2-135M-Instruct): context-keyed one-step boundary primes
+ *     provide canonical first-token logits. A persistent token-prefix scheduler
+ *     expands shared paths and exact-scores only plausible finalists.
  *   - Semantic embedder (Snowflake Arctic Embed S): produces the real 384-d
  *     `semantic_vector`. Inputs are wrapped as passages (see `wrapForArctic`) so
  *     the runtime vector lands in the same space as the precomputed word bin.
@@ -19,7 +17,7 @@
  * the main thread is viable:
  *
  *   - WebGPU GPU compute is inherently async (doesn't block the main thread)
- *   - CPU overhead (BE-parity post-processing) is a few ms
+ *   - CPU overhead for named-token reads and cache bookkeeping is small
  *   - Per-inference latency is well within autocomplete expectations
  *     (~250 ms between word boundaries)
  *
@@ -30,20 +28,71 @@
  *   - Standard npm import — just works
  *
  * ── Interface ────────────────────────────────────────────────────────────
- * Same shape as createSlowLaneClient so text-predictor.ts needs zero changes.
- * The client exposes getContextVector() and getLmLogits() which are populated
- * asynchronously after each updateContext() call.
+ * Same base shape as createSlowLaneClient, plus on-device canonical-surface
+ * scoring. Semantic updates remain word-boundary timed; causal work is requested
+ * independently for exact pre-surface contexts.
  */
 
-import type { MLCEngine, InitProgressReport, AppConfig, LogitProcessor } from '@mlc-ai/web-llm';
+import type { AppConfig, InitProgressReport, MLCEngine } from '@mlc-ai/web-llm';
 
 import { abortExp, EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
 
-import { isAutocompleteDebugEnabled } from './debug-mode';
+import { fetchAutocompleteArtifactJson } from './artifact-loader';
+import { ARTIFACT_NAME } from './artifacts-manifest';
+import {
+	CanonicalLogitProcessor,
+	CanonicalSurfaceTokenTrie,
+	logSoftmaxAt,
+	logSumExp,
+	type BoundaryLmState,
+	type BoundaryPrimeRequest,
+	type ProgressiveSurfaceEvidence,
+	type SurfaceScore,
+	type SurfaceScoreRequest,
+	type TokenPrefixExpansion,
+} from './canonical-lm-scoring';
+import { CTC_STYLES, isAutocompleteDebugEnabled, isAutocompleteDebugVerbose } from './debug-mode';
+import { MIN_WINNER_MARGIN, STAGE1_WEIGHT, STAGE2_WEIGHT } from './scoring-pipeline';
 import { isWordBoundary } from './slow-lane-client';
 
 type WebLlmModelRecord = NonNullable<AppConfig['model_list']>[number];
 type EmbeddingApiResponse = { data?: Array<{ embedding?: unknown }> };
+/** Which of the two causal-LM call shapes a measurement or log line describes. */
+type CausalInferenceKind = 'boundary' | 'prefix';
+
+interface CausalInferenceAggregate {
+	e2eLatencyMs: number;
+	failedRequests: number;
+	firstStartedAt: number;
+	promptTokens: number;
+	promptUsageSamples: number;
+	requestedCompletionTokens: number;
+	requests: number;
+	sampledOutputTokens: number;
+	timeToFirstTokenMs: number;
+	wallClockMs: number;
+	webLlmDecodeSteps: number;
+	webLlmUsageSamples: number;
+}
+
+interface CausalInferenceMeasurement {
+	contextKey: string;
+	decodeTokensPerSecond: number | null;
+	e2eLatencyMs: number | null;
+	familyKey: string;
+	kind: CausalInferenceKind;
+	outcome: 'completed' | 'failed';
+	prefillTokensPerSecond: number | null;
+	promptTokens: number | null;
+	promptWords: number;
+	requestedCompletionTokens: number;
+	sampledOutputTokens: number | null;
+	timePerDecodeTokenMs: number | null;
+	timeToFirstTokenMs: number | null;
+	wallClockMs: number;
+	warmState: 'cold-first-call' | 'warm';
+	webLlmDecodeSteps: number | null;
+}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -73,12 +122,21 @@ export interface LocalSlowLaneClientConfig {
 	 * `customModelConfig` with the model URL and WASM library URL.
 	 */
 	modelId?: string;
+	/** Callback fired when a context-keyed Tier-A raw-logit vector is available. */
+	onBoundaryLmUpdate?: (opts: { contextKey: string; familyKey: string; latencyMs: number }) => void;
 	/** Callback fired when the engine fails to load/start. */
 	onLoadError?: (error: LocalSlowLaneLoadError) => void;
 	/** Callback fired when the engine successfully loads and is ready. */
 	onLoadSuccess?: (info: LocalSlowLaneLoadSuccess) => void;
 	/** Callback fired with status messages (model loading progress, etc.). */
 	onStatus?: (message: string) => void;
+	/** Callback fired when grouped progress or exact surface scores become available. */
+	onSurfaceScoreUpdate?: (opts: {
+		contextKey: string;
+		count: number;
+		familyKey: string;
+		latencyMs: number;
+	}) => void;
 	/** Callback fired when inference returns new results. */
 	onUpdate?: (opts: { hasLmLogits: boolean; hasVector: boolean; textLength: number }) => void;
 	/** Product/editor surface where autocomplete runs. */
@@ -89,11 +147,22 @@ export interface LocalSlowLaneClientConfig {
 export interface LocalSlowLaneClient {
 	/** Clean up resources. */
 	destroy: () => void;
+	getBoundaryLmState: (contextKey: string) => BoundaryLmState | null;
+	getCanonicalSurfaceCount: () => number;
+	getCanonicalSurfaceTokenIds: (surface: string) => number[] | null;
+	getContextInput: () => string | null;
 	getContextVector: () => Float32Array | null;
 	getLmLogits: () => Record<string, number> | null;
+	getProgressiveSurfaceEvidence: (
+		contextKey: string,
+		surface: string,
+	) => ProgressiveSurfaceEvidence | null;
+	getSurfaceScore: (contextKey: string, surface: string) => SurfaceScore | null;
 	/** Whether the model is loaded and ready for inference. */
 	isReady: () => boolean;
 	isWordBoundary: (text: string) => boolean;
+	primeBoundaryLm: (input: BoundaryPrimeRequest) => void;
+	requestProgressiveSurfaceScores: (input: SurfaceScoreRequest) => void;
 	setContextVector: (vector: Float32Array | null) => void;
 	setLmLogits: (logits: Record<string, number> | null) => void;
 	updateContext: (text: string) => void;
@@ -207,21 +276,7 @@ export const LOCAL_MLC_EMBEDDING_MODEL_ID = 'snowflake-arctic-embed-s-q0f32-MLC-
  */
 export const wrapForArctic = (text: string): string => `[CLS] ${text} [SEP]`;
 
-/**
- * BE-parity constants — must match `CausalLMEncoder` defaults in the Python
- * sidecar (`cc-smarts/python-sidecar/src/causal_lm_encoder.py`) and
- * `SlowLaneEngine` (`typeahead_context_encoding.py`) so local payloads behave
- * identically to the server-client setup.
- */
-export const BE_PARITY = {
-	/** Final payload size cap (BE: `top_k_words`). */
-	TOP_K_WORDS: 2000,
-	/** L2 (domain) words admitted unconditionally before pooling (BE: `reserved_l2_slots`). */
-	RESERVED_L2_SLOTS: 500,
-	/** Log-space additive bias favouring L2 over L3 in the pool (BE: `l2_bias`). */
-	L2_BIAS: 1.0,
-	/** Drop words below this probability from the final payload (BE: `> 0.00001`). */
-	MIN_PROB: 0.00001,
+export const LOCAL_INFERENCE = {
 	/**
 	 * Word-level approximation of the BE causal LM token limit.
 	 *
@@ -242,6 +297,73 @@ export const BE_PARITY = {
 	 */
 	MAX_CONTEXT_WORDS: 100,
 } as const;
+
+export const CANONICAL_SCORING = {
+	/**
+	 * How many contexts keep their prefilled state before the oldest is dropped.
+	 *
+	 * Sizes every context-keyed cache together on purpose: an expansion needs
+	 * both the boundary logits and the candidate list to still be resident, so
+	 * bounding them separately would evict half of a context and strand the
+	 * other half.
+	 *
+	 * The context of a keystroke is the text *before* the word being typed,
+	 * which does not change while that word is typed, so one word should cost
+	 * one prefill and then hit. Measured hit rate was 45% over the first 84s of
+	 * a session and 24% over the following four minutes, well short of that, and
+	 * prompt prefills per decision rose 0.80 → 1.25 across the same split while
+	 * cost per prefill stayed flat. Contexts were being dropped while still live.
+	 *
+	 * A boundary entry holds a `Float32Array` over the 49,152-token vocabulary,
+	 * so each one is ~192KB and this bound is the dominant term in the scorer's
+	 * footprint: ~24MB resident here, against ~6MB at the 32 this replaced. That
+	 * cost is what kept the bound low, not a hit rate anyone had measured.
+	 */
+	BOUNDARY_CACHE_MAX: 128,
+	EXACT_MAX_TARGET_TOKENS: 8,
+	PREFIX_CACHE_MAX: 256,
+	/**
+	 * How many candidates compete for expansion in one context.
+	 *
+	 * Each distinct token prefix among them is a separate branch, and a branch
+	 * the engine is not already standing on costs a prompt prefill before its
+	 * first decode. A wide field therefore spreads a decision's round trips
+	 * across candidates and finishes none of them inside the budget.
+	 */
+	PROGRESSIVE_CANDIDATES_MAX: 8,
+	/**
+	 * Ceiling on distinct token prefixes explored per context.
+	 *
+	 * Raising this to 8 to give long surfaces more room did the opposite: model
+	 * calls per decision went 2.35 → 4.32, the warm-KV extend share fell 40% →
+	 * 31% as the extra branches displaced the live path, the prefix queue backed
+	 * up to 29 deep, and acceptances per thousand decisions fell 9.3 → 6.7. No
+	 * phrase was shown either way, so breadth was never the binding constraint.
+	 *
+	 * What blocked them then was normalisation against a short word's per-token
+	 * mean, which has since been replaced by a posterior over sequence
+	 * log-likelihoods. That removes the bias towards short surfaces but does not
+	 * by itself make phrases reachable: a longer surface is strictly less likely
+	 * than a shorter one, so a phrase sharing a shortlist with a unigram still
+	 * holds little of its mass. Whether the remaining gap is the threshold or the
+	 * comparison is still open.
+	 */
+	PROGRESSIVE_EXPANSIONS_PER_CONTEXT_MAX: 4,
+	PROGRESSIVE_INPUT_MAX: 400,
+	SURFACE_CACHE_MAX: 128,
+	TIER_A_PRIMES_MAX: 3,
+} as const;
+/**
+ * How much optimistic score we give up to stay on the warm KV path.
+ *
+ * Expanding a prefix the cache already holds costs one decode step, while
+ * branching to any other prefix costs a full prompt prefill first. Measured,
+ * that is about 30ms against about 66ms, so continuing the live path is worth
+ * roughly half a round trip and the margin has to be wide enough to reflect
+ * that. At the previous 0.05 almost any ranking difference was enough to
+ * abandon the sequence, and 70% of expansions ended up re-prefilling.
+ */
+const PROGRESSIVE_WARM_PATH_MARGIN = 0.25;
 
 const splitOnWhitespace = (text: string): string[] => {
 	const trimmed = text.trim();
@@ -282,357 +404,67 @@ const truncateToLastNWords = (text: string, n: number): string => {
 	return words.length <= n ? text : words.slice(-n).join(' ');
 };
 
-// ─── Logit capture ─────────────────────────────────────────────────────────
-
 /**
- * A LogitProcessor that captures the raw next-token logits and passes them
- * through unmodified.
- *
- * web-llm invokes `processLogits` on the CPU after the model's forward pass and
- * before sampling, handing us the full `Float32Array(vocab_size)` at the current
- * decode position. We copy it off web-llm's shared buffer (which it may reuse
- * across calls) and return the original untouched so sampling is unaffected.
- *
- * This is the raw-logit access the BE-parity algorithm needs (masked softmax +
- * prefix expansion, consumed in a later step). Registered for the causal LM
- * only — the embedder never decodes tokens, so it produces no logits.
+ * Full canonical leading-space token sequence for every served surface. The
+ * producer keeps the existing `phrase-continuation-tokens.json` wire name while
+ * expanding its key set to the complete word/bigram/phrase union.
  */
-class CapturingLogitProcessor implements LogitProcessor {
-	captured: Float32Array | null = null;
-
-	processLogits = (logits: Float32Array): Float32Array => {
-		// Copy off web-llm's shared buffer — it may reuse `logits` across calls.
-		this.captured = new Float32Array(logits);
-		return logits;
-	};
-
-	processSampledToken = (): void => {
-		// No-op — we don't track sampled tokens.
-	};
-
-	resetState = (): void => {
-		this.captured = null;
-	};
-}
-
-// ─── BE-parity data + algorithm ──────────────────────────────────────────────
-
-/**
- * Prefix-expansion map: first-token id → words whose space-prefixed SmolLM2
- * encoding starts with that token. Generated offline by
- * `scripts/gen_first_token_to_words.py`, which mirrors the BE's in-memory map
- * (`CausalLMEncoder._ensure_loaded`).
- *
- * Populated lazily by `loadBePayloadData()` from a dynamically-imported JSON so
- * the (large) payload is only fetched when the local client is actually
- * initialised — keeping it out of the editor's main chunk for the vast majority
- * of users (who run with `useLocalModel` off).
- */
-let firstTokenToWords: Map<number, string[]> = new Map();
-
-/**
- * L2 (Atlassian-domain) word set, derived from the keys of `vocabulary_10k.json`.
- * Used by `computeBePayload` for tier-aware ranking: any word in the prefix map
- * that is not in this set is treated as L3 (general English), matching the BE.
- * Populated lazily alongside `firstTokenToWords` — see `loadBePayloadData()`.
- */
-let l2Words: Set<string> = new Set();
-
-/**
- * Array of token IDs that appear as a first token for at least one vocabulary
- * word. Derived from `firstTokenToWords` when the data loads so `computeBePayload`
- * does not re-allocate this array on every word-boundary call.
- */
-let prefixMapTokenIds: number[] = [];
+let surfaceTokenIds: Map<string, number[]> = new Map();
+let surfaceTokenTrie = new CanonicalSurfaceTokenTrie();
 
 /** De-dupes concurrent loads and lets repeated calls await the same payload. */
-let bePayloadDataPromise: Promise<void> | undefined;
+let surfaceTokenIdsPromise: Promise<void> | undefined;
 
-/**
- * Unwrap a dynamically imported JSON module to the parsed JSON value, working
- * across the two interop modes AFM's bundler chain emits:
- *
- *   1. **`.default`-wrapped namespace** — classic webpack (and Jest) hang the
- *      JSON value under the `default` export.
- *   2. **Named-exports namespace** — webpack 5 / atlaspack with JSON
- *      named-exports (or native ESM JSON modules) expose each top-level key as
- *      a named export and shadow `default`, so `mod.default` can be `undefined`
- *      (or some unrelated value) even though `mod` itself holds the data.
- *
- * The caller MUST declare the underlying JSON shape via `shape` because, in
- * named-exports mode, a dense array `["a","b"]` and a sparse numeric-keyed
- * object `{"5":"a","12":"b"}` are emitted identically (`{"0":..}` / `{"5":..}`);
- * no runtime heuristic can tell them apart, so only the caller knows which:
- *
- *   - `'object'` — the JSON is a `{...}` (including sparse maps keyed by integer
- *     IDs). The named exports are rebuilt into a plain object so `Object.entries`
- *     yields the real keys, not synthetic array indices.
- *   - `'array'` — the JSON is a `[...]`, reconstructed from the `0..n-1` indices.
- *
- * :param mod: The raw module object returned by `await import('./*.json')`.
- * :param shape: `'object'` if the source JSON is `{...}`, `'array'` if `[...]`.
- * :returns: The parsed JSON value, or `null` if neither interop mode applies.
- */
-function unwrapJsonModule<T>(mod: unknown, shape: 'object' | 'array'): T | null {
-	if (mod == null || typeof mod !== 'object') {
-		return null;
+const isPhraseContinuationTokens = (payload: unknown): payload is Record<string, number[]> => {
+	if (payload == null || typeof payload !== 'object') {
+		return false;
 	}
-	const namespace = mod as Record<string, unknown> & { default?: unknown };
+	return Object.values(payload as Record<string, unknown>).every(
+		(value) =>
+			Array.isArray(value) && value.every((entry) => typeof entry === 'number' && entry >= 0),
+	);
+};
 
-	// Compute the named-export own-keys (strip synthetic markers).
-	const ownKeys = Object.keys(namespace).filter((k) => k !== 'default' && k !== '__esModule');
+/** Lazily load the producer's full-union canonical surface token map. */
+const loadCanonicalSurfaceTokens = (): Promise<void> => {
+	if (!surfaceTokenIdsPromise) {
+		surfaceTokenIdsPromise = (async () => {
+			const continuationTokensData = await fetchAutocompleteArtifactJson<Record<string, number[]>>(
+				ARTIFACT_NAME.PHRASE_CONTINUATION_TOKENS,
+				{
+					summarize: (payload) => `${Object.keys(payload).length} surfaces`,
+					validate: isPhraseContinuationTokens,
+				},
+			).catch(() => null);
 
-	// PREFER named exports when present — they always reflect the JSON's real
-	// top-level keys / indices, regardless of what `default` happens to be.
-	// Under JSON named-exports mode `default` is not necessarily the parsed
-	// value (e.g. for `{"service": 0, ...}` it can be the number `0`, with the
-	// real data in the named exports), so taking `default` first would corrupt it.
-	if (ownKeys.length > 0) {
-		if (shape === 'array') {
-			// JSON arrays are dense; reconstruct from `0..length-1` indices.
-			const len = ownKeys.length;
-			const arr = new Array(len);
-			for (let i = 0; i < len; i++) {
-				arr[i] = namespace[String(i)];
-			}
-			return arr as T;
-		}
-		// shape === 'object'. Rebuild a plain object from the (stripped) own
-		// keys so callers can `Object.entries()` it without iterating over
-		// `default` / `__esModule`, and to detach from the module-namespace
-		// object (which is sealed/non-extensible on some bundler outputs).
-		const obj: Record<string, unknown> = {};
-		for (const k of ownKeys) {
-			obj[k] = namespace[k];
-		}
-		return obj as T;
-	}
-
-	// Fallback: no named exports — classic webpack JSON-module interop where
-	// the whole parsed JSON value is hung under `default`. Trust it.
-	if ('default' in namespace && namespace.default != null) {
-		return namespace.default as T;
-	}
-
-	return null;
-}
-
-/**
- * Lazily load and build the BE-parity lookup tables from their JSON payloads.
- * The dynamic imports are split into their own async chunks so neither file is
- * bundled into the editor's main chunk unless local inference is initialised.
- *
- * :returns:
- *   A promise that resolves once `firstTokenToWords`, `l2Words` and
- *   `prefixMapTokenIds` are populated.
- */
-const loadBePayloadData = (): Promise<void> => {
-	if (!bePayloadDataPromise) {
-		bePayloadDataPromise = (async () => {
-			const [firstTokenToWordsModule, vocabularyModule] = await Promise.all([
-				import(
-					/* webpackChunkName: "@atlaskit-internal_editor-plugin-autocomplete-first-token-to-words" */ './data/first_token_to_words.json'
-				),
-				import(
-					/* webpackChunkName: "@atlaskit-internal_editor-plugin-autocomplete-vocabulary-10k" */ './data/vocabulary_10k.json'
-				),
-			]);
-
-			const firstTokenToWordsData = unwrapJsonModule<Record<string, string[]>>(
-				firstTokenToWordsModule,
-				'object',
+			surfaceTokenIds = new Map(
+				Object.entries(continuationTokensData ?? {}).map(([surface, tokenIds]) => [
+					surface.toLowerCase(),
+					tokenIds,
+				]),
 			);
-			const vocabularyData = unwrapJsonModule<{ words: Record<string, unknown> }>(
-				vocabularyModule,
-				'object',
-			);
-
-			if (firstTokenToWordsData == null || vocabularyData?.words == null) {
-				// Hard-fail with a precise message so the catch() in initEngine logs
-				// exactly which import couldn't be unwrapped, rather than the generic
-				// V8 "Cannot convert undefined or null to object" we hit before the
-				// helper was added.
-				throw new Error(
-					`[LocalSlowLane] JSON module could not be unwrapped — ` +
-						`firstTokenToWordsData=${firstTokenToWordsData == null ? 'null/undefined' : 'defined'}, ` +
-						`vocabularyData=${vocabularyData == null ? 'null/undefined' : vocabularyData.words == null ? 'defined but missing .words' : 'defined'}`,
-				);
-			}
-
-			firstTokenToWords = new Map(
-				Object.entries(firstTokenToWordsData).map(([tokenId, words]) => [Number(tokenId), words]),
-			);
-			l2Words = new Set(Object.keys(vocabularyData.words));
-			prefixMapTokenIds = Array.from(firstTokenToWords.keys());
+			surfaceTokenTrie = new CanonicalSurfaceTokenTrie(surfaceTokenIds.entries());
 
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
-					'%c[LocalSlowLane] %c✅ BE-parity payload data loaded:',
+					`%c[CTC:model] %c${surfaceTokenIds.size > 0 ? '✅ canonical surface tokens loaded:' : '⚠️ canonical surface tokens unavailable — LM evidence will remain absent:'}`,
 					'color: #9c27b0; font-weight: bold;',
-					'color: #4caf50; font-weight: bold;',
-					{
-						firstTokenToWordsEntries: firstTokenToWords.size,
-						l2WordsCount: l2Words.size,
-						prefixMapTokenIdsLength: prefixMapTokenIds.length,
-					},
+					surfaceTokenIds.size > 0
+						? 'color: #4caf50; font-weight: bold;'
+						: 'color: #ff9800; font-weight: bold;',
+					{ surfaces: surfaceTokenIds.size },
 				);
 			}
 		})().catch((e) => {
 			// Don't cache a rejected promise — a transient import failure would
 			// otherwise prevent the local model from ever initialising again this
 			// session. Reset so the next init attempt retries.
-			bePayloadDataPromise = undefined;
+			surfaceTokenIdsPromise = undefined;
 			throw e;
 		});
 	}
-	return bePayloadDataPromise;
-};
-
-/**
- * Convert a raw next-token logit vector into a whole-word probability payload,
- * faithfully porting the BE `CausalLMEncoder._get_top_k_probs`
- * (`cc-smarts/python-sidecar/src/causal_lm_encoder.py`).
- *
- * Steps: (1) numerically-stable masked softmax over only the token ids present
- * in the prefix-expansion map; (2) spread each token's probability to every
- * whole word sharing that first token, taking the max; (3) reserve the top L2
- * words unconditionally; (4) rank the remainder in a log-space pool with an
- * additive L2 bias; (5) emit raw probabilities for the survivors, lowercased
- * and trimmed at `MIN_PROB`.
- *
- * :params:
- *   rawLogits: Full-vocabulary logits from the LM's single decode step
- *   prefixMap: Map of first-token id to the words starting with that token
- *   domainWords: Set of L2 (domain) words, for tier-aware ranking
- * :returns:
- *   A record of lowercase word to probability — the BE `lm_logits` payload
- */
-export const computeBePayload = (
-	rawLogits: Float32Array,
-	prefixMap: Map<number, string[]>,
-	domainWords: Set<string>,
-	/**
-	 * Pre-derived token-ID array for the softmax mask. Defaults to the
-	 * module-level `prefixMapTokenIds` (zero allocation in production). Pass
-	 * `Array.from(prefixMap.keys())` in tests that supply a custom prefixMap so
-	 * the softmax mask stays consistent with the iteration in Step 2.
-	 */
-	validTokenIds: number[] = prefixMapTokenIds,
-): Record<string, number> => {
-	// 1. Numerically-stable masked softmax over validTokenIds only.
-	let maxLogit = -Infinity;
-	for (const id of validTokenIds) {
-		const v = rawLogits[id];
-		if (v > maxLogit) {
-			maxLogit = v;
-		}
-	}
-	let sumExp = 0;
-	const expByToken = new Map<number, number>();
-	for (const id of validTokenIds) {
-		const e = Math.exp(rawLogits[id] - maxLogit);
-		expByToken.set(id, e);
-		sumExp += e;
-	}
-
-	// 2. Prefix expansion with max aggregation (probabilities sum to 1 over the
-	//    masked subset, so divide each token's exp by sumExp on the fly).
-	const wordProbs = new Map<string, number>();
-	for (const [id, words] of prefixMap) {
-		const p = sumExp > 0 ? (expByToken.get(id) ?? 0) / sumExp : 0;
-		for (const w of words) {
-			const prev = wordProbs.get(w) ?? 0;
-			if (p > prev) {
-				wordProbs.set(w, p);
-			}
-		}
-	}
-
-	// 3. Split into L2 / L3 and reserve the top L2 slots unconditionally.
-	const l2Matches: Array<[string, number]> = [];
-	const l3Matches: Array<[string, number]> = [];
-	for (const [w, p] of wordProbs) {
-		if (domainWords.has(w)) {
-			l2Matches.push([w, p]);
-		} else {
-			l3Matches.push([w, p]);
-		}
-	}
-	l2Matches.sort((a, b) => b[1] - a[1]);
-	const reserved = l2Matches.slice(0, BE_PARITY.RESERVED_L2_SLOTS);
-
-	// 4. Pool the leftovers in log space; the L2 bias only affects ranking here.
-	// Words in l2Matches are unique and the array is sorted descending, so the
-	// non-reserved entries are exactly the tail after the reserved prefix — slice
-	// it directly rather than allocating a Set and scanning every entry on this
-	// hot path (runs ~every word boundary while typing).
-	const pool: Array<[string, number]> = [];
-	for (const [w, p] of l2Matches.slice(BE_PARITY.RESERVED_L2_SLOTS)) {
-		pool.push([w, Math.log(Math.max(p, 1e-10)) + BE_PARITY.L2_BIAS]);
-	}
-	for (const [w, p] of l3Matches) {
-		pool.push([w, Math.log(Math.max(p, 1e-10))]);
-	}
-	pool.sort((a, b) => b[1] - a[1]);
-	const remainingSlots = Math.max(0, BE_PARITY.TOP_K_WORDS - reserved.length);
-	const poolWinners = pool.slice(0, remainingSlots);
-
-	// 5. Assemble payload: store RAW probabilities (the bias was ranking-only),
-	// lowercase keys, trimmed at MIN_PROB. Reserved first, then pool winners.
-	// Reserved entries are written first; pool-winner writes must NOT clobber a
-	// reserved entry whose normalised key collides (two source words can
-	// `.trim().toLowerCase()` to the same key — e.g. "Function" vs "function ").
-	// Without the existence guard, a low-probability pool winner would silently
-	// overwrite the (higher-probability) reserved entry, degrading top-K
-	// quality in a way that's invisible from the debug summary.
-	const result: Record<string, number> = {};
-	const addEntry = (word: string, prob: number, allowOverwrite: boolean): void => {
-		if (prob <= BE_PARITY.MIN_PROB) {
-			return;
-		}
-		const key = word.trim().toLowerCase();
-		if (!allowOverwrite && key in result) {
-			return;
-		}
-		result[key] = prob;
-	};
-	for (const [w, p] of reserved) {
-		addEntry(w, p, true);
-	}
-	for (const [w] of poolWinners) {
-		addEntry(w, wordProbs.get(w) ?? 0, false);
-	}
-
-	if (isAutocompleteDebugEnabled()) {
-		const topReserved = reserved
-			.slice(0, 5)
-			.map(([w, p]) => `${w}:${(p * 100).toFixed(2)}%`)
-			.join(', ');
-		const topPool = poolWinners
-			.slice(0, 5)
-			.map(([w]) => `${w}:${((wordProbs.get(w) ?? 0) * 100).toFixed(2)}%`)
-			.join(', ');
-		// eslint-disable-next-line no-console
-		console.log(
-			'%c[computeBePayload] %c%d valid tokens → %d words expanded | L2: %d / L3: %d | reserved: %d | pool winners: %d | final: %d words\n  maxLogit(masked): %s | sumExp: %s\n  top reserved L2: %s\n  top pool: %s',
-			'color: #9c27b0; font-weight: bold;',
-			'color: inherit;',
-			validTokenIds.length,
-			wordProbs.size,
-			l2Matches.length,
-			l3Matches.length,
-			reserved.length,
-			poolWinners.length,
-			Object.keys(result).length,
-			maxLogit.toFixed(3),
-			sumExp.toFixed(1),
-			topReserved || '(none)',
-			topPool || '(none)',
-		);
-	}
-
-	return result;
+	return surfaceTokenIdsPromise;
 };
 
 // ─── Factory ─────────────────────────────────────────────────────────────────
@@ -648,9 +480,8 @@ export const computeBePayload = (
  * const client = createLocalSlowLaneClient({ debounceMs: 300 });
  * // On word boundaries:
  * client.updateContext(docText);
- * // In scoring pipeline:
- * const vec = client.getContextVector();
- * const logits = client.getLmLogits();
+ * // Candidate scoring independently calls
+ * // primeBoundaryLm/requestProgressiveSurfaceScores.
  * // On plugin teardown:
  * client.destroy();
  * ```
@@ -661,6 +492,8 @@ export const createLocalSlowLaneClient = (
 	const {
 		debounceMs = DEFAULT_DEBOUNCE_MS,
 		onUpdate,
+		onBoundaryLmUpdate,
+		onSurfaceScoreUpdate,
 		onStatus,
 		onLoadError,
 		onLoadSuccess,
@@ -670,8 +503,58 @@ export const createLocalSlowLaneClient = (
 	} = config;
 
 	// ── State ──────────────────────────────────────────────────────────────
+	let storedContextInput: string | null = null;
 	let storedContextVector: Float32Array | null = null;
 	let storedLmLogits: Record<string, number> | null = null;
+	const boundaryCache = new Map<string, BoundaryLmState>();
+	const prefixExpansionCache = new Map<string, TokenPrefixExpansion>();
+	const surfaceScoreCache = new Map<string, SurfaceScore>();
+	let causalInFlight = false;
+	let inFlightBoundaryContextKey: string | null = null;
+	let latestCausalFamilyKey = '';
+	let causalRequestsThisFamily = 0;
+	let causalGeneratedTokensThisFamily = 0;
+	let tierAPrimeCacheHitsThisFamily = 0;
+	let tierAPrimeCacheMissesThisFamily = 0;
+	let causalInferenceOrdinal = 0;
+	const causalInferenceByContext = new Map<string, CausalInferenceAggregate>();
+	const causalInferenceByFamily = new Map<string, CausalInferenceAggregate>();
+	const exactEvidenceCountByContext = new Map<string, number>();
+	const pendingBoundaryPrimes = new Map<string, BoundaryPrimeRequest>();
+	interface PrefixExpansionRequest {
+		contextKey: string;
+		familyKey: string;
+		prompt: string;
+		surfaces: string[];
+		tokenPrefix: number[];
+	}
+	const pendingPrefixExpansions = new Map<string, PrefixExpansionRequest>();
+	const inFlightPrefixExpansions = new Set<string>();
+	// The engine holds exactly one linear KV sequence. WebLLM lets us extend it
+	// (`forwardTokensAndSample`) or drop it (a text completion always resets
+	// first), but never fork or rewind it. Tracking what is currently
+	// materialised is what makes decoding continuous: expanding a token prefix
+	// that extends `kvPath` costs a single decode step, while any other prefix
+	// costs a fresh prompt prefill.
+	let kvContextKey: string | null = null;
+	let kvPath: number[] = [];
+
+	const isPrefixOf = (prefix: number[], path: number[]): boolean =>
+		prefix.length <= path.length && prefix.every((token, index) => token === path[index]);
+	/**
+	 * Whether running this expansion would extend the sequence the engine is
+	 * already holding rather than discarding it for a fresh prompt prefill.
+	 *
+	 * `planProgressiveExpansion` also prefers a warm group, but it decides when
+	 * the work is queued and the queue is drained later. A boundary prime or
+	 * another context's expansion running in between moves the path out from
+	 * under that choice, so the preference has to be re-checked at the moment
+	 * something is picked up.
+	 */
+	const extendsLiveKvPath = (request: PrefixExpansionRequest): boolean =>
+		kvContextKey === request.contextKey && isPrefixOf(kvPath, request.tokenPrefix);
+	const progressiveRequests = new Map<string, SurfaceScoreRequest>();
+	const progressivePrefixesByContext = new Map<string, Set<string>>();
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let lastRequestedText = '';
 	let requestCounter = 0;
@@ -689,16 +572,14 @@ export const createLocalSlowLaneClient = (
 	let initFailed = false;
 	let engine: MLCEngine | null = null;
 	let engineInitPromise: Promise<void> | null = null;
-	// Captures raw next-token logits from the LM's single decode step. Registered
-	// with the engine below; `lmLogitsCapture.captured` is consumed in a later step.
-	const lmLogitsCapture = new CapturingLogitProcessor();
+	const causalLogitProcessor = new CanonicalLogitProcessor();
 
 	const unloadEngine = (engineToUnload: MLCEngine): void => {
 		engineToUnload.unload().catch((error: unknown) => {
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
-					'%c[LocalSlowLane] %cFailed to unload engine',
+					'%c[CTC:model] %cFailed to unload engine',
 					'color: #9c27b0; font-weight: bold;',
 					'color: inherit;',
 					error,
@@ -714,7 +595,7 @@ export const createLocalSlowLaneClient = (
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
 			console.log(
-				`%c[LocalSlowLane] %c🔄 ${message}`,
+				`%c[CTC:model] %c🔄 ${message}`,
 				'color: #9c27b0; font-weight: bold;',
 				'color: inherit;',
 			);
@@ -826,7 +707,7 @@ export const createLocalSlowLaneClient = (
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
 			console.log(
-				`[LocalSlowLane] Engine initialisation failed (${reason}): ${debugDetail ?? message}`,
+				`[CTC:model] Engine initialisation failed (${reason}): ${debugDetail ?? message}`,
 			);
 		}
 		onStatus?.(`Engine initialisation failed: ${message}`);
@@ -864,20 +745,20 @@ export const createLocalSlowLaneClient = (
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
-					`%c[LocalSlowLane] %c🚀 Initialising MLC engine with models: ${modelId} (LM) + ${LOCAL_MLC_EMBEDDING_MODEL_ID} (embedder)`,
+					`%c[CTC:model] %c🚀 Initialising MLC engine with models: ${modelId} (LM) + ${LOCAL_MLC_EMBEDDING_MODEL_ID} (embedder)`,
 					'color: #9c27b0; font-weight: bold;',
 					'color: inherit;',
 				);
 			}
 			onStatus?.(`Initialising models: ${modelId} + ${LOCAL_MLC_EMBEDDING_MODEL_ID}…`);
 
-			// Fetch the web-llm runtime and the BE-parity lookup tables in parallel;
+			// Fetch the web-llm runtime and canonical token artifact in parallel;
 			// both are dynamically imported so they stay out of the main editor chunk.
 			const [{ MLCEngine: MLCEngineCtor, prebuiltAppConfig }] = await Promise.all([
 				import(
 					/* webpackChunkName: "@atlaskit-internal_editor-plugin-autocomplete-mlc-web-llm" */ '@mlc-ai/web-llm'
 				),
-				loadBePayloadData(),
+				loadCanonicalSurfaceTokens(),
 			]);
 
 			const customModelRecord: WebLlmModelRecord | undefined = customModelConfig
@@ -915,7 +796,7 @@ export const createLocalSlowLaneClient = (
 			const newEngine = new MLCEngineCtor({
 				appConfig,
 				initProgressCallback,
-				logitProcessorRegistry: new Map([[modelId, lmLogitsCapture]]),
+				logitProcessorRegistry: new Map([[modelId, causalLogitProcessor]]),
 			});
 
 			await newEngine.reload([modelId, LOCAL_MLC_EMBEDDING_MODEL_ID]);
@@ -933,7 +814,7 @@ export const createLocalSlowLaneClient = (
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
-					'%c[LocalSlowLane] %c✅ Both models loaded and ready',
+					'%c[CTC:model] %c✅ Both models loaded and ready',
 					'color: #9c27b0; font-weight: bold;',
 					'color: #4caf50;',
 				);
@@ -941,14 +822,14 @@ export const createLocalSlowLaneClient = (
 				// without digging through the init-progress scroll.
 				// eslint-disable-next-line no-console
 				console.log(
-					'%c[LocalSlowLane] %c🧠 Causal LM    →',
+					'%c[CTC:model] %c🧠 Causal LM    →',
 					'color: #9c27b0; font-weight: bold;',
 					'color: #2196f3; font-weight: bold;',
 					modelId,
 				);
 				// eslint-disable-next-line no-console
 				console.log(
-					'%c[LocalSlowLane] %c🔢 Embedder     →',
+					'%c[CTC:model] %c🔢 Embedder     →',
 					'color: #9c27b0; font-weight: bold;',
 					'color: #009688; font-weight: bold;',
 					LOCAL_MLC_EMBEDDING_MODEL_ID,
@@ -979,17 +860,7 @@ export const createLocalSlowLaneClient = (
 
 	// ── Inference ──────────────────────────────────────────────────────────
 
-	/**
-	 * Run a single forward pass to produce the BE-parity slow-lane outputs.
-	 *
-	 * Two calls run in parallel on the shared engine:
-	 *   - `completions.create({ max_tokens: 1 })` runs the causal LM for exactly
-	 *     one decode step. We ignore the generated text; the LogitProcessor
-	 *     captures the raw next-token logits during that step, which we turn into
-	 *     a whole-word payload via `computeBePayload`.
-	 *   - `embeddings.create(...)` runs the Arctic embedder to produce the real
-	 *     384-d semantic vector (passage-encoded; see `wrapForArctic`).
-	 */
+	/** Run the boundary-timed Arctic semantic inference independently of the LM. */
 	const runInference = async (text: string, requestId: number): Promise<void> => {
 		if (!engine || destroyed) {
 			return;
@@ -997,41 +868,15 @@ export const createLocalSlowLaneClient = (
 
 		const experienceId = String(requestId);
 
-		// Clear the capture buffer so we read only this pass's logits. The engine
-		// serialises per-model requests and updateContext is debounced, so the
-		// latest request's decode step is the last to populate `captured` before
-		// we read it below; stale requests bail on the latestRequestId guard.
-		lmLogitsCapture.resetState();
-
-		// Apply BE-parity rolling-window truncation before both encoders.
-		// BE semantic: last max_context_words words (typeahead_context_encoding.py:36)
-		// BE causal LM: last max_context_tokens BPE tokens (causal_lm_encoder.py:194–198),
-		//               approximated here with word count (no tokenizer available on FE).
-		const lmText = truncateToLastNWords(text, BE_PARITY.MAX_CONTEXT_TOKENS);
-		const semanticText = truncateToLastNWords(text, BE_PARITY.MAX_CONTEXT_WORDS);
+		const semanticText = truncateToLastNWords(text, LOCAL_INFERENCE.MAX_CONTEXT_WORDS);
 		const arcticInput = wrapForArctic(semanticText);
-		function captureCompletionTime<T>(
-			promise: Promise<T>,
-			onResolved: (resolvedAt: number) => void,
-		): Promise<T> {
-			return promise.then((value: T) => {
-				onResolved(performance.now());
-				return value;
-			});
-		}
 
-		if (isAutocompleteDebugEnabled()) {
+		if (isAutocompleteDebugVerbose()) {
 			// eslint-disable-next-line no-console
 			console.log(
-				`%c[LocalSlowLane] %c🔢 Arctic input (${arcticInput.length} chars, ${splitOnWhitespace(semanticText).length} words): "${arcticInput.length > 100 ? `${arcticInput.slice(0, 100)}…` : arcticInput}"`,
+				`%c[CTC:model] %c🔢 Arctic input (${arcticInput.length} chars, ${splitOnWhitespace(semanticText).length} words): "${arcticInput.length > 100 ? `${arcticInput.slice(0, 100)}…` : arcticInput}"`,
 				'color: #9c27b0; font-weight: bold;',
 				'color: #009688;',
-			);
-			// eslint-disable-next-line no-console
-			console.log(
-				`%c[LocalSlowLane] %c🧠 LM input (${lmText.length} chars, ${splitOnWhitespace(lmText).length} words): "${lmText.length > 100 ? `${lmText.slice(0, 100)}…` : lmText}"`,
-				'color: #9c27b0; font-weight: bold;',
-				'color: #2196f3;',
 			);
 		}
 
@@ -1049,37 +894,16 @@ export const createLocalSlowLaneClient = (
 			});
 
 			const tStart = performance.now();
-			let tLmDone = 0;
-			let tEmbDone = 0;
-
-			const [, embeddingResponse] = await Promise.all([
-				captureCompletionTime(
-					engine.completions.create({
-						model: modelId,
-						prompt: lmText,
-						max_tokens: 1,
-						temperature: 0,
-						logprobs: false,
-					}),
-					(resolvedAt) => {
-						tLmDone = resolvedAt;
-					},
-				),
-				captureCompletionTime(
-					engine.embeddings.create({
-						model: LOCAL_MLC_EMBEDDING_MODEL_ID,
-						input: arcticInput,
-					}),
-					(resolvedAt) => {
-						tEmbDone = resolvedAt;
-					},
-				),
-			]);
+			const embeddingResponse = await engine.embeddings.create({
+				model: LOCAL_MLC_EMBEDDING_MODEL_ID,
+				input: arcticInput,
+			});
+			const tEmbDone = performance.now();
 
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
-					`%c[LocalSlowLane] %c⏱ LM: ${(tLmDone - tStart).toFixed(0)}ms | Embedder: ${(tEmbDone - tStart).toFixed(0)}ms | Total: ${(Math.max(tLmDone, tEmbDone) - tStart).toFixed(0)}ms`,
+					`%c[CTC:model] %c⏱ Embedder: ${(tEmbDone - tStart).toFixed(0)}ms`,
 					'color: #9c27b0; font-weight: bold;',
 					'color: #ff9800;',
 				);
@@ -1096,15 +920,6 @@ export const createLocalSlowLaneClient = (
 				return;
 			}
 
-			// ── LM logits: whole-word BE-parity payload ──────────────────
-			const rawLogits = lmLogitsCapture.captured;
-			if (rawLogits) {
-				const payload = computeBePayload(rawLogits, firstTokenToWords, l2Words);
-				storedLmLogits = Object.keys(payload).length > 0 ? payload : null;
-			} else {
-				storedLmLogits = null;
-			}
-
 			// ── Semantic vector: real 384-d Arctic embedding ─────────────
 			// Guard against base64-encoded responses (encoding_format: 'base64' would
 			// yield a string, and new Float32Array(string) silently produces an empty
@@ -1114,11 +929,12 @@ export const createLocalSlowLaneClient = (
 				Array.isArray(embedding) && embedding.length > 0
 					? new Float32Array(embedding as number[])
 					: null;
+			storedContextInput = storedContextVector ? semanticText : null;
 
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.groupCollapsed(
-					`%c[LocalSlowLane] %c📥 Inference result (request #${requestId})`,
+					`%c[CTC:model] %c📥 Inference result (request #${requestId})`,
 					'color: #9c27b0; font-weight: bold;',
 					'color: inherit;',
 				);
@@ -1136,21 +952,7 @@ export const createLocalSlowLaneClient = (
 					console.log('❌ No vector');
 				}
 				// eslint-disable-next-line no-console
-				console.log(
-					storedLmLogits
-						? `✅ lm_logits: ${Object.keys(storedLmLogits).length} words`
-						: '❌ No lm_logits',
-				);
-				if (storedLmLogits) {
-					const topTokens = Object.entries(storedLmLogits)
-						.sort(([, a], [, b]) => b - a)
-						.slice(0, 10);
-					// eslint-disable-next-line no-console
-					console.log(
-						'Top 10 predictions:',
-						topTokens.map(([t, p]) => `${t}: ${(p * 100).toFixed(1)}%`).join(', '),
-					);
-				}
+				console.log('🧠 causal LM: independently primed by exact candidate contexts');
 				// eslint-disable-next-line no-console
 				console.groupEnd();
 			}
@@ -1158,7 +960,7 @@ export const createLocalSlowLaneClient = (
 			succeedExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, experienceId, {
 				textLength: text.length,
 				hasVector: storedContextVector !== null,
-				hasLmLogits: storedLmLogits !== null,
+				hasLmLogits: false,
 				isLocalLLM: true,
 				...(surface ? { surface } : {}),
 			});
@@ -1166,7 +968,7 @@ export const createLocalSlowLaneClient = (
 			onUpdate?.({
 				textLength: text.length,
 				hasVector: storedContextVector !== null,
-				hasLmLogits: storedLmLogits !== null,
+				hasLmLogits: false,
 			});
 		} catch (err) {
 			// Discard errors for stale requests or after teardown
@@ -1180,6 +982,7 @@ export const createLocalSlowLaneClient = (
 				return;
 			}
 
+			storedContextInput = null;
 			storedContextVector = null;
 			storedLmLogits = null;
 			failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, experienceId, {
@@ -1193,12 +996,895 @@ export const createLocalSlowLaneClient = (
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
-					`%c[LocalSlowLane] %c❌ Inference error (request #${requestId}): ${errorMsg}`,
+					`%c[CTC:model] %c❌ Inference error (request #${requestId}): ${errorMsg}`,
 					'color: #9c27b0; font-weight: bold;',
 					'color: #f44336;',
 				);
 			}
 		}
+	};
+
+	// ── Canonical causal scorer ─────────────────────────────────────────────
+
+	const surfaceCacheKey = (
+		contextKey: string,
+		surface: string,
+		tokenIds = surfaceTokenIds.get(surface.toLowerCase()) ?? [],
+	): string => `${contextKey}\u0000${surface.toLowerCase()}\u0000${tokenIds.join(',')}`;
+
+	// Declared as functions rather than generic arrows: this file carries a `webpackChunkName`
+	// comment, which opts it into a build-time parse that reads `<T>(` as a JSX tag.
+	function getLru<T>(cache: Map<string, T>, key: string): T | null {
+		const value = cache.get(key);
+		if (value === undefined) {
+			return null;
+		}
+		cache.delete(key);
+		cache.set(key, value);
+		return value;
+	}
+
+	function setLru<T>(cache: Map<string, T>, key: string, value: T, maxSize: number): void {
+		cache.delete(key);
+		cache.set(key, value);
+		while (cache.size > maxSize) {
+			const oldest = cache.keys().next().value;
+			if (oldest === undefined) {
+				break;
+			}
+			cache.delete(oldest);
+		}
+	}
+
+	const prefixCacheKey = (contextKey: string, tokenPrefix: number[]): string =>
+		`${contextKey}\u0000${tokenPrefix.join(',')}`;
+
+	const logProgressiveState = (
+		state:
+			| 'cached'
+			| 'completed'
+			| 'deduplicated'
+			| 'expanded'
+			| 'failed'
+			| 'queued'
+			| 'stale'
+			| 'started',
+		detail: string,
+	): void => {
+		if (!isAutocompleteDebugEnabled()) {
+			return;
+		}
+		// eslint-disable-next-line no-console
+		console.log(
+			`%c[CTC:model] %c🔀 grouped ${state} · ${detail}`,
+			'color: #9c27b0; font-weight: bold;',
+			state === 'failed'
+				? 'color: #f44336;'
+				: state === 'completed' || state === 'cached'
+					? 'color: #4caf50;'
+					: 'color: #2196f3;',
+		);
+	};
+
+	const createCausalInferenceAggregate = (startedAt: number): CausalInferenceAggregate => ({
+		e2eLatencyMs: 0,
+		failedRequests: 0,
+		firstStartedAt: startedAt,
+		promptTokens: 0,
+		promptUsageSamples: 0,
+		requestedCompletionTokens: 0,
+		requests: 0,
+		sampledOutputTokens: 0,
+		timeToFirstTokenMs: 0,
+		wallClockMs: 0,
+		webLlmDecodeSteps: 0,
+		webLlmUsageSamples: 0,
+	});
+
+	const updateCausalInferenceAggregate = (
+		cache: Map<string, CausalInferenceAggregate>,
+		key: string,
+		measurement: CausalInferenceMeasurement,
+	): CausalInferenceAggregate => {
+		const aggregate =
+			getLru(cache, key) ??
+			createCausalInferenceAggregate(performance.now() - measurement.wallClockMs);
+		aggregate.requests++;
+		aggregate.requestedCompletionTokens += measurement.requestedCompletionTokens;
+		aggregate.wallClockMs += measurement.wallClockMs;
+		if (measurement.outcome === 'failed') {
+			aggregate.failedRequests++;
+		}
+		if (measurement.promptTokens !== null) {
+			aggregate.promptTokens += measurement.promptTokens;
+			aggregate.promptUsageSamples++;
+		}
+		if (measurement.sampledOutputTokens !== null && measurement.webLlmDecodeSteps !== null) {
+			aggregate.sampledOutputTokens += measurement.sampledOutputTokens;
+			aggregate.webLlmDecodeSteps += measurement.webLlmDecodeSteps;
+			aggregate.webLlmUsageSamples++;
+		}
+		if (measurement.timeToFirstTokenMs !== null) {
+			aggregate.timeToFirstTokenMs += measurement.timeToFirstTokenMs;
+		}
+		if (measurement.e2eLatencyMs !== null) {
+			aggregate.e2eLatencyMs += measurement.e2eLatencyMs;
+		}
+		setLru(cache, key, aggregate, CANONICAL_SCORING.BOUNDARY_CACHE_MAX);
+		return aggregate;
+	};
+
+	const causalAggregateForLog = (aggregate: CausalInferenceAggregate) => ({
+		calls: aggregate.requests,
+		elapsedMs: Number((performance.now() - aggregate.firstStartedAt).toFixed(1)),
+		failedCalls: aggregate.failedRequests,
+		inferenceWallMs: Number(aggregate.wallClockMs.toFixed(1)),
+		promptTokens: aggregate.promptUsageSamples > 0 ? aggregate.promptTokens : 'unreported',
+		requestedOutputTokens: aggregate.requestedCompletionTokens,
+		sampledOutputTokens:
+			aggregate.webLlmUsageSamples > 0 ? aggregate.sampledOutputTokens : 'unreported',
+		timeToFirstTokenMs:
+			aggregate.timeToFirstTokenMs > 0
+				? Number(aggregate.timeToFirstTokenMs.toFixed(1))
+				: 'unreported',
+		webLlmE2eMs:
+			aggregate.e2eLatencyMs > 0 ? Number(aggregate.e2eLatencyMs.toFixed(1)) : 'unreported',
+		webLlmDecodeSteps:
+			aggregate.webLlmUsageSamples > 0 ? aggregate.webLlmDecodeSteps : 'unreported',
+	});
+
+	const recordCausalInference = (measurement: CausalInferenceMeasurement): void => {
+		if (!isAutocompleteDebugEnabled()) {
+			return;
+		}
+		const familyAggregate = updateCausalInferenceAggregate(
+			causalInferenceByFamily,
+			measurement.familyKey,
+			measurement,
+		);
+		const contextAggregate = updateCausalInferenceAggregate(
+			causalInferenceByContext,
+			measurement.contextKey,
+			measurement,
+		);
+		// One line plus two nested objects per LM call is heavy enough to distort
+		// the latencies it reports, so keep the per-call breakdown behind verbose.
+		if (!isAutocompleteDebugVerbose()) {
+			return;
+		}
+		// eslint-disable-next-line no-console
+		console.log(
+			`%c[CTC:model-cost]%c ${measurement.kind} ${measurement.outcome} · ${measurement.wallClockMs.toFixed(1)}ms · prompt ${measurement.promptTokens ?? '?'} tok/${measurement.promptWords} words · output ${measurement.sampledOutputTokens ?? '?'} sampled/${measurement.requestedCompletionTokens} requested · decode ${measurement.webLlmDecodeSteps ?? '?'} step${measurement.webLlmDecodeSteps === 1 ? '' : 's'} · TTFT ${measurement.timeToFirstTokenMs?.toFixed(1) ?? '?'}ms · ${measurement.warmState}`,
+			CTC_STYLES.section,
+			CTC_STYLES.body,
+			{
+				request: {
+					contextKey: measurement.contextKey,
+					familyKey: measurement.familyKey,
+					kind: measurement.kind,
+					outcome: measurement.outcome,
+					warmState: measurement.warmState,
+				},
+				actual: {
+					decodeTokensPerSecond: measurement.decodeTokensPerSecond,
+					e2eLatencyMs: measurement.e2eLatencyMs,
+					prefillTokensPerSecond: measurement.prefillTokensPerSecond,
+					promptTokens: measurement.promptTokens,
+					promptWords: measurement.promptWords,
+					sampledOutputTokens: measurement.sampledOutputTokens,
+					timePerDecodeTokenMs: measurement.timePerDecodeTokenMs,
+					timeToFirstTokenMs: measurement.timeToFirstTokenMs,
+					wallClockMs: measurement.wallClockMs,
+					webLlmDecodeSteps: measurement.webLlmDecodeSteps,
+				},
+				context: causalAggregateForLog(contextAggregate),
+				family: causalAggregateForLog(familyAggregate),
+			},
+		);
+	};
+
+	/**
+	 * Pull the captured distribution out of the processor, timing the handover.
+	 *
+	 * Every call yields one array the width of the vocabulary. If that width is
+	 * large and the handover is slow, thousands of calls per session turn into
+	 * allocation churn that shows up as latency without any model work behind it.
+	 */
+	const captureLogits = (): Float32Array | null => causalLogitProcessor.getCapturedLogits();
+
+	const createMeasuredCausalCompletion = async (
+		activeEngine: MLCEngine,
+		input: {
+			contextKey: string;
+			familyKey: string;
+			kind: CausalInferenceKind;
+			prompt: string;
+			requestedCompletionTokens: number;
+		},
+	): Promise<{ latencyMs: number }> => {
+		const prompt = truncateToLastNWords(input.prompt, LOCAL_INFERENCE.MAX_CONTEXT_TOKENS);
+		const promptWords = splitOnWhitespace(prompt).length;
+		const startedAt = performance.now();
+		const warmState = ++causalInferenceOrdinal === 1 ? 'cold-first-call' : 'warm';
+		try {
+			const completion = await activeEngine.completions.create({
+				model: modelId,
+				prompt,
+				max_tokens: input.requestedCompletionTokens,
+				temperature: 0,
+				logprobs: false,
+				ignore_eos: true,
+			});
+			const latencyMs = performance.now() - startedAt;
+			const usage = completion.usage;
+			const webLlmDecodeSteps = usage?.completion_tokens ?? null;
+			// WebLLM samples the first output token during prefill, but its
+			// completion_tokens usage counter increments only in decodeStep().
+			// Add that prefill-sampled token back without exceeding max_tokens.
+			const sampledOutputTokens =
+				webLlmDecodeSteps === null
+					? null
+					: Math.min(input.requestedCompletionTokens, webLlmDecodeSteps + 1);
+			recordCausalInference({
+				contextKey: input.contextKey,
+				decodeTokensPerSecond: usage?.extra?.decode_tokens_per_s ?? null,
+				e2eLatencyMs:
+					usage?.extra?.e2e_latency_s !== undefined ? usage.extra.e2e_latency_s * 1000 : null,
+				familyKey: input.familyKey,
+				kind: input.kind,
+				outcome: 'completed',
+				prefillTokensPerSecond: usage?.extra?.prefill_tokens_per_s ?? null,
+				promptTokens: usage?.prompt_tokens ?? null,
+				promptWords,
+				requestedCompletionTokens: input.requestedCompletionTokens,
+				sampledOutputTokens,
+				timePerDecodeTokenMs:
+					usage?.extra?.time_per_output_token_s !== undefined
+						? usage.extra.time_per_output_token_s * 1000
+						: null,
+				timeToFirstTokenMs:
+					usage?.extra?.time_to_first_token_s !== undefined
+						? usage.extra.time_to_first_token_s * 1000
+						: null,
+				wallClockMs: latencyMs,
+				warmState,
+				webLlmDecodeSteps,
+			});
+			return { latencyMs };
+		} catch (error) {
+			const latencyMs = performance.now() - startedAt;
+			recordCausalInference({
+				contextKey: input.contextKey,
+				decodeTokensPerSecond: null,
+				e2eLatencyMs: null,
+				familyKey: input.familyKey,
+				kind: input.kind,
+				outcome: 'failed',
+				prefillTokensPerSecond: null,
+				promptTokens: null,
+				promptWords,
+				requestedCompletionTokens: input.requestedCompletionTokens,
+				sampledOutputTokens: null,
+				timePerDecodeTokenMs: null,
+				timeToFirstTokenMs: null,
+				wallClockMs: latencyMs,
+				warmState,
+				webLlmDecodeSteps: null,
+			});
+			throw error;
+		}
+	};
+
+	const logExactEvidenceReadiness = (
+		contextKey: string,
+		familyKey: string,
+		exactSurfaceCount: number,
+		source: CausalInferenceKind,
+	): void => {
+		if (!isAutocompleteDebugEnabled()) {
+			return;
+		}
+		const previousCount = exactEvidenceCountByContext.get(contextKey) ?? 0;
+		if (exactSurfaceCount <= previousCount) {
+			return;
+		}
+		setLru(
+			exactEvidenceCountByContext,
+			contextKey,
+			exactSurfaceCount,
+			CANONICAL_SCORING.BOUNDARY_CACHE_MAX,
+		);
+		const contextAggregate = getLru(causalInferenceByContext, contextKey);
+		const familyAggregate = getLru(causalInferenceByFamily, familyKey);
+		// eslint-disable-next-line no-console
+		console.log(
+			`%c[CTC:readiness]%c exact evidence · ${exactSurfaceCount} surface${exactSurfaceCount === 1 ? '' : 's'} · source=${source} · ctx=${contextKey.slice(0, 64)}`,
+			CTC_STYLES.good,
+			CTC_STYLES.body,
+			{
+				context: contextAggregate ? causalAggregateForLog(contextAggregate) : null,
+				contextKey,
+				exactSurfaceCount,
+				family: familyAggregate ? causalAggregateForLog(familyAggregate) : null,
+				familyKey,
+				source,
+			},
+		);
+	};
+
+	const getProgressiveEvidence = (
+		contextKey: string,
+		candidateSurface: string,
+		tokenIds = surfaceTokenTrie.getTokenIds(candidateSurface) ?? [],
+	): ProgressiveSurfaceEvidence | null => {
+		if (tokenIds.length === 0) {
+			return null;
+		}
+		const exactKey = surfaceCacheKey(contextKey, candidateSurface, tokenIds);
+		const exact = getLru(surfaceScoreCache, exactKey);
+		if (exact) {
+			return {
+				meanTokenLogProbabilityUpperBound: exact.meanTokenLogProbability,
+				scoredTokenCount: exact.tokenCount,
+				totalLogProbability: exact.totalLogProbability,
+				totalTokenCount: exact.tokenCount,
+			};
+		}
+		const boundary = getLru(boundaryCache, contextKey);
+		const firstToken = tokenIds[0];
+		if (!boundary || firstToken === undefined) {
+			return null;
+		}
+		let totalLogProbability = logSoftmaxAt(boundary.rawLogits, firstToken);
+		if (!Number.isFinite(totalLogProbability)) {
+			return null;
+		}
+		let scoredTokenCount = 1;
+		while (scoredTokenCount < tokenIds.length) {
+			const prefix = tokenIds.slice(0, scoredTokenCount);
+			const expansion = getLru(prefixExpansionCache, prefixCacheKey(contextKey, prefix));
+			if (!expansion) {
+				break;
+			}
+			const nextTokenLogProbability = logSoftmaxAt(
+				expansion.rawNextTokenLogits,
+				tokenIds[scoredTokenCount],
+			);
+			if (!Number.isFinite(nextTokenLogProbability)) {
+				break;
+			}
+			totalLogProbability = expansion.totalLogProbability + nextTokenLogProbability;
+			scoredTokenCount++;
+		}
+
+		if (scoredTokenCount === tokenIds.length) {
+			const exactScore: SurfaceScore = {
+				contextKey,
+				surface: candidateSurface,
+				totalLogProbability,
+				meanTokenLogProbability: totalLogProbability / tokenIds.length,
+				tokenCount: tokenIds.length,
+			};
+			setLru(surfaceScoreCache, exactKey, exactScore, CANONICAL_SCORING.SURFACE_CACHE_MAX);
+		}
+
+		return {
+			// Every unscored future token has log probability <= 0. Dividing the
+			// scored total by the final token count is therefore a safe optimistic
+			// bound on the eventual mean.
+			meanTokenLogProbabilityUpperBound: totalLogProbability / tokenIds.length,
+			scoredTokenCount,
+			totalLogProbability,
+			totalTokenCount: tokenIds.length,
+		};
+	};
+
+	const planProgressiveExpansion = (contextKey: string): void => {
+		const request = progressiveRequests.get(contextKey);
+		if (!request || destroyed || !boundaryCache.has(contextKey)) {
+			return;
+		}
+		const eligible = request.candidates
+			.filter(
+				(candidate) =>
+					candidate.tokenIds.length > 0 &&
+					candidate.tokenIds.length <= CANONICAL_SCORING.EXACT_MAX_TARGET_TOKENS,
+			)
+			.map((candidate) => ({
+				...candidate,
+				evidence: getProgressiveEvidence(contextKey, candidate.surface, candidate.tokenIds),
+			}))
+			.filter(
+				(candidate): candidate is typeof candidate & { evidence: ProgressiveSurfaceEvidence } =>
+					candidate.evidence !== null,
+			);
+
+		// Score candidates the way arbitration will: a posterior over sequence
+		// log-likelihoods, blended with the corpus prior at the shipped weights.
+		//
+		// Sharing the rule is the point. Ranking on `exp(per-token mean)` instead
+		// answers a different question — it favours short surfaces, because
+		// dividing by fewer tokens flatters them — so this scheduler used to stop
+		// reading on a margin the decision layer did not recognise, and then
+		// abstain for want of the very tokens it declined to read. Nothing about
+		// that was visible from either side.
+		//
+		// The normaliser spans every eligible candidate rather than only the
+		// scheduled ones. That can only make each posterior smaller and each margin
+		// narrower, so the error is always towards reading another token instead of
+		// stopping early — the safe direction ahead of a precision-first gate.
+		const normalizer = logSumExp(
+			eligible.map((candidate) => candidate.evidence.totalLogProbability),
+		);
+		const confidenceScore = (candidate: (typeof eligible)[number]): number =>
+			STAGE1_WEIGHT * (candidate.rankHint ?? 0) +
+			STAGE2_WEIGHT *
+				(Number.isFinite(normalizer)
+					? Math.exp(candidate.evidence.totalLogProbability - normalizer)
+					: 0);
+
+		const candidates = eligible
+			.sort((a, b) => confidenceScore(b) - confidenceScore(a))
+			.slice(0, CANONICAL_SCORING.PROGRESSIVE_CANDIDATES_MAX);
+		const unresolved = candidates.filter(
+			(candidate) => candidate.evidence.scoredTokenCount < candidate.tokenIds.length,
+		);
+		if (unresolved.length === 0) {
+			logProgressiveState(
+				'completed',
+				`ctx=${contextKey.slice(0, 48)} · exact=${candidates.length}/${candidates.length}`,
+			);
+			return;
+		}
+		const bestExactScore = Math.max(
+			...candidates
+				.filter((candidate) => candidate.evidence.scoredTokenCount === candidate.tokenIds.length)
+				.map(confidenceScore),
+			-Infinity,
+		);
+		const bestUnresolvedScore = Math.max(...unresolved.map(confidenceScore), -Infinity);
+		if (bestExactScore - bestUnresolvedScore >= MIN_WINNER_MARGIN) {
+			logProgressiveState(
+				'completed',
+				`safe bound · ctx=${contextKey.slice(0, 40)} · margin=${(bestExactScore - bestUnresolvedScore).toFixed(2)} · unresolved=${unresolved.length}`,
+			);
+			return;
+		}
+
+		const groups = surfaceTokenTrie.groupByScoredPrefix(
+			unresolved.map((candidate) => ({
+				surface: candidate.surface,
+				tokenIds: candidate.tokenIds,
+				scoredTokenCount: candidate.evidence.scoredTokenCount,
+			})),
+		);
+		const bySurface = new Map(candidates.map((candidate) => [candidate.surface, candidate]));
+		const rankedGroups = groups
+			.map((group) => {
+				const members = group.surfaces
+					.map((candidateSurface) => bySurface.get(candidateSurface))
+					.filter((candidate): candidate is NonNullable<typeof candidate> => Boolean(candidate));
+				const optimisticScore = Math.max(...members.map(confidenceScore));
+				return { ...group, optimisticScore };
+			})
+			.sort((a, b) => b.optimisticScore - a.optimisticScore);
+		const bestGroup = rankedGroups[0];
+		if (!bestGroup) {
+			return;
+		}
+		const warmGroup =
+			kvContextKey === contextKey
+				? rankedGroups.find((group) => isPrefixOf(kvPath, group.tokenPrefix))
+				: undefined;
+		const nextGroup =
+			warmGroup &&
+			warmGroup.optimisticScore >= bestGroup.optimisticScore - PROGRESSIVE_WARM_PATH_MARGIN
+				? warmGroup
+				: bestGroup;
+
+		const contextPrefixes = progressivePrefixesByContext.get(contextKey) ?? new Set<string>();
+		progressivePrefixesByContext.set(contextKey, contextPrefixes);
+		const key = prefixCacheKey(contextKey, nextGroup.tokenPrefix);
+		if (getLru(prefixExpansionCache, key)) {
+			logProgressiveState(
+				'cached',
+				`ctx=${contextKey.slice(0, 40)} · prefix=[${nextGroup.tokenPrefix.join(',')}]`,
+			);
+			planProgressiveExpansion(contextKey);
+			return;
+		}
+		if (pendingPrefixExpansions.has(key) || inFlightPrefixExpansions.has(key)) {
+			logProgressiveState(
+				'deduplicated',
+				`ctx=${contextKey.slice(0, 40)} · prefix=[${nextGroup.tokenPrefix.join(',')}]`,
+			);
+			return;
+		}
+		if (contextPrefixes.size >= CANONICAL_SCORING.PROGRESSIVE_EXPANSIONS_PER_CONTEXT_MAX) {
+			logProgressiveState(
+				'completed',
+				`ctx=${contextKey.slice(0, 48)} · expansion cap=${contextPrefixes.size} · unresolved=${unresolved.length}`,
+			);
+			return;
+		}
+
+		contextPrefixes.add(key);
+		pendingPrefixExpansions.set(key, {
+			contextKey,
+			familyKey: request.familyKey,
+			prompt: request.prompt,
+			tokenPrefix: nextGroup.tokenPrefix,
+			surfaces: nextGroup.surfaces,
+		});
+		logProgressiveState(
+			'queued',
+			`ctx=${contextKey.slice(0, 40)} · prefix=[${nextGroup.tokenPrefix.join(',')}] · surfaces=${nextGroup.surfaces.length}`,
+		);
+		drainCausalQueue();
+	};
+
+	/**
+	 * Prefill `prompt` and cache the boundary distribution that follows it.
+	 *
+	 * A text completion resets the KV cache before prefilling, so asking for a
+	 * single token leaves the cache holding exactly the prompt. That is the
+	 * anchor every later decode step extends.
+	 */
+	const prefillBoundary = async (
+		activeEngine: MLCEngine,
+		request: { contextKey: string; familyKey: string; prompt: string },
+	): Promise<{ latencyMs: number; rawLogits: Float32Array } | null> => {
+		kvContextKey = null;
+		kvPath = [];
+		causalRequestsThisFamily++;
+		causalGeneratedTokensThisFamily++;
+		causalLogitProcessor.startCapture();
+		const { latencyMs } = await createMeasuredCausalCompletion(activeEngine, {
+			contextKey: request.contextKey,
+			familyKey: request.familyKey,
+			kind: 'boundary',
+			prompt: request.prompt,
+			requestedCompletionTokens: 1,
+		});
+		const rawLogits = captureLogits();
+		if (!rawLogits) {
+			return null;
+		}
+		setLru(
+			boundaryCache,
+			request.contextKey,
+			{ contextKey: request.contextKey, prompt: request.prompt, rawLogits },
+			CANONICAL_SCORING.BOUNDARY_CACHE_MAX,
+		);
+		kvContextKey = request.contextKey;
+		kvPath = [];
+		return { latencyMs, rawLogits };
+	};
+
+	/**
+	 * Append one token to the KV cache and return the distribution that follows.
+	 *
+	 * This deliberately bypasses the completion API: a completion would reset the
+	 * cache and re-prefill the whole prompt, whereas this forwards a single token
+	 * on top of the work already done.
+	 */
+	const decodeOneToken = async (
+		activeEngine: MLCEngine,
+		token: number,
+	): Promise<Float32Array | null> => {
+		causalLogitProcessor.startCapture();
+		try {
+			// The engine also holds the embedder, so it refuses to forward unless
+			// the caller says which model to forward through.
+			await activeEngine.forwardTokensAndSample([token], false, modelId);
+		} catch (error) {
+			kvContextKey = null;
+			kvPath = [];
+			throw error;
+		}
+		causalRequestsThisFamily++;
+		causalGeneratedTokensThisFamily++;
+		return captureLogits();
+	};
+
+	const runBoundaryPrime = async (request: BoundaryPrimeRequest): Promise<void> => {
+		if (!engine || destroyed) {
+			return;
+		}
+		const primed = await prefillBoundary(engine, request);
+		if (!primed) {
+			return;
+		}
+		const { latencyMs, rawLogits } = primed;
+		planProgressiveExpansion(request.contextKey);
+		const progressiveRequest = progressiveRequests.get(request.contextKey);
+		const exactSurfaceCount =
+			progressiveRequest?.candidates.filter((candidate) => {
+				const evidence = getProgressiveEvidence(
+					request.contextKey,
+					candidate.surface,
+					candidate.tokenIds,
+				);
+				return evidence !== null && evidence.scoredTokenCount === evidence.totalTokenCount;
+			}).length ?? 0;
+		logExactEvidenceReadiness(
+			request.contextKey,
+			progressiveRequest?.familyKey ?? request.familyKey,
+			exactSurfaceCount,
+			'boundary',
+		);
+
+		if (isAutocompleteDebugEnabled()) {
+			// eslint-disable-next-line no-console
+			console.log(
+				`%c[CTC:model] %c🧠 Tier A prime #${request.priority + 1} · ctx=${request.contextKey.slice(0, 48)} · ${rawLogits.length} logits · ${latencyMs.toFixed(0)}ms · family req:${causalRequestsThisFamily} tok:${causalGeneratedTokensThisFamily} A hit/miss:${tierAPrimeCacheHitsThisFamily}/${tierAPrimeCacheMissesThisFamily}`,
+				'color: #9c27b0; font-weight: bold;',
+				'color: #2196f3;',
+			);
+		}
+		const callbackFamilyKey =
+			progressiveRequests.get(request.contextKey)?.familyKey ?? request.familyKey;
+		if (callbackFamilyKey === latestCausalFamilyKey && !destroyed) {
+			onBoundaryLmUpdate?.({
+				contextKey: request.contextKey,
+				familyKey: callbackFamilyKey,
+				latencyMs,
+			});
+		}
+	};
+
+	const runPrefixExpansion = async (request: PrefixExpansionRequest): Promise<void> => {
+		if (!engine || destroyed) {
+			return;
+		}
+		const activeEngine = engine;
+		const startedAt = performance.now();
+		logProgressiveState(
+			'started',
+			`ctx=${request.contextKey.slice(0, 40)} · prefix=[${request.tokenPrefix.join(',')}] · surfaces=${request.surfaces.length}`,
+		);
+
+		// Resume from whatever the KV cache already holds for this context, and
+		// fall back to a prompt prefill only when the requested prefix branches
+		// away from it.
+		let logitsAtPath: Float32Array | null = null;
+		let totalAtPath = 0;
+		const pathIsLive = extendsLiveKvPath(request);
+		if (pathIsLive) {
+			if (kvPath.length === 0) {
+				logitsAtPath = getLru(boundaryCache, request.contextKey)?.rawLogits ?? null;
+			} else {
+				const resume = getLru(prefixExpansionCache, prefixCacheKey(request.contextKey, kvPath));
+				logitsAtPath = resume?.rawNextTokenLogits ?? null;
+				totalAtPath = resume?.totalLogProbability ?? 0;
+			}
+		}
+
+		if (!logitsAtPath) {
+			const primed = await prefillBoundary(activeEngine, request);
+			if (!primed) {
+				logProgressiveState(
+					'failed',
+					`ctx=${request.contextKey.slice(0, 40)} · prefix=[${request.tokenPrefix.join(',')}] · missing boundary logits`,
+				);
+				return;
+			}
+			logitsAtPath = primed.rawLogits;
+			totalAtPath = 0;
+		}
+
+		// Walking the path caches every depth along it, not just the requested
+		// one, so a later expansion that shares this prefix costs nothing.
+		const contextPrefixes =
+			progressivePrefixesByContext.get(request.contextKey) ?? new Set<string>();
+		progressivePrefixesByContext.set(request.contextKey, contextPrefixes);
+		for (let index = kvPath.length; index < request.tokenPrefix.length; index++) {
+			const token = request.tokenPrefix[index];
+			if (token === undefined) {
+				break;
+			}
+			const stepLogProbability = logSoftmaxAt(logitsAtPath, token);
+			if (!Number.isFinite(stepLogProbability)) {
+				logProgressiveState(
+					'failed',
+					`ctx=${request.contextKey.slice(0, 40)} · prefix=[${request.tokenPrefix.join(',')}] · token ${token} unscoreable`,
+				);
+				return;
+			}
+			// eslint-disable-next-line no-await-in-loop
+			const nextLogits = await decodeOneToken(activeEngine, token);
+			if (!nextLogits || destroyed) {
+				kvContextKey = null;
+				kvPath = [];
+				logProgressiveState(
+					'failed',
+					`ctx=${request.contextKey.slice(0, 40)} · prefix=[${request.tokenPrefix.join(',')}] · missing logits`,
+				);
+				return;
+			}
+			kvContextKey = request.contextKey;
+			kvPath = [...kvPath, token];
+			totalAtPath += stepLogProbability;
+			logitsAtPath = nextLogits;
+			const stepKey = prefixCacheKey(request.contextKey, kvPath);
+			const expansion: TokenPrefixExpansion = {
+				contextKey: request.contextKey,
+				tokenPrefix: [...kvPath],
+				totalLogProbability: totalAtPath,
+				rawNextTokenLogits: nextLogits,
+			};
+			setLru(prefixExpansionCache, stepKey, expansion, CANONICAL_SCORING.PREFIX_CACHE_MAX);
+			contextPrefixes.add(stepKey);
+		}
+		const latencyMs = performance.now() - startedAt;
+
+		const progressiveRequest = progressiveRequests.get(request.contextKey);
+		let newlyExact = 0;
+		let exactSurfaceCount = 0;
+		if (progressiveRequest) {
+			for (const candidate of progressiveRequest.candidates) {
+				const exactKey = surfaceCacheKey(request.contextKey, candidate.surface, candidate.tokenIds);
+				const wasExact = surfaceScoreCache.has(exactKey);
+				const evidence = getProgressiveEvidence(
+					request.contextKey,
+					candidate.surface,
+					candidate.tokenIds,
+				);
+				if (
+					!wasExact &&
+					evidence !== null &&
+					evidence.scoredTokenCount === evidence.totalTokenCount &&
+					surfaceScoreCache.has(exactKey)
+				) {
+					newlyExact++;
+				}
+				if (evidence !== null && evidence.scoredTokenCount === evidence.totalTokenCount) {
+					exactSurfaceCount++;
+				}
+			}
+		}
+		logExactEvidenceReadiness(
+			request.contextKey,
+			progressiveRequest?.familyKey ?? request.familyKey,
+			exactSurfaceCount,
+			'prefix',
+		);
+		logProgressiveState(
+			'expanded',
+			`ctx=${request.contextKey.slice(0, 40)} · prefix=[${request.tokenPrefix.join(',')}] · exact+${newlyExact} · ${latencyMs.toFixed(0)}ms`,
+		);
+		planProgressiveExpansion(request.contextKey);
+
+		const callbackFamilyKey =
+			progressiveRequests.get(request.contextKey)?.familyKey ?? request.familyKey;
+		if (callbackFamilyKey === latestCausalFamilyKey && !destroyed) {
+			onSurfaceScoreUpdate?.({
+				contextKey: request.contextKey,
+				count: newlyExact,
+				familyKey: callbackFamilyKey,
+				latencyMs,
+			});
+		} else {
+			logProgressiveState(
+				'stale',
+				`cached only · ctx=${request.contextKey.slice(0, 40)} · family=${request.familyKey.slice(0, 32)}`,
+			);
+		}
+	};
+
+	/**
+	 * Whether any live decision would still take this request's result.
+	 *
+	 * Ranking on the family a request was created under, as this used to, misses
+	 * in both directions. Work queued a keystroke ago for a context still under
+	 * the cursor sorts as stale even though the callbacks resolve delivery
+	 * through `progressiveRequests` and would hand it over. Work for a context
+	 * nothing asks about any more sorts as runnable even though the same
+	 * resolution drops it on arrival — and that one is expensive, because an
+	 * abandoned context is never the one the KV cache holds, so running it pays
+	 * a prompt prefill and leaves the live context evicted, charging the next
+	 * live request a second prefill. Two prefills for a discarded result.
+	 *
+	 * Either signal alone is enough to keep the work, which matters because a
+	 * boundary prime is queued before its context's surfaces are requested: at
+	 * that moment the stored family is still the previous decision's, and only
+	 * the request's own family says it is current.
+	 *
+	 * Agreeing with the layer being fed is the correction the expansion planner
+	 * already carries for arbitration's scoring rule — a scheduler deciding on
+	 * its own rule stops on margins the consumer does not recognise.
+	 */
+	const stillWanted = (request: { contextKey: string; familyKey: string }): boolean =>
+		request.familyKey === latestCausalFamilyKey ||
+		progressiveRequests.get(request.contextKey)?.familyKey === latestCausalFamilyKey;
+
+	const drainCausalQueue = (): void => {
+		if (causalInFlight || destroyed) {
+			return;
+		}
+		// Drop abandoned work rather than leaving it to be picked up whenever the
+		// live family happens to have nothing queued. Its cached side effects are
+		// speculative — they only pay off if the user deletes back into exactly
+		// this context and prefix — and the prefill pair above is certain.
+		for (const [key, request] of pendingPrefixExpansions) {
+			if (!stillWanted(request)) {
+				pendingPrefixExpansions.delete(key);
+			}
+		}
+		for (const [contextKey, request] of pendingBoundaryPrimes) {
+			if (!stillWanted(request)) {
+				pendingBoundaryPrimes.delete(contextKey);
+			}
+		}
+		const sortedPrimes = Array.from(pendingBoundaryPrimes.values()).sort(
+			(a, b) => a.priority - b.priority,
+		);
+		// Everything left is wanted, so relevance no longer needs a sort key.
+		// Take whichever request continues the live sequence: that expansion costs
+		// one decode step where any other costs a full prompt prefill, and nothing
+		// is skipped, only reordered.
+		//
+		// Staying inside the live context when nothing continues it was tried and
+		// reverted. It moved re-primes from `reprime-context` to `reprime-branch`
+		// and left the total flat, because both pay for a prompt prefill: a
+		// context whose remaining prefixes diverge at the first token re-primes as
+		// a branch instead of as a context. Ordering cannot recover that; only
+		// queueing fewer divergent branches can, which is what the prune above
+		// does.
+		const sortedPrefixes = Array.from(pendingPrefixExpansions.values()).sort(
+			(a, b) => Number(extendsLiveKvPath(b)) - Number(extendsLiveKvPath(a)),
+		);
+		const nextPrefix = sortedPrefixes[0];
+		const nextPrime = nextPrefix ? undefined : sortedPrimes[0];
+		if (!nextPrefix && !nextPrime) {
+			return;
+		}
+
+		causalInFlight = true;
+		let prefixKey: string | null = null;
+		if (nextPrefix) {
+			prefixKey = prefixCacheKey(nextPrefix.contextKey, nextPrefix.tokenPrefix);
+			pendingPrefixExpansions.delete(prefixKey);
+			inFlightPrefixExpansions.add(prefixKey);
+		} else if (nextPrime) {
+			pendingBoundaryPrimes.delete(nextPrime.contextKey);
+			inFlightBoundaryContextKey = nextPrime.contextKey;
+		}
+
+		void ensureEngineInitialized()
+			.then(() =>
+				nextPrefix
+					? runPrefixExpansion(nextPrefix)
+					: nextPrime
+						? runBoundaryPrime(nextPrime)
+						: undefined,
+			)
+			.catch((error: unknown) => {
+				if (nextPrefix) {
+					logProgressiveState(
+						'failed',
+						`ctx=${nextPrefix.contextKey.slice(0, 40)} · prefix=[${nextPrefix.tokenPrefix.join(',')}] · ${error instanceof Error ? error.message : String(error)}`,
+					);
+				}
+				if (isAutocompleteDebugEnabled()) {
+					// eslint-disable-next-line no-console
+					console.log(
+						`%c[CTC:model] %c❌ canonical causal request failed: ${error instanceof Error ? error.message : String(error)}`,
+						'color: #9c27b0; font-weight: bold;',
+						'color: #f44336;',
+					);
+				}
+			})
+			.finally(() => {
+				if (prefixKey) {
+					inFlightPrefixExpansions.delete(prefixKey);
+				}
+				if (nextPrime) {
+					inFlightBoundaryContextKey = null;
+				}
+				causalInFlight = false;
+				drainCausalQueue();
+			});
 	};
 
 	// ── Context update (debounced) ─────────────────────────────────────────
@@ -1258,7 +1944,7 @@ export const createLocalSlowLaneClient = (
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
 			console.groupCollapsed(
-				`%c[LocalSlowLane] %c📤 Context update (request #${requestId}) | ${text.length} chars`,
+				`%c[CTC:model] %c📤 Context update (request #${requestId}) | ${text.length} chars`,
 				'color: #9c27b0; font-weight: bold;',
 				'color: inherit;',
 			);
@@ -1298,17 +1984,147 @@ export const createLocalSlowLaneClient = (
 		}, debounceMs);
 	};
 
+	const setLatestCausalFamily = (familyKey: string): void => {
+		if (familyKey === latestCausalFamilyKey) {
+			return;
+		}
+		latestCausalFamilyKey = familyKey;
+		causalRequestsThisFamily = 0;
+		causalGeneratedTokensThisFamily = 0;
+		tierAPrimeCacheHitsThisFamily = 0;
+		tierAPrimeCacheMissesThisFamily = 0;
+	};
+
+	const primeBoundaryLm = (input: BoundaryPrimeRequest): void => {
+		if (destroyed) {
+			return;
+		}
+		setLatestCausalFamily(input.familyKey);
+		if (getLru(boundaryCache, input.contextKey)) {
+			tierAPrimeCacheHitsThisFamily++;
+			if (isAutocompleteDebugVerbose()) {
+				// eslint-disable-next-line no-console
+				console.log(
+					`%c[CTC:model] %c⚡ Tier A cache hit · ctx=${input.contextKey.slice(0, 48)}`,
+					'color: #9c27b0; font-weight: bold;',
+					'color: #2196f3;',
+				);
+			}
+			return;
+		}
+		if (
+			pendingBoundaryPrimes.has(input.contextKey) ||
+			inFlightBoundaryContextKey === input.contextKey
+		) {
+			logProgressiveState('deduplicated', `boundary · ctx=${input.contextKey.slice(0, 48)}`);
+			return;
+		}
+		if (pendingBoundaryPrimes.size >= CANONICAL_SCORING.TIER_A_PRIMES_MAX) {
+			const stalePending = Array.from(pendingBoundaryPrimes.entries()).find(
+				([, request]) => request.familyKey !== latestCausalFamilyKey,
+			);
+			if (stalePending) {
+				pendingBoundaryPrimes.delete(stalePending[0]);
+				logProgressiveState(
+					'stale',
+					`dropped unstarted boundary · ctx=${stalePending[0].slice(0, 48)}`,
+				);
+			}
+		}
+		if (pendingBoundaryPrimes.size < CANONICAL_SCORING.TIER_A_PRIMES_MAX) {
+			tierAPrimeCacheMissesThisFamily++;
+			pendingBoundaryPrimes.set(input.contextKey, input);
+		}
+		drainCausalQueue();
+	};
+
+	const requestProgressiveSurfaceScores = (input: SurfaceScoreRequest): void => {
+		if (destroyed) {
+			return;
+		}
+		setLatestCausalFamily(input.familyKey);
+		const candidates = input.candidates
+			.filter(
+				(candidate) =>
+					candidate.tokenIds.length > 0 &&
+					candidate.tokenIds.length <= CANONICAL_SCORING.EXACT_MAX_TARGET_TOKENS,
+			)
+			.slice(0, CANONICAL_SCORING.PROGRESSIVE_INPUT_MAX);
+		if (candidates.length === 0) {
+			return;
+		}
+		const previous = progressiveRequests.get(input.contextKey);
+		const candidateSignature = candidates
+			.map((candidate) => `${candidate.surface}:${candidate.tokenIds.join(',')}`)
+			.join('\u0001');
+		const previousSignature = previous?.candidates
+			.map((candidate) => `${candidate.surface}:${candidate.tokenIds.join(',')}`)
+			.join('\u0001');
+		setLru(
+			progressiveRequests,
+			input.contextKey,
+			{ ...input, candidates },
+			CANONICAL_SCORING.BOUNDARY_CACHE_MAX,
+		);
+		for (const cachedContextKey of progressivePrefixesByContext.keys()) {
+			if (!progressiveRequests.has(cachedContextKey)) {
+				progressivePrefixesByContext.delete(cachedContextKey);
+			}
+		}
+		const cachedProgressCount = candidates.filter((candidate) => {
+			const evidence = getProgressiveEvidence(
+				input.contextKey,
+				candidate.surface,
+				candidate.tokenIds,
+			);
+			return (
+				evidence !== null &&
+				(evidence.scoredTokenCount > 1 || evidence.scoredTokenCount === evidence.totalTokenCount)
+			);
+		}).length;
+		if (cachedProgressCount > 0) {
+			logProgressiveState(
+				'cached',
+				`ctx=${input.contextKey.slice(0, 40)} · surfaces=${cachedProgressCount}/${candidates.length}`,
+			);
+		}
+		if (candidateSignature === previousSignature) {
+			logProgressiveState(
+				'deduplicated',
+				`candidate set · ctx=${input.contextKey.slice(0, 40)} · surfaces=${candidates.length}`,
+			);
+		} else {
+			logProgressiveState(
+				'queued',
+				`candidate set · ctx=${input.contextKey.slice(0, 40)} · surfaces=${candidates.length}`,
+			);
+		}
+		planProgressiveExpansion(input.contextKey);
+	};
+
 	// ── Public API (same shape as createSlowLaneClient) ────────────────────
 	return {
 		updateContext: updateContextDebounced,
+		getBoundaryLmState: (contextKey) => getLru(boundaryCache, contextKey),
+		getCanonicalSurfaceTokenIds: (candidateSurface) =>
+			surfaceTokenTrie.getTokenIds(candidateSurface),
+		getCanonicalSurfaceCount: () => surfaceTokenIds.size,
+		getContextInput: () => storedContextInput,
 		getContextVector: () => storedContextVector,
 		getLmLogits: () => storedLmLogits,
+		getProgressiveSurfaceEvidence: (contextKey, candidateSurface) =>
+			getProgressiveEvidence(contextKey, candidateSurface),
+		getSurfaceScore: (contextKey, candidateSurface) =>
+			getLru(surfaceScoreCache, surfaceCacheKey(contextKey, candidateSurface)),
 		setContextVector: (vector) => {
+			storedContextInput = null;
 			storedContextVector = vector;
 		},
 		setLmLogits: (logits) => {
 			storedLmLogits = logits;
 		},
+		primeBoundaryLm,
+		requestProgressiveSurfaceScores,
 		isWordBoundary,
 		isReady: () => ready,
 		destroy: () => {
@@ -1327,8 +2143,26 @@ export const createLocalSlowLaneClient = (
 			activeInferenceText = null;
 			activeInferenceRequestId = -1;
 			pendingInference = null;
+			storedContextInput = null;
 			storedContextVector = null;
 			storedLmLogits = null;
+			causalInFlight = false;
+			inFlightBoundaryContextKey = null;
+			kvContextKey = null;
+			kvPath = [];
+			latestCausalFamilyKey = '';
+			pendingBoundaryPrimes.clear();
+			pendingPrefixExpansions.clear();
+			inFlightPrefixExpansions.clear();
+			progressiveRequests.clear();
+			progressivePrefixesByContext.clear();
+			boundaryCache.clear();
+			causalInferenceByContext.clear();
+			causalInferenceByFamily.clear();
+			exactEvidenceCountByContext.clear();
+			prefixExpansionCache.clear();
+			surfaceScoreCache.clear();
+			causalLogitProcessor.resetState();
 		},
 	};
 };

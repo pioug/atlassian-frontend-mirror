@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformTile from '@atlaskit/tile';
+import PlatformTile from '@atlaskit/tile/tile';
 
 type PlatformTileProps = React.ComponentProps<typeof PlatformTile>;
 

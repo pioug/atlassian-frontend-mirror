@@ -1,4 +1,7 @@
-import { DefaultError, GraphQLError, HttpError, isAuthError } from './index';
+import { DefaultError } from './DefaultError';
+import { GraphQLError } from './GraphQLError';
+import { HttpError } from './HttpError';
+import { isAuthError } from './isAuthError';
 
 describe('isUnauthenticatedError', () => {
 	const httpError = {

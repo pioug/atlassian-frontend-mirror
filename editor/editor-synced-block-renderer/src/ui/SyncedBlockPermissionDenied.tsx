@@ -3,12 +3,12 @@ import React, { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useMutation, graphql } from 'react-relay';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
 import { requestJiraSpaceAccess } from '@atlaskit/editor-synced-block-provider/requestJiraIssueAccess';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import Image from '@atlaskit/image';
 import { Text, Flex, Stack, Box } from '@atlaskit/primitives/compiled';

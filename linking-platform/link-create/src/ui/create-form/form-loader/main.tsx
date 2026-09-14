@@ -4,7 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import Spinner, { type SpinnerProps } from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
+import type { SpinnerProps } from '@atlaskit/spinner/types';
 
 const formLoaderStyles = css({
 	display: `flex`,

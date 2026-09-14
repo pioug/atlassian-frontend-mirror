@@ -3,6 +3,7 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
+// oxlint-disable-next-line import/no-duplicates
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type {
 	Command,

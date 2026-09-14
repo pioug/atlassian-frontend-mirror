@@ -1,10 +1,8 @@
-import {
-	isDomMutationsFinalBatch,
-	shapeDomMutationsData,
-	shapeLargestContentfulPaintData,
-	shapeLayoutShiftData,
-	shapePaintTimingData,
-} from '../shape-iframe-dom-events';
+import { isDomMutationsFinalBatch } from '../is-dom-mutations-final-batch';
+import { shapeDomMutationsData } from '../shape-dom-mutations-data';
+import { shapeLargestContentfulPaintData } from '../shape-largest-contentful-paint-data';
+import { shapeLayoutShiftData } from '../shape-layout-shift-data';
+import { shapePaintTimingData } from '../shape-paint-timing-data';
 
 // Helper: wrap payload in the standard iframe event envelope (type stripped, rest kept).
 const wrap = (payload: Record<string, unknown>) => ({

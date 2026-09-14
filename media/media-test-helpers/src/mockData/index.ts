@@ -1,6 +1,6 @@
 import { type MockURL } from 'xhr-mock/lib/MockURL';
 import { type MockHeaders } from 'xhr-mock/lib/types';
-import { type ClientBasedAuth } from '@atlaskit/media-core';
+import type { ClientBasedAuth } from '@atlaskit/media-core/auth';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 
 export {

@@ -1,18 +1,7 @@
 {
-	"extends": "../../../tsconfig.node.json",
-	"include": [
-		"__tests__/**/*.ts",
-		"__tests__/**/*.tsx",
-		"docs/**/*.ts",
-		"docs/**/*.tsx",
-		"examples/**/*.ts",
-		"examples/**/*.tsx",
-		"src/**/*.ts",
-		"src/**/*.tsx",
-		"scripts"
-	],
-	"exclude": [],
+	"extends": "./tsconfig.dev.json",
 	"compilerOptions": {
-		"lib": ["ES2021.String", "ES2022.String", "ES2022.Array"]
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true
 	}
 }

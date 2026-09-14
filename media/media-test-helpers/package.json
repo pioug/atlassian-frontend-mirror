@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "42.2.5",
+	"version": "42.4.2",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -120,14 +120,6 @@
 		"./waitUntil": "./src/waitUntil.ts",
 		"./wideImageURI": "./src/dataURIs/wideImageURI.ts",
 		"./wideTransparentImageURI": "./src/dataURIs/wideTransparentImageURI.ts"
-	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			]
-		}
 	},
 	"sideEffects": [
 		"*.compiled.css"

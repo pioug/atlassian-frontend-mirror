@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import { code } from '@atlaskit/docs';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';

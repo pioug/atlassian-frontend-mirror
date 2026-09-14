@@ -16,11 +16,12 @@ describe('formatComponent', () => {
 			},
 		]);
 		expect(out).not.toBeNull();
-		expect(out).toContain('Button  (@atlaskit/button)');
-		expect(out).toContain('Props (1):');
+		expect(out).toContain('Button');
+		expect(out).toContain('@atlaskit/button');
+		expect(out).toContain('Props (1)');
 		expect(out).toContain('appearance');
 		expect(out).toContain('The style.');
-		expect(out).toContain('Examples (1):');
+		expect(out).toContain('Example 1');
 		expect(out).toContain('<Button>Go</Button>');
 		// Must not be a raw JSON dump.
 		expect(out).not.toContain('"package"');
@@ -33,7 +34,7 @@ describe('formatComponent', () => {
 			props: [],
 			examples: [],
 		});
-		expect(out).toContain('Avatar  (@atlaskit/avatar)');
+		expect(out).toContain('Avatar');
 		expect(out).toContain('Props: none');
 	});
 
@@ -88,14 +89,51 @@ describe('formatDocObject', () => {
 		expect(out).not.toContain('Topic:');
 	});
 
-	it('renders code-example objects as titled fenced blocks', () => {
+	it('renders code-example objects as titled terminal code blocks', () => {
 		const out = formatDocObject({
 			title: 'Guide',
 			codeExamples: [{ title: 'Accessible Button', code: '<Button aria-label="x" />' }],
 		});
 		expect(out).toContain('  - Accessible Button');
-		expect(out).toContain('```tsx');
+		expect(out).toContain('tsx');
 		expect(out).toContain('<Button aria-label="x" />');
+	});
+
+	it('renders every field in a before-and-after migration example', () => {
+		const out = formatDocObject({
+			title: 'Migration guide',
+			examples: [
+				{
+					title: 'Replace the component',
+					description: 'Use the new API.',
+					before: '<OldComponent />',
+					after: '<NewComponent />',
+					explanation: 'The new component is composable.',
+				},
+			],
+		});
+
+		expect(out).toContain('Before:');
+		expect(out).toContain('<OldComponent />');
+		expect(out).toContain('After:');
+		expect(out).toContain('<NewComponent />');
+		expect(out).toContain('Explanation: The new component is composable.');
+	});
+
+	it('omits null additional fields from a before-and-after migration example', () => {
+		const out = formatDocObject({
+			title: 'Migration guide',
+			examples: [
+				{
+					title: 'Replace the component',
+					before: '<OldComponent />',
+					after: '<NewComponent />',
+					explanation: null,
+				},
+			],
+		});
+
+		expect(out).not.toContain('Explanation:');
 	});
 
 	it('renders the topic-index shape (no title, uses `message` as header)', () => {
@@ -169,9 +207,22 @@ describe('formatLintRules', () => {
 
 describe('formatToken', () => {
 	it('renders name, example value, and a token(...) usage line', () => {
-		const out = formatToken([{ name: 'space.100', exampleValue: '8px' }]);
+		const out = formatToken([
+			{
+				name: 'space.100',
+				exampleValue: '8px',
+				usageGuidelines: {
+					usage: 'Use for standard spacing.',
+					cssProperties: ['gap', 'padding'],
+				},
+			},
+		]);
 		expect(out).toContain('space.100');
 		expect(out).toContain('Example value: 8px');
+		expect(out).toContain('Guidelines:');
+		expect(out).toContain('Use for standard spacing.');
+		expect(out).toContain('CSS properties:');
+		expect(out).toContain('gap');
 		expect(out).toContain("token('space.100')");
 	});
 
@@ -208,19 +259,26 @@ describe('formatIcon', () => {
 
 describe('formatDisambiguation', () => {
 	it('renders a header, candidate names, hints, and follow-up commands', () => {
-		const out = formatDisambiguation({
-			ambiguous: true,
-			query: 'arrow',
-			noun: 'icon',
-			candidates: [
-				{ name: 'ArrowUpIcon', hint: '@atlaskit/icon/core/arrow-up', followUp: 'icon ArrowUpIcon' },
-				{ name: 'ArrowDownIcon', followUp: 'icon ArrowDownIcon' },
-			],
-		});
+		const out = formatDisambiguation(
+			{
+				ambiguous: true,
+				query: 'arrow',
+				noun: 'icon',
+				candidates: [
+					{
+						name: 'ArrowUpIcon',
+						hint: '@atlaskit/icon/core/arrow-up',
+						followUp: 'icon ArrowUpIcon',
+					},
+					{ name: 'ArrowDownIcon', followUp: 'icon ArrowDownIcon' },
+				],
+			},
+			'atlas ads',
+		);
 		expect(out).toContain('Multiple icons match "arrow"');
 		expect(out).toContain('ArrowUpIcon  @atlaskit/icon/core/arrow-up');
-		expect(out).toContain('→ ads-cli icon ArrowUpIcon');
+		expect(out).toContain('→ atlas ads icon ArrowUpIcon');
 		// A candidate without a hint still renders its follow-up.
-		expect(out).toContain('→ ads-cli icon ArrowDownIcon');
+		expect(out).toContain('→ atlas ads icon ArrowDownIcon');
 	});
 });

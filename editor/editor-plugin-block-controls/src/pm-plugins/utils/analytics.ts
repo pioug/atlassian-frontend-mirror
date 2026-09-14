@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
@@ -87,9 +86,7 @@ export const getMultiSelectAnalyticsAttributes = (
 	});
 
 	return {
-		nodeTypes: fg('platform_editor_track_node_types')
-			? [...new Set(nodeTypes)].sort().join(',')
-			: undefined,
+		nodeTypes: [...new Set(nodeTypes)].sort().join(','),
 		hasSelectedMultipleNodes: nodeTypes.length > 1,
 	};
 };

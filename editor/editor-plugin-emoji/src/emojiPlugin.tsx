@@ -36,7 +36,8 @@ import {
 	SearchSort,
 } from '@atlaskit/emoji';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
 import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './emojiPluginType';
@@ -51,6 +52,7 @@ import {
 } from './pm-plugins/actions';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
 import { InlineEmojiPopup } from './ui/InlineEmojiPopup';
+import { getEmojiQuickInsertComponents } from './ui/quick-insert/getEmojiQuickInsertComponents';
 
 export const emojiToTypeaheadItem = (
 	emoji: EmojiDescription,
@@ -222,6 +224,10 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return tr;
 		},
 	};
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getEmojiQuickInsertComponents());
+	}
 
 	api?.base?.actions.registerMarks(({ tr, node, pos }) => {
 		const { doc } = tr;
@@ -318,6 +324,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return (
 				<InlineEmojiPopup
 					api={api}
+					contentId={options?.contentId}
 					editorView={editorView}
 					popupsBoundariesElement={popupsBoundariesElement}
 					popupsMountPoint={popupsMountPoint}
@@ -327,33 +334,39 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'emoji',
-					title: formatMessage(messages.emoji),
-					description: formatMessage(messages.emojiDescription),
-					priority: 500,
-					keyshortcut: ':',
-					isDisabledOffline: false,
-					icon: () => <IconEmoji />,
-					action(insert) {
-						if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-							// Clear slash
-							let tr = insert('');
-							tr = setInlineEmojiPopupOpen(true)(tr);
-							return tr;
-						}
+			...(isRegisteredSlashCommandEnabled
+				? {}
+				: {
+						quickInsert: ({ formatMessage }) => [
+							{
+								id: 'emoji',
+								title: formatMessage(messages.emoji),
+								description: formatMessage(messages.emojiDescription),
+								priority: 500,
+								keyshortcut: ':',
+								isDisabledOffline: false,
+								icon: () => <IconEmoji />,
+								action(insert) {
+									if (
+										editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+									) {
+										// Clear slash
+										let tr = insert('');
+										tr = setInlineEmojiPopupOpen(true)(tr);
+										return tr;
+									}
 
-						const tr = insert(undefined);
-						api?.typeAhead?.actions.openAtTransaction({
-							triggerHandler: typeAhead,
-							inputMethod: INPUT_METHOD.QUICK_INSERT,
-						})(tr);
+									const tr = insert(undefined);
+									api?.typeAhead?.actions.openAtTransaction({
+										triggerHandler: typeAhead,
+										inputMethod: INPUT_METHOD.QUICK_INSERT,
+									})(tr);
 
-						return tr;
-					},
-				},
-			],
+									return tr;
+								},
+							},
+						],
+					}),
 			typeAhead,
 			floatingToolbar: (state, intl) => {
 				const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
@@ -530,10 +543,7 @@ function createEmojiPlugin(
 		key: emojiPluginKey,
 		state: {
 			init() {
-				if (
-					options?.emojiProvider &&
-					editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true)
-				) {
+				if (options?.emojiProvider) {
 					return {
 						emojiProviderPromise: options.emojiProvider,
 					};
@@ -553,12 +563,7 @@ function createEmojiPlugin(
 						newPluginState = {
 							...pluginState,
 							emojiProvider: params.provider,
-							emojiProviderPromise: editorExperiment(
-								'platform_editor_prevent_toolbar_layout_shifts',
-								true,
-							)
-								? Promise.resolve(params.provider)
-								: undefined,
+							emojiProviderPromise: Promise.resolve(params.provider),
 						};
 						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
 						return newPluginState;

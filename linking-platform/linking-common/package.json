@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "11.0.1",
+	"version": "12.1.2",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
 		}
 	},
 	"scripts": {
-		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/linking-common run codegen-analytics'"
+		"codegen-analytics": "yarn run ts-analytics-codegen --command='afm workspace @atlaskit/linking-common codegen-analytics'"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -55,49 +55,45 @@
 		"wait-for-expect": "root:*"
 	},
 	"exports": {
-		"./actions": "./src/entry-points/actions.ts",
-		"./api": "./src/entry-points/api.ts",
-		"./api/errors": "./src/entry-points/api-errors.ts",
-		"./browser": "./src/entry-points/browser.ts",
-		"./client": "./src/entry-points/client.ts",
-		"./constants": "./src/entry-points/constants.ts",
-		"./hook/use-available-sites": "./src/entry-points/hook-use-available-sites.ts",
-		"./hook/use-cloud-id-to-url": "./src/entry-points/hook-use-cloud-id-to-url.ts",
-		"./hook/use-is-mounted": "./src/entry-points/hook-use-is-mounted.ts",
-		"./linkify": "./src/entry-points/linkify.ts",
-		"./pulse": "./src/entry-points/pulse.ts",
-		"./sentry/capture-exception": "./src/entry-points/sentry-capture-exception.ts",
-		"./skeleton": "./src/entry-points/skeleton.ts",
-		"./store": "./src/entry-points/store.ts",
-		"./types": "./src/entry-points/types.ts",
-		"./utils/filter-site-products": "./src/entry-points/utils-filter-site-products.ts",
-		"./utils/filter-unique-items": "./src/entry-points/utils-filter-unique-items.ts",
-		"./utils/get-status": "./src/entry-points/utils-get-status.ts",
-		"./utils/get-trace-id": "./src/entry-points/utils-get-trace-id.ts",
-		"./utils/preview-panel": "./src/entry-points/utils-preview-panel.ts",
-		"./utils/promise-debounce": "./src/entry-points/utils-promise-debounce.ts",
-		"./utils/with-feature-flagged-component": "./src/entry-points/utils-with-feature-flagged-component.ts",
+		".": "./src/index.ts",
+		"./accessible-products-result": "./src/common/mocks/accessible-products-result.ts",
+		"./actions": "./src/actions.ts",
+		"./api/errors": "./src/errors.ts",
+		"./api": "./src/api.ts",
+		"./available-sites-result": "./src/common/mocks/available-sites-result.ts",
+		"./browser": "./src/user-agent/index.ts",
+		"./client": "./src/environments.ts",
+		"./constants": "./src/common/utils/constants.ts",
+		"./hook/use-available-sites": "./src/hooks/useAvailableSites/index.ts",
+		"./hook/use-cloud-id-to-url": "./src/hooks/useCloudIdToUrl/index.ts",
+		"./hook/use-is-mounted": "./src/hooks/useIsMounted/index.ts",
+		"./hooks": "./src/hooks/index.ts",
+		"./linkify": "./src/url.ts",
+		"./mocks": "./src/common/mocks/index.ts",
+		"./pulse": "./src/components/Pulse/index.tsx",
+		"./sentry/capture-exception": "./src/sentry/capture-exception.ts",
+		"./sentry": "./src/sentry/capture-exception.ts",
+		"./skeleton": "./src/components/Skeleton/index.tsx",
+		"./span-skeleton": "./src/components/Skeleton/span-skeleton.tsx",
+		"./store": "./src/store.ts",
+		"./types": "./src/types.ts",
 		"./url": "./src/url.ts",
 		"./user-agent": "./src/user-agent/index.ts",
-		"./utils": "./src/utils/index.ts",
-		"./hooks": "./src/hooks/index.ts",
-		"./mocks": "./src/common/mocks/index.ts",
-		"./sentry": "./src/sentry/index.ts",
-		".": "./src/index.ts"
+		"./utils/filter-site-products": "./src/utils/filter-site-products.ts",
+		"./utils/filter-unique-items": "./src/utils/filter-unique-items.ts",
+		"./utils/get-status": "./src/utils/get-status.ts",
+		"./utils/get-trace-id": "./src/utils/get-trace-id.ts",
+		"./utils/preview-panel": "./src/utils/preview-panel-utils.ts",
+		"./utils/promise-debounce": "./src/utils/promise-debounce.ts",
+		"./utils/with-feature-flagged-component": "./src/utils/with-feature-flagged-component.tsx",
+		"./utils": "./src/utils/index.ts"
 	},
 	"platform-feature-flags": {
-		"platform_lp_kill_isvertigo_and_vortexmode": {
-			"type": "boolean"
-		},
 		"linking_platform_site_picker_api_unit_compliant": {
 			"type": "boolean"
-		}
-	},
-	"techstack": {
-		"@repo/internal": {
-			"styling": [
-				"compiled"
-			]
+		},
+		"platform_lp_sllv_display_name_fallback": {
+			"type": "boolean"
 		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/bb313f46-0a0e-4e79-b6f0-d524f5b510ba"

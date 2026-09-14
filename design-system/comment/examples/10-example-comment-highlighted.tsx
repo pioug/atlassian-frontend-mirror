@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import Comment, {
 	CommentAction,
 	CommentAuthor,
 	CommentEdited,
 	CommentTime,
 } from '@atlaskit/comment';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 import avatarImg from './images/avatar_400x400.jpg';
 

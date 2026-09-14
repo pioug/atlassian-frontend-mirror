@@ -1,5 +1,6 @@
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer/types';
+import type { SanitizeNodeOptions } from '@atlaskit/editor-json-transformer/sanitize/sanitize-node';
 import type {
 	MarkType,
 	NodeType,
@@ -77,8 +78,8 @@ export function toJSON(node: PMNode): JSONDocNode {
 }
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function nodeToJSON(node: PMNode): JSONNode {
-	return transformer.encodeNode(node);
+export function nodeToJSON(node: PMNode, options?: SanitizeNodeOptions): JSONNode {
+	return transformer.encodeNode(node, options);
 }
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { findChangedNodesFromTransaction } from './findChangedNodesFromTransaction';

@@ -1,10 +1,7 @@
 {
-  "extends": "../../../tsconfig.node.json",
-  "include": [
-    "./src/**/*.ts",
-    "./typings/analytics-node-client.d.ts"
-  ],
-  "compilerOptions": {
-    "outDir": "./dist"
-  }
+	"extends": "./tsconfig.dev.json",
+	"compilerOptions": {
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true
+	}
 }

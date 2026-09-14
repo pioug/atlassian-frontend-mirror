@@ -30,11 +30,7 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__tag-group/dev",
@@ -63,6 +59,9 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
+			"path": "../motion/tsconfig.app.json"
+		},
+		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
@@ -72,7 +71,13 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

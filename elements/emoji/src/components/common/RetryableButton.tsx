@@ -4,8 +4,8 @@
  */
 import { FormattedMessage } from 'react-intl';
 import { css, jsx } from '@compiled/react';
-import AkButton from '@atlaskit/button/new';
-import Spinner from '@atlaskit/spinner';
+import AkButton from '@atlaskit/button/default/button';
+import Spinner from '@atlaskit/spinner/spinner';
 import { Box } from '@atlaskit/primitives/compiled';
 import { messages } from '../i18n';
 

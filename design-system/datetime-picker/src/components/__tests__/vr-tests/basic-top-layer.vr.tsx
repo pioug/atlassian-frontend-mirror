@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import BasicExamples from '../../../../examples/00-basic';
+import BasicExamples from '../../../../examples/00-basic.vr.ap';
 
 snapshot(BasicExamples, {
 	variants: [

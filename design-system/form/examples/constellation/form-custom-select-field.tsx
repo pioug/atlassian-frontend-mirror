@@ -4,11 +4,14 @@
  */
 import { Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
-import Form, { Field, FormFooter } from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
 import { Flex } from '@atlaskit/primitives/compiled';
-import Select, { type ValueType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
 
 interface Option {
 	label: string;

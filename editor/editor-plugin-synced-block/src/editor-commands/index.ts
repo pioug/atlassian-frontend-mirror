@@ -7,7 +7,8 @@ import {
 	EVENT_TYPE,
 	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { copyDomNode, toDOM } from '@atlaskit/editor-common/copy-button';
+import { copyDomNodeWithResult, toDOM } from '@atlaskit/editor-common/copy-button';
+import { getSourceNodesFromSelectionRange } from '@atlaskit/editor-common/selection';
 import type {
 	Command,
 	CommandDispatch,
@@ -37,7 +38,8 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { creationMetaKey, deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
@@ -140,6 +142,7 @@ export const createSyncedBlock = ({
 	// set on the final transaction before returning (see below), since the
 	// typeahead path may reassign `tr` and drop meta set here.
 	const createdEmpty = tr.selection.empty;
+	let nodeTypes: string[] | undefined;
 
 	// If the selection is empty, we want to insert the sync block on a new line
 	if (tr.selection.empty) {
@@ -170,9 +173,7 @@ export const createSyncedBlock = ({
 			// safeInsert does not move the selection into the new block, so place the
 			// caret inside the block's empty paragraph so typing continues inside the
 			// synced block (EDITOR-7949).
-			if (fg('platform_editor_blocks_patch_4')) {
-				tr = placeCaretInsideBodiedSyncBlock(tr, newBodiedSyncBlockNode.attrs.localId);
-			}
+			tr = placeCaretInsideBodiedSyncBlock(tr, newBodiedSyncBlockNode.attrs.localId);
 		}
 	} else {
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
@@ -189,10 +190,21 @@ export const createSyncedBlock = ({
 			return false;
 		}
 
+		if (isExperimentEnabled('platform_editor_sync_block_node_types')) {
+			nodeTypes = [
+				...new Set(
+					getSourceNodesFromSelectionRange(tr, tr.selection).map((node) => node.type.name),
+				),
+			].sort();
+		}
+
 		const attrs = syncBlockStore.sourceManager.generateBodiedSyncBlockAttrs();
 		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
 			attrs,
 			conversionInfo.contentToInclude,
+			fg('platform_editor_blocks_patch_8') && conversionInfo.breakoutMark
+				? [conversionInfo.breakoutMark]
+				: undefined,
 		);
 
 		if (!newBodiedSyncBlockNode) {
@@ -210,20 +222,14 @@ export const createSyncedBlock = ({
 
 		tr.replaceWith(conversionInfo.from, conversionInfo.to, newBodiedSyncBlockNode).scrollIntoView();
 
-		if (fg('platform_editor_blocks_patch_4')) {
-			// Place the caret on the first editable position inside the converted
-			// content so typing continues inside the synced block (EDITOR-7949).
-			tr = placeCaretInsideBodiedSyncBlock(tr, newBodiedSyncBlockNode.attrs.localId);
-		} else {
-			// set selection to the start of the previous selection for the position taken up by the start of the new synced block
-			tr.setSelection(TextSelection.create(tr.doc, conversionInfo.from));
-		}
+		// Place the caret on the first editable position inside the converted
+		// content so typing continues inside the synced block (EDITOR-7949).
+		tr = placeCaretInsideBodiedSyncBlock(tr, newBodiedSyncBlockNode.attrs.localId);
 	}
 
-	// Stash creation-type signals on the final transaction (after any typeahead
-	// reassignment). Set unconditionally — the store manager only reads it behind
-	// the feature gate.
-	tr.setMeta(creationMetaKey, { createdEmpty, inputMethod });
+	// Stash creation-type signals on the final transaction after any typeahead
+	// reassignment. nodeTypes is populated only for gated non-empty conversions.
+	tr.setMeta(creationMetaKey, { createdEmpty, inputMethod, nodeTypes });
 
 	return tr;
 };
@@ -352,7 +358,6 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	}
 
 	const domNode = toDOM(referenceSyncBlockNode, schema);
-	copyDomNode(domNode, referenceSyncBlockNode.type, selection);
 
 	// Bare-uuid join key shared with the create/delete events: for a source
 	// bodiedSyncBlock its `localId` is the source uuid (copy was page-form only).
@@ -362,6 +367,22 @@ const copySyncedBlockReferenceToClipboardInternal = (
 		: syncBlockStore.referenceManager.getFromCache(referenceSyncBlockNode.attrs.resourceId)?.data
 				?.status === 'unpublished';
 	const sourceProduct = getSourceProductFromResourceIdSafe(referenceSyncBlockNode.attrs.resourceId);
+
+	const copyResult = copyDomNodeWithResult(domNode, referenceSyncBlockNode.type, selection);
+	if (copyResult === false) {
+		api?.analytics?.actions?.fireAnalyticsEvent({
+			eventType: EVENT_TYPE.OPERATIONAL,
+			action: ACTION.ERROR,
+			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_COPY,
+			attributes: {
+				error: 'Failed to copy synced block to clipboard',
+				resourceId: referenceSyncBlockNode.attrs.resourceId,
+				inputMethod,
+			},
+		});
+		return false;
+	}
 
 	deferDispatch(() => {
 		api?.core.actions.execute(({ tr }) => {
@@ -373,8 +394,7 @@ const copySyncedBlockReferenceToClipboardInternal = (
 				attributes: {
 					resourceId: referenceSyncBlockNode.attrs.resourceId,
 					inputMethod,
-					...(sourceJoinKey &&
-						fg('platform_editor_blocks_patch_4') && { blockInstanceId: sourceJoinKey }),
+					...(sourceJoinKey && { blockInstanceId: sourceJoinKey }),
 				},
 			});
 
@@ -475,11 +495,8 @@ export const removeSyncedBlock =
 		}
 
 		// Tag the transaction so analytics can report this as `deleteButton` rather
-		// than a keyboard delete (both produce a plain ReplaceStep). Gated so the
-		// gate-off transaction is unchanged.
-		if (fg('platform_editor_blocks_patch_4')) {
-			removeTr.setMeta(deleteMechanismMetaKey, 'deleteButton');
-		}
+		// than a keyboard delete (both produce a plain ReplaceStep).
+		removeTr.setMeta(deleteMechanismMetaKey, 'deleteButton');
 
 		dispatch(removeTr);
 		api?.core.actions.focus();

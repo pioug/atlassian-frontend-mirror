@@ -15,7 +15,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import PreferencesIcon from '@atlaskit/icon/core/customize';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { cardMessages } from '../../messages';
 

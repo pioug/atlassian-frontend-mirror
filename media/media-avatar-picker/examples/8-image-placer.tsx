@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { ImagePlacer, type ImageActions } from '../src/image-placer';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 export interface ExampleState {
 	containerWidth: number;

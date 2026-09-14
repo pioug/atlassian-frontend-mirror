@@ -29,7 +29,7 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 import { ToolbarType } from '../../pm-plugins/types';
@@ -269,7 +269,7 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(AlignmentToolbar);

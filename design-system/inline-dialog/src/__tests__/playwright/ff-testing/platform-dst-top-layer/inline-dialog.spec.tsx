@@ -20,6 +20,7 @@ test.describe('InlineDialog top-layer — WCAG 2.1.1 Keyboard Accessibility', ()
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -41,6 +42,7 @@ test.describe('InlineDialog top-layer — WCAG 2.1.1 Keyboard Accessibility', ()
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -62,6 +64,7 @@ test.describe('InlineDialog top-layer — WCAG 2.1.1 Keyboard Accessibility', ()
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -85,6 +88,7 @@ test.describe('InlineDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -106,6 +110,7 @@ test.describe('InlineDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -129,6 +134,7 @@ test.describe('InlineDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -156,6 +162,7 @@ test.describe('InlineDialog top-layer — WCAG 2.4.3 Focus Movement', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -181,6 +188,7 @@ test.describe('InlineDialog top-layer — WCAG 2.4.3 Focus Movement', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -203,6 +211,7 @@ test.describe('InlineDialog top-layer — WCAG 2.4.3 Focus Movement', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -227,6 +236,7 @@ test.describe('InlineDialog top-layer — WCAG 2.4.7 Focus Visible', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -244,6 +254,7 @@ test.describe('InlineDialog top-layer — WCAG 2.4.7 Focus Visible', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -267,6 +278,7 @@ test.describe('InlineDialog top-layer — WCAG 2.4.11 Content Not Obscured', () 
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -287,6 +299,7 @@ test.describe('InlineDialog top-layer — WCAG 2.4.11 Content Not Obscured', () 
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -310,6 +323,7 @@ test.describe('InlineDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -332,6 +346,7 @@ test.describe('InlineDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -362,6 +377,7 @@ test.describe('InlineDialog top-layer — WCAG 1.3.2 Meaningful Sequence', () =>
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -408,6 +424,7 @@ test.describe('InlineDialog top-layer — State Management', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -433,6 +450,7 @@ test.describe('InlineDialog top-layer — State Management', () => {
 			'testing',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 

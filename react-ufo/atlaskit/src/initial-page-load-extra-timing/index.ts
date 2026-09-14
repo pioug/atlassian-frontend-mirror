@@ -1,60 +1,27 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export type ReportedTiming = { startTime: number; duration: number };
 
 export type ReportedTimings = {
 	[key: string]: ReportedTiming;
 };
 
-type TimingsFromPerformanceMark = {
+export type TimingsFromPerformanceMark = {
 	name: string;
 	startMark: string;
 	stopMark: string;
 	cleanStart?: boolean;
 	cleanStop?: boolean;
 };
-const timings: TimingsFromPerformanceMark[] = [];
 
-export function addTimingFromPerformanceMark(
-	name: string,
-	startMark: string,
-	stopMark: string,
-	cleanStart = false,
-	cleanStop = false,
-): void {
-	timings.push({
-		name,
-		startMark,
-		stopMark,
-		cleanStart,
-		cleanStop,
-	});
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function getTimings(): ReportedTimings {
-	const reportedTimingsObj: ReportedTimings = {};
-	timings.forEach(({ name, startMark, stopMark, cleanStart, cleanStop }) => {
-		const startEntryList = performance.getEntriesByName(startMark);
-		const stopEntryList = performance.getEntriesByName(stopMark);
-
-		if (startEntryList?.length > 0 && stopEntryList?.length > 0) {
-			const startEntry = startEntryList[startEntryList.length - 1];
-			const stopEntry = stopEntryList[stopEntryList.length - 1];
-
-			const { startTime } = startEntry;
-			const duration = stopEntry.startTime - startTime;
-			const timing = {
-				startTime: Math.round(startTime),
-				duration: Math.round(duration),
-			};
-
-			reportedTimingsObj[name] = timing;
-		}
-		if (cleanStart) {
-			performance.clearMarks(startMark);
-		}
-		if (cleanStop) {
-			performance.clearMarks(stopMark);
-		}
-	});
-	return reportedTimingsObj;
-}
+/**
+ * @deprecated Use `import { addTimingFromPerformanceMark } from '@atlaskit/react-ufo/add-timing-from-performance-mark'` instead.
+ */
+export { addTimingFromPerformanceMark } from './addTimingFromPerformanceMark';
+/**
+ * @deprecated Use `import { getTimings } from '@atlaskit/react-ufo/get-timings'` instead.
+ */
+export { getTimings } from './getTimings';
+/**
+ * @deprecated Use `import { timings } from '@atlaskit/react-ufo/timings'` instead.
+ */
+export { timings } from './timings';

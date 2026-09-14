@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 
 import { renderHook } from '@testing-library/react';
 
+import { getInteractionId } from '../getInteractionId';
 import UFOInteractionIDContext, {
 	DefaultInteractionID,
-	getInteractionId,
 	type InteractionIDContextType,
-	subscribeToInteractionIdChanges,
-	useInteractionId,
 } from '../index';
+import { subscribeToInteractionIdChanges } from '../subscribeToInteractionIdChanges';
+import { useInteractionId } from '../useInteractionId';
 
 describe('InteractionIDContext', () => {
 	beforeEach(() => {

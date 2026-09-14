@@ -1,5 +1,5 @@
 import { snapshot } from '@af/visual-regression';
-import { MediaComment, MediaCommentWrapped } from './media-comment.fixture';
+import { MediaComment, MediaCommentWrapped } from './media-comment.fixture.vr.ap';
 
 snapshot(MediaComment, {
 	description: 'should renderer the same size for comment apperance',

@@ -1,4 +1,4 @@
-import { caption } from '@atlaskit/adf-schema';
+import { caption } from '@atlaskit/adf-schema/caption';
 
 import type { CaptionPlugin } from './captionPluginType';
 import { captionKeymap } from './pm-plugins/keymap';

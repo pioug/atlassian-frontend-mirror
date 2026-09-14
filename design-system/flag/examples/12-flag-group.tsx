@@ -1,8 +1,9 @@
 import React, { type ReactElement, type ReactNode, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import noop from '@atlaskit/ds-lib/noop';
-import Flag, { FlagGroup } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import Error from '@atlaskit/icon/core/status-error';
 import Info from '@atlaskit/icon/core/status-information';
 import Tick from '@atlaskit/icon/core/status-success';

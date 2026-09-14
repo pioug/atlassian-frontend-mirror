@@ -5,10 +5,10 @@
  */
 {
   "testExamples": [
-    "01-variations.tsx",
-    "01-widths.tsx",
-    "05-elements-before-and-after.tsx",
-    "08-customisation.tsx"
+    "01-variations.vr.ap.tsx",
+    "01-widths.vr.ap.tsx",
+    "05-elements-before-and-after.vr.ap.tsx",
+    "08-customisation.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

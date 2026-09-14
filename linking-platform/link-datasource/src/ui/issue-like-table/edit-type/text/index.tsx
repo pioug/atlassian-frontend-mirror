@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { type FieldProps } from '@atlaskit/form';
+import type { FieldProps } from '@atlaskit/form/field';
 import { Layering } from '@atlaskit/layering/layering';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
-import { succeedUfoExperience } from '../../../../analytics/ufoExperiences';
-import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
+import { succeedUfoExperience } from '../../../../analytics/ufoExperiences/succeedUfoExperience';
+import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
 
 interface TextEditTypeProps extends Omit<FieldProps<string>, 'value'> {

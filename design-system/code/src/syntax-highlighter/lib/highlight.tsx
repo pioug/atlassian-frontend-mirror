@@ -1,10 +1,8 @@
 import { memo, type NamedExoticComponent } from 'react';
 
-import {
-	type CodeBidiWarningConfig,
-	type RefractorNode,
-	type SyntaxHighlighterProps,
-} from '../types';
+import type { RefractorNode } from 'refractor';
+
+import type { CodeBidiWarningConfig, SyntaxHighlighterProps } from '../types';
 
 import processLines from './process';
 import ReactRenderer from './react-renderer';

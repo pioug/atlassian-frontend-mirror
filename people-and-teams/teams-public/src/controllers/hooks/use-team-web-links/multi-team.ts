@@ -1,7 +1,7 @@
 import { createHook, createStore, type BoundActions, type HookFunction } from 'react-sweet-state';
 
-import { teamsClient } from '@atlaskit/teams-client';
-import type { TeamLink } from '@atlaskit/teams-client/types';
+import { teamsClient } from '@atlaskit/teams-client/client';
+import type { TeamLink } from '@atlaskit/teams-client/links';
 
 import { type NewTeamWebLink, type TeamWebLink } from '../../../common/types';
 

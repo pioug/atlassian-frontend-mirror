@@ -172,12 +172,7 @@ export const AppHome = ({
 			>
 				<Inline space="space.075" alignBlock="center">
 					<div css={[appIconStyles]} data-testid={testId && `${testId}-icon`}>
-						<Icon
-							iconColor={iconColor}
-							shouldUseNewLogoDesign={true}
-							size="small"
-							appearance="brand"
-						/>
+						<Icon iconColor={iconColor} size="small" appearance="brand" />
 					</div>
 					<span css={appLogoTextStyles}>
 						<Text aria-hidden={true} color="inherit" weight="semibold">

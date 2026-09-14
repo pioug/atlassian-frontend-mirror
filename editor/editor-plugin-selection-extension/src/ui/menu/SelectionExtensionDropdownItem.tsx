@@ -13,10 +13,9 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ToolbarDropdownItem, ToolbarTooltip } from '@atlaskit/editor-toolbar';
-import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
 
 import { selectionExtensionPluginKey } from '../../pm-plugins/main';
 import { getSelectionAdfInfoNew, getSelectionTextInfoNew } from '../../pm-plugins/utils';
@@ -41,10 +40,6 @@ const styles = cssMap({
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 		minWidth: '0px',
-	},
-	lozenge: {
-		marginLeft: token('space.050'),
-		flexShrink: 0,
 	},
 });
 
@@ -138,31 +133,11 @@ export const SelectionExtensionDropdownItem = ({
 			iconElement
 		);
 
-	if (fg('platform_editor_block_menu_v2_patch_2')) {
-		return (
-			<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">
-				<ToolbarDropdownItem
-					elemBefore={elemBeforeIcon}
-					elemAfterText={elemAfterText}
-					onClick={handleClick}
-					isDisabled={dropdownItem.isDisabled}
-					testId={EXTENSION_MENU_ITEM_TEST_ID}
-					data-extension-item-key={dropdownItem.key}
-				>
-					<Box as="span" xcss={styles.contentWrapper} onMouseOver={handleMouseEnter}>
-						<Box as="span" xcss={styles.label} ref={labelRef}>
-							{dropdownItem.label}
-						</Box>
-					</Box>
-				</ToolbarDropdownItem>
-			</ToolbarTooltip>
-		);
-	}
-
 	return (
 		<ToolbarTooltip content={isTruncated ? dropdownItem.label : null} position="top">
 			<ToolbarDropdownItem
 				elemBefore={elemBeforeIcon}
+				elemAfterText={elemAfterText}
 				onClick={handleClick}
 				isDisabled={dropdownItem.isDisabled}
 				testId={EXTENSION_MENU_ITEM_TEST_ID}
@@ -172,17 +147,6 @@ export const SelectionExtensionDropdownItem = ({
 					<Box as="span" xcss={styles.label} ref={labelRef}>
 						{dropdownItem.label}
 					</Box>
-					{dropdownItem.lozenge ? (
-						<Box as="span" xcss={styles.lozenge}>
-							<Lozenge
-								appearance={
-									fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
-								}
-							>
-								{dropdownItem.lozenge.label}
-							</Lozenge>
-						</Box>
-					) : undefined}
 				</Box>
 			</ToolbarDropdownItem>
 		</ToolbarTooltip>

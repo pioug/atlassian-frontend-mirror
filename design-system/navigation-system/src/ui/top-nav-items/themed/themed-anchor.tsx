@@ -7,7 +7,7 @@ import React from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -23,7 +23,7 @@ const styles = cssMap({
 		font: token('font.body'),
 		height: '2.2857142857142856em',
 		paddingBlock: token('space.0'),
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.medium'),
 		transition: 'background 0.1s ease-out',
 		position: 'relative',
 		// Remove the default underline for link buttons
@@ -31,10 +31,6 @@ const styles = cssMap({
 		'&:hover, &:active, &:focus': {
 			textDecoration: 'none',
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	rootT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	// platform-dst-motion-uplift-button TODO: Merge into base after rollout
 	interactiveMotion: {
@@ -201,7 +197,6 @@ function ThemedAnchorFn<RouterLinkConfig extends Record<string, any> = never>(
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				styles.root,
-				fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
 				shapeStyles[shape],
 				hasBorder && styles.border,
 				appearanceStyles[appearance],

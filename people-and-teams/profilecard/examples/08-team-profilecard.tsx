@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import sample from 'lodash/sample';
 
-import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
 
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';

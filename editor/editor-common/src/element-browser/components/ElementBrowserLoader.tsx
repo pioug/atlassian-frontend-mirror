@@ -8,7 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import Loadable from 'react-loadable';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import type { Props as ElementBrowserProps } from '../ElementBrowser';
 

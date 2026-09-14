@@ -1,3 +1,3 @@
-import { SideNavWithMenuItems } from './page-layout';
+import { SideNavWithMenuItems } from './page-layout.vr.ap';
 
 export default SideNavWithMenuItems;

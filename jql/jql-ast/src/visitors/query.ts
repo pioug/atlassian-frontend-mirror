@@ -1,4 +1,4 @@
-import { type JqlQueryContext } from '@atlaskit/jql-parser';
+import type { JqlQueryContext } from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import { type Query } from '../types';

@@ -255,7 +255,7 @@ export const blocktypeStyles_fg_platform_editor_typography_ugc: SerializedStyles
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
-export const blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css({
+export const blocktypeStylesNestedDnd: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-content-area.appearance-full-page .ProseMirror blockquote': {
 		paddingLeft: token('space.250'),

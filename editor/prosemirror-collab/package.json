@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/prosemirror-collab",
-	"version": "1.0.32",
+	"version": "1.1.21",
 	"description": "Collaborative editing for ProseMirror - Atlassian Fork",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,20 +28,8 @@
 		"@babel/runtime": "root:*",
 		"uuid": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
+	"devDependencies": {
+		"@atlaskit/editor-test-helpers": "workspace:^",
+		"@atlaskit/prosemirror-history": "workspace:^"
 	}
 }

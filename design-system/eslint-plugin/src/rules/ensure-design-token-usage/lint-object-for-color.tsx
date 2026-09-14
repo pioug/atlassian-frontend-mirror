@@ -1,6 +1,8 @@
 import type { Rule } from 'eslint';
 import { node as generate, isNodeOfType, type Property } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
+
 import { getIsException } from '../utils/get-is-exception';
 import { includesHardCodedColor } from '../utils/includes-hard-coded-color';
 import { isHardCodedColor } from '../utils/is-hard-coded-color';
@@ -9,6 +11,30 @@ import { isLegacyNamedColor } from '../utils/is-legacy-named-color';
 
 import { getTokenSuggestion } from './get-token-suggestion';
 import type { RuleConfig } from './types';
+
+type TypeScriptExpressionWrapper = Rule.Node & { expression: Rule.Node };
+const TYPESCRIPT_EXPRESSION_WRAPPER_TYPES = new Set([
+	'TSAsExpression',
+	'TSTypeAssertion',
+	'TSNonNullExpression',
+	'TSSatisfiesExpression',
+]);
+
+/**
+ * TypeScript's expression wrappers are transparent for color classification.
+ * In particular, `key as readonly string[]` is still the same computed key as
+ * `key`. Unwrapping before inspecting the member property also keeps the
+ * codemod stringifier away from type-only nodes it does not support.
+ */
+const unwrapTypeScriptExpression = (node: Rule.Node): Rule.Node => {
+	let expression = node;
+
+	while (TYPESCRIPT_EXPRESSION_WRAPPER_TYPES.has((expression as { type: string }).type)) {
+		expression = (expression as TypeScriptExpressionWrapper).expression;
+	}
+
+	return expression;
+};
 
 // ObjectExpression
 export const lintObjectForColor = (
@@ -68,17 +94,25 @@ export const lintObjectForColor = (
 
 	// ObjectExpression > Property > MemberExpression
 	if (node.type === 'MemberExpression') {
-		if (node.property.type !== 'Identifier') {
+		const property = unwrapTypeScriptExpression(node.property as Rule.Node);
+
+		if (property.type !== 'Identifier') {
 			context.report({
 				messageId: 'hardCodedColor',
 				node: node,
-				suggest: getTokenSuggestion(node, generate(node).toString(), config),
+				suggest: getTokenSuggestion(
+					node,
+					property === node.property
+						? generate(node).toString()
+						: getSourceCode(context).getText(node),
+					config,
+				),
 			});
 
 			return;
 		}
 
-		identifierNode = node.property as Rule.Node;
+		identifierNode = property;
 	}
 
 	if (node.type === 'Identifier') {

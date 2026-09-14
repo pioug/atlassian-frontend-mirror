@@ -30,18 +30,14 @@ class Example extends React.Component {
 	}
 }
 
-// @ts-ignore
 test.skip('media-client server side rendering of project examples', async () => {
 	const examples = [Example1, Example2, Example3, Example4, Example5, Example6, Example7];
 
 	for (const EachExample of examples) {
-		// @ts-ignore
-		expect(() => ReactDOMServer.renderToString(<EachExample />)).not.toThrowError();
+		expect(() => ReactDOMServer.renderToString(<EachExample />)).not.toThrow();
 	}
 });
 
-// @ts-ignore
 test.skip('media-client server side rendering of simple component', () => {
-	// @ts-ignore
-	expect(() => ReactDOMServer.renderToString(<Example />)).not.toThrowError();
+	expect(() => ReactDOMServer.renderToString(<Example />)).not.toThrow();
 });

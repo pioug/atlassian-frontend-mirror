@@ -21,9 +21,9 @@ import {
 	expectFunctionToHaveBeenCalledWith,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
-import { MediaViewerError } from '../../../../../errors';
+import { MediaViewerError } from '../../../../../MediaViewerError';
 import { CodeViewer, type Props } from '../../../../../viewers/codeViewer/index';
-import { msgToText } from '../../../../../viewers/codeViewer/msg-parser';
+import { msgToText } from '../../../../../viewers/codeViewer/msgToText';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
@@ -38,7 +38,7 @@ jest.mock('@codemirror/language-data', () => {
 	};
 });
 
-jest.mock('../../../../../viewers/codeViewer/msg-parser', () => ({
+jest.mock('../../../../../viewers/codeViewer/msgToText', () => ({
 	__esModule: true,
 	msgToText: jest.fn(),
 }));

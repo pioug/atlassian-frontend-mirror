@@ -4,12 +4,14 @@ import { action } from '@storybook/addon-actions';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 import { defaults as stateDefaults } from 'react-sweet-state';
 
-import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
+import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider';
 
-import { JQLEditor, JQLEditorAnalyticsListener } from '../src';
+import JQLEditor from '../src/ui/';
+import { JQLEditorAnalyticsListener } from '../src/analytics/listener/jql-editor-analytics-listener';
 import { type ExternalMessage } from '../src/state/types';
 
-import { getAutocompleteInitialData, getAutocompleteSuggestions } from './autocomplete';
+import { getAutocompleteInitialData } from './get-autocomplete-initial-data';
+import { getAutocompleteSuggestions } from './get-autocomplete-suggestions';
 import { onHydrate } from './hydration';
 import { LocaleProvider } from './locale-provider';
 import { Container } from './styled';
@@ -57,7 +59,6 @@ export const Template = ({
 	deps = [],
 	defaultRows,
 }: TemplateArgs): React.JSX.Element => {
-	// @ts-ignore
 	stateDefaults.batchUpdates = batchUpdates;
 
 	const [isSearching, setIsSearching] = useState(false);

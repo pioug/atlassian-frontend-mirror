@@ -8,7 +8,9 @@ import { jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content, LeftSidebar, Main, PageLayout } from '@atlaskit/page-layout';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { Header, NavigationHeader, SideNavigation } from '@atlaskit/side-navigation';
+import { Header } from '@atlaskit/side-navigation/header';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel } from '../common';
 

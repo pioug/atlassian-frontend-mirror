@@ -7,6 +7,7 @@ import { type CSSProperties, type JSX, type ReactNode } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getStyleProps } from '../get-style-props';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
@@ -40,6 +41,7 @@ const placeholderStyles = cssMap({
 	disabled: {
 		color: token('color.text.disabled'),
 	},
+	finesse: { color: token('color.text.subtle') },
 });
 
 const Placeholder: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -53,7 +55,11 @@ const Placeholder: <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	});
 	return (
 		<div
-			css={[placeholderStyles.root, isDisabled && placeholderStyles.disabled]}
+			css={[
+				placeholderStyles.root,
+				fg('platform-dst-tokens-finesse') && placeholderStyles.finesse,
+				isDisabled && placeholderStyles.disabled,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 
 const TestInput = ({ onCancel }: { onCancel: () => void }) => {
 	const ref = useRef<HTMLInputElement>(null);

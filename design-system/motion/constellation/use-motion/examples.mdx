@@ -1,0 +1,94 @@
+---
+title: useMotion
+description:
+  Apply entry and exit animations to an element you already render, without adding a wrapper.
+order: 1
+---
+
+import UseMotionState from '../../examples/constellation/use-motion-state';
+import UseMotionToken from '../../examples/constellation/use-motion-token';
+import UseMotionCustom from '../../examples/constellation/use-motion-custom';
+import UseMotionCustomKeyframe from '../../examples/constellation/use-motion-custom-keyframe';
+
+`useMotion` returns the current motion `state`, and you define the CSS for each state. Because the
+animation styling is yours, you apply motion tokens directly in your own `cssMap` styles rather than
+passing them to a component.
+
+## Observe the state machine
+
+This example shows the state returned for each animated element. `StaggeredEntrance` holds each
+block in `init` until its delay ends, then `useMotion` moves it through `entering` to `visible`.
+When the blocks animate out, `ExitingPersistence` keeps them mounted in `exiting` until the
+animation finishes.
+
+Use the state readout to see when each style is applied and how the lifecycle coordinates with
+mounting and unmounting.
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={UseMotionState}
+	title="useMotion state machine"
+/>
+
+## Style the motion states
+
+The remaining examples show the three styling approaches available to both `useMotion` and the
+[Motion primitive](/components/motion/motion-primitive):
+
+- **Motion tokens** assign a pre-defined motion token to the `animation` shorthand for the entering
+  and exiting states.
+- **Keyframe tokens** build the animation from `animationName`, `animationDuration`, and
+  `animationTimingFunction` tokens for full control.
+- **Custom keyframes** define your own keyframes with `keyframes()` from `@compiled/react` and
+  compose them with keyframe tokens.
+
+Two rules apply to all of them, because the hook does not style your element for you:
+
+- Style the `init` and `hidden` states as not visible, otherwise the element will flash into view
+  before its entry animation starts.
+- Disable your animations under `@media (prefers-reduced-motion: reduce)`. The hook settles its
+  state machine immediately for reduced motion, but the styles are yours to turn off.
+
+See [About](/components/motion/use-motion/about) for the state definitions, and
+[Code](/components/motion/use-motion/code) for the API.
+
+## Using motion tokens
+
+The simplest approach. A single motion token carries the animation name, duration, and easing
+together, so it can be assigned to the `animation` shorthand for the matching state.
+
+<Example
+	highlight="24-26,28,34,50-55"
+	packageName="@atlaskit/motion"
+	Component={UseMotionToken}
+	title="useMotion with tokens"
+/>
+
+## Custom animations with keyframe tokens
+
+For more control, build the animation from separate tokens: `animationName` with keyframe tokens,
+plus `animationDuration` and `animationTimingFunction`. Multiple keyframes can be composed together
+by joining them in `animationName` — here a scale and a fade run at once.
+
+Using the longhand properties also lets you set `animationFillMode`, so the element holds the first
+frame before entering and the last frame while exiting.
+
+<Example
+	highlight="22-24,26-32,37-43,59-64"
+	packageName="@atlaskit/motion"
+	Component={UseMotionCustom}
+	title="useMotion with custom animation tokens"
+/>
+
+## Custom keyframes
+
+For animations the built-in keyframe tokens do not cover, define your own with `keyframes()` from
+`@compiled/react` and reference them in `animationName` alongside keyframe tokens. Keep taking the
+duration and easing from motion tokens so the timing stays consistent with the rest of the system.
+
+<Example
+	highlight="17-25,38-42,47-51,67-72"
+	packageName="@atlaskit/motion"
+	Component={UseMotionCustomKeyframe}
+	title="useMotion with custom CSS keyframes"
+/>

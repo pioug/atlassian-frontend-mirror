@@ -7,12 +7,12 @@ import { useMemo } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import Heading from '@atlaskit/heading/heading';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';
@@ -90,13 +90,13 @@ export const SiteSelector = (props: SiteSelectorProps): JSX.Element => {
 								isSelected={isOpen}
 								iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
 								testId={`${testId}__control`}
-								{...(fg('navx-5290-sllv-modal-a11y-updates')
-									? {
-											'aria-label': selectedSiteOption?.label
-												? `${formatMessage(siteSelectorMessages.chooseSite)}: ${selectedSiteOption.label}`
-												: formatMessage(siteSelectorMessages.chooseSite),
-										}
-									: {})}
+								aria-label={
+									selectedSiteOption?.label
+										? `${formatMessage(siteSelectorMessages.chooseSite)}: ${
+												selectedSiteOption.label
+											}`
+										: formatMessage(siteSelectorMessages.chooseSite)
+								}
 								autoFocus={true}
 							>
 								{selectedSiteOption?.label || formatMessage(siteSelectorMessages.chooseSite)}

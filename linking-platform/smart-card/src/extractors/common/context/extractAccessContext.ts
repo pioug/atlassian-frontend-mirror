@@ -1,8 +1,8 @@
-import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { messages } from '../../../messages';
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
 import { ForbiddenAction } from '../../../view/common/access/ForbiddenAction';
 import { type RequestAccessContextProps } from '../../../view/types';
 import extractHostname from '../hostname/extractHostname';

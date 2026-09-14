@@ -6,7 +6,7 @@ import {
 	I18NWrapper,
 } from '@atlaskit/media-test-helpers';
 import { generateItemWithBinaries, type ItemWithBinaries } from '@atlaskit/media-test-data';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 
 import { MediaViewer } from '../src';
 import { MainWrapper } from '../example-helpers/MainWrapper';

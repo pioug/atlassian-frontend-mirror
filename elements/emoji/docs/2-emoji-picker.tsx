@@ -32,14 +32,14 @@ const _default_1: any = md`
 
   const emojiProvider = new EmojiResource(config);
 
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <EmojiPicker
       emojiProvider={emojiProvider}
       onSelection={emoji => {
         /* do something */
       }}
     />,
-    container,
   );
   `}
 

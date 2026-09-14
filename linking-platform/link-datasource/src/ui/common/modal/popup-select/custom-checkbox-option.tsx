@@ -4,10 +4,10 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { type OptionProps } from '@atlaskit/react-select';
-import { CheckboxOption } from '@atlaskit/select';
+import type { OptionProps } from '@atlaskit/react-select/option';
+import { CheckboxOption } from '@atlaskit/select/checkbox-option';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { SelectOption } from './types';
 

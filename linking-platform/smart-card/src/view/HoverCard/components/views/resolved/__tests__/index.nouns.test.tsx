@@ -2,11 +2,13 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import type { CardState, ProductType } from '@atlaskit/linking-common';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
+import type { ProductType } from '@atlaskit/linking-common/types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { act, fireEvent, render } from '@atlassian/testing-library';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';

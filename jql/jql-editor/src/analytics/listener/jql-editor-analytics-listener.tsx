@@ -6,8 +6,9 @@
 
 import React, { type ReactNode } from 'react';
 
-import { AnalyticsListener, type UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
-import { ANALYTICS_CHANNEL } from '@atlaskit/jql-editor-common';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { UIAnalyticsEventHandler } from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { ANALYTICS_CHANNEL } from '@atlaskit/jql-editor-common/constants';
 
 import { handleEvent } from './handle-event';
 import Logger from './helpers/logger';
@@ -20,7 +21,7 @@ export type ListenerProps = {
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class JQLEditorAnalyticsListener extends React.Component<ListenerProps> {
+export class JQLEditorAnalyticsListener extends React.Component<ListenerProps> {
 	logger: Logger;
 
 	constructor(props: ListenerProps) {

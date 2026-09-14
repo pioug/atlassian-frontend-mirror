@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
-import { IconButton } from '@atlaskit/button/new';
+import AppProvider from '@atlaskit/app-provider/app-provider';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';

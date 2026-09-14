@@ -1,9 +1,9 @@
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { AnonymousAsset } from '@atlaskit/anonymous-assets';
 
 import type { Manager, Socket as SocketIOSocket } from 'socket.io-client';
 import type { InternalError } from './errors/internal-errors';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { BatchProps, GetUserType } from './participants/participants-helper';
 import type AnalyticsHelper from './analytics/analytics-helper';
 import type {
@@ -206,6 +206,10 @@ export type BroadcastIncomingPayload = {
  * payload is hydrated into a participant.
  */
 export type PresenceData = {
+	/** User identity an agent participant is acting on behalf of, when delegated by a user. */
+	actingUserId?: string;
+	/** Agent kind supplied by NCS, such as `convo-ai`, `mcp`, or `twg`. */
+	agentType?: string;
 	clientId: number | string;
 	/** Permission level the participant holds on the document (view / comment / edit). */
 	permit?: UserPermitType;
@@ -267,6 +271,16 @@ export type AddStepAcknowledgementPayload =
 	| AddStepAcknowledgementSuccessPayload
 	| AcknowledgementErrorPayload;
 
+/**
+ * A batch of steps delivered to the document service: broadcast live over the websocket, returned by
+ * catch-up, or built locally from the client's own steps once NCS acknowledges them.
+ *
+ * Author and invocation identity live on each step, never on this envelope: one batch may mix human
+ * steps, agent steps from different invocations, and steps that carry no `invocationId` at all.
+ * Consumers should therefore read `agentType`/`agentId`/`invocationId` per step rather than inferring
+ * them for the whole batch — note that the existing agent-presence consumers still derive some
+ * attributes batch-wide, which is safe only while a batch has a single agent author.
+ */
 export type StepsPayload = {
 	steps: StepJson[];
 	version: number;

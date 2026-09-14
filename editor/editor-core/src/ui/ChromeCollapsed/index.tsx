@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ChromeCollapsedCompiled } from './ChromeCollapsed-compiled';
@@ -63,7 +63,7 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, Objec
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ChromeCollapsed);

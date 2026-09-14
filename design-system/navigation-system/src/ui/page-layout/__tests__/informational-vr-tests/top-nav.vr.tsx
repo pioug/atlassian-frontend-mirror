@@ -7,8 +7,8 @@ import {
 	type SnapshotTestOptions,
 } from '@af/visual-regression';
 
-import { CompositionVR } from '../../../../../examples/composition';
-import TopNavigationStressExample from '../../../../../examples/top-navigation-stress';
+import { CompositionVR } from '../../../../../examples/composition.vr.ap';
+import TopNavigationStressExample from '../../../../../examples/top-navigation-stress.vr.ap';
 
 /**
  * There seems to be a bug with the grid layouts in the Chrome snapshots.

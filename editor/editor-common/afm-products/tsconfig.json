@@ -83,7 +83,13 @@
 			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
@@ -134,10 +140,16 @@
 			"path": "../../../design-system/onboarding/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popper/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"

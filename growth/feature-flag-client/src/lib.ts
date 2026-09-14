@@ -44,7 +44,6 @@ const validateFlag: any = (flagKey: string, flag: FlagShape) => {
 		return true;
 	}
 
-	// @ts-ignore
 	if (process.env.NODE_ENV !== 'production') {
 		throw new Error(`${flagKey} is not a valid flag. Missing "value" attribute.`);
 	}

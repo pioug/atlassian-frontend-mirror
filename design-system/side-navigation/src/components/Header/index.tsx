@@ -6,10 +6,10 @@ import React, { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { type CustomItemComponentProps } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
-import CustomItem from '../Item/custom-item';
+import { CustomItem } from '../Item/custom-item';
 
 import HeaderContainer from './header-container';
 
@@ -86,7 +86,7 @@ export type HeaderProps = {
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const Header: React.ForwardRefExoticComponent<
+export const Header: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<HeaderProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, HeaderProps>((props: HeaderProps, ref) => {
 	return (
@@ -99,5 +99,3 @@ const Header: React.ForwardRefExoticComponent<
 		/>
 	);
 });
-
-export default Header;

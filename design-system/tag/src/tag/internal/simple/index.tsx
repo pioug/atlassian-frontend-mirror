@@ -6,11 +6,12 @@ import { forwardRef, memo } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { colorMapping } from '../../../tag-new/color-mapping';
 import { default as TagNew } from '../../../tag-new/tag-new';
+import { markAsTagMotionCapable } from '../../../tag-new/tag-motion-capability';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';
@@ -63,9 +64,8 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
 					isRemovable={false}
 					maxWidth={maxWidth}
 					swatchBefore={swatchBefore}
-					{...(fg('parent-field-switcher-missing-info-image-text')
-						? { swatchBeforeLabel, swatchBeforeRole }
-						: {})}
+					swatchBeforeLabel={swatchBeforeLabel}
+					swatchBeforeRole={swatchBeforeRole}
 				/>
 			);
 		}
@@ -113,6 +113,6 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
  */
 const SimpleTag: import('react').MemoExoticComponent<
 	import('react').ForwardRefExoticComponent<SimpleTagProps & import('react').RefAttributes<any>>
-> = memo(SimpleTagComponent);
+> = markAsTagMotionCapable(memo(SimpleTagComponent));
 
 export default SimpleTag;

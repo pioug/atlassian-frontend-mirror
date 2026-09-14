@@ -35,6 +35,12 @@ const documentation: StructuredContentSource = {
 					description: 'Block controls plugin in composable editor.',
 					source: path.resolve(packagePath, './examples/1-basic.tsx'),
 				},
+				{
+					name: 'Registry surfaces',
+					description:
+						'Registers example contributors into the registry-backed left and right block-controls surfaces (behind platform_editor_block_control_migration).',
+					source: path.resolve(packagePath, './examples/2-registry-surfaces.tsx'),
+				},
 			],
 		},
 	],

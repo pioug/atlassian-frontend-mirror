@@ -1,17 +1,11 @@
 /* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
-import React, { createContext, type ReactNode, useContext, useState } from 'react';
+
+import React, { type Context, createContext, type ReactNode, useState } from 'react';
 
 import { token } from '@atlaskit/tokens';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 
-const ForceFallbackContext = createContext<boolean>(false);
-
-/**
- * Read whether the JS fallback is being forced by the example wrapper.
- */
-export function useForceFallback(): boolean {
-	return useContext(ForceFallbackContext);
-}
+export const ForceFallbackContext: Context<boolean> = createContext<boolean>(false);
 
 /**
  * Wraps an example with a fixed toggle in the top-right corner that

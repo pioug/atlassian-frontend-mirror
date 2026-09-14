@@ -1,5 +1,25 @@
 # @atlaskit/storybook-addon-design-system
 
+## 4.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.3
+
+### Patch Changes
+
+- [`95d4618be32ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95d4618be32ae) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

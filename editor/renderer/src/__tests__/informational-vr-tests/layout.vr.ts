@@ -5,7 +5,7 @@ import {
 	Layout4ColInFullWidthRenderer,
 	Layout5ColRenderer,
 	OverflowLayoutRenderer,
-} from './layout.fixture';
+} from './layout.fixture.vr.ap';
 
 import { snapshotInformational } from '@af/visual-regression';
 import { flagsForVrTests } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';

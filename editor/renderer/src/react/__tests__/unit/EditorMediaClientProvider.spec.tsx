@@ -7,12 +7,27 @@ import {
 	type MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { MediaClientContext } from '@atlaskit/media-client-react';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EditorMediaClientProvider } from '../../utils/EditorMediaClientProvider';
+
+const mediaReliabilityTest = (
+	cases: Record<'false' | 'true', () => Promise<void> | void>,
+): void => {
+	it.each([true, false])('media reliability enhancements: %s', async (enabled) => {
+		if (enabled) {
+			mockExpEnabled('platform_editor_media_reliability_enhancements');
+		} else {
+			mockExpDisabled('platform_editor_media_reliability_enhancements');
+		}
+
+		await cases[String(enabled) as 'false' | 'true']();
+	});
+};
 
 function MediaClientConsumer({ testIdPrefix }: { testIdPrefix: string }) {
 	const mediaClient = useContext(MediaClientContext);
@@ -89,7 +104,7 @@ function NestedMediaClientContext() {
 // it should not use the mediaClient from the parent context,
 // because each config has its own media token
 describe('child MediaClientContext with config should not use mediaClient from parent', () => {
-	eeTest('platform_editor_media_reliability_enhancements', {
+	mediaReliabilityTest({
 		true: async () => {
 			renderWithIntl(<NestedMediaClientContext />);
 
@@ -110,7 +125,7 @@ describe('child MediaClientContext with config should not use mediaClient from p
 // Fix 1: Stale promise cancellation — when mediaProvider changes mid-flight, the stale
 // promise must not overwrite the state set by the new provider.
 describe('stale mediaProvider promise should not overwrite state from the new provider', () => {
-	eeTest('platform_editor_media_reliability_enhancements', {
+	mediaReliabilityTest({
 		true: async () => {
 			let resolveFirstProvider!: (value: any) => void;
 			const firstProvider = new Promise<any>((resolve) => {
@@ -180,7 +195,7 @@ describe('stale mediaProvider promise should not overwrite state from the new pr
 
 // Fix 2: mediaClient must be available on first render when ssr.config is provided
 describe('mediaClient should be available on first render when ssr.config is provided', () => {
-	eeTest('platform_editor_media_reliability_enhancements', {
+	mediaReliabilityTest({
 		true: () => {
 			const firstRenderClients: Array<unknown> = [];
 
@@ -245,7 +260,7 @@ describe('mediaClient should be available on first render when ssr.config is pro
 // This test captures the mediaClient value seen on the first render synchronously,
 // before any async resolution has occurred, to confirm the child never inherits the parent.
 describe('child MediaClientContext should not inherit parent mediaClient on first render when provider is pre-registered', () => {
-	eeTest('platform_editor_media_reliability_enhancements', {
+	mediaReliabilityTest({
 		true: () => {
 			const firstRenderValues: Array<{ hasClient: boolean; prefix: string }> = [];
 
@@ -325,56 +340,46 @@ describe('child MediaClientContext should not inherit parent mediaClient on firs
 	});
 });
 
-eeTest
-	.describe('platform_editor_media_reliability_enhancements', 'video captions media client config')
-	.variant(true, () => {
-		function renderWithCaptionProvider(
-			mediaProvider: Promise<MediaProvider> = createMediaProviderWithViewAndUploadConfig(),
-		) {
-			const providerFactory = ProviderFactory.create({
-				mediaProvider,
-			});
-
-			renderWithIntl(
-				<ProviderFactoryProvider value={providerFactory}>
-					<EditorMediaClientProvider>
-						<MediaClientConsumer testIdPrefix="consumer" />
-					</EditorMediaClientProvider>
-				</ProviderFactoryProvider>,
-			);
-		}
-
-		it('uses viewAndUploadMediaClientConfig when both caption gates are on', async () => {
-			passGate('platform_media_video_captions');
-			passGate('platform_editor_video_caption_commit');
-
-			renderWithCaptionProvider();
-
-			expect(await screen.findByTestId('consumer-token')).toHaveTextContent(
-				'view-and-upload-token',
-			);
-		});
-
-		it('uses viewMediaClientConfig when viewAndUploadMediaClientConfig is absent', async () => {
-			renderWithCaptionProvider(createMediaProvider('view-only-token'));
-
-			expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-only-token');
-		});
-
-		it('uses viewMediaClientConfig when the media captions gate is off', async () => {
-			failGate('platform_media_video_captions');
-
-			renderWithCaptionProvider();
-
-			expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-token');
-		});
-
-		it('uses viewMediaClientConfig when the editor caption commit gate is off', async () => {
-			passGate('platform_media_video_captions');
-			failGate('platform_editor_video_caption_commit');
-
-			renderWithCaptionProvider();
-
-			expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-token');
-		});
+describe('video captions media client config', () => {
+	beforeEach(() => {
+		mockExpEnabled('platform_editor_media_reliability_enhancements');
 	});
+
+	function renderWithCaptionProvider(
+		mediaProvider: Promise<MediaProvider> = createMediaProviderWithViewAndUploadConfig(),
+	) {
+		const providerFactory = ProviderFactory.create({
+			mediaProvider,
+		});
+
+		renderWithIntl(
+			<ProviderFactoryProvider value={providerFactory}>
+				<EditorMediaClientProvider>
+					<MediaClientConsumer testIdPrefix="consumer" />
+				</EditorMediaClientProvider>
+			</ProviderFactoryProvider>,
+		);
+	}
+
+	it('uses viewAndUploadMediaClientConfig when both caption gates are on', async () => {
+		passGate('platform_media_video_captions');
+
+		renderWithCaptionProvider();
+
+		expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-and-upload-token');
+	});
+
+	it('uses viewMediaClientConfig when viewAndUploadMediaClientConfig is absent', async () => {
+		renderWithCaptionProvider(createMediaProvider('view-only-token'));
+
+		expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-only-token');
+	});
+
+	it('uses viewMediaClientConfig when the media captions gate is off', async () => {
+		failGate('platform_media_video_captions');
+
+		renderWithCaptionProvider();
+
+		expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-token');
+	});
+});

@@ -4,11 +4,11 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.getThemeHtmlAttrs = exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
+var _fg = require("@atlaskit/platform-feature-flags/fg");
 var _constants = require("./constants");
-var _themeConfig = require("./theme-config");
+var _themeStateDefaults = require("./theme-state-defaults");
 var _themeObjectToString = require("./theme-object-to-string");
 var _hash = require("./utils/hash");
 var _isValidBrandHex = require("./utils/is-valid-brand-hex");
@@ -32,26 +32,26 @@ var defaultContrastMode = 'no-preference';
  *
  * @returns {Object} Object of HTML attributes to be applied to the document root
  */
-var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
+var getThemeHtmlAttrs = exports.getThemeHtmlAttrs = function getThemeHtmlAttrs() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
     _ref$colorMode = _ref.colorMode,
-    colorMode = _ref$colorMode === void 0 ? _themeConfig.themeStateDefaults['colorMode'] : _ref$colorMode,
+    colorMode = _ref$colorMode === void 0 ? _themeStateDefaults.themeStateDefaults['colorMode'] : _ref$colorMode,
     _ref$dark = _ref.dark,
-    dark = _ref$dark === void 0 ? _themeConfig.themeStateDefaults['dark'] : _ref$dark,
+    dark = _ref$dark === void 0 ? _themeStateDefaults.themeStateDefaults['dark'] : _ref$dark,
     _ref$light = _ref.light,
-    light = _ref$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref$light,
+    light = _ref$light === void 0 ? _themeStateDefaults.themeStateDefaults['light'] : _ref$light,
     _ref$contrastMode = _ref.contrastMode,
-    contrastMode = _ref$contrastMode === void 0 ? _themeConfig.themeStateDefaults['contrastMode'] : _ref$contrastMode,
+    contrastMode = _ref$contrastMode === void 0 ? _themeStateDefaults.themeStateDefaults['contrastMode'] : _ref$contrastMode,
     _ref$motion = _ref.motion,
-    motion = _ref$motion === void 0 ? _themeConfig.themeStateDefaults['motion']() : _ref$motion,
+    motion = _ref$motion === void 0 ? _themeStateDefaults.themeStateDefaults['motion']() : _ref$motion,
     _ref$shape = _ref.shape,
-    shape = _ref$shape === void 0 ? _themeConfig.themeStateDefaults['shape']() : _ref$shape,
+    shape = _ref$shape === void 0 ? _themeStateDefaults.themeStateDefaults['shape']() : _ref$shape,
     _ref$spacing = _ref.spacing,
-    spacing = _ref$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref$spacing,
+    spacing = _ref$spacing === void 0 ? _themeStateDefaults.themeStateDefaults['spacing'] : _ref$spacing,
     _ref$typography = _ref.typography,
-    typography = _ref$typography === void 0 ? _themeConfig.themeStateDefaults['typography'] : _ref$typography,
+    typography = _ref$typography === void 0 ? _themeStateDefaults.themeStateDefaults['typography'] : _ref$typography,
     _ref$UNSAFE_themeOpti = _ref.UNSAFE_themeOptions,
-    UNSAFE_themeOptions = _ref$UNSAFE_themeOpti === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref$UNSAFE_themeOpti;
+    UNSAFE_themeOptions = _ref$UNSAFE_themeOpti === void 0 ? _themeStateDefaults.themeStateDefaults['UNSAFE_themeOptions'] : _ref$UNSAFE_themeOpti;
   var themeAttribute = (0, _themeObjectToString.themeObjectToString)({
     dark: dark,
     light: light,
@@ -61,7 +61,7 @@ var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
     typography: typography
   });
   var result = (0, _defineProperty2.default)((0, _defineProperty2.default)({}, _constants.THEME_DATA_ATTRIBUTE, themeAttribute), _constants.COLOR_MODE_ATTRIBUTE, colorMode === 'auto' ? defaultColorMode : colorMode);
-  if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
+  if ((0, _fg.fg)('platform_increased-contrast-themes')) {
     result = _objectSpread(_objectSpread({}, result), {}, (0, _defineProperty2.default)({}, _constants.CONTRAST_MODE_ATTRIBUTE, contrastMode === 'auto' ? defaultContrastMode : contrastMode));
   }
   if (UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(UNSAFE_themeOptions.brandColor)) {

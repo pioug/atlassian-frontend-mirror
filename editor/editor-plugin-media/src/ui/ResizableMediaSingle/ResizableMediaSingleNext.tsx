@@ -9,7 +9,7 @@ import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 import throttle from 'lodash/throttle';
 
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import {
 	findClosestSnap,
 	generateDefaultGuidelines,
@@ -55,8 +55,9 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	MEDIA_PLUGIN_IS_RESIZING_KEY,
@@ -396,11 +397,9 @@ export const ResizableMediaSingleNextFunctional = (
 			};
 		}
 
-		const isLeftResizeHandleDisabled = expValEquals(
-			'platform_editor_lovability_resize_dividers_panels',
-			'isEnabled',
-			true,
-		);
+		const isLeftResizeHandleDisabled =
+			expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_remove_left_resize_handle');
 
 		return handleSides.reduce((acc, side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';

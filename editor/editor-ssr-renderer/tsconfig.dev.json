@@ -59,6 +59,9 @@
 		},
 		{
 			"path": "../../linking-platform/link-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

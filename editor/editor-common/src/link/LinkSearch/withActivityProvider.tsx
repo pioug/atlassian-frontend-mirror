@@ -3,6 +3,7 @@ import React from 'react';
 import type { ActivityProvider } from '@atlaskit/activity-provider';
 
 import { WithProviders } from '../../provider-factory';
+// oxlint-disable-next-line import/no-duplicates
 import type { ProviderFactory } from '../../provider-factory';
 // eslint-disable-next-line no-duplicate-imports
 import type { Providers } from '../../provider-factory';

@@ -1,7 +1,7 @@
 import { type TeamMembershipQueryResponse } from '../services/agg-client/utils/queries/team-membership-query';
 import { type RecommendationsResponse } from '../services/invitations-client/types';
 import { type LegionTeamGetResponseV4 } from '../services/legion-client/types';
-import { type TeamMembership } from '../types';
+import { type TeamMembership } from '../types/membership';
 
 import avatar1 from './images/avatar-1.png';
 import avatar2 from './images/avatar-2.png';

@@ -8,16 +8,14 @@ import PagesIcon from '@atlaskit/icon/core/pages';
 import PersonIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	ButtonItem,
-	LinkItem,
-	NavigationFooter,
-	NavigationHeader,
-	NestableNavigationContent,
-	NestingItem,
-	Section,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+import { LinkItem } from '@atlaskit/side-navigation/link-item';
+import { NavigationFooter } from '@atlaskit/side-navigation/navigation-footer';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 
 import AppFrame from '../common/app-frame';
 import SampleFooter from '../common/sample-footer';

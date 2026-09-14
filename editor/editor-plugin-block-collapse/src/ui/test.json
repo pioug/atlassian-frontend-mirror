@@ -1,0 +1,369 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1,
+        "localId": "33ebc0267a75"
+      },
+      "content": [
+        {
+          "text": "L1  Heading",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attrs": {
+        "localId": "3f8d71a9414f"
+      },
+      "content": [
+        {
+          "text": "Some text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attrs": {
+        "localId": "89caa60e2c79"
+      },
+      "content": [
+        {
+          "text": "Some text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attrs": {
+        "localId": "b6d156db896e"
+      },
+      "content": [
+        {
+          "text": "Some text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3,
+        "localId": "43d522ee0cab"
+      },
+      "content": [
+        {
+          "text": "L3 Heading",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attrs": {
+        "localId": "e1e5b80e47ce"
+      },
+      "content": [
+        {
+          "text": "Hey",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "orderedList",
+      "attrs": {
+        "localId": "9dbd44ba4d04",
+        "order": 1
+      },
+      "content": [
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "bbf0cf5910fe"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "307dd964dd3d"
+              },
+              "content": [
+                {
+                  "text": "Ciao",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "9c369cdf8780"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "86ee0b695f20"
+              },
+              "content": [
+                {
+                  "text": "Uno ",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "96e367a34ab1"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "cbce32086f50"
+              },
+              "content": [
+                {
+                  "text": "Due",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "7194c6d0c8f6"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "579f4f8d8242"
+              },
+              "content": [
+                {
+                  "text": "Tre",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "1080486c396f"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "6da7f6d1a3fd"
+              },
+              "content": [
+                {
+                  "text": "Quattro",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "bab106ac3438"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "746c498c0183"
+              },
+              "content": [
+                {
+                  "text": "Cinque",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 1,
+        "localId": "cc716c6b4684"
+      },
+      "content": [
+        {
+          "text": "L1 Heading",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attrs": {
+        "localId": "369176a5b6bc"
+      },
+      "content": [
+        {
+          "text": "Hey",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "orderedList",
+      "attrs": {
+        "localId": "34dc32b3-24f7-45bc-8397-70580e39a778",
+        "order": 1
+      },
+      "content": [
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "bd2173dc-6e79-4151-845f-b4c2db016866"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "ce19072cd9b0"
+              },
+              "content": [
+                {
+                  "text": "Ciao",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "b7294196-7563-4b96-9f8e-36bc7b5479fd"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "51d2dfcb3cdc"
+              },
+              "content": [
+                {
+                  "text": "Uno ",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "47906b89-d7a0-40f5-b7eb-9cef367e5488"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "8a2f70107353"
+              },
+              "content": [
+                {
+                  "text": "Due",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "4f2bf150-474f-4e0a-ab9e-394946d45ec9"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "c7c4be97b377"
+              },
+              "content": [
+                {
+                  "text": "Tre",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "d125de0b-7f86-44da-b96d-faebbe0b2c1a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "50e13839f044"
+              },
+              "content": [
+                {
+                  "text": "Quattro",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "1f4acbcd-3e9b-496d-9908-15bd641f5088"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "attrs": {
+                "localId": "4bce133c3fbc"
+              },
+              "content": [
+                {
+                  "text": "Cinque",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "attrs": {
+        "localId": "316e560f2f06"
+      }
+    }
+  ],
+  "version": 1
+}

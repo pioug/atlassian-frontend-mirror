@@ -1,6 +1,6 @@
 import React, { useCallback, useReducer } from 'react';
 
-import Calendar from '@atlaskit/calendar';
+import Calendar from '@atlaskit/calendar/calendar';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
 const onBlur = () => log('Blur');

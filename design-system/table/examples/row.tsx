@@ -1,10 +1,11 @@
 import React from 'react';
 
-import Avatar, { AvatarItem } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
 import { cssMap } from '@atlaskit/css';
 import { Date as AKDate } from '@atlaskit/date';
 import Icon from '@atlaskit/icon/core/archive-box';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Flex } from '@atlaskit/primitives/compiled';
 import Table, { Cell, Row, TBody } from '@atlaskit/table';
 import { token } from '@atlaskit/tokens';

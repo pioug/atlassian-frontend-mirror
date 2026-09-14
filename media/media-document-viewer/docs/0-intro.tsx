@@ -11,9 +11,9 @@ const _default_1: any = md`
   ${(
 		<Example
 			packageName="@atlaskit/media-document-viewer"
-			Component={require('../examples/basic').default}
+			Component={require('../examples/basic.vr.ap').default}
 			title="Basic example"
-			source={require('!!raw-loader!../examples/basic')}
+			source={require('!!raw-loader!../examples/basic.vr.ap')}
 		/>
 	)}
 

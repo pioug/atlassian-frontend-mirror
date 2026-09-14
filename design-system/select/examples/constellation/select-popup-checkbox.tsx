@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { CheckboxOption, PopupSelect } from '@atlaskit/select';
+import { CheckboxOption } from '@atlaskit/select/checkbox-option';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 const options = [
 	{
 		label: 'Standard work types',

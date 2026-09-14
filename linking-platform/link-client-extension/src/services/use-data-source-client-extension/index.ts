@@ -2,19 +2,21 @@ import { useCallback, useMemo } from 'react';
 
 import { LRUMap } from 'lru_map';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { request } from '@atlaskit/linking-common';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { request } from '@atlaskit/linking-common/api';
 import type {
 	ActionsDiscoveryRequest,
 	ActionsDiscoveryResponse,
 	ActionsServiceDiscoveryResponse,
 	AtomicActionExecuteRequest,
 	AtomicActionExecuteResponse,
+} from '@atlaskit/linking-types/datasource-actions';
+import type {
 	DatasourceDataRequest,
 	DatasourceDataResponse,
 	DatasourceDetailsRequest,
 	DatasourceDetailsResponse,
-} from '@atlaskit/linking-types';
+} from '@atlaskit/linking-types/datasource';
 
 import { useResolverUrl } from '../use-resolver-url';
 

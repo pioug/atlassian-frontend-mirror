@@ -1,4 +1,4 @@
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 
 import type { GuidelineTypes, WidthTypes } from '../../guideline/types';
 

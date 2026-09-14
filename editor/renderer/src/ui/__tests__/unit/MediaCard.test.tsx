@@ -1,4 +1,4 @@
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 
 import type { MediaCardProps } from '../../MediaCard';
 import { MediaCardView } from '../../MediaCard';
@@ -25,9 +25,24 @@ describe('MediaCard onError analytics', () => {
 		...overrides,
 	});
 
-	eeTest.describe('platform_synced_block', 'when experiment is enabled').variant(true, () => {
+	describe('when synced block context is provided', () => {
+		it('forwards a consumer error without firing generic renderer analytics', () => {
+			mockExpDisabled('platform_editor_media_error_analytics');
+			const onError = jest.fn();
+			const component = new MediaCardView({
+				...createMediaCardProps({ onError }),
+				fireAnalyticsEvent: mockFireAnalyticsEvent,
+			});
+
+			(component as any).getMediaErrorHandler()('test-error-reason');
+
+			expect(onError).toHaveBeenCalledWith('test-error-reason');
+			expect(mockFireAnalyticsEvent).not.toHaveBeenCalled();
+		});
+
 		it('should include nestedUnder in analytics attributes when nestedUnder prop is provided', () => {
-			const props = createMediaCardProps({ nestedUnder: 'bodiedSyncBlock' });
+			const onError = jest.fn();
+			const props = createMediaCardProps({ nestedUnder: 'bodiedSyncBlock', onError });
 			const component = new MediaCardView({
 				...props,
 				fireAnalyticsEvent: mockFireAnalyticsEvent,
@@ -36,6 +51,7 @@ describe('MediaCard onError analytics', () => {
 			// Call the private onError method
 			(component as any).onError('test-error-reason');
 
+			expect(onError).toHaveBeenCalledWith('test-error-reason');
 			expect(mockFireAnalyticsEvent).toHaveBeenCalledWith({
 				action: 'errored',
 				actionSubject: 'renderer',

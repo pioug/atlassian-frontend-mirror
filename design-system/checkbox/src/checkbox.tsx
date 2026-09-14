@@ -61,7 +61,7 @@ const checkboxStyles = cssMap({
  * - [Code](https://atlassian.design/components/checkbox/code)
  * - [Usage](https://atlassian.design/components/checkbox/usage)
  */
-const Checkbox: MemoExoticComponent<
+export const Checkbox: MemoExoticComponent<
 	ForwardRefExoticComponent<React.PropsWithoutRef<CheckboxProps> & RefAttributes<HTMLInputElement>>
 > = memo(
 	forwardRef(function Checkbox(
@@ -166,4 +166,5 @@ const Checkbox: MemoExoticComponent<
 
 Checkbox.displayName = 'Checkbox';
 
+// keep the default export for backwards compatibility
 export default Checkbox;

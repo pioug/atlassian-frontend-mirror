@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1c3a56195279b145c83aee2d39dd6918>>
+ * @codegen <<SignedSource::5b52c9a80df5eda7d892877f2f58378a>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,7 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  */
 export function ProjectsIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Projects',
 	testId,

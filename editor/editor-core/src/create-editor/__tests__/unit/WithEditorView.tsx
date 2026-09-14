@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -25,31 +25,32 @@ describe('WithEditorView', () => {
 
 		editorActions._privateRegisterEditor(options.editorView, new EventDispatcher());
 
-		const wrapper = mount(
-			<EditorContext editorActions={editorActions}>{options.child}</EditorContext>,
+		return render(
+			<main>
+				<EditorContext editorActions={editorActions}>{options.child}</EditorContext>
+			</main>,
 		);
-
-		return wrapper;
 	}
 
-	it('should pass the editorView', () => {
+	it('should pass the editorView', async () => {
 		const { editorView } = createEditor({
 			preset: new Preset<LightEditorPlugin>(),
 		});
 
+		let receivedEditorView: EditorView | undefined;
 		const DummyComponent = (props: { editorView: EditorView | undefined }) => {
+			receivedEditorView = props.editorView;
 			return null;
 		};
 
 		const DummyComponentWithFlags = WithEditorView(DummyComponent);
 
-		const wrapper = setup({
+		const { container } = setup({
 			editorView,
 			child: <DummyComponentWithFlags />,
 		});
 
-		const dummyComponent = wrapper.find(DummyComponent);
-
-		expect(dummyComponent.prop('editorView')).toEqual(editorView);
+		expect(receivedEditorView).toEqual(editorView);
+		await expect(container).toBeAccessible();
 	});
 });

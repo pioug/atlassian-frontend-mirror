@@ -39,7 +39,7 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';

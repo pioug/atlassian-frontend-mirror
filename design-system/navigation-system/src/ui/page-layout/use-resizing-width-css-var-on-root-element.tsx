@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 
 import { isPanelSplitterDragData } from './panel-splitter/is-panel-splitter-drag-data';
 

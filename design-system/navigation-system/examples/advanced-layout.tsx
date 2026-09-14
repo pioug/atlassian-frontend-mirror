@@ -5,7 +5,7 @@
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { HomeIcon } from '@atlaskit/logo';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';

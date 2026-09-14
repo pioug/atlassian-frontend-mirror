@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { coreIconMetadata } from '@atlaskit/icon/metadata';
+import coreIconMetadata from '@atlaskit/icon/metadata-core';
 
 const IconComponents = Object.keys(coreIconMetadata).map((name: string) => {
 	const icon = require(`../core/${name}.js`);

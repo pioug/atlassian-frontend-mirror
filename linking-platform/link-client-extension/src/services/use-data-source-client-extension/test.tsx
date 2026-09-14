@@ -2,7 +2,8 @@ import React from 'react';
 
 import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { NetworkError } from '@atlaskit/linking-common';
 import type {
@@ -10,11 +11,13 @@ import type {
 	ActionsDiscoveryResponse,
 	AtomicActionExecuteRequest,
 	AtomicActionExecuteResponse,
+} from '@atlaskit/linking-types/datasource-actions';
+import type {
 	DatasourceDataRequest,
 	DatasourceDataResponse,
 	DatasourceDetailsRequest,
 	DatasourceDetailsResponse,
-} from '@atlaskit/linking-types';
+} from '@atlaskit/linking-types/datasource';
 
 import { mockActionsDiscoveryResponse } from './mockActionsDiscoveryResponse';
 import { mockDatasourceDataResponse } from './mockDatasourceDataResponse';

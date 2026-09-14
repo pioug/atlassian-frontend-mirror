@@ -3,7 +3,7 @@ import {
 	FeatureGateEnvironment,
 	type Identifiers,
 	PerimeterType,
-} from '@atlaskit/feature-gate-js-client';
+} from '@atlaskit/feature-gate-js-client/types';
 
 import { ResponseError } from './errors';
 import {

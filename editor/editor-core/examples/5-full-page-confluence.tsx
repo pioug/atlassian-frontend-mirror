@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';
 import { PresetContextProvider } from '../src/presets/context';

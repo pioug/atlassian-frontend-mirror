@@ -1,5 +1,5 @@
 import type { FileState } from '@atlaskit/media-state/file-state';
-import { type AuthContext } from '@atlaskit/media-core';
+import type { AuthContext } from '@atlaskit/media-core/auth';
 
 export type EventPayloadMap<P> = {
 	readonly [event: string]: P;

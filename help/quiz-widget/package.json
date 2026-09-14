@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/quiz-widget",
-	"version": "4.0.5",
+	"version": "4.1.0",
 	"description": "A React component that gives a possibility to pass quizzes",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -11,7 +11,10 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Jira Training App",
+		"team": "PACE PS2",
+		"slack": {
+			"channel": "#pace-ps2"
+		},
 		"website": {
 			"name": "QuizWidget"
 		}
@@ -41,7 +44,6 @@
 	},
 	"devDependencies": {
 		"@testing-library/react": "root:*",
-		"enzyme": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"wait-for-expect": "root:*"

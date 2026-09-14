@@ -4,7 +4,7 @@ import { cssMap } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
-import { type InputActionMeta, type ValueType } from '@atlaskit/select';
+import type { InputActionMeta, ValueType } from '@atlaskit/select/types';
 
 import { FilterPopupSelect } from '../src/ui/common/modal/popup-select';
 import { type CustomMenuListProps } from '../src/ui/common/modal/popup-select/menu-list';

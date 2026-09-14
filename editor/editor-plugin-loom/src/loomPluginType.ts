@@ -1,3 +1,4 @@
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
@@ -6,12 +7,13 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { LoomPluginState } from './pm-plugins/main';
@@ -57,6 +59,7 @@ export type LoomPlugin = NextEditorPlugin<
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
+			OptionalPlugin<UiControlRegistryPlugin>,
 		];
 		pluginConfiguration: LoomPluginOptions;
 		sharedState: LoomPluginState | undefined;

@@ -1,9 +1,10 @@
-import { teamsClient } from '@atlaskit/teams-client';
-import { renderHook, waitFor } from '@atlassian/testing-library';
+import { teamsClient } from '@atlaskit/teams-client/client';
+import { act, renderHook, waitFor } from '@atlassian/testing-library';
 
 import { useTeamWebLinks } from './multi-team';
 
-jest.mock('@atlaskit/teams-client', () => ({
+jest.mock('@atlaskit/teams-client/client', () => ({
+	...jest.requireActual('@atlaskit/teams-client/client'),
 	teamsClient: {
 		getTeamLinksByTeamId: jest.fn(),
 		createTeamLink: jest.fn(),
@@ -590,7 +591,9 @@ describe('useTeamWebLinks (multi-team)', () => {
 		expect(hookResult.current[0].hasLoaded).toBe(true);
 
 		// Reset state
-		hookResult.current[1].initialState();
+		await act(async () => {
+			hookResult.current[1].initialState();
+		});
 
 		// State should be reset
 		expect(hookResult.current[0].links).toEqual([]);

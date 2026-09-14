@@ -22,7 +22,7 @@ import {
 	WithCreateAnalyticsEvent,
 } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- emotion jsx pragma; go/DSP-18766
 import { css, jsx } from '@emotion/react'; // oxlint-ignore @typescript-eslint/consistent-type-imports -- classic @jsx jsx factory + jsx.JSX.Element types
 
@@ -37,15 +37,15 @@ import {
 	getAnalyticsEventSeverity,
 	shouldForceTracking,
 } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
-import type { MediaSSR, RendererContext } from '../../';
+import { v4 as uuid } from 'uuid';
+import type { MediaSSR, RendererContext, RenderOutputStat } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import type { AnalyticsEventPayload, FireAnalyticsCallback } from '../../analytics/events';
@@ -223,11 +223,13 @@ const handleWrapperOnClick = (
 	}
 };
 
+type ValidationOverrides = { allowNestedTables?: boolean; allowTableInPanel?: boolean };
+
 export const RendererFunctionalComponent = (
 	props: RendererProps & {
+		allowNestedTables?: boolean;
 		skipValidation?: boolean;
 		startPos?: number;
-		validationOverrides?: { allowNestedTables?: boolean };
 	},
 ): jsx.JSX.Element => {
 	const { createAnalyticsEvent } = props;
@@ -333,6 +335,8 @@ export const RendererFunctionalComponent = (
 				allowMediaLinking: props.media && props.media.allowLinking,
 				surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
 				media: props.media,
+				mentionNodeDataProvider: props.mentionNodeDataProvider,
+				emojiProviderLookupOrder: props.emojiProviderLookupOrder,
 				emojiResourceConfig: props.emojiResourceConfig,
 				smartLinks: props.smartLinks,
 				extensionViewportSizes: props.extensionViewportSizes,
@@ -430,18 +434,13 @@ export const RendererFunctionalComponent = (
 		let heightWidthAnalyticsRafID: number;
 
 		const handleAnalytics = () => {
-			if (
-				!fg('platform_renderer_sample_high_volume_events') ||
-				Math.random() < RENDER_EVENT_SAMPLE_RATE
-			) {
+			if (Math.random() < RENDER_EVENT_SAMPLE_RATE) {
 				fireAnalyticsEvent({
 					action: ACTION.STARTED,
 					actionSubject: ACTION_SUBJECT.RENDERER,
 					attributes: {
 						platform: PLATFORM.WEB,
-						sampleRate: fg('platform_renderer_sample_high_volume_events')
-							? RENDER_EVENT_SAMPLE_RATE
-							: 1,
+						sampleRate: RENDER_EVENT_SAMPLE_RATE,
 					},
 					eventType: EVENT_TYPE.UI,
 				});
@@ -489,21 +488,14 @@ export const RendererFunctionalComponent = (
 								distortedDuration,
 								ttfb,
 								nodes,
-								nestedRendererType: editorExperiment('platform_synced_block', true)
-									? nestedRendererType
-									: undefined,
+								nestedRendererType,
 								severity,
-								sampleRate: fg('platform_renderer_sample_high_volume_events')
-									? RENDER_EVENT_SAMPLE_RATE
-									: 1,
+								sampleRate: RENDER_EVENT_SAMPLE_RATE,
 							},
 							eventType: EVENT_TYPE.OPERATIONAL,
 						} as const;
 
-						if (
-							!fg('platform_renderer_sample_high_volume_events') ||
-							Math.random() < RENDER_EVENT_SAMPLE_RATE
-						) {
+						if (Math.random() < RENDER_EVENT_SAMPLE_RATE) {
 							fireAnalyticsEvent(event);
 						}
 					}
@@ -527,11 +519,9 @@ export const RendererFunctionalComponent = (
 							fireAnalyticsEvent(payload);
 						}
 
-						if (fg('platform_editor_table_height_analytics_event')) {
-							const payloadHeight = getHeightInfoPayload(renderer);
-							if (payloadHeight) {
-								fireAnalyticsEvent(payloadHeight);
-							}
+						const payloadHeight = getHeightInfoPayload(renderer);
+						if (payloadHeight) {
+							fireAnalyticsEvent(payloadHeight);
 						}
 					}
 				};
@@ -584,16 +574,36 @@ export const RendererFunctionalComponent = (
 		props.allowCollapsibleHeadings === true &&
 		['full-page', 'full-width', 'max'].includes(props.appearance || '') &&
 		rendererContext.isTopLevelRenderer &&
-		expValEquals('platform_renderer_collapsible_headings', 'isEnabled', true);
+		isExperimentEnabled('platform_renderer_collapsible_headings');
 
 	useScrollToBlock(editorRef, props.document, props.scrollToBlock);
 
+	const { allowNestedTables } = props;
+	// Memoised so `renderDocument`'s validation memo can match by reference across re-renders.
+	const validationOverrides = useMemo<ValidationOverrides>(() => {
+		const schema = getSchema(props.schema, props.adfStage);
+		return isPanelNestingTableSupported(schema)
+			? { allowNestedTables, allowTableInPanel: true }
+			: { allowNestedTables };
+	}, [allowNestedTables, getSchema, props.schema, props.adfStage]);
+
+	// Invoking `onComplete` during render lets consumers set state on other components mid-render,
+	// so the stat is parked here and delivered once the rendered document has been committed.
+	// No dependency array: `renderDocument` produces a new stat on every render, so the callback
+	// must run after every commit to keep its historical once-per-render cadence.
+	const pendingOnCompleteStatRef = useRef<RenderOutputStat | null>(null);
+	const { onComplete } = props;
+	useEffect(() => {
+		const stat = pendingOnCompleteStatRef.current;
+		if (stat === null || !onComplete) {
+			return;
+		}
+		pendingOnCompleteStatRef.current = null;
+		onComplete(stat);
+	});
+
 	try {
 		const schema = getSchema(props.schema, props.adfStage);
-		const allowTableInPanel = isPanelNestingTableSupported(schema);
-		const validationOverrides = allowTableInPanel
-			? { ...props.validationOverrides, allowTableInPanel: true }
-			: props.validationOverrides;
 		const { result, stat, pmDoc } = renderDocument(
 			props.shouldRemoveEmptySpaceAroundContent
 				? removeEmptySpaceAroundContent(props.document)
@@ -612,7 +622,11 @@ export const RendererFunctionalComponent = (
 		);
 
 		if (props.onComplete) {
-			props.onComplete(stat);
+			if (isExperimentEnabled('platform_renderer_on_complete_after_commit')) {
+				pendingOnCompleteStatRef.current = stat;
+			} else {
+				props.onComplete(stat);
+			}
 		}
 
 		const rendererOutput = (
@@ -741,7 +755,6 @@ export function Renderer(props: RendererProps): jsx.JSX.Element {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
 	const { skipValidation, allowNestedTables } = useContext(ValidationContext) || {};
-	const validationOverrides = useMemo(() => ({ allowNestedTables }), [allowNestedTables]);
 
 	return (
 		<RendererFunctionalComponentWithPortalContext
@@ -751,7 +764,7 @@ export function Renderer(props: RendererProps): jsx.JSX.Element {
 			startPos={startPos}
 			isTopLevelRenderer={props.isTopLevelRenderer ?? isTopLevelRenderer}
 			skipValidation={skipValidation}
-			validationOverrides={validationOverrides}
+			allowNestedTables={allowNestedTables}
 		/>
 	);
 }
@@ -983,7 +996,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	//
 
 	// allowRendererContainerStyles is not needed for comment container styling as container should always be set for comments
-	if (appearance === 'comment' && isTopLevelRenderer && fg('platform-ssr-table-resize')) {
+	if (appearance === 'comment' && isTopLevelRenderer) {
 		return <div css={setAsQueryContainerStyles}>{renderer}</div>;
 	}
 
@@ -999,8 +1012,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		// In case of having excerpt-include on page there are multiple renderers nested.
 		// Make sure only the root renderer is set to be query container.
 		isTopLevelRenderer &&
-		allowRendererContainerStyles &&
-		fg('platform-ssr-table-resize') ? (
+		allowRendererContainerStyles ? (
 		<div css={setAsQueryContainerStyles}>{renderer}</div>
 	) : (
 		renderer

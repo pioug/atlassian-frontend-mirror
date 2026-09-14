@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
@@ -18,8 +19,10 @@ import {
 	hEmpty,
 } from '../../../__tests__/__helpers/doc-builder';
 import { TableMap } from '../../../table-map';
-import { cellAround } from '../../../utils/cells';
-import { clipCells, insertCells, pastedCells } from '../../copy-paste';
+import { cellAround } from '../../cell-around';
+import { clipCells } from '../../clip-cells';
+import { insertCells } from '../../insert-cells';
+import { pastedCells } from '../../pasted-cells';
 
 const cellRef = (ref: string, before: string = '', after: string = '') =>
 	td()(p(`${before}{${ref}}${after}`));

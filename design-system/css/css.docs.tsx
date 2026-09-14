@@ -1,9 +1,838 @@
 import path from 'path';
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
 	utilities: [
+		{
+			kind: 'type',
+			name: 'MediaAboveXxs',
+			description: 'The canonical MediaAboveXxs at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaAboveXxs',
+				package: '@atlaskit/css/at-rules/media-above-xxs',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaAboveXxs = '@media all'",
+			usageGuidelines: [
+				'Use MediaAboveXxs when styles should apply at the smallest supported viewport and above.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-above-xxs'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaAboveXs',
+			description: 'The canonical MediaAboveXs at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaAboveXs',
+				package: '@atlaskit/css/at-rules/media-above-xs',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaAboveXs = '@media (min-width: 30rem)'",
+			usageGuidelines: [
+				'Use MediaAboveXs when styles should apply from the 30rem viewport breakpoint upward.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-above-xs'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaAboveSm',
+			description: 'The canonical MediaAboveSm at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaAboveSm',
+				package: '@atlaskit/css/at-rules/media-above-sm',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaAboveSm = '@media (min-width: 48rem)'",
+			usageGuidelines: [
+				'Use MediaAboveSm when styles should apply from the 48rem viewport breakpoint upward.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-above-sm'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaAboveMd',
+			description: 'The canonical MediaAboveMd at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaAboveMd',
+				package: '@atlaskit/css/at-rules/media-above-md',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaAboveMd = '@media (min-width: 64rem)'",
+			usageGuidelines: [
+				'Use MediaAboveMd when styles should apply from the 64rem viewport breakpoint upward.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-above-md'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaAboveLg',
+			description: 'The canonical MediaAboveLg at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaAboveLg',
+				package: '@atlaskit/css/at-rules/media-above-lg',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaAboveLg = '@media (min-width: 90rem)'",
+			usageGuidelines: [
+				'Use MediaAboveLg when styles should apply from the 90rem viewport breakpoint upward.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-above-lg'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaAboveXl',
+			description: 'The canonical MediaAboveXl at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaAboveXl',
+				package: '@atlaskit/css/at-rules/media-above-xl',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaAboveXl = '@media (min-width: 110.5rem)'",
+			usageGuidelines: [
+				'Use MediaAboveXl when styles should apply from the 110.5rem viewport breakpoint upward.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-above-xl'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaBelowXs',
+			description: 'The canonical MediaBelowXs at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaBelowXs',
+				package: '@atlaskit/css/at-rules/media-below-xs',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaBelowXs = '@media not all and (min-width: 30rem)'",
+			usageGuidelines: [
+				'Use MediaBelowXs when styles should apply below the 30rem viewport breakpoint.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-below-xs'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaBelowSm',
+			description: 'The canonical MediaBelowSm at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaBelowSm',
+				package: '@atlaskit/css/at-rules/media-below-sm',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaBelowSm = '@media not all and (min-width: 48rem)'",
+			usageGuidelines: [
+				'Use MediaBelowSm when styles should apply below the 48rem viewport breakpoint.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-below-sm'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaBelowMd',
+			description: 'The canonical MediaBelowMd at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaBelowMd',
+				package: '@atlaskit/css/at-rules/media-below-md',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaBelowMd = '@media not all and (min-width: 64rem)'",
+			usageGuidelines: [
+				'Use MediaBelowMd when styles should apply below the 64rem viewport breakpoint.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-below-md'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaBelowLg',
+			description: 'The canonical MediaBelowLg at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaBelowLg',
+				package: '@atlaskit/css/at-rules/media-below-lg',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaBelowLg = '@media not all and (min-width: 90rem)'",
+			usageGuidelines: [
+				'Use MediaBelowLg when styles should apply below the 90rem viewport breakpoint.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-below-lg'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaBelowXl',
+			description: 'The canonical MediaBelowXl at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaBelowXl',
+				package: '@atlaskit/css/at-rules/media-below-xl',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaBelowXl = '@media not all and (min-width: 110.5rem)'",
+			usageGuidelines: [
+				'Use MediaBelowXl when styles should apply below the 110.5rem viewport breakpoint.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-below-xl'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaOnlyXxs',
+			description: 'The canonical MediaOnlyXxs at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaOnlyXxs',
+				package: '@atlaskit/css/at-rules/media-only-xxs',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaOnlyXxs = '@media (min-width: 0rem) and (max-width: 29.99rem)'",
+			usageGuidelines: [
+				'Use MediaOnlyXxs when styles should apply only below the 30rem viewport breakpoint.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-only-xxs'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaOnlyXs',
+			description: 'The canonical MediaOnlyXs at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaOnlyXs',
+				package: '@atlaskit/css/at-rules/media-only-xs',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaOnlyXs = '@media (min-width: 30rem) and (max-width: 47.99rem)'",
+			usageGuidelines: [
+				'Use MediaOnlyXs when styles should apply only between 30rem and 47.99rem.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-only-xs'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaOnlySm',
+			description: 'The canonical MediaOnlySm at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaOnlySm',
+				package: '@atlaskit/css/at-rules/media-only-sm',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaOnlySm = '@media (min-width: 48rem) and (max-width: 63.99rem)'",
+			usageGuidelines: [
+				'Use MediaOnlySm when styles should apply only between 48rem and 63.99rem.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-only-sm'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaOnlyMd',
+			description: 'The canonical MediaOnlyMd at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaOnlyMd',
+				package: '@atlaskit/css/at-rules/media-only-md',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaOnlyMd = '@media (min-width: 64rem) and (max-width: 89.99rem)'",
+			usageGuidelines: [
+				'Use MediaOnlyMd when styles should apply only between 64rem and 89.99rem.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-only-md'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaOnlyLg',
+			description: 'The canonical MediaOnlyLg at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaOnlyLg',
+				package: '@atlaskit/css/at-rules/media-only-lg',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaOnlyLg = '@media (min-width: 90rem) and (max-width: 110.49rem)'",
+			usageGuidelines: [
+				'Use MediaOnlyLg when styles should apply only between 90rem and 110.49rem.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-only-lg'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaOnlyXl',
+			description: 'The canonical MediaOnlyXl at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaOnlyXl',
+				package: '@atlaskit/css/at-rules/media-only-xl',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaOnlyXl = '@media (min-width: 110.5rem)'",
+			usageGuidelines: [
+				'Use MediaOnlyXl when styles should apply only from the 110.5rem viewport breakpoint upward.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-only-xl'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaDarkMode',
+			description: 'The canonical MediaDarkMode at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaDarkMode',
+				package: '@atlaskit/css/at-rules/media-dark-mode',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaDarkMode = '@media (prefers-color-scheme: dark)'",
+			usageGuidelines: [
+				"Use MediaDarkMode when styles should respond to the user's dark color-scheme preference.",
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-dark-mode'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaLightMode',
+			description: 'The canonical MediaLightMode at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaLightMode',
+				package: '@atlaskit/css/at-rules/media-light-mode',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaLightMode = '@media (prefers-color-scheme: light)'",
+			usageGuidelines: [
+				"Use MediaLightMode when styles should respond to the user's light color-scheme preference.",
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-light-mode'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaReducedMotion',
+			description: 'The canonical MediaReducedMotion at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaReducedMotion',
+				package: '@atlaskit/css/at-rules/media-reduced-motion',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaReducedMotion = '@media (prefers-reduced-motion: reduce)'",
+			usageGuidelines: [
+				'Use MediaReducedMotion when motion should be reduced for users who request it.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-reduced-motion'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaReducedTransparency',
+			description: 'The canonical MediaReducedTransparency at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaReducedTransparency',
+				package: '@atlaskit/css/at-rules/media-reduced-transparency',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaReducedTransparency = '@media (prefers-reduced-transparency: reduce)'",
+			usageGuidelines: [
+				'Use MediaReducedTransparency when transparency should be reduced for users who request it.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-reduced-transparency'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaForcedColorsActive',
+			description: 'The canonical MediaForcedColorsActive at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaForcedColorsActive',
+				package: '@atlaskit/css/at-rules/media-forced-colors-active',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaForcedColorsActive = '@media screen and (forced-colors: active)'",
+			usageGuidelines: [
+				'Use MediaForcedColorsActive when styles must adapt to an active forced-colors mode.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-forced-colors-active'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaLegacyHighContrast',
+			description: 'The canonical MediaLegacyHighContrast at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaLegacyHighContrast',
+				package: '@atlaskit/css/at-rules/media-legacy-high-contrast',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type MediaLegacyHighContrast = '@media screen and (-ms-high-contrast: active)'",
+			usageGuidelines: [
+				'Use MediaLegacyHighContrast only when supporting legacy high-contrast mode.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-legacy-high-contrast'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'MediaForcedColorsOrLegacyHighContrast',
+			description:
+				'The canonical MediaForcedColorsOrLegacyHighContrast at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'MediaForcedColorsOrLegacyHighContrast',
+				package: '@atlaskit/css/at-rules/media-forced-colors-or-legacy-high-contrast',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition:
+				"type MediaForcedColorsOrLegacyHighContrast = '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)'",
+			usageGuidelines: [
+				'Use MediaForcedColorsOrLegacyHighContrast when supporting both forced-colors and legacy high-contrast modes.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'media-forced-colors-or-legacy-high-contrast'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'ContainerAtRule',
+			description: 'The canonical ContainerAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'ContainerQuery',
+				package: '@atlaskit/css/at-rules/container',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: `type ContainerAtRule = \`@container \${string} (\${ContainerDimension} \${ContainerComparison} \${ContainerCSSLength})\` | \`@container \${string} (\${ContainerCSSLength} \${ContainerComparison} \${ContainerDimension})\` | \`@container \${string} (\${ContainerRangeDimension}: \${ContainerCSSLength})\``,
+			usageGuidelines: [
+				'Use ContainerQuery when styles should respond to a component container rather than the viewport.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'container'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'SupportsAtRule',
+			description: 'The canonical SupportsAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'SupportsAtRule',
+				package: '@atlaskit/css/at-rules/supports',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: `type SupportsAtRule = \`@supports \${string}\``,
+			usageGuidelines: [
+				'Use SupportsAtRule when styles should be guarded by browser feature support.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'supports'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'PropertyAtRule',
+			description: 'The canonical PropertyAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'PropertyAtRule',
+				package: '@atlaskit/css/at-rules/property',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: `type PropertyAtRule = \`@property --\${string}\``,
+			usageGuidelines: [
+				'Use PropertyAtRule when defining a typed, animatable CSS custom property.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'property'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'LayerAtRule',
+			description: 'The canonical LayerAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'LayerAtRule',
+				package: '@atlaskit/css/at-rules/layer',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: `type LayerAtRule = \`@layer \${string}\``,
+			usageGuidelines: ['Use LayerAtRule when placing styles in an explicit CSS cascade layer.'],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'layer'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'ScopeAtRule',
+			description: 'The canonical ScopeAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'ScopeAtRule',
+				package: '@atlaskit/css/at-rules/scope',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: `type ScopeAtRule = \`@scope \${string}\``,
+			usageGuidelines: ['Use ScopeAtRule when limiting styles to a defined DOM subtree.'],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'scope'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'KeyframesAtRule',
+			description: 'The canonical KeyframesAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'KeyframesAtRule',
+				package: '@atlaskit/css/at-rules/keyframes',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: `type KeyframesAtRule = \`@keyframes \${string}\``,
+			usageGuidelines: [
+				'Use KeyframesAtRule when declaring the name and stages of a CSS animation.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'keyframes'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'StartingStyleAtRule',
+			description: 'The canonical StartingStyleAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'StartingStyleAtRule',
+				package: '@atlaskit/css/at-rules/starting-style',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type StartingStyleAtRule = '@starting-style'",
+			usageGuidelines: [
+				'Use StartingStyleAtRule when styles need an entry state for elements entering the top layer.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'starting-style'],
+			categories: ['utility', 'types'],
+		},
+		{
+			kind: 'type',
+			name: 'ViewTransitionAtRule',
+			description: 'The canonical ViewTransitionAtRule at-rule key for use with @atlaskit/css.',
+			status: 'open-beta',
+			import: {
+				name: 'ViewTransitionAtRule',
+				package: '@atlaskit/css/at-rules/view-transition',
+				type: 'default',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			definition: "type ViewTransitionAtRule = '@view-transition'",
+			usageGuidelines: [
+				'Use ViewTransitionAtRule when configuring named view-transition pseudo-elements.',
+			],
+			examples: [
+				{
+					name: 'Canonical at-rules',
+					description: 'Use the published at-rule types to keep style keys canonical.',
+					source: path.resolve(__dirname, './examples/ai/at-rules.tsx'),
+				},
+			],
+			keywords: ['css', 'styles', 'at-rule', 'view-transition'],
+			categories: ['utility', 'types'],
+		},
 		{
 			kind: 'function',
 			name: 'css',

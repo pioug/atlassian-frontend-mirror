@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "30.11.1",
+	"version": "30.15.1",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,9 +47,11 @@
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/range": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-select": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -60,7 +62,6 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/styled": "root:*",
-		"@popperjs/core": "root:*",
 		"blueimp-load-image": "root:*",
 		"bytes": "root:*",
 		"exenv": "root:*",
@@ -76,7 +77,9 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
+		"@atlaskit/page": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -97,70 +100,92 @@
 	"platform-feature-flags": {
 		"platform_media_resume_video_on_token_expiry": {
 			"type": "boolean"
-		},
-		"platform_editor_video_caption_commit": {
-			"type": "boolean",
-			"referenceOnly": true
-		}
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"circular-dependencies": [
-				"file-level"
-			]
-		},
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"compiled"
-			]
 		}
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./absolute": "./src/absolute.ts",
 		"./abuseModal": "./src/abuseModal/abuseModal.tsx",
+		"./bounds": "./src/Bounds.ts",
 		"./browser": "./src/browser.tsx",
+		"./calculateTruncation": "./src/calculateTruncation.ts",
+		"./camera/camera": "./src/Camera-2.ts",
 		"./camera": "./src/camera.ts",
 		"./classNames": "./src/classNames.ts",
 		"./codeViewer": "./src/codeViewer.ts",
 		"./customMediaPlayer": "./src/customMediaPlayer/index.tsx",
-		"./ellipsify": "./src/ellipsify.tsx",
+		"./dataURItoFile": "./src/dataURItoFile.ts",
+		"./ellipsify/compiled/ellipsify": "./src/Ellipsify-3.tsx",
 		"./ellipsify/compiled": "./src/ellipsify-compiled.tsx",
+		"./ellipsify/ellipsify": "./src/Ellipsify-2.tsx",
+		"./ellipsify": "./src/ellipsify.tsx",
+		"./ellipsis": "./src/ellipsis.ts",
 		"./ErroredView": "./src/MediaInlineCard/ErroredView/index.tsx",
 		"./errorIcon": "./src/errorIcon.tsx",
+		"./fileToArrayBuffer": "./src/fileToArrayBuffer.ts",
+		"./fileToDataURI": "./src/fileToDataURI.ts",
+		"./findParentByClassname": "./src/findParentByClassname.ts",
 		"./formatDate": "./src/formatDate.ts",
 		"./formatDuration": "./src/formatDuration.ts",
+		"./getExtension": "./src/getExtension.ts",
+		"./getFileInfo": "./src/getFileInfo.ts",
+		"./getFileInfoFromSrc": "./src/getFileInfoFromSrc.ts",
+		"./getLanguageType": "./src/getLanguageType.ts",
+		"./getMimeIcon": "./src/getMimeIcon.ts",
 		"./humanReadableSize": "./src/humanReadableSize.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./imageMetaData": "./src/imageMetaData/index.ts",
+		"./imageMetaData/getCssFromImageOrientation": "./src/imageMetaData/getCssFromImageOrientation.ts",
+		"./imageMetaData/getImageInfo": "./src/imageMetaData/getImageInfo.ts",
+		"./imageMetaData/getMetaTagNumericValue": "./src/imageMetaData/getMetaTagNumericValue.ts",
+		"./imageMetaData/getOrientation": "./src/imageMetaData/getOrientation.ts",
+		"./imageMetaData/getScaleFactor": "./src/imageMetaData/getScaleFactor.ts",
+		"./imageMetaData/getScaleFactorFromFile": "./src/imageMetaData/getScaleFactorFromFile.ts",
+		"./imageMetaData/isRotated": "./src/imageMetaData/isRotated.ts",
+		"./imageMetaData/readImageMetaData": "./src/imageMetaData/readImageMetaData.ts",
 		"./imageMetaData/types": "./src/imageMetaData/types.ts",
+		"./imageMetaData": "./src/imageMetaData/index.ts",
 		"./imageOrientationUtil": "./src/imageMetaData/imageOrientationUtil.ts",
 		"./inactivityDetector": "./src/inactivityDetector/inactivityDetector.tsx",
+		"./index-compiled": "./src/customMediaPlayer/index-compiled.tsx",
 		"./intersectionObserver": "./src/intersectionObserver.ts",
+		"./isCodeViewerItem": "./src/isCodeViewerItem.ts",
+		"./isInvalidInput": "./src/isInvalidInput.ts",
+		"./languages": "./src/i18n/languages.ts",
 		"./LoadedView": "./src/MediaInlineCard/LoadedView/index.tsx",
+		"./loadImage": "./src/loadImage.ts",
 		"./LoadingView": "./src/MediaInlineCard/LoadingView/index.tsx",
 		"./locales": "./src/locales.ts",
-		"./media-type-icon": "./src/media-type-icon.tsx",
 		"./media-type-icon/compiled": "./src/media-type-icon-compiled.tsx",
+		"./media-type-icon": "./src/media-type-icon.tsx",
 		"./MediaButton": "./src/MediaButton.tsx",
 		"./mediaImage": "./src/mediaImage/index.tsx",
-		"./mediaPlayer": "./src/customMediaPlayer/mediaPlayer/mediaPlayer.tsx",
 		"./mediaPlayer/types": "./src/customMediaPlayer/mediaPlayer/types.ts",
+		"./mediaPlayer": "./src/customMediaPlayer/mediaPlayer/mediaPlayer.tsx",
 		"./messages": "./src/messages.ts",
 		"./mime-type-icon": "./src/mime-type-icon.tsx",
 		"./mixins": "./src/mixins.ts",
 		"./modalSpinner": "./src/modalSpinner.tsx",
+		"./partsFormatter": "./src/partsFormatter.ts",
+		"./readImageNaturalOrientationFromDOM": "./src/readImageNaturalOrientationFromDOM.ts",
+		"./rectangle": "./src/Rectangle.ts",
+		"./secondsToTime": "./src/secondsToTime.ts",
 		"./shortcut": "./src/shortcut.tsx",
+		"./size": "./src/size.ts",
 		"./timeRange": "./src/customMediaPlayer/timeRange.tsx",
-		"./truncateText": "./src/truncateText.tsx",
+		"./truncateText/compiled/truncate": "./src/Truncate-compiled.tsx",
+		"./truncateText/compiled/truncateLeft": "./src/TruncateLeft-compiled.tsx",
+		"./truncateText/compiled/truncateRight": "./src/TruncateRight-compiled.tsx",
 		"./truncateText/compiled": "./src/truncateText-compiled.tsx",
+		"./truncateText/truncate": "./src/Truncate.tsx",
+		"./truncateText/truncateLeft": "./src/TruncateLeft.tsx",
+		"./truncateText/truncateRight": "./src/TruncateRight.tsx",
+		"./truncateText/types": "./src/truncateTextTypes.ts",
+		"./truncateText": "./src/truncateText.tsx",
 		"./types": "./src/types.ts",
-		"./util": "./src/util.ts"
+		"./util": "./src/util.ts",
+		"./vector2": "./src/Vector2.ts"
 	}
 }

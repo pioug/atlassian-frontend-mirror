@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
-import { IconMessage, CheckInternetConnection } from '..';
+
+import { CheckInternetConnection } from '../CheckInternetConnection';
+import { IconMessage } from '../IconMessage';
 
 const testMessageDescriptor = {
 	id: 'test.creating_preview',

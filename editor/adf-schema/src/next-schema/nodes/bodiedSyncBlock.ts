@@ -5,6 +5,7 @@ import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { unsupportedBlock } from '../nodes/unsupportedBlock';
 import { blockCard } from './blockCard';
+import { bodiedRule } from './bodiedRule';
 import { blockquote } from './blockquote';
 import { codeBlock } from './codeBlock';
 import { confluenceUnsupportedBlock } from './confluenceUnsupportedBlock';
@@ -62,9 +63,13 @@ export const bodiedSyncBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
 				mediaSingle.use('full'),
 				mediaSingle.use('width_type'),
 				orderedList,
-				panel,
+				// panel_c1 must precede bare `panel` so the validator's repairing loop reaches it before
+				// base `panel` wraps a nested table as `unsupportedBlock`. See full-schema.adf.ts.
 				panel.use('c1'),
+				panel,
 				rule,
+				rule.use('with_attrs'),
+				bodiedRule,
 				table,
 				// @ts-expect-error - types don't deal well with circular references for the variant
 				table.use('with_nested_table'),

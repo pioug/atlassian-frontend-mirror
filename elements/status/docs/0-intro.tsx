@@ -1,10 +1,10 @@
 import React from 'react';
 import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
-import StatusExample from '../examples/00-simple-status';
-const StatusSource = require('!!raw-loader!../examples/00-simple-status');
-import StatusPickerExample from '../examples/01-status-picker';
-const StatusPickerSource = require('!!raw-loader!../examples/01-status-picker');
+import StatusExample from '../examples/00-simple-status.vr.ap';
+const StatusSource = require('!!raw-loader!../examples/00-simple-status.vr.ap');
+import StatusPickerExample from '../examples/01-status-picker.vr.ap';
+const StatusPickerSource = require('!!raw-loader!../examples/01-status-picker.vr.ap');
 
 const StatusPickerProps = require('!!extract-react-types-loader!../src/components/StatusPicker');
 

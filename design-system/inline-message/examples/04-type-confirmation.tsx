@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import InlineMessage from '@atlaskit/inline-message';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 const messageContent = (

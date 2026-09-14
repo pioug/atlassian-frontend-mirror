@@ -1,14 +1,13 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { Field, FormFooter } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
 import { Flex } from '@atlaskit/primitives/compiled';
-import Select, {
-	components,
-	type OptionProps,
-	type SingleValueProps,
-	type ValueType,
-} from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import { components } from '@atlaskit/react-select/components';
+import type { OptionProps, SingleValueProps, ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 interface Option {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, Example, code, Props } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import ConnectedReactionsViewExample from '../examples/01-connected-reactions-view';
@@ -88,15 +88,15 @@ const _default_1: any = md`
   const emojiProvider = new EmojiResource(config);
 
   // Render the component in your React app
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <ConnectedReactionsView
       store={store}
       containerAri={containerAri}
       ari={demoAri}
       emojiProvider={Promise.resolve(emojiResource)}
     />
-    container,
-  };`}
+  );`}
 
   ${(
 		<>

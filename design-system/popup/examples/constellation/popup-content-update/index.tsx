@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
-import Heading from '@atlaskit/heading';
-import Popup from '@atlaskit/popup';
+import Heading from '@atlaskit/heading/heading';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';

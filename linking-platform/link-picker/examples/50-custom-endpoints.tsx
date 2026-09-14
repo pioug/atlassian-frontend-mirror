@@ -1,10 +1,10 @@
 import React, { type SyntheticEvent, useMemo, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Link from '@atlaskit/link';
-import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import Button from '@atlaskit/button/default/button';
+import Link from '@atlaskit/link/link';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics/use-smart-link-lifecycle-analytics';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
 import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';
 

@@ -9,7 +9,7 @@ const goBackButton = "[data-testid='nestable-navigation-content--go-back-item']"
 test('Focus should be on the Go back button after triggered an element in the side navigation, while navigating via keyboard, FF on', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.vr.ap.tsx')>(
 		'design-system',
 		'side-navigation',
 		'nested-side-navigation',
@@ -26,7 +26,7 @@ test('Focus should be on the Go back button after triggered an element in the si
 test('When pressing the "Go back" button, the focus should return to the triggered element, while navigating via keyboard, FF on', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.vr.ap.tsx')>(
 		'design-system',
 		'side-navigation',
 		'nested-side-navigation',
@@ -45,7 +45,7 @@ test('When pressing the "Go back" button, the focus should return to the trigger
 test('Focus should be on nested container while navigating via keyboard, FF off', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.vr.ap.tsx')>(
 		'design-system',
 		'side-navigation',
 		'nested-side-navigation',
@@ -60,7 +60,7 @@ test('Focus should be on nested container while navigating via keyboard, FF off'
 test('Nested container should not be focused while navigating via mouse, FF off', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-nested-side-navigation.vr.ap.tsx')>(
 		'design-system',
 		'side-navigation',
 		'nested-side-navigation',

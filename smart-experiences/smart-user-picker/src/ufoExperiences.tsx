@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-	ExperiencePerformanceTypes,
-	ExperienceTypes,
-	ConcurrentExperience,
-	UFOExperienceState,
-} from '@atlaskit/ufo';
-import { useEffect, useState } from 'react';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 const COMPONENT_NAME = 'smart-user-picker';
 
@@ -24,42 +18,3 @@ export const smartUserPickerOptionsShownUfoExperience: ConcurrentExperience =
 		type: ExperienceTypes.Operation,
 		performanceType: ExperiencePerformanceTypes.InlineResult,
 	});
-
-export const useUFOConcurrentExperience = (experience: ConcurrentExperience, id: string): void => {
-	const experienceForId = experience.getInstance(id);
-
-	// Equivalent to componentWillMount - replace with @atlaskit/ufo's
-	// useUFOComponentExperience when it supports ConcurrentExperience.
-	useState(() => {
-		experienceForId.start();
-	});
-
-	// Replace with @atlaskit/ufo's <ExperienceSuccess> when it supports ConcurrentExperience
-	useEffect(() => {
-		if (experienceForId.state !== UFOExperienceState['FAILED']) {
-			experienceForId.success();
-		}
-		return () => {
-			if (
-				[UFOExperienceState['STARTED'], UFOExperienceState['IN_PROGRESS']].includes(
-					experienceForId.state,
-				)
-			) {
-				experienceForId.abort();
-			}
-		};
-
-		// We only want this useEffect to run once after component mount, so no deps are needed.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-};
-
-export class UfoErrorBoundary extends React.Component<React.PropsWithChildren<{ id: string }>> {
-	componentDidCatch(): void {
-		smartUserPickerRenderedUfoExperience.getInstance(this.props.id).failure();
-	}
-
-	render(): React.ReactNode {
-		return this.props.children;
-	}
-}

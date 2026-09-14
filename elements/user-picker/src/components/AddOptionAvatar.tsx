@@ -7,14 +7,12 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const getEmailAvatarWrapperStyle = (isLozenge?: boolean, isPendingAction?: boolean) => {
 	const padding = isLozenge ? `${token('space.0')}` : `${token('space.050')}`;
-	const backgroundColor =
-		isPendingAction && fg('twcg-444-invite-usd-improvements-m2-gate')
-			? token('color.background.warning')
-			: token('color.background.neutral');
+	const backgroundColor = isPendingAction
+		? token('color.background.warning')
+		: token('color.background.neutral');
 	return css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		padding,
@@ -44,11 +42,7 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
 			<EmailIcon
 				testId="add-option-avatar-email-icon"
 				label={label || ''}
-				color={
-					isPendingAction && fg('twcg-444-invite-usd-improvements-m2-gate')
-						? token('color.text.warning')
-						: token('color.text.subtle')
-				}
+				color={isPendingAction ? token('color.text.warning') : token('color.text.subtle')}
 			/>
 		</div>
 	);

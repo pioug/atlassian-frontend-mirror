@@ -1,5 +1,6 @@
 import React, { type ReactNode } from 'react';
-import { useUserSource } from '../clients/UserSourceProvider';
+
+import { useUserSource } from '../clients/useUserSource';
 import { type UserSource } from '../types';
 
 export interface ExternalUserSourcesData {

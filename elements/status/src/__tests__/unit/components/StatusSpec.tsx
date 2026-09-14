@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
-import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
+import AnalyticsListenerNext from '@atlaskit/analytics-next/AnalyticsListener';
 import { fireEvent, screen } from '@testing-library/react';
 import { token } from '@atlaskit/tokens';
 import { renderWithIntl } from '../helpers/_testing-library';
@@ -38,6 +38,13 @@ describe('Status', () => {
 		expect(screen.getByText('In progress')).toHaveStyle(
 			'max-width: calc(200px - var(--ds-space-100, 8px))',
 		);
+	});
+
+	it('should constrain its max width to its parent when requested', () => {
+		renderWithIntl(<Status text="In progress" color="blue" isConstrainedToParent />);
+		const status = screen.getByText('In progress').closest('[data-node-type="status"]');
+
+		expect(status).toHaveCompiledCss('max-width', '100%');
 	});
 
 	describe('should map colors to lozenge appearances', () => {

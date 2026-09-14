@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
@@ -31,6 +30,10 @@ The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\
 below:
 
 ${code`
+type OpenElementBrowserOptions = {
+  category?: string;
+};
+
 type QuickInsertPlugin = NextEditorPlugin<
   'quickInsert',
   {
@@ -47,6 +50,8 @@ type QuickInsertPlugin = NextEditorPlugin<
     };
     commands: {
       addQuickInsertItem: (item: QuickInsertHandler) => EditorCommand;
+      openElementBrowser: (options?: OpenElementBrowserOptions) => EditorCommand;
+      /** @deprecated ENGHEALTH-62138, tracked by EDITOR-8422. Use openElementBrowser instead. */
       openElementBrowserModal: EditorCommand;
       removeQuickInsertItem: (key: string) => EditorCommand;
       updateQuickInsertItem: (key: string, item: QuickInsertHandler) => EditorCommand;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "4.7.0",
+	"version": "4.9.4",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -22,12 +22,14 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./accessibility": "./src/accessibility/index.tsx",
+		"./async/default": "./src/async.tsx",
 		"./async": "./src/entry-points/async.tsx",
 		"./async-creatable": "./src/async-creatable.tsx",
 		"./base": "./src/select.tsx",
 		"./clear-indicator": "./src/components/indicators/clear-indicator.tsx",
 		"./components": "./src/components/index.tsx",
 		"./control": "./src/components/control.tsx",
+		"./creatable/default": "./src/creatable.tsx",
 		"./creatable": "./src/entry-points/creatable.tsx",
 		"./dropdown-indicator": "./src/components/indicators/dropdown-indicator.tsx",
 		"./filters": "./src/filters.tsx",
@@ -45,8 +47,6 @@
 		"./placeholder": "./src/components/placeholder.tsx",
 		"./select-container": "./src/components/containers/select-container.tsx",
 		"./single-value": "./src/components/single-value.tsx",
-		"./src/async": "./src/async.tsx",
-		"./src/creatable": "./src/creatable.tsx",
 		"./state-manager": "./src/state-manager.tsx",
 		"./styles": "./src/styles.tsx",
 		"./types": "./src/types.tsx",
@@ -61,6 +61,7 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/layering": "workspace:^",
+		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -87,6 +88,8 @@
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jest-in-case": "root:*",
@@ -96,6 +99,9 @@
 	},
 	"platform-feature-flags": {
 		"custom-interactive-elements-not-keyboard-focusable": {
+			"type": "boolean"
+		},
+		"platform-dst-tokens-finesse": {
 			"type": "boolean"
 		},
 		"platform_dst_select_menu_close_on_blur": {
@@ -110,10 +116,10 @@
 		"select_issearchable_aria-readonly_fix": {
 			"type": "boolean"
 		},
-		"platform-dst-shape-theme-default": {
+		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		},
-		"platform-dst-lozenge-tag-badge-visual-uplifts": {
+		"platform-dst-motion-uplift-labels": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {
@@ -127,27 +133,6 @@
 		},
 		"platform-dst-motion-uplift-list-item": {
 			"type": "boolean"
-		}
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"analytics": "analytics-next",
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"compiled"
-			]
 		}
 	},
 	"homepage": "https://atlassian.design/components"

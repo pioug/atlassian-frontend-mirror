@@ -1,22 +1,22 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import DefaultModal from '../../../examples/00-default-modal';
-import ExplicitFontStyles from '../../../examples/02-explicit-font-styles';
-import Appearance from '../../../examples/10-appearance';
-import Autofocus from '../../../examples/20-autofocus';
-import PlaygroundExample from '../../../examples/40-multiple';
-import Form from '../../../examples/45-form';
-import FormAsContainer from '../../../examples/46-form-as-container';
-import FullScreenModalExample from '../../../examples/51-full-screen';
-import ModalBodyWithoutInlinePaddingExample from '../../../examples/53-modal-body-without-inline-padding';
-import Scroll from '../../../examples/55-scroll';
-import { ScrollHorizontalExample } from '../../../examples/56-scroll-horizontal';
-import MultiLineTitles from '../../../examples/65-multi-line-titles';
-import { WithFooterAndSelectOptionExample } from '../../../examples/80-with-footer-and-select-option';
-import WithHiddenBlanket from '../../../examples/92-with-hidden-blanket';
-import { MultiColumnExample } from '../../../examples/93-multi-column';
-import { ModalWithCustomChildExample } from '../../../examples/95-custom-child';
-import WithCurrentSurface from '../../../examples/96-with-current-surface';
+import DefaultModal from '../../../examples/00-default-modal.vr.ap';
+import ExplicitFontStyles from '../../../examples/02-explicit-font-styles.vr.ap';
+import Appearance from '../../../examples/10-appearance.vr.ap';
+import Autofocus from '../../../examples/20-autofocus.vr.ap';
+import PlaygroundExample from '../../../examples/40-multiple.vr.ap';
+import Form from '../../../examples/45-form.vr.ap';
+import FormAsContainer from '../../../examples/46-form-as-container.vr.ap';
+import FullScreenModalExample from '../../../examples/51-full-screen.vr.ap';
+import ModalBodyWithoutInlinePaddingExample from '../../../examples/53-modal-body-without-inline-padding.vr.ap';
+import Scroll from '../../../examples/55-scroll.vr.ap';
+import { ScrollHorizontalExample } from '../../../examples/56-scroll-horizontal.vr.ap';
+import MultiLineTitles from '../../../examples/65-multi-line-titles.vr.ap';
+import { WithFooterAndSelectOptionExample } from '../../../examples/80-with-footer-and-select-option.vr.ap';
+import WithHiddenBlanket from '../../../examples/92-with-hidden-blanket.vr.ap';
+import { MultiColumnExample } from '../../../examples/93-multi-column.vr.ap';
+import { ModalWithCustomChildExample } from '../../../examples/95-custom-child.vr.ap';
+import WithCurrentSurface from '../../../examples/96-with-current-surface.vr.ap';
 
 snapshotInformational(DefaultModal, {
 	variants: [

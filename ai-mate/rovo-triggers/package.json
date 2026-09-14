@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-triggers",
-	"version": "10.2.0",
+	"version": "10.35.0",
 	"description": "Provides various trigger events to drive Rovo Chat functionality, such as a publish-subscribe and URL parameter hooks",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -31,6 +31,11 @@
 		".": "./src/index.ts",
 		"./chat-context/types": "./src/common/utils/chat-context/types.tsx",
 		"./chat-context": "./src/common/utils/chat-context/index.tsx",
+		"./chat-entry-point": "./src/chat-entry-point.ts",
+		"./extension-context-bridge/client": "./src/common/utils/extension-context-bridge/ExtensionContextBridgeClient.tsx",
+		"./extension-context-bridge/constants": "./src/common/utils/extension-context-bridge/constants.ts",
+		"./extension-context-bridge/host": "./src/common/utils/extension-context-bridge/ExtensionContextBridgeHost.tsx",
+		"./extension-context-bridge/transport": "./src/common/utils/extension-context-bridge/transport.ts",
 		"./jsm-journey-builder-types": "./src/common/types/jsm-journey-builder/index.ts",
 		"./main": "./src/main.tsx",
 		"./params": "./src/common/utils/params/index.ts",
@@ -56,52 +61,20 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/conversation-assistant-service-api": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
-		"rovo_chat_fix_cold_start_prompt_insertion": {
+		"rovo-ext_context_bridge": {
 			"type": "boolean"
 		},
-		"rovo_chat_fix_jira_prompt_dropped_on_reopen": {
+		"rovo_chat_replace_url_param_history": {
 			"type": "boolean"
 		}
 	}

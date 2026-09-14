@@ -1,4 +1,4 @@
-import createPerformanceObserver from './index';
+import { default as createPerformanceObserver } from './index';
 
 describe('createPerformanceObserver', () => {
 	let mockObserver: PerformanceObserver;

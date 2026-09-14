@@ -4,20 +4,18 @@
  */
 import React, { useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import {
-	ExitingPersistence,
-	Motion,
-	type MotionRef,
-	Reanimate,
-	StaggeredEntrance,
-} from '@atlaskit/motion';
+import Heading from '@atlaskit/heading/heading';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import Motion, { type MotionRef } from '@atlaskit/motion/entering/motion';
+import { Reanimate } from '@atlaskit/motion/reanimate';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { RetryContainer } from './utils/containers';
 
 const styles = cssMap({
 	box: {

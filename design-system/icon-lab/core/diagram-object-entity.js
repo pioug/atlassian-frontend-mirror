@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::685583cecb1b1151773c836f72123e52>>
+ * @codegen <<SignedSource::e6e0f110df34a260709d917e32d46e6d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "DiagramObjectEntity".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const DiagramObjectEntityIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const DiagramObjectEntityIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramObjectEntityIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M12.5 7.5a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0m1.5 0a6 6 0 1 1-12 0 6 6 0 0 1 12 0"/><path fill="currentcolor" d="M14 13v1.5H2V13z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

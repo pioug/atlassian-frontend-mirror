@@ -3,6 +3,8 @@ import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import type { DiffDescriptor, DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 
+import type { ColorScheme } from './colorSchemes/types';
+
 /**
  * Decoration families produced by the show-diff plugin.
  * Each family owns its own key space and spec shape.
@@ -10,6 +12,7 @@ import { isExtendedEnabled } from '../isExtendedEnabled';
 export const DecorationFamily = {
 	diff: 'diff',
 	anchor: 'anchor',
+	contributorTag: 'contributor-tag',
 } as const;
 
 type DecorationFamilyValue = (typeof DecorationFamily)[keyof typeof DecorationFamily];
@@ -21,9 +24,29 @@ type BaseDecorationSpec<TFamily extends DecorationFamilyValue> = {
 };
 
 export type DiffDecorationSpec = BaseDecorationSpec<typeof DecorationFamily.diff> & {
+	attributionKey?: string;
+	colorScheme?: ColorScheme;
 	decorationType: DiffDescriptor['type'];
 	diffId: string;
+	/**
+	 * The change currently stepped to. Needed on the spec because `activeIndex` indexes the filtered,
+	 * re-sorted scrollable decorations, not `diffDescriptors`.
+	 */
+	isActive?: boolean;
+	/**
+	 * Carried rather than derived from `decorationType`, because an inverted diff swaps which side is
+	 * the inserted one.
+	 */
+	isInserted?: boolean;
 	nodeName?: string;
+	/**
+	 * The decoration to scroll to, when it is not the one carrying this spec: the member of a merged
+	 * navigation group that paints first. Deleted content is a widget shown above the added content
+	 * it replaces, and only that widget's own DOM can be scrolled to — resolving the group's `from`
+	 * position lands on the added content painted after it. Set by `getScrollableDecorations`,
+	 * consumed by `scrollToDiff`; never present on a decoration in the plugin's `DecorationSet`.
+	 */
+	scrollTarget?: Decoration;
 };
 
 export const AnchorTypeKey = {
@@ -33,7 +56,7 @@ export const AnchorTypeKey = {
 	docMargin: 'doc-margin',
 } as const;
 
-type InlineAnchorType = Exclude<
+export type InlineAnchorType = Exclude<
 	(typeof AnchorTypeKey)[keyof typeof AnchorTypeKey],
 	typeof AnchorTypeKey.docMargin
 >;
@@ -47,7 +70,20 @@ export type AnchorDecorationSpec =
 			diffId: string;
 	  });
 
-export type ShowDiffDecorationSpec = DiffDecorationSpec | AnchorDecorationSpec;
+/**
+ * The host widget one contributor tag renders into. Its own family, so the tag never reaches the
+ * consumers that read diff decorations — change counting, navigation and `getDeletedWidgets`.
+ */
+export type ContributorTagDecorationSpec = BaseDecorationSpec<
+	typeof DecorationFamily.contributorTag
+> & {
+	diffId: string;
+};
+
+export type ShowDiffDecorationSpec =
+	| DiffDecorationSpec
+	| AnchorDecorationSpec
+	| ContributorTagDecorationSpec;
 
 /**
  * The diff-decoration kinds produced by the show-diff plugin. Each value is
@@ -101,17 +137,23 @@ export const buildDiffDecorationKey = ({
 };
 
 export const buildDiffDecorationSpec = ({
+	attributionKey,
+	colorScheme,
 	decorationType,
 	diffId,
 	isActive,
+	isInserted,
 	nodeName,
 	side,
 	diffType,
 }: {
+	attributionKey?: string;
+	colorScheme?: ColorScheme;
 	decorationType: DiffDescriptor['type'];
 	diffId: string;
 	diffType?: DiffType;
 	isActive?: boolean;
+	isInserted?: boolean;
 	nodeName?: string;
 	side?: number;
 }): DiffDecorationSpec => ({
@@ -124,6 +166,11 @@ export const buildDiffDecorationSpec = ({
 		isActive,
 		diffType,
 	}),
+	...(attributionKey ? { attributionKey } : {}),
+	// Only alongside an attribution key, so the spec shape is unchanged when the gate is off.
+	...(attributionKey && isActive !== undefined ? { isActive } : {}),
+	...(attributionKey && isInserted !== undefined ? { isInserted } : {}),
+	...(attributionKey && colorScheme ? { colorScheme } : {}),
 	...(nodeName ? { nodeName } : {}),
 	...(side !== undefined ? { side } : {}),
 });
@@ -167,6 +214,15 @@ export function buildAnchorDecorationSpec({
 		...(side !== undefined ? { side } : {}),
 	};
 }
+
+export const buildContributorTagDecorationSpec = (
+	diffId: string,
+): ContributorTagDecorationSpec => ({
+	decorationFamily: DecorationFamily.contributorTag,
+	diffId,
+	// Stable across recalculations, so ProseMirror keeps the host element the tag is portalled into.
+	key: `${DecorationFamily.contributorTag}-${diffId}`,
+});
 
 export const isDiffDecorationSpec = (spec: unknown): spec is DiffDecorationSpec =>
 	Boolean(

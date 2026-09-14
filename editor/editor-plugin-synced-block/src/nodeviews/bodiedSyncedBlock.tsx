@@ -1,15 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import ReactNodeView, {
-	type ForwardRef,
-	type ReactComponentProps,
-	type getPosHandler,
-} from '@atlaskit/editor-common/react-node-view';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import type {
 	ExtractInjectionAPI,
@@ -22,177 +16,19 @@ import {
 	type DOMOutputSpec,
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
-import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import type {
+	SyncBlockSourceInfo,
+	SyncBlockStoreManager,
+} from '@atlaskit/editor-synced-block-provider';
+import type { SourceSyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
-import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
+import { getUnpublishedSourceType } from '../ui/getUnpublishedSourceType';
 import { SyncBlockLabel } from '../ui/SyncBlockLabel';
 
 import { isEmptySourceSyncBlock } from './isEmptySourceSyncBlock';
-
-export interface BodiedSyncBlockNodeViewProps extends ReactComponentProps {
-	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
-	eventDispatcher: EventDispatcher;
-	getPos: getPosHandler;
-	node: PMNode;
-	pluginOptions: SyncedBlockPluginOptions | undefined;
-	portalProviderAPI: PortalProviderAPI;
-	syncBlockStore?: SyncBlockStoreManager;
-	view: EditorView;
-}
-
-const toDOMOld = (): DOMOutputSpec => [
-	'div',
-	{
-		class: BodiedSyncBlockSharedCssClassName.content,
-		contenteditable: true,
-	},
-	0,
-];
-
-class BodiedSyncBlockOld extends ReactNodeView<BodiedSyncBlockNodeViewProps> {
-	private cleanupConnectivityModeListener?: () => void;
-	private cleanupViewModeListener?: () => void;
-	private api?: ExtractInjectionAPI<SyncedBlockPlugin>;
-	private syncBlockStore?: SyncBlockStoreManager;
-
-	constructor(props: BodiedSyncBlockNodeViewProps) {
-		super(
-			props.node,
-			props.view,
-			props.getPos,
-			props.portalProviderAPI,
-			props.eventDispatcher,
-			props,
-		);
-		this.api = props.api;
-		this.syncBlockStore = props.syncBlockStore;
-		this.handleConnectivityModeChange();
-		this.handleViewModeChange();
-	}
-
-	private updateContentEditable({
-		contentDOM,
-		nextConnectivityMode,
-		nextViewMode,
-	}: {
-		contentDOM?: HTMLElement | null;
-		nextConnectivityMode?: Mode;
-		nextViewMode?: 'view' | 'edit';
-	}) {
-		const connectivityMode =
-			nextConnectivityMode ?? this.api?.connectivity?.sharedState?.currentState()?.mode;
-		const viewMode = nextViewMode ?? this.api?.editorViewMode?.sharedState?.currentState()?.mode;
-
-		const isOnline = !isOfflineMode(connectivityMode);
-		const isEditMode = viewMode !== 'view';
-		const shouldBeEditable = isOnline && isEditMode;
-
-		contentDOM?.setAttribute('contenteditable', shouldBeEditable ? 'true' : 'false');
-	}
-
-	private handleConnectivityModeChange() {
-		if (this.api?.connectivity) {
-			this.cleanupConnectivityModeListener = this.api.connectivity.sharedState.onChange(
-				({ nextSharedState }) => {
-					this.updateContentEditable({
-						contentDOM: this.contentDOM,
-						nextConnectivityMode: nextSharedState.mode,
-					});
-				},
-			);
-		}
-	}
-
-	private handleViewModeChange() {
-		if (this.api?.editorViewMode) {
-			this.cleanupViewModeListener = this.api.editorViewMode.sharedState.onChange(
-				({ nextSharedState }) => {
-					this.updateContentEditable({
-						contentDOM: this.contentDOM,
-						nextViewMode: nextSharedState?.mode,
-					});
-				},
-			);
-		}
-	}
-
-	createDomRef(): HTMLElement {
-		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
-		const domRef = document.createElement('div');
-		domRef.classList.add(BodiedSyncBlockSharedCssClassName.prefix);
-		domRef.classList.toggle(
-			BodiedSyncBlockSharedCssClassName.empty,
-			isEmptySourceSyncBlock(this.node),
-		);
-
-		return domRef;
-	}
-
-	/**
-	 * Keeps the empty marker class in sync so the source placeholder can be shown purely from
-	 * document state. See `isEmptySourceSyncBlock` for why the DOM is not used to decide this.
-	 */
-	update(node: PMNode, decorations: readonly Decoration[]): boolean {
-		const updated = super.update(node, decorations);
-
-		if (updated) {
-			// `ReactNodeView`'s `dom` getter throws rather than returning nullish once the view is
-			// destroyed, so optional chaining here would be misleading. `super.update()` only
-			// returns true while the view is still mounted, so the ref is guaranteed.
-			this.dom.classList.toggle(
-				BodiedSyncBlockSharedCssClassName.empty,
-				isEmptySourceSyncBlock(this.node),
-			);
-		}
-
-		return updated;
-	}
-
-	render(_props: never, forwardRef: ForwardRef) {
-		// Use passed syncBlockStore for SSR where sharedState.currentState() is delayed
-		const syncBlockStore =
-			this.api?.syncedBlock.sharedState?.currentState()?.syncBlockStore ?? this.syncBlockStore;
-
-		if (!syncBlockStore) {
-			return null;
-		}
-
-		return (
-			<ErrorBoundary
-				component={ACTION_SUBJECT.SYNCED_BLOCK}
-				dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
-				fallbackComponent={null}
-			>
-				<BodiedSyncBlockWrapper ref={forwardRef} syncBlockStore={syncBlockStore} node={this.node} />
-			</ErrorBoundary>
-		);
-	}
-
-	getContentDOM() {
-		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView serialization must target active runtime document
-		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOMOld());
-		// In SSR, the first check won't work, so fallback to nodeType check
-		if (dom instanceof HTMLElement || dom.nodeType === 1) {
-			this.updateContentEditable({ contentDOM });
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			return { dom: dom as HTMLElement, contentDOM };
-		}
-
-		return undefined;
-	}
-
-	destroy() {
-		if (this.cleanupConnectivityModeListener) {
-			this.cleanupConnectivityModeListener();
-		}
-		if (this.cleanupViewModeListener) {
-			this.cleanupViewModeListener();
-		}
-	}
-}
 
 export interface BodiedSyncBlockNodeViewProperties {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
@@ -200,38 +36,6 @@ export interface BodiedSyncBlockNodeViewProperties {
 	pmPluginFactoryParams: PMPluginFactoryParams;
 	syncBlockStore?: SyncBlockStoreManager;
 }
-
-export const bodiedSyncBlockNodeViewOld: (
-	props: BodiedSyncBlockNodeViewProperties,
-) => (
-	node: PMNode,
-	view: EditorView,
-	getPos: getPosHandler,
-) => ReactNodeView<BodiedSyncBlockNodeViewProps> =
-	({
-		pluginOptions,
-		pmPluginFactoryParams,
-		api,
-		syncBlockStore,
-	}: BodiedSyncBlockNodeViewProperties) =>
-	(
-		node: PMNode,
-		view: EditorView,
-		getPos: getPosHandler,
-	): ReactNodeView<BodiedSyncBlockNodeViewProps> => {
-		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
-
-		return new BodiedSyncBlockOld({
-			api,
-			pluginOptions,
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-			syncBlockStore,
-		}).init();
-	};
 
 const toDOM = (node: PMNode): DOMOutputSpec => [
 	'div',
@@ -250,6 +54,61 @@ const toDOM = (node: PMNode): DOMOutputSpec => [
 	],
 ];
 
+export const SourceSyncBlockLabel = ({
+	localId,
+	resourceId,
+	sourceManager,
+}: {
+	localId: string;
+	resourceId: string;
+	sourceManager?: SourceSyncBlockStoreManager;
+}): React.JSX.Element => {
+	const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
+	const [isUnpublished, setIsUnpublished] = useState(
+		() =>
+			isSamePageSyncEnabled &&
+			sourceManager?.getLocalSourceSnapshot(resourceId)?.status === 'unpublished',
+	);
+	const [sourceInfo, setSourceInfo] = useState<SyncBlockSourceInfo>();
+
+	useEffect(() => {
+		if (!isSamePageSyncEnabled) {
+			return;
+		}
+		let isMounted = true;
+		void sourceManager?.getSyncBlockSourceInfo(localId).then((nextSourceInfo) => {
+			if (isMounted) {
+				setSourceInfo(nextSourceInfo);
+			}
+		});
+		const unsubscribe = sourceManager?.subscribeToLocalSource(resourceId, (snapshot) =>
+			setIsUnpublished(snapshot?.status === 'unpublished'),
+		);
+		return () => {
+			isMounted = false;
+			unsubscribe?.();
+		};
+	}, [isSamePageSyncEnabled, localId, resourceId, sourceManager]);
+
+	return (
+		<SyncBlockLabel
+			isSource={true}
+			localId={localId}
+			unpublishedInfo={
+				isSamePageSyncEnabled && isUnpublished
+					? {
+							sourceType: getUnpublishedSourceType({
+								sourceAri: sourceInfo?.sourceAri,
+								sourceProduct: sourceInfo?.productType,
+							}),
+							variant: 'source',
+						}
+					: undefined
+			}
+		/>
+	);
+};
+
 export class BodiedSyncBlock implements NodeView {
 	dom: HTMLElement;
 	contentDOM: HTMLElement;
@@ -267,6 +126,7 @@ export class BodiedSyncBlock implements NodeView {
 		getPos: getPosHandlerNode,
 		api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 		nodeViewPortalProviderAPI: PortalProviderAPI,
+		sourceManager?: SourceSyncBlockStoreManager,
 	) {
 		this.node = node;
 		this.view = view;
@@ -280,23 +140,12 @@ export class BodiedSyncBlock implements NodeView {
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.contentDOM = contentDOM as HTMLElement;
 
-		let labelContainer: HTMLElement;
-		if (isSSR() && isSSRStreaming()) {
-			// During SSR, the portal's renderToStaticMarkup + innerHTML clobbers
-			// contentDOM. Render the label into a separate container to prevent this.
-			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
-			labelContainer = document.createElement('div');
-			this.dom.appendChild(labelContainer);
-		} else if (fg('platform_synced_block_patch_14')) {
-			// Render the label into a separate container for the patch path so
-			// portal implementations that write directly into the target do not clobber
-			// the ProseMirror contentDOM.
-			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
-			labelContainer = document.createElement('div');
-			this.dom.appendChild(labelContainer);
-		} else {
-			labelContainer = this.dom;
-		}
+		// Render the label into a separate container so portal implementations that
+		// write directly into the target do not clobber contentDOM. This also covers
+		// SSR, where the portal's renderToStaticMarkup + innerHTML would clobber it.
+		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
+		const labelContainer = document.createElement('div');
+		this.dom.appendChild(labelContainer);
 
 		this.labelKey = crypto.randomUUID();
 		this.nodeViewPortalProviderAPI.render(
@@ -307,7 +156,11 @@ export class BodiedSyncBlock implements NodeView {
 					dispatchAnalyticsEvent={this.api?.analytics?.actions.fireAnalyticsEvent}
 					fallbackComponent={null}
 				>
-					<SyncBlockLabel isSource={true} localId={node.attrs.localId} />
+					<SourceSyncBlockLabel
+						localId={node.attrs.localId}
+						resourceId={node.attrs.resourceId}
+						sourceManager={sourceManager}
+					/>
 				</ErrorBoundary>
 			),
 			labelContainer,
@@ -404,6 +257,7 @@ export const bodiedSyncBlockNodeView = (
 	const {
 		api,
 		pmPluginFactoryParams: { nodeViewPortalProviderAPI },
+		syncBlockStore,
 	} = props;
 
 	return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
@@ -413,6 +267,7 @@ export const bodiedSyncBlockNodeView = (
 			getPos as getPosHandlerNode,
 			api,
 			nodeViewPortalProviderAPI,
+			syncBlockStore?.sourceManager,
 		);
 	};
 };

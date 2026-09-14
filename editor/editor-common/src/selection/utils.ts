@@ -4,6 +4,7 @@ import type {
 	ResolvedPos,
 	Schema,
 } from '@atlaskit/editor-prosemirror/model';
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';

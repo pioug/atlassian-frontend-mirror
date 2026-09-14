@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default (): React.JSX.Element => (
 	<LogoTable
-		logo={<BitbucketLogo appearance="brand" shouldUseNewLogoDesign />}
-		icon={<BitbucketIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<BitbucketLogo appearance="brand" />}
+		icon={<BitbucketIcon appearance="brand" />}
 	/>
 );

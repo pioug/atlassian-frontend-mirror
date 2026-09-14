@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { getAISummaryErrorMessage } from '../../../../../utils/ai-summary';
+import { getAISummaryErrorMessage } from '../../../../../utils/get-ai-summary-error-message';
 import AIEventErrorViewed from '../../common/ai-summary/ai-event-error-viewed';
 import AILearnMoreAnchor from '../../common/ai-summary/ai-learn-more-anchor';
 import type { ActionMessage } from '../action/types';

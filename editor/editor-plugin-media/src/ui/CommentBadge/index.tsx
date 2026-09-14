@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema';
+import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema/annotation';
 import { VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	type NamedPluginStatesFromInjectionAPI,

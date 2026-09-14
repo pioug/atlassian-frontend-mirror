@@ -11,6 +11,10 @@ test.describe('ReactUFO: SSR Timings', () => {
 			test.use({
 				examplePage: 'basic-ssr-timing-sections',
 				featureFlags,
+			} satisfies {
+				examplePage: 'basic-ssr-timing-sections';
+				featureFlags: string[];
+				__exampleDependency?: typeof import('../../examples/03-basic-ssr-timing-sections.tsx');
 			});
 
 			for (const viewport of viewports) {

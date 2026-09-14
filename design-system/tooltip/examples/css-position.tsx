@@ -7,7 +7,7 @@ import { type CSSProperties, forwardRef, type ReactNode, useRef, useState } from
 import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { Target } from './styled';
 

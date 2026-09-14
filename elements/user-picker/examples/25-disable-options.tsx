@@ -1,7 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import UserPicker from '../src';
+import { UserPicker } from '../src/components/UserPicker';
 
 const Example = (): React.JSX.Element => {
 	return (

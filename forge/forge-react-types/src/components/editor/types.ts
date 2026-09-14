@@ -1,6 +1,6 @@
 // COPIED FROM forge-ui-kit-editor/src/types.ts
 
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 export type Appearance = 'comment' | 'chromeless';
 

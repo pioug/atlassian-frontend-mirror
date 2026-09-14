@@ -1,5 +1,5 @@
 import type { GetStatusTransitionsInvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
-import type { ThemeAppearance } from '@atlaskit/lozenge';
+import type { ThemeAppearance } from '@atlaskit/lozenge/lozenge';
 
 import { type LozengeItem } from '../../view/FlexibleCard/components/elements/common/base-lozenge-element/lozenge-action/types';
 

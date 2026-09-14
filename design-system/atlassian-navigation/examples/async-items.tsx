@@ -8,8 +8,8 @@ import {
 	type PrimaryButtonProps,
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
-import Button from '@atlaskit/button/new';
-import { ButtonItem } from '@atlaskit/menu';
+import Button from '@atlaskit/button/default/button';
+import ButtonItem from '@atlaskit/menu/button-item';
 import { token } from '@atlaskit/tokens';
 
 const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {

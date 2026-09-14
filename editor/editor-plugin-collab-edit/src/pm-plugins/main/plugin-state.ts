@@ -195,6 +195,7 @@ export class PluginState {
 						this.getPresenceId(sessionId),
 						this.getFullName(sessionId),
 						hasExistingNudge(sessionId, this.nudgeAnimations),
+						participants.get(sessionId)?.agentType,
 					),
 				);
 			}
@@ -237,6 +238,7 @@ export class PluginState {
 										presenceId,
 										this.getFullName(sessionId),
 										hasExistingNudge(sessionId, this.nudgeAnimations),
+										participants.get(sessionId)?.agentType,
 									),
 								);
 							}

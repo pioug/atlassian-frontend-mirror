@@ -26,9 +26,8 @@ import {
 import { type Card, ElementName, SmartLinkSize, TitleBlock } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
-import { getCachedProviderPctMapAndRefresh } from '../../src/state/services/personalization';
+import { getCachedProviderPctMapAndRefresh } from '../../src/state/services/personalization/getCachedProviderPctMapAndRefresh';
 import type { MultiCardViewProps } from '../utils/card-view-props';
-
 import CardViewSection from './card-view-section';
 
 /** Figma file URL — `UnAuthClient` maps this to `figma-object-provider` for social proof. */

@@ -2,17 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl';
 
-import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
+import AtlaskitAvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import { token } from '@atlaskit/tokens';
 
 import { ElementName } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
-import { getFormattedMessageAsString } from '../../../utils';
+import { getFormattedMessageAsString } from '../../../getFormattedMessageAsString';
 import { type ElementProps } from '../../index';
 
 const styles = css({
@@ -144,10 +145,3 @@ const BaseAvatarGroup = ({
 };
 
 export default BaseAvatarGroup;
-
-export const toAvatarGroupProps = (
-	items?: BaseAvatarItemProps[],
-	showFallbackAvatar?: boolean,
-): Partial<BaseAvatarGroupElementProps> | undefined => {
-	return items ? { items } : showFallbackAvatar ? { items: [] } : undefined;
-};

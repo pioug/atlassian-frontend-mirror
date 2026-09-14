@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import Link from '../../../../index';
+import Link from '../..';
 import variations from '../../../../testutils/variations';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

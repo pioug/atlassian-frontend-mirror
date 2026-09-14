@@ -1,4 +1,4 @@
-import type { TableAttributes } from '@atlaskit/adf-schema';
+import type { TableAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { createTable } from '@atlaskit/editor-tables/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

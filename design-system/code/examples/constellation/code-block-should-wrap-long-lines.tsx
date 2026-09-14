@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { CodeBlock } from '@atlaskit/code';
-import { Label } from '@atlaskit/form';
+import CodeBlock from '@atlaskit/code/code-block';
+import { Label } from '@atlaskit/form/label/default';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
@@ -19,10 +19,8 @@ class ExtremelyLongComponentNameThatMightNormallyForceCodeBlockToScrollHorizonta
   }
 }
 
-ReactDOM.render(
-  <ExtremelyLongComponentNameThatMightNormallyForceCodeBlockToScrollHorizontally />,
-  mountNode
-);`;
+const root = createRoot(mountNode);
+root.render(<ExtremelyLongComponentNameThatMightNormallyForceCodeBlockToScrollHorizontally />);`;
 
 const CodeBlockShouldWrapLongLinesExample = (): React.JSX.Element => {
 	const [lineWrapState, setLineWrapState] = useState(true);

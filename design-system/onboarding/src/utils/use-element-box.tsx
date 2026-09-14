@@ -3,7 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { bind } from 'bind-event-listener';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export interface ElementBoundingBox {
 	height: number;

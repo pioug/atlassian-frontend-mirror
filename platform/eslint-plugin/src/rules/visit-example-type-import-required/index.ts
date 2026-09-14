@@ -244,9 +244,7 @@ type GenericTypeInfo = { type: 'inline'; importPath: string } | { type: 'alias';
  *   null                           — if no generic type parameter is present
  */
 function extractGenericType(node: TSESTree.CallExpression): GenericTypeInfo | null {
-	// `typeArguments` is the current property name; `typeParameters` is the deprecated alias.
-	// We fall back to `typeParameters` for compatibility with older parser versions.
-	const params = (node.typeArguments ?? node.typeParameters)?.params ?? [];
+	const params = node.typeArguments?.params ?? [];
 	if (params.length === 0) {
 		return null;
 	}
@@ -434,7 +432,7 @@ const rule: Rule.RuleModule = {
 						},
 						fix(fixer) {
 							const correctedPath = computeRelativeImportPath(filename, resolvedExpected);
-							const typeParams = node.typeArguments ?? node.typeParameters;
+							const typeParams = node.typeArguments;
 							if (!typeParams?.range) {
 								return null;
 							}

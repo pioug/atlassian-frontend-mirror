@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-import { ProfileCardTrigger } from '../../src';
+import ProfileCardTrigger from '../../src/components/User/ProfileCardTrigger';
 import { type ProfilecardTriggerPosition, type ProfileClient } from '../../src/types';
 
 const positionsOrder: ProfilecardTriggerPosition[] = [

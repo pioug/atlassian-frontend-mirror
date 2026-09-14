@@ -15,6 +15,7 @@ import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { Fragment, Mark, Node as PmNode, Schema } from '@atlaskit/editor-prosemirror/model';
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
 	NodeSelection,

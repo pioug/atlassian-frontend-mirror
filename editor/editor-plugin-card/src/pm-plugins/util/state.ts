@@ -1,10 +1,10 @@
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
 import type { CardAppearance, CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { DatasourceModalType, EditorAppearance } from '@atlaskit/editor-common/types';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import type { DatasourceAdfView } from '@atlaskit/linking-common';
+import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
 import type { CardPluginState, Request, ToolbarResolvedAttributes } from '../../types';

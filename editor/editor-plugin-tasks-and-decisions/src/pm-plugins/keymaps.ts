@@ -1,6 +1,6 @@
-import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema';
-import { uuid } from '@atlaskit/adf-schema';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema/font-size';
+import { uuid } from '@atlaskit/adf-schema/uuid';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,

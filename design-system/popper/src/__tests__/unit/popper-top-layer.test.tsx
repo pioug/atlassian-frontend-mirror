@@ -4,7 +4,9 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen } from '@atlassian/testing-library';
 
-import { Manager, Popper, Reference } from '../../index';
+import { Manager } from '../../manager';
+import { Popper } from '../../popper';
+import { Reference } from '../../reference';
 
 // Top-layer renders use the native Popover API, which jsdom does not
 // implement. Stub the methods we touch so tests never hit unimplemented

@@ -4,7 +4,7 @@ import {
 	TEST_LINK,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractImage } from '../index';
+import { extractImage } from '../extract-image';
 
 describe('extractors.preview.image', () => {
 	afterEach(() => jest.clearAllMocks());

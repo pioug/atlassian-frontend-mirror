@@ -6,7 +6,7 @@ import {
 	type whatsNewSearchResult,
 } from './WhatsNew';
 import { type REQUEST_STATE } from './Requests';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import type { Props as HelpContentButtonProps } from '../components/HelpContentButton';
 

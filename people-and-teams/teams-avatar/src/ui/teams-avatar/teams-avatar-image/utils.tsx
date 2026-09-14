@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { TEAM_FALLBACK_AVATAR_DATA_URI } from './fallback/constants';
 

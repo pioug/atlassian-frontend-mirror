@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset';
@@ -32,7 +32,7 @@ import { listPlugin } from '@atlaskit/editor-plugins/list';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 

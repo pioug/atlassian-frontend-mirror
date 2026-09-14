@@ -1,13 +1,12 @@
-import once from 'lodash/once';
-
-import { HttpError, SLOIgnoreError } from '../../common/utils/error';
+import { HttpError } from '../../common/utils/error/HttpError';
+import { SLOIgnoreError } from '../../common/utils/error/SLOIgnoreError';
 import { fetchWithExponentialBackoff } from '../../common/utils/http';
 import { handleResponse } from '../../common/utils/status-code-handlers-provider';
 import { BaseClient, type ClientConfig } from '../base-client';
 
-import { clearCookie, getCookieAsInteger, REDIRECT_COUNT, setCookie } from './utils/cookie';
 import { parseErrorMessage } from './utils/parse-error-message';
 import { parseResponse } from './utils/parse-response';
+import { redirectCount } from './utils/redirect-count';
 import { stripUUIDFromPath } from './utils/strip-uuid';
 
 interface FetchOptions {
@@ -27,19 +26,6 @@ const defaultFetchOptions: RequestInit = {
 	},
 	mode: 'cors',
 };
-
-let incrementRedirectCount: () => void;
-let clearRedirectCount: () => void;
-resetRedirectCountOnceFlag();
-
-// Used by test to reset the once-ness of the functions above
-export function resetRedirectCountOnceFlag(): void {
-	incrementRedirectCount = once(() =>
-		setCookie(REDIRECT_COUNT, getCookieAsInteger(REDIRECT_COUNT) + 1),
-	);
-
-	clearRedirectCount = once(() => clearCookie(REDIRECT_COUNT));
-}
 
 export class RestClient extends BaseClient {
 	constructor({
@@ -186,10 +172,10 @@ export class RestClient extends BaseClient {
 		if (!response.ok) {
 			const responseStatusCode = response.status;
 			if (responseStatusCode === 401) {
-				incrementRedirectCount();
+				redirectCount.increment();
 			}
 		} else {
-			clearRedirectCount();
+			redirectCount.clear();
 		}
 	};
 

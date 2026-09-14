@@ -1,4 +1,4 @@
-import { borderColorPalette as colorPalette } from '@atlaskit/adf-schema';
+import { borderColorPalette as colorPalette } from '@atlaskit/adf-schema/border';
 
 import { DEFAULT_BORDER_COLOR } from './common';
 import getColorMessage from './getColorMessage';

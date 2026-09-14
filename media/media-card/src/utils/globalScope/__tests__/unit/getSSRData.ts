@@ -1,6 +1,6 @@
-import * as globalScopeModule from '../../globalScope';
+import { getKey } from '../../getKey';
 import { getSSRData } from '../../getSSRData';
-import { getKey } from '../../globalScope';
+import * as globalScopeModule from '../../getMediaCardSSR';
 
 const getMediaCardSSR = jest.spyOn(globalScopeModule, 'getMediaCardSSR');
 

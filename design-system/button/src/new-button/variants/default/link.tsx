@@ -7,7 +7,7 @@ import { forwardRef, useRef } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -32,7 +32,7 @@ const styles = cssMap({
 		alignItems: 'baseline',
 		justifyContent: 'center',
 		columnGap: token('space.050'),
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.medium'),
 		borderWidth: 0,
 		flexShrink: 0,
 		height: '2rem',
@@ -52,10 +52,6 @@ const styles = cssMap({
 			pointerEvents: 'none',
 			position: 'absolute',
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	baseT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	interactiveMotion: {
 		transition: token('motion.button.hovered'),
@@ -415,7 +411,6 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 			{...saferRest}
 			xcss={cx(
 				styles.base,
-				fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
 				!isDisabled && fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
 				appearance === 'default' && defaultStyles.root,
 				appearance === 'primary' && primaryStyles.root,

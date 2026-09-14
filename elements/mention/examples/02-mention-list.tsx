@@ -1,7 +1,12 @@
-import { token } from '@atlaskit/tokens';
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
-import { mentions as mentionsData, onSelection, randomMentions } from '../example-helpers';
+
+import { token } from '@atlaskit/tokens';
+
+import { mentions as mentionsData } from '@atlaskit/util-data-test/mention-story-data';
+import { onSelection } from '../example-helpers/on-selection';
+import { randomMentions } from '../example-helpers/random-mentions';
 import MentionList from '../src/components/MentionList';
 import { type MentionDescription } from '../src/types';
 

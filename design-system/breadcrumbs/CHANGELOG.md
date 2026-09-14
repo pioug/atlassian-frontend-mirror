@@ -1,5 +1,71 @@
 # @atlaskit/breadcrumbs
 
+## 17.7.1
+
+### Patch Changes
+
+- [`d7eeefc938dd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7eeefc938dd4) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 17.7.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.6.2
+
+### Patch Changes
+
+- [`695fcbc68ad47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/695fcbc68ad47) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 17.6.1
+
+### Patch Changes
+
+- [`9a7653523837c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a7653523837c) -
+  Use `@atlassian/testing-library` exclusively in unit tests.
+
+## 17.6.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.5.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.5.6
 
 ### Patch Changes

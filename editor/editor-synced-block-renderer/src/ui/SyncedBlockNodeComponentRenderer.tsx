@@ -114,6 +114,12 @@ export const SyncedBlockNodeComponentRenderer = ({
 		resourceId,
 		error: errorForDisplay,
 		getAccountId,
+		// Prefix heading ids with the reference node's localId so ToC deep links
+		// and heading anchor links resolve, and so the same source block embedded
+		// twice on a page produces distinct, stable ids. Only takes effect when the
+		// renderer options enable heading anchor links; otherwise the prefix is set
+		// but ids stay disabled inside AKRendererWrapper.
+		headingIdPrefix: localId,
 	});
 	if (result.isSuccess) {
 		return (

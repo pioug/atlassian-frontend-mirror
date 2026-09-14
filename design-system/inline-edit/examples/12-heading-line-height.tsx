@@ -6,10 +6,10 @@ import { type FC, type ReactNode, useState } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import Heading from '@atlaskit/heading';
-import InlineEdit from '@atlaskit/inline-edit';
+import Heading from '@atlaskit/heading/heading';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const messageStyles = cssMap({

@@ -6,7 +6,7 @@ import { useCallback, type MouseEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { FormattedMessage } from 'react-intl';
 import AkButton from '@atlaskit/button/standard-button';
 import { messages } from '../i18n';

@@ -1,7 +1,15 @@
-import { PollingError } from './errors';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { PollingError } from './PollingError';
 import { type Executor } from './types';
 
-export { PollingError, isPollingError } from './errors';
+/**
+ * @deprecated Use `import { PollingError } from '@atlaskit/media-client/polling/errors'` instead.
+ */
+export { PollingError } from './PollingError';
+/**
+ * @deprecated Use `import { isPollingError } from '@atlaskit/media-client/polling/errors'` instead.
+ */
+export { isPollingError } from './isPollingError';
 
 export interface PollingOptions {
 	poll_intervalMs: number;

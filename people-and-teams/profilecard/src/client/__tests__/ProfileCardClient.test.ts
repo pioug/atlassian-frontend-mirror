@@ -2,7 +2,7 @@ import { getATLContextUrl } from '@atlaskit/atlassian-context/get-atl-context-ur
 import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import ProfileCardClient from '../ProfileCardClient';
-import TeamCentralCardClient from '../TeamCentralCardClient';
+import { default as TeamCentralCardClient } from '../TeamCentralCardClient';
 
 jest.mock('@atlaskit/atlassian-context/get-atl-context-url', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context/get-atl-context-url'),

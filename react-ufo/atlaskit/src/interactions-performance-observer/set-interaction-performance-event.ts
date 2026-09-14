@@ -1,0 +1,103 @@
+import { getSelectorConfig } from '../config';
+import { getActiveInteraction } from '../interaction-metrics';
+import getElementName, { type SelectorConfig } from '../vc/vc-observer-new/get-unique-element-name';
+
+const DEFAULT_SELECTOR_CONFIG: SelectorConfig = {
+	id: true,
+	testId: true,
+	role: true,
+	className: true,
+};
+
+function resolveSelectorConfig(): SelectorConfig {
+	return getSelectorConfig() ?? DEFAULT_SELECTOR_CONFIG;
+}
+
+type ReactFiberType = {
+	memoizedProps?: Record<string, string>;
+	type: { displayName: any; name: any };
+	return: ReactFiberType | null;
+};
+
+function getTestIdName(memoizedProps: Record<string, string>): string | null {
+	if (memoizedProps['data-testid']) {
+		return `[data-testid=${memoizedProps['data-testid']}]`;
+	} else if (memoizedProps['data-test-id']) {
+		return `[data-test-id=${memoizedProps['data-testid']}]`;
+	} else if (memoizedProps['data-vc']) {
+		return `[data-vc=${memoizedProps['data-vc']}]`;
+	}
+	return null;
+}
+
+function getUFOSegmentName(componentName: string, memoizedProps?: Record<string, string>): string {
+	if (memoizedProps && memoizedProps['name']) {
+		return `UFOSegment[name=${memoizedProps['name']}]`;
+	}
+	return componentName;
+}
+
+function getReactComponentHierarchy(element: HTMLElement) {
+	const componentHierarchy: string[] = [];
+	function traverseFiber(fiber: ReactFiberType) {
+		let currentFiber: null | ReactFiberType = fiber;
+		while (currentFiber) {
+			if (currentFiber.type) {
+				const componentName = currentFiber.type.displayName || currentFiber.type.name;
+				if (
+					componentName &&
+					componentName.length > 2 &&
+					!componentName.includes('Listener') &&
+					!componentName.includes('Provider')
+				) {
+					if (componentName === 'UFOSegment') {
+						componentHierarchy.push(getUFOSegmentName(componentName, currentFiber.memoizedProps));
+						break;
+					}
+					componentHierarchy.push(componentName);
+				}
+			}
+			if (currentFiber.memoizedProps) {
+				const dataIdInfo = getTestIdName(currentFiber.memoizedProps);
+				if (dataIdInfo) {
+					componentHierarchy.push(dataIdInfo);
+					currentFiber = null;
+					continue;
+				}
+			}
+			currentFiber = currentFiber.return;
+		}
+	}
+	const reactFiberKey = Object.keys(element).find((key) => key.startsWith('__reactFiber$'));
+	if (reactFiberKey) {
+		const fiber = (element as any)[reactFiberKey];
+		traverseFiber(fiber);
+	}
+	return componentHierarchy.reverse().join(' > ');
+}
+
+export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming): void => {
+	const interaction = getActiveInteraction();
+	if (interaction?.type === 'press') {
+		if (!interaction.responsiveness?.experimentalInputToNextPaint) {
+			interaction.responsiveness = {
+				...interaction.responsiveness,
+				experimentalInputToNextPaint:
+					interaction.responsiveness?.experimentalInputToNextPaint || entry.duration,
+				inputDelay:
+					interaction.responsiveness?.inputDelay || entry.processingStart - entry.startTime,
+			};
+			if (interaction.ufoName === 'unknown') {
+				if (entry.target) {
+					interaction.unknownElementHierarchy = getReactComponentHierarchy(
+						entry.target as HTMLElement,
+					);
+				}
+				interaction.unknownElementName = getElementName(
+					resolveSelectorConfig(),
+					entry.target as HTMLElement,
+				);
+			}
+		}
+	}
+};

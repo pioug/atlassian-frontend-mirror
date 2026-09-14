@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -17,8 +17,9 @@ import {
 	ExampleCreateInlineCommentComponent,
 	ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers/example-helpers';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 
 import type { EditorProps } from '../src/types/editor-props';
 

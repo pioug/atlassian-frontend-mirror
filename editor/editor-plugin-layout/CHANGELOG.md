@@ -1,5 +1,472 @@
 # @atlaskit/editor-plugin-layout
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- [`848b5c3689131`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/848b5c3689131) -
+  Cache `isEmptyLayout` on the vanilla `LayoutSectionView` behind
+  `platform_editor_vanilla_node_views_patch_1` so `update()` does not walk the layout twice.
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- [`4df90d6af7dc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4df90d6af7dc0) -
+  Clean up experiment `platform_editor_layout_keywords` and retain the launched layout search
+  keywords.
+- Updated dependencies
+
+## 17.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`6f957d4e7bcb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f957d4e7bcb8) -
+  Make layout column resizing generally available
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- [`e62dacf4416fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e62dacf4416fd) -
+  Add the shared popup-anchor contract, registry-backed drag handle, and menu integrations behind
+  `platform_editor_block_control_migration`.
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.17
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.0.16
+
+### Patch Changes
+
+- [`288e340380dbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/288e340380dbb) -
+  Behind experiment platform_editor_reduce_event_listener_count: cut the number of native DOM event
+  listeners the editor registers per node. React 18 registers a bubble and a capture listener for
+  every supported event type on each portal container (~130 listeners) and never removes them, so
+  (1) node views whose render() returns null no longer mount a portal at all, and (2) the breakout
+  resize handle tooltip portal is deferred until the pointer enters the node instead of being
+  mounted for every resizable node up front.
+
+  Also reduces the work the layout column divider decorations do on every `decorations(state)` read:
+  the mousedown listener is unbound when the widget decoration is destroyed, the widget DOM is built
+  lazily rather than once per call, the document walk no longer descends into node types that cannot
+  contain a layout, and the decoration key is derived from the layout's ordinal rather than its
+  position so an edit above a layout no longer invalidates and rebuilds every divider below it. The
+  widget now resolves its own layout section and column index from its live position at mousedown.
+
+- Updated dependencies
+
+## 16.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- [`343c4a1cca800`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/343c4a1cca800) -
+  Fix editing image captions in layout columns behind the
+  `platform_editor_fix_edit_media_caption_in_layout` experiment.
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- [`ca2fd9cde15a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca2fd9cde15a4) -
+  Add a vanilla `LayoutSectionView` behind the `platform_editor_vanilla_node_views_phase1`
+  experiment.
+
+  Replaces the `ReactNodeView`-based `LayoutSectionView` with a pure vanilla `NodeView`, eliminating
+  the React portal mount (including `<ErrorBoundary>{null}</ErrorBoundary>`) per layout section
+  node. It is used on both the client and during SSR streaming, where it also removes the
+  `NodeViewContentHole` / `data-ssr-content-dom-ref` re-attach round trip. Requires
+  `platform_editor_breakout_resizing` to be fully rolled out.
+
+  Also extracts `isEmptyLayout` into a shared `nodeviews/utils.ts` (using `isEmptyParagraph` from
+  `@atlaskit/editor-common/utils`) to avoid duplication between the two views.
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`4273da2e1a648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4273da2e1a648) -
+  Register native Quick Insert items behind `platform_editor_slash_command`.
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- [`711b3354a8c2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/711b3354a8c2a) -
+  Clean up feature gate platform_editor_layout_resize_analytics
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`da5eaf0bc37da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5eaf0bc37da) -
+  Clean up the platform_editor_editor_ssr_streaming experiment. The SSR streaming code paths are now
+  permanent and the isSSRStreaming() utility has been removed from
+  @atlaskit/editor-common/core-utils.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- [`72f7cec91a1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f7cec91a1d4) -
+  Remove stale `platform-feature-flags` registrations for shipped block menu and blocks feature
+  gates. No behaviour change.
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.5.0
 
 ### Minor Changes

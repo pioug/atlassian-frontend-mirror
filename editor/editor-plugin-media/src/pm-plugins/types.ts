@@ -1,11 +1,12 @@
-import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Identifier } from '@atlaskit/media-client';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import type {
 	MediaOptions,

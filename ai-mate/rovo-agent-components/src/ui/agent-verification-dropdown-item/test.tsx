@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
 import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
 
-import { FlagsProvider } from '@atlaskit/flag';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
 import type { testAgentVerificationDropdownItemQuery } from './__generated__/testAgentVerificationDropdownItemQuery.graphql';

@@ -1,5 +1,41 @@
 # @atlaskit/embedded-confluence
 
+## 6.4.1
+
+### Patch Changes
+
+- [`bca883e85f27b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bca883e85f27b) -
+  Transpile UUID v11 in legacy Webpack 4 publishing builds so modern browser syntax is supported.
+
+## 6.4.0
+
+### Minor Changes
+
+- [`3ed2da7ef508f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ed2da7ef508f) -
+  Adds public JAC to docs
+
+### Patch Changes
+
+- [`e0bf3701493bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0bf3701493bd) -
+  Fix `import { Page } from '@atlaskit/embedded-confluence/page'` for npm by shipping the webpack
+  bundle at the generated `/page` dist paths.
+
+## 6.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 6.2.1
+
+### Patch Changes
+
+- [`06c47d2aaf93a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06c47d2aaf93a) -
+  Remove incorrect `@deprecated` markers from public entry-point re-exports
+  (`@atlaskit/embedded-confluence` `./embedded-confluence-common` and `./experience-tracker`, and
+  `@atlaskit/side-navigation` `./menu`) so they are no longer flagged as deprecated.
+
 ## 6.2.0
 
 ### Minor Changes

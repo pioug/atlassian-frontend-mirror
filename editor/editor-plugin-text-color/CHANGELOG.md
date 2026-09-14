@@ -1,5 +1,402 @@
 # @atlaskit/editor-plugin-text-color
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- [`fb891566dfac2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb891566dfac2) -
+  Add anyMarksActiveFromTr and getHadMarkAttributes so mark-active checks can run from a
+  transaction. Color, highlight, toolbar/Cmd+K link apply, and paste events include had-mark
+  attributes behind kill switch platform_editor_add_text_color_tracking.
+- Updated dependencies
+
+## 16.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 15.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`d96f86ff344b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d96f86ff344b8) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_vc90_transition_expand_icon, platform_editor_add_image_editing,
+  platform_editor_ai_multi_format_streaming, platform_editor_default_toolbar_state,
+  platform_editor_early_exit_return_draft, platform_editor_fix_focus_MediaInsertPicker,
+  platform_editor_fix_table_move_shortcut, platform_editor_menu_radius_update,
+  platform_editor_react19_migration, and show_mentions_in_suggest_reply.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.2
+
+### Patch Changes
+
+- [`ca816d97f5b74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca816d97f5b74) -
+  [ux] [EDITOR-8376] Update remove color button to remove highlight.
+- Updated dependencies
+
+## 12.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.0
 
 ### Minor Changes

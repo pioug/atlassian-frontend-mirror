@@ -7,8 +7,8 @@ import { useCallback, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import Heading from '@atlaskit/heading/heading';
 import AppsIcon from '@atlaskit/icon/core/apps';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';

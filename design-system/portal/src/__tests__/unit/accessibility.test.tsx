@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import Portal from '../../index';
+import Portal from '../../portal';
 
 it('Basic portal with button should pass axe audit', async () => {
 	const { container } = render(

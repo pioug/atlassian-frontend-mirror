@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import Popup from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/popup';
 
 import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';

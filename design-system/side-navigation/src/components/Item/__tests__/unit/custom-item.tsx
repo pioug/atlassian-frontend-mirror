@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import CustomItem, { type CustomItemComponentProps } from '../../custom-item';
+import { CustomItem, type CustomItemComponentProps } from '../../custom-item';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<CustomItem />', () => {

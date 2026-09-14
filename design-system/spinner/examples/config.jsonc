@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "vr-basic.tsx",
+    "vr-basic.vr.ap.tsx",
     "vr-loading-buttons.tsx",
-    "vr-sizes.tsx",
-    "vr-table-cell-alignment.tsx",
-    "vr-text-alignment.tsx"
+    "vr-sizes.vr.ap.tsx",
+    "vr-table-cell-alignment.vr.ap.tsx",
+    "vr-text-alignment.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

@@ -1,15 +1,20 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { PresencePayload } from '../../types';
 import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
-import { AGENT_PRESENCE_TTL_MS, ParticipantsService } from '../participants-service';
+import {
+	AGENT_PRESENCE_INACTIVE_MS,
+	AGENT_PRESENCE_TTL_MS,
+	ParticipantsService,
+} from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 import { PARTICIPANT_UPDATE_INTERVAL } from '../participants-helper';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
-jest.mock('@atlaskit/feature-gate-js-client');
+jest.mock('@atlaskit/feature-gate-js-client/feature-gates');
 
 const baseTime = 1676863793756;
 
@@ -96,30 +101,57 @@ describe('upsertAIProviderParticipantLocally', () => {
 		jest.useRealTimers();
 	});
 
-	it('adds the agent to the AI-provider partition, emits presence(joined) on first add, and bypasses getUser', () => {
+	it('adds the agent with editing activity when agent presence is moved', () => {
+		passGate('platform_move_presence_agents');
+		passGate('confluence_ncs_step_diffing_version_history');
 		const emit = jest.fn();
 		const getUser = jest.fn();
 		const service = participantsServiceConstructor({ emit, getUser });
 
-		service.upsertAIProviderParticipantLocally(providerId);
+		service.upsertAIProviderParticipantLocally(providerId, 'mcp');
 
 		const agents = service.getAIProviderParticipants();
 		expect(agents).toHaveLength(1);
 		expect(agents[0]).toEqual(
 			expect.objectContaining({
+				agentType: 'mcp',
+				presenceId: 'abc',
 				userId: providerId,
 				sessionId: expectedSessionId,
+				presenceActivity: 'editor',
 				name: '',
 				avatar: '',
 			}),
 		);
 		expect(emit).toHaveBeenCalledWith('presence', {
-			joined: [expect.objectContaining({ userId: providerId, sessionId: expectedSessionId })],
+			joined: [
+				expect.objectContaining({
+					agentType: 'mcp',
+					presenceId: 'abc',
+					userId: providerId,
+					sessionId: expectedSessionId,
+					presenceActivity: 'editor',
+				}),
+			],
 		});
 		// getUser is only for human hydration; agents must bypass it.
 		expect(getUser).not.toHaveBeenCalled();
 		// Agents are not part of the human participant list.
 		expect(service.getParticipants()).toHaveLength(0);
+	});
+
+	it('preserves legacy agent presence activity when agent presence is not moved', () => {
+		failGate('platform_move_presence_agents');
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+
+		const [agent] = service.getAIProviderParticipants();
+		expect(agent).not.toHaveProperty('presenceActivity');
+		expect(emit).toHaveBeenCalledWith('presence', {
+			joined: [expect.not.objectContaining({ presenceActivity: expect.anything() })],
+		});
 	});
 
 	it('does not re-emit presence on refresh (same agent, subsequent steps)', () => {
@@ -135,14 +167,28 @@ describe('upsertAIProviderParticipantLocally', () => {
 		expect(service.getAIProviderParticipants()).toHaveLength(1);
 	});
 
+	it('re-emits presence when the local agent type changes', () => {
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId, 'mcp');
+		emit.mockClear();
+		service.upsertAIProviderParticipantLocally(providerId, 'twg');
+
+		expect(emit).toHaveBeenCalledWith('presence', {
+			joined: [expect.objectContaining({ agentType: 'twg', userId: providerId })],
+		});
+	});
+
 	it('removes the agent and emits presence(left) after the 30s sliding window elapses', () => {
+		failGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
 
 		service.upsertAIProviderParticipantLocally(providerId);
 		emit.mockClear();
 
-		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS);
+		jest.advanceTimersByTime(AGENT_PRESENCE_INACTIVE_MS);
 
 		expect(service.getAIProviderParticipants()).toHaveLength(0);
 		expect(emit).toHaveBeenCalledWith('presence', {
@@ -151,18 +197,54 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('slides the window: a refresh before expiry keeps the agent alive, then expires later', () => {
+		failGate('platform_move_presence_agents');
 		const service = participantsServiceConstructor({});
 
 		service.upsertAIProviderParticipantLocally(providerId);
-		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS - 1);
+		jest.advanceTimersByTime(AGENT_PRESENCE_INACTIVE_MS - 1);
 
 		// Refresh resets the sliding window.
 		service.upsertAIProviderParticipantLocally(providerId);
-		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS - 1);
+		jest.advanceTimersByTime(AGENT_PRESENCE_INACTIVE_MS - 1);
 		expect(service.getAIProviderParticipants()).toHaveLength(1);
 
 		jest.advanceTimersByTime(1);
 		expect(service.getAIProviderParticipants()).toHaveLength(0);
+	});
+
+	it('retains an inactive agent at 30 seconds and removes it at five minutes when enriched presence is enabled', () => {
+		passGate('platform_move_presence_agents');
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		emit.mockClear();
+
+		jest.advanceTimersByTime(AGENT_PRESENCE_INACTIVE_MS);
+		expect(service.getAIProviderParticipants()).toHaveLength(1);
+		expect(emit).not.toHaveBeenCalled();
+
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS - AGENT_PRESENCE_INACTIVE_MS);
+		expect(service.getAIProviderParticipants()).toHaveLength(0);
+		expect(emit).toHaveBeenCalledWith('presence', {
+			left: [{ sessionId: expectedSessionId }],
+		});
+	});
+
+	it('emits presence when an inactive agent becomes active again', () => {
+		passGate('platform_move_presence_agents');
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		emit.mockClear();
+		jest.advanceTimersByTime(AGENT_PRESENCE_INACTIVE_MS);
+
+		service.upsertAIProviderParticipantLocally(providerId);
+
+		expect(emit).toHaveBeenCalledWith('presence', {
+			joined: [expect.objectContaining({ sessionId: expectedSessionId })],
+		});
 	});
 
 	it('tracks multiple distinct agents independently', () => {
@@ -187,6 +269,56 @@ describe('upsertAIProviderParticipantLocally', () => {
 		// Timer cancelled → no leave emitted; participant stays in state.
 		expect(emit).not.toHaveBeenCalled();
 		expect(service.getAIProviderParticipants()).toHaveLength(1);
+	});
+
+	it('clears an agent expiry timer when the agent leaves', () => {
+		passGate('platform_move_presence_agents');
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		service.onParticipantLeft({
+			...payload,
+			data: { sessionId: expectedSessionId },
+		});
+		emit.mockClear();
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS);
+
+		expect(emit).not.toHaveBeenCalled();
+	});
+
+	it('removes agents from consumers and clears their timers on disconnect', () => {
+		passGate('platform_move_presence_agents');
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		emit.mockClear();
+		service.disconnect('CLOSE_CONNECTION', sessionId);
+
+		expect(service.getAIProviderParticipants()).toHaveLength(0);
+		expect(emit).toHaveBeenCalledWith('presence', {
+			left: [expect.objectContaining({ sessionId: expectedSessionId })],
+		});
+		emit.mockClear();
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS);
+		expect(emit).not.toHaveBeenCalled();
+	});
+
+	it('preserves the legacy disconnect event when enriched presence is disabled', () => {
+		failGate('platform_move_presence_agents');
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({
+			emit,
+			participantsState: new ParticipantsState(new Map([[activeUser.sessionId, activeUser]])),
+		});
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		emit.mockClear();
+		service.disconnect('CLOSE_CONNECTION', sessionId);
+
+		expect(service.getAIProviderParticipants()).toHaveLength(0);
+		expect(emit).toHaveBeenCalledWith('presence', { left: [activeUser] });
 	});
 });
 

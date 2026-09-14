@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import type { CardActionOptions } from '../../../view/Card/types';
-import { getExtensionKey } from '../../helpers';
+import { getExtensionKey } from '../../getExtensionKey';
 import { useSmartCardState } from '../../store';
 import useRovoConfig from '../use-rovo-config';
 

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import Heading from '@atlaskit/heading';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import Heading from '@atlaskit/heading/heading';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 

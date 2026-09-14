@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Pressable } from '@atlaskit/primitives/compiled';
-import Tooltip from '@atlaskit/tooltip';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 export default function DisabledWithTooltip(): React.JSX.Element {
 	return (

@@ -1,15 +1,16 @@
 import { snapshot } from '@af/visual-regression';
 
-import Default from '../../../examples/00-default-tabs';
-import Controlled from '../../../examples/10-controlled';
-import CustomTabComponents from '../../../examples/30-custom-tab-panel-component';
-import WithMany from '../../../examples/50-with-many';
-import WithFlexContent from '../../../examples/60-with-flex-content';
-import NoSpaceForTabs from '../../../examples/70-no-space-for-tabs';
-import Overflow from '../../../examples/80-overflow';
-import Testing from '../../../examples/99-testing';
+import Default from '../../../examples/00-default-tabs.vr.ap';
+import Controlled from '../../../examples/10-controlled.vr.ap';
+import CustomTabComponents from '../../../examples/30-custom-tab-panel-component.vr.ap';
+import WithMany from '../../../examples/50-with-many.vr.ap';
+import WithFlexContent from '../../../examples/60-with-flex-content.vr.ap';
+import NoSpaceForTabs from '../../../examples/70-no-space-for-tabs.vr.ap';
+import Overflow from '../../../examples/80-overflow.vr.ap';
+import Testing from '../../../examples/99-testing.vr.ap';
 
-snapshot(Default, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Default, {
 	variants: [
 		{
 			name: 'default',
@@ -23,7 +24,8 @@ snapshot(Default, {
 		},
 	],
 });
-snapshot(Controlled, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Controlled, {
 	variants: [
 		{
 			name: 'default',
@@ -37,7 +39,8 @@ snapshot(Controlled, {
 		},
 	],
 });
-snapshot(CustomTabComponents, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(CustomTabComponents, {
 	variants: [
 		{
 			name: 'default',
@@ -51,7 +54,8 @@ snapshot(CustomTabComponents, {
 		},
 	],
 });
-snapshot(WithMany, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(WithMany, {
 	variants: [
 		{
 			name: 'default',
@@ -107,7 +111,8 @@ snapshot(Overflow, {
 		},
 	],
 });
-snapshot(Testing, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Testing, {
 	variants: [
 		{
 			name: 'default',

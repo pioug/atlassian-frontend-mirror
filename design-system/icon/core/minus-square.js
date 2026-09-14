@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8617cb45145f1ee4e556296553c23585>>
+ * @codegen <<SignedSource::0d552a631458626795fb5a9f0853afe1>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "MinusSquare".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const MinusSquareIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const MinusSquareIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "MinusSquareIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M13.5 3a.5.5 0 0 0-.5-.5H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5zM12 7.25v1.5H4v-1.5zM15 13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

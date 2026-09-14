@@ -12,9 +12,9 @@ import { injectIntl } from 'react-intl';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import type { DateRangeField, DateRangeResult } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
-import { Field } from '@atlaskit/form';
-import { RadioGroup } from '@atlaskit/radio';
-import TextField from '@atlaskit/textfield';
+import Field from '@atlaskit/form/field';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import TextField from '@atlaskit/textfield/text-field';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';

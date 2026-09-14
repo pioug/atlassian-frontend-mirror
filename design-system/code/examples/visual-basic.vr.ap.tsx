@@ -1,0 +1,16 @@
+import React from 'react';
+
+import CodeBlock from '@atlaskit/code/code-block';
+
+const exampleCodeBlock = `Function AddNumbers(ByVal X As Integer, ByVal Y As Integer)
+  AddNumbers = X + Y
+End Function`;
+
+export default function Component(): React.JSX.Element {
+	return (
+		<div>
+			<h2>Visual Basic</h2>
+			<CodeBlock language="visualbasic" text={exampleCodeBlock} />
+		</div>
+	);
+}

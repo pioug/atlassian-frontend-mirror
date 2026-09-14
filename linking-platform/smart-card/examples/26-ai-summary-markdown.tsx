@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Label } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import { Label } from '@atlaskit/form/label/default';
 import { Box } from '@atlaskit/primitives/compiled';
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 
 import AISummary from '../src/view/common/ai-summary';
 

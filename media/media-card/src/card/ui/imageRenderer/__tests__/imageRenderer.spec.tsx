@@ -68,10 +68,10 @@ describe('ImageRenderer', () => {
 
 		const mediaImage = screen.getByTestId('media-image');
 		fireEvent.load(mediaImage);
-		expect(onImageLoad).toBeCalledWith(cardPreview);
+		expect(onImageLoad).toHaveBeenCalledWith(cardPreview);
 
 		fireEvent.error(mediaImage);
-		expect(onImageError).toBeCalledWith(cardPreview);
+		expect(onImageError).toHaveBeenCalledWith(cardPreview);
 	});
 
 	describe('Lazy Load', () => {

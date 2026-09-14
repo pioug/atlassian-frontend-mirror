@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::74f2fd7309f08c06e0ba222c16a94535>>
+ * @codegen <<SignedSource::04c735f1639de1fc35426dd23ce371cd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "TextItalicUnderline".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const TextItalicUnderlineIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const TextItalicUnderlineIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "TextItalicUnderlineIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M16 16H0v-1.5h16zM5.75 1h6v1.5H9.62L7.92 11H10v1.5H4.25V11h2.13l1.7-8.5H5.75z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

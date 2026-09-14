@@ -1,3 +1,4 @@
+/** @jest-environment node */
 import type { Rule, Scope, SourceCode } from 'eslint';
 import type { Node } from 'estree';
 

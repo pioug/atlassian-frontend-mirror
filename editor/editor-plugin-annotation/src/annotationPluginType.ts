@@ -46,6 +46,13 @@ export type AnnotationPlugin = NextEditorPlugin<
 	{
 		actions: {
 			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
+			/**
+			 * Requests that the active inline comment or comment draft be closed.
+			 * Runs the provider's close guard before closing when one is configured.
+			 * @returns `true` when the caller may continue because the comment closed or no close
+			 * capability is configured; otherwise `false`.
+			 */
+			requestCloseInlineComment: () => Promise<boolean>;
 			setInlineCommentDraftState: SetInlineCommentDraftState;
 			/**
 			 * Sets a pending selected annotation, opening its comment popup or panel.

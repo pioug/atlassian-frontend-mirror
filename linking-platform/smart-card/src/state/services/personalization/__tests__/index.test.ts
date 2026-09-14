@@ -1,20 +1,17 @@
-import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
+import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 
-import {
-	PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX,
-	PERSONALIZATION_STORAGE_SCOPE,
-	PersonalizationService,
-} from '../index';
+import { personalizationConstants } from '../constants';
+import { PersonalizationService } from '../PersonalizationService';
 
 /** Matches PersonalizationService pct-map naming; physical key uses `StorageClient` join. */
 function pctMapStorageItemKey(cloudId: string, traitName: string): string {
-	return `${PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX}${encodeURIComponent(cloudId)}:${encodeURIComponent(
+	return `${personalizationConstants.PERSONALIZATION_STORAGE_ITEM_KEY_PREFIX}${encodeURIComponent(cloudId)}:${encodeURIComponent(
 		traitName,
 	)}`;
 }
 
 function pctMapLocalStorageRowKey(cloudId: string, traitName: string): string {
-	return `${PERSONALIZATION_STORAGE_SCOPE}_${pctMapStorageItemKey(cloudId, traitName)}`;
+	return `${personalizationConstants.PERSONALIZATION_STORAGE_SCOPE}_${pctMapStorageItemKey(cloudId, traitName)}`;
 }
 
 function mockFetchResponse(body: unknown, options: { ok?: boolean } = {}): Response {
@@ -32,7 +29,7 @@ describe('PersonalizationService', () => {
 
 	beforeEach(() => {
 		localStorage.clear();
-		smartCardStorage = new StorageClient(PERSONALIZATION_STORAGE_SCOPE);
+		smartCardStorage = new StorageClient(personalizationConstants.PERSONALIZATION_STORAGE_SCOPE);
 		service = new PersonalizationService();
 		fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue(
 			mockFetchResponse({

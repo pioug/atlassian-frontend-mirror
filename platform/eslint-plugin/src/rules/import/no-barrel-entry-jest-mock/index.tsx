@@ -38,6 +38,14 @@ import {
  */
 interface RuleOptions {
 	applyToImportsFrom?: string[];
+	/**
+	 * When a barrel re-exports from another package, prefer `@scope/barrel/subpath` if that
+	 * subpath's entry file directly re-exports from the dependency, instead of mocking the
+	 * dependency package.
+	 *
+	 * Defaults to `true` when omitted. Set to `false` to rewrite cross-package re-exports to a
+	 * subpath of the dependency package instead.
+	 */
 	preferImportedPackageSubpath?: boolean;
 }
 
@@ -795,8 +803,8 @@ function traceSymbolsToExports({
 						tracedOriginalName = undefined;
 					}
 				} else {
-					// preferImportedPackageSubpath is opt-in to: "rewrite to a subpath of the
-					// mocked package, or leave the mock alone". Falling through to the source
+					// preferImportedPackageSubpath (default true) means: "rewrite to a subpath of
+					// the mocked package, or leave the mock alone". Falling through to the source
 					// package's subpath would drag the test across the package boundary, which
 					// is exactly what this flag is meant to prevent. Mark the symbol as
 					// unmapped so it stays in a barrel-targeted mock group.
@@ -1215,8 +1223,9 @@ const ruleMeta: Rule.RuleMetaData = {
 				},
 				preferImportedPackageSubpath: {
 					type: 'boolean',
+					default: true,
 					description:
-						'Prefer subpaths on the mocked barrel package when they bridge to the dependency. If no bridge subpath exists, the symbol stays in a mock targeting the original barrel instead of being rewritten to a subpath of the dependency package.',
+						'Prefer subpaths on the mocked barrel package when they bridge to the dependency. Defaults to true when omitted. If no bridge subpath exists, the symbol stays in a mock targeting the original barrel instead of being rewritten to a subpath of the dependency package. Set to false to rewrite to a subpath of the dependency package instead.',
 				},
 			},
 			additionalProperties: false,
@@ -1240,7 +1249,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 		create(context) {
 			const options = (context.options[0] || {}) as RuleOptions;
 			const applyToImportsFrom = options.applyToImportsFrom ?? DEFAULT_TARGET_FOLDERS;
-			const preferImportedPackageSubpath = options.preferImportedPackageSubpath ?? false;
+			const preferImportedPackageSubpath = options.preferImportedPackageSubpath ?? true;
 			const workspaceRoot = findWorkspaceRoot({
 				startPath: dirname(context.filename),
 				fs,

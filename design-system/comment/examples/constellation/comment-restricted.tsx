@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import Comment, { CommentAuthor } from '@atlaskit/comment';
 
 import sampleAvatar from '../images/avatar_400x400.jpg';

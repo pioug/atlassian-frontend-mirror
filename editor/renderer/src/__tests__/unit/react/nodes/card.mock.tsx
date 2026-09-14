@@ -1,4 +1,4 @@
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { useEffect } from 'react';
 
 export const MockCardComponent = () => {

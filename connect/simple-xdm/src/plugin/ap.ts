@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import PostMessage from '../common/postmessage';
 import Util from '../common/util';

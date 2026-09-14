@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
-import Blanket from '@atlaskit/blanket';
-import Button from '@atlaskit/button/new';
+import Blanket from '@atlaskit/blanket/blanket';
+import Button from '@atlaskit/button/default/button';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const BlanketClickthroughExample = (): React.JSX.Element => {

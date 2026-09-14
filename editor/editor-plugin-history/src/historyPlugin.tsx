@@ -1,6 +1,10 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 
 import { type HistoryAction, HistoryActionTypes } from './editor-actions/actions';
 import reducer from './editor-actions/reducer';
@@ -15,10 +19,45 @@ const getInitialState = (): HistoryPluginState => ({
 
 const { createPluginState, getPluginState } = pluginFactory(historyPluginKey, reducer);
 
-const createPlugin = (dispatch: Dispatch) =>
+type EditorViewRef = { current: EditorView | undefined };
+
+/**
+ * Expose prosemirror-history's `undo` as an `EditorCommand`. `undo(state, dispatch)`
+ * builds its own transaction, so capture that transaction and return it in place of the
+ * one passed in. Nothing is re-implemented: the returned transaction is exactly what
+ * pressing Cmd+Z would dispatch, and callers may add metadata to it before it is
+ * dispatched by `api.core.actions.execute`.
+ */
+const undoCommand =
+	(editorViewRef: EditorViewRef): EditorCommand =>
+	({ tr }) => {
+		const state = editorViewRef.current?.state;
+		// The caller's `tr` is discarded, so refuse if it already carries changes or is stale.
+		if (!state || tr.steps.length > 0 || tr.before !== state.doc) {
+			return null;
+		}
+
+		let undoTr: Transaction | null = null;
+		undo(state, (built) => {
+			undoTr = built;
+		});
+		return undoTr;
+	};
+
+const createPlugin = (dispatch: Dispatch, editorViewRef: EditorViewRef) =>
 	new SafePlugin({
 		state: createPluginState(dispatch, getInitialState),
 		key: historyPluginKey,
+		view: (editorView) => {
+			editorViewRef.current = editorView;
+			return {
+				destroy: () => {
+					if (editorViewRef.current === editorView) {
+						editorViewRef.current = undefined;
+					}
+				},
+			};
+		},
 		appendTransaction: (transactions, oldState, newState) => {
 			if (
 				transactions.find(
@@ -50,13 +89,14 @@ const createPlugin = (dispatch: Dispatch) =>
 
 const historyPlugin: HistoryPlugin = ({ api }) => {
 	let currentId: string | null = null;
+	const editorViewRef: EditorViewRef = { current: undefined };
 	return {
 		name: 'history',
 		pmPlugins() {
 			return [
 				{
 					name: 'history',
-					plugin: ({ dispatch }) => createPlugin(dispatch),
+					plugin: ({ dispatch }) => createPlugin(dispatch, editorViewRef),
 				},
 			];
 		},
@@ -84,6 +124,7 @@ const historyPlugin: HistoryPlugin = ({ api }) => {
 			};
 		},
 		commands: {
+			undo: undoCommand(editorViewRef),
 			updatePluginState: ({ tr }) => {
 				const { done, undone } = api?.history.sharedState.currentState() ?? {};
 				if (done === undefined || undone === undefined) {

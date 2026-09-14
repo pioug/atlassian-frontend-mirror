@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useMediaClient } from '@atlaskit/media-client-react';
-import type { ArtifactUploaderProps } from './types';
-import { BrowserPicker } from './filePickers/browser';
-import { createUploadCaptionsFn, UploadCaptionsForm } from './captions';
+import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import ApiFeedback, { type NotificationTypes } from '../apiFeedback';
+import { default as UploadCaptionsForm } from './captions/uploadForm';
+import { createUploadCaptionsFn } from './captions/uploader';
+import { BrowserPicker } from './filePickers/browser';
+import type { ArtifactUploaderProps } from './types';
 import { type MediaItemDetails } from '@atlaskit/media-client';
 import { messages } from '../../../../messages';
 import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';

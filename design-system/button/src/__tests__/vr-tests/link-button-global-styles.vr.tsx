@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import LinkButtonGlobalStylesExample from '../../../examples/80-link-button-global-styles';
+import LinkButtonGlobalStylesExample from '../../../examples/80-link-button-global-styles.vr.ap';
 
 snapshot(LinkButtonGlobalStylesExample, {
 	description: 'LinkButton - Default appearance - Hovered',

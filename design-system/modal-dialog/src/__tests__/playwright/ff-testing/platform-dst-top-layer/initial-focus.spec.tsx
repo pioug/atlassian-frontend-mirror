@@ -20,6 +20,7 @@ test.describe('ModalDialog top-layer — initial focus matrix', () => {
 			typeof import('../../../../../examples/98-testing-initial-focus-matrix.tsx')
 		>('design-system', 'modal-dialog', 'testing-initial-focus-matrix', {
 			featureFlag,
+			'react-18-mode': 'modern',
 		});
 
 		await page.getByTestId('default-modal-trigger').click();
@@ -39,6 +40,7 @@ test.describe('ModalDialog top-layer — initial focus matrix', () => {
 			typeof import('../../../../../examples/98-testing-initial-focus-matrix.tsx')
 		>('design-system', 'modal-dialog', 'testing-initial-focus-matrix', {
 			featureFlag,
+			'react-18-mode': 'modern',
 		});
 
 		await page.getByTestId('native-autofocus-modal-trigger').click();

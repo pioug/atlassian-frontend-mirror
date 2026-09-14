@@ -4,7 +4,7 @@
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { useMotion } from '@atlaskit/motion/use-motion';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -12,10 +12,15 @@ const styles = cssMap({
 		visibility: 'hidden',
 	},
 	entering: {
-		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token(
+			'motion.keyframe.fade.in',
+		)}`,
 		animationDuration: token('motion.duration.xlong'),
 		animationTimingFunction: token('motion.easing.out.practical'),
 		animationFillMode: 'backwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 });
 

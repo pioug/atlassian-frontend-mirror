@@ -31,10 +31,11 @@ import {
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import type { OnInsert } from '../ElementBrowser/types';
@@ -446,7 +447,11 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 		const isTableSizeVisible = buttons.some(({ value }) => value.name === 'table selector');
 
-		if (buttons.length === 0 && dropdownItems.length === 0) {
+		if (
+			buttons.length === 0 &&
+			dropdownItems.length === 0 &&
+			!isExperimentEnabled('platform_editor_slash_command')
+		) {
 			return null;
 		}
 
@@ -566,6 +571,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 						onInsert={this.insertInsertMenuItem as OnInsert}
 						togglePlusMenuVisibility={this.togglePlusMenuVisibility}
 						showElementBrowserLink={this.props.showElementBrowserLink || false}
+						isEditorOffline={this.props.isEditorOffline}
 						pluginInjectionApi={this.props.pluginInjectionApi}
 						isFullPageAppearance={isFullPageAppearance}
 					/>
@@ -867,7 +873,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		});
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ToolbarInsertBlock);

@@ -1,7 +1,8 @@
 import React from 'react';
+// oxlint-disable-next-line no-duplicate-imports
 import { type ReactNode } from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
 export const Block: ({

@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { IconElementAllVariations } from '../../../examples/vr-icon-element-variations/vr-icon-element-all-variations';
+import { IconElementAllVariations } from '../../../examples/vr-icon-element-variations/vr-icon-element-all-variations.vr.ap';
 
 snapshot(IconElementAllVariations, {
 	description: 'icon element all variations with experiments',

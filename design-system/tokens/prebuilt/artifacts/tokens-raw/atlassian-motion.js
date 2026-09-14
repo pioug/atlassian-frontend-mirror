@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ab74692458380e229a9638836b8fadcc>>
+ * @codegen <<SignedSource::f6c6afad44dad4a15bfdda2234abba05>>
  * @codegenCommand yarn build tokens
  */
 
@@ -178,7 +178,7 @@ var tokens = [{
   "value": {
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "properties": ["background-color"]
+    "properties": ["background-color", "border-color"]
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -192,7 +192,7 @@ var tokens = [{
     "value": {
       "duration": "Duration150",
       "curve": "EasePracticalOut",
-      "properties": ["BackgroundColor"]
+      "properties": ["BackgroundColor", "BorderColor"]
     }
   },
   "name": "motion.button.hovered",
@@ -208,7 +208,7 @@ var tokens = [{
   "value": {
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "properties": ["background-color"]
+    "properties": ["background-color", "border-color"]
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -222,7 +222,7 @@ var tokens = [{
     "value": {
       "duration": "Duration150",
       "curve": "EasePracticalOut",
-      "properties": ["BackgroundColor"]
+      "properties": ["BackgroundColor", "BorderColor"]
     }
   },
   "name": "motion.button.pressed",
@@ -964,6 +964,70 @@ var tokens = [{
   "attributes": {
     "group": "motion",
     "state": "active",
+    "introduced": "16.5.0",
+    "description": "Use for label enter transitions (e.g. tag component)."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "keyframes": ["ScaleXIn80to100", "FadeIn0to100"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.5.0",
+      "description": "Use for label enter transitions (e.g. tag component)."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EasePracticalOut",
+      "keyframes": ["ScaleXIn80to100", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.label.enter",
+  "path": ["motion", "label", "enter"],
+  "cleanName": "motion.label.enter"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.5.0",
+    "description": "Use for label exit transitions (e.g. tag component)."
+  },
+  "value": {
+    "duration": 100,
+    "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "keyframes": ["ScaleXOut100to0", "FadeOut100to0"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.5.0",
+      "description": "Use for label exit transitions (e.g. tag component)."
+    },
+    "value": {
+      "duration": "Duration100",
+      "curve": "EasePracticalIn",
+      "keyframes": ["ScaleXOut100to0", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.label.exit",
+  "path": ["motion", "label", "exit"],
+  "cleanName": "motion.label.exit"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
     "introduced": "15.4.0",
     "description": "Use for list item hover state transitions."
   },
@@ -1118,6 +1182,72 @@ var tokens = [{
   "attributes": {
     "group": "motion",
     "state": "active",
+    "introduced": "16.6.0",
+    "description": "Use for panel content enter."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "keyframes": ["FadeIn0to100"],
+    "delay": 100,
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.6.0",
+      "description": "Use for panel content enter."
+    },
+    "value": {
+      "duration": "Duration150",
+      "delay": "Duration100",
+      "curve": "EasePracticalOut",
+      "keyframes": ["FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.panel.content.enter",
+  "path": ["motion", "panel", "content", "enter"],
+  "cleanName": "motion.panel.content.enter"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.6.0",
+    "description": "Use for panel content exit."
+  },
+  "value": {
+    "duration": 50,
+    "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "keyframes": ["FadeOut100to0"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.6.0",
+      "description": "Use for panel content exit."
+    },
+    "value": {
+      "duration": "Duration050",
+      "curve": "EasePracticalIn",
+      "keyframes": ["FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.panel.content.exit",
+  "path": ["motion", "panel", "content", "exit"],
+  "cleanName": "motion.panel.content.exit"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
     "introduced": "15.5.0",
     "description": "Use for panel enter transitions."
   },
@@ -1143,9 +1273,73 @@ var tokens = [{
       "fill": "AnimationFillModeBackwards"
     }
   },
-  "name": "motion.panel.enter",
-  "path": ["motion", "panel", "enter"],
+  "name": "motion.panel.enter.[default]",
+  "path": ["motion", "panel", "enter", "[default]"],
   "cleanName": "motion.panel.enter"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.6.0",
+    "description": "Use for panel enter from the left."
+  },
+  "value": {
+    "duration": 250,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideIn100PercentLeft"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.6.0",
+      "description": "Use for panel enter from the left."
+    },
+    "value": {
+      "duration": "Duration250",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideIn100PercentLeft"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.panel.enter.left",
+  "path": ["motion", "panel", "enter", "left"],
+  "cleanName": "motion.panel.enter.left"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.6.0",
+    "description": "Use for panel enter from the right."
+  },
+  "value": {
+    "duration": 250,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideIn100PercentRight"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.6.0",
+      "description": "Use for panel enter from the right."
+    },
+    "value": {
+      "duration": "Duration250",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideIn100PercentRight"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.panel.enter.right",
+  "path": ["motion", "panel", "enter", "right"],
+  "cleanName": "motion.panel.enter.right"
 }, {
   "attributes": {
     "group": "motion",
@@ -1155,7 +1349,7 @@ var tokens = [{
   },
   "value": {
     "duration": 200,
-    "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
     "keyframes": ["SlideOut100PercentRight"],
     "fill": "forwards"
   },
@@ -1170,14 +1364,78 @@ var tokens = [{
     },
     "value": {
       "duration": "Duration200",
-      "curve": "EasePracticalIn",
+      "curve": "EaseBoldOut",
       "keyframes": ["SlideOut100PercentRight"],
       "fill": "AnimationFillModeForwards"
     }
   },
-  "name": "motion.panel.exit",
-  "path": ["motion", "panel", "exit"],
+  "name": "motion.panel.exit.[default]",
+  "path": ["motion", "panel", "exit", "[default]"],
   "cleanName": "motion.panel.exit"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.6.0",
+    "description": "Use for panel exit towards the left."
+  },
+  "value": {
+    "duration": 200,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideOut100PercentLeft"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.6.0",
+      "description": "Use for panel exit towards the left."
+    },
+    "value": {
+      "duration": "Duration200",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideOut100PercentLeft"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.panel.exit.left",
+  "path": ["motion", "panel", "exit", "left"],
+  "cleanName": "motion.panel.exit.left"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.6.0",
+    "description": "Use for panel exit towards the right."
+  },
+  "value": {
+    "duration": 200,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideOut100PercentRight"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.6.0",
+      "description": "Use for panel exit towards the right."
+    },
+    "value": {
+      "duration": "Duration200",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideOut100PercentRight"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.panel.exit.right",
+  "path": ["motion", "panel", "exit", "right"],
+  "cleanName": "motion.panel.exit.right"
 }, {
   "attributes": {
     "group": "motion",
@@ -1434,6 +1692,134 @@ var tokens = [{
   "name": "motion.popup.exit.top",
   "path": ["motion", "popup", "exit", "top"],
   "cleanName": "motion.popup.exit.top"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.4.0",
+    "description": "Use for side nav enter from the left."
+  },
+  "value": {
+    "duration": 250,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideIn100PercentLeft"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.4.0",
+      "description": "Use for side nav enter from the left."
+    },
+    "value": {
+      "duration": "Duration250",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideIn100PercentLeft"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.sidenav.enter.left",
+  "path": ["motion", "sidenav", "enter", "left"],
+  "cleanName": "motion.sidenav.enter.left"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.4.0",
+    "description": "Use for side nav enter from the right."
+  },
+  "value": {
+    "duration": 250,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideIn100PercentRight"],
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.4.0",
+      "description": "Use for side nav enter from the right."
+    },
+    "value": {
+      "duration": "Duration250",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideIn100PercentRight"],
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.sidenav.enter.right",
+  "path": ["motion", "sidenav", "enter", "right"],
+  "cleanName": "motion.sidenav.enter.right"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.4.0",
+    "description": "Use for side nav exit towards the left."
+  },
+  "value": {
+    "duration": 200,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideOut100PercentLeft"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.4.0",
+      "description": "Use for side nav exit towards the left."
+    },
+    "value": {
+      "duration": "Duration200",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideOut100PercentLeft"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.sidenav.exit.left",
+  "path": ["motion", "sidenav", "exit", "left"],
+  "cleanName": "motion.sidenav.exit.left"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "16.4.0",
+    "description": "Use for side nav exit towards the right."
+  },
+  "value": {
+    "duration": 200,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideOut100PercentRight"],
+    "fill": "forwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "16.4.0",
+      "description": "Use for side nav exit towards the right."
+    },
+    "value": {
+      "duration": "Duration200",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideOut100PercentRight"],
+      "fill": "AnimationFillModeForwards"
+    }
+  },
+  "name": "motion.sidenav.exit.right",
+  "path": ["motion", "sidenav", "exit", "right"],
+  "cleanName": "motion.sidenav.exit.right"
 }, {
   "attributes": {
     "group": "motion",

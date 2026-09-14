@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { useExpandSideNav } from '@atlaskit/navigation-system/layout/side-nav';
 
 export function ExpandSideNavButtonExample({

@@ -10,10 +10,10 @@ import {
 	type PrimaryDropdownButtonProps,
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import ChevronIcon from '@atlaskit/icon/core/chevron-down';
-import { ButtonItem } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

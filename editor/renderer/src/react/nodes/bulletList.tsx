@@ -1,5 +1,5 @@
 import React from 'react';
-import { bulletListSelector } from '@atlaskit/adf-schema';
+import { bulletListSelector } from '@atlaskit/adf-schema/bullet-list';
 import { getListIndentLevel } from '../utils/lists';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 

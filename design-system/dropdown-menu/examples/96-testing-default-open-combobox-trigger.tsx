@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import TextField from '@atlaskit/textfield';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import TextField from '@atlaskit/textfield/text-field';
 
 /**
  * Test fixture: `DropdownMenu` with `defaultOpen` and a function trigger

@@ -27,7 +27,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Standard status label display.',
-					source: path.resolve(packagePath, './examples/00-simple-status.tsx'),
+					source: path.resolve(packagePath, './examples/00-simple-status.vr.ap.tsx'),
 				},
 			],
 			keywords: ['status', 'label', 'badge', 'state', 'lozenge'],
@@ -53,7 +53,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Status Picker',
 					description: 'Standard status picker example.',
-					source: path.resolve(packagePath, './examples/01-status-picker.tsx'),
+					source: path.resolve(packagePath, './examples/01-status-picker.vr.ap.tsx'),
 				},
 			],
 			keywords: ['status', 'picker', 'select', 'state', 'choice'],

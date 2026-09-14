@@ -11,10 +11,11 @@ const _default_1: any = md`
   ${(
 		<Example
 			packageName="@atlaskit/spotlight"
-			Component={require('../examples/card').default}
+			Component={require('../examples/card.vr.ap').default}
 			title="Basic example"
-			source={require('!!raw-loader!../examples/without-image')}
+			source={require('!!raw-loader!../examples/without-image.vr.ap')}
 		/>
 	)}
 `;
+
 export default _default_1;

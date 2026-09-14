@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformTabs from '@atlaskit/tabs';
+import PlatformTabs from '@atlaskit/tabs/tabs';
 
 type PlatformTabsProps = React.ComponentProps<typeof PlatformTabs>;
 

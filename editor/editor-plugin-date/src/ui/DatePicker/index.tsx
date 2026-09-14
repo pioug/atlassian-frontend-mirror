@@ -7,7 +7,7 @@ import React from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import Calendar from '@atlaskit/calendar';
+import Calendar from '@atlaskit/calendar/calendar';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -226,7 +226,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(DatePicker);

@@ -9,6 +9,6 @@ test.skip('media-filmstrip server side rendering', async () => {
 	const examples = [Example1, Example2, Example3];
 
 	for (const Example of examples) {
-		expect(() => ReactDOMServer.renderToString(<Example />)).not.toThrowError();
+		expect(() => ReactDOMServer.renderToString(<Example />)).not.toThrow();
 	}
 });

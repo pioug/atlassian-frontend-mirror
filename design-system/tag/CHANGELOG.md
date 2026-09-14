@@ -1,5 +1,156 @@
 # @atlaskit/tag
 
+## 15.8.1
+
+### Patch Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall`.
+- Updated dependencies
+
+## 15.8.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.7.4
+
+### Patch Changes
+
+- [`ae3b452f54cbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae3b452f54cbe) -
+  Point the `RemovableTag` re-export at the internal removable implementation
+  (`./tag/internal/removable`) and remove the now-redundant `src/tag/removable-tag.tsx` shim (Volt
+  Stage-1). The public `RemovableTag` export and its props are unchanged.
+
+## 15.7.3
+
+### Patch Changes
+
+- [`fb7fe0e714a8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb7fe0e714a8f) -
+  Cleanup feature gate `parent-field-switcher-missing-info-image-text`. When both
+  `swatchBeforeLabel` and `swatchBeforeRole` are provided, the color swatch now always renders with
+  `role` and `aria-label` for screen reader accessibility.
+- Updated dependencies
+
+## 15.7.2
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+
+## 15.7.1
+
+### Patch Changes
+
+- [`fae4f6a53e4be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae4f6a53e4be) -
+  Render label enter and exit animations through `cssMap` in Tag, React Select, Select, and User
+  Picker. Motion now measures concurrent CSS animation lists correctly so the label scale and fade
+  animations complete together.
+- Updated dependencies
+
+## 15.7.0
+
+### Minor Changes
+
+- [`ef98af289c49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef98af289c49b) -
+  Add motion to Tag, AvatarTag, TagDropdownTrigger, Tag Group, Select, React Select, and User Picker
+  tag values. Tags use `motion.label.enter` and `motion.label.exit` for entry and exit, while
+  interactive tags and dropdown triggers use the button hover and pressed motion tokens; Tag
+  Dropdown Trigger also fades between its content and loading spinner. The remove control is removed
+  when exit begins so it cannot linger while the tag collapses.
+
+  Motion is gated by `platform-dst-motion-uplift-labels`. Compatibility and adoption paths for the
+  visually uplifted Tag, Tag Group, Select, React Select, and User Picker additionally remain behind
+  `platform-dst-lozenge-tag-badge-visual-uplifts`.
+
+  `@atlaskit/react-select` also adds an optional `onMotionFinish` callback to the exported
+  `MultiValueProps` interface so the Select can restore its placeholder after the final multi-value
+  exit completes.
+
+  ```tsx
+  import Tag from '@atlaskit/tag/new';
+
+  <Tag text="Status" />;
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.6.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.5.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.4.8
+
+### Patch Changes
+
+- [`6d704062ca749`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d704062ca749) -
+  Internal changes to support tree shaking. No consumer changes.
+
+## 15.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.4.6
+
+### Patch Changes
+
+- [`e0edc05cd52d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0edc05cd52d7) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall` as a 1:1 size rename with no visual
+  change.
+- Updated dependencies
+
+## 15.4.5
+
+### Patch Changes
+
+- [`95d4618be32ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95d4618be32ae) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 15.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.4.3
 
 ### Patch Changes

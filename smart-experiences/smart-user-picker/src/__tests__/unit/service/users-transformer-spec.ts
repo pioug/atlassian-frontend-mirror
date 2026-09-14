@@ -1,11 +1,8 @@
 import { transformUsers } from '../../../service/users-transformer';
 import { EntityType } from '../../../types';
-import { UserType, ExternalUserType, TeamType, GroupType } from '@atlaskit/user-picker';
+import { UserType, ExternalUserType, TeamType, GroupType } from '@atlaskit/user-picker/types';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import type { IntlShape } from 'react-intl';
-
-jest.mock('@atlaskit/platform-feature-flags');
-
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const mockIntl: IntlShape = {
 	formatMessage: jest.fn((descriptor) => {
@@ -24,7 +21,6 @@ const mockIntl: IntlShape = {
 describe('users-transformer', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
-		(fg as jest.Mock).mockReturnValue(false);
 	});
 
 	describe('transformUsers', () => {
@@ -40,6 +36,8 @@ describe('users-transformer', () => {
 		});
 
 		it('should transform a regular user', () => {
+			failGate('user_picker_guest_lozenges');
+
 			const serverResponse = {
 				recommendedUsers: [
 					{
@@ -74,6 +72,8 @@ describe('users-transformer', () => {
 		});
 
 		it('should transform a non-licensed user as external user', () => {
+			failGate('user_picker_guest_lozenges');
+
 			const serverResponse = {
 				recommendedUsers: [
 					{
@@ -159,9 +159,7 @@ describe('users-transformer', () => {
 		});
 
 		it('should add guest lozenge for Jira guest users when feature flag is enabled', () => {
-			(fg as jest.Mock).mockImplementation((flag: string) => {
-				return flag === 'user_picker_guest_lozenges';
-			});
+			passGate('user_picker_guest_lozenges');
 
 			const serverResponse = {
 				recommendedUsers: [
@@ -181,11 +179,10 @@ describe('users-transformer', () => {
 			const result = transformUsers(serverResponse, mockIntl);
 
 			expect(result[0].lozenge).toBe('GUEST');
-			expect(fg).toHaveBeenCalledWith('user_picker_guest_lozenges');
 		});
 
 		it('should not add guest lozenge for Jira guest users when feature flag is disabled', () => {
-			(fg as jest.Mock).mockReturnValue(false);
+			failGate('user_picker_guest_lozenges');
 
 			const serverResponse = {
 				recommendedUsers: [
@@ -235,6 +232,8 @@ describe('users-transformer', () => {
 		});
 
 		it('should transform a group', () => {
+			failGate('user_picker_guest_lozenges');
+
 			const serverResponse = {
 				recommendedUsers: [
 					{
@@ -286,6 +285,8 @@ describe('users-transformer', () => {
 		});
 
 		it('should filter out invalid entity types', () => {
+			failGate('user_picker_guest_lozenges');
+
 			const serverResponse = {
 				recommendedUsers: [
 					{
@@ -311,6 +312,8 @@ describe('users-transformer', () => {
 		});
 
 		it('should handle mixed entity types', () => {
+			failGate('user_picker_guest_lozenges');
+
 			const serverResponse = {
 				recommendedUsers: [
 					{
@@ -366,6 +369,8 @@ describe('users-transformer', () => {
 		});
 
 		it('should handle groups with missing name', () => {
+			failGate('user_picker_guest_lozenges');
+
 			const serverResponse = {
 				recommendedUsers: [
 					{

@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { SectionMessageAction as PlatformSectionMessageAction } from '@atlaskit/section-message';
+import PlatformSectionMessageAction from '@atlaskit/section-message/message-action';
 
 type PlatformSectionMessageActionProps = React.ComponentProps<typeof PlatformSectionMessageAction>;
 

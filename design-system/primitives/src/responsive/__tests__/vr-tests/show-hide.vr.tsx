@@ -1,6 +1,6 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import ShowHideExample from '../../../../examples/51-responsive-show-hide';
+import ShowHideExample from '../../../../examples/51-responsive-show-hide.vr.ap';
 
 snapshot(ShowHideExample, {
 	variants: [

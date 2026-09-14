@@ -42,6 +42,8 @@ import { resolveToolbarConfig } from './toolbar-components/config-resolver';
 import { EmojiButton } from './toolbar-components/EmojiButton';
 import { ImageButton } from './toolbar-components/ImageButton';
 import { InsertButton } from './toolbar-components/InsertButton';
+import { RegisteredInsertButton } from './registered-insert-menu/RegisteredInsertButton';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { LayoutButton } from './toolbar-components/LayoutButton';
 import { MediaButton } from './toolbar-components/MediaButton';
 import { MentionButton } from './toolbar-components/MentionButton';
@@ -299,22 +301,25 @@ export const getToolbarComponents = ({
 	// Insert Group
 	if (config.insert?.enabled) {
 		const createInsertButtonComponent = (breakpoint: Breakpoint | null) => {
-			return () => (
-				<InsertButton
-					api={api}
-					breakpoint={breakpoint}
-					toolbarConfig={config}
-					showElementBrowserLink={options.showElementBrowserLink}
-					tableSelectorSupported={options.tableSelectorSupported}
-					onInsertBlockType={onInsertBlockType}
-					nativeStatusSupported={options.nativeStatusSupported}
-					horizontalRuleEnabled={options.horizontalRuleEnabled}
-					expandEnabled={options.allowExpand}
-					insertMenuItems={options.insertMenuItems}
-					itemFilter={options.itemFilter}
-					numberOfButtons={0}
-				/>
-			);
+			return () =>
+				isExperimentEnabled('platform_editor_slash_command') ? (
+					<RegisteredInsertButton api={api} />
+				) : (
+					<InsertButton
+						api={api}
+						breakpoint={breakpoint}
+						toolbarConfig={config}
+						showElementBrowserLink={options.showElementBrowserLink}
+						tableSelectorSupported={options.tableSelectorSupported}
+						onInsertBlockType={onInsertBlockType}
+						nativeStatusSupported={options.nativeStatusSupported}
+						horizontalRuleEnabled={options.horizontalRuleEnabled}
+						expandEnabled={options.allowExpand}
+						insertMenuItems={options.insertMenuItems}
+						itemFilter={options.itemFilter}
+						numberOfButtons={0}
+					/>
+				);
 		};
 
 		components.push({

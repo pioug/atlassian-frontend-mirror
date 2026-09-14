@@ -4,7 +4,7 @@ import { createClassName, getInlineImageSizeFromParentNode } from '../styles/uti
 import { getIconFromMediaType } from '../media-util';
 import { createContentId } from '../static';
 import type { IconString } from '../static/icons';
-import { N30 } from '@atlaskit/adf-schema';
+import { N30 } from '@atlaskit/adf-schema/colors';
 import { applyMarks } from '../apply-marks';
 
 const className = createClassName('mediaInline');

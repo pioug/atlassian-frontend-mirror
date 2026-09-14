@@ -1,5 +1,81 @@
 # @atlaskit/native-embeds-common
 
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.0
+
+### Minor Changes
+
+- [`0394648ac08c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0394648ac08c8) -
+  [ux] Group MAUI text edits by revision and link delayed version creation without adding another
+  history step. Undoing the first edit on a fresh embed now restores the pre-edit text.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [`f63012e42f000`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f63012e42f000) -
+  Add a `remixAppId` node parameter and a session-scoped slot-value store (`recordRemixSlotValues` /
+  `getRemixSlotValues`, exposed via the new `@atlaskit/native-embeds-common/remix-slot-store`
+  subpath) used to support reload-free undo/redo for MAUI native embeds. Behind gate
+  `platform_editor_maui_remix_app_id`; no behavioural change when the gate is off.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.10
+
+### Patch Changes
+
+- [`01a486c093e01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01a486c093e01) -
+  [ux] Propagate native embed alignment to Whiteboards
+- Updated dependencies
+
+## 2.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.7
 
 ### Patch Changes

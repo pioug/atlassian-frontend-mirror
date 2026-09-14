@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar-lists-indentation",
-	"version": "13.1.0",
+	"version": "19.0.0",
 	"description": "Toolbar lists and indentation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,6 +42,7 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -60,41 +61,6 @@
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"platform_editor_markdown_compatible_toolbar": {

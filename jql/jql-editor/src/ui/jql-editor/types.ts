@@ -2,7 +2,7 @@ import { type FocusEvent, type MouseEvent, type Ref } from 'react';
 
 import { type Jast } from '@atlaskit/jql-ast';
 
-import { type AutocompleteProvider } from '../../plugins/autocomplete/types';
+import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { type CustomComponents, type ExternalMessage } from '../../state/types';
 
 export type HydratedUser = {
@@ -52,13 +52,21 @@ export type HydratedLozengeWithAvatar = {
 	type: 'lozengeWithAvatar';
 };
 
+export type HydratedAssets = {
+	avatarUrl?: string;
+	id: string;
+	name: string;
+	type: 'assets';
+};
+
 export type HydratedValue =
 	| HydratedUser
 	| HydratedTeam
 	| HydratedProject
 	| HydratedGoal
 	| HydratedDeprecatedField
-	| HydratedLozengeWithAvatar;
+	| HydratedLozengeWithAvatar
+	| HydratedAssets;
 
 export type HydratedValues = {
 	[fieldName: string]: HydratedValue[];

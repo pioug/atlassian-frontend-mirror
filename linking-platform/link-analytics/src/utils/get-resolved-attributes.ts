@@ -1,12 +1,14 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
-import { type CardType, getStatus, type CardState } from '@atlaskit/linking-common';
-import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import type { CardType } from '@atlaskit/linking-common/types';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
+import type { CardState } from '@atlaskit/linking-common/store';
+import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
 
 import { type ResolvedAttributesType } from '../common/utils/analytics/analytics.types';
 import { getDisplayCategory } from './get-display-category';
 import { type LinkDetails } from '../types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Returns a set of analytics attributes that be

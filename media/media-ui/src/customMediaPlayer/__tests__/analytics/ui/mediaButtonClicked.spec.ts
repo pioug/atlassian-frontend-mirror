@@ -1,4 +1,5 @@
-import { createMediaButtonClickedEvent, type PlaybackState } from '../../../analytics';
+import { createMediaButtonClickedEvent } from '../../../analytics/events/ui/mediaButtonClicked';
+import type { PlaybackState } from '../../../analytics/utils/playbackAttributes';
 
 describe('createMediaButtonClickedEvent', () => {
 	const playbackState: PlaybackState = {

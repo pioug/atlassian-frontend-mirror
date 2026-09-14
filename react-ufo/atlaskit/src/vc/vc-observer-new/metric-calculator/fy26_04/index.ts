@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { VCObserverEntry, VCObserverEntryType, ViewportEntryData } from '../../types';
 import VCCalculator_FY25_03 from '../fy25_03';
@@ -77,9 +77,7 @@ export default class VCCalculator_FY26_04 extends VCCalculator_FY25_03 {
 
 		const thirdPartyAttributes = [
 			...THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
-			...(fg('platform_ufo_exclude_dark_reader_extension')
-				? DARK_READER_BROWSER_EXTENSION_ATTRIBUTES
-				: []),
+			...DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
 			...(fg('platform_ufo_exclude_fdprocessedid_attribute')
 				? MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES
 				: []),

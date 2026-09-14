@@ -1,14 +1,12 @@
-import { getDocument } from '@atlaskit/browser-apis';
-
-import { isInSameLayer } from './is-in-same-layer';
+import { getClosestLayer } from './get-closest-layer';
 
 /**
  * Returns `true` when `document.activeElement` is inside a nested top-layer
- * descendant of `container` (a `[popover]`, `<dialog>`, `[role="dialog"]` or
- * `[role="alertdialog"]` that is itself a descendant of `container`).
+ * descendant of `container` (a `[popover]` or `<dialog>` that is itself a
+ * descendant of `container`).
  */
 export function isNestedLayerFocused({ container }: { container: HTMLElement }): boolean {
-	const focused = getDocument()?.activeElement;
+	const focused = container.ownerDocument.activeElement;
 
 	if (!(focused instanceof HTMLElement)) {
 		return false;
@@ -20,5 +18,5 @@ export function isNestedLayerFocused({ container }: { container: HTMLElement }):
 	}
 
 	// If not in the same layer, must be in a nested layer
-	return !isInSameLayer({ element: focused, container });
+	return getClosestLayer({ element: focused }) !== getClosestLayer({ element: container });
 }

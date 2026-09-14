@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-flag-client",
-	"version": "6.0.0",
+	"version": "6.1.0",
 	"description": "A client to take care of feature flag evaluation and tracking of exposure events",
 	"exports": {
 		".": "./src/index.ts",
@@ -31,14 +31,10 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
-		"enzyme": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@repo/internal": {
-			"documented-code": "no-undocumented-todos"
-		}
 	}
 }

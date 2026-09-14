@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 
 import { head } from './content/sample-data';

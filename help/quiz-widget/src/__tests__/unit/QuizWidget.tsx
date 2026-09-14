@@ -1,46 +1,50 @@
 import React from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
+import { fireEvent, render, type RenderResult } from '@testing-library/react';
 import QuizWidget from '../../components/QuizWidget/index';
 import { quizContent } from '../../../examples/0-Quiz-Widget';
-import { NavQuiz, Question, QuizName, Answer } from '../../components/QuizWidget/styled';
 
 describe('QuizWidget', () => {
-	let quizComponent: ReactWrapper;
+	let quizComponent: RenderResult;
+
 	beforeEach(() => {
-		quizComponent = mount(<QuizWidget score={3} quizContent={quizContent} />);
+		quizComponent = render(<QuizWidget score={3} quizContent={quizContent} />, {
+			container: document.createElement('div'),
+		});
+	});
+
+	it('should capture and report a11y violations', async () => {
+		await expect(quizComponent.getAllByRole('radio')[0].parentElement).toBeAccessible();
 	});
 
 	it('should render quiz with provided name', () => {
-		const name = quizComponent.find(QuizName);
-		expect(name.text()).toEqual(quizContent.name);
+		expect(quizComponent.getByText(quizContent.name)).toHaveTextContent(quizContent.name);
 	});
 
 	it('should render question and proposed answers', () => {
-		const question = quizComponent.find(Question);
-		expect(question.text()).toEqual(quizContent.questions[1]);
-		const proposedAnswers = quizComponent.find(Answer);
-		expect(proposedAnswers).toHaveLength(quizContent.answers[1].length);
+		expect(quizComponent.getByText(quizContent.questions[1])).toHaveTextContent(
+			quizContent.questions[1],
+		);
+		expect(quizComponent.getAllByRole('radio')).toHaveLength(quizContent.answers[1].length);
 	});
 
 	it('should show next question by clicking next button', () => {
-		expect(quizComponent.find(Question).text()).toEqual(quizContent.questions[1]);
-		const nextButton = quizComponent
-			.find(NavQuiz)
-			.findWhere((n) => n.type() === 'span' && n.text() === 'Next');
-		nextButton.simulate('click');
-		expect(quizComponent.find(Question).text()).toEqual(quizContent.questions[2]);
+		expect(quizComponent.getByText(quizContent.questions[1])).toHaveTextContent(
+			quizContent.questions[1],
+		);
+		fireEvent.click(quizComponent.getByText('Next'));
+		expect(quizComponent.getByText(quizContent.questions[2])).toHaveTextContent(
+			quizContent.questions[2],
+		);
 	});
 
 	it('should show previous question by clicking previous button', () => {
-		const nextButton = quizComponent
-			.find(NavQuiz)
-			.findWhere((n) => n.type() === 'span' && n.text() === 'Next');
-		nextButton.simulate('click');
-		const prevButton = quizComponent
-			.find(NavQuiz)
-			.findWhere((n) => n.type() === 'span' && n.text() === 'Previous');
-		expect(quizComponent.find(Question).text()).toEqual(quizContent.questions[2]);
-		prevButton.simulate('click');
-		expect(quizComponent.find(Question).text()).toEqual(quizContent.questions[1]);
+		fireEvent.click(quizComponent.getByText('Next'));
+		expect(quizComponent.getByText(quizContent.questions[2])).toHaveTextContent(
+			quizContent.questions[2],
+		);
+		fireEvent.click(quizComponent.getByText('Previous'));
+		expect(quizComponent.getByText(quizContent.questions[1])).toHaveTextContent(
+			quizContent.questions[1],
+		);
 	});
 });

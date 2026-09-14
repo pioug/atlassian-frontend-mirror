@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
-import { HelperMessage } from '@atlaskit/form';
+import { HelperMessage } from '@atlaskit/form/helper-message';
 
 export default function ({
 	errorMessage,

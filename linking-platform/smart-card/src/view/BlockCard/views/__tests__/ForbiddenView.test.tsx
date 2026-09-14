@@ -2,12 +2,12 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { render, userEvent } from '@atlassian/testing-library';
 
-import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import { mocks } from '../../../../utils/mocks';
 import ForbiddenView from '../ForbiddenView';
 import '@atlaskit/link-test-helpers/jest';

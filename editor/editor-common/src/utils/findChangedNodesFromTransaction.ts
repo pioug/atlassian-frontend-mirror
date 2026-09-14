@@ -1,6 +1,6 @@
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 /**
  * Finds all top level nodes affected by the transaction

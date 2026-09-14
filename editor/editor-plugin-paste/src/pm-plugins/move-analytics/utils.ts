@@ -5,7 +5,6 @@ import {
 	findParentNodeOfTypeClosestToPos,
 } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const excludedNodes = [
 	'caption',
@@ -115,8 +114,8 @@ export const containsExcludedNode = (content: Fragment): boolean => {
 export const getMultipleSelectionAttributes = (
 	content: Fragment,
 ): {
-	nodeTypes: string | undefined;
 	hasSelectedMultipleNodes: boolean;
+	nodeTypes: string | undefined;
 } => {
 	const nodeTypes: string[] = [];
 
@@ -127,9 +126,7 @@ export const getMultipleSelectionAttributes = (
 	}
 
 	return {
-		nodeTypes: fg('platform_editor_track_node_types')
-			? [...new Set(nodeTypes)].sort().join(',')
-			: undefined,
+		nodeTypes: [...new Set(nodeTypes)].sort().join(','),
 		hasSelectedMultipleNodes: nodeTypes.length > 1,
 	};
 };

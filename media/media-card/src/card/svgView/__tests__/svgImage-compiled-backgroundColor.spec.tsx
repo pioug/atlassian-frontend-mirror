@@ -9,11 +9,15 @@ import { SvgView } from '../svgImage-compiled';
 import type { FileIdentifier } from '@atlaskit/media-client';
 
 // Mock useResolveSvg to return a valid SVG URL
-jest.mock('@atlaskit/media-svg', () => ({
+jest.mock('@atlaskit/media-svg/use-resolve-svg', () => ({
+	...jest.requireActual('@atlaskit/media-svg/use-resolve-svg'),
 	useResolveSvg: jest.fn().mockReturnValue({
 		svgUrl: 'data:image/svg+xml;base64,abc',
 		source: 'remote',
 	}),
+}));
+jest.mock('@atlaskit/media-svg/media-svg-error', () => ({
+	...jest.requireActual('@atlaskit/media-svg/media-svg-error'),
 	MediaSVGError: class MediaSVGError extends Error {
 		primaryReason: string;
 		secondaryError?: Error;

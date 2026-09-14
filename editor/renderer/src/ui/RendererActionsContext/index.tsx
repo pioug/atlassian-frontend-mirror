@@ -2,9 +2,9 @@
 import React, { useMemo } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 
 import RendererActions from '../../actions/index';

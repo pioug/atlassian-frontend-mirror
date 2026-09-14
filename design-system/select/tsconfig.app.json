@@ -47,6 +47,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../popper/tsconfig.app.json"
+		},
+		{
 			"path": "../react-select/tsconfig.app.json"
 		},
 		{

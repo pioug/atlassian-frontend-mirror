@@ -51,7 +51,7 @@ describe('@atlaskit/primitives', () => {
 	});
 
 	test('incorrect config throws', () => {
-		expect(() => createColorStylesFromTemplate('fizzbuzz' as any)).toThrowError();
-		expect(() => createElevationStylesFromTemplate('fizzbuzz' as any)).toThrowError();
+		expect(() => createColorStylesFromTemplate('fizzbuzz' as any)).toThrow();
+		expect(() => createElevationStylesFromTemplate('fizzbuzz' as any)).toThrow();
 	});
 });

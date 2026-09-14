@@ -11,7 +11,8 @@ import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -43,6 +44,7 @@ export interface Props {
 	extensionProvider?: ExtensionProvider;
 	getPos: ProsemirrorGetPosHandler;
 	handleContentDOMRef: (node: HTMLElement | null) => void;
+	hideConfigureLabel?: boolean;
 	hideFrame?: boolean;
 	isLivePageViewMode?: boolean;
 	isNodeHovered?: boolean;
@@ -92,6 +94,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		setShowBodiedExtensionRendererView,
 		pluginInjectionApi,
 		isLivePageViewMode,
+		hideConfigureLabel,
 	} = props;
 
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
@@ -225,6 +228,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 					setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 					pluginInjectionApi={pluginInjectionApi}
+					hideConfigureLabel={hideConfigureLabel}
 				/>
 			)}
 			<div
@@ -263,7 +267,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					css={[
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 						overflowWrapperStyles,
-						fg('platform_fix_macro_renders_in_layouts') && containerStyle,
+						containerStyle,
 					]}
 				>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
@@ -280,6 +284,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 								node={node}
 								showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 								pluginInjectionApi={pluginInjectionApi}
+								hideConfigureLabel={hideConfigureLabel}
 							/>
 						)}
 						{children}
@@ -327,7 +332,7 @@ const Extension = (props: Props & OverflowShadowProps) => {
 		() => ({ width: width ?? 0, lineLength }),
 		[width, lineLength],
 	);
-	const widthState = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const widthState = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedWidthState
 		: { width: width ?? 0, lineLength };
 

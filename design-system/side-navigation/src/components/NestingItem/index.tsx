@@ -7,14 +7,14 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 import { cssMap, jsx } from '@compiled/react';
 
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
-import { type ButtonItemProps, type CustomItemComponentProps } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { ButtonItemProps, CustomItemComponentProps } from '@atlaskit/menu/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import useChildIdsEffect from '../../common/use-child-ids-effect';
-import ButtonItem from '../Item/button-item';
-import CustomItem from '../Item/custom-item';
-import NavigationContent from '../NavigationContent';
+import { ButtonItem } from '../Item/button-item';
+import { CustomItem } from '../Item/custom-item';
+import { NavigationContent } from '../NavigationContent';
 import { ROOT_ID } from '../NestableNavigationContent';
 import {
 	NestedContext,
@@ -151,7 +151,7 @@ export interface NestingItemProps<TCustomComponentProps = CustomItemComponentPro
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(
+export const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(
 	props: NestingItemProps<TCustomComponentProps> &
 		Omit<TCustomComponentProps, keyof CustomItemComponentProps>,
 ) => JSX.Element = <TCustomComponentProps extends CustomItemComponentProps>(
@@ -357,5 +357,3 @@ const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(
 		/>
 	);
 };
-
-export default NestingItem;

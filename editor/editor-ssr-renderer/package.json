@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-ssr-renderer",
-	"version": "7.2.0",
+	"version": "13.0.0",
 	"description": "SSR Renderer based on Editor",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
@@ -45,6 +45,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"react": "^19.2.0",
 		"react-intl": "root:*"
 	}

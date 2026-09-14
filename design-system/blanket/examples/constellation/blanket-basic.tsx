@@ -4,8 +4,8 @@
  */
 import { useCallback, useState } from 'react';
 
-import Blanket from '@atlaskit/blanket';
-import Button from '@atlaskit/button/new';
+import Blanket from '@atlaskit/blanket/blanket';
+import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { AnalyticsErrorBoundary } from '../src';
+import AnalyticsErrorBoundary from '../src/components/AnalyticsErrorBoundary';
 
 const ComponentWithError = () => {
 	useEffect(() => {

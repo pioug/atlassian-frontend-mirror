@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { reorderRows } from '../internal/reorder-rows';

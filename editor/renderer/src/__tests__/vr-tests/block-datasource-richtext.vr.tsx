@@ -2,7 +2,7 @@ import { Device, snapshot } from '@af/visual-regression';
 import {
 	DatasourceWithRichTextFullPage,
 	DatasourceWithRichTextFullWidth,
-} from '../__helpers/rendererComponents';
+} from '../__helpers/rendererComponents.vr.ap';
 
 /**
  * These tests are making external network request which needs be fixed

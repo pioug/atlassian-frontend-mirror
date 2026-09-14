@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "16.2.0",
+	"version": "22.0.0",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,6 +50,7 @@
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/prosemirror-history": "workspace:^",
@@ -74,49 +75,11 @@
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform_editor_change_normal_text_icon": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_responsive_fixes": {
-			"type": "boolean"
-		},
-		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
 		},
 		"platform_editor_use_preferences_plugin": {
@@ -126,6 +89,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
+			"type": "boolean"
+		},
+		"platform_editor_return_focus_after_text_styles": {
 			"type": "boolean"
 		}
 	}

@@ -1,5 +1,34 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 2.4.1
+
+### Patch Changes
+
+- [`f08c657595242`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f08c657595242) -
+  Update UserProfilePreview and its consumers to correctly instrument distinct actions.
+
+## 2.4.0
+
+### Minor Changes
+
+- [`eafe925f0b19a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eafe925f0b19a) -
+  Add diagnoseTeamPermissionsNudge rendered and clicked UI events.
+
+## 2.3.1
+
+### Patch Changes
+
+- [`271e969f72f04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/271e969f72f04) -
+  VOLTC-111 - run volt-migrate-package on @atlaskit/teams-app-internal-analytics
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+
 ## 2.2.1
 
 ### Patch Changes

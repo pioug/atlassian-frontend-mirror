@@ -6,6 +6,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: ssr-placeholder-v3', () => {
 	test.use({
 		examplePage: 'ssr-placeholder-v3',
+	} satisfies {
+		examplePage: 'ssr-placeholder-v3';
+		__exampleDependency?: typeof import('../../examples/26-ssr-placeholder-v3.tsx');
 	});
 
 	test(`VC90 should match when the [main-div] is first visible`, async ({

@@ -1,12 +1,12 @@
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import {
-	type DefaultValue,
-	type ExternalUser,
-	type OptionData,
-	type Team,
-	type User,
-	type UserPickerProps,
-} from '@atlaskit/user-picker';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type {
+	DefaultValue,
+	ExternalUser,
+	OptionData,
+	Team,
+	User,
+	UserPickerProps,
+} from '@atlaskit/user-picker/types';
 
 export interface Context {
 	containerId?: string;

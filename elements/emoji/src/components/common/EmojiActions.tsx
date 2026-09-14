@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import {
-	Fragment,
 	useState,
 	useRef,
 	memo,
@@ -15,16 +15,14 @@ import {
 	type MouseEvent,
 	useEffect,
 } from 'react';
-import { css, cssMap, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+import { css, jsx } from '@compiled/react';
+import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
-import {
-	FormattedMessage,
-	injectIntl,
-	type WithIntlProps,
-	type WrappedComponentProps,
-} from 'react-intl';
+
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,
@@ -34,55 +32,21 @@ import type {
 	ToneSelection,
 	ToneValueType,
 } from '../../types';
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { DEFAULT_TONE } from '../../util/constants';
+import type { ProductivityColor } from '../../util/productivity-colors';
+import { messages } from '../i18n';
 import type { CategoryId } from '../picker/categories';
+import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
+import { AddOwnEmoji } from './AddOwnEmoji';
 import EmojiDeletePreview, { type OnDeleteEmoji } from './EmojiDeletePreview';
 import EmojiUploadPicker, { type OnUploadEmoji } from './EmojiUploadPicker';
-import TonePreviewButton from './TonePreviewButton';
-import ToneSelector from './ToneSelector';
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 import ProductivityColorSelector, {
 	productivityColorSelectorId,
 } from './ProductivityColorSelector';
-import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
-import { messages } from '../i18n';
-import AkButton from '@atlaskit/button/standard-button';
-import AddIcon from '@atlaskit/icon/core/add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
-import { emojiPickerAddEmoji } from './styles';
-import { DEFAULT_TONE } from '../../util/constants';
-import { Box } from '@atlaskit/primitives/compiled';
-import type { ProductivityColor } from '../../util/productivity-colors';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
-
-const styles = cssMap({
-	icon: { marginLeft: token('space.negative.050'), marginRight: token('space.negative.025') },
-});
-
-const addCustomEmoji = css({
-	alignSelf: 'center',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	marginLeft: '10px',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	marginBottom: '10px',
-});
-
-const addCustomEmojiButton = css({
-	maxWidth: '285px',
-});
+import TonePreviewButton from './TonePreviewButton';
+import ToneSelector from './ToneSelector';
 
 const emojiActionsWrapper = css({
 	display: 'flex',
@@ -210,19 +174,19 @@ const ProductivityColorPopupContent = ({
 };
 
 export interface Props {
-	activeCategoryId?: CategoryId | null;
 	activeAtlassianSubcategory?: string | null;
+	activeCategoryId?: CategoryId | null;
 	/**
 	 * Current Confluence page content id, required to enable AI emoji generation.
 	 * When undefined, the "Create an emoji with Rovo" section is not shown.
 	 */
 	contentId?: string;
+	emojiToDelete?: EmojiDescription;
 	/**
 	 * Fires an analytics event in the elements channel. Required for AI emoji
 	 * generation analytics.
 	 */
 	fireAnalytics?: (event: AnalyticsEventPayload) => void;
-	emojiToDelete?: EmojiDescription;
 	initialUploadName?: string;
 	onChange: (value: string) => void;
 	onCloseDelete: () => void;
@@ -247,56 +211,10 @@ export interface Props {
 }
 
 export const emojiActionsTestId = 'emoji-actions';
+
 export const uploadEmojiTestId = 'upload-emoji';
 
-// Generic Type for the wrapped functional component
 type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
-
-type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
-export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
-	const { onOpenUpload, uploadEnabled } = props;
-	const handleOpenUpload = useCallback(
-		(event: MouseEvent<HTMLElement>) => {
-			if (fg('platform_emoji_keep_picker_open_on_upload') || isRefreshEmojiPickerEnabled()) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-			onOpenUpload();
-		},
-		[onOpenUpload],
-	);
-
-	return (
-		<Fragment>
-			{uploadEnabled && (
-				<div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
-					<FormattedMessage {...messages.addCustomEmojiLabel}>
-						{(label) => (
-							<AkButton
-								onClick={handleOpenUpload}
-								iconBefore={
-									<Box xcss={styles.icon}>
-										<AddIcon color="currentColor" label="" />
-									</Box>
-								}
-								appearance="subtle"
-								// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
-								// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-								css={addCustomEmojiButton}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
-								className={emojiPickerAddEmoji}
-								tabIndex={0}
-								id="add-custom-emoji"
-							>
-								{label}
-							</AkButton>
-						)}
-					</FormattedMessage>
-				</div>
-			)}
-		</Fragment>
-	);
-};
 
 type TonesWrapperProps = PropsWithWrappedComponentPropsType & {
 	onToneClose: () => void;
@@ -305,6 +223,7 @@ type TonesWrapperProps = PropsWithWrappedComponentPropsType & {
 	onToneToggle: () => void;
 	showToneSelector: boolean;
 };
+
 const TonesWrapper = (props: TonesWrapperProps) => {
 	const {
 		activeCategoryId,
@@ -462,6 +381,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 };
 
 type EmojiActionsProps = PropsWithWrappedComponentPropsType;
+
 // TODO: remove this on cleanup of platform_teamoji_26_refresh_emoji_picker
 export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	const {
@@ -638,8 +558,9 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(memo(EmojiActions));
+
 export default _default_1;

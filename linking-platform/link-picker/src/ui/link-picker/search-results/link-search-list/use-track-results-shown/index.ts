@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import { useDebounce } from 'use-debounce';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { ANALYTICS_CHANNEL } from '../../../../../common/constants';
 import { type LinkSearchListItemData } from '../../../../../common/types';

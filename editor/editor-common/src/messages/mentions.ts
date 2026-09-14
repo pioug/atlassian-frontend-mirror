@@ -1,11 +1,6 @@
 import { defineMessages } from 'react-intl';
 
 export const mentionMessages: {
-	inviteButton: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	inviteItemTitle: {
 		defaultMessage: string;
 		description: string;
@@ -42,6 +37,16 @@ export const mentionMessages: {
 		id: string;
 	};
 	typeAheadSectionAgentsLabsLozengeLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	typeAheadSectionAgentsLoadError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	typeAheadSectionAgentsRetry: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -97,11 +102,6 @@ export const mentionMessages: {
 		defaultMessage: 'Send request to invite teammate',
 		description: 'By line text for send request to invite teammate option shown in mentions.',
 	},
-	inviteButton: {
-		id: 'fabric.editor.inviteItem.inviteButton',
-		defaultMessage: 'Invite',
-		description: 'Label for the invite button shown in the mention typeahead invite item.',
-	},
 	typeAheadSectionPeople: {
 		id: 'fabric.editor.typeAhead.mentionSection.people',
 		defaultMessage: 'People',
@@ -117,5 +117,17 @@ export const mentionMessages: {
 		defaultMessage: 'Labs',
 		description:
 			'Lozenge label shown next to the Agents section header in the mention type-ahead menu to indicate that agent mentions are experimental. This label is intentionally captialised.',
+	},
+	typeAheadSectionAgentsLoadError: {
+		id: 'editor-common.messages.mentions.typeAheadSectionAgentsLoadError',
+		defaultMessage: 'Unable to load agents',
+		description:
+			'Error text shown in the Agents section of the mention type-ahead menu when agent results fail to load.',
+	},
+	typeAheadSectionAgentsRetry: {
+		id: 'editor-common.messages.mentions.typeAheadSectionAgentsRetry',
+		defaultMessage: 'Retry',
+		description:
+			'Retry action text shown next to the agent loading error in the mention type-ahead menu.',
 	},
 });

@@ -51,6 +51,11 @@ export const typeAheadListMessages: {
 		description: string;
 		id: string;
 	};
+	mentionListItemLabelWithDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	mentionPopupLabel: {
 		defaultMessage: string;
 		description: string;
@@ -162,6 +167,12 @@ export const typeAheadListMessages: {
 		id: 'fabric.editor.typeahead.metionListItemLabel',
 		defaultMessage: 'User {name} @{shortName}',
 		description: 'assistive text for user mention items username and nickname',
+	},
+	mentionListItemLabelWithDescription: {
+		id: 'fabric.editor.typeahead.mentionListItemLabelWithDescription',
+		defaultMessage: 'User {name} @{shortName}. {description}',
+		description:
+			'assistive text for a mention item that also has a description (such as agent description)',
 	},
 	emojiListItemLabel: {
 		id: 'fabric.editor.typeahead.emojiListItemLabel',

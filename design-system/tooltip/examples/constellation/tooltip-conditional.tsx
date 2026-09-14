@@ -11,7 +11,7 @@ import invariant from 'tiny-invariant';
 import { cssMap, cx } from '@atlaskit/css';
 import { Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const styles = cssMap({
 	root: {

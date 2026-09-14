@@ -1,5 +1,5 @@
 import { NATIVE_EMBED_PARAMETER_DEFAULTS } from '../constants';
-import { getParameter, getParameters, setParameters } from '../utils';
+import { getParameter, getParameters, resolveRemixVersionId, setParameters } from '../utils';
 
 describe('getParameter', () => {
 	describe('isMaxWidth', () => {
@@ -140,5 +140,32 @@ describe('aspectRatio presence detection (for effectiveHeight logic)', () => {
 				? Math.round(effectiveWidth / aspectRatio)
 				: 600;
 		expect(effectiveHeight).toBe(200); // Math.round(1200 / 6)
+	});
+});
+
+describe('resolveRemixVersionId', () => {
+	it('prefers the stored remixAppId parameter', () => {
+		expect(
+			resolveRemixVersionId({
+				storedRemixAppId: 'v2',
+				url: 'https://embed.example/remix/ui/v0',
+			}),
+		).toBe('v2');
+	});
+
+	it('falls back to the id in a legacy /remix/ui/{id} url when the parameter is absent', () => {
+		expect(
+			resolveRemixVersionId({
+				storedRemixAppId: undefined,
+				url: 'https://embed.example/remix/ui/v0?theme=light',
+			}),
+		).toBe('v0');
+	});
+
+	it('returns undefined when neither the parameter nor a remix url is present', () => {
+		expect(
+			resolveRemixVersionId({ storedRemixAppId: undefined, url: 'https://embed.example/other' }),
+		).toBeUndefined();
+		expect(resolveRemixVersionId({ storedRemixAppId: undefined, url: undefined })).toBeUndefined();
 	});
 });

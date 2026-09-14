@@ -4,7 +4,8 @@
  */
 import { jsx } from '@compiled/react';
 
-import { components, type MenuProps, type OptionType } from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { MenuProps, OptionType } from '@atlaskit/select/types';
 
 import FixedLayer from '../internal/fixed-layer';
 
@@ -62,7 +63,6 @@ export const FixedLayerMenu: ({
 }: MenuProps<OptionType>) => (
 	<FixedLayer
 		inputValue={selectProps.inputValue}
-		//@ts-ignore react-select unsupported props
 		containerRef={selectProps.fixedLayerRef}
 		content={
 			<components.Menu
@@ -96,7 +96,6 @@ export const FixedLayerMenu: ({
 				{children}
 			</components.Menu>
 		}
-		//@ts-ignore react-select unsupported props
 		testId={selectProps.testId}
 	/>
 );

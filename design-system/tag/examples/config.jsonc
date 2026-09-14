@@ -7,8 +7,8 @@
   "testExamples": [
     "0-basic-tag.tsx",
     "0-removable-tag.tsx",
-    "1-appearance.tsx",
-    "1-colors.tsx",
+    "1-appearance.vr.ap.tsx",
+    "1-colors.vr.ap.tsx",
     "3-text-max-length.tsx",
     "9-simple-tag.tsx"
   ]

@@ -28,7 +28,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Button Menu Item',
 					description: 'Standard button menu item example.',
-					source: path.resolve(packagePath, './examples/button-menu-item.tsx'),
+					source: path.resolve(packagePath, './examples/docs/button-menu-item.tsx'),
 				},
 			],
 			keywords: ['navigation', 'menu-item', 'button', 'side-nav'],
@@ -53,7 +53,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Link Menu Item',
 					description: 'Standard link menu item example.',
-					source: path.resolve(packagePath, './examples/link-menu-item.tsx'),
+					source: path.resolve(packagePath, './examples/docs/link-menu-item.tsx'),
 				},
 			],
 			keywords: ['navigation', 'menu-item', 'link', 'side-nav'],

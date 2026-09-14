@@ -1,5 +1,87 @@
 # @atlaskit/linking-common
 
+## 12.1.2
+
+### Patch Changes
+
+- [`9bdffe8379139`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bdffe8379139) -
+  Duplicate and re-export SpanSkeleton code to accomodate for the Volt Component Standards
+
+## 12.1.1
+
+### Patch Changes
+
+- [`57b50caf6411e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b50caf6411e) -
+  Use the site URL as the available-site display name when the API omits or returns an empty
+  workspace display name.
+
+  All changes behind feature gate: `platform_lp_sllv_display_name_fallback`.
+
+## 12.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Major Changes
+
+- [`41b55f01fb4e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41b55f01fb4e1) -
+  Cleanup feature gate `platform_lp_kill_isvertigo_and_vortexmode`.
+
+  Remove the deprecated `AvailableSite.isVertigo` and `Workspace.vortexMode` fields. Consumers
+  should stop reading or supplying these fields.
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`85d7fd1344407`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85d7fd1344407) -
+  Imports from the package root are deprecated and will be removed in a future release. Migrate to
+  dedicated entry-point imports to reduce upgrade friction. Recommended imports:
+  - `import { linkifyMatch } from '@atlaskit/linking-common/linkify'`
+  - `import { isSafeUrl } from '@atlaskit/linking-common/linkify'`
+  - `import { normalizeUrl } from '@atlaskit/linking-common/linkify'`
+  - `import { useAvailableSites } from '@atlaskit/linking-common/hook/use-available-sites'`
+  - `import { useCloudIdToUrl } from '@atlaskit/linking-common/hook/use-cloud-id-to-url'`
+  - `import { useIsMounted } from '@atlaskit/linking-common/hook/use-is-mounted'`
+
+## 11.1.0
+
+### Minor Changes
+
+- [`bafd7711a515b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bafd7711a515b) -
+  Upgrade linkify-it to 5.0.2 and markdown-it to 14.1.1 to resolve a quadratic-complexity
+  denial-of-service vulnerability in link parsing.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

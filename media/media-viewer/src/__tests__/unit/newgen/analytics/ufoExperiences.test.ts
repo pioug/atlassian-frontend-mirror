@@ -1,18 +1,15 @@
 const mockMediaEnvironment = 'test-local';
 const mockMediaRegion = 'test-local-region';
 
-jest.mock('@atlaskit/ufo', () => {
-	const actualUfo = jest.requireActual('@atlaskit/ufo');
-	return {
-		...actualUfo,
-		UFOExperience: jest.fn().mockReturnValue({
-			start: jest.fn(),
-			addMetadata: jest.fn(),
-			success: jest.fn(),
-			failure: jest.fn(),
-		}),
-	};
-});
+jest.mock('@atlaskit/ufo/experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/experience'),
+	UFOExperience: jest.fn().mockReturnValue({
+		start: jest.fn(),
+		addMetadata: jest.fn(),
+		success: jest.fn(),
+		failure: jest.fn(),
+	}),
+}));
 
 jest.mock('@atlaskit/media-client', () => {
 	const mediaClient = jest.requireActual('@atlaskit/media-client');
@@ -31,7 +28,8 @@ jest.mock('@atlaskit/media-common/mediaFeatureFlags', () => {
 	};
 });
 
-import { UFOExperience, ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo';
+import { UFOExperience } from '@atlaskit/ufo/experience';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
 import {
 	startMediaFileUfoExperience,
@@ -77,7 +75,7 @@ describe('ufoExperience', () => {
 					},
 				});
 
-				expect(mocks.success).toBeCalledWith({
+				expect(mocks.success).toHaveBeenCalledWith({
 					metadata: {
 						fileAttributes: fileAttributes,
 						packageName: expect.any(String),
@@ -96,7 +94,7 @@ describe('ufoExperience', () => {
 			it('should be able to succeed an experience without provided metadata', () => {
 				succeedMediaFileUfoExperience();
 
-				expect(mocks.success).toBeCalledWith({
+				expect(mocks.success).toHaveBeenCalledWith({
 					metadata: {
 						packageName: expect.any(String),
 						packageVersion: expect.any(String),
@@ -120,7 +118,7 @@ describe('ufoExperience', () => {
 					},
 				});
 
-				expect(mocks.failure).toBeCalledWith({
+				expect(mocks.failure).toHaveBeenCalledWith({
 					metadata: {
 						failReason: 'imageviewer-external-onerror',
 						errorDetail: undefined,
@@ -141,7 +139,7 @@ describe('ufoExperience', () => {
 			it('should be able to fail an experience without provided metadata', () => {
 				failMediaFileUfoExperience();
 
-				expect(mocks.failure).toBeCalledWith({
+				expect(mocks.failure).toHaveBeenCalledWith({
 					metadata: {
 						packageName: expect.any(String),
 						packageVersion: expect.any(String),

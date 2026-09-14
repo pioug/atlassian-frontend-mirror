@@ -1,17 +1,14 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import {
-	extension,
-	extensionFrame,
-	inlineExtension,
-	multiBodiedExtension,
-} from '@atlaskit/adf-schema';
+import { extension } from '@atlaskit/adf-schema/extension';
+import { extensionFrame, multiBodiedExtension } from '@atlaskit/adf-schema/multi-bodied-extension';
+import { inlineExtension } from '@atlaskit/adf-schema/inline-extension';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	createEditSelectedExtensionAction,
@@ -215,6 +212,8 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 		pluginsOptions: {
 			floatingToolbar: getToolbarConfig({
 				breakoutEnabled: options.breakoutEnabled,
+				copyEnabled: options.copyEnabled,
+				deleteEnabled: options.deleteEnabled,
 				extensionApi: api,
 				getUnsupportedContent: options.getUnsupportedContent,
 			}),

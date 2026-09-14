@@ -1,5 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors/extract-url-from-link-json-ld';
 import { unicornResponse } from '@atlaskit/link-test-helpers';
 
 const defaultUrl = 'https://atlaskit.atlassian.com/packages/linking-platform/smart-card';

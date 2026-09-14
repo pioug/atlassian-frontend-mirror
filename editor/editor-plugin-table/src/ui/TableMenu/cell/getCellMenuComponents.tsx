@@ -6,7 +6,7 @@ import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 import AlignPositionBottomIcon from '@atlaskit/icon-lab/core/align-position-bottom';
 import AlignPositionCenterVerticalIcon from '@atlaskit/icon-lab/core/align-position-center-vertical';
 import AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TableMenuComponentsParams } from '../shared/types';
 

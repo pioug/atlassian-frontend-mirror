@@ -2,14 +2,14 @@ import React, { type FC } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { type CustomItemComponentProps } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 
 import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/nested-context';
-import { default as NestingItem } from '../../../NestingItem';
-import ButtonItem from '../../button-item';
-import CustomItem from '../../custom-item';
-import LinkItem from '../../link-item';
+import { NestingItem } from '../../../NestingItem';
+import { ButtonItem } from '../../button-item';
+import { CustomItem } from '../../custom-item';
+import { LinkItem } from '../../link-item';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Item', () => {

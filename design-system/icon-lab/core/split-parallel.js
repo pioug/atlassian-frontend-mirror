@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7cea9a4a68e6ff5028fa3489e481f368>>
+ * @codegen <<SignedSource::2c8454f55fea4767cb964056c22cdd56>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "SplitParallel".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const SplitParallelIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const SplitParallelIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "SplitParallelIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 2 3.25m2.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5M10.5 8h-4V6.5h4a2 2 0 0 1 2 2v2.128a2.251 2.251 0 1 1-1.5 0V8.5a.5.5 0 0 0-.5-.5m-6.25 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5m7.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

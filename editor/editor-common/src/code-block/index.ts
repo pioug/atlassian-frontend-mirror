@@ -1,10 +1,10 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-import { uuid, type CodeBlockAttrs } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
+import type { CodeBlockAttrs } from '@atlaskit/adf-schema/code-block';
 import type { Node as PmNode, NodeType, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -20,9 +20,7 @@ type OptionalCodeBlockAttrs = CodeBlockAttrs | undefined;
 export const getDefaultCodeBlockAttrs = (attrs?: CodeBlockAttrs): OptionalCodeBlockAttrs => {
 	const localId =
 		attrs?.localId ??
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
-		fg('platform_editor_code_block_language_detection_flow')
+		(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)
 			? uuid.generate()
 			: undefined);
 	const attrsWithLocalId = localId
@@ -219,9 +217,7 @@ export const transferCodeBlockWrappedValue = (
 	oldCodeBlockNode: PmNode,
 	newCodeBlockNode: PmNode,
 ): void => {
-	if (expValEquals('platform_editor_code_block_fold_gutter', 'isEnabled', true)) {
-		transferCodeBlockFoldValue(oldCodeBlockNode, newCodeBlockNode);
-	}
+	transferCodeBlockFoldValue(oldCodeBlockNode, newCodeBlockNode);
 
 	// Don't overwrite the value for the new node if it already exists.
 	// This can happen when a drag&drop is swapping nodes.
@@ -263,9 +259,7 @@ export const updateCodeBlockWrappedStateNodeKeys = (
 	oldState: EditorState,
 ): void => {
 	newCodeBlockNodes.forEach((newCodeBlockNode) => {
-		if (expValEquals('platform_editor_code_block_fold_gutter', 'isEnabled', true)) {
-			updateCodeBlockFoldStateNodeKeys(newCodeBlockNode, oldState);
-		}
+		updateCodeBlockFoldStateNodeKeys(newCodeBlockNode, oldState);
 		// Don't overwrite the value for the new node if it already exists.
 		// This can happen when a drag&drop is swapping nodes.
 		if (codeBlockWrappedStates.has(newCodeBlockNode.node)) {

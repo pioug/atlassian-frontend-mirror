@@ -192,7 +192,6 @@ const getDefaultSpecifier = (
 	return specifiers.nodes()[0]!.local!.name;
 };
 
-// @ts-ignore
 const getJSXAttributesByName = (
 	j: core.JSCodeshift,
 	element: ASTPath<any>,

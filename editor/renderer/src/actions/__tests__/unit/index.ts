@@ -25,7 +25,7 @@ import {
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import * as steps from '../../../steps';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 const mockArg = {} as any;
@@ -38,7 +38,7 @@ describe('RendererActions', () => {
 		actions._privateRegisterRenderer(mockArg, mockArg, mockArg);
 		expect(() => {
 			actions._privateRegisterRenderer(mockArg2, mockArg2, mockArg2);
-		}).toThrowError(
+		}).toThrow(
 			"Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.",
 		);
 	});
@@ -48,7 +48,7 @@ describe('RendererActions', () => {
 		actions._privateRegisterRenderer(mockArg, mockArg, mockArg);
 		expect(() => {
 			actions._privateRegisterRenderer(mockArg, mockArg, mockArg);
-		}).not.toThrowError(
+		}).not.toThrow(
 			"Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.",
 		);
 	});
@@ -170,7 +170,7 @@ describe('RendererActions', () => {
 			const actions = initActions(simpleTextWithAnnotation(annotationId));
 			actions.deleteAnnotation(annotationId, 'inlineComment');
 
-			expect(onAnalyticsEvent).toBeCalledWith({
+			expect(onAnalyticsEvent).toHaveBeenCalledWith({
 				action: ACTION.DELETED,
 				actionSubject: ACTION_SUBJECT.ANNOTATION,
 				actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
@@ -183,7 +183,7 @@ describe('RendererActions', () => {
 			const actions = initActions(simpleTextWithAnnotation(annotationId));
 			actions.deleteAnnotation('noAnnotation', 'inlineComment');
 
-			expect(onAnalyticsEvent).toBeCalledTimes(0);
+			expect(onAnalyticsEvent).toHaveBeenCalledTimes(0);
 		});
 	});
 
@@ -372,14 +372,14 @@ describe('RendererActions', () => {
 					.spyOn(actions, 'isRendererWithinRange')
 					.mockReturnValueOnce(true);
 				expect(actions.isValidAnnotationRange(new Range())).toBe(false);
-				expect(isRendererWithinRangeSpyFn).toBeCalledTimes(1);
+				expect(isRendererWithinRangeSpyFn).toHaveBeenCalledTimes(1);
 			});
 
 			it('when feature gate editor_inline_comments_on_inline_nodes is OFF, does not call isRendererWithinRange', () => {
 				failGate('editor_inline_comments_on_inline_nodes');
 				const isRendererWithinRangeSpyFn = jest.spyOn(actions, 'isRendererWithinRange');
 				actions.isValidAnnotationRange(new Range());
-				expect(isRendererWithinRangeSpyFn).toBeCalledTimes(0);
+				expect(isRendererWithinRangeSpyFn).toHaveBeenCalledTimes(0);
 			});
 		});
 
@@ -411,7 +411,7 @@ describe('RendererActions', () => {
 
 			actions.isValidAnnotationRange(new Range());
 
-			expect(privateValidatePositionsForAnnotationSpyFn).toBeCalledTimes(1);
+			expect(privateValidatePositionsForAnnotationSpyFn).toHaveBeenCalledTimes(1);
 		});
 	});
 

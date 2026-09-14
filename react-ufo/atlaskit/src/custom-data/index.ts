@@ -1,8 +1,7 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { useContext, useMemo } from 'react';
 
 import UFOInteractionContext from '../interaction-context';
-import { getInteractionId } from '../interaction-id-context';
-import { addCustomData, type CustomData } from '../interaction-metrics';
 
 import type { UFOCustomDataProps } from './types';
 
@@ -24,17 +23,7 @@ export default function UFOCustomData({ data }: UFOCustomDataProps) {
 	return null;
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function addUFOCustomData(data: CustomData): void {
-	const interactionId = getInteractionId();
-	const currentInteractionId = interactionId.current;
-	if (!currentInteractionId) {
-		return;
-	}
-
-	if (typeof globalThis?.structuredClone === 'function') {
-		addCustomData(currentInteractionId, [], globalThis.structuredClone(data));
-	} else {
-		addCustomData(currentInteractionId, [], data);
-	}
-}
+/**
+ * @deprecated Use `import { addUFOCustomData } from '@atlaskit/react-ufo/add-ufo-custom-data'` instead.
+ */
+export { addUFOCustomData } from './addUFOCustomData';

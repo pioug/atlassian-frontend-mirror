@@ -20,6 +20,7 @@ test.describe('Drawer - SSR startup parity', () => {
 			'design-system',
 			'drawer',
 			'ssr-initial-open',
+			{ 'react-18-mode': 'modern' },
 		);
 
 		await expect(page.getByTestId('ssr-initial-open-drawer')).toBeVisible();
@@ -34,6 +35,7 @@ test.describe('Drawer - SSR startup parity', () => {
 			'drawer',
 			'ssr-initial-open',
 			{
+				'react-18-mode': 'modern',
 				featureFlag: 'platform-dst-top-layer',
 			},
 		);

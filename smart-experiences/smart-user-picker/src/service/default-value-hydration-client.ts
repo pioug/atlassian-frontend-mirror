@@ -5,7 +5,7 @@ import {
 	type User,
 	UserType,
 	type Team,
-} from '@atlaskit/user-picker';
+} from '@atlaskit/user-picker/types';
 
 import { config } from '../config';
 import getHydratedUsersFromPrs from './users-client';

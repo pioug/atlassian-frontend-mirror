@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import Example from '../../../../examples/30-classname-basic';
-import MarginExample from '../../../../examples/32-xcss-margin';
+import Example from '../../../../examples/30-classname-basic.vr.ap';
+import MarginExample from '../../../../examples/32-xcss-margin.vr.ap';
 
 snapshot(Example, {
 	variants: [

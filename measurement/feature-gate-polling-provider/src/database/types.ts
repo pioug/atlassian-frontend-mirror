@@ -1,10 +1,10 @@
 import { type FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher';
-import {
-	type BaseClientOptions,
-	type CustomAttributes,
-	type Identifiers,
-	type OptionsWithDefaults,
-} from '@atlaskit/feature-gate-js-client';
+import type {
+	BaseClientOptions,
+	CustomAttributes,
+	Identifiers,
+	OptionsWithDefaults,
+} from '@atlaskit/feature-gate-js-client/types';
 
 export type RulesetProfile = Pick<
 	OptionsWithDefaults<BaseClientOptions>,

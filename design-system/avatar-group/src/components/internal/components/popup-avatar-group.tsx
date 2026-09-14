@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import { MenuGroup } from '@atlaskit/menu';
+import MenuGroup from '@atlaskit/menu/menu-group';
 
 import { type PopupAvatarGroupProps } from '../../types';
 

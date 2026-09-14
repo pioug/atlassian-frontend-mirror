@@ -2,8 +2,8 @@ import React, { Fragment, useState } from 'react';
 
 import capitalize from 'lodash/capitalize';
 
-import LegacyButton from '@atlaskit/button';
-import Checkbox from '@atlaskit/checkbox';
+import LegacyButton from '@atlaskit/button/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { type IconSize } from '@atlaskit/icon/types';
 import { Box, Stack } from '@atlaskit/primitives/compiled';

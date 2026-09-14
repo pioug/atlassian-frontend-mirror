@@ -26,6 +26,9 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
@@ -38,10 +41,16 @@
 			"path": "../../editor-plugin-metrics/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-ui-control-registry/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
@@ -50,10 +59,19 @@
 			"path": "../../../design-system/heading/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../insm/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../elements/mention/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/menu/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

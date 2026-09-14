@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';

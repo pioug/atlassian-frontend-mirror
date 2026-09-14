@@ -7,10 +7,10 @@ import { useEffect, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

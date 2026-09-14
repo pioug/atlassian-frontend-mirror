@@ -13,7 +13,6 @@ import type {
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 
@@ -164,9 +163,7 @@ export default function FieldsLoader({
 
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-	const connectivityState = useSharedPluginStateSelector(api, 'connectivity.mode', {
-		disabled: editorExperiment('platform_editor_offline_editing_web', false),
-	});
+	const connectivityState = useSharedPluginStateSelector(api, 'connectivity.mode');
 
 	return (
 		<FieldDefinitionsPromiseResolver

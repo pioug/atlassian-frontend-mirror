@@ -83,6 +83,12 @@ const tabListStyles = css({
 				insetInlineEnd: token('space.100'),
 				insetInlineStart: token('space.100'),
 			},
+			'&:hover': {
+				color: token('color.text.selected'),
+				'&::after': {
+					borderBlockEnd: `${token('border.width.selected')} solid ${token('color.border.selected')}`,
+				},
+			},
 		},
 	},
 	'&::before': {

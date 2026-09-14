@@ -37,6 +37,9 @@
 			"path": "../../editor/adf-schema/tsconfig.app.json"
 		},
 		{
+			"path": "../../atlassian-analytics-pipeline/analytics-cross-product/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
@@ -136,7 +139,13 @@
 			"path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/popup/tsconfig.app.json"
@@ -181,6 +190,9 @@
 			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/toggle/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
@@ -188,6 +200,9 @@
 		},
 		{
 			"path": "../../data/ufo-external/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/user-picker/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/visually-hidden/tsconfig.app.json"

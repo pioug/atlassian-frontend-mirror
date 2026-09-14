@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9fa59a6a9929b503830b1766f5a09efd>>
+ * @codegen <<SignedSource::4229fe5326316a29c49ecfc1d8eabd32>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "StrokeStyleDashed".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const StrokeStyleDashedIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const StrokeStyleDashedIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "StrokeStyleDashedIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.33 8.75H1v-1.5h3.33zm5.34 0H6.33v-1.5h3.33zm5.33 0h-3.33v-1.5H15z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { CharacterCounterField, FormFooter, HelperMessage } from '@atlaskit/form';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { CharacterCounterField } from '@atlaskit/form/character-counter-field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import Textfield from '@atlaskit/textfield/text-field';
 
 export default function TextFieldMaxValueExample(): React.JSX.Element {
 	return (

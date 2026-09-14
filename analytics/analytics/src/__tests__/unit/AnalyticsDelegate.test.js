@@ -1,6 +1,6 @@
-/* eslint-disable  */
+/* eslint-disable */
 import React, { Component } from 'react';
-import { mount } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import { AnalyticsDelegate, cleanProps, withAnalytics } from '../..';
 
@@ -19,10 +19,12 @@ const Button = withAnalytics(
 
 		render() {
 			const props = cleanProps(this.props);
-			return <button {...props} onClick={this.onClick} />;
+			return <button {...props} aria-label="test button" onClick={this.onClick} />;
 		}
 	},
 );
+
+const clickButton = () => fireEvent.click(screen.getByRole('button'));
 
 describe('AnalyticsDelegate', () => {
 	beforeEach(() => {
@@ -35,12 +37,13 @@ describe('AnalyticsDelegate', () => {
 	});
 
 	it('should ignore events if no delegateAnalyticsEvent callback', () => {
-		const component = mount(
+		render(
 			<AnalyticsDelegate>
 				<Button />
 			</AnalyticsDelegate>,
 		);
-		component.find(Button).simulate('click');
+
+		clickButton();
 		const mockWarnCalls = console.warn.mock.calls.filter((call) => !shouldIgnoreLog(call));
 		expect(mockWarnCalls.length).toBe(0);
 		const mockCalls = console.error.mock.calls.filter((call) => !shouldIgnoreLog(call));
@@ -49,12 +52,13 @@ describe('AnalyticsDelegate', () => {
 
 	it('should pass through public/private events', () => {
 		const spy = jest.fn();
-		const component = mount(
+		render(
 			<AnalyticsDelegate delegateAnalyticsEvent={spy}>
 				<Button analyticsId="cheese" />
 			</AnalyticsDelegate>,
 		);
-		component.find(Button).simulate('click');
+
+		clickButton();
 		expect(spy).toHaveBeenCalledTimes(2);
 		expect(spy).toHaveBeenCalledWith('cheese.click', {}, false);
 		expect(spy).toHaveBeenCalledWith('private.button.click', { one: 1 }, true);

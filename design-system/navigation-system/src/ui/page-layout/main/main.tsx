@@ -8,7 +8,7 @@ import { Fragment } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useSkipLink } from '../../../context/skip-links/use-skip-link';
 import { contentHeightWhenFixed, contentInsetBlockStart } from '../constants';
@@ -25,21 +25,19 @@ const mainElementStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		insetBlockStart: contentInsetBlockStart,
 		overflow: 'auto',
+		// Height is set so it takes up all of the available viewport space minus top bar + banner.
+		// Set for all sizes of viewports to allow for in-app panels (panels that live inside Main).
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		height: contentHeightWhenFixed,
 		'@media (min-width: 64rem)': {
 			isolation: 'auto',
-			// Height is set so it takes up all of the available viewport space minus top bar + banner.
-			// This is only set on larger viewports meaning stickiness only occurs on them.
-			// On small viewports it is not sticky.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			height: contentHeightWhenFixed,
 			position: 'sticky',
 		},
 	},
-	fixedHeight: {
-		// Height is set so it takes up all of the available viewport space minus top bar + banner.
-		// Set for all sizes of viewports to allow for in-app panels.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height: contentHeightWhenFixed,
+	print: {
+		'@media print': {
+			height: 'auto',
+		},
 	},
 });
 
@@ -76,7 +74,7 @@ export function Main({
 				role="main"
 				css={[
 					mainElementStyles.root,
-					fg('platform-ads-nav-fixed-height') && mainElementStyles.fixedHeight,
+					fg('platform-dst-main-print-styles') && mainElementStyles.print,
 				]}
 				data-testid={testId}
 			>

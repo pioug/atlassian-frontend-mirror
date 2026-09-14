@@ -1,10 +1,9 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
-import { getFirstFocusable } from '@atlaskit/top-layer/focus';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
@@ -70,11 +69,6 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 							role="dialog"
 							label="Standalone popover"
 							onClose={handleClose}
-							onOpenChange={({ isOpen: popoverIsOpen, element }) => {
-								if (popoverIsOpen) {
-									getFirstFocusable({ container: element })?.focus();
-								}
-							}}
 							shouldAnimate
 							isOpen={true}
 						>

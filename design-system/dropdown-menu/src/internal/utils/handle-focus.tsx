@@ -9,7 +9,7 @@ import {
 	KEY_TAB,
 	KEY_UP,
 } from '@atlaskit/ds-lib/keycodes';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type Action, type FocusableElementRef } from '../../types';
 

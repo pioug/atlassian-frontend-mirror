@@ -25,7 +25,7 @@ import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { EditorActions } from '../../../index';
 import type { PrimaryToolbarComponents } from '../../../types/editor-props';
@@ -215,7 +215,7 @@ export const EditorToolbar: React.MemoExoticComponent<
 	);
 });
 
-// eslint-disable-next-line @typescript-eslint/ban-types, @atlaskit/volt-strict-mode/no-multiple-exports
+// eslint-disable-next-line @typescript-eslint/no-restricted-types, @atlaskit/volt-strict-mode/no-multiple-exports
 export const FullPageToolbar: React.FC<
 	WithIntlProps<FullPageToolbarProps & WrappedComponentProps>
 > & {

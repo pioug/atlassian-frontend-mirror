@@ -1,4 +1,4 @@
-import { getLinkAttrs } from '../../link';
+import { getLinkAttrs } from '../../get-link-attrs';
 
 describe('marks/link', () => {
 	describe('#getLinkAttrs', () => {

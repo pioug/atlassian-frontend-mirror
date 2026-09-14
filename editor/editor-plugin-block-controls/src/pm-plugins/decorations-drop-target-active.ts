@@ -12,7 +12,7 @@ import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	ActiveDropTargetNode,
@@ -56,7 +56,7 @@ const getContainerNodeTypes = memoizeOne(() => [
 	...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
 		? ['multiBodiedExtension']
 		: []),
-	...(editorExperiment('platform_synced_block', true) ? ['bodiedSyncBlock'] : []),
+	'bodiedSyncBlock',
 ]);
 
 const isContainerNode = (node: PMNode) => {
@@ -347,24 +347,20 @@ export const getActiveDropTargetDecorations = (
 	let anchorEmitNodeWithPos: NodeWithPos = rootNodeWithPos;
 
 	if (editorExperiment('advanced_layouts', true)) {
-		if (editorExperiment('platform_synced_block', true)) {
-			const schema = rootNodeWithPos.node.type.schema;
-			const { layoutSection } = schema.nodes;
-			const isLayoutSectionChildOfRoot =
-				findChildrenByType(rootNodeWithPos.node, layoutSection, false).length > 0;
-			if (isLayoutSectionChildOfRoot) {
-				// if node has layoutSection as a child, get the layoutSection node and pos
-				for (let ancestorDepth = $toPos.depth; ancestorDepth >= 1; ancestorDepth--) {
-					if ($toPos.node(ancestorDepth).type.name === 'layoutSection') {
-						anchorEmitNodeWithPos = {
-							node: $toPos.node(ancestorDepth),
-							pos: $toPos.before(ancestorDepth),
-						};
-						break;
-					}
+		const schema = rootNodeWithPos.node.type.schema;
+		const { layoutSection } = schema.nodes;
+		const isLayoutSectionChildOfRoot =
+			findChildrenByType(rootNodeWithPos.node, layoutSection, false).length > 0;
+		if (isLayoutSectionChildOfRoot) {
+			// if node has layoutSection as a child, get the layoutSection node and pos
+			for (let ancestorDepth = $toPos.depth; ancestorDepth >= 1; ancestorDepth--) {
+				if ($toPos.node(ancestorDepth).type.name === 'layoutSection') {
+					anchorEmitNodeWithPos = {
+						node: $toPos.node(ancestorDepth),
+						pos: $toPos.before(ancestorDepth),
+					};
+					break;
 				}
-			} else {
-				anchorEmitNodeWithPos = rootNodeWithPos;
 			}
 		} else {
 			anchorEmitNodeWithPos = rootNodeWithPos;
@@ -374,9 +370,7 @@ export const getActiveDropTargetDecorations = (
 			$activeNodePos &&
 			isInSameLayout($activeNodePos, state.doc.resolve(anchorEmitNodeWithPos.pos));
 
-		const hasUnsupportedContent =
-			UNSUPPORTED_LAYOUT_CONTENT.includes(activeNode?.nodeType || '') &&
-			editorExperiment('platform_synced_block', true);
+		const hasUnsupportedContent = UNSUPPORTED_LAYOUT_CONTENT.includes(activeNode?.nodeType || '');
 
 		if (anchorEmitNodeWithPos.node.type.name === 'layoutSection' && !hasUnsupportedContent) {
 			const layoutSectionNode = anchorEmitNodeWithPos.node;

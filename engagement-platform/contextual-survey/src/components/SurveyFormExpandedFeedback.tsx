@@ -6,10 +6,12 @@ import React from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import { CheckboxField, Field, FormFooter } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import Textarea from '@atlaskit/textarea/text-area';
 
 export type SurveyFormExpandedFeedbackProps = {
 	canContactDefault: boolean;

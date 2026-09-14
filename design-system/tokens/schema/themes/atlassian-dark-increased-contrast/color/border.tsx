@@ -11,7 +11,12 @@ const color: ExtendedValueSchema<BorderColorTokenSchema<BaseToken>> = {
 				value: 'DarkNeutral800',
 			},
 			input: {
-				value: 'DarkNeutral800',
+				'[default]': {
+					value: 'DarkNeutral800',
+				},
+				search: {
+					value: 'DarkNeutral300A',
+				},
 			},
 			disabled: {
 				value: 'DarkNeutral300A',

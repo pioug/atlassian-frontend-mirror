@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { type SkeletonItemProps, SkeletonItem as SkelItem } from '@atlaskit/menu';
+import type { SkeletonItemProps } from '@atlaskit/menu/types';
+import SkelItem from '@atlaskit/menu/skeleton-item';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
@@ -14,7 +15,7 @@ import { useShouldNestedElementRender } from '../NestableNavigationContent/use-s
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const SkeletonItem = (props: SkeletonItemProps): React.JSX.Element | null => {
+export const SkeletonItem = (props: SkeletonItemProps): React.JSX.Element | null => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;
@@ -28,5 +29,3 @@ const SkeletonItem = (props: SkeletonItemProps): React.JSX.Element | null => {
 		/>
 	);
 };
-
-export default SkeletonItem;

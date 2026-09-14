@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Checkbox should pass base aXe audit', async ({ page, skipAxeCheck }) => {
-	await page.visitExample<typeof import('../../../examples/00-basic-usage.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-basic-usage.vr.ap.tsx')>(
 		'design-system',
 		'checkbox',
 		'basic-usage',
@@ -13,7 +13,7 @@ test('Checkbox should pass base aXe audit', async ({ page, skipAxeCheck }) => {
 });
 
 test('Invalid Checkbox should pass base aXe audit', async ({ page, skipAxeCheck }) => {
-	await page.visitExample<typeof import('../../../examples/00-basic-usage.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-basic-usage.vr.ap.tsx')>(
 		'design-system',
 		'checkbox',
 		'basic-usage',

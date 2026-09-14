@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { DefaultTextField, TextFieldWithMultiProps } from '../../examples/vr/vr-textfield';
+import { DefaultTextField, TextFieldWithMultiProps } from '../../examples/vr/vr-textfield.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

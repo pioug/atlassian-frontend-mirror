@@ -7,11 +7,13 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { moveRowUp, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import {
-	TableRowMoveUpIcon,
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-} from '@atlaskit/editor-toolbar';
+import { InformationCircleIcon } from '@atlaskit/editor-toolbar/information-circle-icon';
+import { TableRowMoveUpIcon } from '@atlaskit/editor-toolbar/row-move-up-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
+import { Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { moveSourceWithAnalytics } from '../../../../pm-plugins/drag-and-drop/commands-with-analytics';
@@ -61,13 +63,38 @@ export const MoveRowUpItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 		return null;
 	}
 
+	const label = formatMessage(messages.moveRowUp, { 0: selectedRowCount });
+
+	if (!Boolean(tableMenuContext?.canMoveRowUp)) {
+		return (
+			<ToolbarDropdownItem
+				elemBefore={
+					<TableRowMoveUpIcon color={token('color.text.disabled')} label="" size="small" />
+				}
+				elemAfter={
+					<Tooltip content={formatMessage(messages.canNotMoveRowUpWithMergedCells)} position="top">
+						{(tooltipProps) => (
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							<span {...tooltipProps}>
+								<InformationCircleIcon label="" size="small" color={token('color.icon')} />
+							</span>
+						)}
+					</Tooltip>
+				}
+			>
+				<Text color="color.text.disabled">{label}</Text>
+			</ToolbarDropdownItem>
+		);
+	}
+
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
 			elemBefore={<TableRowMoveUpIcon color="currentColor" label="" size="small" />}
 			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(moveRowUp) ?? ''} />}
 		>
-			{formatMessage(messages.moveRowUp, { 0: selectedRowCount })}
+			{label}
 		</ToolbarDropdownItem>
 	);
 };

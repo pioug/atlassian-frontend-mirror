@@ -53,7 +53,7 @@ import {
 	RendererInlineCardXSS,
 	RendererBlockCardXSS,
 	RendererEmbedCardXSS,
-} from './card.fixtures';
+} from './card.fixtures.vr.ap';
 
 snapshotInformational(RendererInlineCardXSS, {
 	featureFlags: {},

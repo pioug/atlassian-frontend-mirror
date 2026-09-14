@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import '@atlaskit/link-test-helpers/jest';
 
 import { ANALYTICS_CHANNEL } from '../../constants';

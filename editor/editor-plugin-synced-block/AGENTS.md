@@ -39,7 +39,7 @@ src/
 │   └── bodiedSyncedBlock.tsx   # NodeView for source (bodiedSyncBlock) — nested editor with content
 ├── pm-plugins/
 │   ├── main.ts                 # Core state machine: lifecycle, creation, deletion, cache,
-│   │                             status decoration apply path (gated by editor_synced_block_perf)
+│   │                             status decoration apply path
 │   ├── menu-and-toolbar-experiences.ts # Experience tracking for menu/toolbar interactions
 │   └── utils/
 │       ├── track-sync-blocks.ts                    # Tracks mutations, updates shared state
@@ -48,7 +48,6 @@ src/
 │       ├── has-synced-blocks.ts                    # O(childCount) presence check (EDITOR-6928 lazy init)
 │       ├── transaction-inserts-synced-block.ts     # Detect tr inserts a synced block (lazy init)
 │       ├── selection-decorations.ts                # Selection decoration helpers
-│       ├── rebase-transaction.ts                   # Rebase helpers used by main.ts
 │       ├── ignore-dom-event.ts                     # DOM event guard
 │       └── utils.ts                                # Misc shared helpers
 ├── ui/                          # (grep the dir for the full current list — it grows often)
@@ -61,7 +60,7 @@ src/
 │   ├── DeleteConfirmationModal.tsx # Deletion confirmation dialog
 │   ├── SyncBlockRefresher.tsx    # Periodic data refresh from backend
 │   ├── SyncBlockLabel.tsx        # Source/reference label chrome
-│   ├── BodiedSyncBlockWrapper.tsx / SyncBlockRendererWrapper.tsx # Node-view wrappers
+│   ├── SyncBlockRendererWrapper.tsx # Node-view wrapper
 │   ├── SyncBlockSSRReactContextsProvider.tsx # Supplies React contexts during SSR
 │   └── Flag.tsx                  # Error/info flags (offline, copy notifications)
 └── types/
@@ -80,7 +79,7 @@ from outside the plugin lifecycle:
 
 ### Lazy Init & Perf (EDITOR-6928 / EDITOR-6930)
 
-Behind the `editor_synced_block_perf` experiment, `main.ts`:
+`main.ts`:
 
 - Skips creating synced-block plugin state and node-views for documents with no synced blocks
   (`hasSyncedBlocks(doc)`).

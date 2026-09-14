@@ -3,8 +3,8 @@ import { parse } from 'graphql';
 
 import { fetchWithExponentialBackoff } from '../../common/utils/http';
 
-import { useQueryLight } from './main';
-import { UseQueryLightError } from './types';
+import { UseQueryLightError } from './UseQueryLightError';
+import { useQueryLight } from './useQueryLight';
 
 const fakeGraphql = `
 	query {

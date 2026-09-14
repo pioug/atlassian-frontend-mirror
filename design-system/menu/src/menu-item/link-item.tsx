@@ -15,7 +15,7 @@ import {
 
 import { jsx } from '@compiled/react';
 
-import { useRouterLink } from '@atlaskit/app-provider';
+import { useRouterLink } from '@atlaskit/app-provider/use-router-link';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
@@ -129,7 +129,7 @@ const LinkItem: import('react').MemoExoticComponent<
 						onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
 						onClick={isDisabled ? preventEvent : handleClick}
 						aria-current={isSelected ? 'page' : undefined}
-						aria-disabled={isDisabled}
+						aria-disabled={isDisabled || undefined}
 						ref={ref as Ref<HTMLAnchorElement>}
 					>
 						{children}

@@ -1,4 +1,4 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -24,7 +24,7 @@ import {
 	safeInsert,
 	setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type {

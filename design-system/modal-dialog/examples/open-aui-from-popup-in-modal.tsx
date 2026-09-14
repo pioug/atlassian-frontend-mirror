@@ -1,21 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import Lorem from 'react-lorem-component';
+import PlaceholderContent from './placeholder-content';
 
 import Banner from '@atlaskit/banner';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
-import Popup from '@atlaskit/popup';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({
@@ -98,7 +97,7 @@ const OpenAuiFromModalExample = (): React.JSX.Element => {
 							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<Lorem count={2} />
+							<PlaceholderContent count={2} />
 							<Popup
 								isOpen={isPopupOpen}
 								onClose={() => setIsPopupOpen(false)}

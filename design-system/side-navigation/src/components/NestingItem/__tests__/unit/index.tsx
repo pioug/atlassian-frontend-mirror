@@ -2,12 +2,12 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import type { CustomItemComponentProps } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 
-import ButtonItem from '../../../Item/button-item';
+import { ButtonItem } from '../../../Item/button-item';
 import { ROOT_ID } from '../../../NestableNavigationContent';
 import { NestedContext } from '../../../NestableNavigationContent/nested-context';
-import { default as NestingItem } from '../../index';
+import { NestingItem } from '../../index';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<NestingItem />', () => {

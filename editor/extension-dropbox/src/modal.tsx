@@ -6,14 +6,13 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx, css } from '@emotion/react';
 
-import ModalDialog, {
-	ModalTransition,
-	CloseButton,
-	useModal,
-	ModalBody as AKModalBody,
-} from '@atlaskit/modal-dialog';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
+import AKModalBody from '@atlaskit/modal-dialog/modal-body';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { token } from '@atlaskit/tokens';
 
 import { DROPBOX_IFRAME_NAME } from './constants';

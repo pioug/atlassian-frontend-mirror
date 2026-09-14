@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 
-import { type IconButtonProps } from '@atlaskit/button/new';
+import type { IconButtonProps } from '@atlaskit/button/icon/button';
 import AppSwitcherIcon from '@atlaskit/icon/core/app-switcher';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { TriggerProps } from '@atlaskit/popup/types';
 
 import { IconButton } from './themed/icon-button';

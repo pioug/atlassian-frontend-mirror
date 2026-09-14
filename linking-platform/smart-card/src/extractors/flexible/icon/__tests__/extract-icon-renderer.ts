@@ -9,7 +9,7 @@ import extractIconRenderer from '../extract-icon-renderer';
 describe('extractIconRenderer', () => {
 	it('returns a render function that returns emoji component', () => {
 		const render = extractIconRenderer(TEST_DATA_WITH_EMOJI, {
-			emoji: (emojiId) => emojiId,
+			emoji: (emojiId?: string) => emojiId,
 		});
 		// @ts-ignore Expect render to always be defined
 		const emoji = render();

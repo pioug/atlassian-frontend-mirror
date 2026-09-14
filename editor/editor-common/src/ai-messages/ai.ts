@@ -29,6 +29,11 @@ export const aiMessages: {
 		id: string;
 	};
 	// Telepointer
+	aiPlannerTelepointer: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	aiRovoTelepointer: {
 		defaultMessage: string;
 		description: string;
@@ -221,6 +226,11 @@ export const aiMessages: {
 		description: string;
 		id: string;
 	};
+	rovoToolbarDropdownChevronLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	simplifiedAIToolbarIconTitle: {
 		defaultMessage: string;
 		description: string;
@@ -284,11 +294,6 @@ export const aiMessages: {
 	};
 	// AI Panel Summarise page messages
 	summarizePageTitle: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	rovoToolbarDropdownChevronLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -620,6 +625,11 @@ export const aiMessages: {
 	},
 
 	// Telepointer
+	aiPlannerTelepointer: {
+		id: 'fabric.editor.ai.telepointer.planner',
+		defaultMessage: 'Planner',
+		description: 'Product name shown beside the streaming cursor when Planner writes content',
+	},
 	aiRovoTelepointer: {
 		id: 'fabric.editor.ai.telepointer.rovo',
 		defaultMessage: 'Rovo',

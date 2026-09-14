@@ -10,8 +10,8 @@ import {
 import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -78,18 +78,15 @@ export const SelectionExtensionNestedDropdownMenu = ({
 	};
 
 	const lozengeLabel = nestedDropdownMenu.lozenge?.label;
-	const elemAfterText =
-		lozengeLabel && fg('platform_editor_block_menu_v2_patch_2') ? (
-			<Box as="span" xcss={styles.lozenge}>
-				<Lozenge
-					appearance={
-						fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'
-					}
-				>
-					{lozengeLabel}
-				</Lozenge>
-			</Box>
-		) : undefined;
+	const elemAfterText = lozengeLabel ? (
+		<Box as="span" xcss={styles.lozenge}>
+			<Lozenge
+				appearance={fg('confluence_fronend_labels_categorization_migration') ? 'discovery' : 'new'}
+			>
+				{lozengeLabel}
+			</Lozenge>
+		</Box>
+	) : undefined;
 
 	return (
 		<ToolbarNestedDropdownMenu

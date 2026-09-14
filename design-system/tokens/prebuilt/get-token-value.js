@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+exports.getTokenValue = getTokenValue;
 var _warnOnce = _interopRequireDefault(require("@atlaskit/ds-lib/warn-once"));
 var _tokenNames = _interopRequireDefault(require("./artifacts/token-names"));
 /**

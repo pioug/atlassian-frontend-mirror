@@ -2,42 +2,37 @@ import React from 'react';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { mediaInlineWithAnnotation } from './__fixtures__/media-inline';
 import { ReactSerializer } from '../../../index';
-import { create } from 'react-test-renderer';
-import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
-import AnnotationComponent from '../../marks/annotation';
+import { render } from '@atlassian/testing-library/render';
 import { IntlProvider } from 'react-intl';
+
+const ANNOTATION_ID = 'fde624ce-7528-4100-a3e8-0bf15e2577c9';
 
 describe('Renderer - ReactSerializer - MediaInline', () => {
 	describe('mediaInline with Annotation', () => {
-		let reactRenderer: ReactTestRenderer;
-		beforeAll(() => {
+		const renderDocument = () => {
 			const reactSerializer = new ReactSerializer({
 				allowAnnotations: true,
 			});
 			const docFromSchema = schema.nodeFromJSON(mediaInlineWithAnnotation);
-			const withIntl = () => (
+
+			return render(
 				<IntlProvider locale="en">
 					{reactSerializer.serializeFragment(docFromSchema.content)}
-				</IntlProvider>
-			);
-
-			reactRenderer = create(withIntl());
-		});
+				</IntlProvider>,
+			).container;
+		};
 
 		it('should only render span with annotation id', () => {
-			const testInstance = reactRenderer.root;
+			const container = renderDocument();
 
-			const components = testInstance.findAllByType(AnnotationComponent);
-			components.forEach((component) => {
-				expect(component.props.isMediaInline).toBe(true);
+			const annotation = container.querySelector(`#${ANNOTATION_ID}`);
 
-				const children = component.children[0] as ReactTestInstance;
-
-				expect(children.type).toBe('span');
-				expect(children.props['id']).toBeDefined();
-				expect(children.props.children).toBeDefined();
-				expect(Object.keys(children.props).length).toBe(2);
-			});
+			expect(annotation).not.toBeNull();
+			expect(annotation?.tagName).toBe('SPAN');
+			// Inline comments are not supported on mediaInline, so the mark only carries the
+			// annotation id - no annotation data attributes, styling or event handling.
+			expect(annotation?.getAttributeNames()).toEqual(['id']);
+			expect(container.querySelectorAll('[data-mark-type="annotation"]')).toHaveLength(0);
 		});
 	});
 });

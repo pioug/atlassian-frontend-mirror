@@ -1,9 +1,9 @@
 import themeConfig, {
-	type ThemeIds,
 	type ThemeOverrideIds,
 	type ThemeOverrides,
 	type Themes,
 } from '../../src/theme-config';
+import { type ThemeIds } from '../../src/theme-ids';
 
 /**
  * Gets Theme ID based on file name

@@ -11,12 +11,9 @@
  * https://hello.atlassian.net/wiki/spaces/AA6/pages/3961393753
  */
 
-import {
-	ConcurrentExperience,
-	type CustomData,
-	ExperiencePerformanceTypes,
-	ExperienceTypes,
-} from '@atlaskit/ufo';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import type { CustomData } from '@atlaskit/ufo/types';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
 /**
  * Experience name strings are surfaced downstream by the UFO pipeline as
@@ -37,6 +34,8 @@ export const EXPERIENCE_NAME = {
 	SLOW_LANE_FETCH: 'slow-lane-fetch',
 	LOAD_VOCABULARY: 'load-vocabulary',
 	LOAD_VECTORS: 'load-vectors',
+	LOAD_PHRASES: 'load-phrases',
+	LOAD_GRAMMAR: 'load-grammar',
 } as const;
 
 export type AutocompleteExperienceName = (typeof EXPERIENCE_NAME)[keyof typeof EXPERIENCE_NAME];
@@ -67,6 +66,14 @@ const experiences: Record<AutocompleteExperienceName, ConcurrentExperience> = {
 	),
 	[EXPERIENCE_NAME.LOAD_VECTORS]: new ConcurrentExperience(
 		EXPERIENCE_NAME.LOAD_VECTORS,
+		operationConfig,
+	),
+	[EXPERIENCE_NAME.LOAD_PHRASES]: new ConcurrentExperience(
+		EXPERIENCE_NAME.LOAD_PHRASES,
+		operationConfig,
+	),
+	[EXPERIENCE_NAME.LOAD_GRAMMAR]: new ConcurrentExperience(
+		EXPERIENCE_NAME.LOAD_GRAMMAR,
 		operationConfig,
 	),
 };

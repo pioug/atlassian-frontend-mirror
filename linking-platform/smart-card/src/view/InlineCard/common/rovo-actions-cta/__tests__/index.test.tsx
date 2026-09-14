@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { render, screen } from '@atlassian/testing-library';
 
 import mockState from '../../../../../__fixtures__/document-entity';

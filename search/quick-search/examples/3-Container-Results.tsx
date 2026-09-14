@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { getContainerAvatarUrl } from './utils/mockData';
 import ContainerResult from '../src/components/Results/ContainerResult';
 import ResultItemGroup from '../src/components/ResultItem/ResultItemGroup';

@@ -12,7 +12,7 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 const skipLinkListItemStyles = css({ marginBlockStart: 0 });
 const focusTargetRef = (href: string) => (event: ReactMouseEvent | ReactKeyboardEvent) => {

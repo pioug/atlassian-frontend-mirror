@@ -7,12 +7,14 @@ import { useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { type Direction, ExitingPersistence, SlideIn } from '@atlaskit/motion';
-import { type Fade } from '@atlaskit/motion/entering/types';
+import Button from '@atlaskit/button/default/button';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import SlideIn from '@atlaskit/motion/slide-in';
+import type { Direction, Fade } from '@atlaskit/motion/entering/types';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered, RetryContainer } from '../utils';
+import { Block } from '../utils/blocks';
+import { Centered, RetryContainer } from '../utils/containers';
 
 const MotionSlideInExample = (): JSX.Element => {
 	const [fromIndex, setFromIndex] = useState(0);

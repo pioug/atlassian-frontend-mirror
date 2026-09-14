@@ -8,10 +8,11 @@ import React, { type ReactNode, useCallback, useContext, useEffect, useRef } fro
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type CSSObject, jsx, type SerializedStyles } from '@emotion/react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
-import FocusRing from '@atlaskit/focus-ring';
+import FocusRing from '@atlaskit/focus-ring/focus-ring';
 import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
 import InteractionContext from '@atlaskit/interaction-context';
@@ -202,7 +203,6 @@ const ButtonBase: React.ForwardRefExoticComponent<
 
 	return (
 		<FocusRing>
-			{/* @ts-ignore - TS2604/TS2786: Component type union causing issues for help-center local consumption with TS 5.9.2 */}
 			<Component
 				{...rest}
 				ref={setRef}

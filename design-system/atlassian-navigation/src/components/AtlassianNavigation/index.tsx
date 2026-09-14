@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context/NavigationAnalyticsContext';
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 import { token } from '@atlaskit/tokens';
 

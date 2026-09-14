@@ -1,77 +1,9 @@
-import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
-
-import { buildCredentials, type RequestServiceOptions, type ServiceConfig } from './types';
-import { defaultRequestServiceOptions, buildUrl, buildHeaders } from './shared';
-
-const TRACING_RESPONSE_HEADERS = ['x-trace-id', 'atl-request-id'];
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
- * Extracts tracing headers (x-trace-id, atl-request-id) from a Response object.
- * Returns only headers that are present in the response.
+ * @deprecated Use `import { extractTracingHeaders } from '@atlaskit/util-service-support/extractTracingHeaders'` instead.
  */
-export const extractTracingHeaders = (response: Response): Record<string, string> => {
-	const headers: Record<string, string> = {};
-	for (const name of TRACING_RESPONSE_HEADERS) {
-		const value = response.headers.get(name);
-		if (value) {
-			headers[name] = value;
-		}
-	}
-	return headers;
-};
-
+export { extractTracingHeaders } from './extractTracingHeaders';
 /**
- * @returns Promise containing the json response
+ * @deprecated Use `import { requestService } from '@atlaskit/util-service-support/requestService'` instead.
  */
-export const requestService = <T>(
-	serviceConfig: ServiceConfig,
-	options?: RequestServiceOptions,
-): Promise<T> => {
-	const { url, securityProvider, refreshedSecurityProvider } = serviceConfig;
-	const { path, queryParams, requestInit } = options || defaultRequestServiceOptions;
-	const secOptions = securityProvider && securityProvider();
-	const requestUrl = buildUrl(url, path, queryParams, secOptions);
-	const headers = buildHeaders(secOptions, requestInit && requestInit.headers);
-	const credentials = buildCredentials(secOptions);
-	const ignoreResponsePayload = options?.ignoreResponsePayload || false;
-
-	// Get tracing headers from UFO
-	const tracingHeaders = getActiveTraceHttpRequestHeaders(url);
-
-	const requestOptions: RequestInit = {
-		...requestInit,
-		// populate headers mainly for the collab provider however
-		// other components which uses this util can get the header as well.
-		// Those tracing headers shall not incur any issues as long as backends handle them properly
-		headers: { ...headers, ...tracingHeaders },
-		credentials,
-	};
-
-	return fetch(requestUrl, requestOptions).then((response: Response) => {
-		if (options?.reportTracingHeaders) {
-			const tracingHeaders = extractTracingHeaders(response);
-			if (Object.keys(tracingHeaders).length > 0) {
-				options.reportTracingHeaders(tracingHeaders);
-			}
-		}
-
-		if (response.status === 204) {
-			return Promise.resolve();
-		} else if (response.ok) {
-			return ignoreResponsePayload ? Promise.resolve() : response.json();
-		} else if (response.status === 401 && refreshedSecurityProvider) {
-			// auth issue - try once
-			return refreshedSecurityProvider().then((newSecOptions) => {
-				const retryServiceConfig = {
-					url,
-					securityProvider: () => newSecOptions,
-				};
-				return requestService(retryServiceConfig, options);
-			});
-		}
-		return Promise.reject({
-			code: response.status,
-			reason: response.statusText,
-		});
-	});
-};
+export { requestService } from './requestService';

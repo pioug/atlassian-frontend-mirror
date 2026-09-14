@@ -2,7 +2,6 @@ export type { JQLClause } from '@atlaskit/jql-autocomplete';
 
 export type {
 	JQLEditorUIProps,
-	JQLEditorProps,
 	HydratedValues,
 	HydratedValue,
 	HydratedUser,
@@ -10,7 +9,8 @@ export type {
 	HydratedProject,
 	HydratedGoal,
 	HydratedLozengeWithAvatar,
-} from './ui/types';
+} from './ui/jql-editor/types';
+export type { JQLEditorProps } from './ui/types';
 
 export type {
 	ExternalMessage,
@@ -25,6 +25,4 @@ export type {
 	AutocompleteOptions,
 	AutocompleteOption,
 	AutocompleteValueType,
-} from './plugins/types';
-
-export type { ListenerProps, JqlAnalyticsEvent } from './analytics';
+} from '@atlaskit/jql-editor-common/autocomplete/types';

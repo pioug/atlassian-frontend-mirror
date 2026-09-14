@@ -2,20 +2,21 @@ import React, { useCallback, useState } from 'react';
 
 import { IntlProvider, useIntl } from 'react-intl';
 
-import type { DocNode } from '@atlaskit/adf-schema';
-import Button from '@atlaskit/button/new';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Mapping, Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import { Label } from '@atlaskit/form';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { Mapping } from '@atlaskit/editor-prosemirror/transform';
+import { Label } from '@atlaskit/form/label/default';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
-import Textarea from '@atlaskit/textarea';
+import SectionMessage from '@atlaskit/section-message/message';
+import Textarea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { fullPagePreset } from '@atlassian/confluence-presets/full-page';
@@ -252,9 +253,6 @@ function FullPageDiffEditor(): React.JSX.Element {
 					avatarGroup: {
 						collabEdit: undefined,
 					},
-					codeBidiWarning: {
-						editorAppearance: 'full-page',
-					},
 					loom: {
 						renderButton: () => null,
 					},
@@ -333,6 +331,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 				},
 				enabledOptionalPlugins: {
 					agentManagedExtension: false,
+					blockCollapse: false,
 					limitedMode: false,
 					findReplace: true,
 					referentiality: false,
@@ -354,7 +353,6 @@ function FullPageDiffEditor(): React.JSX.Element {
 					localId: true,
 					aiStreamingOrchestrator: false,
 					syncedBlock: false,
-					codeBidiWarning: false,
 					contentFormat: false,
 					uiControlRegistry: true,
 					aiSuggestions: true,

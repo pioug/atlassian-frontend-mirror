@@ -4,6 +4,10 @@ test.describe('ReactUFO: hold (basic)', () => {
 	test.use({
 		examplePage: 'basic',
 		featureFlags: [],
+	} satisfies {
+		examplePage: 'basic';
+		featureFlags: string[];
+		__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 	});
 
 	for (const viewport of viewports) {
@@ -60,6 +64,10 @@ test.describe('ReactUFO: hold (basic section below viewport)', () => {
 	test.use({
 		examplePage: 'basic-section-below-viewport',
 		featureFlags: [],
+	} satisfies {
+		examplePage: 'basic-section-below-viewport';
+		featureFlags: string[];
+		__exampleDependency?: typeof import('../../examples/03-basic-section-below-viewport.tsx');
 	});
 
 	for (const viewport of viewports) {

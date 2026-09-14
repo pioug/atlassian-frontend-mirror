@@ -1,5 +1,49 @@
 # @atlaskit/media-common
 
+## 14.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.5.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.0
+
+### Minor Changes
+
+- [`2140553ed738f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2140553ed738f) -
+  addding object recorder
+
+## 14.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.1
 
 ### Patch Changes

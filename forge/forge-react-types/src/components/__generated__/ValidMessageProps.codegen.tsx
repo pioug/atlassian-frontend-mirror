@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { ValidMessage as PlatformValidMessage } from '@atlaskit/form';
+import { ValidMessage as PlatformValidMessage } from '@atlaskit/form/valid-message';
 
 type PlatformValidMessageProps = React.ComponentProps<typeof PlatformValidMessage>;
 

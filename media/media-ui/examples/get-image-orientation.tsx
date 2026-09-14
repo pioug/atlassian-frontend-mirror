@@ -1,6 +1,9 @@
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { getOrientation, getFileInfo, getCssFromImageOrientation, readImageMetaData } from '../src';
+import { getOrientation } from '../src/imageMetaData/getOrientation';
+import { getFileInfo } from '../src/getFileInfo';
+import { getCssFromImageOrientation } from '../src/imageMetaData/getCssFromImageOrientation';
+import { readImageMetaData } from '../src/imageMetaData/readImageMetaData';
 import {
 	InputWrapper,
 	PreviewList,
@@ -9,7 +12,7 @@ import {
 	CloseButton,
 	OrientationSelectWrapper,
 } from '../example-helpers/styled';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 
 interface ExamplePreview {
 	filename: string;

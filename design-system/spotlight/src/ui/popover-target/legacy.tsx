@@ -5,7 +5,7 @@
 import { type ReactNode } from 'react';
 
 import { jsx } from '@atlaskit/css';
-import { Reference } from '@atlaskit/popper';
+import { Reference } from '@atlaskit/popper/reference';
 
 interface PopoverTargetProps {
 	/**

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
 import useStateRef from '@atlaskit/ds-lib/use-state-ref';
-import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence';
+import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence/use-exiting-persistence';
 
 /**
  *  ________________________________________________

@@ -1,10 +1,8 @@
 import { useCallback, useContext, useRef } from 'react';
 
-import {
-	type AnalyticsEventPayload,
-	AnalyticsReactContext,
-	useAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import AnalyticsReactContext from '@atlaskit/analytics-next/AnalyticsReactContext';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import type { AddToolsPromptEventPayload } from '../actions/groups/add-tools-prompt';
 import type { CreateFlowEventPayload } from '../actions/groups/create-flow';

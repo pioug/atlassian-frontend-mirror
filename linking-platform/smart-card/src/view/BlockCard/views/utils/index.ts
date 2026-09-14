@@ -1,4 +1,4 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import {
 	ElementName,
@@ -6,8 +6,8 @@ import {
 	SmartLinkPosition,
 	SmartLinkSize,
 } from '../../../../constants';
-import { extractOwnedBy } from '../../../../extractors/flexible/utils';
-import { getExtensionKey } from '../../../../state/helpers';
+import { extractOwnedBy } from '../../../../extractors/flexible/extract-owned-by';
+import { getExtensionKey } from '../../../../state/getExtensionKey';
 import type { PreviewBlockProps } from '../../../FlexibleCard/components/blocks/preview-block/types';
 import type { TitleBlockProps } from '../../../FlexibleCard/components/blocks/title-block/types';
 import type { ElementItem } from '../../../FlexibleCard/components/blocks/types';
@@ -68,6 +68,7 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 				bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
 			};
 		case 'integration-passionfruit-object-provider':
+		case 'mercury-object-provider':
 			return {
 				titleMetadata: defaultTitleMetadata,
 				topMetadata: extractOwnedBy(data)

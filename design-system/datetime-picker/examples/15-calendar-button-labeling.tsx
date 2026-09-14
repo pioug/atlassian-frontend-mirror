@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
-import Heading from '@atlaskit/heading';
+import { Label } from '@atlaskit/form/label/default';
+import Heading from '@atlaskit/heading/heading';
 import { Box } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => {

@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { Section, type SectionProps } from '@atlaskit/menu';
+import Section from '@atlaskit/menu/section';
+import type { SectionProps } from '@atlaskit/menu/types';
 
 import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store-context';

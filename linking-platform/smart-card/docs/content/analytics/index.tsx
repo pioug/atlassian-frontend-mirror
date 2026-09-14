@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { code } from '@atlaskit/docs';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import { Text } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 import customMd from '../../utils/custom-md';
 
@@ -317,7 +317,7 @@ For the moment, we look for adopters to use analytics context to supply a \`loca
 in future we may look to acquire additional context.
 
 ${code`
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Card } from '@atlaskit/smart-card';
 

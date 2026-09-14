@@ -1,8 +1,9 @@
-import type { MediaInlineAttributes } from '@atlaskit/adf-schema';
+import type { MediaInlineAttributes } from '@atlaskit/adf-schema/media-inline';
 import type {
 	EditorAnalyticsAPI,
 	InputMethodInsertMedia,
 	InsertEventPayload,
+	// oxlint-disable-next-line import/no-duplicates
 } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,

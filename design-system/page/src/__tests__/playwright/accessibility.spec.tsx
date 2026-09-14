@@ -2,7 +2,7 @@ import { expect, test } from '@af/integration-testing';
 
 test('should set aria-hidden to false when page banner is visible', async ({ page }) => {
 	// This test should remain to test color contrast a11y violations.
-	await page.visitExample<typeof import('../../../examples/00-basic-usage.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-basic-usage.vr.ap.tsx')>(
 		'design-system',
 		'page',
 		'basic-usage',

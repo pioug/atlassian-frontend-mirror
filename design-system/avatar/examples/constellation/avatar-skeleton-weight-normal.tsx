@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from '@atlaskit/avatar';
+import Skeleton from '@atlaskit/avatar/skeleton';
 import { token } from '@atlaskit/tokens';
 
 const AvatarSkeletonWeightNormalExample = (): React.JSX.Element => {

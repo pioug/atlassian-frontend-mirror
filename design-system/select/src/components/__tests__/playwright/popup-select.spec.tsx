@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('PopupSelect', () => {
 	test('Popup Select should open and close when interacted with', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -18,7 +18,7 @@ test.describe('PopupSelect', () => {
 	});
 
 	test('Popup Select should open with down arrow', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',

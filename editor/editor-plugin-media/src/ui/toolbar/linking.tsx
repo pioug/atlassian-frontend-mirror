@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import {
 	ACTION,
 	ACTION_SUBJECT,

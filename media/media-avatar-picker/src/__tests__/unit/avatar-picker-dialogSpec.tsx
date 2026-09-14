@@ -1,10 +1,15 @@
-const mockedFile = new File(['dsjklDFljk'], 'nice-photo.png', {
-	type: 'image/png',
-});
-
-jest.mock('@atlaskit/media-ui', () => ({
-	...jest.requireActual('@atlaskit/media-ui'),
-	dataURItoFile: jest.fn(() => mockedFile),
+// NOTE: the source now imports `dataURItoFile` from the `@atlaskit/media-ui/dataURItoFile`
+// subpath (Volt debarrel), so the mock must target that subpath, not the `@atlaskit/media-ui`
+// barrel. `jest.mock` is hoisted above module-level `const`s, so the factory creates the
+// mocked File inline to avoid a temporal-dead-zone reference to an outer `const`.
+jest.mock('@atlaskit/media-ui/dataURItoFile', () => ({
+	...jest.requireActual('@atlaskit/media-ui/dataURItoFile'),
+	dataURItoFile: jest.fn(
+		() =>
+			new File(['dsjklDFljk'], 'nice-photo.png', {
+				type: 'image/png',
+			}),
+	),
 }));
 
 import React from 'react';

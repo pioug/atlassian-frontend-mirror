@@ -1,5 +1,5 @@
 // This rule is banning the `Symbol` type from ts-morph. However we need this type in our functions below. The `symbol` replacement is throwing errors
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-wrapper-object-types */
 import { createSignedArtifact } from '@atlassian/codegen';
 import { Project } from 'ts-morph';
 import type { StandardizedFilePath } from '@ts-morph/common';

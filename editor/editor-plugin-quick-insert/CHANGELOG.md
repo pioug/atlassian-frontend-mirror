@@ -1,5 +1,589 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.6
+
+### Patch Changes
+
+- [`df59babd59961`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df59babd59961) -
+  Use registered Quick Insert items in both primary toolbar implementations when
+  `platform_editor_slash_command` is enabled, independently of the controls and AIFC experiments.
+  Share the registered menu model through an explicit editor-common subpath and use compact
+  presentation for typeahead and toolbar items.
+
+  Virtualize the toolbar menu, keep keyboard-selected items visible, and restore the bounded popup's
+  themed background and scrolling. Dismiss the popup on outside clicks and inset the search field
+  from its edges. When the experiment is enabled, ignore absent legacy Quick Insert handlers to
+  prevent suggestion crashes.
+
+  Provide persisted toolbar docking preferences in editor examples to support testing the primary
+  toolbar Insert menu.
+
+- Updated dependencies
+
+## 17.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`a3884f09ad3e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3884f09ad3e9) -
+  Use elevation.surface.hovered for element browser item hover backgrounds when
+  platform_editor_slash_command is enabled. Keep hovered items square and preserve selected item
+  backgrounds on hover. Remove the registry element browser's top scroll border. Make custom empty
+  states span all result columns so Confluence Marketplace content is not constrained to a single
+  item column. Add an optional isLoading prop to the public RegistryElementBrowser component to
+  leave the results area blank until the initial registry snapshot is available, then render the
+  normal empty state whenever there are no results.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.3
+
+### Patch Changes
+
+- [`e29faa16e0c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e29faa16e0c66) -
+  Migrate selected editor experiment reads and tooling from tmp-editor-statsig to
+  platform-feature-experiments, including static CSS, floating ToC, insert-menu AI, table overflow
+  shadows, and collapsible headings.
+- Updated dependencies
+
+## 16.3.2
+
+### Patch Changes
+
+- [`c12860a41f49d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c12860a41f49d) -
+  Order the Data and charts slash-command menu, including Bitbucket Snippet and GitHub Gist after
+  Questions List, when platform_editor_slash_command is enabled.
+- Updated dependencies
+
+## 16.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.0
+
+### Minor Changes
+
+- [`6d830aac99d6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d830aac99d6d) -
+  Add deprecation tag to blockControlsPlugin quickInsertButtonEnabled property - this has been
+  replaced with a new `blockControlButtonEnabled` plugin config in the quickInsertPlugin, which is
+  currently gated under `platform_editor_block_control_migration` and will be removed in future
+  update.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.8
+
+### Patch Changes
+
+- [`7a5578f056f2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a5578f056f2b) -
+  Under `platform_editor_slash_command`, enhance the registry element browser with a responsive
+  968px modal, a clearable search field, category navigation, and responsive item grids. Unselected
+  element cards have no border, while selected cards retain their selected border. Item descriptions
+  appear below titles when registration metadata supplies one.
+- Updated dependencies
+
+## 16.2.7
+
+### Patch Changes
+
+- [`09b54fe3854bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09b54fe3854bd) -
+  Keep Quick Insert stationary when the drag handle moves to a nested block under
+  `platform_editor_block_control_migration`, and keep layout-column drag handles visible across the
+  full editor width.
+- Updated dependencies
+
+## 16.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.5
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+- Updated dependencies
+
+## 16.2.4
+
+### Patch Changes
+
+- [`25ed290dcc443`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25ed290dcc443) -
+  Add Quick Insert category selection support for slash commands behind the
+  platform_editor_slash_command feature flag.
+- Updated dependencies
+
+## 16.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.5
+
+### Patch Changes
+
+- [`0841b102bfe4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0841b102bfe4a) -
+  Add a PM-state-backed multi-location left block-controls surface and register the display-only
+  heading collapse button behind `platform_editor_block_control_migration` and
+  `platform_editor_collapsible_headings`.
+- Updated dependencies
+
+## 16.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- [`e62dacf4416fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e62dacf4416fd) -
+  Add the shared popup-anchor contract, registry-backed drag handle, and menu integrations behind
+  `platform_editor_block_control_migration`.
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`5f66a8c3706e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f66a8c3706e3) -
+  Add the registry-backed Block Controls Quick Insert surface behind
+  `platform_editor_block_control_migration`, including typed surface context, cached registry
+  lookup, stable left/right surface identities, and experiment-gated Quick Insert registration.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Minor Changes
+
+- [`82fd62dcd2841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82fd62dcd2841) -
+  Add the experiment-gated registry-native Element Browser treatment for
+  `platform_editor_slash_command`.
+
+  `QuickInsertProvider` values must now provide a `surface` of either `typeahead` or
+  `element-browser`.
+
+  Prepare surface-specific Quick Insert item renderers for the `platform_editor_slash_command`
+  experiment.
+
+  Fix the registry Element Browser opening from View more and localize its accessibility labels.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 15.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`edcef04b6350e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edcef04b6350e) -
+  Add the Quick Insert recommendation resolver API and typed surface context support for the gated
+  `platform_editor_slash_command` Recommended menu. TypeAhead uses immutable surface context for
+  visibility and React context for registered Quick Insert rendering, while Quick Insert keeps one
+  recommendation snapshot per menu open. Fix Quick Insert declaration generation.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- [`bb37742539a7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb37742539a7d) -
+  Rename Quick Insert category analytics from app counts to macro counts, add reusable extension app
+  identity, and track internal, ecosystem, and all macro/app counts for externally provided items
+  behind `platform_editor_slash_app_category_analytics`. GUID-only app identities are grouped as
+  `unknown`.
+
+  Breaking change: `CategoryInformation` and `QuickInsertInformationAttributes` from
+  `@atlaskit/editor-common/analytics/types/quick-insert-events` have changed shape. Update usages to
+  the new fields (`internalMacroCount`, `internalAppCount`, `internalAppMacroMax`,
+  `ecosystemMacroCount`, `ecosystemAppCount`, `ecosystemAppMacroMax`, `allMacroCount`,
+  `allAppCount`, and `allAppMacroMax`) and add the `allCategories` aggregate. Remove references to
+  the removed `appCount` and `appMacros` fields. `ExtensionApp.ownership` has been replaced by
+  `ExtensionApp.source` (`internal` or `ecosystem`); update app metadata producers accordingly.
+
+- Updated dependencies
+
+## 14.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.1
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`c0cf420333ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0cf420333ef1) -
+  Add public registration APIs for provider-backed Quick Insert components.
+
+  Providers can expose registered items directly:
+
+  ```tsx
+  const getComponents = async () => [
+  	{
+  		key: 'insert-table',
+  		component: TableItem,
+  		parents: [{ type: 'menu-section', key: 'quick-insert', rank: 1 }],
+  	},
+  ];
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.3
+
+### Patch Changes
+
+- [`cdb267f0c9d61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdb267f0c9d61) -
+  Add experiment-gated passive Quick Insert information analytics with queryable app counts for
+  current and legacy categories. Consumers can map legacy provider categories to current Quick
+  Insert sections with `getQuickInsertMenuItemParents` from
+  `@atlaskit/editor-common/quick-insert/get-menu-item-parents`.
+- Updated dependencies
+
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.3
+
+### Patch Changes
+
+- [`4bc741a70d678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc741a70d678) -
+  Add the first registry-backed Quick Insert slice with Table
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

@@ -6,6 +6,6 @@
 {
   "exampleDependencies": [],
   "testExamples": [
-    "06-feedback-form-content.tsx"
+    "06-feedback-form-content.vr.ap.tsx"
   ]
 }

@@ -1,5 +1,6 @@
 import type tokens from '../artifacts/token-names';
-import { type CSSColor, type ThemeColorModes } from '../theme-config';
+import { type CSSColor } from '../theme-options-schema';
+import { type ThemeColorModes } from '../theme-color-modes';
 
 import { additionalContrastChecker } from './additional-contrast-checker';
 import { generateColors } from './generate-colors';

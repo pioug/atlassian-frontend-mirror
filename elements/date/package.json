@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date",
-	"version": "3.1.1",
+	"version": "3.2.0",
 	"description": "Fabric Date React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -14,6 +14,7 @@
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react": "root:*"
@@ -58,15 +59,5 @@
 		"date",
 		"fabric",
 		"teams"
-	],
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"compiled"
-			]
-		}
-	}
+	]
 }

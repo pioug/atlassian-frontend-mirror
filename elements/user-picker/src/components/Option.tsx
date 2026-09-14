@@ -1,16 +1,24 @@
+import React, { type ReactNode } from 'react';
+
 import { Box } from '@atlaskit/primitives/compiled';
-import { components, type OptionProps as AkOptionProps } from '@atlaskit/select';
-import Tooltip from '@atlaskit/tooltip';
-import React, { type FC } from 'react';
+import { components } from '@atlaskit/react-select/components';
+import type { OptionProps as AkOptionProps } from '@atlaskit/select/types';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import { type Option as OptionType } from '../types';
-import { UserOption } from './UserOption';
-import AsyncExternalOption from './ExternalUserOption';
-import AsyncTeamOption from './TeamOption';
-import AsyncGroupOption from './GroupOption';
-import AsyncEmailOption from './EmailOption';
 import AsyncCustomOption from './CustomOption';
-import { isCustom, isEmail, isTeam, isUser, isGroup, isExternalUser } from './utils';
+import AsyncEmailOption from './EmailOption';
+import AsyncExternalOption from './ExternalUserOption';
+import AsyncGroupOption from './GroupOption';
+import AsyncTeamOption from './TeamOption';
+import { UserOption } from './UserOption';
 import { isValidEmail } from './emailValidation';
+import { isCustom } from './isCustom';
+import { isEmail } from './isEmail';
+import { isExternalUser } from './isExternalUser';
+import { isGroup } from './isGroup';
+import { isTeam } from './isTeam';
+import { isUser } from './isUser';
 
 export type OptionProps = AkOptionProps & {
 	data: OptionType;
@@ -18,6 +26,7 @@ export type OptionProps = AkOptionProps & {
 	isDisabled: boolean;
 	isFocused: boolean;
 	isSelected: boolean;
+	renderOptionContent?: (defaultContent: ReactNode) => ReactNode;
 	selectProps: {
 		emailLabel?: string;
 	};
@@ -88,8 +97,14 @@ const dataOptionWithTooltip = (props: OptionProps) => {
 	return dataOption(props);
 };
 
-export const Option: FC<OptionProps> = (props) => (
-	<components.Option {...(props as AkOptionProps)}>
+export const Option = ({ renderOptionContent, ...props }: OptionProps): React.ReactElement => {
+	const defaultContent = (
 		<React.Suspense fallback={defaultOption(props)}>{dataOptionWithTooltip(props)}</React.Suspense>
-	</components.Option>
-);
+	);
+
+	return (
+		<components.Option {...(props as AkOptionProps)}>
+			{renderOptionContent ? renderOptionContent(defaultContent) : defaultContent}
+		</components.Option>
+	);
+};

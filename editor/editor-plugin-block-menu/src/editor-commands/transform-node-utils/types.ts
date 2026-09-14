@@ -65,6 +65,8 @@ export const getNodeName = (nodes: PMNode[]): string | undefined => {
 
 export type TransformStep = (nodes: PMNode[], context: TransformStepContext) => PMNode[];
 
+export type TargetNodeMarks = Record<string, Record<string, unknown>>;
+
 // Note: We are still deciding what should be in the context.
 export interface TransformStepContext {
 	fromNode: PMNode;

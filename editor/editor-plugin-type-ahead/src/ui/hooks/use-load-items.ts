@@ -8,8 +8,7 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { clearListError } from '../../pm-plugins/commands/clear-list-error';
 import { updateListError } from '../../pm-plugins/commands/update-list-error';
@@ -26,6 +25,7 @@ export const useLoadItems = (
 	showViewMore?: boolean,
 	api?: ExtractInjectionAPI<TypeAheadPlugin> | undefined,
 	intl?: IntlShape,
+	enabled: boolean = true,
 ): Array<TypeAheadItem> => {
 	const [items, setItems] = useState<Array<TypeAheadItem>>(EMPTY_LIST_ITEM);
 	const componentIsMounted = useRef(true);
@@ -34,6 +34,11 @@ export const useLoadItems = (
 	latestQueryRef.current = query;
 
 	useEffect(() => {
+		if (!enabled) {
+			setItems(EMPTY_LIST_ITEM);
+			return;
+		}
+
 		const requestQuery = query;
 		const isStaleRequest = () => latestQueryRef.current !== requestQuery;
 		const options = {
@@ -43,12 +48,10 @@ export const useLoadItems = (
 
 		const { current: view } = editorViewRef;
 
-		if (editorExperiment('platform_editor_offline_editing_web', true)) {
-			// Clear any existing error state before making a new request
-			queueMicrotask(() => {
-				api?.core.actions.execute(clearListError());
-			});
-		}
+		// Clear any existing error state before making a new request
+		queueMicrotask(() => {
+			api?.core.actions.execute(clearListError());
+		});
 
 		/**
 		 * Shared render pipeline used by both the single-shot `getItems`
@@ -62,7 +65,7 @@ export const useLoadItems = (
 		 */
 		const renderResult = (result: Array<TypeAheadItem>) => {
 			const emptyItem =
-				result.length === 0 && expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+				result.length === 0 && isExperimentEnabled('platform_editor_insert_menu_ai')
 					? triggerHandler.getEmptyItem?.({ editorState: editorView.state })
 					: undefined;
 
@@ -90,15 +93,13 @@ export const useLoadItems = (
 		// `.catch((e) => updateListError(e)(...))` path.
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const handleError = (e: any) => {
-			if (editorExperiment('platform_editor_offline_editing_web', true)) {
-				if (e) {
-					if (componentIsMounted.current) {
-						setItems(EMPTY_LIST_ITEM);
-					}
-					queueMicrotask(() => {
-						updateListError(e)(view.state, view.dispatch);
-					});
+			if (e) {
+				if (componentIsMounted.current) {
+					setItems(EMPTY_LIST_ITEM);
 				}
+				queueMicrotask(() => {
+					updateListError(e)(view.state, view.dispatch);
+				});
 			}
 		};
 
@@ -140,7 +141,7 @@ export const useLoadItems = (
 		// ignore because EditorView is mutable but we don't want to
 		// call loadItems when it changes, only when the query changes
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [triggerHandler, query, intl]);
+	}, [triggerHandler, query, intl, enabled]);
 
 	useEffect(() => {
 		return () => {

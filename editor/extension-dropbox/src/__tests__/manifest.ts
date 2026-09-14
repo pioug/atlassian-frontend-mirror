@@ -1,12 +1,20 @@
 import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import getManifest from '../manifest';
 import type { DropboxFile } from '../types';
 import { POPUP_MOUNTPOINT } from '../constants';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
-jest.mock('react-dom');
+jest.mock('react-dom', () => ({
+	__esModule: true,
+	default: {
+		render: jest.fn(),
+		unmountComponentAtNode: jest.fn(),
+	},
+}));
 jest.mock('react-dom/client', () => ({
 	createRoot: jest.fn(),
 }));
@@ -45,6 +53,8 @@ describe('dropbox extension manifest', () => {
 		delete window.Dropbox;
 	});
 	it('should return an inline card to the quickInsert action on dropbox file chooser success', async () => {
+		mockExpEnabled('platform_editor_react19_migration');
+
 		window.Dropbox = {
 			choose: ({ success }) => {
 				success([fakeDropboxFile]);
@@ -61,6 +71,8 @@ describe('dropbox extension manifest', () => {
 		});
 	}, 2000);
 	it('should not insert an inline card if choose fails, or is exited', async () => {
+		mockExpEnabled('platform_editor_react19_migration');
+
 		window.Dropbox = {
 			choose: ({ cancel }) => {
 				cancel();
@@ -69,6 +81,8 @@ describe('dropbox extension manifest', () => {
 		await expect(callAction('FAKE_KEY')).rejects.toBeUndefined();
 	});
 	it('should add the mount point if canMountInIframe check returns true', async () => {
+		mockExpEnabled('platform_editor_react19_migration');
+
 		window.Dropbox = {
 			choose: ({ success }) => {
 				success([fakeDropboxFile]);
@@ -90,71 +104,71 @@ describe('dropbox extension manifest', () => {
 		});
 	});
 
-	eeTest.describe('platform_editor_react19_migration', 'isEnabled').variant(false, () => {
-		it('should load modal if canMountInIframe check returns true (legacy)', async () => {
-			const mockRender = asMock(ReactDOM.render);
-			const mockUnmount = asMock(ReactDOM.unmountComponentAtNode);
+	it('should load modal if canMountInIframe check returns true (legacy)', async () => {
+		mockExpDisabled('platform_editor_react19_migration');
 
-			window.Dropbox = {
-				choose: ({ success }) => {
-					success([fakeDropboxFile]);
-				},
-			};
+		const mockRender = asMock(ReactDOM.render);
+		const mockUnmount = asMock(ReactDOM.unmountComponentAtNode);
 
-			const inlineCard = await callAction('FAKE_KEY', true);
+		window.Dropbox = {
+			choose: ({ success }) => {
+				success([fakeDropboxFile]);
+			},
+		};
 
-			expect(mockRender.mock.calls.length).toEqual(1);
-			expect(mockUnmount.mock.calls.length).toEqual(1);
+		const inlineCard = await callAction('FAKE_KEY', true);
 
-			const [component, mountPoint] = mockRender.mock.calls[0];
-			const [unMountPoint] = mockUnmount.mock.calls[0];
+		expect(mockRender.mock.calls.length).toEqual(1);
+		expect(mockUnmount.mock.calls.length).toEqual(1);
 
-			const id = mountPoint! && mountPoint!.id;
-			const unmountId = unMountPoint! && unMountPoint!.id;
-			const componentName = component && component.type && component.type.name;
+		const [component, mountPoint] = mockRender.mock.calls[0];
+		const [unMountPoint] = mockUnmount.mock.calls[0];
 
-			expect(componentName).toEqual('Modal');
-			expect(id).toEqual(POPUP_MOUNTPOINT);
-			expect(unmountId).toEqual(POPUP_MOUNTPOINT);
+		const id = mountPoint! && mountPoint!.id;
+		const unmountId = unMountPoint! && unMountPoint!.id;
+		const componentName = component && component.type && component.type.name;
 
-			expect(inlineCard).toEqual({
-				type: 'inlineCard',
-				attrs: {
-					url: 'https://atlaskit.atlassian.com/',
-				},
-			});
+		expect(componentName).toEqual('Modal');
+		expect(id).toEqual(POPUP_MOUNTPOINT);
+		expect(unmountId).toEqual(POPUP_MOUNTPOINT);
+
+		expect(inlineCard).toEqual({
+			type: 'inlineCard',
+			attrs: {
+				url: 'https://atlaskit.atlassian.com/',
+			},
 		});
 	});
 
-	eeTest.describe('platform_editor_react19_migration', 'isEnabled').variant(true, () => {
-		it('should load modal if canMountInIframe check returns true (createRoot)', async () => {
-			window.Dropbox = {
-				choose: ({ success }) => {
-					success([fakeDropboxFile]);
-				},
-			};
+	it('should load modal if canMountInIframe check returns true (createRoot)', async () => {
+		mockExpEnabled('platform_editor_react19_migration');
 
-			const inlineCard = await callAction('FAKE_KEY', true);
+		window.Dropbox = {
+			choose: ({ success }) => {
+				success([fakeDropboxFile]);
+			},
+		};
 
-			expect(mockCreateRoot).toHaveBeenCalledTimes(1);
-			expect(mockRootRender).toHaveBeenCalledTimes(1);
-			expect(mockRootUnmount).toHaveBeenCalledTimes(1);
+		const inlineCard = await callAction('FAKE_KEY', true);
 
-			const [mountPoint] = mockCreateRoot.mock.calls[0];
-			const [component] = mockRootRender.mock.calls[0];
+		expect(mockCreateRoot).toHaveBeenCalledTimes(1);
+		expect(mockRootRender).toHaveBeenCalledTimes(1);
+		expect(mockRootUnmount).toHaveBeenCalledTimes(1);
 
-			const id = mountPoint! && mountPoint!.id;
-			const componentName = component && component.type && component.type.name;
+		const [mountPoint] = mockCreateRoot.mock.calls[0];
+		const [component] = mockRootRender.mock.calls[0];
 
-			expect(componentName).toEqual('Modal');
-			expect(id).toEqual(POPUP_MOUNTPOINT);
+		const id = mountPoint! && mountPoint!.id;
+		const componentName = component && component.type && component.type.name;
 
-			expect(inlineCard).toEqual({
-				type: 'inlineCard',
-				attrs: {
-					url: 'https://atlaskit.atlassian.com/',
-				},
-			});
+		expect(componentName).toEqual('Modal');
+		expect(id).toEqual(POPUP_MOUNTPOINT);
+
+		expect(inlineCard).toEqual({
+			type: 'inlineCard',
+			attrs: {
+				url: 'https://atlaskit.atlassian.com/',
+			},
 		});
 	});
 });

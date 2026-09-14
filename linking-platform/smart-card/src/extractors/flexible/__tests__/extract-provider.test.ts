@@ -1,4 +1,5 @@
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { IconType } from '../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../constants';
@@ -136,6 +137,46 @@ describe('extractProvider', () => {
 			expect(result).toEqual({
 				icon: IconType.Jira,
 				label: 'My Jira',
+			});
+		});
+	});
+
+	describe('entity provider', () => {
+		const response = {
+			meta: {
+				generator: {
+					name: 'Google Drive',
+					id: 'google-drive',
+					icon: { url: 'https://provider-icon.com/icon.png' },
+				},
+			},
+			data: { '@type': 'Object' },
+			entityData: {
+				displayName: 'Entity',
+				id: 'entity-id',
+				url: 'https://entity-url.com',
+				type: {
+					category: 'document',
+					iconUrl: 'https://entity-icon.com/icon.png',
+				},
+			},
+		} as unknown as SmartLinkResponse;
+
+		it('returns the generator icon when the gate is on', () => {
+			passGate('platform_lp_use_generator_icon_for_provider');
+
+			expect(extractProvider(response)).toEqual({
+				label: 'Google Drive',
+				url: 'https://provider-icon.com/icon.png',
+			});
+		});
+
+		it('returns the entity icon when the gate is off', () => {
+			failGate('platform_lp_use_generator_icon_for_provider');
+
+			expect(extractProvider(response)).toEqual({
+				label: 'Google Drive',
+				url: 'https://entity-icon.com/icon.png',
 			});
 		});
 	});

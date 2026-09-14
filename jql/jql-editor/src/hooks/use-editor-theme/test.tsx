@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { useEditorTheme } from './index';
+import { useEditorTheme } from './useEditorTheme';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 describe('useEditorTheme', () => {
 	beforeEach(() => {

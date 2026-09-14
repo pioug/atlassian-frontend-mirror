@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Textfield should pass aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-variations.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-variations.vr.ap.tsx')>(
 		'design-system',
 		'textfield',
 		'variations',

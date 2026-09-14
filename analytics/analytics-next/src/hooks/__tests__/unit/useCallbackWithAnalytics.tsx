@@ -82,9 +82,13 @@ describe('useCallbackWithAnalytics', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(onClick).toBeCalled(); // called with synthetic mouse event
+		expect(onClick).toHaveBeenCalled(); // called with synthetic mouse event
 
-		expect(onEvent).toBeCalledWith([{ ticket: 'AFP-123' }], { action: 'clicked' }, 'atlaskit');
+		expect(onEvent).toHaveBeenCalledWith(
+			[{ ticket: 'AFP-123' }],
+			{ action: 'clicked' },
+			'atlaskit',
+		);
 	});
 
 	it('should provide a callback that creates an event and fires on the channel - when using function payload', () => {
@@ -110,8 +114,12 @@ describe('useCallbackWithAnalytics', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(onClick).toBeCalled(); // called with synthetic mouse event
+		expect(onClick).toHaveBeenCalled(); // called with synthetic mouse event
 
-		expect(onEvent).toBeCalledWith([{ ticket: 'AFP-123' }], { action: 'clicked' }, 'atlaskit');
+		expect(onEvent).toHaveBeenCalledWith(
+			[{ ticket: 'AFP-123' }],
+			{ action: 'clicked' },
+			'atlaskit',
+		);
 	});
 });

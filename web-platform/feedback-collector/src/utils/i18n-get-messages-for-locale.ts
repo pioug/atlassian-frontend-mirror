@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 type Messages = Record<string, string>;
 type MessagesModule = { default: Messages | { default: Messages } };
 type MessagesLoader = () => Promise<MessagesModule>;
@@ -152,33 +150,6 @@ const getMessages = async (locale: string): Promise<Messages | undefined> => {
 };
 
 /**
- * Legacy loader preserved for the `fun-2388_fix_feedback_collector_i18n` gate-off
- * path. It uses a free-form dynamic import which, in some builds (e.g. Jira),
- * generates non-existent async chunk URLs and silently fails to localize.
- */
-const getMessagesForLocaleLegacy = async (locale: string): Promise<Messages | undefined> => {
-	locale = locale.replace('-', '_');
-	try {
-		const messages = await import(
-			/* webpackChunkName: "@atlaskit-internal_feedback-collector/i18n-tranlations" */ `../i18n/${locale}`
-		);
-		return messages.default;
-	} catch (e) {
-		// ignore
-	}
-	try {
-		const parentLocale = locale.split(/[-_]/)[0];
-
-		const messages = await import(
-			/* webpackChunkName: "@atlaskit-internal_feedback-collector/i18n-tranlations" */ `../i18n/${parentLocale}`
-		);
-		return messages.default;
-	} catch (e) {
-		// ignore
-	}
-};
-
-/**
  * Tries to get the most specific messages bundle for a given locale.
  *
  * Strategy:
@@ -189,10 +160,6 @@ const getMessagesForLocaleLegacy = async (locale: string): Promise<Messages | un
  * @param locale string specifying the locale like 'en_GB', or 'fr'.
  */
 export const getMessagesForLocale = async (locale: string): Promise<Messages | undefined> => {
-	if (!fg('fun-2388_fix_feedback_collector_i18n')) {
-		return getMessagesForLocaleLegacy(locale);
-	}
-
 	const localeKey = locale.replace('-', '_');
 	const messages = await getMessages(localeKey);
 

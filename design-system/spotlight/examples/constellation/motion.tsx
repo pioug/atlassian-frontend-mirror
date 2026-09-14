@@ -4,9 +4,9 @@
  */
 import { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
-import { FadeIn } from '@atlaskit/motion';
+import FadeIn from '@atlaskit/motion/fade-in';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
 import { SpotlightBody } from '@atlaskit/spotlight/body';

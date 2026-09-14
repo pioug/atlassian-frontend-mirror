@@ -10,7 +10,7 @@ import {
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { BrowserConfig, ClipboardConfig, DropzoneConfig } from '@atlaskit/media-picker/types';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';

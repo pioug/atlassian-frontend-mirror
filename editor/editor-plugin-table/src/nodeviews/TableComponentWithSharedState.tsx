@@ -76,13 +76,14 @@ export const TableComponentWithSharedState = ({
 		mode,
 		selection,
 		width,
+		limitedModeEnabled,
 	} = useSharedPluginStateWithSelector(
 		api,
-		['table', 'width', 'media', 'selection', 'editorViewMode', 'interaction'],
+		['table', 'width', 'media', 'selection', 'editorViewMode', 'interaction', 'limitedMode'],
 		(
 			states: NamedPluginStatesFromInjectionAPI<
 				ExtractInjectionAPI<typeof tablePlugin>,
-				'width' | 'media' | 'selection' | 'editorViewMode' | 'interaction'
+				'width' | 'media' | 'selection' | 'editorViewMode' | 'interaction' | 'limitedMode'
 			> & {
 				tableState: TableSharedStateInternal | undefined;
 			},
@@ -111,6 +112,9 @@ export const TableComponentWithSharedState = ({
 			lineLength: states.widthState?.lineLength,
 			// interactionState
 			interaction: states.interactionState?.interactionState,
+			// limitedModeState — selected (rather than read once) so sticky headers stop when limited
+			// mode latches mid-session, not only when it was already on as the table mounted.
+			limitedModeEnabled: states.limitedModeState?.enabled,
 		}),
 	);
 
@@ -174,6 +178,7 @@ export const TableComponentWithSharedState = ({
 			isTableHovered={isTableHovered}
 			isWholeTableInDanger={isWholeTableInDanger}
 			selection={selection}
+			limitedMode={limitedModeEnabled}
 		/>
 	);
 };

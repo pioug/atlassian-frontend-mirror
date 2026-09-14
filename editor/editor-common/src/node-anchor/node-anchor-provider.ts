@@ -1,13 +1,32 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isEmptyDocument } from '../utils';
 
 import { DynamicBitArray } from './dynamic-bit-array';
-import {
-	LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD,
-	LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD,
-} from './limited-mode-document-thresholds';
+import { shouldEnableLimitedModeForDocument } from './should-enable-limited-mode';
+
+// The slice of `@atlaskit/editor-plugin-limited-mode`'s state read below. Declared
+// structurally because `editor-common` must not depend on a plugin package.
+type LimitedModePluginState = {
+	documentSizeBreachesThreshold: boolean;
+};
+
+// The real key stays in `@atlaskit/editor-plugin-limited-mode`; importing it would make
+// `editor-common` depend on a plugin package, so match the state property by name.
+// `'limitedModePlugin$'` is what ProseMirror derives for `new PluginKey('limitedModePlugin')`,
+// and editor-plugin-limited-mode-tests asserts that literal to catch it shifting to `$1`.
+// Please, do not copy or use this kind of code below
+// @ts-ignore
+const limitedModePluginKey = {
+	key: 'limitedModePlugin$',
+	getState: (state: EditorState) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return (state as any)['limitedModePlugin$'];
+	},
+} as PluginKey<LimitedModePluginState>;
 
 export class NodeAnchorProvider {
 	private cache = new WeakMap<object, string>();
@@ -76,6 +95,9 @@ export class NodeAnchorProvider {
 	// After set to limited mode, we clear the cache to free up memory
 	// and prevent further ids from being generated
 	// Once in limited mode, we won't exit it
+	//
+	// One-way by design, so this can stay latched on after the plugin flips back to
+	// off: recovering would mean re-rendering every nodeview to restore its anchor.
 	public setLimitedMode(): void {
 		this.limitedMode = true;
 		this.cache = new WeakMap<object, string>();
@@ -87,64 +109,23 @@ export class NodeAnchorProvider {
 const nodeIdProviderMap = new WeakMap<EditorView, NodeAnchorProvider>();
 
 /**
- * Determines whether limited mode should be enabled.
- * This logic mirrors the limited mode plugin implementation, but lives here to avoid a circular dependency.
- * If it changes, update the matching logic in `editor-plugin-limited-mode/src/pm-plugins/main.ts`.
+ * Reads the limited-mode plugin's state and nothing else, so a preset without the plugin no longer
+ * gets anchor suppression (and with it, no drag handles). No plugin means limited mode is off.
  *
- * Limited mode is activated when ANY of the following conditions are met:
- * 1. Document size exceeds `LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD` — checked first as O(1)
- * 2. Node count exceeds `LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD`
- * 3. Document contains a legacy-content macro (LCM)
- *
- * Performance optimisations:
- * - Doc size is checked first (O(1)) - if it exceeds threshold, we skip traversal entirely.
- * - If we find an LCM during traversal, we exit early since limited mode will be enabled.
+ * Read off the state rather than the plugin injection API because plugin `state.init` is the only
+ * thing that has run by the time the `EditorView` constructor builds its first nodeview and calls
+ * `getNodeIdProvider`. Plugin views and `usePluginHook` both run later.
  */
-const isLimitedModeEnabled = (editorView: EditorView): boolean => {
-	const doc = editorView.state.doc;
-	const nodeCountThreshold = LIMITED_MODE_DEFAULT_NODE_COUNT_THRESHOLD;
-	const docSizeThreshold = LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD;
-
-	// Early exit: doc size exceeds threshold - O(1), no traversal needed
-	if (doc.nodeSize > docSizeThreshold) {
-		return true;
-	}
-
-	// Single traversal for node count and LCM detection
-	let nodeCount = 0;
-	let hasLcm = false;
-
-	doc.descendants((node: PMNode) => {
-		nodeCount += 1;
-
-		if (node.attrs?.extensionKey === 'legacy-content') {
-			hasLcm = true;
-
-			// Early exit: LCM found — limited mode will be enabled
-			return false;
-		}
-	});
-
-	// LCM condition takes precedence (if we early exited traversal, this is why)
-	if (hasLcm) {
-		return true;
-	}
-
-	// Check node count threshold
-	if (nodeCount > nodeCountThreshold) {
-		return true;
-	}
-
-	return false;
-};
+const isLimitedModeEnabled = (editorView: EditorView): boolean =>
+	fg('platform_editor_fix_limited_mode_leaking')
+		? (limitedModePluginKey.getState(editorView.state)?.documentSizeBreachesThreshold ?? false)
+		: shouldEnableLimitedModeForDocument(editorView.state.doc);
 
 // Get the NodeIdProvider for a specific EditorView instance.
 // This allows access to the node ids anywhere.
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getNodeIdProvider: (editorView: EditorView) => NodeAnchorProvider = (editorView) => {
 	if (!nodeIdProviderMap.has(editorView)) {
-		// if the limited mode flag is on, enable limited mode based on the threshold
-		// only for the first time
 		const limitedMode = isLimitedModeEnabled(editorView);
 		const isEmptyDoc = isEmptyDocument(editorView.state.doc);
 

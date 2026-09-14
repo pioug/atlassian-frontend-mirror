@@ -92,7 +92,7 @@ describe('useFocusWrap', () => {
 
 	it('attaches the Tab listener during exiting phase (regression guard)', () => {
 		// WCAG 2.4.3 regression: during animated exit, `isOpen` flips to
-		// `false` while the dialog is still on screen. Tab must still be
+		// `false` while the dialog host is still mounted. Tab must still be
 		// trapped. `phase === 'exiting'` represents this window.
 		render(
 			<FocusWrapHarness phase="exiting">

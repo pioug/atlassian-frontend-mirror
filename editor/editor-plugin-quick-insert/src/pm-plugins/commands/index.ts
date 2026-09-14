@@ -4,11 +4,40 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import type { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
 
+import type { OpenElementBrowserOptions } from '../../quickInsertPluginType';
 import { pluginKey } from '../plugin-key';
 
+export const openElementBrowser =
+	({ category }: OpenElementBrowserOptions = {}): EditorCommand =>
+	({ tr }) =>
+		tr.setMeta(pluginKey, {
+			elementBrowserInitialCategory: category,
+			isElementBrowserOpen: true,
+		});
+
+export const closeElementBrowser = (): Command => (state, dispatch) => {
+	if (dispatch) {
+		dispatch(
+			state.tr.setMeta(pluginKey, {
+				elementBrowserInitialCategory: undefined,
+				isElementBrowserOpen: false,
+			}),
+		);
+	}
+	return true;
+};
+
+/**
+ * @private
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-62138 Internal documentation for deprecation (no external access)} Tracked by EDITOR-8422. Use `openElementBrowser` instead.
+ */
 export const openElementBrowserModal: EditorCommand = ({ tr }) =>
 	tr.setMeta(pluginKey, { isElementBrowserModalOpen: true });
 
+/**
+ * @private
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-62138 Internal documentation for deprecation (no external access)} Tracked by EDITOR-8422. Use `closeElementBrowser` instead.
+ */
 export const closeElementBrowserModal = (): Command => (state, dispatch) => {
 	if (dispatch) {
 		dispatch(state.tr.setMeta(pluginKey, { isElementBrowserModalOpen: false }));

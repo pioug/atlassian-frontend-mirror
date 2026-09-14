@@ -16,7 +16,8 @@ import {
 import { mockReactDomWarningGlobal, renderWithIntl } from '../../_testing-library';
 import { emojisVisible, findEmojiPreview, setupPicker } from '../picker/_emoji-picker-test-helpers';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 

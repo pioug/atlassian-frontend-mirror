@@ -9,8 +9,9 @@ import React, {
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
-import Portal from '@atlaskit/portal';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
+import Portal from '@atlaskit/portal/portal';
 
 import Blanket from '../styled/blanket';
 

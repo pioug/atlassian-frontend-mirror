@@ -6,8 +6,8 @@ import { type FC, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import Popup from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/popup';
 
 const popupStyles = css({
 	width: 175,

@@ -14,7 +14,7 @@ import { expect, test } from '@af/integration-testing';
 test.describe('Safari top-layer flex collapse', () => {
 	test('popover scroll body does not collapse', async ({ page }) => {
 		await page.visitExample<
-			typeof import('../../examples/154-testing-safari-flex-collapse-max-height.tsx')
+			typeof import('../../examples/154-testing-safari-flex-collapse-max-height.vr.ap.tsx')
 		>('design-system', 'top-layer', 'testing-safari-flex-collapse-max-height');
 
 		await page.getByTestId('popover-trigger').click();

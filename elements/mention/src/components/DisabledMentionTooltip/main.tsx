@@ -1,4 +1,4 @@
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import React from 'react';
 
 type Props = {

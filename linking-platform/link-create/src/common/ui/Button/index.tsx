@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
 
-import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
-import AkButton from '@atlaskit/button/new';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import AkButton from '@atlaskit/button/default/button';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import createEventPayload, {

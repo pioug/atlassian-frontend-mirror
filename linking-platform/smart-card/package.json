@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.16.1",
+	"version": "45.22.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		}
 	},
 	"scripts": {
-		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card --output ./src/common/analytics/generated",
+		"analytics:codegen": "afm workspace @atlassian/analytics-tooling analytics:codegen smart-card --output ./src/common/analytics/generated",
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
@@ -73,6 +73,7 @@
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/object": "workspace:^",
 		"@atlaskit/outbound-auth-flow-client": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
@@ -83,6 +84,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
+		"@atlaskit/tabs": "workspace:^",
 		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
@@ -117,11 +119,19 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/css-reset": "workspace:^",
+		"@atlaskit/datetime-picker": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
+		"@atlaskit/page": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration": "workspace:^",
+		"@atlaskit/radio": "workspace:^",
+		"@atlaskit/range": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/analytics-tooling": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
@@ -132,6 +142,7 @@
 		"@types/lorem-ipsum": "root:*",
 		"@types/react": "root:*",
 		"@types/react-loadable": "root:*",
+		"@types/react-test-renderer": "root:*",
 		"@types/use-sync-external-store": "root:*",
 		"abortcontroller-polyfill": "root:*",
 		"brace": "root:*",
@@ -143,41 +154,23 @@
 		"lorem-ipsum": "root:*",
 		"react": "root:*",
 		"react-ace": "root:*",
-		"react-beautiful-dnd": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"react-test-renderer": "root:*",
 		"ts-jest": "root:*",
 		"xhr-mock": "root:*"
 	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"compiled"
-			]
-		},
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		}
-	},
 	"exports": {
-		"./analytics": "./src/entry-points/analytics.ts",
-		"./analytics/types": "./src/entry-points/analytics-types.ts",
-		"./card/lazy": "./src/entry-points/card-lazy.ts",
-		"./card/types": "./src/entry-points/card-types.ts",
-		"./class-names": "./src/entry-points/class-names.ts",
-		"./embed-resize-message-listener": "./src/entry-points/embed-resize-message-listener.ts",
-		"./enums": "./src/entry-points/enums.ts",
-		"./expanded-frame": "./src/entry-points/expanded-frame.ts",
+		".": "./src/index.ts",
+		"./analytics/types": "./src/utils/types.ts",
+		"./analytics": "./src/utils/analytics/analytics.ts",
+		"./card/lazy": "./src/view/Card/index.tsx",
+		"./card/types": "./src/view/Card/types.ts",
+		"./class-names": "./src/classNames.ts",
+		"./embed-resize-message-listener": "./src/view/EmbedCard/EmbedResizeMessageListener.tsx",
+		"./embedded-confluence-page": "./src/entry-points/embedded-confluence-page.ts",
+		"./enums": "./src/constants.ts",
+		"./expanded-frame": "./src/view/EmbedCard/components/ExpandedFrame.tsx",
 		"./flexible/assigned-to-element": "./src/entry-points/flexible-assigned-to-element.tsx",
 		"./flexible/assigned-to-group-element": "./src/entry-points/flexible-assigned-to-group-element.tsx",
 		"./flexible/attachment-count-element": "./src/entry-points/flexible-attachment-count-element.tsx",
@@ -189,24 +182,24 @@
 		"./flexible/created-by-element": "./src/entry-points/flexible-created-by-element.tsx",
 		"./flexible/created-on-element": "./src/entry-points/flexible-created-on-element.tsx",
 		"./flexible/custom-action": "./src/entry-points/flexible-custom-action.tsx",
-		"./flexible/custom-block": "./src/entry-points/flexible-custom-block.ts",
-		"./flexible/custom-by-access-type-element": "./src/entry-points/flexible-custom-by-access-type-element.ts",
-		"./flexible/custom-by-status-element": "./src/entry-points/flexible-custom-by-status-element.ts",
-		"./flexible/custom-unresolved-action": "./src/entry-points/flexible-custom-unresolved-action.ts",
+		"./flexible/custom-block": "./src/view/FlexibleCard/components/blocks/block/index.tsx",
+		"./flexible/custom-by-access-type-element": "./src/view/FlexibleCard/components/elements/custom-by-access-type-element/index.tsx",
+		"./flexible/custom-by-status-element": "./src/view/FlexibleCard/components/elements/custom-by-status-element/index.tsx",
+		"./flexible/custom-unresolved-action": "./src/view/FlexibleCard/components/actions/custom-unresolved-action/index.tsx",
 		"./flexible/download-action": "./src/entry-points/flexible-download-action.tsx",
 		"./flexible/due-on-element": "./src/entry-points/flexible-due-on-element.tsx",
 		"./flexible/follow-action": "./src/entry-points/flexible-follow-action.tsx",
-		"./flexible/footer-block": "./src/entry-points/flexible-footer-block.ts",
+		"./flexible/footer-block": "./src/view/FlexibleCard/components/blocks/footer-block/index.tsx",
 		"./flexible/latest-commit-element": "./src/entry-points/flexible-latest-commit-element.tsx",
 		"./flexible/link-icon-element": "./src/entry-points/flexible-link-icon-element.tsx",
 		"./flexible/location-element": "./src/entry-points/flexible-location-element.tsx",
-		"./flexible/metadata-block": "./src/entry-points/flexible-metadata-block.ts",
+		"./flexible/metadata-block": "./src/view/FlexibleCard/components/blocks/metadata-block/index.tsx",
 		"./flexible/modified-by-element": "./src/entry-points/flexible-modified-by-element.tsx",
 		"./flexible/modified-on-element": "./src/entry-points/flexible-modified-on-element.tsx",
 		"./flexible/owned-by-element": "./src/entry-points/flexible-owned-by-element.tsx",
 		"./flexible/owned-by-group-element": "./src/entry-points/flexible-owned-by-group-element.tsx",
 		"./flexible/preview-action": "./src/entry-points/flexible-preview-action.tsx",
-		"./flexible/preview-block": "./src/entry-points/flexible-preview-block.ts",
+		"./flexible/preview-block": "./src/view/FlexibleCard/components/blocks/preview-block/index.tsx",
 		"./flexible/preview-element": "./src/entry-points/flexible-preview-element.tsx",
 		"./flexible/priority-element": "./src/entry-points/flexible-priority-element.tsx",
 		"./flexible/programming-language-element": "./src/entry-points/flexible-programming-language-element.tsx",
@@ -214,7 +207,7 @@
 		"./flexible/react-count-element": "./src/entry-points/flexible-react-count-element.tsx",
 		"./flexible/read-time-element": "./src/entry-points/flexible-read-time-element.tsx",
 		"./flexible/sent-on-element": "./src/entry-points/flexible-sent-on-element.tsx",
-		"./flexible/snippet-block": "./src/entry-points/flexible-snippet-block.ts",
+		"./flexible/snippet-block": "./src/view/FlexibleCard/components/blocks/snippet-block/index.tsx",
 		"./flexible/snippet-element": "./src/entry-points/flexible-snippet-element.tsx",
 		"./flexible/source-branch-element": "./src/entry-points/flexible-source-branch-element.tsx",
 		"./flexible/state-element": "./src/entry-points/flexible-state-element.tsx",
@@ -222,39 +215,49 @@
 		"./flexible/sub-tasks-progress-element": "./src/entry-points/flexible-sub-tasks-progress-element.tsx",
 		"./flexible/subscriber-count-element": "./src/entry-points/flexible-subscriber-count-element.tsx",
 		"./flexible/target-branch-element": "./src/entry-points/flexible-target-branch-element.tsx",
-		"./flexible/title-block": "./src/entry-points/flexible-title-block.ts",
+		"./flexible/title-block": "./src/view/FlexibleCard/components/blocks/title-block/index.tsx",
 		"./flexible/title-element": "./src/entry-points/flexible-title-element.tsx",
-		"./flexible/types": "./src/entry-points/flexible-types.ts",
+		"./flexible/types": "./src/view/FlexibleCard/components/blocks/types.ts",
 		"./flexible/unresolved-action": "./src/entry-points/flexible-unresolved-action.tsx",
 		"./flexible/view-count-element": "./src/entry-points/flexible-view-count-element.tsx",
 		"./flexible/vote-count-element": "./src/entry-points/flexible-vote-count-element.tsx",
-		"./hook/use-smart-link-actions": "./src/entry-points/hook-use-smart-link-actions.ts",
-		"./hook/use-smart-link-destination-url": "./src/entry-points/hook-use-smart-link-destination-url.ts",
-		"./hook/use-smart-link-events": "./src/entry-points/hook-use-smart-link-events.ts",
-		"./hook/use-smart-link-reload": "./src/entry-points/hook-use-smart-link-reload.ts",
-		"./hover": "./src/entry-points/hover.ts",
-		"./hover/types": "./src/entry-points/hover-types.ts",
-		"./link": "./src/entry-points/link.ts",
-		"./link/types": "./src/entry-points/link-types.ts",
-		"./ssr": "./src/entry-points/ssr.ts",
-		"./test-utils/iframe": "./src/entry-points/test-utils-iframe.ts",
-		"./types": "./src/types.ts",
+		"./helpers": "./src/state/helpers.ts",
+		"./hook/use-smart-link-actions": "./src/state/hooks-external/useSmartLinkActions.ts",
+		"./hook/use-smart-link-destination-url": "./src/state/hooks/use-destination-url/index.ts",
+		"./hook/use-smart-link-events": "./src/view/SmartLinkEvents/useSmartLinkEvents.tsx",
+		"./hook/use-smart-link-reload": "./src/state/hooks-external/useSmartLinkReload.ts",
 		"./hooks": "./src/hooks.ts",
+		"./hover/types": "./src/view/HoverCard/types.ts",
+		"./hover": "./src/view/HoverCard/index.tsx",
 		"./hover-card": "./src/hoverCard.ts",
-		"./link-url": "./src/linkUrl.ts",
-		"./link-provider": "./src/linkProvider.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		".": "./src/index.ts",
-		"./helpers": "./src/entry-points/helpers.ts"
+		"./link-provider": "./src/linkProvider.ts",
+		"./link/types": "./src/view/LinkUrl/types.ts",
+		"./link": "./src/view/LinkUrl/index.tsx",
+		"./link-url": "./src/linkUrl.ts",
+		"./ssr": "./src/ssr.tsx",
+		"./test-utils/iframe": "./src/view/EmbedCard/components/IFrame.tsx",
+		"./types": "./src/types.ts",
+		"./access-type": "./src/view/FlexibleCard/components/elements/custom-by-access-type-element/AccessType.tsx",
+		"./block": "./src/view/FlexibleCard/components/blocks/block/Block.tsx",
+		"./custom-by-status-element": "./src/view/FlexibleCard/components/elements/custom-by-status-element/CustomByStatusElement.tsx",
+		"./custom-element-by-access-type": "./src/view/FlexibleCard/components/elements/custom-by-access-type-element/CustomElementByAccessType.tsx",
+		"./custom-unresolved-action": "./src/view/FlexibleCard/components/actions/custom-unresolved-action/CustomUnresolvedAction.tsx",
+		"./fire-smart-link-event": "./src/utils/analytics/fireSmartLinkEvent.ts",
+		"./footer-block": "./src/view/FlexibleCard/components/blocks/footer-block/FooterBlock.tsx",
+		"./icon": "./src/view/common/Icon.tsx",
+		"./metadata-block": "./src/view/FlexibleCard/components/blocks/metadata-block/MetadataBlock.tsx",
+		"./preview-block": "./src/view/FlexibleCard/components/blocks/preview-block/PreviewBlock.tsx",
+		"./smart-link-events": "./src/utils/analytics/SmartLinkEvents.ts",
+		"./snippet-block": "./src/view/FlexibleCard/components/blocks/snippet-block/SnippetBlock.tsx",
+		"./title-block": "./src/view/FlexibleCard/components/blocks/title-block/TitleBlock.tsx",
+		"./use-fire3-p-workflows-click-event": "./src/view/SmartLinkEvents/useFire3PWorkflowsClickEvent.tsx"
 	},
 	"platform-feature-flags": {
 		"platform_navx_3298_message_wrapper": {
-			"type": "boolean"
-		},
-		"platform_lp_use_entity_icon_url_for_icon": {
 			"type": "boolean"
 		},
 		"platform_bandicoots-smartlink-unresolved-error-key": {
@@ -273,13 +276,6 @@
 			"type": "boolean"
 		},
 		"platform_smartlink_3pclick_analytics": {
-			"type": "boolean"
-		},
-		"platform_sl_google_rebrand": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_smartlink_xpc_url_wrapping": {
 			"type": "boolean"
 		},
 		"rovogrowth-635-pre-auth-cta-preview-fg": {
@@ -310,10 +306,13 @@
 		"platform_sl_3p_preauth_soc_proof_inline_killswitch": {
 			"type": "boolean"
 		},
-		"platform_lp_social_proof_inline_overflow_bug": {
+		"platform_navx_smart_link_icon_label_a11y": {
 			"type": "boolean"
 		},
-		"platform_navx_smart_link_icon_label_a11y": {
+		"platform_navx_jira_issue_type_icon_label_a11y": {
+			"type": "boolean"
+		},
+		"platform_lp_use_generator_icon_for_provider": {
 			"type": "boolean"
 		},
 		"billplat_a11y_icon_label_fix": {
@@ -342,25 +341,13 @@
 		"platform_sl_incoming_outgoing_tenant_info_killswitch": {
 			"type": "boolean"
 		},
-		"platform_navx_block_card_footer_spacing": {
-			"type": "boolean"
-		},
 		"platform_sl_3p_post_auth_chat_open_fg": {
-			"type": "boolean"
-		},
-		"platform_sl_3p_auth_inline_tailored_cta_killswitch": {
 			"type": "boolean"
 		},
 		"platform_smartlink_inline_resolve_optimization": {
 			"type": "boolean"
 		},
 		"dfo_issue_view_remote_data_srr_group": {
-			"type": "boolean"
-		},
-		"navx-4719-a11y-embed-modal-focus-states": {
-			"type": "boolean"
-		},
-		"navx-5343-sl-action-block-styling-fixes": {
 			"type": "boolean"
 		},
 		"preview_panel_unit_check": {

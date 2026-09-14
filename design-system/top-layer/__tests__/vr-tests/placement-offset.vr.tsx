@@ -36,7 +36,7 @@ import {
 	VrJsFallbackBlockEndShiftToken,
 	VrJsFallbackInlineEndGap,
 	VrJsFallbackInlineEndShift,
-} from '../../examples/85-vr-popover-placement-offset';
+} from '../../examples/85-vr-popover-placement-offset.vr.ap';
 
 const opts = { drawsOutsideBounds: true } as const;
 
@@ -62,7 +62,8 @@ snapshot(VrBlockEndAlignEndShiftBackwards, {
 	description: 'block-end-align-end-shift-backwards',
 });
 
-// Align: 'end' + shift forwards (locks in the per-align margin-side fix)
+// Align: 'end' + shift forwards (locks in `forwards` meaning "toward the
+// cross-axis end" for every align value)
 snapshot(VrBlockEndAlignEndShiftForwards, {
 	...opts,
 	description: 'block-end-align-end-shift-forwards',
@@ -100,7 +101,8 @@ snapshot(VrJsFallbackBlockEndShiftBackwards, {
 	description: 'js-fallback-block-end-shift-backwards',
 });
 
-// JS fallback: align: 'end' + shift forwards (per-align sign flip)
+// JS fallback: align: 'end' + shift forwards (should match the CSS fixture
+// above; the fallback used to move this case the opposite direction)
 snapshot(VrJsFallbackBlockEndAlignEndShiftForwards, {
 	...opts,
 	description: 'js-fallback-block-end-align-end-shift-forwards',

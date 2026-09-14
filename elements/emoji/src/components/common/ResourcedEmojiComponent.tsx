@@ -3,24 +3,34 @@
  * @jsx jsx
  * @jsxFrag React.Fragment
  */
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { css, jsx } from '@compiled/react';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { EmojiProvider } from '../../api/EmojiResource';
 import type { EmojiLoadSuccessCallback, EmojiLoadFailCallback } from '../../api/EmojiUtils';
+import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
+import {
+	type EmojiId,
+	type EmojiProviderLookupOrder,
+	type OptionalEmojiDescription,
+	UfoEmojiTimings,
+} from '../../types';
+import { hasUfoMarked } from '../../util/analytics/hasUfoMarked';
+import { sampledUfoRenderedEmoji } from '../../util/analytics/sampledUfoRenderedEmoji';
 import { defaultEmojiHeight } from '../../util/constants';
-import { isImageRepresentation, isMediaRepresentation, isPromise } from '../../util/type-helpers';
-import { type EmojiId, type OptionalEmojiDescription, UfoEmojiTimings } from '../../types';
+import { emojiIdToEmoji } from '../../util/emojiIdToEmoji';
+import { isImageRepresentation } from '../../util/is-image-representation';
+import { isMediaRepresentation } from '../../util/is-media-representation';
+import { isPromise } from '../../util/is-promise';
 import Emoji from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
-import { sampledUfoRenderedEmoji } from '../../util/analytics';
-import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
-import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { emojiIdToEmoji } from '../../util/emojiIdToEmoji';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export interface BaseResourcedEmojiProps {
 	/**
@@ -41,6 +51,11 @@ export interface BaseResourcedEmojiProps {
 	 * Emoji to display
 	 */
 	emojiId: EmojiId;
+	/**
+	 * Preferred emoji provider type order when resolving shortName-only emoji.
+	 * The first matching type wins.
+	 */
+	emojiProviderLookupOrder?: EmojiProviderLookupOrder;
 	/**
 	 * Scales the emoji proportionally to provided hight.
 	 * Defaults to `undefined`.
@@ -119,6 +134,7 @@ enum ResourcedEmojiComponentRenderStatesEnum {
 export const ResourcedEmojiComponent = ({
 	emojiProvider,
 	emojiId,
+	emojiProviderLookupOrder,
 	showTooltip = false,
 	customFallback = undefined,
 	fitToHeight = defaultEmojiHeight,
@@ -172,6 +188,7 @@ export const ResourcedEmojiComponent = ({
 			const foundEmoji = _emojiProvider.fetchByEmojiId(
 				normalizedEmojiId,
 				shouldFetchOptimistically,
+				fg('platform_bitbucket_fix_shortname_and_ordering') ? emojiProviderLookupOrder : undefined,
 			);
 
 			sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_START);
@@ -219,7 +236,7 @@ export const ResourcedEmojiComponent = ({
 				sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
 			}
 		},
-		[onEmojiLoadFail],
+		[emojiProviderLookupOrder, onEmojiLoadFail],
 	);
 
 	useEffect(() => {
@@ -231,8 +248,27 @@ export const ResourcedEmojiComponent = ({
 		}
 	}, [emojiId]);
 
+	// Fetching from `useMemo` runs during render, so a render React later discards (for example a
+	// pass that suspends) still creates a promise whose callbacks set state and schedule yet another
+	// render. The layout effect only runs for committed renders, and being pre-paint it keeps the
+	// synchronous cache-hit path from flashing the placeholder.
 	useMemo(() => {
-		if (!resolvedEmojiProvider || !emojiId) {
+		if (
+			!resolvedEmojiProvider ||
+			!emojiId ||
+			isExperimentEnabled('platform_emoji_fetch_in_effect')
+		) {
+			return;
+		}
+		fetchOrGetEmoji(resolvedEmojiProvider, emojiId, optimistic);
+	}, [resolvedEmojiProvider, emojiId, optimistic, fetchOrGetEmoji]);
+
+	useLayoutEffect(() => {
+		if (
+			!resolvedEmojiProvider ||
+			!emojiId ||
+			!isExperimentEnabled('platform_emoji_fetch_in_effect')
+		) {
 			return;
 		}
 		fetchOrGetEmoji(resolvedEmojiProvider, emojiId, optimistic);

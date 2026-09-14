@@ -6,7 +6,6 @@ import React, {
 } from 'react';
 
 import { isSSR } from '../core-utils/is-ssr';
-import { isSSRStreaming } from '../core-utils/is-ssr-streaming';
 
 /**
  * A component that serves as a placeholder for the content DOM of a ProseMirror NodeView.
@@ -19,6 +18,6 @@ export const NodeViewContentHole: ForwardRefExoticComponent<
 		// eslint-disable-next-line react/jsx-props-no-spreading
 		{...props}
 		ref={ref}
-		data-ssr-content-dom-ref={isSSR() && isSSRStreaming() ? '' : undefined}
+		data-ssr-content-dom-ref={isSSR() ? '' : undefined}
 	/>
 ));

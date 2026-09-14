@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export const getLocalIdSelector = (localId: string, container: HTMLElement): HTMLElement | null => {
 	// Check if the element with data-local-id exists
 	let element = container.querySelector(`[data-local-id="${localId}"]`) as HTMLElement | null;
@@ -22,10 +20,8 @@ export const getLocalIdSelector = (localId: string, container: HTMLElement): HTM
 	// Special case for tables which use data-table-local-id
 	element = container.querySelector(`[data-table-local-id="${localId}"]`);
 	if (element) {
-		if (fg('platform_editor_block_menu_v2_patch_4')) {
-			return element.parentElement; // return table wrapper instead of table div, so the height calculation is correct
-		}
-		return element;
+		// return table wrapper instead of table div, so the height calculation is correct
+		return element.parentElement;
 	}
 
 	// Special case for extension, smart cards and media which use lowercase localid

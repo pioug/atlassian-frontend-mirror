@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@atlassian/testing-library';
 
-import { IconNew } from '../../../index';
+import IconNew from '../../icon-new';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/icon/base-new', () => {

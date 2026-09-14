@@ -1,4 +1,4 @@
-import { AGGQuery } from './graphqlUtils';
+import { AGGQuery } from './AGGQuery';
 
 type OrgIdFromCloudIdResult = {
 	tenantContexts: ({ orgId: string } | null)[];

@@ -1,308 +1,177 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import {
-	createAndFireEvent,
-	UIAnalyticsEvent,
-	type AnalyticsEventPayload,
-	type CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
-import {
-	type EmojiDescription,
-	type OptionalEmojiDescription,
-	SearchSourceTypes,
-} from '../../types';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+
+import { type SearchSourceTypes } from '../../types';
 
 export const createAndFireEventInElementsChannel: (
 	payload: AnalyticsEventPayload,
 ) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent =
 	createAndFireEvent('fabric-elements');
 
-const createEvent = (
-	eventType: 'ui' | 'operational',
-	action: string,
-	actionSubject: string,
-	actionSubjectId?: string,
-	attributes = {},
-): AnalyticsEventPayload => ({
-	eventType,
-	action,
-	actionSubject,
-	actionSubjectId,
-	attributes: {
-		packageName: process.env._PACKAGE_NAME_,
-		packageVersion: process.env._PACKAGE_VERSION_,
-		...attributes,
-	},
-});
-
 export type EmojiInsertionAnalytic = (
 	source: SearchSourceTypes.PICKER | SearchSourceTypes.TYPEAHEAD,
 ) => AnalyticsEventPayload;
 
-export const recordSucceededEmoji =
-	(emoji: OptionalEmojiDescription) =>
-	(source: SearchSourceTypes): AnalyticsEventPayload => {
-		return createEvent('operational', 'succeeded', 'recordEmojiSelection', undefined, {
-			source,
-			emojiId: emoji?.id,
-			emojiType: emoji?.type,
-			emojiCategory: emoji?.category,
-		});
-	};
-
-export const recordSucceeded: EmojiInsertionAnalytic = (source: SearchSourceTypes) => {
-	return createEvent('operational', 'succeeded', 'recordEmojiSelection', undefined, {
-		source,
-	});
-};
-
-export const recordFailedEmoji =
-	(emoji: OptionalEmojiDescription) =>
-	(source: SearchSourceTypes): AnalyticsEventPayload => {
-		return createEvent('operational', 'failed', 'recordEmojiSelection', undefined, {
-			source,
-			emojiId: emoji?.id,
-			emojiType: emoji?.type,
-			emojiCategory: emoji?.category,
-		});
-	};
-
-export const recordFailed: EmojiInsertionAnalytic = (source: SearchSourceTypes) => {
-	return createEvent('operational', 'failed', 'recordEmojiSelection', undefined, {
-		source,
-	});
-};
-interface Duration {
-	duration: number;
-}
-
-const emojiPickerEvent = (action: string, attributes = {}, actionSubjectId?: string) =>
-	createEvent('ui', action, 'emojiPicker', actionSubjectId, attributes);
-
-export const openedPickerEvent = (): AnalyticsEventPayload => emojiPickerEvent('opened');
-
-export const closedPickerEvent = (attributes: Duration): AnalyticsEventPayload =>
-	emojiPickerEvent('closed', attributes);
-
-interface EmojiAttributes {
-	baseEmojiId?: string; // mobile only
-	category: string;
-	emojiId: string;
-	skinToneModifier?: string;
-	type: string;
-}
-
-const skinTones = [
-	{ id: '-1f3fb', skinToneModifier: 'light' },
-	{ id: '-1f3fc', skinToneModifier: 'mediumLight' },
-	{ id: '-1f3fd', skinToneModifier: 'medium' },
-	{ id: '-1f3fe', skinToneModifier: 'mediumDark' },
-	{ id: '-1f3ff', skinToneModifier: 'dark' },
-];
-
-const getSkinTone = (emojiId?: string) => {
-	if (!emojiId) {
-		return {};
-	}
-	for (const { id, skinToneModifier } of skinTones) {
-		if (emojiId.indexOf(id) !== -1) {
-			return { skinToneModifier, baseEmojiId: emojiId.replace(id, '') };
-		}
-	}
-
-	return {};
-};
-
-export const pickerClickedEvent = (
-	attributes: { queryLength: number } & EmojiAttributes & Duration,
-): AnalyticsEventPayload =>
-	emojiPickerEvent(
-		'clicked',
-		{
-			...getSkinTone(attributes.emojiId),
-			...attributes,
-		},
-		'emoji',
-	);
-
-export const categoryClickedEvent = (attributes: { category: string }): AnalyticsEventPayload =>
-	emojiPickerEvent('clicked', attributes, 'category');
-
-export const pickerSearchedEvent = (attributes: {
-	numMatches: number;
-	queryLength: number;
-}): AnalyticsEventPayload => emojiPickerEvent('searched', attributes, 'query');
-
-const skintoneSelectorEvent = (action: string, attributes = {}) =>
-	createEvent('ui', action, 'emojiSkintoneSelector', undefined, attributes);
-
-export const toneSelectedEvent = (attributes: {
-	skinToneModifier: string;
-}): AnalyticsEventPayload => skintoneSelectorEvent('clicked', attributes);
-
-export const toneSelectorOpenedEvent = (attributes: {
-	skinToneModifier?: string;
-}): AnalyticsEventPayload => skintoneSelectorEvent('opened', attributes);
-
-export const toneSelectorClosedEvent = (): AnalyticsEventPayload =>
-	skintoneSelectorEvent('cancelled');
-
-const emojiUploaderEvent = (action: string, actionSubjectId?: string, attributes?: any) =>
-	createEvent('ui', action, 'emojiUploader', actionSubjectId, attributes);
-
-export const uploadBeginButton = (): AnalyticsEventPayload =>
-	emojiUploaderEvent('clicked', 'addButton');
-
-export const uploadConfirmButton = (attributes: { retry: boolean }): AnalyticsEventPayload =>
-	emojiUploaderEvent('clicked', 'confirmButton', attributes);
-
-export const uploadCancelButton = (): AnalyticsEventPayload =>
-	emojiUploaderEvent('clicked', 'cancelButton');
-
-export const uploadSucceededEvent = (attributes: Duration): AnalyticsEventPayload =>
-	createEvent('operational', 'finished', 'emojiUploader', undefined, attributes);
-
-export const uploadFailedEvent = (
-	attributes: { reason: string } & Duration,
-): AnalyticsEventPayload =>
-	createEvent('operational', 'failed', 'emojiUploader', undefined, attributes);
-
-const aiEmojiGenerationEvent = (
-	action: string,
-	actionSubjectId?: string,
-	attributes?: any,
-): AnalyticsEventPayload =>
-	createEvent('ui', action, 'emojiPickerAiGeneration', actionSubjectId, attributes);
-
-export const aiGenerationStartedEvent = (attributes: {
-	promptLength: number;
-}): AnalyticsEventPayload => aiEmojiGenerationEvent('started', 'generateButton', attributes);
-
-export const aiGenerationCompletedEvent = (attributes: Duration): AnalyticsEventPayload =>
-	createEvent('operational', 'completed', 'emojiPickerAiGeneration', undefined, attributes);
-
-export const aiGenerationFailedEvent = (attributes: { errorType: string }): AnalyticsEventPayload =>
-	createEvent('operational', 'failed', 'emojiPickerAiGeneration', undefined, attributes);
-
-interface Attributes {
-	emojiId?: string;
-}
-
-export const deleteBeginEvent = (attributes: Attributes): AnalyticsEventPayload =>
-	createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiTrigger', attributes);
-
-export const deleteConfirmEvent = (attributes: Attributes): AnalyticsEventPayload =>
-	createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiConfirm', attributes);
-
-export const deleteCancelEvent = (attributes: Attributes): AnalyticsEventPayload =>
-	createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiCancel', attributes);
-
-export const selectedFileEvent = (): AnalyticsEventPayload =>
-	createEvent('ui', 'clicked', 'emojiUploader', 'selectFile');
-
-interface CommonAttributes {
-	emojiIds: string[];
-	queryLength: number;
-	spaceInQuery: boolean;
-}
-
-const extractCommonAttributes = (
-	query?: string,
-	emojiList?: EmojiDescription[],
-): CommonAttributes => {
-	return {
-		queryLength: query ? query.length : 0,
-		spaceInQuery: query ? query.indexOf(' ') !== -1 : false,
-		emojiIds: emojiList
-			? emojiList
-					.map((emoji) => emoji.id!)
-					.filter(Boolean)
-					.slice(0, 20)
-			: [],
-	};
-};
-
-export const typeaheadCancelledEvent = (
-	duration: number,
-	query?: string,
-	emojiList?: EmojiDescription[],
-): AnalyticsEventPayload =>
-	createEvent('ui', 'cancelled', 'emojiTypeahead', undefined, {
-		duration,
-		...extractCommonAttributes(query, emojiList),
-	});
-
-const getPosition = (
-	emojiList: EmojiDescription[] | undefined,
-	selectedEmoji: EmojiDescription,
-): number | undefined => {
-	if (emojiList) {
-		const index = emojiList.findIndex((emoji) => emoji.id === selectedEmoji.id);
-		return index === -1 ? undefined : index;
-	}
-	return;
-};
-
-export const typeaheadSelectedEvent = (
-	pressed: boolean,
-	duration: number,
-	emoji: EmojiDescription,
-	emojiList?: EmojiDescription[],
-	query?: string,
-	exactMatch?: boolean,
-): AnalyticsEventPayload =>
-	createEvent('ui', pressed ? 'pressed' : 'clicked', 'emojiTypeahead', undefined, {
-		duration,
-		position: getPosition(emojiList, emoji),
-		...extractCommonAttributes(query, emojiList),
-		...getSkinTone(emoji.id),
-		emojiType: emoji.type,
-		exactMatch: exactMatch || false,
-	});
-
-export const typeaheadRenderedEvent = (
-	duration: number,
-	query?: string,
-	emojiList?: EmojiDescription[],
-): AnalyticsEventPayload =>
-	createEvent('operational', 'rendered', 'emojiTypeahead', undefined, {
-		duration,
-		...extractCommonAttributes(query, emojiList),
-	});
-
-// it's used in editor typeahead to fire success record analytics
-export const recordSelectionSucceededSli =
-	(emoji: OptionalEmojiDescription, options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) =>
-	(): void => {
-		if (options && options.createAnalyticsEvent) {
-			createAndFireEvent('editor')(recordSucceededEmoji(emoji)(SearchSourceTypes.TYPEAHEAD))(
-				options.createAnalyticsEvent,
-			);
-		}
-	};
-
-// it's used in editor typeahead to fire failure record analytics
-export const recordSelectionFailedSli =
-	(emoji: OptionalEmojiDescription, options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) =>
-	(err: Error): Promise<never> => {
-		if (options && options.createAnalyticsEvent) {
-			createAndFireEvent('editor')(recordFailedEmoji(emoji)(SearchSourceTypes.TYPEAHEAD))(
-				options.createAnalyticsEvent,
-			);
-		}
-		return Promise.reject(err);
-	};
-
 /**
- * Used for store failure metadata for analytics
- * @param error The error could be a service error with {code, reason} or an Error
- * @returns any
+ * @deprecated Use `import { recordSucceededEmoji } from '@atlaskit/emoji/analytics'` instead.
  */
-export const extractErrorInfo = (error: any): any => {
-	if (error instanceof Error) {
-		return {
-			name: error.name,
-			message: error.message,
-		};
-	}
-	return error;
-};
+export { recordSucceededEmoji } from './recordSucceededEmoji';
+/**
+ * @deprecated Use `import { recordSucceeded } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { recordSucceeded } from './recordSucceeded';
+/**
+ * @deprecated Use `import { recordFailedEmoji } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { recordFailedEmoji } from './recordFailedEmoji';
+/**
+ * @deprecated Use `import { recordFailed } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { recordFailed } from './recordFailed';
+/**
+ * @deprecated Use `import { openedPickerEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { openedPickerEvent } from './openedPickerEvent';
+/**
+ * @deprecated Use `import { closedPickerEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { closedPickerEvent } from './closedPickerEvent';
+/**
+ * @deprecated Use `import { pickerClickedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { pickerClickedEvent } from './pickerClickedEvent';
+/**
+ * @deprecated Use `import { categoryClickedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { categoryClickedEvent } from './categoryClickedEvent';
+/**
+ * @deprecated Use `import { pickerSearchedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { pickerSearchedEvent } from './pickerSearchedEvent';
+/**
+ * @deprecated Use `import { toneSelectedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { toneSelectedEvent } from './toneSelectedEvent';
+/**
+ * @deprecated Use `import { toneSelectorOpenedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { toneSelectorOpenedEvent } from './toneSelectorOpenedEvent';
+/**
+ * @deprecated Use `import { toneSelectorClosedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { toneSelectorClosedEvent } from './toneSelectorClosedEvent';
+/**
+ * @deprecated Use `import { uploadBeginButton } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { uploadBeginButton } from './uploadBeginButton';
+/**
+ * @deprecated Use `import { uploadConfirmButton } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { uploadConfirmButton } from './uploadConfirmButton';
+/**
+ * @deprecated Use `import { uploadCancelButton } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { uploadCancelButton } from './uploadCancelButton';
+/**
+ * @deprecated Use `import { uploadSucceededEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { uploadSucceededEvent } from './uploadSucceededEvent';
+/**
+ * @deprecated Use `import { uploadFailedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { uploadFailedEvent } from './uploadFailedEvent';
+/**
+ * @deprecated Use `import { aiGenerationStartedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { aiGenerationStartedEvent } from './aiGenerationStartedEvent';
+/**
+ * @deprecated Use `import { aiGenerationCompletedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { aiGenerationCompletedEvent } from './aiGenerationCompletedEvent';
+/**
+ * @deprecated Use `import { aiGenerationFailedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { aiGenerationFailedEvent } from './aiGenerationFailedEvent';
+/**
+ * @deprecated Use `import { deleteBeginEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { deleteBeginEvent } from './deleteBeginEvent';
+/**
+ * @deprecated Use `import { deleteConfirmEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { deleteConfirmEvent } from './deleteConfirmEvent';
+/**
+ * @deprecated Use `import { deleteCancelEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { deleteCancelEvent } from './deleteCancelEvent';
+/**
+ * @deprecated Use `import { selectedFileEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { selectedFileEvent } from './selectedFileEvent';
+/**
+ * @deprecated Use `import { typeaheadCancelledEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { typeaheadCancelledEvent } from './typeaheadCancelledEvent';
+/**
+ * @deprecated Use `import { typeaheadSelectedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { typeaheadSelectedEvent } from './typeaheadSelectedEvent';
+/**
+ * @deprecated Use `import { typeaheadRenderedEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { typeaheadRenderedEvent } from './typeaheadRenderedEvent';
+/**
+ * @deprecated Use `import { recordSelectionSucceededSli } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { recordSelectionSucceededSli } from './recordSelectionSucceededSli';
+/**
+ * @deprecated Use `import { recordSelectionFailedSli } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { recordSelectionFailedSli } from './recordSelectionFailedSli';
+/**
+ * @deprecated Use `import { extractErrorInfo } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { extractErrorInfo } from './extractErrorInfo';
+/**
+ * @deprecated Use `import { createEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { createEvent } from './createEvent';
+/**
+ * @deprecated Use `import { Duration } from '@atlaskit/emoji/analytics'` instead.
+ */
+export type { Duration } from './Duration';
+/**
+ * @deprecated Use `import { emojiPickerEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { emojiPickerEvent } from './emojiPickerEvent';
+/**
+ * @deprecated Use `import { skinTones } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { skinTones } from './skinTones';
+/**
+ * @deprecated Use `import { getSkinTone } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { getSkinTone } from './getSkinTone';
+/**
+ * @deprecated Use `import { skintoneSelectorEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { skintoneSelectorEvent } from './skintoneSelectorEvent';
+/**
+ * @deprecated Use `import { emojiUploaderEvent } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { emojiUploaderEvent } from './emojiUploaderEvent';
+/**
+ * @deprecated Use `import { Attributes } from '@atlaskit/emoji/analytics'` instead.
+ */
+export type { Attributes } from './Attributes';
+/**
+ * @deprecated Use `import { CommonAttributes } from '@atlaskit/emoji/analytics'` instead.
+ */
+export type { CommonAttributes } from './CommonAttributes';
+/**
+ * @deprecated Use `import { extractCommonAttributes } from '@atlaskit/emoji/analytics'` instead.
+ */
+export { extractCommonAttributes } from './extractCommonAttributes';

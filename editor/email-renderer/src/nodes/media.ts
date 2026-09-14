@@ -1,6 +1,6 @@
 import type { NodeSerializerOpts, MediaMetaDataContextItem } from '../interfaces';
 import { createTag } from '../create-tag';
-import { N30 } from '@atlaskit/adf-schema';
+import { N30 } from '@atlaskit/adf-schema/colors';
 import {
 	createClassName,
 	MEDIA_PREVIEW_IMAGE_WIDTH,

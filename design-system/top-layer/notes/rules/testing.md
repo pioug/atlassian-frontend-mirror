@@ -120,13 +120,21 @@ test('animations disabled for prefers-reduced-motion', async ({ page }) => {
 The top layer uses a "last in, first out" stack. These tests verify that the stacking algorithm
 works for our component composition.
 
-| Test                                                             | What it catches                                             |
-| ---------------------------------------------------------------- | ----------------------------------------------------------- |
-| Nested popovers: inner appears on top of outer                   | `popover="auto"` nesting broken, wrong stacking order       |
-| Opening a sibling closes the previous `popover="auto"`           | Mutual exclusivity not working                              |
-| Popover inside dialog renders above the dialog backdrop          | Popover not entering top layer, or entering below dialog    |
-| Multiple `mode="manual"` popovers coexist                        | Manual popovers incorrectly closing each other              |
-| Tooltip (`mode="hint"`) doesn't close open popup (`mode="auto"`) | `popover="hint"` fallback to `auto` causing unwanted closes |
+| Test                                                                                     | What it catches                                                                                     |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Nested popovers: inner appears on top of outer                                           | `popover="auto"` nesting broken, wrong stacking order                                               |
+| Opening a sibling closes the previous `popover="auto"`                                   | Mutual exclusivity not working                                                                      |
+| Popover inside dialog renders above the dialog backdrop                                  | Popover not entering top layer, or entering below dialog                                            |
+| Multiple `mode="manual"` popovers coexist                                                | Manual popovers incorrectly closing each other                                                      |
+| Tooltip (`mode="hint"`) doesn't close open popup (`mode="auto"`)                         | `popover="hint"` fallback to `auto` causing unwanted closes                                         |
+| Press on a `mode="hint"` trigger dismisses on pointerup, and the surface stays dismissed | Native light dismiss not reaching a hint, or the surface re-showing itself on the next pointer move |
+
+**Pointer dismissal for hover-triggered surfaces:** driving `mouse.down()` / `mouse.up()` separately
+(rather than `click()`) is what distinguishes "dismissed on press" from "dismissed on release", and
+a pointer move that stays _inside_ the trigger is what catches an unwanted re-show. The trigger
+needs an element child for that move to fire a second `mouseover`. Worked example:
+`tooltip/src/__tests__/playwright/ff-testing/platform-dst-top-layer-tooltip/pointer-dismiss.spec.tsx`
+and [tooltip-pointer-dismissal.md](../decisions/tooltip-pointer-dismissal.md).
 
 **How to test stacking:** Open two layers, measure their z-ordering via bounding boxes or
 `getComputedStyle`, or assert which element receives click events.
@@ -240,7 +248,7 @@ Not every behavior needs a browser test. Use this framework to decide:
 **Unit-test is sufficient:**
 
 - Prop forwarding and React state management
-- Callback invocations (onClose, onOpenChange)
+- Callback invocations (such as onClose)
 - ARIA attribute presence (role, aria-label, aria-expanded)
 - Conditional rendering based on feature flags
 

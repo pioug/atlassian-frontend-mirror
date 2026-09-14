@@ -4,7 +4,8 @@ import { take } from 'rxjs/operators/take';
 
 import { type JQLFieldResponse } from '../common/types';
 
-import { areStringsEquivalent, normalize } from './strings';
+import { areStringsEquivalent } from './are-strings-equivalent';
+import { normalize } from './normalize';
 
 /**
  * Returns an Observable of the first field matching the provided string, or an empty Observable if no matching field

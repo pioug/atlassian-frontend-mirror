@@ -7,7 +7,7 @@ import { type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 import { cssMap as cssMapUnbounded } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import NewLozenge from './new/lozenge';

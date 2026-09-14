@@ -4,7 +4,7 @@
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 export type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 

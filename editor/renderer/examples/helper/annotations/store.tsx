@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 
 type MyAction =
 	| { id: string; type: 'resolved' }

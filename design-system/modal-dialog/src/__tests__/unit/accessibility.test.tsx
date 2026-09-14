@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-import Lorem from 'react-lorem-component';
-
+import { render } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
-import { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../index';
+import ModalBody from '../../modal-body';
+import ModalFooter from '../../modal-footer';
+import ModalHeader from '../../modal-header';
+import ModalTitle from '../../modal-title';
+import ModalTransition from '../../modal-transition';
 import Modal from '../../modal-dialog';
 
 it('Basic Modal should not fail aXe audit', async () => {
@@ -21,7 +23,7 @@ it('Basic Modal should not fail aXe audit', async () => {
 						<ModalTitle>Modal Title</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
-						<Lorem count={2} />
+						<div>Modal body content</div>
 					</ModalBody>
 					<ModalFooter>
 						<Button testId="secondary" appearance="subtle" onClick={close}>

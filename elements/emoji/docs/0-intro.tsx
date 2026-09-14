@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, Example, code, AtlassianInternalWarning, Props } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import SimpleEmojiExample from '../examples/00-simple-emoji';
 import { Text } from '@atlaskit/primitives/compiled';
 
@@ -40,14 +40,14 @@ const _default_1: any = md`
 
   const emojiProvider = new EmojiResource(config);
 
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <EmojiPicker
       emojiProvider={emojiProvider}
       onSelection={emoji => {
         /* do something */
       }}
     />,
-    container,
   );
   `}
 

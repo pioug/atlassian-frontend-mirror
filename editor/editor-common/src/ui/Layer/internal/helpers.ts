@@ -1,4 +1,4 @@
-import type { Placement } from 'popper.js';
+import type { Placement } from '@atlaskit/popper/main';
 
 import { POSITION_ATTRIBUTE_ENUM } from './POSITION_ATTRIBUTE_ENUM';
 type PositionMap = {

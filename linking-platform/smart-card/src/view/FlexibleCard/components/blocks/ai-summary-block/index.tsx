@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { InternalActionName, SmartLinkStatus } from '../../../../../constants';
-import {
-	useFlexibleCardContext,
-	useFlexibleUiContext,
-} from '../../../../../state/flexible-ui-context';
-
+import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context/useFlexibleCardContext';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import AISummaryBlockResolvedView from './resolved';
 import { type AISummaryBlockProps } from './types';
 

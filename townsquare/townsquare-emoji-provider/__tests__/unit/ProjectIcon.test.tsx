@@ -12,8 +12,10 @@ jest.mock('@atlaskit/emoji', () => ({
 	),
 }));
 
-jest.mock('@atlaskit/avatar', () => ({
-	Status: ({ status }: any) => (
+jest.mock('@atlaskit/avatar/status', () => ({
+	...jest.requireActual('@atlaskit/avatar/status'),
+	__esModule: true,
+	default: ({ status }: any) => (
 		<div data-testid="status-component" data-status={status}>
 			{status}
 		</div>

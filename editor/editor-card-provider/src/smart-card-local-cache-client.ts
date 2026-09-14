@@ -1,5 +1,5 @@
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 const SMART_CARD_CACHE_CLIENT_KEY = 'smart-card-url-data';
 const SMART_CARD_CACHE_KEY = 'response-cache';

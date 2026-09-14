@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NewButton from '@atlaskit/button/new';
+import NewButton from '@atlaskit/button/default/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import type { TriggerProps } from '@atlaskit/popup/types';
 

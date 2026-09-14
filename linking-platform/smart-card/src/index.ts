@@ -14,7 +14,7 @@ export {
 export { ExpandedFrame } from './view/EmbedCard/components/ExpandedFrame';
 
 /** @deprecated Use @atlaskit/smart-card/analytics */
-export { SmartLinkEvents } from './utils/analytics/analytics';
+export { SmartLinkEvents } from './utils/analytics/SmartLinkEvents';
 
 /** @deprecated Use @atlaskit/smart-card/hook/use-smart-link-events */
 export { useSmartLinkEvents } from './view/SmartLinkEvents/useSmartLinkEvents';
@@ -50,20 +50,12 @@ export {
 	SmartLinkTheme,
 } from './constants';
 
-export {
-	/** @deprecated Use @atlaskit/flexible/smart-card/metadata-block */
-	MetadataBlock,
-	/** @deprecated Use @atlaskit/flexible/smart-card/preview-block */
-	PreviewBlock,
-	/** @deprecated Use @atlaskit/flexible/smart-card/snippet-block */
-	SnippetBlock,
-	/** @deprecated Use @atlaskit/flexible/smart-card/title-block */
-	TitleBlock,
-	/** @deprecated Use @atlaskit/flexible/smart-card/footer-block */
-	FooterBlock,
-	/** @deprecated Use @atlaskit/flexible/smart-card/custom-block */
-	CustomBlock,
-} from './view/FlexibleCard/components/blocks';
+export { default as MetadataBlock } from './view/FlexibleCard/components/blocks/metadata-block';
+export { default as TitleBlock } from './view/FlexibleCard/components/blocks/title-block';
+export { default as PreviewBlock } from './view/FlexibleCard/components/blocks/preview-block';
+export { default as SnippetBlock } from './view/FlexibleCard/components/blocks/snippet-block';
+export { default as FooterBlock } from './view/FlexibleCard/components/blocks/footer-block';
+export { default as CustomBlock } from './view/FlexibleCard/components/blocks/block';
 
 /** @deprecated Use @atlaskit/smart-card/flexible/assigned-to-element */
 export { AssignedToElement } from './entry-points/flexible-assigned-to-element';
@@ -134,9 +126,9 @@ export { ViewCountElement } from './entry-points/flexible-view-count-element';
 /** @deprecated Use @atlaskit/smart-card/flexible/vote-count-element */
 export { VoteCountElement } from './entry-points/flexible-vote-count-element';
 /** @deprecated Use @atlaskit/smart-card/flexible/custom-by-access-type-element */
-export { CustomByAccessTypeElement } from './entry-points/flexible-custom-by-access-type-element';
+export { CustomByAccessTypeElement } from './view/FlexibleCard/components/elements/custom-by-access-type-element/index';
 /** @deprecated Use @atlaskit/smart-card/flexible/custom-by-status-element */
-export { CustomByStatusElement } from './entry-points/flexible-custom-by-status-element';
+export { CustomByStatusElement } from './view/FlexibleCard/components/elements/custom-by-status-element/CustomByStatusElement';
 /** @deprecated Use @atlaskit/smart-card/flexible/copy-link-action */
 export { CopyLinkAction } from './entry-points/flexible-copy-link-action';
 /** @deprecated Use @atlaskit/smart-card/flexible/custom-action */
@@ -150,10 +142,12 @@ export { PreviewAction } from './entry-points/flexible-preview-action';
 /** @deprecated Use @atlaskit/smart-card/flexible/unresolved-action */
 export { UnresolvedAction } from './entry-points/flexible-unresolved-action';
 /** @deprecated Use @atlaskit/smart-card/flexible/custom-unresolved-action */
-export { CustomUnresolvedAction } from './entry-points/flexible-custom-unresolved-action';
+export { CustomUnresolvedAction } from './view/FlexibleCard/components/actions/custom-unresolved-action/CustomUnresolvedAction';
 
 /** @deprecated Use extractAri, extractNameFromJsonLd, extractUrlFromIconJsonLd from @atlaskit/link-extractors */
-export { getObjectAri, getObjectName, getObjectIconUrl } from './state/helpers';
+export { getObjectAri } from './state/getObjectAri';
+export { getObjectIconUrl } from './state/getObjectIconUrl';
+export { getObjectName } from './state/getObjectName';
 
 /** @deprecated Use @atlaskit/smart-card/flexible/types */
 export type {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@atlassian/testing-library';
 import { replaceRaf } from 'raf-stub';
 
 import { ElementBox } from '../../use-element-box';

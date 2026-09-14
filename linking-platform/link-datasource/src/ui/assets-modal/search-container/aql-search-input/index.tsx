@@ -7,18 +7,20 @@ import { Fragment } from 'react';
 import { css, cssMap, jsx, styled } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
-import { ErrorMessage, Field, MessageWrapper } from '@atlaskit/form';
+import IconButton from '@atlaskit/button/icon/button';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import SearchIcon from '@atlaskit/icon/core/search';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
-import Textfield from '@atlaskit/textfield';
+import Spinner from '@atlaskit/spinner/spinner';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { type AqlValidationResult, useValidateAqlText } from '../../../../hooks/useValidateAqlText';
 import { aqlKey } from '../../../../types/assets/types';

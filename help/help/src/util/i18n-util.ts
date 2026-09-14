@@ -22,7 +22,9 @@ import {
 	ru,
 	sk,
 	sv,
+	tr,
 	zh,
+	zh_TW,
 } from '../i18n';
 
 type LanguageCode =
@@ -49,9 +51,11 @@ type LanguageCode =
 	| 'ru'
 	| 'sk'
 	| 'es'
-	| 'sv';
+	| 'sv'
+	| 'tr'
+	| 'zh_TW';
 
-export type LangCode = LanguageCode | 'pt-BR' | 'pt-PT';
+export type LangCode = LanguageCode | 'pt-BR' | 'pt-PT' | 'tr-TR' | 'zh-TW';
 type LocaleMessages = { [key: string]: string };
 
 type LocaleMessagesMap = { [key in LangCode]: LocaleMessages };
@@ -82,7 +86,11 @@ const localesMessagesMap: LocaleMessagesMap = {
 	ru,
 	sk,
 	sv,
+	tr,
+	'tr-TR': tr,
 	zh,
+	zh_TW,
+	'zh-TW': zh_TW,
 };
 
 /**

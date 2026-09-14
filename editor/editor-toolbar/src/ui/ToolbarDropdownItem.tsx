@@ -2,12 +2,11 @@ import React, { forwardRef, isValidElement, cloneElement } from 'react';
 import type { ReactNode, Ref } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { DropdownItem } from '@atlaskit/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { DataAttributes } from '../types';
@@ -158,9 +157,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			}
 			aria-disabled={ariaDisabled}
 			aria-keyshortcuts={ariaKeyshortcuts}
-			data-toolbar-component={
-				editorExperiment('platform_synced_block', true) ? 'menu-item' : undefined
-			}
+			data-toolbar-component="menu-item"
 			ref={ref}
 			title={
 				expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)

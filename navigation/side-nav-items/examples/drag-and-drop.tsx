@@ -1,1 +1,1 @@
-export { AllMenuItems as default } from './drag-and-drop/simple';
+export { AllMenuItems as default } from './drag-and-drop/simple.vr.ap';

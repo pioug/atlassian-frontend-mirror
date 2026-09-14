@@ -18,6 +18,10 @@ import lozengeSemanticAccentDo from '../images/lozenge-do-2-light.png';
 import lozengeSemanticAccentDont from '../images/lozenge-dont-2-light.png';
 import lozengeSemanticAccentDoDark from '../images/lozenge-do-2-dark.png';
 import lozengeSemanticAccentDontDark from '../images/lozenge-dont-2-dark.png';
+import lozengeIconWeightDoLight from '../images/lozenge-icon-do-light.png';
+import lozengeIconWeightDoDark from '../images/lozenge-icon-do-dark.png';
+import lozengeIconWeightDontLight from '../images/lozenge-icon-dont-light.png';
+import lozengeIconWeightDontDark from '../images/lozenge-icon-dont-dark.png';
 import lozengeTriggerDo from '../images/lozenge-do-4-light.png';
 import lozengeTriggerDont from '../images/lozenge-dont-4-light.png';
 import lozengeTriggerDoDark from '../images/lozenge-do-4-dark.png';
@@ -83,6 +87,40 @@ helps classify, group, or filter information.
 	>
 		Don't use lozenges for descriptive metadata that only classifies or categorizes — use a tag
 		instead.
+	</DoDont>
+</DoDontGrid>
+
+### Use filled icons to manage visual hierarchy
+
+When choosing an icon to complement a lozenge, some icons have an outlined design as well as a
+filled alternative. Use icon weight to establish visual hierarchy and draw attention to what matters
+most on the screen. For example:
+
+- Lozenges could use a filled icon for 'Done', indicating a satisfying visual closure that marks the
+  end of the workflow cycle.
+- In Goals, a filled icon could be used for the ‘Off-track’ state to maintain urgency around a
+  critical status that requires user attention.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: lozengeIconWeightDoLight,
+			urlDarkMode: lozengeIconWeightDoDark,
+			alt: 'Use filled icons intentionally to draw user attention where it’s needed.',
+		}}
+	>
+		Use filled icons intentionally to draw user attention where it’s needed.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: lozengeIconWeightDontLight,
+			urlDarkMode: lozengeIconWeightDontDark,
+			alt: 'Don’t overuse filled icons as it reduces the impact of critical status indicators.',
+		}}
+	>
+		Don't overuse filled icons as it reduces the impact of critical status indicators.
 	</DoDont>
 </DoDontGrid>
 

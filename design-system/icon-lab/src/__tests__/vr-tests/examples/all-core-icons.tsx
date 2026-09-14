@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::398d80bf33605d46ffa17b31809505b9>>
+ * @codegen <<SignedSource::ff64daf5bbcb7016d2ace4f92b3fd8a0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -15,8 +15,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline } from '@atlaskit/primitives';
+import { Inline } from '@atlaskit/primitives/compiled';
 
 import AiAgentAddIcon from '../../../../core/ai-agent-add';
 import AiBotIcon from '../../../../core/ai-bot';
@@ -67,6 +66,7 @@ import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
 import BedIcon from '../../../../core/bed';
 import BirdIcon from '../../../../core/bird';
 import BlastRadiusIcon from '../../../../core/blast-radius';
+import BlockQuoteIcon from '../../../../core/block-quote';
 import BlockSyncedIcon from '../../../../core/block-synced';
 import BluetoothIcon from '../../../../core/bluetooth';
 import BlurIcon from '../../../../core/blur';
@@ -100,6 +100,9 @@ import CornerRadiusSquaredIcon from '../../../../core/corner-radius-squared';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
 import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
+import CurveEaseInIcon from '../../../../core/curve-ease-in';
+import CurveEaseOutIcon from '../../../../core/curve-ease-out';
+import CurveLinearIcon from '../../../../core/curve-linear';
 import DashDoubleIcon from '../../../../core/dash-double';
 import DataAppIcon from '../../../../core/data-app';
 import DataBucketIcon from '../../../../core/data-bucket';
@@ -278,11 +281,14 @@ import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection'
 import HandClosedIcon from '../../../../core/hand-closed';
 import HandOpenIcon from '../../../../core/hand-open';
 import HandRaisedIcon from '../../../../core/hand-raised';
+import HardwareAssignmentIcon from '../../../../core/hardware-assignment';
 import HardwareAuditIcon from '../../../../core/hardware-audit';
+import HardwareCleanseIcon from '../../../../core/hardware-cleanse';
 import HardwareConfigurationIcon from '../../../../core/hardware-configuration';
 import HardwareDefectIcon from '../../../../core/hardware-defect';
 import HardwareDisposeIcon from '../../../../core/hardware-dispose';
 import HardwareFulfilIcon from '../../../../core/hardware-fulfil';
+import HardwareInsightsIcon from '../../../../core/hardware-insights';
 import HardwareNewIcon from '../../../../core/hardware-new';
 import HardwareProcureIcon from '../../../../core/hardware-procure';
 import HardwareRefreshIcon from '../../../../core/hardware-refresh';
@@ -352,7 +358,9 @@ import PlaylistRemoveIcon from '../../../../core/playlist-remove';
 import PlusCircleIcon from '../../../../core/plus-circle';
 import PowerIcon from '../../../../core/power';
 import PowerCableIcon from '../../../../core/power-cable';
+import PullQuoteIcon from '../../../../core/pull-quote';
 import QrCodeIcon from '../../../../core/qr-code';
+import QuestionCircleFilledIcon from '../../../../core/question-circle-filled';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
 import RandomizeIcon from '../../../../core/randomize';
@@ -407,6 +415,7 @@ import StatusWorkflowScheduledIcon from '../../../../core/status-workflow-schedu
 import StatusWorkflowStoppedIcon from '../../../../core/status-workflow-stopped';
 import StatusWorkflowSuccessIcon from '../../../../core/status-workflow-success';
 import StatusWorkflowWarningIcon from '../../../../core/status-workflow-warning';
+import StepThroughIcon from '../../../../core/step-through';
 import StickerIcon from '../../../../core/sticker';
 import StrokeCurvatureCurvedIcon from '../../../../core/stroke-curvature-curved';
 import StrokeCurvatureDynamicIcon from '../../../../core/stroke-curvature-dynamic';
@@ -1007,6 +1016,16 @@ const Icons = [
 	CarouselIcon,
 	RovoChatDashedIcon,
 	TableOfContentIcon,
+	CurveEaseInIcon,
+	CurveEaseOutIcon,
+	CurveLinearIcon,
+	HardwareCleanseIcon,
+	BlockQuoteIcon,
+	HardwareAssignmentIcon,
+	PullQuoteIcon,
+	StepThroughIcon,
+	HardwareInsightsIcon,
+	QuestionCircleFilledIcon,
 ];
 
 const groupSize = 50;
@@ -1059,6 +1078,8 @@ export const MediumIconGroup7: () => React.JSX.Element = allMediumExamples[7];
 export const MediumIconGroup8: () => React.JSX.Element = allMediumExamples[8];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediumIconGroup9: () => React.JSX.Element = allMediumExamples[9];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
+export const MediumIconGroup10: () => React.JSX.Element = allMediumExamples[10];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup0: () => React.JSX.Element = allSmallExamples[0];
@@ -1080,3 +1101,5 @@ export const SmallIconGroup7: () => React.JSX.Element = allSmallExamples[7];
 export const SmallIconGroup8: () => React.JSX.Element = allSmallExamples[8];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export const SmallIconGroup9: () => React.JSX.Element = allSmallExamples[9];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
+export const SmallIconGroup10: () => React.JSX.Element = allSmallExamples[10];

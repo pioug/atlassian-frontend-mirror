@@ -1,5 +1,6 @@
 import { type Identifier } from '@atlaskit/media-client';
-import { createNavigatedEvent } from '../../../../analytics/events/ui/navigated';
+
+import { createNavigatedEvent } from '../../../../analytics/events/ui/createNavigatedEvent';
 
 const identifier: Identifier = {
 	id: 'my-id',

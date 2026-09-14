@@ -31,4 +31,20 @@ describe('AIGeneratingOverlay', () => {
 		expect(screen.getByTestId('ai-generating-overlay-train')).toBeInTheDocument();
 		expect(screen.getAllByTestId('ai-generating-overlay-train-block')).toHaveLength(4);
 	});
+
+	it('uses the translucent blanket background by default', () => {
+		render(<AIGeneratingOverlay label="x" testId="overlay" />);
+		expect(screen.getByTestId('overlay')).toHaveCompiledCss(
+			'background-color',
+			'var(--ds-blanket,rgba(9,30,66,.36))',
+		);
+	});
+
+	it('uses the opaque sunken surface background when isOpaque is true', () => {
+		render(<AIGeneratingOverlay label="x" testId="overlay" isOpaque />);
+		expect(screen.getByTestId('overlay')).toHaveCompiledCss(
+			'background-color',
+			'var(--ds-surface-sunken,#f8f8f8)',
+		);
+	});
 });

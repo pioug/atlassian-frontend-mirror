@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Dialog } from '@atlaskit/top-layer/dialog';
-import { getFirstFocusable } from '@atlaskit/top-layer/focus';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
+import { getFirstFocusable } from '@atlaskit/top-layer/get-first-focusable';
 
 /**
  * Test fixture for verifying autofocus behavior in dialog.

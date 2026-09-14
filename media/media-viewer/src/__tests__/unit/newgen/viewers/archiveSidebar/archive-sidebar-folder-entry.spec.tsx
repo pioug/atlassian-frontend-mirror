@@ -10,7 +10,8 @@ import { type ZipEntry } from 'unzipit';
 import { IntlProvider } from 'react-intl';
 import * as MediaCommon from '@atlaskit/media-common';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 

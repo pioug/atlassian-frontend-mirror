@@ -1,5 +1,5 @@
-import { fixedTeamMemberships } from '../../mocks';
-import { type TeamMembership } from '../../types';
+import { fixedTeamMemberships } from '../../mocks/fixed-team-memberships';
+import { type TeamMembership } from '../../types/membership';
 
 export function isInvited(member?: TeamMembership): member is TeamMembership & boolean {
 	return !!member && member.state === 'INVITED';

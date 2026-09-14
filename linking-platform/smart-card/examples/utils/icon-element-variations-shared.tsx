@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { IconType, SmartLinkSize } from '../../src/constants';
 import BaseIconElement from '../../src/view/FlexibleCard/components/elements/common/base-icon-element';

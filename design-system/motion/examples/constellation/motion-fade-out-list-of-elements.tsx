@@ -6,17 +6,18 @@ import { useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
 	JiraServiceManagementIcon,
-	JiraSoftwareIcon,
 	OpsgenieIcon,
 	StatuspageIcon,
 } from '@atlaskit/logo';
-import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import Motion from '@atlaskit/motion/entering/motion';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -39,12 +40,16 @@ const styles = cssMap({
 	entering: {
 		animationDuration: token('motion.duration.xlong'),
 		animationTimingFunction: token('motion.easing.out.practical'),
-		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token(
+			'motion.keyframe.fade.in',
+		)}`,
 	},
 	exiting: {
 		animationDuration: token('motion.duration.long'),
 		animationTimingFunction: token('motion.easing.in.practical'),
-		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token(
+			'motion.keyframe.fade.out',
+		)}`,
 	},
 });
 

@@ -1,6 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import type { ProductType } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { ProductType } from '@atlaskit/linking-common/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type FireEventFunction } from '../../../common/analytics/types';
 import { ActionName, InternalActionName } from '../../../constants';
@@ -86,7 +86,7 @@ export const extractFlexibleCardActions = ({
 			isPreviewPanelAvailable,
 			...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 			openPreviewPanel,
-			...(fg('platform_smartlink_xpc_url_wrapping') ? { transformUrl } : undefined),
+			transformUrl,
 		}),
 		[ActionName.AutomationAction]: extractAutomationAction(response),
 		[InternalActionName.AISummaryAction]: extractAISummaryAction(

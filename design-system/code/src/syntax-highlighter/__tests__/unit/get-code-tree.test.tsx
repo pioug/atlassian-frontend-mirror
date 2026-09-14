@@ -1,11 +1,10 @@
-import refractor from 'refractor';
+import refractor, { type RefractorNode } from 'refractor';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import flattenCodeTree from '../../lib/process/flatten-code-tree';
 import getCodeTree from '../../lib/process/get-code-tree';
-import { type RefractorNode } from '../../types';
 
 const codeLine = 'int num = 21';
 
@@ -34,7 +33,7 @@ describe('getCodeTree', () => {
 
 		const codeTree = getCodeTree('java', codeLine, refractor);
 
-		expect(mock).toBeCalledTimes(1);
+		expect(mock).toHaveBeenCalledTimes(1);
 		expect(mock).toThrow(Error);
 		expect(codeTree).toEqual([{ type: 'text', value: codeLine }]);
 

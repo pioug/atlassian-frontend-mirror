@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import LazilyRender from 'react-lazily-render';
 
-import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
+import { startUfoExperience } from '../../../state/analytics/startUfoExperience';
 import { CardWithUrlContent } from '../component';
 import { type CardWithUrlContentProps } from '../types';
 

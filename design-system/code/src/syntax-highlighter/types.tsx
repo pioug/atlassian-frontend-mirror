@@ -2,7 +2,6 @@ import React from 'react';
 
 import type { XCSSAllProperties, XCSSAllPseudos, XCSSProp } from '@compiled/react';
 import { type AST, type RefractorNode } from 'refractor';
-export type { AST, RefractorNode } from 'refractor';
 
 // This wrapper supports the async loading of refractor and language grammars. The internal Highlight is a memo() functional component as expected
 // eslint-disable-next-line @repo/internal/react/no-class-components

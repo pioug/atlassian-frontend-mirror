@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, type MutableRefObject } from 'react';
 
-import { isIntersectionObserverSupported } from '../../../utils';
+import { isIntersectionObserverSupported } from '../../../utils/is-intersection-observer-supported';
 
 // This property enables the intersection observer to be run once the
 // HTML element being observed is within `X` px of the target container it is

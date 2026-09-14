@@ -102,7 +102,7 @@ export const ToolbarUndoRedo = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ToolbarUndoRedo);

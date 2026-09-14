@@ -6,7 +6,7 @@
 import type { FC } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 
 import { createPriorityIcon } from './priority-icon';
 

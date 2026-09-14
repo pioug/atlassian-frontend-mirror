@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PaletteDropdownProps = {

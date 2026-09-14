@@ -5,9 +5,9 @@
  */
 {
   "testExamples": [
-    "exif-orientations-vr.tsx",
-    "vr-media-inline-card-text-wrap.tsx",
-    "vr-media-inline-card.tsx"
+    "exif-orientations-vr.vr.ap.tsx",
+    "vr-media-inline-card-text-wrap.vr.ap.tsx",
+    "vr-media-inline-card.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

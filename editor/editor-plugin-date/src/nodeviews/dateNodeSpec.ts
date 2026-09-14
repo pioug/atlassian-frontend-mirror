@@ -8,7 +8,7 @@ import { timestampToString } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getDateInformation } from './utils';

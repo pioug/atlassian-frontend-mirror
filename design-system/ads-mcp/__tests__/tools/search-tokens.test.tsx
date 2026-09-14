@@ -150,6 +150,33 @@ describe('search_tokens tool', () => {
 		expect(JSON.parse(result.content[0].text as string)[0].name).toEqual('color.text');
 	});
 
+	it('returns compact results by default and full metadata when requested', async () => {
+		const compactResult = await searchTokensTool({
+			terms: ['border.width.focused'],
+			limit: 1,
+		});
+		const compactToken = JSON.parse(compactResult.content[0].text as string)[0];
+		expect(compactToken).toEqual({
+			name: 'border.width.focused',
+			exampleValue: expect.any(String),
+		});
+
+		const metadataResult = await searchTokensTool({
+			terms: ['border.width.focused'],
+			limit: 1,
+			includeMetadata: true,
+		});
+		const metadataToken = JSON.parse(metadataResult.content[0].text as string)[0];
+		expect(metadataToken).toEqual({
+			name: 'border.width.focused',
+			exampleValue: expect.any(String),
+			usageGuidelines: {
+				usage: expect.any(String),
+				cssProperties: expect.arrayContaining(['border-width']),
+			},
+		});
+	});
+
 	it('Returns an error listing available tokens when there are no matches', async () => {
 		const result = await searchTokensTool({
 			terms: ['DOES NOT EXIST XYZ123'],

@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
 import { type NewTeamWebLink, type TeamContainer } from '../../../common/types';
-import {
-	containerToNewWebLink,
-	isNewTeamWebLink,
-	webLinksToContainers,
-} from '../../../common/utils/team-web-link-converters';
-import { useTeamContainers } from '../use-team-containers';
-import { useTeamWebLinks } from '../use-team-web-links';
+import { containerToNewWebLink } from '../../../common/utils/container-to-new-web-link';
+import { isNewTeamWebLink } from '../../../common/utils/is-new-team-web-link';
+import { webLinksToContainers } from '../../../common/utils/web-links-to-containers';
+import { useTeamContainers } from '../use-team-containers/use-team-containers';
+import { useTeamWebLinks } from '../use-team-web-links/use-team-web-links';
 
 export type UseTeamLinksAndContainersResult = {
 	isLoading: boolean;

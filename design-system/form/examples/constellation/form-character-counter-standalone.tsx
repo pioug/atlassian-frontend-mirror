@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { CharacterCounter } from '@atlaskit/form/character-counter';
-import { Label } from '@atlaskit/form/label';
+import { Label } from '@atlaskit/form/label/default';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import TextArea from '@atlaskit/textarea/text-area';

@@ -14,11 +14,12 @@ import React, {
 
 import { css, jsx } from '@compiled/react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import { getDocument } from '@atlaskit/browser-apis';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type BreadcrumbsItemProps, type BreadcrumbsProps } from '../types';

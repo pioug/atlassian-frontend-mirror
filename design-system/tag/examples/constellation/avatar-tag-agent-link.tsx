@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import { AvatarTag } from '@atlaskit/tag';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarTag from '@atlaskit/tag/avatar-tag';
 
 const agentAvatarUrl = 'https://dummyimage.com/48x48/6554c0/ffffff&text=AI';
 

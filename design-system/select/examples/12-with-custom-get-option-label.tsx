@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import { Checkbox } from '@atlaskit/checkbox';
-import { Label } from '@atlaskit/form';
-import { CheckboxSelect, type OptionType } from '@atlaskit/select';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { Label } from '@atlaskit/form/label/default';
+import { CheckboxSelect } from '@atlaskit/select/checkbox-select';
+import type { OptionType } from '@atlaskit/select/types';
 
 const customGetOptionLabel = (option: OptionType) => {
 	return option.label.length >= 10 ? `${option.label.substring(0, 7)}...` : option.label;

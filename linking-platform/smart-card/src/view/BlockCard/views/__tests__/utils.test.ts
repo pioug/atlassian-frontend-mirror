@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { ElementName } from '../../../../constants';
 import { type ElementItem } from '../../../FlexibleCard/components/blocks/types';
@@ -13,6 +13,8 @@ import {
 	mockConfluenceResponse,
 	mockConfluenceResponseWithOwnedBy,
 	mockJiraResponse,
+	mockMercuryResponse,
+	mockMercuryResponseWithOwnedBy,
 	mockPassionfruitResponse,
 	mockPassionfruitResponseWithOwnedBy,
 } from './__mocks__/blockCardMocks';
@@ -181,6 +183,29 @@ describe('getSimulatedBetterMetadata', () => {
 		it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {
 			const metadata = getSimulatedBetterMetadata(
 				mockPassionfruitResponseWithOwnedBy as JsonLd.Response,
+			);
+			expect(metadata.topMetadata).toEqual([
+				{ name: ElementName.OwnedByGroup },
+				{ name: ElementName.OwnedBy },
+				...baseTopMetadata,
+			]);
+		});
+	});
+
+	describe('for Mercury objects', () => {
+		it('should return metadata elements for top primary with Author Group & bottom primary when no ownedBy is present', () => {
+			const metadata = getSimulatedBetterMetadata(mockMercuryResponse as JsonLd.Response);
+			expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
+			expect(metadata.topMetadata).toEqual(defaultTopMetadata);
+			expect(metadata.bottomMetadata).toEqual([
+				{ name: ElementName.AppliedToComponentsCount },
+				...baseBottomMetaData,
+			]);
+		});
+
+		it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {
+			const metadata = getSimulatedBetterMetadata(
+				mockMercuryResponseWithOwnedBy as JsonLd.Response,
 			);
 			expect(metadata.topMetadata).toEqual([
 				{ name: ElementName.OwnedByGroup },

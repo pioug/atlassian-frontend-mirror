@@ -1,7 +1,7 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { TEST_BASE_DATA } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractDateViewed } from '../index';
+import { extractDateViewed } from '../extract-date-viewed';
 
 describe('extractors.date.viewed', () => {
 	it('returns undefined if not present', () => {

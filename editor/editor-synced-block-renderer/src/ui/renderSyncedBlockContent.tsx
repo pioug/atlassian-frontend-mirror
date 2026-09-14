@@ -1,11 +1,12 @@
 import React from 'react';
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockRendererOptions } from '../types';
 
@@ -17,6 +18,13 @@ export type RenderSyncedBlockContentParams = {
 	error?: SyncBlockInstance['error'];
 	fireAnalyticsEvent?: (payload: RendererSyncBlockEventPayload) => void;
 	getAccountId?: () => string | null;
+	/**
+	 * When provided, headings within the rendered synced block get stable,
+	 * prefixed ids (typically the reference node's `localId`) so heading anchor
+	 * links and Table-of-Contents deep links resolve. When omitted, heading ids
+	 * remain disabled (historical default).
+	 */
+	headingIdPrefix?: string;
 	isLoading: boolean;
 	isOffline?: boolean;
 	providerFactory: ProviderFactory | undefined;
@@ -44,6 +52,7 @@ export function renderSyncedBlockContent({
 	isOffline,
 	error,
 	getAccountId,
+	headingIdPrefix,
 }: RenderSyncedBlockContentParams): { element: React.JSX.Element; isSuccess: boolean } {
 	const isSSRMode = isSSR();
 
@@ -91,7 +100,11 @@ export function renderSyncedBlockContent({
 		};
 	}
 
-	if (syncBlockInstance?.data?.status === 'unpublished') {
+	const isLocalSameDocumentSource =
+		Boolean(syncBlockInstance.localSameDocumentSource) &&
+		isExperimentEnabled('editor-synced-block-same-page-sync');
+
+	if (syncBlockInstance.data.status === 'unpublished' && !isLocalSameDocumentSource) {
 		return {
 			element: (
 				<SyncedBlockErrorComponent
@@ -119,6 +132,7 @@ export function renderSyncedBlockContent({
 				doc={syncBlockDoc}
 				dataProviders={providerFactory}
 				options={rendererOptions}
+				headingIdPrefix={headingIdPrefix}
 			/>
 		),
 		isSuccess: true,

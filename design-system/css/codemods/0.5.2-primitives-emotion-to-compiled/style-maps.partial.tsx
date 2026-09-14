@@ -31,7 +31,7 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c9b68acdd57654884efd2f5087890624>>
+ * @codegen <<SignedSource::28aef5278dd8b8b8fd29a0ba53afb868>>
  * @codegenId spacing
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
@@ -67,6 +67,7 @@ export const positiveSpaceMap: {
 	'space.800': token('space.800', '64px'),
 	'space.1000': token('space.1000', '80px'),
 };
+
 export type Space = keyof typeof positiveSpaceMap;
 
 export const negativeSpaceMap: {
@@ -90,6 +91,7 @@ export const negativeSpaceMap: {
 	'space.negative.300': token('space.negative.300', '-24px'),
 	'space.negative.400': token('space.negative.400', '-32px'),
 };
+
 export type NegativeSpace = keyof typeof negativeSpaceMap;
 
 export const allSpaceMap: {
@@ -116,7 +118,31 @@ export const allSpaceMap: {
 	'space.negative.250': 'var(--ds-space-negative-250)';
 	'space.negative.300': 'var(--ds-space-negative-300)';
 	'space.negative.400': 'var(--ds-space-negative-400)';
-} = { ...positiveSpaceMap, ...negativeSpaceMap };
+} = {
+	'space.0': token('space.0', '0px'),
+	'space.025': token('space.025', '2px'),
+	'space.050': token('space.050', '4px'),
+	'space.075': token('space.075', '6px'),
+	'space.100': token('space.100', '8px'),
+	'space.150': token('space.150', '12px'),
+	'space.200': token('space.200', '16px'),
+	'space.250': token('space.250', '20px'),
+	'space.300': token('space.300', '24px'),
+	'space.400': token('space.400', '32px'),
+	'space.500': token('space.500', '40px'),
+	'space.600': token('space.600', '48px'),
+	'space.800': token('space.800', '64px'),
+	'space.1000': token('space.1000', '80px'),
+	'space.negative.025': token('space.negative.025', '-2px'),
+	'space.negative.050': token('space.negative.050', '-4px'),
+	'space.negative.075': token('space.negative.075', '-6px'),
+	'space.negative.100': token('space.negative.100', '-8px'),
+	'space.negative.150': token('space.negative.150', '-12px'),
+	'space.negative.200': token('space.negative.200', '-16px'),
+	'space.negative.250': token('space.negative.250', '-20px'),
+	'space.negative.300': token('space.negative.300', '-24px'),
+	'space.negative.400': token('space.negative.400', '-32px'),
+};
 
 export type AllSpace = keyof typeof allSpaceMap;
 
@@ -126,10 +152,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cecbb60225015ef013a4e73dfd416688>>
+ * @codegen <<SignedSource::4fa11fbde24f985817806957f59af36c>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
 export const inverseColorMap: {
 	'color.background.neutral.bold': 'color.text.inverse';
@@ -201,11 +227,11 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::69ef8886637c9f045f9472445e8c8566>>
+ * @codegen <<SignedSource::a342379238abc0c76dbf64023bc9c94b>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
 export const opacityMap: {
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
@@ -280,11 +306,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::548ef781254ab306c81d45a25c2ae014>>
+ * @codegen <<SignedSource::15ccc765f90765310b5637f046039d10>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
@@ -312,6 +338,7 @@ export const borderColorMap: {
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
+	'color.border.input.search': 'var(--ds-border-input-search)';
 	'color.border.inverse': 'var(--ds-border-inverse)';
 	'color.border.selected': 'var(--ds-border-selected)';
 	'color.border.brand': 'var(--ds-border-brand)';
@@ -352,6 +379,7 @@ export const borderColorMap: {
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
+	'color.border.input.search': token('color.border.input.search', '#0B120E24'),
 	'color.border.inverse': token('color.border.inverse', '#FFFFFF'),
 	'color.border.selected': token('color.border.selected', '#1868DB'),
 	'color.border.brand': token('color.border.brand', '#1868DB'),

@@ -1,8 +1,4 @@
-import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-
-import { type CardInnerAppearance } from '../../view/Card/types';
-import { type AnalyticsPayload } from '../types';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export const ANALYTICS_CHANNEL = 'media';
 
 export const context: {
@@ -25,34 +21,11 @@ export enum TrackQuickActionFailureReason {
 	UnknownError = 'UnknownError',
 }
 
-export class SmartLinkEvents {
-	public insertSmartLink(
-		url: string,
-		type: CardInnerAppearance,
-		createAnalyticsEvent?: CreateUIAnalyticsEvent,
-	): void {
-		fireSmartLinkEvent(
-			{
-				action: 'inserted',
-				actionSubject: 'smartLink',
-				eventType: 'track',
-				attributes: {
-					type,
-				},
-				nonPrivacySafeAttributes: {
-					domainName: url,
-				},
-			},
-			createAnalyticsEvent,
-		);
-	}
-}
-
-export const fireSmartLinkEvent = (
-	payload: AnalyticsPayload,
-	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): void => {
-	if (createAnalyticsEvent) {
-		createAnalyticsEvent(payload).fire(ANALYTICS_CHANNEL);
-	}
-};
+/**
+ * @deprecated Use `import { SmartLinkEvents } from '@atlaskit/smart-card/smart-link-events'` instead.
+ */
+export { SmartLinkEvents } from './SmartLinkEvents';
+/**
+ * @deprecated Use `import { fireSmartLinkEvent } from '@atlaskit/smart-card/fire-smart-link-event'` instead.
+ */
+export { fireSmartLinkEvent } from './fireSmartLinkEvent';

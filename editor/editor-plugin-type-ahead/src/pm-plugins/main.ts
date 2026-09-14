@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
+import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -9,7 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { closest } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';

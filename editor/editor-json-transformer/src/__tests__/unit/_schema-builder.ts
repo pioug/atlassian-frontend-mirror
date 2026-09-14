@@ -1,4 +1,4 @@
-import { createSchema } from '@atlaskit/adf-schema';
+import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 export const schema: Schema = createSchema({

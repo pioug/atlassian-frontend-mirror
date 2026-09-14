@@ -1,0 +1,17 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"compilerOptions": {
+		"outDir": "../../../../../tsDist/@atlaskit__agent-color/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"include": [
+		"../src/**/*.ts"
+	],
+	"exclude": [
+		"../src/**/*.test.*"
+	],
+	"files": [],
+	"references": []
+}

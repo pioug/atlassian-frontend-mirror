@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { Inline } from '@atlaskit/primitives/compiled';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import PageHeader from '@atlaskit/page-header';
 import { Box } from '@atlaskit/primitives/compiled';

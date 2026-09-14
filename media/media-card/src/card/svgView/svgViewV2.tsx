@@ -2,15 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useMemo } from 'react';
-import { MediaCardError, type SvgPrimaryReason } from '../../errors';
+import { MediaCardError } from '../../MediaCardError';
+import type { SvgPrimaryReason } from '../../errors';
 
-import { useResolveSvg, MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg';
-import type { SvgViewProps } from './types';
+import { useResolveSvg } from '@atlaskit/media-svg/use-resolve-svg';
+import { MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg/media-svg-error';
 import { ImageRenderer } from '../ui/imageRenderer/imageRendererV2';
+import type { SvgViewProps } from './types';
 
 const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason => {
 	switch (svgReason) {

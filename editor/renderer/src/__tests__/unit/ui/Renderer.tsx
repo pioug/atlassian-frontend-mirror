@@ -1,7 +1,7 @@
 const mockStopMeasureDuration = 1234;
 
 jest.mock('@atlaskit/editor-common/performance-measures', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
+	...jest.requireActual<object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
 	stopMeasure: jest.fn(
 		(measureName: string, onMeasureComplete?: (duration: number, startTime: number) => void) => {
@@ -9,19 +9,31 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 		},
 	),
 }));
+const mockIntlProvider = jest.fn();
+jest.mock('react-intl', () => {
+	const actual = jest.requireActual('react-intl');
+	const react = jest.requireActual('react');
+	return {
+		...actual,
+		IntlProvider: (props: Record<string, unknown>) => {
+			mockIntlProvider(props);
+			return react.createElement(actual.IntlProvider, props);
+		},
+	};
+});
+
 jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance/measure-tti'),
+	...jest.requireActual<object>('@atlaskit/editor-common/performance/measure-tti'),
 	measureTTI: jest.fn(),
 }));
 
-import { mount, type ReactWrapper } from 'enzyme';
 import React from 'react';
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
-import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -30,7 +42,6 @@ import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import { Media } from '../../../react/nodes';
 import * as renderDocumentModule from '../../../render-document';
 import Renderer from '../../../ui/Renderer';
 import type { RendererProps } from '../../../ui/renderer-props';
@@ -49,27 +60,32 @@ const validDoc = doc(
 	),
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/renderer/ui/Renderer', () => {
-	let renderer: ReactWrapper;
-
 	const initRenderer = (doc: any = initialDoc, props: Partial<RendererProps> = {}) =>
-		mount(<Renderer document={doc} {...props} />);
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		render(<Renderer document={doc} {...props} />);
+
+	beforeEach(() => {
+		mockIntlProvider.mockClear();
+	});
 
 	afterEach(() => {
-		if (renderer && renderer.length) {
-			renderer.unmount();
-		}
 		jest.restoreAllMocks();
 	});
-	describe('should re-render when appearance changes', () => {
+
+	it('should re-render when appearance changes', () => {
 		const renderMock = jest.fn();
 		const WrappedRenderer = (props: any) => {
 			renderMock();
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <Renderer {...props} />;
 		};
-		renderer = mount(<WrappedRenderer document={initialDoc} />);
-		renderer.setProps({ appearance: 'full-width' });
-		renderer.setProps({ appearance: 'full-page' });
+		const { rerender } = render(<WrappedRenderer document={initialDoc} />);
+
+		rerender(<WrappedRenderer document={initialDoc} appearance="full-width" />);
+		rerender(<WrappedRenderer document={initialDoc} appearance="full-page" />);
+
 		expect(renderMock).toHaveBeenCalledTimes(3);
 	});
 
@@ -79,9 +95,11 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 			renderMock();
 			return <Renderer {...props} />;
 		};
-		renderer = mount(<WrappedRenderer document={initialDoc} />);
-		renderer.setProps({ allowCustomPanels: false });
-		renderer.setProps({ allowCustomPanels: true });
+		const { rerender } = render(<WrappedRenderer document={initialDoc} />);
+
+		rerender(<WrappedRenderer document={initialDoc} allowCustomPanels={false} />);
+		rerender(<WrappedRenderer document={initialDoc} allowCustomPanels={true} />);
+
 		expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 2 updates
 
 		await expect(document.body).toBeAccessible();
@@ -93,32 +111,34 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 			renderMock();
 			return <Renderer {...props} />;
 		};
-		renderer = mount(<WrappedRenderer document={initialDoc} />);
-		renderer.setProps({ allowCustomPanels: false });
-		renderer.setProps({ allowCustomPanels: false });
-		expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 1 update
+		const { rerender } = render(<WrappedRenderer document={initialDoc} />);
+
+		rerender(<WrappedRenderer document={initialDoc} allowCustomPanels={false} />);
+		rerender(<WrappedRenderer document={initialDoc} allowCustomPanels={false} />);
+
+		expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 2 updates
 
 		await expect(document.body).toBeAccessible();
 	});
 
 	it('should catch errors and render unsupported content text', async () => {
-		const wrapper = initRenderer(invalidDoc, {
+		const { container } = initRenderer(invalidDoc, {
 			useSpecBasedValidator: true,
 		});
-		expect(wrapper.find('UnsupportedBlockNode')).toHaveLength(1);
-		wrapper.unmount();
+
+		expect(container.querySelectorAll('.unsupported')).toHaveLength(1);
 
 		await expect(document.body).toBeAccessible();
 	});
 
 	it('should call onError callback when catch error', async () => {
 		const onError = jest.fn();
-		const wrapper = initRenderer(invalidDoc, {
+		initRenderer(invalidDoc, {
 			useSpecBasedValidator: true,
 			onError,
 		});
+
 		expect(onError).toHaveBeenCalled();
-		wrapper.unmount();
 
 		await expect(document.body).toBeAccessible();
 	});
@@ -127,10 +147,9 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		describe('when IntlProvider is not in component ancestry', () => {
 			it('should not throw an error', async () => {
 				expect(() => {
-					const renderer = initRenderer(intlRequiredDoc, {
+					initRenderer(intlRequiredDoc, {
 						useSpecBasedValidator: true,
 					});
-					renderer.unmount();
 				}).not.toThrow();
 
 				await expect(document.body).toBeAccessible();
@@ -138,30 +157,24 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		});
 
 		describe('when IntlProvider is in component ancestry', () => {
-			let rendererWithIntl: ReactWrapper;
-
-			beforeEach(() => {
-				rendererWithIntl = mount(
+			const renderWithProvidedIntl = () =>
+				render(
 					<IntlProvider locale="es">
 						<Renderer document={intlRequiredDoc} useSpecBasedValidator />
 					</IntlProvider>,
 				);
-			});
-
-			afterEach(() => {
-				rendererWithIntl.unmount();
-			});
 
 			it('should not throw an error', async () => {
-				expect(() => rendererWithIntl).not.toThrow();
+				expect(() => renderWithProvidedIntl()).not.toThrow();
 
 				await expect(document.body).toBeAccessible();
 			});
 
 			it('should use the provided IntlProvider, and not setup a default IntlProvider', async () => {
-				const intlProviderWrapper = rendererWithIntl.find(IntlProvider);
-				expect(intlProviderWrapper.length).toEqual(1);
-				expect(intlProviderWrapper.props()).toEqual(expect.objectContaining({ locale: 'es' }));
+				renderWithProvidedIntl();
+
+				expect(mockIntlProvider).toHaveBeenCalledTimes(1);
+				expect(mockIntlProvider).toHaveBeenCalledWith(expect.objectContaining({ locale: 'es' }));
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -204,8 +217,8 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 				],
 			};
 			xit('should render caption text', () => {
-				renderer = initRenderer(docWithCaption);
-				expect(renderer.text()).toContain(captionText);
+				const { container } = initRenderer(docWithCaption);
+				expect(container.textContent).toContain(captionText);
 			});
 		});
 
@@ -235,13 +248,13 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 			};
 
 			it('should remove stage0 marks if flag is not explicitly set to "stage0"', async () => {
-				renderer = initRenderer(docWithStage0Mark);
+				initRenderer(docWithStage0Mark);
 
 				await expect(document.body).toBeAccessible();
 			});
 
 			it('should keep stage0 marks if flag is explicitly set to "stage0"', async () => {
-				renderer = initRenderer(docWithStage0Mark, { adfStage: 'stage0' });
+				initRenderer(docWithStage0Mark, { adfStage: 'stage0' });
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -321,77 +334,92 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		});
 
 		it('should not render link mark around mediaSingle if media.allowLinking is undefined', async () => {
-			renderer = initRenderer(linkDoc, {});
-			const media = renderer.find(Media);
-			const dataBlockLink = media.find('[data-block-link]');
-			expect(dataBlockLink.length).toEqual(0);
+			const { container } = initRenderer(linkDoc, {});
+
+			expect(container.querySelectorAll('[data-block-link]')).toHaveLength(0);
 
 			await expect(document.body).toBeAccessible();
 		});
 
 		it('should not render link mark around media if media.allowLinking is false', async () => {
-			renderer = initRenderer(linkDoc, {});
-			const media = renderer.find(Media);
-			const dataBlockLink = media.find('[data-block-link]');
-			expect(dataBlockLink.length).toEqual(0);
+			const { container } = initRenderer(linkDoc, {});
+
+			expect(container.querySelectorAll('[data-block-link]')).toHaveLength(0);
 
 			await expect(document.body).toBeAccessible();
 		});
 
 		it('should render link mark around media if media.allowLinking is true', async () => {
-			renderer = initRenderer(linkDoc, {
+			const { container } = initRenderer(linkDoc, {
 				media: { allowLinking: true },
 			});
-			const media = renderer.find(Media);
-			const dataBlockLink = media.find('[data-block-link]');
-			expect(dataBlockLink.length).not.toEqual(0);
 
-			await expect(document.body).toBeAccessible();
+			expect(container.querySelectorAll('[data-block-link]').length).not.toEqual(0);
+
+			// the link wraps a media card that never resolves in jsdom, so the anchor has no
+			// discernible text and trips `link-name`
+			// eslint-disable-next-line @atlassian/a11y/no-violation-count
+			await expect(document.body).toBeAccessible({ violationCount: 1 });
 		});
 	});
 
 	describe('Truncated Renderer', () => {
+		const truncationWrapper = (container: HTMLElement) => container.firstElementChild;
+
+		// jsdom does not resolve `::after` declarations through `getComputedStyle`, so the offset the
+		// fade starts at has to be read out of the rule emotion generated for the wrapper
+		const fadeStartsAt = (container: HTMLElement) => {
+			const selectors = Array.from(truncationWrapper(container)!.classList).map(
+				(className) => `.${className}::after`,
+			);
+			const fadeRule = Array.from(document.querySelectorAll('style'))
+				.map((style) => style.textContent ?? '')
+				.find((rule) => selectors.some((selector) => rule.includes(selector)));
+
+			return /top:\s*(\S+?);/u.exec(fadeRule ?? '')?.[1];
+		};
+
 		it('should truncate to 95px when truncated prop is true and maxHeight is undefined', async () => {
-			renderer = initRenderer(initialDoc, { truncated: true });
+			const { container } = initRenderer(initialDoc, { truncated: true });
 
-			expect(renderer.find('TruncatedWrapper')).toHaveLength(1);
-
-			const wrapper = renderer.find('TruncatedWrapper').childAt(0);
-			expect(wrapper.props().height).toEqual(95);
+			expect(truncationWrapper(container)).toHaveStyle({ maxHeight: '95px' });
 
 			await expect(document.body).toBeAccessible();
 		});
 
 		it('should truncate to custom height when truncated prop is true and maxHeight is defined', async () => {
-			renderer = initRenderer(initialDoc, { truncated: true, maxHeight: 100 });
-			expect(renderer.find('TruncatedWrapper')).toHaveLength(1);
-			expect(renderer.find('TruncatedWrapper').props().height).toEqual(100);
+			const { container } = initRenderer(initialDoc, { truncated: true, maxHeight: 100 });
+
+			expect(truncationWrapper(container)).toHaveStyle({ maxHeight: '100px' });
 
 			await expect(document.body).toBeAccessible();
 		});
 
 		it("shouldn't truncate when truncated prop is undefined and maxHeight is defined", async () => {
-			renderer = initRenderer(initialDoc, { maxHeight: 100 });
-			expect(renderer.find('TruncatedWrapper')).toHaveLength(0);
+			const { container } = initRenderer(initialDoc, { maxHeight: 100 });
+
+			expect(truncationWrapper(container)).toHaveClass('ak-renderer-wrapper');
 
 			await expect(document.body).toBeAccessible();
 		});
 
 		it("shouldn't truncate when truncated prop is undefined and maxHeight is undefined", async () => {
-			renderer = initRenderer();
-			expect(renderer.find('TruncatedWrapper')).toHaveLength(0);
+			const { container } = initRenderer();
+
+			expect(truncationWrapper(container)).toHaveClass('ak-renderer-wrapper');
 
 			await expect(document.body).toBeAccessible();
 		});
 
 		it('should truncate and adjust fade out if fadeoutHeight prop is defined', async () => {
-			renderer = initRenderer(initialDoc, {
+			const { container } = initRenderer(initialDoc, {
 				truncated: true,
 				maxHeight: 100,
 				fadeOutHeight: 50,
 			});
-			expect(renderer.find('TruncatedWrapper')).toHaveLength(1);
-			expect((renderer.find('TruncatedWrapper').props() as any).fadeHeight).toEqual(50);
+
+			expect(truncationWrapper(container)).toHaveStyle({ maxHeight: '100px' });
+			expect(fadeStartsAt(container)).toEqual('50px');
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -401,8 +429,9 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		let client: AnalyticsWebClient;
 
 		const initRendererWithAnalytics = (props: Partial<RendererProps> = {}) =>
-			mount(
+			render(
 				<FabricAnalyticsListeners client={client}>
+					{/* eslint-disable-next-line react/jsx-props-no-spreading */}
 					<Renderer document={initialDoc} {...props} />
 				</FabricAnalyticsListeners>,
 			);
@@ -411,10 +440,13 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 			client = analyticsClient();
 			jest.useFakeTimers();
 			jest.spyOn(window, 'requestAnimationFrame').mockImplementation((fn: Function) => fn());
+			// The renderer started/rendered events are sampled, so pin the sample draw.
+			jest.spyOn(Math, 'random').mockReturnValue(0);
 		});
 
 		afterEach(() => {
 			(window.requestAnimationFrame as jest.Mock).mockRestore();
+			(Math.random as jest.Mock).mockRestore();
 			jest.useRealTimers();
 		});
 
@@ -422,13 +454,10 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 			const oldHash = window.location.hash;
 			window.location.hash = '#test';
 
-			renderer = mount(
+			render(
 				<FabricAnalyticsListeners client={client}>
 					<Renderer document={validDoc} />
 				</FabricAnalyticsListeners>,
-				{
-					attachTo: document.body,
-				},
 			);
 
 			jest.runAllTimers();
@@ -444,12 +473,11 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 				}),
 			);
 
-			renderer.detach();
 			window.location.hash = oldHash;
 		});
 
 		it('should fire analytics event on renderer started', async () => {
-			renderer = initRendererWithAnalytics();
+			initRendererWithAnalytics();
 
 			expect(client.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -479,7 +507,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		];
 		appearances.forEach((appearance) => {
 			it(`adds appearance to analytics events for ${appearance.appearance} renderer`, async () => {
-				renderer = initRendererWithAnalytics({
+				initRendererWithAnalytics({
 					appearance: appearance.appearance,
 				});
 
@@ -501,22 +529,18 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 				<tbody>{props.children}</tbody>
 			</table>
 		);
-		it('should find the prop nodeComponents', async () => {
-			const renderer = initRenderer(tableLayout, { nodeComponents: { table } });
-			expect(renderer.props()).toEqual(expect.objectContaining({ nodeComponents: { table } }));
-
-			await expect(document.body).toBeAccessible();
-		});
 		it('should render the custom table component', async () => {
-			const renderer = initRenderer(tableLayout, { nodeComponents: { table } });
-			expect(renderer.find(table)).toHaveLength(12);
+			const { container } = initRenderer(tableLayout, { nodeComponents: { table } });
+
+			expect(container.querySelectorAll('table.custom-component')).toHaveLength(12);
 
 			await expect(document.body).toBeAccessible();
 		});
 		it('should render default tables', async () => {
-			const renderer = initRenderer(tableLayout);
-			expect(renderer.find(table)).toHaveLength(0);
-			expect(renderer.find('table')).toHaveLength(12);
+			const { container } = initRenderer(tableLayout);
+
+			expect(container.querySelectorAll('table.custom-component')).toHaveLength(0);
+			expect(container.querySelectorAll('table')).toHaveLength(12);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -531,11 +555,11 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 				renderMock();
 				return <Renderer {...props} />;
 			};
-			renderer = mount(<WrappedRenderer document={initialDoc} />);
+			const { rerender } = render(<WrappedRenderer document={initialDoc} />);
 			const renderDocumentSpy = jest.spyOn(renderDocumentModule, 'renderDocument');
 
-			renderer.setProps({ extensionHandlers: {} });
-			renderer.setProps({ extensionHandlers: {} });
+			rerender(<WrappedRenderer document={initialDoc} extensionHandlers={{}} />);
+			rerender(<WrappedRenderer document={initialDoc} extensionHandlers={{}} />);
 
 			expect(renderMock).toHaveBeenCalledTimes(3);
 			expect(renderDocumentSpy).toHaveBeenCalledTimes(2);
@@ -563,14 +587,18 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 				renderMock();
 				return <Renderer {...props} />;
 			};
-			renderer = mount(<WrappedRenderer document={initialDoc} />);
+			const { rerender } = render(<WrappedRenderer document={initialDoc} />);
 			const renderDocumentSpy = jest.spyOn(renderDocumentModule, 'renderDocument');
 
 			const emptyExtensionHandlers: ExtensionHandlers = {};
-			renderer.setProps({ extensionHandlers: emptyExtensionHandlers });
-			renderer.setProps({ extensionHandlers: emptyExtensionHandlers });
+			rerender(
+				<WrappedRenderer document={initialDoc} extensionHandlers={emptyExtensionHandlers} />,
+			);
+			rerender(
+				<WrappedRenderer document={initialDoc} extensionHandlers={emptyExtensionHandlers} />,
+			);
 
-			expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 2 updates each setProps causes an update
+			expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 2 updates, each rerender causes an update
 			expect(renderDocumentSpy).toHaveBeenCalledTimes(1);
 
 			await expect(document.body).toBeAccessible();

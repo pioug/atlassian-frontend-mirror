@@ -38,7 +38,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Date label',
 					description: 'Basic date label example',
-					source: path.resolve(__dirname, './examples/0-basic.tsx'),
+					source: path.resolve(__dirname, './examples/0-basic.vr.ap.tsx'),
 				},
 			],
 			keywords: ['date', 'label', 'date label', 'due date', 'overdue', 'lozenge'],
@@ -74,7 +74,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Date label dropdown trigger',
 					description: 'DateLabelDropdownTrigger example',
-					source: path.resolve(__dirname, './examples/4-dropdown-trigger.tsx'),
+					source: path.resolve(__dirname, './examples/4-dropdown-trigger.vr.ap.tsx'),
 				},
 			],
 			keywords: ['date', 'label', 'dropdown', 'trigger', 'date label', 'menu', 'interactive'],

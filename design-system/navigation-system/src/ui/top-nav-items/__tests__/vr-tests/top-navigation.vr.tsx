@@ -2,33 +2,33 @@ import { Device, type Hooks, snapshot } from '@af/visual-regression';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import type { SnapshotTestOptions } from '@atlassian/gemini';
 
-import TopNavCustomProfileImage from '../../../../../examples/top-nav-custom-profile-image';
-import TopNavSideNavCollapsed from '../../../../../examples/top-nav-side-nav-collapsed';
-import {
-	SearchRightElem,
-	TopNavigationEnlargedSearchInput,
-	TopNavigationExample,
-} from '../../../../../examples/top-navigation';
-import TopNavigationAppLogoSecondaryNameExample from '../../../../../examples/top-navigation-app-logo-secondary-name';
-import { TopNavigationAppLogoOversizeExample } from '../../../../../examples/top-navigation-app-logos';
-import TopNavigationCustomAppSwitcherExample from '../../../../../examples/top-navigation-custom-app-switcher';
+import TopNavCustomProfileImage from '../../../../../examples/top-nav-custom-profile-image.vr.ap';
+import TopNavSideNavCollapsed from '../../../../../examples/top-nav-side-nav-collapsed.vr.ap';
+import TopNavigationAppLogoSecondaryNameExample from '../../../../../examples/top-navigation-app-logo-secondary-name.vr.ap';
+import { TopNavigationAppLogoOversizeExample } from '../../../../../examples/top-navigation-app-logos.vr.ap';
+import TopNavigationCustomAppSwitcherExample from '../../../../../examples/top-navigation-custom-app-switcher.vr.ap';
 import {
 	TopNavigationCustomLogoExample,
 	TopNavigationCustomLogoImage200x200Example,
 	TopNavigationCustomLogoImage200x20Example,
 	TopNavigationCustomLogoImage20x200Example,
 	TopNavigationCustomLogoImage20x20Example,
-} from '../../../../../examples/top-navigation-custom-logo';
-import TopNavigationThemedButtonsExample from '../../../../../examples/top-navigation-themed-buttons';
+} from '../../../../../examples/top-navigation-custom-logo.vr.ap';
+import TopNavigationThemedButtonsExample from '../../../../../examples/top-navigation-themed-buttons.vr.ap';
+import { TopNavigationThemingLoggedOutExample } from '../../../../../examples/top-navigation-theming-logged-out.vr.ap';
+import { TopNavigationThemingWithPickerExampleRed } from '../../../../../examples/top-navigation-theming-with-picker.vr.ap';
 import {
 	TopNavigationThemingExample,
 	TopNavigationThemingHSLExample,
 	TopNavigationThemingRGBExample,
 	TopNavigationThemingSingleExample,
 	TopNavigationThemingSingleExampleCustomLogo,
-} from '../../../../../examples/top-navigation-theming';
-import { TopNavigationThemingLoggedOutExample } from '../../../../../examples/top-navigation-theming-logged-out';
-import { TopNavigationThemingWithPickerExampleRed } from '../../../../../examples/top-navigation-theming-with-picker';
+} from '../../../../../examples/top-navigation-theming.vr.ap';
+import {
+	SearchRightElem,
+	TopNavigationEnlargedSearchInput,
+	TopNavigationExample,
+} from '../../../../../examples/top-navigation.vr.ap';
 
 const variants = {
 	desktop: {

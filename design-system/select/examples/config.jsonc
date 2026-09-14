@@ -5,12 +5,13 @@
  */
 {
 	"testExamples": [
-		"00-single-select.tsx",
-		"03-checkbox-select.tsx",
-		"05-validation.tsx",
+		"00-single-select.vr.ap.tsx",
+		"03-checkbox-select.vr.ap.tsx",
+		"05-validation.vr.ap.tsx",
 		"11-select-in-modal-dialog.tsx",
-		"24-disabled.tsx",
-		"26-appearance.tsx",
+		"24-disabled.vr.ap.tsx",
+		"26-appearance.vr.ap.tsx",
+		"36-persistent-inline-menu.tsx",
 	],
 	"exampleDependencies": [],
 }

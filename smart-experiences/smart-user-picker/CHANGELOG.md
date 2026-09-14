@@ -1,5 +1,134 @@
 # @atlassian/smart-user-picker
 
+## 11.8.1
+
+### Patch Changes
+
+- [`0cb4543c427b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cb4543c427b0) -
+  Cleaned up feature gate smart_user_picker_suggest_emails_for_domain
+
+## 11.8.0
+
+### Minor Changes
+
+- [`942e8a15cbdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/942e8a15cbdf1) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+## 11.7.1
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 11.7.0
+
+### Minor Changes
+
+- [`0a39ae0f69a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a39ae0f69a25) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+- [`dbff55e58457b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbff55e58457b) -
+  Use `@atlaskit/smart-user-picker/components` for the picker component,
+  `@atlaskit/smart-user-picker/recommendation-client` for `getUserRecommendations`, and
+  `@atlaskit/smart-user-picker/default-value-hydration-client` for `hydrateDefaultValues`. Use the
+  existing `types`, `user-picker`, and `option` entry points for their respective APIs. Root imports
+  remain supported for existing consumers.
+
+## 11.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.5.1
+
+### Patch Changes
+
+- [`6d704062ca749`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d704062ca749) -
+  Internal refactor to support tree shaking. No consumer changes.
+
+## 11.5.0
+
+### Minor Changes
+
+- [`30c27895b9040`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30c27895b9040) -
+  Behind the smart-user-picker-fetch-error-fix gate, a failed user lookup no longer clears the
+  suggestions or fails the UFO experience when the query has already moved on, so a slow or failing
+  request for an earlier keystroke cannot wipe the results of the current one.
+
+## 11.4.0
+
+### Minor Changes
+
+- [`83e8f4f813800`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83e8f4f813800) -
+  Clean up a feature gate. The restrictTo prop is now always applied to user recommendations.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.3.3
+
+### Patch Changes
+
+- [`e9153fd2bb41f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9153fd2bb41f) -
+  Migrate user picker feature gate unit tests to the supported mock-gates test utilities.
+- Updated dependencies
+
+## 11.3.2
+
+### Patch Changes
+
+- [`4bdae29c77827`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bdae29c77827) -
+  Fix suggestEmailsForDomain being suppressed for partial (non-email) input when enableEmailSearch
+  and allowEmailSelectionWhenEmailMatched=false are both set. The WAR-5498 FG cleanup (2026-03-04)
+  made the isEmailQuery restriction unconditional, breaking the domain-suggestion creatable option
+  (e.g. "asdf@atlassian.com"). Behind the new gate smart_user_picker_suggest_emails_for_domain,
+  partial queries now allow the domain suggestion to render, while the email option remains
+  suppressed when a full email query matches an existing user, or when the synthesized
+  "<query>@<domain>" address already belongs to a returned user.
+
+## 11.3.1
+
+### Patch Changes
+
+- [`f834c7d669731`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f834c7d669731) -
+  Removed feature gate TWCG-444 for Unified Share Dialogue experiment. No change in functionality
+- Updated dependencies
+
 ## 11.3.0
 
 ### Minor Changes

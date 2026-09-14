@@ -1,130 +1,63 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
-import { shallow } from 'enzyme';
-import React, { type ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
-
-import { token } from '@atlaskit/tokens';
-
-import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
-import { HighlightText } from '../../../components/HighlightText';
-import { GroupOption, type GroupOptionProps } from '../../../components/GroupOption/main';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { IntlProvider } from 'react-intl';
+import { GroupOption } from '../../../components/GroupOption/main';
 import { type Group } from '../../../types';
-import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 
-jest.mock('../../../components/AvatarItemOption', () => ({
-	...(jest.requireActual('../../../components/AvatarItemOption') as any),
-	textWrapper: jest.fn(),
+jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon/main', () => ({
+	...jest.requireActual('@atlaskit/people-teams-ui-public/verified-team-icon/main'),
+	VerifiedTeamIcon: () => <span data-testid="verified-team-icon">Verified team</span>,
 }));
 
 describe('GroupOption', () => {
-	const mockTextWrapper = textWrapper as jest.Mock;
-
-	afterEach(() => {
-		jest.resetAllMocks();
-	});
-
 	const group: Group = {
 		id: 'group-66',
 		name: 'dead-jedi-admins',
 		type: 'group',
 	};
 
-	const shallowOption = (props: Partial<GroupOptionProps> = {}) =>
-		shallow(
-			<GroupOption isSelected={false} group={group} includeTeamsUpdates={false} {...props} />,
+	const renderGroupOption = (props: Partial<React.ComponentProps<typeof GroupOption>> = {}) =>
+		render(
+			<IntlProvider locale="en" messages={{}}>
+				<GroupOption isSelected={false} group={group} includeTeamsUpdates={false} {...props} />
+			</IntlProvider>,
 		);
 
-	it('should render GroupOption component', () => {
-		const component = shallowOption();
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
-		// emotion css doesn't play well with component equality
-		expect(avatarItemOption.prop('avatar')).toMatchInlineSnapshot(`
-		<span
-		  css="unknown styles"
-		>
-		  <PeopleGroupIcon
-		    color="currentColor"
-		    label="group-icon"
-		    spacing="spacious"
-		  />
-		</span>
-	`);
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+	it('renders the group name and admin-managed byline', async () => {
+		renderGroupOption();
 
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>dead-jedi-admins</HighlightText>);
+		expect(screen.getByText(group.name)).toBeInTheDocument();
+		expect(screen.getByTestId('user-picker-group-secondary-text')).toHaveTextContent(
+			'Admin-managed group',
+		);
+		await expect(document.body).toBeAccessible();
+	});
 
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
+	it('renders the same option content when selected', () => {
+		renderGroupOption({ isSelected: true });
 
-		expect(secondaryText.props.children).toEqual(
-			<FormattedMessage
-				id="fabric.elements.user-picker.group.byline"
-				defaultMessage="Admin-managed group"
-				description="Secondary text shown below a group name in the user picker drop-down list to indicate the option is an admin-managed group."
-			/>,
+		expect(screen.getByText(group.name)).toBeInTheDocument();
+		expect(screen.getByTestId('user-picker-group-secondary-text')).toHaveTextContent(
+			'Admin-managed group',
 		);
 	});
 
-	it('should render GroupOption in selected state', () => {
-		const component = shallowOption({ isSelected: true });
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.selected', '#1868DB'));
-
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>dead-jedi-admins</HighlightText>);
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual(
-			<FormattedMessage
-				id="fabric.elements.user-picker.group.byline"
-				defaultMessage="Admin-managed group"
-				description="Secondary text shown below a group name in the user picker drop-down list to indicate the option is an admin-managed group."
-			/>,
-		);
-	});
-
-	it('should highlight the primaryText', () => {
-		const testHighlightRange = { start: 4, end: 11 };
-		const groupWithHighlight = {
-			...group,
-			highlight: {
-				name: [testHighlightRange],
+	it('highlights the configured part of the group name', () => {
+		const { container } = renderGroupOption({
+			group: {
+				...group,
+				highlight: { name: [{ start: 4, end: 11 }] },
 			},
-		};
-		const component = shallowOption({ group: groupWithHighlight });
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+		});
 
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(
-			<HighlightText highlights={[testHighlightRange]}>dead-jedi-admins</HighlightText>,
-		);
+		expect(container.querySelector('b')).toHaveTextContent('-jedi-ad');
+		expect(container).toHaveTextContent(group.name);
 	});
 
-	it('should render the admin managed group with verified icon byline if teams is enabled', () => {
-		const component = shallowOption({ includeTeamsUpdates: true });
-		const avatarItemOption = component.find(AvatarItemOption);
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-		expect(secondaryText.props.children).toEqual(
-			<FormattedMessage
-				id="fabric.elements.user-picker.group.byline.admin-managed"
-				defaultMessage="Admin group {verifiedIcon}"
-				description="Byline for admin-managed groups with verified icon"
-				values={{ verifiedIcon: <VerifiedTeamIcon label="" size="small" spacing="none" /> }}
-			/>,
-		);
+	it('renders the verified icon in the byline when teams updates are enabled', () => {
+		renderGroupOption({ includeTeamsUpdates: true });
+
+		expect(screen.getByTestId('verified-team-icon')).toBeInTheDocument();
+		expect(screen.getByTestId('user-picker-group-secondary-text')).toHaveTextContent('Admin group');
 	});
 });

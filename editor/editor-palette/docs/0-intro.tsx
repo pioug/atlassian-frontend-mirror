@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- md template from @atlaskit/docs

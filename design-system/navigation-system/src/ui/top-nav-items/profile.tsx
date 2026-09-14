@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback } from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 
 import { EndItem, type EndItemProps } from './end-item';
 

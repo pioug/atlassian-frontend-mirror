@@ -29,6 +29,12 @@
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-products/tsconfig.json"
 		}
 	]

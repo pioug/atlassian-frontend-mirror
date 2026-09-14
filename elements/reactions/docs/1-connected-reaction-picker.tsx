@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, Example, code, Props } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import ConnectedReactionPickerExample from '../examples/00-connected-reaction-picker';
@@ -90,7 +90,8 @@ const _default_1: any = md`
   const emojiId = { shortName: ':grimacing:', id: '1f603' };
 
 
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <ConnectedReactionPicker
     store={store}
     containerAri={containerAri}

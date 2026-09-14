@@ -24,6 +24,15 @@ export interface ListState {
 	bulletListActive: boolean;
 	bulletListDisabled: boolean;
 	decorationSet: DecorationSet; // used to add attributes representing indentation level
+	/**
+	 * Incremented when the document changes while the selection is inside a list, so consumers can
+	 * re-evaluate state that depends on list structure — indent and outdent availability in
+	 * particular, which changes at the maximum nesting depth without any of the flags above moving.
+	 *
+	 * The toolbar previously watched `decorationSet` for this, which only worked as long as a new
+	 * set was allocated on every list edit.
+	 */
+	listStructureToken: number;
 	orderedListActive: boolean;
 	orderedListDisabled: boolean;
 }

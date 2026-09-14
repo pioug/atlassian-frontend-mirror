@@ -10,6 +10,7 @@ import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 
 import { canSplitCellSelection } from '../../../pm-plugins/commands/split-cell';
 import { canMergeCellSelection } from '../../../pm-plugins/transforms/merge';
+import { canMove } from '../../../pm-plugins/utils/drag-menu';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../../../types';
 
 import { TableMenuProvider } from './TableMenuContext';
@@ -47,6 +48,7 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 			const selectionRect = getSelectionRect(editorView.state.selection);
 			const cellOps = {
 				editorView,
+				surface,
 				canMergeCells: canMergeCellSelection(editorView.state.selection),
 				canSplitCell: canSplitCellSelection(editorView.state.selection),
 				hasMergedCellsInTable: tableMap.hasMergedCells(),
@@ -58,6 +60,34 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 
 			return {
 				...cellOps,
+				canMoveRowUp: canMove(
+					'table-row',
+					-1,
+					tableMap.height,
+					editorView.state.selection,
+					selectionRect,
+				),
+				canMoveRowDown: canMove(
+					'table-row',
+					1,
+					tableMap.height,
+					editorView.state.selection,
+					selectionRect,
+				),
+				canMoveColumnLeft: canMove(
+					'table-column',
+					-1,
+					tableMap.width,
+					editorView.state.selection,
+					selectionRect,
+				),
+				canMoveColumnRight: canMove(
+					'table-column',
+					1,
+					tableMap.width,
+					editorView.state.selection,
+					selectionRect,
+				),
 				isFirstRow: selectionRect.top === 0,
 				isLastRow: selectionRect.bottom === tableMap.height,
 				selectedRowCount: selectionRect.bottom - selectionRect.top,
@@ -65,7 +95,7 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 				isLastColumn: selectionRect.right === tableMap.width,
 				selectedColumnCount: selectionRect.right - selectionRect.left,
 			};
-		}, [editorView, tableNode, selection]);
+		}, [editorView, tableNode, selection, surface]);
 
 		if (components.length === 0) {
 			return null;

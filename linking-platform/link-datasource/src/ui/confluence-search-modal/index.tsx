@@ -1,23 +1,16 @@
-import React, { lazy, Suspense } from 'react';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { type ConfluenceSearchConfigModalProps } from './types';
+import { ConfluenceSearchConfigModalWithWrappers } from './ConfluenceSearchConfigModalWithWrappers';
 
 export const CONFLUENCE_SEARCH_DATASOURCE_ID = '768fc736-3af4-4a8f-b27e-203602bff8ca';
 
-const LazyConfluenceSearchConfigModal = lazy(() =>
-	import(
-		/* webpackChunkName: "@atlaskit-internal_linkdatasource-confluencesearchmodal" */ './modal'
-	).then((module) => ({ default: module.ConfluenceSearchConfigModal })),
-);
-
-const ConfluenceSearchConfigModalWithWrappers = (
-	props: ConfluenceSearchConfigModalProps,
-): React.JSX.Element => {
-	return (
-		<Suspense fallback={<div data-testid={'confluence-search-datasource-table-suspense'} />}>
-			<LazyConfluenceSearchConfigModal {...props} />
-		</Suspense>
-	);
-};
-
 export default ConfluenceSearchConfigModalWithWrappers;
+
+/**
+ * @deprecated Use `import { ConfluenceSearchConfigModalWithWrappers } from '@atlaskit/link-datasource/confluence-search-config-modal-with-wrappers'` instead.
+ */
+export { ConfluenceSearchConfigModalWithWrappers } from './ConfluenceSearchConfigModalWithWrappers';
+/**
+ * @deprecated Use `import { ConfluenceSearchConfigModalWithWrappers } from '@atlaskit/link-datasource/confluence-search-config-modal-with-wrappers'` instead.
+ */
+export { ConfluenceSearchConfigModalWithWrappers as ConfluenceSearchConfigModal } from './ConfluenceSearchConfigModalWithWrappers';

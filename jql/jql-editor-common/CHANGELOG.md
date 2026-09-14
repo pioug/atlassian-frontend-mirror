@@ -1,5 +1,37 @@
 # @atlaskit/jql-editor-common
 
+## 4.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.0
+
+### Minor Changes
+
+- [`9d816d1001fcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d816d1001fcf) -
+  Render Assets (CMDB) object names, and their object icon, as rich inline nodes in the JQL editor —
+  both when hydrating an existing query and when a value is selected from autocomplete. Behind
+  `assets_object_jql_values_in_editor`.
+
+  Adds an `assets` rich inline node, a `HydratedAssets` member of the `HydratedValue` union, and an
+  `'assets'` member of `AutocompleteValueType`.
+
+## 4.2.1
+
+### Patch Changes
+
+- [`bf16eda51e6f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf16eda51e6f4) -
+  VOLTC-146 - run volt-migrate-package on @atlaskit/jql-editor-common
+- [`4ef345aa8387e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ef345aa8387e) -
+  VOLTC-121 - run volt-migrate-package on @atlaskit/jql-editor-common
+
 ## 4.2.0
 
 ### Minor Changes

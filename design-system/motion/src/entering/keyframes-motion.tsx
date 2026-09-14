@@ -8,9 +8,9 @@ import { exitingDurations } from '../utils/exiting-durations';
 import { isReducedMotion } from '../utils/is-reduced-motion';
 import { useSetTimeout } from '../utils/use-set-timeout';
 
-import { useExitingPersistence } from './exiting-persistence';
-import { useStaggeredEntrance } from './staggered-entrance';
 import { type AnimationCurve, type Direction, type MotionProps } from './types';
+import { useExitingPersistence } from './use-exiting-persistence';
+import { useStaggeredEntrance } from './use-staggered-entrance';
 
 const zoomIn = keyframes({
 	'0%': { opacity: 0, transform: 'scale(0.5)' },

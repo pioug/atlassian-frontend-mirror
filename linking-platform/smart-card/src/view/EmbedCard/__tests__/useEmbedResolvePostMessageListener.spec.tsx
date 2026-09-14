@@ -4,8 +4,8 @@ import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessag
 
 const mockFetchData = jest.fn();
 mockFetchData.mockResolvedValue({ data: {} } as any);
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
+jest.mock('@atlaskit/link-provider/use-smart-link-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-link-context'),
 	useSmartLinkContext: () => ({
 		store: { getState: () => ({}), dispatch: jest.fn() },
 		config: { authFlow: 'disabled' },

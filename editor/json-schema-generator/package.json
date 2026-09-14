@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/json-schema-generator",
-	"version": "4.0.1",
+	"version": "4.1.0",
 	"description": "A CLI tool for generating JSON Schema from typescript",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

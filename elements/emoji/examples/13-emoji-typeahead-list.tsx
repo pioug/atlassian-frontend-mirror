@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
-import { onSelection } from '../example-helpers';
+import { onSelection } from '../example-helpers/on-selection';
 import EmojiTypeAheadList from '../src/components/typeahead/EmojiTypeAheadList';
 import type { EmojiDescription } from '../src/types';
 import { IntlProvider } from 'react-intl';

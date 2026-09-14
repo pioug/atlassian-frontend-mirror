@@ -46,6 +46,8 @@ describe('createParticipantFromPayload', () => {
 		const lastActive = baseTime + PARTICIPANT_UPDATE_INTERVAL * 3;
 		const payload = {
 			...hydratedUser,
+			actingUserId: 'acting-user',
+			agentType: 'convo-ai',
 			timestamp: lastActive,
 			permit: {
 				isPermittedToComment: false,
@@ -58,6 +60,8 @@ describe('createParticipantFromPayload', () => {
 			const getUser = undefined;
 			const expectedParticipant: ProviderParticipant = {
 				...hydratedUser,
+				actingUserId: 'acting-user',
+				agentType: 'convo-ai',
 				lastActive,
 				// Blank when getUser unavailable
 				name: '',
@@ -77,6 +81,8 @@ describe('createParticipantFromPayload', () => {
 			const getUser = jest.fn().mockReturnValue(hydratedUser);
 			const expectedParticipant: ProviderParticipant = {
 				...hydratedUser,
+				actingUserId: 'acting-user',
+				agentType: 'convo-ai',
 				lastActive,
 				isHydrated: true,
 			};
@@ -90,8 +96,8 @@ describe('createParticipantFromPayload', () => {
 
 			it('should call getUser', async () => {
 				await createParticipantFromPayload(payload, getUser);
-				expect(getUser).toBeCalledTimes(1);
-				expect(getUser).toBeCalledWith(payload.userId);
+				expect(getUser).toHaveBeenCalledTimes(1);
+				expect(getUser).toHaveBeenCalledWith(payload.userId);
 			});
 		});
 	});
@@ -167,7 +173,10 @@ describe('fetchParticipants', () => {
 	it('return hydrated participants', async () => {
 		const participantsState = new ParticipantsState();
 		// not yet hydrated
-		participantsState.setBySessionId(nonHydratedParticipant.sessionId, nonHydratedParticipant);
+		participantsState.setBySessionId(nonHydratedParticipant.sessionId, {
+			...nonHydratedParticipant,
+			actingUserId: 'acting-user',
+		});
 		getUsersMock.mockReturnValue([hydratedUser]);
 
 		const result = await fetchParticipants(participantsState, defaultBatchProps);
@@ -175,12 +184,14 @@ describe('fetchParticipants', () => {
 		expect(result.length).toEqual(1);
 		expect(result[0]).toEqual({
 			...hydratedUser,
+			actingUserId: 'acting-user',
 			isHydrated: true,
 		});
 
 		// verify we updated state in the helper
 		expect(participantsState.getBySessionId(hydratedUser.sessionId)).toEqual({
 			...hydratedUser,
+			actingUserId: 'acting-user',
 			isHydrated: true,
 		});
 	});

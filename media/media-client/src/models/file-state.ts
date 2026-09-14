@@ -1,21 +1,11 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type FileStatus as CommonFileStatus } from '@atlaskit/media-common';
-import { type MediaStoreResponse } from '../client/media-store';
-import { type MediaItemDetails, type MediaFile } from './media';
-
-import type {
-	FilePreview,
-	FileState,
-	ErrorFileState,
-	UploadingFileState,
-	ProcessingFileState,
-	ProcessedFileState,
-	ProcessingFailedState,
-	MediaFileArtifacts,
-} from '@atlaskit/media-state/file-state';
+import type { FilePreview, FileState, ErrorFileState } from '@atlaskit/media-state/file-state';
 
 export type FileStatus = CommonFileStatus;
 
 export interface PreviewOptions {}
+
 export interface GetFileOptions {
 	initialFileState?: FileState;
 	preview?: PreviewOptions;
@@ -31,109 +21,47 @@ export interface PreviewableFileState {
 
 export type NonErrorFileState = Exclude<FileState, ErrorFileState>;
 
-export const isUploadingFileState = (fileState: FileState): fileState is UploadingFileState =>
-	fileState.status === 'uploading';
-
-export const isProcessingFileState = (fileState: FileState): fileState is ProcessingFileState =>
-	fileState.status === 'processing';
-
-export const isProcessedFileState = (fileState: FileState): fileState is ProcessedFileState =>
-	fileState.status === 'processed';
-
-export const isErrorFileState = (fileState: FileState): fileState is ErrorFileState =>
-	fileState.status === 'error';
-
-export const isPreviewableFileState = (
-	fileState: FileState,
-): fileState is Exclude<FileState, ErrorFileState> & PreviewableFileState =>
-	!isErrorFileState(fileState) && !!fileState.preview;
-
-export const isFinalFileState = (
-	fileState: FileState,
-): fileState is ProcessedFileState | ErrorFileState | ProcessingFailedState =>
-	['processed', 'failed-processing', 'error'].includes(fileState.status);
-
-export const isNonErrorFinalFileState = (
-	fileState: FileState,
-): fileState is ProcessedFileState | ProcessingFailedState =>
-	['processed', 'failed-processing'].includes(fileState.status);
-
-export const hasArtifacts = (
-	fileState: FileState,
-): fileState is FileState & { artifacts: MediaFileArtifacts } =>
-	'artifacts' in fileState && fileState.artifacts !== undefined;
-
-export const isImageRepresentationReady = (fileState: FileState): boolean => {
-	switch (fileState.status) {
-		case 'processing':
-		case 'processed':
-		case 'failed-processing':
-			return !!(fileState.representations && fileState.representations.image);
-		default:
-			return false;
-	}
-};
-
-export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>): FileState => {
-	const {
-		id,
-		name,
-		size,
-		processingStatus,
-		artifacts,
-		mediaType,
-		mimeType,
-		representations,
-		createdAt,
-		metadataTraceContext,
-		hash,
-		abuseClassification,
-		mediaMetadata,
-		failReason,
-		previewCdnUrl,
-	} = mediaFile.data;
-	const baseState = {
-		id,
-		name,
-		size,
-		mediaType,
-		mimeType,
-		artifacts,
-		representations,
-		createdAt,
-		hash,
-		metadataTraceContext,
-		abuseClassification,
-		mediaMetadata,
-		previewCdnUrl,
-	};
-
-	switch (processingStatus) {
-		case 'pending':
-		case undefined:
-			return {
-				...baseState,
-				status: 'processing',
-			};
-		case 'succeeded':
-			return {
-				...baseState,
-				status: 'processed',
-			};
-		case 'failed':
-			return {
-				...baseState,
-				status: 'failed-processing',
-				failReason,
-			};
-	}
-};
-
-export const mapMediaItemToFileState = (id: string, item: MediaItemDetails): FileState => {
-	return mapMediaFileToFileState({
-		data: {
-			id,
-			...item,
-		},
-	});
-};
+/**
+ * @deprecated Use `import { isUploadingFileState } from '@atlaskit/media-client'` instead.
+ */
+export { isUploadingFileState } from './is-uploading-file-state';
+/**
+ * @deprecated Use `import { isProcessingFileState } from '@atlaskit/media-client'` instead.
+ */
+export { isProcessingFileState } from './is-processing-file-state';
+/**
+ * @deprecated Use `import { isProcessedFileState } from '@atlaskit/media-client'` instead.
+ */
+export { isProcessedFileState } from './is-processed-file-state';
+/**
+ * @deprecated Use `import { isErrorFileState } from '@atlaskit/media-client'` instead.
+ */
+export { isErrorFileState } from './is-error-file-state';
+/**
+ * @deprecated Use `import { isPreviewableFileState } from '@atlaskit/media-client'` instead.
+ */
+export { isPreviewableFileState } from './is-previewable-file-state';
+/**
+ * @deprecated Use `import { isFinalFileState } from '@atlaskit/media-client'` instead.
+ */
+export { isFinalFileState } from './is-final-file-state';
+/**
+ * @deprecated Use `import { isNonErrorFinalFileState } from '@atlaskit/media-client'` instead.
+ */
+export { isNonErrorFinalFileState } from './is-non-error-final-file-state';
+/**
+ * @deprecated Use `import { hasArtifacts } from '@atlaskit/media-client'` instead.
+ */
+export { hasArtifacts } from './has-artifacts';
+/**
+ * @deprecated Use `import { isImageRepresentationReady } from '@atlaskit/media-client'` instead.
+ */
+export { isImageRepresentationReady } from './is-image-representation-ready';
+/**
+ * @deprecated Use `import { mapMediaFileToFileState } from '@atlaskit/media-client'` instead.
+ */
+export { mapMediaFileToFileState } from './map-media-file-to-file-state';
+/**
+ * @deprecated Use `import { mapMediaItemToFileState } from '@atlaskit/media-client'` instead.
+ */
+export { mapMediaItemToFileState } from './map-media-item-to-file-state';

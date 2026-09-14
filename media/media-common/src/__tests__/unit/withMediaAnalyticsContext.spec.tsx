@@ -1,14 +1,13 @@
 import React, { forwardRef, useEffect } from 'react';
 import { render } from '@atlassian/testing-library';
 
-import {
-	type AnalyticsEventPayload,
-	AnalyticsListener,
-	createAndFireEvent,
-	type CreateUIAnalyticsEvent,
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 
 import { ANALYTICS_MEDIA_CHANNEL } from '../../analytics/constants';

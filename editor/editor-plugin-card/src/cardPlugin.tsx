@@ -9,12 +9,12 @@ import {
 } from '@atlaskit/editor-common/quick-insert';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-	CONFLUENCE_SEARCH_DATASOURCE_ID,
-} from '@atlaskit/link-datasource';
-import { type CardContext, SmartCardContext } from '@atlaskit/link-provider/context';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
+import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '@atlaskit/link-datasource/confluence-search-modal';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { SmartCardContext } from '@atlaskit/link-provider/context';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { CardPlugin } from './cardPluginType';
@@ -37,6 +37,7 @@ import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 // eslint-disable-next-line import/no-named-as-default
 import LayoutButton from './ui/LayoutButton';
 import { getPasteDisplayAsMenuComponents } from './ui/PasteDisplayAsMenu';
+import { getCardQuickInsertComponents } from './ui/quick-insert/getCardQuickInsertComponents';
 import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './ui/toolbar';
 
 type SmartCardClientRef = {
@@ -54,6 +55,7 @@ const PasteMenuSmartCardClientSync = ({ clientRef }: { clientRef: SmartCardClien
 export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptions, api }) => {
 	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	let instanceEmbedCardTransformers = options.embedCardTransformers;
 	let editorViewForPasteMenu: EditorView | undefined;
 	const pasteMenuSmartCardClientRef: SmartCardClientRef = { current: undefined };
@@ -76,6 +78,10 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 				smartCardClientRef: pasteMenuSmartCardClientRef,
 			}),
 		);
+	}
+
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getCardQuickInsertComponents({ api, options }));
 	}
 
 	api?.base?.actions.registerMarks(({ tr, node, pos }) => {
@@ -296,74 +302,78 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 				api,
 				options.disableFloatingToolbar,
 			),
-			quickInsert: ({ formatMessage }) => {
-				const quickInsertArray: Array<QuickInsertItem> = [];
-				if (!options.allowDatasource) {
-					return quickInsertArray;
-				}
+			...(isRegisteredSlashCommandEnabled
+				? {}
+				: {
+						quickInsert: ({ formatMessage }) => {
+							const quickInsertArray: Array<QuickInsertItem> = [];
+							if (!options.allowDatasource) {
+								return quickInsertArray;
+							}
 
-				quickInsertArray.push({
-					id: 'datasource',
-					title: formatMessage(
-						fg('confluence-issue-terminology-refresh')
-							? messages.datasourceJiraIssueIssueTermRefresh
-							: messages.datasourceJiraIssue,
-					),
-					description: formatMessage(
-						fg('confluence-issue-terminology-refresh')
-							? messages.datasourceJiraIssueDescriptionIssueTermRefresh
-							: messages.datasourceJiraIssueDescription,
-					),
-					isDisabledOffline: true,
-					categories: ['external-content', 'development'],
-					keywords: ['jira'],
-					featured: true,
-					...(fg('jim-lower-ranking-in-jira-macro-search') && { priority: 500 }),
-					icon: () => <IconDatasourceJiraIssue />,
-					action(insert) {
-						const tr = insert(undefined);
-						showDatasourceModal('jira')(tr);
-						return tr;
-					},
-				});
+							quickInsertArray.push({
+								id: 'datasource',
+								title: formatMessage(
+									fg('confluence-issue-terminology-refresh')
+										? messages.datasourceJiraIssueIssueTermRefresh
+										: messages.datasourceJiraIssue,
+								),
+								description: formatMessage(
+									fg('confluence-issue-terminology-refresh')
+										? messages.datasourceJiraIssueDescriptionIssueTermRefresh
+										: messages.datasourceJiraIssueDescription,
+								),
+								isDisabledOffline: true,
+								categories: ['external-content', 'development'],
+								keywords: ['jira'],
+								featured: true,
+								...(fg('jim-lower-ranking-in-jira-macro-search') && { priority: 500 }),
+								icon: () => <IconDatasourceJiraIssue />,
+								action(insert) {
+									const tr = insert(undefined);
+									showDatasourceModal('jira')(tr);
+									return tr;
+								},
+							});
 
-				if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
-					quickInsertArray.push({
-						id: 'datasource',
-						title: formatMessage(messages.datasourceAssetsObjectsGeneralAvailability),
-						description: formatMessage(messages.datasourceAssetsObjectsDescription),
-						isDisabledOffline: true,
-						categories: ['external-content', 'development'],
-						keywords: ['assets'],
-						icon: () => <IconDatasourceAssetsObjects />,
-						action(insert) {
-							const tr = insert(undefined);
-							showDatasourceModal('assets')(tr);
-							return tr;
+							if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
+								quickInsertArray.push({
+									id: 'datasource',
+									title: formatMessage(messages.datasourceAssetsObjectsGeneralAvailability),
+									description: formatMessage(messages.datasourceAssetsObjectsDescription),
+									isDisabledOffline: true,
+									categories: ['external-content', 'development'],
+									keywords: ['assets'],
+									icon: () => <IconDatasourceAssetsObjects />,
+									action(insert) {
+										const tr = insert(undefined);
+										showDatasourceModal('assets')(tr);
+										return tr;
+									},
+								});
+							}
+
+							if (isDatasourceConfigEditable(CONFLUENCE_SEARCH_DATASOURCE_ID)) {
+								quickInsertArray.push({
+									id: 'datasource',
+									title: formatMessage(messages.datasourceConfluenceSearch),
+									description: formatMessage(messages.datasourceConfluenceSearchDescription),
+									isDisabledOffline: true,
+									categories: ['external-content', 'development'],
+									keywords: ['confluence'],
+									featured: true,
+									icon: () => <IconDatasourceConfluenceSearch />,
+									action(insert) {
+										const tr = insert(undefined);
+										showDatasourceModal('confluence-search')(tr);
+										return tr;
+									},
+								});
+							}
+
+							return quickInsertArray;
 						},
-					});
-				}
-
-				if (isDatasourceConfigEditable(CONFLUENCE_SEARCH_DATASOURCE_ID)) {
-					quickInsertArray.push({
-						id: 'datasource',
-						title: formatMessage(messages.datasourceConfluenceSearch),
-						description: formatMessage(messages.datasourceConfluenceSearchDescription),
-						isDisabledOffline: true,
-						categories: ['external-content', 'development'],
-						keywords: ['confluence'],
-						featured: true,
-						icon: () => <IconDatasourceConfluenceSearch />,
-						action(insert) {
-							const tr = insert(undefined);
-							showDatasourceModal('confluence-search')(tr);
-							return tr;
-						},
-					});
-				}
-
-				return quickInsertArray;
-			},
+					}),
 		},
 	};
 };

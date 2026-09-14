@@ -1,11 +1,11 @@
 import { snapshot } from '@af/visual-regression';
 
-import StackBasic from '../../../../../examples/20-stack-basic-compiled';
-import StackSpace from '../../../../../examples/22-stack-space-compiled';
-import StackAlignBlock from '../../../../../examples/23-stack-align-block-compiled';
-import StackAlignInline from '../../../../../examples/24-stack-align-inline-compiled';
-import StackSpread from '../../../../../examples/25-stack-spread-compiled';
-import StackGrow from '../../../../../examples/26-stack-grow-compiled';
+import StackBasic from '../../../../../examples/20-stack-basic-compiled.vr.ap';
+import StackSpace from '../../../../../examples/22-stack-space-compiled.vr.ap';
+import StackAlignBlock from '../../../../../examples/23-stack-align-block-compiled.vr.ap';
+import StackAlignInline from '../../../../../examples/24-stack-align-inline-compiled.vr.ap';
+import StackSpread from '../../../../../examples/25-stack-spread-compiled.vr.ap';
+import StackGrow from '../../../../../examples/26-stack-grow-compiled.vr.ap';
 
 snapshot(StackBasic, {
 	variants: [

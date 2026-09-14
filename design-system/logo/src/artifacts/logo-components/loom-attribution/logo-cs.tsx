@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9f5d94b0d7bf822b6ab4c2ad26c21970>>
+ * @codegen <<SignedSource::3ba0b612dd67bac4abee4cef2350de6d>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const svg = `<svg height="100%" viewBox="0 0 100 32">
  *
  */
 export function LoomAttributionLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Loom Attribution',
 	testId,

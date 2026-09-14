@@ -7,11 +7,13 @@ import { type ReactNode, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
 
-import { Block, Centered, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { Centered, RetryContainer } from './utils/containers';
 
 const buttonContainerStyles = css({
 	textAlign: 'center',

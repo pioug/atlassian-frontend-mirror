@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export const tableColorAdf: DocNode = {
 	version: 1,
@@ -404,6 +404,141 @@ export const tableColorAdf: DocNode = {
 							type: 'tableCell',
 							attrs: {
 								background: '#e3bdfa',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				// Legacy 3rd-row colours, still reachable with the experiment off and still present in
+				// existing documents. Kept alongside the new bold row so both resolve through
+				// tableBackgroundColorNames -- dropping these is what caused the EDITOR-7590 revert.
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#b3bac5',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#4c9aff',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#79e2f2',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#57d9a3',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#ffc400',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#ff8f73',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								background: '#998dd9',
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
+								colwidth: [110],
+							},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {
 								colwidth: [110],
 							},
 							content: [

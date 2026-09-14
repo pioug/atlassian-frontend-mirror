@@ -1,7 +1,7 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import Default from '../../../examples/01-default';
-import PopperPlacements from '../../../examples/07-popper-placements';
+import Default from '../../../examples/01-default.vr.ap';
+import PopperPlacements from '../../../examples/07-popper-placements.vr.ap';
 
 /**
  * Feature-flagged top-layer VR coverage for `@atlaskit/inline-dialog`.

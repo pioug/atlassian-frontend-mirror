@@ -8,9 +8,12 @@ build/
 __tests__/
 tsconfig.json
 config/
-dist/cjs/
-dist/es2019/
-dist/esm/
+dist/cjs/**
+!dist/cjs/page/index.js
+dist/es2019/**
+!dist/es2019/page/index.js
+dist/esm/**
+!dist/esm/page/index.js
 scripts/
 report.api.md
 tsconfig.app.json

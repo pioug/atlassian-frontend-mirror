@@ -32,7 +32,7 @@ import {
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';

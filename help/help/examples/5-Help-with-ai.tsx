@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 import ShipIcon from '@atlaskit/icon/core/release';
-import { Field, HelperMessage } from '@atlaskit/form';
+import Field from '@atlaskit/form/field';
+import { HelperMessage } from '@atlaskit/form/helper-message';
 
 import {
 	ExampleWrapper,

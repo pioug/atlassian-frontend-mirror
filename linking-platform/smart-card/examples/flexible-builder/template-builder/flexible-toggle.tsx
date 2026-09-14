@@ -6,7 +6,7 @@ import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { Inline, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { type TemplateDisplay } from '../types';
 

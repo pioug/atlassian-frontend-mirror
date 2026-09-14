@@ -1,5 +1,6 @@
 import type { ThemeColorModes } from './theme-color-modes';
-import type { ThemeContrastModes, ThemeOptionsSchema } from './theme-config';
+import type { ThemeContrastModes } from './theme-config';
+import type { ThemeOptionsSchema } from './theme-options-schema';
 import type { ThemeIds } from './theme-ids';
 
 /**

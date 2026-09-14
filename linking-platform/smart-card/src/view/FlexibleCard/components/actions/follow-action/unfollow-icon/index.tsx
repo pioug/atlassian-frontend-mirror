@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import PersonRemoveIcon from '@atlaskit/icon/core/person-remove';
 
 const UnfollowIcon = (props: NewCoreIconProps): React.JSX.Element => (

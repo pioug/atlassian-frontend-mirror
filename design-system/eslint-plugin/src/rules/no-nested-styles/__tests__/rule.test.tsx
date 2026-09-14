@@ -1,11 +1,12 @@
-import { tester } from '../../__tests__/utils/_tester';
+import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
-tester.run('no-nested-styles', rule, {
+// @ts-expect-error -- `rule` doesn't work with `typescriptEslintTester`
+typescriptEslintTester.run('no-nested-styles', rule, {
 	valid: [
 		`
     const focusRingStyles = css({
-      '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
+		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
         '&:focus-visible': {
           outline: '1px solid',
         },
@@ -49,6 +50,24 @@ tester.run('no-nested-styles', rule, {
       },
       [somethingElse.above.md]: {
         color: 'green',
+      },
+    })
+    `,
+		`
+    import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
+
+    css({
+      ['@media (min-width: 30rem)' satisfies MediaAboveXs]: {
+        color: 'red',
+      },
+    })
+    `,
+		`
+    import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
+
+    css({
+      ['@media (min-width: 30rem)' satisfies MediaAboveXs satisfies string]: {
+        color: 'red',
       },
     })
     `,

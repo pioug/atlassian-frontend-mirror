@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-limited-mode",
-	"version": "9.1.0",
+	"version": "15.0.0",
 	"description": "LimitedMode plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,10 @@
 		"./limited-mode-plugin-type": "./src/entry-points/limited-mode-plugin-type.ts"
 	},
 	"dependencies": {
+		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -37,45 +40,10 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"react": "^19.2.0",
 		"react-intl": "root:*",
 		"typescript": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"platform-feature-flags": {}
 }

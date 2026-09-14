@@ -1,6 +1,6 @@
 import React from 'react';
-import type { AnnotationDataAttributes } from '@atlaskit/adf-schema';
-import { buildAnnotationMarkDataAttributes } from '@atlaskit/adf-schema';
+import type { AnnotationDataAttributes } from '@atlaskit/adf-schema/annotation';
+import { buildDataAttributes as buildAnnotationMarkDataAttributes } from '@atlaskit/adf-schema/annotation';
 import type { MarkProps, AnnotationMarkMeta } from '../types';
 import { MarkElement as AnnotationMark } from '../../ui/annotations/element';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';

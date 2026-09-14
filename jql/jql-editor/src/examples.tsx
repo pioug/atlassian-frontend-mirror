@@ -9,7 +9,9 @@ import { TemplateReadOnly } from '../examples-utils/template-read-only';
 
 import JQLEditorView from './ui/jql-editor-view';
 
-import { JQLEditor, JQLEditorAsync, type JQLEditorProps } from './index';
+import { type JQLEditorProps } from './ui/types';
+import JQLEditor from './ui';
+import { JQLEditorAsync } from './async';
 
 const _default_1: {
 	args: {

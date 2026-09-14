@@ -5,7 +5,8 @@ import {
 	TEST_PERSON,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractPersonUpdatedBy, type LinkTypeUpdatedBy } from '../index';
+import { extractPersonUpdatedBy } from '../extract-person-updated-by';
+import type { LinkTypeUpdatedBy } from '../types';
 
 const BASE_DATA = TEST_BASE_DATA as LinkTypeUpdatedBy;
 

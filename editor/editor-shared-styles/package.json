@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-shared-styles",
-	"version": "4.0.33",
+	"version": "4.3.0",
 	"description": "Style values used in the editor/renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,27 +43,11 @@
 		"./utils": "./src/entry-points/utils.ts"
 	},
 	"dependencies": {
+		"@atlaskit/agent-color": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"circular-dependencies": [
-				"file-level"
-			],
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"deprecation": "no-deprecated-imports",
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"emotion"
-			]
-		}
 	}
 }

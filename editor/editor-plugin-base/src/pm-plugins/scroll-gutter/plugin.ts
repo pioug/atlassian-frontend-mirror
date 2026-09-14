@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { scrollGutterPluginKey } from './plugin-key';
 

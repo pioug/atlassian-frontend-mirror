@@ -2,18 +2,34 @@
 order: 2
 ---
 
-import buttonPrimaryDo from './images/button-primary-do.png';
-import buttonPrimaryDont from './images/button-primary-dont.png';
-import buttonDisableDo from './images/button-disable-do.png';
-import buttonDisableDont from './images/button-disable-dont.png';
-import buttonConciseDo from './images/button-concise-do.png';
-import buttonConciseDont from './images/button-concise-dont.png';
-import buttonCapitalizationDo from './images/button-capitalization-do.png';
-import buttonCapitalizationDont from './images/button-capitalization-dont.png';
-import buttonActionDo from './images/button-action-do.png';
-import buttonActionDont from './images/button-action-dont.png';
-import buttonLabelDo from './images/button-label-do.png';
-import buttonLabelDont from './images/button-label-dont.png';
+import Image from '@atlaskit/image';
+
+import buttonAnatomyLight from './images/button-anatomy-light.png';
+import buttonAnatomyDark from './images/button-anatomy-dark.png';
+import buttonPrimaryDoLight from './images/button-primary-do-light.png';
+import buttonPrimaryDoDark from './images/button-primary-do-dark.png';
+import buttonPrimaryDontLight from './images/button-primary-dont-light.png';
+import buttonPrimaryDontDark from './images/button-primary-dont-dark.png';
+import buttonDisableDoLight from './images/button-disable-do-light.png';
+import buttonDisableDoDark from './images/button-disable-do-dark.png';
+import buttonDisableDontLight from './images/button-disable-dont-light.png';
+import buttonDisableDontDark from './images/button-disable-dont-dark.png';
+import buttonConciseDoLight from './images/button-concise-do-light.png';
+import buttonConciseDoDark from './images/button-concise-do-dark.png';
+import buttonConciseDontLight from './images/button-concise-dont-light.png';
+import buttonConciseDontDark from './images/button-concise-dont-dark.png';
+import buttonCapitalizationDoLight from './images/button-capitalization-do-light.png';
+import buttonCapitalizationDoDark from './images/button-capitalization-do-dark.png';
+import buttonCapitalizationDontLight from './images/button-capitalization-dont-light.png';
+import buttonCapitalizationDontDark from './images/button-capitalization-dont-dark.png';
+import buttonActionDoLight from './images/button-action-do-light.png';
+import buttonActionDoDark from './images/button-action-do-dark.png';
+import buttonActionDontLight from './images/button-action-dont-light.png';
+import buttonActionDontDark from './images/button-action-dont-dark.png';
+import buttonLabelDoLight from './images/button-label-do-light.png';
+import buttonLabelDoDark from './images/button-label-do-dark.png';
+import buttonLabelDontLight from './images/button-label-dont-light.png';
+import buttonLabelDontDark from './images/button-label-dont-dark.png';
 
 ## Usage
 
@@ -23,7 +39,11 @@ Buttons are triggers for events or actions. They're a common part of larger expe
 
 ## Parts
 
-![Button diagram. A caption follows this image.](./images/button-anatomy.png)
+<Image
+	src={buttonAnatomyLight}
+	srcDark={buttonAnatomyDark}
+	alt="Button diagram. A caption follows this image."
+/>
 
 Buttons typically have a label and can include an icon before or after the label.
 
@@ -45,7 +65,8 @@ in one area can be confusing or visually overwhelming because they compete for a
 	<DoDont
 		type="do"
 		image={{
-			url: buttonPrimaryDo,
+			url: buttonPrimaryDoLight,
+			urlDarkMode: buttonPrimaryDoDark,
 			alt: 'Two buttons in a group. One says cancel and is grey, the other says primary and is blue, making it the more promenint call to action.',
 		}}
 	>
@@ -54,11 +75,12 @@ in one area can be confusing or visually overwhelming because they compete for a
 	<DoDont
 		type="dont"
 		image={{
-			url: buttonPrimaryDont,
+			url: buttonPrimaryDontLight,
+			urlDarkMode: buttonPrimaryDontDark,
 			alt: 'Two buttons in a group. One says cancel and the other says primary. Both are primary blue, causing them to compete for attention.',
 		}}
 	>
-		Don’t use many calls to action in one page or container.
+		Don't use many calls to action in one page or container.
 	</DoDont>
 </DoDontGrid>
 
@@ -93,7 +115,8 @@ people.
 	<DoDont
 		type="do"
 		image={{
-			url: buttonDisableDo,
+			url: buttonDisableDoLight,
+			urlDarkMode: buttonDisableDoDark,
 			alt: 'A form that is incomplete. The button remains visible and pressable, and validation text explains what must be done to proceed.',
 		}}
 	>
@@ -102,11 +125,12 @@ people.
 	<DoDont
 		type="dont"
 		image={{
-			url: buttonDisableDont,
+			url: buttonDisableDontLight,
+			urlDarkMode: buttonDisableDontDark,
 			alt: 'A form that is incomplete. The button is disabled and light grey in color, which is difficult to see. There is no explanation of what to do to proceed.',
 		}}
 	>
-		Don’t disable form submission buttons, as this doesn't give people clear a direction for how to
+		Don't disable form submission buttons, as this doesn't give people clear a direction for how to
 		proceed.
 	</DoDont>
 </DoDontGrid>
@@ -147,7 +171,8 @@ capitalized or considered proper nouns when following
 	<DoDont
 		type="do"
 		image={{
-			url: buttonCapitalizationDo,
+			url: buttonCapitalizationDoLight,
+			urlDarkMode: buttonCapitalizationDoDark,
 			alt: 'Button that says Complete sprint. Only the first letter is capitalized.',
 		}}
 	>
@@ -156,7 +181,8 @@ capitalized or considered proper nouns when following
 	<DoDont
 		type="dont"
 		image={{
-			url: buttonCapitalizationDont,
+			url: buttonCapitalizationDontLight,
+			urlDarkMode: buttonCapitalizationDontDark,
 			alt: 'Buttons that say Complete sprint text in title case and all caps.',
 		}}
 	>
@@ -173,7 +199,8 @@ more concise label.
 	<DoDont
 		type="do"
 		image={{
-			url: buttonConciseDo,
+			url: buttonConciseDoLight,
+			urlDarkMode: buttonConciseDoDark,
 			alt: 'Button that says Reset Password.',
 		}}
 	>
@@ -182,7 +209,8 @@ more concise label.
 	<DoDont
 		type="dont"
 		image={{
-			url: buttonConciseDont,
+			url: buttonConciseDontLight,
+			urlDarkMode: buttonConciseDontDark,
 			alt: 'Button that says Send a password reset email.',
 		}}
 	>
@@ -199,7 +227,8 @@ specific if possible.
 	<DoDont
 		type="do"
 		image={{
-			url: buttonActionDo,
+			url: buttonActionDoLight,
+			urlDarkMode: buttonActionDoDark,
 			alt: 'Text that asks delete unpublished page? Followed by a delete CTA button and a cancel button',
 		}}
 	>
@@ -208,7 +237,8 @@ specific if possible.
 	<DoDont
 		type="dont"
 		image={{
-			url: buttonActionDont,
+			url: buttonActionDontLight,
+			urlDarkMode: buttonActionDontDark,
 			alt: 'Text that asks delete unpublished page? Followed by a Yes CTA button and a No button',
 		}}
 	>
@@ -225,7 +255,8 @@ headings and other related text.
 	<DoDont
 		type="do"
 		image={{
-			url: buttonLabelDo,
+			url: buttonLabelDoLight,
+			urlDarkMode: buttonLabelDoDark,
 			alt: 'Confirmation modal asking do you want to discard? Button label also says Discard',
 		}}
 	>
@@ -234,7 +265,8 @@ headings and other related text.
 	<DoDont
 		type="dont"
 		image={{
-			url: buttonLabelDont,
+			url: buttonLabelDontLight,
+			urlDarkMode: buttonLabelDontDark,
 			alt: 'Confirmation modal asking do you want to discard? Button label says Delete',
 		}}
 	>

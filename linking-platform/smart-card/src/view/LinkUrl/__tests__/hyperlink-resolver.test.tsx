@@ -1,28 +1,31 @@
 import React from 'react';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import AKLink from '@atlaskit/link';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import AKLink from '@atlaskit/link/link';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { render } from '@atlassian/testing-library';
 
 import * as UseAnalyticsEventsExports from '../../../common/analytics/generated/use-analytics-events';
 import * as UseSmartCardActionsExports from '../../../state/actions';
-import * as stateHelpers from '../../../state/helpers';
+import * as getExtensionKeyModule from '../../../state/getExtensionKey';
 import * as useScheduledRegisterExports from '../../../state/hooks/use-resolve-hyperlink/useScheduledRegister';
-import * as measureModule from '../../../utils/performance';
+import * as getMeasureModule from '../../../utils/get-measure';
 import LinkUrl from '../index';
 import type { LinkUrlProps } from '../types';
 
-jest.mock('@atlaskit/link', () => ({
+jest.mock('@atlaskit/link/link', () => ({
+	...jest.requireActual('@atlaskit/link/link'),
 	__esModule: true,
 	default: jest
 		.fn()
-		.mockImplementation((props) => jest.requireActual('@atlaskit/link').default.render(props)),
+		.mockImplementation((props) => jest.requireActual('@atlaskit/link/link').default.render(props)),
 }));
 
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
-	CardClient: jest.fn().mockImplementation(() => ({})),
+jest.mock('@atlaskit/link-provider/client', () => ({
+	...jest.requireActual('@atlaskit/link-provider/client'),
+	__esModule: true,
+	default: jest.fn().mockImplementation(() => ({})),
 }));
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
@@ -31,8 +34,8 @@ jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	initializeCompleted: jest.fn(() => true),
 }));
 
-jest.mock('../../../state/helpers', () => ({
-	...jest.requireActual('../../../state/helpers'),
+jest.mock('../../../state/getExtensionKey', () => ({
+	...jest.requireActual('../../../state/getExtensionKey'),
 	getExtensionKey: jest.fn(),
 }));
 
@@ -41,8 +44,8 @@ const getExperimentValueMock = jest.spyOn(FeatureGates, 'getExperimentValue');
 const checkGateMock = jest.spyOn(FeatureGates, 'checkGate');
 const useSmartCardActionsMock = jest.spyOn(UseSmartCardActionsExports, 'useSmartCardActions');
 const useAnalyticsEventsMock = jest.spyOn(UseAnalyticsEventsExports, 'useAnalyticsEvents');
-const getMeasureMock = jest.spyOn(measureModule, 'getMeasure');
-const getExtensionKeyMock = jest.spyOn(stateHelpers, 'getExtensionKey');
+const getMeasureMock = jest.spyOn(getMeasureModule, 'getMeasure');
+const getExtensionKeyMock = jest.spyOn(getExtensionKeyModule, 'getExtensionKey');
 const batchedRegisterMock = jest.fn().mockResolvedValue(undefined);
 const useScheduledRegisterMock = jest.spyOn(useScheduledRegisterExports, 'useScheduledRegister');
 const useSmartCardStateMock = jest.spyOn(require('../../../state/store'), 'useSmartCardState');

@@ -7,11 +7,12 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
@@ -73,6 +74,7 @@ export type HyperlinkPluginDependencies = [
 	OptionalPlugin<UserPreferencesPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type HyperlinkPluginActions = {

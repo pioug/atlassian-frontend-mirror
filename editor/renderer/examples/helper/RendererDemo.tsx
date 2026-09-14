@@ -13,7 +13,7 @@ import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { CardSurroundings, EventHandlers } from '@atlaskit/editor-common/ui';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
@@ -28,7 +28,7 @@ import TextSerializer from '../../src/text';
 
 import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
 import type { RendererAppearance, HeadingAnchorLinksProps } from '../../src/ui/Renderer/types';
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/code-block';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';

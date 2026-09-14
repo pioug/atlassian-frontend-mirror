@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { renderHook } from '@atlassian/testing-library';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
 import type { SocialProof } from '../../use-social-proof';
-import useSocialProofExperiment, {
-	getInlineSocialProofExperimentMeta,
-	getSocialProofExperimentMeta,
-	getSocialProofTier,
-} from '../index';
+import { getInlineSocialProofExperimentMeta } from '../getInlineSocialProofExperimentMeta';
+import { getSocialProofExperimentMeta } from '../getSocialProofExperimentMeta';
+import { getSocialProofTier } from '../getSocialProofTier';
+import { default as useSocialProofExperiment } from '../index';
 
 const mockGetCurrentSiteCloudIdSync = jest.fn<string | undefined, [string | undefined]>();
 const mockGetProviderPctMapSync = jest.fn<
@@ -16,15 +16,14 @@ const mockGetProviderPctMapSync = jest.fn<
 	[string | undefined, string]
 >();
 
-jest.mock('../../../services/current-site-cloud-id', () => ({
+jest.mock('../../../services/current-site-cloud-id/getCurrentSiteCloudIdSync', () => ({
 	getCurrentSiteCloudIdSync: (...args: [string | undefined]) =>
 		mockGetCurrentSiteCloudIdSync(...args),
 }));
 
-jest.mock('../../../services/personalization', () => ({
+jest.mock('../../../services/personalization/getProviderPctMapSync', () => ({
 	getProviderPctMapSync: (...args: [string | undefined, string]) =>
 		mockGetProviderPctMapSync(...args),
-	SOCIAL_PROOF_TRAIT_NAME: 'sl_3p_connected_providers_site_pct',
 }));
 
 const mockUseSocialProof = jest.fn<

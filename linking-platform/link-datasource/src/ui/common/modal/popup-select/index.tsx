@@ -3,12 +3,13 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl';
 
-import { type InputActionMeta, PopupSelect, type ValueType } from '@atlaskit/select';
+import type { InputActionMeta, ValueType } from '@atlaskit/select/types';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
-import CustomControl from './control';
+import { CustomControl } from './CustomControl';
 import { CustomCheckboxOption } from './custom-checkbox-option';
 import CustomDropdownIndicator from './dropdownIndicator';
 import PopupFooter from './footer';
@@ -189,7 +190,6 @@ export const FilterPopupSelect = ({
 					? searchPlaceholder
 					: formatMessage(asyncPopupSelectMessages.selectPlaceholder)
 			}
-			// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 			menuListProps={menuListProps}
 			components={{
 				Option: CustomCheckboxOption,

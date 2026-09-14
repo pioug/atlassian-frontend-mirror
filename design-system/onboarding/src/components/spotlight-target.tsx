@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import NodeResolverSpotlightTarget from './node-resolver-spotlight-target';
 import { type GetTargetRef, TargetConsumer, type TargetRef } from './spotlight-manager';

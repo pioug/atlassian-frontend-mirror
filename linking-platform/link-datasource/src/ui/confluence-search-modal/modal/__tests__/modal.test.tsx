@@ -5,10 +5,11 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { type InlineCardAdf } from '@atlaskit/linking-common';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import type { InlineCardAdf } from '@atlaskit/linking-common/types';
 
 import { mockTransformedUserHydrationResponse } from '../../../../services/mocks';
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
@@ -32,12 +33,11 @@ import {
 
 // This is needed because if you remove this order, it messes up the test setup, somehow.
 // eslint-disable-next-line import/order
-import { ConfluenceSearchConfigModal } from '../index';
+import { ConfluenceSearchConfigModal } from '../ConfluenceSearchConfigModal';
 
 jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
 jest.mock('../../basic-filters/hooks/useRecommendation');
 jest.mock('../../basic-filters/hooks/useBasicFilterHydration');
-jest.mock('@atlaskit/platform-feature-flags');
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -1383,6 +1383,32 @@ describe('ConfluenceSearchConfigModal', () => {
 	});
 
 	describe('when no issues are returned', () => {
+		const getNoResultsHookState = () => ({
+			...getDefaultHookState(),
+			responseItems: [],
+			responseItemIds: [],
+			totalCount: 0,
+		});
+
+		it('should replace the whole table with the no results screen when the feature gate is off', async () => {
+			failGate('platform_lp_sllv_ux_improvements');
+			await setup({ hookState: getNoResultsHookState() });
+
+			expect(await screen.findByTestId(testIds.noResults)).toBeInTheDocument();
+		});
+
+		it('should keep rendering the table so it can show the no results screen in place of the rows when the feature gate is on', async () => {
+			passGate('platform_lp_sllv_ux_improvements');
+			const { getLatestIssueLikeTableProps } = await setup({
+				hookState: getNoResultsHookState(),
+			});
+
+			expect(screen.queryByTestId(testIds.noResults)).not.toBeInTheDocument();
+			expect(getLatestIssueLikeTableProps()).toEqual(
+				expect.objectContaining({ items: [], status: 'resolved' }),
+			);
+		});
+
 		it('should show no results screen in table view mode', async () => {
 			await setup({
 				hookState: { ...getDefaultHookState(), responseItems: [] },

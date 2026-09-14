@@ -1,4 +1,4 @@
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import { decode } from '../utils/url';
 import type { Token, TokenParser } from './';
 

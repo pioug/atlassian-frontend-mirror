@@ -11,9 +11,9 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
-import type { TableLayout } from '@atlaskit/adf-schema';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Table } from './table';
@@ -42,19 +42,28 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
 	}),
 };
 
-// increasing specificity to override external renderer wrapper styles targeting div[mode='stick']
-const suppressExternalStickStylesOld = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Override external renderer wrapper styles targeting div[mode='stick']
-	"&.fixed-table-div-custom-table-resizing[mode='stick']": {
-		background: token('elevation.surface.overlay'),
-	},
-});
-
 const suppressExternalStickStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Override external renderer wrapper styles targeting div[mode='stick']
 	"&.fixed-table-div-custom-table-resizing[mode='stick']": {
 		background: token('elevation.surface'),
 	},
+});
+
+const panelAwareStickyTableStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Override external renderer wrapper styles targeting div[mode='stick']
+	"&.fixed-table-div-custom-table-resizing[mode='stick']": {
+		background: `var(--ak-renderer-panel-bg-color, ${token('elevation.surface')})`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	[`& .${TableSharedCssClassName.TABLE_CONTAINER}, & .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			tr: {
+				background: `var(--ak-renderer-panel-bg-color, ${token('elevation.surface')})`,
+			},
+		},
+	borderTopColor: `var(--ak-renderer-panel-bg-color, ${token('elevation.surface')})`,
+	background: `var(--ak-renderer-panel-bg-color, ${token('elevation.surface.overlay')})`,
 });
 
 // refactored based on fixedTableDivStaticStyles
@@ -114,9 +123,10 @@ const FixedTableDiv = (props: FixedProps) => {
 				fixedTableDivStaticStyles,
 				modeSpecficStyles?.[mode],
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-					(fg('platform_editor_table_q4_patch_1')
-						? suppressExternalStickStyles
-						: suppressExternalStickStylesOld),
+					suppressExternalStickStyles,
+				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
+					fg('platform_editor_nest_table_in_panel_patch_3') &&
+					panelAwareStickyTableStyles,
 			]}
 			style={
 				{
@@ -136,8 +146,6 @@ type StickyTableProps = {
 	allowTableResizing?: boolean;
 	children: React.ReactNode[];
 	columnWidths?: number[];
-	fixTableSSRResizing?: boolean;
-
 	innerRef: React.RefObject<HTMLDivElement>;
 	isNumberColumnEnabled: boolean;
 	layout: TableLayout;
@@ -169,7 +177,6 @@ export const StickyTable = ({
 	tableNode,
 	rendererAppearance,
 	allowTableResizing,
-	fixTableSSRResizing = false,
 	allowFixedColumnWidthOption,
 }: StickyTableProps): jsx.JSX.Element => {
 	let styles;
@@ -208,7 +215,7 @@ export const StickyTable = ({
 					style={{
 						width: tableWidth,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						marginBottom: fixTableSSRResizing ? 0 : '',
+						marginBottom: 0,
 					}}
 				>
 					<div
@@ -227,7 +234,7 @@ export const StickyTable = ({
 							renderWidth={renderWidth}
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
-							fixTableSSRResizing={fixTableSSRResizing}
+							fixTableSSRResizing
 							allowFixedColumnWidthOption={allowFixedColumnWidthOption}
 						>
 							{

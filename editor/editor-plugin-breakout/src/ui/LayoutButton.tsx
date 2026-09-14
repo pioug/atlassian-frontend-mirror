@@ -25,7 +25,7 @@ import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import { layers } from '@atlaskit/theme/constants';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import type { BreakoutPlugin, BreakoutPluginState } from '../breakoutPluginType';

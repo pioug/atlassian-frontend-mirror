@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { SmartCardProvider, type CardProviderStoreOpts } from '@atlaskit/link-provider';
-import type { ProductType } from '@atlaskit/linking-common';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library';
 
-import useEmbedRovoActionsFooterExperiment, {
-	getEmbedRovoActionsFooterExperimentMeta,
-} from '../index';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
+import type { ProductType } from '@atlaskit/linking-common/types';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+
+import { getEmbedRovoActionsFooterExperimentMeta } from '../getEmbedRovoActionsFooterExperimentMeta';
+import useEmbedRovoActionsFooterExperiment from '../index';
 
 const mockUrl = 'https://www.mockurl.com';
 

@@ -1,0 +1,50 @@
+import React, { useCallback } from 'react';
+
+import { useIntl } from 'react-intl';
+
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import {
+	QuickInsertMenuItem,
+	type OnSelectContext,
+} from '@atlaskit/editor-common/quick-insert/menu-item';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { TypeAheadHandler } from '@atlaskit/editor-plugin-type-ahead';
+import MentionIcon from '@atlaskit/icon/core/mention';
+
+import type { MentionsPlugin } from '../../mentionsPluginType';
+import { mentionPluginKey } from '../../pm-plugins/key';
+
+type Props = {
+	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	typeAhead: TypeAheadHandler;
+};
+
+export const MentionQuickInsertMenuItem = ({ api, typeAhead }: Props): React.JSX.Element => {
+	const { formatMessage } = useIntl();
+	const onSelect = useCallback(
+		({ editorView, insert }: OnSelectContext) => {
+			if (mentionPluginKey.getState(editorView.state)?.canInsertMention === false) {
+				return false;
+			}
+
+			const tr = insert(undefined);
+
+			api?.typeAhead?.actions.openAtTransaction({
+				triggerHandler: typeAhead,
+				inputMethod: INPUT_METHOD.QUICK_INSERT,
+			})(tr);
+			return tr;
+		},
+		[api, typeAhead],
+	);
+
+	return (
+		<QuickInsertMenuItem
+			iconBefore={<MentionIcon label="" />}
+			onSelect={onSelect}
+			shortcut="@"
+			title={formatMessage(messages.mention)}
+		/>
+	);
+};

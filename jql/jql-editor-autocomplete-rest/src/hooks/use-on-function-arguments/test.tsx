@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 
-import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import useOnFunctionArguments from './index';
@@ -66,7 +66,7 @@ describe('onFunctionArguments', () => {
 			onValues.mockReturnValue(of(expectedOptions));
 
 			const assertValues = (options: AutocompleteOptions) => {
-				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"', 'membersof');
 				// The value should be prefixed with "id:" for membersOf so the JQL parser can
 				// distinguish team IDs from group name.
 				expect(options).toEqual(
@@ -128,7 +128,7 @@ describe('onFunctionArguments', () => {
 			onValues.mockReturnValue(of(expectedOptions));
 
 			const assertValues = (options: AutocompleteOptions) => {
-				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"', 'descendantsofteam');
 				expect(options).toEqual(
 					expectedOptions.map((option) => ({
 						...option,
@@ -161,7 +161,7 @@ describe('onFunctionArguments', () => {
 			onValues.mockReturnValue(of(expectedOptions));
 
 			const assertValues = (options: AutocompleteOptions) => {
-				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+				expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"', 'descendantsofteam');
 				expect(options).toEqual(
 					expectedOptions.map((option) => ({
 						...option,

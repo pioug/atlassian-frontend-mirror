@@ -1,9 +1,9 @@
 import { DEFAULT_CONFIG } from '../constants';
-import { logException } from '../sentry/main';
+import { logException } from '../sentry/logException';
 
-import { BaseGraphQlClient } from './index';
+import { BaseGraphQlClient } from './main';
 
-jest.mock('./utils', () => ({
+jest.mock('./utils/handleGraphQLRequest', () => ({
 	handleGraphQLRequest: jest.fn().mockResolvedValue({ data: {} }),
 }));
 
@@ -19,7 +19,7 @@ describe('BaseGraphQlClient.createQueryContextHeaders', () => {
 	});
 
 	it('returns no header when cloudId is not set', async () => {
-		const { handleGraphQLRequest } = await import('./utils');
+		const { handleGraphQLRequest } = await import('./utils/handleGraphQLRequest');
 		await client.makeGraphQLRequest({ query: '{ test }' });
 		expect(handleGraphQLRequest).toHaveBeenCalledWith(
 			expect.any(String),
@@ -30,7 +30,7 @@ describe('BaseGraphQlClient.createQueryContextHeaders', () => {
 
 	it('returns no header when cloudId is empty string', async () => {
 		client.setContext({ cloudId: '' });
-		const { handleGraphQLRequest } = await import('./utils');
+		const { handleGraphQLRequest } = await import('./utils/handleGraphQLRequest');
 		await client.makeGraphQLRequest({ query: '{ test }' });
 		expect(handleGraphQLRequest).toHaveBeenCalledWith(
 			expect.any(String),
@@ -41,7 +41,7 @@ describe('BaseGraphQlClient.createQueryContextHeaders', () => {
 
 	it('builds valid ARI header for a valid cloudId', async () => {
 		client.setContext({ cloudId: VALID_CLOUD_ID });
-		const { handleGraphQLRequest } = await import('./utils');
+		const { handleGraphQLRequest } = await import('./utils/handleGraphQLRequest');
 		await client.makeGraphQLRequest({ query: '{ test }' });
 		expect(handleGraphQLRequest).toHaveBeenCalledWith(
 			expect.any(String),
@@ -54,7 +54,7 @@ describe('BaseGraphQlClient.createQueryContextHeaders', () => {
 
 	it('returns no header when cloudId is invalid', async () => {
 		client.setContext({ cloudId: 'invalid id with spaces!' });
-		const { handleGraphQLRequest } = await import('./utils');
+		const { handleGraphQLRequest } = await import('./utils/handleGraphQLRequest');
 		await client.makeGraphQLRequest({ query: '{ test }' });
 		expect(handleGraphQLRequest).toHaveBeenCalledWith(
 			expect.any(String),

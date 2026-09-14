@@ -1,10 +1,10 @@
 import React from 'react';
 
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import Heading from '@atlaskit/heading';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import Heading from '@atlaskit/heading/heading';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 
+import { renderIconTile } from './render-icon-tile';
 import type { AtlaskitIconTileProps } from './types';
-import { renderIconTile } from './utils';
 
 const ChartBarIconWithColor: FC<AtlaskitIconTileProps> = renderIconTile(ChartBarIcon, 'purpleBold');
 ChartBarIconWithColor.displayName = 'ChartBarIconWithColor';

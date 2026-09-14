@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import extractUrlIcon from '../extract-url-icon';
 

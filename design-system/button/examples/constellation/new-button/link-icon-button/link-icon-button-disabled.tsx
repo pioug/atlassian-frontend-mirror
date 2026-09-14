@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkIconButton } from '@atlaskit/button/new';
+import LinkIconButton from '@atlaskit/button/icon/link';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 
 const LinkIconButtonDisabledExample = (): React.JSX.Element => {

@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import type { CardState } from '@atlaskit/linking-common';
 import { render, renderHook } from '@atlassian/testing-library';
 
-import { mockByUrl, mocks } from '../../mocks';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
+
+import { mockByUrl } from '../../mock-by-url';
+import { mocks } from '../../mocks';
+import { SmartLinkAnalyticsContext } from '../SmartLinkAnalyticsContext';
 import { context } from '../analytics';
-import {
-	SmartLinkAnalyticsContext,
-	useSmartLinkAnalyticsContext,
-	useSmartLinkAnalyticsUtils,
-} from '../SmartLinkAnalyticsContext';
+import { useSmartLinkAnalyticsContext } from '../useSmartLinkAnalyticsContext';
+import { useSmartLinkAnalyticsUtils } from '../useSmartLinkAnalyticsUtils';
 
 describe('SL analytics context', () => {
 	const url = 'https://some.url';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70585722d0ca9257d878eccc1885f195>>
+ * @codegen <<SignedSource::e53d832431955bfa4cf154da6033f5ff>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -29,7 +29,7 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  */
 export function AssetsIcon({
 	iconColor,
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Assets',
 	testId,

@@ -1,6 +1,6 @@
 import { type RefObject, useCallback, useRef } from 'react';
 
-import type { Transition } from '@atlaskit/motion/types';
+import type { Transition } from '@atlaskit/motion/entering/types';
 
 import { type ModalDialogProps } from '../../types';
 

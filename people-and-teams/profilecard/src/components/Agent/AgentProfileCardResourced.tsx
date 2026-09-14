@@ -1,12 +1,12 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { getAgentCreator } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
-import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 
-import { AgentForbiddenError } from '../../client/RovoAgentCardClient';
+import { AgentForbiddenError } from '../../client/AgentForbiddenError';
 import {
 	type AgentActionsType,
 	type Flag,
@@ -39,6 +39,8 @@ export type AgentProfileCardResourcedProps = {
 	hideAgentActions?: boolean;
 	/** Hide the favourite (star) button. Defaults to false (the star is shown). */
 	hideStarButton?: boolean;
+	/** Render the creator/author as plain text with no link. Defaults to false. */
+	showCreatorNameWithoutLink?: boolean;
 	/** Name shown in reduced card when user lacks permission */
 	agentName?: string;
 	/** Optional component rendered at the bottom of the agent profile card. */
@@ -52,7 +54,7 @@ export const AgentProfileCardResourced = (
 	// Initialize as true when fix is enabled since we fetch immediately on mount,
 	// avoiding a brief error screen flash before the useEffect fires.
 	const [isLoading, setIsLoading] = useState<boolean>(
-		fg('jira_ai_fix_agent_profile_card_flashing') || fg('confluence_fix_agent_profile_card_flash'),
+		fg('confluence_fix_agent_profile_card_flash'),
 	);
 	const [error, setError] = useState();
 	const [isPermitted, setIsPermitted] = useState<boolean>(true);
@@ -87,13 +89,11 @@ export const AgentProfileCardResourced = (
 		}) => {
 			try {
 				let userCreatorInfo;
-				const currentCreatorUserId =
-					fg('jira_ai_fix_agent_profile_card_flashing') ||
-					fg('confluence_fix_agent_profile_card_flash')
-						? creator_type === 'CUSTOMER' && creator
-							? getAAIDFromARI(creator)
-							: undefined
-						: creatorUserId;
+				const currentCreatorUserId = fg('confluence_fix_agent_profile_card_flash')
+					? creator_type === 'CUSTOMER' && creator
+						? getAAIDFromARI(creator)
+						: undefined
+					: creatorUserId;
 
 				if (currentCreatorUserId && props.cloudId) {
 					userCreatorInfo = await props.resourceClient.getProfile(
@@ -102,10 +102,7 @@ export const AgentProfileCardResourced = (
 						fireEvent,
 					);
 
-					if (
-						fg('jira_ai_fix_agent_profile_card_flashing') ||
-						fg('confluence_fix_agent_profile_card_flash')
-					) {
+					if (fg('confluence_fix_agent_profile_card_flash')) {
 						profileHref = navigateToTeamsApp({
 							type: 'USER',
 							payload: {
@@ -187,12 +184,7 @@ export const AgentProfileCardResourced = (
 	// agentData changes → creatorUserId → getCreator → fetchData ref changes → useEffect re-fires.
 	// Reset state on accountId change so stale data from the previous agent isn't briefly shown.
 	useEffect(() => {
-		if (
-			!(
-				fg('jira_ai_fix_agent_profile_card_flashing') ||
-				fg('confluence_fix_agent_profile_card_flash')
-			)
-		) {
+		if (!fg('confluence_fix_agent_profile_card_flash')) {
 			return;
 		}
 		setAgentData(undefined);
@@ -203,10 +195,7 @@ export const AgentProfileCardResourced = (
 	}, [props.accountId]);
 
 	useEffect(() => {
-		if (
-			fg('jira_ai_fix_agent_profile_card_flashing') ||
-			fg('confluence_fix_agent_profile_card_flash')
-		) {
+		if (fg('confluence_fix_agent_profile_card_flash')) {
 			return;
 		}
 		fetchData();
@@ -270,6 +259,7 @@ export const AgentProfileCardResourced = (
 						hideConversationStarters={true}
 						hideAiDisclaimer={true}
 						hideStarButton={props.hideStarButton}
+						showCreatorNameWithoutLink={props.showCreatorNameWithoutLink}
 						footerComponent={props.footerComponent}
 					/>
 				</Suspense>
@@ -308,6 +298,7 @@ export const AgentProfileCardResourced = (
 				hideConversationStarters={props.hideConversationStarters}
 				hideAgentActions={props.hideAgentActions}
 				hideStarButton={props.hideStarButton}
+				showCreatorNameWithoutLink={props.showCreatorNameWithoutLink}
 				footerComponent={props.footerComponent}
 			/>
 		</Suspense>

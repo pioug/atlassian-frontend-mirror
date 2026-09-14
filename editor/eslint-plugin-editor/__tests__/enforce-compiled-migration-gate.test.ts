@@ -1,3 +1,4 @@
+/** @jest-environment node */
 import { tsRuleTester } from './utils/_tester';
 
 // eslint-disable-next-line import/no-commonjs
@@ -11,12 +12,12 @@ describe('enforce-compiled-migration-gate', () => {
 	tsRuleTester.run('enforce-compiled-migration-gate', rule, {
 		valid: [
 			{
-				// Correctly gated with expValEquals in array syntax
+				// Correctly gated with isExperimentEnabled in array syntax
 				code: `
 					import { withCompiledMigration } from '@atlaskit/editor-common/compiled-migration';
 					const StyledButton = withCompiledMigration(Button, emotionStyles);
 					const App = () => (
-						<StyledButton css={[expValEquals('platform_editor_static_css', 'isEnabled', true) && compiledStyles]} />
+						<StyledButton css={[isExperimentEnabled('platform_editor_renderer_static_css') && compiledStyles]} />
 					);
 				`,
 				parserOptions,
@@ -41,7 +42,7 @@ describe('enforce-compiled-migration-gate', () => {
 					import { withCompiledMigration } from '@atlaskit/editor-common/compiled-migration';
 					const StyledButton = withCompiledMigration(Button, emotionStyles);
 					const App = () => (
-						<StyledButton css={expValEquals('platform_editor_static_css', 'isEnabled', true) ? compiledStyles : undefined} />
+						<StyledButton css={isExperimentEnabled('platform_editor_renderer_static_css') ? compiledStyles : undefined} />
 					);
 				`,
 				parserOptions,
@@ -74,7 +75,7 @@ describe('enforce-compiled-migration-gate', () => {
 					import { withCompiledMigration } from '@atlaskit/editor-common/compiled-migration';
 					const StyledButton = withCompiledMigration(Button, emotionStyles);
 					const App = () => (
-						<StyledButton css={[expValEquals('some_other_experiment', 'isEnabled', true) && compiledStyles]} />
+						<StyledButton css={[isExperimentEnabled('some_other_experiment') && compiledStyles]} />
 					);
 				`,
 				parserOptions,
@@ -86,7 +87,7 @@ describe('enforce-compiled-migration-gate', () => {
 					import { withCompiledMigration } from '@atlaskit/editor-common/compiled-migration';
 					const StyledButton = withCompiledMigration(Button, emotionStyles);
 					const App = () => (
-						<StyledButton css={[someOtherGate('platform_editor_static_css') && compiledStyles]} />
+						<StyledButton css={[someOtherGate('platform_editor_renderer_static_css') && compiledStyles]} />
 					);
 				`,
 				parserOptions,
@@ -109,7 +110,7 @@ describe('enforce-compiled-migration-gate', () => {
 					import { withCompiledMigration } from '@atlaskit/editor-common/compiled-migration';
 					const StyledButton = withCompiledMigration(Button, emotionStyles);
 					const App = () => (
-						<StyledButton css={[expValEquals('platform_editor_static_css', 'isEnabled', true) && styles]} />
+						<StyledButton css={[isExperimentEnabled('platform_editor_renderer_static_css') && styles]} />
 					);
 				`,
 				parserOptions,
@@ -122,7 +123,7 @@ describe('enforce-compiled-migration-gate', () => {
 					import { withCompiledMigration } from '@atlaskit/editor-common/compiled-migration';
 					const StyledButton = withCompiledMigration(Button, emotionStyles);
 					const App = () => (
-						<StyledButton css={[expValEquals('platform_editor_static_css', 'isEnabled', true) && styles]} />
+						<StyledButton css={[isExperimentEnabled('platform_editor_renderer_static_css') && styles]} />
 					);
 				`,
 				parserOptions,

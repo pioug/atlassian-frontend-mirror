@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@atlassian/testing-library';
-import { Shortcut } from '../..';
+import { Shortcut } from '../../shortcut';
 
 describe('Shortcut', () => {
 	it('should de-register the key event listener on unmount', () => {

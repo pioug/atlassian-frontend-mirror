@@ -1,10 +1,10 @@
 import React from 'react';
 
-import type { RegisterComponent } from '../../types';
+import type { ComponentIdentifier, RegisterComponent } from '../../types';
 
 import { SurfaceComponents } from './SurfaceComponents';
-import type { ComponentIdentifier, SurfaceRenderingContext } from './types';
-import { PassThrough, willComponentRender } from './utils';
+import type { SurfaceRenderingContext } from './types';
+import { getComponentIdentity, PassThrough, willComponentRender } from './utils';
 
 type SurfaceComponentProps = SurfaceRenderingContext & {
 	component: RegisterComponent;
@@ -21,12 +21,13 @@ export const SurfaceComponent = ({
 	childrenMap,
 	fallbacks,
 	parents,
+	surfaceContext,
 }: SurfaceComponentProps): React.JSX.Element | null => {
-	if (!willComponentRender(component, childrenMap)) {
+	if (!willComponentRender(component, childrenMap, surfaceContext)) {
 		return null;
 	}
 
-	const children = childrenMap.get(component.key);
+	const children = childrenMap.get(getComponentIdentity(component));
 	const Component = component.component ?? fallbacks?.[component.type] ?? PassThrough;
 	const newParents: ComponentIdentifier[] = [
 		...parents,
@@ -34,16 +35,21 @@ export const SurfaceComponent = ({
 	];
 
 	if (!children || children.length === 0) {
-		return <Component parents={parents}>{null}</Component>;
+		return (
+			<Component parents={parents} surfaceContext={surfaceContext}>
+				{null}
+			</Component>
+		);
 	}
 
 	return (
-		<Component parents={parents}>
+		<Component parents={parents} surfaceContext={surfaceContext}>
 			<SurfaceComponents
 				components={children}
 				childrenMap={childrenMap}
 				fallbacks={fallbacks}
 				parents={newParents}
+				surfaceContext={surfaceContext}
 			/>
 		</Component>
 	);

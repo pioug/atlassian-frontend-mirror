@@ -1,5 +1,7 @@
 import * as sinon from 'sinon';
-import { Gateway, UsageFrequencyTracker } from '../../../../api/internal/UsageFrequencyTracker';
+
+import { Gateway } from '../../../../api/internal/Gateway';
+import { UsageFrequencyTracker } from '../../../../api/internal/UsageFrequencyTracker';
 import type DuplicateLimitedQueue from '../../../../util/DuplicateLimitedQueue';
 import { grinEmoji, generateSkinVariation } from '../../_test-data';
 

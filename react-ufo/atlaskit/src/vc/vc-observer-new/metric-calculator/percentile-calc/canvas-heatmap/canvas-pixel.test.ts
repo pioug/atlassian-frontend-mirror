@@ -1,4 +1,6 @@
-import { calculateDrawnPixelsRaw, getRGBComponents, ViewportCanvas } from './canvas-pixel';
+import { calculateDrawnPixelsRaw } from './calculate-drawn-pixels-raw';
+import { getRGBComponents } from './get-rgb-components';
+import { ViewportCanvas } from './viewport-canvas';
 
 jest.mock('../../utils/task-yield', () => {
 	return jest.fn(() => Promise.resolve());

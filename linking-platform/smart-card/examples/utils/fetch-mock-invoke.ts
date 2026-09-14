@@ -1,7 +1,7 @@
 import type FetchMock from 'fetch-mock';
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 
 const params =
 	typeof URLSearchParams !== 'undefined' ? new URLSearchParams(location.search.slice(1)) : null;

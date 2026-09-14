@@ -1,5 +1,48 @@
 # @atlaskit/linking-types
 
+## 15.3.0
+
+### Minor Changes
+
+- [`375cb8e94e4c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/375cb8e94e4c1) -
+  Add individual per-symbol subpath exports for the entity type guards (`is-base-entity`,
+  `is-design-entity`, `is-document-entity`, `is-entity-type`, `is-conversation-entity`,
+  `is-message-entity`, `is-project-entity`, `is-remote-link-entity`, `is-unsupported-entity`,
+  `is-work-item-entity`, `is-one-of`, `is-object`, `as-record`). The deprecated `entity-types`
+  re-export shims now point consumers at these clean per-symbol subpaths, completing the Volt
+  Stage-2 migration surface for these guards.
+
+## 15.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 15.1.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+## 15.0.1
+
+### Patch Changes
+
+- [`2d0a032068fe6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d0a032068fe6) -
+  VOLTC-66 - run volt-migrate-package on @atlaskit/linking-types
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

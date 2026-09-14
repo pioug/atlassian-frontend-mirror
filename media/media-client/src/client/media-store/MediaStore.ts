@@ -1,12 +1,45 @@
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import {
-	type AuthContext,
-	type MediaApiConfig,
-	type Auth,
-	isClientBasedAuth,
-} from '@atlaskit/media-core';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { AuthContext, MediaApiConfig, Auth } from '@atlaskit/media-core/auth';
+import { isClientBasedAuth } from '@atlaskit/media-core/is-client-based-auth';
+import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { FILE_CACHE_MAX_AGE } from '../../constants';
+import { getArtifactUrl } from '../../models/artifacts';
+import {
+	type GetDocumentPageImage,
+	type DocumentPageRangeContent,
+	type GetDocumentContentOptions,
+} from '../../models/document';
+import { type MediaFile, type MediaUpload } from '../../models/media';
+import { isCDNEnabled } from '../../utils/isCDNEnabled';
+import { isPathBasedEnabled } from '../../utils/isPathBasedEnabled';
+import { mapToMediaCdnUrl } from '../../utils/mapToMediaCdnUrl';
+import { mapToPathBasedUrl } from '../../utils/mapToPathBasedUrl';
+import { mapToSeedBasedCdnUrl } from '../../utils/mapToSeedBasedCdnUrl';
+import { isRequestError, request } from '../../utils/request';
+import { createMapResponseToBlob } from '../../utils/request/createMapResponseToBlob';
+import { createMapResponseToJson } from '../../utils/request/createMapResponseToJson';
+import { createUrl } from '../../utils/request/createUrl';
+import { defaultShouldRetryError } from '../../utils/request/defaultShouldRetryError';
+import { extendTraceContext } from '../../utils/request/extendTraceContext';
+import {
+	type RequestHeaders,
+	type RequestMetadata,
+	type CreateUrlOptions,
+	type RequestOptions,
+} from '../../utils/request/types';
+import { getWatermarkVersionFromToken } from '../../utils/watermarkVersion';
+import { cdnFeatureFlag } from './cdnFeatureFlag';
+import { decodeJwtToken } from './decodeJwtToken';
+import { extendImageParams } from './extendImageParams';
+import { jsonHeaders } from './jsonHeaders';
+import { resolveAuth } from './resolveAuth';
+import { resolveInitialAuth } from './resolveInitialAuth';
+import { setKeyValueInSessionStorage } from './setKeyValueInSessionStorage';
 import type {
 	ItemsPayload,
 	ImageMetadata,
@@ -27,67 +60,10 @@ import type {
 	MediaApi,
 	CopyFileParams,
 } from './types';
-import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
-import { getArtifactUrl } from '../../models/artifacts';
-import { type MediaFile, type MediaUpload } from '../../models/media';
-import { isRequestError, request } from '../../utils/request';
-import {
-	createUrl,
-	createMapResponseToJson,
-	createMapResponseToBlob,
-	defaultShouldRetryError,
-	extendTraceContext,
-} from '../../utils/request/helpers';
-import { isCDNEnabled, mapToMediaCdnUrl } from '../../utils/mediaCdn';
-import {
-	type RequestHeaders,
-	type RequestMetadata,
-	type CreateUrlOptions,
-	type RequestOptions,
-} from '../../utils/request/types';
-import { resolveAuth, resolveInitialAuth } from './resolveAuth';
-import { ChunkHashAlgorithm } from '@atlaskit/media-core';
-import {
-	type GetDocumentPageImage,
-	type DocumentPageRangeContent,
-	type GetDocumentContentOptions,
-} from '../../models/document';
-import { isPathBasedEnabled, mapToPathBasedUrl } from '../../utils/pathBasedUrl';
-import { getWatermarkVersionFromToken } from '../../utils/watermarkVersion';
-import { fg } from '@atlaskit/platform-feature-flags';
 
-const MEDIA_API_REGION = 'media-api-region';
-const MEDIA_API_ENVIRONMENT = 'media-api-environment';
+export const MEDIA_API_REGION: any = 'media-api-region';
 
-const extendImageParams = (
-	params?: MediaStoreGetFileImageParams,
-	fetchMaxRes: boolean = false,
-): MediaStoreGetFileImageParams => {
-	return {
-		...params,
-		'max-age': params?.['max-age'] ?? FILE_CACHE_MAX_AGE,
-		allowAnimated: params?.allowAnimated ?? true,
-		mode: params?.mode ?? 'crop',
-		...(fetchMaxRes ? { width: MAX_RESOLUTION, height: MAX_RESOLUTION } : {}),
-	};
-};
-
-const jsonHeaders = {
-	Accept: 'application/json',
-	'Content-Type': 'application/json',
-};
-
-const cdnFeatureFlag = (endpoint: string) => {
-	let result = endpoint;
-	if (isCDNEnabled()) {
-		result += '/cdn';
-	}
-	return result;
-};
-
-const decodeJwtToken = (token: string): { clientId?: string } => {
-	return JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
-};
+export const MEDIA_API_ENVIRONMENT: any = 'media-api-environment';
 
 export class MediaStore implements MediaApi {
 	private readonly _chunkHashAlgorithm: ChunkHashAlgorithm;
@@ -327,15 +303,20 @@ export class MediaStore implements MediaApi {
 	}
 
 	// TODO Create ticket in case Trace Id can be supported through query params
-	getFileImageURLSync(id: string, params?: MediaStoreGetFileImageParams): string {
+	getFileImageURLSync(
+		id: string,
+		params?: MediaStoreGetFileImageParams,
+		seededCdnUrl?: string,
+	): string {
 		const auth = this.resolveInitialAuth();
-		return this.createFileImageURL(id, auth, params);
+		return this.createFileImageURL(id, auth, params, seededCdnUrl);
 	}
 
 	private createFileImageURL(
 		id: string,
 		auth: Auth,
 		params?: MediaStoreGetFileImageParams,
+		seededCdnUrl?: string,
 	): string {
 		const wmv = fg('confluence_watermark_admin_ui')
 			? getWatermarkVersionFromToken(auth.token)
@@ -349,6 +330,10 @@ export class MediaStore implements MediaApi {
 		};
 
 		const imageEndpoint = cdnFeatureFlag('image');
+
+		if (seededCdnUrl && isCDNEnabled()) {
+			return mapToSeedBasedCdnUrl(seededCdnUrl, options.params);
+		}
 
 		if (isPathBasedEnabled()) {
 			return mapToPathBasedUrl(createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options));
@@ -919,30 +904,15 @@ export class MediaStore implements MediaApi {
 	}
 }
 
-const getValueFromSessionStorage = (key: string): string | undefined => {
-	// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
-	return (window && window.sessionStorage && window.sessionStorage.getItem(key)) || undefined;
-};
-
-const setKeyValueInSessionStorage = (key: string, value: string | null) => {
-	// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
-	if (!value || !(window && window.sessionStorage)) {
-		return;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
-	const currentValue = window.sessionStorage.getItem(key);
-
-	if (currentValue !== value) {
-		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
-		window.sessionStorage.setItem(key, value);
-	}
-};
-
-export const getMediaEnvironment = (): string | undefined => {
-	return getValueFromSessionStorage(MEDIA_API_ENVIRONMENT);
-};
-
-export const getMediaRegion = (): string | undefined => {
-	return getValueFromSessionStorage(MEDIA_API_REGION);
-};
+/**
+ * @deprecated Use `import { getMediaEnvironment } from '@atlaskit/media-client'` instead.
+ */
+export { getMediaEnvironment } from './getMediaEnvironment';
+/**
+ * @deprecated Use `import { getMediaRegion } from '@atlaskit/media-client'` instead.
+ */
+export { getMediaRegion } from './getMediaRegion';
+/**
+ * @deprecated Use `import { getValueFromSessionStorage } from '@atlaskit/media-client/media-store'` instead.
+ */
+export { getValueFromSessionStorage } from './getValueFromSessionStorage';

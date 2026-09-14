@@ -1,19 +1,18 @@
-import type { CardAppearance, CardState } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
+import type { CardState } from '@atlaskit/linking-common/store';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { useSmartLinkContext } from '../../../state';
-import { getExtensionKey } from '../../../state/helpers';
-import {
-	getEmbedRovoActionsFooterExperimentMeta,
-	type EmbedRovoActionsFooterExperimentMeta,
-} from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { getExtensionKey } from '../../../state/getExtensionKey';
+import type { EmbedRovoActionsFooterExperimentMeta } from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
+import { getEmbedRovoActionsFooterExperimentMeta } from '../../../state/hooks/use-embed-rovo-actions-footer-experiment/getEmbedRovoActionsFooterExperimentMeta';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
-import {
-	getSocialProofExperimentMeta,
-	getInlineSocialProofExperimentMeta,
-	type BlockCardSocialProofExperimentMeta,
-	type InlineSocialProofExperimentMeta,
+import type {
+	BlockCardSocialProofExperimentMeta,
+	InlineSocialProofExperimentMeta,
 } from '../../../state/hooks/use-social-proof-experiment';
+import { getInlineSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment/getInlineSocialProofExperimentMeta';
+import { getSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment/getSocialProofExperimentMeta';
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import type { InternalCardActionOptions } from '../../Card/types';
 

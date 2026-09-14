@@ -1,9 +1,9 @@
 import React, { forwardRef, Fragment } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type IconButtonProps } from '@atlaskit/button/new';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { IconButtonProps } from '@atlaskit/button/icon/button';
 import type { TriggerProps } from '@atlaskit/popup/types';
-import type { TooltipProps } from '@atlaskit/tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import { ListItem } from '../../components/list-item';
 

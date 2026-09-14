@@ -1,5 +1,5 @@
 import { snapshot } from '@af/visual-regression';
 
-import ProjectIconExample from '../../examples/ProjectIcon.example';
+import ProjectIconExample from '../../examples/ProjectIcon.example.vr.ap';
 
 snapshot(ProjectIconExample);

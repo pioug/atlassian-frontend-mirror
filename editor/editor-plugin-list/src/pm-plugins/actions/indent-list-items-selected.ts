@@ -31,7 +31,6 @@ export const indentListItemsSelected = (tr: Transaction): false | null | undefin
 
 	const resolvedPos = tr.doc.resolve(listItemsSelected.from.pos);
 	const listItemIndex = resolvedPos.index();
-	// @ts-ignore
 	const positionListItemPosition = resolvedPos.posAtIndex(listItemIndex - 1);
 	const currentListItemPosition = resolvedPos.posAtIndex(listItemIndex);
 	const previousListItem = tr.doc.nodeAt(positionListItemPosition);

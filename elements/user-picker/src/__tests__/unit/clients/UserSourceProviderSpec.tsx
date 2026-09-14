@@ -1,5 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { useUserSource } from '../../../clients/UserSourceProvider';
+
+import { useUserSource } from '../../../clients/useUserSource';
 import { type UserSourceResult } from '../../../types';
 import { createMockedSourceProvider } from '../_testUtils';
 

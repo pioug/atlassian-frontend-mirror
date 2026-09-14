@@ -7,7 +7,9 @@ import { useEditorViewHasWarnings } from '../../hooks/use-editor-view-has-warnin
 import { useEditorViewIsInvalid } from '../../hooks/use-editor-view-is-invalid';
 
 import { JQLEditorHelp } from './jql-editor-help';
-import { ErrorMessages, InfoMessages, WarningMessages } from './jql-messages';
+import { ErrorMessages } from './jql-messages/errors';
+import { InfoMessages } from './jql-messages/infos/InfoMessages';
+import { WarningMessages } from './jql-messages/warnings/WarningMessages';
 
 /**
  * Message components are rendered by priority.

@@ -9,7 +9,7 @@
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type { LabelProps as PlatformLabelProps } from '@atlaskit/form';
+import type { LabelProps as PlatformLabelProps } from '@atlaskit/form/label/default';
 
 export type LabelProps = Pick<PlatformLabelProps, 'children' | 'testId' | 'id'> & {
 	labelFor: string;

@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { calculateOffsetLeft } from '@atlaskit/editor-common/media-single';
 import type { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
 import {
@@ -28,7 +28,8 @@ import {
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -348,11 +349,9 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			ratio = ((origHeight / origWidth) * 100).toFixed(3);
 		}
 
-		const isLeftResizeHandleDisabled = expValEquals(
-			'platform_editor_lovability_resize_dividers_panels',
-			'isEnabled',
-			true,
-		);
+		const isLeftResizeHandleDisabled =
+			expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_remove_left_resize_handle');
 
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {

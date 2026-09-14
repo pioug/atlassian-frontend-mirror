@@ -1,5 +1,85 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`272eac12d16b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/272eac12d16b6) -
+  Expose the invite-to-edit button's selected state to assistive technologies behind the
+  `platform_editor_invite_to_edit_button_aria_pressed` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- [`b22ad50198f6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b22ad50198f6a) -
+  Propagate the actingUserId for presence attribution
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- [`66dd767196a39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66dd767196a39) -
+  Receive actingUserId and populate as required
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

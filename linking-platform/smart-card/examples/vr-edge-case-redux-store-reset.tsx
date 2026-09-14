@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { BitbucketFile1 } from '@atlaskit/link-test-helpers';
-import { type CardStore } from '@atlaskit/linking-common';
+import type { CardStore } from '@atlaskit/linking-common/store';
 import { Card } from '@atlaskit/smart-card';
 
 import ExampleContainer from './utils/example-container';

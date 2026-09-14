@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b8a66e4a23e96cdc188e0c388709d97d>>
+ * @codegen <<SignedSource::0fe713df1dce8a3d14783a96f844b93c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Snippet".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const SnippetIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const SnippetIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "SnippetIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M13.75 14.665a2.5 2.5 0 0 1-3.407-.902L8 10.046l-2.343 3.717a2.5 2.5 0 1 1-.09-2.67l1.546-2.454.886-1.407H8L11.866 1.1l1.268.8-4.247 6.74 1.546 2.453a2.5 2.5 0 1 1 3.317 3.572m-.75-1.3a1 1 0 1 1-1-1.731 1 1 0 0 1 1 1.732M4.366 13a1 1 0 1 1-1.732-1 1 1 0 0 1 1.732 1" clip-rule="evenodd"/><path fill="currentcolor" d="m7.113 5.825-.887 1.407L2.866 1.9l1.269-.8z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

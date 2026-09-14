@@ -1,4 +1,4 @@
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 
 export type INSMOptions = {
 	/**

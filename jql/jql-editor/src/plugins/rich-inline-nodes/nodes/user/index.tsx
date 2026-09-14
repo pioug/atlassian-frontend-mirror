@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Avatar, { getAppearanceForAppType } from '@atlaskit/avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Avatar from '@atlaskit/avatar/avatar';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useHydratedUser } from '../../../../state';
 import { type NodeViewProps } from '../../util/react-node-view';

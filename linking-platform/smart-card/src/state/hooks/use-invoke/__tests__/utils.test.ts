@@ -1,7 +1,8 @@
-import { InvokeError } from '@atlaskit/linking-types';
+import { InvokeError } from '@atlaskit/linking-types/smart-link-actions';
 
 import { TrackQuickActionFailureReason } from '../../../../utils/analytics/analytics';
-import { getInvokeFailureReason, isInvokeCustomError } from '../utils';
+import { getInvokeFailureReason } from '../getInvokeFailureReason';
+import { isInvokeCustomError } from '../isInvokeCustomError';
 
 describe('getInvokeFailureReason', () => {
 	it('returns unknown reason if error is not invoke error', () => {

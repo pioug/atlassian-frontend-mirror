@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 /**
  * Appearance determines the icon and background color pairing indicating the message type

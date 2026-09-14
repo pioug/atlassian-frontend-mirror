@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports -- exports share Compiled style value(s) [compactFrameAlignStyles, compactFrameHoverStyles, compactFrameInheritDimensionsFalseStyles, compactFrameInheritDimensionsTrueStyles, compactFrameNotSelectedStyles, compactFrameStyles, expandedFrameFluidHeightFalseStyles, expandedFrameFluidHeightTrueStyles, expandedFrameHoverStyles, expandedFrameNotSelectedStyles, expandedFrameSelectedStyles, expandedFrameStyles, sharedBaseFrameStyles, sharedFrameStyles] which cannot be exported across files (UI Styling Standard: no-exported-css) */
 import React from 'react';
 
 import { css, jsx } from '@compiled/react';

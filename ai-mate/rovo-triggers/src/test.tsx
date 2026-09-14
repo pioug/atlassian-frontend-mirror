@@ -1,9 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
-import { usePublish, useSubscribe, useSubscribeAll } from './main';
-import type { Payload, Topic } from './types';
+import { publish, usePublish, useSubscribe, useSubscribeAll } from './main';
+import { Topics, type Payload, type RovoRemixConsumer, type Topic } from './types';
 
 describe('PubSub', () => {
 	let callback = jest.fn();
@@ -19,6 +17,15 @@ describe('PubSub', () => {
 	});
 
 	describe('useSubscribe and usePublish', () => {
+		it('should publish without requiring a React hook', () => {
+			const { unmount } = renderHook(() => useSubscribe({ topic }, callback));
+
+			publish(topic, payload);
+
+			expect(callback).toHaveBeenCalledWith(payload);
+			unmount();
+		});
+
 		it('should subscribe and publish correctly', () => {
 			const { unmount } = renderHook(() => useSubscribe({ topic }, callback));
 			const { result } = renderHook(() => usePublish(topic));
@@ -47,6 +54,35 @@ describe('PubSub', () => {
 			expect(callback).not.toHaveBeenCalled();
 		});
 
+		it('clears only the subscribed topic latest event on unmount when requested', () => {
+			const remixTopic = Topics.ROVO_REMIX;
+			const remixPayload: Payload = {
+				type: 'update-rovo-remix-preset',
+				source: 'editor-selection',
+				data: { remixConsumer: 'editor', remixPreset: 'selection' },
+			};
+			const { unmount } = renderHook(() =>
+				useSubscribe({ topic, clearLatestOnUnmount: true }, callback),
+			);
+
+			publish(topic, payload);
+			publish(remixTopic, remixPayload);
+			unmount();
+			callback.mockClear();
+
+			const { unmount: unmountTopicReplay } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true }, callback),
+			);
+			expect(callback).not.toHaveBeenCalled();
+
+			const { unmount: unmountRemixReplay } = renderHook(() =>
+				useSubscribe({ topic: remixTopic, triggerLatest: true }, callback),
+			);
+			expect(callback).toHaveBeenCalledWith(remixPayload);
+			unmountTopicReplay();
+			unmountRemixReplay();
+		});
+
 		it('should unsubscribe the correct callback when multiple subscribers exist', () => {
 			const callbackA = jest.fn();
 			const callbackB = jest.fn();
@@ -72,6 +108,59 @@ describe('PubSub', () => {
 		});
 
 		describe('useSubscribe with triggerLatest', () => {
+			it.each<RovoRemixConsumer>(['editor', 'renderer'])(
+				'should replay a queued %s Remix open event for a lazy subscriber',
+				(remixConsumer) => {
+					const openRemix: Payload = {
+						type: 'open-rovo-remix-sidebar',
+						source: `${remixConsumer}-remix-entry-point`,
+						openChat: true,
+						data: { remixConsumer, remixPreset: 'page' },
+					};
+
+					publish(Topics.ROVO_REMIX_LAUNCH, openRemix);
+					const { unmount } = renderHook(() =>
+						useSubscribe({ topic: Topics.ROVO_REMIX_LAUNCH, triggerLatest: true }, callback),
+					);
+
+					expect(callback).toHaveBeenCalledWith(openRemix);
+					unmount();
+				},
+			);
+
+			it('should preserve a queued Remix preset across a submission', () => {
+				const presetUpdate: Payload = {
+					type: 'update-rovo-remix-preset',
+					source: 'renderer-selection',
+					data: { remixConsumer: 'renderer', remixPreset: 'selection' },
+				};
+
+				publish(Topics.ROVO_REMIX, presetUpdate);
+				publish(Topics.ROVO_REMIX, {
+					type: 'submit-rovo-remix',
+					source: 'rovo-chat-remix',
+					consumeOnce: true,
+					data: {
+						remixConsumer: 'renderer',
+						remixPreset: 'selection',
+						remixOption: 'infographic',
+						userPrompt: 'Summarize this selection',
+					},
+				});
+				publish(Topics.ROVO_REMIX, {
+					type: 'rovo-remix-handoff-failed',
+					source: 'editor-rovo-remix',
+				});
+
+				const { unmount } = renderHook(() =>
+					useSubscribe({ topic: Topics.ROVO_REMIX, triggerLatest: true }, callback),
+				);
+
+				expect(callback).toHaveBeenCalledTimes(1);
+				expect(callback).toHaveBeenCalledWith(presetUpdate);
+				unmount();
+			});
+
 			it('should call the latest topic event when subscribing after the event was published', () => {
 				const { result } = renderHook(() => usePublish(topic));
 				result.current(payload);
@@ -128,8 +217,7 @@ describe('PubSub', () => {
 				unmount();
 			});
 
-			it('does not let `jira-create-context-payload` overwrite a queued action event when the gate is on', () => {
-				passGate('rovo_chat_fix_jira_prompt_dropped_on_reopen');
+			it('does not let `jira-create-context-payload` overwrite a queued action event', () => {
 				const chatNew: Payload = {
 					type: 'chat-new',
 					data: { dialogues: [] },
@@ -156,37 +244,7 @@ describe('PubSub', () => {
 				unmount();
 			});
 
-			it('lets `jira-create-context-payload` overwrite the replay slot when the gate is off', () => {
-				failGate('rovo_chat_fix_jira_prompt_dropped_on_reopen');
-
-				const chatNew: Payload = {
-					type: 'chat-new',
-					data: { dialogues: [] },
-					source: 'jira-list-child-create-rovo',
-				};
-				const jiraCreateContext: Payload = {
-					type: 'jira-create-context-payload',
-					data: { draftWorkItems: null },
-					source: 'useJiraContext',
-				};
-
-				const { result } = renderHook(() => usePublish(topic));
-				const callback = jest.fn();
-
-				result.current(chatNew);
-				result.current(jiraCreateContext);
-
-				const { unmount } = renderHook(() =>
-					useSubscribe({ topic, triggerLatest: true }, callback),
-				);
-
-				expect(callback).toHaveBeenCalledTimes(1);
-				expect(callback).toHaveBeenCalledWith(jiraCreateContext);
-				unmount();
-			});
-
-			it('does not let `set-message-context` overwrite a queued action event when the gate is on', () => {
-				passGate('rovo_chat_fix_cold_start_prompt_insertion');
+			it('does not let `set-message-context` overwrite a queued action event', () => {
 				const insertPrompt: Payload = {
 					type: 'insert-prompt',
 					data: { prompt: '/create-work-items', overrideAutoSend: true },
@@ -210,35 +268,6 @@ describe('PubSub', () => {
 
 				expect(callback).toHaveBeenCalledTimes(1);
 				expect(callback).toHaveBeenCalledWith(insertPrompt);
-				unmount();
-			});
-
-			it('lets `set-message-context` overwrite the replay slot when the gate is off', () => {
-				failGate('rovo_chat_fix_cold_start_prompt_insertion');
-
-				const insertPrompt: Payload = {
-					type: 'insert-prompt',
-					data: { prompt: '/create-work-items', overrideAutoSend: true },
-					source: 'rovo-action-trigger',
-				};
-				const setMessageContext: Payload = {
-					type: 'set-message-context',
-					data: { contextKey: 'agents_and_mcps_in_jira', setContext: (ctx) => ctx },
-					source: 'rovo-for-jira-onboarding',
-				};
-
-				const { result } = renderHook(() => usePublish(topic));
-				const callback = jest.fn();
-
-				result.current(insertPrompt);
-				result.current(setMessageContext);
-
-				const { unmount } = renderHook(() =>
-					useSubscribe({ topic, triggerLatest: true }, callback),
-				);
-
-				expect(callback).toHaveBeenCalledTimes(1);
-				expect(callback).toHaveBeenCalledWith(setMessageContext);
 				unmount();
 			});
 		});

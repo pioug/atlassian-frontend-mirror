@@ -1,19 +1,24 @@
-import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { fireOperationalEvent } from '../../cardAnalytics';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { createRateLimitedError } from '@atlaskit/media-client/test-helpers';
 import {
 	type FileAttributes,
 	ANALYTICS_MEDIA_CHANNEL,
 	type PerformanceAttributes,
 	type MediaTraceContext,
 } from '@atlaskit/media-common';
-import * as analyticsModule from '../../../utils/analytics/analytics';
-import type { SSRStatus } from '../../../utils/analytics/analytics';
-import { createRateLimitedError } from '@atlaskit/media-client/test-helpers';
-import { MediaCardError } from '../../../errors';
 
-const getRenderErrorEventPayload = jest.spyOn(analyticsModule, 'getRenderErrorEventPayload');
+import { MediaCardError } from '../../../MediaCardError';
+import * as getRenderErrorEventPayloadModule from '../../../utils/analytics/getRenderErrorEventPayload';
+import * as getRenderFailedFileStatusPayloadModule from '../../../utils/analytics/getRenderFailedFileStatusPayload';
+import type { SSRStatus } from '../../../utils/analytics/analytics';
+import { fireOperationalEvent } from '../../fireOperationalEvent';
+
+const getRenderErrorEventPayload = jest.spyOn(
+	getRenderErrorEventPayloadModule,
+	'getRenderErrorEventPayload',
+);
 const getRenderFailedFileStatusPayload = jest.spyOn(
-	analyticsModule,
+	getRenderFailedFileStatusPayloadModule,
 	'getRenderFailedFileStatusPayload',
 );
 
@@ -60,7 +65,7 @@ describe('fireOperationalEvent', () => {
 			metadataTraceContext,
 		);
 
-		expect(getRenderErrorEventPayload).toBeCalledWith(
+		expect(getRenderErrorEventPayload).toHaveBeenCalledWith(
 			fileAttributes,
 			performanceAttributes,
 			expect.any(Error),
@@ -68,7 +73,7 @@ describe('fireOperationalEvent', () => {
 			traceContext,
 			metadataTraceContext,
 		);
-		expect(createAnalyticsEventMock).toBeCalledWith({
+		expect(createAnalyticsEventMock).toHaveBeenCalledWith({
 			action: 'failed',
 			actionSubject: 'mediaCardRender',
 			attributes: {
@@ -95,8 +100,8 @@ describe('fireOperationalEvent', () => {
 			},
 			eventType: 'operational',
 		});
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+		expect(event.fire).toHaveBeenCalledTimes(1);
+		expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 	});
 
 	it('should fire failed event with request metadata and statusCode when error has RequestError as secondaryError', () => {
@@ -119,7 +124,7 @@ describe('fireOperationalEvent', () => {
 			metadataTraceContext,
 		);
 
-		expect(getRenderErrorEventPayload).toBeCalledWith(
+		expect(getRenderErrorEventPayload).toHaveBeenCalledWith(
 			fileAttributes,
 			performanceAttributes,
 			error,
@@ -127,7 +132,7 @@ describe('fireOperationalEvent', () => {
 			traceContext,
 			metadataTraceContext,
 		);
-		expect(createAnalyticsEventMock).toBeCalledWith({
+		expect(createAnalyticsEventMock).toHaveBeenCalledWith({
 			action: 'failed',
 			actionSubject: 'mediaCardRender',
 			attributes: {
@@ -161,8 +166,8 @@ describe('fireOperationalEvent', () => {
 			},
 			eventType: 'operational',
 		});
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+		expect(event.fire).toHaveBeenCalledTimes(1);
+		expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 	});
 
 	it('should fire failed event for failed-processing status with processingFailReason', () => {
@@ -178,7 +183,7 @@ describe('fireOperationalEvent', () => {
 			'timeout',
 		);
 
-		expect(getRenderFailedFileStatusPayload).toBeCalledWith(
+		expect(getRenderFailedFileStatusPayload).toHaveBeenCalledWith(
 			fileAttributes,
 			performanceAttributes,
 			ssrReliability,
@@ -186,8 +191,8 @@ describe('fireOperationalEvent', () => {
 			metadataTraceContext,
 			'timeout',
 		);
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+		expect(event.fire).toHaveBeenCalledTimes(1);
+		expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 	});
 
 	it('should fire failed event for failed-processing status with undefined processingFailReason and default to not-available', () => {
@@ -203,7 +208,7 @@ describe('fireOperationalEvent', () => {
 			undefined,
 		);
 
-		expect(getRenderFailedFileStatusPayload).toBeCalledWith(
+		expect(getRenderFailedFileStatusPayload).toHaveBeenCalledWith(
 			fileAttributes,
 			performanceAttributes,
 			ssrReliability,
@@ -214,7 +219,7 @@ describe('fireOperationalEvent', () => {
 		// Verify the payload includes 'not-available' as fallback
 		const payload = getRenderFailedFileStatusPayload.mock.results[0].value;
 		expect(payload.attributes.processingFailReason).toBe('not-available');
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+		expect(event.fire).toHaveBeenCalledTimes(1);
+		expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 	});
 });

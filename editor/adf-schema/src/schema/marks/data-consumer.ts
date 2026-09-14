@@ -99,3 +99,6 @@ export const toJSON = (
 			}, {}),
 	};
 };
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { toJSON as dataConsumerToJSON };

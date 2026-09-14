@@ -1,17 +1,7 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./examples/**/*.ts",
-    "./examples/**/*.tsx",
-    "./example-helpers/**/*.ts",
-    "./example-helpers/**/*.tsx",
-    "**/stories.ts",
-    "**/stories.tsx",
-    "**/stories/*.ts",
-    "**/stories/*.tsx",
-    "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
-, "../editor-plugin-table-tests/src/__tests__/playwright/table-width-responsive.spec.ts"  ]
+	"extends": "./tsconfig.dev.json",
+	"compilerOptions": {
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true
+	}
 }

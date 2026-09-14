@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import SubtleExample from '../../../../../examples/02-subtle';
+import SubtleExample from '../../../../../examples/02-subtle.vr.ap';
 
 import { themeVariants } from './utils';
 

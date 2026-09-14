@@ -10,7 +10,7 @@ import { cssMap } from '@atlaskit/css';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
@@ -35,7 +35,7 @@ const styles = cssMap({
  * Test fixture for animation callback lifecycle.
  * Exposes `onEnterFinish` and `onExitFinish` call counts via data attributes
  * so Playwright tests can assert that callbacks fire at the right point in the
- * animation lifecycle - after real CSS `transitionend` events in a real browser.
+ * animation lifecycle - after real CSS `animationend` events in a real browser.
  */
 export default function TestingAnimationCallbacks(): ReactNode {
 	const [enterCount, setEnterCount] = useState(0);

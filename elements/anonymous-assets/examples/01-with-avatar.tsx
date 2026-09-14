@@ -4,9 +4,9 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import { ButtonGroup } from '@atlaskit/button';
-import Button from '@atlaskit/button/new';
+import Avatar from '@atlaskit/avatar/avatar';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

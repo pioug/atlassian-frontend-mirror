@@ -1,0 +1,273 @@
+import React from 'react';
+import { type CSSProperties } from 'react';
+
+import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
+import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
+import { MAX_RESOLUTION } from '@atlaskit/media-client/constants';
+import { Camera } from '@atlaskit/media-ui/camera/camera';
+import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
+import { getCssFromImageOrientation } from '@atlaskit/media-ui/imageMetaData/getCssFromImageOrientation';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+import Spinner from '@atlaskit/spinner/spinner';
+
+import { ZoomLevel } from '../../domain/zoomLevel';
+import { BaselineExtend, HDIconGroupWrapper, ImageWrapper, Img } from '../../styleWrappers';
+import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
+import { ZoomControls } from '../../zoomControls';
+import type { Props, State } from './interactive-img';
+import { zoomLevelAfterResize } from './zoom-level-after-resize';
+
+const clientRectangle = (el: HTMLElement): Rectangle => {
+	const { clientWidth, clientHeight } = el;
+	return new Rectangle(clientWidth, clientHeight);
+};
+
+const naturalSizeRectangle = (el: HTMLImageElement): Rectangle => {
+	const { naturalWidth, naturalHeight } = el;
+	return new Rectangle(naturalWidth, naturalHeight);
+};
+
+const initialState: State = {
+	zoomLevel: new ZoomLevel(1),
+	isHDActive: false,
+	isHDActivating: false,
+	isHDAvailable: false,
+	isDragging: false,
+	cursorPos: new Vector2(0, 0),
+	hasBeenLoadedOnce: false,
+};
+
+export class InteractiveImgComponent extends React.Component<Props, State> {
+	state: State = initialState;
+	private wrapper?: HTMLDivElement;
+	private saveWrapperRef = (ref: HTMLDivElement) => (this.wrapper = ref);
+
+	componentDidMount(): void {
+		this.state = initialState;
+		window.addEventListener('resize', this.onResize);
+		document.addEventListener('mousemove', this.panImage);
+		document.addEventListener('mouseup', this.stopDragging);
+	}
+
+	componentWillUnmount(): void {
+		window.removeEventListener('resize', this.onResize);
+		document.removeEventListener('mousemove', this.panImage);
+		document.removeEventListener('mouseup', this.stopDragging);
+	}
+
+	onImageClicked = (e: React.MouseEvent): void => {
+		const { onClose, onBlanketClicked } = this.props;
+		if (e.target === e.currentTarget && onBlanketClicked) {
+			onBlanketClicked();
+		}
+		closeOnDirectClick(onClose)(e);
+	};
+
+	private renderHDIndicator() {
+		const { isHDActivating, isHDAvailable, isHDActive } = this.state;
+		if (!isHDAvailable) {
+			return null;
+		}
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			<HDIconGroupWrapper className={hideControlsClassName}>
+				{isHDActivating ? <Spinner appearance="invert" /> : undefined}
+				{isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd" />}
+			</HDIconGroupWrapper>
+		);
+	}
+
+	render(): React.JSX.Element {
+		const { src, originalBinaryImageSrc, orientation, onError } = this.props;
+		const { zoomLevel, isHDAvailable, isHDActive, camera, isDragging } = this.state;
+
+		const canDrag = (camera && zoomLevel.value > camera.scaleToFit) || false;
+		// We use style attr instead of SC prop for perf reasons
+		const imgStyle: CSSProperties = (camera && camera.scaledImg(zoomLevel.value)) || {
+			visibility: 'hidden',
+		};
+		// When image loads it does two things at the same time 1) it renders itself in the browser 2) triggers onLoad
+		// visibility: 'hidden' is here to prevent image rendering on the screen (with 100%) before next
+		// react re-render when we have `camera` and can control it's zoom level.
+		// overflow: 'hidden' is here to prevent scroll going wild while image is rendered in visibility: 'hidden'
+		// We can't use display: none or not render image, because we do need `onLoad` to trigger and read it's dimensions
+		const wrapperStyleOverride: CSSProperties = camera
+			? {}
+			: {
+					overflow: 'hidden',
+				};
+		if (orientation) {
+			imgStyle.transform = getCssFromImageOrientation(orientation);
+		}
+		const srcToDisplay =
+			isHDAvailable && isHDActive && originalBinaryImageSrc ? originalBinaryImageSrc : src;
+
+		return (
+			<ImageWrapper
+				data-testid="media-viewer-image-content"
+				onClick={this.onImageClicked}
+				ref={this.saveWrapperRef}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={wrapperStyleOverride}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="media-viewer-image-content"
+			>
+				<Img
+					data-testid="media-viewer-image"
+					canDrag={canDrag}
+					isDragging={isDragging}
+					src={srcToDisplay}
+					alt={this.props.alt}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={imgStyle}
+					onLoad={this.onImgLoad}
+					onError={onError}
+					onMouseDown={this.startDragging}
+					shouldPixelate={zoomLevel.value > 1}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="media-viewer-image"
+				/>
+
+				{/*
+          The BaselineExtend element is required to align the Img element in the
+          vertical center of the page. It ensures that the parent container is
+          at least 100% of the viewport height and makes it possible to set
+          vertical-align: middle on the image.
+         */}
+				<BaselineExtend />
+				<ZoomControls zoomLevel={zoomLevel} onChange={this.onZoomChange}>
+					{this.renderHDIndicator()}
+				</ZoomControls>
+			</ImageWrapper>
+		);
+	}
+
+	private onImgLoad = (ev: React.SyntheticEvent<HTMLImageElement>) => {
+		const { onLoad, originalBinaryImageSrc } = this.props;
+		const { hasBeenLoadedOnce, zoomLevel: oldZoomLevel, camera: currentCamera } = this.state;
+		let { isHDActivating, isHDAvailable, isHDActive } = this.state;
+
+		if (!this.wrapper) {
+			return;
+		}
+
+		const viewport = clientRectangle(this.wrapper);
+		const originalImgRect = naturalSizeRectangle(ev.currentTarget);
+		const camera = new Camera(viewport, originalImgRect);
+		let newZoomLevel: ZoomLevel;
+
+		if (hasBeenLoadedOnce && currentCamera) {
+			/* This is not first time image is loading. Likely due to new (HD) image is loaded.
+			 * In order to keep new image on the same perceived zoom level we need to scale.
+			 * It depends on ration between old and new images and current zoom level.
+			 * For example:
+			 * - old image is 2000px with zoom at 50% (0.5). New image is 4000px. 2000/4000 * 0.5 = 0.25 (25%)
+			 * - old image is 2000px with zoom at 200% (2). New image is 4000px. 2000/4000 * 2 = 1 (100%)
+			 */
+			const previousImageWidth = currentCamera.originalImg.width;
+			const newImageWidth = originalImgRect.width;
+			newZoomLevel = new ZoomLevel((previousImageWidth / newImageWidth) * oldZoomLevel.value);
+			isHDActivating = false;
+		} else {
+			newZoomLevel = new ZoomLevel(camera.scaleDownToFit);
+
+			// If initial (non-HD) image is equal to MAX resolution -
+			// this means most likely original image had higher res (because non-HD is downsized and caped off with MAX res)
+			isHDAvailable =
+				!!originalBinaryImageSrc &&
+				(originalImgRect.width === MAX_RESOLUTION || originalImgRect.height === MAX_RESOLUTION);
+
+			// Automatically activate HD on first load if zoom level is already 100% or bigger
+			isHDActive = newZoomLevel.value >= 1;
+
+			if (onLoad) {
+				// Call onLoad only once on initial image render
+				onLoad();
+			}
+		}
+
+		this.setState({
+			camera,
+			zoomLevel: newZoomLevel,
+			hasBeenLoadedOnce: true,
+			isHDActivating,
+			isHDAvailable,
+			isHDActive,
+		});
+	};
+
+	private onResize = () => {
+		const { camera } = this.state;
+
+		if (!this.wrapper || !camera) {
+			return;
+		}
+		const oldZoomLevel = this.state.zoomLevel;
+
+		const newViewport = clientRectangle(this.wrapper);
+		const newCamera = camera.resizedViewport(newViewport);
+		const newZoomLevel = zoomLevelAfterResize(newCamera, camera, oldZoomLevel);
+
+		this.setState({
+			camera: newCamera,
+			zoomLevel: newZoomLevel,
+		});
+	};
+
+	private onZoomChange = (nextZoomLevel: ZoomLevel) => {
+		const { camera } = this.state;
+		const { wrapper } = this;
+		if (!wrapper || !camera) {
+			return;
+		}
+
+		const { scrollLeft, scrollTop } = wrapper;
+		const prevOffset = new Vector2(scrollLeft, scrollTop);
+		const {
+			zoomLevel: prevZoomLevel,
+			isHDActive: prevIsHDActive,
+			isHDActivating: prevIsHDActivating,
+		} = this.state;
+		const isHDActive = prevIsHDActive || nextZoomLevel.value >= 1;
+		const isHDActivating = prevIsHDActivating || (!prevIsHDActive && isHDActive);
+		this.setState(
+			{
+				zoomLevel: nextZoomLevel,
+				isHDActive,
+				isHDActivating,
+			},
+			() => {
+				const { x, y } = camera.scaledOffset(prevOffset, prevZoomLevel.value, nextZoomLevel.value);
+				wrapper.scrollLeft = x;
+				wrapper.scrollTop = y;
+			},
+		);
+	};
+
+	private startDragging = (ev: React.MouseEvent<{}>) => {
+		// stopping propagation to prevent media viewer from closing
+		// when clicking on the image
+		ev.stopPropagation();
+		ev.preventDefault();
+		this.setState({
+			isDragging: true,
+			cursorPos: new Vector2(ev.screenX, ev.screenY),
+		});
+	};
+
+	private stopDragging = (ev: MouseEvent) => {
+		ev.preventDefault();
+		this.setState({ isDragging: false });
+	};
+
+	private panImage = (ev: MouseEvent) => {
+		if (this.state.isDragging && this.wrapper) {
+			const cursorPos = new Vector2(ev.screenX, ev.screenY);
+			const delta = this.state.cursorPos.sub(cursorPos);
+			this.setState({ cursorPos });
+			this.wrapper.scrollLeft += delta.x;
+			this.wrapper.scrollTop += delta.y;
+		}
+	};
+}

@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

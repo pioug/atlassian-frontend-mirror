@@ -2,7 +2,7 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { createPreservedSelection } from '../../pm-plugins/utils/selection';
 

@@ -9,9 +9,12 @@ import {
 } from '@atlaskit/atlassian-navigation';
 import { cssMap } from '@atlaskit/css';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
-import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
+import ButtonItem from '@atlaskit/menu/button-item';
+import PopupMenuGroup from '@atlaskit/menu/popup-menu-group';
+import Section from '@atlaskit/menu/section';
+import { Popup } from '@atlaskit/popup/popup';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

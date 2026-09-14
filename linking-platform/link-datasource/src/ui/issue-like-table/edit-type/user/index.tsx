@@ -3,24 +3,26 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 
-import Avatar, { AvatarItem } from '@atlaskit/avatar';
-import { type FieldProps } from '@atlaskit/form';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
+import type { FieldProps } from '@atlaskit/form/field';
 import { Layering } from '@atlaskit/layering/layering';
-import { type User } from '@atlaskit/linking-types';
-import { type FilterOptionOption } from '@atlaskit/react-select';
-import Select from '@atlaskit/select';
-import Tooltip from '@atlaskit/tooltip';
+import type { User } from '@atlaskit/linking-types/datasource';
+import type { FilterOptionOption } from '@atlaskit/react-select/filters';
+import Select from '@atlaskit/select/default';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
-import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
+import { failUfoExperience } from '../../../../analytics/ufoExperiences/failUfoExperience';
+import { succeedUfoExperience } from '../../../../analytics/ufoExperiences/succeedUfoExperience';
+import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';
 import type { ExecuteFetch } from '../../../../state/actions';
 import { SEARCH_DEBOUNCE_MS } from '../../../common/modal/popup-select/constants';
+import { getCleanedSelectProps } from '../../get-cleaned-select-props';
 import { USER_TYPE_TEST_ID } from '../../render-type/user';
 import { userTypeMessages } from '../../render-type/user/messages';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
-import { getCleanedSelectProps } from '../../utils';
 
 interface UserEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'user'>;

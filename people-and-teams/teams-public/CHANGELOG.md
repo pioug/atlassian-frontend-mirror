@@ -1,5 +1,193 @@
 # @atlaskit/teams-public
 
+## 2.11.0
+
+### Minor Changes
+
+- [`1a3f7d6aa71c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a3f7d6aa71c6) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.10.1
+
+### Patch Changes
+
+- [`2c412fe430071`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c412fe430071) -
+  Cleanup feature gate `fix_team_link_card_a11y`. The accessible team link card markup
+  (anchor-wrapped content with the shared team link card actions) is now the only behaviour.
+- Updated dependencies
+
+## 2.10.0
+
+### Minor Changes
+
+- [`a75866f802a52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a75866f802a52) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 2.9.4
+
+### Patch Changes
+
+- [`25cc01ed2952c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25cc01ed2952c) -
+  Cleanup feature gate `enable_medium_size_icons_for_team_link_cards`. Team link "add container"
+  cards now always render medium-sized container icons with the tighter `space.025` stack spacing.
+
+## 2.9.3
+
+### Patch Changes
+
+- [`9a59eac015bf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a59eac015bf9) -
+  Cleanup feature gate `teams-a11y-34974-34752-34709`. Semantic description list (`dl`/`dt`/`dd`)
+  markup for team details fields and list semantics (`role="list"`/`role="listitem"`) for team
+  containers are now permanently enabled.
+
+## 2.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.1
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+
+## 2.9.0
+
+### Minor Changes
+
+- [`59d2ce879f145`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59d2ce879f145) -
+  Apply the Volt one-export-per-file standard via `volt-migrate-package` to
+  `@atlaskit/teams-public`. The package `exports` map grows from 28 to 40 subpaths — no subpath was
+  removed and none was retargeted, so every existing import path keeps its current target and
+  behaviour. Multi-export modules were split so that each public symbol has its own file, and the
+  former barrels are now `@deprecated` re-export shims kept for compatibility (VOLTC-139 tracks
+  their removal).
+
+  ### No public API was removed
+
+  Every symbol previously reachable through the `exports` map is still reachable from the same
+  subpath:
+
+  ```ts
+  import { ContainerIcon, useTeamContainers, useTeamWebLinks } from '@atlaskit/teams-public';
+  import { ConfluenceIcon, JiraIcon, LoomIcon } from '@atlaskit/teams-public/assets';
+  import {
+  	useConnectedTeams,
+  	useTeamContainersHook,
+  } from '@atlaskit/teams-public/use-team-containers';
+  import { actions, useTeamWebLinksActions } from '@atlaskit/teams-public/use-team-web-links';
+  import { hasProductPermission, transformPermissions } from '@atlaskit/teams-public/utils';
+  ```
+
+  ### New subpaths for the split modules
+
+  Twelve new published subpaths expose the symbols that used to be reachable only through a barrel.
+  Every one of them exposes a symbol that was already public, so no new API is added — only new,
+  narrower paths to existing API. Prefer these over the deprecated barrel imports:
+  - `./confluence-icon`, `./jira-icon`, `./loom-icon` — the default-exported SVGs behind `./assets`
+  - `./product-permission/get-product-permission-request-body` — `getProductPermissionRequestBody`
+  - `./product-permission/has-product-permission` — `hasProductPermission`
+  - `./product-permission/transform-permissions` — `transformPermissions`
+  - `./use-connected-teams` — `useConnectedTeams`
+  - `./use-team-containers/use-team-containers` — `useTeamContainers`
+  - `./use-team-containers/use-team-containers-hook` — `useTeamContainersHook`
+  - `./use-team-web-links/use-team-web-links` — `useTeamWebLinks`
+  - `./use-team-web-links-actions` — `useTeamWebLinksActions`
+  - `./use-team-web-links/actions` — `actions`
+
+  The two `createStore` results, `TeamWebLinksStore` and `TeamContainersStore`, were module-private
+  before the split and stay internal. Each now lives in its own `store.ts` because two sibling
+  modules need it, but neither is published in the `exports` map nor re-exported from a barrel — use
+  the `useTeamWebLinks` / `useTeamWebLinksActions` / `useTeamContainers` hooks instead.
+
+  ### Note for consumers that mock these modules
+
+  Three modules that previously contained their implementations are now re-export shims only:
+  - `.../controllers/hooks/use-team-containers/index.ts`
+  - `.../controllers/hooks/use-team-web-links/index.ts`
+  - `.../controllers/product-permission/utils.ts`
+
+  A `jest.mock()` or `jest.spyOn()` targeting one of those paths will no longer intercept the
+  implementation, because the symbol is no longer defined there. Mock the module that now owns the
+  export instead — for example `use-team-containers/use-team-containers` for `useTeamContainers`,
+  `use-team-web-links/use-team-web-links` for `useTeamWebLinks`,
+  `use-team-web-links/use-team-web-links-actions` for `useTeamWebLinksActions`, and
+  `product-permission/hasProductPermission` for `hasProductPermission`. The same applies to the
+  deleted private module `.../common/ui/loom-avatar/utils.ts`, whose exports now live in
+  `getAvatarText.ts`, `pickContainerColor.ts` and `pickTextColor.ts` alongside it.
+
+  ### Internal-only renames
+  - `common/utils/get-link-domain.ts` → `common/utils/get-domain-from-link-uri.ts`, with
+    `unsafeGetDomainFromUrl` split out into `common/utils/unsafe-get-domain-from-url.ts`
+  - `common/utils/team-web-link-converters.ts` split into `container-to-new-web-link.ts`,
+    `web-link-to-container.ts`, `web-links-to-containers.ts` and `is-new-team-web-link.ts`
+  - `ui/team-containers/add-container-card/index.tsx` →
+    `ui/team-containers/add-container-card/AddContainerCard.tsx`
+
+  None of these paths are reachable through the `exports` map, and all symbol names are unchanged.
+  No behaviour change.
+
+## 2.8.0
+
+### Minor Changes
+
+- [`c595edf05d60e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c595edf05d60e) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.0
+
+### Minor Changes
+
+- [`68e50c0e75e2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68e50c0e75e2f) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+- [`fcad5db87cc77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcad5db87cc77) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.3
 
 ### Patch Changes

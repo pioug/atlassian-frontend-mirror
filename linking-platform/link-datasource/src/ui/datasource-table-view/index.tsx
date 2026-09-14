@@ -1,19 +1,14 @@
-import React, { lazy, Suspense } from 'react';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { type DatasourceTableViewProps } from './types';
-
-const LazyDatasourceTableView = lazy(() =>
-	import(
-		/* webpackChunkName: "@atlaskit-internal_linkdatasource-tableview" */ './datasourceTableView'
-	).then((module) => ({ default: module.DatasourceTableView })),
-);
-
-const DatasourceTableViewWithWrappers = (props: DatasourceTableViewProps): React.JSX.Element => {
-	return (
-		<Suspense fallback={<div data-testid={'datasource-table-view-suspense'} />}>
-			<LazyDatasourceTableView {...props} />
-		</Suspense>
-	);
-};
+import { DatasourceTableViewWithWrappers } from './DatasourceTableViewWithWrappers';
 
 export default DatasourceTableViewWithWrappers;
+
+/**
+ * @deprecated Use `import { DatasourceTableViewWithWrappers } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers'` instead.
+ */
+export { DatasourceTableViewWithWrappers } from './DatasourceTableViewWithWrappers';
+/**
+ * @deprecated Use `import { DatasourceTableViewWithWrappers } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers'` instead.
+ */
+export { DatasourceTableViewWithWrappers as DatasourceTableView } from './DatasourceTableViewWithWrappers';

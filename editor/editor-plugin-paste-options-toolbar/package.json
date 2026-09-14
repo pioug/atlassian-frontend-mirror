@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste-options-toolbar",
-	"version": "13.4.0",
+	"version": "19.0.0",
 	"description": "Paste options toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -60,58 +61,11 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
-		"platform_editor_agent_mentions": {
-			"type": "experiment"
-		},
-		"platform_editor_fix_link_paste_menu": {
-			"type": "experiment"
-		},
 		"platform_editor_paste_actions_menu_exposure": {
 			"type": "boolean"
 		},
 		"platform_editor_paste_actions_menu_v2_exposure": {
 			"type": "boolean"
 		}
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"techstackIgnore": {
-		"stricter": [
-			"@atlassian/tangerine/project-structure"
-		]
 	}
 }

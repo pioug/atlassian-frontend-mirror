@@ -5,9 +5,9 @@
  */
 {
   "testExamples": [
-    "00-basic.tsx",
-    "01-indeterminate.tsx",
-    "02-success-progress-bar.tsx",
-    "03-transparent-progress-bar.tsx"
+    "00-basic.vr.ap.tsx",
+    "01-indeterminate.vr.ap.tsx",
+    "02-success-progress-bar.vr.ap.tsx",
+    "03-transparent-progress-bar.vr.ap.tsx"
   ]
 }

@@ -1,12 +1,15 @@
 import { bind } from 'bind-event-listener';
 import type { UnbindFn } from 'bind-event-listener';
 
+import { isBlockControlsSuppressionTarget } from '@atlaskit/editor-common/block-controls-suppression';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 
@@ -15,8 +18,13 @@ import { handleKeyDown } from './handle-key-down';
 import { handleMouseEnter, handleMouseLeave, handleMouseMove } from './handle-mouse-move';
 
 /** Elements that extend the editor hover area (block controls, right-edge button, etc.) */
-const BLOCK_CONTROLS_HOVER_AREA_SELECTOR =
+const LEGACY_BLOCK_CONTROLS_HOVER_AREA_SELECTOR =
 	'[data-blocks-right-edge-button-container], [data-blocks-drag-handle-container], [data-testid="block-ctrl-drag-handle"], [data-testid="block-ctrl-drag-handle-container"], [data-testid="block-ctrl-decorator-widget"], [data-testid="block-ctrl-quick-insert-button"]';
+
+const getBlockControlsHoverAreaSelector = (): string =>
+	isExperimentEnabled('platform_editor_block_control_migration')
+		? `[data-editor-block-controls-surface], [data-editor-block-ctrl-drag-handle], ${LEGACY_BLOCK_CONTROLS_HOVER_AREA_SELECTOR}`
+		: LEGACY_BLOCK_CONTROLS_HOVER_AREA_SELECTOR;
 
 const MOUSE_LEAVE_DEBOUNCE_MS = 200;
 
@@ -24,7 +32,7 @@ const MOUSE_LEAVE_DEBOUNCE_MS = 200;
 const CLICK_AREA_SELECTOR = '[data-editor-click-wrapper]';
 
 const isMovingToBlockControlsArea = (target: EventTarget | null): boolean =>
-	target instanceof Element && !!target.closest(BLOCK_CONTROLS_HOVER_AREA_SELECTOR);
+	target instanceof Element && !!target.closest(getBlockControlsHoverAreaSelector());
 
 /**
  * The right margin is covered by the ClickAreaBlock overlay, which sits outside .ak-editor-content-area.
@@ -48,6 +56,20 @@ const isOverActiveClickArea = (target: EventTarget | null, clientX: number): boo
 	}
 	const innerWidth = target.ownerDocument.defaultView?.innerWidth ?? Number.POSITIVE_INFINITY;
 	return clientX <= innerWidth - RIGHT_MARGIN_ROVO_GAP_PX;
+};
+
+const isOverTreatmentClickArea = (
+	target: EventTarget | null,
+	editorContentArea: Element | null,
+	clientX: number,
+): boolean => {
+	if (!(target instanceof Element) || !(editorContentArea instanceof HTMLElement)) {
+		return false;
+	}
+	if (!target.closest(CLICK_AREA_SELECTOR)) {
+		return false;
+	}
+	return clientX > editorContentArea.getBoundingClientRect().right;
 };
 
 export type InteractionTrackingPluginState = {
@@ -178,36 +200,44 @@ export const createInteractionTrackingPlugin = (
 					let mouseLeaveTimeoutId: ReturnType<typeof setTimeout> | null = null;
 					let lastMousePosition = { x: 0, y: 0 };
 
-					// The active right margin only counts as "still hovering" when our experiment is on;
-					// otherwise leaving the content area (e.g. exiting left) must dismiss as on master.
-					const marginHoverEnabled = editorExperiment('remix_button_right_margin_hover', true);
-
 					const scheduleMouseLeave = (event: MouseEvent) => {
 						if (mouseLeaveTimeoutId) {
 							clearTimeout(mouseLeaveTimeoutId);
 							mouseLeaveTimeoutId = null;
 						}
 
-						// Keep controls visible when moving to block controls (or, with the experiment on,
-						// the active right margin — the Rovo gap is excluded so controls still clear there).
+						// Preserve the existing hover targets for the control cohort.
 						if (
 							rightSideControlsEnabled &&
 							(isMovingToBlockControlsArea(event.relatedTarget) ||
-								(marginHoverEnabled && isOverActiveClickArea(event.relatedTarget, event.clientX)))
+								isOverActiveClickArea(event.relatedTarget, event.clientX))
+						) {
+							return;
+						}
+						if (
+							rightSideControlsEnabled &&
+							isExperimentEnabled('cc_maui_remix_button_hover_corridor') &&
+							isOverTreatmentClickArea(event.relatedTarget, editorContentArea, event.clientX)
 						) {
 							return;
 						}
 
 						mouseLeaveTimeoutId = setTimeout(() => {
 							mouseLeaveTimeoutId = null;
-							// Re-check after the debounce: keep controls if the cursor landed on block controls
-							// (or, with the experiment on, the active right margin).
+							// Re-check the control cohort's existing hover targets after the debounce.
 							if (rightSideControlsEnabled && typeof document !== 'undefined') {
 								const el = document.elementFromPoint(lastMousePosition.x, lastMousePosition.y);
 								if (
 									el &&
 									(isMovingToBlockControlsArea(el) ||
-										(marginHoverEnabled && isOverActiveClickArea(el, lastMousePosition.x)))
+										isOverActiveClickArea(el, lastMousePosition.x))
+								) {
+									return;
+								}
+								if (
+									el &&
+									isExperimentEnabled('cc_maui_remix_button_hover_corridor') &&
+									isOverTreatmentClickArea(el, editorContentArea, lastMousePosition.x)
 								) {
 									return;
 								}
@@ -223,28 +253,54 @@ export const createInteractionTrackingPlugin = (
 						}
 					};
 
+					const handleDocumentMouseMove = (event: MouseEvent) => {
+						lastMousePosition = { x: event.clientX, y: event.clientY };
+						// Catches block controls in portals that handleDOMEvents.mousemove misses.
+						const isOverKnownHoverTarget =
+							editorContentArea?.contains(event.target as Node) ||
+							isMovingToBlockControlsArea(event.target);
+						const overClickArea =
+							event.target instanceof Element && !!event.target.closest(CLICK_AREA_SELECTOR);
+						if (isOverKnownHoverTarget || overClickArea) {
+							handleMouseMove(view, event, rightSideControlsEnabled, api);
+						}
+					};
+
+					const handleTreatmentDocumentMouseMove = (event: MouseEvent) => {
+						if (isBlockControlsSuppressionTarget(event.target)) {
+							lastMousePosition = { x: event.clientX, y: event.clientY };
+							cancelScheduledMouseLeave();
+							if (!interactionTrackingPluginKey.getState(view.state)?.isMouseOut) {
+								handleMouseLeave(view, rightSideControlsEnabled);
+							}
+							return;
+						}
+						handleDocumentMouseMove(event);
+					};
+
 					if (editorContentArea) {
 						if (rightSideControlsEnabled && typeof document !== 'undefined') {
-							unbindDocumentMouseMove = bind(document, {
-								type: 'mousemove',
-								listener: (event: MouseEvent) => {
-									lastMousePosition = { x: event.clientX, y: event.clientY };
-									// Catches block controls in portals that handleDOMEvents.mousemove misses.
-									// The right-margin overlay is only relevant with the experiment on.
-									const overClickArea =
-										marginHoverEnabled &&
-										event.target instanceof Element &&
-										!!event.target.closest(CLICK_AREA_SELECTOR);
-									if (
-										editorContentArea.contains(event.target as Node) ||
-										isMovingToBlockControlsArea(event.target) ||
-										overClickArea
-									) {
-										handleMouseMove(view, event, rightSideControlsEnabled, api);
-									}
-								},
-								options: { passive: true },
-							});
+							// RemixButtonDecoration fires exposure when the control is visible; this
+							// mount-time split only selects the appropriate interaction listener.
+							if (
+								UNSAFE_expValNoExposure(
+									'cc_maui_remix_button_hover_corridor',
+									'isEnabled',
+									false,
+								) === true
+							) {
+								unbindDocumentMouseMove = bind(document, {
+									type: 'mousemove',
+									listener: handleTreatmentDocumentMouseMove,
+									options: { passive: true },
+								});
+							} else {
+								unbindDocumentMouseMove = bind(document, {
+									type: 'mousemove',
+									listener: handleDocumentMouseMove,
+									options: { passive: true },
+								});
+							}
 						}
 
 						unbindMouseEnter = bind(editorContentArea, {

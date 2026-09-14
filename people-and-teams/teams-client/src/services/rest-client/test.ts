@@ -1,10 +1,14 @@
-import { HttpError, SLOIgnoreError } from '../../common/utils/error';
+import { HttpError } from '../../common/utils/error/HttpError';
+import { SLOIgnoreError } from '../../common/utils/error/SLOIgnoreError';
 import { statusCodeHandlersProvider } from '../../common/utils/status-code-handlers-provider';
 
-import { clearCookie, getCookieAsInteger, REDIRECT_COUNT } from './utils/cookie';
+import { clearCookie } from './utils/clear-cookie';
+import { REDIRECT_COUNT } from './utils/cookie';
+import { getCookieAsInteger } from './utils/get-cookie-as-integer';
 import { parseErrorMessage } from './utils/parse-error-message';
+import { redirectCount } from './utils/redirect-count';
 
-import { resetRedirectCountOnceFlag, RestClient } from './index';
+import { RestClient } from './index';
 
 const fetch = fetchMock;
 
@@ -37,7 +41,7 @@ describe('(Common) RestClient', () => {
 	});
 
 	afterEach(() => {
-		resetRedirectCountOnceFlag();
+		redirectCount.resetOnceFlag();
 		clearCookie(REDIRECT_COUNT);
 	});
 

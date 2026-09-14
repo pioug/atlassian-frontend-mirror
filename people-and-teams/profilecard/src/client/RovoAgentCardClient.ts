@@ -1,6 +1,5 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
 import type {
 	AgentIdType,
@@ -14,18 +13,11 @@ import { PACKAGE_META_DATA } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 import { USER_ARI_PREFIX } from '../util/rovoAgentUtils';
 
+import { AGGQuery } from './AGGQuery';
+import { AgentForbiddenError } from './AgentForbiddenError';
 import CachingClient from './CachingClient';
-import { getErrorAttributes } from './errorUtils';
-import { AGGQuery } from './graphqlUtils';
+import { getErrorAttributes } from './getErrorAttributes';
 import { SHARED_CACHE_MAX_AGE, sharedAgentProfileCache } from './sharedAgentProfileCache';
-
-export class AgentForbiddenError extends Error {
-	status = 403;
-	constructor() {
-		super('Agent access forbidden');
-		this.name = 'AgentForbiddenError';
-	}
-}
 
 const buildActivationIdQuery = (cloudId: string, product: string) => ({
 	query: `
@@ -61,29 +53,6 @@ const buildRovoAgentQueryByAri = (agentAri: string) => ({
 	`,
 	variables: {
 		agentAri,
-	},
-});
-
-const buildRovoAgentQueryByAccountIdOld = (identityAccountId: string, cloudId: string) => ({
-	query: `
-		query RovoAgentProfileCard_AgentQueryByAccountId($identityAccountId: ID!, $cloudId: ID!) {
-			agentStudio_agentByIdentityAccountId(identityAccountId: $identityAccountId, cloudId: $cloudId) @optIn(to: "AgentStudio") {
-			  __typename
-				... on AgentStudioAssistant {
-					authoringTeam {
-						displayName
-						profileUrl
-					}
-				}
-				... on QueryError {
-					message
-				}
-			}
-		}
-	`,
-	variables: {
-		identityAccountId,
-		cloudId,
 	},
 });
 
@@ -209,12 +178,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 	): Promise<RovoAgentAgg | null | undefined> {
 		const response = await AGGQuery<{
 			agentStudio_agentByIdentityAccountId: AgentAggResponse | null | undefined;
-		}>(
-			'/gateway/api/graphql',
-			fg('jira_ai_fix_agent_profile_card_flashing')
-				? buildRovoAgentQueryByAccountId(identityAccountId, cloudId)
-				: buildRovoAgentQueryByAccountIdOld(identityAccountId, cloudId),
-		);
+		}>('/gateway/api/graphql', buildRovoAgentQueryByAccountId(identityAccountId, cloudId));
 
 		if (response.agentStudio_agentByIdentityAccountId?.__typename === 'QueryError') {
 			throw new Error(

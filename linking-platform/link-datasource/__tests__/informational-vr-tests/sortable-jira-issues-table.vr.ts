@@ -4,7 +4,7 @@ import type { Locator, Page } from '@playwright/test';
 // eslint-disable-next-line no-restricted-imports -- informational VR requires snapshotInformational API.
 import { snapshotInformational } from '@af/visual-regression';
 
-import { SortableJiraIssuesTableNoLatency } from '../../examples/sortable-jira-issues-table';
+import { SortableJiraIssuesTableNoLatency } from '../../examples/sortable-jira-issues-table.vr.ap';
 
 const waitForTableLoaded = async (page: Page, expectedFirstKey: string) => {
 	await page.waitForFunction((firstKey) => {

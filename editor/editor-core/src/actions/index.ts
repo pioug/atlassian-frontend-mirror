@@ -31,7 +31,7 @@ import { findNodePosByLocalIds } from './temp-nodes-by-localids';
 // eslint-disable-next-line import/order
 import { toJSON } from './temp-to-json';
 // eslint-disable-next-line import/order
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 // Please, do not copy or use this kind of code below
 // @ts-ignore

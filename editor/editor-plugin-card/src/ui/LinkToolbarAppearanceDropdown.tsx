@@ -16,9 +16,12 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import { useSmartCardContext } from '@atlaskit/link-provider';
-import { ButtonItem, LinkItem, MenuGroup, Section } from '@atlaskit/menu';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
+import ButtonItem from '@atlaskit/menu/button-item';
+import LinkItem from '@atlaskit/menu/link-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 

@@ -2,37 +2,38 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import { cssMap } from '@atlaskit/css';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { fg } from '@atlaskit/platform-feature-flags';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Grid } from '@atlaskit/primitives';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
-import {
-	hasProductPermission,
-	useProductPermissions,
-} from '@atlaskit/teams-app-internal-product-permissions';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box, Grid, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
+import { hasProductPermission } from '@atlaskit/teams-app-internal-product-permissions/utils';
+import { useProductPermissions } from '@atlaskit/teams-app-internal-product-permissions/main';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { TeamContainersSkeleton } from '../../common/ui/team-containers-skeleton';
 import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
-import { hasProductPermission as hasProductPermissionOld } from '../../controllers';
 import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
 import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
 import { useRefreshOnContainerCreated } from '../../controllers/hooks/use-refresh-containers-on-container-created';
-import {
-	useTeamContainers,
-	useTeamContainersHook,
-} from '../../controllers/hooks/use-team-containers';
+import { useTeamContainersHook } from '../../controllers/hooks/use-team-containers/use-team-containers-hook';
+import { useTeamContainers } from '../../controllers/hooks/use-team-containers/use-team-containers';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
+import { hasProductPermission as hasProductPermissionOld } from '../../controllers/product-permission/hasProductPermission';
 
-import { getAddContainerCards } from './add-container-card';
+import { getAddContainerCards } from './add-container-card/getAddContainerCards';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamLinkCard } from './team-link-card';
 import { type TeamContainerProps } from './types';
+
+const gridStyles = cssMap({
+	templateColumns: {
+		gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+	},
+});
 
 export const ICON_BACKGROUND: 'var(--ds-icon-inverse)' = token('color.icon.inverse');
 export const ICON_COLOR: 'var(--ds-icon-subtle)' = token('color.icon.subtle');
@@ -310,12 +311,11 @@ export const TeamContainers = ({
 			<Stack space="space.200">
 				{(() => {
 					const GridComponent = components?.Grid || Grid;
-					const isTeamsA11yGateEnabled = fg('teams-a11y-34974-34752-34709');
 					return (
 						<GridComponent
-							templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+							xcss={gridStyles.templateColumns}
 							gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
-							{...(isTeamsA11yGateEnabled && { role: 'list' as const })}
+							role="list"
 						>
 							{elemBeforeCards &&
 								(() => {
@@ -344,12 +344,10 @@ export const TeamContainers = ({
 										onEditLinkClick={() => handleEditContainerClick(container)}
 									/>
 								);
-								return isTeamsA11yGateEnabled ? (
+								return (
 									<Box key={container.id} role="listitem">
 										{card}
 									</Box>
-								) : (
-									card
 								);
 							})}
 
@@ -358,7 +356,6 @@ export const TeamContainers = ({
 								onAddAContainerClick: onAddAContainerClick,
 								CustomAddContainerCard: components?.AddContainerCard,
 								canCreateContainers: hasPermissionToCreateContainer,
-								isTeamsA11yGateEnabled,
 							})}
 
 							{showMore &&
@@ -384,12 +381,10 @@ export const TeamContainers = ({
 											onEditLinkClick={() => handleEditContainerClick(container)}
 										/>
 									);
-									return isTeamsA11yGateEnabled ? (
+									return (
 										<Box key={container.id} role="listitem">
 											{card}
 										</Box>
-									) : (
-										card
 									);
 								})}
 						</GridComponent>

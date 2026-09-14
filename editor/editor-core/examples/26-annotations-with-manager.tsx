@@ -8,9 +8,10 @@ import type { ChangeEvent } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { getExamplesProviders } from '@af/editor-examples-helpers/utils';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { ButtonGroup } from '@atlaskit/button';
-import Button, { IconButton } from '@atlaskit/button/new';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import { jsx, cssMap } from '@atlaskit/css';
 import type {
 	AnnotationDraftStartedData,
@@ -41,10 +42,10 @@ import {
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

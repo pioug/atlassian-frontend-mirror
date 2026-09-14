@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
 import React, { type FC, useCallback, useState } from 'react';
 
-import { createTheme, type ThemeProp } from '@atlaskit/theme';
+import { createTheme, type ThemeProp } from '@atlaskit/theme/create-theme';
 
 interface LocalThemeProps {
 	isHovered: boolean;

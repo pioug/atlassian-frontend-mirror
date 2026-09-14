@@ -7,7 +7,7 @@ import { type CSSProperties, type ReactNode } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
-import { durations } from '@atlaskit/motion/durations';
+import { durations } from '@atlaskit/motion/utils/durations';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

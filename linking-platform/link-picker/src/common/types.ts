@@ -2,8 +2,8 @@ import type { ReactNode, Ref } from 'react';
 
 import type { MessageDescriptor } from 'react-intl';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { CardAppearance } from '@atlaskit/linking-common';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
 
 export type LinkInputType = 'manual' | 'typeAhead';
 

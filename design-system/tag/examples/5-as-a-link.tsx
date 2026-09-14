@@ -2,8 +2,8 @@ import React, { Fragment, type HTMLAttributes } from 'react';
 
 import { styled } from '@compiled/react';
 
-import Link from '@atlaskit/link';
-import Tag from '@atlaskit/tag';
+import Link from '@atlaskit/link/link';
+import Tag from '@atlaskit/tag/removable-tag';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const A = styled.a({

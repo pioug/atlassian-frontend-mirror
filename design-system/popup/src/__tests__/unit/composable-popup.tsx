@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
-import Button from '@atlaskit/button/new';
+import { render, screen, userEvent } from '@atlassian/testing-library';
+import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import { Popup } from '../../compositional/popup';
@@ -197,7 +195,7 @@ describe('Popup with composable API', () => {
 
 		expect(() => {
 			render(<PopupContent>{() => <div>content</div>}</PopupContent>);
-		}).toThrowError();
+		}).toThrow();
 
 		consoleError.mockRestore();
 	});
@@ -207,7 +205,7 @@ describe('Popup with composable API', () => {
 
 		expect(() => {
 			render(<PopupTrigger>{() => <div>trigger</div>}</PopupTrigger>);
-		}).toThrowError();
+		}).toThrow();
 
 		consoleError.mockRestore();
 	});

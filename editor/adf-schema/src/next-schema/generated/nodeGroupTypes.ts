@@ -10,6 +10,7 @@ import type {
   BlockquoteLegacyDefinition,
   BodiedExtensionDefinition,
   BodiedExtensionWithMarksDefinition,
+  BodiedRuleStage0Definition,
   BulletListDefinition,
   CodeBlockDefinition,
   ConfluenceJiraIssueDefinition,
@@ -44,7 +45,7 @@ import type {
   MentionStage0Definition,
   MultiBodiedExtensionStage0Definition,
   OrderedListDefinition,
-  PanelC1Definition,
+  PanelC1Stage0Definition,
   PanelDefinition,
   ParagraphDefinition,
   ParagraphWithAlignmentDefinition,
@@ -53,6 +54,7 @@ import type {
   ParagraphWithNoMarksDefinition,
   PlaceholderDefinition,
   RuleDefinition,
+  RuleWithAttrsStage0Definition,
   StatusDefinition,
   StatusStage0Definition,
   TableDefinition,
@@ -91,8 +93,10 @@ export type BlockDefinition = Array<
   | HeadingWithAlignmentDefinition
   | MediaGroupDefinition
   | RuleDefinition
+  | RuleWithAttrsStage0Definition
+  | BodiedRuleStage0Definition
   | PanelDefinition
-  | PanelC1Definition
+  | PanelC1Stage0Definition
   | TableDefinition
   | TableWithNestedTableDefinition
   | BodiedExtensionDefinition
@@ -138,6 +142,8 @@ export type NonNestableBlockContentDefinition = Array<
   | OrderedListDefinition
   | BulletListDefinition
   | RuleDefinition
+  | RuleWithAttrsStage0Definition
+  | BodiedRuleStage0Definition
   | HeadingWithNoMarksDefinition
   | CodeBlockDefinition
   | MediaGroupDefinition

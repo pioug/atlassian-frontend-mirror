@@ -1,11 +1,11 @@
-import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
 import type { ProfileClientOptions, Team } from '../types';
 import { PACKAGE_META_DATA } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
-import { getErrorAttributes } from './errorUtils';
+import { getErrorAttributes } from './getErrorAttributes';
 import { getTeamFromAGG } from './getTeamFromAGG';
 
 export default class TeamProfileCardClient extends CachingClient<Team> {

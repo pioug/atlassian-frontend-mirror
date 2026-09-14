@@ -10,8 +10,10 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
 import type EditorActions from '../../../actions';
 import { extensionProviderToQuickInsertProvider } from '../../extensions';
@@ -42,16 +44,76 @@ function setup(customManifests: ExtensionManifest[] = []) {
 
 jest.mock('@atlaskit/editor-common/utils/analytics');
 
-afterEach(() => {
-	jest.restoreAllMocks();
-});
-
 describe('#extensionProviderToQuickInsertProvider', () => {
 	let dummyExtensionProvider: ExtensionProvider;
 	beforeEach(() => {
 		dummyExtensionProvider = setup();
 	});
+
+	describe('slash command representations', () => {
+		const createExtensionProviderWithKeywords = () =>
+			new DefaultExtensionProvider([
+				replaceCustomQuickInsertModules(
+					createFakeExtensionManifest({
+						title: 'User item',
+						type: 'com.atlassian.test',
+						extensionKey: 'keyword-extension',
+					}),
+					{
+						key: 'user-item',
+						title: 'User item',
+						keywords: ['template', 'block'],
+						action: jest.fn(),
+					},
+				),
+			]);
+
+		it('exposes extension items through the legacy provider when slash command is disabled', async () => {
+			mockExpDisabled('platform_editor_slash_command');
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				createExtensionProviderWithKeywords(),
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			await expect(quickInsertProvider.getItems()).resolves.toEqual([
+				expect.objectContaining({
+					key: 'keyword-extension:user-item',
+					keywords: ['template', 'block'],
+					title: 'User item',
+				}),
+			]);
+			await expect(quickInsertProvider.getComponents?.()).resolves.toEqual([]);
+		});
+
+		it.each(['template', 'block'])(
+			'exposes extension items through the registered provider and matches the %s keyword when slash command is enabled',
+			async (query) => {
+				mockExpEnabled('platform_editor_slash_command');
+				const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+					createExtensionProviderWithKeywords(),
+					{} as EditorActions,
+					{ current: undefined },
+				);
+
+				const components = await quickInsertProvider.getComponents?.();
+				const component = components?.[0];
+				const formatMessage = jest.fn(({ defaultMessage }) => defaultMessage ?? '');
+
+				expect(component).toEqual(
+					expect.objectContaining({
+						key: 'keyword-extension:user-item',
+						type: 'menu-item',
+					}),
+				);
+				expect(component?.match?.({ formatMessage, query })).not.toBeNull();
+			},
+		);
+	});
+
 	it('should returns quickInsert items from all extensions', async () => {
+		mockExpEnabled('platform_editor_slash_app_category_analytics');
+
 		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 			dummyExtensionProvider,
 			{} as EditorActions,
@@ -61,9 +123,23 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		const items = await quickInsertProvider.getItems();
 
 		expect(items).toMatchObject([
-			{ title: 'First dummy extension' },
-			{ title: 'Second dummy extension' },
+			{ app: { key: 'first' }, title: 'First dummy extension' },
+			{ app: { key: 'second' }, title: 'Second dummy extension' },
 		]);
+	});
+
+	it('omits app identity when category analytics is disabled', async () => {
+		mockExpDisabled('platform_editor_slash_app_category_analytics');
+		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+			dummyExtensionProvider,
+			{} as EditorActions,
+			{ current: undefined },
+		);
+
+		const items = await quickInsertProvider.getItems();
+
+		expect(items[0]).not.toHaveProperty('app');
+		expect(items[1]).not.toHaveProperty('app');
 	});
 
 	it('should create analytics event when inserted', async () => {

@@ -1,11 +1,13 @@
-import '@testing-library/jest-dom';
 import React from 'react';
+
+import '@testing-library/jest-dom';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
+import { createAndFireEventInElementsChannel } from '../../../analytics';
+import { ExusUserSourceProvider } from '../../../clients/ExusUserSourceProvider';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 import { type ExternalUser, type UserSource, type UserSourceResult } from '../../../types';
-import { ExusUserSourceProvider } from '../../../clients/UserSourceProvider';
-import { createAndFireEventInElementsChannel } from '../../../analytics';
-import { IntlProvider } from 'react-intl';
 
 jest.mock('../../../../src/analytics', () => ({
 	__esModule: true,
@@ -70,10 +72,6 @@ describe('ExternalUserOption', () => {
 	});
 
 	it('should render a avatar with the appropriate shape if avatarAppearanceShape is supplied', async () => {
-		const getAppearanceForAppTypeSpy = jest.spyOn(
-			require('@atlaskit/avatar'),
-			'getAppearanceForAppType',
-		);
 		user.appType = 'agent';
 
 		render(
@@ -82,13 +80,9 @@ describe('ExternalUserOption', () => {
 			</IntlProvider>,
 		);
 
-		expect(getAppearanceForAppTypeSpy).toHaveBeenCalledWith('agent');
-		expect(getAppearanceForAppTypeSpy).toHaveReturnedWith('hexagon');
-
+		// `agent` appType maps to a hexagon avatar shape via getAppearanceForAppType
 		const hexagonAvatar = screen.getByTestId('hexagon-focus-container');
 		expect(hexagonAvatar).toBeInTheDocument();
-
-		getAppearanceForAppTypeSpy.mockRestore();
 
 		await expect(document.body).toBeAccessible();
 	});
@@ -265,7 +259,7 @@ describe('ExternalUserOption', () => {
 		});
 
 		// fetch was not called
-		expect(mockFetch).toBeCalledTimes(0);
+		expect(mockFetch).toHaveBeenCalledTimes(0);
 
 		await expect(document.body).toBeAccessible();
 	});

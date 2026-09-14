@@ -1,4 +1,4 @@
-import { indentation } from '@atlaskit/adf-schema';
+import { indentation } from '@atlaskit/adf-schema/indentation';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 
 import { getIndentCommand, getOutdentCommand, isIndentationAllowed } from './editor-commands';

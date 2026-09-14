@@ -1,5 +1,6 @@
-import { AGGErrors, DirectoryGraphQLErrors } from '../../util/errors';
-import { getErrorAttributes } from '../errorUtils';
+import { AGGErrors } from '../../util/AGGErrors';
+import { DirectoryGraphQLErrors } from '../../util/DirectoryGraphQLErrors';
+import { getErrorAttributes } from '../getErrorAttributes';
 
 describe('getErrorAttributes', () => {
 	const defaultAttributes = {

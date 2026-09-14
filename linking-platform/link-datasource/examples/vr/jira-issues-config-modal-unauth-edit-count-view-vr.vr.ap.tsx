@@ -1,0 +1,44 @@
+import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import {
+	defaultInitialVisibleJiraColumnKeys,
+	mockBasicFilterAGGFetchRequests,
+	mockDatasourceFetchRequests,
+	mockProductsData,
+} from '@atlaskit/link-test-helpers/datasource';
+
+import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../../src/ui/jira-issues-modal';
+import { JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/modal';
+
+mockDatasourceFetchRequests({
+	delayedResponse: false,
+	accessibleProductsOverride: mockProductsData.slice(0, 1),
+});
+mockBasicFilterAGGFetchRequests({ withJiraFilterHydration: false });
+
+const parameters = {
+	cloudId: '44444',
+	jql: 'order by created DESC',
+};
+
+export const JiraIssuesConfigModalUnauthorizedEditCountViewState = (): React.JSX.Element => (
+	<IntlProvider locale="en">
+		<SmartCardProvider client={new SmartLinkClient()}>
+			<JiraIssuesConfigModal
+				datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
+				url="https://test7.atlassian.net"
+				onCancel={() => {}}
+				onInsert={() => {}}
+				parameters={parameters}
+				visibleColumnKeys={defaultInitialVisibleJiraColumnKeys}
+				viewMode="inline"
+			/>
+		</SmartCardProvider>
+	</IntlProvider>
+);
+
+export default JiraIssuesConfigModalUnauthorizedEditCountViewState;

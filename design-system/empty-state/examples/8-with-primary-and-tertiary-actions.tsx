@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Button, { LinkButton } from '@atlaskit/button/new';
-import EmptyState from '@atlaskit/empty-state';
+import Button from '@atlaskit/button/default/button';
+import LinkButton from '@atlaskit/button/link';
+import EmptyState from '@atlaskit/empty-state/empty-state';
 
 import exampleImage from './img/example-image.png';
 

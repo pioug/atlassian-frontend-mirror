@@ -91,11 +91,4 @@ test.describe('format.ts', () => {
 			),
 		);
 	});
-
-	test('should capture and report a11y violations', async ({ editor }) => {
-		await editor.keyboard.type('[Atlassian](https://www.atlassian.com)');
-		await editor.page.waitForSelector('a');
-
-		await expect(editor.page).toBeAccessible();
-	});
 });

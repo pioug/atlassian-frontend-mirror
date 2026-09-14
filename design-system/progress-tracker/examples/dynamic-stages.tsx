@@ -4,7 +4,7 @@
  */
 import { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import ArrowLeftCircleIcon from '@atlaskit/icon/core/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/core/arrow-right';

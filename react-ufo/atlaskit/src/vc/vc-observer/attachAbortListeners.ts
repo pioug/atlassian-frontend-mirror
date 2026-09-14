@@ -2,7 +2,8 @@ import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { AbortEvent } from '../../common/vc/types';
 
-import { getViewportHeight, getViewportWidth } from './getViewport';
+import { getViewportHeight } from './getViewportHeight';
+import { getViewportWidth } from './getViewportWidth';
 
 export function attachAbortListeners(
 	window: Window,

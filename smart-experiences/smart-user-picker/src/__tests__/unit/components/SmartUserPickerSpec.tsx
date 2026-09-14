@@ -2,17 +2,20 @@ import React from 'react';
 import { screen, render, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
-import { type DefaultValue, type OptionData, type Team, type User } from '@atlaskit/user-picker';
-import { AnalyticsListener, type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { DefaultValue, OptionData, Team, User } from '@atlaskit/user-picker/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 // Commented due to HOT-111922
-import { /* type ConcurrentExperience, */ type UFOExperience } from '@atlaskit/ufo';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import SmartUserPicker, { type Props } from '../../../index';
+import SmartUserPicker from '../../../components';
+import { type Props } from '../../../types';
 import MessagesIntlProvider from '../../../components/MessagesIntlProvider';
 
-import { getUserRecommendations, hydrateDefaultValues } from '../../../service';
+import getUserRecommendations from '../../../service/recommendation-client';
+import hydrateDefaultValues from '../../../service/default-value-hydration-client';
 import {
 	MockConcurrentExperienceInstance,
 	flushPromises,
@@ -35,9 +38,7 @@ const mockUserPickerOptionsShown = new MockConcurrentExperienceInstance(
 	'user-picker-options-shown',
 );
 
-jest.mock('@atlaskit/ufo', () => {
-	const actualModule = jest.requireActual('@atlaskit/ufo');
-
+jest.mock('@atlaskit/ufo/concurrent-experience', () => {
 	class MockConcurrentExperience {
 		experienceId: string;
 		constructor(experienceId: string) {
@@ -60,15 +61,15 @@ jest.mock('@atlaskit/ufo', () => {
 		}
 	}
 	return {
+		...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 		__esModule: true,
-		...actualModule,
 		ConcurrentExperience: MockConcurrentExperience,
 	};
 });
 
 jest.mock('@atlaskit/select', () => ({
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/select'),
+	...jest.requireActual<object>('@atlaskit/select'),
 }));
 
 jest.mock('../../../components/MessagesIntlProvider', () => ({
@@ -81,10 +82,14 @@ jest.mock('uuid', () => ({
 	v4: jest.fn(() => mockPREFETCH_SESSION_ID),
 }));
 
-jest.mock('../../../service', () => ({
+jest.mock('../../../service/recommendation-client', () => ({
 	__esModule: true,
-	getUserRecommendations: jest.fn(),
-	hydrateDefaultValues: jest.fn(),
+	default: jest.fn(),
+}));
+
+jest.mock('../../../service/default-value-hydration-client', () => ({
+	__esModule: true,
+	default: jest.fn(),
 }));
 
 interface DebounceFunction {
@@ -95,15 +100,6 @@ jest.mock('lodash/debounce', () => (fn: DebounceFunction) => {
 	fn.cancel = jest.fn();
 	return fn;
 });
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn().mockImplementation((flag: string) => {
-		if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
-			return true;
-		}
-		return false;
-	}),
-}));
 
 const defaultProps: Props = {
 	fieldId: 'test',
@@ -1606,7 +1602,6 @@ describe('SmartUserPicker', () => {
 					renderSmartUserPicker({ prefetch: isPrefetch });
 
 					// Focus in the user picker so the user list is shown
-					// @ts-ignore in this case UserPicker.onFocus is not undefined
 					const input = screen.getByRole('combobox');
 					await act(() => input.focus());
 
@@ -2148,57 +2143,9 @@ describe('SmartUserPicker', () => {
 	});
 
 	describe('restrictTo prop', () => {
-		afterEach(() => {
-			jest.mocked(fg).mockImplementation((flag: string) => {
-				if (flag === 'twcg-444-invite-usd-improvements-m2-gate') {
-					return true;
-				}
-				return false;
-			});
-		});
-
-		it('should not include restrictTo in the recommendations request when the feature gate is disabled', async () => {
-			// Mock fg to return false for the restrictTo gate
-			jest.mocked(fg).mockImplementation((flag: string) => {
-				if (flag === 'smart-user-picker-restrict-to-gate') {
-					return false; // Feature gate is disabled
-				}
-				return false;
-			});
-
-			const mockGetUserRecommendations = jest.requireMock('../../../service')
-				.getUserRecommendations as jest.Mock;
-			mockGetUserRecommendations.mockResolvedValue(mockReturnOptions);
-
-			renderSmartUserPicker({
-				restrictTo: {
-					groupIds: ['group-1', 'group-2'],
-					userIds: ['user-1'],
-				},
-			});
-
-			const input = screen.getByRole('combobox');
-			await act(() => input.focus());
-
-			await waitFor(() => {
-				expect(mockGetUserRecommendations).toHaveBeenCalled();
-			});
-
-			const callArgs = mockGetUserRecommendations.mock.calls[0][0];
-			expect(callArgs.restrictTo).toBeUndefined();
-		});
-
-		it('should include restrictTo in the recommendations request when the feature gate is enabled', async () => {
-			// Mock fg to return true for the restrictTo gate
-			jest.mocked(fg).mockImplementation((flag: string) => {
-				if (flag === 'smart-user-picker-restrict-to-gate') {
-					return true; // Feature gate is enabled
-				}
-				return false;
-			});
-
-			const mockGetUserRecommendations = jest.requireMock('../../../service')
-				.getUserRecommendations as jest.Mock;
+		it('should include restrictTo in the recommendations request when provided', async () => {
+			const mockGetUserRecommendations = jest.requireMock('../../../service/recommendation-client')
+				.default as jest.Mock;
 			mockGetUserRecommendations.mockResolvedValue(mockReturnOptions);
 
 			const restrictToValue = {
@@ -2221,17 +2168,9 @@ describe('SmartUserPicker', () => {
 			expect(callArgs.restrictTo).toEqual(restrictToValue);
 		});
 
-		it('should not include restrictTo when gate is enabled but restrictTo prop is not provided', async () => {
-			// Mock fg to return true for the restrictTo gate
-			jest.mocked(fg).mockImplementation((flag: string) => {
-				if (flag === 'smart-user-picker-restrict-to-gate') {
-					return true; // Feature gate is enabled
-				}
-				return false;
-			});
-
-			const mockGetUserRecommendations = jest.requireMock('../../../service')
-				.getUserRecommendations as jest.Mock;
+		it('should omit restrictTo from the recommendations request when the prop is not provided', async () => {
+			const mockGetUserRecommendations = jest.requireMock('../../../service/recommendation-client')
+				.default as jest.Mock;
 			mockGetUserRecommendations.mockResolvedValue(mockReturnOptions);
 
 			renderSmartUserPicker({
@@ -2246,7 +2185,7 @@ describe('SmartUserPicker', () => {
 			});
 
 			const callArgs = mockGetUserRecommendations.mock.calls[0][0];
-			expect(callArgs.restrictTo).toBeUndefined();
+			expect(callArgs).not.toHaveProperty('restrictTo');
 		});
 	});
 
@@ -2319,6 +2258,222 @@ describe('SmartUserPicker', () => {
 			// We expect only the team entry, no email selection option (query is not email format)
 			expect(screen.queryByText('Design Team')).toBeInTheDocument();
 			expect(screen.queryByText('Select an email address')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('Smart user picker domain suggestion', () => {
+		it('should keep allowEmail true for partial (non-email) input when suggestEmailsForDomain is set', async () => {
+			// Regression: WAR-5498 FG cleanup forced allowEmail=false for non-email queries,
+			// breaking the suggestEmailsForDomain domain-suggestion feature.
+			// When the gate is ON and suggestEmailsForDomain is provided, the down-gate is bypassed
+			// so partial input like "asdf" still reaches the base picker's creatable logic.
+			(getUserRecommendations as jest.Mock).mockResolvedValue([]);
+
+			renderSmartUserPicker({
+				enableEmailSearch: true,
+				allowEmail: true,
+				allowEmailSelectionWhenEmailMatched: false,
+				suggestEmailsForDomain: 'atlassian.com',
+			});
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'asdf');
+
+			await waitFor(() => {
+				// The domain-suggestion option "asdf@atlassian.com" should be visible
+				expect(screen.queryByText('asdf@atlassian.com')).toBeInTheDocument();
+			});
+		});
+
+		it('should suppress the email suggestion when "<query>@<domain>" is an existing user email', async () => {
+			// Typing 'alau' with domain 'atlassian.com' would synthesize 'alau@atlassian.com'.
+			// That address already belongs to a real user, so show the user option only.
+			(getUserRecommendations as jest.Mock).mockResolvedValue([
+				{
+					id: 'user1',
+					name: 'Angela Lau',
+					type: 'user',
+					email: 'alau@atlassian.com',
+				},
+			]);
+
+			renderSmartUserPicker({
+				enableEmailSearch: true,
+				allowEmail: true,
+				allowEmailSelectionWhenEmailMatched: false,
+				suggestEmailsForDomain: 'atlassian.com',
+			});
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'alau');
+
+			await waitFor(() => {
+				expect(screen.queryByText('Angela Lau')).toBeInTheDocument();
+				expect(screen.queryByText('Select an email address')).not.toBeInTheDocument();
+			});
+		});
+
+		it('should still show the email suggestion when a partial query matches a user with a different email', async () => {
+			// 'alau' matches a user, but that user's email is not 'alau@atlassian.com',
+			// so the domain suggestion is still a distinct, valid option.
+			(getUserRecommendations as jest.Mock).mockResolvedValue([
+				{
+					id: 'user1',
+					name: 'Angela Lau',
+					type: 'user',
+					email: 'angela.lau@atlassian.com',
+				},
+			]);
+
+			renderSmartUserPicker({
+				enableEmailSearch: true,
+				allowEmail: true,
+				allowEmailSelectionWhenEmailMatched: false,
+				suggestEmailsForDomain: 'atlassian.com',
+			});
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'alau');
+
+			await waitFor(() => {
+				expect(screen.queryByText('Angela Lau')).toBeInTheDocument();
+				expect(screen.queryByText('alau@atlassian.com')).toBeInTheDocument();
+			});
+		});
+
+		it('should suppress the email option when a full email query matches an existing user', async () => {
+			// suggestEmailsForDomain must not weaken allowEmailSelectionWhenEmailMatched=false:
+			// when the typed value is a full email AND a user match is found, the
+			// "Select an email address" option should still be hidden.
+			(getUserRecommendations as jest.Mock).mockResolvedValue([
+				{
+					id: 'user1',
+					name: 'Existing User',
+					type: 'user',
+					email: 'existing@atlassian.com',
+				},
+			]);
+
+			renderSmartUserPicker({
+				enableEmailSearch: true,
+				allowEmail: true,
+				allowEmailSelectionWhenEmailMatched: false,
+				suggestEmailsForDomain: 'atlassian.com',
+			});
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'existing@atlassian.com');
+
+			await waitFor(() => {
+				expect(screen.queryByText('Existing User')).toBeInTheDocument();
+				expect(screen.queryByText('Select an email address')).not.toBeInTheDocument();
+			});
+		});
+
+		it('should allow the email option when a full email query has no user match', async () => {
+			// No user match on a full email query — email selection remains available
+			(getUserRecommendations as jest.Mock).mockResolvedValue([]);
+
+			renderSmartUserPicker({
+				enableEmailSearch: true,
+				allowEmail: true,
+				allowEmailSelectionWhenEmailMatched: false,
+				suggestEmailsForDomain: 'atlassian.com',
+			});
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'nomatch@atlassian.com');
+
+			await waitFor(() => {
+				expect(screen.queryByText('nomatch@atlassian.com')).toBeInTheDocument();
+			});
+		});
+
+		it('should still suppress email selection for partial input when suggestEmailsForDomain is not set', async () => {
+			// Gate ON but no suggestEmailsForDomain — existing WAR-5498 behaviour is preserved
+			(getUserRecommendations as jest.Mock).mockResolvedValue([]);
+
+			renderSmartUserPicker({
+				enableEmailSearch: true,
+				allowEmail: true,
+				allowEmailSelectionWhenEmailMatched: false,
+				// suggestEmailsForDomain intentionally omitted
+			});
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'asdf');
+
+			await waitFor(() => {
+				expect(screen.queryByText('Select an email address')).not.toBeInTheDocument();
+			});
+		});
+	});
+
+	describe('smart-user-picker-fetch-error-fix gate', () => {
+		// Holds the request for the first keystroke open while every later query resolves, so the
+		// earlier request can be failed once the newer results are already on screen.
+		const holdRequestOpenFor = (staleQuery: string) => {
+			let failStaleRequest: (error: unknown) => void = () => {};
+			const staleRequest = new Promise<OptionData[]>((_, reject) => {
+				failStaleRequest = reject;
+			});
+
+			getUserRecommendationsMock.mockImplementation(({ query }: { query: string }) =>
+				query === staleQuery ? staleRequest : Promise.resolve(mockReturnOptions),
+			);
+
+			return async () =>
+				act(async () => {
+					failStaleRequest({ message: 'gateway timeout', statusCode: 504 });
+					await flushPromises();
+				});
+		};
+
+		it('should keep the results of the current query when an earlier request fails', async () => {
+			passGate('smart-user-picker-fetch-error-fix');
+			const failStaleRequest = holdRequestOpenFor('u');
+
+			renderSmartUserPicker();
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'user');
+			expect(await screen.findByText('user1')).toBeInTheDocument();
+
+			await failStaleRequest();
+
+			expect(screen.getByText('user1')).toBeInTheDocument();
+		});
+
+		it('should clear the results of the current query when an earlier request fails and the gate is off', async () => {
+			failGate('smart-user-picker-fetch-error-fix');
+			const failStaleRequest = holdRequestOpenFor('u');
+
+			renderSmartUserPicker();
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'user');
+			expect(await screen.findByText('user1')).toBeInTheDocument();
+
+			await failStaleRequest();
+
+			expect(screen.queryByText('user1')).not.toBeInTheDocument();
+		});
+
+		// The staleness check short-circuits before the gate is evaluated, so a failure for the
+		// current query keeps the existing behaviour whether the gate is on or off.
+		it('should still apply the failure when it belongs to the current query', async () => {
+			const failCurrentRequest = holdRequestOpenFor('user');
+
+			renderSmartUserPicker();
+
+			const input = screen.getByRole('combobox');
+			await userEvent.type(input, 'use');
+			expect(await screen.findByText('user1')).toBeInTheDocument();
+
+			await userEvent.type(input, 'r');
+			await failCurrentRequest();
+
+			expect(screen.queryByText('user1')).not.toBeInTheDocument();
 		});
 	});
 });

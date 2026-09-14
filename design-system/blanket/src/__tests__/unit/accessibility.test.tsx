@@ -5,7 +5,6 @@
 
 import { jsx } from '@compiled/react';
 import { render } from '@testing-library/react';
-import Lorem from 'react-lorem-component';
 
 import { axe } from '@af/accessibility-testing';
 
@@ -19,7 +18,7 @@ it('Basic Blanket should not fail aXe audit', async () => {
 it('Basic Blanket with children should not fail aXe audit', async () => {
 	const { container } = render(
 		<Blanket isTinted={true} shouldAllowClickThrough={true}>
-			<Lorem count={20} />
+			<div>Blanket content</div>
 		</Blanket>,
 	);
 	await axe(container);

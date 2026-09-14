@@ -1,5 +1,372 @@
 # @atlaskit/insm
 
+## 3.0.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [`90991a68d675a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90991a68d675a) -
+  Remove the `platform_editor_insm_dom_node_count` experiment, which will not be released. The insm
+  measured event no longer reports `editorDomSize`, and the editor no longer registers its content
+  DOM with insm.
+
+  Breaking: `insm.registerEditorDom` and `insm.unregisterEditorDom` are removed, so calls to them
+  fail to build.
+
+  Migration: there is no replacement — the apis existed only to provide the element measured for
+  `editorDomSize`. The editor's own `editorDomSize` attribute on its `inp` and `proseMirrorRendered`
+  events is unaffected.
+
+## 2.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.13
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 2.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.0
+
+### Major Changes
+
+- [`90ba4a2921d81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90ba4a2921d81) -
+  Remove AFPS metric
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.3.0
+
+### Minor Changes
+
+- [`60bbe3aea8c6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60bbe3aea8c6e) -
+  Add editorDomSize (the page editor's DOM element count) to the insm measured event, and new
+  registerEditorDom / unregisterEditorDom apis for the editor to provide the element to measure.
+  Behind the platform_editor_insm_dom_node_count experiment.
+
+  The insm api is now also available from the `@atlaskit/insm/api` entry point, so consumers do not
+  have to import it from the package barrel. The barrel export is unchanged.
+
+## 1.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

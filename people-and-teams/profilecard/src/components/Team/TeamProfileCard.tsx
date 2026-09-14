@@ -2,17 +2,20 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Avatar from '@atlaskit/avatar';
-import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
-import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group/avatar-group';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import LinkButton from '@atlaskit/button/link';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge';
-import { LinkItem, MenuGroup } from '@atlaskit/menu';
-import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import Popup from '@atlaskit/popup';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import LinkItem from '@atlaskit/menu/link-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
+import { Popup } from '@atlaskit/popup/popup';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import messages from '../../messages';
 import { AnimatedKudosButton, AnimationWrapper, KudosBlobAnimation } from '../../styled/Card';
@@ -33,7 +36,7 @@ import type { AnalyticsFunction, ProfileCardAction, Team, TeamProfilecardProps }
 import { PACKAGE_META_DATA } from '../../util/analytics';
 import { isBasicClick } from '../../util/click';
 import { getPageTime } from '../../util/performance';
-import { ErrorIllustration } from '../Error';
+import { ErrorIllustration } from '../Error/ErrorIllustration';
 
 import TeamForbiddenErrorState from './TeamForbiddenErrorState';
 import TeamLoadingState from './TeamLoadingState';

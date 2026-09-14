@@ -9,7 +9,7 @@ test.describe('skip links', () => {
 	});
 
 	test('should move focus after clicking the skip link', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+		await page.visitExample<typeof import('../../../examples/composition.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'composition',
@@ -27,7 +27,7 @@ test.describe('skip links', () => {
 	});
 
 	test('should not be visible until it has focus', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+		await page.visitExample<typeof import('../../../examples/composition.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'composition',
@@ -47,7 +47,7 @@ test.describe('skip links', () => {
 	});
 
 	test('should be hidden when pressing escape while focus is inside', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+		await page.visitExample<typeof import('../../../examples/composition.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'composition',
@@ -70,7 +70,7 @@ test.describe('skip links', () => {
 	test('should expand side navigation when navigating by skip link on desktop', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+		await page.visitExample<typeof import('../../../examples/composition.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'composition',
@@ -89,7 +89,7 @@ test.describe('skip links', () => {
 	});
 
 	test('should expand side navigation when navigating by skip link on mobile', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+		await page.visitExample<typeof import('../../../examples/composition.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'composition',

@@ -1,4 +1,4 @@
-import type { LinkAttributes } from '@atlaskit/adf-schema';
+import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command } from '@atlaskit/editor-common/types';

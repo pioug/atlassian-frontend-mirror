@@ -10,10 +10,12 @@ import type {
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
 import type { LastContentPasted } from '@atlaskit/editor-plugin-paste';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import ClipboardIcon from '@atlaskit/icon/core/clipboard';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	changeToMarkdownWithAnalytics,
@@ -36,6 +38,26 @@ import {
 import type { PasteOptionsPluginState, Position } from '../types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
 
+const TOP_LEVEL_LIST_NODE_NAMES = ['bulletList', 'orderedList', 'taskList'];
+
+/**
+ * Pasting markdown lists leaves the cursor at doc > list > listItem > paragraph, so the
+ * immediate grandparent is a listItem rather than the doc and the paste options are never
+ * offered. Treat a list that is itself a direct child of the doc as top level, while still
+ * excluding lists nested in other containers such as tables and panels.
+ */
+const isInsideTopLevelList = ($from: ResolvedPos): boolean => {
+	if (!isExperimentEnabled('platform_editor_markdown_conversion_improvements')) {
+		return false;
+	}
+
+	if ($from.depth < 1) {
+		return false;
+	}
+
+	return TOP_LEVEL_LIST_NODE_NAMES.includes($from.node(1).type.name);
+};
+
 export const isToolbarVisible = (
 	state: EditorState,
 	lastContentPasted: LastContentPasted,
@@ -55,8 +77,7 @@ export const isToolbarVisible = (
 	const grandParentNodeType = $from.node($from.depth - 1)?.type;
 
 	if (
-		grandParentNodeType &&
-		grandParentNodeType.name === state.schema.nodes.doc.name &&
+		(grandParentNodeType?.name === state.schema.nodes.doc.name || isInsideTopLevelList($from)) &&
 		parentNodeType.name !== state.schema.nodes.codeBlock?.name &&
 		!isPastedFromFabricEditor(lastContentPasted.pasteSource) &&
 		!hasLinkMark(lastContentPasted.pastedSlice) &&

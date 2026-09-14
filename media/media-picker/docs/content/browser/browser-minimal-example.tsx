@@ -12,7 +12,7 @@ import {
 	type UploadsStartEventPayload,
 	type UploadEndEventPayload,
 } from '../../../src/types';
-import { Browser } from '../../../src';
+import { BrowserLoader as Browser } from '../../../src/components/browser';
 import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
 import { useState } from 'react';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';

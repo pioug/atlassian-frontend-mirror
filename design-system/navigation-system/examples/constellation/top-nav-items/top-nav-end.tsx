@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Badge from '@atlaskit/badge';
+import Badge from '@atlaskit/badge/badge';
 import { Help } from '@atlaskit/navigation-system';
 import { TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
 import { Notifications, Settings } from '@atlaskit/navigation-system/top-nav-items';

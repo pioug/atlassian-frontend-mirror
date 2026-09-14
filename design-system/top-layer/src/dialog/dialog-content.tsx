@@ -2,18 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, {
-	forwardRef,
-	type Ref,
-	useCallback,
-	useEffect,
-	useId,
-	useLayoutEffect,
-	useRef,
-} from 'react';
+import React, { forwardRef, type Ref, useCallback, useId, useLayoutEffect, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
-import { bind } from 'bind-event-listener';
+import { bindAll } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
@@ -24,19 +16,20 @@ import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
 
-import { type TDialogProps } from './types';
+import { type TDialogCloseReason, type TDialogProps } from './types';
 
 // Surface reset — see the rationale on `surfaceResetStyles` in `popover/popover.tsx`.
-// Neutralises inherited text-layout properties (e.g. `white-space: nowrap`) that leak
-// into the top-layer surface. Excludes `color`/`font` (theming) and
-// `direction`/`unicode-bidi` (RTL must inherit). Pure layout reset with no box
-// side-effects, so it does not reintroduce the `margin: auto` centering problem that
-// kept `height: auto` off `Dialog`.
+// Neutralises inherited interaction and text-layout properties (e.g.
+// `pointer-events: none` and `white-space: nowrap`) that leak into the top-layer
+// surface. Excludes `color`/`font` (theming) and `direction`/`unicode-bidi` (RTL
+// must inherit). The reset has no box side-effects, so it does not reintroduce
+// the `margin: auto` centering problem that kept `height: auto` off `Dialog`.
 //
 // KEEP IN SYNC with the identical `surfaceResetStyles` in `popover/popover.tsx`
 // (ADS forbids sharing styles across files, so it is co-located and duplicated).
 const surfaceResetStyles = cssMap({
 	root: {
+		pointerEvents: 'auto',
 		whiteSpace: 'normal',
 		wordBreak: 'normal',
 		overflowWrap: 'normal',
@@ -122,8 +115,8 @@ const backdropStyles = cssMap({
  *
  * Handles native `cancel` event (Escape) and backdrop click detection.
  *
- * Close flow: we never call `dialog.close()` from event handlers. We always call
- * `onClose`; the consumer decides whether to set `isOpen={false}`.
+ * Close flow: allowed user dismissal closes the native dialog before `onClose`
+ * notifies the consumer. The consumer must synchronize `isOpen` in response.
  *
  * Accessibility: render at least one focusable element (typically a close
  * button) when `isOpen` becomes `true`. Tab is always trapped inside the
@@ -136,6 +129,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		children,
 		isOpen,
 		onClose,
+		dismissedBy = 'escape-and-outside-click',
 		onEnterFinish,
 		onExitFinish,
 		shouldAnimate = false,
@@ -155,19 +149,70 @@ export const Dialog: React.ForwardRefExoticComponent<
 	const dialogId = providedId ?? generatedId;
 	const ownRef = useRef<HTMLDialogElement>(null);
 	const combinedRef = mergeRefs([ownRef, ref as Ref<HTMLDialogElement>]);
+	const closeReasonRef = useRef<TDialogCloseReason | null>(null);
+	const dismissedByRef = useRef(dismissedBy);
+	const onCloseRef = useRef(onClose);
+	// Keep native event handlers stable while ensuring they read the latest committed props.
+	useLayoutEffect(() => {
+		dismissedByRef.current = dismissedBy;
+		onCloseRef.current = onClose;
+	}, [dismissedBy, onClose]);
 
-	const { phase } = useAnimatedVisibility({
+	const { phase, isMounted, onBeforeToggle, onToggle } = useAnimatedVisibility({
 		isOpen,
-		animationKind: 'dialog',
 		shouldAnimate,
 		elementRef: ownRef,
 		onEnterFinish,
 		onExitFinish,
 	});
 
-	// True while the host element is mounted (any phase except `closed`).
-	// Used as a dep so listener-rebind effects re-attach after a remount.
-	const isVisible = phase !== 'closed';
+	// Ordering is important: bind native lifecycle listeners before the later
+	// layout effect calls showModal() or close(), because `beforetoggle` fires
+	// synchronously during those calls.
+	useLayoutEffect(() => {
+		if (!isMounted) {
+			return;
+		}
+
+		const dialog = ownRef.current;
+		if (!dialog) {
+			return;
+		}
+
+		return bindAll(dialog, [
+			{ type: 'beforetoggle', listener: onBeforeToggle },
+			{
+				// Browsers retarget clicks on ::backdrop to the <dialog> element.
+				// Close on backdrop click when outside-click dismissal is enabled.
+				type: 'click',
+				listener(event) {
+					if (
+						event.target === event.currentTarget &&
+						dismissedByRef.current === 'escape-and-outside-click'
+					) {
+						closeReasonRef.current = 'overlay-click';
+						dialog.close();
+					}
+				},
+			},
+			{
+				type: 'toggle',
+				listener(event) {
+					if (event.newState === 'closed') {
+						const reason = closeReasonRef.current;
+						closeReasonRef.current = null;
+						// A reason is only set for user-initiated closes. When React closes the
+						// dialog because isOpen changed, the consumer already knows.
+						if (reason) {
+							onCloseRef.current({ reason });
+						}
+					}
+
+					onToggle(event);
+				},
+			},
+		]);
+	}, [isMounted, onBeforeToggle, onToggle]);
 
 	// Native `<dialog>.showModal()` traps focus but wraps through `<body>` at
 	// the boundary (A → B → C → body → A). This hook intercepts Tab to wrap
@@ -192,6 +237,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		}
 
 		if (isOpen) {
+			closeReasonRef.current = null;
 			if (!dialog.open) {
 				dialog.showModal();
 			}
@@ -211,7 +257,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// See notes/decisions/safari-escape-nested-popover-in-dialog.md
 	const { shouldIgnoreEscape } = useSafariEscapeFix({
 		dialogRef: ownRef,
-		isVisible,
+		isVisible: isMounted,
 	});
 
 	// Handle native Escape (cancel event)
@@ -225,45 +271,33 @@ export const Dialog: React.ForwardRefExoticComponent<
 			if (event.target !== event.currentTarget) {
 				return;
 			}
-			event.preventDefault();
+
 			// Spurious Safari `cancel`: the keydown snapshot saw an open child
 			// popover, so this Escape belongs to that popover (light-dismissed
 			// natively). Keep the dialog open instead of forwarding to `onClose`.
 			if (shouldIgnoreEscape()) {
+				event.preventDefault();
 				return;
 			}
-			onClose({ reason: 'escape' });
+
+			// Without native `closedby`, cancel Escape only when dismissal is disabled.
+			// Allowed dismissal follows Popover behavior: the browser closes the element
+			// and `onClose` notifies the controlled owner of the reason.
+			if (dismissedBy === 'none') {
+				event.preventDefault();
+				return;
+			}
+
+			closeReasonRef.current = 'escape';
 		},
-		[onClose, shouldIgnoreEscape],
+		[dismissedBy, shouldIgnoreEscape],
 	);
 
-	// Handle backdrop click
-	// Attached via bind-event-listener rather than a React prop so we avoid
-	// a11y lint suppressions on the <dialog> element.
-	// Keyboard dismiss is already handled natively (Escape → onCancel above).
-	// `isVisible` is in deps so the listener re-binds to the new <dialog>
-	// element after a host unmount / remount cycle.
-	useEffect(() => {
-		const dialog = ownRef.current;
-		if (!dialog) {
-			return;
-		}
-
-		return bind(dialog, {
-			type: 'click',
-			listener(event) {
-				if (event.target === event.currentTarget) {
-					onClose({ reason: 'overlay-click' });
-				}
-			},
-		});
-	}, [onClose, isVisible]);
-
 	// Unmount the `<dialog>` once exit completes so it does not leave an
-	// empty `role="dialog"` element in the accessibility tree. On the next
-	// open the element remounts and the `[isOpen]` and `[onClose, isVisible]`
-	// effects re-run against the fresh element.
-	if (!isVisible) {
+	// empty `role="dialog"` element in the accessibility tree. A later open
+	// remounts a fresh element, so the listener-binding and native-visibility
+	// effects run against that element.
+	if (!isMounted) {
 		return null;
 	}
 

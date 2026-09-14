@@ -1,11 +1,14 @@
 // eslint-disable-next-line import/order
 import * as testMocks from './index.test.mock';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
-import { APIError, type CardState } from '@atlaskit/linking-common';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { CardState } from '@atlaskit/linking-common/store';
+import { APIError } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../../utils/mocks';
@@ -153,6 +156,78 @@ describe('useResolve', () => {
 				error: undefined,
 				metadataStatus: undefined,
 				ignoreStatusCheck: true,
+			}),
+		);
+	});
+
+	it('should force optimized block metadata requests to bypass cached inline responses', async () => {
+		passGate('platform_smartlink_inline_resolve_optimization');
+		mockFetchData(Promise.resolve(mocks.success));
+		mockState({
+			status: 'resolved',
+			details: mocks.success,
+			metadataStatus: 'pending',
+		});
+
+		const resolve = renderHook(() => useResolve()).current;
+		await resolve({
+			url,
+			isReloading: false,
+			isMetadataRequest: true,
+			id,
+			appearance: 'block',
+		});
+
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+	});
+
+	it('should force initial optimized block requests to bypass concurrent inline responses', async () => {
+		passGate('platform_smartlink_inline_resolve_optimization');
+		mockFetchData(Promise.resolve(mocks.success));
+		mockState({
+			status: 'resolved',
+			details: mocks.success,
+			metadataStatus: 'pending',
+		});
+
+		const resolve = renderHook(() => useResolve()).current;
+		await resolve({
+			url,
+			appearance: 'block',
+		});
+
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
+		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+			expect.objectContaining({
+				type: 'reloading',
+				url,
+				payload: mocks.success,
+			}),
+		);
+	});
+
+	it('should not force initial block requests when inline optimization is disabled', async () => {
+		failGate('platform_smartlink_inline_resolve_optimization');
+		mockFetchData(Promise.resolve(mocks.success));
+		mockState({
+			status: 'pending',
+			details: undefined,
+		});
+
+		const resolve = renderHook(() => useResolve()).current;
+		await resolve({
+			url,
+			isReloading: false,
+			isMetadataRequest: false,
+			id,
+			appearance: 'block',
+		});
+
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+			expect.objectContaining({
+				type: 'resolved',
+				ignoreStatusCheck: false,
 			}),
 		);
 	});

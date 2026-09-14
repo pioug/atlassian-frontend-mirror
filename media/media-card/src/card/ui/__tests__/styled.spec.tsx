@@ -7,7 +7,7 @@ jest.mock('../../../utils/cardDimensions', () => {
 
 import { Breakpoint } from '../common';
 
-import { calcBreakpointSize } from '../styles';
+import { calcBreakpointSize } from '../calcBreakpointSize';
 
 describe('Breakpoint Size', () => {
 	it('should calculate the breakpoint size', () => {

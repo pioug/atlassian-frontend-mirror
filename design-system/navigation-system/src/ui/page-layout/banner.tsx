@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';

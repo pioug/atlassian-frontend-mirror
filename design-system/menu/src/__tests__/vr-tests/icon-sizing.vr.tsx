@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import IconSizing from '../../../examples/icon-sizing';
+import IconSizing from '../../../examples/icon-sizing.vr.ap';
 
 snapshot(IconSizing, {
 	variants: [

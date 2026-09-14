@@ -1,4 +1,4 @@
-import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
+import spacingScale from '@atlaskit/tokens/atlassian-spacing';
 
 import { borderWidthValueToToken } from './border-width-value-to-token';
 import { isBorderSizeProperty } from './is-border-size-property';

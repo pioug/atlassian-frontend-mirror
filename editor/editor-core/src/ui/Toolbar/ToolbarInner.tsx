@@ -3,7 +3,7 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
@@ -74,6 +74,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 						dispatchAnalyticsEvent,
 						wrapperElement: null,
 					});
+					// oxlint-disable-next-line react/no-array-index-key
 					return element && React.cloneElement(element, { key });
 				})}
 			</ToolbarComponentsWrapperMigration>

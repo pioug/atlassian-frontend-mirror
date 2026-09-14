@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { SizeType } from '@atlaskit/avatar';
+import type { SizeType } from '@atlaskit/avatar/types';
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';

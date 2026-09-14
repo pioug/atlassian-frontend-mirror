@@ -1,11 +1,9 @@
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import {
-	getAtlassianStudioAgentDuplicateUrl,
-	getAtlassianStudioAgentEditUrl,
-	getStudioHost,
-	getStudioPath,
-} from './index';
+import { getAtlassianStudioAgentDuplicateUrl } from './getAtlassianStudioAgentDuplicateUrl';
+import { getAtlassianStudioAgentEditUrl } from './getAtlassianStudioAgentEditUrl';
+import { getStudioHost } from './getStudioHost';
+import { getStudioPath } from './getStudioPath';
 
 // Default to production environment (non-staging host)
 Object.defineProperty(window, 'location', {

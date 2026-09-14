@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
@@ -97,7 +97,7 @@ function Expand({ field, children, isExpanded = false, intl }: Props) {
 	);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props>> & {
 	WrappedComponent: React.ComponentType<Props>;
 } = injectIntl(Expand);

@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import Button from '@atlaskit/button/new';
-import DropdownMenu from '@atlaskit/dropdown-menu';
-import Select, { type OptionType, PopupSelect } from '@atlaskit/select';
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import Select from '@atlaskit/select/default';
+import type { OptionType } from '@atlaskit/select/types';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 import {
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia } from '@atlassian/test-utils';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 

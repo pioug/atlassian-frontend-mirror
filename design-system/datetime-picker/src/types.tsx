@@ -1,5 +1,5 @@
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type DropdownIndicatorProps, type OptionType, type SelectProps } from '@atlaskit/select';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { DropdownIndicatorProps, OptionType, SelectProps } from '@atlaskit/select/types';
 
 export type Appearance = 'default' | 'subtle' | 'none';
 export type Spacing = 'compact' | 'default';
@@ -204,16 +204,18 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	openCalendarLabel?: string;
 	/**
 	 * A function for parsing input characters and transforming them into a Date object.
-	 * By default parses the date string based off the locale. Note that this does
-	 * not affect how the resulting value is displayed in the input. Use the
-	 * `dateFormat` or `formatDisplayLabel` prop to handle how the value is
-	 * displayed.
+	 * Overrides the default parser. By default, when `dateFormat` is set the input is
+	 * parsed with that format via date-fns; otherwise the date string is parsed based
+	 * off the locale. Note that this does not affect how the resulting value is
+	 * displayed in the input. Use the `dateFormat` or `formatDisplayLabel` prop to
+	 * handle how the value is displayed.
 	 */
 	parseInputValue?: (date: string, dateFormat: string) => Date;
 	/**
 	 * A function for formatting the date displayed in the input. By default composes together [`date-fns`'s parse method](https://date-fns.org/v1.29.0/docs/parse) and [`date-fns`'s format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.
 	 *
-	 * Note that this does not affect how the input is parsed. This must be done using the `parseInputValue` prop.
+	 * Note that this does not affect how the input is parsed. Use `dateFormat` for
+	 * default parsing of the display format, or `parseInputValue` for a custom parser.
 	 */
 	formatDisplayLabel?: (value: string, dateFormat: string) => string;
 	/**
@@ -254,9 +256,10 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	hideIcon?: boolean;
 	/**
 	 * Format the date with a string that is accepted by [date-fns's format
-	 * function](https://date-fns.org/v1.29.0/docs/format). **This does not affect
-	 * how the input is parsed.** This must be done using the `parseInputValue`
-	 * prop.
+	 * function](https://date-fns.org/v1.29.0/docs/format). When set, the default
+	 * parser also uses this format (via date-fns) so displayed labels re-parse.
+	 * Without `dateFormat`, parsing falls back to the locale. A custom
+	 * `parseInputValue` overrides this default.
 	 *
 	 * Note that though we are using `date-fns` version 2, we use [the tokens from
 	 * `date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the

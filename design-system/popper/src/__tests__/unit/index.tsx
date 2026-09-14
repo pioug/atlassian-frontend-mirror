@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { type VirtualElement } from '@popperjs/core';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import { Popper } from '../../index';
+import { Popper } from '../../popper';
 
 const user = userEvent.setup();
 

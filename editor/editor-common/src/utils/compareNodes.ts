@@ -1,12 +1,9 @@
-import type {
-	CardAttributes,
-	DateDefinition,
-	MentionAttributes,
-	StatusDefinition,
-	UrlType,
-} from '@atlaskit/adf-schema';
+import type { CardAttributes, UrlType } from '@atlaskit/adf-schema/block-card';
+import type { DateDefinition } from '@atlaskit/adf-schema/date';
+import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
+import type { StatusDefinition } from '@atlaskit/adf-schema/status';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SortOrder } from '../types';
 
@@ -61,11 +58,9 @@ export function createNormalizeTextParser(): NormalizeTextParser {
 	const locale = window.navigator.language;
 	const thousandSeparator = Intl.NumberFormat(locale)
 		.format(11111)
-		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 		.replace(/\p{Number}/gu, '');
 	const decimalSeparator = Intl.NumberFormat(locale)
 		.format(1.1)
-		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 		.replace(/\p{Number}/gu, '');
 
 	// Ignored via go/ees005

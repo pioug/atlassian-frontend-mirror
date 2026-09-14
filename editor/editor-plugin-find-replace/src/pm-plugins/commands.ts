@@ -3,7 +3,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { Match } from '../types';
 
@@ -45,9 +45,7 @@ export const activate = (): Command =>
 				api,
 			});
 
-			index = expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-				? findClosestMatch(selection.from, matches)
-				: findSearchIndex(selection.from, matches);
+			index = findClosestMatch(selection.from, matches);
 		}
 
 		return {
@@ -79,13 +77,7 @@ export const find = (
 							})
 						: [];
 
-				const index = expValEquals(
-					'platform_editor_find_and_replace_improvements',
-					'isEnabled',
-					true,
-				)
-					? findClosestMatch(selection.from, matches)
-					: findSearchIndex(selection.from, matches);
+				const index = findClosestMatch(selection.from, matches);
 
 				// we can't just apply all the decorations to highlight the search results at once
 				// as if there are a lot ProseMirror cries :'(
@@ -118,15 +110,15 @@ export const find = (
 						: [];
 
 				if (matches.length > 0) {
-					const index = expValEquals(
-						'platform_editor_find_and_replace_improvements',
-						'isEnabled',
-						true,
-					)
-						? findClosestMatch(selection.from, matches)
-						: findSearchIndex(selection.from, matches);
+					const index = findClosestMatch(selection.from, matches);
 					const newSelection = getSelectionForMatch(tr.selection, tr.doc, index, matches);
 					api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
+					if (isExperimentEnabled('platform_editor_collapsible_headings')) {
+						api?.blockCollapse?.commands.expandHeadingsContainingRange(
+							newSelection.from,
+							newSelection.to,
+						)({ tr });
+					}
 					return tr.setSelection(newSelection);
 				}
 				return tr;
@@ -150,6 +142,12 @@ export const findNext = (editorView: EditorView): Command =>
 				}
 				const newSelection = getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches);
 				api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
+				if (isExperimentEnabled('platform_editor_collapsible_headings')) {
+					api?.blockCollapse?.commands.expandHeadingsContainingRange(
+						newSelection.from,
+						newSelection.to,
+					)({ tr });
+				}
 				return tr.setSelection(newSelection);
 			},
 		),
@@ -167,6 +165,12 @@ export const findPrevious = (editorView: EditorView): Command =>
 				const searchIndex = findSearchIndex(state.selection.from, matches, true);
 				const newSelection = getSelectionForMatch(tr.selection, tr.doc, searchIndex, matches);
 				api?.expand?.commands.toggleExpandWithMatch(newSelection)({ tr });
+				if (isExperimentEnabled('platform_editor_collapsible_headings')) {
+					api?.blockCollapse?.commands.expandHeadingsContainingRange(
+						newSelection.from,
+						newSelection.to,
+					)({ tr });
+				}
 				return tr.setSelection(newSelection);
 			},
 		),
@@ -225,25 +229,28 @@ export const replace = (replaceText: string): Command =>
 				};
 			},
 			(tr, state: EditorState) => {
-				const { matches, index, findText } = getPluginState(state);
+				const { matches, index, findText, api } = getPluginState(state);
 				if (matches[index]) {
-					if (
-						!matches[index].canReplace &&
-						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					) {
+					if (!matches[index].canReplace) {
 						return tr;
 					}
 					const { start, end } = matches[index];
 					const newIndex = nextIndex(index, matches.length);
-					tr.insertText(replaceText, start, end).setSelection(
-						getSelectionForMatch(
-							tr.selection,
-							tr.doc,
-							newIndex,
-							matches,
-							newIndex === 0 ? 0 : replaceText.length - findText.length,
-						),
+					tr.insertText(replaceText, start, end);
+					const newSelection = getSelectionForMatch(
+						tr.selection,
+						tr.doc,
+						newIndex,
+						matches,
+						newIndex === 0 ? 0 : replaceText.length - findText.length,
 					);
+					tr.setSelection(newSelection);
+					if (isExperimentEnabled('platform_editor_collapsible_headings')) {
+						api?.blockCollapse?.commands.expandHeadingsContainingRange(
+							newSelection.from,
+							newSelection.to,
+						)({ tr });
+					}
 				}
 				return tr;
 			},
@@ -262,10 +269,7 @@ export const replaceAll = (replaceText: string): Command =>
 		(tr, state: EditorState) => {
 			const pluginState = getPluginState(state);
 			pluginState.matches.forEach((match: Match) => {
-				if (
-					!match.canReplace &&
-					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-				) {
+				if (!match.canReplace) {
 					return tr;
 				}
 				tr.insertText(replaceText, tr.mapping.map(match.start), tr.mapping.map(match.end));

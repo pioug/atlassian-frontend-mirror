@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 import { ActionName } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import useRovoChat, { type SendPromptMessageData } from '../../../../../state/hooks/use-rovo-chat';
 import { getPromptAction, type RovoChatPromptKey } from '../../../../common/rovo-chat-utils';

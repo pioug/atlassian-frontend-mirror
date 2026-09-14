@@ -36,7 +36,7 @@ describe('SimpleMeasurementLogger', () => {
 		logger.observed(createReading(EVENT_NAME_ON_CHANGE));
 		logger.observed(createReading(EVENT_NAME_DISPATCH_TRANSACTION));
 
-		expect(callback).toBeCalledTimes(1);
+		expect(callback).toHaveBeenCalledTimes(1);
 		const entries = getEntryList(callback, 0).getEntries();
 		expect(entries.map((entry) => entry.name)).toEqual([
 			EVENT_NAME_STATE_APPLY,
@@ -60,7 +60,7 @@ describe('SimpleMeasurementLogger', () => {
 		logger.observed(createReading(EVENT_NAME_VIEW_STATE_UPDATED));
 		logger.observed(createReading(EVENT_NAME_DISPATCH_TRANSACTION));
 
-		expect(callback).toBeCalledTimes(2);
+		expect(callback).toHaveBeenCalledTimes(2);
 		const entries1 = getEntryList(callback, 0).getEntries();
 		const entries2 = getEntryList(callback, 1).getEntries();
 		expect(entries1.map((entry) => entry.name)).toEqual([
@@ -91,7 +91,7 @@ describe('SimpleMeasurementLogger', () => {
 		logger.observed(createReading(`🦉pluginC::view::update`));
 		logger.observed(createReading(EVENT_NAME_DISPATCH_TRANSACTION));
 
-		expect(callback).toBeCalledTimes(1);
+		expect(callback).toHaveBeenCalledTimes(1);
 		const entries = getEntryList(callback, 0).getEntries();
 		expect(entries.map((entry) => entry.name)).toEqual([
 			EVENT_NAME_STATE_APPLY,
@@ -110,7 +110,7 @@ describe('SimpleMeasurementLogger', () => {
 		logger.observed(createReading(`🦉 EditorView::fake-event`));
 		logger.observed(createReading(EVENT_NAME_DISPATCH_TRANSACTION));
 
-		expect(callback).toBeCalledTimes(1);
+		expect(callback).toHaveBeenCalledTimes(1);
 		const entries = getEntryList(callback, 0).getEntries();
 		expect(entries.map((entry) => entry.name)).toEqual([
 			EVENT_NAME_STATE_APPLY,
@@ -123,7 +123,7 @@ describe('SimpleMeasurementLogger', () => {
 		logger.observed(createReading('nope'));
 		logger.observed(createReading(EVENT_NAME_DISPATCH_TRANSACTION));
 
-		expect(callback).toBeCalledTimes(1);
+		expect(callback).toHaveBeenCalledTimes(1);
 		const entries = getEntryList(callback, 0).getEntries();
 		expect(entries.map((entry) => entry.name)).toEqual([EVENT_NAME_DISPATCH_TRANSACTION]);
 	});
@@ -131,7 +131,7 @@ describe('SimpleMeasurementLogger', () => {
 	it('should not call callback if EVENT_NAME_DISPATCH_TRANSACTION is never observed', () => {
 		logger.setOnObservation(callback);
 		logger.observed(createReading(EVENT_NAME_STATE_APPLY));
-		expect(callback).toBeCalledTimes(0);
+		expect(callback).toHaveBeenCalledTimes(0);
 	});
 
 	it('should clear current batch even if callback is not set', () => {
@@ -144,7 +144,7 @@ describe('SimpleMeasurementLogger', () => {
 		logger.observed(createReading(EVENT_NAME_STATE_APPLY));
 		logger.observed(createReading(EVENT_NAME_DISPATCH_TRANSACTION));
 
-		expect(callback).toBeCalledTimes(1);
+		expect(callback).toHaveBeenCalledTimes(1);
 		const entries = getEntryList(callback, 0).getEntries();
 		expect(entries.map((entry) => entry.name)).toEqual([
 			EVENT_NAME_STATE_APPLY,

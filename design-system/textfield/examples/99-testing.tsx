@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 
 export default function TestingExample(): React.JSX.Element {
 	return (

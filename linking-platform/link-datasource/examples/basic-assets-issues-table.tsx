@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DatasourceTableView } from '@atlaskit/link-datasource';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
 
 import { ExampleAssetsIssuesTableView } from '../examples-helpers/buildAssetsIssuesTable';

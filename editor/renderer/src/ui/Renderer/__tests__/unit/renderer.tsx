@@ -1,13 +1,12 @@
 import React from 'react';
 import createStub from 'raf-stub';
 
-import { act } from '@testing-library/react';
-import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
-import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
+import { act, render } from '@testing-library/react';
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
-import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
-import { mount, shallow, type ReactWrapper, type ShallowWrapper } from 'enzyme';
 
 import {
 	SEVERITY,
@@ -16,7 +15,8 @@ import {
 
 import { stopMeasure } from '@atlaskit/editor-common/performance-measures';
 
-import type { CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import RendererDefaultComponent, {
 	DEGRADED_SEVERITY_THRESHOLD,
 	NORMAL_SEVERITY_THRESHOLD,
@@ -24,35 +24,44 @@ import RendererDefaultComponent, {
 } from '../../';
 import { ValidationContextProvider } from '../../ValidationContext';
 import { RendererContextProvider } from '../../../../renderer-context';
-import { Paragraph } from '../../../../react/nodes';
-import { AnnotationsContextWrapper } from '../../../annotations/wrapper';
 import type { RendererAppearance } from '../../types';
 import { IntlProvider } from 'react-intl';
 import { adfNestedTableData } from '../__fixtures__/mockData';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-
 const mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
 jest.mock('@atlaskit/editor-common/ui', () => {
 	const WithCreateAnalyticsEventMock = (props: any) => props.render(mockCreateAnalyticsEvent);
 	return {
-		...jest.requireActual<Object>('@atlaskit/editor-common/ui'),
+		...jest.requireActual<object>('@atlaskit/editor-common/ui'),
 		WithCreateAnalyticsEvent: WithCreateAnalyticsEventMock,
 	};
 });
 
 jest.mock('@atlaskit/editor-common/performance-measures', () => {
 	return {
-		...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
+		...jest.requireActual<object>('@atlaskit/editor-common/performance-measures'),
 		stopMeasure: jest.fn(),
 	};
 });
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
+const mockAnnotationsContextWrapper = jest.fn();
+jest.mock('../../../annotations/wrapper', () => {
+	const actual = jest.requireActual('../../../annotations/wrapper');
+	const react = jest.requireActual('react');
+	return {
+		AnnotationsContextWrapper: (props: Record<string, unknown>) => {
+			mockAnnotationsContextWrapper();
+			return react.createElement(actual.AnnotationsContextWrapper, props);
+		},
+	};
+});
+
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer', () => {
 	const annotationsId: string[] = ['id_1', 'id_2', 'id_3'];
 
@@ -118,6 +127,7 @@ describe('Renderer', () => {
 	let annotationProvider: AnnotationProviders;
 	beforeEach(() => {
 		mockCreateAnalyticsEvent.mockClear();
+		mockAnnotationsContextWrapper.mockClear();
 		getStateCallbackMock = jest.fn();
 		annotationProvider = {
 			[AnnotationTypes.INLINE_COMMENT]: {
@@ -140,15 +150,15 @@ describe('Renderer', () => {
 
 	describe('RendererWrapper', () => {
 		it('should have a class describing the appearance', () => {
-			const wrapper = mount(<Renderer document={adf} appearance="full-page" />);
-			expect(wrapper!.find('div.ak-renderer-wrapper.is-full-page')).toHaveLength(1);
-			wrapper.unmount();
+			const { container } = render(<Renderer document={adf} appearance="full-page" />);
+
+			expect(container.querySelectorAll('div.ak-renderer-wrapper.is-full-page')).toHaveLength(1);
 		});
 	});
 
 	describe('annotationProvider', () => {
 		it('should call the provider with ids inside of the document', () => {
-			const wrapper = mount(
+			render(
 				<IntlProvider locale="en">
 					<RendererDefaultComponent
 						annotationProvider={annotationProvider}
@@ -159,29 +169,27 @@ describe('Renderer', () => {
 			);
 
 			expect(getStateCallbackMock).toHaveBeenCalledWith(annotationsId);
-			wrapper.unmount();
 		});
 	});
 
 	describe('when the allowAnnotations is enabled', () => {
 		it('should render the AnnotationsContextWrapper', () => {
-			const wrapper = mount(
+			render(
 				<RendererDefaultComponent
 					annotationProvider={annotationProvider}
 					document={adf}
 					allowAnnotations={true}
 				/>,
 			);
-			expect(wrapper!.find(AnnotationsContextWrapper)).toHaveLength(1);
-			wrapper.unmount();
+
+			expect(mockAnnotationsContextWrapper).toHaveBeenCalled();
 		});
 	});
 
 	describe('when the allowAnnotations is disabled', () => {
 		it('should not render the AnnotationsContextWrapper', () => {
-			let wrapper: ReactWrapper;
 			act(() => {
-				wrapper = mount(
+				render(
 					<RendererDefaultComponent
 						annotationProvider={annotationProvider}
 						document={adf}
@@ -190,31 +198,7 @@ describe('Renderer', () => {
 				);
 			});
 
-			expect(wrapper!.find(AnnotationsContextWrapper)).toHaveLength(0);
-		});
-	});
-
-	describe('error boundary', () => {
-		it.skip('should log error on Renderer render errors', () => {
-			let wrapper: ReactWrapper;
-			wrapper = mount(<RendererDefaultComponent document={adf} />);
-			const rendererWrapper = wrapper.find(Renderer);
-			expect(() => rendererWrapper.simulateError(new Error('Oh no!'))).toThrow();
-
-			expect(mockCreateAnalyticsEvent).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					action: 'unhandledErrorCaught',
-					actionSubject: 'renderer',
-					actionSubjectId: undefined,
-					attributes: expect.objectContaining({
-						platform: 'web',
-						errorMessage: 'Oh no!',
-						errorStack: expect.any(String),
-						componentStack: expect.any(String),
-						errorRethrown: true,
-					}),
-				}),
-			);
+			expect(mockAnnotationsContextWrapper).not.toHaveBeenCalled();
 		});
 	});
 
@@ -225,16 +209,22 @@ describe('Renderer', () => {
 			serializeFragment: mockCustomSerializeFragment,
 		});
 
-		const expectSerializer = ({ custom, wrapper }: { custom: boolean; wrapper: ReactWrapper }) => {
-			const wrapperDivs = wrapper.find('div');
+		const expectSerializer = ({
+			custom,
+			container,
+		}: {
+			container: HTMLElement;
+			custom: boolean;
+		}) => {
+			const wrapperDivs = container.querySelectorAll('div');
 			expect(wrapperDivs).toHaveLength(4);
 
 			if (custom) {
 				expect(mockCustomSerializeFragment).toHaveBeenCalled();
-				expect(wrapperDivs.at(0).text()).toEqual(mockCustomSerializerText);
+				expect(wrapperDivs[0].textContent).toEqual(mockCustomSerializerText);
 			} else {
 				expect(mockCustomSerializeFragment).not.toHaveBeenCalled();
-				expect(wrapperDivs.at(0).text()).not.toEqual(mockCustomSerializerText);
+				expect(wrapperDivs[0].textContent).not.toEqual(mockCustomSerializerText);
 			}
 		};
 
@@ -243,23 +233,23 @@ describe('Renderer', () => {
 		});
 
 		it('should use default Serializer when createSerializer is not defined', () => {
-			const wrapper = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<RendererDefaultComponent document={adf} />
 				</IntlProvider>,
 			);
-			expectSerializer({ wrapper, custom: false });
-			wrapper.unmount();
+
+			expectSerializer({ container, custom: false });
 		});
 
 		it('should use custom Serializer when createSerializer is defined', () => {
-			const wrapper = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<RendererDefaultComponent document={adf} createSerializer={customCreateSerializer} />
 				</IntlProvider>,
 			);
-			expectSerializer({ wrapper, custom: true });
-			wrapper.unmount();
+
+			expectSerializer({ container, custom: true });
 		});
 	});
 });
@@ -282,12 +272,16 @@ describe('spec based validator', () => {
 				},
 			],
 		} as DocNode;
-		let wrapper: ShallowWrapper;
+		let container!: HTMLElement;
 		act(() => {
-			wrapper = shallow(<Renderer document={docWithInvalidBlock} useSpecBasedValidator={true} />);
+			({ container } = render(
+				<IntlProvider locale="en">
+					<Renderer document={docWithInvalidBlock} useSpecBasedValidator={true} />
+				</IntlProvider>,
+			));
 		});
 
-		expect(wrapper!.find(UnsupportedBlock)).not.toHaveLength(0);
+		expect(container.querySelectorAll('.unsupported').length).not.toEqual(0);
 	});
 
 	it('should NOT render unsupported content block when the document is valid', () => {
@@ -307,13 +301,17 @@ describe('spec based validator', () => {
 			],
 		};
 
-		let wrapper: ShallowWrapper;
+		let container!: HTMLElement;
 		act(() => {
-			wrapper = shallow(<Renderer document={docWithValidParagraph} useSpecBasedValidator={true} />);
+			({ container } = render(
+				<IntlProvider locale="en">
+					<Renderer document={docWithValidParagraph} useSpecBasedValidator={true} />
+				</IntlProvider>,
+			));
 		});
 
-		expect(wrapper!.find(UnsupportedBlock)).toHaveLength(0);
-		expect(wrapper!.find(Paragraph)).not.toHaveLength(0);
+		expect(container.querySelectorAll('.unsupported')).toHaveLength(0);
+		expect(container.querySelectorAll('p').length).not.toEqual(0);
 	});
 
 	it('should render unsupported inline when the document has invalid inline', () => {
@@ -336,12 +334,16 @@ describe('spec based validator', () => {
 			],
 		} as DocNode;
 
-		let wrapper: ShallowWrapper;
+		let container!: HTMLElement;
 		act(() => {
-			wrapper = shallow(<Renderer document={docWithInvalidInline} useSpecBasedValidator={true} />);
+			({ container } = render(
+				<IntlProvider locale="en">
+					<Renderer document={docWithInvalidInline} useSpecBasedValidator={true} />
+				</IntlProvider>,
+			));
 		});
 
-		expect(wrapper!.find(UnsupportedInline)).not.toHaveLength(0);
+		expect(container.querySelectorAll('[class*="-UnsupportedInlineNode"]').length).not.toEqual(0);
 	});
 
 	it('should NOT render unsupported inline when the document has valid inline', () => {
@@ -364,13 +366,17 @@ describe('spec based validator', () => {
 			],
 		};
 
-		let wrapper: ShallowWrapper;
+		let container!: HTMLElement;
 		act(() => {
-			wrapper = shallow(<Renderer document={docWithValidInline} useSpecBasedValidator={true} />);
+			({ container } = render(
+				<IntlProvider locale="en">
+					<Renderer document={docWithValidInline} useSpecBasedValidator={true} />
+				</IntlProvider>,
+			));
 		});
 
-		expect(wrapper!.find(UnsupportedInline)).toHaveLength(0);
-		expect(wrapper!.find(Paragraph)).not.toHaveLength(0);
+		expect(container.querySelectorAll('[class*="-UnsupportedInlineNode"]')).toHaveLength(0);
+		expect(container.querySelectorAll('p').length).not.toEqual(0);
 	});
 });
 
@@ -413,22 +419,26 @@ describe('unsupported content levels severity', () => {
 			},
 		],
 	};
-	let rendererWrapper: ShallowWrapper | null = null;
+	let rerenderDoc: (() => void) | null = null;
 
 	const renderDoc = (
 		doc: any,
 		unsupportedContentLevelsTracking: any,
 		appearance?: RendererAppearance,
 	) => {
-		rendererWrapper = shallow(
-			<RendererIsolated
-				document={doc}
-				useSpecBasedValidator
-				unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
-				createAnalyticsEvent={createAnalyticsEvent}
-				appearance={appearance}
-			/>,
+		const element = (
+			<IntlProvider locale="en">
+				<RendererIsolated
+					document={doc}
+					useSpecBasedValidator
+					unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
+					createAnalyticsEvent={createAnalyticsEvent}
+					appearance={appearance}
+				/>
+			</IntlProvider>
 		);
+		const { rerender } = render(element);
+		rerenderDoc = () => rerender(element);
 	};
 
 	type TimesToRenderMap = { [appearance: string]: number };
@@ -571,7 +581,7 @@ describe('unsupported content levels severity', () => {
 				};
 				renderDoc(validDoc, levels, 'comment');
 				for (let i = 0; i < 10; i++) {
-					rendererWrapper!.render();
+					rerenderDoc!();
 				}
 				jest.runAllTimers();
 				expectUnsupportedContentTrackingCalledNTimes(1);
@@ -699,7 +709,7 @@ describe('unsupported content levels severity', () => {
 			beforeEach(() => {
 				jest.resetModules();
 				jest.doMock('@atlaskit/editor-common/utils', () => ({
-					...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+					...jest.requireActual<object>('@atlaskit/editor-common/utils'),
 					getUnsupportedContentLevelData: jest.fn(() => {
 						throw new Error('custom mocked error');
 					}),
@@ -712,13 +722,15 @@ describe('unsupported content levels severity', () => {
 
 				renderDoc = (doc: any, unsupportedContentLevelsTracking: any) => {
 					act(() => {
-						shallow(
-							<RendererIsolated
-								document={doc}
-								useSpecBasedValidator
-								unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
-								createAnalyticsEvent={createAnalyticsEvent}
-							/>,
+						render(
+							<IntlProvider locale="en">
+								<RendererIsolated
+									document={doc}
+									useSpecBasedValidator
+									unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
+									createAnalyticsEvent={createAnalyticsEvent}
+								/>
+							</IntlProvider>,
 						);
 					});
 				};
@@ -794,6 +806,12 @@ describe('renderer rendered analytics event', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+		// The renderer started/rendered events are sampled, so pin the sample draw.
+		jest.spyOn(Math, 'random').mockReturnValue(0);
+	});
+
+	afterEach(() => {
+		(Math.random as jest.Mock).mockRestore();
 	});
 
 	it.each`
@@ -808,7 +826,7 @@ describe('renderer rendered analytics event', () => {
 				callback(threshold, 1);
 			});
 
-			mount(
+			render(
 				<Renderer
 					document={doc}
 					analyticsEventSeverityTracking={{
@@ -842,7 +860,7 @@ describe('renderer rendered analytics event', () => {
 				callback && callback(NORMAL_SEVERITY_THRESHOLD, 1);
 			});
 
-			shallow(
+			render(
 				<Renderer
 					document={doc}
 					analyticsEventSeverityTracking={{
@@ -863,13 +881,13 @@ describe('renderer rendered analytics event', () => {
 		);
 	});
 
-	eeTest.describe('platform_synced_block', 'nestedRendererType analytics').variant(true, () => {
+	describe('nestedRendererType analytics', () => {
 		it('should include nestedRendererType in rendered event when context is provided', () => {
 			(stopMeasure as any).mockImplementation((name: any, callback: any) => {
 				callback(NORMAL_SEVERITY_THRESHOLD, 1);
 			});
 
-			mount(
+			render(
 				<RendererContextProvider value={{ nestedRendererType: 'syncedBlock' }}>
 					<Renderer document={doc} createAnalyticsEvent={createAnalyticsEvent} />
 				</RendererContextProvider>,
@@ -894,7 +912,7 @@ describe('renderer rendered analytics event', () => {
 describe('ValidationContext', () => {
 	describe('render nested content in render under validation context', () => {
 		it('it do', () => {
-			const wrapper = mount(
+			const { container } = render(
 				<ValidationContextProvider value={{ skipValidation: true }}>
 					<IntlProvider locale="en">
 						<RendererDefaultComponent
@@ -904,14 +922,13 @@ describe('ValidationContext', () => {
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
-			expect(wrapper.find('table')).toHaveLength(2);
-			wrapper.unmount();
+			expect(container.querySelectorAll('table')).toHaveLength(2);
 		});
 	});
 
 	describe('do not render nested content in render under validation context if skipValidation is false', () => {
 		it('do not', () => {
-			const wrapper = mount(
+			const { container } = render(
 				<ValidationContextProvider value={{ skipValidation: false }}>
 					<IntlProvider locale="en">
 						<RendererDefaultComponent
@@ -921,14 +938,13 @@ describe('ValidationContext', () => {
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
-			expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
-			wrapper.unmount();
+			expect(container.querySelectorAll('.unsupported')).toHaveLength(1);
 		});
 	});
 
 	describe('allowNestedTables', () => {
 		it('it should render nested tables if allowNestedTables is enabled', () => {
-			const wrapper = mount(
+			const { container } = render(
 				<ValidationContextProvider value={{ allowNestedTables: true }}>
 					<IntlProvider locale="en">
 						<RendererDefaultComponent
@@ -938,12 +954,11 @@ describe('ValidationContext', () => {
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
-			expect(wrapper.find('table')).toHaveLength(2);
-			wrapper.unmount();
+			expect(container.querySelectorAll('table')).toHaveLength(2);
 		});
 
 		it('it should not render nested tables if allowNestedTables is enabled', () => {
-			const wrapper = mount(
+			const { container } = render(
 				<ValidationContextProvider value={{ allowNestedTables: false }}>
 					<IntlProvider locale="en">
 						<RendererDefaultComponent
@@ -953,8 +968,7 @@ describe('ValidationContext', () => {
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
-			expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
-			wrapper.unmount();
+			expect(container.querySelectorAll('.unsupported')).toHaveLength(1);
 		});
 	});
 });

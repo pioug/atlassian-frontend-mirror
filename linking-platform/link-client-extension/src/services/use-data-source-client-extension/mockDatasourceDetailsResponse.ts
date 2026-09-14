@@ -1,4 +1,4 @@
-import { type DatasourceDetailsResponse } from '@atlaskit/linking-types';
+import type { DatasourceDetailsResponse } from '@atlaskit/linking-types/datasource';
 
 export const mockDatasourceDetailsResponse: DatasourceDetailsResponse = {
 	meta: {

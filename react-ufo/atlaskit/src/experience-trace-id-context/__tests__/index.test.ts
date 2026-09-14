@@ -1,17 +1,15 @@
 import { context } from '@opentelemetry/api';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { clearActiveTrace } from '../clear-active-trace';
 import { setContextManager, UFOContextManager } from '../context-manager';
-import {
-	clearActiveTrace,
-	generateSpanId,
-	getActiveTraceAsQueryParams,
-	getActiveTraceHttpRequestHeaders,
-	setActiveTrace,
-} from '../index';
+import { generateSpanId } from '../generate-span-id';
+import { getActiveTraceAsQueryParams } from '../get-active-trace-as-query-params';
+import { getActiveTraceHttpRequestHeaders } from '../get-active-trace-http-request-headers';
+import { setActiveTrace } from '../set-active-trace';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockFg = fg as jest.Mock;
 
 const fg_combinations = [[], ['platform_ufo_enable_otel_context_manager']];

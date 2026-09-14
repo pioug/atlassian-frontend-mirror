@@ -1,5 +1,7 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type ServerErrorType } from '@atlaskit/linking-common';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { ServerErrorType } from '@atlaskit/linking-common/api/errors';
+
 export type BatchResponse = Array<SuccessResponse | ErrorResponse>;
 
 export type SuccessResponse = {
@@ -19,30 +21,6 @@ export interface ErrorResponseBody {
 	type: ServerErrorType;
 }
 
-export const isSuccessfulResponse = (
-	response?: SuccessResponse | ErrorResponse,
-): response is SuccessResponse => {
-	if (!response) {
-		return false;
-	}
-
-	const hasSuccessfulStatus = response.status === 200;
-	const hasSuccessBody = 'body' in response;
-	return hasSuccessfulStatus && hasSuccessBody;
-};
-
-export const isErrorResponse = (
-	response: SuccessResponse | ErrorResponse | JsonLd.Collection,
-): response is ErrorResponse => {
-	if (!response) {
-		return false;
-	}
-
-	const hasStatus = 'status' in response && response.status >= 200;
-	const hasErrorBody = 'error' in response;
-	return hasStatus && hasErrorBody;
-};
-
 export interface SearchProviderInfo {
 	key: string;
 	metadata: {
@@ -56,3 +34,12 @@ export interface SearchProviderInfo {
 export interface SearchProviderInfoResponse {
 	providers: SearchProviderInfo[];
 }
+
+/**
+ * @deprecated Use `import { isSuccessfulResponse } from '@atlaskit/link-provider/is-successful-response'` instead.
+ */
+export { isSuccessfulResponse } from './isSuccessfulResponse';
+/**
+ * @deprecated Use `import { isErrorResponse } from '@atlaskit/link-provider/is-error-response'` instead.
+ */
+export { isErrorResponse } from './isErrorResponse';

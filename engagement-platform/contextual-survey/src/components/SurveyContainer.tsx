@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { IconButton as Button } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/icon/button';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { token } from '@atlaskit/tokens';
 

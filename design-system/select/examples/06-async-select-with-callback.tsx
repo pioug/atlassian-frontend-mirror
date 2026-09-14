@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import Select, { type OptionsType } from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/select/default';
+import type { OptionsType } from '@atlaskit/select/types';
 
 import { cities } from './common/data';
 

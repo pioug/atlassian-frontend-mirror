@@ -3,7 +3,7 @@ import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import fetchMock from 'fetch-mock/cjs/client';
 import * as queryString from 'query-string';
-import MentionResource, { type MentionResourceConfig } from '../../../api/MentionResource';
+import { MentionResource, type MentionResourceConfig } from '../../../api/MentionResource';
 import { type MentionDescription } from '../../../types';
 import { checkOrder } from '../_test-helpers';
 import { resultC, resultCr, resultCraig, resultPolly } from '../_mention-search-results';

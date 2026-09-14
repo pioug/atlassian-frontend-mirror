@@ -1,4 +1,4 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isWhitespaceChar } from '../../utils/charsByOffset';
 
 /**
  * A half-open offset span `[from, to)` measured in *content offsets* relative to the
@@ -28,34 +28,9 @@ type LocalSegmenterCtor = new (
 const NON_WORD_CHARS = ' \t\n\r\f\v.,;:!?…。！？、"\'`“”‘’()[]{}<>/\\|@#$%^&*-+=~';
 const NON_WORD_CHAR_SET = new Set(NON_WORD_CHARS.split(''));
 const isWordChar = (ch: string): boolean => !NON_WORD_CHAR_SET.has(ch);
-// Whitespace is checked via a Set rather than a regex to avoid both the `require-unicode-regexp`
-// lint rule and the TS1501 error the `u` flag triggers under this package's build lib target.
-const WHITESPACE_CHAR_SET = new Set([' ', '\t', '\n', '\r', '\f', '\v', '\u00a0']);
-const isWhitespaceChar = (ch: string): boolean => WHITESPACE_CHAR_SET.has(ch);
 // Sentence terminators used by the regex fallback. We intentionally keep this small and
 // conservative — the Intl.Segmenter path is the source of truth when available.
 const SENTENCE_TERMINATORS = new Set(['.', '!', '?', '…', '。', '！', '？']);
-
-/**
- * Build a per-content-offset view of a textblock's characters.
- *
- * `chars[i]` is the character at content offset `i`, or `null` when that offset lies
- * inside a non-text inline node (mention, date, emoji, hardBreak, …). A `null` acts as an
- * *opaque single token*: it counts as one word and never terminates a sentence.
- */
-export const buildCharsByOffset = (parent: PMNode): Array<string | null> => {
-	const chars: Array<string | null> = Array.from({ length: parent.content.size }, () => null);
-	parent.content.forEach((child, offset) => {
-		if (!child.isText) {
-			return;
-		}
-		const text = child.text ?? '';
-		for (let i = 0; i < text.length; i++) {
-			chars[offset + i] = text[i];
-		}
-	});
-	return chars;
-};
 
 const getSegmenterCtor = (): LocalSegmenterCtor | undefined => {
 	if (typeof Intl === 'undefined') {

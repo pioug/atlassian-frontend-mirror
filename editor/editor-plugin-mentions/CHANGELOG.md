@@ -1,5 +1,696 @@
 # @atlaskit/editor-plugin-mentions
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.7
+
+### Patch Changes
+
+- [`962e8dc0188bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/962e8dc0188bf) -
+  Clean up `platform_editor_offline_editing_web` with `isEnabled: true` for Confluence, keeping
+  offline editing and recovery behavior enabled. Remove the retired experiment from the editor
+  Statsig configuration; consumers must stop querying or overriding this experiment.
+- Updated dependencies
+
+## 19.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.4
+
+### Patch Changes
+
+- [`9142c78d2fa96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9142c78d2fa96) -
+  Remove the `platform_editor_vc90_transition_mentions` experiment and ship its enabled behavior for
+  mention highlighting
+- Updated dependencies
+
+## 19.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`58af51ca2cc2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58af51ca2cc2f) -
+  Add agent profile card to mention typeahead in Jira
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.5
+
+### Patch Changes
+
+- [`c263d4de33054`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c263d4de33054) -
+  Render retryable agent mention load errors in the typeahead menu behind
+  `platform_editor_agent_mentions_rovo_query_timeout`.
+- Updated dependencies
+
+## 18.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.2
+
+### Patch Changes
+
+- [`ebab4ff8f0326`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebab4ff8f0326) -
+  Fix the inviteItem viewed analytics event refiring on every keystroke instead of once per
+  typeahead session, when inline_invite_from_mentions_kill_switch is on.
+- Updated dependencies
+
+## 18.3.1
+
+### Patch Changes
+
+- [`27143ffe51a5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27143ffe51a5a) -
+  `@atlaskit/editor-common/vanilla-tooltip` now exports `VANILLA_TOOLTIP_DEFAULT_CLASS`. Compose
+  tooltip class names from it rather than repeating the `ak-editor-vanilla-tooltip-default` literal.
+
+  Behind the `platform_editor_use_vanilla_components` experiment, `VanillaTooltip`:
+  - no longer throws `InvalidStateError` when shown again before its open delay has elapsed
+  - is `pointer-events: none`, so it cannot swallow pointer events meant for the content beneath —
+    pass `pointerEvents` in `styles` to opt out
+  - closes its popover before `destroy()` removes it from the document
+
+  Remaining changes are internal: tooltip consumers adopt the new constant, and the emoji tooltip
+  uses the shared class in place of an equivalent inline style object.
+
+- Updated dependencies
+
+## 18.3.0
+
+### Minor Changes
+
+- [`5a0128690a065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a0128690a065) -
+  Add mention avatars to Rovo editor and renderer surfaces behind
+  platform_editor_rovo_editor_mention_node_avatar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.10
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 18.2.9
+
+### Patch Changes
+
+- [`799980cd2d79f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/799980cd2d79f) -
+  Clean up experiment `platform_editor_agent_mentions_separate_pm_plugin`.
+- Updated dependencies
+
+## 18.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.6
+
+### Patch Changes
+
+- [`3ae04490ac0f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ae04490ac0f4) -
+  Render the disabled mention chip tooltip without React. Behind the
+  `platform_editor_use_vanilla_components` experiment, with no visual change.
+  - Disabled mention chips no longer mount a React tooltip, its portal, and the DOM-to-React event
+    bridge that fed it.
+  - Tooltips release their positioning instance when they close, rather than keeping one alive per
+    hovered chip.
+  - Tooltips remove their own element and attributes when destroyed, so mention and emoji chips no
+    longer leave orphaned popovers behind.
+  - Re-hovering a tooltip while it is closing keeps it open, matching `@atlaskit/tooltip`.
+    Previously the pending hide still landed and the tooltip disappeared under the pointer.
+  - Tooltips close when they hide, instead of waiting on a transition that nothing declares.
+    Required by the change above: releasing the positioning instance while the popover was still
+    open left it behind as an invisible hit target over the content.
+
+- Updated dependencies
+
+## 18.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.4
+
+### Patch Changes
+
+- [`4cc06eff6f3d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cc06eff6f3d1) -
+  [ux] Behind platform_editor_mention_search_order, allow mention item subscription when sectioning
+  is enabled and keep loading rows non-interactive
+- Updated dependencies
+
+## 18.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.1
+
+### Patch Changes
+
+- [`ec66928dbdbeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec66928dbdbeb) -
+  For the platform_editor_slash_command experiment, reorder Structure items, update slash-command
+  icons, move Jira work items to Data & Charts, and move Create Jira work item and Mention to
+  Structure. Use BlockSyncedIcon for the Synced block command.
+- Updated dependencies
+
+## 18.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- [`243f04087ceef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/243f04087ceef) -
+  Dismiss the agent profile card and clear the mention's node selection when opening Rovo chat from
+  the mention card's chat action, gated behind platform_editor_agent_card_close_on_chat.
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`e25ceefc49864`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e25ceefc49864) -
+  Style agent mentions based on their run-state, with mention pills showing a shimmer when agent is
+  in the "analysing" state. Changes are gated behind the `platform_editor_agent_mention_state_anim`
+  experiment.
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+- [`74776a3f5b320`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74776a3f5b320) -
+  Fix the agent profile card in the mentions typeahead overlapping with the scrollbar
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.17
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 17.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.14
+
+### Patch Changes
+
+- [`f10c984a92b15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f10c984a92b15) -
+  Add `platform_editor_agent_mentions_no_task_autofire`. It removes the special case where an agent
+  `@mention` in a task item auto-invokes Rovo on creation. When the gate is on, task-item mentions
+  are no longer exempt from the shared nudge-suppression guards, so they follow the same path as
+  every other block. With the gate off the current task-item behaviour is unchanged.
+
+## 17.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.6
+
+### Patch Changes
+
+- [`73f8a70eba228`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73f8a70eba228) -
+  [ux] Behind platform_editor_mention_search_order, identify agents during mention search and move
+  them above bots and teams without adding a new typeahead section.
+
+## 17.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- [`f586794c14d5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f586794c14d5b) -
+  Under agent sectioning, the "Add teammate" option in the mention typeahead now appears below the
+  agent results instead of above them, so the first highlighted option is an agent you can select
+  with Enter. Behind the `platform_editor_agent_mentions_invite_order` feature gate.
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`6997a74055219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6997a74055219) -
+  Add profile card on hover in the mentions typeahead for agent mentions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- [`4273da2e1a648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4273da2e1a648) -
+  Register native Quick Insert items behind `platform_editor_slash_command`.
+- [`fa754a973daeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa754a973daeb) -
+  Keep the pending mention chip visible until the invite popup is dismissed on failure, instead of
+  removing it immediately, and fix keyboard navigation in the project role picker rendered inside
+  the popup.
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.0
+
+### Minor Changes
+
+- [`13e86ff9f1588`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13e86ff9f1588) -
+  [ux] Display avatars for mention nodes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- [`b8700e10d6391`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8700e10d6391) -
+  Remove invalid experiment keys from Editor package feature gate manifests.
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- [`b277d7a23f325`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b277d7a23f325) -
+  Adjust profile card migration, check for either FG or experiment to enable new People UX
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- [`716685b30ef93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/716685b30ef93) -
+  Correlate rendered agent mention results with picker selection sessions.
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`50992b74009d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50992b74009d1) -
+  Add InlineInvitePopup provider hook, replacing InlineInviteRecaptcha slot
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.2.0
+
+### Minor Changes
+
+- [`0adaa36b0a6bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0adaa36b0a6bc) -
+  Add InlineInvitePopup provider hook, replacing InlineInviteRecaptcha slot
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`34a4b81d50881`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34a4b81d50881) -
+  Revert the mentions invite item to a whole-row selection trigger, removing the separate Invite
+  button
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- [`e993d47ab501d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e993d47ab501d) -
+  Refactor agent mention tracking into a separate ProseMirror plugin behind an experiment.
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [`bfcdbf97bab93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfcdbf97bab93) -
+  Consolidate editor agent-mention rollout controls under the rovo_chat_mention_agents experiment.
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.11.3
+
+### Patch Changes
+
+- [`4bc741a70d678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc741a70d678) -
+  Add the first registry-backed Quick Insert slice with Table
+- Updated dependencies
+
+## 14.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.11.0
 
 ### Minor Changes

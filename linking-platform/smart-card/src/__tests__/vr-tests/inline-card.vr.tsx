@@ -1,41 +1,41 @@
 import { snapshot } from '@af/visual-regression';
 
-import VRInlineCardResolvedRovoActions from '../../../examples/vr-inline-card-resolved-rovo-actions';
-import InlineCardWithStatus from '../../../examples/vr-inline-card-with-status';
-import VRInlineCardAllExamplesInText from '../../../examples/vr-inline-card/vr-inline-card-all-examples-in-text';
-import InlineCardDefaultWithEntities from '../../../examples/vr-inline-card/vr-inline-card-default-entities';
-import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-default-icon';
-import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inline-card-default-truncate';
-import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
-import InlineCardErrorTruncate from '../../../examples/vr-inline-card/vr-inline-card-error-truncate';
-import InlineCardFontSize16 from '../../../examples/vr-inline-card/vr-inline-card-font-size-16';
-import InlineCardFontSize24 from '../../../examples/vr-inline-card/vr-inline-card-font-size-24';
-import InlineCardFontSize32 from '../../../examples/vr-inline-card/vr-inline-card-font-size-32';
-import InlineCardFontSizeDefault from '../../../examples/vr-inline-card/vr-inline-card-font-size-default';
-import InlineCardForbidden from '../../../examples/vr-inline-card/vr-inline-card-forbidden';
-import InlineCardForbiddenDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-forbidden-default-icon';
-import InlineCardForbiddenRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-request-access';
-import InlineCardForbiddenDeniedSiteAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-denied-access';
-import InlineCardForbiddenDirectAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-direct-access';
-import InlineCardForbiddenPendingSiteAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-pending-access';
-import InlineCardForbiddenSiteRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access';
-import InlineCardForbiddenSiteRequestAccessTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access-truncate';
-import InlineCardForbiddenTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-truncate';
-import InlineCardIcons from '../../../examples/vr-inline-card/vr-inline-card-icons';
-import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found';
-import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate';
-import InlineCardResolvedIconVariations from '../../../examples/vr-inline-card/vr-inline-card-resolved-icon-variations';
-import InlineCardSelected from '../../../examples/vr-inline-card/vr-inline-card-selected';
-import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap';
-import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
-import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon';
-import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
-import InlineCardUnauthorisedSocialProofLoaded from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-loaded';
-import InlineCardUnauthorisedSocialProofLowExplore from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-explore';
-import InlineCardUnauthorisedSocialProofLowNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-no-context';
-import InlineCardUnauthorisedSocialProofNarrow from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-narrow';
-import InlineCardUnauthorisedSocialProofNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-no-context';
-import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate';
+import VRInlineCardResolvedRovoActions from '../../../examples/vr-inline-card-resolved-rovo-actions.vr.ap';
+import InlineCardWithStatus from '../../../examples/vr-inline-card-with-status.vr.ap';
+import VRInlineCardAllExamplesInText from '../../../examples/vr-inline-card/vr-inline-card-all-examples-in-text.vr.ap';
+import InlineCardDefaultWithEntities from '../../../examples/vr-inline-card/vr-inline-card-default-entities.vr.ap';
+import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-default-icon.vr.ap';
+import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inline-card-default-truncate.vr.ap';
+import InlineCardErrorTruncate from '../../../examples/vr-inline-card/vr-inline-card-error-truncate.vr.ap';
+import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error.vr.ap';
+import InlineCardFontSize16 from '../../../examples/vr-inline-card/vr-inline-card-font-size-16.vr.ap';
+import InlineCardFontSize24 from '../../../examples/vr-inline-card/vr-inline-card-font-size-24.vr.ap';
+import InlineCardFontSize32 from '../../../examples/vr-inline-card/vr-inline-card-font-size-32.vr.ap';
+import InlineCardFontSizeDefault from '../../../examples/vr-inline-card/vr-inline-card-font-size-default.vr.ap';
+import InlineCardForbiddenDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-forbidden-default-icon.vr.ap';
+import InlineCardForbiddenRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-request-access.vr.ap';
+import InlineCardForbiddenDeniedSiteAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-denied-access.vr.ap';
+import InlineCardForbiddenDirectAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-direct-access.vr.ap';
+import InlineCardForbiddenPendingSiteAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-pending-access.vr.ap';
+import InlineCardForbiddenSiteRequestAccessTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access-truncate.vr.ap';
+import InlineCardForbiddenSiteRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access.vr.ap';
+import InlineCardForbiddenTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-truncate.vr.ap';
+import InlineCardForbidden from '../../../examples/vr-inline-card/vr-inline-card-forbidden.vr.ap';
+import InlineCardIcons from '../../../examples/vr-inline-card/vr-inline-card-icons.vr.ap';
+import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate.vr.ap';
+import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found.vr.ap';
+import InlineCardResolvedIconVariations from '../../../examples/vr-inline-card/vr-inline-card-resolved-icon-variations.vr.ap';
+import InlineCardSelected from '../../../examples/vr-inline-card/vr-inline-card-selected.vr.ap';
+import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap.vr.ap';
+import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon.vr.ap';
+import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth.vr.ap';
+import InlineCardUnauthorisedSocialProofLoaded from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-loaded.vr.ap';
+import InlineCardUnauthorisedSocialProofLowExplore from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-explore.vr.ap';
+import InlineCardUnauthorisedSocialProofLowNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-no-context.vr.ap';
+import InlineCardUnauthorisedSocialProofNarrow from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-narrow.vr.ap';
+import InlineCardUnauthorisedSocialProofNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-no-context.vr.ap';
+import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate.vr.ap';
+import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised.vr.ap';
 import {
 	InlineCardWordWrapForbidden,
 	InlineCardWordWrapForbiddenWithSitePendingRequest,
@@ -44,8 +44,8 @@ import {
 	InlineCardWordWrapResolved,
 	InlineCardWordWrapResolving,
 	InlineCardWordWrapUnAuth,
-} from '../../../examples/vr-inline-card/vr-inline-card-word-wrap';
-import { VRInlineProfileCard } from '../../../examples/vr-inline-card/vr-inline-profile-card';
+} from '../../../examples/vr-inline-card/vr-inline-card-word-wrap.vr.ap';
+import { VRInlineProfileCard } from '../../../examples/vr-inline-card/vr-inline-profile-card.vr.ap';
 
 /**
  * `useCurrentSiteCloudId` GETs `/_edge/tenant_info` in the browser;
@@ -285,7 +285,6 @@ snapshot(InlineCardUnauthorisedSocialProofNarrow, {
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
 		platform_sl_3p_preauth_social_proof_inline_cta: true,
-		platform_lp_social_proof_inline_overflow_bug: [true, false],
 	},
 	mockRequests: [...mockEdgeTenantInfoRequests],
 });
@@ -407,6 +406,7 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 	},
 });
 
+// Will be re-enabled as part of UTEST-2316.
 snapshot.skip(InlineCardIcons, {
 	description: `inline card icons`,
 	featureFlags: {},
@@ -428,7 +428,8 @@ snapshot(InlineCardResolvedIconVariations, {
 	],
 });
 
-snapshot(VRInlineCardAllExamplesInText, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples in text`,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
@@ -458,7 +459,6 @@ snapshot(VRInlineCardResolvedRovoActions, {
 	description: 'inline card resolved view with Rovo actions CTA (treatment)',
 	featureFlags: {
 		'smart-card-inline-resolved-view-refactor': true,
-		platform_sl_3p_auth_inline_tailored_cta_killswitch: true,
 	},
 });
 

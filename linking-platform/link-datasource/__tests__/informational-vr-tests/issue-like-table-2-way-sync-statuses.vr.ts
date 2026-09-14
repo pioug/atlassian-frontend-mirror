@@ -6,7 +6,7 @@ import { snapshotInformational } from '@af/visual-regression';
 import {
 	VRIssueLikeTableStatus,
 	VRIssueLikeTableStatusLoading,
-} from '../../examples/vr/issue-like-table-status';
+} from '../../examples/vr/issue-like-table-status.vr.ap';
 
 snapshotInformational(VRIssueLikeTableStatusLoading, {
 	description: 'Status column inline edit - loading',

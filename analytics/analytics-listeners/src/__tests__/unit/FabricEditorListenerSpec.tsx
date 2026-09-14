@@ -1,4 +1,4 @@
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import {
@@ -47,7 +47,7 @@ describe('<FabricEditorsListener />', () => {
 		const dummyElement = screen.getByRole('button', { name: 'editor' });
 		fireEvent.click(dummyElement);
 
-		expect(analyticsWebClientMock.sendUIEvent).toBeCalledWith(expectedEvent);
+		expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(expectedEvent);
 	};
 
 	describe('Listen and fire an UI event with analyticsWebClient', () => {

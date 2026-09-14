@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import InternalPortal from './internal/components/internal-portal';
 import InternalPortalNew from './internal/components/internal-portal-new';

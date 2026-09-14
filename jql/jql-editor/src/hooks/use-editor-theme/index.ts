@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type Context } from 'react';
+import { createContext, type Context } from 'react';
 
 import noop from 'lodash/noop';
 
@@ -35,8 +35,9 @@ export type EditorTheme = {
 	toggleExpanded: () => void;
 };
 
-const defaultMaxRows = 3;
-const expandedRows = 15;
+export const defaultMaxRows: any = 3;
+
+export const expandedRows: any = 15;
 
 const defaultEditorTheme: EditorTheme = {
 	defaultMaxRows,
@@ -49,36 +50,3 @@ const defaultEditorTheme: EditorTheme = {
 
 export const EditorThemeContext: Context<EditorTheme> =
 	createContext<EditorTheme>(defaultEditorTheme);
-
-/**
- * Hook to manage the theming state of the editor.
- */
-export const useEditorTheme = ({
-	isSearch = false,
-	isCompact = false,
-	defaultRows,
-}: {
-	defaultRows?: number;
-	isCompact?: boolean;
-	isSearch?: boolean;
-}): EditorTheme => {
-	const [expanded, setExpanded] = useState(false);
-
-	const toggleExpanded = useCallback(() => setExpanded((prevState) => !prevState), []);
-
-	return useMemo(
-		() => ({
-			defaultMaxRows:
-				defaultRows !== undefined && defaultRows > defaultMaxRows ? defaultRows : defaultMaxRows,
-			expanded,
-			expandedRows,
-			toggleExpanded,
-			isSearch,
-			isCompact,
-			defaultRows,
-		}),
-		[expanded, toggleExpanded, isSearch, isCompact, defaultRows],
-	);
-};
-
-export const useEditorThemeContext = (): EditorTheme => useContext(EditorThemeContext);

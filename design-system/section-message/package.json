@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/section-message",
-	"version": "9.2.6",
+	"version": "10.2.2",
 	"description": "A section message is used to alert users to a particular section of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,10 +31,12 @@
 		}
 	},
 	"exports": {
+		".": "./src/index.tsx",
+		"./message": "./src/section-message.tsx",
+		"./message-action": "./src/section-message-action.tsx",
 		"./section-message": "./src/entry-points/section-message.tsx",
 		"./section-message-action": "./src/entry-points/section-message-action.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		".": "./src/index.tsx"
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
@@ -49,7 +51,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -63,37 +65,11 @@
 		"@atlaskit/range": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"analytics": "analytics-next",
-			"styling": [
-				"emotion"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
-	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"homepage": "https://atlassian.design/components/section-message/"
 }

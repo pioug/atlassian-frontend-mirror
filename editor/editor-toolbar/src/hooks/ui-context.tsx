@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 
 import type { ToolbarKeyboardNavigationProviderConfig } from '../types';
 

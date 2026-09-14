@@ -3,7 +3,7 @@ import React, { type FC, type ReactNode } from 'react';
 import AnimateHeight from 'react-animate-height';
 import { defineMessages, useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -24,6 +24,9 @@ const i18n = defineMessages({
 });
 
 export type BasePanelProps = {
+	/** Accessible label for the expand/collapse button. Use this when the header is a non-text
+	 * React node so screen readers announce a meaningful name instead of the icon label. */
+	ariaLabel?: string;
 	/** Content to be shown inside the panel. */
 	children?: ReactNode;
 	/** Header to render on the panel. Clicking the header expands and collapses the panel */
@@ -37,7 +40,13 @@ type PanelState = BasePanelProps & {
 	onChange: (isExpanded: boolean) => void;
 };
 
-const PanelStateless: FC<PanelState> = ({ children, header, isExpanded = false, onChange }) => {
+const PanelStateless: FC<PanelState> = ({
+	children,
+	header,
+	isExpanded = false,
+	onChange,
+	ariaLabel,
+}) => {
 	const intl = useIntl();
 	const i18nExpandText = intl.formatMessage(i18n.expand);
 	const i18nCollapseText = intl.formatMessage(i18n.collapse);
@@ -49,6 +58,7 @@ const PanelStateless: FC<PanelState> = ({ children, header, isExpanded = false, 
 					<Button
 						appearance="subtle"
 						aria-expanded={isExpanded}
+						aria-label={ariaLabel}
 						spacing="none"
 						iconBefore={
 							isExpanded ? (

@@ -1,19 +1,7 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./examples/*.ts",
-    "./examples/*.tsx",
-    "./example-helpers/*.ts",
-    "./example-helpers/*.tsx",
-    "./test-helpers/*.ts",
-    "./test-helpers/*.tsx",
-    "**/stories.ts",
-    "**/stories.tsx",
-    "**/stories/*.ts",
-    "**/stories/*.tsx",
-    "**/stories/**/*.ts",
-    "**/stories/**/*.tsx"
-  ]
+	"extends": "./tsconfig.dev.json",
+	"compilerOptions": {
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true
+	}
 }

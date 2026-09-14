@@ -5,18 +5,17 @@ import {
 	toBeValidAGGQuery,
 } from '@atlassian/ptc-test-utils/graphql-jest';
 
-import { AGGErrors, HttpError } from '../../util/errors';
-import {
-	addHeaders,
-	buildGatewayQuery,
-	convertTeam,
-	extractIdFromAri,
-	GATEWAY_QUERY_V2,
-	getTeamFromAGG,
-	idToAri,
-	idToAriSafe,
-} from '../getTeamFromAGG';
-import * as gqlUtils from '../graphqlUtils';
+import { AGGErrors } from '../../util/AGGErrors';
+import { HttpError } from '../../util/HttpError';
+import * as AGGQueryModule from '../AGGQuery';
+import { addHeaders } from '../addHeaders';
+import { buildGatewayQuery } from '../buildGatewayQuery';
+import { convertTeam } from '../convertTeam';
+import { extractIdFromAri } from '../extractIdFromAri';
+import { GATEWAY_QUERY_V2 } from '../gatewayQueryV2';
+import { getTeamFromAGG } from '../getTeamFromAGG';
+import { idToAri } from '../idToAri';
+import { idToAriSafe } from '../idToAriSafe';
 
 const ARI_PREFIX = 'ari:cloud:identity::team';
 
@@ -238,7 +237,7 @@ describe('getTeamFromAGG', () => {
 
 		it('should make the correct query', async () => {
 			const gqlQuery = jest
-				.spyOn(gqlUtils, 'AGGQuery')
+				.spyOn(AGGQueryModule, 'AGGQuery')
 				.mockImplementation(() => Promise.resolve({ Team: TEAM_RESPONSE }));
 
 			await getTeamFromAGG(serviceUrl, teamId, 'site-id');

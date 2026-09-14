@@ -14,4 +14,3 @@ const fontTransform: Transform = {
 };
 
 export default fontTransform;
-export { fontTokenToCSS } from './font-token-to-css';

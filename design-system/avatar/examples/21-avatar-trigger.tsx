@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { cssMap } from '@atlaskit/css';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

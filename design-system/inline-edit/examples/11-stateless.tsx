@@ -1,9 +1,9 @@
 import React, { type FC, useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import InlineEdit from '@atlaskit/inline-edit';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 
 const readViewContainerStyles = cssMap({
 	root: {

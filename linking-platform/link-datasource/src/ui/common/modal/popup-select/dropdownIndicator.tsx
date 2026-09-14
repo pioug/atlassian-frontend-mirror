@@ -5,7 +5,8 @@ import { cssMap } from '@compiled/react';
 import CloseIcon from '@atlaskit/icon/core/cross-circle';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { components, type DropdownIndicatorProps } from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { DropdownIndicatorProps } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from './types';

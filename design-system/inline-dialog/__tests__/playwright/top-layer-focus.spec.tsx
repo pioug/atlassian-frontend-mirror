@@ -23,7 +23,7 @@ test.describe('Inline dialog: top-layer focus contract', () => {
 			'design-system',
 			'inline-dialog',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		await page.getByTestId('default-inline-dialog-trigger').click();
@@ -37,7 +37,7 @@ test.describe('Inline dialog: top-layer focus contract', () => {
 			'design-system',
 			'inline-dialog',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('default-inline-dialog-trigger');
@@ -56,7 +56,7 @@ test.describe('Inline dialog: top-layer focus contract', () => {
 			'design-system',
 			'inline-dialog',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		await page.getByTestId('default-inline-dialog-trigger').click();
@@ -93,7 +93,7 @@ test.describe('Inline dialog: top-layer focus contract', () => {
 			'design-system',
 			'inline-dialog',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		await page.getByTestId('autofocus-inline-dialog-trigger').click();

@@ -909,7 +909,6 @@ const _default_1: any = md`
 ${(
 	<PropsTable
 		heading="Avatar List Props"
-		// @ts-ignore
 		props={require('!!extract-react-types-loader!../../src/avatar-list')}
 	/>
 )}
@@ -919,7 +918,6 @@ ${(<PropsTable heading="Avatar Picker Dialog Props" props={avatarPickerProps} />
 ${(
 	<PropsTable
 		heading="Predefined Avatar List Props"
-		// @ts-ignore
 		props={require('!!extract-react-types-loader!../../src/predefined-avatar-list')}
 	/>
 )}
@@ -927,7 +925,6 @@ ${(
 ${(
 	<PropsTable
 		heading="Predefined Avatar View Props"
-		// @ts-ignore
 		props={require('!!extract-react-types-loader!../../src/predefined-avatar-view')}
 	/>
 )}`;

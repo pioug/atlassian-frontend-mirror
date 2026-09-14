@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ElementName } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { BaseLozengeElement, type BaseLozengeElementProps } from '../common';
 
 export type StateElementProps = BaseLozengeElementProps;

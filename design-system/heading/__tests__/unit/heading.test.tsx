@@ -2,7 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import Heading, { HeadingContextProvider } from '../../src';
+import Heading from '../../src/heading';
+import HeadingContextProvider from '../../src/heading-context';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Heading', () => {

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { JiraIcon } from '@atlaskit/logo';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
@@ -62,7 +63,7 @@ export function LinkMenuItemExample(): React.JSX.Element {
 							</LinkMenuItem>
 							<LinkMenuItem
 								href={linkMenuItemHref}
-								elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+								elemBefore={<JiraIcon label="" size="xsmall" />}
 							>
 								Link menu item (app tile)
 							</LinkMenuItem>

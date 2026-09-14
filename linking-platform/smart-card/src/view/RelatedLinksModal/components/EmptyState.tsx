@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

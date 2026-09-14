@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/core/add';
 import ProjectIcon from '@atlaskit/icon/core/project';

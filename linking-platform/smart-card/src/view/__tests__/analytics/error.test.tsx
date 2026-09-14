@@ -1,11 +1,13 @@
 import React from 'react';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen, waitFor } from '@atlassian/testing-library';
 
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
@@ -36,7 +38,6 @@ describe('smart-card: error analytics', () => {
 	beforeEach(() => {
 		mockWindowOpen = jest.fn();
 		mockUrl = 'https://my.url';
-		/// @ts-ignore
 		global.open = mockWindowOpen;
 		consoleErrorFn = jest.spyOn(console, 'error').mockImplementation(() => jest.fn());
 	});
@@ -177,7 +178,6 @@ describe('smart-card: error analytics', () => {
 		beforeEach(() => {
 			mockWindowOpen = jest.fn();
 			mockUrl = 'https://my.url';
-			/// @ts-ignore
 			global.open = mockWindowOpen;
 			consoleErrorFn = jest.spyOn(console, 'error').mockImplementation(() => jest.fn());
 		});
@@ -454,7 +454,6 @@ describe('smart-card: error analytics', () => {
 		beforeEach(() => {
 			mockWindowOpen = jest.fn();
 			mockUrl = 'https://my.url';
-			/// @ts-ignore
 			global.open = mockWindowOpen;
 			consoleErrorFn = jest.spyOn(console, 'error').mockImplementation(() => jest.fn());
 		});

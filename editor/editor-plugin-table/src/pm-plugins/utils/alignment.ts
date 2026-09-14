@@ -1,4 +1,4 @@
-import type { TableLayout } from '@atlaskit/adf-schema';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { AlignmentOptions } from '../../types';

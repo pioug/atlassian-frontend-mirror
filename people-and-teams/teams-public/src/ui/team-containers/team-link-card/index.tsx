@@ -2,25 +2,18 @@ import React, { useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
 import { cssMap, cx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import CrossIcon from '@atlaskit/icon/core/cross';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../common/types';
 import { ContainerIcon } from '../../../common/ui/container-icon';
 import { Separator } from '../../../common/ui/separator';
 import { TeamLinkCardActions } from '../../../common/ui/team-link-card-actions';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
-import { getDomainFromLinkUri } from '../../../common/utils/get-link-domain';
+import { getDomainFromLinkUri } from '../../../common/utils/get-domain-from-link-uri';
 
 import { TeamLinkCardTitle } from './team-link-card-title';
 
@@ -74,21 +67,6 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-	},
-	crossIconWrapper: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		marginLeft: 'auto',
-	},
-	showMoreIconWrapper: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		marginLeft: 'auto',
-	},
-	linkableContent: {
-		flex: '1',
 	},
 	externalLinkIconWrapper: {
 		display: 'flex',
@@ -157,7 +135,6 @@ export const TeamLinkCard = ({
 
 	const [hovered, setHovered] = useState(false);
 	const [focused, setFocused] = useState(false);
-	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [showKeyboardFocus, setShowKeyboardFocus] = useState(false);
 	const { formatMessage } = useIntl();
@@ -169,9 +146,6 @@ export const TeamLinkCard = ({
 			return;
 		}
 		setHovered(true);
-		if (containerType !== 'WebLink') {
-			setShowCloseIcon(true);
-		}
 	};
 
 	const handleFocus = () => {
@@ -179,36 +153,22 @@ export const TeamLinkCard = ({
 			return;
 		}
 		setFocused(true);
-		if (containerType !== 'WebLink') {
-			setShowCloseIcon(true);
-		}
 	};
 
 	const handleBlur = () => {
 		setFocused(false);
-		if (containerType !== 'WebLink' && !hovered) {
-			setShowCloseIcon(false);
-		}
 	};
 
 	const handleMouseLeave = () => {
 		setHovered(false);
-		if (containerType !== 'WebLink' && !focused) {
-			setShowCloseIcon(false);
-		}
 	};
 
 	const handleIconClick = () => {
-		if (fg('fix_team_link_card_a11y')) {
-			setShowKeyboardFocus(false);
-		}
+		setShowKeyboardFocus(false);
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
-		if (
-			(e.key === 'Enter' || e.key === ' ' || e.key === 'Tab' || e.key === 'Escape') &&
-			fg('fix_team_link_card_a11y')
-		) {
+		if (e.key === 'Enter' || e.key === ' ' || e.key === 'Tab' || e.key === 'Escape') {
 			setShowKeyboardFocus(true);
 		}
 	};
@@ -246,155 +206,61 @@ export const TeamLinkCard = ({
 					containerIcon={containerIcon}
 					size="medium"
 				/>
-				{fg('fix_team_link_card_a11y') ? (
-					<>
-						<Anchor
-							xcss={cx(
-								styles.anchor,
-								styles.anchorNoUnderline,
-								isOpenWebLinkInNewTabEnabled && styles.anchorWithExternalLinkIcon,
-							)}
-							href={link || '#'}
-							onClick={handleLinkClick}
-							testId="team-link-card-linkable-content"
-							target={isOpenWebLinkInNewTabEnabled ? '_blank' : '_self'}
-						>
-							<Stack>
-								<TeamLinkCardTitle
-									isTeamLensInHomeEnabled
-									isOpenWebLinkInNewTabEnabled={isOpenWebLinkInNewTabEnabled}
-									link={link || '#'}
-									handleLinkClick={handleLinkClick}
-									title={title}
-								/>
-								<Flex gap="space.050" alignItems="center">
-									{!hideSubTextIcon ? icon : null}
-									<Inline space="space.050" alignBlock="center">
-										{renderContainerTypeTextWithSeparator(containerTypeText, description)}
-									</Inline>
-								</Flex>
-							</Stack>
-							{isOpenWebLinkInNewTabEnabled && (
-								<Box xcss={styles.externalLinkIconWrapper}>
-									<LinkExternalIcon
-										label={formatMessage(messages.linkExternalIconLabel)}
-										aria-hidden="true"
-										size="small"
-									/>
-								</Box>
-							)}
-						</Anchor>
-						{!isReadOnly && (
-							<TeamLinkCardActions
-								containerType={containerType}
-								title={title}
-								containerId={containerId}
-								hovered={hovered}
-								focused={focused}
-								isDropdownOpen={isDropdownOpen}
-								showKeyboardFocus={showKeyboardFocus}
-								onDisconnectButtonClick={() => {
-									handleIconClick();
-									onDisconnectButtonClick();
-								}}
-								onEditLinkClick={() => {
-									handleIconClick();
-									onEditLinkClick?.();
-								}}
-								onDropdownOpenChange={setIsDropdownOpen}
+				<Anchor
+					xcss={cx(
+						styles.anchor,
+						styles.anchorNoUnderline,
+						isOpenWebLinkInNewTabEnabled && styles.anchorWithExternalLinkIcon,
+					)}
+					href={link || '#'}
+					onClick={handleLinkClick}
+					testId="team-link-card-linkable-content"
+					target={isOpenWebLinkInNewTabEnabled ? '_blank' : '_self'}
+				>
+					<Stack>
+						<TeamLinkCardTitle
+							isTeamLensInHomeEnabled
+							isOpenWebLinkInNewTabEnabled={isOpenWebLinkInNewTabEnabled}
+							link={link || '#'}
+							handleLinkClick={handleLinkClick}
+							title={title}
+						/>
+						<Flex gap="space.050" alignItems="center">
+							{!hideSubTextIcon ? icon : null}
+							<Inline space="space.050" alignBlock="center">
+								{renderContainerTypeTextWithSeparator(containerTypeText, description)}
+							</Inline>
+						</Flex>
+					</Stack>
+					{isOpenWebLinkInNewTabEnabled && (
+						<Box xcss={styles.externalLinkIconWrapper}>
+							<LinkExternalIcon
+								label={formatMessage(messages.linkExternalIconLabel)}
+								aria-hidden="true"
+								size="small"
 							/>
-						)}
-					</>
-				) : (
-					<>
-						<Box xcss={styles.linkableContent} testId="team-link-card-linkable-content">
-							<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>
-								<Stack>
-									<TeamLinkCardTitle
-										isTeamLensInHomeEnabled
-										isOpenWebLinkInNewTabEnabled={isOpenWebLinkInNewTabEnabled}
-										link={link || '#'}
-										handleLinkClick={handleLinkClick}
-										title={title}
-									/>
-									<Flex gap="space.050" alignItems="center">
-										{!hideSubTextIcon ? icon : null}
-										<Inline space="space.050" alignBlock="center">
-											{renderContainerTypeTextWithSeparator(containerTypeText, description)}
-										</Inline>
-									</Flex>
-								</Stack>
-							</Link>
 						</Box>
-						{showCloseIcon && (
-							<Box xcss={styles.crossIconWrapper}>
-								<Tooltip content={formatMessage(messages.disconnectTooltip)} position="top">
-									<IconButton
-										label={`disconnect the container ${title}`}
-										appearance="subtle"
-										icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-										spacing="compact"
-										onClick={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-											onDisconnectButtonClick();
-											fireEvent('ui.button.clicked.containerUnlinkButton', {
-												containerSelected: { container: containerType, containerId },
-											});
-										}}
-									/>
-								</Tooltip>
-							</Box>
-						)}
-						{containerType === 'WebLink' && (hovered || isDropdownOpen) && (
-							<Box xcss={styles.showMoreIconWrapper}>
-								<DropdownMenu
-									trigger={({ triggerRef, ...triggerProps }) => (
-										<IconButton
-											ref={triggerRef}
-											{...triggerProps}
-											label={`more options for ${title}`}
-											appearance="subtle"
-											icon={(iconProps) => <ShowMoreHorizontalIcon {...iconProps} size="small" />}
-											spacing="compact"
-										/>
-									)}
-									placement="bottom-end"
-									shouldRenderToParent
-									onOpenChange={(attrs) => {
-										setIsDropdownOpen(attrs.isOpen);
-									}}
-								>
-									<DropdownItemGroup>
-										<DropdownItem
-											onClick={(e) => {
-												e.preventDefault();
-												e.stopPropagation();
-												onEditLinkClick?.();
-												fireEvent('ui.button.clicked.containerEditLinkButton', {
-													containerSelected: { container: containerType, containerId },
-												});
-											}}
-										>
-											{formatMessage(messages.editLink)}
-										</DropdownItem>
-										<DropdownItem
-											onClick={(e) => {
-												e.preventDefault();
-												e.stopPropagation();
-												onDisconnectButtonClick();
-												fireEvent('ui.button.clicked.containerUnlinkButton', {
-													containerSelected: { container: containerType, containerId },
-												});
-											}}
-										>
-											{formatMessage(messages.removeLink)}
-										</DropdownItem>
-									</DropdownItemGroup>
-								</DropdownMenu>
-							</Box>
-						)}
-					</>
+					)}
+				</Anchor>
+				{!isReadOnly && (
+					<TeamLinkCardActions
+						containerType={containerType}
+						title={title}
+						containerId={containerId}
+						hovered={hovered}
+						focused={focused}
+						isDropdownOpen={isDropdownOpen}
+						showKeyboardFocus={showKeyboardFocus}
+						onDisconnectButtonClick={() => {
+							handleIconClick();
+							onDisconnectButtonClick();
+						}}
+						onEditLinkClick={() => {
+							handleIconClick();
+							onEditLinkClick?.();
+						}}
+						onDropdownOpenChange={setIsDropdownOpen}
+					/>
 				)}
 			</Inline>
 		</Box>
@@ -402,21 +268,6 @@ export const TeamLinkCard = ({
 };
 
 const messages = defineMessages({
-	disconnectTooltip: {
-		id: 'ptc-directory.team-containers.disconnect-button.tooltip',
-		defaultMessage: 'Disconnect',
-		description: 'Tooltip for the disconnect button',
-	},
-	editLink: {
-		id: 'ptc-directory.team-containers.edit-link',
-		defaultMessage: 'Edit link',
-		description: 'Label for the edit link option in the team link card dropdown menu',
-	},
-	removeLink: {
-		id: 'ptc-directory.team-containers.remove-link',
-		defaultMessage: 'Remove',
-		description: 'Remove link option in dropdown',
-	},
 	linkExternalIconLabel: {
 		id: 'ptc-directory.team-containers.link-external-icon-label',
 		defaultMessage: 'Open link in new tab',

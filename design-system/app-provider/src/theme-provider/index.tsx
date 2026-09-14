@@ -10,7 +10,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { SUBTREE_THEME_ATTRIBUTE } from '@atlaskit/tokens/constants';
 import { getThemeHtmlAttrs } from '@atlaskit/tokens/get-theme-html-attrs';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-color-modes';
 
 import { useIsAppProviderThemingEnabled } from '../use-is-app-provider-theming-enabled';
 import { useIsInsideAppProvider } from '../use-is-inside-app-provider';
@@ -62,7 +62,7 @@ export interface ThemeProviderProps {
  *
  * Provides global theming configuration.
  */
-function ThemeProvider({
+export function ThemeProvider({
 	children,
 	defaultColorMode = 'auto',
 	defaultTheme,
@@ -198,5 +198,3 @@ function ThemeProvider({
 		</InsideThemeProviderContext.Provider>
 	);
 }
-
-export default ThemeProvider;

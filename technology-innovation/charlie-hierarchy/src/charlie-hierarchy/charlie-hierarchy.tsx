@@ -22,7 +22,13 @@ import { type ProvidedZoom, type TransformMatrix } from '@visx/zoom/lib/types';
 
 import { token } from '@atlaskit/tokens';
 
-import { calculateLinkTargetPosition, updateNodeLayout } from './utils';
+import {
+	buildRoundedVerticalStepPath,
+	calculateLinkTargetPosition,
+	updateNodeLayout,
+} from './utils';
+
+const LINK_PERCENT = 0.5;
 
 const staticStyles = cssMap({
 	hierarchyWrapper: {
@@ -43,6 +49,34 @@ const staticStyles = cssMap({
 		touchAction: 'none',
 	},
 });
+type ConnectorAttributes = Omit<
+	React.SVGAttributes<unknown>,
+	| 'className'
+	| 'innerRef'
+	| 'data'
+	| 'path'
+	| 'percent'
+	| 'x'
+	| 'y'
+	| 'source'
+	| 'target'
+	| 'children'
+>;
+
+type ConnectorStyles = {
+	/**
+	 * Radius, in pixels, of the corners where a connector turns between its
+	 * vertical and horizontal segments.
+	 *
+	 * @default 0
+	 */
+	cornerRadius?: number;
+	/**
+	 * SVG attributes applied to each rendered parent connector group.
+	 */
+	attributes?: ConnectorAttributes;
+};
+
 export interface CharlieHierarchyProps<Datum> extends Omit<TreeProps<Datum>, 'children'> {
 	/**
 	 * Children gets called for each node when the tree is being generated.
@@ -80,19 +114,16 @@ export interface CharlieHierarchyProps<Datum> extends Omit<TreeProps<Datum>, 'ch
 		// Separates the nodes from each other by the specified amount.
 		padding?: { above: number; adjacent: number };
 
-		lineAttributes?: Omit<
-			React.SVGAttributes<unknown>,
-			| 'className'
-			| 'innerRef'
-			| 'data'
-			| 'path'
-			| 'percent'
-			| 'x'
-			| 'y'
-			| 'source'
-			| 'target'
-			| 'children'
-		>;
+		/**
+		 * Connector geometry and SVG styling.
+		 */
+		connector?: ConnectorStyles;
+		/**
+		 * Legacy connector SVG attributes. Prefer `styles.connector.attributes`
+		 * for new usage. If both are provided, `styles.connector.attributes`
+		 * takes precedence.
+		 */
+		lineAttributes?: ConnectorAttributes;
 		/**
 		 * A transform matrix that can be applied to the tree.
 		 * If you are using zoom, this will be overridden by the zoom transform matrix.
@@ -168,45 +199,65 @@ export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>): J
 		: transformMatrix
 			? `matrix(${transformMatrix.scaleX}, ${transformMatrix.skewX}, ${transformMatrix.skewY}, ${transformMatrix.scaleY}, ${transformMatrix.translateX}, ${transformMatrix.translateY})`
 			: undefined;
+	const connectorAttributes = React.useMemo(
+		() => ({
+			...styles.lineAttributes,
+			...styles.connector?.attributes,
+		}),
+		[styles.connector?.attributes, styles.lineAttributes],
+	);
+	const connectorCornerRadius = styles.connector?.cornerRadius ?? 0;
+	const linkPath = React.useMemo(
+		() =>
+			buildRoundedVerticalStepPath({
+				percent: LINK_PERCENT,
+				cornerRadius: connectorCornerRadius,
+			}),
+		[connectorCornerRadius],
+	);
 
 	const edges = React.useMemo(() => {
 		return (
 			<Tree<Datum> root={root} top={top} left={left} nodeSize={nodeSize}>
 				{/* The tree is passed to the children function so that the links can be rendered */}
 				{(tree) => {
-					return (
-						<>
-							{tree.links().map((link, linkIndex) => {
-								if (stackingThreshold) {
-									link.target.x = calculateLinkTargetPosition(
-										link.target.x,
-										link.source.children,
-										stackingThreshold,
-										nodeWidthWithPadding,
-									);
+					const linksByParent = tree.links().reduce((groups, link, linkIndex) => {
+						if (stackingThreshold) {
+							link.target.x = calculateLinkTargetPosition(
+								link.target.x,
+								link.source.children,
+								stackingThreshold,
+								nodeWidthWithPadding,
+							);
 
-									// For now, don't render links that are beyond the stacking threshold.
-									// In the future, we can render the links that are beyond the stacking threshold.
-									if (linkIndex > stackingThreshold - 1) {
-										return null;
-									}
-								}
+							// For now, don't render links that are beyond the stacking threshold.
+							// In the future, we can render the links that are beyond the stacking threshold.
+							if (linkIndex > stackingThreshold - 1) {
+								return groups;
+							}
+						}
 
-								return (
-									<LinkVerticalStep
-										key={`link-${linkIndex}`}
-										data={link}
-										stroke={token('color.border.accent.gray')}
-										strokeWidth="1"
-										fill="none"
-										opacity={1}
-										percent={0.5}
-										{...(props.styles?.lineAttributes ?? {})}
-									/>
-								);
-							})}
-						</>
-					);
+						const parentLinks = groups.get(link.source) ?? [];
+						parentLinks.push(link);
+						groups.set(link.source, parentLinks);
+
+						return groups;
+					}, new Map<HierarchyPointNode<Datum>, ReturnType<typeof tree.links>>());
+
+					return Array.from(linksByParent.values()).map((links, parentIndex) => (
+						// Each parent group is painted as one SVG element
+						<LinkVerticalStep
+							key={`parent-links-${parentIndex}`}
+							data={links[0]!}
+							stroke={token('color.border.accent.gray')}
+							strokeWidth="1"
+							fill="none"
+							opacity={1}
+							percent={LINK_PERCENT}
+							path={() => links.map(linkPath).join(' ')}
+							{...connectorAttributes}
+						/>
+					));
 				}}
 			</Tree>
 		);
@@ -214,7 +265,7 @@ export const CharlieHierarchy = <Datum,>(props: CharlieHierarchyProps<Datum>): J
 		// depending on certain props. so we need to pass the renderDependencies so the
 		// tree will re-render when the dependencies change.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [...renderDependencies, props.styles?.lineAttributes]);
+	}, [...renderDependencies, connectorAttributes, linkPath]);
 
 	const nodes = React.useMemo(() => {
 		return (

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Tag from '@atlaskit/tag';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import Tag from '@atlaskit/tag/removable-tag';
 
 const sendAnalytics = (analytic: UIAnalyticsEvent) => console.log('analytic: ', analytic);
 

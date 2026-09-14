@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { HelperMessage } from '@atlaskit/form';
+import { HelperMessage } from '@atlaskit/form/helper-message';
 import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import { Card } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 

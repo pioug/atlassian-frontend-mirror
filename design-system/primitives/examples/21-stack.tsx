@@ -1,8 +1,14 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline } from '@atlaskit/primitives/inline';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack } from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
 const alignBlockItems = ['start', 'center', 'end'] as const;
@@ -32,7 +38,9 @@ const Block = () => (
 const containerStyles = xcss({
 	display: 'flex',
 	borderRadius: 'radius.xsmall',
+	height: '200px',
 });
+const fixedWidthBlockStyles = xcss({ borderRadius: 'radius.xsmall', width: '200px' });
 
 /**
  * Stack permutations.
@@ -58,10 +66,6 @@ export default (): React.JSX.Element => (
 										xcss={containerStyles}
 										padding="space.050"
 										backgroundColor="color.background.neutral"
-										style={{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											height: '200px',
-										}}
 									>
 										<Stack space="space.050" alignBlock={alignBlock}>
 											<Block />
@@ -89,10 +93,6 @@ export default (): React.JSX.Element => (
 										xcss={containerStyles}
 										padding="space.050"
 										backgroundColor="color.background.neutral"
-										style={{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											height: '200px',
-										}}
 									>
 										<Stack space="space.050" spread={spread}>
 											<Block />
@@ -115,13 +115,9 @@ export default (): React.JSX.Element => (
 							<Stack key={alignInline} alignInline="center">
 								{alignInline}
 								<Box
-									xcss={blockStyles}
+									xcss={fixedWidthBlockStyles}
 									padding="space.050"
 									backgroundColor="color.background.neutral"
-									style={{
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-										width: '200px',
-									}}
 								>
 									<Stack grow="fill" alignInline={alignInline} space="space.050">
 										<Block />

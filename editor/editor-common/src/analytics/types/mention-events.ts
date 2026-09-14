@@ -103,6 +103,7 @@ type MentionTypeaheadRenderedPayload = OperationalAEP<
 		agentsShown?: boolean;
 		componentName: string;
 		duration: number;
+		mentionTypeaheadSessionId: string;
 		queryLength?: number;
 		spaceInQuery?: boolean;
 		teams: Array<{

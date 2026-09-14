@@ -1,4 +1,7 @@
-import { tableBackgroundBorderColor, tableBackgroundColorPalette } from '@atlaskit/adf-schema';
+import {
+	tableBackgroundBorderColor,
+	tableBackgroundColorPalette,
+} from '@atlaskit/adf-schema/tableNodes';
 
 import getColorMessage from './getColorMessage';
 import paletteMessages from './paletteMessages';

@@ -8,7 +8,7 @@ import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
 import { toArray } from 'rxjs/operators/toArray';
 
-import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 
 import { type JQLFieldResponse } from '../../common/types';
 import findField$ from '../../utils/find-field-observable';

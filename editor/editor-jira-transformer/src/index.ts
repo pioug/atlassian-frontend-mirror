@@ -6,15 +6,13 @@ import fixDoc from './fix-doc';
 
 import { bfsOrder, convert, ensureBlocks } from './utils';
 
-import {
-	isSchemaWithLists,
-	isSchemaWithMentions,
-	isSchemaWithEmojis,
-	isSchemaWithCodeBlock,
-	isSchemaWithBlockQuotes,
-	isSchemaWithMedia,
-	isSchemaWithTables,
-} from '@atlaskit/adf-schema/schema-jira';
+import { isSchemaWithLists } from '@atlaskit/adf-schema/is-schema-with-lists';
+import { isSchemaWithMentions } from '@atlaskit/adf-schema/is-schema-with-mentions';
+import { isSchemaWithEmojis } from '@atlaskit/adf-schema/is-schema-with-emojis';
+import { isSchemaWithCodeBlock } from '@atlaskit/adf-schema/is-schema-with-code-block';
+import { isSchemaWithBlockQuotes } from '@atlaskit/adf-schema/is-schema-with-block-quotes';
+import { isSchemaWithMedia } from '@atlaskit/adf-schema/is-schema-with-media';
+import { isSchemaWithTables } from '@atlaskit/adf-schema/is-schema-with-tables';
 import type { Transformer } from '@atlaskit/editor-common/types';
 
 // Ignored via go/ees005

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "12.1.0",
+	"version": "12.4.0",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
 		}
 	},
 	"scripts": {
-		"codegen-analytics": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-analytics --output ./src/common/utils/analytics"
+		"codegen-analytics": "afm workspace @atlassian/analytics-tooling analytics:codegen link-analytics --output ./src/common/utils/analytics"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -48,8 +48,12 @@
 	},
 	"devDependencies": {
 		"@af/analytics-codegen": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/link-picker": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
+		"@atlaskit/popup": "workspace:^",
+		"@atlaskit/smart-card": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
@@ -60,8 +64,12 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./get-resolved-attributes": "./src/utils/get-resolved-attributes.ts",
+		"./get-url-attributes": "./src/utils/get-url-attributes.ts",
 		"./lifecycle": "./src/entry-points/lifecycle.ts",
-		"./resolved-attributes": "./src/entry-points/resolved-attributes.ts"
+		"./resolved-attributes": "./src/entry-points/resolved-attributes.ts",
+		"./use-datasource-lifecycle-analytics": "./src/use-datasource-lifecycle-analytics.ts",
+		"./use-smart-link-lifecycle-analytics": "./src/use-smart-link-lifecycle-analytics.ts"
 	},
 	"platform-feature-flags": {
 		"platform_bandicoots-smartlink-unresolved-error-key": {

@@ -1,23 +1,15 @@
-import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { TableContext, TableMap } from '../table-map';
+import type { TableContext } from '../table-map';
 import type { CellAttributes, CellAttributesWithColSpan } from '../types';
-
-import { addColSpan, assertColspan } from './colspan';
+import { addColSpan } from './add-col-span';
+import { assertColspan } from './assert-colspan';
+import { columnIsHeader } from './column-is-header';
 import { tableNodeTypes } from './table-node-types';
 
-export function columnIsHeader(map: TableMap, table: PMNode, col: number): boolean {
-	const headerCell = tableNodeTypes(table.type.schema).header_cell;
-	for (let row = 0; row < map.height; row++) {
-		const cell = table.nodeAt(map.map[col + row * map.width]);
-		if (cell && cell.type !== headerCell) {
-			return false;
-		}
-	}
-
-	return true;
-}
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { columnIsHeader } from './column-is-header';
 
 // Add a column at the given position in a table.
 export function addColumn(

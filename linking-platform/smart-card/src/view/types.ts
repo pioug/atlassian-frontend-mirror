@@ -1,5 +1,5 @@
-import { type Appearance } from '@atlaskit/button';
-import { type CardType } from '@atlaskit/linking-common';
+import type { Appearance } from '@atlaskit/button/old-button/types';
+import type { CardType } from '@atlaskit/linking-common/types';
 
 import { type RequestAccessMessageKey } from '../messages';
 

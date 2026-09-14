@@ -1,14 +1,13 @@
-import { UFOExperience } from '@atlaskit/ufo';
+import { UFOExperience } from '@atlaskit/ufo/experience';
 
-import {
-	type HttpError,
-	isAuthError,
-	isErrorStatusCode,
-	isNetworkError,
-	StatusCode,
-} from '../error';
+import { StatusCode } from '../error';
+import type { HttpError } from '../error/HttpError';
+import { isAuthError } from '../error/isAuthError';
+import { isErrorStatusCode } from '../error/isErrorStatusCode';
+import { isNetworkError } from '../error/isNetworkError';
 
-import { createErrorMetadata, isIgnoredError } from './utils';
+import { createErrorMetadata } from './createErrorMetadata';
+import { isIgnoredError } from './isIgnoredError';
 
 export class TeamsUFOExperience extends UFOExperience {
 	abortWithError(error: Error | HttpError, reason: string): Promise<boolean | null> {

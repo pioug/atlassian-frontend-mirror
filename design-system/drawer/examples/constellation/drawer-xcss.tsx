@@ -5,23 +5,26 @@
 
 import React, { useState } from 'react';
 
-import Lorem from 'react-lorem-component';
-
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { token } from '@atlaskit/tokens';
+
+import { Lorem } from '../lorem';
 
 const styles = cssMap({
 	sidebar: {
 		backgroundColor: token('color.background.accent.gray.subtlest'),
 	},
 	content: {
-		marginTop: token('space.0'),
-		paddingLeft: token('space.300'),
-		paddingRight: token('space.300'),
-		paddingTop: token('space.300'),
-		paddingBottom: token('space.300'),
+		marginBlockStart: token('space.0'),
+		paddingInlineStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockStart: token('space.300'),
+		paddingBlockEnd: token('space.300'),
 	},
 });
 

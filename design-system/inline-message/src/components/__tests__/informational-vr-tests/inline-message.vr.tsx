@@ -1,6 +1,6 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import FallbackPlacements from '../../../../examples/11-fallback-placements';
+import FallbackPlacements from '../../../../examples/11-fallback-placements.vr.ap';
 
 snapshotInformational(FallbackPlacements, {
 	variants: [

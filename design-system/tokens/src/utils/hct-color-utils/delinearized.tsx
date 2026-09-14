@@ -1,4 +1,4 @@
-import * as mathUtils from './math-utils';
+import { clampInt } from './clamp-int';
 
 /**
  * Delinearizes an RGB component.
@@ -16,5 +16,5 @@ export function delinearized(rgbComponent: number): number {
 	} else {
 		delinearized = 1.055 * Math.pow(normalized, 1.0 / 2.4) - 0.055;
 	}
-	return mathUtils.clampInt(0, 255, Math.round(delinearized * 255.0));
+	return clampInt(0, 255, Math.round(delinearized * 255.0));
 }

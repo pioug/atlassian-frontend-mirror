@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import EditIcon from '@atlaskit/icon/core/edit';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';

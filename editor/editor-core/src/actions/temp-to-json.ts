@@ -4,8 +4,8 @@
  * Eventually we will deprecate and delete EditorActions. This is here to
  * help decouple it from editor-common
  */
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 const transformer = new JSONTransformer();

@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+import Tabs from '@atlaskit/tabs/tabs';
+import Tab from '@atlaskit/tabs/tab';
+import TabList from '@atlaskit/tabs/tab-list';
+import TabPanel from '@atlaskit/tabs/tab-panel';
 
 import QuickLinks from './quick-links';
 

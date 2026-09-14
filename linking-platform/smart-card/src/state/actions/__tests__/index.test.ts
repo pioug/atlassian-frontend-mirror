@@ -1,18 +1,20 @@
 // eslint-disable-next-line import/order
 import * as testMocks from './index.test.mock';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { flushPromises } from '@atlaskit/link-test-helpers';
-import { ACTION_RESOLVING, APIError, type APIErrorKind } from '@atlaskit/linking-common';
+import { ACTION_RESOLVING } from '@atlaskit/linking-common/actions';
+import { APIError, type APIErrorKind } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { auth } from '@atlaskit/outbound-auth-flow-client';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../utils/mocks';
 import * as useActionFlags from '../../hooks/use-action-flags';
-import { type CardState } from '../../types';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { useSmartCardActions } from '../index';
 
 describe('Smart Card: Actions', () => {
@@ -89,7 +91,7 @@ describe('Smart Card: Actions', () => {
 					);
 				});
 
-				it('passes block appearance for block cards', async () => {
+				it('forces block requests to bypass optimized inline cache responses', async () => {
 					mockFetchData(Promise.resolve(mocks.success));
 
 					const result = renderHook(() => {
@@ -97,11 +99,7 @@ describe('Smart Card: Actions', () => {
 					});
 					await result.current.register('block');
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						'block',
-					);
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
 				});
 			},
 		);
@@ -266,7 +264,7 @@ describe('Smart Card: Actions', () => {
 
 			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
-			expect(mockContext.store.dispatch).nthCalledWith(3, {
+			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
 				type: 'fallback',
 				url: 'https://some/url',
 				error: new APIError('fallback', 'https://some', 'Provider.authFlow is not set to OAuth2.'),
@@ -297,7 +295,7 @@ describe('Smart Card: Actions', () => {
 
 			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
-			expect(mockContext.store.dispatch).nthCalledWith(3, {
+			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
 				type: 'fallback',
 				url: 'https://some/url',
 				error: new APIError('fallback', 'https://some', 'Provider.authFlow is not set to OAuth2.'),
@@ -359,7 +357,7 @@ describe('Smart Card: Actions', () => {
 			'platform_smartlink_inline_resolve_optimization',
 			'when FG is on, loadMetadata uses resolveNew with block appearance',
 			() => {
-				it('dispatches resolved metadata state for a success response', async () => {
+				it('dispatches refreshed metadata state for a success response', async () => {
 					mockFetchData(Promise.resolve(mocks.success));
 
 					const result = renderHook(() => {
@@ -370,11 +368,7 @@ describe('Smart Card: Actions', () => {
 					await expect(promise).resolves.toBeUndefined();
 
 					// loadMetadata always requests 'block' appearance to get full data including summary
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						'block',
-					);
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
 					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
 					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 						payload: undefined,
@@ -392,11 +386,11 @@ describe('Smart Card: Actions', () => {
 					});
 					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
 						payload: mocks.success,
-						type: 'resolved',
+						type: 'reloading',
 						url: url,
 						error: undefined,
 						metadataStatus: undefined,
-						ignoreStatusCheck: true,
+						ignoreStatusCheck: undefined,
 					});
 				});
 
@@ -417,7 +411,7 @@ describe('Smart Card: Actions', () => {
 						// loadMetadata always requests 'block' appearance to get full data including summary
 						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
 							url,
-							false,
+							true,
 							'block',
 						);
 						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
@@ -458,7 +452,7 @@ describe('Smart Card: Actions', () => {
 						// loadMetadata always requests 'block' appearance to get full data including summary
 						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
 							url,
-							false,
+							true,
 							'block',
 						);
 						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
@@ -490,11 +484,7 @@ describe('Smart Card: Actions', () => {
 
 					await expect(promise).resolves.toBeUndefined();
 					// loadMetadata always requests 'block' appearance to get full data including summary
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						'block',
-					);
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
 					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 						payload: undefined,
@@ -527,11 +517,7 @@ describe('Smart Card: Actions', () => {
 					const promise = result.current.loadMetadata();
 					await expect(promise).resolves.toBeUndefined();
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						'block',
-					);
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, 'block');
 				});
 			}, // end ffTest.on callback
 		); // end ffTest.on

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::04bcd6916e4c24de56272afb7390e8bc>>
+ * @codegen <<SignedSource::954daf7939e4a679c1b2b22ee32527a4>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -240,6 +240,7 @@ html[data-color-mode="dark"][data-theme~="dark:light"], [data-subtree-theme][dat
   --ds-border-disabled: #0515240F;
   --ds-border-focused: #4688EC;
   --ds-border-input: #8C8F97;
+  --ds-border-input-search: #0B120E24;
   --ds-border-inverse: #FFFFFF;
   --ds-border-selected: #1868DB;
   --ds-border-brand: #1868DB;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import Image from '@atlaskit/image';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 
 import FigmaLogo from '../images/figma.png';
 

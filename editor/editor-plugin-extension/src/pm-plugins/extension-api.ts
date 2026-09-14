@@ -14,8 +14,8 @@ import type {
 	TransformBefore,
 } from '@atlaskit/editor-common/extensions';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import { nodeToJSON } from '@atlaskit/editor-common/utils';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { autoJoinTr, nodeToJSON } from '@atlaskit/editor-common/utils';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type {
 	NodeType,
@@ -27,6 +27,7 @@ import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosem
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { setEditingContextToContextPanel } from '../editor-commands/commands';
@@ -95,7 +96,10 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 	} = options;
 	const nodes = Object.keys(schema.nodes);
 	const marks = Object.keys(schema.marks);
-	const validate = validator(nodes, marks, { allowPrivateAttributes: true });
+	const validate = validator(nodes, marks, {
+		allowPrivateAttributes: true,
+		stage0: fg('platform_editor_adf_validator_stage0'),
+	});
 
 	/**
 	 * Finds the node and its position by `localId`. Throws if the node could not be found.
@@ -221,6 +225,33 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			}
 			dispatch(tr);
 		},
+		insertAtSelection: (adf: ADFEntity) => {
+			if (!fg('platform_forge_inline_bodied_macro')) {
+				return;
+			}
+
+			try {
+				validate(adf);
+			} catch {
+				throw new Error(`insertAtSelection(): Invalid ADF given.`);
+			}
+
+			const { dispatch, state } = options.editorView;
+			const newNode = state.schema.nodeFromJSON(adf);
+			const tr = state.tr.replaceSelectionWith(newNode).scrollIntoView();
+
+			try {
+				tr.doc.check();
+			} catch (err) {
+				throw new Error(
+					`insertAtSelection(): The given ADFEntity cannot replace the current selection.\n${err}`,
+				);
+			}
+
+			const apiCallPayload = extensionAPICallPayload('insertAtSelection');
+			editorAnalyticsAPI?.attachAnalyticsEvent(apiCallPayload)(tr);
+			dispatch(tr);
+		},
 		scrollTo: (localId: string) => {
 			const nodePos = ensureNodePosByLocalId(localId, { opName: 'scrollTo' });
 			// Analytics - tracking the api call
@@ -267,6 +298,7 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			const { tr, schema } = state;
 
 			const changedValues = mutationCallback({
+				...(fg('platform_forge_inline_bodied_macro') ? { type: node.type.name } : {}),
 				content: nodeToJSON(node).content,
 				attrs: node.attrs,
 				marks: node.marks.map((pmMark) => ({
@@ -301,6 +333,17 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			const newContent = changedValues.hasOwnProperty('content')
 				? Fragment.fromJSON(schema, changedValues.content)
 				: node.content;
+			let newType: NodeType | undefined = node.type;
+			if (
+				changedValues.hasOwnProperty('type') &&
+				changedValues.type !== node.type.name &&
+				fg('platform_forge_inline_bodied_macro')
+			) {
+				newType = changedValues.type ? schema.nodes[changedValues.type] : undefined;
+			}
+			if (!newType) {
+				throw new Error(`update(): Invalid ADF node type '${changedValues.type}'.`);
+			}
 			let newAttrs = changedValues.hasOwnProperty('attrs') ? changedValues.attrs : node.attrs;
 			if (node.type.name === 'multiBodiedExtension') {
 				newAttrs = {
@@ -320,14 +363,22 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 
 			// Validate if the new attributes, content and marks result in a valid node and adf.
 			try {
-				const newNode = node.type.createChecked(newAttrs, newContent, newMarks);
+				const newNode = newType.createChecked(newAttrs, newContent, newMarks);
 				const newNodeAdf = new JSONTransformer().encodeNode(newNode);
 				validate(newNodeAdf);
 
-				tr.replaceWith(pos, pos + node.nodeSize, newNode);
+				if (newType === node.type) {
+					tr.replaceWith(pos, pos + node.nodeSize, newNode);
+				} else {
+					tr.replaceRangeWith(pos, pos + node.nodeSize, newNode);
+					if (node.isBlock && newNode.isInline) {
+						autoJoinTr(tr, ['paragraph']);
+					}
+					tr.doc.check();
+				}
 
 				// Keep selection if content does not change
-				if (newContent === node.content) {
+				if (newType === node.type && newContent === node.content) {
 					tr.setSelection(Selection.fromJSON(tr.doc, state.selection.toJSON()));
 				}
 			} catch (err) {

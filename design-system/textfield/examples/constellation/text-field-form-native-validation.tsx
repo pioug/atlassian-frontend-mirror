@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { Field, FormFooter } from '@atlaskit/form';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import Textfield from '@atlaskit/textfield/text-field';
 
 export default function TextFieldFormNativeValidationExample(): React.JSX.Element {
 	return (
@@ -32,7 +34,12 @@ export default function TextFieldFormNativeValidationExample(): React.JSX.Elemen
 			<Field label="Input must be an email" name="email" isRequired defaultValue="">
 				{({ fieldProps }: any) => (
 					<Fragment>
-						<Textfield {...fieldProps} type="email" data-testid="nativeFormValidationTestEmail" />
+						<Textfield
+							{...fieldProps}
+							type="email"
+							data-testid="nativeFormValidationTestEmail"
+							autoComplete="email"
+						/>
 					</Fragment>
 				)}
 			</Field>

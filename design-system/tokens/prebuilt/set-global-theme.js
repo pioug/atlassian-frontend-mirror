@@ -5,18 +5,19 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.setGlobalTheme = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
-var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
-var _themeConfig = require("./theme-config");
+var _fg = require("@atlaskit/platform-feature-flags/fg");
+var _getGlobalTheme = require("./get-global-theme");
+var _themeStateDefaults = require("./theme-state-defaults");
 var _configurePage = _interopRequireDefault(require("./utils/configure-page"));
 var _customThemeLoadingUtils = require("./utils/custom-theme-loading-utils");
 var _getThemeOverridePreferences = require("./utils/get-theme-override-preferences");
 var _getThemePreferences = require("./utils/get-theme-preferences");
 var _isValidBrandHex = require("./utils/is-valid-brand-hex");
+var _loadThemeCss = require("./utils/load-theme-css");
 var _themeLoading = require("./utils/theme-loading");
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -46,7 +47,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
  * setGlobalTheme({colorMode: 'auto', light: 'light', dark: 'dark', spacing: 'spacing'});
  * ```
  */
-var setGlobalTheme = /*#__PURE__*/function () {
+var setGlobalTheme = exports.setGlobalTheme = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
     var nextThemeState,
       themeLoader,
@@ -73,12 +74,14 @@ var setGlobalTheme = /*#__PURE__*/function () {
       themePreferences,
       loadingStrategy,
       loadingTasks,
+      themeOverridePreferences,
+      overrideThemeCssLoadingTasks,
       mode,
       attrOfMissingCustomStyles,
-      themeOverridePreferences,
       _iterator,
       _step,
       themeId,
+      overrideThemeCss,
       autoUnbind,
       _args3 = arguments,
       _t;
@@ -87,13 +90,13 @@ var setGlobalTheme = /*#__PURE__*/function () {
         case 0:
           nextThemeState = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : {};
           themeLoader = _args3.length > 1 ? _args3[1] : undefined;
-          _ref2 = typeof nextThemeState === 'function' ? nextThemeState(_objectSpread(_objectSpread({}, _themeConfig.themeStateDefaults), {}, {
-            typography: _themeConfig.themeStateDefaults['typography'],
-            shape: _themeConfig.themeStateDefaults['shape'](),
-            motion: _themeConfig.themeStateDefaults['motion']()
-          }, (0, _getGlobalTheme.default)())) : nextThemeState, _ref2$colorMode = _ref2.colorMode, colorMode = _ref2$colorMode === void 0 ? _themeConfig.themeStateDefaults['colorMode'] : _ref2$colorMode, _ref2$contrastMode = _ref2.contrastMode, contrastMode = _ref2$contrastMode === void 0 ? _themeConfig.themeStateDefaults['contrastMode'] : _ref2$contrastMode, _ref2$dark = _ref2.dark, dark = _ref2$dark === void 0 ? _themeConfig.themeStateDefaults['dark'] : _ref2$dark, _ref2$light = _ref2.light, light = _ref2$light === void 0 ? _themeConfig.themeStateDefaults['light'] : _ref2$light, _ref2$shape = _ref2.shape, shape = _ref2$shape === void 0 ? _themeConfig.themeStateDefaults['shape']() : _ref2$shape, _ref2$spacing = _ref2.spacing, spacing = _ref2$spacing === void 0 ? _themeConfig.themeStateDefaults['spacing'] : _ref2$spacing, _ref2$typography = _ref2.typography, typography = _ref2$typography === void 0 ? _themeConfig.themeStateDefaults['typography'] : _ref2$typography, _ref2$motion = _ref2.motion, motion = _ref2$motion === void 0 ? _themeConfig.themeStateDefaults['motion']() : _ref2$motion, _ref2$UNSAFE_themeOpt = _ref2.UNSAFE_themeOptions, UNSAFE_themeOptions = _ref2$UNSAFE_themeOpt === void 0 ? _themeConfig.themeStateDefaults['UNSAFE_themeOptions'] : _ref2$UNSAFE_themeOpt; // CLEANUP: Remove. This blocks application of increased contrast themes
+          _ref2 = typeof nextThemeState === 'function' ? nextThemeState(_objectSpread(_objectSpread({}, _themeStateDefaults.themeStateDefaults), {}, {
+            typography: _themeStateDefaults.themeStateDefaults['typography'],
+            shape: _themeStateDefaults.themeStateDefaults['shape'](),
+            motion: _themeStateDefaults.themeStateDefaults['motion']()
+          }, (0, _getGlobalTheme.getGlobalTheme)())) : nextThemeState, _ref2$colorMode = _ref2.colorMode, colorMode = _ref2$colorMode === void 0 ? _themeStateDefaults.themeStateDefaults['colorMode'] : _ref2$colorMode, _ref2$contrastMode = _ref2.contrastMode, contrastMode = _ref2$contrastMode === void 0 ? _themeStateDefaults.themeStateDefaults['contrastMode'] : _ref2$contrastMode, _ref2$dark = _ref2.dark, dark = _ref2$dark === void 0 ? _themeStateDefaults.themeStateDefaults['dark'] : _ref2$dark, _ref2$light = _ref2.light, light = _ref2$light === void 0 ? _themeStateDefaults.themeStateDefaults['light'] : _ref2$light, _ref2$shape = _ref2.shape, shape = _ref2$shape === void 0 ? _themeStateDefaults.themeStateDefaults['shape']() : _ref2$shape, _ref2$spacing = _ref2.spacing, spacing = _ref2$spacing === void 0 ? _themeStateDefaults.themeStateDefaults['spacing'] : _ref2$spacing, _ref2$typography = _ref2.typography, typography = _ref2$typography === void 0 ? _themeStateDefaults.themeStateDefaults['typography'] : _ref2$typography, _ref2$motion = _ref2.motion, motion = _ref2$motion === void 0 ? _themeStateDefaults.themeStateDefaults['motion']() : _ref2$motion, _ref2$UNSAFE_themeOpt = _ref2.UNSAFE_themeOptions, UNSAFE_themeOptions = _ref2$UNSAFE_themeOpt === void 0 ? _themeStateDefaults.themeStateDefaults['UNSAFE_themeOptions'] : _ref2$UNSAFE_themeOpt; // CLEANUP: Remove. This blocks application of increased contrast themes
           // without the feature flag enabled.
-          if (!(0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
+          if (!(0, _fg.fg)('platform_increased-contrast-themes')) {
             if (light === 'light-increased-contrast') {
               light = 'light';
             }
@@ -132,9 +135,14 @@ var setGlobalTheme = /*#__PURE__*/function () {
             return function (_x) {
               return _ref3.apply(this, arguments);
             };
-          }()); // Load custom themes if needed
+          }());
+          themeOverridePreferences = (0, _getThemeOverridePreferences.getThemeOverridePreferences)(themeState); // Start loading override CSS before the first await. It is appended only after the standard
+          // themes have loaded so that the override cascade order remains deterministic.
+          overrideThemeCssLoadingTasks = themeLoader ? [] : themeOverridePreferences.map(function (themeId) {
+            return (0, _loadThemeCss.loadThemeCss)(themeId);
+          }); // Load custom themes if needed
           if (!themeLoader && UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(UNSAFE_themeOptions === null || UNSAFE_themeOptions === void 0 ? void 0 : UNSAFE_themeOptions.brandColor)) {
-            mode = colorMode || _themeConfig.themeStateDefaults['colorMode'];
+            mode = colorMode || _themeStateDefaults.themeStateDefaults['colorMode'];
             attrOfMissingCustomStyles = (0, _customThemeLoadingUtils.findMissingCustomStyleElements)(UNSAFE_themeOptions, mode);
             if (attrOfMissingCustomStyles.length > 0) {
               // Load custom theme styles
@@ -168,8 +176,10 @@ var setGlobalTheme = /*#__PURE__*/function () {
           _context3.next = 1;
           return Promise.all(loadingTasks);
         case 1:
-          // Load override themes after standard themes
-          themeOverridePreferences = (0, _getThemeOverridePreferences.getThemeOverridePreferences)(themeState);
+          if (!themeLoader) {
+            _context3.next = 9;
+            break;
+          }
           _iterator = _createForOfIteratorHelper(themeOverridePreferences);
           _context3.prev = 2;
           _iterator.s();
@@ -196,9 +206,21 @@ var setGlobalTheme = /*#__PURE__*/function () {
           _iterator.f();
           return _context3.finish(7);
         case 8:
+          _context3.next = 11;
+          break;
+        case 9:
+          _context3.next = 10;
+          return Promise.all(overrideThemeCssLoadingTasks);
+        case 10:
+          overrideThemeCss = _context3.sent;
+          _context3.next = 11;
+          return Promise.all(themeOverridePreferences.map(function (themeId, index) {
+            return (0, _themeLoading.loadAndAppendThemeCss)(themeId, overrideThemeCss[index]);
+          }));
+        case 11:
           autoUnbind = (0, _configurePage.default)(themeState);
           return _context3.abrupt("return", autoUnbind);
-        case 9:
+        case 12:
         case "end":
           return _context3.stop();
       }
@@ -208,4 +230,3 @@ var setGlobalTheme = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var _default = exports.default = setGlobalTheme;

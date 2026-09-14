@@ -8,7 +8,7 @@ import {
 	SyncBlockWithParagraphAndPanelRenderer,
 	SyncBlockWithParagraphAndPanelRendererCompact,
 	SyncBlockWithPermissionDenied,
-} from './sync-block.fixture';
+} from './sync-block.fixture.vr.ap';
 
 const mockRequest = [
 	{

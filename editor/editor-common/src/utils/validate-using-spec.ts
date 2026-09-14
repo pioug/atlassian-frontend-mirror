@@ -7,13 +7,16 @@ import type {
 	ValidationErrorMap,
 } from '@atlaskit/adf-utils/validatorTypes';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ACTION_SUBJECT_ID } from '../analytics';
 
 export const UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute';
 
+import { ADFStages } from './ADFStages';
 import { fireUnsupportedEvent } from './track-unsupported-content';
 import type { UnsupportedContentPayload } from './unsupportedContent/types';
+import type { ADFStage } from './validator';
 import { wrapWithUnsupported } from './wrapWithUnsupported';
 export type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;
 
@@ -23,7 +26,11 @@ const errorCallbackFor = (
 	marks: any,
 	validate: Validate,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
+	validationOverrides?: {
+		allowExpandInPanel?: boolean;
+		allowNestedTables?: boolean;
+		allowTableInPanel?: boolean;
+	},
 ) => {
 	return (entity: ADFEntity, error: ValidationError, options: ErrorCallbackOptions) => {
 		return validationErrorHandler(
@@ -33,6 +40,7 @@ const errorCallbackFor = (
 				...options,
 				allowNestedTables: validationOverrides?.allowNestedTables,
 				allowTableInPanel: validationOverrides?.allowTableInPanel,
+				allowExpandInPanel: validationOverrides?.allowExpandInPanel,
 			},
 			marks,
 			validate,
@@ -131,14 +139,32 @@ export const validationErrorHandler = (
 
 	// panel_c1 is a ProseMirror-only variant: on save, table-in-panel documents are stored as
 	// plain ADF `panel` nodes containing a `table`. The base validator-spec does not permit
-	// `table` inside `panel` (it's gated behind the experiment), so we suppress the
-	// INVALID_CONTENT error when the experiment is active.
-	if (options.allowTableInPanel) {
+	// `table` inside `panel`, so suppress the INVALID_CONTENT error when the experiment is active.
+	// This suppression is blunt, allowing a table in every panel, and applies only while
+	// `platform_editor_adf_validator_stage0` is off. With that gate on, adf-utils offers the stage-0
+	// `panel_c1` variants and accepts table-in-panel positionally instead, in `doc`, a layout column
+	// and a synced block only.
+	if (options.allowTableInPanel && !fg('platform_editor_adf_validator_stage0')) {
 		const meta = error.meta as ValidationErrorMap['INVALID_CONTENT'] | undefined;
 		if (
 			meta?.parentType === 'panel' &&
 			error.code === 'INVALID_CONTENT' &&
 			entity.type === 'table'
+		) {
+			return entity;
+		}
+	}
+
+	// panel_c1 is a ProseMirror-only variant: on save, expand-in-panel documents are stored as
+	// plain ADF `panel` nodes containing an `expand`. The base validator-spec does not permit
+	// `expand` inside `panel` (it's gated behind the experiment), so we suppress the
+	// INVALID_CONTENT error when the experiment is active.
+	if (options.allowExpandInPanel) {
+		const meta = error.meta as ValidationErrorMap['INVALID_CONTENT'] | undefined;
+		if (
+			meta?.parentType === 'panel' &&
+			error.code === 'INVALID_CONTENT' &&
+			entity.type === 'expand'
 		) {
 			return entity;
 		}
@@ -222,11 +248,25 @@ export const validateADFEntity = (
 	schema: Schema,
 	node: ADFEntity,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
+	validationOverrides?: {
+		allowExpandInPanel?: boolean;
+		allowNestedTables?: boolean;
+		allowTableInPanel?: boolean;
+	},
+	adfStage?: ADFStage,
 ): ADFEntity => {
 	const nodes = Object.keys(schema.nodes);
 	const marks = Object.keys(schema.marks);
-	const validate = validator(nodes, marks, { allowPrivateAttributes: true });
+	// Full-ADF strictness is opt-in: only a caller that names `final` gets it, and omitting `adfStage`
+	// keeps stage-0 specs acceptable. Strictness has to be asked for rather than defaulted into,
+	// because a document holding a stage-0-only construct, such as a `layoutSection` with one column,
+	// otherwise has that content wrapped as unsupported. Editors carry such constructs by design,
+	// since the editor's own schema enables them, and renderers meet them in stored documents.
+	// `stage0` is only observable while `platform_editor_adf_validator_stage0` is enabled.
+	const validate = validator(nodes, marks, {
+		allowPrivateAttributes: true,
+		stage0: adfStage !== ADFStages.FINAL,
+	});
 	const emptyDoc: ADFEntity = { type: 'doc', content: [] };
 
 	const { entity = emptyDoc } = validate(

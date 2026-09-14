@@ -3,7 +3,7 @@ import React from 'react';
 
 import Banner from '@atlaskit/banner';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 /**
  * By default the Atlaskit website includes css-reset in examples

@@ -2,14 +2,12 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 import { Button } from '../Button';
 import { Modal } from '../ModalDialog';

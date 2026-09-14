@@ -7,3 +7,4 @@ constellation/
 tsconfig.app.json
 tsconfig.dev.json
 scripts/
+*.docs.tsx

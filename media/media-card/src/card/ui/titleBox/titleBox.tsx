@@ -1,17 +1,16 @@
 import React from 'react';
+
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
-import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
+import { Truncate } from '@atlaskit/media-ui/truncateText/truncate';
 
+import { TitleBoxFooter } from './TitleBoxFooter';
+import { TitleBoxHeader } from './TitleBoxHeader';
+import { TitleBoxIcon } from './TitleBoxIcon';
+import { TitleBoxWrapper } from './TitleBoxWrapper';
 import { type TitleBoxProps } from './types';
-import {
-	TitleBoxWrapper,
-	TitleBoxFooter,
-	TitleBoxHeader,
-	TitleBoxIcon,
-} from './titleBoxComponents';
 
 const placeholderText = ' ';
 

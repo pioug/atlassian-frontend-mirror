@@ -1,0 +1,40 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../tsDist/@atlaskit__smart-hooks/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"references": [
+		{
+			"path": "../../../analytics/analytics-gas-types/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-listeners/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../smart-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/user-picker/afm-products/tsconfig.json"
+		}
+	]
+}

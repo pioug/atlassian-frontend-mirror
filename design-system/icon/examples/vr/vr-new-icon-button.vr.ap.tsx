@@ -1,0 +1,111 @@
+import React, { type ComponentProps } from 'react';
+
+import OldButton from '@atlaskit/button/button';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import Heading from '@atlaskit/heading/heading';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline, Stack, xcss } from '@atlaskit/primitives';
+
+import AddIcon from '../../core/add';
+import ChevronDownIcon from '../../core/chevron-down';
+
+const FFAddIcon = (props: ComponentProps<typeof AddIcon>) => (
+	<AddIcon
+		spacing="none"
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+	/>
+);
+
+const FFChevronDownIcon = (props: ComponentProps<typeof AddIcon>) => (
+	<ChevronDownIcon
+		spacing="none"
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+		size="small"
+	/>
+);
+
+const styles = xcss({ padding: 'space.100' });
+const IconSizeExample = (): React.JSX.Element => {
+	return (
+		<>
+			<Stack space="space.200" alignInline="start" xcss={styles}>
+				{[true, false].map((isSelected: boolean) => (
+					<React.Fragment key={isSelected ? 'selected' : 'not-selected'}>
+						<Heading size="xsmall">{isSelected ? 'Selected buttons' : 'Not selected'}</Heading>
+						<Inline space="space.100" alignBlock="center">
+							<OldButton
+								iconBefore={<FFAddIcon label="" color="currentColor" />}
+								iconAfter={<FFChevronDownIcon label="" color="currentColor" />}
+								isSelected={isSelected}
+							>
+								Button
+							</OldButton>
+							<OldButton
+								iconBefore={<FFAddIcon label="" color="currentColor" />}
+								isSelected={isSelected}
+							>
+								Button
+							</OldButton>
+							<OldButton
+								iconBefore={<FFAddIcon label="add" spacing="spacious" color="currentColor" />}
+								isSelected={isSelected}
+							/>
+							Old button, new icon - with legacy fallback (feature flagged)
+						</Inline>
+						<Inline space="space.100" alignBlock="center">
+							<Button iconBefore={FFAddIcon} iconAfter={FFChevronDownIcon} isSelected={isSelected}>
+								Button
+							</Button>
+							<Button iconBefore={FFAddIcon} isSelected={isSelected}>
+								Button
+							</Button>
+							<IconButton label="add" icon={FFAddIcon} isSelected={isSelected} />
+							New button, new icon - with legacy fallback (feature flagged)
+						</Inline>
+						<Inline space="space.100" alignBlock="center">
+							<OldButton
+								iconBefore={<AddIcon label="" color="currentColor" />}
+								iconAfter={<ChevronDownIcon label="" color="currentColor" size="small" />}
+								isSelected={isSelected}
+							>
+								Button
+							</OldButton>
+							<OldButton
+								iconBefore={<AddIcon label="" color="currentColor" />}
+								isSelected={isSelected}
+							>
+								Button
+							</OldButton>
+							<OldButton
+								isSelected={isSelected}
+								iconBefore={<AddIcon label="add" spacing="spacious" color="currentColor" />}
+							/>
+							Old button, new icon
+						</Inline>
+						<Inline space="space.100" alignBlock="center">
+							<Button
+								isSelected={isSelected}
+								iconBefore={AddIcon}
+								iconAfter={(iconProps) => (
+									<ChevronDownIcon {...iconProps} color="currentColor" size="small" />
+								)}
+							>
+								Button
+							</Button>
+							<Button isSelected={isSelected} iconBefore={AddIcon}>
+								Button
+							</Button>
+							<IconButton isSelected={isSelected} label="add" icon={AddIcon} />
+							New button, new icon
+						</Inline>
+					</React.Fragment>
+				))}
+			</Stack>
+		</>
+	);
+};
+
+export default IconSizeExample;

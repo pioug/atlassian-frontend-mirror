@@ -1,5 +1,8 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-import type { TSESLint } from '@typescript-eslint/utils';
+import type {
+	RuleContext as TSESLintRuleContext,
+	SourceCode as TSESLintSourceCode,
+} from '@typescript-eslint/utils/ts-eslint';
 import type { Rule, SourceCode } from 'eslint';
 
 /**
@@ -9,11 +12,11 @@ import type { Rule, SourceCode } from 'eslint';
  */
 export function getSourceCode(context: Rule.RuleContext): SourceCode;
 export function getSourceCode<TMessageIds extends string, TOptions extends readonly unknown[]>(
-	context: TSESLint.RuleContext<TMessageIds, TOptions>,
-): TSESLint.SourceCode;
+	context: TSESLintRuleContext<TMessageIds, TOptions>,
+): TSESLintSourceCode;
 export function getSourceCode(
-	context: Rule.RuleContext | TSESLint.RuleContext<string, unknown[]>,
-): SourceCode | TSESLint.SourceCode {
+	context: Rule.RuleContext | TSESLintRuleContext<string, unknown[]>,
+): SourceCode | TSESLintSourceCode {
 	// `context.sourceCode` is the preferred way to access SourceCode, as
 	// `context.getSourceCode()` is deprecated in v8 and removed in v9.
 	// this needs to be ts-ignore because if other apps use a different eslint/typescript-eslint version, it will fail in

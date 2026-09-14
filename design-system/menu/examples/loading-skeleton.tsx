@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import {
-	ButtonItem,
-	type ButtonItemProps,
-	HeadingItem,
-	MenuGroup,
-	Section,
-	SkeletonHeadingItem,
-	SkeletonItem,
-} from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import type { ButtonItemProps } from '@atlaskit/menu/types';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import SkeletonHeadingItem from '@atlaskit/menu/skeleton-heading-item';
+import SkeletonItem from '@atlaskit/menu/skeleton-item';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import '@atlaskit/link-test-helpers/jest';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import { withLinkClickedEvent } from '../click';
+import { withLinkClickedEvent } from '../withLinkClickedEvent';
 
 describe('withLinkClickedEvent', () => {
 	describe.each([['native `a` tag', withLinkClickedEvent('a')]])(

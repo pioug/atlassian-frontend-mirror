@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
+exports.getSSRAutoScript = exports.default = void 0;
+var _fg = require("@atlaskit/platform-feature-flags/fg");
 var _constants = require("./constants");
 var _themeLoading = require("./utils/theme-loading");
 /**
@@ -15,12 +15,12 @@ var _themeLoading = require("./utils/theme-loading");
  *
  * @returns {string} A string to be added to the innerHTML of a script tag in the document head
  */
-var getSSRAutoScript = function getSSRAutoScript(colorMode, contrastMode) {
+var getSSRAutoScript = exports.getSSRAutoScript = function getSSRAutoScript(colorMode, contrastMode) {
   if (colorMode !== 'auto' && contrastMode !== 'auto') {
     return undefined;
   }
   var setColorMode = colorMode === 'auto' ? "\n  try {\n    const darkModeMql = window.matchMedia('".concat(_themeLoading.darkModeMediaQuery, "');\n    const colorMode = darkModeMql.matches ? 'dark' : 'light';\n    document.documentElement.setAttribute('").concat(_constants.COLOR_MODE_ATTRIBUTE, "', colorMode);\n  } catch (e) {}") : '';
-  var setContrastMode = contrastMode === 'auto' && (0, _platformFeatureFlags.fg)('platform_increased-contrast-themes') ? "\n  try {\n    const contrastModeMql = window.matchMedia('".concat(_themeLoading.moreContrastMediaQuery, "');\n    const contrastMode = contrastModeMql.matches ? 'more' : 'no-preference';\n    document.documentElement.setAttribute('").concat(_constants.CONTRAST_MODE_ATTRIBUTE, "', contrastMode);\n  } catch (e) {}") : '';
+  var setContrastMode = contrastMode === 'auto' && (0, _fg.fg)('platform_increased-contrast-themes') ? "\n  try {\n    const contrastModeMql = window.matchMedia('".concat(_themeLoading.moreContrastMediaQuery, "');\n    const contrastMode = contrastModeMql.matches ? 'more' : 'no-preference';\n    document.documentElement.setAttribute('").concat(_constants.CONTRAST_MODE_ATTRIBUTE, "', contrastMode);\n  } catch (e) {}") : '';
   return "(() => {".concat(setColorMode).concat(setContrastMode, "})()");
 };
 var _default = exports.default = getSSRAutoScript;

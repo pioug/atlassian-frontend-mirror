@@ -2,7 +2,10 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import Tabs, { Tab, TabList, TabPanel } from '../../index';
+import Tabs from '../../components/tabs';
+import Tab from '../../components/tab';
+import TabList from '../../components/tab-list';
+import TabPanel from '../../components/tab-panel';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tabs should be found by data-testid', () => {

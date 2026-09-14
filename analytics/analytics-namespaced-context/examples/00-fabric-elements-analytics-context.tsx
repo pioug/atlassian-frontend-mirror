@@ -1,9 +1,10 @@
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import React from 'react';
 import { createDummyComponentWithAnalytics } from './helpers';
-import { FabricElementsAnalyticsContext } from '../src';
+import { FabricElementsAnalyticsContext } from '../src/FabricElementsAnalyticsContext';
 
 const myOnClickHandler = () => {};
 

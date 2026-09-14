@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a6b2a2bd3c9fbdb62c3a26a4cf22dd68>>
+ * @codegen <<SignedSource::1eb0bea125dd8937d618f765cb0e5678>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Refresh".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const RefreshIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const RefreshIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "RefreshIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.5 3.67V1H1v5c0 .414.336.75.75.75H6.5v-1.5H3.236a5.5 5.5 0 1 1-.666 3.63l-1.48.24A7.002 7.002 0 0 0 15 8 7 7 0 0 0 2.5 3.67" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

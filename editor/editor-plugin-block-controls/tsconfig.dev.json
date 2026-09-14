@@ -42,13 +42,31 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../editor-examples-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-core/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugins/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/link/tsconfig.app.json"
@@ -57,7 +75,13 @@
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
+			"path": "../synchrony-test-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

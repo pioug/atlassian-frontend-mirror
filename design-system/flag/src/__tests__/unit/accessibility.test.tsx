@@ -7,7 +7,9 @@ import InfoIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { token } from '@atlaskit/tokens';
 
-import Flag, { AutoDismissFlag, FlagGroup } from '../../index';
+import Flag from '../../flag';
+import AutoDismissFlag from '../../auto-dismiss-flag';
+import FlagGroup from '../../flag-group';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Accessibility jest-axe', () => {

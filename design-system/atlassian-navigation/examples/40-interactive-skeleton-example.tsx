@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
 import { NavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
 
 import { DefaultCreate } from './shared/create';

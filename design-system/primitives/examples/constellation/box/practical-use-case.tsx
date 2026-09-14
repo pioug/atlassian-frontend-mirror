@@ -4,14 +4,17 @@
  */
 import type { JSX } from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import PullRequestIcon from '@atlaskit/icon/core/pull-request';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { AtlassianIcon } from '@atlaskit/logo';
-import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

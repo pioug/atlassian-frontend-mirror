@@ -4,26 +4,29 @@
  */
 import { Fragment, useState } from 'react';
 
-import Lorem from 'react-lorem-component';
-
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { token } from '@atlaskit/tokens';
+
+import { Lorem } from '../lorem';
 
 const styles = cssMap({
 	content: {
 		position: 'relative',
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 	},
 	header: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		position: 'absolute',
 		backgroundColor: token('utility.elevation.surface.current'),
 		borderBlockEndColor: token('color.border'),

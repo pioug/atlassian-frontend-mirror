@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 import noop from '@atlaskit/ds-lib/noop';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 

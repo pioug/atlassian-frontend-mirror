@@ -9,10 +9,11 @@ import { jsx, styled } from '@compiled/react';
 import debounce from 'debounce-promise';
 import { useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
-import { Field } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import Field from '@atlaskit/form/field';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { type InputActionMeta, PopupSelect } from '@atlaskit/select';
+import type { InputActionMeta } from '@atlaskit/select/types';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

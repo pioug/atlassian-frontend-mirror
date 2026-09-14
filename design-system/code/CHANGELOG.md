@@ -1,5 +1,124 @@
 # @atlaskit/code
 
+## 19.2.2
+
+### Patch Changes
+
+- [`d7eeefc938dd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7eeefc938dd4) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 19.2.1
+
+### Patch Changes
+
+- [`836565aa39593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/836565aa39593) -
+  Experimental React 19 test compatibility fix for Code. Test coverage is partial.
+
+## 19.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Major Changes
+
+- [`11ace7dc73878`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11ace7dc73878) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/code`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. It also introduces new public subpaths:
+  `@atlaskit/code/bidi-character-regex`, `@atlaskit/code/bidi-warning/bidi-warning-decorator`,
+  `@atlaskit/code/internal/types`.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import CodeBlock from '@atlaskit/code/code-block';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import CodeBlock from '@atlaskit/code/entry-points/code-block';
+  +import CodeBlock from '@atlaskit/code/code-block';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+  +   "./bidi-character-regex": "./src/bidi-warning/bidi-character-regex.tsx",
+      "./bidi-warning": "./src/bidi-warning/index.tsx",
+      "./bidi-warning-decorator": "./src/entry-points/bidi-warning-decorator.tsx",
+  -   "./bidi-warning-ui": "./src/entry-points/bidi-warning-ui.tsx",
+  +   "./bidi-warning-ui": "./src/bidi-warning/ui/index.tsx",
+  +   "./bidi-warning/bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
+      "./block": "./src/entry-points/block.tsx",
+  -   "./code": "./src/entry-points/code.tsx",
+  +   "./code": "./src/code.tsx",
+  -   "./code-block": "./src/entry-points/code-block.tsx",
+  +   "./code-block": "./src/code-block.tsx",
+  -   "./constants": "./src/entry-points/constants.tsx",
+  +   "./constants": "./src/constants.tsx",
+      "./inline": "./src/entry-points/inline.tsx",
+  +   "./internal/types": "./src/internal/types.tsx",
+  -   "./types": "./src/entry-points/types.tsx",
+  +   "./types": "./src/types.tsx",
+    }
+  ```
+
+  The secondary re-exports that remain on multi-export modules (`CODE_BLOCK_SELECTOR` from
+  `./constants`, `bidiCharacterRegex` from `./bidi-warning-decorator`, the `./bidi-warning` and
+  `./block` shims) are now marked `@deprecated`, each pointing at the import to use instead.
+  VOLTC-139 tracks their removal.
+
+  Internal type-only imports in the syntax highlighter were also straightened out — `AST` and
+  `RefractorNode` are now imported directly from `refractor` rather than re-exported through
+  `./src/syntax-highlighter/types.tsx`. The set of types available from the public `./types` subpath
+  is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.2
 
 ### Patch Changes

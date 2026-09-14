@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import styled from '@emotion/styled';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import MenuIcon from '@atlaskit/icon/core/menu';
 
 import MobileHeader from '../src';

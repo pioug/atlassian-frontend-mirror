@@ -1,26 +1,12 @@
-import type { EmojiDescription, OptionalEmojiDescription, EmojiRepresentation } from '../../types';
-import {
-	convertMediaToImageEmoji,
-	isMediaRepresentation,
-	isPromise,
-} from '../../util/type-helpers';
-import MediaImageLoader from './MediaImageLoader';
+import type { EmojiDescription, OptionalEmojiDescription } from '../../types';
+import { isMediaRepresentation } from '../../util/is-media-representation';
+import { isPromise } from '../../util/is-promise';
 import debug from '../../util/logger';
+import { BrowserCacheStrategy } from './BrowserCacheStrategy';
+import { getRequiredRepresentation } from './getRequiredRepresentation';
+import MediaImageLoader from './MediaImageLoader';
+import { MemoryCacheStrategy } from './MemoryCacheStrategy';
 import type TokenManager from './TokenManager';
-
-import { LRUMap } from 'lru_map';
-
-const getRequiredRepresentation = (
-	emoji: EmojiDescription,
-	useAlt?: boolean,
-): EmojiRepresentation => (useAlt ? emoji.altRepresentation : emoji.representation);
-
-const isUnsupportedBrowser = () => {
-	const isIE = /*@cc_on!@*/ false || !!(document as any).documentMode; // Internet Explorer 6-11
-	const isEdge = !isIE && !!(window as any).StyleMedia; // Edge 20+
-
-	return isIE || isEdge;
-};
 
 export interface EmojiCacheStrategy {
 	loadEmoji(
@@ -30,150 +16,10 @@ export interface EmojiCacheStrategy {
 	optimisticRendering(): boolean;
 }
 
-/**
- * For browsers that support caching for resources
- * regardless of originally supplied headers (basically everything but Firefox).
- */
-export class BrowserCacheStrategy implements EmojiCacheStrategy {
-	private cachedImageUrls: Set<string> = new Set<string>();
-	private mediaImageLoader: MediaImageLoader;
+export const maxImageCached: any = 1000;
 
-	constructor(mediaImageLoader: MediaImageLoader) {
-		debug('BrowserCacheStrategy');
-		this.mediaImageLoader = mediaImageLoader;
-	}
-
-	loadEmoji(
-		emoji: EmojiDescription,
-		useAlt?: boolean,
-	): OptionalEmojiDescription | Promise<OptionalEmojiDescription> {
-		const representation = getRequiredRepresentation(emoji, useAlt);
-
-		if (!isMediaRepresentation(representation)) {
-			return emoji;
-		}
-
-		const { mediaPath } = representation;
-
-		if (this.cachedImageUrls.has(mediaPath)) {
-			// Already cached
-			return emoji;
-		}
-
-		return this.mediaImageLoader
-			.loadMediaImage(mediaPath)
-			.then(() => {
-				// Media is loaded, can use original URL now, so just return original emoji
-				this.cachedImageUrls.add(mediaPath);
-				return emoji;
-			})
-			.catch(() => {
-				return undefined;
-			});
-	}
-
-	optimisticRendering() {
-		return true;
-	}
-
-	static supported(mediaPath: string, mediaImageLoader: MediaImageLoader): Promise<boolean> {
-		// IE/Edge uses memory cache strategy else images can fail to load
-		// from a clean cache/if they are downloaded from the service
-		// TODO: fix as a part of FS-1592
-		if (isUnsupportedBrowser()) {
-			return Promise.resolve(false);
-		}
-
-		return mediaImageLoader
-			.loadMediaImage(mediaPath)
-			.then(
-				() =>
-					// Image should be cached in browser, if supported it should be accessible from the cache by an <img/>
-					// Try to load without via image to confirm this support (this fails in Firefox)
-					new Promise<boolean>((resolve) => {
-						const img = new Image();
-
-						img.addEventListener('load', () => {
-							resolve(true);
-						});
-						img.addEventListener('error', () => {
-							resolve(false);
-						});
-
-						img.src = mediaPath;
-					}),
-			)
-			.catch(() => false);
-	}
-}
-
-const maxImageCached = 1000;
 // Don't cache images large than this - dataUrl size in characters
-const maxImageSize = 10000;
-
-/**
- * For browsers that do no cache images without equivalent headers (e.g. Firefox).
- *
- * Images are cached in memory in a LRU cache. Images considered too large,
- * are not cached, but retrieved each time.
- *
- * Images are still cached by the browser, but loading in asynchronous with
- * small delay noticable to the end user.
- */
-export class MemoryCacheStrategy implements EmojiCacheStrategy {
-	private dataURLCache: LRUMap<string, string>;
-	private mediaImageLoader: MediaImageLoader;
-
-	constructor(mediaImageLoader: MediaImageLoader) {
-		debug('MemoryCacheStrategy');
-		this.mediaImageLoader = mediaImageLoader;
-		this.dataURLCache = new LRUMap<string, string>(maxImageCached);
-	}
-
-	loadEmoji(
-		emoji: EmojiDescription,
-		useAlt?: boolean,
-	): OptionalEmojiDescription | Promise<OptionalEmojiDescription> {
-		const representation = getRequiredRepresentation(emoji, useAlt);
-
-		if (!isMediaRepresentation(representation)) {
-			return emoji;
-		}
-
-		const { mediaPath } = representation;
-		const dataURL = this.dataURLCache.get(mediaPath);
-		if (dataURL) {
-			// Already cached
-			return convertMediaToImageEmoji(emoji, dataURL, useAlt);
-		}
-
-		// Not cached, load
-		return this.mediaImageLoader
-			.loadMediaImage(mediaPath)
-			.then((dataURL) => {
-				const loadedEmoji = convertMediaToImageEmoji(emoji, dataURL, useAlt);
-				if (dataURL.length <= maxImageSize) {
-					// Only cache if not large than max size
-					this.dataURLCache.set(mediaPath, dataURL);
-				} else {
-					debug(
-						'No caching as image is too large',
-						dataURL.length,
-						dataURL.slice(0, 15),
-						emoji.shortName,
-					);
-				}
-				return loadedEmoji;
-			})
-			.catch(() => {
-				return undefined;
-			});
-	}
-
-	optimisticRendering() {
-		return false;
-	}
-}
+export const maxImageSize: any = 10000;
 
 /**
  * Provides a cache for Media Emoji.

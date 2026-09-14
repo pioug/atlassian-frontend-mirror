@@ -1,6 +1,6 @@
 import { findOverflowScrollParent, type PopupPosition } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const LAYOUT_COLUMN_MENU_POPUP_OFFSET: [number, number] = [0, 4];
 

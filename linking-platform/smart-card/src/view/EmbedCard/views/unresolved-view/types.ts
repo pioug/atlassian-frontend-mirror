@@ -17,6 +17,13 @@ export type UnresolvedViewProps = UnresolvedViewCardProps & {
 	icon: string | ReactNode;
 	/** A provider or visual aids for the unresolved link */
 	image: string | ReactNode;
+	/**
+	 * Provider/generator icon. Unresolved frames show the provider name (no entity title),
+	 * so this is preferred over the entity-type icon.
+	 */
+	providerIcon?: string | ReactNode;
+	/** Accessible label for the provider/generator icon. */
+	providerIconLabel?: string;
 	/** A link text displayed on embed frame */
 	text?: string;
 	/** A title for the unresolved link */

@@ -2,39 +2,39 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { type ReactNode, useCallback, useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { ElementName, SmartLinkDirection, SmartLinkSize, SmartLinkWidth } from '../../../constants';
 import { messages } from '../../../messages';
-import { useFlexibleCardContext } from '../../../state/flexible-ui-context';
-import { hasAuthScopeOverrides } from '../../../state/helpers';
-import useSocialProofExperiment, {
-	getSocialProofExperimentMeta,
-} from '../../../state/hooks/use-social-proof-experiment';
-import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
+import { useFlexibleCardContext } from '../../../state/flexible-ui-context/useFlexibleCardContext';
+import { hasAuthScopeOverrides } from '../../../state/hasAuthScopeOverrides';
+import { getSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment/getSocialProofExperimentMeta';
+import { default as useSocialProofExperiment } from '../../../state/hooks/use-social-proof-experiment/index';
 import FlexibleCard from '../../FlexibleCard';
 import ActionGroup from '../../FlexibleCard/components/blocks/action-group';
 import Block from '../../FlexibleCard/components/blocks/block';
 import ElementGroup from '../../FlexibleCard/components/blocks/element-group';
+import { renderElementItems } from '../../FlexibleCard/components/blocks/renderElementItems';
 import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
-import { renderElementItems } from '../../FlexibleCard/components/blocks/utils';
-import { LinkIcon, Title } from '../../FlexibleCard/components/elements';
+import { default as LinkIcon } from '../../FlexibleCard/components/elements/link-icon-element';
+import { default as Title } from '../../FlexibleCard/components/elements/title-element';
+import UnauthorisedViewContent from '../../common/UnauthorisedViewContent';
 import { AuthorizeAction } from '../actions/AuthorizeAction';
-
-import unauthIllustrationGeneral from './assets/general@2x.png';
 import SocialProofMessage from './SocialProofMessage';
+import unauthIllustrationGeneral from './assets/general@2x.png';
 import { type FlexibleBlockCardProps } from './types';
 import { type UnresolvedViewProps } from './unresolved-view/types';
 import { FlexibleCardUiOptions, titleBlockOptions } from './utils';

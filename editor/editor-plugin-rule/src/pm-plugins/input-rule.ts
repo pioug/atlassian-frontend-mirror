@@ -14,7 +14,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 
 export const createHorizontalRule = (
@@ -22,6 +22,7 @@ export const createHorizontalRule = (
 	start: number,
 	end: number,
 	inputMethod:
+		| INPUT_METHOD.ELEMENT_BROWSER
 		| INPUT_METHOD.QUICK_INSERT
 		| INPUT_METHOD.TOOLBAR
 		| INPUT_METHOD.INSERT_MENU
@@ -83,7 +84,7 @@ const createHorizontalRuleAutoformat = (
 };
 
 // eslint-disable-next-line require-unicode-regexp
-const HORIZONTAL_RULE_AUTOFORMAT_REGEX = /^(\-\-\-|\*\*\*)$/;
+const HORIZONTAL_RULE_AUTOFORMAT_REGEX = /^(---|\*\*\*)$/;
 
 export function inputRulePlugin(
 	schema: Schema,

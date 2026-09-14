@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "26.1.1",
+	"version": "28.2.0",
 	"description": "Theme contains solutions for global theming, colors, and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
@@ -45,13 +45,14 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/color": "root:*",
 		"color": "root:*",
 		"jest-in-case": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
@@ -60,37 +61,14 @@
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"deprecation": "no-deprecated-imports",
-			"design-system": "v1"
-		}
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./components": "./src/components.tsx",
 		"./constants": "./src/constants.tsx",
-		"./create-theme": "./src/entry-points/create-theme.tsx",
-		"./get-theme": "./src/entry-points/get-theme.tsx",
-		"./theme": "./src/entry-points/theme.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./create-theme": "./src/utils/create-theme.tsx",
+		"./get-theme": "./src/utils/get-theme.tsx",
+		"./theme": "./src/components/theme.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin"
 }

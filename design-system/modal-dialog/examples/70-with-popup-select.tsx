@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import ModalDialog, {
-	ModalBody,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
-import { PopupSelect } from '@atlaskit/select';
+import Button from '@atlaskit/button/default/button';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 
 const options = [
 	{ label: 'Adelaide', value: 'adelaide' },

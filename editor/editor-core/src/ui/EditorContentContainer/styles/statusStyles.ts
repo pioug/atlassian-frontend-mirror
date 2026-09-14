@@ -14,6 +14,9 @@ import { token } from '@atlaskit/tokens';
 export const statusStyles: SerializedStyles = css({
 	// Show diff: status attr change highlight. Keep this with status node styles so the highlight
 	// targets the lozenge shape rather than the decoration wrapper.
+	// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+	// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+	// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.show-diff-atomic-inline-changed-status': {
 		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
@@ -25,7 +28,8 @@ export const statusStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.show-diff-atomic-inline-changed-status .status-lozenge-span > span, .show-diff-atomic-inline-changed-status .lozenge-wrapper':
 		{
-			boxShadow: '0 0 0 2px var(--show-diff-atomic-inline-changed-border-color)',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -106,58 +110,6 @@ export const statusStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const statusStylesMixin_fg_platform_component_visual_refresh: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.statusView-content-wrap': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&.ak-editor-selected-node .status-lozenge-span > span': {
-			boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
-		},
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] .lozenge-text': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		color: '#292A2E',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		backgroundColor: '#DDDEE1',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		backgroundColor: '#D8A0F7',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		backgroundColor: '#8FB8F6',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		backgroundColor: '#F9C84E',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		backgroundColor: '#FD9891',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		backgroundColor: '#B3DF72',
-	},
-});
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const statusStylesMixin_fg_platform_component_visual_refresh_with_search_match: SerializedStyles =
 	css({
@@ -222,84 +174,6 @@ export const statusDangerStyles: SerializedStyles = css({
 		},
 	},
 });
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const statusStylesMixin_without_fg_platform_component_visual_refresh: SerializedStyles = css(
-	{
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.statusView-content-wrap': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&.ak-editor-selected-node .status-lozenge-span > span': {
-				// getSelectionStyles([SelectionStyle.BoxShadow]);
-				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-				borderColor: 'transparent',
-				// hideNativeBrowserTextSelectionStyles
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'&::selection, & *::selection': {
-					backgroundColor: 'transparent',
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::-moz-selection, & *::-moz-selection': {
-					backgroundColor: 'transparent',
-				},
-			},
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-wrapper': {
-			backgroundColor: token('color.background.neutral'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
-			color: token('color.text.subtle'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-wrapper': {
-			backgroundColor: token('color.background.discovery'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
-			color: token('color.text.discovery'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-wrapper': {
-			backgroundColor: token('color.background.information'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
-			color: token('color.text.information'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-wrapper': {
-			backgroundColor: token('color.background.warning'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
-			color: token('color.text.warning'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-wrapper': {
-			backgroundColor: token('color.background.danger'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
-			color: token('color.text.danger'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-wrapper': {
-			backgroundColor: token('color.background.success'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
-			color: token('color.text.success'),
-		},
-	},
-);
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in
@@ -409,22 +283,12 @@ export const statusStylesTeam26: SerializedStyles = css({
 
 	/* Border, background and text colors
 	 * These colors are copied from @atlaskit/lozenge
-	 * DST is currently using oklch with different light and dark lightness factors
-	 * and suggest using hex colors until the design tokens are added
+	 * Border tokens supply the appropriate light and dark color values.
 	 */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
 		backgroundColor: token('color.background.neutral'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html:not([data-color-mode=dark]) &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#CACBCF',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html[data-color-mode=dark] &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#63666B',
-		},
+		borderColor: token('color.border'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
@@ -433,16 +297,7 @@ export const statusStylesTeam26: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
 		backgroundColor: token('color.background.discovery.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html:not([data-color-mode=dark]) &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#D8A0F7',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html[data-color-mode=dark] &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#803FA5',
-		},
+		borderColor: token('color.border.discovery.subtle'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
@@ -451,16 +306,7 @@ export const statusStylesTeam26: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
 		backgroundColor: token('color.background.information.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html:not([data-color-mode=dark]) &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#8FB8F6',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html[data-color-mode=dark] &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#1558BC',
-		},
+		borderColor: token('color.border.information.subtle'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
@@ -469,16 +315,7 @@ export const statusStylesTeam26: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
 		backgroundColor: token('color.background.danger.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html:not([data-color-mode=dark]) &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#FD9891',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html[data-color-mode=dark] &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#AE2E24',
-		},
+		borderColor: token('color.border.danger.subtle'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
@@ -487,16 +324,7 @@ export const statusStylesTeam26: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
 		backgroundColor: token('color.background.warning.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html:not([data-color-mode=dark]) &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#FBC828',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html[data-color-mode=dark] &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#9E4C00',
-		},
+		borderColor: token('color.border.warning.subtle'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
@@ -505,16 +333,7 @@ export const statusStylesTeam26: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
 		backgroundColor: token('color.background.success.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html:not([data-color-mode=dark]) &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#B3DF72',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'html[data-color-mode=dark] &': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-			borderColor: '#4C6B1F',
-		},
+		borderColor: token('color.border.success.subtle'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {

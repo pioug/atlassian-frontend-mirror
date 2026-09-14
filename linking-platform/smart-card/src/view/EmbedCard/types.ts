@@ -1,9 +1,9 @@
 import { type ReactNode } from 'react';
 
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
+import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
 
 import { type InvokeHandler } from '../../model/invoke-handler';
-import { type CardState } from '../../state/types';
+import type { CardState } from '@atlaskit/linking-common/store';
 import type {
 	InternalCardActionOptions as CardActionOptions,
 	CardPlatform,
@@ -46,8 +46,12 @@ export interface WithShowControlMethodProp {
 }
 
 export interface ContextViewModel {
+	/** Entity-type icon for the resource (e.g. a Google Doc, Google Sheets). */
 	icon?: ReactNode;
 	iconLabel?: string;
+	/** Provider/generator icon (e.g. Google Drive). */
+	providerIcon?: ReactNode;
+	providerIconLabel?: string;
 	image?: string;
 	text: string;
 }

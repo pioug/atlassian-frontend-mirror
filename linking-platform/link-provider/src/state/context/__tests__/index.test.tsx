@@ -1,9 +1,11 @@
-import { useSmartLinkContext, SmartCardProvider } from '..';
-import CardClient from '../../../client';
 import { renderHook, type RenderHookOptions } from '@testing-library/react';
+
+import CardClient from '../../../client';
+import { useSmartLinkContext } from '../useSmartLinkContext';
+import { SmartCardProvider } from '../../../smart-card-provider';
 // import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
-import type { ProductType } from '@atlaskit/linking-common';
+import type { ProductType } from '@atlaskit/linking-common/types';
 
 describe('useSmartCardContext()', () => {
 	it('throws if required context not present', () => {

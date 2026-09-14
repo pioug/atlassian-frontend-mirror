@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import { type ControlProps } from '@atlaskit/select';
+import type { ControlProps } from '@atlaskit/select/types';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import Control from './Control';
@@ -29,7 +29,6 @@ const labelStyle = css({
 export class PopupControl extends React.PureComponent<ControlProps<any> & UserPickerProps> {
 	render(): React.JSX.Element {
 		const {
-			//@ts-ignore react-select unsupported props
 			selectProps: { popupTitle },
 		} = this.props;
 

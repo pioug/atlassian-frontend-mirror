@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { VRInformationalIssueLikeTable } from '../../examples/vr/issue-like-table';
+import { VRInformationalIssueLikeTable } from '../../examples/vr/issue-like-table.vr.ap';
 
 snapshotInformational(VRInformationalIssueLikeTable, {
 	description: 'drag column',

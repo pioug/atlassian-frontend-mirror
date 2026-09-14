@@ -1,10 +1,12 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { type StylesConfig } from '@atlaskit/select';
 
-import SmartUserPicker from '../src';
-import { useEndpointMocks } from '../example-helpers/mock-endpoints';
+import { IntlProvider } from 'react-intl';
+
+import type { StylesConfig } from '@atlaskit/select/types';
+
 import '../example-helpers/mock-ufo';
+import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';
+import SmartUserPicker from '../src/components';
 
 const Example = (): React.JSX.Element => {
 	useEndpointMocks();

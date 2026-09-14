@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Icon should pass base aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/107-new-icons-size.tsx')>(
+	await page.visitExample<typeof import('../../../examples/107-new-icons-size.vr.ap.tsx')>(
 		'design-system',
 		'icon',
 		'new-icons-size',

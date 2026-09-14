@@ -6,7 +6,8 @@ import React, { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 
 const styles = css({
 	display: 'flex',

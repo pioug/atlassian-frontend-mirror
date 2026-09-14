@@ -1,9 +1,10 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import { type AriaLiveMessages, type GroupBase } from '@atlaskit/react-select';
-import Select from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import type { AriaLiveMessages } from '@atlaskit/react-select/accessibility';
+import type { GroupBase } from '@atlaskit/react-select/types';
+import Select from '@atlaskit/select/default';
 
 interface Option {
 	label: string;

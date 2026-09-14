@@ -1,5 +1,5 @@
 import { SUPPORTED_LANGUAGES } from '@atlaskit/code/constants';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 // We expect alias[0] to be used for the ADF attribute, see ED-2813
 export const DEFAULT_LANGUAGES: (

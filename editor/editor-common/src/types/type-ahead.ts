@@ -31,7 +31,7 @@ export type TypeAheadItemRenderProps = {
 };
 
 export type TypeAheadInsert = (
-	node?: PMNode | Object | string | Fragment,
+	node?: PMNode | object | string | Fragment,
 	opts?: { selectInlineNode?: boolean },
 ) => Transaction;
 

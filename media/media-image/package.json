@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "21.1.0",
+	"version": "21.3.1",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,14 +34,6 @@
 			"name": "Media Image"
 		}
 	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			]
-		}
-	},
 	"dependencies": {
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
@@ -57,9 +49,13 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
+		"@atlaskit/select": "workspace:^",
+		"@atlaskit/spinner": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",

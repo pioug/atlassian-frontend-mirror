@@ -4,16 +4,16 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
-import { EVENT_CHANNEL } from '../../../../../analytics';
-import { UserInteractionsProvider } from '../../../../../contexts/user-interactions';
-import { useDatasourceContext } from '../../datasource-context';
+import { EVENT_CHANNEL } from '../../../../../analytics/constants';
+import { UserInteractionsProvider } from '../../../../../contexts/user-interactions/user-interactions-provider';
+import { useDatasourceContext } from '../../datasource-context/useDatasourceContext';
 import { useViewModeContext } from '../../mode-switcher/useViewModeContext';
 import { InsertButton, type InsertButtonProps } from '../index';
 
-jest.mock('../../datasource-context', () => ({
+jest.mock('../../datasource-context/useDatasourceContext', () => ({
 	useDatasourceContext: jest.fn(),
 }));
 

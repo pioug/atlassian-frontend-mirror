@@ -2,13 +2,13 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import type { MediaType } from '@atlaskit/adf-schema';
+import type { MediaType } from '@atlaskit/adf-schema/media';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { externalMediaMessages } from '../media';
 

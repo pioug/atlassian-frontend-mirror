@@ -2,25 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { extractRequestAccessContextImproved } from '../../../extractors/common/context/extractAccessContext';
 import extractHostname from '../../../extractors/common/hostname/extractHostname';
 import { messages } from '../../../messages';
+import { getForbiddenJsonLd } from '../../../utils/get-forbidden-json-ld';
 import { toMessage } from '../../../utils/intl-utils';
-import { getForbiddenJsonLd } from '../../../utils/jsonld';
 import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
 import Text from '../../FlexibleCard/components/elements/common/base-text-element';
 import { ForbiddenAction } from '../actions/ForbiddenAction';
-
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';

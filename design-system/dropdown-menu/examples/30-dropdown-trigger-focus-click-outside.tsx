@@ -1,10 +1,12 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { Label } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { Label } from '@atlaskit/form/label/default';
 import { Flex, Stack } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 
 const DropdownMenuDefaultExample = (): React.JSX.Element => {
 	return (

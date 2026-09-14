@@ -2,8 +2,9 @@ import { type ImageResizeMode } from '@atlaskit/media-client';
 
 import { type MediaFilePreview } from '../types';
 
-import { CardPreviewCacheImpl, getCacheKey } from './cache';
-import { type ObjectURLCache } from './objectURLCache';
+import { CardPreviewCacheImpl } from './CardPreviewCacheImpl';
+import type { ObjectURLCache } from './ObjectURLCache-2';
+import { getCacheKey } from './getCacheKey';
 
 const objectURLCache = {
 	set: jest.fn(),
@@ -47,7 +48,7 @@ describe('CardPreviewCache', () => {
 		cache.set(id, mode, preview);
 
 		const cacheKey = getCacheKey(id, mode);
-		expect(objectURLCache.set).toBeCalledWith(cacheKey, preview);
+		expect(objectURLCache.set).toHaveBeenCalledWith(cacheKey, preview);
 	});
 
 	it('should get a cardPreview from cache', () => {
@@ -60,7 +61,7 @@ describe('CardPreviewCache', () => {
 		const preview = cache.get(id, mode);
 
 		const cacheKey = getCacheKey(id, mode);
-		expect(objectURLCache.get).toBeCalledWith(cacheKey);
+		expect(objectURLCache.get).toHaveBeenCalledWith(cacheKey);
 		expect(preview).toBe(expectedPreview);
 	});
 
@@ -70,6 +71,6 @@ describe('CardPreviewCache', () => {
 		cache.remove(id, mode);
 
 		const cacheKey = getCacheKey(id, mode);
-		expect(objectURLCache.remove).toBeCalledWith(cacheKey);
+		expect(objectURLCache.remove).toHaveBeenCalledWith(cacheKey);
 	});
 });

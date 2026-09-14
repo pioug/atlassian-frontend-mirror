@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EmptyState from '@atlaskit/empty-state';
+import EmptyState from '@atlaskit/empty-state/empty-state';
 
 const EmptyStateDefaultExample = (): React.JSX.Element => {
 	return <EmptyState header="You don't have access to this work item" />;

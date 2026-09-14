@@ -1,0 +1,62 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-block-collapse/app"
+	},
+	"references": [
+		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tooltip/tsconfig.app.json"
+		}
+	]
+}

@@ -1,8 +1,8 @@
 import debounce from 'lodash/debounce';
 import memoize from 'lodash/memoize';
 
-import type { MediaAttributes } from '@atlaskit/adf-schema';
-import type { BatchAttrsStepData } from '@atlaskit/adf-schema/steps';
+import type { MediaAttributes } from '@atlaskit/adf-schema/media';
+import type { BatchAttrsStepData } from '@atlaskit/adf-schema/steps/batch-attrs-step';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { batchStepsUpdate } from './batchSteps';

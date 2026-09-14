@@ -1,10 +1,10 @@
 import type { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { TextDefinition as Text } from './text';
-import type { BreakoutMarkDefinition } from '../marks/breakout';
-import type { MarksObject, NoMark } from './types/mark';
 import { codeBlock as codeBlockFactory } from '../../next-schema/generated/nodeTypes';
-import { uuid } from '../../utils';
+import { uuid } from '../../utils/uuid';
+import type { BreakoutMarkDefinition } from '../marks/breakout';
+import type { TextDefinition as Text } from './text';
+import type { MarksObject, NoMark } from './types/mark';
 
 export type CodeBlockBaseDefinition = {
 	attrs?: CodeBlockAttrs;
@@ -59,9 +59,7 @@ const getLanguageFromCode = (dom: HTMLElement): string | undefined => {
 	}
 };
 
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const LANGUAGE_CLASS_REGEX = /(?:^|\s)language-([^\s]+)/u;
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const TRAILING_NEWLINE_REGEX = /\n$/u;
 
 const extractLanguageFromClass = (className: string): string | undefined => {
@@ -313,3 +311,6 @@ export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 		return ['pre', attrs, ['code', { 'data-language': node.attrs.language }, 0]];
 	},
 });
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { toJSON as codeBlockToJSON };

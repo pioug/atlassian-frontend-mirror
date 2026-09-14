@@ -1,36 +1,48 @@
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { type ReactWrapper } from 'enzyme';
-import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
+import React from 'react';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
 import fetchMock from 'fetch-mock/cjs/client';
-import React from 'react';
-import MentionResource from '../../../api/MentionResource';
-import { MentionPicker, type Props, type State } from '../../../components/MentionPicker';
+import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
+
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { MentionResource } from '../../../api/MentionResource';
+import { MentionPicker } from '../../../components/MentionPicker/MentionPicker';
+import { type Props } from '../../../components/MentionPicker';
 import { type MentionsResult } from '../../../types';
-import * as UtilAnalytics from '../../../util/analytics';
+import * as fireAnalyticsMentionTypeaheadEventModule from '../../../util/fire-analytics-mention-typeahead-event';
+import { act, render, waitFor } from '@atlassian/testing-library';
 import { resultC } from '../_mention-search-results';
 
-const mentionResource = new MentionResource({
-	url: 'boo.com/mentions',
-});
+const mentionResource = () =>
+	new MentionResource({
+		url: 'boo.com/mentions',
+	});
 
-function setupPicker(props?: Props): ReactWrapper<Props, State> {
-	return mountWithIntl(
-		<MentionPicker
-			resourceProvider={mentionResource}
-			query=""
-			createAnalyticsEvent={jest.fn()}
-			intl={{ formatMessage() {} } as any}
-			{...props}
-		/>,
-	) as ReactWrapper<Props, State>;
-}
+type PickerProps = Omit<Props, 'resourceProvider'>;
+
+const setupPicker = (props?: PickerProps) => {
+	const resourceProvider = mentionResource();
+	const intl = createIntl({ locale: 'en' }, createIntlCache());
+
+	render(
+		<IntlProvider locale="en">
+			<MentionPicker
+				resourceProvider={resourceProvider}
+				query=""
+				createAnalyticsEvent={jest.fn()}
+				intl={intl}
+				{...props}
+			/>
+		</IntlProvider>,
+	);
+
+	return resourceProvider;
+};
 
 describe('MentionPicker', () => {
 	const query = 'c';
-	const props = { query } as Props;
+	const props = { query };
 	const mentionsResult: MentionsResult = {
 		mentions: resultC,
 		query,
@@ -39,34 +51,31 @@ describe('MentionPicker', () => {
 	let fireAnalyticsReturn: jest.Mock;
 
 	beforeEach(() => {
-		fireAnalyticsMock = jest.spyOn(UtilAnalytics, 'fireAnalyticsMentionTypeaheadEvent');
 		fireAnalyticsReturn = jest.fn();
-		fireAnalyticsMock.mockReturnValue(fireAnalyticsReturn);
+		fireAnalyticsMock = jest
+			.spyOn(fireAnalyticsMentionTypeaheadEventModule, 'fireAnalyticsMentionTypeaheadEvent')
+			.mockReturnValue(fireAnalyticsReturn);
 
 		fetchMock.mock(/\/mentions\/search\?.*query=c(&|$)/, {
 			body: {
 				mentions: resultC,
 			},
 		});
-
-		setupPicker(props);
 	});
 
 	afterEach(() => {
 		fetchMock.restore();
-		fireAnalyticsMock.mockReset();
-		fireAnalyticsReturn.mockReset();
+		jest.restoreAllMocks();
 	});
 
-	it('should fire analytics when new mention data is fetched', () => {
-		mentionResource.notify(Date.now(), mentionsResult, query);
+	it('should fire analytics when new mention data is fetched', async () => {
+		const resourceProvider = setupPicker(props);
 
-		return new Promise((resolve) => window.setTimeout(resolve)).then(() => {
-			expect(fireAnalyticsMock).toHaveBeenCalled();
+		act(() => {
+			resourceProvider.notify(Date.now() + 1, mentionsResult, query);
+		});
 
-			const firstArgument = fireAnalyticsMock.mock.calls[0][0];
-			expect(firstArgument.query).toBe(query);
-
+		await waitFor(() => {
 			expect(fireAnalyticsReturn).toHaveBeenCalledWith(
 				'rendered',
 				expect.any(Number),
@@ -85,5 +94,8 @@ describe('MentionPicker', () => {
 				query,
 			);
 		});
+
+		expect(fireAnalyticsMock).toHaveBeenCalled();
+		await expect(document.body).toBeAccessible();
 	});
 });

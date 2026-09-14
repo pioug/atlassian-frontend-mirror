@@ -1,11 +1,13 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LoomPlugin } from './loomPluginType';
 import { insertLoom, recordVideo, setupLoom } from './pm-plugins/commands';
 import { createPlugin, loomPluginKey } from './pm-plugins/main';
 import { loomPrimaryToolbarComponent } from './ui/PrimaryToolbarButton';
+import { getLoomQuickInsertComponents } from './ui/quick-insert/getLoomQuickInsertComponents';
 import { getQuickInsertItem } from './ui/quickInsert';
 import { getToolbarComponents } from './ui/toolbar-components';
 
@@ -21,6 +23,10 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 		config,
 		api,
 	);
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+	if (config.loomProvider && isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getLoomQuickInsertComponents({ api }));
+	}
 	if (isNewToolbarEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(config, api));
 	} else {
@@ -73,15 +79,17 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 			return loomPluginKey.getState(editorState);
 		},
 
-		pluginsOptions: {
-			// Enable inserting Loom recordings through the slash command
-			quickInsert: (intl) => {
-				if (config.loomProvider) {
-					return getQuickInsertItem(editorAnalyticsAPI)(intl);
-				}
-				return [];
-			},
-		},
+		pluginsOptions: isRegisteredSlashCommandEnabled
+			? {}
+			: {
+					// Enable inserting Loom recordings through the slash command
+					quickInsert: (intl) => {
+						if (config.loomProvider) {
+							return getQuickInsertItem(editorAnalyticsAPI)(intl);
+						}
+						return [];
+					},
+				},
 
 		// Enable inserting Loom recordings through main toolbar
 		primaryToolbarComponent:

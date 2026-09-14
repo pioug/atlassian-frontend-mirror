@@ -5,9 +5,12 @@
 
 import { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

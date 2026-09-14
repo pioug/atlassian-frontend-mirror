@@ -159,6 +159,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-migration/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
@@ -208,6 +211,9 @@
 		},
 		{
 			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

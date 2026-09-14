@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
-import type { Appearance } from '@atlaskit/button/types';
+import type { Appearance } from '@atlaskit/button/old-button/types';
 
 type Diff<T, U> = T extends U ? never : T;
 

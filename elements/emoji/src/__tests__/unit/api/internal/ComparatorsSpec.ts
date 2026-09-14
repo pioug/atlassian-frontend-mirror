@@ -1,16 +1,13 @@
+import { AlphabeticalShortnameComparator } from '../../../../api/internal/AlphabeticalShortnameComparator';
+import { AsciiMatchComparator } from '../../../../api/internal/AsciiMatchComparator';
+import { ChainedEmojiComparator } from '../../../../api/internal/ChainedEmojiComparator';
+import type { EmojiComparator } from '../../../../api/internal/Comparators';
+import { EmojiTypeComparator } from '../../../../api/internal/EmojiTypeComparator';
+import { ExactShortNameMatchComparator } from '../../../../api/internal/ExactShortNameMatchComparator';
+import { OrderComparator } from '../../../../api/internal/OrderComparator';
+import { QueryStringPositionMatchComparator } from '../../../../api/internal/QueryStringPositionMatchComparator';
+import { UsageFrequencyComparator } from '../../../../api/internal/UsageFrequencyComparator';
 import type { EmojiDescription, EmojiVariationDescription } from '../../../../types';
-
-import {
-	AlphabeticalShortnameComparator,
-	AsciiMatchComparator,
-	ChainedEmojiComparator,
-	type EmojiComparator,
-	ExactShortNameMatchComparator,
-	EmojiTypeComparator,
-	OrderComparator,
-	QueryStringPositionMatchComparator,
-	UsageFrequencyComparator,
-} from '../../../../api/internal/Comparators';
 
 class PresetResultComparator implements EmojiComparator {
 	private result: number;

@@ -2,8 +2,10 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { cardState, url } from '@atlaskit/media-test-helpers/smart-card-state';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 

@@ -6,8 +6,8 @@ import type { PropsWithChildren, SyntheticEvent } from 'react';
 import React, { PureComponent, Fragment, useEffect, useState, useMemo } from 'react';
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ContextIdentifierProvider,
@@ -15,21 +15,19 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { MediaCardProps, MediaProvider } from '../../../ui/MediaCard';
 import { MediaCard } from '../../../ui/MediaCard';
-import type {
-	LinkDefinition,
-	BorderMarkDefinition,
-	AnnotationMarkDefinition,
-	DataConsumerDefinition,
-} from '@atlaskit/adf-schema';
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type { LinkDefinition } from '@atlaskit/adf-schema/link';
+import type { BorderMarkDefinition } from '@atlaskit/adf-schema/border';
+import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema/annotation';
+import type { DataConsumerDefinition } from '@atlaskit/adf-schema/data-consumer';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import { token } from '@atlaskit/tokens';
-
 import { getEventHandler } from '../../../utils';
+import type { MediaRenderEvent, MediaRenderEventPayload } from '../../../types/mediaOptions';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -70,6 +68,7 @@ export type MediaProps = MediaCardProps & {
 	>;
 	// only used for comment badge, is injected via nodes/mediaSingle
 	mediaSingleElement?: HTMLElement | null;
+	onMediaRenderEvent?: (event: MediaRenderEvent) => void;
 	providers?: ProviderFactory;
 	// attributes for media node
 	width?: number;
@@ -79,6 +78,16 @@ type Providers = {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	mediaProvider?: Promise<MediaProvider>;
 };
+
+const getDataConsumerMark = (marks: MediaProps['marks']): DataConsumerDefinition | undefined =>
+	marks.find(
+		(mark) =>
+			mark.type === 'dataConsumer' ||
+			(mark.type as unknown as { name: string })?.name === 'dataConsumer',
+	) as DataConsumerDefinition | undefined;
+
+const getRemixDataConsumerMark = (marks: MediaProps['marks']): DataConsumerDefinition | undefined =>
+	fg('cc-maui-add-mark-for-remix-generated-images') ? getDataConsumerMark(marks) : undefined;
 
 const linkStyle = css({
 	position: 'absolute',
@@ -313,6 +322,8 @@ const CommentBadgeWrapper = ({
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class Media extends PureComponent<MediaProps, object> {
+	private readonly mediaInstance = {};
+
 	constructor(props: MediaProps) {
 		super(props);
 		this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
@@ -320,15 +331,25 @@ class Media extends PureComponent<MediaProps, object> {
 	private handleMediaLinkClickFn;
 
 	private getDataConsumerMark = (): DataConsumerDefinition | undefined =>
-		fg('cc-maui-add-mark-for-remix-generated-images')
-			? (this.props.marks.find(
-					(m) =>
-						m.type === 'dataConsumer' ||
-						(m.type as unknown as { name: string })?.name === 'dataConsumer',
-				) as DataConsumerDefinition | undefined)
-			: undefined;
+		getRemixDataConsumerMark(this.props.marks);
+
+	private getDataConsumerSource = (props: MediaProps = this.props): string | undefined =>
+		getDataConsumerMark(props.marks)?.attrs.sources?.[0];
+
+	private emitMediaRenderEvent = (
+		event: MediaRenderEventPayload,
+		props: MediaProps = this.props,
+	): void => {
+		props.onMediaRenderEvent?.({
+			...event,
+			dataConsumerSource: this.getDataConsumerSource(props),
+			mediaId: props.id,
+			mediaInstance: this.mediaInstance,
+		});
+	};
 
 	componentDidMount(): void {
+		this.emitMediaRenderEvent({ type: 'mounted' });
 		const dataConsumerMark = this.getDataConsumerMark();
 		const infographicType = dataConsumerMark?.attrs.sources?.[0];
 		if (infographicType && this.props.fireAnalyticsEvent) {
@@ -345,6 +366,31 @@ class Media extends PureComponent<MediaProps, object> {
 			});
 		}
 	}
+
+	componentDidUpdate(prevProps: MediaProps): void {
+		if (
+			prevProps.id !== this.props.id ||
+			this.getDataConsumerSource(prevProps) !== this.getDataConsumerSource() ||
+			prevProps.onMediaRenderEvent !== this.props.onMediaRenderEvent
+		) {
+			this.emitMediaRenderEvent({ type: 'unmounted' }, prevProps);
+			this.emitMediaRenderEvent({ type: 'mounted' });
+		}
+	}
+
+	componentWillUnmount(): void {
+		this.emitMediaRenderEvent({ type: 'unmounted' });
+	}
+
+	private onPreviewRender = (renderedMediaId: string): void => {
+		this.props.onPreviewRender?.(renderedMediaId);
+		this.emitMediaRenderEvent({ renderedMediaId, type: 'preview-rendered' });
+	};
+
+	private onError: NonNullable<MediaCardProps['onError']> = (reason): void => {
+		this.props.onError?.(reason);
+		this.emitMediaRenderEvent({ reason, type: 'error' });
+	};
 
 	private renderCard = (providers: Providers = {}) => {
 		const { contextIdentifierProvider } = providers;
@@ -431,6 +477,14 @@ class Media extends PureComponent<MediaProps, object> {
 								featureFlags={featureFlags}
 								shouldEnableDownloadButton={enableDownloadButton}
 								ssr={ssr}
+								onError={
+									this.props.onMediaRenderEvent || this.props.onError ? this.onError : undefined
+								}
+								onPreviewRender={
+									this.props.onMediaRenderEvent || this.props.onPreviewRender
+										? this.onPreviewRender
+										: undefined
+								}
 							/>
 						</AnalyticsContext>
 					</MediaBorder>
@@ -487,7 +541,6 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>): jsx.JSX
 
 	const [position, setPosition] = useState<number | undefined>();
 	const [shouldApplyDraftAnnotation, setShouldApplyDraftAnnotation] = useState<boolean>(false);
-
 	useEffect(() => {
 		if (pos === undefined) {
 			return;

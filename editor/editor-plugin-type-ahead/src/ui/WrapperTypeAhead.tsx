@@ -6,8 +6,8 @@ import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
@@ -22,6 +22,8 @@ import { useItemInsert } from './hooks/use-item-insert';
 import { useLoadItems } from './hooks/use-load-items';
 import { useOnForceSelect } from './hooks/use-on-force-select';
 import { InputQuery } from './InputQuery';
+import { RegisteredTypeAheadMenu } from './registered-menu/RegisteredTypeAheadMenu';
+import { getTypeAheadSurface } from './registered-menu/typeAheadSurfaces';
 
 type WrapperProps = {
 	anchorElement: HTMLElement;
@@ -80,7 +82,16 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 		const [query, setQuery] = useState<string>(reopenQuery || '');
 		const queryRef = useRef(query);
 		const editorViewRef = useRef(editorView);
-		const items = useLoadItems(triggerHandler, editorView, query, showMoreOptionsButton, api, intl);
+		const registeredSurface = getTypeAheadSurface(triggerHandler.id);
+		const items = useLoadItems(
+			triggerHandler,
+			editorView,
+			query,
+			showMoreOptionsButton,
+			api,
+			intl,
+			!registeredSurface,
+		);
 
 		useEffect(() => {
 			if (!closed && fg('platform_editor_ease_of_use_metrics')) {
@@ -218,6 +229,28 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 
 		if (!triggerHandler) {
 			return null;
+		}
+
+		if (registeredSurface) {
+			return (
+				<RegisteredTypeAheadMenu
+					anchorElement={anchorElement}
+					api={api}
+					cancel={cancel}
+					editorView={editorView}
+					forceFocus={shouldFocusCursorInsideQuery}
+					onClose={closePopup}
+					onUndoRedo={onUndoRedo}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsMountPoint={popupsMountPoint}
+					popupsScrollableElement={popupsScrollableElement}
+					query={query}
+					reopenQuery={reopenQuery}
+					setQuery={setQuery}
+					surface={registeredSurface}
+					triggerHandler={triggerHandler}
+				/>
+			);
 		}
 
 		return (

@@ -7,7 +7,7 @@ import { forwardRef } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
-import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu/selection-style-context-do-not-use';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -71,7 +71,7 @@ const sideNavStyles = css({
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const SideNavigation: React.ForwardRefExoticComponent<
+export const SideNavigation: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SideNavigationProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, SideNavigationProps>((props: SideNavigationProps, ref) => {
 	if (
@@ -105,5 +105,3 @@ const SideNavigation: React.ForwardRefExoticComponent<
 		</nav>
 	);
 });
-
-export default SideNavigation;

@@ -4,7 +4,7 @@
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 /**
  * @deprecated The icon "roadmaps-service" is deprecated in favour of "service" from “@atlaskit/icon-lab/core”

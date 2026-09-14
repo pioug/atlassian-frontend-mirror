@@ -1,5 +1,74 @@
 # @atlaskit/editor-ui-control-model
 
+## 2.9.0
+
+### Minor Changes
+
+- [`c5ff0c329170a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5ff0c329170a) -
+  Add a dedicated createSurfaceContext entrypoint and use it in editor runtime packages.
+
+## 2.8.1
+
+### Patch Changes
+
+- [`5f66a8c3706e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f66a8c3706e3) -
+  Add the registry-backed Block Controls Quick Insert surface behind
+  `platform_editor_block_control_migration`, including typed surface context, cached registry
+  lookup, stable left/right surface identities, and experiment-gated Quick Insert registration.
+
+## 2.8.0
+
+### Minor Changes
+
+- [`edcef04b6350e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edcef04b6350e) -
+  Add the Quick Insert recommendation resolver API and typed surface context support for the gated
+  `platform_editor_slash_command` Recommended menu. TypeAhead uses immutable surface context for
+  visibility and React context for registered Quick Insert rendering, while Quick Insert keeps one
+  recommendation snapshot per menu open. Fix Quick Insert declaration generation.
+
+## 2.7.0
+
+### Minor Changes
+
+- [`f213e995cbb18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f213e995cbb18) -
+  Support replacing and removing registered snippet Quick Insert items behind
+  `platform_editor_slash_command`.
+
+## 2.6.0
+
+### Minor Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+
+## 2.5.0
+
+### Minor Changes
+
+- [`c0cf420333ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0cf420333ef1) -
+  Add public registration APIs for provider-backed Quick Insert components.
+
+  Providers can expose registered items directly:
+
+  ```tsx
+  const getComponents = async () => [
+  	{
+  		key: 'insert-table',
+  		component: TableItem,
+  		parents: [{ type: 'menu-section', key: 'quick-insert', rank: 1 }],
+  	},
+  ];
+  ```
+
+## 2.4.0
+
+### Minor Changes
+
+- [`4bc741a70d678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc741a70d678) -
+  Add the first registry-backed Quick Insert slice with Table
+
 ## 2.3.0
 
 ### Minor Changes

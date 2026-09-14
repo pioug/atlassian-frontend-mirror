@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
 import {
 	expectFunctionToHaveBeenCalledWith,
 	type JestFunction,
@@ -18,7 +18,7 @@ import {
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../constants';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
 import { EmbedCard } from '../index';
 import { type EmbedCardProps } from '../types';
 

@@ -5,7 +5,9 @@
 import { useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import Image from '@atlaskit/image';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';

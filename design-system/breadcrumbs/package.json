@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/breadcrumbs",
-	"version": "17.5.6",
+	"version": "17.7.1",
 	"description": "Breadcrumbs are a navigation system used to show a user's location in a site or app.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -74,8 +74,8 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -91,34 +91,13 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"homepage": "https://atlassian.design/components/breadcrumbs/",
 	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
 		"platform_dst_breadcrumbs-refresh": {
 			"type": "boolean"
 		},

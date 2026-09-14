@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import Calendar from '../../index';
+import Calendar from '../../calendar';
 
 it('Calendar should pass an aXe audit', async () => {
 	const { container } = render(<Calendar />);

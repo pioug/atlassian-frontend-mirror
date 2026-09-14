@@ -1,4 +1,4 @@
-import { calculatePercentiles } from './index';
+import { calculatePercentiles } from './calculate-percentiles';
 
 // Test utilities
 const createTimePixelCounts = (counts: [number, number][]) => new Map(counts);

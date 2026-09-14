@@ -1,4 +1,4 @@
-import { retryOnException } from './main';
+import { retryOnException } from './retry-on-exception';
 
 describe('retryOnException', () => {
 	it('successful operation returns result', async () => {

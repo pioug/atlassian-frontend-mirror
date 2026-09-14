@@ -8,12 +8,12 @@ import {
 	blockquote as blockquoteFactory,
 	blockquoteLegacy as blockquoteLegacyFactory,
 } from '../../next-schema/generated/nodeTypes';
+import { uuid } from '../../utils/uuid';
+import type { NodeSpecOptions } from '../createPMSpecFactory';
 import type { CodeBlockDefinition as CodeBlock } from './code-block';
+import type { ExtensionDefinition as Extension } from './extension';
 import type { MediaGroupDefinition as MediaGroup } from './media-group';
 import type { MediaSingleDefinition as MediaSingle } from './media-single';
-import type { ExtensionDefinition as Extension } from './extension';
-import type { NodeSpecOptions } from '../createPMSpecFactory';
-import { uuid } from '../../utils';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**

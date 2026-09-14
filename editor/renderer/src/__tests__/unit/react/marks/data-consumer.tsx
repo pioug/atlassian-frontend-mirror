@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import DataConsumer from '../../../../react/marks/data-consumer';
 
 describe('Renderer - React/Marks/DataConsumer', () => {
 	const sourcesArr = ['foo', 'bar'];
 	const create = (inline: boolean = false) =>
-		mount(
+		render(
 			<DataConsumer
 				isInline={inline}
 				sources={sourcesArr}
@@ -16,21 +16,30 @@ describe('Renderer - React/Marks/DataConsumer', () => {
 			</DataConsumer>,
 		);
 
-	it('should wrap content with <div>-tag', () => {
-		const mark = create();
-		expect(mark.find('div').length).toEqual(1);
-		mark.unmount();
+	it('should capture and report a11y violations', async () => {
+		const { container } = create();
+
+		await expect(container).toBeAccessible();
 	});
+
+	it('should wrap content with <div>-tag', () => {
+		create();
+
+		expect(screen.getByText('wrapped text').tagName).toBe('DIV');
+	});
+
 	it('should wrap content with <span>-tag when inline', () => {
-		const mark = create(true);
-		expect(mark.find('span').length).toEqual(1);
-		mark.unmount();
+		create(true);
+
+		expect(screen.getByText('wrapped text').tagName).toBe('SPAN');
 	});
 
 	it('should set data-source to attrs.sources', () => {
-		const mark = create();
-		expect(mark.find('div').props()).toHaveProperty('data-source', JSON.stringify(sourcesArr));
-		expect(mark.find('div').props()).toHaveProperty('data-mark-type', 'dataConsumer');
-		mark.unmount();
+		create();
+
+		const mark = screen.getByText('wrapped text');
+
+		expect(mark).toHaveAttribute('data-source', JSON.stringify(sourcesArr));
+		expect(mark).toHaveAttribute('data-mark-type', 'dataConsumer');
 	});
 });

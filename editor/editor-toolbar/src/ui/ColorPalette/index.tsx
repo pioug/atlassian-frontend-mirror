@@ -3,7 +3,7 @@ import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import chromatism from 'chromatism';
 import { useIntl } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Grid, Inline } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

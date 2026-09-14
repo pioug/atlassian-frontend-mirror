@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Link from '@atlaskit/link';
+import Button from '@atlaskit/button/default/button';
+import Link from '@atlaskit/link/link';
 import { LinkPicker } from '@atlaskit/link-picker';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
 
 import { MockPluginForm } from '../example-helpers/mock-plugin-form';

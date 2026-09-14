@@ -5,7 +5,6 @@ export function isElementVisible(element: Element): boolean {
 
 	try {
 		const visible = element.checkVisibility({
-			// @ts-ignore - visibilityProperty may not exist in all TS environments
 			visibilityProperty: true,
 			contentVisibilityAuto: true,
 			opacityProperty: true,

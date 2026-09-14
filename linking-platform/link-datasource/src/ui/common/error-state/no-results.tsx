@@ -25,6 +25,14 @@ const styles = cssMap({
 		placeItems: 'center',
 		placeSelf: 'center',
 	},
+	noResultsCompactContainerStyles: {
+		marginTop: token('space.300'),
+		marginRight: token('space.600'),
+		marginBottom: token('space.300'),
+		marginLeft: token('space.600'),
+		placeItems: 'center',
+		placeSelf: 'center',
+	},
 	noResultsContentStyles: {
 		maxWidth: '304px',
 		gap: token('space.300'),
@@ -38,10 +46,12 @@ const styles = cssMap({
 });
 
 interface NoResultsProps {
+	/** Tightens the vertical spacing, for when there is less room than a full view to fill. */
+	isCompact?: boolean;
 	onRefresh?: () => void;
 }
 
-export const NoResults = ({ onRefresh }: NoResultsProps): JSX.Element => {
+export const NoResults = ({ isCompact, onRefresh }: NoResultsProps): JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const { formatMessage } = useIntl();
@@ -51,7 +61,10 @@ export const NoResults = ({ onRefresh }: NoResultsProps): JSX.Element => {
 	}, [fireEvent]);
 
 	return (
-		<Grid xcss={styles.noResultsContainerStyles} testId="datasource-modal--no-results">
+		<Grid
+			xcss={isCompact ? styles.noResultsCompactContainerStyles : styles.noResultsContainerStyles}
+			testId="datasource-modal--no-results"
+		>
 			<Grid xcss={styles.noResultsContentStyles}>
 				<SpotSearchNoResult
 					size={'xlarge'}

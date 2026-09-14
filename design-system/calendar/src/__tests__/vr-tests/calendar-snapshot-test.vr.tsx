@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import Basic from '../../../examples/0-basic';
-import Testing from '../../../examples/99-testing';
+import Basic from '../../../examples/0-basic.vr.ap';
+import Testing from '../../../examples/99-testing.vr.ap';
 
 snapshot(Basic);
 snapshot(Testing, {

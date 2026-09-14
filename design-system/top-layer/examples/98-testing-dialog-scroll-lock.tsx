@@ -6,8 +6,8 @@ import { type ReactNode, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Heading from '@atlaskit/heading';
-import { Dialog } from '@atlaskit/top-layer/dialog';
+import Heading from '@atlaskit/heading/heading';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
 const tallContentStyles = css({

@@ -9,7 +9,7 @@ import StoryObject from '@atlaskit/object/story';
 import SubtaskObject from '@atlaskit/object/subtask';
 import TaskObject from '@atlaskit/object/task';
 import WorkItemObject from '@atlaskit/object/work-item';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	JIRA_BUG,

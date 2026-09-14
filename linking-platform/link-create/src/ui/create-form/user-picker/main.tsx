@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SmartUserPicker from '@atlaskit/smart-user-picker';
+import SmartUserPicker from '@atlaskit/smart-user-picker/components';
 
 import { CreateField } from '../../../controllers/create-field/main';
 

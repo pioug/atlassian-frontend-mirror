@@ -17,7 +17,7 @@ import {
 import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MarkdownModePlugin } from '../../types/markdown-mode';
 
@@ -115,10 +115,10 @@ export const ToolbarNext = ({
 		},
 		[editorAPI],
 	);
-	const fireAnalyticsEvent = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const fireAnalyticsEvent = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedFireAnalyticsEvent
 		: (payload: unknown) => memoizedFireAnalyticsEvent(payload);
-	const fallbacks = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const fallbacks = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? TOOLBAR_FALLBACKS
 		: {
 				group: ToolbarButtonGroup,

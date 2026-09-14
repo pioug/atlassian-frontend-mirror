@@ -6,7 +6,8 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { type Appearance, LoadingButton as Button } from '@atlaskit/button';
+import type { Appearance } from '@atlaskit/button/old-button/types';
+import Button from '@atlaskit/button/loading-button';
 import { token } from '@atlaskit/tokens';
 
 const appearances: Appearance[] = [

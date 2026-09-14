@@ -1,5 +1,6 @@
-import { type MediaSVGErrorReason } from '@atlaskit/media-svg';
-import { type MediaViewerErrorReason } from '../../errors';
+import type { MediaSVGErrorReason } from '@atlaskit/media-svg/media-svg-error';
+
+import type { MediaViewerErrorReason } from '../../MediaViewerError';
 
 export const getErrorReason = (svgReason: MediaSVGErrorReason): MediaViewerErrorReason => {
 	switch (svgReason) {

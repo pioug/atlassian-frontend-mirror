@@ -1,4 +1,5 @@
-import { BatchAttrsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -7,12 +8,12 @@ import {
 	type EditorState,
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import {
 	AttrStep,
 	DocAttrStep,
 	ReplaceAroundStep,
 	ReplaceStep,
-	type Step,
 } from '@atlaskit/editor-prosemirror/transform';
 
 import type { LocalIdPlugin, LocalIdStatusCode } from '../localIdPluginType';

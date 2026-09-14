@@ -1,5 +1,69 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.1
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

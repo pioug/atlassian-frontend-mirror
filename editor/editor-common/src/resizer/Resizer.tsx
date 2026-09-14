@@ -13,14 +13,15 @@ import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
 import { useIntl } from 'react-intl';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
-import type { TooltipProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import { messages } from '../messages/breakout';
 import {
@@ -365,7 +366,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			supportedHandles,
 		],
 	);
-	const nextHandleStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const nextHandleStyles = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedNextHandleStyles
 		: // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- intentional fallback for experiment off path
 			supportedHandles.reduce<HandleStyles>(
@@ -470,7 +471,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		() => ({ width: width ?? 'auto', height: resolvedHeight }),
 		[resolvedHeight, width],
 	);
-	const resizerSize = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const resizerSize = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? resizerAutoSize
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 			{ width: width ?? 'auto', height: resolvedHeight };

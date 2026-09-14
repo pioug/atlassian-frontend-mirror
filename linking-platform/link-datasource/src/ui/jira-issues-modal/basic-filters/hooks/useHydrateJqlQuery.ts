@@ -8,10 +8,10 @@ import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { type CommonBasicFilterHookState } from '../../../common/modal/popup-select/types';
 import { type SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
-import { removeFuzzyCharacter } from '../utils/isClauseTooComplex';
-import { mapHydrateResponseData } from '../utils/transformers';
+import { mapHydrateResponseData } from '../utils/mapHydrateResponseData';
+import { removeFuzzyCharacter } from '../utils/removeFuzzyCharacter';
 
-import { getAssigneeUnassignedFilterOption } from './useFilterOptions';
+import { getAssigneeUnassignedFilterOption } from './getAssigneeUnassignedFilterOption';
 
 export interface HydrateJqlState extends CommonBasicFilterHookState {
 	fetchHydratedJqlOptions: () => Promise<void>;

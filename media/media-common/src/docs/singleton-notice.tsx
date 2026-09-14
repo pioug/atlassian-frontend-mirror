@@ -1,6 +1,6 @@
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import React from 'react';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 export function createSingletonNotice(componentName: string): React.JSX.Element {
 	const title = `${componentName} is a singleton package`;

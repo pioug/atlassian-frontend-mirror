@@ -1,5 +1,193 @@
 # @atlaskit/jql-editor
 
+## 7.8.0
+
+### Minor Changes
+
+- [`de49deaecf55a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de49deaecf55a) -
+  Add clean `./analytics/util` subpath export exposing `useJqlEditorAnalytics`, so consumers of the
+  deprecated `@atlaskit/jql-editor/analytics` shim have a non-deprecated surface to migrate to (Volt
+  Stage-1).
+
+## 7.7.3
+
+### Patch Changes
+
+- [`731a4ac4fc519`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/731a4ac4fc519) -
+  Migrate 16px Avatar usages from `xsmall` to `xxsmall`.
+
+## 7.7.2
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 7.7.1
+
+### Patch Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall`.
+- Updated dependencies
+
+## 7.7.0
+
+### Minor Changes
+
+- [`3c429c1effcc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c429c1effcc8) -
+  Add `descendantsOfTeamTotalCount` to `JqlInsightsAttributes`, so that `computeJqlInsights` reports
+  how often the `descendantsOfTeam` JQL function is used, alongside the existing `membersOf`
+  attributes. Also add `optionFunctionName` to the `autocompleteOption selected` analytics event
+  attributes, so that autocomplete selections can be attributed to a specific JQL function. Also add
+  `functionName` to the operational `autocompleteOption retrieved` / `retrieveFailed` analytics
+  event attributes, identifying the JQL function whose arguments the caret was inside when the
+  options were requested, so autocomplete impressions can be attributed to a function and measured
+  against selections. The attribute is omitted when the caret is not inside a function's arguments.
+
+  JQL function names are not a closed set — the grammar accepts any quoted string as a function name
+  and Forge/Connect apps register their own functions — so every emitted function name is bucketed
+  against the known team functions (`membersof`, `descendantsofteam`) and anything else is reported
+  as `other`. No identifiers, display names or query text are emitted.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.6.3
+
+### Patch Changes
+
+- [`ed54eea834dd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed54eea834dd7) -
+  Rename internal feature gate assets_object_jql_values_in_editor to
+  orion-8274-cmdb-object-jql-values-resolver (no behavior change).
+- Updated dependencies
+
+## 7.6.2
+
+### Patch Changes
+
+- [`1ac81bbdf5636`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ac81bbdf5636) -
+  [ux] Behind the `jira-descendants-of-team-jql-function` gate, hydrate team arguments of the
+  `descendantsOfTeam()` JQL function into team lozenges, normalise hydration field-name keys so a
+  lozenge inserted from the autocomplete dropdown resolves its avatar, and strip the `id:` prefix
+  from a team id before deriving its avatar URL. These are internal behaviour changes only — no
+  public API, export, or entry point is added. Gate off leaves existing behaviour unchanged.
+- Updated dependencies
+
+## 7.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.6.0
+
+### Minor Changes
+
+- [`9d816d1001fcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d816d1001fcf) -
+  Render Assets (CMDB) object names, and their object icon, as rich inline nodes in the JQL editor —
+  both when hydrating an existing query and when a value is selected from autocomplete. Behind
+  `assets_object_jql_values_in_editor`.
+
+  Adds an `assets` rich inline node, a `HydratedAssets` member of the `HydratedValue` union, and an
+  `'assets'` member of `AutocompleteValueType`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.4
+
+### Patch Changes
+
+- [`e0edc05cd52d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0edc05cd52d7) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall` as a 1:1 size rename with no visual
+  change.
+- Updated dependencies
+
+## 7.5.3
+
+### Patch Changes
+
+- [`1f4185080d160`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f4185080d160) -
+  Add gated support for agent field autocomplete and hydration behavior behind
+  jira_filter_by_agent_and_agent_state, including suppressing unsupported functions for
+  agentSessions[agent] and preserving property-based hydration for agent lozenges.
+- Updated dependencies
+
+## 7.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.0
+
+### Minor Changes
+
+- [`8c51c9ddd952e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c51c9ddd952e) -
+  Update i18n NPM package versions for jira-ai,jira,jsm,proforma,chroma,capacity-planning,jql
+  (Group 4)
+
+## 7.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.4
 
 ### Patch Changes

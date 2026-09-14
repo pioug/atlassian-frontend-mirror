@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 
 const wrapperStyles = css({
 	maxWidth: 500,

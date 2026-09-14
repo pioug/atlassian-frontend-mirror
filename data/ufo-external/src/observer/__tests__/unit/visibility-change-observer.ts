@@ -7,13 +7,13 @@ describe('visibilityChangeObserver', () => {
 		visibilityChangeObserver.subscribe(callbackFn);
 		document.dispatchEvent(new Event('visibilitychange'));
 		visibilityChangeObserver.unsubscribe(callbackFn);
-		expect(callbackFn).toBeCalledTimes(1);
+		expect(callbackFn).toHaveBeenCalledTimes(1);
 	});
 	test('Should not invoke callback if visibilitychange event is not fired ', () => {
 		const callbackFn = jest.fn();
 		visibilityChangeObserver.start();
 		visibilityChangeObserver.subscribe(callbackFn);
 		visibilityChangeObserver.unsubscribe(callbackFn);
-		expect(callbackFn).toBeCalledTimes(0);
+		expect(callbackFn).toHaveBeenCalledTimes(0);
 	});
 });

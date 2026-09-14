@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 
 import * as Styled from './styled';
 import { type DropDownListProps } from './types';

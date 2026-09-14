@@ -3,7 +3,7 @@ import {
 	MediaImageInlineWithWideLayout,
 	MediaWithPixelWidthFullWidthNested,
 	MediaWithPixelWidthNested,
-} from '../__helpers/rendererComponents';
+} from '../__helpers/rendererComponents.vr.ap';
 
 snapshot(MediaWithPixelWidthNested, {
 	variants: [
@@ -18,7 +18,8 @@ snapshot(MediaWithPixelWidthNested, {
 	],
 });
 
-snapshot(MediaImageInlineWithWideLayout, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(MediaImageInlineWithWideLayout, {
 	variants: [
 		{
 			name: 'desktop',

@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '@atlaskit/page-layout';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel, SlotWrapper } from './common';
 

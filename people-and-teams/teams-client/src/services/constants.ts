@@ -1,4 +1,4 @@
-import { type TeamsClientConfig } from '../types';
+import { type TeamsClientConfig } from '../types/config';
 
 export const DEFAULT_CONFIG: TeamsClientConfig = {
 	stargateRoot: '/gateway/api',

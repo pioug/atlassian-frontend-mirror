@@ -7,7 +7,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { genericFileId, createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { MediaImage } from '../src';
 
 export type MediaImageId = {

@@ -6,7 +6,9 @@ import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-
 
 import { cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
 import { selectionFor } from '../../../__tests__/__helpers/selection-for';
-import { removeRowAt, removeRowClosestToPos, removeSelectedRows } from '../../remove-row';
+import { removeRowAt } from '../../remove-row-at';
+import { removeRowClosestToPos } from '../../remove-row-closest-to-pos';
+import { removeSelectedRows } from '../../remove-selected-rows';
 
 // createEditorState() doesn't set up Selection the same way the tests expect
 const fixSelection = (tr: Transaction): Transaction => {

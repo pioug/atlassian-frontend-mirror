@@ -1,5 +1,5 @@
 import { normalizeUrl } from '@atlaskit/linking-common/url';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type LinkPickerState, type LinkSearchListItemData } from '../../../../common/types';
 

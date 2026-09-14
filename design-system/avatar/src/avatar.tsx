@@ -6,16 +6,19 @@ import {
 	forwardRef,
 	isValidElement,
 	type MouseEvent,
+	type PropsWithoutRef,
 	type ReactNode,
+	type RefAttributes,
 	useCallback,
 	useEffect,
 	useRef,
 } from 'react';
 
-import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { AvatarContent } from './avatar-content';
 import AvatarImage from './internal/avatar-image';
@@ -142,10 +145,6 @@ export interface AvatarPropTypes {
 	 */
 	as?: keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>;
 	/**
-	 * whether disable aria-labelledby for avatar img
-	 */
-	isDecorative?: boolean;
-	/**
 	 * Defines the loading behaviour of the avatar image. Default value is eager.
 	 */
 	imgLoading?: 'lazy' | 'eager';
@@ -174,9 +173,22 @@ export interface AvatarPropTypes {
  * - [Code](https://atlassian.design/components/avatar/code)
  * - [Usage](https://atlassian.design/components/avatar/usage)
  */
-const Avatar: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<AvatarPropTypes> & React.RefAttributes<HTMLElement>
-> = forwardRef<HTMLElement, AvatarPropTypes>(
+type AvatarPropsWithoutDeprecatedSize = Omit<AvatarPropTypes, 'size'> & {
+	size?: Exclude<SizeType, 'xsmall'>;
+};
+
+interface AvatarComponent {
+	(
+		props: PropsWithoutRef<AvatarPropsWithoutDeprecatedSize> & RefAttributes<HTMLElement>,
+	): ReactNode;
+	/**
+	 * @deprecated Use `xxsmall` for 16px avatars.
+	 */
+	(props: PropsWithoutRef<AvatarPropTypes> & RefAttributes<HTMLElement>): ReactNode;
+	displayName?: string;
+}
+
+const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 	(
 		{
 			analyticsContext,
@@ -196,7 +208,6 @@ const Avatar: React.ForwardRefExoticComponent<
 			target,
 			testId,
 			as: AvatarContainer = 'div',
-			isDecorative = false,
 			imgLoading,
 			'aria-controls': ariaControls,
 			'aria-expanded': ariaExpanded,
@@ -291,11 +302,10 @@ const Avatar: React.ForwardRefExoticComponent<
 
 		return (
 			<EnsureIsInsideAvatarContext.Provider value={true}>
-				{/* @ts-ignore - Workaround for typecheck issues with help-center local consumption */}
 				<AvatarContainer
 					data-testid={testId}
 					role={containerShouldBeImage ? 'img' : undefined}
-					aria-labelledby={containerShouldBeImage && !isDecorative ? labelId : undefined}
+					aria-labelledby={containerShouldBeImage ? labelId : undefined}
 					css={containerStyles}
 					style={{ zIndex: stackIndex }}
 				>
@@ -360,7 +370,7 @@ const Avatar: React.ForwardRefExoticComponent<
 			</EnsureIsInsideAvatarContext.Provider>
 		);
 	},
-);
+) as AvatarComponent;
 
 Avatar.displayName = 'Avatar';
 

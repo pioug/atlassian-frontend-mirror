@@ -1,4 +1,4 @@
-import { type ProviderProps } from '@atlaskit/link-provider';
+import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider/types';
 
 import type { CardProps } from '../../src/view/Card';
 

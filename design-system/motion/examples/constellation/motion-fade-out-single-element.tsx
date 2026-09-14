@@ -6,10 +6,12 @@ import { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import Button from '@atlaskit/button/default/button';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
 
-import { Block, Centered, RetryContainer } from '../utils';
+import { Block } from '../utils/blocks';
+import { Centered, RetryContainer } from '../utils/containers';
 
 const MotionFadeOutSingleElementExample = (): JSX.Element => {
 	const directions = [

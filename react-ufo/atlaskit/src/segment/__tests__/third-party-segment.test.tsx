@@ -21,17 +21,20 @@ jest.mock('../segment', () => {
 });
 
 // Mock feature flags.
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(() => false),
 }));
 
 // Mock interaction-metrics so we can spy on addIframeSegmentData
 const mockAddIframeSegmentData = jest.fn();
 const mockAddCompletedHold = jest.fn();
+const mockAddExcluded3pSegment = jest.fn();
 jest.mock('../../interaction-metrics', () => ({
 	addIframeSegmentData: (...args: any[]) => mockAddIframeSegmentData(...args),
 	addCompletedHold: (...args: any[]) => mockAddCompletedHold(...args),
 	addSegmentExtraData: jest.fn(),
+	addExcluded3pSegment: (...args: any[]) => mockAddExcluded3pSegment(...args),
 	getActiveInteraction: jest.fn(() => null),
 }));
 
@@ -41,6 +44,7 @@ describe('UFOThirdPartySegment', () => {
 		(window as any).__mockUFOSegmentProps = null;
 		mockAddIframeSegmentData.mockClear();
 		mockAddCompletedHold.mockClear();
+		mockAddExcluded3pSegment.mockClear();
 		jest.useFakeTimers();
 	});
 
@@ -70,6 +74,33 @@ describe('UFOThirdPartySegment', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
+	it('should forward excludeFromMetrics to UFOSegment when set', async () => {
+		render(
+			<UFOThirdPartySegment name="bg-segment" excludeFromMetrics>
+				<div>Test content</div>
+			</UFOThirdPartySegment>,
+		);
+
+		const ufoSegmentProps = (window as any).__mockUFOSegmentProps;
+		expect(ufoSegmentProps.type).toBe('third-party');
+		expect(ufoSegmentProps.excludeFromMetrics).toBe(true);
+
+		await expect(document.body).toBeAccessible();
+	});
+
+	it('should not set excludeFromMetrics by default', async () => {
+		render(
+			<UFOThirdPartySegment name="test-segment">
+				<div>Test content</div>
+			</UFOThirdPartySegment>,
+		);
+
+		const ufoSegmentProps = (window as any).__mockUFOSegmentProps;
+		expect(ufoSegmentProps.excludeFromMetrics).toBeFalsy();
+
+		await expect(document.body).toBeAccessible();
+	});
+
 	it('should render children within UFOSegment', async () => {
 		render(
 			<UFOThirdPartySegment name="test-segment">
@@ -84,6 +115,118 @@ describe('UFOThirdPartySegment', () => {
 		expect(screen.getByText('Test content')).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
+	});
+
+	describe('excludedData breadcrumb', () => {
+		beforeEach(() => {
+			DefaultInteractionID.current = 'test-interaction-id';
+		});
+		afterEach(() => {
+			DefaultInteractionID.current = null;
+		});
+
+		const excludedContext = {
+			hold: jest.fn(),
+			tracePress: jest.fn(),
+			labelStack: [{ name: 'bg-segment', segmentId: 'bg-segment-id' }],
+			segmentIdMap: new Map(),
+			addMark: jest.fn(),
+			addCustomData: jest.fn(),
+			addCustomTimings: jest.fn(),
+			addApdex: jest.fn(),
+		} as any;
+
+		const renderExcluded = (ui: React.ReactElement) =>
+			render(
+				<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+					<UFOInteractionContext.Provider value={excludedContext}>
+						{ui}
+					</UFOInteractionContext.Provider>
+				</UFOInteractionIDContext.Provider>,
+			);
+
+		it('records the breadcrumb once with the segment id when excludedData is set', () => {
+			const excludedData = { name: 'bg-segment', reason: 'background-script' };
+			renderExcluded(
+				<UFOThirdPartySegment name="bg-segment" excludeFromMetrics excludedData={excludedData}>
+					<div>bg</div>
+				</UFOThirdPartySegment>,
+			);
+
+			expect(mockAddExcluded3pSegment).toHaveBeenCalledTimes(1);
+			expect(mockAddExcluded3pSegment).toHaveBeenCalledWith(
+				'test-interaction-id',
+				'bg-segment-id',
+				excludedData,
+			);
+		});
+
+		it('does not record any breadcrumb when excludedData is not provided', () => {
+			renderExcluded(
+				<UFOThirdPartySegment name="bg-segment" excludeFromMetrics>
+					<div>bg</div>
+				</UFOThirdPartySegment>,
+			);
+
+			expect(mockAddExcluded3pSegment).not.toHaveBeenCalled();
+		});
+
+		it('re-rendering with a STABLE excludedData reference does not re-record (no duplicate)', () => {
+			const excludedData = { name: 'bg-segment', reason: 'background-script' };
+			const { rerender } = renderExcluded(
+				<UFOThirdPartySegment name="bg-segment" excludeFromMetrics excludedData={excludedData}>
+					<div>bg</div>
+				</UFOThirdPartySegment>,
+			);
+
+			// Force parent re-renders with the same data reference.
+			rerender(
+				<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+					<UFOInteractionContext.Provider value={excludedContext}>
+						<UFOThirdPartySegment name="bg-segment" excludeFromMetrics excludedData={excludedData}>
+							<div>bg</div>
+						</UFOThirdPartySegment>
+					</UFOInteractionContext.Provider>
+				</UFOInteractionIDContext.Provider>,
+			);
+
+			// useMemo dep [data] is stable, so the writer fires exactly once across re-renders.
+			expect(mockAddExcluded3pSegment).toHaveBeenCalledTimes(1);
+		});
+
+		it('re-rendering with a NEW excludedData reference always targets the same segment id, so the engine map upserts to a single entry (no duplicate)', () => {
+			renderExcluded(
+				<UFOThirdPartySegment
+					name="bg-segment"
+					excludeFromMetrics
+					excludedData={{ name: 'bg-segment', reason: 'background-script' }}
+				>
+					<div>bg</div>
+				</UFOThirdPartySegment>,
+			);
+
+			// Re-render with a brand-new inline object (what the real Forge renderer does each render).
+			rerenderNewInline();
+
+			// The writer may fire more than once, but every call carries the SAME segmentId, so
+			// addExcluded3pSegment (which upserts by segmentId) collapses them to one entry. This is
+			// the guarantee that `excluded3pSegments` never accumulates duplicates on re-render.
+			const segmentIds = mockAddExcluded3pSegment.mock.calls.map((call) => call[1]);
+			expect(new Set(segmentIds)).toEqual(new Set(['bg-segment-id']));
+		});
+
+		function rerenderNewInline() {
+			// Helper kept local to avoid capturing a stable object reference.
+			renderExcluded(
+				<UFOThirdPartySegment
+					name="bg-segment"
+					excludeFromMetrics
+					excludedData={{ name: 'bg-segment', reason: 'background-script' }}
+				>
+					<div>bg</div>
+				</UFOThirdPartySegment>,
+			);
+		}
 	});
 
 	describe('IframeSegment abort timeout', () => {

@@ -1,4 +1,4 @@
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { akEditorBreakoutPadding, breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
 

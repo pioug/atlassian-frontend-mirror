@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkIconButton } from '@atlaskit/button/new';
+import LinkIconButton from '@atlaskit/button/icon/link';
 import CompassIcon from '@atlaskit/icon/core/compass';
 import { token } from '@atlaskit/tokens';
 

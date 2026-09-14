@@ -1,17 +1,18 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import type { ProfileClient } from '../../../types';
 import { AgentProfileCardResourced } from '../AgentProfileCardResourced';
 
 const fireEvent = jest.fn();
 
-jest.mock('@atlaskit/teams-app-internal-analytics', () => ({
+jest.mock('@atlaskit/teams-app-internal-analytics/use-analytics-events', () => ({
+	...jest.requireActual('@atlaskit/teams-app-internal-analytics/use-analytics-events'),
 	useAnalyticsEvents: () => ({ fireEvent }),
 }));
 
@@ -67,29 +68,17 @@ describe('AgentProfileCardResourced', () => {
 		jest.clearAllMocks();
 	});
 
-	ffTest.on('confluence_fix_agent_profile_card_flash', 'confluence flashing fix enabled', () => {
-		it('uses the stable loading path when Confluence agent profile card flashing fix is enabled', async () => {
-			const resourceClient = createResourceClient();
-			const { rerender } = renderCard(resourceClient);
+	it('should capture and report a11y violations', async () => {
+		const resourceClient = createResourceClient();
+		const { container } = renderCard(resourceClient);
 
-			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
+		await screen.findByText(rovoAgentProfile.name);
 
-			rerender(
-				<IntlProvider locale="en">
-					<AgentProfileCardResourced
-						accountId="agent-account-id"
-						cloudId="cloud-id"
-						resourceClient={resourceClient}
-					/>
-				</IntlProvider>,
-			);
-
-			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
-		});
+		await expect(container).toBeAccessible();
 	});
 
-	ffTest.on('jira_ai_fix_agent_profile_card_flashing', 'jira flashing fix enabled', () => {
-		it('keeps using the stable loading path when the existing Jira gate is enabled', async () => {
+	ffTest.on('confluence_fix_agent_profile_card_flash', 'confluence flashing fix enabled', () => {
+		it('uses the stable loading path when Confluence agent profile card flashing fix is enabled', async () => {
 			const resourceClient = createResourceClient();
 			const { rerender } = renderCard(resourceClient);
 

@@ -10,7 +10,8 @@ import React, { forwardRef, type Ref } from 'react';
 import { css, jsx } from '@compiled/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
+import AppProvider from '@atlaskit/app-provider/app-provider';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
 import LinkItem from '../../link-item';
@@ -100,7 +101,6 @@ describe('<LinkItem />', () => {
 
 		render(
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
-			// @ts-ignore
 			<LinkItem href="http://www.atlassian.com" css={hackStyles} testId="link">
 				Atlassian
 			</LinkItem>,

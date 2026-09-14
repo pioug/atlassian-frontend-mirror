@@ -23,7 +23,6 @@ export function sanitizeNodes(
 }
 
 function sanitizeNodeSpecContent(nodes: { [key: string]: NodeSpec }, rawContent: string): string {
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 	const content = rawContent.replace(/\W/gu, ' ');
 	const contentKeys = content.split(' ');
 	const unsupportedContentKeys = Array.from(
@@ -36,7 +35,6 @@ function sanitizeNodeSpecContent(nodes: { [key: string]: NodeSpec }, rawContent:
 	);
 }
 
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const WORD_CHAR_REGEX = /\w/u;
 
 function sanitizedContent(content: string | undefined, invalidContent: string): string {

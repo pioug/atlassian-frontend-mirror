@@ -1,19 +1,34 @@
 import { renderHook } from '@testing-library/react';
 
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
-import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app';
 
 import { encodeParamsToUrl } from '../../../../util/url';
-import { useAgentUrlActions } from '../useAgentActions';
+import { useAgentUrlActions } from '../useAgentUrlActions';
 
 const mockFireEvent = jest.fn();
 jest.mock('@atlaskit/rovo-triggers/post-message-to-pubsub');
-jest.mock('@atlaskit/teams-app-config/navigation');
+jest.mock('@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app');
+jest.mock('../../../../util/AnalyticsEventPayload');
+jest.mock('../../../../util/GenericAttributes');
+jest.mock('../../../../util/actionClicked');
+jest.mock('../../../../util/agentRequestAnalytics');
 jest.mock('../../../../util/analytics');
+jest.mock('../../../../util/cardTriggered');
+jest.mock('../../../../util/createEvent');
+jest.mock('../../../../util/errorRetryClicked');
+jest.mock('../../../../util/getActionSubject');
+jest.mock('../../../../util/moreActionsClicked');
+jest.mock('../../../../util/moreMembersClicked');
+jest.mock('../../../../util/profileCardRendered');
+jest.mock('../../../../util/reportingLinesClicked');
+jest.mock('../../../../util/teamAvatarClicked');
+jest.mock('../../../../util/teamRequestAnalytics');
+jest.mock('../../../../util/userRequestAnalytics');
 jest.mock('../../../../util/url');
 
-jest.mock('@atlaskit/teams-app-internal-analytics', () => ({
-	...jest.requireActual('@atlaskit/teams-app-internal-analytics'),
+jest.mock('@atlaskit/teams-app-internal-analytics/use-analytics-events', () => ({
+	...jest.requireActual('@atlaskit/teams-app-internal-analytics/use-analytics-events'),
 	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
 		fireEvent: mockFireEvent,
 	})),

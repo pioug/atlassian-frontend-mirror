@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import ConfluenceSearchConfigModalNoResults from '../../examples/vr/confluence-search-config-modal-no-results-vr';
+import ConfluenceSearchConfigModalNoResults from '../../examples/vr/confluence-search-config-modal-no-results-vr.vr.ap';
 
 snapshot(ConfluenceSearchConfigModalNoResults, {
 	description: 'Confluence search config modal no results view',

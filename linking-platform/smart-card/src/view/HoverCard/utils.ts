@@ -1,8 +1,8 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { extractType } from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractType } from '@atlaskit/link-extractors/extract-type';
 
 import { ElementName } from '../../constants';
-import { extractOwnedBy } from '../../extractors/flexible/utils';
+import { extractOwnedBy } from '../../extractors/flexible/extract-owned-by';
 import type { ElementItem } from '../FlexibleCard/components/blocks/types';
 
 const getSimulatedBetterMetadata = (
@@ -124,9 +124,9 @@ export const getMetadata = (
 	extensionKey?: string,
 	data?: JsonLd.Data.BaseData,
 ): {
-	subtitle: ElementItem[] | undefined;
 	primary: ElementItem[] | undefined;
 	secondary: ElementItem[] | undefined;
+	subtitle: ElementItem[] | undefined;
 } => {
 	const metadata = getSimulatedBetterMetadata(extensionKey, data);
 

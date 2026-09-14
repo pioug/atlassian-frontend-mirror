@@ -1,5 +1,75 @@
 # @atlaskit/editor-plugin-loom
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.0
 
 ### Minor Changes

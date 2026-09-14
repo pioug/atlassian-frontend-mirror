@@ -4,6 +4,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ButtonItem from '@atlaskit/menu/button-item';
 import CustomItem from '@atlaskit/menu/custom-item';
 import LinkItem from '@atlaskit/menu/link-item';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import { type CustomItemHtmlProps, type DropdownItemProps } from './types';
@@ -46,7 +47,8 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 	) => {
 		// if the dropdown item has aria-haspopup, we won't register with focus manager
 		// since it is a nested trigger, we have registered inside dropdown-menu
-		const itemRef = useRegisterItemWithFocusManager(!!rest['aria-haspopup']);
+		const isNestedTrigger = !!rest['aria-haspopup'];
+		const itemRef = useRegisterItemWithFocusManager(isNestedTrigger);
 
 		const handleItemClick = useCallback(
 			(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
@@ -134,6 +136,12 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 					interactionName={interactionName}
 					// DSP-13312 TODO: remove spread props in future major release
 					{...rest}
+					// When used as a nested submenu trigger, the item's open state is conveyed via
+					// `aria-expanded`. `aria-current` (which ButtonItem sets from `isSelected`) is
+					// inappropriate here and misleads screen reader users, so override it. (A11Y-29757)
+					{...(isNestedTrigger && fg('platform_dst_dropdown_nested_trigger_aria_current')
+						? { 'aria-current': undefined }
+						: {})}
 				>
 					{children}
 				</ButtonItem>

@@ -7,8 +7,8 @@ import {
 	type AtomicActionExecuteRequest,
 	type AtomicActionExecuteResponse,
 	type AtomicActionInterface,
-	type Icon,
-} from '@atlaskit/linking-types';
+} from '@atlaskit/linking-types/datasource-actions';
+import type { Icon } from '@atlaskit/linking-types/datasource';
 
 import {
 	blocker,
@@ -114,22 +114,30 @@ export const mockActionsDiscovery = (
 					permissions: {
 						data: new Array(20).fill(null).flatMap((_, i) => [
 							{
-								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
+								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${
+									i * 10 + numberOfLoads
+								}`,
 								fieldKey: 'summary',
 								isEditable: i % 2 === 1,
 							},
 							{
-								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
+								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${
+									i * 10 + numberOfLoads
+								}`,
 								fieldKey: 'status',
 								isEditable: i % 2 === 1,
 							},
 							{
-								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
+								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${
+									i * 10 + numberOfLoads
+								}`,
 								fieldKey: 'priority',
 								isEditable: i % 2 === 1,
 							},
 							{
-								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
+								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${
+									i * 10 + numberOfLoads
+								}`,
 								fieldKey: 'assignee',
 								isEditable: i % 2 === 1,
 							},
@@ -203,11 +211,11 @@ export const mockActionsExecution = (mockExecutionDelay: number): void => {
 
 export const cannedStatuses: {
 	id: string;
-	transitionId: string;
-	text: string;
 	style: {
 		appearance: string;
 	};
+	text: string;
+	transitionId: string;
 }[] = [
 	{
 		id: '11',
@@ -261,8 +269,8 @@ export const cannedStatuses: {
 
 export const cannedUsers: {
 	atlassianUserId: string;
-	displayName: string;
 	avatarSource: string;
+	displayName: string;
 	url: string;
 }[] = [
 	{

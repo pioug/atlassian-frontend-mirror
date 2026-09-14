@@ -2,11 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { MediaCardError, type SvgPrimaryReason } from '../../errors';
+
+import { jsx, css } from '@compiled/react';
+
+import { MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg/media-svg-error';
+import { useResolveSvg } from '@atlaskit/media-svg/use-resolve-svg';
+
+import { MediaCardError } from '../../MediaCardError';
+import type { SvgPrimaryReason } from '../../errors';
 import { calculateSvgDimensions } from './helpers';
-import { useResolveSvg, MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg';
 import type { SvgViewProps } from './types';
 
 const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason => {

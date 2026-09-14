@@ -1,5 +1,64 @@
 # @atlaskit/docs
 
+## 12.2.2
+
+### Patch Changes
+
+- [`e9c21095ccaa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9c21095ccaa0) -
+  Experimental React 19 peer dependency support. Test coverage is partial.
+
+## 12.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.0
+
+### Minor Changes
+
+- [`086bcd895b8f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/086bcd895b8f0) -
+  Improve the structured package documentation display. Add an optional `id` prop to
+  `HeadingWithSectionLink` so repeated headings can use stable, unique anchors. `TSProps` also
+  accepts `withoutMarginBlockStart` for layouts that provide their own section spacing.
+
+  ```tsx
+  <HeadingWithSectionLink id="card-usage" level={3}>
+  	Usage
+  </HeadingWithSectionLink>
+  ```
+
+## 12.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.8
+
+### Patch Changes
+
+- [`b98bf9602b70d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b98bf9602b70d) -
+  Improve generated Platform Labs package documentation
+
+## 12.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.4
 
 ### Patch Changes

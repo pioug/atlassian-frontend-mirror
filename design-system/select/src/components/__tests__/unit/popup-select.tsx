@@ -1,14 +1,16 @@
 /* eslint-disable testing-library/no-node-access,testing-library/no-container */
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 
-import { type OptionsType, PopupSelect } from '../../../index';
+import { type OptionsType } from '../../../types';
+import { PopupSelect } from '../../../popup-select/popup-select';
 
 const user = userEvent.setup();
+
+const testId = 'testId';
 
 const OPTIONS: OptionsType = [
 	{ label: '1', value: 'one' },
@@ -19,14 +21,12 @@ const OPTIONS: OptionsType = [
 ];
 
 const addedListeners = () => {
-	//@ts-ignore
 	const { mock } = global.window.addEventListener as jest.Mock;
 	const results = mock.calls.filter((call) => call[0] !== 'error');
 	return results;
 };
 
 const removedListeners = () => {
-	//@ts-ignore
 	const { mock } = global.window.removeEventListener as jest.Mock;
 	const results = mock.calls.filter((call) => call[0] !== 'error');
 	return results;
@@ -39,9 +39,7 @@ const PORTALED_CONTAINER = document.body;
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popup Select', () => {
 	beforeEach(() => {
-		//@ts-ignore
 		jest.spyOn(global.window, 'addEventListener');
-		//@ts-ignore
 		jest.spyOn(global.window, 'removeEventListener');
 		skipA11yAudit();
 	});
@@ -60,7 +58,7 @@ describe('Popup Select', () => {
 				<PopupSelect
 					options={OPTIONS}
 					value={OPTIONS[0]}
-					testId={'PopupSelect'}
+					testId={testId}
 					onChange={(value) => onChangeMock(value)}
 					target={({ ref }) => (
 						<button type="button" ref={ref} data-testid="select-trigger">
@@ -90,7 +88,7 @@ describe('Popup Select', () => {
 				<PopupSelect
 					options={OPTIONS}
 					value={OPTIONS[0]}
-					testId={'PopupSelect'}
+					testId={testId}
 					onChange={(value) => onChangeMock(value)}
 					target={({ ref }) => (
 						<button type="button" ref={ref} data-testid="select-trigger">
@@ -254,7 +252,7 @@ describe('Popup Select', () => {
 				<PopupSelect
 					options={OPTIONS}
 					value={OPTIONS[0]}
-					testId={'PopupSelect'}
+					testId={testId}
 					onMenuClose={onMenuCloseMock}
 					target={({ ref }) => (
 						<button type="button" ref={ref} data-testid="select-trigger">
@@ -273,7 +271,7 @@ describe('Popup Select', () => {
 
 		await user.click(selectTrigger);
 
-		expect(screen.getByText('Select...')).toBeInTheDocument();
+		expect(screen.getByTestId(new RegExp(`${testId}.*placeholder`))).toBeInTheDocument();
 
 		await user.click(selectTrigger);
 
@@ -293,13 +291,14 @@ describe('Popup Select', () => {
 						</button>
 					)}
 					label="Options"
+					testId={testId}
 				/>
 			</div>,
 		);
 
 		await user.click(screen.getByText('Target'));
 
-		expect(screen.getByText('Select...')).toBeInTheDocument();
+		expect(screen.getByTestId(new RegExp(`${testId}.*placeholder`))).toBeInTheDocument();
 	});
 
 	const PopupSelectOpenTest = ({
@@ -486,7 +485,7 @@ describe('Popup Select', () => {
 					<PopupSelect
 						options={OPTIONS}
 						value={OPTIONS[0]}
-						testId={'PopupSelect'}
+						testId={testId}
 						onMenuOpen={onMenuOpenMock}
 						onMenuClose={onMenuCloseMock}
 						target={({ ref }) => (
@@ -506,7 +505,7 @@ describe('Popup Select', () => {
 
 			await user.click(selectTrigger);
 
-			expect(screen.getByText('Select...')).toBeInTheDocument();
+			expect(screen.getByTestId(new RegExp(`${testId}.*placeholder`))).toBeInTheDocument();
 
 			await user.click(selectTrigger);
 

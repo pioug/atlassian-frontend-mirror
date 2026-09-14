@@ -8,7 +8,7 @@
  */
 import React from 'react';
 
-import { typeAheadQuery } from '@atlaskit/adf-schema';
+import { typeAheadQuery } from '@atlaskit/adf-schema/type-ahead-query';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -21,7 +21,7 @@ import type { Command, TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { closeTypeAhead } from './pm-plugins/commands/close-type-ahead';
 import { insertTypeAheadItem } from './pm-plugins/commands/insert-type-ahead-item';

@@ -1,7 +1,7 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { TEST_BASE_DATA, TEST_NAME } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractNameFromJsonLd } from '../index';
+import { extractNameFromJsonLd } from '../extract-name-from-json-ld';
 
 const TEST_RESPONSE: JsonLd.Response = {
 	meta: {

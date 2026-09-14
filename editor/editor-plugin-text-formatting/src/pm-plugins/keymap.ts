@@ -16,7 +16,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	toggleCodeWithAnalytics,

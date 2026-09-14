@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+
 import DownloadIcon from '@atlaskit/icon/core/download';
-import {
-	ArchiveDownloadButtonWrapper,
-	DisabledArchiveDownloadButtonWrapper,
-} from './styleWrappers';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
-import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import { ArchiveDownloadButtonWrapper } from './archive-download-button-wrapper';
+import { DisabledArchiveDownloadButtonWrapper } from './disabled-archive-download-button-wrapper';
 
 export type ArchiveDownloadButtonProps = {
 	downloadFn: () => void;

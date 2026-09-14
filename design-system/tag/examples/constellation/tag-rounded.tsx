@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import Tag from '@atlaskit/tag';
+import Avatar from '@atlaskit/avatar/avatar';
+import Tag from '@atlaskit/tag/removable-tag';
 
 export default (): React.JSX.Element => (
 	<Tag

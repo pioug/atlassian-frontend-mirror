@@ -17,7 +17,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
-import type { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export enum FLAG_TYPE {
@@ -72,9 +72,17 @@ export type LastContentPasted = {
 	text?: string;
 };
 
+export type MarkdownToPmConverter = (params: { markdown: string; schema: Schema }) => Fragment;
+
 export type PastePluginOptions = {
 	cardOptions?: CardOptions;
 	isFullPage?: boolean;
+	/**
+	 * Optional markdown → ProseMirror fragment converter used for plain-text
+	 * Cmd+V paste when `platform_editor_paste_as_md_use_gfm` is enabled.
+	 * When omitted or the experiment is off, the legacy MarkdownTransformer is used.
+	 */
+	markdownToPmConverter?: MarkdownToPmConverter;
 	pasteWarningOptions?: PasteWarningOptions;
 	sanitizePrivateContent?: boolean;
 };

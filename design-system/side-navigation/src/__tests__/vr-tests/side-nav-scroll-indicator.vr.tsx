@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import Example from '../../../examples/12-nested-side-navigation-scroll-indicator';
+import Example from '../../../examples/12-nested-side-navigation-scroll-indicator.vr.ap';
 
 snapshot(Example, {
 	variants: [

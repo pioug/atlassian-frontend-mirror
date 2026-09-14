@@ -1,19 +1,14 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { UFOExperience } from '@atlaskit/ufo/experience';
+
 import {
-	type EmojiId,
-	type ProviderTypes,
 	UfoComponentName,
 	UfoEmojiTimings,
 	UfoEmojiTimingsKeys,
 	UfoExperienceName,
 } from '../../types';
-
-import {
-	ExperiencePerformanceTypes,
-	ExperienceTypes,
-	ConcurrentExperience,
-	UFOExperience,
-} from '@atlaskit/ufo';
-import { withSampling, type WithSamplingUFOExperience } from './samplingUfo';
 
 const createRenderExperience = (componentName: string) => {
 	return {
@@ -61,12 +56,12 @@ const customEmojiTimings = [
 ];
 
 export const ufoExperiences: {
+	'emoji-picker-opened': UFOExperience;
 	'emoji-rendered': ConcurrentExperience;
 	'emoji-resource-fetched': ConcurrentExperience;
-	'emoji-picker-opened': UFOExperience;
+	'emoji-searched': UFOExperience;
 	'emoji-selection-recorded': UFOExperience;
 	'emoji-uploaded': UFOExperience;
-	'emoji-searched': UFOExperience;
 } = {
 	'emoji-rendered': new ConcurrentExperience(UfoExperienceName.EMOJI_RENDERED, {
 		platform: { component: UfoComponentName.EMOJI },
@@ -96,21 +91,15 @@ export const ufoExperiences: {
 	),
 };
 
-export const sampledUfoRenderedEmoji = (emojiId: EmojiId): WithSamplingUFOExperience => {
-	return withSampling(
-		ufoExperiences['emoji-rendered'].getInstance(emojiId.id || emojiId.shortName),
-	);
-};
-
-export const hasUfoMarked = (
-	ufoExperience: UFOExperience | WithSamplingUFOExperience,
-	name: string,
-): boolean => {
-	return ufoExperience.metrics.marks.some((mask) => mask.name === name);
-};
-
-export const sampledUfoEmojiResourceFetched = (
-	providerType: ProviderTypes,
-): WithSamplingUFOExperience => {
-	return withSampling(ufoExperiences['emoji-resource-fetched'].getInstance(providerType));
-};
+/**
+ * @deprecated Use `import { sampledUfoRenderedEmoji } from '@atlaskit/emoji/ufo-experiences'` instead.
+ */
+export { sampledUfoRenderedEmoji } from './sampledUfoRenderedEmoji';
+/**
+ * @deprecated Use `import { hasUfoMarked } from '@atlaskit/emoji/ufo-experiences'` instead.
+ */
+export { hasUfoMarked } from './hasUfoMarked';
+/**
+ * @deprecated Use `import { sampledUfoEmojiResourceFetched } from '@atlaskit/emoji/ufo-experiences'` instead.
+ */
+export { sampledUfoEmojiResourceFetched } from './sampledUfoEmojiResourceFetched';

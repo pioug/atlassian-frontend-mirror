@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { act, render, screen } from '@atlassian/testing-library';
+import { act, render, screen, waitFor } from '@atlassian/testing-library';
 
-import { Popover } from '../../src/entry-points/popover';
+import { Popover } from '../../src/popover/popover';
 
 /**
  * Fires a capture-phase keydown for Escape on the popover element.
@@ -27,6 +27,16 @@ function fireLightDismissToggle(element: HTMLElement) {
 }
 
 /**
+ * Fires a synthetic `beforetoggle` event simulating a browser open.
+ */
+function fireOpenBeforeToggle(element: HTMLElement) {
+	const event = new Event('beforetoggle', { bubbles: false }) as ToggleEvent;
+	Object.defineProperty(event, 'newState', { value: 'open', configurable: true });
+	Object.defineProperty(event, 'oldState', { value: 'closed', configurable: true });
+	element.dispatchEvent(event);
+}
+
+/**
  * Fires a synthetic `toggle` event simulating a browser open.
  */
 function fireOpenToggle(element: HTMLElement) {
@@ -36,6 +46,29 @@ function fireOpenToggle(element: HTMLElement) {
 	element.dispatchEvent(event);
 }
 
+function PopoverWithChangingOnClose() {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<>
+			<button data-testid="changing-handler-trigger" onClick={() => setIsOpen(true)}>
+				Open
+			</button>
+			<Popover
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				role="dialog"
+				label="changing-handler-test"
+				shouldAnimate
+			>
+				<button data-testid="changing-handler-close" onClick={() => setIsOpen(false)}>
+					Close
+				</button>
+			</Popover>
+		</>
+	);
+}
+
 it('should capture and report a11y violations', async () => {
 	const { container } = render(
 		<Popover isOpen={true} onClose={() => {}} role="dialog" label="a11y-test">
@@ -43,6 +76,25 @@ it('should capture and report a11y violations', async () => {
 		</Popover>,
 	);
 	await expect(container).toBeAccessible();
+});
+
+describe('Popover native lifecycle listener stability', () => {
+	it('keeps lifecycle listeners attached when onClose changes during a controlled close', async () => {
+		render(<PopoverWithChangingOnClose />);
+
+		act(() => {
+			screen.getByTestId('changing-handler-trigger').click();
+		});
+		act(() => {
+			screen.getByTestId('changing-handler-close').click();
+		});
+
+		await waitFor(() => {
+			expect(
+				screen.queryByRole('dialog', { name: 'changing-handler-test' }),
+			).not.toBeInTheDocument();
+		});
+	});
 });
 
 describe('Popover closeReasonRef - race condition between Escape keydown and programmatic close', () => {
@@ -99,6 +151,45 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 		// The subsequent light-dismiss must report 'light-dismiss', not the stale 'escape'
 		expect(onClose).toHaveBeenCalledTimes(1);
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+	});
+
+	/**
+	 * This test covers controlled closure before the task-queued native toggle event.
+	 * Playwright covers the complete browser event and final-focus sequence.
+	 */
+	it('restores focus after the current event when a controlled manual popover closes', async () => {
+		const { rerender } = render(
+			<>
+				<button data-testid="trigger">Open spotlight</button>
+				<Popover isOpen={true} mode="manual" role="dialog" label="manual-focus-test">
+					<button data-testid="dismiss">Dismiss spotlight</button>
+				</Popover>
+			</>,
+		);
+		const trigger = screen.getByTestId('trigger');
+		trigger.focus();
+		const popover = screen.getByRole('dialog', { name: 'manual-focus-test' });
+		act(() => {
+			fireOpenBeforeToggle(popover);
+		});
+		const dismiss = screen.getByTestId('dismiss');
+		dismiss.focus();
+		const triggerFocus = jest.spyOn(trigger, 'focus');
+
+		rerender(
+			<>
+				<button data-testid="trigger">Open spotlight</button>
+				<Popover isOpen={false} mode="manual" role="dialog" label="manual-focus-test">
+					<button data-testid="dismiss">Dismiss spotlight</button>
+				</Popover>
+			</>,
+		);
+
+		expect(triggerFocus).not.toHaveBeenCalled();
+		await act(async () => {
+			await new Promise((resolve) => setTimeout(resolve, 0));
+		});
+		expect(triggerFocus).toHaveBeenCalledWith({ preventScroll: true });
 	});
 
 	it('reports reason "escape" when Escape keydown causes the close (no programmatic race)', () => {

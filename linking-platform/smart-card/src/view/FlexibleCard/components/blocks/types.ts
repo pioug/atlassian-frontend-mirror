@@ -1,6 +1,6 @@
 import { type ReactNode, type Ref } from 'react';
 
-import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
+import type { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge/lozenge';
 
 import {
 	type ActionName,

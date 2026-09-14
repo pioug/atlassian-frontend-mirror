@@ -42,8 +42,8 @@ ${code`
 ${(
 	<Example
 		packageName="@atlaskit/color-picker"
-		Component={require('../examples/00-color-picker').default}
-		source={require('!!raw-loader!../examples/00-color-picker')}
+		Component={require('../examples/00-color-picker.vr.ap').default}
+		source={require('!!raw-loader!../examples/00-color-picker.vr.ap')}
 		title="Basic Usage"
 		language="jsx"
 	/>

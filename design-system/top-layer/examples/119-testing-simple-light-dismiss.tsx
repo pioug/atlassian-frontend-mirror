@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dismiss';
 
 const styles = cssMap({

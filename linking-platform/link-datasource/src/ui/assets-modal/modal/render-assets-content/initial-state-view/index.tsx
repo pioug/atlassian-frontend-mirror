@@ -6,7 +6,7 @@
 import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import { token } from '@atlaskit/tokens';
 
 import { RichIconSearch } from '../../../../../common/ui/rich-icon/search';

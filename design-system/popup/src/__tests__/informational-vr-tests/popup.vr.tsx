@@ -1,6 +1,6 @@
 import { type Hooks, snapshotInformational, type SnapshotTestOptions } from '@af/visual-regression';
 
-import Popup from '../../../examples/10-popup';
+import Popup from '../../../examples/10-popup.vr.ap';
 
 const variants: SnapshotTestOptions<Hooks>['variants'] = [
 	{ name: 'Light', environment: { colorScheme: 'light' } },

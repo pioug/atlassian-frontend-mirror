@@ -1,4 +1,4 @@
-import { type CardState } from '@atlaskit/linking-common';
+import type { CardState } from '@atlaskit/linking-common/store';
 
 import type { ActionName } from '../../../../../constants';
 import { type LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';

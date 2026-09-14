@@ -1,32 +1,40 @@
-import { mount } from 'enzyme';
-import { CodeBlock } from '@atlaskit/code';
+import { render, screen } from '@atlassian/testing-library';
 import code from '../../code';
 
 describe('code string literal', () => {
+	it('should render an accessible code block', async () => {
+		const { container } = render(code`const hello = 'world';`);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should highlight code', () => {
-		const wrapper = mount(code`highlight=2
+		const { container } = render(code`highlight=2
       const hello = 'world';
       const maybe = 'people';
     `);
 
-		expect(wrapper.find(CodeBlock).props().highlight).toEqual('2');
+		const highlightedRows = container.querySelectorAll('[data-ds--code--row--highlight]');
+
+		expect(highlightedRows).toHaveLength(1);
+		expect(highlightedRows[0]).toHaveTextContent("const maybe = 'people';");
 	});
 
 	it('should remove highlight config', () => {
-		const wrapper = mount(code`highlight=2
+		render(code`highlight=2
     const hello = 'world';
     const maybe = 'people';
   `);
 
-		expect(wrapper.text().indexOf('highlight=2')).toEqual(-1);
+		expect(screen.queryByText(/highlight=2/)).not.toBeInTheDocument();
 	});
 
 	it('should not highlight code', () => {
-		const wrapper = mount(code`
+		const { container } = render(code`
     const hello = 'world';
     const maybe = 'people';
   `);
 
-		expect(wrapper.find(CodeBlock).props().highlight).toEqual(undefined);
+		expect(container.querySelector('[data-ds--code--row--highlight]')).not.toBeInTheDocument();
 	});
 });

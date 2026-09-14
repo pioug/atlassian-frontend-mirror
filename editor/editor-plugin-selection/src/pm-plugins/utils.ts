@@ -26,7 +26,7 @@ import {
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { selectionPluginKey } from '../types';
 

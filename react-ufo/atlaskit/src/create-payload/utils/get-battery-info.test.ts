@@ -1,4 +1,5 @@
-import getBatteryInfo, { getBatteryInfoToLegacyFormat } from './get-battery-info';
+import getBatteryInfo from './get-battery-info';
+import { getBatteryInfoToLegacyFormat } from './get-battery-info-to-legacy-format';
 
 describe('getBatteryInfo', () => {
 	const originalNavigator = global.navigator;

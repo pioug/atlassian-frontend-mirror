@@ -7,7 +7,7 @@ type Props = BasePanelProps & {
 	isDefaultExpanded?: boolean;
 };
 
-const PanelState: FC<Props> = ({ isDefaultExpanded = false, children, header }) => {
+const PanelState: FC<Props> = ({ isDefaultExpanded = false, children, header, ariaLabel }) => {
 	const [isExpanded, setisExpanded] = useState(isDefaultExpanded);
 
 	const handleChange = () => {
@@ -15,7 +15,12 @@ const PanelState: FC<Props> = ({ isDefaultExpanded = false, children, header }) 
 	};
 
 	return (
-		<PanelStateless header={header} isExpanded={isExpanded} onChange={handleChange}>
+		<PanelStateless
+			header={header}
+			isExpanded={isExpanded}
+			onChange={handleChange}
+			ariaLabel={ariaLabel}
+		>
 			{children}
 		</PanelStateless>
 	);

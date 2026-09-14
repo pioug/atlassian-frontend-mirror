@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "24.0.1",
+	"version": "24.3.0",
 	"description": "A tooltip briefly describes an interactive element on mouse hover or keyboard focus.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,8 +54,8 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -67,15 +67,16 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
+		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"@atlassian/workbench": "workspace:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"tiny-invariant": "root:*"
 	},
 	"keywords": [
@@ -83,25 +84,6 @@
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
-	},
 	"homepage": "https://atlassian.design/components/tooltip/",
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {

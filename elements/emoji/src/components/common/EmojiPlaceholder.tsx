@@ -1,13 +1,18 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
+
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import { defaultEmojiHeight, defaultDenseEmojiHeight } from '../../util/constants';
+
 import type { EmojiImageRepresentation } from '../../types';
+import { defaultEmojiHeight, defaultDenseEmojiHeight } from '../../util/constants';
+import { emojiPlaceholderTestId } from './emojiPlaceholderTestId';
 import { placeholder } from './styles';
 
 const placeholderContainer = css({
@@ -30,8 +35,6 @@ export interface Props {
 	size?: number;
 	xcss?: StrictXCSSProp<'backgroundColor', never>;
 }
-
-export const emojiPlaceholderTestId = (shortName: string) => `emoji-placeholder-${shortName}`;
 
 const EmojiPlaceholder = (props: Props): JSX.Element => {
 	const {
@@ -85,3 +88,8 @@ const EmojiPlaceholder = (props: Props): JSX.Element => {
 };
 
 export default EmojiPlaceholder;
+
+/**
+ * @deprecated Use `import { emojiPlaceholderTestId } from '@atlaskit/emoji/emoji-placeholder'` instead.
+ */
+export { emojiPlaceholderTestId } from './emojiPlaceholderTestId';

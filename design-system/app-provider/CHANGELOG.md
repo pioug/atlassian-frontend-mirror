@@ -1,5 +1,114 @@
 # @atlaskit/app-provider
 
+## 5.5.1
+
+### Patch Changes
+
+- [`ab3d042218204`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab3d042218204) -
+  Add the platform_dst_scrollbar_harmonisation_transparent gated transparent scrollbar track
+  treatment.
+
+## 5.5.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.1
+
+### Patch Changes
+
+- [`695fcbc68ad47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/695fcbc68ad47) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 5.4.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.0
+
+### Minor Changes
+
+- [`e7798888b0aea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7798888b0aea) -
+  Add a gated scrollbar harmonisation hook and activator for applications without a root
+  AppProvider. The hook accepts an optional explicit enabled override; when omitted, the shared
+  rollout gate is used.
+
+  Function components can use the hook:
+
+  ```tsx
+  import { useScrollbarHarmonisation } from '@atlaskit/app-provider/use-scrollbar-harmonisation';
+
+  function App() {
+  	useScrollbarHarmonisation();
+  	return <Product />;
+  }
+  ```
+
+  Class-based roots can mount the component adapter:
+
+  ```tsx
+  import { ScrollbarHarmonisation } from '@atlaskit/app-provider/scrollbar-harmonisation';
+
+  function App() {
+  	return (
+  		<>
+  			<ScrollbarHarmonisation />
+  			<Product />
+  		</>
+  	);
+  }
+  ```
+
+## 5.2.1
+
+### Patch Changes
+
+- [`7d000f0d5beac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d000f0d5beac) -
+  Add a platform-gated harmonised scrollbar appearance using accessible thumb colors and the current
+  surface. Visibility and width remain browser managed.
+
+## 5.2.0
+
+### Minor Changes
+
+- [`7a3faca61e5be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a3faca61e5be) -
+  Imports from the package root are deprecated and will be removed in a future release. Migrate to
+  dedicated entry-point imports to reduce upgrade friction. Recommended imports:
+  - `import { AppProvider } from '@atlaskit/app-provider/app-provider'`
+  - `import { ThemeProvider, type ThemeProviderProps } from '@atlaskit/app-provider/theme-provider'`
+  - `import type { Theme } from '@atlaskit/app-provider/theme'`
+  - `import { useColorMode } from '@atlaskit/app-provider/use-color-mode'`
+  - `import { UNSAFE_useColorModeForMigration } from '@atlaskit/app-provider/use-color-mode-for-migration'`
+  - `import { useSetColorMode } from '@atlaskit/app-provider/use-set-color-mode'`
+  - `import { useSetTheme } from '@atlaskit/app-provider/use-set-theme'`
+  - `import { useTheme } from '@atlaskit/app-provider/use-theme'`
+  - `import type { RouterLinkComponent, RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider'`
+  - `import { useRouterLink } from '@atlaskit/app-provider/use-router-link'`
+
 ## 5.1.1
 
 ### Patch Changes

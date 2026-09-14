@@ -2,8 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React, { useContext } from 'react';
 
-import { EMBEDDED_CONFLUENCE_MODE, DEFAULT_LOCALE } from '@atlassian/embedded-confluence-common';
-import { ExperienceTrackerContext } from '@atlassian/experience-tracker';
+import { EMBEDDED_CONFLUENCE_MODE } from '@atlassian/embedded-confluence-common/page-common/EmbeddedConfluenceMode';
+import { DEFAULT_LOCALE } from '@atlassian/embedded-confluence-common';
+import { ExperienceTrackerContext } from '@atlassian/experience-tracker/component/ExperienceTrackerContext';
 
 import {
 	DEFAULT_ALLOWED_FEATURES,

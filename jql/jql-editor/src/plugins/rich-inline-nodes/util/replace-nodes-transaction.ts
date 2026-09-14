@@ -1,6 +1,6 @@
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import {
 	AbstractJastVisitor,
 	type Argument,
@@ -13,14 +13,15 @@ import {
 	type TerminalClause,
 	type ValueOperand,
 } from '@atlaskit/jql-ast';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { JQLEditorSchema } from '../../../schema';
 import { type HydratedValuesMap } from '../../../state/types';
 import { type HydratedValue } from '../../../ui/jql-editor/types';
-import { constructFieldWithPropertyFG } from '../../../utils/construct-field-with-property';
+import { constructFieldWithPropertyFG } from '../../../utils/construct-field-with-property/constructFieldWithPropertyFG';
+import { isHydratableTeamFunction } from '../../../utils/team-jql-functions/isHydratableTeamFunction';
 import getDocumentPosition from '../../common/get-document-position';
-import { getJastFromState } from '../../jql-ast';
+import { getJastFromState } from '../../jql-ast/getJastFromState';
 import { RICH_INLINE_NODE } from '../constants';
 
 export const replaceRichInlineNodes = (
@@ -49,6 +50,7 @@ export const replaceRichInlineNodes = (
 			} else if (
 				value.type === 'user' ||
 				value.type === 'team' ||
+				(value.type === 'assets' && fg('orion-8274-cmdb-object-jql-values-resolver')) ||
 				(value.type === 'goal' &&
 					FeatureGates.getExperimentValue(
 						'anip-1095-goals-in-harmonised-filter',
@@ -62,10 +64,10 @@ export const replaceRichInlineNodes = (
 						-1,
 					) >= 1)
 			) {
-				// Legacy path: direct value operands only, with membersOf fallback for teams.
+				// Legacy path: direct value operands only, with a team function fallback for teams.
 				let astNodes: Array<ValueOperand | Argument> = getValueNodes(ast, fieldName, value.id);
 				if (astNodes.length === 0 && value.type === 'team' && fg('jira-membersof-team-support')) {
-					astNodes = getMembersOfArgumentNodes(ast, value.id);
+					astNodes = getTeamFunctionArgumentNodes(ast, value.id);
 				}
 				replaceAstNodesWithRichInlineNodes(transaction, astNodes, fieldName, value);
 			}
@@ -116,6 +118,10 @@ const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string
 			const textContent = JQLEditorSchema.text(text);
 			return JQLEditorSchema.nodes.lozengeWithAvatar.create({ ...value, fieldName }, textContent);
 		}
+		case 'assets': {
+			const textContent = JQLEditorSchema.text(text);
+			return JQLEditorSchema.nodes.assets.create({ ...value, fieldName }, textContent);
+		}
 		default: {
 			throw new Error(`Unsupported hydrated value type ${value.type}`);
 		}
@@ -133,11 +139,11 @@ const getValueNodes = (ast: Jast, field: string, value: string): ValueOperand[] 
 	return ast.query.accept(new FindValuesVisitor(field, value));
 };
 
-const getMembersOfArgumentNodes = (ast: Jast, teamId: string): Argument[] => {
+const getTeamFunctionArgumentNodes = (ast: Jast, teamId: string): Argument[] => {
 	if (!ast.query) {
 		return [];
 	}
-	return ast.query.accept(new FindMembersOfArgumentsVisitor(teamId));
+	return ast.query.accept(new FindTeamFunctionArgumentsVisitor(teamId));
 };
 
 const getFunctionArgumentNodes = (ast: Jast, fieldName: string, valueId: string): Argument[] => {
@@ -254,10 +260,11 @@ class FindFunctionArgumentsVisitor extends BaseAstNodeFinder<Argument> {
 }
 
 /**
- * Visitor that finds membersOf function arguments matching a specific team ID.
- * Used for queries like "assignee in membersOf("id: <uuid>")".
+ * Visitor that finds team function arguments matching a specific team ID.
+ * Used for queries like `assignee in membersOf("id: <uuid>")` and
+ * `"Team[Team]" in descendantsOfTeam(id:<uuid>)`.
  */
-class FindMembersOfArgumentsVisitor extends BaseAstNodeFinder<Argument> {
+class FindTeamFunctionArgumentsVisitor extends BaseAstNodeFinder<Argument> {
 	private readonly teamId: string;
 
 	constructor(teamId: string) {
@@ -275,8 +282,8 @@ class FindMembersOfArgumentsVisitor extends BaseAstNodeFinder<Argument> {
 	visitFunctionOperand = (functionOperand: FunctionOperand): Argument[] => {
 		const functionName = functionOperand.function.value.toLowerCase();
 
-		// Only process membersOf function
-		if (functionName !== 'membersof') {
+		// Only process team functions whose own gate is enabled
+		if (!isHydratableTeamFunction(functionName)) {
 			return [];
 		}
 

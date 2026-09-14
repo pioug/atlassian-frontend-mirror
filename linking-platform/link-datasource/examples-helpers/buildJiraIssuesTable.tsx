@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
-import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
+import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider/types';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
-import { type DatasourceTableView } from '../src';
+import { type DatasourceTableViewWithWrappers as DatasourceTableView } from '../src/ui/datasource-table-view/DatasourceTableViewWithWrappers';
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
-import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id/datasource-experience-id-provider';
 import { DataSourceTableViewNoSuspense } from '../src/ui/datasource-table-view/datasourceTableView';
 import type { DatasourceTableViewProps } from '../src/ui/datasource-table-view/types';
 
@@ -49,6 +50,7 @@ const JiraIssuesTableView = ({
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 	} = useCommonTableProps({
 		defaultColumnCustomSizes: {
 			people: 100,
@@ -71,6 +73,7 @@ const JiraIssuesTableView = ({
 			columnCustomSizes={columnCustomSizes}
 			onColumnResize={onColumnResize}
 			onWrappedColumnChange={onWrappedColumnChange}
+			onWrappedColumnsChange={onWrappedColumnsChange}
 			wrappedColumnKeys={wrappedColumnKeys}
 			scrollableContainerHeight={scrollableContainerHeight}
 		/>

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { isCSSAnchorSupported, isCSSAttrAnchorSupported } from '@atlaskit/editor-common/styles';

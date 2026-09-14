@@ -8,7 +8,7 @@
  * - packages/editor/editor-core/src/plugins/table/pm-plugins/table-local-id.ts
  */
 
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { getChangedNodes } from '@atlaskit/editor-common/utils';

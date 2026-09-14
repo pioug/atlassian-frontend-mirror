@@ -5,8 +5,6 @@ import { BROWSERS } from '@af/integration-testing/config/constants';
 import { doc, p, table, tr, tdEmpty, thEmpty } from '@atlaskit/editor-test-helpers/doc-builder';
 
 test.describe('collab', () => {
-	test.slow();
-
 	test.use({
 		exampleName: 'collab' as keyof typeof import('../../../../examples/3-collab.tsx'),
 	});

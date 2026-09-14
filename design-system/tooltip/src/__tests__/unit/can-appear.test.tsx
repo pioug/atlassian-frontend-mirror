@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 

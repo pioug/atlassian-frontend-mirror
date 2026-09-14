@@ -2,25 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import InlineDialog from '../../index';
-
-jest.mock('popper.js', () => {
-	// @ts-ignore requireActual property is missing from jest
-	const PopperJS = jest.requireActual('popper.js');
-
-	return class Popper {
-		static placements = PopperJS.placements;
-
-		constructor() {
-			return {
-				// eslint-disable-next-line
-				destroy: () => {},
-				// eslint-disable-next-line
-				update: () => {},
-			};
-		}
-	};
-});
+import InlineDialog from '../../inline-dialog';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Inline dialog should be found by data-testid', () => {

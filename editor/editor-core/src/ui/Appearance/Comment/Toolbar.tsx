@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FixedToolbarCompiled } from './FixedToolbar-compiled';

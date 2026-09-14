@@ -57,7 +57,6 @@ export default class FeatureFlagClient {
 			return;
 		}
 
-		// @ts-ignore
 		if (process.env.NODE_ENV !== 'production') {
 			validateFlags(flags);
 		}

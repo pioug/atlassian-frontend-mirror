@@ -1,22 +1,23 @@
 import React, { useCallback, useState } from 'react';
 
-import Lorem from 'react-lorem-component';
+import PlaceholderContent from './placeholder-content';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import ModalDialog, {
-	CloseButton,
-	ModalBody,
-	ModalFooter,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Heading from '@atlaskit/heading/heading';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	header: {
-		backgroundImage: `linear-gradient(${token('color.background.accent.blue.subtler')}, ${token('color.background.accent.purple.subtler')})`,
+		backgroundImage: `linear-gradient(${token('color.background.accent.blue.subtler')}, ${token(
+			'color.background.accent.purple.subtler',
+		)})`,
 		paddingBlockStart: token('space.1000'),
 		position: 'relative',
 	},
@@ -63,7 +64,7 @@ export default function CompoundTitleModal(): React.JSX.Element {
 							</Box>
 						</Flex>
 						<ModalBody>
-							<Lorem count={2} />
+							<PlaceholderContent count={2} />
 						</ModalBody>
 						<ModalFooter>
 							<Button onClick={secondaryAction} appearance="subtle">

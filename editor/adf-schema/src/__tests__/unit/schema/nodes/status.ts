@@ -43,6 +43,27 @@ describe(`${packageName}/schema status node`, () => {
 			expect(node.type.spec).toEqual(status);
 		});
 
+		it('gets hexadecimal color from html', () => {
+			const color = '#123ABC';
+			const doc = fromHTML(
+				`
+        <span
+          data-node-type="status"
+          data-color="${color}"
+        >
+          On track
+        </span>
+      `,
+				schema,
+			);
+			const node = doc.firstChild!.firstChild!;
+			expect(node.attrs).toMatchObject({
+				text: 'On track',
+				color,
+				localId: expect.stringMatching(StatusLocalIdRegex),
+			});
+		});
+
 		it('gets attributes from html', () => {
 			const color = 'blue';
 			const localId = '6c5e5301-1311-42e2-aa80-1b7557140b3d';
@@ -132,6 +153,26 @@ describe(`${packageName}/schema status node`, () => {
 			});
 
 			expect(parsedNode.attrs.localId).not.toEqual(attrs.localId);
+		});
+
+		it('preserves hexadecimal color identifiers through a DOM round-trip', () => {
+			const attrs = {
+				text: 'On track',
+				color: '#123ABC',
+				localId: '3fba07fc-0458-449c-bba9-04d5555164ea',
+			};
+			const node = schema.nodes.status.create(attrs);
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const dom = toDOM(node, schema).firstChild as HTMLElement;
+
+			expect(dom.getAttribute('data-color')).toEqual('#123ABC');
+
+			const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!.firstChild!;
+			expect(parsedNode.attrs).toMatchObject({
+				text: 'On track',
+				color: '#123ABC',
+				localId: expect.stringMatching(StatusLocalIdRegex),
+			});
 		});
 
 		it('converts html status attributes to node attributes without style', () => {

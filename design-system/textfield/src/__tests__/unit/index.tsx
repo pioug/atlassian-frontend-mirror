@@ -5,7 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import Textfield from '../../index';
+import Textfield from '../../text-field';
 import { type TextfieldProps } from '../../types';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

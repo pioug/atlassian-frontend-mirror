@@ -1,5 +1,547 @@
 # @atlaskit/editor-plugin-breakout
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- [`357df7b291d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/357df7b291d07) -
+  [ux] remove the left hand resizer behind experiment `platform_editor_remove_left_resize_handle`
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- [`27143ffe51a5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27143ffe51a5a) -
+  `@atlaskit/editor-common/vanilla-tooltip` now exports `VANILLA_TOOLTIP_DEFAULT_CLASS`. Compose
+  tooltip class names from it rather than repeating the `ak-editor-vanilla-tooltip-default` literal.
+
+  Behind the `platform_editor_use_vanilla_components` experiment, `VanillaTooltip`:
+  - no longer throws `InvalidStateError` when shown again before its open delay has elapsed
+  - is `pointer-events: none`, so it cannot swallow pointer events meant for the content beneath —
+    pass `pointerEvents` in `styles` to opt out
+  - closes its popover before `destroy()` removes it from the document
+
+  Remaining changes are internal: tooltip consumers adopt the new constant, and the emoji tooltip
+  uses the shared class in place of an equivalent inline style object.
+
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`4b796b0158182`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b796b0158182) -
+  EDITOR-8561 Render the breakout resize handle tooltip with `VanillaTooltip` behind the
+  `platform_editor_use_vanilla_components` experiment, replacing a React tree per resize handle.
+  When the experiment is off the tooltip is still rendered with React through the node view portal
+  provider.
+
+  The tooltip is anchored to a zero-height element parked where the pointer entered the rail, rather
+  than to the rail itself, which spans the node's full height. This matches the ADS tooltip's
+  `position="mouse"`, which latches the cursor position as the tooltip opens and does not move it
+  afterwards. The anchor is positioned by `.pm-breakout-resize-tooltip-anchor` in the editor's
+  resizer styles, which reads the pointer's offset from a custom property; the rule is inert while
+  the experiment is off, because nothing carries the class.
+
+  On the experiment the tooltip always mounts on the first hover, whatever
+  `platform_editor_reduce_event_listener_count` is set to: there is no portal to defer, and the
+  handles are built before ProseMirror populates `contentDOM`, so mounting any earlier would label
+  the tooltip with a generic "node" rather than the node being resized.
+
+  `VanillaTooltip` accepts an optional `placement`, forwarded to Popper when the tooltip is
+  positioned. Defaults to `top`, so existing callers are unaffected.
+
+### Patch Changes
+
+- [`0f76719a50b8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f76719a50b8f) -
+  Clean up feature gate `platform_editor_breakout_auto_normalization_history_patch`
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.18
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 15.0.17
+
+### Patch Changes
+
+- [`288e340380dbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/288e340380dbb) -
+  Behind experiment platform_editor_reduce_event_listener_count: cut the number of native DOM event
+  listeners the editor registers per node. React 18 registers a bubble and a capture listener for
+  every supported event type on each portal container (~130 listeners) and never removes them, so
+  (1) node views whose render() returns null no longer mount a portal at all, and (2) the breakout
+  resize handle tooltip portal is deferred until the pointer enters the node instead of being
+  mounted for every resizable node up front.
+
+  Also reduces the work the layout column divider decorations do on every `decorations(state)` read:
+  the mousedown listener is unbound when the widget decoration is destroyed, the widget DOM is built
+  lazily rather than once per call, the document walk no longer descends into node types that cannot
+  contain a layout, and the decoration key is derived from the layout's ordinal rather than its
+  position so an edit above a layout no longer invalidates and rebuilds every divider below it. The
+  widget now resolves its own layout section and column index from its live position at mousedown.
+
+- Updated dependencies
+
+## 15.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- [`b8598a6de03d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8598a6de03d4) -
+  [EDITOR-8613] clean up resize kill switches for bugfixes
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- [`8ebcd81f67273`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ebcd81f67273) -
+  [EDITOR-8277] fix feature gate references to platform_editor_lovability_resize_ext_gracefully
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.7
+
+### Patch Changes
+
+- [`d434a260a890c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d434a260a890c) -
+  Prevent automatic breakout normalization from affecting Undo history
+
+## 14.0.6
+
+### Patch Changes
+
+- [`bb2e72aae0d58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb2e72aae0d58) -
+  [ux] [EDITOR-8433] fix the resizing guidelines for extension nodes behind resizing experiment
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- [`0cdf73fdf7d3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cdf73fdf7d3e) -
+  [ux] [EDITOR-8273] add breakout resizing to extension nodes behind
+  `platform_editor_lovability_resize_extensions` with graceful rendering behind
+  `platform_editor_lovability_resize_ext_gracefully`
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.6
+
+### Patch Changes
+
+- [`777bedbb77fe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/777bedbb77fe3) -
+  [ux] [EDITOR-8115] fix the resizing guidelines for syncBlock and bodiedSyncBlock nodes
+- Updated dependencies
+
+## 13.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.0
 
 ### Minor Changes

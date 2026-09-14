@@ -4,7 +4,7 @@ import {
 	TEST_STRING,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractUrlFromLinkJsonLd } from '../index';
+import { extractUrlFromLinkJsonLd } from '../extract-url-from-link-json-ld';
 
 describe('extractUrlFromLinkJsonLd()', () => {
 	it('returns raw string', () => {

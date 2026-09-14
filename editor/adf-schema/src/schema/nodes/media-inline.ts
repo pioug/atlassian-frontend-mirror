@@ -1,12 +1,12 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
-import type { LinkDefinition } from '../marks/link';
-import type { MediaBaseAttributes } from './media';
-import { createMediaSpec } from './media';
-import type { BorderMarkDefinition } from '../marks/border';
-import type { AnnotationMarkDefinition } from '../marks/annotation';
 
-import { uuid } from '../../utils/uuid';
 import { mediaInline as mediaInlineFactory } from '../../next-schema/generated/nodeTypes';
+import { uuid } from '../../utils/uuid';
+import type { AnnotationMarkDefinition } from '../marks/annotation';
+import type { BorderMarkDefinition } from '../marks/border';
+import type { LinkDefinition } from '../marks/link';
+import { createMediaSpec } from './create-media-spec';
+import type { MediaBaseAttributes } from './media';
 
 export interface MediaInlineAttributes extends MediaBaseAttributes {
 	data?: object;

@@ -7,8 +7,14 @@ import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { history, closeHistory, undo, redo, undoDepth, redoDepth } from '../../src';
-import { createTransformFromSteps, InvertableStep } from '../../src/utils/createTransformFromSteps';
+import { history } from '../../src/history';
+import { closeHistory } from '../../src/closeHistory';
+import { undo } from '../../src/undo';
+import { redo } from '../../src/redo';
+import { undoDepth } from '../../src/undoDepth';
+import { redoDepth } from '../../src/redoDepth';
+import { InvertableStep } from '../../src/utils/InvertableStep';
+import { createTransformFromSteps } from '../../src/utils/createTransformFromSteps';
 
 const plugin = history();
 

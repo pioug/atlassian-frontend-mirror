@@ -1,7 +1,7 @@
 import React, { PureComponent, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { OutsideClickTargetRefContext } from './OutsideClickTargetRefContext';
 import ReactEditorViewContext from './ReactEditorViewContext';

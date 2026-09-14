@@ -8,7 +8,7 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 import { useStaticCallback } from '@atlaskit/media-common';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { Annotations } from './annotations';
 import { DocumentLinks } from './documentLinks';

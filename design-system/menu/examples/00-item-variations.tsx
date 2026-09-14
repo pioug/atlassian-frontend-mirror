@@ -7,16 +7,14 @@ import { css, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import EmojiCustomIcon from '@atlaskit/icon/core/add';
 import StarIcon from '@atlaskit/icon/core/star-unstarred';
-import {
-	ButtonItem,
-	CustomItem,
-	type CustomItemComponentProps,
-	HeadingItem,
-	LinkItem,
-	Section,
-	SkeletonHeadingItem,
-	SkeletonItem,
-} from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import CustomItem from '@atlaskit/menu/custom-item';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import LinkItem from '@atlaskit/menu/link-item';
+import Section from '@atlaskit/menu/section';
+import SkeletonHeadingItem from '@atlaskit/menu/skeleton-heading-item';
+import SkeletonItem from '@atlaskit/menu/skeleton-item';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

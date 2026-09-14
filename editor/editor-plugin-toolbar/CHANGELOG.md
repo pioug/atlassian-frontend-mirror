@@ -1,5 +1,398 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- [`ac7ebc57182dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac7ebc57182dd) -
+  Avoid dispatching a no-op selection-toolbar transaction on every mouseup when `shouldShowToolbar`
+  is unchanged, reducing redundant shared-state updates on interaction. Behind the
+  `platform_editor_toolbar_multi_editor_fix` experiment.
+- Updated dependencies
+
+## 13.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.12
+
+### Patch Changes
+
+- [`7d227f4a065e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d227f4a065e5) -
+  Prevent selection toolbar false failures when user intent suppresses the toolbar, and exclude
+  structural Shift+Arrow and unchanged-selection mouse interactions behind
+  platform_editor_toolbar_intent_fix
+- Updated dependencies
+
+## 12.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- [`eec66a5b383e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eec66a5b383e5) -
+  Scope selection toolbar interactions and dropdown refocus behavior to their owning editor behind
+  the `platform_editor_toolbar_multi_editor_fix` experiment.
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [`b7e3a66378c6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7e3a66378c6e) -
+  [ux] Restore the contextual toolbar when selecting text inside a reference synced block, behind
+  `platform_editor_blocks_patch_7`.
+  - `@atlaskit/editor-plugin-toolbar`: the toolbar no longer treats focus inside a nested editable
+    region that ProseMirror does not own - such as the content island a reference synced block
+    renders - as the editor being blurred.
+  - `@atlaskit/editor-synced-block-provider`: `getProviderFactory` is now side-effect free. Applying
+    parent and dynamically created providers moved to a new `syncProviders` method. Previously this
+    ran during render, scheduling a `setState` on another component mid-render, which forced an
+    extra render pass that replaced the synced block DOM and destroyed any in-progress text
+    selection.
+
+  `syncProviders` mutates the cached factory and notifies its subscribers, so call it from an effect
+  rather than during render:
+
+  ```ts
+  const providerFactory = manager.referenceManager.getProviderFactory(resourceId);
+
+  useEffect(() => {
+  	manager.referenceManager.syncProviders(resourceId);
+  }, [manager.referenceManager, resourceId, syncBlockInstance]);
+  ```
+
+  With the flag off, `getProviderFactory` keeps applying providers inline, so existing behaviour is
+  unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.0
 
 ### Minor Changes

@@ -23,16 +23,16 @@ import type {
 
 type SyncBlockErrorInfo = {
 	/**
-	 * PII-safe `Error.name` from the upstream catch, used to de-opaque `errored`
-	 * failures. Only ever `Error.name` — never node content, titles, or any UGC.
-	 */
-	originalName?: string;
-	/**
 	 * PII-safe `Error.message` from the upstream catch, so the classifier can bucket
 	 * the real cause. Distinct from `reason` (may be synthetic/enum): carries the raw
 	 * framework/HTTP text. Only ever `Error.message` — never node content or UGC.
 	 */
 	originalMessage?: string;
+	/**
+	 * PII-safe `Error.name` from the upstream catch, used to de-opaque `errored`
+	 * failures. Only ever `Error.name` — never node content, titles, or any UGC.
+	 */
+	originalName?: string;
 	reason?: string;
 	sourceAri?: string;
 	/**
@@ -45,6 +45,11 @@ type SyncBlockErrorInfo = {
 	statusCode?: number;
 	type: SyncBlockError;
 };
+
+type LocalSameDocumentSourceProvenance = Readonly<{
+	sourceBlockInstanceId: BlockInstanceId;
+	sourceProduct: SyncBlockProduct;
+}>;
 
 /**
  * The instance of a sync block, containing its data and metadata.
@@ -60,6 +65,11 @@ export type SyncBlockInstance = {
 	 * Current state/error of the sync block, if any
 	 */
 	error?: SyncBlockErrorInfo;
+	/**
+	 * In-memory-only proof that this instance was projected from a source in the
+	 * current document. Publication status lives on `data.status`.
+	 */
+	localSameDocumentSource?: LocalSameDocumentSourceProvenance;
 	/**
 	 *  The resourceId in the attrs of the block
 	 */

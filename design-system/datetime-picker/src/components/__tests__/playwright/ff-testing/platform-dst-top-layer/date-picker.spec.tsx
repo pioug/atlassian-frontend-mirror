@@ -16,11 +16,12 @@ test.describe('DatePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 		const firstDate = page.locator('[role="gridcell"]').nth(6);
 
 		await expect(calendar).toBeHidden();
@@ -37,12 +38,12 @@ test.describe('DatePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 			'date-picker-states',
 			{
 				featureFlag,
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 
 		await expect(calendar).toBeHidden();
 		await datePicker.click();
@@ -63,11 +64,12 @@ test.describe('DatePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 		const dateInput = page.locator('input#react-select-datepicker-1-input');
 
 		await expect(calendar).toBeHidden();
@@ -78,26 +80,25 @@ test.describe('DatePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 		await expect(dateInput).toBeFocused();
 	});
 
-	test('Tab exits calendar when at focusable boundary', async ({ page }) => {
+	test('Tab enters the calendar without trapping focus on the input', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
 		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
 			featureFlag,
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		const datePicker = page.getByTestId('datepicker-1--container');
 		const previousYearButton = page.locator('button[data-testid$="previous-year"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 
 		// Open the calendar via click on the date input.
 		await datePicker.click();
 		await expect(calendar).toBeVisible();
 
-		// On open, the FF-on top-layer path delegates initial focus to the
-		// first focusable element inside the popover (the previous-year
-		// navigation button). This proves the calendar is keyboard-reachable
-		// without focus being trapped on the input.
+		// Select keeps focus on its input when opening. The next Tab enters the
+		// calendar, proving focus is not trapped on the combobox.
+		await page.keyboard.press('Tab');
 		await expect(previousYearButton).toBeFocused();
 	});
 });
@@ -110,23 +111,20 @@ test.describe('DatePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 
 		// Open the calendar by clicking the date input.
 		await expect(calendar).toBeHidden();
 		await datePicker.click();
 		await expect(calendar).toBeVisible();
 
-		// react-select intentionally keeps focus on its combobox input while
-		// the menu is open (combobox UX pattern). Top-layer's auto-focus into
-		// the dialog is bypassed by react-select's own focus management. The
-		// calendar is still keyboard-reachable via Tab from the input, which
-		// satisfies WCAG 2.4.3 focus order. We verify keyboard navigability
-		// rather than initial focus location.
+		// Select keeps focus on its input when opening. Tab moves into the
+		// calendar without closing it.
 		await page.keyboard.press('Tab');
 		const focusedElement = calendar.locator(':focus');
 		await expect(focusedElement).toHaveCount(1);
@@ -139,11 +137,12 @@ test.describe('DatePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 		const dateInput = page.locator('input#react-select-datepicker-1-input');
 
 		await datePicker.click();
@@ -158,12 +157,12 @@ test.describe('DatePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
 		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
 			featureFlag,
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		const calendarButton = page.locator('[data-testid$="open-calendar-button"]').first();
 		const previousYearButton = page.locator('button[data-testid$="previous-year"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 
 		await page.locator('input#text1').click();
 		await page.keyboard.press('Tab');
@@ -185,7 +184,7 @@ test.describe('DatePicker top-layer — WCAG 2.4.7 Focus Visible', () => {
 			'date-picker-states',
 			{
 				featureFlag,
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -202,7 +201,7 @@ test.describe('DatePicker top-layer — WCAG 2.4.7 Focus Visible', () => {
 			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
 		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
 			featureFlag,
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		const previousYearButton = page.locator('button[data-testid$="previous-year"]');
@@ -227,11 +226,12 @@ test.describe('DatePicker top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 
 		await datePicker.click();
 		await expect(calendar).toBeVisible();
@@ -246,6 +246,7 @@ test.describe('DatePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -254,13 +255,14 @@ test.describe('DatePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		await expect(dateInput).toHaveAttribute('role', 'combobox');
 	});
 
-	test('calendar is rendered as dialog via popover API (sanity check)', async ({ page }) => {
+	test("calendar is rendered inside Select's native popover", async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../../examples/10-date-picker-states.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -269,7 +271,7 @@ test.describe('DatePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		// `[popover]` selector also matches the always-closed react-select
 		// inner popover that mounts earlier in the DOM, causing
 		// `.first()` to resolve to the wrong (hidden) element.
-		const popover = page.locator('[role="dialog"][aria-label="calendar"][popover]');
+		const popover = page.locator('[popover]:has([data-testid="datepicker-1--calendar--calendar"])');
 
 		await datePicker.click();
 		await expect(popover).toBeVisible();
@@ -284,11 +286,12 @@ test.describe('DatePicker top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 
 		await datePicker.click();
 		await expect(calendar).toBeVisible();
@@ -303,7 +306,7 @@ test.describe('DatePicker top-layer — Backspace and Input Behavior', () => {
 			'date-picker-states',
 			{
 				featureFlag,
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -341,11 +344,11 @@ test.describe('DatePicker top-layer — Backspace and Input Behavior', () => {
 			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
 		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
 			featureFlag,
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 		const externalInput = page.locator('input#text1');
 
 		await datePicker.click();
@@ -359,10 +362,10 @@ test.describe('DatePicker top-layer — Backspace and Input Behavior', () => {
 			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
 		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
 			featureFlag,
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 		const previousMonthButton = page.locator('button[data-testid$="previous-month"]');
 
 		await page.locator('input#text1').click();
@@ -382,12 +385,12 @@ test.describe('DatePicker top-layer — Backspace and Input Behavior', () => {
 			'date-picker-states',
 			{
 				featureFlag,
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
 		const focusedDateCell = page.locator('[data-focused="true"]');
 
 		await datePicker.click();
@@ -403,7 +406,7 @@ test.describe('DatePicker top-layer — Backspace and Input Behavior', () => {
 			'date-picker-states',
 			{
 				featureFlag,
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 

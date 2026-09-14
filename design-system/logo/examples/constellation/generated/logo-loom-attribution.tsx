@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default (): React.JSX.Element => (
 	<LogoTable
-		logo={<LoomAttributionLogo appearance="brand" shouldUseNewLogoDesign />}
-		icon={<LoomAttributionIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<LoomAttributionLogo appearance="brand" />}
+		icon={<LoomAttributionIcon appearance="brand" />}
 	/>
 );

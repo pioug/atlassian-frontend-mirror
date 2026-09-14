@@ -6,7 +6,7 @@ import React, { forwardRef } from 'react';
 
 import { css, jsx, keyframes } from '@compiled/react';
 
-import { AtlassianIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { token } from '@atlaskit/tokens';
 
 interface BlockProps extends React.HTMLProps<HTMLDivElement> {

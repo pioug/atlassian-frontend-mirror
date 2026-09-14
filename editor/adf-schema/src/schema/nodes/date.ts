@@ -1,6 +1,6 @@
-import type { AnnotationMarkDefinition } from '../marks/annotation';
 import { date as dateFactory } from '../../next-schema/generated/nodeTypes';
-import { uuid } from '../../utils';
+import { uuid } from '../../utils/uuid';
+import type { AnnotationMarkDefinition } from '../marks/annotation';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**

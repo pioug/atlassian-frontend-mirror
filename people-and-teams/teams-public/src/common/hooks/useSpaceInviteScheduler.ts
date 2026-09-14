@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { spaceInviteScheduler } from '../utils/spaceInviteScheduler';
 

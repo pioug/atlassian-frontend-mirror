@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 test.describe('side nav focus on expand', () => {
 	test.describe('when platform_dst_nav4_skip_link_a11y_1 is enabled', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample<typeof import('../../../examples/side-nav-flyout.tsx')>(
+			await page.visitExample<typeof import('../../../examples/side-nav-flyout.vr.ap.tsx')>(
 				'design-system',
 				'navigation-system',
 				'side-nav-flyout',
@@ -51,7 +51,7 @@ test.describe('side nav focus on expand', () => {
 
 	test.describe('when platform_dst_nav4_skip_link_a11y_1 is disabled', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample<typeof import('../../../examples/side-nav-flyout.tsx')>(
+			await page.visitExample<typeof import('../../../examples/side-nav-flyout.vr.ap.tsx')>(
 				'design-system',
 				'navigation-system',
 				'side-nav-flyout',

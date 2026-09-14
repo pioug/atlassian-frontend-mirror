@@ -5,7 +5,6 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { SyncBlockError } from '../common/types';
@@ -27,6 +26,21 @@ import { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
 // SourceSyncBlockStoreManager is responsible for the lifecycle and state management of source sync blocks in an editor instance.
 // Can be used in both editor and renderer contexts.
 
+export type SyncBlockStoreManagerOptions = {
+	/**
+	 * Whether reference blocks managed by this store should hold a real-time
+	 * (`blockService_onBlockUpdated`) subscription and refresh in place when the
+	 * source changes elsewhere. Defaults to `true`.
+	 *
+	 * Surfaces that show content "as of load" — most notably the Confluence
+	 * classic page/blog renderer, where a document being read must not change
+	 * under the reader — pass `false`. This is deliberately independent of
+	 * `viewMode`: a live doc in read mode is the editor in view mode and must
+	 * stay live, so `viewMode` cannot be used to identify those surfaces.
+	 */
+	enableRealTimeSubscriptions?: boolean;
+};
+
 export class SyncBlockStoreManager {
 	private referenceSyncBlockStoreManager: ReferenceSyncBlockStoreManager;
 	private sourceSyncBlockStoreManager: SourceSyncBlockStoreManager;
@@ -40,9 +54,8 @@ export class SyncBlockStoreManager {
 		dataProvider?: SyncBlockDataProviderInterface,
 		viewMode?: ViewMode,
 		isLivePage?: boolean,
+		options?: SyncBlockStoreManagerOptions,
 	) {
-		// In future, if reference manager needs to reach to source manager and read its current in memory cache
-		// we can pass the source manager as a parameter to the reference manager constructor
 		this.sourceSyncBlockStoreManager = new SourceSyncBlockStoreManager(
 			dataProvider,
 			viewMode,
@@ -51,9 +64,15 @@ export class SyncBlockStoreManager {
 		this.referenceSyncBlockStoreManager = new ReferenceSyncBlockStoreManager(
 			dataProvider,
 			viewMode,
+			this.sourceSyncBlockStoreManager,
 		);
 		this.dataProvider = dataProvider;
-		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(true);
+		// Set in the constructor rather than from an effect on the consumer side:
+		// reference nodes subscribe as they mount, so any later toggle would open
+		// (and immediately tear down) subscriptions the surface never wanted.
+		this.referenceSyncBlockStoreManager.setRealTimeSubscriptionsEnabled(
+			options?.enableRealTimeSubscriptions ?? true,
+		);
 	}
 
 	isSyncBlock(node: PMNode): boolean {
@@ -254,17 +273,25 @@ export class SyncBlockStoreManager {
 	}
 }
 
-const createSyncBlockStoreManager = (dataProvider?: SyncBlockDataProviderInterface) => {
-	return new SyncBlockStoreManager(dataProvider);
+const createSyncBlockStoreManager = (
+	dataProvider?: SyncBlockDataProviderInterface,
+	options?: SyncBlockStoreManagerOptions,
+) => {
+	return new SyncBlockStoreManager(dataProvider, undefined, undefined, options);
 };
 
 export const useMemoizedSyncBlockStoreManager = (
 	dataProvider?: SyncBlockDataProviderInterface,
 	fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void,
+	options?: SyncBlockStoreManagerOptions,
 ): SyncBlockStoreManager => {
+	// Destructured so the memo depends on the value, not on the identity of an
+	// options object that callers commonly build inline.
+	const enableRealTimeSubscriptions = options?.enableRealTimeSubscriptions;
+
 	const syncBlockStoreManager = useMemo(() => {
-		return createSyncBlockStoreManager(dataProvider);
-	}, [dataProvider]);
+		return createSyncBlockStoreManager(dataProvider, { enableRealTimeSubscriptions });
+	}, [dataProvider, enableRealTimeSubscriptions]);
 
 	const prevFireAnalyticsEventRef = useRef<((payload: SyncBlockEventPayload) => void) | undefined>(
 		undefined,
@@ -275,7 +302,6 @@ export const useMemoizedSyncBlockStoreManager = (
 		syncBlockStoreManager.setFireAnalyticsEvent(fireAnalyticsEvent);
 	}
 
-	// Gated by platform_synced_block_patch_14:
 	// Destroy the SyncBlockStoreManager when:
 	//   (a) the component unmounts — manager is fully cleaned up, or
 	//   (b) dataProvider changes — the old manager (now orphaned by the
@@ -287,9 +313,7 @@ export const useMemoizedSyncBlockStoreManager = (
 	// changes, triggering the cleanup for the old instance.
 	useEffect(() => {
 		return () => {
-			if (fg('platform_synced_block_patch_14')) {
-				syncBlockStoreManager.destroy();
-			}
+			syncBlockStoreManager.destroy();
 		};
 	}, [syncBlockStoreManager]);
 

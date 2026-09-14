@@ -1,5 +1,6 @@
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
-import { Step, StepResult } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { StepResult } from '@atlaskit/editor-prosemirror/transform';
 import type { Node as ProseMirrorNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 

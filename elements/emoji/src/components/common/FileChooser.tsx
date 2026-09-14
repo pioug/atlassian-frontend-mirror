@@ -5,26 +5,12 @@
 import React, { useCallback, useEffect, useRef, useState, type ChangeEventHandler } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import UploadIcon from '@atlaskit/icon/core/upload';
-import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
-import { containsFiles, getFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
+import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/contains-files';
+import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/get-files';
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 export interface Props {
 	accept?: string;

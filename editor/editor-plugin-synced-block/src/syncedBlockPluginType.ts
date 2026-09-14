@@ -7,19 +7,22 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ContentFormatPlugin } from '@atlaskit/editor-plugin-content-format';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
+import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	SyncBlockDataProviderInterface,
@@ -59,6 +62,14 @@ export type SyncedBlockEditorProps = {
 
 export type SyncedBlockRendererProps = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	/**
+	 * `localId` of the reference node being rendered.
+	 *
+	 * Products may use this to namespace ids generated inside the synced block
+	 * content (for example heading anchor ids), so that the same source block
+	 * embedded more than once on a page still produces distinct, stable ids.
+	 */
+	localId?: string;
 	syncBlockFetchResult: UseFetchSyncBlockDataResult;
 };
 
@@ -78,11 +89,21 @@ export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOption
 	__livePage?: boolean;
 	enableSourceCreation?: boolean;
 	/**
+	 * Persists that a prompted feedback invitation was displayed.
+	 * Called after the shared flag UI renders.
+	 */
+	onFeedbackPromptShown?: () => Promise<void> | void;
+	/**
 	 * Opens the host product's synced-block feedback collector.
 	 * The editor plugin owns the menu affordance; the product owns the collector
 	 * configuration and lifecycle.
 	 */
 	onGiveFeedback?: (context: SyncedBlockFeedbackContext) => Promise<void> | void;
+	/**
+	 * Checks whether a prompted feedback invitation is eligible to be shown.
+	 * Products own the persistence scope; the editor owns the shared flag UI.
+	 */
+	shouldShowFeedbackPrompt?: () => Promise<boolean> | boolean;
 	syncBlockDataProvider: SyncBlockDataProviderInterface;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 }
@@ -134,10 +155,13 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 			OptionalPlugin<BlockMenuPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
+			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<ContentFormatPlugin>,
 			OptionalPlugin<UserIntentPlugin>,
 			OptionalPlugin<FocusPlugin>,
+			OptionalPlugin<HistoryPlugin>,
+			OptionalPlugin<UiControlRegistryPlugin>,
 		];
 		pluginConfiguration: SyncedBlockPluginOptions | undefined;
 		sharedState: SyncedBlockSharedState | undefined;

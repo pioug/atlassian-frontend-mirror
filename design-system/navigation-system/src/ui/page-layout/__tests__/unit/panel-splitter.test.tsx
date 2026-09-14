@@ -4,10 +4,10 @@ import createStub from 'raf-stub';
 import invariant from 'tiny-invariant';
 
 import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
-import { type CustomPopperProps, type PopperChildrenProps } from '@atlaskit/popper';
-import * as popperModule from '@atlaskit/popper';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { CustomPopperProps, PopperChildrenProps } from '@atlaskit/popper/main';
+import * as popperModule from '@atlaskit/popper/main';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import {
 	act,
 	fireEvent,

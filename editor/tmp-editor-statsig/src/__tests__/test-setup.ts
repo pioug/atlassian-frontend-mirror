@@ -1,7 +1,8 @@
 import { _overrides, setupEditorExperiments } from '../setup';
 
 jest.mock('../experiments-config', () => {
-	const { isBoolean, oneOf } = jest.requireActual('../type-guards');
+	const { isBoolean } = jest.requireActual('../is-boolean');
+	const { oneOf } = jest.requireActual('../one-of');
 	return {
 		editorExperimentsConfig: {
 			'example-boolean': {

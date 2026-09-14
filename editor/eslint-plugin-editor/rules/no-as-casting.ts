@@ -12,7 +12,6 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<Options, 'noAsTypecast'>({
 		type: 'problem',
 		docs: {
 			description: 'Avoid typecasting to specified.',
-			recommended: 'error',
 		},
 		messages: {
 			noAsTypecast:

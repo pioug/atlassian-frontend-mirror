@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Popup } from '@atlaskit/popup/popup';
 
 export default (): React.JSX.Element => {

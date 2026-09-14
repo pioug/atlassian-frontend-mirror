@@ -2,8 +2,9 @@ import React, { type ReactNode } from 'react';
 
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
-import { type CardContext, SmartCardContext } from '@atlaskit/link-provider';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { SmartCardContext } from '@atlaskit/link-provider/context';
 
 interface Props {
 	children: ReactNode;
@@ -16,7 +17,7 @@ export function SmartCardSSRReactContextsProvider({
 	children,
 	intl,
 }: Props): ReactNode {
-	if (!isSSR() || !isSSRStreaming()) {
+	if (!isSSR()) {
 		return children;
 	}
 

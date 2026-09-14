@@ -29,7 +29,7 @@ export const accessibilityFixes: AccessibilityFixCategory = {
 				before: `<button onClick={handleClose}>
   <CloseIcon />
 </button>`,
-				after: `import { Button } from '@atlaskit/button';
+				after: `import Button from '@atlaskit/button/default/button';
 
 <Button aria-label="Close dialog" onClick={handleClose}>
   <CloseIcon />
@@ -696,12 +696,12 @@ return (
 				before: `<div>
   <Button>Save</Button><Button>Cancel</Button>
 </div>`,
-				after: `import { Stack } from '@atlaskit/stack';
+				after: `import { Inline } from '@atlaskit/primitives/compiled/inline';
 
-<Stack direction="horizontal" space="space.100">
+<Inline space="space.100">
   <Button>Save</Button>
   <Button>Cancel</Button>
-</Stack>`,
+</Inline>`,
 				explanation: 'Adequate spacing prevents accidental activation of adjacent controls.',
 			},
 		],

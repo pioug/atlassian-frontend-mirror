@@ -1,5 +1,89 @@
 # @atlaskit/menu
 
+## 10.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.1
+
+### Patch Changes
+
+- [`e974cd0ae082c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e974cd0ae082c) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Major Changes
+
+- [`f0bf5f838abd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0bf5f838abd5) -
+  Apply Volt entry-point and barrel-removal standards across these packages. Public `exports` now
+  resolve **directly** to `./src/*` implementations instead of intermediate `./src/entry-points/*`
+  re-exports.
+
+  ### Migration
+
+  Prefer published subpaths over the package root or internal entry-point paths:
+
+  ```ts
+  import Calendar from '@atlaskit/calendar/calendar';
+  import Drawer from '@atlaskit/drawer/drawer';
+  import { WidthObserver } from '@atlaskit/width-detector/width-observer';
+  import { DocumentViewer } from '@atlaskit/media-document-viewer/document-viewer';
+  ```
+
+  If you imported through internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Calendar from '@atlaskit/calendar/entry-points/calendar';
+  +import Calendar from '@atlaskit/calendar/calendar';
+
+  -import WidthObserver from '@atlaskit/width-detector/src/WidthObserver';
+  +import { WidthObserver } from '@atlaskit/width-detector/width-observer';
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.6
+
+### Patch Changes
+
+- [`f17fa33159689`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f17fa33159689) -
+  Fix `aria-disabled` on `LinkItem` and `CustomItem` to not emit `aria-disabled="false"` when the
+  item is not disabled. Previously, `aria-disabled={false}` was always rendered which caused axe
+  accessibility failures inside menu roles. Now it renders `aria-disabled="true"` when disabled and
+  omits the attribute otherwise.
+
 ## 9.2.5
 
 ### Patch Changes

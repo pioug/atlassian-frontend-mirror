@@ -12,7 +12,7 @@ import React, {
 import { bind } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { isReducedMotion } from '@atlaskit/motion';
+import { isReducedMotion } from '@atlaskit/motion/is-reduced-motion';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 

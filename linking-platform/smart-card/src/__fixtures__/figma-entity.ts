@@ -1,4 +1,4 @@
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import type { DesignEntity } from '@atlaskit/linking-types/entity-types';
 
 export default {

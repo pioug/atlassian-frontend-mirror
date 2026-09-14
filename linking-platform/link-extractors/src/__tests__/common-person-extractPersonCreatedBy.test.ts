@@ -5,7 +5,7 @@ import {
 	TEST_OBJECT,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractPersonCreatedBy } from '../index';
+import { extractPersonCreatedBy } from '../extract-person-created-by';
 
 const BASE_DATA = TEST_BASE_DATA;
 

@@ -1,4 +1,5 @@
-import { createMediaShortcutPressedEvent, type PlaybackState } from '../../../analytics';
+import { createMediaShortcutPressedEvent } from '../../../analytics/events/ui/shortcutPressed';
+import type { PlaybackState } from '../../../analytics/utils/playbackAttributes';
 
 describe('createMediaShortcutPressedEvent', () => {
 	const playbackState: PlaybackState = {

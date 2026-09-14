@@ -5,7 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../examples-util/block';
@@ -58,8 +58,8 @@ const _default: () => JSX.Element = () => (
 			status={<div css={styles.presence}>1</div>}
 		/>
 		<Avatar
-			name="xsmall"
-			size="xsmall"
+			name="xxsmall"
+			size="xxsmall"
 			appearance="hexagon"
 			status={<div css={styles.presence}>1</div>}
 		/>

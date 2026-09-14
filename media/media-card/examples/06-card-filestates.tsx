@@ -18,9 +18,9 @@ import {
 import { MainWrapper } from '../example-helpers';
 import { Card } from '../src/card/card';
 import { type CardProps } from '../src';
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 
 const defaultDimensions = { width: 200, height: 150 };
 

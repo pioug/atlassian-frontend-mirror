@@ -57,9 +57,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon/tsconfig.app.json"
-		},
-		{
 			"path": "../../editor/renderer/tsconfig.app.json"
 		},
 		{
@@ -73,6 +70,9 @@
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

@@ -7,6 +7,7 @@ import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { blockCard } from './blockCard';
 import { blockquote } from './blockquote';
 import { bodiedExtension } from './bodiedExtension';
+import { bodiedRule } from './bodiedRule';
 import { codeBlock } from './codeBlock';
 import { decisionList } from './decisionList';
 import { embedCard } from './embedCard';
@@ -48,6 +49,8 @@ export const extensionFrame: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
 				orderedList,
 				bulletList,
 				rule,
+				rule.use('with_attrs'),
+				bodiedRule,
 				heading.use('with_no_marks'),
 				codeBlock,
 				mediaGroup,

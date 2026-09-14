@@ -4,8 +4,8 @@ import { createRoot } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';

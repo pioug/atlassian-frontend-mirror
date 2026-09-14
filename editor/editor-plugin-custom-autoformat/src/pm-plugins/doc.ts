@@ -1,7 +1,7 @@
 import type { AutoformatHandler } from '@atlaskit/editor-common/provider-factory';
 import { processRawValue } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { closeHistory } from '@atlaskit/prosemirror-history';
+import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 
 import type { CustomAutoformatState } from '../types';
 

@@ -2,17 +2,21 @@ import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { act, render, screen } from '@atlassian/testing-library';
+import { act } from '@atlassian/testing-library/act';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
-import Motion, { Reanimate } from '../../../entering/motion';
+import Motion from '../../../entering/motion';
+import { Reanimate } from '../../../entering/reanimate';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
-import { isReducedMotion } from '../../../index';
+import { isReducedMotion } from '../../../utils/is-reduced-motion';
 import { CustomMotionExample } from '../__fixtures__/custom-motion';
 
 const MOTION_DURATION = 350;
 
 jest.mock('@atlaskit/tokens', () => ({
+	...jest.requireActual('@atlaskit/tokens'),
 	token: (path: string) => {
 		if (path === 'motion.test.enter') {
 			return 'var(--ds-test-enter)';
@@ -343,6 +347,9 @@ describe('<Motion />', () => {
 				const styleMock = new CSSStyleDeclaration();
 				jest.spyOn(window, 'getComputedStyle').mockReturnValue(styleMock);
 				jest.spyOn(styleMock, 'getPropertyValue').mockImplementation((name) => {
+					if (name === 'animation-name') {
+						return 'FadeIn';
+					}
 					if (name === 'animation-duration') {
 						return '0.25s';
 					}
@@ -512,6 +519,9 @@ describe('<Motion />', () => {
 				const styleMock = new CSSStyleDeclaration();
 				jest.spyOn(window, 'getComputedStyle').mockReturnValue(styleMock);
 				jest.spyOn(styleMock, 'getPropertyValue').mockImplementation((name) => {
+					if (name === 'animation-name') {
+						return 'FadeOut';
+					}
 					if (name === 'animation-duration') {
 						return '0.2s';
 					}

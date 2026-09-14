@@ -43,10 +43,28 @@ export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options })
 		},
 		commands: {
 			toggleChanges: ({ tr }: { tr: Transaction }) => {
+				// Another plugin currently owns the diff decorations (e.g. the AI Review moment),
+				// so toggling would fight over the same diff — bail out.
+				if (api?.trackChanges?.sharedState.currentState()?.isToggleChangesDisabled) {
+					return null;
+				}
 				return tr.setMeta(trackChangesPluginKey, {
 					action: ACTION.TOGGLE_TRACK_CHANGES,
 				});
 			},
+			setToggleChangesDisabled:
+				(isDisabled: boolean) =>
+				({ tr }: { tr: Transaction }) => {
+					if (
+						api?.trackChanges?.sharedState.currentState()?.isToggleChangesDisabled === isDisabled
+					) {
+						return null;
+					}
+					return tr.setMeta(trackChangesPluginKey, {
+						action: ACTION.SET_TOGGLE_CHANGES_DISABLED,
+						isDisabled,
+					});
+				},
 			resetBaseline: ({ tr }: { tr: Transaction }) => {
 				if (!api?.trackChanges?.sharedState.currentState()?.isShowDiffAvailable) {
 					return null;
@@ -61,6 +79,7 @@ export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options })
 				return {
 					isDisplayingChanges: false,
 					isShowDiffAvailable: false,
+					isToggleChangesDisabled: false,
 				};
 			}
 			return {
@@ -69,6 +88,9 @@ export const trackChangesPlugin: TrackChangesPlugin = ({ api, config: options })
 				),
 				isShowDiffAvailable: Boolean(
 					trackChangesPluginKey.getState(editorState)?.isShowDiffAvailable,
+				),
+				isToggleChangesDisabled: Boolean(
+					trackChangesPluginKey.getState(editorState)?.isToggleChangesDisabled,
 				),
 			};
 		},

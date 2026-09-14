@@ -93,3 +93,80 @@ test.describe('expand', () => {
 		});
 	});
 });
+
+for (const { gateEnabled, expectedMargin } of [
+	{ gateEnabled: false, expectedMargin: 4 },
+	{ gateEnabled: true, expectedMargin: 0 },
+]) {
+	for (const headingExperimentEnabled of [false, true]) {
+		test.describe(`SSR Expand margin: gate=${gateEnabled}, heading experiment=${headingExperimentEnabled}`, () => {
+			test.use({
+				platformFeatureFlags: {
+					platform_renderer_expand_ssr_margin_fix: gateEnabled,
+				},
+				editorExperiments: {
+					platform_editor_copy_link_a11y_inconsistency_fix: headingExperimentEnabled,
+				},
+			});
+
+			for (const mode of ['default', 'wide', 'full-width']) {
+				test.describe(`${mode} mode`, () => {
+					test.use({ adf: expandADF(mode) });
+
+					test('keeps breakout spacing stable when SSR siblings move to the head', async ({
+						renderer,
+					}) => {
+						await renderer.waitForRendererStable();
+						const expand = renderer.page.locator('[data-node-type="expand"]');
+						await expect(expand).toHaveCSS('margin-top', '0px');
+
+						const measurements = await expand.evaluate((element) => {
+							const parent = element.parentElement;
+							if (!parent?.classList.contains('ak-renderer-sticky-safe-breakout-inner')) {
+								throw new Error('Expected Expand inside its breakout wrapper');
+							}
+							const measure = () => ({
+								marginTop: getComputedStyle(element).marginTop,
+								top: element.getBoundingClientRect().top,
+								wrapperHeight: parent.getBoundingClientRect().height,
+							});
+							const client = measure();
+							// Recreate streaming siblings without replacing the renderer's real CSS.
+							const style = document.createElement('style');
+							parent.insertBefore(style, element);
+							const singleStyle = measure();
+							const script = document.createElement('script');
+							script.type = 'application/json';
+							const secondStyle = document.createElement('style');
+							parent.insertBefore(script, element);
+							parent.insertBefore(secondStyle, element);
+							const streamed = measure();
+							for (const sibling of [style, script, secondStyle]) {
+								document.head.appendChild(sibling);
+							}
+							const hydrated = measure();
+							const precedingContent = document.createElement('div');
+							parent.insertBefore(precedingContent, element);
+							const afterContent = measure();
+							precedingContent.remove();
+							for (const sibling of [style, script, secondStyle]) {
+								sibling.remove();
+							}
+							return { client, singleStyle, streamed, hydrated, afterContent };
+						});
+
+						for (const before of [measurements.singleStyle, measurements.streamed]) {
+							expect(before.marginTop).toBe(`${expectedMargin}px`);
+							expect(before.top - measurements.hydrated.top).toBe(expectedMargin);
+							expect(before.wrapperHeight - measurements.hydrated.wrapperHeight).toBe(
+								expectedMargin,
+							);
+						}
+						expect(measurements.hydrated).toEqual(measurements.client);
+						expect(measurements.afterContent.marginTop).toBe('4px');
+					});
+				});
+			}
+		});
+	}
+}

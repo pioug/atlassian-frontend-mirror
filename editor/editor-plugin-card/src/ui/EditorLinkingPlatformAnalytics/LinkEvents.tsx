@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics/use-smart-link-lifecycle-analytics';
 
 import type { LinkCreatedEvent, LinkDeletedEvent, LinkUpdatedEvent } from '../analytics/types';
 import { EVENT, EVENT_SUBJECT } from '../analytics/types';

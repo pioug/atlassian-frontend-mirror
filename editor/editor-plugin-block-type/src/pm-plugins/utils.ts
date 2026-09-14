@@ -6,7 +6,6 @@ import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/mode
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { WRAPPER_BLOCK_TYPES, FORMATTING_NODE_TYPES, FORMATTING_MARK_TYPES } from './block-types';
 import type { BlockType } from './types';
@@ -147,30 +146,26 @@ export function areBlockTypesDisabled(state: EditorState, allowFontSize = false)
 		return disallowedWrapperTypes.length > 0;
 	}
 
-	if (editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true)) {
-		let hasQuote = false;
-		let hasNestedListInQuote = false;
+	let hasQuote = false;
+	let hasNestedListInQuote = false;
 
-		const { $from, $to } = state.selection;
+	const { $from, $to } = state.selection;
 
-		state.doc.nodesBetween($from.pos, $to.pos, (node) => {
-			if (node.type === blockquote) {
-				hasQuote = true;
-				node.descendants((child) => {
-					if (child.type === bulletList || child.type === orderedList) {
-						hasNestedListInQuote = true;
-						return false;
-					}
-					return true;
-				});
-			}
-			return !hasNestedListInQuote;
-		});
+	state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+		if (node.type === blockquote) {
+			hasQuote = true;
+			node.descendants((child) => {
+				if (child.type === bulletList || child.type === orderedList) {
+					hasNestedListInQuote = true;
+					return false;
+				}
+				return true;
+			});
+		}
+		return !hasNestedListInQuote;
+	});
 
-		return disallowedWrapperTypes.length > 0 && (!hasQuote || hasNestedListInQuote);
-	}
-
-	return disallowedWrapperTypes.length > 0;
+	return disallowedWrapperTypes.length > 0 && (!hasQuote || hasNestedListInQuote);
 }
 
 /**

@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -15,11 +15,13 @@ import {
 	type DateRangeType,
 } from '../../../../common/modal/popup-select/types';
 
-import { dateRangeMessages } from './messages';
 import { PopupComponent } from './PopupComponent';
+import { getCurrentOptionLabel } from './getCurrentOptionLabel';
+import { getDropdownLabel } from './getDropdownLabel';
+import { dateRangeMessages } from './messages';
 import { CustomDropdownItem } from './styled';
 import { PopupTrigger } from './trigger';
-import { getCurrentOptionLabel, getDropdownLabel, useInvalidDateRange } from './utils';
+import { useInvalidDateRange } from './useInvalidDateRange';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const DateRangeErrorMessage = styled.div({
@@ -251,7 +253,6 @@ export const DateRangePicker = ({
 		<Popup
 			isOpen={!!isPickerOpen}
 			onClose={handlePickerToggle}
-			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={PopupComponent}
 			zIndex={layers.modal()}
 			content={popupContent}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkItem } from '@atlaskit/menu';
+import LinkItem from '@atlaskit/menu/link-item';
 
 import { ResultItemAfter } from './result-item-after';
 import { ResultItemAfterWrapper } from './result-item-after-wrapper';

@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Popup from '@atlaskit/popup';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/popup';
+import Textfield from '@atlaskit/textfield/text-field';
 
 /**
  * Test fixture: exercises the initial-focus matrix that `top-layer/useInitialFocus`

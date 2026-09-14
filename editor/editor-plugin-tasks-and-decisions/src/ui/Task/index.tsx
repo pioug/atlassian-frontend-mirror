@@ -103,7 +103,7 @@ const TaskItemWrapper = (props: TaskProps & WrappedComponentProps) => {
 	return <TaskItem taskDecisionProvider={provider} {...props} />;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<TaskProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<TaskProps & WrappedComponentProps>;
 } = injectIntl(TaskItemWrapper);

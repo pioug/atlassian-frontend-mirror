@@ -8,17 +8,15 @@ import type { ComponentClass, ComponentProps } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { useSmartCardContext } from '@atlaskit/link-provider';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
 import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
 	ACTION,
@@ -46,7 +44,7 @@ import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineA
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { AnalyticsEventPayload } from '../../analytics/events';
-import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import type { Diff } from '@atlaskit/editor-common/utils';
 
 type HoverLinkOverlayProps = ComponentProps<typeof HoverLinkOverlay>;
@@ -63,12 +61,6 @@ export interface InlineCardProps extends MarkDataAttributes {
 }
 const HoverLinkOverlayNoop = (props: OverlayWithCardContextProps) => (
 	<Fragment>{props.children}</Fragment>
-);
-
-const HoverLinkOverlayWithCondition = componentWithCondition(
-	() => editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }),
-	HoverLinkOverlay,
-	HoverLinkOverlayNoop,
 );
 
 type OverlayWithCardContextProps = HoverLinkOverlayProps & {
@@ -142,7 +134,7 @@ const OverlayWithCardContext = ({
 	const isInPreviewPanel = isWithinPreviewPanelIFrame();
 	const showPanelButton = isInPreviewPanel ? isPreviewPanelAvailable : isPreviewAvailable;
 
-	const Overlay = isPreviewAvailable ? HoverLinkOverlayWithCondition : HoverLinkOverlayNoop;
+	const Overlay = isPreviewAvailable ? HoverLinkOverlay : HoverLinkOverlayNoop;
 
 	return (
 		<Overlay
@@ -168,15 +160,13 @@ const OverlayWithCardContext = ({
 								: undefined,
 						},
 					});
-					editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }) &&
-						fireHoverLabelAEP('panel');
+					fireHoverLabelAEP('panel');
 				} else if (isPreviewModalAvailable) {
 					event.preventDefault();
 					if (preview) {
 						preview.invoke();
 					}
-					editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true }) &&
-						fireHoverLabelAEP('modal');
+					fireHoverLabelAEP('modal');
 				}
 			}}
 		>
@@ -217,9 +207,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	const onClick = getCardClickHandler(eventHandlers, url);
 	// SmartCardEventClickHandler — (e, url?) => void — for CardErrorBoundary.
 	// When the gate is off, fall back to the old behaviour (pass the same onClick as Card).
-	const onConsumerClick = fg('platform_smartlink_xpc_url_wrapping')
-		? getEventHandler(eventHandlers, 'smartCard')
-		: onClick;
+	const onConsumerClick = getEventHandler(eventHandlers, 'smartCard');
 	const cardProps = {
 		url,
 		data,
@@ -250,7 +238,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	};
 
 	useEffect(() => {
-		if (expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) && url) {
+		if (url) {
 			// Refresh cache in the background
 			provider?.then((providerInstance) => {
 				(providerInstance as EditorCardProvider).refreshCache?.({
@@ -266,74 +254,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 
 	const MaybeOverlay = cardContext?.value ? OverlayWithCardContext : HoverLinkOverlayNoop;
 
-	if (
-		(ssr ||
-			(cardState && expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true))) &&
-		url &&
-		!editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
-	) {
-		if (
-			// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
-			fg('editor_inline_comments_on_inline_nodes')
-		) {
-			return (
-				<SmartLinkDraggable
-					url={url}
-					appearance={SMART_LINK_APPEARANCE.INLINE}
-					source={SMART_LINK_DRAG_TYPES.RENDERER}
-				>
-					<span
-						data-inline-card
-						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-						data-card-data={data ? JSON.stringify(data) : undefined}
-						data-card-url={url}
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...inlineAnnotationProps}
-					>
-						<AnalyticsContext data={analyticsData}>
-							{wrapWithSuspense(
-								<CardSSR
-									appearance="inline"
-									url={url}
-									showHoverPreview={!hideHoverPreview}
-									actionOptions={actionOptions}
-									onClick={onClick}
-									resolvingPlaceholder={resolvingPlaceholder}
-								/>,
-							)}
-						</AnalyticsContext>
-					</span>
-				</SmartLinkDraggable>
-			);
-		}
-		return (
-			<SmartLinkDraggable
-				url={url}
-				appearance={SMART_LINK_APPEARANCE.INLINE}
-				source={SMART_LINK_DRAG_TYPES.RENDERER}
-			>
-				<AnalyticsContext data={analyticsData}>
-					{wrapWithSuspense(
-						<CardSSR
-							appearance="inline"
-							url={url}
-							showHoverPreview={!hideHoverPreview}
-							actionOptions={actionOptions}
-							onClick={onClick}
-							resolvingPlaceholder={resolvingPlaceholder}
-						/>,
-					)}
-					{CompetitorPromptComponent}
-				</AnalyticsContext>
-			</SmartLinkDraggable>
-		);
-	} else if (
-		(ssr ||
-			(cardState && expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true))) &&
-		url &&
-		editorExperiment('platform_editor_preview_panel_linking_exp', true, { exposure: true })
-	) {
+	if ((ssr || cardState) && url) {
 		if (
 			// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
 			fg('editor_inline_comments_on_inline_nodes')
@@ -488,11 +409,8 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 										}
 									}}
 									onError={onError}
-									disablePreviewPanel={editorExperiment(
-										'platform_editor_preview_panel_linking_exp',
-										true,
-										{ exposure: true },
-									)}
+									// Setting disablePreviewPanel={true} leaves the overlay button as the only way to open the panel.
+									disablePreviewPanel={true}
 								/>,
 							)}
 						</MaybeOverlay>

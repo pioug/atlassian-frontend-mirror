@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-editor
 
+## 2.0.3
+
+### Patch Changes
+
+- [`e29faa16e0c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e29faa16e0c66) -
+  Migrate selected editor experiment reads and tooling from tmp-editor-statsig to
+  platform-feature-experiments, including static CSS, floating ToC, insert-menu AI, table overflow
+  shadows, and collapsible headings.
+
+## 2.0.2
+
+### Patch Changes
+
+- [`25e3dde50eeb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25e3dde50eeb3) -
+  Upgrade `@typescript-eslint` dependencies from v5 to v7
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "10.10.0",
+	"version": "10.16.9",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -124,6 +124,7 @@
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/image": "workspace:^",
 		"@atlaskit/inline-dialog": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
@@ -134,9 +135,12 @@
 		"@atlaskit/page-layout": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/spotlight": "workspace:^",
+		"@atlaskit/tabs": "workspace:^",
+		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/top-layer": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -146,33 +150,14 @@
 		"@atlassian/test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@axe-core/playwright": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-tokens": [
-				"color",
-				"spacing",
-				"motion"
-			],
-			"deprecation": "no-deprecated-imports",
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			],
-			"styling": [
-				"emotion"
-			]
-		}
-	},
 	"platform-feature-flags": {
+		"platform-dst-main-print-styles": {
+			"type": "boolean"
+		},
 		"platform-dst-top-layer": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -184,10 +169,10 @@
 		"navx-full-height-sidebar": {
 			"type": "boolean"
 		},
-		"platform_dst_button_chevron_sizing": {
+		"platform-dst-keep-desired-fhs-features": {
 			"type": "boolean"
 		},
-		"platform-dst-shape-theme-default": {
+		"platform_dst_button_chevron_sizing": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_custom_theming_fhs_1": {
@@ -196,7 +181,7 @@
 		"platform_dst_nav4_skip_link_a11y_1": {
 			"type": "boolean"
 		},
-		"platform_dst_nav4_side_nav_grid_area_fix": {
+		"platform-dst-motion-uplift-sidenav": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-button": {
@@ -207,12 +192,12 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform-dst-tokens-finesse": {
+			"type": "boolean"
+		},
 		"platform_dst_ads_appswitcher_improvements": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform-ads-nav-fixed-height": {
-			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/navigation-system"

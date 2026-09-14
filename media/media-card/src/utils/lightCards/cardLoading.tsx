@@ -1,5 +1,5 @@
 import React from 'react';
-import SpinnerIcon from '@atlaskit/spinner';
+import SpinnerIcon from '@atlaskit/spinner/spinner';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { LoadingBar } from '../../card/ui/loadingBar/loadingBar';
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';

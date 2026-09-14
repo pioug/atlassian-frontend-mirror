@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { HeadingItem } from '@atlaskit/side-navigation';
+import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
 
 const Example = (): React.JSX.Element => <HeadingItem>Actions</HeadingItem>;
 

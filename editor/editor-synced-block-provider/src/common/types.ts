@@ -131,14 +131,13 @@ export type SyncBlockPrefetchData = {
  * asynchronously and `destroy()` nulls it on orphaned managers, so queued/
  * in-flight ops throw `Data provider not set` — previously mis-logged as a real
  * error. These let throw and catch sites agree on one non-string-matched signal
- * so the residual false errors are suppressed. Gated by
- * `platform_editor_blocks_patch_3`.
+ * so the residual false errors are suppressed.
  *
  * NB: these intentionally live here rather than in a dedicated module to avoid
  * adding a downstream file to consuming Jira packages' Thunderstone complexity.
  */
 
-/** Legacy message — kept identical for gate-off and historical events. */
+/** Legacy message — kept identical for historical events. */
 export const PROVIDER_NOT_READY_MESSAGE = 'Data provider not set';
 
 /**

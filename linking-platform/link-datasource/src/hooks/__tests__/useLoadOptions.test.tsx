@@ -4,10 +4,10 @@ import { renderHook, type RenderHookOptions, waitFor } from '@testing-library/re
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { FlagsProvider } from '@atlaskit/flag';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 
-import { EVENT_CHANNEL } from '../../analytics';
+import { EVENT_CHANNEL } from '../../analytics/constants';
 import { type LoadOptionsProps, useLoadOptions } from '../useLoadOptions';
 
 const mockShowErrorFlag = jest.fn();

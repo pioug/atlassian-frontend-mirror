@@ -37,6 +37,10 @@
 		"outDir": "../../../tsDist/@atlaskit__analytics-cross-product/app",
 		"isolatedDeclarations": true
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

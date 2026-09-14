@@ -1,12 +1,14 @@
-import {
-	DefaultMentionNameResolver,
-	mergeNameResolverQueues,
-	type MentionNameResolver,
-} from '../../../api/MentionNameResolver';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
+import { DefaultMentionNameResolver } from '../../../api/DefaultMentionNameResolver';
 import { type MentionNameClient } from '../../../api/MentionNameClient';
-import { isPromise, type MentionNameDetails, MentionNameStatus } from '../../../types';
-import { type CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { MentionNameResolver } from '../../../api/MentionNameResolver';
+import { mergeNameResolverQueues } from '../../../api/mergeNameResolverQueues';
+import { isPromise } from '../../../is-promise';
+import { type MentionNameDetails, MentionNameStatus } from '../../../types';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -587,8 +589,8 @@ describe('MentionNameResolver', () => {
 					.then((name) => {
 						expect(name).toEqual(mentionName);
 						// Check analytics
-						expect(mockCreateAnalyticsEvent).toBeCalledTimes(1);
-						expect(mockCreateAnalyticsEvent).toBeCalledWith(
+						expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(1);
+						expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith(
 							expect.objectContaining({
 								...baseEventPayload,
 								action,
@@ -604,7 +606,7 @@ describe('MentionNameResolver', () => {
 						const name2 = mentionNameResolver.lookupName('cheese');
 						expect(name2).toEqual(mentionName);
 						// Check analytics
-						expect(mockCreateAnalyticsEvent).toBeCalledTimes(2);
+						expect(mockCreateAnalyticsEvent).toHaveBeenCalledTimes(2);
 						expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(
 							2,
 							expect.objectContaining({

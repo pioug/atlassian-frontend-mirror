@@ -7,7 +7,7 @@
  * historically every change to one needed a paired change to the other.
  */
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isAgentCreatorType } from '../../common/utils/is-agent-creator-type';
 import { isForgeAgentByCreatorType } from '../../common/utils/is-forge-agent';

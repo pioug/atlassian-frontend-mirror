@@ -3,8 +3,10 @@ import React from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
-import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -16,7 +18,7 @@ import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 interface ErrorInfo {
 	componentStack: string;
@@ -130,7 +132,7 @@ class FormErrorBoundaryInner extends React.Component<
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const FormErrorBoundaryImpl: React.FC<
 	WithIntlProps<Props & WithAnalyticsEventsProps & WrappedComponentProps>
 > & {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3e3b36b12ca6279efb713ddb9f49c6bd>>
+ * @codegen <<SignedSource::e9235c3269bc4d22a7ede9ece6d5a6e1>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -176,14 +176,30 @@ export default `
     transform-origin: right;
   }
 }
+@keyframes ScaleXIn80to100 {
+  0% {
+    transform: scaleX(0.8);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+@keyframes ScaleXOut100to0 {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
 html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:motion"] {
   --ds-avatar-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-avatar-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to80 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-avatar-hovered: transform 250ms linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1);
   --ds-blanket-enter: 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards;
   --ds-blanket-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
-  --ds-button-hovered: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1);
-  --ds-button-pressed: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-button-hovered: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-button-pressed: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-duration-instant: 0ms;
   --ds-duration-long: 250ms;
   --ds-duration-medium: 200ms;
@@ -216,13 +232,21 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-keyframe-slide-out-left-short: SlideOutLeft8px;
   --ds-keyframe-slide-out-right-short: SlideOutRight8px;
   --ds-keyframe-slide-out-top-short: SlideOutTop8px;
+  --ds-label-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleXIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
+  --ds-label-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleXOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-listitem-hovered: background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 50ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-listitem-pressed: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-listitem-selected: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-modal-enter: 250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards;
   --ds-modal-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards;
+  --ds-panel-content-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 100ms backwards;
+  --ds-panel-content-exit: 50ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-panel-enter: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards;
-  --ds-panel-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut100PercentRight forwards;
+  --ds-panel-enter-left: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards;
+  --ds-panel-enter-right: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards;
+  --ds-panel-exit: 200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards;
+  --ds-panel-exit-left: 200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards;
+  --ds-panel-exit-right: 200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards;
   --ds-popup-enter-bottom: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-popup-enter-left: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInLeft8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-popup-enter-right: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInRight8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
@@ -231,6 +255,10 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-popup-exit-left: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-popup-exit-right: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-popup-exit-top: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
+  --ds-sidenav-enter-left: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards;
+  --ds-sidenav-enter-right: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards;
+  --ds-sidenav-exit-left: 200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards;
+  --ds-sidenav-exit-right: 200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards;
   --ds-spotlight-enter: 250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards;
   --ds-spotlight-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
 }

@@ -1,50 +1,26 @@
 /**
  * Compact, human-readable renderers for the structured search/list results.
  *
- * The underlying ADS MCP tools return rich JSON arrays. Dumping that raw is unreadable at a
- * terminal, so the default (non-`--json`) output renders a compact one line per result. Full
- * structured data remains available via `--json`.
+ * The underlying ADS MCP tools return rich JSON arrays. Search and list commands first project
+ * those arrays into shared compact records, then both human and `--json` output consume the same
+ * data. Exact detail commands retain the full structured payload.
  *
  * Anything this module does not recognise (e.g. guideline markdown, the `plan` payload) is
  * left to the caller's generic fallback.
  */
 
+import { humanFormat } from '@atlaskit/cli-output/human-format';
+
+import { CLI_BIN_NAME } from '../commands/cli-metadata';
 import type { RowKind } from '../commands/types';
 
-import type { DocSearchResult } from './create-doc-search-results';
-
-/**
- * A component result as returned by `searchComponentsTool` / `getAllComponentsTool`.
- * Only the fields the compact view needs are modelled; others are ignored.
- */
-type ComponentResult = {
-	name?: string;
-	package?: string;
-	props?: unknown[];
-	examples?: unknown[];
-};
-
-/**
- * A token result as returned by `searchTokensTool` / `getAllTokensTool`.
- */
-type TokenResult = {
-	name?: string;
-	exampleValue?: string;
-};
-
-/**
- * An icon result as returned by `searchIconsTool` / `getAllIconsTool`.
- */
-type IconResult = {
-	componentName?: string;
-	package?: string;
-	usage?: string;
-};
-
-/**
- * Count helper that is safe against non-array / missing fields.
- */
-const countOf = (value: unknown): number => (Array.isArray(value) ? value.length : 0);
+import {
+	type CompactComponentResult,
+	type CompactDocResult,
+	type CompactIconResult,
+	compactResults,
+	type CompactTokenResult,
+} from './compact-results';
 
 /**
  * Pluralise a `count`-prefixed noun, e.g. `1 prop` / `2 props`.
@@ -53,119 +29,108 @@ const pluralize = (count: number, noun: string): string =>
 	`${count} ${noun}${count === 1 ? '' : 's'}`;
 
 /**
- * Truncate a one-line description so compact rows stay on a single line.
- */
-const truncate = (text: string, max = 80): string =>
-	text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
-
-/**
- * Append a `→ ads-cli <command> <name>` drill-in hint beneath a row.
- *
- * Used for every `search` result, where the natural next step is to view that match in full.
- * `--all` listings omit it because echoing every row's own name would just be noise.
- */
-const withFollowUp = ({
-	line,
-	command,
-	name,
-	showFollowUp,
-}: {
-	line: string;
-	command: string;
-	name: string;
-	showFollowUp: boolean;
-}): string => (showFollowUp ? `${line}\n    → ads-cli ${command} ${name}` : line);
-
-/**
  * Render one component as a compact line.
  *
  * No `[kind]` tag is added: every caller renders a single kind at a time — a single-kind command
  * (`--all`, `--type`) or a titled section of grouped `search` — so the kind is always clear from
  * context and a tag would just be noise.
  */
-const formatComponentLine = (component: ComponentResult, showFollowUp: boolean): string => {
-	const name = component.name ?? '(unknown)';
-	const pkg = component.package ? `  ${component.package}` : '';
-	const propCount = countOf(component.props);
-	const exampleCount = countOf(component.examples);
-	const meta = [pluralize(propCount, 'prop'), pluralize(exampleCount, 'example')].join(', ');
-	return withFollowUp({
-		line: `${name}${pkg}  (${meta})`,
-		command: 'component',
-		name,
-		showFollowUp,
+const formatComponentLine = (component: CompactComponentResult, invocation: string): string => {
+	return humanFormat.searchRow({
+		name: component.name,
+		package: component.package,
+		source: 'ads',
+		kind: 'component',
+		metadata: [
+			pluralize(component.propCount, 'prop'),
+			pluralize(component.exampleCount, 'example'),
+		],
+		followUp: component.followUp ? `${invocation} ${component.followUp}` : undefined,
 	});
 };
 
 /**
  * Render one token as a compact `name = value` line.
  */
-const formatTokenLine = (tokenResult: TokenResult, showFollowUp: boolean): string => {
-	const name = tokenResult.name ?? '(unknown)';
-	// Some token values (e.g. motion easing curves) are very long; truncate so each token stays
-	// on a single readable line. The full value is always available via `--json`.
-	const line = tokenResult.exampleValue ? `${name} = ${truncate(tokenResult.exampleValue)}` : name;
-	return withFollowUp({ line, command: 'token', name, showFollowUp });
+const formatTokenLine = (tokenResult: CompactTokenResult, invocation: string): string => {
+	return humanFormat.searchRow({
+		name: tokenResult.name,
+		source: 'ads',
+		kind: 'token',
+		metadata: tokenResult.exampleValue ? [`= ${tokenResult.exampleValue}`] : undefined,
+		followUp: tokenResult.followUp ? `${invocation} ${tokenResult.followUp}` : undefined,
+	});
 };
 
 /**
  * Render one icon as a compact line with its import package and short usage note.
  */
-const formatIconLine = (iconResult: IconResult, showFollowUp: boolean): string => {
-	const name = iconResult.componentName ?? '(unknown)';
-	const pkg = iconResult.package ? `  ${iconResult.package}` : '';
-	const usage = iconResult.usage ? `  — ${truncate(iconResult.usage)}` : '';
-	return withFollowUp({ line: `${name}${pkg}${usage}`, command: 'icon', name, showFollowUp });
+const formatIconLine = (iconResult: CompactIconResult, invocation: string): string => {
+	return humanFormat.searchRow({
+		name: iconResult.componentName,
+		package: iconResult.package,
+		source: 'ads',
+		kind: 'icon',
+		metadata: iconResult.usage ? [iconResult.usage] : undefined,
+		followUp: iconResult.followUp ? `${invocation} ${iconResult.followUp}` : undefined,
+	});
 };
 
 /**
  * Render one foundations-document match without dumping its full Markdown body.
  */
-const formatDocLine = (doc: DocSearchResult, showFollowUp: boolean): string => {
-	const summary = doc.summary ? `  — ${doc.summary}` : '';
-	const line = `${doc.title}${summary}`;
-	return showFollowUp ? `${line}\n    → ads-cli ${doc.followUp}` : line;
+const formatDocLine = (doc: CompactDocResult, invocation: string): string => {
+	return humanFormat.searchRow({
+		name: doc.title,
+		source: 'ads',
+		kind: 'docs',
+		description: doc.summary,
+		followUp: doc.followUp ? `${invocation} ${doc.followUp}` : undefined,
+	});
 };
 
 /**
  * Render an array of results as compact lines for the given kind. Returns `null` when the data
  * is not an array (so the caller can fall back to generic JSON rendering).
  *
- * `showFollowUp` (default `false`) adds a `→ ads-cli <command> <name>` drill-in hint beneath each
- * row. Search enables it for both grouped and `--type` output; `--all` listings leave it off.
+ * `showFollowUp` (default `false`) adds a `→ <invocation> <command> <name>` drill-in hint beneath
+ * each row. Search enables it for both grouped and `--type` output; `--all` listings leave it off.
  */
 export const formatCompactResults = ({
 	kind,
 	data,
 	showFollowUp = false,
+	invocation = CLI_BIN_NAME,
 }: {
 	kind: RowKind;
 	data: unknown;
 	showFollowUp?: boolean;
+	invocation?: string;
 }): string | null => {
-	if (!Array.isArray(data)) {
+	const compact = compactResults({ kind, data, showFollowUp });
+	if (compact === null) {
 		return null;
 	}
 
-	if (data.length === 0) {
+	if (compact.length === 0) {
 		return 'No results.';
 	}
 
-	const lines = data.map((entry) => {
+	const lines = compact.map((entry) => {
 		switch (kind) {
 			case 'components':
-				return formatComponentLine(entry as ComponentResult, showFollowUp);
+				return formatComponentLine(entry as CompactComponentResult, invocation);
 			case 'tokens':
-				return formatTokenLine(entry as TokenResult, showFollowUp);
+				return formatTokenLine(entry as CompactTokenResult, invocation);
 			case 'icons':
-				return formatIconLine(entry as IconResult, showFollowUp);
+				return formatIconLine(entry as CompactIconResult, invocation);
 			case 'docs':
-				return formatDocLine(entry as DocSearchResult, showFollowUp);
+				return formatDocLine(entry as CompactDocResult, invocation);
 			default:
 				return JSON.stringify(entry);
 		}
 	});
 
-	const header = `Results (${data.length}):`;
+	const header = `Results (${compact.length}):`;
 	return [header, '', ...lines].join('\n');
 };

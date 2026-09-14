@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import Tooltip from '@atlaskit/tooltip';
+import Button from '@atlaskit/button/default/button';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 export default (): React.JSX.Element => (
 	<Tooltip

@@ -4,9 +4,9 @@
  */
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import AddIcon from '@atlaskit/icon/core/add';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const Icon = () => (
 	<Tooltip content="Inner tooltip" position="right" testId="inner-nesting-tooltip">

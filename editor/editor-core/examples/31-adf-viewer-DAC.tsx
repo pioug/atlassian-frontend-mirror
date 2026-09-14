@@ -19,7 +19,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';

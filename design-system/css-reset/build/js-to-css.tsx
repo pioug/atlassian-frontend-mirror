@@ -26,6 +26,7 @@ const typography = require(path.join(tokensDir, 'tokens-raw', 'atlassian-typogra
 const tokenNames = require(path.join(tokensDir, 'token-names')).default;
 
 import styleSheet from '../src';
+import scrollbarStyles from '../src/scrollbars';
 
 const writeFile = promisify(fs.writeFile);
 const SRC = path.join(__dirname, '..', 'src');
@@ -83,6 +84,15 @@ async function buildBundleCss() {
 }
 
 /**
+ * Generate the standalone scrollbar stylesheet for products that do not consume the full reset.
+ */
+async function buildScrollbarCss() {
+	makeDir.sync(SRC);
+	const output = format(scrollbarStyles, 'css');
+	await writeFile(path.join(SRC, 'scrollbars.css'), output);
+}
+
+/**
  * Generate the Gemini VR test template's reset-styles.ts.
  *
  * This decouples @af/visual-regression from a runtime @atlaskit/css-reset import.
@@ -98,7 +108,7 @@ async function buildGeminiResetStyles() {
 	await writeFile(path.join(GEMINI_TEMPLATE, 'reset-styles.ts'), resetStylesTs);
 }
 
-Promise.all([buildBundleCss(), buildGeminiResetStyles()])
+Promise.all([buildBundleCss(), buildScrollbarCss(), buildGeminiResetStyles()])
 	.then(() => {
 		console.log('successfully build css-reset');
 	})

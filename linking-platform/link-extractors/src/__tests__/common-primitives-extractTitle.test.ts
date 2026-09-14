@@ -1,11 +1,11 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import {
 	TEST_BASE_DATA,
 	TEST_BASE_DATA_WITH_HIGHLIGHTING,
 	TEST_NAME,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractTitle } from '../index';
+import { extractTitle } from '../extract-title';
 
 describe('extractors.primitives.title', () => {
 	it('returns raw string if present', () => {

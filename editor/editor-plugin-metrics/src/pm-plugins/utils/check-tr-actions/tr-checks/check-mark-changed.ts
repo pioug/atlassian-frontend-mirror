@@ -1,5 +1,5 @@
 import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import { ActionType } from '../types';
 import type { MarkChangeAction } from '../types';

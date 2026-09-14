@@ -54,7 +54,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/flag.tsx'),
 				},
 			],
-			keywords: ['flag', 'message', 'notification', 'alert', 'toast'],
+			keywords: ['flag', 'message', 'success', 'notification', 'alert', 'toast'],
 			categories: ['feedback'],
 		},
 	],

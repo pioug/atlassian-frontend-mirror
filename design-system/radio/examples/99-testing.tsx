@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { RadioGroup } from '@atlaskit/radio';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 
 const options: OptionsPropType = [

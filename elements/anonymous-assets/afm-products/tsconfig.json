@@ -1,0 +1,34 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../tsDist/@atlaskit__anonymous-assets/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"references": [
+		{
+			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		}
+	]
+}

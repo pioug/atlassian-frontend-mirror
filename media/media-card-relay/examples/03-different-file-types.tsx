@@ -15,8 +15,8 @@
 import { css, jsx } from '@compiled/react';
 
 import type { FileIdentifier } from '@atlaskit/media-client';
-import { MediaProvider } from '@atlaskit/media-client-react';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	audioFileId,
 	imageFileId,

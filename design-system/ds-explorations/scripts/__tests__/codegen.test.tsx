@@ -32,6 +32,6 @@ describe('@atlaskit/design-system-explorations', () => {
 	});
 
 	test('incorrect config throws', () => {
-		expect(() => createColorStylesFromTemplate('fizzbuzz' as any)).toThrowError();
+		expect(() => createColorStylesFromTemplate('fizzbuzz' as any)).toThrow();
 	});
 });

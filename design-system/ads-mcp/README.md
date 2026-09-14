@@ -466,14 +466,17 @@ yarn workspace @af/ads-ai-tooling codegen
 ```
 
 2. Commit updated generated MCP outputs in this package.
-3. Create and ship the `@atlaskit/ads-mcp` changeset/release as usual.
-4. Wait for the package publish.
-5. Renovate should bump it in
+3. Add a `platform/.changeset/*.md` entry for `@atlaskit/ads-mcp` in the same PR. Use `patch` for
+   catalog or documentation refreshes; use `minor` or `major` when the package API changes.
+4. Create and ship the `@atlaskit/ads-mcp` release as usual.
+5. Wait for the package publish.
+6. Renovate should bump it in
    [atlassian-mcp-micros](https://bitbucket.org/atlassian/atlassian-mcp-micros/).
-6. Redeploy `atlassian-mcp-micros` after the bump lands (async pipeline).
+7. Redeploy `atlassian-mcp-micros` after the bump lands (async pipeline).
 
-For other generated targets (skills/DESIGN.md/offerings), follow `platform/tmp/*-instructions.md`
-and the destination README in `atlassian/skills`.
+For generated skills and DESIGN.md output, use the cross-repository sync workflow in
+`packages/design-system/ai-tooling/README.md`, then follow the destination README in
+`atlassian/skills`. The codegen runner does not create instruction files under `platform/tmp/`.
 
 ## FAQs
 

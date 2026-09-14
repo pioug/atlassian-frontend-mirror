@@ -1,8 +1,9 @@
-import { type Auth, type AuthContext, type AuthProvider } from '@atlaskit/media-core';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { MediaStoreError } from './error';
-import { rejectTimeout } from '../../utils/setTimeoutPromise';
+import type { Auth, AuthContext, AuthProvider } from '@atlaskit/media-core/auth';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
+import { rejectTimeout } from '../../utils/rejectTimeout';
+import { MediaStoreError } from './MediaStoreError';
 
 export const DEFAULT_AUTH_PROVIDER_TIMEOUT = 10000;
 
@@ -89,12 +90,5 @@ export const resolveAuth = async (
     https://gist.github.com/timvisee/fcda9bbdff88d45cc9061606b4b923ca
   */
 
-	return auth;
-};
-
-export const resolveInitialAuth = (auth?: Auth): Auth => {
-	if (!auth) {
-		throw new MediaStoreError('missingInitialAuth');
-	}
 	return auth;
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/code-block';
 
 const exampleCodeBlock = `import { Box } from '@atlaskit/primitives/compiled'
 
@@ -14,10 +14,8 @@ class HelloMessage extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <HelloMessage name="Taylor" />,
-  mountNode
-);`;
+const root = createRoot(mountNode);
+root.render(<HelloMessage name="Taylor" />);`;
 
 const CodeBlockDefaultExample = (): React.JSX.Element => {
 	return <CodeBlock language="jsx" showLineNumbers={false} text={exampleCodeBlock} />;

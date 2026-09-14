@@ -1,15 +1,14 @@
 import React, { useCallback } from 'react';
 
-import Tooltip from '@atlaskit/tooltip';
+import { EventType } from '@atlaskit/jql-editor-common/constants';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { ScreenReaderText } from '../../../accessibility';
-import { Action, ActionSubject, ActionSubjectId, EventType } from '../../../analytics';
+import { ScreenReaderText } from '../../../accessibility/styled';
+import { Action, ActionSubject, ActionSubjectId } from '../../../analytics/constants';
 import { SYNTAX_HELP_DESCRIPTION_ID } from '../../../common/constants';
 import { TooltipContent } from '../../../common/styled';
 import { useIntl, useOnSyntaxHelp, useScopedId } from '../../../state';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { TooltipTag } from '../../tooltip-tag';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { BaseSyntaxHelp } from '../base-syntax-help';
 
 import { messages } from './messages';
@@ -42,7 +41,6 @@ export const SyntaxHelp = (): React.JSX.Element => {
 		<Tooltip
 			position={'bottom'}
 			content={<TooltipContent>{label}</TooltipContent>}
-			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			tag={TooltipTag}
 			isScreenReaderAnnouncementDisabled
 		>

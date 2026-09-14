@@ -1,4 +1,4 @@
-import { validator } from '../../../validator';
+import { validator } from '../../validator';
 
 describe('validate Attribute', () => {
 	describe('at Mark Level', () => {
@@ -221,7 +221,7 @@ describe('validate Attribute', () => {
 				const run = () => {
 					validate(initialEntity);
 				};
-				expect(run).toThrowError(`textColor: 'attrs' validation failed.`);
+				expect(run).toThrow(`textColor: 'attrs' validation failed.`);
 			},
 		);
 
@@ -248,7 +248,7 @@ describe('validate Attribute', () => {
 				const run = () => {
 					validate(initialEntity);
 				};
-				expect(run).toThrowError(`redundant attributes found: bgcolor.`);
+				expect(run).toThrow(`redundant attributes found: bgcolor.`);
 			},
 		);
 

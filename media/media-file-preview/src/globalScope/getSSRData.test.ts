@@ -1,8 +1,8 @@
+import { getKey } from './getKey';
+import * as getMediaCardSSRModule from './getMediaCardSSR';
 import { getSSRData } from './getSSRData';
-import * as globalScopeModule from './globalScope';
-import { getKey } from './globalScope';
 
-const getMediaCardSSR = jest.spyOn(globalScopeModule, 'getMediaCardSSR');
+const getMediaCardSSR = jest.spyOn(getMediaCardSSRModule, 'getMediaCardSSR');
 
 const identifier = {
 	id: 'some-id',

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { type WHATS_NEW_ITEM_TYPES } from '../../../../model/WhatsNew';
 

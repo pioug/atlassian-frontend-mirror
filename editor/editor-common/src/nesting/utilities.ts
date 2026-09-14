@@ -8,3 +8,9 @@ export { isSelectionTableNestedInTable } from './isSelectionTableNestedInTable';
 export { isNestedTablesSupported } from './isNestedTablesSupported';
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { isPanelNestingTableSupported } from './isPanelNestingTableSupported';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isPanelNestingContainerSupported } from './isPanelNestingContainerSupported';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isPanelNestingContainerExperimentEnabled } from './isPanelNestingContainerExperimentEnabled';
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isPanelC1SchemaEnabled } from './isPanelC1SchemaEnabled';

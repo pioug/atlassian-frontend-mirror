@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PanelType } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import {
 	PanelInfoIcon,
 	PanelSuccessIcon,
@@ -12,8 +12,8 @@ import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import TipIcon from '@atlaskit/icon/core/lightbulb';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 
 import EmojiItem from './emoji';
 import { PanelStyledCompiled } from './panel-compiled';
@@ -44,7 +44,7 @@ const panelIcons: {
 };
 
 const PanelStyledMigration = componentWithCondition(
-	() => expValEquals('platform_editor_renderer_static_css', 'isEnabled', true),
+	() => isExperimentEnabled('platform_editor_renderer_static_css'),
 	PanelStyledCompiled,
 	PanelStyledEmotion,
 );

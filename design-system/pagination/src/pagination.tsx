@@ -1,6 +1,7 @@
 import React, { forwardRef, memo, type SyntheticEvent } from 'react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';

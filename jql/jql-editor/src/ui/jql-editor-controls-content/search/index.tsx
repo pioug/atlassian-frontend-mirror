@@ -1,12 +1,10 @@
 import React from 'react';
 
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { TooltipContent } from '../../../common/styled';
 import { useIntl, useIsSearching, useStoreActions } from '../../../state';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { TooltipTag } from '../../tooltip-tag';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { BaseSearch } from '../base-search';
 
 import { messages } from './messages';
@@ -20,7 +18,6 @@ export const Search = (): React.JSX.Element => {
 		<Tooltip
 			position={'bottom'}
 			content={<TooltipContent>{label}</TooltipContent>}
-			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			tag={TooltipTag}
 		>
 			<BaseSearch label={label} onSearch={onSearch} isSearching={isSearching} />

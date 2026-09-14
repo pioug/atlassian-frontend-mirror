@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import { IconButton } from '@atlaskit/button/new';
+import Avatar from '@atlaskit/avatar/avatar';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import BugIcon from '@atlaskit/icon/core/bug';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent, within } from '@atlassian/testing-library';
 
 import { ButtonMenuItem } from '../../button-menu-item';
@@ -20,8 +21,9 @@ import { LinkMenuItem } from '../../link-menu-item';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:jest
 skipAutoA11yFile();
 
+const menuItemText = 'Test';
+
 describe('Menu items', () => {
-	const menuItemText = 'Test';
 	const actionAddLabel = 'Add';
 	const actionMoreLabel = 'More';
 	const actions = [
@@ -39,11 +41,51 @@ describe('Menu items', () => {
 	const descriptionText = 'Example description';
 	const testId = 'menu-item-testid';
 	const containerTestId = testId + '-container';
+	const originalHoveredBackground = 'var(--ds-surface-hovered,#f0f1f2)';
+	const originalPressedBackground = 'var(--ds-surface-pressed,#dddee1)';
+	const finesseHoveredBackground = 'var(--ds-background-neutral-subtle-hovered,#0515240f)';
+	const finessePressedBackground = 'var(--ds-background-neutral-subtle-pressed,#0b120e24)';
 
 	describe('ButtonMenuItem', () => {
 		it('should render', () => {
 			render(<ButtonMenuItem>{menuItemText}</ButtonMenuItem>);
 			expect(screen.getByRole('button', { name: menuItemText })).toBeVisible();
+		});
+
+		describe('interaction state colors', () => {
+			it('should retain the original interaction colors when the Finesse gate is off', () => {
+				failGate('platform-dst-tokens-finesse');
+				setupComponent({ testId });
+
+				expect(screen.getByTestId(containerTestId)).toHaveCompiledCss(
+					'backgroundColor',
+					originalHoveredBackground,
+					{ target: ':hover' },
+				);
+				expect(screen.getByRole('button', { name: menuItemText })).toHaveCompiledCss(
+					'backgroundColor',
+					originalPressedBackground,
+					{ target: ':active:not(:disabled)' },
+				);
+			});
+
+			it('should use neutral subtle interaction colors when the Finesse gate is on', () => {
+				failGate('platform-dst-motion-uplift-list-item');
+				failGate('platform-dst-shape-theme-default');
+				passGate('platform-dst-tokens-finesse');
+				setupComponent({ testId });
+
+				expect(screen.getByTestId(containerTestId)).toHaveCompiledCss(
+					'backgroundColor',
+					finesseHoveredBackground,
+					{ target: ':hover' },
+				);
+				expect(screen.getByRole('button', { name: menuItemText })).toHaveCompiledCss(
+					'backgroundColor',
+					finessePressedBackground,
+					{ target: ':active:not(:disabled)' },
+				);
+			});
 		});
 
 		it('should be accessible', async () => {
@@ -704,3 +746,9 @@ describe('Menu items', () => {
 		});
 	});
 });
+
+function setupComponent(props: Partial<React.ComponentProps<typeof ButtonMenuItem>> = {}) {
+	const { children = menuItemText, ...restProps } = props;
+
+	return render(<ButtonMenuItem {...restProps}>{children}</ButtonMenuItem>);
+}

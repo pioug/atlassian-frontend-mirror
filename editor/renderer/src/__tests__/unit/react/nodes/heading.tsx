@@ -15,12 +15,10 @@ import React from 'react';
 import type { HeadingLevels } from '../../../../react/nodes/heading';
 import Heading from '../../../../react/nodes/heading';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 import { fireEvent } from '@testing-library/react';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
-import HeadingAnchor from '../../../../react/nodes/heading-anchor';
 import ReactSerializer from '../../../../react';
 import userEvent from '@testing-library/user-event';
 
@@ -30,7 +28,6 @@ import userEvent from '@testing-library/user-event';
 skipAutoA11yFile();
 
 describe('<Heading />', () => {
-	let heading: any;
 	const serialiser = new ReactSerializer({});
 	const fireAnalyticsEvent = jest.fn();
 
@@ -39,7 +36,7 @@ describe('<Heading />', () => {
 	});
 
 	test.each([1, 2, 3, 4, 5, 6])('should wrap content with <h%s>-tag', (headingLevel) => {
-		heading = mountWithIntl(
+		const { container } = renderWithIntl(
 			<Heading
 				level={headingLevel as HeadingLevels}
 				headingId={`This-is-a-Heading-${headingLevel}`}
@@ -55,15 +52,15 @@ describe('<Heading />', () => {
 			</Heading>,
 		);
 
-		expect(heading.find(`h${headingLevel}`).exists()).toBe(true);
-		expect(heading.find(`h${headingLevel}`).prop('id')).toEqual(
-			`This-is-a-Heading-${headingLevel}`,
-		);
+		const headingElement = container.querySelector(`h${headingLevel}`);
+
+		expect(headingElement).toBeInTheDocument();
+		expect(headingElement).toHaveAttribute('id', `This-is-a-Heading-${headingLevel}`);
 	});
 
 	describe('When showAnchorLink is set to false', () => {
-		beforeEach(() => {
-			heading = mountWithIntl(
+		const renderHeadingWithoutAnchor = () =>
+			renderWithIntl(
 				<Heading
 					level={1}
 					headingId={'This-is-a-Heading-1'}
@@ -78,10 +75,11 @@ describe('<Heading />', () => {
 					This is a Heading 1
 				</Heading>,
 			);
-		});
 
 		it('does not render heading anchor', () => {
-			expect(heading.find(HeadingAnchor).exists()).toBe(false);
+			const screen = renderHeadingWithoutAnchor();
+
+			expect(screen.queryByTestId('anchor-button')).not.toBeInTheDocument();
 		});
 	});
 

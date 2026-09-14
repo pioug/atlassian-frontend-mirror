@@ -3,47 +3,24 @@ import { simplifyChanges, ChangeSet, type Change } from 'prosemirror-changeset';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
 import { Mapping, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import type { Step, StepMap } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
 
+import type { DiffStepAttribution } from '../../showDiffPluginType';
+import {
+	type DiffAttributionSpanData,
+	getAttributionKey,
+} from '../decorations/colorSchemes/attributions';
+import { buildCharsByOffset } from '../utils/charsByOffset';
+
+import { attrAwareTokenEncoder } from './attrAwareTokenEncoder';
 import { optimizeChanges } from './optimizeChanges';
 
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const WORD_CHAR_REGEX = /[\p{L}\p{N}_]/u;
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const PUNCTUATION_REGEX = /\p{P}/u;
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const WHITESPACE_REGEX = /\s/u;
 
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
-
-/**
- * Build a per-content-offset view of the textblock's characters.
- *
- * Returns an array `chars` whose length is `parent.content.size`. For every
- * offset that lies inside a text node, `chars[offset]` is the character at
- * that offset; for every offset that lies inside (or on the edge of) a
- * non-text inline node — hardBreak, mention, emoji, date, etc. — the entry
- * is `null`.
- *
- * Using doc positions to index `parent.textContent` is wrong because
- * `textContent` strips non-text inline nodes, so every such node shifts the
- * lookup off by its size. This per-offset view restores a 1:1 mapping between
- * doc positions inside the textblock and the character (or "no character",
- * i.e. a hard word boundary) at that position.
- */
-const buildCharsByOffset = (parent: PMNode): Array<string | null> => {
-	const chars: Array<string | null> = new Array(parent.content.size).fill(null);
-	parent.content.forEach((child, offset) => {
-		if (!child.isText) {
-			return;
-		}
-		const text = child.text ?? '';
-		for (let i = 0; i < text.length; i++) {
-			chars[offset + i] = text[i];
-		}
-	});
-	return chars;
-};
 
 /**
  * Given a ProseMirror doc and a position range [from, to], expand
@@ -189,12 +166,12 @@ const createMapping = (maps: StepMap[]): Mapping => {
 	return mapping;
 };
 
-const createSpans = (length: number) =>
+const createSpans = (length: number, data: DiffAttributionSpanData | null = null) =>
 	length > 0
 		? [
 				{
 					length,
-					data: null,
+					data,
 				},
 			]
 		: [];
@@ -210,7 +187,9 @@ const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {
 
 	for (let i = 1; i < sortedChanges.length; i++) {
 		const next = sortedChanges[i];
-		const isOverlapping = next.fromB <= current.toB;
+		const currentIdentity = getAttributionKey([...current.deleted, ...current.inserted][0]?.data);
+		const nextIdentity = getAttributionKey([...next.deleted, ...next.inserted][0]?.data);
+		const isOverlapping = next.fromB <= current.toB && currentIdentity === nextIdentity;
 
 		if (isOverlapping) {
 			current = {
@@ -285,12 +264,11 @@ const shouldCheckGranularDiff = (
 	);
 };
 
-type StepChanges = {
-	changes: Change[];
-	isGranular: boolean;
-};
-
-export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
+export const diffBySteps = (
+	originalDoc: PMNode,
+	steps: Step[],
+	stepAttributions?: Array<DiffStepAttribution | undefined>,
+): Change[] => {
 	const changes: Change[] = [];
 	let currentDoc = originalDoc;
 	const successfulStepMaps = [];
@@ -300,11 +278,12 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 		from: number;
 		mapIndex: number;
 		step: Step;
+		stepAttribution: DiffAttributionSpanData | null;
 		stepMap: StepMap;
 		to: number;
 	}> = [];
 
-	for (const step of steps) {
+	for (const [stepIndex, step] of steps.entries()) {
 		const before = currentDoc;
 		const result = step.apply(currentDoc);
 		if (result.failed !== null || !result.doc) {
@@ -320,6 +299,9 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 				from: rangeStep.from,
 				to: rangeStep.to,
 				mapIndex: successfulStepMaps.length,
+				stepAttribution: stepAttributions?.[stepIndex]
+					? { ...stepAttributions[stepIndex], stepIndex }
+					: null,
 				step,
 				stepMap,
 			});
@@ -348,11 +330,11 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 		if (
 			shouldCheckGranularDiff(rangedStep.step, rangedStep.before, rangedStep.from, rangedStep.to)
 		) {
-			const granularStepChanges = ChangeSet.create(rangedStep.before).addSteps(
-				rangedStep.doc,
-				[rangedStep.stepMap],
-				null,
-			);
+			const granularStepChanges = ChangeSet.create(
+				rangedStep.before,
+				undefined,
+				attrAwareTokenEncoder,
+			).addSteps(rangedStep.doc, [rangedStep.stepMap], null);
 
 			// `simplifyChanges` reads text using `Change.fromB`/`toB`, which are
 			// positions in the post-step doc (the "B" doc). Passing the pre-step
@@ -427,8 +409,14 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 					toA: granularToA,
 					fromB: granularFromB,
 					toB: granularToB,
-					deleted: createSpans(Math.max(0, granularToA - granularFromA)),
-					inserted: createSpans(Math.max(0, granularToB - granularFromB)),
+					deleted: createSpans(
+						Math.max(0, granularToA - granularFromA),
+						rangedStep.stepAttribution,
+					),
+					inserted: createSpans(
+						Math.max(0, granularToB - granularFromB),
+						rangedStep.stepAttribution,
+					),
 				});
 			}
 			continue;
@@ -439,163 +427,10 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 			toA,
 			fromB,
 			toB,
-			deleted: createSpans(Math.max(0, toA - fromA)),
-			inserted: createSpans(Math.max(0, toB - fromB)),
+			deleted: createSpans(Math.max(0, toA - fromA), rangedStep.stepAttribution),
+			inserted: createSpans(Math.max(0, toB - fromB), rangedStep.stepAttribution),
 		});
 	}
 
 	return mergeOverlappingByNewDocRange(changes);
-};
-
-/**
- * A fork of `diffBySteps` that returns changes grouped per step, rather than as a flat list.
- *
- * Why forked rather than refactoring `diffBySteps`:
- * - `diffBySteps` returns a flat `Change[]` and is consumed by the existing decoration path.
- *   Changing its return shape would require threading per-step metadata through all callers,
- *   adding complexity to a stable code path.
- * - The per-step grouping is only needed for the `platform_editor_diff_granular_extended` gate,
- *   where we need to know how many granular changes a single step produced in order to decide
- *   whether to suppress deleted decorations (threshold: > 3 granular changes per step).
- * - Keeping the two functions separate means each has a clear, focused contract and neither
- *   accumulates the other's concerns. Shared logic (mapping helpers, `mergeOverlappingByNewDocRange`,
- *   `shouldCheckGranularDiff`, etc.) is already extracted and reused by both.
- */
-export const getStepChanges = (originalDoc: PMNode, steps: Step[]): StepChanges[] => {
-	const result: StepChanges[] = [];
-	let currentDoc = originalDoc;
-	const successfulStepMaps = [];
-	const rangedSteps: Array<{
-		before: PMNode;
-		doc: PMNode;
-		from: number;
-		mapIndex: number;
-		step: Step;
-		stepMap: StepMap;
-		to: number;
-	}> = [];
-
-	for (const step of steps) {
-		const before = currentDoc;
-		const stepResult = step.apply(currentDoc);
-		if (stepResult.failed !== null || !stepResult.doc) {
-			continue;
-		}
-
-		const stepMap = step.getMap();
-		const rangeStep = step as Step & { from?: number; to?: number };
-		if (typeof rangeStep.from === 'number' && typeof rangeStep.to === 'number') {
-			rangedSteps.push({
-				before,
-				doc: stepResult.doc,
-				from: rangeStep.from,
-				to: rangeStep.to,
-				mapIndex: successfulStepMaps.length,
-				step,
-				stepMap,
-			});
-		}
-
-		successfulStepMaps.push(stepMap);
-		currentDoc = stepResult.doc;
-	}
-
-	for (const rangedStep of rangedSteps) {
-		const originalToBeforeStep = createMapping(successfulStepMaps.slice(0, rangedStep.mapIndex));
-		const beforeStepToOriginal = originalToBeforeStep.invert();
-
-		const fromA = mapPosition(beforeStepToOriginal, rangedStep.from);
-		const toA = mapPosition(beforeStepToOriginal, rangedStep.to);
-
-		const fromAfterStep = rangedStep.stepMap.map(rangedStep.from, -1);
-		const toAfterStep = rangedStep.stepMap.map(rangedStep.to, 1);
-		const afterStepToFinal = createMapping(successfulStepMaps.slice(rangedStep.mapIndex + 1));
-
-		const fromB = mapPosition(afterStepToFinal, fromAfterStep);
-		const toB = mapPosition(afterStepToFinal, toAfterStep);
-
-		if (
-			shouldCheckGranularDiff(rangedStep.step, rangedStep.before, rangedStep.from, rangedStep.to)
-		) {
-			const granularStepChanges = ChangeSet.create(rangedStep.before).addSteps(
-				rangedStep.doc,
-				[rangedStep.stepMap],
-				null,
-			);
-
-			const optimizedGranularStepChanges = optimizeChanges(
-				simplifyChanges(granularStepChanges.changes, rangedStep.doc),
-			);
-
-			const stepChanges: Change[] = [];
-			for (const granularChange of optimizedGranularStepChanges) {
-				const expandedA = expandToWordBoundaries(
-					rangedStep.before,
-					granularChange.fromA,
-					granularChange.toA,
-				);
-				const expandedB = expandToWordBoundaries(
-					rangedStep.doc,
-					granularChange.fromB,
-					granularChange.toB,
-				);
-
-				const aLeftDelta = granularChange.fromA - expandedA.from;
-				const aRightDelta = expandedA.to - granularChange.toA;
-				const bLeftDelta = granularChange.fromB - expandedB.from;
-				const bRightDelta = expandedB.to - granularChange.toB;
-
-				let finalA = expandedA;
-				let finalB = expandedB;
-
-				if (aLeftDelta > bLeftDelta || aRightDelta > bRightDelta) {
-					const extraLeft = Math.max(0, aLeftDelta - bLeftDelta);
-					const extraRight = Math.max(0, aRightDelta - bRightDelta);
-					finalB = expandToWordBoundaries(
-						rangedStep.doc,
-						Math.max(expandedB.from - extraLeft, 0),
-						expandedB.to + extraRight,
-					);
-				}
-
-				if (bLeftDelta > aLeftDelta || bRightDelta > aRightDelta) {
-					const extraLeft = Math.max(0, bLeftDelta - aLeftDelta);
-					const extraRight = Math.max(0, bRightDelta - aRightDelta);
-					finalA = expandToWordBoundaries(
-						rangedStep.before,
-						Math.max(expandedA.from - extraLeft, 0),
-						expandedA.to + extraRight,
-					);
-				}
-
-				stepChanges.push({
-					fromA: mapPosition(beforeStepToOriginal, finalA.from),
-					toA: mapPosition(beforeStepToOriginal, finalA.to),
-					fromB: mapPosition(afterStepToFinal, finalB.from),
-					toB: mapPosition(afterStepToFinal, finalB.to),
-					deleted: createSpans(Math.max(0, finalA.to - finalA.from)),
-					inserted: createSpans(Math.max(0, finalB.to - finalB.from)),
-				});
-			}
-
-			result.push({ isGranular: true, changes: mergeOverlappingByNewDocRange(stepChanges) });
-			continue;
-		}
-
-		result.push({
-			isGranular: false,
-			changes: [
-				{
-					fromA,
-					toA,
-					fromB,
-					toB,
-					deleted: createSpans(Math.max(0, toA - fromA)),
-					inserted: createSpans(Math.max(0, toB - fromB)),
-				},
-			],
-		});
-	}
-
-	return result;
 };

@@ -1,6 +1,6 @@
 import type { Mark, MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import { stepHasSlice } from './stepHasSlice';
 

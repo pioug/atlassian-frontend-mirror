@@ -4,13 +4,12 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-	type UIAnalyticsEvent,
-	withAnalyticsContext,
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import withAnalyticsContext, {
 	type WithContextProps,
-} from '@atlaskit/analytics-next';
-import SectionMessage from '@atlaskit/section-message';
-import Button from '@atlaskit/button/custom-theme-button';
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import SectionMessage from '@atlaskit/section-message/message';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { injectIntl, type WrappedComponentProps } from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
 import { css, jsx } from '@compiled/react';

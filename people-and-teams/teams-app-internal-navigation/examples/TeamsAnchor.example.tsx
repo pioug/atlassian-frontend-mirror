@@ -7,7 +7,7 @@ import {
 	type PlaygroundConfig,
 } from '@atlassian/teams-app-internal-playground/playground';
 
-import { TeamsAnchor } from '../src';
+import { TeamsAnchor } from '../src/ui/TeamsAnchor';
 
 const config = {
 	fields: [

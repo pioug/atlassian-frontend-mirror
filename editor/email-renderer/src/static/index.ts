@@ -3,11 +3,12 @@
 import * as icons from './icons';
 import { IconName } from './icons';
 import type { SerializeFragmentWithAttachmentsResult, MediaImageBase64 } from '../serializer';
-import { base64Prefix, imageOutputType } from './generator/constants';
 import { CS_CONTENT_PREFIX } from '../styles/util';
 
 const cidPrefix = 'cid:';
 const pfcsPrefix = CS_CONTENT_PREFIX;
+const base64Prefix = 'data:image/png;base64,';
+const embeddedImageContentType = 'image/png';
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
 const cidMatcher = new RegExp(`src="${cidPrefix}${pfcsPrefix}-([\\w]*)-([\\w-]*)"`, 'gi');
@@ -17,7 +18,7 @@ export const createContentId = (imageName: icons.IconString, isCidPrefixed: bool
 
 const embeddedImagesMapper = (iconName: string): MediaImageBase64 => ({
 	contentId: createContentId(IconName[iconName as icons.IconString], false),
-	contentType: `image/${imageOutputType}`,
+	contentType: embeddedImageContentType,
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data: (icons as any)[iconName],

@@ -1,5 +1,6 @@
 import { defaultPollingOptions, PollingFunction, type PollingOptions } from '../../polling';
-import { isPollingError, PollingError } from '../../polling/errors';
+import { PollingError } from '../../polling/PollingError';
+import { isPollingError } from '../../polling/isPollingError';
 
 const simulateTimeout = (poll_intervalMs: number) =>
 	new Promise((resolve) => {
@@ -76,7 +77,7 @@ describe('Polling Function', () => {
 		const executor = jest.fn().mockResolvedValue(undefined);
 		poll.execute(executor);
 		await simulateTimeout(poll.poll_intervalMs);
-		expect(executor).toBeCalledTimes(1);
+		expect(executor).toHaveBeenCalledTimes(1);
 	});
 
 	it('should iterate when .next() called', async () => {
@@ -87,7 +88,7 @@ describe('Polling Function', () => {
 		poll.execute(executor);
 		await simulateTimeout(poll.getIntervalMsForIteration(1));
 		await simulateTimeout(poll.getIntervalMsForIteration(2));
-		expect(executor).toBeCalledTimes(2);
+		expect(executor).toHaveBeenCalledTimes(2);
 	});
 
 	it('should call onError when max iterations reached', async () => {

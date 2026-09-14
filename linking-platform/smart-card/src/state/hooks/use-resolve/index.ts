@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 
-import { isEntityPresent } from '@atlaskit/link-extractors';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import type { CardAppearance, CardState } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isEntityPresent } from '@atlaskit/link-extractors/is-entity-present';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
+import type { CardState } from '@atlaskit/linking-common/store';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SmartLinkStatus } from '../../../constants';
-import { addMetadataToExperience } from '../../analytics';
+import { addMetadataToExperience } from '../../analytics/addMetadataToExperience';
 import useResponse from '../use-response';
 
 export interface ResolveUrlParams {
@@ -29,6 +30,8 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 	return useCallback(
 		async (params: ResolveUrlParams) => {
 			const { url, isReloading = false, isMetadataRequest = false, id = '', appearance } = params;
+			const isOptimizedBlockRequest =
+				appearance === 'block' && fg('platform_smartlink_inline_resolve_optimization');
 
 			const { details } =
 				getState()[url] ||
@@ -39,7 +42,10 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 
 			const hasData = !!((details && details.data) || isEntityPresent(details));
 
-			if (isReloading || !hasData || isMetadataRequest) {
+			if (isReloading || !hasData || isMetadataRequest || isOptimizedBlockRequest) {
+				// A reduced inline response can populate the shared resolver cache before an initial
+				// block request completes, so every optimized block request must bypass that cache.
+				const shouldForceFetch = isReloading || isOptimizedBlockRequest;
 				const metadataStatus =
 					appearance === 'inline' &&
 					!isMetadataRequest &&
@@ -48,12 +54,12 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 						: undefined;
 
 				return connections.client
-					.fetchData(url, isReloading, appearance)
+					.fetchData(url, shouldForceFetch, appearance)
 					.then((response) =>
 						handleResolvedLinkResponse(
 							url,
 							response,
-							isReloading,
+							shouldForceFetch,
 							isMetadataRequest,
 							metadataStatus,
 						),

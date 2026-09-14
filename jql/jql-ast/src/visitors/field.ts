@@ -1,9 +1,9 @@
-import {
-	type JqlFieldPropertyContext,
-	type JqlNonNumberFieldContext,
-	type JqlNumberFieldContext,
-	type JqlPropertyArgumentContext,
-} from '@atlaskit/jql-parser';
+import type {
+	JqlFieldPropertyContext,
+	JqlNonNumberFieldContext,
+	JqlNumberFieldContext,
+	JqlPropertyArgumentContext,
+} from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import { type Argument, type Field, type Property } from '../types';

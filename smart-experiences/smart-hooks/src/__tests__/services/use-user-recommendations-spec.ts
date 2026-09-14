@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { createAndFireEvent } from '@atlaskit/analytics-next';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import { fetchUserRecommendations } from '@atlaskit/smart-common';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
@@ -24,12 +24,11 @@ jest.mock('uuid', () => ({
 	v4: jest.fn(),
 }));
 
-jest.mock('@atlaskit/analytics-next', () => {
-	return {
-		...(jest.requireActual('@atlaskit/analytics-next') as Object),
-		createAndFireEvent: jest.fn().mockReturnValue(jest.fn().mockReturnValue(jest.fn())),
-	};
-});
+jest.mock('@atlaskit/analytics-next/createAndFireEvents', () => ({
+	...jest.requireActual('@atlaskit/analytics-next/createAndFireEvents'),
+	__esModule: true,
+	default: jest.fn().mockReturnValue(jest.fn().mockReturnValue(jest.fn())),
+}));
 
 jest.mock('@atlaskit/smart-common', () => ({
 	...(jest.requireActual('@atlaskit/smart-common') as Object),

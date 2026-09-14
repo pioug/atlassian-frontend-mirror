@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import Tooltip from '../../tooltip';
@@ -12,6 +12,12 @@ const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTi
 function runAllTimers() {
 	act(() => {
 		jest.runAllTimers();
+	});
+}
+
+async function settleAnimationLifecycle() {
+	await act(async () => {
+		await Promise.resolve();
 	});
 }
 
@@ -243,6 +249,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer coverage gaps', (
 		await user.unhover(screen.getByTestId('trigger'));
 		runAllTimers();
 		runAllTimers();
+		await settleAnimationLifecycle();
 
 		expect(onAnalyticsEvent).toHaveBeenCalledTimes(2);
 		expect(onAnalyticsEvent).toHaveBeenCalledWith(
@@ -535,14 +542,17 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer coverage gaps', (
 		act(() => {
 			jest.advanceTimersByTime(1);
 		});
-		// Run exit animation
+		// Settle the exit animation lifecycle
 		runAllTimers();
+		await settleAnimationLifecycle();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
 
-	// ── Visible after trigger click (without hideTooltipOnClick) ──
-	it('should remain visible after trigger is clicked (without hideTooltipOnClick)', async () => {
+	// ── Dismissed on trigger click (without hideTooltipOnClick) ──
+	// Native `popover="hint"` light dismiss owns pointer dismissal here, so a press
+	// hides the tooltip whether or not `hideTooltipOnClick` is set.
+	it('should be dismissed after trigger is clicked (without hideTooltipOnClick)', async () => {
 		const user = createUser();
 
 		render(
@@ -554,10 +564,15 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer coverage gaps', (
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
+		// Without this flush nothing is open when the click lands, so the assertion
+		// below would pass for the wrong reason.
+		runAllTimers();
+		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
+
 		await user.click(screen.getByTestId('trigger'));
 		runAllTimers();
 
-		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
+		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
 
 	// ── canAppear gating ──

@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-import DropdownMenu from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 
 const mockDropdownMenu = injectable(DropdownMenu, (props) => (
 	<DropdownMenu {...props} isOpen={true} />

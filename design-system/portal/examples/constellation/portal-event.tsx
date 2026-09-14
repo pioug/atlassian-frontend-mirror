@@ -6,16 +6,14 @@ import { useEffect, useState } from 'react';
 
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 
-import Button from '@atlaskit/button/new';
-import { CodeBlock } from '@atlaskit/code';
+import Button from '@atlaskit/button/default/button';
+import CodeBlock from '@atlaskit/code/code-block';
 import { cssMap, jsx } from '@atlaskit/css';
-import Portal, {
-	PORTAL_MOUNT_EVENT,
-	PORTAL_UNMOUNT_EVENT,
-	type PortalEvent,
-} from '@atlaskit/portal';
+import Portal from '@atlaskit/portal/portal';
+import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '@atlaskit/portal/constants';
+import type { PortalEvent } from '@atlaskit/portal/types';
 import { Box } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

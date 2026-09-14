@@ -32,6 +32,9 @@
 			"path": "../../media-common/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{

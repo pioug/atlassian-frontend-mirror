@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Presence } from '@atlaskit/avatar';
+import Presence from '@atlaskit/avatar/presence';
 
 const AvatarPresenceBorderColor = (): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

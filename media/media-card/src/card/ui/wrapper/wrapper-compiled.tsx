@@ -13,7 +13,6 @@ import { getDefaultCardDimensions } from '../../../utils/cardDimensions';
 import { getCSSUnitValue } from '../../../utils/getCSSUnitValue';
 import { type Breakpoint } from '../common';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const LOCAL_WIDTH_VARIABLE = '--media-wrapper-width';
 export const LOCAL_HEIGHT_VARIABLE = '--media-wrapper-height';
@@ -111,8 +110,9 @@ const selectableTickboxStyle = css({
 });
 
 const tooltipStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'& > div': {
+	// Don't style top-layer elements (eg tooltip, modal). `:where()` keeps specificity unchanged.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'& > div:not(:where([popover], dialog))': {
 		width: '100%',
 		height: '100%',
 	},
@@ -147,6 +147,7 @@ export const Wrapper: {
 		appearance,
 		onClick,
 		onMouseEnter,
+		onFocus,
 		innerRef,
 		breakpoint,
 		disableOverlay,
@@ -164,14 +165,7 @@ export const Wrapper: {
 
 	const wrapperShadowKey = getShadowKey(disableOverlay, selected);
 
-	const a11yProps = fg('platform_media_a11y_suppression_fixes')
-		? {
-				role: 'none' as const,
-			}
-		: {};
-
 	return (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			id="newFileExperienceWrapper"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -197,10 +191,10 @@ export const Wrapper: {
 			]}
 			ref={innerRef}
 			onClick={onClick}
-			// eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events
 			onMouseEnter={onMouseEnter}
+			onFocus={onFocus}
 			{...VcMediaWrapperProps}
-			{...a11yProps}
+			role="none"
 		>
 			<UFOCustomData data={{ hasMediaComponent: true }} />
 			{props.children}

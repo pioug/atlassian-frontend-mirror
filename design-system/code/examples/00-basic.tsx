@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Code, CodeBlock } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
+import CodeBlock from '@atlaskit/code/code-block';
 
 const exampleCodeBlock = `// Longer snippets usually require <CodeBlock/>
 // CodeBlock supports line numbers syntax highlighting and accessible colors.
@@ -16,10 +17,8 @@ class HelloMessage extends React.Component {
 }
 
 // line 15 is highlighted
-ReactDOM.render(
-  <HelloMessage name="Taylor" />,
-  mountNode
-);`;
+const root = createRoot(mountNode);
+root.render(<HelloMessage name="Taylor" />);`;
 
 export default function Component(): React.JSX.Element {
 	return (

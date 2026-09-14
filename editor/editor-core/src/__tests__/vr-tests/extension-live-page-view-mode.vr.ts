@@ -5,7 +5,7 @@ import {
 	BodiedExtensionWithSmartLink,
 	EmptyBodiedExtension,
 	InlineExtensionWithSmartLink,
-} from './extension-live-page-view-mode.fixtures';
+} from './extension-live-page-view-mode.fixtures.vr.ap';
 
 snapshot(BlockExtensionWithSmartLink);
 snapshot(BodiedExtensionWithSmartLink);

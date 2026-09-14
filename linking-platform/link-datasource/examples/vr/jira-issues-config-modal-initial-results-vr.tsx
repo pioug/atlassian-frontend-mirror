@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	defaultInitialVisibleJiraColumnKeys,
 	mockBasicFilterAGGFetchRequests,
@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../../src';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../../src/ui/jira-issues-modal';
 import { JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/modal';
 
 mockDatasourceFetchRequests({ delayedResponse: false });

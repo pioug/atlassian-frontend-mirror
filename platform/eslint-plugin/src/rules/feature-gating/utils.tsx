@@ -8,14 +8,29 @@ export function isIdentifierImportedFrom(
 	sources: Set<string>,
 	context: Rule.RuleContext,
 	node: EstreeNode,
+	options?: { includeSubpaths?: boolean },
 ): boolean {
 	if (sources.size > 0) {
+		const matches = (src: string): boolean => {
+			if (sources.has(src)) {
+				return true;
+			}
+			if (!options?.includeSubpaths) {
+				return false;
+			}
+			for (const root of sources) {
+				if (src.startsWith(root + '/')) {
+					return true;
+				}
+			}
+			return false;
+		};
 		return (
 			getScope(context, node)
 				.references.find((ref) => ref.identifier.name === identifierName)
 				?.resolved?.defs.some(
 					(def) =>
-						def.parent?.type === 'ImportDeclaration' && sources.has(def.parent.source.value + ''),
+						def.parent?.type === 'ImportDeclaration' && matches(def.parent.source.value + ''),
 				) ?? false
 		);
 	}

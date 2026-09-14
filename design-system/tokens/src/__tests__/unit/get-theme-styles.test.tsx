@@ -1,7 +1,8 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import getThemeStyles, { type ThemeStyles } from '../../get-theme-styles';
-import { type ThemeIdsWithOverrides, type ThemeOptionsSchema } from '../../theme-config';
+import { type ThemeIdsWithOverrides } from '../../theme-config';
+import { type ThemeOptionsSchema } from '../../theme-options-schema';
 import { hash } from '../../utils/hash';
 
 import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';

@@ -4,13 +4,36 @@ import { expect, test } from '@af/integration-testing';
 
 const featureFlag = 'platform-dst-top-layer';
 
+// This was based off a real regression noticed in Issue View Modal where
+// the custom two column layout had no scrolling.
+test('should not break child scroll containers', async ({ page }) => {
+	await page.visitExample<
+		typeof import('../../../../../examples/95-top-layer-scroll-reproduction.tsx')
+	>('design-system', 'modal-dialog', 'top-layer-scroll-reproduction', {
+		featureFlag,
+		'react-18-mode': 'modern',
+	});
+
+	await page.getByRole('button', { name: 'Open extracted Work Item modal' }).click();
+
+	const scrollContainers = page.getByTestId(/-column-scroll-container$/);
+	await expect(scrollContainers).toHaveCount(2);
+
+	for (const scrollContainer of await scrollContainers.all()) {
+		await expect(scrollContainer).toHaveCSS('overflow-y', 'auto');
+		expect(
+			await scrollContainer.evaluate((element) => element.scrollHeight > element.clientHeight),
+		).toBe(true);
+	}
+});
+
 test.describe('ModalDialog top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('should open modal via click on trigger button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -24,11 +47,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('should open modal via Enter key on trigger button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -43,11 +66,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('should open modal via Space key on trigger button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -62,11 +85,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('should allow Tab navigation between focusable elements inside modal', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -94,11 +117,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('should allow Shift+Tab navigation backwards inside modal', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -128,11 +151,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.1 Keyboard', () => {
 
 test.describe('ModalDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('should close modal when Escape key is pressed', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -152,11 +175,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('should wrap focus to close button when Tab pressed on last focusable element', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -181,11 +204,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('should wrap focus backwards to last element when Shift+Tab pressed on first focusable element', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -208,11 +231,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('should prevent focus from moving outside modal with Tab when no focusable elements outside', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/95-custom-child.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/95-custom-child.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'custom-child',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -238,11 +261,11 @@ test.describe('ModalDialog top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 
 test.describe('ModalDialog top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('should move focus to close button when modal opens', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -261,11 +284,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('should move focus to first focusable element by default when autoFocus is true', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/20-autofocus.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/20-autofocus.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'autofocus',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('boolean-trigger');
@@ -281,11 +304,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('should move focus to element specified by autoFocus ref on open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/20-autofocus.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/20-autofocus.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'autofocus',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('autofocus-trigger');
@@ -301,11 +324,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('should return focus to trigger button when modal closes', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -327,7 +350,10 @@ test.describe('ModalDialog top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('should return focus to specified ref after modal closes', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/focus-to-ref-on-modal-close.tsx')
-		>('design-system', 'modal-dialog', 'focus-to-ref-on-modal-close', { featureFlag });
+		>('design-system', 'modal-dialog', 'focus-to-ref-on-modal-close', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
 
 		const openModal = page.getByTestId('open-modal');
 		const dialog = page.getByRole('dialog');
@@ -347,11 +373,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('should return focus to correct trigger in nested modals', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/40-multiple.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/40-multiple.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'multiple',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const largeTrigger = page.getByTestId('large');
@@ -400,11 +426,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('should show focus indicator on close button when focused via keyboard', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -434,11 +460,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.7 Focus Visible', () => {
 	});
 
 	test('should show focus indicator on buttons when navigating with Tab', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -472,11 +498,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.7 Focus Visible', () => {
 
 test.describe('ModalDialog top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 	test('should display modal content without visual obstruction', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -498,11 +524,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.11 Focus Not Obscured', () => 
 	});
 
 	test('should keep modal in viewport and centered', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -535,11 +561,11 @@ test.describe('ModalDialog top-layer — WCAG 2.4.11 Focus Not Obscured', () => 
 
 test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('should have role="dialog" attribute (sanity check)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -564,11 +590,11 @@ test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		// declaring it forecloses non-modal use cases (consumers calling
 		// `.show()` would still appear modal). Modern AT (NVDA / JAWS /
 		// VoiceOver) infer modality from the platform accessibility API.
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -583,11 +609,11 @@ test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('should have aria-labelledby set to modal title (sanity check)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -606,11 +632,11 @@ test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('should have trigger button with aria-haspopup="dialog" (sanity check)', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -621,11 +647,11 @@ test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 
 test.describe('ModalDialog top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('should render modal near trigger in DOM order (sanity check)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -650,11 +676,11 @@ test.describe('ModalDialog top-layer — WCAG 1.3.2 Meaningful Sequence', () => 
 
 test.describe('ModalDialog top-layer — Behavior and Interactions', () => {
 	test('should close modal when clicking outside (on blanket)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -672,11 +698,11 @@ test.describe('ModalDialog top-layer — Behavior and Interactions', () => {
 	});
 
 	test('should close modal when clicking close button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -695,11 +721,11 @@ test.describe('ModalDialog top-layer — Behavior and Interactions', () => {
 	});
 
 	test('should close modal when clicking action button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -718,11 +744,11 @@ test.describe('ModalDialog top-layer — Behavior and Interactions', () => {
 	});
 
 	test('should handle scrollable modal body with focus management', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/55-scroll.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/55-scroll.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'scroll',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('modal-trigger');
@@ -744,11 +770,11 @@ test.describe('ModalDialog top-layer — Behavior and Interactions', () => {
 	});
 
 	test('should handle multiple modals independently', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/40-multiple.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/40-multiple.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'multiple',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const largeTrigger = page.getByTestId('large');
@@ -769,11 +795,11 @@ test.describe('ModalDialog top-layer — Behavior and Interactions', () => {
 	});
 
 	test('should close inner modal and preserve outer modal state', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/40-multiple.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/40-multiple.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'multiple',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const largeTrigger = page.getByTestId('large');
@@ -806,7 +832,10 @@ test.describe('ModalDialog top-layer — WCAG 2.4.3 — Requirement 3 (backgroun
 	}) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/97-modal-a11y-background-inert.tsx')
-		>('design-system', 'modal-dialog', 'modal-a11y-background-inert', { featureFlag });
+		>('design-system', 'modal-dialog', 'modal-a11y-background-inert', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
 
 		const trigger = page.getByTestId('modal-trigger');
 		const dialog = page.getByRole('dialog');
@@ -832,7 +861,10 @@ test.describe('ModalDialog top-layer — WCAG 2.4.3 — Requirement 3 (backgroun
 	}) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/97-modal-a11y-background-inert.tsx')
-		>('design-system', 'modal-dialog', 'modal-a11y-background-inert', { featureFlag });
+		>('design-system', 'modal-dialog', 'modal-a11y-background-inert', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
 
 		const trigger = page.getByTestId('modal-trigger');
 		const dialog = page.getByRole('dialog');

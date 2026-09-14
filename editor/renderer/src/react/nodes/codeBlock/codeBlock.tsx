@@ -9,9 +9,8 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
-import type { SupportedLanguages } from '@atlaskit/code';
-import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
+import AkCodeBlock from '@atlaskit/code/code-block';
+import type { SupportedLanguages } from '@atlaskit/code/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import CodeBlockContainer from './components/codeBlockContainer';
@@ -42,8 +41,6 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 		wrap,
 	} = props;
 
-	const codeBidiWarningLabel = props.intl.formatMessage(codeBidiWarningMessages.label);
-
 	const className = [CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER, props.className].join(' ');
 
 	const [wrapLongLines, setWrapLongLines] = useState<boolean>(
@@ -68,7 +65,6 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 				testId="renderer-code-block"
 				language={language}
 				text={text}
-				codeBidiWarningLabel={codeBidiWarningLabel}
 				codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 				shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
 				shouldShowLineNumbers={
@@ -77,11 +73,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 						hideLineNumbers
 					)
 				}
-				hasBidiWarnings={
-					expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)
-						? false
-						: undefined
-				}
+				hasBidiWarnings={false}
 			/>
 		</CodeBlockContainer>
 	);

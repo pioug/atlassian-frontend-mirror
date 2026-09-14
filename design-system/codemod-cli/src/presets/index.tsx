@@ -19,6 +19,7 @@ import './badge-appearance-semantic-migration/badge-appearance-semantic-migratio
 import './tag-to-newTag-migration/tag-to-newTag-migration';
 import './migrate-deprecated-icon/migrate-deprecated-icon';
 import './fix-import-order/fix-import-order';
+import './avatar-remove-is-decorative/avatar-remove-is-decorative';
 
 const presets: string[] = [
 	'styled-to-emotion',
@@ -36,6 +37,7 @@ const presets: string[] = [
 	'badge-appearance-semantic-migration',
 	'tag-to-newTag-migration',
 	'fix-import-order',
+	'avatar-remove-is-decorative',
 ].map((preset) => path.join(__dirname, preset, `${preset}.@(ts|js|tsx)`));
 
 export default presets;

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
-import type { LinkAttributes } from '@atlaskit/adf-schema';
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import type { LinkAttributes } from '@atlaskit/adf-schema/link';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import type {
 	AnalyticsEventPayload,
 	EditorAnalyticsAPI,
@@ -54,7 +54,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	editInsertedLink,

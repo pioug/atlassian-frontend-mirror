@@ -1,4 +1,4 @@
-import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema/breakout';
 import {
 	akEditorBreakoutPadding,
 	akEditorDefaultLayoutWidth,

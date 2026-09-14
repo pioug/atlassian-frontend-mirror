@@ -1,11 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Rule from '../../../../react/nodes/rule';
 
 describe('Renderer - React/Nodes/Rule', () => {
-	const rule = shallow(<Rule />);
-
 	it('should create a <hr>-tag', () => {
-		expect(rule.name()).toEqual('hr');
+		const { container } = render(<Rule />);
+
+		expect(container.querySelector('hr')).toBeInTheDocument();
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Rule />);
+
+		await expect(container).toBeAccessible();
 	});
 });

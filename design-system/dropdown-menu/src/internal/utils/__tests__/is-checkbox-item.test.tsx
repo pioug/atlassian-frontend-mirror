@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import cases from 'jest-in-case';
 
-import { ButtonItem } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import isCheckboxItem from '../is-checkbox-item';

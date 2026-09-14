@@ -1,13 +1,15 @@
 // File has been copied to packages/editor/editor-plugin-ai/src/provider/markdown-transformer/utils/hyperlink.ts
 // If changes are made to this file, please make the same update in the linked file.
 
-import type { Match } from '@atlaskit/adf-schema';
-import { linkify } from '@atlaskit/adf-schema';
+import type { Match } from '@atlaskit/adf-schema/url';
+import { linkify } from '@atlaskit/adf-schema/url';
 import type { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics/types/enums';
 import type { AnalyticsEventPayload } from '../analytics/types/events';
 import type { InputMethodInsertLink } from '../analytics/types/insert-events';
+import { getHadMarkAttributes } from '../mark/getHadMarkAttributes';
 
 import { FILEPATH_REGEXP } from './FILEPATH_REGEXP';
 import { getLinkDomain } from './getLinkDomain';
@@ -132,12 +134,19 @@ export const isLinkInMatches = (linkStart: number, matchesList: Array<filepathMa
 export function getLinkCreationAnalyticsEvent(
 	inputMethod: InputMethodInsertLink,
 	url: string,
+	tr?: Transaction | ReadonlyTransaction,
 ): AnalyticsEventPayload {
+	const backgroundColor = tr?.doc.type.schema.marks.backgroundColor;
+
 	return {
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.DOCUMENT,
 		actionSubjectId: ACTION_SUBJECT_ID.LINK,
-		attributes: { inputMethod, fromCurrentDomain: isFromCurrentDomain(url) },
+		attributes: {
+			inputMethod,
+			fromCurrentDomain: isFromCurrentDomain(url),
+			...(tr && backgroundColor ? getHadMarkAttributes(tr, [backgroundColor]) : {}),
+		},
 		eventType: EVENT_TYPE.TRACK,
 		nonPrivacySafeAttributes: {
 			linkDomain: getLinkDomain(url),

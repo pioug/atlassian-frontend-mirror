@@ -9,7 +9,8 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
+// oxlint-disable-next-line import/no-duplicates
 import type { Icon } from '@atlaskit/editor-common/extensions';
 import {
 	configPanelMessages as messages,

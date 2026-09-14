@@ -45,7 +45,7 @@ describe(`${packageName}/schema expand node`, () => {
 						},
 					},
 					content:
-						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
+						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
 					group: 'block',
 					isolating: true,
 					marks: 'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',

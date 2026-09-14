@@ -15,7 +15,7 @@ import { PassiveTransaction } from '@atlaskit/editor-common/preset';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { isBulletList } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { closeHistory } from '@atlaskit/prosemirror-history';
+import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { moveSelectedListItems } from '../actions/move-selected-list-items';

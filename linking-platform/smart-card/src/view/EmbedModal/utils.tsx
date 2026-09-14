@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { createRoot, type Root } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type EmbedModalProps } from './types';
 

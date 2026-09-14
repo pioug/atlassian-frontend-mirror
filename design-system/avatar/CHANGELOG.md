@@ -1,5 +1,138 @@
 # @atlaskit/avatar
 
+## 28.0.1
+
+### Patch Changes
+
+- [`8a39156cf22f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a39156cf22f5) -
+  Deprecate the `xsmall` Avatar prop overload while retaining runtime and type compatibility for the
+  current 16px size.
+
+## 28.0.0
+
+### Major Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Rename the public 16px Avatar size from `xsmall` to `xxsmall` to make room for a future 20px
+  `xsmall` size. `xsmall` still renders at runtime for now to avoid immediate JavaScript breakages,
+  but it has been removed from TypeScript interfaces and will be removed in a future major before
+  being re-added as the public 20px size.
+
+  Run the Avatar codemod to update static 16px Avatar usage:
+
+  ```diff
+  <Avatar
+  - size="xsmall"
+  + size="xxsmall"
+  />
+  ```
+
+  AvatarGroup continues to exclude 16px and 20px Avatar-only sizes.
+
+### Patch Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall`.
+- Updated dependencies
+
+## 27.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.2.2
+
+### Patch Changes
+
+- [`695fcbc68ad47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/695fcbc68ad47) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 27.2.1
+
+### Patch Changes
+
+- [`9a7653523837c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a7653523837c) -
+  Use `@atlassian/testing-library` exclusively in unit tests.
+
+## 27.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.0
+
+### Minor Changes
+
+- [`8022d651e6a43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8022d651e6a43) -
+  Add the `./avatar-sizes` entry point, which exports the `AVATAR_SIZES` size map. This allows
+  consumers to import avatar sizing values directly via `@atlaskit/avatar/avatar-sizes`.
+
+## 27.0.0
+
+### Major Changes
+
+- [`517bbea71d2d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/517bbea71d2d2) -
+  **Breaking change:** The `isDecorative` prop has been removed from `Avatar`.
+
+  This prop was used to suppress `aria-labelledby` on decorative avatars. The same effect can be
+  achieved by passing an empty string to the `label` prop.
+
+  **Migration:**
+
+  ```diff
+  - <Avatar src={src} name="User name" isDecorative />
+  + <Avatar src={src} name="User name" label="" />
+  ```
+
+  If you were conditionally setting `isDecorative`:
+
+  ```diff
+  - <Avatar src={src} name={name} isDecorative={isDecorative} />
+  + <Avatar src={src} name={name} label={isDecorative ? '' : undefined} />
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.4.2
+
+### Patch Changes
+
+- [`e0edc05cd52d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0edc05cd52d7) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall` as a 1:1 size rename with no visual
+  change.
+
+## 26.4.1
+
+### Patch Changes
+
+- [`4b7c5c71d51c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7c5c71d51c0) -
+  Add a codemod and migration guide for replacing 16px `xsmall` Avatar usage with `xxsmall`.
+
 ## 26.4.0
 
 ### Minor Changes

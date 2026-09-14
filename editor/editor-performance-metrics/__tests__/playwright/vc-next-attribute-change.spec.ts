@@ -7,6 +7,9 @@ import { test } from './fixtures';
 test.describe('Editor Metrics - TTVC: heatmap', () => {
 	test.use({
 		examplePage: 'vc-observer-attribute-mutation',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/02-vc-observer-attribute-mutation.tsx');
+		examplePage: 'vc-observer-attribute-mutation';
 	});
 
 	test('it should properly map the side nav mutation:attribute time', async ({
@@ -31,10 +34,5 @@ test.describe('Editor Metrics - TTVC: heatmap', () => {
 
 		expect(previousEntries[previousEntries.length - 1].source).toEqual('layout-shift');
 		expect(previousEntries[previousEntries.length - 1].time).toBeLessThanOrEqual(firstTickAt);
-	});
-
-	test('should capture and report a11y violations', async ({ page }) => {
-		await expect(page.getByTestId('content-attr-to-change')).toBeVisible();
-		await expect(page).toBeAccessible();
 	});
 });

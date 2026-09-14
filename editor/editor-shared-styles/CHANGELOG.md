@@ -1,5 +1,363 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.0
+
+### Minor Changes
+
+- [`a8b0726ce1e34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8b0726ce1e34) -
+  Adds shared semantic agent colour resolution and aligns diff history with agent telepointers
+  behind `confluence_ncs_step_diffing_version_history`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.0
+
+### Minor Changes
+
+- [`920a9bc294e07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/920a9bc294e07) -
+  Show names for supported external agents, plus Claude branding and its consistent orange diff
+  colour. Share the Claude colour override through getParticipantColor for diff attribution and
+  collaboration telepointers behind confluence_ncs_step_diffing_version_history.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.67
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.66
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.65
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.64
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.63
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.62
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.61
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.60
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.59
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.58
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 4.0.57
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.56
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.55
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.54
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.53
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.52
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.51
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.50
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.34
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.33
 
 ### Patch Changes

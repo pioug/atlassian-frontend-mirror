@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { characters } from '../../../examples/example-data/bidi-examples';
-import CodeBidiWarning from '../../bidi-warning';
+import CodeBidiWarning from '../../bidi-warning/ui';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CodeBidiWarning', () => {

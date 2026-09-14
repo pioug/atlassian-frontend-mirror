@@ -11,10 +11,12 @@ import {
 	THEME_DATA_ATTRIBUTE,
 } from '../../constants';
 import * as customThemeUtils from '../../custom-theme';
+
 // This import is just to get types
 import type * as enableGlobalThemeTypes from '../../enable-global-theme';
 import type * as setGlobalThemeTypes from '../../set-global-theme';
-import { type ThemeIdsWithOverrides, type ThemeOptionsSchema } from '../../theme-config';
+import { type ThemeIdsWithOverrides } from '../../theme-config';
+import { type ThemeOptionsSchema } from '../../theme-options-schema';
 import { hash } from '../../utils/hash';
 
 import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
@@ -40,7 +42,7 @@ Object.defineProperty(window, 'matchMedia', {
 const {
 	default: enableGlobalTheme,
 }: typeof enableGlobalThemeTypes = require('../../enable-global-theme');
-const { default: setGlobalTheme }: typeof setGlobalThemeTypes = require('../../set-global-theme');
+const { setGlobalTheme }: typeof setGlobalThemeTypes = require('../../set-global-theme');
 
 /**
  * Set the result of a dark mode media query
@@ -536,7 +538,7 @@ describe('setGlobalTheme style loading', () => {
 				);
 
 				// Should be called for each theme it injects (light, increased contrast, motion, spacing, typography)
-				expect(themeLoaderMock).toBeCalledTimes(5);
+				expect(themeLoaderMock).toHaveBeenCalledTimes(5);
 
 				await waitFor(() => {
 					// There should be no style elements since the default theme loader should not be called
@@ -559,7 +561,7 @@ describe('setGlobalTheme style loading', () => {
 				);
 
 				// Should be called for each theme it injects (light, motion, spacing, typography)
-				expect(themeLoaderMock).toBeCalledTimes(4);
+				expect(themeLoaderMock).toHaveBeenCalledTimes(4);
 
 				await waitFor(() => {
 					// There should be no style elements since the default theme loader should not be called
@@ -948,7 +950,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					);
 
 					// Should be called for each theme it injects (light, increased contrast, motion, spacing, typography, shape)
-					expect(themeLoaderMock).toBeCalledTimes(6);
+					expect(themeLoaderMock).toHaveBeenCalledTimes(6);
 
 					await waitFor(() => {
 						// There should be no style elements since the default theme loader should not be called
@@ -972,7 +974,7 @@ it('should load only necessary color modes on repeat calls', async () => {
 					);
 
 					// Should be called for each theme it injects (light, motion, spacing, typography, shape)
-					expect(themeLoaderMock).toBeCalledTimes(5);
+					expect(themeLoaderMock).toHaveBeenCalledTimes(5);
 
 					await waitFor(() => {
 						// There should be no style elements since the default theme loader should not be called

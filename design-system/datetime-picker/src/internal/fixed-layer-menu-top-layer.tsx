@@ -6,9 +6,10 @@ import { useRef } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { components, type MenuProps, type OptionType } from '@atlaskit/select';
-import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { components } from '@atlaskit/react-select/components';
+import type { MenuProps, OptionType } from '@atlaskit/select/types';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
@@ -78,9 +79,7 @@ export const FixedLayerMenuTopLayer: ({
 	...rest
 }: MenuProps<OptionType>) => {
 	// The select's container element is the anchor for the popup.
-	// @ts-ignore -- fixedLayerRef is a custom prop passed through selectProps
 	const triggerRef = useRef<HTMLElement | null>(selectProps.fixedLayerRef ?? null);
-	// @ts-ignore -- fixedLayerRef is a custom prop passed through selectProps
 	triggerRef.current = selectProps.fixedLayerRef ?? null;
 
 	const popoverRef = useRef<HTMLDivElement>(null);
@@ -110,7 +109,6 @@ export const FixedLayerMenuTopLayer: ({
 			mode="manual"
 			placement={popupPlacement}
 			shouldAnimate
-			// @ts-ignore -- testId is a custom prop passed through selectProps
 			testId={selectProps.testId && `${selectProps.testId}--popup`}
 		>
 			<PopoverSurface>

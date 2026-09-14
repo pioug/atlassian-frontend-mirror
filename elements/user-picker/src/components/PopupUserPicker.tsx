@@ -1,14 +1,9 @@
-import {
-	withAnalyticsEvents,
-	type CreateUIAnalyticsEvent,
+import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-import {
-	PopupSelect,
-	type PopupSelectProps,
-	type SelectComponentsConfig,
-	type StylesConfig,
-} from '@atlaskit/select';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
+import type { SelectComponentsConfig, StylesConfig } from '@atlaskit/select/types';
 import React from 'react';
 import {
 	type Appearance,
@@ -31,8 +26,8 @@ import { getPopupComponents } from './components';
 import { getPopupStyles } from './styles';
 import { getPopupProps } from './popup';
 import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
-import { fg } from '@atlaskit/platform-feature-flags';
-import type { Placement } from '@popperjs/core';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { Placement } from '@atlaskit/popper/main';
 import type { EmailValidator } from './emailValidation';
 
 interface State {

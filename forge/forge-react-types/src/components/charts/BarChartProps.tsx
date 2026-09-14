@@ -69,6 +69,10 @@ export type BarChartProps = {
 	 * key and value properties to map specific data categories to colors.
 	 */
 	colorPalette?: ThemeElementProps['fillStyles'];
+	/**
+	 * Hide or show menu in the top right corner.
+	 */
+	hideMenu?: boolean;
 };
 
 type StackChartProps = BarChartProps & {

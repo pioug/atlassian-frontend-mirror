@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import Textfield from '../../index';
+import Textfield from '../../text-field';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Text field basic accessibility unit tests with jest-axe', () => {

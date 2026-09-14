@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5ba705688109fe6cba23e367fcc7db14>>
+ * @codegen <<SignedSource::f38f1db86e7b7e5a1df46515f47bbd95>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "PaintBucket".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const PaintBucketIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const PaintBucketIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "PaintBucketIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M5.5 1.94 6.78.66A1.38 1.38 0 0 1 8.62.57l.11.09 5.62 5.62a1.38 1.38 0 0 1 0 1.95l-5.73 5.73a2.63 2.63 0 0 1-3.71 0l-3.85-3.85a2.63 2.63 0 0 1 0-3.71L4.44 3 2.6 1.15 3.66.09zM1.81 8.5c.05.2.14.39.3.55l3.85 3.85c.44.44 1.15.44 1.59 0l4.39-4.39zM6.57 3l1.22 1.22-1.06 1.06L5.5 4.06 2.56 7h10.38L7.75 1.81zm7.68 8.25c.27 0 .52.14.65.38v.01l.01.02.03.06.12.21c.1.18.23.42.36.68s.27.55.37.82c.09.23.21.56.21.86 0 .97-.8 1.73-1.75 1.73s-1.75-.75-1.75-1.72c0-.29.12-.63.21-.86.11-.27.24-.56.37-.82s.26-.5.36-.68l.12-.21.03-.06.01-.02v-.01a.75.75 0 0 1 .65-.38"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

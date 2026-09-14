@@ -1,5 +1,120 @@
 # @atlaskit/motion
 
+## 8.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.1
+
+### Patch Changes
+
+- [`e974cd0ae082c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e974cd0ae082c) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 8.5.0
+
+### Minor Changes
+
+- [`75e41b355abb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75e41b355abb1) -
+  VOLTC-7 - run volt codemods on @atlaskit/motion
+
+### Patch Changes
+
+- [`75e41b355abb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75e41b355abb1) -
+  Change `useExitingPersistence` import to newly created named export
+
+## 8.4.2
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- [`fae4f6a53e4be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae4f6a53e4be) -
+  Render label enter and exit animations through `cssMap` in Tag, React Select, Select, and User
+  Picker. Motion now measures concurrent CSS animation lists correctly so the label scale and fade
+  animations complete together.
+
+## 8.4.1
+
+### Patch Changes
+
+- [`ef98af289c49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef98af289c49b) -
+  Add motion to Tag, AvatarTag, TagDropdownTrigger, Tag Group, Select, React Select, and User Picker
+  tag values. Tags use `motion.label.enter` and `motion.label.exit` for entry and exit, while
+  interactive tags and dropdown triggers use the button hover and pressed motion tokens; Tag
+  Dropdown Trigger also fades between its content and loading spinner. The remove control is removed
+  when exit begins so it cannot linger while the tag collapses.
+
+  Motion is gated by `platform-dst-motion-uplift-labels`. Compatibility and adoption paths for the
+  visually uplifted Tag, Tag Group, Select, React Select, and User Picker additionally remain behind
+  `platform-dst-lozenge-tag-badge-visual-uplifts`.
+
+  `@atlaskit/react-select` also adds an optional `onMotionFinish` callback to the exported
+  `MultiValueProps` interface so the Select can restore its placeholder after the final multi-value
+  exit completes.
+
+  ```tsx
+  import Tag from '@atlaskit/tag/new';
+
+  <Tag text="Status" />;
+  ```
+
+## 8.4.0
+
+### Minor Changes
+
+- [`73079cc6f11c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73079cc6f11c2) -
+  VOLTC-7 - run volt codemods on @atlaskit/motion
+
+### Patch Changes
+
+- [`73079cc6f11c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73079cc6f11c2) -
+  Change `useExitingPersistence` import to newly created named export
+
+## 8.3.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`ad1af6eb0a5ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad1af6eb0a5ea) -
+  VOLTC-7 - run volt codemods on @atlaskit/motion
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+## 8.1.0
+
+### Minor Changes
+
+- [`87c9da1902e16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87c9da1902e16) -
+  VOLTC-7 - run volt codemods on @atlaskit/motion
+
 ## 8.0.0
 
 ### Major Changes

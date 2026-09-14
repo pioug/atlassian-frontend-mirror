@@ -1,4 +1,4 @@
-import { type ThemeState } from '../../theme-config';
+import { type ThemeState } from '../../theme-state';
 import { themeObjectToString } from '../../theme-object-to-string';
 import { themeStringToObject } from '../../theme-string-to-object';
 

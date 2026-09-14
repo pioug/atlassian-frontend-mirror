@@ -1,5 +1,347 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

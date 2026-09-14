@@ -9,7 +9,6 @@ import {
 	akEditorWideLayoutWidth,
 	gridMediumMaxWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { BODIED_EXT_PADDING } from '../styles/shared/extension';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles/shared/layout';
@@ -93,9 +92,8 @@ export const getParentNodeWidth = (
 					contextPanelPluginKey.getState(state)?.contents[0] !== undefined)
 			) {
 				// margin between sections
-				parentWidth -= fg('platform_editor_nested_dnd_styles_changes')
-					? (LAYOUT_SECTION_MARGIN + NESTED_DND_MARGIN_OFFSET + 2) * (node.childCount - 1)
-					: (LAYOUT_SECTION_MARGIN + 2) * (node.childCount - 1);
+				parentWidth -=
+					(LAYOUT_SECTION_MARGIN + NESTED_DND_MARGIN_OFFSET + 2) * (node.childCount - 1);
 				const $pos = state.doc.resolve(pos);
 				const column = findParentNodeOfTypeClosestToPos($pos, [state.schema.nodes.layoutColumn]);
 				if (column && column.node && !isNaN(column.node.attrs.width)) {
@@ -105,9 +103,7 @@ export const getParentNodeWidth = (
 			}
 
 			// account for the padding of the parent node
-			parentWidth -= fg('platform_editor_nested_dnd_styles_changes')
-				? (LAYOUT_COLUMN_PADDING + NESTED_DND_GUTTER_OFFSET) * 2
-				: LAYOUT_COLUMN_PADDING * 2;
+			parentWidth -= (LAYOUT_COLUMN_PADDING + NESTED_DND_GUTTER_OFFSET) * 2;
 
 			break;
 

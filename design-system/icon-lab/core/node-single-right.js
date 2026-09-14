@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::42e1ee266104b7e6c74832fa5f1f0a22>>
+ * @codegen <<SignedSource::8f2499d389a88a46bd4afdfdc60a103e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "NodeSingleRight".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const NodeSingleRightIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const NodeSingleRightIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "NodeSingleRightIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M12.75 7.25a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5M10.5 8A2.25 2.25 0 1 1 15 8a2.25 2.25 0 0 1-4.5 0" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M2 7.25h10v1.5H2z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

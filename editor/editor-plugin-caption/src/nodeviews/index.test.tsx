@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { screen } from '@testing-library/react';
 
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';

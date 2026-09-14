@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import Avatar, { AvatarItem } from '../../index';
+import Avatar from '../../avatar';
+import AvatarItem from '../../avatar-item';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Avatar', () => {

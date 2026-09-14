@@ -18,7 +18,9 @@ type GetSuggestedStatusesArgs = {
 	shouldUppercaseText?: boolean;
 };
 
-export const MAX_SUGGESTED_STATUSES = 7;
+export const MAX_SUGGESTED_STATUSES = 20;
+// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_1`.
+export const MAX_SUGGESTED_STATUSES_OLD = 7;
 
 const getStatusKey = ({ color, text }: Pick<StatusType, 'color' | 'text'>) =>
 	`${color}:${text.trim().toLowerCase()}`;

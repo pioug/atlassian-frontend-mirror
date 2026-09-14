@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { render as rtlRender, screen } from '@testing-library/react';
-
-import Avatar from '@atlaskit/avatar';
+import { act, render as rtlRender, screen } from '@atlassian/testing-library';
+import Avatar from '@atlaskit/avatar/avatar';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { default as AvatarTag } from '../../../tag-new/avatar-tag';
 
@@ -215,6 +216,77 @@ describe('AvatarTag component', () => {
 				/>,
 			);
 			expect(screen.getByTestId(testId)).toBeInTheDocument();
+		});
+	});
+
+	describe('motion uplift', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
+
+		afterEach(() => {
+			act(() => {
+				jest.runOnlyPendingTimers();
+			});
+			jest.useRealTimers();
+		});
+
+		it('does not animate on initial render and applies exit motion when removed', () => {
+			passGate('platform-dst-motion-uplift-labels');
+			render(<AvatarTag type="user" text="Motion avatar" avatar={Avatar} testId={testId} />);
+
+			const tag = screen.getByTestId(testId);
+			expect(tag).toHaveStyle({ animation: '' });
+			const visibleClassName = tag.className;
+
+			act(() => {
+				screen.getByTestId(`close-button-${testId}`).click();
+			});
+
+			expect(screen.queryByTestId(`close-button-${testId}`)).not.toBeInTheDocument();
+			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
+			expect(tag.className).not.toBe(visibleClassName);
+
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+		});
+
+		it('applies enter motion when added after its presence boundary mounts', () => {
+			passGate('platform-dst-motion-uplift-labels');
+			const MotionAvatarTag = ({ isVisible }: { isVisible: boolean }) => (
+				<ExitingPersistence>
+					{isVisible ? (
+						<AvatarTag
+							key="motion-avatar"
+							type="user"
+							text="Motion avatar"
+							avatar={Avatar}
+							testId={testId}
+						/>
+					) : null}
+				</ExitingPersistence>
+			);
+			const { rerender } = render(<MotionAvatarTag isVisible={false} />);
+
+			rerender(
+				<React.StrictMode>
+					<MotionAvatarTag isVisible />
+				</React.StrictMode>,
+			);
+
+			const tag = screen.getByTestId(testId);
+			const enteringClassName = tag.className;
+
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			// Compiled style tags can be deduplicated away on rerender in jsdom. The atomic class
+			// change verifies that the entering variant completed and returned to visible styles.
+			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
+			expect(tag.className).not.toBe(enteringClassName);
 		});
 	});
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export type ServerErrorType =
 	// deprecated error types
 	| 'ResolveBadRequestError'
@@ -20,45 +21,22 @@ export type ServerErrorType =
 	| 'OperationFailedError' // 500
 	| 'BadRequestError' // 400
 	| 'RateLimitError' //429
-	| 'UnexpectedError'; //500
+	| 'UnexpectedError';
 
+//500
 // Used to catch any other errors - not server-side.
 export type ErrorType = ServerErrorType | 'UnexpectedError';
 
-export type APIErrorKind = 'fatal' | 'auth' | 'error' | 'fallback';
-
-export class APIError extends Error {
-	public constructor(
-		public readonly kind: APIErrorKind,
-		public readonly hostname: string,
-		public readonly message: string,
-		public readonly type?: ErrorType | undefined,
-		public readonly extensionKey?: string,
-	) {
-		super(`${kind}: ${message}`);
-		this.name = 'APIError';
-		// The error type received from the server.
-		this.type = type;
-		// The kind mapped to on the client.
-		this.kind = kind;
-		// The message received from the server.
-		this.message = message;
-		// The hostname of the URL which failed - do NOT log this (contains PII/UGC).
-		this.hostname = hostname;
-		// The extensionKey passed from the error response from ORS
-		this.extensionKey = extensionKey;
-	}
-}
-
-export class InvalidUrlError extends Error {
-	constructor(error: any) {
-		super(error);
-		this.name = 'InvalidUrlError';
-	}
-}
-
-export class NetworkError extends Error {
-	constructor(error: any) {
-		super(error);
-	}
-}
+/**
+ * @deprecated Use `import { APIError } from '@atlaskit/linking-common/api/errors'` instead.
+ */
+export { APIError } from './APIError';
+export type { APIErrorKind } from './APIError';
+/**
+ * @deprecated Use `import { InvalidUrlError } from '@atlaskit/linking-common/api/errors'` instead.
+ */
+export { InvalidUrlError } from './InvalidUrlError';
+/**
+ * @deprecated Use `import { NetworkError } from '@atlaskit/linking-common/api/errors'` instead.
+ */
+export { NetworkError } from './NetworkError';

@@ -1,10 +1,3 @@
-export type {
-	AutocompleteProvider,
-	AutocompleteOptions,
-	AutocompleteOption,
-	AutocompleteValueType,
-} from './autocomplete/types';
-
 export type PluginContainers = {
 	/**
 	 * Container for plugin components which should be appended at the end of the editor input.

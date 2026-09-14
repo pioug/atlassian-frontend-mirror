@@ -1,6 +1,6 @@
 import React, { type AriaRole, type ComponentType, type ReactNode } from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type {
 	BackgroundColor,
 	BackgroundColorHovered,

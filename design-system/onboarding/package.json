@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/onboarding",
-	"version": "15.1.7",
+	"version": "15.4.0",
 	"description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -99,11 +99,18 @@
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/avatar": "workspace:^",
+		"@atlaskit/code": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/image": "workspace:^",
+		"@atlaskit/menu": "workspace:^",
+		"@atlaskit/progress-indicator": "workspace:^",
+		"@atlaskit/tabs": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"@types/exenv": "root:*",
 		"@types/react-node-resolver": "root:*",
 		"raf-stub": "root:*",

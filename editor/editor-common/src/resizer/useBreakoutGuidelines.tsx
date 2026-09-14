@@ -10,7 +10,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { GuidelineConfig } from '../guideline';
 import type { BreakoutMode, EditorContainerWidth } from '../types';
@@ -48,10 +48,10 @@ export function useBreakoutGuidelines(
 	isResizing: boolean,
 	dynamicFullWidthGuidelineOffset: number = 0,
 ): {
-	snaps: Snap | null;
 	currentLayout: BreakoutMode | null;
 	guidelines: GuidelineConfig[];
 	setCurrentWidth: (newWidth: number | null) => void;
+	snaps: Snap | null;
 } {
 	const widthState = getEditorWidth();
 

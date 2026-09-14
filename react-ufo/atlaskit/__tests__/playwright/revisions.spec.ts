@@ -6,6 +6,9 @@ import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtu
 test.describe('ReactUFO: Revisions - basic', () => {
 	test.use({
 		examplePage: 'basic',
+	} satisfies {
+		examplePage: 'basic';
+		__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 	});
 
 	for (const viewport of viewports) {
@@ -63,6 +66,9 @@ test.describe('ReactUFO: Revisions - basic', () => {
 test.describe('ReactUFO: Revisions - nested', () => {
 	test.use({
 		examplePage: 'nested-elements',
+	} satisfies {
+		examplePage: 'nested-elements';
+		__exampleDependency?: typeof import('../../examples/05-nested-elements.tsx');
 	});
 
 	for (const viewport of viewports) {

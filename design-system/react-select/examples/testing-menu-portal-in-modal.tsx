@@ -6,10 +6,14 @@ import React, { useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { Label } from '@atlaskit/form';
-import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
-import Select from '@atlaskit/react-select';
+import Button from '@atlaskit/button/default/button';
+import { Label } from '@atlaskit/form/label/default';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import Select from '@atlaskit/react-select/state-manager';
 
 const options = [
 	{ label: 'Adelaide', value: 'adelaide' },

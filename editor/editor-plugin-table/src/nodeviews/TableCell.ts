@@ -1,13 +1,13 @@
-import type { CellDomAttrs } from '@atlaskit/adf-schema';
-import { getCellAttrs, getCellDomAttrs } from '@atlaskit/adf-schema';
+import type { CellDomAttrs } from '@atlaskit/adf-schema/tableNodes';
+import { getCellAttrs, getCellDomAttrs } from '@atlaskit/adf-schema/tableNodes';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { TableMap } from '@atlaskit/editor-tables';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { getRoundedTableCellEdgeState } from './rounded-table-edges';
 import TableNodeView from './TableNodeViewBase';
 
 const DEFAULT_COL_SPAN = 1;
@@ -111,8 +111,7 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		if (
 			mutation.type === 'attributes' &&
 			mutation.attributeName?.startsWith('data-reaches-') &&
-			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-			expValEquals('platform_editor_table_q4_patch_3', 'isEnabled', true)
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 		) {
 			return true;
 		}
@@ -146,23 +145,27 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 				return;
 			}
 
-			const tableMap = TableMap.get(tableNode);
 			const cellStartInTable = pos - resolvedPos.start(tableDepth);
-			const cellRect = tableMap.findCell(cellStartInTable);
 
-			this.setDataAttr('data-reaches-top', cellRect.top === 0);
-			this.setDataAttr('data-reaches-bottom', cellRect.bottom >= tableMap.height);
-			this.setDataAttr('data-reaches-left', cellRect.left === 0);
-			this.setDataAttr('data-reaches-right', cellRect.right >= tableMap.width);
+			const edgeState = getRoundedTableCellEdgeState(tableNode, cellStartInTable);
+			if (!edgeState) {
+				return;
+			}
+
+			this.setDataAttr('data-reaches-top', edgeState.reachesTop);
+			this.setDataAttr('data-reaches-bottom', edgeState.reachesBottom);
+			this.setDataAttr('data-reaches-left', edgeState.reachesLeft);
+			this.setDataAttr('data-reaches-right', edgeState.reachesRight);
 		} catch {
 			// Position may be stale during document mutations; silently ignore.
 		}
 	}
 
 	private setDataAttr(attr: string, value: boolean): void {
-		if (value) {
+		const hasAttr = this.dom.hasAttribute(attr);
+		if (value && !hasAttr) {
 			this.dom.setAttribute(attr, 'true');
-		} else {
+		} else if (!value && hasAttr) {
 			this.dom.removeAttribute(attr);
 		}
 	}

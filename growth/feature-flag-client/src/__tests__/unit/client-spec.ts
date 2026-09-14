@@ -141,7 +141,7 @@ describe('Feature Flag Client', () => {
 
 	describe('bootstrap', () => {
 		test('should throw if no analytics handler is given', () => {
-			expect(() => new FeatureFlagClient({} as any)).toThrowError(
+			expect(() => new FeatureFlagClient({} as any)).toThrow(
 				'Feature Flag Client: Missing analyticsHandler',
 			);
 		});
@@ -1139,7 +1139,7 @@ describe('Feature Flag Client', () => {
 							shouldTrackExposureEvent: false,
 						});
 
-						expect(analyticsHandler.sendOperationalEvent).toBeCalledTimes(1);
+						expect(analyticsHandler.sendOperationalEvent).toHaveBeenCalledTimes(1);
 					});
 
 					test('should still send custom event if exposureDetails is later enabled', () => {
@@ -1391,7 +1391,7 @@ describe('Feature Flag Client', () => {
 					triggerReason: ExposureTriggerReason.AutoExposure,
 				});
 
-				expect(analyticsHandler.sendOperationalEvent).toBeCalledTimes(0);
+				expect(analyticsHandler.sendOperationalEvent).toHaveBeenCalledTimes(0);
 			});
 
 			const callTrackFeatureFlagWithoutFlagData = (flags: { [flagKey: string]: FlagShape }) => {

@@ -5,7 +5,7 @@ import defaultLocales from '@atlaskit/locale/default-locales';
 import { locales } from '@atlaskit/media-ui/locales';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 
 function getMessages(localeValue: string) {
 	const lang = localeValue.substring(0, 2);

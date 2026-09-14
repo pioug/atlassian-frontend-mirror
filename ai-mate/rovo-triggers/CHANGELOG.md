@@ -1,5 +1,577 @@
 # @atlaskit/rovo-triggers
 
+## 10.35.0
+
+### Minor Changes
+
+- [`64dbb5601ed23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64dbb5601ed23) -
+  Ask the product for context when the extension context bridge client mounts.
+
+  `ExtensionContextBridgeClient` now sends a single `request-context` control message once its
+  transport is ready. A product that answers requests replies with the context it has already
+  published, so a chat opened after the page settled is caught up instead of waiting for the next
+  publish.
+
+  This completes the handshake whose two halves shipped separately: the control message itself, and
+  the product-side answer. It exists because the bridge is otherwise fire-and-forget, which suits a
+  publisher that runs continuously, such as the Confluence editor, but not one that publishes once
+  per navigation, such as a Jira view.
+
+  Additive and safe against products that do not answer: the request is sent once per mount, carries
+  no data, and a product that ignores it behaves exactly as before.
+
+## 10.34.0
+
+### Minor Changes
+
+- [`542fa7bb351f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/542fa7bb351f8) -
+  Render trigger changes in update-agent plan cards and pass the current site context to related
+  agent update events behind `sltns-1539-create-agent-triggers`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.33.0
+
+### Minor Changes
+
+- [`692f360535ec2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/692f360535ec2) -
+  Under sprt_hix_9681_workflow_agent_edit_status, group workflow actions under numbered headings in
+  a fixed order, show a consistent previous/updated status diff, fold the shared-workflow warning
+  into the update-status card, show a trash can icon on delete cards, and show the transition name
+  with inline crossed-out previous name and statuses on update-transition cards.
+
+  Adds optional previous-state fields on UpdateTransitionRovoPayload (existingName,
+  existingToStatusId, existingToStatusName, existingToStatusCategory, existingLinks) and exports
+  DeleteTransitionRovoPayloadOld.
+
+## 10.32.0
+
+### Minor Changes
+
+- [`2aa696d5503d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2aa696d5503d0) -
+  Add a control-message channel to the extension context bridge.
+
+  `request-context` is a message the extension chat may send a product, asking it to re-send the
+  context it has already published. It carries no data: it is a request, not content, and is
+  mutually exclusive with payload messages by construction, so it cannot be used to move content in
+  either direction or to bypass the relay allowlists.
+
+  This exists because the bridge is otherwise fire-and-forget, relaying only what it observes while
+  a chat is listening. That suits a product whose publisher runs continuously, such as the
+  Confluence editor, but not one that publishes once per navigation, such as a Jira view: a chat
+  opened after the page settled would observe nothing at all.
+
+  Additive. `Transport.subscribe` now also carries control messages, so consumers that assume every
+  message has a payload should narrow with the exported `isBridgeControlMessage` guard. Nothing
+  sends or answers requests yet.
+
+## 10.31.0
+
+### Minor Changes
+
+- [`4d3888ae4550d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d3888ae4550d) -
+  Allow shared Rovo URL parameters to carry a search query using the `rovoChatSearchQuery` key.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.30.0
+
+### Minor Changes
+
+- [`4562d08f39645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4562d08f39645) -
+  Remove `'full-screen-modal'` from `RovoChatOpenMode`, restoring it to `'sidebar' | 'mini-modal'`.
+
+  The member was added only to support the full-screen modal UI mode, which has since been removed.
+  `RovoChatOpenMode` describes the modes a host can request via `openChatMode`, and the standalone
+  full-page chat was never one of them.
+
+  **Migration:** drop `openChatMode: 'full-screen-modal'` rather than renaming it — there is no
+  replacement value, and the request already fell back to the sidebar.
+
+  Dictation instrumentation still reports the full-page surface using the same value as before, now
+  via `ChatInputSurface` (newly exported from
+  `@atlassian/conversation-assistant-chat-prompt-input/ui/chat-prompt-input/types`). No analytics
+  values changed.
+
+## 10.29.0
+
+### Minor Changes
+
+- [`48792282ab4ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48792282ab4ad) -
+  Forward the Quick Find `rovoJourneyId` on the chat-new pub/sub payload when starting a Chat
+  conversation from `quickFindChatIntentRouter`, so Chat can bind and attribute activity back to the
+  originating search journey.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.28.0
+
+### Minor Changes
+
+- [`adcb94adde065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/adcb94adde065) -
+  Accept an optional `rovoJourneyId` on the chat-new pub/sub payload and bind it to the Chat
+  conversation created for a Quick Find handoff. Emit it only on `message sent`,
+  `aiMateActions displayed`, `aiInteraction initiated`, `aiResult viewed`, and `aiResult actioned`
+  events, stripping it from every other analytics event even when a caller explicitly supplies it.
+
+## 10.27.0
+
+### Minor Changes
+
+- [`2d5202d1360a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d5202d1360a6) -
+  Add an optional `historyMode` option to `updatePageRovoParams` so callers that consume (remove)
+  Rovo URL parameters can replace the current history entry instead of pushing a new one. Adding
+  parameters continues to push, so opening chat still leaves the originating page in history.
+  Consumed `prompt` and `conversationId` cleanup now opts into replacement, so Back returns to the
+  originating page. Gated behind rovo_chat_replace_url_param_history.
+
+## 10.26.2
+
+### Patch Changes
+
+- [`321a559f40e21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/321a559f40e21) -
+  Exclude structured Rovo offering documentation from published package artifacts.
+
+## 10.26.1
+
+### Patch Changes
+
+- [`0ee70433d8996`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ee70433d8996) -
+  Pass inline editor content and creation context through to Rovo Chat for selected-agent
+  submissions behind the `platform_inline_rovo_agent_editor_context` experiment.
+
+## 10.26.0
+
+### Minor Changes
+
+- [`fd4a40c7ede95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd4a40c7ede95) -
+  Show the skills library modal from full-screen Rovo Chat and the Townsquare For You input when
+  rovo_chat_skills_library is enabled, targeting inserted skills to the invoking prompt without
+  opening the sidebar.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.25.0
+
+### Minor Changes
+
+- [`391aa9069f31a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/391aa9069f31a) -
+  Add attached source count to Rovo Chat message sent analytics.
+
+## 10.24.0
+
+### Minor Changes
+
+- [`29d8ec2d556d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29d8ec2d556d5) -
+  Add rovoJourneyId to the Rovo Chat query parameter contract, serialized as rovoChatRovoJourneyId
+  for rovo_search_chat_convergence handoffs.
+
+## 10.23.1
+
+### Patch Changes
+
+- [`81851ca5f9af6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81851ca5f9af6) -
+  Restore smart-create preview card invocation selection from Rovo Chat URL params.
+
+## 10.23.0
+
+### Minor Changes
+
+- [`e07b1d5a5706a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e07b1d5a5706a) -
+  SECASR-8596 / SECASR-8597: pin the extension context bridge transport to a single peer origin, and
+  restrict which `set-message-context` context keys may cross it.
+
+  `createWindowTransport` gains an optional `acceptOrigin`, checked before a message is dispatched
+  to a subscriber. It defaults to `targetOrigin`, and the wildcard is refused. The chat-iframe
+  client no longer posts to `'*'`: it resolves the side panel's origin from the `extensionOrigin`
+  URL parameter and requires it to be a member of a consumer-supplied `allowedOrigins` list, so the
+  channel is pinned to the consumer's own extension rather than to any installed one. Absent either,
+  it builds no transport.
+
+  `set-message-context` now relays only allowlisted `contextKey`s. Its `data.value` is arbitrary
+  product-supplied context, so an unrecognised key is dropped before `setContext` is invoked.
+
+  `ExtensionContextBridgeHost` gains an optional `isAiEnabled`, and relays nothing when it is
+  explicitly `false`, so a tenant without Rovo entitlement never has page content cross into the
+  extension. `ChatOpenerSubscriber` resolves it from the product's Rovo entitlement store and passes
+  it down.
+
+## 10.22.0
+
+### Minor Changes
+
+- [`9b29003fc3c6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b29003fc3c6a) -
+  Add a dedicated Rovo Remix launch topic, allowing lazy Remix subscribers to replay launch requests
+  without consuming queued AI_MATE chat events.
+
+## 10.21.0
+
+### Minor Changes
+
+- [`1297140193134`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1297140193134) -
+  [ux] Connect `cc-ce-maui-remix-menu-multivariant` Variant 2 selection submissions to the existing
+  editor Remix flow using the preserved selection, complete prompt, and precreated conversation.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.20.0
+
+### Minor Changes
+
+- [`7f9a57c426d38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f9a57c426d38) -
+  Add recommended Rovo spaces onboarding video modals for the existing "See how it works" button and
+  first-time recommended spaces flow.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.19.0
+
+### Minor Changes
+
+- [`607199b1bc9a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/607199b1bc9a7) -
+  Add topic-scoped replay cleanup and use it for the Rovo Remix picker behind
+  cc-ce-maui-remix-menu-multivariant, so reopening does not restore an unfinished session.
+
+## 10.18.0
+
+### Minor Changes
+
+- [`29a7878860a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29a7878860a25) -
+  [ux] Preserve the selected infographic's current subtype in Edit bar free-text requests behind
+  `cc_maui_polish_changes_batch_5` by carrying Remix history through the editor context.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.17.0
+
+### Minor Changes
+
+- [`12fe51b74a9a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12fe51b74a9a6) -
+  Add a `searchPageSummarizeInChat` `ChatEntryPoint` and attach it to the chat-new event fired by
+  the search-page "Summarize in chat" action, so the resulting Rovo Chat is attributed to the
+  summarize entry point.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.0
+
+### Minor Changes
+
+- [`0c56298276361`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c56298276361) -
+  Add a Rovo Remix PubSub contract for editor and renderer consumers, used by the
+  cc-ce-maui-remix-menu-multivariant variant2 cohort.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.15.0
+
+### Minor Changes
+
+- [`40d6282bf3989`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40d6282bf3989) -
+  Add the extension-context-bridge module (constants, transport, policy, registry, Host/Client
+  components) with four new subpath exports. Both the Host and the Client are gated behind the
+  `rovo-ext_context_bridge` feature gate and stay inert until it is enabled.
+
+## 10.14.0
+
+### Minor Changes
+
+- [`eb4b573d4260f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb4b573d4260f) -
+  HIX-9934: Jira workflow builder edit status: Implement analytic events
+
+## 10.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.13.0
+
+### Minor Changes
+
+- [`a1e550aeb47f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1e550aeb47f4) -
+  Add an experiment-gated "Search conversations" entry point next to New chat in the Rovo chat side
+  navigation (both the full-page chat sidebar and the appified Home "Your chats" section) that opens
+  the All Conversations view. Clicking it deselects any active space so the conversation list is
+  shown, opens the list via the live navigation handler (so it works even when the chat app is
+  already mounted), and sets a one-shot intent that focuses the All Conversations search input the
+  next time it mounts. The entry point is behind the `townsquare_rovo_chat_search_button_exp`
+  Statsig experiment, read via `expVal(..., 'isEnabled', false)` so exposure is recorded on
+  evaluation; only the Search conversations entry point and its focus intent are enabled for
+  treatment.
+
+  This adds new public API to four published packages (hence `minor`):
+  - `@atlassian/rovo-navigation` — new optional `onSearchChatsClick` prop on the side navigation.
+    When provided, a search `IconButton` is rendered next to the "New chat" action on the Chats
+    header; when omitted, nothing changes.
+  - `@atlassian/conversation-assistant-store` — new exported `useShouldFocusChatSearchSelector` hook
+    for reading the one-shot "focus the All Conversations search input" intent.
+  - `@atlaskit/rovo-triggers` — new `all-conversations` `RovoChatPathway` value and matching
+    `AllConversationsParams` member of `RovoChatParams`, allowing callers to deep-link to All
+    Conversations.
+  - `@atlassian/conversation-assistant` — new `openAllConversations` navigation action, allowing
+    distinct entry points to retain their own telemetry.
+
+  Usage:
+
+  ```tsx
+  import { RovoSideNavigation } from '@atlassian/rovo-navigation';
+  import { useRovoNavigation } from '@atlassian/conversation-assistant';
+  import {
+  	useShouldFocusChatSearchSelector,
+  	useUIStoreActions,
+  } from '@atlassian/conversation-assistant-store/controllers/ui-store';
+  import type { RovoChatParams } from '@atlaskit/rovo-triggers/params-types';
+
+  const { openAllConversations } = useRovoNavigation({ assistanceServiceParams });
+  const { setShouldFocusChatSearch } = useUIStoreActions();
+  const handleSearchChats = () => {
+  	setShouldFocusChatSearch(true);
+  	openAllConversations();
+  };
+
+  // Render the Search conversations entry point next to New chat:
+  <RovoSideNavigation onSearchChatsClick={handleSearchChats} />;
+
+  // Consume the one-shot focus intent where the search input mounts:
+  const [{ shouldFocusChatSearch }] = useShouldFocusChatSearchSelector();
+
+  // Deep-link into All Conversations:
+  const params: RovoChatParams = { pathway: 'all-conversations' };
+  ```
+
+## 10.12.0
+
+### Minor Changes
+
+- [`6b25a30a1f55f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b25a30a1f55f) -
+  Add the agent-mention run-state bridge (EDITOR-8549): a store, keyed by the run's
+  `conversationId`, that makes live Rovo agent run-state readable outside chat and ties it back to
+  the invoking agent-mention node (whose `localId` rides on the record). It is fed from the existing
+  chat/message stream, with no new connection. A run is only tracked once it has been seeded at send
+  time, which happens only for mention-invoked runs behind the `platform_editor_agent_state_bridge`
+  experiment, so it stays inert otherwise. Adds an optional `invokedByNodeLocalId` to the `chat-new`
+  trigger payload.
+
+  Read run-state from `@atlassian/conversation-assistant-store/controllers/agent-mention-run-state`,
+  keyed by conversation (the run's identity) or by the invoking mention node:
+
+  ```tsx
+  import {
+  	useAgentRunStateForConversation,
+  	useAgentRunStateForNode,
+  } from '@atlassian/conversation-assistant-store/controllers/agent-mention-run-state';
+
+  const byConversation = useAgentRunStateForConversation(conversationId);
+  const byNode = useAgentRunStateForNode(nodeLocalId);
+  // 'thinking' | 'working' | 'editing' | 'needs-input' | 'done' | 'failed' | 'blocked' | undefined
+  ```
+
+## 10.11.0
+
+### Minor Changes
+
+- [`44d25a46e9116`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44d25a46e9116) -
+  HIX-9694 Workflow Builder Agent: Wire up UPDATE_STATUS operation when click Apply to Workflow
+
+## 10.10.0
+
+### Minor Changes
+
+- [`f9bfed530dd66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9bfed530dd66) -
+  Route the Rovo sidebar into a Remix picker view when `activeMenu` is `remix`, gated on the
+  `cc-ce-maui-remix-menu-multivariant` experiment for the `variant2` cohort. Extends the public
+  `Menu` and `RovoChatPathway` unions with `remix`, deep-links via `rovoChatPathway=remix`, and
+  falls back to the default chat view for control users so they do not land on an empty panel.
+  Lazy-loads `RovoChatRemixView` with `React.lazy` (same pattern as the other conditionally rendered
+  sidebar panels) so the real picker dependencies in CCCEMAU-3365 do not need a follow-up refactor.
+
+  ```ts
+  import { addRovoParamsToUrl } from '@atlaskit/rovo-triggers/params';
+  import { useUIStoreActions } from '@atlassian/conversation-assistant-store/controllers/ui-store';
+
+  // Deep-link into Remix mode via `?rovoChatPathway=remix`
+  const remixUrl = addRovoParamsToUrl(window.location.href, { pathway: 'remix' });
+
+  // Or open Remix from in-product code (variant2 cohort only; control falls back to chat)
+  const { setActiveMenu } = useUIStoreActions();
+  setActiveMenu('remix');
+  ```
+
+## 10.9.0
+
+### Minor Changes
+
+- [`8e44006c20d9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e44006c20d9c) -
+  Cache preview-card content by key, and have each mounted preview card refresh itself in response
+  to a confluence-content-finalized pubsub event published on a dedicated ai-mate-aifc topic by the
+  finalize popup, fixing stale post-finalize state under the cwr-be-based-multi-creation-v0
+  experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.8.0
+
+### Minor Changes
+
+- [`d0a94e6972ea4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0a94e6972ea4) -
+  HIX-9861 First basic version of UPDATE_STATUS operation in the Jira workflow builder action card.
+
+## 10.7.0
+
+### Minor Changes
+
+- [`99fb19b39f6aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99fb19b39f6aa) -
+  Add a Summary field (skill help text) to the create and update custom skill cards in Rovo chat,
+  behind the chat_skill_helptext_enabled gate
+
+### Patch Changes
+
+- [`72e751cfcebf3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72e751cfcebf3) -
+  Cleanup feature gate `rovo_chat_fix_jira_prompt_dropped_on_reopen`. `jira-create-context-payload`
+  is now always excluded from the `triggerLatest` replay slot so reopening Rovo chat from a Jira CTA
+  keeps the action `chat-new` prompt instead of replaying the context payload.
+- Updated dependencies
+
+## 10.6.1
+
+### Patch Changes
+
+- [`9c1bd3f520493`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c1bd3f520493) -
+  Cleanup feature gate `rovo_chat_fix_cold_start_prompt_insertion`. The `set-message-context` event
+  is now always ignored for trigger-latest replay, and the editor placeholder analytics event is now
+  always sent.
+
+## 10.6.0
+
+### Minor Changes
+
+- [`169859ef13e04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/169859ef13e04) -
+  Add an additive `chatEntryPoint` attribution channel to Rovo Chat, so a product can measure chats
+  that originated from its own surfaces.
+
+  A `chat-new` publisher can now pass a `ChatEntryPoint` enum value to record which surface launched
+  the conversation. New entry points must be added to the enum before use. The value is stored on
+  the conversation record — so it also covers launches that carry no `prompt`, and keeps applying
+  past the first turn — and is reported as a new `chatEntryPoint` attribute on the
+  `aiInteraction initiated` and `aiResult viewed` events.
+
+  ```ts
+  import { ChatEntryPoint } from '@atlaskit/rovo-triggers/chat-entry-point';
+
+  publish({
+  	type: 'chat-new',
+  	data: {
+  		chatEntryPoint: ChatEntryPoint.SEARCH_PAGE_AUTO_OPEN_CHAT,
+  	},
+  });
+  ```
+
+  Purely additive: no existing analytics attribute changes value or value space. `source`,
+  `subjectId`, `interactionSource`, `followUpSource`, `invokedFrom`, `entryPoint` and
+  `proactiveAIGenerated` are untouched.
+
+## 10.5.0
+
+### Minor Changes
+
+- [`71548d5902718`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71548d5902718) -
+  Allow InContextAifcModal to be programmatically closed via a pubsub event. Mainly intended for use
+  by downstream chat actions.
+
+  Publishers can dismiss an open modal by publishing the new `close-in-context-aifc-modal` payload
+  on the `ai-mate` topic:
+
+  ```ts
+  import { usePublish } from '@atlaskit/rovo-triggers/main';
+
+  const publish = usePublish('ai-mate');
+
+  publish({
+  	type: 'close-in-context-aifc-modal',
+  	source: 'inline-agent-creation',
+  });
+  ```
+
+## 10.4.0
+
+### Minor Changes
+
+- [`d42ba7ed56112`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d42ba7ed56112) -
+  Add the public and transport contracts for gated Rovo Space source mode.
+
+  ```ts
+  const sourceMode: RovoChatSourceMode = 'STRICT';
+  await assistanceService.sendMessageStream({ sourceMode });
+  ```
+
+## 10.3.0
+
+### Minor Changes
+
+- [`a9757a562bdda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9757a562bdda) -
+  Add optional issue-type information (`id`, `name`, `iconUrl`) to the `jira-work-items-creating`
+  draft payload so subscribers can render the issue-type icon on optimistic rows immediately.
+  Populated behind the `aiwc_add_issuetype_icon_to_optimistic_updates` feature gate;
+
+  `@atlaskit/rovo-triggers`: `JiraWorkItemCreatingDraft` now carries an optional `issueType`.
+  Subscribers can read it to render the icon:
+
+  ```ts
+  import { useSubscribe } from '@atlaskit/rovo-triggers/main';
+  import { JIRA_WORK_ITEMS_CREATING_EVENT } from '@atlaskit/rovo-triggers/types';
+
+  useSubscribe({ topic: 'ai-mate' }, (payload) => {
+  	if (payload.type === JIRA_WORK_ITEMS_CREATING_EVENT) {
+  		payload.data.draftWorkItems.forEach((draft) => {
+  			// `issueType` is only present when the gate is on; always guard for its absence.
+  			if (draft.issueType) {
+  				const { id, name, iconUrl } = draft.issueType;
+  				renderOptimisticRow({
+  					summary: draft.summary,
+  					issueTypeName: name,
+  					issueTypeIcon: iconUrl,
+  				});
+  			}
+  		});
+  	}
+  });
+  ```
+
+  `@atlassian/jira-create-work-items`: `JiraDraftDataForCreateAllCommandResult.context` now also
+  exposes `issueTypeToFieldsConfigMap`, the issue-type metadata resolved during validation (keyed by
+  issue type id):
+
+  ```ts
+  const result = await validateIssuesToCreate({ draftWorkItems });
+  const issueType = result.context.issueTypeToFieldsConfigMap[issueTypeId];
+  // issueType?.name, issueType?.avatarUrl — used to enrich the `creating` draft payload.
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

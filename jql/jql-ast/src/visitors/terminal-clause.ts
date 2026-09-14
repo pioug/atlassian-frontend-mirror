@@ -1,20 +1,20 @@
 import { type RuleNode } from 'antlr4ts/tree';
 
-import {
-	type JqlChangedClauseContext,
-	type JqlComparisonClauseContext,
-	type JqlEmptyContext,
-	type JqlEqualsClauseContext,
-	type JqlFunctionContext,
-	type JqlInClauseContext,
-	type JqlIsClauseContext,
-	type JqlLikeClauseContext,
-	type JqlListContext,
-	type JqlTerminalClauseContext,
-	type JqlValueContext,
-	type JqlWasClauseContext,
-	type JqlWasInClauseContext,
-} from '@atlaskit/jql-parser';
+import type {
+	JqlChangedClauseContext,
+	JqlComparisonClauseContext,
+	JqlEmptyContext,
+	JqlEqualsClauseContext,
+	JqlFunctionContext,
+	JqlInClauseContext,
+	JqlIsClauseContext,
+	JqlLikeClauseContext,
+	JqlListContext,
+	JqlTerminalClauseContext,
+	JqlValueContext,
+	JqlWasClauseContext,
+	JqlWasInClauseContext,
+} from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import {

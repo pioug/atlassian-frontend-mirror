@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 

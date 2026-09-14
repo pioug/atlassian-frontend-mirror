@@ -117,6 +117,8 @@ export const block_content: string[] = [
   'mediaGroup',
   'decisionList',
   'rule',
+  'rule_with_attrs',
+  'bodiedRule',
   'panel',
   'blockquote',
   'extension_with_marks',
@@ -526,6 +528,36 @@ export const bodiedExtension: {
   },
 };
 
+export const bodiedExtension_root_only: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        marks: {
+          items: string[][];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'bodiedExtension',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      marks: {
+        items: [['breakout', 'dataConsumer', 'fragment']],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
 export const bodiedExtension_with_marks: (
   | string
   | {
@@ -543,6 +575,128 @@ export const bodiedExtension_with_marks: (
     props: {
       marks: {
         items: [['dataConsumer', 'fragment']],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
+export const bodiedRule: {
+  meta: {
+    stage0: boolean;
+  };
+  props: {
+    attrs: {
+      props: {
+        alignment: {
+          optional: boolean;
+          type: string;
+          values: string[];
+        };
+        color: {
+          optional: boolean;
+          pattern: string;
+          type: string;
+        };
+        localId: {
+          minLength: number;
+          type: string;
+        };
+        style: {
+          optional: boolean;
+          type: string;
+          values: string[];
+        };
+        weight: {
+          maximum: number;
+          minimum: number;
+          optional: boolean;
+          type: string;
+        };
+      };
+    };
+    content: {
+      items: string[][];
+      maxItems: number;
+      minItems: number;
+      type: string;
+    };
+    type: {
+      type: string;
+      values: string[];
+    };
+  };
+} = {
+  meta: {
+    stage0: true,
+  },
+  props: {
+    attrs: {
+      props: {
+        alignment: {
+          optional: true,
+          type: 'enum',
+          values: ['start', 'center', 'end'],
+        },
+        color: {
+          optional: true,
+          pattern: '^#[0-9a-fA-F]{6}$',
+          type: 'string',
+        },
+        localId: {
+          minLength: 1,
+          type: 'string',
+        },
+        style: {
+          optional: true,
+          type: 'enum',
+          values: ['solid', 'dashed', 'dotted', 'sketch', 'fade'],
+        },
+        weight: {
+          maximum: 3,
+          minimum: 1,
+          optional: true,
+          type: 'number',
+        },
+      },
+    },
+    content: {
+      items: [['paragraph_with_no_marks', 'heading_with_no_marks']],
+      maxItems: 1,
+      minItems: 1,
+      type: 'array',
+    },
+    type: {
+      type: 'enum',
+      values: ['bodiedRule'],
+    },
+  },
+};
+
+export const bodiedRule_root_only: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        marks: {
+          items: string[];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'bodiedRule',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      marks: {
+        items: ['breakout'],
         optional: true,
         type: 'array',
       },
@@ -618,8 +772,11 @@ export const bodiedSyncBlock: {
           'mediaSingle_full',
           'mediaSingle_width_type',
           'orderedList',
+          'panel_c1',
           'panel',
           'rule',
+          'rule_with_attrs',
+          'bodiedRule',
           'table',
           'taskList',
         ],
@@ -872,6 +1029,12 @@ export const codeBlock: {
       optional: boolean;
       type: string;
     };
+    marks: {
+      items: unknown[];
+      maxItems: number;
+      optional: boolean;
+      type: string;
+    };
     type: {
       type: string;
       values: string[];
@@ -907,6 +1070,12 @@ export const codeBlock: {
     content: {
       allowUnsupportedInline: true,
       items: ['text_with_no_marks'],
+      optional: true,
+      type: 'array',
+    },
+    marks: {
+      items: [],
+      maxItems: 0,
       optional: true,
       type: 'array',
     },
@@ -1173,6 +1342,7 @@ export const doc: {
       allowUnsupportedBlock: true,
       items: [
         [
+          'panel_c1',
           'blockCard',
           'paragraph_with_no_marks',
           'paragraph_with_alignment',
@@ -1189,6 +1359,8 @@ export const doc: {
           'mediaGroup',
           'decisionList',
           'rule',
+          'rule_with_attrs',
+          'bodiedRule',
           'panel',
           'blockquote',
           'extension_with_marks',
@@ -1198,7 +1370,13 @@ export const doc: {
           'bodiedExtension_with_marks',
           'codeBlock_root_only',
           'panel_root_only',
+          'panel_c1_root_only',
           'rule_root_only',
+          'rule_with_attrs_root_only',
+          'bodiedRule_root_only',
+          'extension_root_only',
+          'bodiedExtension_root_only',
+          'multiBodiedExtension_root_only',
           'layoutSection_with_single_column',
           'layoutSection_full',
           'multiBodiedExtension',
@@ -1405,6 +1583,12 @@ export const expand: {
       minItems: number;
       type: string;
     };
+    marks: {
+      items: unknown[];
+      maxItems: number;
+      optional: boolean;
+      type: string;
+    };
     type: {
       type: string;
       values: string[];
@@ -1436,6 +1620,8 @@ export const expand: {
           'orderedList',
           'bulletList',
           'rule',
+          'rule_with_attrs',
+          'bodiedRule',
           'heading_with_no_marks',
           'codeBlock',
           'mediaGroup',
@@ -1451,6 +1637,12 @@ export const expand: {
         ],
       ],
       minItems: 1,
+      type: 'array',
+    },
+    marks: {
+      items: [],
+      maxItems: 0,
+      optional: true,
       type: 'array',
     },
     type: {
@@ -1570,6 +1762,36 @@ export const extension: {
   },
 };
 
+export const extension_root_only: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        marks: {
+          items: string[][];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'extension',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      marks: {
+        items: [['breakout', 'dataConsumer', 'fragment']],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
 export const extension_with_marks: (
   | string
   | {
@@ -1595,6 +1817,9 @@ export const extension_with_marks: (
 ];
 
 export const extensionFrame: {
+  meta: {
+    stage0: boolean;
+  };
   props: {
     content: {
       items: string[][];
@@ -1612,6 +1837,9 @@ export const extensionFrame: {
     };
   };
 } = {
+  meta: {
+    stage0: true,
+  },
   props: {
     content: {
       items: [
@@ -1623,6 +1851,8 @@ export const extensionFrame: {
           'orderedList',
           'bulletList',
           'rule',
+          'rule_with_attrs',
+          'bodiedRule',
           'heading_with_no_marks',
           'codeBlock',
           'mediaGroup',
@@ -2156,7 +2386,7 @@ export const layoutColumn: {
     };
     content: {
       allowUnsupportedBlock: boolean;
-      items: string[];
+      items: string[][];
       minItems: number;
       type: string;
     };
@@ -2187,7 +2417,36 @@ export const layoutColumn: {
     },
     content: {
       allowUnsupportedBlock: true,
-      items: ['block_content'],
+      items: [
+        [
+          'panel_c1',
+          'blockCard',
+          'paragraph_with_no_marks',
+          'paragraph_with_alignment',
+          'paragraph_with_indentation',
+          'mediaSingle_caption',
+          'mediaSingle_full',
+          'codeBlock',
+          'taskList',
+          'bulletList',
+          'orderedList',
+          'heading_with_no_marks',
+          'heading_with_alignment',
+          'heading_with_indentation',
+          'mediaGroup',
+          'decisionList',
+          'rule',
+          'rule_with_attrs',
+          'bodiedRule',
+          'panel',
+          'blockquote',
+          'extension_with_marks',
+          'embedCard',
+          'table',
+          'expand',
+          'bodiedExtension_with_marks',
+        ],
+      ],
       minItems: 1,
       type: 'array',
     },
@@ -2297,6 +2556,9 @@ export const layoutSection_full: (
 export const layoutSection_with_single_column: (
   | string
   | {
+      meta: {
+        stage0: boolean;
+      };
       props: {
         attrs: {
           optional: boolean;
@@ -2329,6 +2591,9 @@ export const layoutSection_with_single_column: (
 )[] = [
   'layoutSection',
   {
+    meta: {
+      stage0: true,
+    },
     props: {
       attrs: {
         optional: true,
@@ -3084,6 +3349,9 @@ export const mention: {
 };
 
 export const multiBodiedExtension: {
+  meta: {
+    stage0: boolean;
+  };
   props: {
     attrs: {
       props: {
@@ -3130,6 +3398,9 @@ export const multiBodiedExtension: {
     };
   };
 } = {
+  meta: {
+    stage0: true,
+  },
   props: {
     attrs: {
       props: {
@@ -3176,6 +3447,36 @@ export const multiBodiedExtension: {
     },
   },
 };
+
+export const multiBodiedExtension_root_only: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        marks: {
+          items: string[];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'multiBodiedExtension',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      marks: {
+        items: ['breakout'],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
 
 export const nestedExpand: {
   props: {
@@ -3242,6 +3543,8 @@ export const nestedExpand_content: {
       'taskList',
       'decisionList',
       'rule',
+      'rule_with_attrs',
+      'bodiedRule',
       'panel',
       'blockquote',
       'extension_with_marks',
@@ -3285,6 +3588,8 @@ export const non_nestable_block_content: string[] = [
   'orderedList',
   'bulletList',
   'rule',
+  'rule_with_attrs',
+  'bodiedRule',
   'heading_with_no_marks',
   'codeBlock',
   'mediaGroup',
@@ -3447,6 +3752,8 @@ export const panel: {
           'codeBlock',
           'taskList',
           'rule',
+          'rule_with_attrs',
+          'bodiedRule',
           'decisionList',
           'extension_with_marks',
         ],
@@ -3461,9 +3768,126 @@ export const panel: {
   },
 };
 
+export const panel_c1: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        content: {
+          allowUnsupportedBlock: boolean;
+          items: string[][];
+          minItems: number;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'panel',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      content: {
+        allowUnsupportedBlock: true,
+        items: [
+          [
+            'paragraph_with_no_marks',
+            'paragraph_with_font_size',
+            'heading_with_no_marks',
+            'bulletList',
+            'orderedList',
+            'blockCard',
+            'mediaGroup',
+            'mediaSingle_caption',
+            'mediaSingle_full',
+            'codeBlock',
+            'taskList',
+            'rule',
+            'rule_with_attrs',
+            'bodiedRule',
+            'decisionList',
+            'extension_with_marks',
+            'table',
+          ],
+        ],
+        minItems: 1,
+        type: 'array',
+      },
+    },
+  },
+];
+
+export const panel_c1_root_only: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        content: {
+          allowUnsupportedBlock: boolean;
+          items: string[][];
+          minItems: number;
+          type: string;
+        };
+        marks: {
+          items: string[];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'panel',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      content: {
+        allowUnsupportedBlock: true,
+        items: [
+          [
+            'paragraph_with_no_marks',
+            'paragraph_with_font_size',
+            'heading_with_no_marks',
+            'bulletList',
+            'orderedList',
+            'blockCard',
+            'mediaGroup',
+            'mediaSingle_caption',
+            'mediaSingle_full',
+            'codeBlock',
+            'taskList',
+            'rule',
+            'rule_with_attrs',
+            'bodiedRule',
+            'decisionList',
+            'extension_with_marks',
+            'table',
+          ],
+        ],
+        minItems: 1,
+        type: 'array',
+      },
+      marks: {
+        items: ['breakout'],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
 export const panel_root_only: (
   | string
   | {
+      meta: {
+        stage0: boolean;
+      };
       props: {
         marks: {
           items: string[];
@@ -3475,6 +3899,9 @@ export const panel_root_only: (
 )[] = [
   'panel',
   {
+    meta: {
+      stage0: true,
+    },
     props: {
       marks: {
         items: ['breakout'],
@@ -3714,6 +4141,9 @@ export const rule: {
 export const rule_root_only: (
   | string
   | {
+      meta: {
+        stage0: boolean;
+      };
       props: {
         marks: {
           items: string[];
@@ -3725,7 +4155,160 @@ export const rule_root_only: (
 )[] = [
   'rule',
   {
+    meta: {
+      stage0: true,
+    },
     props: {
+      marks: {
+        items: ['breakout'],
+        optional: true,
+        type: 'array',
+      },
+    },
+  },
+];
+
+export const rule_with_attrs: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        attrs: {
+          optional: boolean;
+          props: {
+            color: {
+              optional: boolean;
+              pattern: string;
+              type: string;
+            };
+            localId: {
+              optional: boolean;
+              type: string;
+            };
+            style: {
+              optional: boolean;
+              type: string;
+              values: string[];
+            };
+            weight: {
+              maximum: number;
+              minimum: number;
+              optional: boolean;
+              type: string;
+            };
+          };
+        };
+      };
+    }
+)[] = [
+  'rule',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      attrs: {
+        optional: true,
+        props: {
+          color: {
+            optional: true,
+            pattern: '^#[0-9a-fA-F]{6}$',
+            type: 'string',
+          },
+          localId: {
+            optional: true,
+            type: 'string',
+          },
+          style: {
+            optional: true,
+            type: 'enum',
+            values: ['solid', 'dashed', 'dotted', 'sketch', 'fade'],
+          },
+          weight: {
+            maximum: 3,
+            minimum: 1,
+            optional: true,
+            type: 'number',
+          },
+        },
+      },
+    },
+  },
+];
+
+export const rule_with_attrs_root_only: (
+  | string
+  | {
+      meta: {
+        stage0: boolean;
+      };
+      props: {
+        attrs: {
+          optional: boolean;
+          props: {
+            color: {
+              optional: boolean;
+              pattern: string;
+              type: string;
+            };
+            localId: {
+              optional: boolean;
+              type: string;
+            };
+            style: {
+              optional: boolean;
+              type: string;
+              values: string[];
+            };
+            weight: {
+              maximum: number;
+              minimum: number;
+              optional: boolean;
+              type: string;
+            };
+          };
+        };
+        marks: {
+          items: string[];
+          optional: boolean;
+          type: string;
+        };
+      };
+    }
+)[] = [
+  'rule',
+  {
+    meta: {
+      stage0: true,
+    },
+    props: {
+      attrs: {
+        optional: true,
+        props: {
+          color: {
+            optional: true,
+            pattern: '^#[0-9a-fA-F]{6}$',
+            type: 'string',
+          },
+          localId: {
+            optional: true,
+            type: 'string',
+          },
+          style: {
+            optional: true,
+            type: 'enum',
+            values: ['solid', 'dashed', 'dotted', 'sketch', 'fade'],
+          },
+          weight: {
+            maximum: 3,
+            minimum: 1,
+            optional: true,
+            type: 'number',
+          },
+        },
+      },
       marks: {
         items: ['breakout'],
         optional: true,
@@ -3740,8 +4323,8 @@ export const status: {
     attrs: {
       props: {
         color: {
+          pattern: string;
           type: string;
-          values: string[];
         };
         localId: {
           optional: boolean;
@@ -3772,8 +4355,8 @@ export const status: {
     attrs: {
       props: {
         color: {
-          type: 'enum',
-          values: ['neutral', 'purple', 'blue', 'red', 'yellow', 'green'],
+          pattern: '^(neutral|purple|blue|red|yellow|green|#[0-9a-fA-F]{6})$',
+          type: 'string',
         },
         localId: {
           optional: true,
@@ -4105,6 +4688,8 @@ export const tableCell: {
           'orderedList',
           'bulletList',
           'rule',
+          'rule_with_attrs',
+          'bodiedRule',
           'heading_with_no_marks',
           'heading_with_alignment',
           'heading_with_indentation',
@@ -4224,6 +4809,8 @@ export const tableHeader: {
           'orderedList',
           'bulletList',
           'rule',
+          'rule_with_attrs',
+          'bodiedRule',
           'heading_with_no_marks',
           'heading_with_alignment',
           'heading_with_indentation',

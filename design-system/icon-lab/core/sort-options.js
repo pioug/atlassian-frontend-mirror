@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dce9afe49e57d3abbc395d34fae33030>>
+ * @codegen <<SignedSource::1e7b4e38e649814a5b319cd32bc8a4a4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "SortOptions".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const SortOptionsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const SortOptionsIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "SortOptionsIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M4.22 1.22a.75.75 0 0 1 1.06 0l3.25 3.25-1.06 1.06L5.5 3.56V14H4V3.56L2.03 5.53.97 4.47zm6.28 11.22V2H12v10.44l1.97-1.97 1.06 1.06-3.25 3.25a.75.75 0 0 1-1.06 0l-3.25-3.25 1.06-1.06z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

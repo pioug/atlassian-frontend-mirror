@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { type AnalyticsHandler, type AnalyticsPayload } from '../../index';
-import { ANALYTICS_CHANNEL } from '../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../utils/analytics/analytics';
 
 /**
  * Hook designed to use a handler if provided (ideally not)

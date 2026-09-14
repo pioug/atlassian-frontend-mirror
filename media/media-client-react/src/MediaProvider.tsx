@@ -7,7 +7,7 @@ import {
 	type MediaParsedSettings,
 	type MediaSettings,
 	useMediaParsedSettings,
-} from './mediaSettings';
+} from './mediaSettings/mediaParsedSettings';
 
 export type MediaClientAndSettings = {
 	mediaClient: MediaClient;

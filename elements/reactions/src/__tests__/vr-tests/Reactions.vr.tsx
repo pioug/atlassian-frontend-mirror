@@ -14,7 +14,7 @@ import {
 	LoadedReactionSingleReactionReacted,
 	ReactionsWithShowAddReactionText,
 	LoadedReactionsWithOnlyRenderPicker,
-} from './Reactions.fixtures';
+} from './Reactions.fixtures.vr.ap';
 
 const featureFlags = {
 	'platform-component-visual-refresh': true,

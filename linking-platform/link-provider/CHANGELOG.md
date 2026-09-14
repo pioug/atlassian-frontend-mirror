@@ -1,5 +1,89 @@
 # @atlaskit/link-provider
 
+## 5.6.0
+
+### Minor Changes
+
+- [`35af344e5a82e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35af344e5a82e) -
+  Add dedicated import paths for `SmartCardProvider`, `EditorSmartCardProvider`,
+  `EditorSmartCardProviderValueGuard`, `useSmartCardContext`, `useSmartLinkContext`,
+  `isErrorResponse`, and `isSuccessfulResponse`:
+  - `@atlaskit/link-provider/smart-card-provider`
+  - `@atlaskit/link-provider/editor-smart-card-provider`
+  - `@atlaskit/link-provider/editor-smart-card-provider-value-guard`
+  - `@atlaskit/link-provider/use-smart-card-context`
+  - `@atlaskit/link-provider/use-smart-link-context`
+  - `@atlaskit/link-provider/is-error-response`
+  - `@atlaskit/link-provider/is-successful-response`
+
+  Add a direct import path for `SMART_CARD_EXTERNAL_AUTH_EVENT`. Prefer these imports over the
+  compatibility exports from `@atlaskit/link-provider/provider`:
+
+  ```ts
+  import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+  import { SMART_CARD_EXTERNAL_AUTH_EVENT } from '@atlaskit/link-provider/smart-card-external-auth-event';
+  import type { CardProviderProps } from '@atlaskit/link-provider/types';
+  ```
+
+  The existing `types` entry point provides `CardProviderProps` instead of the legacy
+  `ProviderProps` alias. The named exports, type alias, and default provider export from
+  `@atlaskit/link-provider/provider` remain available for backward compatibility but are deprecated
+  in favor of these direct imports.
+
+## 5.5.1
+
+### Patch Changes
+
+- [`b31a95d33edd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b31a95d33edd3) -
+  Cleanup feature gate `platform_linking_force_no_cache_smart_card_client`. `CardClient` now always
+  resolves URLs through the ORS URL loader (passing `ignoreCachedValue` and `appearance`), and the
+  legacy string-based batch resolve loader has been removed.
+
+## 5.5.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.2
+
+### Patch Changes
+
+- [`6d704062ca749`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d704062ca749) -
+  Internal refactor to support tree shaking. No consumer changes.
+- Updated dependencies
+
+## 5.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

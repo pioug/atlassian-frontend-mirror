@@ -1,21 +1,21 @@
 import React, { Fragment } from 'react';
-import type { LinkAttributes } from '@atlaskit/adf-schema';
+import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { MarkProps } from '../types';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
 import { LinkUrlCompiled } from './link-compiled';
 import { LinkUrlEmotion } from './link-emotion';
 
 const LinkUrlMigration = componentWithCondition(
-	() => expValEquals('platform_editor_renderer_static_css', 'isEnabled', true),
+	() => isExperimentEnabled('platform_editor_renderer_static_css'),
 	LinkUrlCompiled,
 	LinkUrlEmotion,
 );

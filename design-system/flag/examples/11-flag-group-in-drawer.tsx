@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import Flag, { FlagGroup, FlagsProvider, useFlags } from '@atlaskit/flag';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
+import { useFlags } from '@atlaskit/flag/use-flags';
 import Info from '@atlaskit/icon/core/status-information';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

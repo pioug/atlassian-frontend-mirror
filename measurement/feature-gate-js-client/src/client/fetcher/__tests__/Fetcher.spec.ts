@@ -3,7 +3,7 @@ import fetchMock from 'jest-fetch-mock';
 import { FeatureGateEnvironment, PerimeterType } from '../../FeatureGates';
 import { ResponseError } from '../errors';
 import { type FetcherOptions } from '../Fetcher';
-import Fetcher from '../index';
+import { default as Fetcher } from '../Fetcher';
 import { type FrontendClientSdkKeyResponse, type FrontendExperimentsResponse } from '../types';
 
 fetchMock.enableMocks();

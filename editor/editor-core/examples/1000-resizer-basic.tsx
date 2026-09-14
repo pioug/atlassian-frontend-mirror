@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
-import { RadioGroup } from '@atlaskit/radio';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import type { OptionsPropType } from '@atlaskit/radio/types';
 import { token } from '@atlaskit/tokens';
 

@@ -1,11 +1,14 @@
 import { customThemeContrastChecker } from '../../../examples/utils/custom-theme-contrast-checker';
 import type tokens from '../../artifacts/token-names';
-import { type CSSColor } from '../../theme-config';
+import { type CSSColor } from '../../theme-options-schema';
 import { additionalContrastChecker } from '../../utils/additional-contrast-checker';
 import { generateColors } from '../../utils/generate-colors';
 import { generateTokenMap } from '../../utils/generate-token-map';
 import { generateTokenMapWithContrastCheck } from '../../utils/generate-token-map-with-contrast-check';
-import { argbFromRgba, Contrast, Hct, rgbaFromArgb } from '../../utils/hct-color-utils';
+import { argbFromRgba } from '../../utils/hct-color-utils/argb-from-rgba';
+import { Contrast } from '../../utils/hct-color-utils/contrast';
+import { Hct } from '../../utils/hct-color-utils/hct';
+import { rgbaFromArgb } from '../../utils/hct-color-utils/rgba-from-argb';
 import { hexToRgbA } from '../../utils/hex-to-rgb-a';
 import { rgbToHex } from '../../utils/rgb-to-hex';
 

@@ -1,5 +1,4 @@
-import { type MediaClientErrorReason } from '@atlaskit/media-client';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 // TODO: deprecate https://product-fabric.atlassian.net/browse/CXP-4669
 /** Will be deprecated. Use Media Client `toCommonMediaClientError` instead  */
 export class MediaFileStateError extends Error {
@@ -20,10 +19,11 @@ export class MediaFileStateError extends Error {
 	}
 }
 
-export function isMediaFileStateError(err: Error): err is MediaFileStateError {
-	return err instanceof Error && 'id' in err;
-}
-
-export function getFileStateErrorReason(err: Error): MediaClientErrorReason | 'unknown' {
-	return isMediaFileStateError(err) ? err.details?.reason : 'unknown';
-}
+/**
+ * @deprecated Use `import { isMediaFileStateError } from '@atlaskit/media-client-react'` instead.
+ */
+export { isMediaFileStateError } from './isMediaFileStateError';
+/**
+ * @deprecated Use `import { getFileStateErrorReason } from '@atlaskit/media-client-react'` instead.
+ */
+export { getFileStateErrorReason } from './getFileStateErrorReason';

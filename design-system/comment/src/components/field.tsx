@@ -4,7 +4,7 @@
  */
 import React, { type FC, type ReactNode } from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

@@ -8,6 +8,7 @@ export type MediaFileEventPayload<
 		| 'loadSucceeded'
 		| 'loadFailed'
 		| 'previewUnsupported'
+		| 'previewTooLarge'
 		| 'zipEntryLoadSucceeded'
 		| 'zipEntryLoadFailed'
 		| 'downloadSucceeded'

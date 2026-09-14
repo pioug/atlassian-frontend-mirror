@@ -1,4 +1,4 @@
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import type {
 	CardAppearance,
@@ -40,8 +40,8 @@ export type CardWithUrlContentProps = {
 	resolvingPlaceholder?: string;
 	showHoverPreview?: boolean;
 	testId?: string;
+	title?: string;
 	truncateInline?: boolean;
 	ui?: FlexibleUiOptions;
 	url: string;
-	title?: string;
 };

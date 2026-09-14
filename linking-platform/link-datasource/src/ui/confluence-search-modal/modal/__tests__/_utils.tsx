@@ -8,7 +8,7 @@ import type {
 	waitForOptions,
 } from '@testing-library/react';
 
-import type { JQLEditorProps } from '@atlaskit/jql-editor';
+import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 
 import { type ModalProps, setupFactory } from '../../../../common/__tests__/_utils';
 import type { DisplayViewModes, Site } from '../../../../common/types';
@@ -22,7 +22,7 @@ import {
 	type ConfluenceSearchDatasourceAdf,
 	type ConfluenceSearchDatasourceParameters,
 } from '../../types';
-import { ConfluenceSearchConfigModal } from '../index';
+import { ConfluenceSearchConfigModal } from '../ConfluenceSearchConfigModal';
 
 export const getDefaultParameters: () => ConfluenceSearchDatasourceParameters = () => ({
 	cloudId: '67899',

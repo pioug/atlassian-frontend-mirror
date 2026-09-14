@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import EmptyState from '@atlaskit/empty-state';
+import EmptyState from '@atlaskit/empty-state/empty-state';
 
 import messages from '../../messages';
 import { AccessLockSVGWrapper, TeamForbiddenErrorStateWrapper } from '../../styled/TeamCard';

@@ -1,4 +1,4 @@
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 
 import type { FeatureFlagKey } from '../../types/feature-flags';
 import type { PropsDifference, ShallowPropsDifference } from '../../utils';
@@ -157,6 +157,56 @@ type SlowInputAEP = OperationalAEPWithObjectId<
 		nodeCount?: Record<string, number>;
 		nodeSize: number;
 		time: number;
+	}
+>;
+
+/**
+ * Fired when the runtime performance detector decides the device is struggling badly enough to
+ * warrant limited mode.
+ */
+type LimitedModeLatchedAEP = OperationalAEPWithObjectId<
+	ACTION.LIMITED_MODE_LATCHED,
+	ACTION_SUBJECT.EDITOR,
+	undefined,
+	{
+		/**
+		 * `navigator.deviceMemory` in GB. Reported for correlation only — the hardware does not feed
+		 * into the decision. Absent outside Chromium, which does not expose the hint.
+		 */
+		deviceMemoryGb?: number;
+		/** Whether the document was already breaching its thresholds when the runtime bar was met. */
+		documentAlreadyBreached: boolean;
+		/** Which criterion closed the first qualifying window. */
+		firstWindowReason: string;
+		/** `navigator.hardwareConcurrency`, i.e. logical cores. Reported for correlation only. */
+		hardwareConcurrency?: number;
+		/** Whether limited mode was actually applied, i.e. whether the session is in the treatment. */
+		latched: boolean;
+		/** Median of the closing keystroke window, present only when `reason` is `inputLatency`. */
+		latencyMedianMs?: number;
+		/**
+		 * Elapsed time from the first qualifying window to the latch, spanning every confirmation gap
+		 * that was waited out. `0` when a single window latched.
+		 */
+		msFromFirstWindow?: number;
+		nodeSize: number;
+		/**
+		 * Which criterion closed the window that latched — `inputLatency`, `freeze` or `forced`.
+		 * Together with `firstWindowReason` this shows whether one signal latched on its own or two
+		 * different ones agreed.
+		 */
+		reason: string;
+		/** How many qualifying windows this session required, i.e. the bar that was met. */
+		requiredConfirmations: number;
+		/** Milliseconds from the detector starting to the bar being met. */
+		timeToLatch: number;
+		/**
+		 * Cumulative counts for the whole session, never reset by a qualifying window — so these show
+		 * how much evidence accrued overall, not just in the window that happened to close.
+		 */
+		totalFreezes: number;
+		totalInputSamples: number;
+		totalSlowInputs: number;
 	}
 >;
 
@@ -677,6 +727,7 @@ export type GeneralEventPayload<T = void> =
 	| HelpQuickInsertAEP
 	| InputPerfSamplingAEP
 	| InputPerfSamplingAvgAEP
+	| LimitedModeLatchedAEP
 	| PickerEmojiAEP
 	| PickerImageAEP
 	| PickerMediaInsertAEP

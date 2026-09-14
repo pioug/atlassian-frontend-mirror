@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AnnotationPlugin } from './annotationPluginType';
 import {
@@ -25,9 +25,11 @@ import {
 	buildToolbar,
 	shouldSuppressFloatingToolbar,
 } from './pm-plugins/toolbar';
+import { ACTIONS } from './pm-plugins/types';
 import {
 	getPluginState,
 	hasAnyUnResolvedAnnotationInPage,
+	inlineCommentPluginKey,
 	stripNonExistingAnnotations,
 } from './pm-plugins/utils';
 import type { AnnotationProviders } from './types';
@@ -37,6 +39,34 @@ import { getToolbarComponents } from './ui/toolbar-components';
 export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState();
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+	/**
+	 * Allows external editor UI, currently AI suggestions, to safely close an inline comment
+	 * without bypassing the provider's unsaved-content guard.
+	 */
+	const requestCloseInlineComment = async (): Promise<boolean> => {
+		try {
+			const requestClose = annotationProviders?.inlineComment.requestClose;
+			if (!requestClose) {
+				return true;
+			}
+
+			const canClose = await requestClose();
+
+			if (!canClose) {
+				return false;
+			}
+
+			return (
+				api?.core.actions.execute(({ tr }) => {
+					tr.setMeta(inlineCommentPluginKey, { type: ACTIONS.CLOSE_COMPONENT });
+					return tr;
+				}) ?? false
+			);
+		} catch {
+			// Preserve the active comment if its close guard cannot complete.
+			return false;
+		}
+	};
 
 	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(api, annotationProviders));
@@ -56,6 +86,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 
 		actions: {
 			hasAnyUnResolvedAnnotationInPage,
+			requestCloseInlineComment,
 			stripNonExistingAnnotations,
 			setInlineCommentDraftState: setInlineCommentDraftState(
 				api?.analytics?.actions,

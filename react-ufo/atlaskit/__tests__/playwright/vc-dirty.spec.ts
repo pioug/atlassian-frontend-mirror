@@ -3,6 +3,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('TTVC Dirty Scenarios', () => {
 	test.use({
 		examplePage: 'basic-section-below-viewport-with-hold',
+	} satisfies {
+		examplePage: 'basic-section-below-viewport-with-hold';
+		__exampleDependency?: typeof import('../../examples/03-basic-section-below-viewport-with-hold.tsx');
 	});
 
 	for (const viewport of viewports) {

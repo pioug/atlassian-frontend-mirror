@@ -1,4 +1,4 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 const extractServerAction = (data?: JsonLd.Data.BaseData): JsonLd.Primitives.ServerAction[] => {
 	const actions = data?.['atlassian:serverAction'];

@@ -2,12 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { jsx } from '@compiled/react';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { createUnexpectedErrorCallback } from './errors';
+import { createUnexpectedErrorCallback } from './createUnexpectedErrorCallback';
 import { Loading } from './loading-compiled';
 import { SvgRenderer } from './svgRenderer-compiled';
 import type { MediaSvgProps } from './types';

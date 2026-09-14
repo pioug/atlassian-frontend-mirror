@@ -7,9 +7,9 @@ import React, { type PropsWithChildren } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { TOOLTIP_USERS_LIMIT } from '../shared/constants';
 import { messages } from '../shared/i18n';
@@ -57,6 +57,7 @@ const underlineStyle = css({
 		backgroundColor: token('color.background.neutral.bold'),
 		color: token('color.text.inverse'),
 	},
+	transition: token('motion.button.hovered'),
 });
 
 // Resets native <button> chrome so it renders as inline text within the tooltip list.
@@ -150,11 +151,7 @@ export const ReactionTooltip = ({
 							(allowUserDialog && handleOpenReactionsDialog ? (
 								<button
 									type="button"
-									css={[
-										footerButtonStyle,
-										fg('platform_reactions_view_more_styling_fix') && footerButtonColorStyle,
-										underlineStyle,
-									]}
+									css={[footerButtonStyle, footerButtonColorStyle, underlineStyle]}
 									onClick={handleClick}
 									onMouseDown={(e) => e.preventDefault()}
 								>

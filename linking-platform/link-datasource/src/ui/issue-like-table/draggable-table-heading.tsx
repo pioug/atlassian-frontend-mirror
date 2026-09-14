@@ -3,44 +3,44 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { css, jsx, styled } from '@compiled/react';
 import ReactDOM from 'react-dom';
+import { css, jsx, styled } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import Button from '@atlaskit/button/new';
-import DropdownMenu, {
-	type CustomTriggerProps,
-	DropdownItem,
-	type DropdownMenuProps,
-} from '@atlaskit/dropdown-menu';
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import type { CustomTriggerProps, DropdownMenuProps } from '@atlaskit/dropdown-menu/types';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import ChevronUp from '@atlaskit/icon/core/chevron-up';
-import {
-	attachClosestEdge,
-	type Edge,
-	extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/attach-closest-edge';
+import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/extract-closest-edge';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
 	draggable,
 	dropTargetForElements,
 	monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
-import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
-import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/disable-native-drag-preview';
+import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/pointer-outside-of-preview';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 
-import { GlyphPlaceholder, UnwrapTextIcon, WrapTextIcon } from './custom-icons';
+import { getColumnMinWidth } from './get-column-min-width';
+import { getWidthCss } from './get-width-css';
+import { GlyphPlaceholder } from './glyph-placeholder';
 import { issueLikeTableMessages } from './messages';
-import { getColumnMinWidth, getWidthCss } from './utils';
+import { UnwrapTextIcon } from './unwrap-text-icon';
+import { WrapTextIcon } from './wrap-text-icon';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
 const TableHeading = styled.th({

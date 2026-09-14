@@ -1,0 +1,54 @@
+import React from 'react';
+
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline } from '@atlaskit/primitives/inline';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack } from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss';
+
+const alignBlockItems = ['start', 'center', 'end', 'baseline', 'stretch', undefined] as const;
+
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
+const containerStyles = xcss({
+	display: 'flex',
+	borderRadius: 'radius.xsmall',
+	height: 'size.1000',
+});
+
+export default (): React.JSX.Element => (
+	<Box testId="inline-example" padding="space.100">
+		<Inline space="space.200">
+			{alignBlockItems.map((alignBlock) => (
+				<Stack key={alignBlock ?? 'default'} alignInline="center" space="space.025">
+					{alignBlock ?? '(default)'}
+					<Box
+						backgroundColor="color.background.neutral"
+						padding="space.050"
+						xcss={containerStyles}
+					>
+						<Inline space="space.050" alignBlock={alignBlock}>
+							<Box
+								xcss={blockStyles}
+								padding="space.300"
+								backgroundColor="color.background.discovery.bold"
+							></Box>
+							<Box
+								xcss={blockStyles}
+								padding="space.200"
+								backgroundColor="color.background.discovery.bold"
+							/>
+							<Box
+								xcss={blockStyles}
+								padding="space.200"
+								backgroundColor="color.background.discovery.bold"
+							/>
+						</Inline>
+					</Box>
+				</Stack>
+			))}
+		</Inline>
+	</Box>
+);

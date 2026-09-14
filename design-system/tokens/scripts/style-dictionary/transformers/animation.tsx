@@ -16,4 +16,3 @@ const rawObjectToAnimationTransform: Transform = {
 };
 
 export default rawObjectToAnimationTransform;
-export { rawObjectToAnimation } from './raw-object-to-animation';

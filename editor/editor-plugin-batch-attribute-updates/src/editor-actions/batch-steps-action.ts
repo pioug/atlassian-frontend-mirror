@@ -1,6 +1,8 @@
-import { BatchAttrsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
-import type { BatchAttrsStepData } from '@atlaskit/adf-schema/steps';
-import { AttrStep, type Step } from '@atlaskit/editor-prosemirror/transform';
+import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import type { BatchAttrsStepData } from '@atlaskit/adf-schema/steps/batch-attrs-step';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 
 import type { BatchStepsAction } from '../batchAttributeUpdatesPluginType';
 
@@ -65,7 +67,7 @@ const isValidSteps = (steps: Array<Step>): steps is Array<SetAttrsStep | AttrSte
  * and aggregates their attributes. It then creates a `BatchAttrsStep` that applies all these
  * attribute changes at once.
  *
- * @param {Object} props - The properties required to batch steps.
+ * @param {object} props - The properties required to batch steps.
  * @param {PMNode} props.doc - The ProseMirror document node in which the steps will be applied.
  * @param {Array<AttrStep | SetAttrsStep> | Array<Step>} props.steps - An array of steps that modify attributes.
  *

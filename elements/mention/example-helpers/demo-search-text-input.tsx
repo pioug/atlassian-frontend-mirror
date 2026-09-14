@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 import React, { type ChangeEventHandler, Component, type FocusEventHandler } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 
 function noModifiers(event: React.KeyboardEvent<HTMLInputElement>) {
 	return !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey;

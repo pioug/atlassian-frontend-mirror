@@ -3,7 +3,7 @@ import React, { forwardRef, type Ref } from 'react';
 import { render, screen } from '@atlassian/testing-library';
 
 import RouterLinkProvider, { type RouterLinkComponentProps } from '../../src/router-link-provider';
-import useRouterLink from '../../src/router-link-provider/hooks/use-router-link';
+import { useRouterLink } from '../../src/router-link-provider/hooks/use-router-link';
 
 type MyRouterLinkConfig = {
 	to: string;

@@ -1,6 +1,6 @@
 //#region Imports
 
-import type { TableLayout } from '@atlaskit/adf-schema';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

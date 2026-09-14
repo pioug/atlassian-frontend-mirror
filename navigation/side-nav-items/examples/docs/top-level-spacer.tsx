@@ -5,7 +5,7 @@ import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PagesIcon from '@atlaskit/icon/core/pages';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { ConfluenceIcon, GoalsIcon, JiraIcon, TeamsIcon } from '@atlaskit/logo';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
@@ -40,28 +40,28 @@ export function TopLevelSpacerExample(): React.JSX.Element {
 
 					<LinkMenuItem
 						href={exampleHref}
-						elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+						elemBefore={<JiraIcon label="" size="xsmall" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>
 						Jira
 					</LinkMenuItem>
 					<LinkMenuItem
 						href={exampleHref}
-						elemBefore={<ConfluenceIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+						elemBefore={<ConfluenceIcon label="" size="xsmall" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>
 						Confluence
 					</LinkMenuItem>
 					<LinkMenuItem
 						href={exampleHref}
-						elemBefore={<TeamsIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+						elemBefore={<TeamsIcon label="" size="xsmall" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>
 						Goals
 					</LinkMenuItem>
 					<LinkMenuItem
 						href={exampleHref}
-						elemBefore={<GoalsIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+						elemBefore={<GoalsIcon label="" size="xsmall" />}
 						elemAfter={<LinkExternalIcon label="" size="small" color="currentColor" />}
 					>
 						Teams

@@ -7,7 +7,7 @@ import React, {
 	type PropsWithChildren,
 } from 'react';
 import isEqual from 'lodash/isEqual';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type Article, type ArticleItem } from '../../model/Article';
 import { type WhatsNewArticleItem, type WhatsNewArticle } from '../../model/WhatsNew';
 import { REQUEST_STATE } from '../../model/Requests';

@@ -4,11 +4,11 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { EVENT_CHANNEL } from '../../../../analytics';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { mockTransformedUserHydrationResponse } from '../../../../services/mocks';
 import {
 	type BasicFilterHydrationState,

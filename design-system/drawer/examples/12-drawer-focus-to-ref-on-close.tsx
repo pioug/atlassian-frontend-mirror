@@ -5,18 +5,21 @@
 
 import { type SyntheticEvent, useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({
 	root: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 });
 

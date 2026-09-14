@@ -1,4 +1,4 @@
-import { type Team } from '@atlaskit/user-picker';
+import type { Team } from '@atlaskit/user-picker/types';
 
 import { config } from '../config';
 import { UNKNOWN_TEAM } from './constants';

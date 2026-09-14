@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Link, { type LinkProps } from '@atlaskit/link';
+import Link, { type LinkProps } from '@atlaskit/link/link';
 
+import { buildNavigationInput } from '../common/utils/buildNavigationInput';
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';
 import { getNavigationProps } from '../common/utils/getNavigationProps';
-import { buildNavigationInput } from '../common/utils/utils';
 
-import { useTeamsNavigationContext } from './TeamsNavigationProvider';
+import { useTeamsNavigationContext } from './useTeamsNavigationContext';
 
 type BaseLinkProps = Omit<LinkProps, 'target'>;
 

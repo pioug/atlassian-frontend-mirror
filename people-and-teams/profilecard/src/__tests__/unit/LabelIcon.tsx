@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { IconLabel } from '../../components/Icon';
+import { default as IconLabel } from '../../components/Icon/IconLabel';
 
 describe('Profilecard', () => {
 	describe('IconLabel', () => {

@@ -2,6 +2,8 @@
  * Inspired by analytics-web-react
  */
 
+import last from 'lodash/last';
+
 import {
 	type GasPayload,
 	type GasScreenEventPayload,
@@ -10,12 +12,13 @@ import {
 	TRACK_EVENT_TYPE,
 	UI_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
-import last from 'lodash/last';
+import { NAVIGATION_CONTEXT } from '@atlaskit/analytics-namespaced-context/NavigationAnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
+import { getExtraAttributes } from '../atlaskit/get-extra-attributes';
+import { getSources } from '../atlaskit/get-sources';
+import { getExtraAttributes as getExtraAttributesFromContextName } from '../helpers/get-extra-attributes';
 import type Logger from '../helpers/logger';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { NAVIGATION_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import { getExtraAttributes, getSources } from '../atlaskit/extract-data-from-event';
-import { getExtraAttributes as getExtraAttributesFromContextName } from '../helpers/extract-data-from-event';
 
 const CROSS_FLOW_TAG = 'crossFlow';
 

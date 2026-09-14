@@ -1,6 +1,9 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getBreakoutResizableNodeTypes } from '@atlaskit/editor-common/utils';
+import {
+	getBreakoutResizableNodeTypes,
+	getBreakoutResizableNodeTypesNew,
+} from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -9,8 +12,8 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
@@ -65,16 +68,14 @@ export const handleKeyDown =
 		const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
 		const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
 		if (metaKey && event.altKey && isBracketKey) {
-			const { expand, codeBlock, layoutSection, rule, panel, panel_c1 } = view.state.schema.nodes;
-
-			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
-				? getBreakoutResizableNodeTypes(
+			const breakoutResizableNodes = isExperimentEnabled(
+				'platform_editor_lovability_resize_extensions',
+			)
+				? getBreakoutResizableNodeTypesNew(view.state.schema)
+				: getBreakoutResizableNodeTypes(
 						view.state.schema,
 						expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true),
-					)
-				: expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
-					? new Set([expand, codeBlock, layoutSection, rule, panel, panel_c1])
-					: new Set([expand, codeBlock, layoutSection]);
+					);
 
 			const result = getAncestorResizableNode(view, breakoutResizableNodes);
 			if (result) {

@@ -1,43 +1,22 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { Node } from '@atlaskit/editor-prosemirror/model';
-import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { TableMap } from '../table-map';
-import type { Axis } from '../types';
-
-export function pointsAtCell($pos: ResolvedPos): false | Node | null {
-	return $pos.parent.type.spec.tableRole === 'row' && $pos.nodeAfter;
-}
-
-export function cellNear($pos: ResolvedPos): ResolvedPos | null {
-	for (let after = $pos.nodeAfter, { pos } = $pos; after; after = after.firstChild, pos++) {
-		const role = after.type.spec.tableRole;
-		if (role === 'cell' || role === 'header_cell') {
-			return $pos.doc.resolve(pos);
-		}
-	}
-	for (let before = $pos.nodeBefore, { pos } = $pos; before; before = before.lastChild, pos--) {
-		const role = before.type.spec.tableRole;
-		if (role === 'cell' || role === 'header_cell') {
-			return $pos.doc.resolve(pos - before.nodeSize);
-		}
-	}
-
-	return null;
-}
-
-export function cellAround($pos: ResolvedPos): ResolvedPos | null {
-	for (let d = $pos.depth - 1; d > 0; d--) {
-		if ($pos.node(d).type.spec.tableRole === 'row') {
-			return $pos.node(0).resolve($pos.before(d + 1));
-		}
-	}
-	return null;
-}
-
-export function nextCell($pos: ResolvedPos, axis: Axis, dir: number): ResolvedPos | null {
-	const start = $pos.start(-1);
-	const map = TableMap.get($pos.node(-1));
-	const moved = map.nextCell($pos.pos - start, axis, dir);
-	return moved == null ? null : $pos.node(0).resolve(start + moved);
-}
+/**
+ * @deprecated Use `import { pointsAtCell } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { pointsAtCell } from './points-at-cell';
+/**
+ * @deprecated Use `import { cellNear } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { cellNear } from './cell-near';
+/**
+ * @deprecated Use `import { cellAround } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { cellAround } from './cell-around';
+/**
+ * @deprecated Use `import { nextCell } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { nextCell } from './next-cell';

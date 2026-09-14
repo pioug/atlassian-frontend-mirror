@@ -21,8 +21,8 @@ import type {
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { ButtonItem } from '@atlaskit/menu';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import ButtonItem from '@atlaskit/menu/button-item';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -264,7 +264,10 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		);
 		const isItemDisabled = (item: TypeAheadItem | undefined) =>
 			isOfflineMode(connectivityMode) && (item?.isDisabledOffline ?? false);
-		const itemIsDisabled = isItemDisabled(item);
+		const itemIsDisabled =
+			(isExperimentEnabled('platform_editor_mention_search_order') &&
+				item?.isNonInteractive === true) ||
+			isItemDisabled(item);
 		const isFirstEnabledIndex =
 			isOfflineMode(connectivityMode) &&
 			itemIndex === firstOnlineSupportedIndex &&
@@ -310,7 +313,13 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 
 		const customItemRef = React.useRef<HTMLDivElement>(null);
 		const buttonItemRef = React.useRef<HTMLDivElement>(null);
-		const shouldUpdateFocus = selectedIndex === itemIndex && !isFirstEnabledIndex;
+		const shouldUpdateFocus =
+			selectedIndex === itemIndex &&
+			!isFirstEnabledIndex &&
+			!(
+				isExperimentEnabled('platform_editor_mention_search_order') &&
+				item?.isNonInteractive === true
+			);
 		const listItemClasses = useMemo(() => {
 			return [selectionFrame, isSelected && !itemIsDisabled && selectedStyle];
 		}, [isSelected, itemIsDisabled]);
@@ -370,7 +379,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 					role="option"
 					ref={buttonItemRef}
 					isDisabled={itemIsDisabled}
-					testId={editorExperiment('platform_synced_block', true) ? item.testId : undefined}
+					testId={item.testId}
 					// @ts-ignore
 					css={listItemClasses}
 				>

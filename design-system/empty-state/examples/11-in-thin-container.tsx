@@ -6,8 +6,9 @@ import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button, { LinkButton } from '@atlaskit/button/new';
-import EmptyState from '@atlaskit/empty-state';
+import Button from '@atlaskit/button/default/button';
+import LinkButton from '@atlaskit/button/link';
+import EmptyState from '@atlaskit/empty-state/empty-state';
 import { token } from '@atlaskit/tokens';
 
 import exampleImage from './img/example-image.png';

@@ -13,10 +13,10 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import type { Provider } from '..';
@@ -67,6 +67,8 @@ describe('#sendData', () => {
 			analyticsClient: fakeAnalyticsWebClient,
 		};
 		provider = createSocketIOCollabProvider(testProviderConfigWithAnalytics);
+		// @ts-expect-error - simulate an established channel connection
+		provider.channel.connected = true;
 
 		jest.runOnlyPendingTimers();
 		jest.clearAllTimers();
@@ -105,12 +107,11 @@ describe('#sendData', () => {
 		//@ts-expect-error private method call but it's okay we're testing
 		provider.documentService.processSteps({
 			version: 1625,
-			// @ts-ignore breaking on purpose
 			steps: 'hot garbarge', // even the spelling is garbage, nice
 		});
 
 		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
-		expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledWith({
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
@@ -135,11 +136,16 @@ describe('#sendData', () => {
 			tags: ['editor'],
 		});
 		expect(catchupv2Spy).toHaveBeenCalledTimes(1);
-		expect(catchupv2Spy).toBeCalledWith(CatchupEventReason.PROCESS_STEPS, undefined, undefined);
+		expect(catchupv2Spy).toHaveBeenCalledWith(
+			CatchupEventReason.PROCESS_STEPS,
+			undefined,
+			undefined,
+		);
 	});
 
 	it('broadcasts message to steps:commit when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -154,6 +160,7 @@ describe('#sendData', () => {
 
 	it('serializes steps with clientId and userId when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -174,6 +181,7 @@ describe('#sendData', () => {
 
 	it.skip('calls onStepsAdded on successful response when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -191,7 +199,7 @@ describe('#sendData', () => {
 			version: 2,
 		});
 		// @ts-ignore
-		expect(provider.emit).toBeCalledWith('data', {
+		expect(provider.emit).toHaveBeenCalledWith('data', {
 			json: [
 				{
 					clientId: 3771180701,
@@ -205,7 +213,7 @@ describe('#sendData', () => {
 			version: 2,
 		});
 		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(1);
-		expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledWith({
 			action: 'addSteps',
 			actionSubject: 'collab',
 			attributes: {
@@ -234,6 +242,7 @@ describe('#sendData', () => {
 
 	it.skip('handles step conflicts due to late head version update when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -273,7 +282,7 @@ describe('#sendData', () => {
 			tags: ['editor'],
 			source: 'unknown',
 		});
-		expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledWith({
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
@@ -307,6 +316,7 @@ describe('#sendData', () => {
 
 	it.skip('handles step conflicts due to version number already exists error when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -345,7 +355,7 @@ describe('#sendData', () => {
 			tags: ['editor'],
 			source: 'unknown',
 		});
-		expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledWith({
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
@@ -379,6 +389,7 @@ describe('#sendData', () => {
 
 	it('auto-triggers a step commit on step conflict when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -425,6 +436,7 @@ describe('#sendData', () => {
 	// TODO: ED-26957 - Jest 29 upgrade Expected number of calls: 2
 	it.skip('handles technical error response when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -478,7 +490,7 @@ describe('#sendData', () => {
 			tags: ['editor'],
 			source: 'unknown',
 		});
-		expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledWith({
 			action: 'addSteps',
 			actionSubject: 'collab',
 			attributes: {
@@ -533,6 +545,7 @@ describe('#sendData', () => {
 	// FIXME: Jest 29 upgrade - Expected number of calls: 2
 	it.skip('emits analytics event on invalid acknowledgement when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [fakeStep],
 		});
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
@@ -548,7 +561,7 @@ describe('#sendData', () => {
 		// @ts-ignore just spying on a private method, nothing to see here
 		expect(provider.emit).toHaveBeenCalledTimes(1);
 		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
-		expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledWith({
 			action: 'error',
 			actionSubject: 'collab',
 			attributes: {
@@ -586,6 +599,7 @@ describe('#sendData', () => {
 
 	it('does not send a broadcast message when there are no sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
+			origins: [],
 			steps: [],
 		});
 

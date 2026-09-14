@@ -15,6 +15,7 @@ import ensureReactPeerDepsInDevDeps from './rules/ensure-react-peer-deps-in-dev-
 import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
+import ensureStaticStructuredContent from './rules/ensure-static-structured-content';
 import noInternalDependenciesInPublicPackages from './rules/no-internal-dependencies-in-public-packages';
 import noModuleLevelEval from './rules/feature-gating/no-module-level-eval';
 import noModuleLevelEvalNav4 from './rules/feature-gating/no-module-level-eval-nav4';
@@ -35,6 +36,7 @@ import expandMotionShorthand from './rules/compiled/expand-motion-shorthand';
 import noSparseCheckout from './rules/no-sparse-checkout';
 import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import noDirectWebStorageUsage from './rules/no-direct-web-storage-usage';
+import noNativeEmbedBridgeQueryParamLiterals from './rules/no-native-embed-bridge-query-param-literals';
 import noSetImmediate from './rules/no-set-immediate';
 import preferCryptoRandomUuid from './rules/prefer-crypto-random-uuid';
 import noRestrictedFedrampImports from './rules/no-restricted-fedramp-imports';
@@ -97,6 +99,7 @@ const rules: {
 	'no-pre-post-install-scripts': Rule.RuleModule;
 	'no-invalid-storybook-decorator-usage': Rule.RuleModule;
 	'ensure-publish-valid': Rule.RuleModule;
+	'ensure-static-structured-content': Rule.RuleModule;
 	'no-internal-dependencies-in-public-packages': Rule.RuleModule;
 	'no-module-level-eval': Rule.RuleModule;
 	'no-module-level-eval-nav4': Rule.RuleModule;
@@ -112,6 +115,7 @@ const rules: {
 	'no-sparse-checkout': Rule.RuleModule;
 	'no-direct-document-usage': Rule.RuleModule;
 	'no-direct-web-storage-usage': Rule.RuleModule;
+	'no-native-embed-bridge-query-param-literals': Rule.RuleModule;
 	'no-set-immediate': Rule.RuleModule;
 	'prefer-crypto-random-uuid': Rule.RuleModule;
 	'no-restricted-fedramp-imports': Rule.RuleModule;
@@ -147,6 +151,7 @@ const rules: {
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
 	'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
 	'ensure-publish-valid': ensurePublishValid,
+	'ensure-static-structured-content': ensureStaticStructuredContent,
 	'no-internal-dependencies-in-public-packages': noInternalDependenciesInPublicPackages,
 	'no-module-level-eval': noModuleLevelEval,
 	'no-module-level-eval-nav4': noModuleLevelEvalNav4,
@@ -162,6 +167,7 @@ const rules: {
 	'no-sparse-checkout': noSparseCheckout,
 	'no-direct-document-usage': noDirectDocumentUsage,
 	'no-direct-web-storage-usage': noDirectWebStorageUsage,
+	'no-native-embed-bridge-query-param-literals': noNativeEmbedBridgeQueryParamLiterals,
 	'no-set-immediate': noSetImmediate,
 	'prefer-crypto-random-uuid': preferCryptoRandomUuid,
 	'no-restricted-fedramp-imports': noRestrictedFedrampImports,
@@ -190,6 +196,7 @@ const commonConfig = {
 	'@atlaskit/platform/ensure-atlassian-team': 'error',
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 	'@atlaskit/platform/no-direct-document-usage': 'warn',
+	'@atlaskit/platform/no-native-embed-bridge-query-param-literals': 'error',
 	'@atlaskit/platform/no-set-immediate': 'error',
 	'@atlaskit/platform/no-xcss-in-cx': 'error',
 	// Prevents bumping @statsig/js-client or @statsig/client-core to versions with a known CPU regression (HOT-303669)
@@ -259,6 +266,7 @@ const plugin: {
 		'no-pre-post-install-scripts': Rule.RuleModule;
 		'no-invalid-storybook-decorator-usage': Rule.RuleModule;
 		'ensure-publish-valid': Rule.RuleModule;
+		'ensure-static-structured-content': Rule.RuleModule;
 		'no-internal-dependencies-in-public-packages': Rule.RuleModule;
 		'no-module-level-eval': Rule.RuleModule;
 		'no-module-level-eval-nav4': Rule.RuleModule;
@@ -274,6 +282,7 @@ const plugin: {
 		'no-sparse-checkout': Rule.RuleModule;
 		'no-direct-document-usage': Rule.RuleModule;
 		'no-direct-web-storage-usage': Rule.RuleModule;
+		'no-native-embed-bridge-query-param-literals': Rule.RuleModule;
 		'no-set-immediate': Rule.RuleModule;
 		'prefer-crypto-random-uuid': Rule.RuleModule;
 		'no-restricted-fedramp-imports': Rule.RuleModule;

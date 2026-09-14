@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { OptionConfig } from '@atlaskit/editor-common/card';
@@ -18,7 +18,7 @@ import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { CardContext } from '@atlaskit/link-provider';
+import type { CardContext } from '@atlaskit/link-provider/types';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 import { getResolvedAttributesFromStore } from '../pm-plugins/utils';

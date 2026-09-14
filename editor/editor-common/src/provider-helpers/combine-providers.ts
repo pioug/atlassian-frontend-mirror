@@ -13,6 +13,8 @@ export default <P>(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	invokeList: <T>(methodName: keyof P, args?: any[]) => Promise<T[]>;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	invokeOptionalList: <T>(methodName: keyof P, args?: any[]) => Promise<T[]>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	invokeSingle: <T>(methodName: keyof P, args?: any[]) => Promise<T>;
 } => {
 	if (providers.length === 0) {
@@ -70,8 +72,23 @@ export default <P>(
 		return flatten<T>(fulfilledResults).filter((result) => result);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const invokeOptionalList = async <T>(methodName: keyof P, args?: any[]) => {
+		const providersWithMethod = (await getFulfilledProviders()).filter(
+			(provider) => typeof provider[methodName] === 'function',
+		);
+		const results = await waitForAllPromises<T[]>(
+			providersWithMethod.map(createCallback(methodName, args)),
+		);
+		const fulfilledResults = getOnlyFulfilled<T[]>(results);
+
+		return flatten<T>(fulfilledResults).filter((result) => result);
+	};
+
 	return {
 		invokeSingle,
 		invokeList,
+		invokeOptionalList,
 	};
 };

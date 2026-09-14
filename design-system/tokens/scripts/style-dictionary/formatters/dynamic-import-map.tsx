@@ -22,6 +22,7 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
 ${imports}
 };
 
+export { themeImportsMap as themeImportMap };
 export default themeImportsMap;
   `;
 

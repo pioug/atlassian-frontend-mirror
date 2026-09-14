@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { FormFooter as PlatformFormFooter } from '@atlaskit/form';
+import { FormFooter as PlatformFormFooter } from '@atlaskit/form/form-footer';
 
 export type PlatformFormFooterProps = Omit<_PlatformFormFooterProps, 'align'> & {
 /**

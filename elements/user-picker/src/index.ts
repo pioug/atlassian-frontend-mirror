@@ -3,7 +3,11 @@ export type { EmailValidationResponse, EmailValidator } from './components/email
 export { UserPicker as default } from './components/UserPicker';
 export { PopupUserPicker } from './components/PopupUserPicker';
 export { SingleValue } from './components/SingleValue';
-export { isEmail, isExternalUser, isTeam, isUser, isGroup } from './components/utils';
+export { isEmail } from './components/isEmail';
+export { isExternalUser } from './components/isExternalUser';
+export { isGroup } from './components/isGroup';
+export { isTeam } from './components/isTeam';
+export { isUser } from './components/isUser';
 export {
 	// Constants
 	CustomType,

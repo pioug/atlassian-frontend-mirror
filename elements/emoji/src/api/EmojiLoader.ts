@@ -1,17 +1,13 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { EmojiResponse } from '../types';
-
-import {
-	denormaliseEmojiServiceResponse,
-	type EmojiLoaderConfig,
-	emojiRequest,
-} from './EmojiUtils';
+import { isTestEnvironment } from '../util/is-test-environment';
+import type { EmojiLoaderConfig } from './EmojiUtils';
+import { denormaliseEmojiServiceResponse } from './denormaliseEmojiServiceResponse';
+import { emojiRequest } from './emojiRequest';
 
 /**
  * Shared cache of in-flight/resolved emoji load promises, keyed by the request URL so that
  * multiple loaders created for the same provider config reuse a single request instead of
- * refetching. Only consulted when `cache_emoji_loader_for_the_same_config` is enabled.
+ * refetching.
  */
 const emojiPromiseCache = new Map<string, Promise<EmojiResponse>>();
 
@@ -29,25 +25,27 @@ export default class EmojiLoader {
 	 * Returns a promise with an array of Emoji from all providers.
 	 */
 	loadEmoji(): Promise<EmojiResponse> {
-		if (fg('cache_emoji_loader_for_the_same_config')) {
-			const cacheKey = this.config.url;
-			const cachedPromise = emojiPromiseCache.get(cacheKey);
-			if (cachedPromise) {
-				return cachedPromise;
-			}
-
-			const emojiPromise = this.fetchEmoji();
-			// Evict on failure so a rejected promise is not cached, allowing retries to refetch.
-			emojiPromise.catch(() => {
-				if (emojiPromiseCache.get(cacheKey) === emojiPromise) {
-					emojiPromiseCache.delete(cacheKey);
-				}
-			});
-			emojiPromiseCache.set(cacheKey, emojiPromise);
-			return emojiPromise;
+		// The cache is module-level and outlives individual loaders, so under test it would leak
+		// responses between cases sharing a provider url. Always refetch there instead.
+		if (isTestEnvironment()) {
+			return this.fetchEmoji();
 		}
 
-		return this.fetchEmoji();
+		const cacheKey = this.config.url;
+		const cachedPromise = emojiPromiseCache.get(cacheKey);
+		if (cachedPromise) {
+			return cachedPromise;
+		}
+
+		const emojiPromise = this.fetchEmoji();
+		// Evict on failure so a rejected promise is not cached, allowing retries to refetch.
+		emojiPromise.catch(() => {
+			if (emojiPromiseCache.get(cacheKey) === emojiPromise) {
+				emojiPromiseCache.delete(cacheKey);
+			}
+		});
+		emojiPromiseCache.set(cacheKey, emojiPromise);
+		return emojiPromise;
 	}
 
 	private fetchEmoji(): Promise<EmojiResponse> {

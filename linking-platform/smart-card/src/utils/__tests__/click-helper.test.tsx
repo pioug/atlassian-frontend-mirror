@@ -2,7 +2,8 @@ import React from 'react';
 
 import { fireEvent, render } from '@atlassian/testing-library';
 
-import { getAnchorAttributesFromEvent, updateAnchorHref } from '../click-helpers';
+import { getAnchorAttributesFromEvent } from '../get-anchor-attributes-from-event';
+import { updateAnchorHref } from '../update-anchor-href';
 
 const RESOLVED_HREF = 'https://example.com/';
 

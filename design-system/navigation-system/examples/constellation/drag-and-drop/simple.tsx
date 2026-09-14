@@ -6,9 +6,11 @@ import React, { type ReactNode, type Ref, useEffect, useRef, useState } from 're
 
 import invariant from 'tiny-invariant';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import AddIcon from '@atlaskit/icon/core/add';
 import BasketballIcon from '@atlaskit/icon/core/basketball';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
@@ -23,7 +25,7 @@ import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	dropTargetForElements,
 	type ElementDropTargetEventBasePayload,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { DropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/drop-indicator';
 import { GroupDropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/group-drop-indicator';

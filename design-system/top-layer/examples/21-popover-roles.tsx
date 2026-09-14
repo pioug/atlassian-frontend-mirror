@@ -1,12 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
-import Lozenge from '@atlaskit/lozenge';
+import Button from '@atlaskit/button/default/button';
+import Heading from '@atlaskit/heading/heading';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { getFirstFocusable } from '@atlaskit/top-layer/focus';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
@@ -156,11 +155,6 @@ function RoleDemo({
 					label={label}
 					isOpen={isOpen}
 					onClose={close}
-					onOpenChange={({ isOpen: nextOpen, element }) => {
-						if (nextOpen) {
-							getFirstFocusable({ container: element })?.focus();
-						}
-					}}
 				>
 					<PopoverSurface>{content}</PopoverSurface>
 				</Popover>

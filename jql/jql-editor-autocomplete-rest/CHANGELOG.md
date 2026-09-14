@@ -1,5 +1,75 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 4.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.0
+
+### Minor Changes
+
+- [`75d5b09d85c04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75d5b09d85c04) -
+  Add `functionName` to the operational `autocompleteSuggestions success` / `failed` analytics
+  events, identifying the JQL function whose arguments were being fetched (e.g. `descendantsofteam`,
+  `membersof`). Because the underlying autocomplete fetch is where the team-value request actually
+  succeeds or fails, this makes fetch success/failure rates directly attributable to a specific JQL
+  function, so the reliability of the autocomplete dropdown can be measured per function. The
+  attribute is omitted for ordinary field-value autocomplete (when the values are not backing a
+  function argument).
+
+  Only the known team functions ever reach this fetch path, so the emitted value is bounded to those
+  function names. No identifiers, display names or query text are emitted.
+
+## 4.4.1
+
+### Patch Changes
+
+- [`ed54eea834dd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed54eea834dd7) -
+  Rename internal feature gate assets_object_jql_values_in_editor to
+  orion-8274-cmdb-object-jql-values-resolver (no behavior change).
+
+## 4.4.0
+
+### Minor Changes
+
+- [`9d816d1001fcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d816d1001fcf) -
+  Render Assets (CMDB) object names, and their object icon, as rich inline nodes in the JQL editor —
+  both when hydrating an existing query and when a value is selected from autocomplete. Behind
+  `assets_object_jql_values_in_editor`.
+
+  Adds an `assets` rich inline node, a `HydratedAssets` member of the `HydratedValue` union, and an
+  `'assets'` member of `AutocompleteValueType`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.1
+
+### Patch Changes
+
+- [`1f4185080d160`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f4185080d160) -
+  Add gated support for agent field autocomplete and hydration behavior behind
+  jira_filter_by_agent_and_agent_state, including suppressing unsupported functions for
+  agentSessions[agent] and preserving property-based hydration for agent lozenges.
+
+## 4.3.0
+
+### Minor Changes
+
+- [`37fcfe8d1928d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37fcfe8d1928d) -
+  Add frontend autocomplete support for the `descendantsOfTeam()` JQL function. Team names are now
+  suggested as arguments inside `descendantsOfTeam(...)`, reusing the same fetching, caching, and
+  tagging logic as the `Team[Team]` field. Gated behind `jira-descendants-of-team-jql-function`.
+  `membersOf` behaviour is unchanged.
+
 ## 4.2.0
 
 ### Minor Changes

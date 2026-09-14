@@ -1,46 +1,55 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import Code, { CodeWithIntl } from '../../../../react/marks/code';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import Code from '../../../../react/marks/code';
 import InlineComment from '../../../../react/marks/confluence-inline-comment';
 
 describe('Renderer - React/Marks/Code', () => {
-	it('should generate content with a <Code>-tag', () => {
-		const mark = mountWithIntl(
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(
 			<Code codeBidiWarningTooltipEnabled={true} dataAttributes={{ 'data-renderer-mark': true }}>
 				This is code
 			</Code>,
 		);
-		expect(mark.find(CodeWithIntl).length).toEqual(1);
-		mark.unmount();
+
+		await expect(container).toBeAccessible();
+	});
+
+	it('should generate content with a <Code>-tag', () => {
+		const { container } = renderWithIntl(
+			<Code codeBidiWarningTooltipEnabled={true} dataAttributes={{ 'data-renderer-mark': true }}>
+				This is code
+			</Code>,
+		);
+
+		expect(container.querySelector('code')).toBeInTheDocument();
 	});
 
 	it('should output correct html', () => {
-		const mark = mountWithIntl(
+		const { container } = renderWithIntl(
 			<Code codeBidiWarningTooltipEnabled={true} dataAttributes={{ 'data-renderer-mark': true }}>
 				This is code
 			</Code>,
 		);
-		expect(mark.html()).toMatch(
-			/^<style .*<\/style><code class=".*" data-renderer-mark="true">This is code<\/code>$/u,
-		);
-		mark.unmount();
+
+		const code = container.querySelector('code');
+
+		expect(code).toHaveAttribute('data-renderer-mark', 'true');
+		expect(code).toHaveTextContent('This is code');
 	});
 
 	it('should handle arrays correctly', () => {
-		const markWithArray = mountWithIntl(
+		const { container } = renderWithIntl(
 			<Code codeBidiWarningTooltipEnabled={true} dataAttributes={{ 'data-renderer-mark': true }}>
 				{['This ', 'is', ' code']}
 			</Code>,
 		);
-		expect(markWithArray.html()).toMatch(
-			/^<style .*<\/style><code class=".*" data-renderer-mark="true">This is code<\/code>$/u,
-		);
-		markWithArray.unmount();
+
+		expect(container.querySelector('code')).toHaveTextContent('This is code');
 	});
 
 	it('should render in combination with other marks', () => {
-		const marks = mountWithIntl(
+		const { container } = renderWithIntl(
 			<Code codeBidiWarningTooltipEnabled={true} dataAttributes={{ 'data-renderer-mark': true }}>
 				This{' '}
 				<InlineComment dataAttributes={{ 'data-renderer-mark': true }} reference={undefined as any}>
@@ -48,9 +57,12 @@ describe('Renderer - React/Marks/Code', () => {
 				</InlineComment>
 			</Code>,
 		);
-		expect(marks.html()).toMatch(
-			/^<style .*<\/style><code class=".*" data-renderer-mark="true">This <span data-mark-type="confluenceInlineComment">is code<\/span><\/code>$/u,
+
+		const code = container.querySelector('code');
+
+		expect(code).toHaveTextContent('This is code');
+		expect(code?.querySelector('span[data-mark-type="confluenceInlineComment"]')).toHaveTextContent(
+			'is code',
 		);
-		marks.unmount();
 	});
 });

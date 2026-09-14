@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/react/consistent-props-definitions */
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';

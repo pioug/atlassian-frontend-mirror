@@ -13,17 +13,15 @@ import {
 	OPERATIONAL_EVENT_TYPE,
 	type GasPayload,
 } from '@atlaskit/analytics-gas-types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import {
-	getSources,
-	getActionSubject,
-	getExtraAttributes,
-	getPackageInfo,
-	getPackageHierarchy,
-	getComponents,
-} from './extract-data-from-event';
 import type Logger from '../helpers/logger';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { getActionSubject } from './get-action-subject';
+import { getComponents } from './get-components';
+import { getExtraAttributes } from './get-extra-attributes';
+import { getPackageHierarchy } from './get-package-hierarchy';
+import { getPackageInfo } from './get-package-info';
+import { getSources } from './get-sources';
 
 const ATLASKIT_TAG = 'atlaskit';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;

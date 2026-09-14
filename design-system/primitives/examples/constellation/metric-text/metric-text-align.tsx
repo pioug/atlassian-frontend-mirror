@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { MetricText, Stack, Text } from '@atlaskit/primitives/compiled';
+import { MetricText } from '@atlaskit/primitives/compiled/metric-text';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 export default (): React.JSX.Element => {
 	return (

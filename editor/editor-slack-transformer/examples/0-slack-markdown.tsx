@@ -110,6 +110,8 @@ export default function EditorWithFeedback(_props: Props): React.JSX.Element {
 									placeholder="What do you want to say?"
 									shouldFocus={true}
 									allowHelpDialog={true}
+									allowPanel={true}
+									allowTables={true}
 									allowTasksAndDecisions={true}
 									allowNestedTasks={true}
 									disabled={disabled}

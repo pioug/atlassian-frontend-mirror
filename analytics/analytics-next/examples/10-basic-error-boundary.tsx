@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
-import {
-	AnalyticsErrorBoundary,
-	AnalyticsListener,
-	type UIAnalyticsEvent,
-	withAnalyticsEvents,
+import AnalyticsErrorBoundary from '../src/components/AnalyticsErrorBoundary';
+import AnalyticsListener from '../src/components/AnalyticsListener';
+import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
+import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
-} from '../src';
+} from '../src/hocs/withAnalyticsEvents';
 
 interface ButtonProps extends WithAnalyticsEventsProps {
 	children: React.ReactNode;

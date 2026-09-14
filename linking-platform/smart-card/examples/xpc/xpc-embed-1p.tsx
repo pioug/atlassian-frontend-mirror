@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 
 import { Card } from '../../src';
 import VRTestWrapper from '../utils/vr-test-wrapper';

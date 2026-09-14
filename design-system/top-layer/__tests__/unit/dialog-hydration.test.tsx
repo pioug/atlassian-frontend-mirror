@@ -26,7 +26,7 @@ afterEach(() => {
  * hydration warning in a consumer app.
  */
 test('dialog with isOpen=true on initial render hydrates without warnings', async () => {
-	const examplePath = require.resolve('../../examples/151-testing-dialog-ssr-initial-open');
+	const examplePath = require.resolve('../../examples/151-testing-dialog-ssr-initial-open.vr.ap');
 
 	const { html, styles } = await ssr(examplePath);
 

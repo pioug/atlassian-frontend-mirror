@@ -1,7 +1,8 @@
-import { type User } from '@atlaskit/user-picker';
-import { UNKNOWN_USER } from './constants';
-import { graphqlQuery, type AtlAttributionHeaderData } from './graphqlUtils';
+import type { User } from '@atlaskit/user-picker/types';
 import { config } from '../config';
+import type { AtlAttributionHeaderData } from './atl-attribution';
+import { UNKNOWN_USER } from './constants';
+import { graphqlQuery } from './graphqlUtils';
 
 interface UserData {
 	accountId: string;

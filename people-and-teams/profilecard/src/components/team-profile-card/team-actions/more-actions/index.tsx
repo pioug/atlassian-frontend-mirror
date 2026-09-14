@@ -2,10 +2,11 @@ import React, { useCallback, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { MenuGroup, Section } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { messages } from './messages';

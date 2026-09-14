@@ -1,9 +1,9 @@
 import React, { forwardRef, useCallback, useState } from 'react';
 
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
-import type { ButtonItemProps } from '@atlaskit/menu';
+import type { ButtonItemProps } from '@atlaskit/menu/types';
 
-import ButtonItem from './button-item';
+import { ButtonItem } from './button-item';
 
 /**
  * __Go back item__
@@ -16,7 +16,7 @@ import ButtonItem from './button-item';
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const GoBackItem: React.ForwardRefExoticComponent<
+export const GoBackItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ButtonItemProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, ButtonItemProps>(
 	(
@@ -56,5 +56,3 @@ const GoBackItem: React.ForwardRefExoticComponent<
 		);
 	},
 );
-
-export default GoBackItem;

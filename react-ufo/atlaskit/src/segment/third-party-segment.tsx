@@ -1,28 +1,25 @@
 import React, { useEffect, useLayoutEffect, useContext, useRef, useState } from 'react';
 
-import type { EnhancedUFOInteractionContextType } from '../common';
+import type { CustomData, EnhancedUFOInteractionContextType } from '../common';
 import UFOInteractionContext from '../interaction-context';
 import UFOInteractionIDContext from '../interaction-id-context';
 import {
 	addCompletedHold,
+	addExcluded3pSegment,
 	addIframeSegmentData,
 	addSegmentExtraData,
 	getActiveInteraction,
 } from '../interaction-metrics';
 import UFOLoadHold from '../load-hold/UFOLoadHold';
-import {
-	shapeNavigationTimingData,
-	shapeResourceTimingData,
-} from '../resource-timing/common/utils/shape-resource-timing';
+import { shapeNavigationTimingData } from '../resource-timing/common/utils/shape-navigation-timing-data';
+import { shapeResourceTimingData } from '../resource-timing/common/utils/shape-resource-timing-data';
 
+import { isDomMutationsFinalBatch } from './is-dom-mutations-final-batch';
 import UFOSegment, { type Props as SegmentProps } from './segment';
-import {
-	isDomMutationsFinalBatch,
-	shapeDomMutationsData,
-	shapeLargestContentfulPaintData,
-	shapeLayoutShiftData,
-	shapePaintTimingData,
-} from './shape-iframe-dom-events';
+import { shapeDomMutationsData } from './shape-dom-mutations-data';
+import { shapeLargestContentfulPaintData } from './shape-largest-contentful-paint-data';
+import { shapeLayoutShiftData } from './shape-layout-shift-data';
+import { shapePaintTimingData } from './shape-paint-timing-data';
 
 const FORGE_TTAI_EVENT_PREFIX = 'ufo-forge';
 // Early-signal event emitted by the iframe bridge as soon as it wires up its
@@ -386,6 +383,10 @@ type ThirdPartySegmentProps = Omit<SegmentProps, 'type'> & {
 	onRegisterIframeEventListener?: (listener: (event: IframeSegmentEvent) => void) => () => void;
 	/** Per-segment key-value metadata (scoped to this segment, not the interaction). */
 	extraData?: Record<string, string | undefined>;
+	/** Whether to exclude this segment from all metric windows and completion gating */
+	excludeFromMetrics?: boolean;
+	/** Diagnostic breadcrumb recorded for a segment that is excluded from metrics (excludeFromMetrics) */
+	excludedData?: CustomData;
 };
 
 /** Writes per-segment extraData via addSegmentExtraData. */
@@ -413,13 +414,41 @@ function SegmentExtraDataWriter({
 	return null;
 }
 
+/** Writes the per-segment excluded breadcrumb via addExcluded3pSegment (keyed by segmentId). */
+function Excluded3pSegmentDataWriter({ data }: { data: CustomData }): null {
+	const interactionContext = useContext(UFOInteractionContext);
+	const interactionId = useContext(UFOInteractionIDContext);
+
+	const labelStack = interactionContext?.labelStack;
+	const segmentId =
+		labelStack && labelStack.length > 0
+			? (labelStack[labelStack.length - 1] as { segmentId?: string }).segmentId
+			: undefined;
+
+	useEffect(() => {
+		const currentInteractionId = interactionId.current;
+		if (segmentId && currentInteractionId) {
+			addExcluded3pSegment(currentInteractionId, segmentId, data);
+		}
+	}, [data, segmentId, interactionId]);
+
+	return null;
+}
+
 export const UFOThirdPartySegment: {
 	(props: ThirdPartySegmentProps): React.JSX.Element;
 	displayName: string;
 } = (props: ThirdPartySegmentProps): React.JSX.Element => {
-	const { children, onRegisterIframeEventListener, extraData, ...otherProps } = props;
+	const {
+		children,
+		onRegisterIframeEventListener,
+		extraData,
+		excludeFromMetrics,
+		excludedData,
+		...otherProps
+	} = props;
 	return (
-		<UFOSegment type="third-party" {...otherProps}>
+		<UFOSegment type="third-party" excludeFromMetrics={excludeFromMetrics} {...otherProps}>
 			{onRegisterIframeEventListener && extraData && (
 				<>
 					<IframeSegment
@@ -429,6 +458,7 @@ export const UFOThirdPartySegment: {
 					<SegmentExtraDataWriter extraData={extraData} />
 				</>
 			)}
+			{excludedData && <Excluded3pSegmentDataWriter data={excludedData} />}
 			{children}
 		</UFOSegment>
 	);

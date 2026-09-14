@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 
-import { CardClient, SmartCardContext, useSmartLinkContext } from '@atlaskit/link-provider';
-import { ACTION_RESOLVED, cardAction } from '@atlaskit/linking-common';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardContext } from '@atlaskit/link-provider/context';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { ACTION_RESOLVED, cardAction } from '@atlaskit/linking-common/actions';
 import { fireEvent, render, renderHook, screen } from '@atlassian/testing-library';
 
-import { type ProviderProps, SmartCardProvider } from '../../../state';
-import { type CardState, type CardStore } from '../../types';
+import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider/types';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState, CardStore } from '@atlaskit/linking-common/store';
 import { useSmartCardState } from '../index';
 
 function generateWrapper(providerProps?: Partial<ProviderProps>) {
@@ -99,7 +102,6 @@ describe('useSmartCardState()', () => {
 				return state;
 			},
 			{
-				// @ts-ignore
 				wrapper,
 				args: [{ url: someUrl }],
 			},

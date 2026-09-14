@@ -1,12 +1,14 @@
+/* eslint-disable @atlassian/testing-library/prefer-atlassian-testing-library */
 import React, { useContext, useLayoutEffect } from 'react';
 
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@atlassian/testing-library';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { SpotlightContext } from '../../controllers/context';
-import { PopoverProvider } from '../../entry-points/popover-provider';
-import { PopoverTarget } from '../../entry-points/popover-target';
+import { PopoverProvider } from '../popover-provider';
+
+import { PopoverTarget } from './index';
 
 const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLElement | null) => void }) => {
 	const { target } = useContext(SpotlightContext);

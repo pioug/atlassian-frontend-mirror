@@ -10,7 +10,7 @@ import {
 	akEditorMaxLayoutWidth,
 } from '@atlaskit/editor-shared-styles/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 

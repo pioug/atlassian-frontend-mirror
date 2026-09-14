@@ -1,15 +1,13 @@
 import { EventEmitter2 } from 'eventemitter2';
-import { ChunkHashAlgorithm, type MediaClientConfig } from '@atlaskit/media-core';
+import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type MediaTraceContext } from '@atlaskit/media-common';
-import {
-	MediaStore as MediaApi,
-	type MediaStoreGetFileImageParams,
-	type ImageMetadata,
-} from './media-store';
-import { FileFetcherImpl, type FileFetcher } from './file-fetcher';
-import { type UploadEventPayloadMap, type EventPayloadListener } from './events';
-import { StargateClient } from './stargate-client';
 import { type MobileUpload } from '../models/mobile-upload';
+import { type UploadEventPayloadMap, type EventPayloadListener } from './events';
+import { FileFetcherImpl, type FileFetcher } from './file-fetcher';
+import { MediaStore as MediaApi } from './media-store/MediaStore';
+import type { MediaStoreGetFileImageParams, ImageMetadata } from './media-store/types';
+import { StargateClient } from './stargate-client';
 
 import { mediaStore, type MediaStore } from '@atlaskit/media-state/media-store';
 
@@ -63,8 +61,12 @@ export class MediaClient {
 		return this.mediaStore.getFileImageURL(id, params);
 	}
 
-	public getImageUrlSync(id: string, params?: MediaStoreGetFileImageParams): string {
-		return this.mediaStore.getFileImageURLSync(id, params);
+	public getImageUrlSync(
+		id: string,
+		params?: MediaStoreGetFileImageParams,
+		seededCdnUrl?: string,
+	): string {
+		return this.mediaStore.getFileImageURLSync(id, params, seededCdnUrl);
 	}
 
 	public async getClientId(collectionName?: string): Promise<string | undefined> {

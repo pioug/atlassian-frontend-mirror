@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('should allow interaction with radio buttons and pass aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/02-form-example.tsx')>(
+	await page.visitExample<typeof import('../../../examples/02-form-example.vr.ap.tsx')>(
 		'design-system',
 		'radio',
 		'form-example',

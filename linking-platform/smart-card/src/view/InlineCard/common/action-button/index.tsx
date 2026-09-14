@@ -10,7 +10,7 @@ import {
 } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -134,14 +134,7 @@ export const ActionButton: ForwardRefExoticComponent<
 			const { onClick, ...boxProps } = props;
 			return (
 				<Box {...boxProps} ref={ref} style={{ font: `inherit` }} xcss={styles.button}>
-					<span
-						css={[
-							styles.innerContainerSocialProofConnect,
-							fg('platform_lp_social_proof_inline_overflow_bug')
-								? styles.innerContainerNoWrap
-								: undefined,
-						]}
-					>
+					<span css={[styles.innerContainerSocialProofConnect, styles.innerContainerNoWrap]}>
 						{children}
 					</span>
 				</Box>

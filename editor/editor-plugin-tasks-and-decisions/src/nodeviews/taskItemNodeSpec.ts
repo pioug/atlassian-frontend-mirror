@@ -1,13 +1,9 @@
 import type { IntlShape } from 'react-intl';
 
-import { taskItem, blockTaskItem } from '@atlaskit/adf-schema';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { token } from '@atlaskit/tokens';
 
 import { isContentEmpty } from './utils';
 
@@ -17,42 +13,6 @@ type HTMLInputElementAttrs = {
 	id: string;
 	name: string;
 	type: 'checkbox';
-};
-
-/**
- * Wrapper for ADF taskItem node spec to augment toDOM implementation
- * with fallback UI for lazy node view rendering / window virtualization
- * @nodeSpecException:toDOM patch
- * @returns
- * @example
- */
-export const taskItemNodeSpec = (): NodeSpec => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return taskItem;
-	}
-
-	return {
-		...taskItem,
-		toDOM: (node: PMNode): DOMOutputSpec => lazyTaskItemToDom(node),
-	};
-};
-
-/**
- * Wrapper for ADF blockTaskItem node spec to augment toDOM implementation
- * with fallback UI for lazy node view rendering / window virtualization
- * @nodeSpecException:toDOM patch
- * @returns
- * @example
- */
-export const blockTaskItemNodeSpec = (): NodeSpec => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return blockTaskItem;
-	}
-
-	return {
-		...blockTaskItem,
-		toDOM: (node: PMNode): DOMOutputSpec => lazyTaskItemToDom(node),
-	};
 };
 
 const getCheckBoxId = (localId: string) => `task-checkbox-${localId}`;
@@ -192,89 +152,3 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 		],
 	];
 }
-
-export const lazyTaskItemToDom = (node: PMNode): DOMOutputSpec => {
-	const checked = node.attrs.state === 'DONE';
-	const inputAttrs: HTMLInputElementAttrs = {
-		name: node.attrs.localId,
-		id: node.attrs.localId,
-		type: 'checkbox',
-	};
-	if (checked) {
-		inputAttrs.checked = 'true';
-	}
-
-	const dataAttrs = {
-		'data-task-local-id': node.attrs.localId,
-		'data-task-state': node.attrs.state,
-		...(node.type.name === 'blockTaskItem' ? { 'data-task-is-block': 'true' } : {}),
-	};
-
-	return [
-		'div',
-		{
-			class: TaskDecisionSharedCssClassName.TASK_CONTAINER,
-			...dataAttrs,
-			style: convertToInlineCss({
-				listStyleType: 'none',
-				lineHeight: '24px',
-				minWidth: '48px',
-				position: 'relative',
-			}),
-		},
-		[
-			'div',
-			{
-				style: convertToInlineCss({
-					display: 'flex',
-				}),
-			},
-			[
-				'span',
-				{
-					contenteditable: 'false',
-					style: convertToInlineCss({
-						width: '24px',
-						height: '24px',
-						lineHeight: '24px',
-						display: 'grid',
-						placeContent: 'center center',
-					}),
-				},
-				[
-					'input',
-					{
-						...inputAttrs,
-						'data-input-type': 'lazy-task-item',
-						style: convertToInlineCss({
-							width: '13px',
-							height: '13px',
-							margin: '1px 0 0 0',
-							padding: 0,
-							accentColor: token('color.background.selected.bold'),
-						}),
-					},
-				],
-			],
-			[
-				'div',
-				{
-					'data-component': 'content',
-				},
-				[
-					'div',
-					{
-						class: TaskDecisionSharedCssClassName.TASK_ITEM,
-						style: convertToInlineCss({
-							display: 'block',
-							fontSize: '16px',
-							fontFamily: token('font.body'),
-							color: token('color.text'),
-						}),
-					},
-					0,
-				],
-			],
-		],
-	];
-};

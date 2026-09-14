@@ -33,6 +33,7 @@ export type ADFAttributeString = {
 	default?: string | null;
 	minLength?: number;
 	optional?: boolean;
+	pattern?: string;
 	type: 'string';
 	validatorFn?: 'safeUrl';
 };

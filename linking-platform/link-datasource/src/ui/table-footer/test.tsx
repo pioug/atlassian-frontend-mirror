@@ -3,9 +3,9 @@ import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
-import { EVENT_CHANNEL } from '../../analytics';
+import { EVENT_CHANNEL } from '../../analytics/constants';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 
 import { TableFooter, type TableFooterProps } from './index';

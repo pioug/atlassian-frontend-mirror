@@ -11,6 +11,7 @@ test('When entering a new time in Timepicker, the time should be updated to the 
 		'design-system',
 		'datetime-picker',
 		'times',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(timePicker).first().click();
 	const previousTime = await page.locator(value).first().textContent();
@@ -26,6 +27,7 @@ test('Invalid times in TimePicker should be ignored', async ({ page }) => {
 		'design-system',
 		'datetime-picker',
 		'times',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(timePicker).first().click();
 	await page.webdriverCompatUtils.fillMultiple(input, ['a', 's', 'd']);

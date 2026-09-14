@@ -6,7 +6,7 @@ import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/sticky-headers.adf.json';
 
 import Sidebar from './helper/NavigationNext';
-import type { DocNode } from '@atlaskit/adf-schema/schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });

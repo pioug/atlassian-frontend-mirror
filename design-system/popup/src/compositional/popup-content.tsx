@@ -2,8 +2,8 @@ import React, { useCallback, useContext } from 'react';
 
 import { Layering } from '@atlaskit/layering/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Portal from '@atlaskit/portal';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Portal from '@atlaskit/portal/portal';
 
 import PopperWrapper from '../popper-wrapper';
 import { type ContentProps, type PopupProps as LegacyPopupProps } from '../types';

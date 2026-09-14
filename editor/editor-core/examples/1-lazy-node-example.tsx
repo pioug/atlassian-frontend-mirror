@@ -28,10 +28,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import Heading from '@atlaskit/heading';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import Heading from '@atlaskit/heading/heading';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { Flex, Stack } from '@atlaskit/primitives/compiled';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 const smartCardClient = new ConfluenceCardClient('stg');
 const EXAMPLE_NAME = 'lazy-node-example';
@@ -217,7 +216,6 @@ const LazyNodeViewComparison = memo(
 		const onMockedReady = useCallback(() => {
 			setMockedReady(true);
 		}, []);
-		setupEditorExperiments('test', { platform_editor_exp_lazy_node_views: true });
 		const onDocChange = useMemo(
 			() =>
 				debounce((doc: PMNode) => {

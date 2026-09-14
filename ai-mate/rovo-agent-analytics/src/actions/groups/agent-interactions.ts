@@ -43,6 +43,22 @@ export type AgentInteractionsEventPayload =
 			attributes: BaseAgentAnalyticsAttributes;
 	  }
 	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/108162
+			actionSubject: 'rovoAgent';
+			action: 'bulkTransferOwnership';
+			attributes: BaseAgentAnalyticsAttributes & {
+				agentIds: ReadonlyArray<string>;
+			};
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/108161
+			actionSubject: 'rovoAgent';
+			action: 'bulkDelete';
+			attributes: BaseAgentAnalyticsAttributes & {
+				agentIds: ReadonlyArray<string>;
+			};
+	  }
+	| {
 			// https://data-portal.internal.atlassian.com/analytics/registry/97130
 			actionSubject: 'rovoAgent';
 			action: 'duplicate';
@@ -71,4 +87,31 @@ export type AgentInteractionsEventPayload =
 			actionSubject: 'rovoAgent';
 			action: 'unverify';
 			attributes: BaseAgentAnalyticsAttributes;
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/109597
+			actionSubject: 'rovoAgent';
+			action: 'export';
+			attributes: BaseAgentAnalyticsAttributes;
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/109598
+			actionSubject: 'rovoAgent';
+			action: 'import';
+			attributes: BaseAgentAnalyticsAttributes & {
+				exportVersion: string;
+				warningCount: number;
+				warningCodes: ReadonlyArray<string>;
+				importedAgentId: string;
+			};
+	  }
+	| {
+			// https://data-portal.internal.atlassian.com/analytics/registry/109599
+			actionSubject: 'rovoAgent';
+			action: 'importConfiguration';
+			attributes: BaseAgentAnalyticsAttributes & {
+				exportVersion: string;
+				warningCount: number;
+				warningCodes: ReadonlyArray<string>;
+			};
 	  };

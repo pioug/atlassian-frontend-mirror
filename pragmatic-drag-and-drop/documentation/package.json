@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-docs",
-	"version": "2.0.2",
+	"version": "2.2.0",
 	"description": "This package holds the documentation for Pragmatic drag and drop in one place. It is not intended to be consumed directly by consumers. The package is used by other tools for sharing examples",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
 		}
 	},
 	"scripts": {
-		"codegen": "ts-node -r tsconfig-paths/register ./scripts/codegen.ts"
+		"codegen": "tsx ./scripts/codegen.ts"
 	},
 	"repository": "https://github.com/atlassian/pragmatic-drag-and-drop",
 	"main": "dist/cjs/index.js",
@@ -28,7 +28,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
@@ -38,18 +40,23 @@
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/focus-ring": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@emotion/react": "root:*",
 		"@tanstack/react-virtual": "root:*",
 		"bind-event-listener": "root:*",
@@ -58,30 +65,7 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"tiny-invariant": "root:*",
-		"ts-node": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
+		"tsx": "root:*"
 	},
 	"homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
 	"platform-feature-flags": {}

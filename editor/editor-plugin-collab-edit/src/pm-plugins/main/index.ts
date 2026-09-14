@@ -24,7 +24,7 @@ import type {
 	ReadonlyTransaction,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { CollabEditPlugin } from '../../collabEditPluginType';

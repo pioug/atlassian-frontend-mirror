@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-viewmode-effects",
-	"version": "12.1.0",
+	"version": "18.0.0",
 	"description": "Editor-Viewmode effects plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,49 +33,6 @@
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			],
-			"code-structure": [
-				"editor-plugin"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"stricter": {
-		"no-unused-dependencies": {
-			"checkDevDependencies": true
-		}
 	},
 	"devDependencies": {
 		"react": "^19.2.0"

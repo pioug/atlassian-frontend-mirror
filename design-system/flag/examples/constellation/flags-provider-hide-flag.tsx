@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { FlagsProvider, useFlags } from '@atlaskit/flag';
+import Button from '@atlaskit/button/default/button';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
+import { useFlags } from '@atlaskit/flag/use-flags';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import { token } from '@atlaskit/tokens';
 

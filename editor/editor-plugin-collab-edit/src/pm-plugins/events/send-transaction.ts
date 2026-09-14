@@ -1,4 +1,4 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type {
@@ -6,7 +6,6 @@ import type {
 	Transaction,
 	SelectionBookmark,
 } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getSendableSelection } from '../actions';
 import { pluginKey } from '../main/plugin-key';
@@ -46,23 +45,15 @@ export const sendTransaction =
 			return;
 		}
 
-		const newTransaction = editorExperiment('platform_editor_reduce_noisy_steps_ncs', true, {
-			exposure: true,
-		})
-			? trNoAnalytics
-			: docChangedTransaction;
-
 		const shouldSendStepForSynchronyCollabProvider =
 			!originalTransaction.getMeta('isRemote') &&
 			// TODO: ED-8995 - We need to do this check to reduce the number of race conditions when working with tables.
 			// This metadata is coming from the scaleTable command in table-resizing plugin
 			!originalTransaction.getMeta('scaleTable') &&
-			(editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)
-				? newTransaction?.docChanged
-				: true);
+			trNoAnalytics.docChanged;
 
 		if (useNativePlugin || shouldSendStepForSynchronyCollabProvider) {
-			provider.send(newTransaction as Transaction, oldEditorState, newEditorState);
+			provider.send(trNoAnalytics, oldEditorState, newEditorState);
 		}
 
 		const prevPluginState = pluginKey.getState(oldEditorState);

@@ -4,9 +4,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import Calendar from '../../index';
+import Calendar from '../../calendar';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

@@ -1,12 +1,12 @@
 import React, { Component, type ElementType, type ReactNode } from 'react';
 
-import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
-import Modal, {
-	type ModalFooterProps as FooterComponentProps,
-	type ModalHeaderProps as HeaderComponentProps,
-	ModalBody,
-	useModal,
-} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
+import ButtonTheme from '@atlaskit/button/theme';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import type { ModalFooterProps as FooterComponentProps } from '@atlaskit/modal-dialog/modal-footer';
+import type { ModalHeaderProps as HeaderComponentProps } from '@atlaskit/modal-dialog/modal-header';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
 
 import {
 	ModalBody as Body,

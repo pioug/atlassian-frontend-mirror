@@ -12,10 +12,10 @@ export const isCursorInsideCodeBlock = (state: EditorState): boolean =>
 export const getStartOfCurrentLine = (
 	state: EditorState,
 ): {
+	pos: number;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	text: string;
-	pos: number;
 } => {
 	const { $from } = state.selection;
 	if ($from.nodeBefore && $from.nodeBefore.isText) {
@@ -35,10 +35,10 @@ export const getStartOfCurrentLine = (
 export const getEndOfCurrentLine = (
 	state: EditorState,
 ): {
+	pos: number;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	text: string;
-	pos: number;
 } => {
 	const { $to } = state.selection;
 	if ($to.nodeAfter && $to.nodeAfter.isText) {
@@ -56,9 +56,9 @@ export const getEndOfCurrentLine = (
 };
 
 export function getLinesFromSelection(state: EditorState): {
-	text: string;
-	start: number;
 	end: number;
+	start: number;
+	text: string;
 } {
 	const { pos: start } = getStartOfCurrentLine(state);
 	const { pos: end } = getEndOfCurrentLine(state);
@@ -86,12 +86,12 @@ const TAB = { token: '\t', size: 1, regex: /[^\t]/ };
 export const getLineInfo = (
 	line: string,
 ): {
-	indentToken: {
-		token: string;
-		size: number;
-		regex: RegExp;
-	};
 	indentText: string;
+	indentToken: {
+		regex: RegExp;
+		size: number;
+		token: string;
+	};
 } => {
 	const indentToken = line.startsWith('\t') ? TAB : SPACE;
 	const indentLength = line.search(indentToken.regex);

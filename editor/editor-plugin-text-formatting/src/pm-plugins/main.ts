@@ -17,7 +17,7 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
 // Ignored via go/ees005

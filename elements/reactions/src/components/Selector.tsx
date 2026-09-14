@@ -9,9 +9,10 @@ import { css, jsx, cssMap } from '@atlaskit/css';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { messages } from '../shared/i18n';
 import { getDefaultReactions } from '../shared/constants';
@@ -47,6 +48,19 @@ const styles = cssMap({
 		paddingRight: token('space.050'),
 		paddingBottom: token('space.050'),
 		paddingLeft: token('space.050'),
+		gap: token('space.050'),
+	},
+
+	hoverableReactionPickerSelectorList: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
+		listStyleType: 'none',
 		gap: token('space.050'),
 	},
 });
@@ -142,7 +156,8 @@ export const Selector = ({
 
 	useEffect(() => {
 		setIsTeamojiPickerRefreshEnabled(
-			expValEquals('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true),
+			expValEquals('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true) ||
+				fg('platform_teamoji_26_refresh_emoji_picker_user_id'),
 		);
 	}, []);
 
@@ -167,7 +182,9 @@ export const Selector = ({
 		);
 
 		return hoverableReactionPickerSelector ? (
-			emojiButtonAndTooltip
+			<Box as="li" key={emoji.id ?? emoji.shortName} xcss={styles.emojiContainer}>
+				{emojiButtonAndTooltip}
+			</Box>
 		) : (
 			<Reveal key={emoji.id ?? emoji.shortName} testId={RENDER_SELECTOR_TESTID}>
 				{emojiButtonAndTooltip}
@@ -185,14 +202,7 @@ export const Selector = ({
 					reactionPickerTriggerText={messages.addNewReaction.defaultMessage}
 					fullWidthSelectorTrayReactionPickerTrigger
 				/>
-				<Inline
-					alignBlock="center"
-					xcss={
-						hoverableReactionPickerSelector
-							? styles.hoverableReactionPickerSelectorContainer
-							: styles.container
-					}
-				>
+				<Inline as="ul" alignBlock="center" xcss={styles.hoverableReactionPickerSelectorList}>
 					{quickReactionEmojiIds.map(renderEmoji)}
 				</Inline>
 			</Box>

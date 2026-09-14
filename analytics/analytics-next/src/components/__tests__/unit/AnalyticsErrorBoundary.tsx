@@ -2,7 +2,19 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import AnalyticsErrorBoundary from '../../AnalyticsErrorBoundary';
+
+jest.mock('../../AnalyticsContext/LegacyAnalyticsContext', () => ({
+	__esModule: true,
+	default: ({ children }: { children: React.ReactNode }) => <div>LegacyAnalytics{children}</div>,
+}));
+
+jest.mock('../../AnalyticsContext/ModernAnalyticsContext', () => ({
+	__esModule: true,
+	default: ({ children }: { children: React.ReactNode }) => <div>ModernAnalytics{children}</div>,
+}));
 
 const props = {
 	channel: 'atlaskit',
@@ -42,6 +54,20 @@ describe('AnalyticsErrorBoundary', () => {
 
 		expect(onError).not.toHaveBeenCalled();
 		expect(screen.getByTestId('child-component')).toBeInTheDocument();
+	});
+
+	it('uses modern context when the Admin Hub gate is on, despite the legacy-context gate', () => {
+		passGate('analytics-next-use-legacy-context');
+		passGate('adminhub-analytics-next-use-modern-context');
+
+		render(
+			<AnalyticsErrorBoundary {...props}>
+				<ChildComponent />
+			</AnalyticsErrorBoundary>,
+		);
+
+		expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
+		expect(screen.queryByText('LegacyAnalytics')).not.toBeInTheDocument();
 	});
 
 	it('should render error component when error occurs', async () => {

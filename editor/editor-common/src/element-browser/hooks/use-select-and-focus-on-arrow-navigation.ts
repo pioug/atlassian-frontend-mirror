@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ACTIONS } from './ACTIONS';
 import { ensureSafeIndex } from './ensureSafeIndex'; /**

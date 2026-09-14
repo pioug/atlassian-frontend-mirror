@@ -4,7 +4,8 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { LimitedModePlugin } from './limitedModePluginType';
-import { createPlugin, limitedModePluginKey } from './pm-plugins/main';
+import { limitedModePluginKey } from './pm-plugins/plugin-key';
+import { createPlugin } from './pm-plugins/main';
 
 export const limitedModePlugin: LimitedModePlugin = ({ api }) => {
 	return {
@@ -13,7 +14,7 @@ export const limitedModePlugin: LimitedModePlugin = ({ api }) => {
 			return [
 				{
 					name: 'limitedModePlugin',
-					plugin: createPlugin,
+					plugin: () => createPlugin(api),
 				},
 			];
 		},
@@ -21,9 +22,7 @@ export const limitedModePlugin: LimitedModePlugin = ({ api }) => {
 			if (editorState) {
 				return {
 					get enabled() {
-						return (
-							limitedModePluginKey.getState(editorState)?.documentSizeBreachesThreshold ?? false
-						);
+						return limitedModePluginKey.getState(editorState)?.enabled ?? false;
 					},
 					limitedModePluginKey,
 				};

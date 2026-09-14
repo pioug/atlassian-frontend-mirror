@@ -1,15 +1,13 @@
 import { type FileIdentifier } from '@atlaskit/media-client';
 import { createMediaStoreError } from '@atlaskit/media-client/test-helpers';
-import { MediaCardError } from '../../../../errors';
-import { extractErrorInfo } from '../../../analytics';
-import {
-	getMediaGlobalScope,
-	GLOBAL_MEDIA_NAMESPACE,
-	GLOBAL_MEDIA_CARD_SSR,
-	getMediaCardSSR,
-	storeDataURI,
-	getKey,
-} from '../../globalScope';
+
+import { MediaCardError } from '../../../../MediaCardError';
+import { extractErrorInfo } from '../../../analytics/extractErrorInfo';
+import { getKey } from '../../getKey';
+import { getMediaCardSSR } from '../../getMediaCardSSR';
+import { getMediaGlobalScope } from '../../getMediaGlobalScope';
+import { GLOBAL_MEDIA_NAMESPACE, GLOBAL_MEDIA_CARD_SSR } from '../../globalScope';
+import { storeDataURI } from '../../storeDataURI';
 
 describe('Media Global Scope', () => {
 	describe('getMediaGlobalScope', () => {

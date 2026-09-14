@@ -1,10 +1,13 @@
 import type { IntlShape } from 'react-intl';
 
+import { mentionMessages } from '@atlaskit/editor-common/messages';
 import { TypeAheadAvailableNodes, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { AGENT_MENTION_LOAD_ERROR_ID } from '@atlaskit/mention/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler, TypeAheadPluginState } from '../types';
@@ -86,11 +89,9 @@ export const skipForwardToSafeItem = ({
 	}
 
 	// We got to the end of the list ^, now try from the start
-	if (editorExperiment('platform_editor_offline_editing_web', true)) {
-		for (let idx = 0; idx < nextIndex; idx++) {
-			if (!itemIsDisabled(idx)) {
-				return idx;
-			}
+	for (let idx = 0; idx < nextIndex; idx++) {
+		if (!itemIsDisabled(idx)) {
+			return idx;
 		}
 	}
 
@@ -117,13 +118,12 @@ export const skipBackwardToSafeItem = ({
 	}
 
 	// We got to the start of the list ^, now try from the end
-	if (editorExperiment('platform_editor_offline_editing_web', true)) {
-		for (let idx = listSize; idx > nextIndex; idx--) {
-			if (!itemIsDisabled(idx)) {
-				return idx;
-			}
+	for (let idx = listSize; idx > nextIndex; idx--) {
+		if (!itemIsDisabled(idx)) {
+			return idx;
 		}
 	}
+
 	// If no non-selectable items are found, return currentIndex
 	return currentIndex;
 };
@@ -215,20 +215,53 @@ type TypeAheadAssistiveLabels = {
 	popupAriaLabel: string;
 };
 
+type AgentMentionLoadErrorCandidate =
+	| {
+			appType?: unknown;
+			id?: unknown;
+			isPlaceholder?: unknown;
+			placeholderType?: unknown;
+	  }
+	| undefined;
+
+const isAgentMentionLoadError = (mention: AgentMentionLoadErrorCandidate): boolean =>
+	mention?.id === AGENT_MENTION_LOAD_ERROR_ID &&
+	mention.isPlaceholder === true &&
+	mention.placeholderType === 'error' &&
+	mention.appType === 'agent';
+
 export const getTypeAheadListAriaLabels = (
 	trigger: string | undefined,
 	intl: IntlShape,
 	item?: TypeAheadItem,
 ): TypeAheadAssistiveLabels => {
 	switch (trigger) {
-		case '@':
+		case '@': {
+			const description =
+				editorExperiment('platform_editor_agent_mentions', true) &&
+				fg('platform_editor_mention_typeahead_profilecard')
+					? item?.mention?.description
+					: undefined;
+			const name = item?.mention?.name || '';
+			const shortName = item?.mention?.mentionName || '';
 			return {
 				popupAriaLabel: intl.formatMessage(typeAheadListMessages.mentionPopupLabel),
-				listItemAriaLabel: intl.formatMessage(typeAheadListMessages.metionListItemLabel, {
-					name: item?.mention?.name || '',
-					shortName: item?.mention?.mentionName || '',
-				}),
+				listItemAriaLabel: isAgentMentionLoadError(item?.mention)
+					? `${intl.formatMessage(
+							mentionMessages.typeAheadSectionAgentsLoadError,
+						)}. ${intl.formatMessage(mentionMessages.typeAheadSectionAgentsRetry)}`
+					: description
+						? intl.formatMessage(typeAheadListMessages.mentionListItemLabelWithDescription, {
+								name,
+								shortName,
+								description,
+							})
+						: intl.formatMessage(typeAheadListMessages.metionListItemLabel, {
+								name,
+								shortName,
+							}),
 			};
+		}
 		case '/':
 			return {
 				popupAriaLabel: intl.formatMessage(typeAheadListMessages.quickInsertPopupLabel),

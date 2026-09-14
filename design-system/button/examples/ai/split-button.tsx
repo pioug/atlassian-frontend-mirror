@@ -1,7 +1,10 @@
 import React from 'react';
 
-import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import { SplitButton } from '@atlaskit/button/split-button/split-button';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 

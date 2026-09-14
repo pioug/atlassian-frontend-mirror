@@ -1,5 +1,5 @@
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
-import { type DatasourceParameters } from '@atlaskit/linking-types';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import { type ConfigModalProps } from '../../common/types';
 import { type ConnectedConfigModalProps } from '../common/modal/datasource-modal/createDatasourceModal';

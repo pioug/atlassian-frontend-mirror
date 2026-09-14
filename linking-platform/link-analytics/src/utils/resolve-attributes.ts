@@ -1,5 +1,5 @@
-import { type CardClient } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
+import type CardClient from '@atlaskit/link-provider/client';
+import type { CardState } from '@atlaskit/linking-common/store';
 
 import { type LinkDetails, type CardStore } from '../types';
 import { getResolvedAttributes } from './get-resolved-attributes';

@@ -7,7 +7,7 @@ import {
 	HeadingsRTLSymbolsWithHighlighterRenderer,
 	HeadingCommentRenderer,
 	HeadingMultilineRenderer,
-} from './heading.fixture';
+} from './heading.fixture.vr.ap';
 
 snapshot(HeadingRenderer);
 snapshot(HeadingsCenterRenderer);

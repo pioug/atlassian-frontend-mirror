@@ -2,8 +2,6 @@ import React, { Fragment, memo } from 'react';
 import type { MemoExoticComponent } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { usePortalProvider } from '@atlaskit/editor-common/portal';
 import type {
@@ -14,8 +12,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorFontSize } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../actions';
@@ -26,7 +23,6 @@ import type { EditorNextProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { IntlProviderIfMissingWrapper } from '../ui/IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
-import { RenderTracking } from '../utils/performance/components/RenderTracking';
 
 import { BaseThemeWrapper } from './BaseThemeWrapper';
 import { EditorInternalContainerCompiled } from './editor-internal-compiled';
@@ -45,7 +41,6 @@ interface InternalProps {
 	>;
 	createAnalyticsEvent: CreateUIAnalyticsEvent;
 	editorActions: EditorActions;
-	handleAnalyticsEvent: FireAnalyticsCallback;
 	handleSave: (view: EditorView) => void;
 	onEditorCreated: (instance: {
 		eventDispatcher: EventDispatcher;
@@ -58,8 +53,6 @@ interface InternalProps {
 	providerFactory: ProviderFactory;
 }
 
-const DEFAULT_VALUE_PROP_TO_IGNORE: Array<keyof EditorNextProps> = ['defaultValue'];
-
 /**
  * EditorInternalComponent is used to capture the common component
  * from the `render` method of `Editor` and share it with `EditorNext`.
@@ -67,7 +60,6 @@ const DEFAULT_VALUE_PROP_TO_IGNORE: Array<keyof EditorNextProps> = ['defaultValu
 export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.Element> = memo(
 	({
 		props,
-		handleAnalyticsEvent,
 		createAnalyticsEvent,
 		handleSave,
 		editorActions,
@@ -86,22 +78,8 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 
 		const featureFlags = createFeatureFlagsFromProps(props.featureFlags);
 
-		// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
-		// Also firing too many events for the legacy content macro, so disabling for now. See - https://product-fabric.atlassian.net/browse/ED-26650
-		const renderTrackingEnabled =
-			!fg('platform_editor_disable_rerender_tracking_jira') &&
-			!featureFlags.lcmPreventRenderTracking;
-
-		const useShallow = false;
 		const [portalProviderAPI, PortalRenderer] = usePortalProvider();
 		const [nodeViewPortalProviderAPI, NodeViewPortalRenderer] = usePortalProvider();
-		const propsToIgnore: Array<keyof EditorNextProps> = expValEquals(
-			'platform_editor_perf_lint_cleanup',
-			'isEnabled',
-			true,
-		)
-			? DEFAULT_VALUE_PROP_TO_IGNORE
-			: ['defaultValue'];
 
 		const baseFontSize = getBaseFontSize(props.appearance, props.contentMode);
 		const fontSize =
@@ -112,16 +90,6 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 
 		return (
 			<Fragment>
-				{renderTrackingEnabled && (
-					<RenderTracking
-						componentProps={props}
-						action={ACTION.RE_RENDERED}
-						actionSubject={ACTION_SUBJECT.EDITOR}
-						handleAnalyticsEvent={handleAnalyticsEvent}
-						propsToIgnore={propsToIgnore}
-						useShallow={useShallow}
-					/>
-				)}
 				<ErrorBoundary
 					errorTracking={true}
 					createAnalyticsEvent={createAnalyticsEvent}
@@ -196,6 +164,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 													pluginHooks={config.pluginHooks}
 													__livePage={props.__livePage}
 													preset={preset}
+													UNSAFE_containLayout={props.UNSAFE_containLayout}
 												/>
 											</BaseThemeWrapper>
 										)}

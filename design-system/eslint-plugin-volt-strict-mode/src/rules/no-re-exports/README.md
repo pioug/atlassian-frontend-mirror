@@ -29,6 +29,21 @@ export { Foo };
 Type-only re-exports of imported types use `export type` / `export { type Name }` and are ignored by
 this rule for value indirection.
 
+### Root package barrel exemption
+
+A package's root barrel entry point — `<pkg>/src/index.{ts,tsx,js,jsx}` (an `index` file directly
+under a package's `src` directory) — is the package's public API surface, so it is fully exempt from
+this rule. It may re-export freely **without** an `@deprecated` migration-shim marker:
+
+```tsx
+// packages/my-pkg/src/index.tsx — allowed
+export * from './Foo';
+export { Bar } from './Bar';
+```
+
+The exemption is intentionally narrow: nested barrels such as `src/components/index.tsx`,
+non-`index` files under `src`, and `index` files outside a `src` directory are **not** exempt.
+
 ## Options
 
 This rule does not accept options.

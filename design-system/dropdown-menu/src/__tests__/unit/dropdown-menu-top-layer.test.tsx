@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import DropdownMenu, {
-	DropdownItem,
-	DropdownItemCheckbox,
-	DropdownItemCheckboxGroup,
-	DropdownItemGroup,
-	DropdownItemRadio,
-	DropdownItemRadioGroup,
-} from '../../index';
+import DropdownMenu from '../../dropdown-menu';
+import DropdownItem from '../../dropdown-menu-item';
+import DropdownItemCheckbox from '../../checkbox/dropdown-item-checkbox';
+import DropdownItemCheckboxGroup from '../../checkbox/dropdown-item-checkbox-group';
+import DropdownItemGroup from '../../dropdown-menu-item-group';
+import DropdownItemRadio from '../../radio/dropdown-item-radio';
+import DropdownItemRadioGroup from '../../radio/dropdown-item-radio-group';
 
 afterEach(() => {
 	jest.clearAllMocks();
@@ -148,6 +147,9 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 
 		const content = screen.getByTestId(`${testId}--content`);
 		expect(content).toHaveAttribute('aria-label', 'Actions');
+		expect(screen.getByTestId(`${testId}--menu-wrapper--menu-group`)).not.toHaveAttribute(
+			'aria-label',
+		);
 	});
 
 	it('renders children within a MenuGroup', () => {
@@ -313,6 +315,26 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click behavior', () => {
+	it('moves focus through menu items with ArrowDown', () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
+				<DropdownItemGroup>
+					<DropdownItem>Move</DropdownItem>
+					<DropdownItem>Clone</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+
+		const menuItems = screen.getAllByRole('menuitem');
+		act(() => {
+			menuItems[0].focus();
+		});
+
+		fireEvent.keyDown(menuItems[0], { key: 'ArrowDown', code: 'ArrowDown' });
+
+		expect(menuItems[1]).toHaveFocus();
+	});
+
 	it('closes menu when a menuitem is clicked', () => {
 		const onOpenChange = jest.fn();
 
@@ -527,7 +549,7 @@ ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter',
 		);
 	});
 
-	it('passes null event when closed via onClose (Popover dismiss)', () => {
+	it('passes null event when closed via onClose (Popover dismiss)', async () => {
 		const onOpenChange = jest.fn();
 
 		render(
@@ -546,12 +568,14 @@ ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter',
 
 		onOpenChange.mockClear();
 
-		// Tab triggers close via useArrowNavigation → handleOnClose
+		// The native popover toggle event is queued after hidePopover().
 		fireEvent.keyDown(menuItems[0], { key: 'Tab', code: 'Tab' });
 
-		expect(onOpenChange).toHaveBeenCalledWith(
-			expect.objectContaining({ isOpen: false, event: null }),
-		);
+		await waitFor(() => {
+			expect(onOpenChange).toHaveBeenCalledWith(
+				expect.objectContaining({ isOpen: false, event: null }),
+			);
+		});
 	});
 });
 

@@ -2,17 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import AiGenerativeTextSummaryIcon from '@atlaskit/icon/core/ai-generative-text-summary';
 import CoreLinkIcon from '@atlaskit/icon/core/link';
 import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { AtlassianIcon } from '@atlaskit/logo';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -21,9 +22,10 @@ import { CardDisplay, SmartLinkSize } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useSmartCardActions } from '../../../../../state/actions';
 import FlexibleCard from '../../../../FlexibleCard';
-import { LinkIcon } from '../../../../FlexibleCard/components/elements';
-
-import { DenseSparkle, SparseSparkle, SquiglyArrow } from './graphics';
+import { default as LinkIcon } from '../../../../FlexibleCard/components/elements/link-icon-element';
+import { DenseSparkle } from './DenseSparkle';
+import { SparseSparkle } from './SparseSparkle';
+import { SquiglyArrow } from './SquiglyArrow';
 import { type HoverCardUnauthorisedProps } from './types';
 
 const ROVO_FEATURES = [

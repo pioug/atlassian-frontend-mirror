@@ -3,7 +3,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export {
 	RESIZE_HANDLE_AREA_DECORATION_GAP,
-	ShadowEvent,
 	TableCssClassName,
 	TableDecorations,
 } from '@atlaskit/editor-plugin-table/types';

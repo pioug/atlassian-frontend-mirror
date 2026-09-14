@@ -2,7 +2,7 @@ import React from 'react';
 
 import Banner from '@atlaskit/banner';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 
 import { Card } from '../../src';
 import { type OnErrorCallback } from '../../src/view/types';

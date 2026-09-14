@@ -2,9 +2,11 @@ const mockStopMeasureDuration = 1234;
 const mockStartTime = 1;
 const mockResponseTime = 200;
 const mockRequestToResponseTime = 180;
-jest.mock('uuid/v4', () => jest.fn().mockReturnValue('538fd05f-20cd-4f8a-ab02-1b257d43cadb'));
+jest.mock('uuid', () => ({
+	v4: jest.fn().mockReturnValue('538fd05f-20cd-4f8a-ab02-1b257d43cadb'),
+}));
 jest.mock('@atlaskit/editor-common/performance-measures', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
+	...jest.requireActual<object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
 	stopMeasure: jest.fn(
 		(
@@ -25,7 +27,7 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 	),
 }));
 jest.mock('@atlaskit/editor-common/performance/navigation', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance/navigation'),
+	...jest.requireActual<object>('@atlaskit/editor-common/performance/navigation'),
 	getResponseEndTime: jest.fn(() => mockResponseTime),
 	getRequestToResponseTime: jest.fn(() => mockRequestToResponseTime),
 }));
@@ -39,12 +41,12 @@ jest.mock('../../../utils/getEditorDomSize', () => ({
 }));
 
 jest.mock('@atlaskit/editor-common/is-performance-api-available', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/is-performance-api-available'),
+	...jest.requireActual<object>('@atlaskit/editor-common/is-performance-api-available'),
 	isPerformanceAPIAvailable: jest.fn(() => true),
 }));
 
 jest.mock('@atlaskit/editor-common/performance/measure-render', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance/measure-render'),
+	...jest.requireActual<object>('@atlaskit/editor-common/performance/measure-render'),
 	measureRender: jest.fn(async (name: string, callback: Function) => {
 		await Promise.resolve(0);
 		callback({
@@ -69,7 +71,7 @@ jest.mock('@atlaskit/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig
 }));
 
 jest.mock('@atlaskit/editor-common/analytics', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/analytics'),
+	...jest.requireActual<object>('@atlaskit/editor-common/analytics'),
 	fireAnalyticsEvent: jest.fn(),
 }));
 
@@ -87,7 +89,7 @@ import { act, fireEvent, screen, cleanup, waitFor } from '@testing-library/react
 import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
@@ -105,6 +107,7 @@ import type { EditorProps } from '@atlaskit/editor-core/editor';
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { replaceDocument } from '@atlaskit/editor-plugin-collab-edit/src/pm-plugins/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { editorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
@@ -127,6 +130,8 @@ import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { EditorConfig } from '../../../types/editor-config';
@@ -416,7 +421,113 @@ describe('@atlaskit/editor-core', () => {
 				expect(scrollTopSpy).toHaveBeenCalledTimes(1);
 			});
 		});
+
+		describe('cc_editor_scroll_restore_perf_improvements', () => {
+			const renderWithScrolledContainer = () => {
+				const mockElement = {
+					get scrollTop() {
+						return 9001;
+					},
+					scrollTo: jest.fn(),
+					addEventListener: () => {},
+					removeEventListener: () => {},
+				};
+				const scrollTopSpy = jest.spyOn(mockElement, 'scrollTop', 'get');
+				const querySelectorSpy = jest.spyOn(document, 'querySelector');
+				// @ts-expect-error	mock implementation
+				querySelectorSpy.mockImplementation(() => mockElement);
+
+				renderWithIntl(
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
+				);
+
+				return { mockElement, scrollTopSpy };
+			};
+
+			it('does not read scrollTop or restore the scroll position when enabled', () => {
+				mockExpEnabled('cc_editor_scroll_restore_perf_improvements');
+
+				const { mockElement, scrollTopSpy } = renderWithScrolledContainer();
+
+				expect(scrollTopSpy).not.toHaveBeenCalled();
+				expect(mockElement.scrollTo).not.toHaveBeenCalled();
+			});
+
+			it('restores the scroll position when disabled', () => {
+				mockExpDisabled('cc_editor_scroll_restore_perf_improvements');
+
+				const { mockElement } = renderWithScrolledContainer();
+
+				expect(mockElement.scrollTo).toHaveBeenCalledWith({ behavior: 'instant', top: 9001 });
+			});
+		});
 	});
+
+	describe.each([['scroll'], ['wheel']])(
+		'UFO abort firing for programmatic %s events with cc_editor_scroll_restore_perf_improvements',
+		(event) => {
+			beforeEach(() => {
+				(getActiveInteraction as jest.Mock).mockReset();
+			});
+			afterEach(() => {
+				const querySelectorSpy = jest.spyOn(document, 'querySelector');
+				querySelectorSpy.mockRestore();
+			});
+
+			// jsdom does not allow `isTrusted` to be redefined on a dispatched event, so the listeners
+			// are captured and invoked directly.
+			const renderAndCaptureListeners = () => {
+				const listeners: Record<string, (event: Event) => void> = {};
+				const mockElement = {
+					scrollTop: 0,
+					scrollTo: jest.fn(),
+					addEventListener: (type: string, handler: (event: Event) => void) => {
+						listeners[type] = handler;
+					},
+					removeEventListener: () => {},
+				};
+				const querySelectorSpy = jest.spyOn(document, 'querySelector');
+				// @ts-expect-error	mock implementation
+				querySelectorSpy.mockImplementation(() => mockElement);
+				(getActiveInteraction as jest.Mock).mockReturnValue({ ufoName: 'edit-page' });
+
+				renderWithIntl(
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
+				);
+
+				return listeners;
+			};
+
+			it('does not abort when the event was not triggered by the user', () => {
+				mockExpEnabled('cc_editor_scroll_restore_perf_improvements');
+
+				const listeners = renderAndCaptureListeners();
+				listeners[event]({ isTrusted: false } as Event);
+
+				expect(abortAll).not.toHaveBeenCalled();
+			});
+
+			it('still aborts when the event was triggered by the user', () => {
+				mockExpEnabled('cc_editor_scroll_restore_perf_improvements');
+
+				const listeners = renderAndCaptureListeners();
+				listeners[event]({ isTrusted: true } as Event);
+
+				expect(abortAll).toHaveBeenCalledWith('new_interaction', `${event}-on-editor-element`);
+			});
+
+			it('aborts on events not triggered by the user when disabled', () => {
+				mockExpDisabled('cc_editor_scroll_restore_perf_improvements');
+
+				const listeners = renderAndCaptureListeners();
+				listeners[event]({ isTrusted: false } as Event);
+
+				expect(abortAll).toHaveBeenCalledWith('new_interaction', `${event}-on-editor-element`);
+			});
+		},
+	);
 
 	describe('sanitize private content', () => {
 		const document = doc(p('hello', mention({ id: '1', text: '@cheese' })(), '{endPos}'))(
@@ -817,34 +928,18 @@ describe('@atlaskit/editor-core', () => {
 			);
 		};
 
-		eeTest('platform_editor_dom_node_count', {
-			true: async () => {
-				renderForDomSize();
+		it('reports editorDomSize on the prosemirror rendered event and to UFO', async () => {
+			renderForDomSize();
 
-				await waitFor(() => {
-					expect(mockFire).toHaveBeenCalledWith({
-						payload: expect.objectContaining({
-							attributes: expect.objectContaining({ editorDomSize: 42 }),
-						}),
-					});
-				});
-				expect(getEditorDomSize).toHaveBeenCalled();
-				expect(addUFOCustomData).toHaveBeenCalledWith({ editorDomSize: 42 });
-			},
-			false: async () => {
-				renderForDomSize();
-
-				await waitFor(() => {
-					expect(mockFire).toHaveBeenCalled();
-				});
-				expect(getEditorDomSize).not.toHaveBeenCalled();
-				expect(addUFOCustomData).not.toHaveBeenCalled();
-				expect(mockFire).not.toHaveBeenCalledWith({
+			await waitFor(() => {
+				expect(mockFire).toHaveBeenCalledWith({
 					payload: expect.objectContaining({
 						attributes: expect.objectContaining({ editorDomSize: 42 }),
 					}),
 				});
-			},
+			});
+			expect(getEditorDomSize).toHaveBeenCalled();
+			expect(addUFOCustomData).toHaveBeenCalledWith({ editorDomSize: 42 });
 		});
 	});
 
@@ -1243,6 +1338,54 @@ describe('@atlaskit/editor-core', () => {
 				const editor = screen.getByRole('textbox');
 				expect(editor).toBeInTheDocument();
 				expect(editor).not.toBeEmptyDOMElement();
+			});
+
+			it('renders aria-readonly from the initial view mode config', () => {
+				mockExpEnabled('platform_editor_viewmode_aria_readonly_a11y');
+
+				renderWithIntl(
+					<ReactEditorView
+						{...props}
+						preset={createUniversalPreset({ props: props.editorProps }).add([
+							editorViewModePlugin,
+							{ mode: 'view' },
+						])}
+					/>,
+				);
+
+				expect(screen.getByRole('textbox')).toHaveAttribute('aria-readonly', 'true');
+			});
+
+			it('omits aria-readonly from the initial edit mode config', () => {
+				mockExpEnabled('platform_editor_viewmode_aria_readonly_a11y');
+
+				renderWithIntl(
+					<ReactEditorView
+						{...props}
+						preset={createUniversalPreset({ props: props.editorProps }).add([
+							editorViewModePlugin,
+							{ mode: 'edit' },
+						])}
+					/>,
+				);
+
+				expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-readonly');
+			});
+
+			it('does not render aria-readonly in view mode when the experiment is disabled', () => {
+				mockExpDisabled('platform_editor_viewmode_aria_readonly_a11y');
+
+				renderWithIntl(
+					<ReactEditorView
+						{...props}
+						preset={createUniversalPreset({ props: props.editorProps }).add([
+							editorViewModePlugin,
+							{ mode: 'view' },
+						])}
+					/>,
+				);
+
+				expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-readonly');
 			});
 
 			it('call EditorSSRRenderer only once during rendering', () => {

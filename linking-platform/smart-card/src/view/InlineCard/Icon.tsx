@@ -3,7 +3,7 @@ import React from 'react';
 
 import { styled, type StyledProps } from '@compiled/react';
 
-import { SpanSkeleton } from '@atlaskit/linking-common';
+import { SpanSkeleton } from '@atlaskit/linking-common/span-skeleton';
 import { token } from '@atlaskit/tokens';
 
 // TODO: Figure out a more scalable/responsive solution

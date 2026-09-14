@@ -1,6 +1,6 @@
 import React, { type ChangeEventHandler, type FC, memo, useCallback, useMemo } from 'react';
 
-import Checkbox from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { useSelection } from './hooks/selection-provider';

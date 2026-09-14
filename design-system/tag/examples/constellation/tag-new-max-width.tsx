@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Stack } from '@atlaskit/primitives/compiled';
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 
 export default (): React.JSX.Element => (
 	<Stack space="space.100">

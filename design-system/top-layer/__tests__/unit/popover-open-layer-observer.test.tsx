@@ -4,7 +4,7 @@ import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import { Popover } from '../../src/entry-points/popover';
+import { Popover } from '../../src/popover/popover';
 
 /**
  * Renders the open layer count as text so tests can assert declaratively

@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Button should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/05-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/05-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'button',
@@ -10,7 +10,7 @@ test('Button should pass basic aXe audit', async ({ page }) => {
 });
 
 test('Button in hover state should pass contrast tests', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/05-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/05-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'button',
@@ -20,7 +20,7 @@ test('Button in hover state should pass contrast tests', async ({ page }) => {
 });
 
 test('Button in focus state should pass contrast tests', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/05-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/05-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'button',
@@ -30,7 +30,7 @@ test('Button in focus state should pass contrast tests', async ({ page }) => {
 });
 
 test('IconButton should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/07-icon-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/07-icon-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'icon-button',
@@ -39,7 +39,7 @@ test('IconButton should pass basic aXe audit', async ({ page }) => {
 });
 
 test('IconButton in hover state should pass contrast tests', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/07-icon-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/07-icon-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'icon-button',
@@ -49,7 +49,7 @@ test('IconButton in hover state should pass contrast tests', async ({ page }) =>
 });
 
 test('IconButton in focus state should pass contrast tests', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/07-icon-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/07-icon-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'icon-button',
@@ -59,7 +59,7 @@ test('IconButton in focus state should pass contrast tests', async ({ page }) =>
 });
 
 test('LinkButton should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/07-icon-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/07-icon-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'icon-button',
@@ -68,7 +68,7 @@ test('LinkButton should pass basic aXe audit', async ({ page }) => {
 });
 
 test('LinkButton in hover state should pass contrast tests', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/07-icon-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/07-icon-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'icon-button',
@@ -78,7 +78,7 @@ test('LinkButton in hover state should pass contrast tests', async ({ page }) =>
 });
 
 test('LinkButton in focus state should pass contrast tests', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/07-icon-button.tsx')>(
+	await page.visitExample<typeof import('../../../examples/07-icon-button.vr.ap.tsx')>(
 		'design-system',
 		'button',
 		'icon-button',

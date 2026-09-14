@@ -1,4 +1,4 @@
-import { getDomainFromLinkUri } from '../get-link-domain';
+import { getDomainFromLinkUri } from '../get-domain-from-link-uri';
 
 describe('getDomainFromLinkUri', () => {
 	describe('real-world URL examples', () => {

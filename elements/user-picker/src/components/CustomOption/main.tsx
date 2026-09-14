@@ -2,15 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { type Custom } from '../../types';
-import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
-import { HighlightText } from '../HighlightText';
+import { AvatarItemOption } from '../AvatarItemOption';
 import { AvatarOrIcon } from '../AvatarOrIcon';
+import { HighlightText } from '../HighlightText';
 import { SizeableAvatar } from '../SizeableAvatar';
+import { textWrapper } from '../textWrapper';
 
 export type CustomOptionProps = {
 	data: Custom;

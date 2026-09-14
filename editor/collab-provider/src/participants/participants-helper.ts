@@ -31,7 +31,17 @@ export const createParticipantFromPayload = async (
 	payload: PresencePayload & { userId: string },
 	getUser: GetUserType,
 ): Promise<ProviderParticipant> => {
-	const { sessionId, timestamp, clientId, userId, permit, presenceId, presenceActivity } = payload;
+	const {
+		actingUserId,
+		agentType,
+		sessionId,
+		timestamp,
+		clientId,
+		userId,
+		permit,
+		presenceId,
+		presenceActivity,
+	} = payload;
 
 	const user = await getUser?.(userId);
 
@@ -44,6 +54,8 @@ export const createParticipantFromPayload = async (
 		userId,
 		clientId,
 		permit,
+		actingUserId,
+		agentType,
 		isGuest: user?.isGuest,
 		presenceId: presenceId,
 		presenceActivity: presenceActivity,
@@ -104,6 +116,8 @@ export const fetchParticipants = async (
 					lastActive: participant.lastActive,
 					clientId: participant.clientId,
 					permit: participant.permit,
+					actingUserId: participant.actingUserId,
+					agentType: participant.agentType,
 					presenceId: participant.presenceId,
 					presenceActivity: participant.presenceActivity,
 					isHydrated: true,

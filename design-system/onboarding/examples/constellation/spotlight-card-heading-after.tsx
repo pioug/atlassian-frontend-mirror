@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import CloseIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package

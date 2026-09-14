@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { easeOut } from '@atlaskit/motion';
+import { easeOut } from '@atlaskit/motion/curves';
 import { token } from '@atlaskit/tokens';
 
 import { useIsSidebarDragging } from '../../common/hooks';

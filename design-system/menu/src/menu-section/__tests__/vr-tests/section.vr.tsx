@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import MenuGroup from '../../../../examples/05-menu-group';
+import MenuGroup from '../../../../examples/05-menu-group.vr.ap';
 
 snapshot(MenuGroup);
 snapshot(MenuGroup, {

@@ -1,7 +1,8 @@
 import React from 'react';
 import type { ChangeEvent } from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import CardClient from '@atlaskit/link-provider/client';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import { IntlProvider } from 'react-intl';

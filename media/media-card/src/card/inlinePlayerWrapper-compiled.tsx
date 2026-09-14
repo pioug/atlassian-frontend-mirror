@@ -8,7 +8,7 @@ import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithD
 import { type InlinePlayerWrapperProps } from './types';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const hideNativeBrowserTextSelectionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -97,17 +97,11 @@ const updatedInlinePlayerWrapperStyles = css({
 
 export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps): JSX.Element => {
 	const { testId, selected, dimensions, onClick, innerRef } = props;
-	const a11yProps = fg('platform_media_a11y_suppression_fixes')
-		? {
-				role: 'none' as const,
-			}
-		: {};
 	return (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 		<div
 			id="inlinePlayerWrapper"
 			data-testid={testId}
-			{...a11yProps}
+			role="none"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={inlinePlayerClassName}
 			style={{

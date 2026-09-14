@@ -40,7 +40,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: '00 Basic Positioning',
 					description: '00 Basic Positioning example',
-					source: path.resolve(__dirname, './examples/00-basic-positioning.tsx'),
+					source: path.resolve(__dirname, './examples/00-basic-positioning.vr.ap.tsx'),
 				},
 			],
 			keywords: ['popper', 'positioning', 'tooltip', 'popup', 'overlay'],

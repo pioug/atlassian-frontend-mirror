@@ -2,7 +2,10 @@ import React, { useLayoutEffect, useRef } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX, DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';

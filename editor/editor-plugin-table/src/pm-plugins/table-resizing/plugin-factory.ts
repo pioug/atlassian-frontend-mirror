@@ -1,4 +1,3 @@
-// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type {
 	EditorState,

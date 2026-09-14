@@ -1,11 +1,7 @@
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
-import { themeColorModes } from './theme-color-modes';
-import type { ActiveThemeState, DataColorModes } from './theme-config';
+import { isThemeColorMode } from './is-theme-color-mode';
+import type { ActiveThemeState } from './theme-config';
 import { themeStringToObject } from './theme-string-to-object';
-
-const isThemeColorMode = (colorMode: string): colorMode is DataColorModes => {
-	return themeColorModes.find((mode) => mode === colorMode) !== undefined;
-};
 
 const getGlobalTheme = (): Partial<ActiveThemeState> => {
 	if (typeof document === 'undefined') {
@@ -22,4 +18,4 @@ const getGlobalTheme = (): Partial<ActiveThemeState> => {
 	};
 };
 
-export default getGlobalTheme;
+export { getGlobalTheme };

@@ -16,12 +16,12 @@ import React, {
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import { bind } from 'bind-event-listener';
 
 import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
 import { isSafari } from '@atlaskit/ds-lib/is-safari';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
@@ -598,6 +598,9 @@ const elemBeforeCSS = css({
 	gap: token('space.100'),
 });
 
+// Matches the duration of `motion.label.exit`; used only if a consumer render path
+// unmounts the exiting values before their motion completion callback can run.
+const MULTI_VALUE_EXIT_FALLBACK_DURATION_MS = 100;
 export const defaultProps: Omit<
 	SelectProps<unknown, false, GroupBase<unknown>>,
 	| 'inputValue'
@@ -641,7 +644,6 @@ export const defaultProps: Omit<
 	shouldPreventEscapePropagation: false,
 	options: [],
 	pageSize: 5,
-	placeholder: 'Select...',
 	screenReaderStatus: ({ count }: { count: number }) =>
 		`${count} result${count !== 1 ? 's' : ''} available`,
 	styles: {},
@@ -673,6 +675,8 @@ interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>
 	 * `platform-dst-top-layer` flag is off.
 	 */
 	controlElement: HTMLDivElement | null;
+	isMultiValueExiting: boolean;
+	hasCompletedMultiValueExit: boolean;
 }
 
 interface CategorizedOption<Option> {
@@ -937,6 +941,8 @@ export default class Select<
 		prevProps: undefined,
 		instancePrefix: '',
 		controlElement: null,
+		isMultiValueExiting: false,
+		hasCompletedMultiValueExit: false,
 	};
 
 	// Misc. Instance Properties
@@ -948,10 +954,9 @@ export default class Select<
 	initialTouchX = 0;
 	initialTouchY = 0;
 	openAfterFocus = false;
+	openAfterClick: 'first' | 'last' | null = null;
 	scrollToFocusedOptionOnUpdate = false;
-	// Cleanup for a pending document `pointerup` listener registered by
-	// `openMenuAfterPointerUp`. See that method for the full rationale.
-	deferredOpenMenuCleanup: (() => void) | null = null;
+	multiValueExitFallbackTimeout: ReturnType<typeof setTimeout> | null = null;
 	userIsDragging?: boolean;
 
 	// Refs
@@ -1016,6 +1021,8 @@ export default class Select<
 				prevWasFocused: boolean;
 				inputIsHidden: boolean;
 				inputIsHiddenAfterUpdate: undefined;
+				isMultiValueExiting: boolean;
+				hasCompletedMultiValueExit: boolean;
 		  }
 		| {
 				prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
@@ -1023,6 +1030,8 @@ export default class Select<
 				prevWasFocused: boolean;
 				inputIsHidden?: undefined;
 				inputIsHiddenAfterUpdate?: undefined;
+				isMultiValueExiting: boolean;
+				hasCompletedMultiValueExit: boolean;
 		  } {
 		const {
 			prevProps,
@@ -1035,6 +1044,23 @@ export default class Select<
 		} = state;
 		const { options, value, menuIsOpen, inputValue, isMulti } = props;
 		const selectValue = cleanValue(value);
+		let isTagMotionEnabled = false;
+		if (isMulti) {
+			const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
+			const ffTagMotion = fg('platform-dst-motion-uplift-labels');
+			isTagMotionEnabled =
+				props.components?.MultiValue === undefined &&
+				props.components?.MultiValueContainer === undefined &&
+				ffTagUplifts &&
+				ffTagMotion;
+		}
+		const hasCompletedMultiValueExit =
+			selectValue.length > 0 ? false : state.hasCompletedMultiValueExit;
+		const isMultiValueExiting =
+			isTagMotionEnabled &&
+			selectValue.length === 0 &&
+			!hasCompletedMultiValueExit &&
+			(state.isMultiValueExiting || (state.selectValue.length > 0 && value !== prevProps?.value));
 		let newMenuOptionsState = {};
 		if (
 			prevProps &&
@@ -1102,8 +1128,19 @@ export default class Select<
 			prevProps: props,
 			ariaSelection: newAriaSelection,
 			prevWasFocused: hasKeptFocus,
+			isMultiValueExiting,
+			hasCompletedMultiValueExit,
 		};
 	}
+	onMultiValueMotionFinish = (): void => {
+		if (this.state.isMultiValueExiting) {
+			this.setState({
+				isMultiValueExiting: false,
+				hasCompletedMultiValueExit: true,
+				selectValue: [],
+			});
+		}
+	};
 	componentDidMount(): void {
 		this.startListeningComposition();
 		this.startListeningToTouch();
@@ -1128,9 +1165,26 @@ export default class Select<
 			scrollIntoView(this.menuListRef, this.focusedOptionRef);
 		}
 	}
-	componentDidUpdate(prevProps: SelectProps<Option, IsMulti, Group>): void {
+	componentDidUpdate(
+		prevProps: SelectProps<Option, IsMulti, Group>,
+		prevState: State<Option, IsMulti, Group>,
+	): void {
 		const { isDisabled, menuIsOpen } = this.props;
 		const { isFocused } = this.state;
+
+		// A consumer can cause the value subtree to unmount while the final tags are exiting.
+		// The fallback keeps the placeholder out for the exit duration, then restores it even
+		// when the individual MultiValue completion callback cannot fire.
+		if (!prevState.isMultiValueExiting && this.state.isMultiValueExiting) {
+			this.multiValueExitFallbackTimeout = setTimeout(() => {
+				this.onMultiValueMotionFinish();
+			}, MULTI_VALUE_EXIT_FALLBACK_DURATION_MS);
+		} else if (prevState.isMultiValueExiting && !this.state.isMultiValueExiting) {
+			if (this.multiValueExitFallbackTimeout) {
+				clearTimeout(this.multiValueExitFallbackTimeout);
+				this.multiValueExitFallbackTimeout = null;
+			}
+		}
 
 		if (
 			// ensure focus is restored correctly when the control becomes enabled
@@ -1163,9 +1217,12 @@ export default class Select<
 	componentWillUnmount(): void {
 		this.stopListeningComposition();
 		this.stopListeningToTouch();
-		this.cancelDeferredOpenMenu();
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.removeEventListener('scroll', this.onScroll, true);
+		if (this.multiValueExitFallbackTimeout) {
+			clearTimeout(this.multiValueExitFallbackTimeout);
+			this.multiValueExitFallbackTimeout = null;
+		}
 	}
 
 	// ==============================
@@ -1209,57 +1266,39 @@ export default class Select<
 	blur: () => void = this.blurInput;
 
 	/**
-	 * Whether to defer the menu open past the in-flight pointer gesture.
+	 * Whether to defer the menu open until the in-flight click completes.
 	 * Any renderer that drives a `popover="auto"` element must, otherwise
-	 * the browser's light-dismiss runs on the matching `pointerup` and
-	 * closes the menu immediately. Today only the top-layer path needs it.
+	 * the browser's light-dismiss can close the menu during the opening
+	 * gesture. Today only the top-layer path needs it.
 	 */
-	private shouldDeferOpenPastPointerUp(): boolean {
+	private shouldDeferOpenUntilClick(): boolean {
 		return fg('platform-dst-top-layer');
 	}
 
 	/**
-	 * Open the menu after the current pointer gesture, instead of
+	 * Open the menu after the current click, instead of
 	 * synchronously inside `mousedown`.
 	 *
 	 * On the top-layer path the menu is a `popover="auto"` element. The
-	 * browser captures the pointerdown target before the popover exists, so
-	 * opening synchronously gets immediately light-dismissed on pointerup
-	 * (and the matching `beforetoggle: closed` is not cancellable). Deferring
-	 * to the next `pointerup` avoids that.
-	 *
-	 * We listen for `pointerup` rather than `click` because `pointerup` is
-	 * the exact event the browser uses for light-dismiss (earliest safe
-	 * moment), always fires (`click` requires same down/up target), is hard
-	 * to lose to upstream `stopPropagation`, and is uniform across input
-	 * types. Off the top-layer path we open synchronously as before.
+	 * browser performs light-dismiss during the pointer gesture. Deferring
+	 * until `click` ensures light-dismiss has completed before the popover opens.
+	 * Off the top-layer path we open synchronously as before.
 	 */
-	private openMenuAfterPointerUp(focusOption: 'first' | 'last'): void {
-		if (!this.shouldDeferOpenPastPointerUp()) {
+	private openMenuAfterClick(focusOption: 'first' | 'last'): void {
+		if (!this.shouldDeferOpenUntilClick()) {
 			this.openMenu(focusOption);
 			return;
 		}
-		// A second pointerdown can land before the queued pointerup if the
-		// user releases and re-clicks very quickly. Replace any pending
-		// deferred open with the latest one so we never stack listeners.
-		this.cancelDeferredOpenMenu();
-		const handlePointerUp = () => {
-			this.deferredOpenMenuCleanup = null;
-			this.openMenu(focusOption);
-		};
-		this.deferredOpenMenuCleanup = bind(document, {
-			type: 'pointerup',
-			listener: handlePointerUp,
-			options: { capture: true, once: true },
-		});
+		this.openAfterClick = focusOption;
 	}
 
-	cancelDeferredOpenMenu(): void {
-		if (this.deferredOpenMenuCleanup) {
-			this.deferredOpenMenuCleanup();
-			this.deferredOpenMenuCleanup = null;
+	onControlClick: MouseEventHandler<HTMLDivElement> = () => {
+		const focusOption = this.openAfterClick;
+		this.openAfterClick = null;
+		if (focusOption && !this.props.menuIsOpen) {
+			this.openMenu(focusOption);
 		}
-	}
+	};
 
 	openMenu(focusOption: 'first' | 'last'): void {
 		const { selectValue, isFocused } = this.state;
@@ -1743,7 +1782,7 @@ export default class Select<
 			this.focusInput();
 		} else if (!this.props.menuIsOpen) {
 			if (openMenuOnClick) {
-				this.openMenuAfterPointerUp('first');
+				this.openMenuAfterClick('first');
 			}
 		} else {
 			if (
@@ -1780,7 +1819,7 @@ export default class Select<
 			this.setState({ inputIsHiddenAfterUpdate: !isMulti });
 			this.onMenuClose();
 		} else {
-			this.openMenuAfterPointerUp('first');
+			this.openMenuAfterClick('first');
 		}
 		event.preventDefault();
 	};
@@ -1953,11 +1992,11 @@ export default class Select<
 			isFocused: true,
 		});
 		if (this.openAfterFocus || this.props.openMenuOnFocus) {
-			// `openAfterFocus` always follows a pointer gesture, so defer past
-			// pointerup. `openMenuOnFocus` alone can come from a keyboard tab
+			// `openAfterFocus` always follows a pointer gesture, so defer until
+			// click. `openMenuOnFocus` alone can come from a keyboard tab
 			// with no pointer gesture in flight, so open synchronously.
 			if (this.openAfterFocus) {
-				this.openMenuAfterPointerUp('first');
+				this.openMenuAfterClick('first');
 			} else {
 				this.openMenu('first');
 			}
@@ -2114,6 +2153,25 @@ export default class Select<
 				}
 				return;
 			case 'Escape':
+				if (fg('platform-dst-top-layer')) {
+					if (menuIsOpen) {
+						this.setState({
+							inputIsHiddenAfterUpdate: false,
+						});
+						return;
+					}
+
+					if (isClearable && escapeClearsValue) {
+						this.clearValue();
+						return;
+					}
+
+					// Native auto popovers own every Escape on the top-layer path.
+					// The active popover consumes the close request and synchronizes
+					// menuIsOpen through its onClose bridge.
+					return;
+				}
+
 				if (menuIsOpen) {
 					this.setState({
 						inputIsHiddenAfterUpdate: false,
@@ -2309,27 +2367,8 @@ export default class Select<
 			this.props;
 		const { selectValue, focusedValue, isFocused } = this.state;
 
-		if (!this.hasValue() || !controlShouldRenderValue) {
-			return inputValue ? null : (
-				<Placeholder
-					{...commonProps}
-					key="placeholder"
-					isDisabled={isDisabled}
-					isFocused={isFocused}
-					innerProps={{
-						id: this.getElementId('placeholder'),
-						...(testId && {
-							'data-testid': `${testId}-select--placeholder`,
-						}),
-					}}
-				>
-					{placeholder}
-				</Placeholder>
-			);
-		}
-
-		if (isMulti) {
-			return selectValue.map((opt, index) => {
+		const renderMultiValues = (isMotionEnabled = false): React.JSX.Element[] =>
+			selectValue.map((opt, index) => {
 				const isOptionFocused = opt === focusedValue;
 				const key = `${this.getOptionLabel(opt)}-${this.getOptionValue(opt)}`;
 
@@ -2345,6 +2384,8 @@ export default class Select<
 						isDisabled={isDisabled}
 						key={key}
 						index={index}
+						isMotionEnabled={isMotionEnabled}
+						onMotionFinish={this.onMultiValueMotionFinish}
 						removeProps={{
 							onClick: () => this.removeValue(opt),
 							onTouchEnd: () => this.removeValue(opt),
@@ -2368,6 +2409,55 @@ export default class Select<
 					</MultiValue>
 				);
 			});
+
+		const placeholderElement = inputValue ? null : (
+			<Placeholder
+				{...commonProps}
+				key="placeholder"
+				isDisabled={isDisabled}
+				isFocused={isFocused}
+				innerProps={{
+					id: this.getElementId('placeholder'),
+					...(testId && {
+						'data-testid': `${testId}-select--placeholder`,
+					}),
+				}}
+			>
+				{placeholder}
+			</Placeholder>
+		);
+
+		if (isMulti) {
+			const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
+			const ffTagMotion = fg('platform-dst-motion-uplift-labels');
+			const isTagMotionEnabled =
+				this.props.components?.MultiValue === undefined &&
+				this.props.components?.MultiValueContainer === undefined &&
+				ffTagUplifts &&
+				ffTagMotion;
+
+			if (isTagMotionEnabled) {
+				return (
+					<React.Fragment>
+						<ExitingPersistence>
+							{controlShouldRenderValue ? renderMultiValues(true) : null}
+						</ExitingPersistence>
+						{(!this.hasValue() || !controlShouldRenderValue) &&
+							!this.state.isMultiValueExiting &&
+							placeholderElement}
+					</React.Fragment>
+				);
+			}
+
+			if (!this.hasValue() || !controlShouldRenderValue) {
+				return placeholderElement;
+			}
+
+			return renderMultiValues();
+		}
+
+		if (!this.hasValue() || !controlShouldRenderValue) {
+			return placeholderElement;
 		}
 
 		if (inputValue) {
@@ -2781,7 +2871,9 @@ export default class Select<
 	renderMultiselectMessage(): React.JSX.Element {
 		// In the future, when we actually support touch devices, we'll need to update this to not be keyboard specific.
 		// Also, since this is rendered onscreen, it should be transtlated automatically.
-		const msg = `, multiple selections available, ${this.state.selectValue.length ? 'Use left or right arrow keys to navigate selected items' : ''}`;
+		const msg = `, multiple selections available, ${
+			this.state.selectValue.length ? 'Use left or right arrow keys to navigate selected items' : ''
+		}`;
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 
@@ -2834,6 +2926,7 @@ export default class Select<
 						innerRef={this.getControlRef}
 						innerProps={{
 							onMouseDown: this.onControlMouseDown,
+							onClick: this.onControlClick,
 							onTouchEnd: this.onControlTouchEnd,
 							...(testId && {
 								'data-testid': `${testId}-select--control`,
@@ -2850,6 +2943,7 @@ export default class Select<
 							{...commonProps}
 							isDisabled={isDisabled}
 							isCompact={isCompact}
+							hasValue={commonProps.hasValue || this.state.isMultiValueExiting}
 							innerProps={{
 								...(testId && {
 									'data-testid': `${testId}-select--value-container`,

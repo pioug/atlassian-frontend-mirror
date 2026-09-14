@@ -46,6 +46,7 @@ describe('getTTAI', () => {
 		isPreviousInteractionAborted: false,
 		abortReason: undefined,
 		...overrides,
+		preloadInfo: overrides.preloadInfo ?? [],
 	});
 
 	beforeEach(() => {

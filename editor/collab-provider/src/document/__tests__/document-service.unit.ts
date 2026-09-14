@@ -23,9 +23,10 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
 
 import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { CollabInitPayload } from '@atlaskit/editor-common/collab';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { Step as ProseMirrorStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
@@ -89,7 +90,7 @@ describe('document-service', () => {
 
 				(getCollabState as jest.Mock).mockReturnValue(collabState);
 				const commitPromise = service.commitUnconfirmedSteps('publish');
-				const expectThrowPromise = expect(commitPromise).rejects.toThrowError(
+				const expectThrowPromise = expect(commitPromise).rejects.toThrow(
 					"Can't sync up with Collab Service",
 				);
 
@@ -99,9 +100,9 @@ describe('document-service', () => {
 				}
 
 				await expectThrowPromise;
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(61);
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalledTimes(61);
 				// @ts-ignore
-				expect(service.onSyncUpError).toBeCalledWith({
+				expect(service.onSyncUpError).toHaveBeenCalledWith({
 					clientId: 'test',
 					lengthOfUnconfirmedSteps: 1,
 					maxRetries: 60,
@@ -109,8 +110,8 @@ describe('document-service', () => {
 					version: expectedVersion,
 				});
 				if (expectErrorAnalytics) {
-					expect(analyticsMock.sendErrorEvent).toBeCalledTimes(64);
-					expect(analyticsMock.sendErrorEvent).toBeCalledWith(
+					expect(analyticsMock.sendErrorEvent).toHaveBeenCalledTimes(64);
+					expect(analyticsMock.sendErrorEvent).toHaveBeenCalledWith(
 						new Error(errorAnalyticsParams.errorMessage),
 						errorAnalyticsParams.errorContext,
 					);
@@ -121,9 +122,9 @@ describe('document-service', () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue([]);
 
 				await service.commitUnconfirmedSteps('publish');
-				expect(service.getUnconfirmedSteps).toBeCalledTimes(1);
-				expect(service.getUnconfirmedStepsOrigins).not.toBeCalled();
-				expect(service.sendStepsFromCurrentState).not.toBeCalled();
+				expect(service.getUnconfirmedSteps).toHaveBeenCalledTimes(1);
+				expect(service.getUnconfirmedStepsOrigins).not.toHaveBeenCalled();
+				expect(service.sendStepsFromCurrentState).not.toHaveBeenCalled();
 			});
 
 			it('Calls sendStepsFromCurrentState if there are some steps to save', async () => {
@@ -135,7 +136,7 @@ describe('document-service', () => {
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue([]);
 				jest.runAllTimers();
 				await commitPromise;
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(1);
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalledTimes(1);
 
 				expect(true).toEqual(true);
 			});
@@ -152,12 +153,16 @@ describe('document-service', () => {
 				jest.runAllTimers();
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue([]);
 				await commitPromise;
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(3);
-				expect(analyticsMock.sendActionEvent).toBeCalledTimes(1);
-				expect(analyticsMock.sendActionEvent).toBeCalledWith('commitUnconfirmedSteps', 'SUCCESS', {
-					latency: undefined,
-					numUnconfirmedSteps: 1,
-				});
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalledTimes(3);
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledWith(
+					'commitUnconfirmedSteps',
+					'SUCCESS',
+					{
+						latency: undefined,
+						numUnconfirmedSteps: 1,
+					},
+				);
 			});
 
 			it('Keeps track of transaction to see if it has been comitted', async () => {
@@ -175,11 +180,15 @@ describe('document-service', () => {
 				jest.runAllTimers();
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue([]);
 				await commitPromise;
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(2);
-				expect(analyticsMock.sendActionEvent).toBeCalledWith('commitUnconfirmedSteps', 'SUCCESS', {
-					latency: undefined,
-					numUnconfirmedSteps: 1,
-				});
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalledTimes(2);
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledWith(
+					'commitUnconfirmedSteps',
+					'SUCCESS',
+					{
+						latency: undefined,
+						numUnconfirmedSteps: 1,
+					},
+				);
 			});
 
 			it('Stops trying to commit steps when there are no more steps to save', async () => {
@@ -191,11 +200,15 @@ describe('document-service', () => {
 				(service.getUnconfirmedSteps as jest.Mock).mockReturnValue([]);
 				(service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue([]);
 				await commitPromise;
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(1);
-				expect(analyticsMock.sendActionEvent).toBeCalledWith('commitUnconfirmedSteps', 'SUCCESS', {
-					latency: undefined,
-					numUnconfirmedSteps: 1,
-				});
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalledTimes(1);
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledWith(
+					'commitUnconfirmedSteps',
+					'SUCCESS',
+					{
+						latency: undefined,
+						numUnconfirmedSteps: 1,
+					},
+				);
 			});
 
 			it('Throws an error when it retries too many times to save steps', async () => {
@@ -205,7 +218,7 @@ describe('document-service', () => {
 				(service.sendStepsFromCurrentState as jest.Mock).mockImplementation(() => {});
 				const commitPromise = service.commitUnconfirmedSteps('publish');
 				// Call done when the commitPromise throws
-				const expectThrowPromise = expect(commitPromise).rejects.toThrowError(
+				const expectThrowPromise = expect(commitPromise).rejects.toThrow(
 					"Can't sync up with Collab Service",
 				);
 
@@ -214,13 +227,17 @@ describe('document-service', () => {
 					jest.runAllTimers();
 				}
 				await expectThrowPromise;
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(61);
-				expect(analyticsMock.sendActionEvent).toBeCalledTimes(1);
-				expect(analyticsMock.sendActionEvent).toBeCalledWith('commitUnconfirmedSteps', 'FAILURE', {
-					latency: undefined,
-					numUnconfirmedSteps: 1,
-				});
-				expect(analyticsMock.sendErrorEvent).toBeCalledTimes(2);
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalledTimes(61);
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledWith(
+					'commitUnconfirmedSteps',
+					'FAILURE',
+					{
+						latency: undefined,
+						numUnconfirmedSteps: 1,
+					},
+				);
+				expect(analyticsMock.sendErrorEvent).toHaveBeenCalledTimes(2);
 				expect(analyticsMock.sendErrorEvent).toHaveBeenNthCalledWith(
 					1,
 					new Error('Editor state is undefined'),
@@ -287,10 +304,10 @@ describe('document-service', () => {
 				jest.spyOn(service, 'getCurrentState').mockResolvedValue('mockState' as any);
 				(service.commitUnconfirmedSteps as jest.Mock).mockResolvedValue(undefined);
 				const result = await service.getFinalAcknowledgedState('publish');
-				expect(service.commitUnconfirmedSteps).toBeCalledTimes(1);
+				expect(service.commitUnconfirmedSteps).toHaveBeenCalledTimes(1);
 				expect(result).toEqual('mockState');
-				expect(analyticsMock.sendActionEvent).toBeCalledTimes(1);
-				expect(analyticsMock.sendActionEvent).toBeCalledWith('publishPage', 'SUCCESS', {
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsMock.sendActionEvent).toHaveBeenCalledWith('publishPage', 'SUCCESS', {
 					latency: undefined,
 				});
 			});
@@ -333,12 +350,12 @@ describe('document-service', () => {
 				});
 
 				await service.getFinalAcknowledgedState('publish');
-				expect(fetchReconcileMock).toBeCalledWith(
+				expect(fetchReconcileMock).toHaveBeenCalledWith(
 					'{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hello "},{"type":"text","text":"world","marks":[{"type":"strong"}]}]}]}',
 					'fe-final-ack',
 				);
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('publishPage', 'SUCCESS', {
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith('publishPage', 'SUCCESS', {
 					latency: undefined,
 				});
 			});
@@ -376,11 +393,11 @@ describe('document-service', () => {
 				});
 				fetchReconcileMock.mockRejectedValue(new Error('Failed reconcile'));
 
-				await expect(service.getFinalAcknowledgedState).rejects.toThrowError('Failed reconcile');
-				expect(service.commitUnconfirmedSteps).toBeCalledTimes(1);
-				expect(fetchReconcileMock).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('publishPage', 'FAILURE', {
+				await expect(service.getFinalAcknowledgedState).rejects.toThrow('Failed reconcile');
+				expect(service.commitUnconfirmedSteps).toHaveBeenCalledTimes(1);
+				expect(fetchReconcileMock).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith('publishPage', 'FAILURE', {
 					latency: undefined,
 				});
 			});
@@ -390,7 +407,7 @@ describe('document-service', () => {
 			const { service, providerEmitCallbackMock } = createMockService();
 			// @ts-ignore - Testing private function
 			service.applyLocalSteps('testData');
-			expect(providerEmitCallbackMock).toBeCalledWith('local-steps', {
+			expect(providerEmitCallbackMock).toHaveBeenCalledWith('local-steps', {
 				steps: 'testData',
 			});
 		});
@@ -403,12 +420,12 @@ describe('document-service', () => {
 					getState: jest.fn(),
 				});
 				service.getUnconfirmedSteps();
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
 					new Error('No editor state when calling ProseMirror function'),
 					'getUnconfirmedSteps called without state',
 				);
-				expect(sendableSteps).not.toBeCalled();
+				expect(sendableSteps).not.toHaveBeenCalled();
 			});
 
 			it('Returns unconfirmed steps from state', () => {
@@ -419,8 +436,8 @@ describe('document-service', () => {
 				});
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: 'mockSteps' });
 				const res = service.getUnconfirmedSteps();
-				expect(analyticsHelperMock.sendErrorEvent).not.toBeCalled();
-				expect(sendableSteps).toBeCalledWith('mockState');
+				expect(analyticsHelperMock.sendErrorEvent).not.toHaveBeenCalled();
+				expect(sendableSteps).toHaveBeenCalledWith('mockState');
 				expect(res).toEqual('mockSteps');
 			});
 		});
@@ -433,12 +450,12 @@ describe('document-service', () => {
 					getState: jest.fn(),
 				});
 				service.getUnconfirmedStepsOrigins();
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
 					new Error('No editor state when calling ProseMirror function'),
 					'getUnconfirmedStepsOrigins called without state',
 				);
-				expect(sendableSteps).not.toBeCalled();
+				expect(sendableSteps).not.toHaveBeenCalled();
 			});
 
 			it('Returns unconfirmed steps original transactions from state', () => {
@@ -449,8 +466,8 @@ describe('document-service', () => {
 				});
 				(sendableSteps as jest.Mock).mockReturnValue({ origins: 'mockTr' });
 				const res = service.getUnconfirmedStepsOrigins();
-				expect(analyticsHelperMock.sendErrorEvent).not.toBeCalled();
-				expect(sendableSteps).toBeCalledWith('mockState');
+				expect(analyticsHelperMock.sendErrorEvent).not.toHaveBeenCalled();
+				expect(sendableSteps).toHaveBeenCalledWith('mockState');
 				expect(res).toEqual('mockTr');
 			});
 		});
@@ -463,8 +480,8 @@ describe('document-service', () => {
 				const { service, providerEmitCallbackMock, analyticsHelperMock } = createMockService();
 				// @ts-ignore
 				service.processSteps({ steps: [], version: 1 });
-				expect(providerEmitCallbackMock).not.toBeCalled();
-				expect(analyticsHelperMock.sendErrorEvent).not.toBeCalled();
+				expect(providerEmitCallbackMock).not.toHaveBeenCalled();
+				expect(analyticsHelperMock.sendErrorEvent).not.toHaveBeenCalled();
 			});
 
 			it('Processes a new step originating from the current client', () => {
@@ -477,8 +494,8 @@ describe('document-service', () => {
 					steps: [{ clientId: THIS_CLIENT, userId: 'test' }],
 					version: 1,
 				} as StepsPayload);
-				expect(providerEmitCallbackMock).toBeCalledTimes(1);
-				expect(providerEmitCallbackMock).toBeCalledWith('data', {
+				expect(providerEmitCallbackMock).toHaveBeenCalledTimes(1);
+				expect(providerEmitCallbackMock).toHaveBeenCalledWith('data', {
 					json: [{ clientId: THIS_CLIENT, userId: 'test' }],
 					version: 1,
 
@@ -494,7 +511,7 @@ describe('document-service', () => {
 					steps,
 					version: 1,
 				} as StepsPayload);
-				expect(participantsServiceMock.emitTelepointersFromSteps).toBeCalledWith(steps);
+				expect(participantsServiceMock.emitTelepointersFromSteps).toHaveBeenCalledWith(steps);
 			});
 
 			it('If no steps originate from (i.e. no confirmations on steps we added), try to save our steps again', () => {
@@ -509,11 +526,11 @@ describe('document-service', () => {
 					steps: [{ clientId: 'Other Client', userId: 'test' }],
 					version: 1,
 				} as StepsPayload);
-				expect(setTimeout).toBeCalledTimes(1);
-				expect(setTimeout).toBeCalledWith(expect.any(Function), 100);
-				expect(service.sendStepsFromCurrentState).not.toBeCalled(); // Make sure the function is called in the timeout
+				expect(setTimeout).toHaveBeenCalledTimes(1);
+				expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
+				expect(service.sendStepsFromCurrentState).not.toHaveBeenCalled(); // Make sure the function is called in the timeout
 				jest.runAllTimers();
-				expect(service.sendStepsFromCurrentState).toBeCalledTimes(1);
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalledTimes(1);
 			});
 
 			it('Log if error processing when no steps originate from clientId but there are steps from same userId', () => {
@@ -553,12 +570,12 @@ describe('document-service', () => {
 					steps: [{ clientId: 'Other Client', userId: 'test' }],
 					version: 1,
 				} as StepsPayload);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
 					mockError,
 					'Error while processing steps',
 				);
-				expect(service.throttledCatchupv2).toBeCalledTimes(1);
+				expect(service.throttledCatchupv2).toHaveBeenCalledTimes(1);
 			});
 		});
 
@@ -598,10 +615,14 @@ describe('document-service', () => {
 					content: mockDocument,
 					stepVersion: 1,
 				});
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('getCurrentState', 'SUCCESS', {
-					latency: undefined,
-				});
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith(
+					'getCurrentState',
+					'SUCCESS',
+					{
+						latency: undefined,
+					},
+				);
 			});
 
 			const runGetCurrentStateTest = async ({
@@ -624,14 +645,14 @@ describe('document-service', () => {
 				});
 				(getCollabState as jest.Mock).mockReturnValue(collabState);
 				if (expectedState instanceof Error) {
-					await expect(service.getCurrentState()).rejects.toThrowError();
+					await expect(service.getCurrentState()).rejects.toThrow();
 				} else {
 					const state = await service.getCurrentState();
 					expect(state).toEqual(expectedState);
 				}
-				expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(actionEventCalls);
+				expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledTimes(actionEventCalls);
 				errorEvents.forEach(([error, message]) => {
-					expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(error, message);
+					expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(error, message);
 				});
 			};
 
@@ -711,14 +732,14 @@ describe('document-service', () => {
 				getCurrentPmVersionMock.mockReturnValue(1);
 				// @ts-ignore - testing private function
 				service.processQueue();
-				expect(processStepsSpy).not.toBeCalled();
+				expect(processStepsSpy).not.toHaveBeenCalled();
 			});
 
 			it('Does nothing when the queue is empty', () => {
 				getCurrentPmVersionMock.mockReturnValue(1);
 				// @ts-expect-error - testing private function
 				service.processQueue();
-				expect(processStepsSpy).not.toBeCalled();
+				expect(processStepsSpy).not.toHaveBeenCalled();
 			});
 
 			it('catchupv2 : Processes all the steps in the queue after catchupv2', async () => {
@@ -745,12 +766,12 @@ describe('document-service', () => {
 				// Load some steps that will be added to the queue (missing step 1)
 				service.onStepsAdded(step1);
 				await Promise.resolve(); // give chance for catchup to be executed
-				expect(catchupv2).toBeCalled();
+				expect(catchupv2).toHaveBeenCalled();
 
-				expect(service.throttledCatchupv2).toBeCalledTimes(1);
+				expect(service.throttledCatchupv2).toHaveBeenCalledTimes(1);
 
 				// One for each call
-				expect(processStepsSpy).toBeCalledTimes(1);
+				expect(processStepsSpy).toHaveBeenCalledTimes(1);
 				expect(processStepsSpy).toHaveBeenNthCalledWith(1, step1);
 			});
 
@@ -771,7 +792,7 @@ describe('document-service', () => {
 				// @ts-expect-error - testing private function
 				service.processQueue();
 				// One for each call
-				expect(processStepsSpy).toBeCalledTimes(3);
+				expect(processStepsSpy).toHaveBeenCalledTimes(3);
 				expect(processStepsSpy).toHaveBeenNthCalledWith(1, step1);
 				expect(processStepsSpy).toHaveBeenNthCalledWith(2, step2);
 				expect(processStepsSpy).toHaveBeenNthCalledWith(3, step3);
@@ -794,8 +815,8 @@ describe('document-service', () => {
 				errorMessage: string,
 				errorContext: string,
 			): void => {
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
 					new Error(errorMessage),
 					errorContext,
 				);
@@ -840,9 +861,9 @@ describe('document-service', () => {
 				(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 				const returnValue = service.getCurrentPmVersion();
 				expect(returnValue).toEqual(1);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(0);
-				expect(getCollabState).toBeCalledTimes(1);
-				expect(getCollabState).toBeCalledWith('mockState');
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(0);
+				expect(getCollabState).toHaveBeenCalledTimes(1);
+				expect(getCollabState).toHaveBeenCalledWith('mockState');
 			});
 		});
 
@@ -852,7 +873,7 @@ describe('document-service', () => {
 				service.setup({ getState: jest.fn(), clientId: 'id' });
 				jest.spyOn(service, 'send').mockImplementation();
 				service.sendStepsFromCurrentState();
-				expect(service.send).not.toBeCalled();
+				expect(service.send).not.toHaveBeenCalled();
 			});
 
 			it('Calls send steps with the state', () => {
@@ -863,7 +884,7 @@ describe('document-service', () => {
 				});
 				jest.spyOn(service, 'send').mockImplementation();
 				service.sendStepsFromCurrentState();
-				expect(service.send).toBeCalledWith(null, null, 'state', undefined, undefined);
+				expect(service.send).toHaveBeenCalledWith(null, null, 'state', undefined, undefined);
 			});
 		});
 
@@ -885,6 +906,7 @@ describe('document-service', () => {
 					createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue({
 					steps: ['step'],
+					origins: [],
 				});
 				(getCollabState as jest.Mock).mockReturnValue(collabState);
 				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
@@ -901,11 +923,12 @@ describe('document-service', () => {
 					null,
 					'state' as any,
 				);
-				expect(sendableSteps).toBeCalledWith('state');
-				expect(commitStepServiceMock.commitStepQueue).toBeCalledWith({
+				expect(sendableSteps).toHaveBeenCalledWith('state');
+				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalledWith({
 					userId: undefined,
 					clientId: undefined,
 					steps: ['step'],
+					stepOrigins: [],
 					version: expectedVersion,
 					onStepsAdded: service.onStepsAdded,
 					__livePage: false,
@@ -933,16 +956,16 @@ describe('document-service', () => {
 				const { service, commitStepServiceMock } = createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue(undefined);
 				service.send(null, null, 'state' as any);
-				expect(sendableSteps).toBeCalledWith('state');
-				expect(commitStepServiceMock.commitStepQueue).not.toBeCalled();
+				expect(sendableSteps).toHaveBeenCalledWith('state');
+				expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
 			});
 
 			it('Does nothing when there the sendable steps is an empty array', () => {
 				const { service, commitStepServiceMock } = createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: [] });
 				service.send(null, null, 'state' as any);
-				expect(sendableSteps).toBeCalledWith('state');
-				expect(commitStepServiceMock.commitStepQueue).not.toBeCalled();
+				expect(sendableSteps).toHaveBeenCalledWith('state');
+				expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
 			});
 
 			it('Sends steps to be committed', () => {
@@ -975,7 +998,7 @@ describe('document-service', () => {
 
 			it('Pass collabMode to commitStepQueue', () => {
 				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
-				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step'] });
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step'], origins: [] });
 				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
 				service.send(null, null, 'state' as any);
 				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalledWith(
@@ -986,190 +1009,111 @@ describe('document-service', () => {
 			});
 
 			describe('offline steps', () => {
-				describe('handles offline steps and resets their meta attribute after 6 seconds of being online', () => {
-					eeTest('platform_editor_offline_editing_web', {
-						true: () => {
-							const { service, commitStepServiceMock } = createMockService();
-							jest.useFakeTimers();
+				it('handles offline steps and resets their meta attribute after 6 seconds of being online', () => {
+					const { service, commitStepServiceMock } = createMockService();
+					jest.useFakeTimers();
 
-							const createDoc = doc(p('Hello Old or New World'));
-							const node = createDoc(defaultSchema);
-							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
-							const mockTr = new Transaction(node);
-							mockTr.setMeta('isOffline', true);
-							const unconfirmedStepsData = {
-								steps: [mockStep],
-								origins: [mockTr],
-							};
-							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+					const createDoc = doc(p('Hello Old or New World'));
+					const node = createDoc(defaultSchema);
+					const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+					const mockTr = new Transaction(node);
+					mockTr.setMeta('isOffline', true);
+					const unconfirmedStepsData = {
+						steps: [mockStep],
+						origins: [mockTr],
+					};
+					(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
 
-							service.send(null, null, {} as any);
+					service.send(null, null, {} as any);
 
-							expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
+					expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
 
-							// Fast forward 5 seconds - should still not commit
-							jest.advanceTimersByTime(5000);
-							expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
+					// Fast forward 5 seconds - should still not commit
+					jest.advanceTimersByTime(5000);
+					expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
 
-							// After 6 seconds, steps should be marked as not offline
-							jest.advanceTimersByTime(1000);
-							expect(mockTr.getMeta('isOffline')).toBe(false);
+					// After 6 seconds, steps should be marked as not offline
+					jest.advanceTimersByTime(1000);
+					expect(mockTr.getMeta('isOffline')).toBe(false);
 
-							service.send(null, null, {} as any);
+					service.send(null, null, {} as any);
 
-							// Verify that the steps are now committed
-							expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
+					// Verify that the steps are now committed
+					expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
 
-							jest.useRealTimers();
-						},
-						false: () => {
-							const { service, commitStepServiceMock } = createMockService();
-							jest.useFakeTimers();
-
-							const createDoc = doc(p('Hello Old or New World'));
-							const node = createDoc(defaultSchema);
-							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
-							const mockTr = new Transaction(node);
-							mockTr.setMeta('isOffline', true);
-							const unconfirmedStepsData = {
-								steps: [mockStep],
-								origins: [mockTr],
-							};
-							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
-
-							service.send(null, null, {} as any);
-
-							expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
-						},
-					});
+					jest.useRealTimers();
 				});
 
-				describe('it does not change the transaction meta when still offline', () => {
-					eeTest('platform_editor_offline_editing_web', {
-						true: () => {
-							const getConnected = jest.fn().mockReturnValue(true); // Start online
-							const { service } = createMockService({}, getConnected);
+				it('it does not change the transaction meta when still offline', () => {
+					const getConnected = jest.fn().mockReturnValue(true); // Start online
+					const { service } = createMockService({}, getConnected);
 
-							jest.useFakeTimers();
+					jest.useFakeTimers();
 
-							const createDoc = doc(p('Hello Old or New World'));
-							const node = createDoc(defaultSchema);
-							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
-							const mockTr = new Transaction(node);
-							mockTr.setMeta('isOffline', true);
-							const unconfirmedStepsData = {
-								steps: [mockStep],
-								origins: [mockTr],
-							};
-							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+					const createDoc = doc(p('Hello Old or New World'));
+					const node = createDoc(defaultSchema);
+					const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+					const mockTr = new Transaction(node);
+					mockTr.setMeta('isOffline', true);
+					const unconfirmedStepsData = {
+						steps: [mockStep],
+						origins: [mockTr],
+					};
+					(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
 
-							// First send - should start the timer since we're online
-							service.send(null, null, {} as any);
+					// First send - should start the timer since we're online
+					service.send(null, null, {} as any);
 
-							// Go back offline, timer will reach 6s, not do anything and reset.
-							getConnected.mockReturnValue(false);
+					// Go back offline, timer will reach 6s, not do anything and reset.
+					getConnected.mockReturnValue(false);
 
-							jest.advanceTimersByTime(6000);
+					jest.advanceTimersByTime(6000);
 
-							expect(mockTr.getMeta('isOffline')).toBe(true);
+					expect(mockTr.getMeta('isOffline')).toBe(true);
 
-							// Come back online, call send again which will start a new timer.
-							getConnected.mockReturnValue(true);
+					// Come back online, call send again which will start a new timer.
+					getConnected.mockReturnValue(true);
 
-							service.send(null, null, {} as any);
+					service.send(null, null, {} as any);
 
-							jest.advanceTimersByTime(6000);
+					jest.advanceTimersByTime(6000);
 
-							// Now meta should be set to false since we were online
-							expect(mockTr.getMeta('isOffline')).toBe(false);
+					// Now meta should be set to false since we were online
+					expect(mockTr.getMeta('isOffline')).toBe(false);
 
-							jest.useRealTimers();
-						},
-						false: () => {
-							const { service, commitStepServiceMock } = createMockService();
-
-							const createDoc = doc(p('Hello Old or New World'));
-							const node = createDoc(defaultSchema);
-							const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
-							const mockTr = new Transaction(node);
-							mockTr.setMeta('isOffline', true);
-							const unconfirmedStepsData = {
-								steps: [mockStep],
-								origins: [mockTr],
-							};
-							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
-
-							service.send(null, null, {} as any);
-							expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
-						},
-					});
+					jest.useRealTimers();
 				});
 
-				describe('it only changes isOffline meta on transactions that were offline', () => {
-					eeTest('platform_editor_offline_editing_web', {
-						true: () => {
-							const { service } = createMockService();
-							jest.useFakeTimers();
+				it('it only changes isOffline meta on transactions that were offline', () => {
+					const { service } = createMockService();
+					jest.useFakeTimers();
 
-							const createDoc = doc(p('Hello Old or New World'));
-							const node = createDoc(defaultSchema);
+					const createDoc = doc(p('Hello Old or New World'));
+					const node = createDoc(defaultSchema);
 
-							// Create two transactions - one offline, one normal
-							const mockOfflineTr = new Transaction(node);
-							mockOfflineTr.setMeta('isOffline', true);
+					// Create two transactions - one offline, one normal
+					const mockOfflineTr = new Transaction(node);
+					mockOfflineTr.setMeta('isOffline', true);
 
-							const mockNormalTr = new Transaction(node);
-							mockNormalTr.setMeta('someOtherMeta', true);
+					const mockNormalTr = new Transaction(node);
+					mockNormalTr.setMeta('someOtherMeta', true);
 
-							const unconfirmedStepsData = {
-								steps: [new ReplaceStep(1, 1, node.slice(0, node.content.size))],
-								origins: [mockOfflineTr, mockNormalTr],
-							};
-							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
+					const unconfirmedStepsData = {
+						steps: [new ReplaceStep(1, 1, node.slice(0, node.content.size))],
+						origins: [mockOfflineTr, mockNormalTr],
+					};
+					(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
 
-							service.send(null, null, {} as any);
+					service.send(null, null, {} as any);
 
-							// After 6 seconds, only offline transaction should be changed
-							jest.advanceTimersByTime(6000);
+					// After 6 seconds, only offline transaction should be changed
+					jest.advanceTimersByTime(6000);
 
-							expect(mockOfflineTr.getMeta('isOffline')).toBe(false);
-							expect(mockNormalTr.getMeta('isOffline')).toBeUndefined();
-							expect(mockNormalTr.getMeta('someOtherMeta')).toBe(true);
+					expect(mockOfflineTr.getMeta('isOffline')).toBe(false);
+					expect(mockNormalTr.getMeta('isOffline')).toBeUndefined();
+					expect(mockNormalTr.getMeta('someOtherMeta')).toBe(true);
 
-							jest.useRealTimers();
-						},
-						false: () => {
-							const { service } = createMockService();
-							jest.useFakeTimers();
-
-							const createDoc = doc(p('Hello Old or New World'));
-							const node = createDoc(defaultSchema);
-
-							// Create two transactions - one offline, one normal
-							const mockOfflineTr = new Transaction(node);
-							mockOfflineTr.setMeta('isOffline', true);
-
-							const mockNormalTr = new Transaction(node);
-							mockNormalTr.setMeta('someOtherMeta', true);
-
-							const unconfirmedStepsData = {
-								steps: [new ReplaceStep(1, 1, node.slice(0, node.content.size))],
-								origins: [mockOfflineTr, mockNormalTr],
-							};
-							(sendableSteps as jest.Mock).mockReturnValue(unconfirmedStepsData);
-
-							service.send(null, null, {} as any);
-
-							// After 6 seconds, only offline transaction should be changed
-							jest.advanceTimersByTime(6000);
-
-							expect(mockOfflineTr.getMeta('isOffline')).toBe(true);
-							expect(mockNormalTr.getMeta('isOffline')).toBeUndefined();
-							expect(mockNormalTr.getMeta('someOtherMeta')).toBe(true);
-
-							jest.useRealTimers();
-						},
-					});
+					jest.useRealTimers();
 				});
 			});
 		});
@@ -1185,8 +1129,8 @@ describe('document-service', () => {
 				jest.spyOn(service, 'sendStepsFromCurrentState');
 				service.onStepRejectedError();
 				jest.runAllTimers();
-				expect(setTimeout).toBeCalledWith(expect.any(Function), 1000);
-				expect(service.sendStepsFromCurrentState).toBeCalled();
+				expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 1000);
+				expect(service.sendStepsFromCurrentState).toHaveBeenCalled();
 			});
 
 			it('catchupv2 : Calls catchupv2 after trying "MAX_STEP_REJECTED_ERROR" times', () => {
@@ -1198,7 +1142,7 @@ describe('document-service', () => {
 				for (let i = 0; i < MAX_STEP_REJECTED_ERROR; i++) {
 					service.onStepRejectedError();
 				}
-				expect(service.throttledCatchupv2).toBeCalledTimes(1);
+				expect(service.throttledCatchupv2).toHaveBeenCalledTimes(1);
 			});
 		});
 
@@ -1223,9 +1167,9 @@ describe('document-service', () => {
 				(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 				service.updateDocument(updateDocumentData);
-				expect(providerEmitCallbackMock).toBeCalledTimes(1);
-				expect(providerEmitCallbackMock).toBeCalledWith('init', updateDocumentData);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(0);
+				expect(providerEmitCallbackMock).toHaveBeenCalledTimes(1);
+				expect(providerEmitCallbackMock).toHaveBeenCalledWith('init', updateDocumentData);
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(0);
 			});
 
 			it('does not emit reserveCursor when it is false', () => {
@@ -1235,7 +1179,7 @@ describe('document-service', () => {
 					...updateDocumentData,
 					reserveCursor: false,
 				});
-				expect(providerEmitCallbackMock).toBeCalledTimes(1);
+				expect(providerEmitCallbackMock).toHaveBeenCalledTimes(1);
 				expect(providerEmitCallbackMock.mock.calls[0][1]).not.toEqual(
 					expect.objectContaining({ reserveCursor: expect.anything() }),
 				);
@@ -1255,8 +1199,8 @@ describe('document-service', () => {
 					reserveCursor: false,
 				});
 
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
 					expect.any(UpdateDocumentError),
 					'Failed to update the document in document service',
 				);
@@ -1304,9 +1248,9 @@ describe('document-service', () => {
 						...{ ...updateDocumentData, version: 2 },
 						reserveCursor: false,
 					}),
-				).toThrowError('Failed to update the document');
-				expect(onErrorHandledMock).toBeCalledTimes(1);
-				expect(onErrorHandledMock).toBeCalledWith({
+				).toThrow('Failed to update the document');
+				expect(onErrorHandledMock).toHaveBeenCalledTimes(1);
+				expect(onErrorHandledMock).toHaveBeenCalledWith({
 					data: {
 						code: 'DOCUMENT_UPDATE_ERROR',
 						meta: {
@@ -1317,7 +1261,7 @@ describe('document-service', () => {
 					},
 					message: 'The provider failed to apply changes to the editor',
 				});
-				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
+				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);
 				expect(
 					analyticsHelperMock.sendErrorEvent.mock.calls[0][0].getExtraErrorEventAttributes(),
 				).toEqual({
@@ -1341,7 +1285,7 @@ describe('document-service', () => {
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
 				service.send(null, null, 'state' as any);
 
-				expect(commitStepServiceMock.commitStepQueue).not.toBeCalled();
+				expect(commitStepServiceMock.commitStepQueue).not.toHaveBeenCalled();
 			},
 			false: () => {
 				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
@@ -1351,7 +1295,7 @@ describe('document-service', () => {
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
 				service.send(null, null, 'state' as any);
 
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
 			},
 		});
 	});
@@ -1366,7 +1310,7 @@ describe('document-service', () => {
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
 				service.send(null, null, 'state' as any);
 
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
 			},
 			false: () => {
 				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
@@ -1376,7 +1320,7 @@ describe('document-service', () => {
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
 				service.send(null, null, 'state' as any);
 
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
 			},
 		});
 	});
@@ -1399,7 +1343,7 @@ describe('document-service', () => {
 				service.send(null, null, 'state' as any);
 
 				expect(mockTr.setMeta).toHaveBeenCalledWith('mergeIsLocked', true);
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
 			},
 			false: () => {
 				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
@@ -1416,8 +1360,8 @@ describe('document-service', () => {
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: [mockStep], origins: [mockTr] });
 				service.send(null, null, 'state' as any);
 
-				expect(mockTr.setMeta).not.toHaveBeenCalledWith('mergeIsLocked', true);
-				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+				expect(mockTr.setMeta).toHaveBeenCalledWith('mergeIsLocked', true);
+				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalled();
 			},
 		});
 	});

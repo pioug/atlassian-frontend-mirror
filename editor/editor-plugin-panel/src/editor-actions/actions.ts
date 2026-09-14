@@ -1,4 +1,4 @@
-import type { PanelType } from '@atlaskit/adf-schema';
+import type { PanelType } from '@atlaskit/adf-schema/panel';
 import {
 	ACTION,
 	ACTION_SUBJECT,

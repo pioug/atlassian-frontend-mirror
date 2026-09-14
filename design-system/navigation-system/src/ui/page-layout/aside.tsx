@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { media } from '@atlaskit/primitives/responsive';
 

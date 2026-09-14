@@ -4,17 +4,95 @@ import type {
 	EditorCommand,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { SmartDiffThresholds as SmartDiffThresholdsInternal } from './pm-plugins/calculateDiff/smart/thresholds';
+import type {
+	ColorScheme as ResolvedColorScheme,
+	PublicColorScheme,
+} from './pm-plugins/decorations/colorSchemes/types';
 
-export type ColorScheme = 'standard' | 'traditional';
+export type ColorScheme = PublicColorScheme;
 export type DiffType = 'inline' | 'block' | 'step' | 'smart';
+
+/**
+ * Attribution for a ProseMirror step.
+ *
+ * `userId` is the primary actor identity. `agentId` distinguishes multiple agents (or an agent
+ * from its user) when they share that user ID, with `agentType` used as a fallback when `agentId`
+ * is empty. `wasOffline` preserves additional provenance without affecting identity.
+ */
+export type DiffStepAttribution = {
+	agentId?: string;
+	agentType?: string;
+	userId?: string;
+	wasOffline?: boolean;
+};
+
+/** Keeps a step and its attribution coupled through mapping and filtering. */
+export type StepWithAttribution<TStep> = {
+	step: TStep;
+	stepAttribution?: DiffStepAttribution;
+};
+
+/** A complete identity for one of the accounts named by a step attribution. */
+export type DiffContributorProfile = {
+	/** Matched against the `userId` and `agentId` on step attributions. */
+	accountId: string;
+	avatarUrl?: string;
+	name: string;
+};
+
+type DiffContributorKind = 'user' | 'agent';
+
+/** Agent presentation: branded, identified by profile, or a generic external agent. */
+type DiffAgentKind = 'rovo' | 'claude' | 'identified' | 'external';
+
+/**
+ * A contributor the plugin has resolved from a step attribution and a supplied profile. Internal:
+ * never re-exported from an entry point and not reachable from any public type. Same for
+ * `DiffContributors`.
+ */
+export type DiffContributor = {
+	/** For `kind: 'agent'`, which presentation to use. Defaults to `'external'`. */
+	agentKind?: DiffAgentKind;
+	attribution: DiffStepAttribution;
+	avatarUrl?: string;
+	/** Attribution of the invoking user, so the pair renders as connected. */
+	connectedTo?: DiffStepAttribution;
+	kind: DiffContributorKind;
+	name: string;
+};
+
+/** Where two contributors share an identity, the last wins. */
+export type DiffContributors = DiffContributor[];
+
+/** A contributor stripped of its attributions, as a tag presents it. Internal. */
+export type TagContributor = Omit<DiffContributor, 'attribution' | 'connectedTo'>;
+
+/**
+ * Everything a contributor tag renders, resolved by the plugin so the tag UI does no lookups.
+ * Declared here rather than beside `extractContributorTags` so the shared state below can name it
+ * without importing back out of this file. Internal, like `TagContributor`.
+ */
+export type ContributorTagModel = {
+	colorScheme?: ResolvedColorScheme;
+	connectedContributor?: TagContributor;
+	contributor: TagContributor;
+	diffId: string;
+	isActive?: boolean;
+	isInserted?: boolean;
+	/**
+	 * Other decorations of the same change that this one tag captions, so hovering any of them
+	 * reveals it. Set when a replacement's deleted-content widget is folded into its inline tag.
+	 */
+	linkedDiffIds?: string[];
+};
 
 /**
  * Where node/paragraph-level deleted content is rendered relative to the new (replacement)
@@ -33,6 +111,18 @@ export type DeletedDiffPlacement = 'top' | 'bottom';
  */
 export type InlineDeletedDiffPlacement = 'before' | 'after';
 
+/**
+ * A rendered deleted-content widget: the DOM element show-diff renders for a piece of deleted
+ * content, together with the document position it is anchored at. Deleted content is rendered as
+ * widget decorations rather than document nodes, so this is how consumers recover the element and
+ * its position — via the `getDeletedWidgets` action — without reaching into the plugin's internal
+ * state.
+ */
+export type DeletedDiffWidget = {
+	element: HTMLElement;
+	position: number;
+};
+
 // Re-export the canonical `SmartDiffThresholds` declaration (single source of truth) so the
 // public plugin types stay in sync with the smart-diff implementation.
 export type SmartDiffThresholds = SmartDiffThresholdsInternal;
@@ -40,6 +130,28 @@ export type SmartDiffThresholds = SmartDiffThresholdsInternal;
 export type DiffDescriptor = {
 	id: string;
 	type: 'inline' | 'block' | 'widget';
+};
+
+/**
+ * How the diff is revealed when it is painted.
+ *
+ * - `phased` — the two-phase choreography used when opening the diff from a clean "new state":
+ *   the outgoing state cross-fades to the incoming one while the agent highlight wipes out to the
+ *   right, then every highlight wipes back in from the left.
+ *
+ * Deliberately separate from {@link DiffType}: that describes how changes are computed and grouped,
+ * this describes how the result is presented over time. Folding one into the other would make every
+ * `DiffType` consumer — version history, track-changes, publish diff — care about presentation.
+ */
+export type RevealMode = 'phased';
+
+export type RevealOptions = {
+	/**
+	 * Total length of the choreography. Defaults to `REVEAL_DEFAULT_DURATION_MS`. Exposed because
+	 * this is a design-tunable value; it should not be buried in a stylesheet.
+	 */
+	durationMs?: number;
+	mode: RevealMode;
 };
 
 export type DiffParams = {
@@ -81,6 +193,13 @@ export type PMDiffParams = {
 	isInverted?: boolean;
 	originalDoc: Node;
 	/**
+	 * How this diff is revealed when painted. Omitted means paint immediately.
+	 *
+	 * Applies to THIS paint only — it is not inherited by later recalculations, so stepping
+	 * through changes or a repaint cannot replay the choreography.
+	 */
+	reveal?: RevealOptions;
+	/**
 	 * When true, the editor will scroll to bring the first diff decoration into view
 	 * after the diff is shown.
 	 */
@@ -100,21 +219,50 @@ export type PMDiffParams = {
 	steps: Step[];
 };
 
-export type ACTION = 'SHOW_DIFF' | 'HIDE_DIFF' | 'SCROLL_TO_NEXT' | 'SCROLL_TO_PREVIOUS';
+/**
+ * Attributed alternative to `PMDiffParams`. When agent colouring is enabled, changes are grouped
+ * by `userId`, with `agentId` used as a tie-breaker.
+ */
+type PMDiffParamsWithAttribution = Omit<PMDiffParams, 'steps'> & {
+	/**
+	 * Identities for the accounts named by the attributed steps. Omitted profiles disable
+	 * contributor tags without disabling attribution colours. An explicit empty array permits agent fallback tags. When supplied, and the contributor-tag
+	 * gate is on, every attributed change the plugin can credit to one of them renders a tag.
+	 * Complete entries only: a caller looking identities up (e.g. against a user directory) filters
+	 * out the ones it could not resolve rather than passing partial entries through. Omitting an
+	 * account is meaningful — a user the plugin cannot name drops every tag, while an agent falls
+	 * back to its own presentation.
+	 */
+	contributorProfiles?: readonly DiffContributorProfile[];
+	steps?: never;
+	stepsWithAttribution: Array<StepWithAttribution<Step>>;
+};
+
+export type ShowDiffParams = PMDiffParams | PMDiffParamsWithAttribution;
 
 export type ShowDiffPlugin = NextEditorPlugin<
 	'showDiff',
 	{
+		actions: {
+			/**
+			 * The rendered deleted-content widgets currently displayed, optionally restricted to a
+			 * document range, ordered by position. This is the safe, read-only way to recover deleted
+			 * content's element and position (e.g. to position UI relative to it) without access to the
+			 * plugin's internal decoration set. Returns an empty array when no diff is displayed.
+			 */
+			getDeletedWidgets: (range?: { from: number; to: number }) => DeletedDiffWidget[];
+		};
 		commands: {
 			hideDiff: EditorCommand;
 			scrollToNext: EditorCommand;
 			scrollToPrevious: EditorCommand;
-			showDiff: (config: PMDiffParams) => EditorCommand;
+			showDiff: (config: ShowDiffParams) => EditorCommand;
 		};
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<ExpandPlugin>,
 			OptionalPlugin<UserIntentPlugin>,
+			/** Carries the live-region announcement made when stepping between changes. */
+			OptionalPlugin<AccessibilityUtilsPlugin>,
 		];
 		pluginConfiguration: DiffParams | undefined;
 		sharedState: {
@@ -122,6 +270,13 @@ export type ShowDiffPlugin = NextEditorPlugin<
 			 * The index of the current diff being viewed.
 			 */
 			activeIndex?: number;
+			/**
+			 * The contributor tags to render for the diff currently being displayed. Resolved by the
+			 * plugin and consumed by its own contributor-tag UI — `ContributorTagModel` and
+			 * `TagContributor` are not exported from any entry point.
+			 * Only set when `platform_editor_diff_plugin_extended` is on.
+			 */
+			contributorTags?: ContributorTagModel[];
 			/**
 			 * The diff descriptors of the diff decorations currently being displayed.
 			 * Only set when `platform_editor_diff_plugin_extended` is on.

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
-import TeamProfilecardTrigger from '../src/components/Team';
+import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';
 
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';

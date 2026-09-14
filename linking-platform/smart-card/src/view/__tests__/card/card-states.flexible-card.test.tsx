@@ -1,20 +1,19 @@
-import './card-states.card.test.mock';
-
 import React from 'react';
 
+import { render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import {
-	type CardClient,
-	type CardProviderStoreOpts,
-	SmartCardProvider as Provider,
-} from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type CardClient from '@atlaskit/link-provider/client';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { render, screen } from '@atlassian/testing-library';
 
-import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mockGenerator, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
+import './card-states.card.test.mock';
 
 mockSimpleIntersectionObserver();
 
@@ -197,12 +196,12 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				);
 				const frame = await screen.findByTestId('smart-block-forbidden-view');
 				expect(frame).toBeTruthy();
-				const forbiddenLink = await screen.findByText('Join Google to view this content');
+				const forbiddenLink = await screen.findByText('Join Google Drive to view this content');
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
 				expect(messageContainer).toHaveTextContent(
-					'Your team uses Google to collaborate and you can start using it right away!',
+					'Your team uses Google Drive to collaborate and you can start using it right away!',
 				);
 
 				const buttons = screen.getAllByRole('button');
@@ -233,12 +232,12 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				);
 				const frame = await screen.findByTestId('smart-block-forbidden-view');
 				expect(frame).toBeTruthy();
-				const forbiddenLink = await screen.findByText('Join Google to view this content');
+				const forbiddenLink = await screen.findByText('Join Google Drive to view this content');
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
 				expect(messageContainer).toHaveTextContent(
-					'Your team uses Google to collaborate. Send your admin a request for access.',
+					'Your team uses Google Drive to collaborate. Send your admin a request for access.',
 				);
 
 				const buttons = screen.getAllByRole('button');
@@ -271,7 +270,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				);
 				const frame = await screen.findByTestId('smart-block-forbidden-view');
 				expect(frame).toBeTruthy();
-				const forbiddenLink = await screen.findByText('Access to Google is pending');
+				const forbiddenLink = await screen.findByText('Access to Google Drive is pending');
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
@@ -336,7 +335,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
 				expect(messageContainer).toHaveTextContent(
-					"Your admin didn't approve your request to view Google pages from drive.google.com.",
+					"Your admin didn't approve your request to view Google Drive pages from drive.google.com.",
 				);
 
 				const forbiddenLinkButton = screen.getByRole('button');

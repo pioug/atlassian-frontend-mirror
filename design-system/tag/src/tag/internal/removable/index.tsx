@@ -6,17 +6,20 @@ import { forwardRef, memo, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { useCallbackWithAnalytics, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { useCallbackWithAnalytics } from '@atlaskit/analytics-next/useCallbackWithAnalytics';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
-import Lozenge from '@atlaskit/lozenge';
-import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import ShrinkOut from '@atlaskit/motion/shrink-out';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { colorMapping } from '../../../tag-new/color-mapping';
 import { getTagText } from '../../../tag-new/get-tag-text';
 import { default as TagNew } from '../../../tag-new/tag-new';
+import { markAsTagMotionCapable } from '../../../tag-new/tag-motion-capability';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';
@@ -202,9 +205,8 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 					maxWidth={maxWidth}
 					hasMargin={hasMargin}
 					swatchBefore={swatchBefore}
-					{...(fg('parent-field-switcher-missing-info-image-text')
-						? { swatchBeforeLabel, swatchBeforeRole }
-						: {})}
+					swatchBeforeLabel={swatchBeforeLabel}
+					swatchBeforeRole={swatchBeforeRole}
 				/>
 			);
 		}
@@ -279,6 +281,6 @@ const RemovableTag: import('react').MemoExoticComponent<
 	import('react').ForwardRefExoticComponent<
 		Omit<RemovableTagProps, 'ref'> & import('react').RefAttributes<any>
 	>
-> = memo(RemovableTagComponent);
+> = markAsTagMotionCapable(memo(RemovableTagComponent));
 
 export default RemovableTag;

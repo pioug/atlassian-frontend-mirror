@@ -1,5 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractSmartLinkAri } from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractSmartLinkAri } from '@atlaskit/link-extractors/extract-smart-link-ari';
 
 import { type ViewRelatedLinksActionData } from '../../../state/flexible-ui-context/types';
 

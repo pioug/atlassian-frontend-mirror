@@ -7,7 +7,6 @@ import { ssr } from '@atlaskit/ssr';
 
 import Example from '../../examples/issue-like-table';
 
-// @ts-ignore
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 afterEach(() => {

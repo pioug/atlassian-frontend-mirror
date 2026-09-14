@@ -38,12 +38,22 @@ const color: AttributeSchema<BorderColorTokenSchema<BaseToken>> = {
 				},
 			},
 			input: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '0.6.0',
-					description:
-						'Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '0.6.0',
+						description:
+							'Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons.',
+					},
+				},
+				search: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '16.12.0',
+						description: 'Use for the border of search inputs.',
+					},
 				},
 			},
 			disabled: {

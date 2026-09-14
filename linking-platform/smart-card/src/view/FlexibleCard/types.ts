@@ -1,8 +1,9 @@
 import { type MessageDescriptor } from 'react-intl';
 
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { type CardState, type ProductType } from '@atlaskit/linking-common';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
+import type { CardState } from '@atlaskit/linking-common/store';
+import type { ProductType } from '@atlaskit/linking-common/types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { type SmartLinkSize, type SmartLinkStatus, type SmartLinkTheme } from '../../constants';
@@ -122,19 +123,19 @@ export type FlexibleCardProps = {
 	testId?: string;
 
 	/**
+	 * Determines the link title in the LayeredLink.
+	 */
+	title?: string;
+	/**
 	 * Determines the appearance of Flexible UI.
 	 * @see InternalFlexibleUiOptions
 	 */
 	ui?: InternalFlexibleUiOptions;
+
 	/**
 	 * Determines the URL of the Smart Link.
 	 */
 	url: string;
-
-	/**
-	 * Determines the link title in the LayeredLink.
-	 */
-	title?: string;
 };
 
 export type InternalFlexibleUiOptions = FlexibleUiOptions & {

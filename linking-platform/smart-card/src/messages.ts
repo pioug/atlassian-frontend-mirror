@@ -72,7 +72,6 @@ export type MessageKey =
 	| 'connect_link_account_card_name'
 	| 'connect_link_account_preview'
 	| 'connect_link_account_card_description'
-	| 'connect_link_account_embed_carousel_button_back'
 	| 'connect_link_account_embed_carousel_button_next'
 	| 'connect_link_account_embed_carousel_dot_label'
 	| 'connect_link_account_embed_carousel_dot_row_label'
@@ -441,11 +440,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Slides',
 		description: 'Accessible label for the group of dot indicator buttons in the teaser carousel',
 	},
-	connect_link_account_embed_carousel_button_back: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_button_back.non-final',
-		defaultMessage: 'Back',
-		description: 'Label for the back button in the embed card carousel teaser',
-	},
 	connect_link_account_embed_carousel_button_next: {
 		id: 'fabric.linking.connect_link_account_embed_carousel_button_next.non-final',
 		defaultMessage: 'Next',
@@ -454,9 +448,9 @@ export const messages: Messages = defineMessages({
 	},
 	connect_link_account_embed_carousel_sl_description: {
 		id: 'fabric.linking.connect_link_account_embed_carousel_sl_description.non-final',
-		defaultMessage: `Embed live previews of {context, select, 
-				Google {Google Docs, Sheets, and Slides} 
-				other {{context}}} {product, select, 
+		defaultMessage: `Embed live previews of {context, select,
+				Google {Google Docs, Sheets, and Slides}
+				other {{context}}} {product, select,
 				BITBUCKET {right inside Bitbucket}
 				CONFLUENCE {right inside Confluence and Jira}
 				JIRA {right inside Confluence and Jira}
@@ -481,7 +475,7 @@ export const messages: Messages = defineMessages({
 	},
 	connect_link_account_embed_carousel_rovo_description: {
 		id: 'fabric.linking.connect_link_account_embed_carousel_rovo_description.non-final',
-		defaultMessage: `Access {context} files alongside your work in {product, select, 
+		defaultMessage: `Access {context} files alongside your work in {product, select,
 				BITBUCKET {Bitbucket}
 				CONFLUENCE {Confluence and Jira}
 				JIRA {Confluence and Jira}
@@ -1413,65 +1407,65 @@ export const messages: Messages = defineMessages({
 			'The placeholder prompt message pre-filled in Rovo Chat input. {url} refers to the Smart Link URL. This is not auto-submitted — the user types their question.',
 	},
 	rovo_prompt_button_highlight_relevant_content: {
-		id: 'fabric.linking.rovo_prompt_button_highlight_relevant_content.non-final',
+		id: 'fabric.linking.rovo_prompt_button_highlight_relevant_content',
 		defaultMessage: `Highlight what's relevant`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_highlight_relevant_content: {
-		id: 'fabric.linking.rovo_prompt_message_highlight_relevant_content.non-final',
+		id: 'fabric.linking.rovo_prompt_message_highlight_relevant_content',
 		defaultMessage:
 			"<p>Based on this linked item (<a>{url}</a>) and the {context} I'm currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>",
 		description:
 			'The prompt message to send to Rovo Chat. {context} refers to the content the user triggered from, e.g. Confluence page or Jira work item. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_button_identify_key_trends: {
-		id: 'fabric.linking.rovo_prompt_button_identify_key_trends.non-final',
+		id: 'fabric.linking.rovo_prompt_button_identify_key_trends',
 		defaultMessage: `Identify key trends`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_identify_key_trends: {
-		id: 'fabric.linking.rovo_prompt_message_identify_key_trends.non-final',
+		id: 'fabric.linking.rovo_prompt_message_identify_key_trends',
 		defaultMessage:
 			'<p>From this <a>{url}</a>, identify the key trends, anomalies, and headline numbers. Call out anything increasing/decreasing significantly, noteworthy comparisons, and any risks or opportunities the data suggests.</p>',
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_button_identify_key_points: {
-		id: 'fabric.linking.rovo_prompt_button_identify_key_points.non-final',
+		id: 'fabric.linking.rovo_prompt_button_identify_key_points',
 		defaultMessage: `Identify key points`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_identify_key_points: {
-		id: 'fabric.linking.rovo_prompt_message_identify_key_points.non-final',
+		id: 'fabric.linking.rovo_prompt_message_identify_key_points',
 		defaultMessage:
 			'<p>From this <a>{url}</a>, identify the key points, proposals, and decisions. Focus on what someone skimming the deck should know in order to understand the main message.</p>',
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_button_find_open_questions: {
-		id: 'fabric.linking.rovo_prompt_button_find_open_questions.non-final',
+		id: 'fabric.linking.rovo_prompt_button_find_open_questions',
 		defaultMessage: `Find open questions`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_find_open_questions: {
-		id: 'fabric.linking.rovo_prompt_message_find_open_questions.non-final',
+		id: 'fabric.linking.rovo_prompt_message_find_open_questions',
 		defaultMessage:
 			'<p>Look at this <a>{url}</a> and list any open questions, unresolved decisions, or asks that still need follow‑up. Group them by owner if possible and keep it concise.</p>',
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_button_key_highlights: {
-		id: 'fabric.linking.rovo_prompt_button_find_open_questions.non-final',
+		id: 'fabric.linking.rovo_prompt_button_key_highlights',
 		defaultMessage: `Key highlights`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_key_highlights: {
-		id: 'fabric.linking.rovo_prompt_message_find_open_questions.non-final',
+		id: 'fabric.linking.rovo_prompt_message_key_highlights',
 		defaultMessage:
 			'<p>Based on this <a>{url}</a> and the page or ticket I’m currently viewing, highlight the parts of the linked content that are most relevant to this work. Explain briefly why each part is relevant.</p>',
 		description:
@@ -1502,49 +1496,49 @@ export const messages: Messages = defineMessages({
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_summarize_document: {
-		id: 'fabric.linking.rovo_prompt_message_summarize_document.non-final',
+		id: 'fabric.linking.rovo_prompt_message_summarize_document',
 		defaultMessage: `<p>Summarize this doc <a>{url}</a> into a concise, easy-to-scan overview. Adapt to whatever the content is and focus on the main ideas, important decisions, key updates, and next steps, only include these if they exist; don't mention their absence. Avoid unnecessary detail, repetition, or formatting commentary. Write in plain language and optimize for a quick 5–10 second read</p>`,
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_message_summarize_presentation: {
-		id: 'fabric.linking.rovo_prompt_message_summarize_presentation.non-final',
+		id: 'fabric.linking.rovo_prompt_message_summarize_presentation',
 		defaultMessage: `<p>Summarize this Google Slides deck <a>{url}</a> into a concise executive overview. Focus on the tldr, key findings, decisions, metrics, risks, and next steps, if there are any. Use a short executive summary followed by 2-3 bullet points. Avoid slide-by-slide narration, design details, repetition, and filler.</p>`,
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_button_explain_code: {
-		id: 'fabric.linking.rovo_prompt_button_explain_code.non-final',
+		id: 'fabric.linking.rovo_prompt_button_explain_code',
 		defaultMessage: `Explain`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_explain_code: {
-		id: 'fabric.linking.rovo_prompt_message_explain_code.non-final',
+		id: 'fabric.linking.rovo_prompt_message_explain_code',
 		defaultMessage: `<p>Explain this code, pull request, or commit <a>{url}</a> in clear, plain language for a non-technical audience.</p><p>Cover:</p><ol><li><strong>Purpose</strong> — What problem does it solve or what goal does it achieve?</li><li><strong>How it works</strong> — High-level mechanics (no implementation detail unless critical to understanding).</li><li><strong>Why</strong> — Motivation for the change or design choice.</li><li><strong>Impact</strong> — Key behavior changes, risks, or downstream effects worth noting.</li></ol><p>Constraints:</p><ul><li>3–5 sentences or 100–150 words max.</li><li>Omit sections with nothing meaningful to say.</li><li>Prefer concrete language over abstract descriptions (e.g., "speeds up page load by caching results" over "improves performance").</li></ul>`,
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_button_catch_up: {
-		id: 'fabric.linking.rovo_prompt_button_catch_up.non-final',
+		id: 'fabric.linking.rovo_prompt_button_catch_up',
 		defaultMessage: `Catch up`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_catch_up: {
-		id: 'fabric.linking.rovo_prompt_message_catch_up.non-final',
+		id: 'fabric.linking.rovo_prompt_message_catch_up',
 		defaultMessage: `<p>Catch me up on the latest {provider} conversations or channel activity in <a>{url}</a> from the last two weeks. If there's no activity in the past two weeks, expand the window to the most recent 30 days (or until meaningful activity is found). Summarize the most important updates, decisions, and discussions so the user can quickly understand what they missed. Focus on key changes, unresolved questions, and any action items or follow-ups. Prioritize recent messages with the most activity. Keep the response concise — ideally 80–150 words or a short set of 3–5 key bullets.</p>`,
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. {provider} is the 3P app name (Please make sure all html tags remain the same.)',
 	},
 	rovo_prompt_button_salesforce_prep: {
-		id: 'fabric.linking.rovo_prompt_button_salesforce_prep.non-final',
+		id: 'fabric.linking.rovo_prompt_button_salesforce_prep',
 		defaultMessage: `Prep`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
 	},
 	rovo_prompt_message_salesforce_prep: {
-		id: 'fabric.linking.rovo_prompt_message_salesforce_prep.non-final',
+		id: 'fabric.linking.rovo_prompt_message_salesforce_prep',
 		defaultMessage: `<p>Prep me for this Salesforce record <a>{url}</a>. What's the current state, what's the recent activity, what risks or opportunities should I be aware of, and what would be useful to know before a conversation about it?</p>`,
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',

@@ -3,11 +3,11 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import * as analytics from '../../../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics/analytics';
 import { getMockForbiddenDirectAccessResponse } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardForbiddenView from '../index';
 
@@ -27,7 +27,7 @@ describe('Forbidden Hover Card', () => {
 		const analyticsSpy = jest.fn();
 
 		const { findByTestId, queryByTestId, container } = render(
-			<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
+			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
 				<IntlProvider locale="en">
 					<SmartCardProvider>
 						<HoverCardForbiddenView
@@ -99,7 +99,7 @@ describe('Forbidden Hover Card', () => {
 					eventType: 'ui',
 				},
 			},
-			analytics.ANALYTICS_CHANNEL,
+			ANALYTICS_CHANNEL,
 		);
 	});
 

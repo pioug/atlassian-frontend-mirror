@@ -2,6 +2,7 @@ import { adfNodeGroup, type ADFNodeGroup } from '@atlaskit/adf-schema-generator'
 import { blockCard } from '../nodes/blockCard';
 import { blockquote } from '../nodes/blockquote';
 import { bodiedExtension } from '../nodes/bodiedExtension';
+import { bodiedRule } from '../nodes/bodiedRule';
 import { codeBlock } from '../nodes/codeBlock';
 import { confluenceUnsupportedBlock } from '../nodes/confluenceUnsupportedBlock';
 import { decisionList } from '../nodes/decisionList';
@@ -50,6 +51,8 @@ export const blockContentGroup: ADFNodeGroup = adfNodeGroup(
 		mediaGroup,
 		decisionList,
 		rule,
+		rule.use('with_attrs'),
+		bodiedRule,
 		panel,
 		blockquote,
 		extension.use('with_marks'),

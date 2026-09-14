@@ -18,20 +18,15 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useHighlightLines } from './internal/hooks/use-highlight';
 import { getLineNumWidth } from './internal/theme/styles';
 import type { CodeBlockProps } from './internal/types';
 import { normalizeLanguage } from './internal/utils/get-normalized-language';
-import SyntaxHighlighter from './syntax-highlighter';
+import SyntaxHighlighter from './syntax-highlighter/async';
 
 const getCodeBlockStyles = cssMap({
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	rootT26Shape: {
-		borderRadius: token('radius.large'),
-	},
 	root: {
 		font: token('font.code'),
 		// Prevents empty code blocks from vertically collapsing
@@ -107,7 +102,7 @@ const getCodeBlockStyles = cssMap({
 			display: 'inline-block !important',
 		},
 		borderStyle: 'none',
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.large'),
 		// this is required to account for prismjs styles leaking into the codeblock
 		'code[class*="language-"], pre[class*="language-"], code': {
 			all: 'unset',
@@ -222,7 +217,9 @@ const getCodeBlockStyles = cssMap({
 	},
 	showLineNumbers: {
 		'& code:first-of-type': {
-			backgroundImage: `linear-gradient(to right, var(--ds--code--line-number-bg-color,${token('color.background.neutral')}), var(--ds--code--line-number-bg-color,${token('color.background.neutral')})
+			backgroundImage: `linear-gradient(to right, var(--ds--code--line-number-bg-color,${token(
+				'color.background.neutral',
+			)}), var(--ds--code--line-number-bg-color,${token('color.background.neutral')})
 			var(--ads-code-line-number-width), transparent var(--ads-code-line-number-width), transparent)`,
 		},
 		'& [data-ds--code--row]': {
@@ -263,113 +260,115 @@ const getCodeBlockStyles = cssMap({
  * - [Code](https://atlassian.design/components/code/code-block/code)
  * - [Usage](https://atlassian.design/components/code/code-block/usage)
  */
-const CodeBlock: NamedExoticComponent<CodeBlockProps> = memo<CodeBlockProps>(function CodeBlock({
-	showLineNumbers = true,
-	shouldShowLineNumbers,
-	firstLineNumber = 1,
-	language: providedLanguage = 'text',
-	highlight = '',
-	highlightedStartText = 'Highlight start',
-	highlightedEndText = 'Highlight end',
-	testId,
-	text,
-	codeBidiWarnings = true,
-	hasBidiWarnings,
-	codeBidiWarningLabel,
-	codeBidiWarningTooltipEnabled = true,
-	isBidiWarningTooltipEnabled,
-	shouldWrapLongLines = false,
-	label = 'Scrollable content',
-}) {
-	const scrollableRef = useRef<HTMLSpanElement>(null);
-	const [showContentFocus, setShowContentFocus] = useState(false);
-
-	// Use children if provided, otherwise fall back to deprecated text prop
-	const numLines =
-		(text || '').split('\n').length + (firstLineNumber > 0 ? firstLineNumber : 1) - 1;
-	const lineNumberWidth = numLines ? getLineNumWidth(numLines) : 0;
-
-	// Use new props if provided, otherwise fall back to deprecated props
-	const shouldShowLineNumbersValue =
-		shouldShowLineNumbers !== undefined ? shouldShowLineNumbers : showLineNumbers;
-	const shouldShowBidiWarnings = hasBidiWarnings !== undefined ? hasBidiWarnings : codeBidiWarnings;
-	const shouldEnableTooltip =
-		isBidiWarningTooltipEnabled !== undefined
-			? isBidiWarningTooltipEnabled
-			: codeBidiWarningTooltipEnabled;
-
-	// Schedule a content focus on the target element
-	// WARNING: In theory, `target` may not be available when `rafSchedule` hits in concurrent rendering
-	useEffect(() => {
-		const schedule = rafSchedule(() => {
-			const target = scrollableRef.current;
-			target && setShowContentFocus(target.scrollWidth > target.clientWidth);
-		});
-
-		schedule();
-
-		const unbindWindowEvent = bind(window, {
-			type: 'resize',
-			listener: schedule,
-		});
-
-		return unbindWindowEvent;
-	}, [scrollableRef]);
-
-	const { getHighlightStyles, highlightedLines } = useHighlightLines({
-		highlight,
+const CodeBlock: NamedExoticComponent<CodeBlockProps> = memo<CodeBlockProps>(
+	({
+		showLineNumbers = true,
+		shouldShowLineNumbers,
+		firstLineNumber = 1,
+		language: providedLanguage = 'text',
+		highlight = '',
+		highlightedStartText = 'Highlight start',
+		highlightedEndText = 'Highlight end',
 		testId,
-	});
+		text,
+		codeBidiWarnings = true,
+		hasBidiWarnings,
+		codeBidiWarningLabel,
+		codeBidiWarningTooltipEnabled = true,
+		isBidiWarningTooltipEnabled,
+		shouldWrapLongLines = false,
+		label = 'Scrollable content',
+	}) => {
+		const scrollableRef = useRef<HTMLSpanElement>(null);
+		const [showContentFocus, setShowContentFocus] = useState(false);
 
-	const getLineProps = useCallback(
-		(line: number) => getHighlightStyles(line, highlightedLines),
-		[getHighlightStyles, highlightedLines],
-	);
+		// Use children if provided, otherwise fall back to deprecated text prop
+		const numLines =
+			(text || '').split('\n').length + (firstLineNumber > 0 ? firstLineNumber : 1) - 1;
+		const lineNumberWidth = numLines ? getLineNumWidth(numLines) : 0;
 
-	const language = useMemo(() => normalizeLanguage(providedLanguage), [providedLanguage]);
+		// Use new props if provided, otherwise fall back to deprecated props
+		const shouldShowLineNumbersValue =
+			shouldShowLineNumbers !== undefined ? shouldShowLineNumbers : showLineNumbers;
+		const shouldShowBidiWarnings =
+			hasBidiWarnings !== undefined ? hasBidiWarnings : codeBidiWarnings;
+		const shouldEnableTooltip =
+			isBidiWarningTooltipEnabled !== undefined
+				? isBidiWarningTooltipEnabled
+				: codeBidiWarningTooltipEnabled;
 
-	// https://product-fabric.atlassian.net/browse/DST-2472
-	const languageToUse = text ? language : 'text';
+		// Schedule a content focus on the target element
+		// WARNING: In theory, `target` may not be available when `rafSchedule` hits in concurrent rendering
+		useEffect(() => {
+			const schedule = rafSchedule(() => {
+				const target = scrollableRef.current;
+				target && setShowContentFocus(target.scrollWidth > target.clientWidth);
+			});
 
-	return (
-		<SyntaxHighlighter
-			data-code-lang={language}
-			data-ds--code--code-block=""
-			testId={testId}
-			language={languageToUse}
-			css={[
-				getCodeBlockStyles.root,
-				fg('platform-dst-shape-theme-default') && getCodeBlockStyles.rootT26Shape,
-				shouldWrapLongLines
-					? getCodeBlockStyles.shouldWrapLongLines
-					: getCodeBlockStyles.dontWrapLongLines,
-				shouldShowLineNumbersValue
-					? getCodeBlockStyles.showLineNumbers
-					: getCodeBlockStyles.dontShowLineNumbers,
-			]}
-			style={{
-				'--ads-code-line-number-width': `calc(${lineNumberWidth} + 16px)`,
-				'--ads-highlighted-start-text': highlightedStartText,
-				'--ads-highlighted-end-text': highlightedEndText,
-			}}
-			showLineNumbers={shouldShowLineNumbersValue}
-			firstLineNumber={firstLineNumber}
-			lineProps={getLineProps}
-			// shouldCreateParentElementForLines is needed to pass down props to each line.
-			// This is necessary for both line highlighting and testId's, as each of
-			// these rely on a data attribute being passed down to lines.
-			shouldCreateParentElementForLines={highlight.length > 0 || !!testId}
-			shouldWrapLongLines={shouldWrapLongLines}
-			codeBidiWarnings={shouldShowBidiWarnings}
-			codeBidiWarningLabel={codeBidiWarningLabel}
-			codeBidiWarningTooltipEnabled={shouldEnableTooltip}
-			text={text}
-			tabIndex={showContentFocus ? '0' : undefined}
-			aria-label={showContentFocus ? label : undefined}
-			role={showContentFocus ? 'region' : undefined}
-			scrollRef={scrollableRef}
-		/>
-	);
-});
+			schedule();
+
+			const unbindWindowEvent = bind(window, {
+				type: 'resize',
+				listener: schedule,
+			});
+
+			return unbindWindowEvent;
+		}, [scrollableRef]);
+
+		const { getHighlightStyles, highlightedLines } = useHighlightLines({
+			highlight,
+			testId,
+		});
+
+		const getLineProps = useCallback(
+			(line: number) => getHighlightStyles(line, highlightedLines),
+			[getHighlightStyles, highlightedLines],
+		);
+
+		const language = useMemo(() => normalizeLanguage(providedLanguage), [providedLanguage]);
+
+		// https://product-fabric.atlassian.net/browse/DST-2472
+		const languageToUse = text ? language : 'text';
+
+		return (
+			<SyntaxHighlighter
+				data-code-lang={language}
+				data-ds--code--code-block=""
+				testId={testId}
+				language={languageToUse}
+				css={[
+					getCodeBlockStyles.root,
+					shouldWrapLongLines
+						? getCodeBlockStyles.shouldWrapLongLines
+						: getCodeBlockStyles.dontWrapLongLines,
+					shouldShowLineNumbersValue
+						? getCodeBlockStyles.showLineNumbers
+						: getCodeBlockStyles.dontShowLineNumbers,
+				]}
+				style={{
+					'--ads-code-line-number-width': `calc(${lineNumberWidth} + 16px)`,
+					'--ads-highlighted-start-text': highlightedStartText,
+					'--ads-highlighted-end-text': highlightedEndText,
+				}}
+				showLineNumbers={shouldShowLineNumbersValue}
+				firstLineNumber={firstLineNumber}
+				lineProps={getLineProps}
+				// shouldCreateParentElementForLines is needed to pass down props to each line.
+				// This is necessary for both line highlighting and testId's, as each of
+				// these rely on a data attribute being passed down to lines.
+				shouldCreateParentElementForLines={highlight.length > 0 || !!testId}
+				shouldWrapLongLines={shouldWrapLongLines}
+				codeBidiWarnings={shouldShowBidiWarnings}
+				codeBidiWarningLabel={codeBidiWarningLabel}
+				codeBidiWarningTooltipEnabled={shouldEnableTooltip}
+				text={text}
+				tabIndex={showContentFocus ? '0' : undefined}
+				aria-label={showContentFocus ? label : undefined}
+				role={showContentFocus ? 'region' : undefined}
+				scrollRef={scrollableRef}
+			/>
+		);
+	},
+);
 
 export default CodeBlock;

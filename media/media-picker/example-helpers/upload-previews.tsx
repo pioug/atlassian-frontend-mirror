@@ -1,13 +1,17 @@
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { UploadPreview } from './upload-preview';
+
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import {
 	type UploadsStartEventPayload,
 	type UploadPreviewUpdateEventPayload,
 	type UploadErrorEventPayload,
 } from '../src/types';
-import { PreviewsTitle, PreviewsWrapper, UploadPreviewsFlexRow } from './stylesWrapper';
+import { PreviewsTitle } from './PreviewsTitle';
+import { PreviewsWrapper } from './PreviewsWrapper';
+import { UploadPreviewsFlexRow } from './UploadPreviewsFlexRow';
 import { type PreviewData } from './types';
+import { UploadPreview } from './upload-preview';
 
 export interface PreviewsDataState {
 	previewsData: PreviewData[];

@@ -16,7 +16,6 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getSelectedTableInfo, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // Ignored via go/ees005
@@ -71,14 +70,6 @@ function isPastedFromFabricEditor(html?: string): boolean {
 	return !!html && html.indexOf('data-pm-slice="') >= 0;
 }
 
-function isPastedFromFabricRenderer(html?: string): boolean {
-	return (
-		!!html &&
-		html.indexOf('data-renderer-start-pos="') >= 0 &&
-		fg('platform_editor_paste_renderer_analytics')
-	);
-}
-
 export const isSingleLine = (text: string): boolean => {
 	return !!text && text.trim().split('\n').length === 1;
 };
@@ -106,8 +97,6 @@ export function getPasteSource(event: ClipboardEvent): PasteSource {
 		return 'apple-pages';
 	} else if (isPastedFromFabricEditor(html)) {
 		return 'fabric-editor';
-	} else if (isPastedFromFabricRenderer(html)) {
-		return 'fabric-renderer';
 	}
 
 	return 'uncategorized';
@@ -145,7 +134,11 @@ export function escapeLinks(text: string): string {
  * const input = 'This is a link: https://example.com and a backslash: \\\n```\ncode block https://example.com not escaped\ncode block \\ not escaped\n```';
  * const output = escapeBackslashAndLinksExceptCodeBlock(input); // 'This is a link: <https://example.com> and a backslash: \\\\\n```\ncode block https://example.com not escaped\ncode block \\ not escaped\n```'
  */
-export function escapeBackslashAndLinksExceptCodeBlock(textInput: string): string {
+export function escapeBackslashAndLinksExceptCodeBlock(
+	textInput: string,
+	options?: { skipLinkEscaping?: boolean },
+): string {
+	const shouldEscapeLinks = !options?.skipLinkEscaping;
 	// ref: https://spec.commonmark.org/0.31.2/#fenced-code-blocks
 	let isInsideCodeBlock = false;
 	const lines = textInput.split('\n');
@@ -168,7 +161,9 @@ export function escapeBackslashAndLinksExceptCodeBlock(textInput: string): strin
 				// Ignored via go/ees005
 				// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 				let escaped = line.replace(/\\/g, '\\\\');
-				escaped = escapeLinks(escaped);
+				if (shouldEscapeLinks) {
+					escaped = escapeLinks(escaped);
+				}
 				return escaped;
 			}
 		})

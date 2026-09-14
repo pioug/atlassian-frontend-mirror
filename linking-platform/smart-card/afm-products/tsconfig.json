@@ -134,6 +134,9 @@
 			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
@@ -162,6 +165,9 @@
 		},
 		{
 			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tag/afm-products/tsconfig.json"

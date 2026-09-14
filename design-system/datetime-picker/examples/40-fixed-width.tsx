@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { DatePicker, DateTimePicker, TimePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const GRID_SIZE = 8;

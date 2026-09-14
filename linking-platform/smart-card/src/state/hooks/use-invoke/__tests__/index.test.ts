@@ -1,6 +1,6 @@
 import * as jestExtendedMatchers from 'jest-extended';
 
-import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
+import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension/use-smart-link-client-extension';
 import {
 	type InvokeRequest,
 	SmartLinkActionType,
@@ -9,14 +9,15 @@ import { renderHook } from '@atlassian/testing-library';
 
 import useInvoke from '../index';
 
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
+jest.mock('@atlaskit/link-provider/use-smart-link-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-link-context'),
 	useSmartLinkContext: jest.fn().mockReturnValue({
 		connections: { client: {} },
 	}),
 }));
 
-jest.mock('@atlaskit/link-client-extension', () => ({
+jest.mock('@atlaskit/link-client-extension/use-smart-link-client-extension', () => ({
+	...jest.requireActual('@atlaskit/link-client-extension/use-smart-link-client-extension'),
 	useSmartLinkClientExtension: jest.fn(),
 }));
 

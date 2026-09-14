@@ -4,7 +4,8 @@ import { render, screen } from '@testing-library/react';
 
 import { Text } from '@atlaskit/primitives/compiled';
 
-import SectionMessage, { SectionMessageAction } from '../../index';
+import SectionMessage from '../../section-message';
+import SectionMessageAction from '../../section-message-action';
 
 const sectionMessageInfoId = 'info-section-message';
 const sectionMessageInfoBBId = 'jira';

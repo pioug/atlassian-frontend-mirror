@@ -1,5 +1,5 @@
 import { type UserARI } from '../../../../common/types';
-import { type MembershipRole, type MembershipState } from '../../../../types';
+import { type MembershipRole, type MembershipState } from '../../../../types/membership';
 import { type AGGPageInfo } from '../../types';
 
 const TeamMembershipQuery = `query app_user_characteristics($teamId: ID!, $siteId: String!, $membershipState: [TeamMembershipState!]!, $first: Int!, $after: String) {

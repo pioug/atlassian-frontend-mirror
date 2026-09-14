@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers';
 import { Card } from '../src/card/card';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { jsx } from '@compiled/react';
 import { css } from '@compiled/react';
 

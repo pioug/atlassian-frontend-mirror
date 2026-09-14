@@ -23,8 +23,10 @@
 		"./initial-layout": "./src/entry-points/initial-layout.ts",
 		"./initial-placeholder": "./src/entry-points/initial-placeholder.tsx",
 		"./native-embed-styles": "./src/entry-points/native-embed-styles.ts",
+		"./whiteboard-viewport-alignment": "./src/entry-points/whiteboard-viewport-alignment.ts",
 		"./embed-depth/constants": "./src/entry-points/embed-depth-constants.ts",
 		"./plugin-actions/types": "./src/entry-points/plugin-actions-types.ts",
+		"./remix-slot-store": "./src/entry-points/remix-slot-store.ts",
 		"./types": "./src/entry-points/types.ts",
 		"./utils": "./src/entry-points/utils.ts",
 		"./i18n/*": {
@@ -60,46 +62,8 @@
 		"react-dom": "root:*",
 		"react-intl": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"name": "@atlaskit/native-embeds-common",
-	"version": "2.2.7",
+	"version": "2.4.2",
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import DatabaseObjectTile from '@atlaskit/object/tile/database';
 import EpicObjectTile from '@atlaskit/object/tile/epic';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';

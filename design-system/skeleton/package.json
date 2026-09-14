@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/skeleton",
-	"version": "4.2.2",
+	"version": "4.4.0",
 	"description": "A skeleton acts as a placeholder for content, usually while the content loads.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -51,44 +51,10 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"theming": [
-				"react-context",
-				"tokens"
-			],
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"homepage": "https://atlassian.design/components/skeleton",
 	"exports": {

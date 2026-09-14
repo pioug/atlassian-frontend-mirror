@@ -2,8 +2,8 @@ import React, { Component, type FormEvent, type ComponentType } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button';
-import TextField from '@atlaskit/textfield';
+import Button from '@atlaskit/button/button';
+import TextField from '@atlaskit/textfield/text-field';
 
 import metadata from '../src/metadata';
 import IconExplorerCell from './utils/icon-explorer-cell';

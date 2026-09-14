@@ -4,185 +4,33 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import type { ColorScheme, DiffType } from '../../../showDiffPluginType';
+import type { DiffType, RevealOptions } from '../../../showDiffPluginType';
 import { isExtendedEnabled } from '../../isExtendedEnabled';
-import {
-	deletedBlockOutline,
-	deletedBlockOutlineActive,
-	deletedBlockOutlineRounded,
-	deletedBlockOutlineRoundedActive,
-	deletedContentStyle,
-	deletedContentStyleActive,
-	deletedContentStyleNew,
-	deletedContentStyleUnbounded,
-	deletedInlineContentStyleExtended,
-	deletedStyleQuoteNodeWithLozenge,
-	deletedStyleQuoteNodeWithLozengeActive,
-	editingContentStyleInBlockExtended,
-	editingContentStyleInBlockExtendedNoUnderline,
-	editingStyleExtended,
-	editingStyleExtendedNoUnderline,
-	editingStyleActiveExtended,
-	editingStyleActiveExtendedNoUnderline,
-	editingStyleNode,
-	addedCellOverlayStyle,
-	addedCellOverlayRoundedStyle,
-	deletedCellOverlayStyle,
-} from '../colorSchemes/standard';
-import {
-	deletedTraditionalBlockOutlineActive,
-	deletedTraditionalBlockOutlineNew,
-	deletedTraditionalBlockOutlineRoundedActive,
-	deletedTraditionalBlockOutlineRoundedNew,
-	deletedTraditionalContentStyleUnbounded,
-	deletedTraditionalContentStyleUnboundedActive,
-	getDeletedTraditionalInlineStyle,
-	deletedTraditionalStyleQuoteNode,
-	deletedTraditionalStyleQuoteNodeActive,
-	traditionalInsertStyle,
-	traditionalInsertStyleActive,
-	traditionalStyleNodeActive,
-	traditionalStyleNodeNew,
-	traditionalAddedCellOverlayRoundedStyle,
-	traditionalAddedCellOverlayStyleNew,
-	deletedTraditionalCellOverlayStyle,
-} from '../colorSchemes/traditional';
+import { applyRevealToElement } from '../revealStyles';
+import type { ColorScheme } from '../colorSchemes/types';
+import { getAtomicInlineChangedAttrs } from '../createInlineChangedDecoration';
 
 import { applyTableCellEdgeAttrs } from './tableCellEdgeAttrs';
-
-const lozengeStyle = convertToInlineCss({
-	display: 'inline-flex',
-	boxSizing: 'border-box',
-	position: 'static',
-	blockSize: 'min-content',
-	borderRadius: token('radius.small'),
-	overflow: 'hidden',
-	paddingInlineStart: token('space.050'),
-	paddingInlineEnd: token('space.050'),
-	backgroundColor: token('color.background.accent.gray.subtler'),
-	font: token('font.body.small'),
-	fontWeight: token('font.weight.bold'),
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	color: token('color.text.warning.inverse'),
-});
-
-const lozengeStyleActiveStandard = convertToInlineCss({
-	display: 'inline-flex',
-	boxSizing: 'border-box',
-	position: 'static',
-	blockSize: 'min-content',
-	borderRadius: token('radius.small'),
-	overflow: 'hidden',
-	paddingInlineStart: token('space.050'),
-	paddingInlineEnd: token('space.050'),
-	backgroundColor: token('color.background.accent.red.subtler.pressed'),
-	font: token('font.body.small'),
-	fontWeight: token('font.weight.bold'),
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	color: token('color.text.warning.inverse'),
-});
-
-const lozengeStyleActiveTraditional = convertToInlineCss({
-	display: 'inline-flex',
-	boxSizing: 'border-box',
-	position: 'static',
-	blockSize: 'min-content',
-	borderRadius: token('radius.small'),
-	overflow: 'hidden',
-	paddingInlineStart: token('space.050'),
-	paddingInlineEnd: token('space.050'),
-	backgroundColor: token('color.background.accent.red.subtler.pressed'),
-	font: token('font.body.small'),
-	fontWeight: token('font.weight.bold'),
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	color: token('color.text.warning.inverse'),
-});
-
-const getChangedContentStyle = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-	isInserted: boolean = false,
-	diffType?: DiffType,
-	hideAddedDiffsUnderline: boolean = false,
-): string => {
-	if (isExtendedEnabled(diffType) && isInserted) {
-		if (colorScheme === 'traditional') {
-			return isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
-		}
-		return isActive
-			? hideAddedDiffsUnderline
-				? editingStyleActiveExtendedNoUnderline
-				: editingStyleActiveExtended
-			: hideAddedDiffsUnderline
-				? editingStyleExtendedNoUnderline
-				: editingStyleExtended;
-	}
-	if (colorScheme === 'traditional') {
-		return getDeletedTraditionalInlineStyle(isActive);
-	}
-	if (isActive) {
-		return deletedContentStyleActive;
-	}
-	return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-		? deletedContentStyleNew
-		: deletedContentStyle;
-};
-
-const getChangedNodeStyle = (
-	nodeName: string,
-	colorScheme?: ColorScheme,
-	isInserted: boolean = false,
-	isActive: boolean = false,
-	diffType?: DiffType,
-	hideAddedDiffsUnderline: boolean = false,
-) => {
-	const isTraditional = colorScheme === 'traditional';
-
-	if (isExtendedEnabled(diffType) && isInserted) {
-		if (isMultiContainerBlockNode(nodeName)) {
-			return hideAddedDiffsUnderline
-				? editingContentStyleInBlockExtendedNoUnderline
-				: editingContentStyleInBlockExtended;
-		}
-		if (isTextLikeBlockNode(nodeName)) {
-			return undefined;
-		}
-		if (isTraditional) {
-			return isActive ? traditionalStyleNodeActive : traditionalStyleNodeNew;
-		}
-		return editingStyleNode;
-	}
-
-	switch (nodeName) {
-		case 'blockquote':
-			if (isTraditional) {
-				return isActive ? deletedTraditionalStyleQuoteNodeActive : deletedTraditionalStyleQuoteNode;
-			}
-			return isActive ? deletedStyleQuoteNodeWithLozengeActive : deletedStyleQuoteNodeWithLozenge;
-		case 'expand':
-		case 'decisionList':
-			if (isTraditional) {
-				return isActive ? deletedTraditionalBlockOutlineActive : deletedTraditionalBlockOutlineNew;
-			}
-			return isActive ? deletedBlockOutlineActive : deletedBlockOutline;
-		case 'panel':
-		case 'codeBlock':
-			if (isTraditional) {
-				return isActive
-					? deletedTraditionalBlockOutlineRoundedActive
-					: deletedTraditionalBlockOutlineRoundedNew;
-			}
-			return isActive ? deletedBlockOutlineRoundedActive : deletedBlockOutlineRounded;
-		default:
-			return undefined;
-	}
-};
+import { isInlineAttrChangeNodeName } from './getAttrChangeRanges';
+import {
+	getChangedContentStyle,
+	getChangedNodeStyle,
+	getDeletedContentStyle,
+	getDeletedContentStyleUnbounded,
+	getInsertedContentStyle,
+	hasRestingDeletedRing,
+	isMultiContainerBlockNode,
+	isTextLikeBlockNode,
+	resolveCellOverlayStyle,
+	resolveDeletedNodeCSSVariables,
+	resolveNestedInsertedNodeStyle,
+	resolveRemovedLozengeStyle,
+} from './wrapBlockNodeViewStyles';
 
 const shouldShowRemovedLozenge = (nodeName: string): boolean => {
 	switch (nodeName) {
@@ -226,10 +74,77 @@ const maybeAddDeletedOutlineNewClass = ({
 	if (name !== 'mediaSingle' && name !== 'embedCard') {
 		return;
 	}
-	if (colorScheme === 'traditional' && !isActive) {
+	// Only schemes with a resting ring get the class.
+	if (hasRestingDeletedRing(colorScheme) && !isActive) {
 		nodeView.classList.add('show-diff-deleted-outline-new');
 	}
 };
+
+type DeletedNodeMarkupArgs = {
+	colorScheme?: ColorScheme;
+	isActive?: boolean;
+	nodeView: HTMLElement;
+	targetNode: PMNode;
+};
+
+/**
+ * Pre-refactor markup for a deleted media/embed/blockquote nodeview: one class per scheme, and no
+ * custom properties — the colours come from the matching per-scheme selectors in editor-core.
+ *
+ * Delete this together with those selectors at experiment cleanup (EDITOR-8281).
+ */
+const applyDeletedNodeMarkupLegacy = ({
+	nodeView,
+	targetNode,
+	colorScheme,
+	isActive = false,
+}: DeletedNodeMarkupArgs): void => {
+	nodeView.classList.add(
+		colorScheme === 'traditional' ? 'show-diff-deleted-node-traditional' : 'show-diff-deleted-node',
+	);
+	if (isActive) {
+		nodeView.classList.add('show-diff-deleted-active');
+	}
+	maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
+};
+
+/**
+ * Registry-driven markup: one scheme-agnostic class, plus the scheme's colours as custom properties,
+ * so editor-core needs one selector per visual role instead of one per scheme.
+ *
+ * `show-diff-deleted-node-vars` *replaces* the legacy classes rather than joining them. Both sets of
+ * selectors live in editor-core for the life of the experiment, and they have equal specificity, so
+ * a shared base class would leave the winner up to source order.
+ *
+ * The `-vars` suffix names what the class means — this node carries its scheme colours as
+ * `--diff-delete-*` custom properties — rather than when it arrived, so it still reads correctly
+ * once the legacy classes are gone.
+ */
+const applyDeletedNodeMarkupNext = ({
+	nodeView,
+	targetNode,
+	colorScheme,
+	isActive = false,
+}: DeletedNodeMarkupArgs): void => {
+	nodeView.classList.add('show-diff-deleted-node-vars');
+	if (isActive) {
+		nodeView.classList.add('show-diff-deleted-active');
+	}
+	maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
+
+	const currentStyle = nodeView.getAttribute('style') || '';
+	const separator = currentStyle && !currentStyle.trimEnd().endsWith(';') ? ';' : '';
+	nodeView.setAttribute(
+		'style',
+		`${currentStyle}${separator}${resolveDeletedNodeCSSVariables(colorScheme)}`,
+	);
+};
+
+/** Single gate for the deleted-node classes and custom properties. */
+const applyDeletedNodeMarkup = (args: DeletedNodeMarkupArgs): void =>
+	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
+		? applyDeletedNodeMarkupNext(args)
+		: applyDeletedNodeMarkupLegacy(args);
 
 /**
  * Checks if a node should apply deleted styles directly without wrapper
@@ -237,16 +152,6 @@ const maybeAddDeletedOutlineNewClass = ({
  */
 const shouldApplyStylesDirectly = (nodeName: string): boolean => {
 	return nodeName === 'heading';
-};
-
-const isMultiContainerBlockNode = (nodeName: string): boolean => {
-	return ['decisionList', 'layoutSection'].includes(nodeName);
-};
-
-const isTextLikeBlockNode = (nodeName: string): boolean => {
-	return ['heading', 'bulletList', 'orderedList', 'listItem', 'taskList', 'blockquote'].includes(
-		nodeName,
-	);
 };
 
 const applyCellOverlayStyles = ({
@@ -258,30 +163,12 @@ const applyCellOverlayStyles = ({
 	element: HTMLElement;
 	isInserted: boolean;
 }) => {
-	const isRoundedTable = expValEquals(
-		'platform_editor_table_diff_rounded_corners',
-		'isEnabled',
-		true,
-	);
+	const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
+
+	const overlayStyle = resolveCellOverlayStyle({ colorScheme, isInserted, isRoundedTable });
 
 	element.querySelectorAll('td, th').forEach((cell) => {
 		const overlay = document.createElement('span');
-		const isTraditional = colorScheme === 'traditional';
-
-		const deletedCellStyle = isTraditional
-			? deletedTraditionalCellOverlayStyle
-			: deletedCellOverlayStyle;
-
-		const addedCellStyle = isTraditional
-			? isRoundedTable
-				? traditionalAddedCellOverlayRoundedStyle
-				: traditionalAddedCellOverlayStyleNew
-			: isRoundedTable
-				? addedCellOverlayRoundedStyle
-				: addedCellOverlayStyle;
-
-		const overlayStyle = isInserted ? addedCellStyle : deletedCellStyle;
-
 		overlay.setAttribute('style', overlayStyle);
 		cell.appendChild(overlay);
 	});
@@ -312,12 +199,7 @@ const createRemovedLozenge = (
 	// Create vanilla HTML lozenge element with Atlaskit Lozenge styling (visual refresh)
 	const lozengeElement = document.createElement('span');
 
-	const lozengeInnerStyle =
-		isActive && colorScheme === 'traditional'
-			? lozengeStyleActiveTraditional
-			: isActive
-				? lozengeStyleActiveStandard
-				: lozengeStyle;
+	const lozengeInnerStyle = resolveRemovedLozengeStyle(colorScheme, isActive);
 	lozengeElement.setAttribute('style', lozengeInnerStyle);
 	lozengeElement.textContent = intl.formatMessage(trackChangesMessages.removed).toUpperCase();
 
@@ -419,24 +301,106 @@ const applyMultiContainerLikeStyles = ({
 		) || '';
 
 	if (targetNode.type.name === 'decisionList') {
+		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle();
 		element.querySelectorAll('li').forEach((listItem) => {
 			const currentListItemStyle = listItem.getAttribute('style') || '';
-			listItem.setAttribute('style', `${currentListItemStyle}${editingStyleNode}`);
+			listItem.setAttribute('style', `${currentListItemStyle}${nestedInsertedNodeStyle}`);
 		});
 	} else if (targetNode.type.name === 'layoutSection') {
+		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle();
 		element.querySelectorAll('[data-layout-column="true"]').forEach((section) => {
 			const currentSectionStyle = section.getAttribute('style') || '';
-			section.setAttribute('style', `${currentSectionStyle}${editingStyleNode}`);
+			section.setAttribute('style', `${currentSectionStyle}${nestedInsertedNodeStyle}`);
 		});
 	} else if (targetNode.type.name === 'taskList') {
+		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle();
 		element.querySelectorAll('li').forEach((listItem) => {
 			const currentListItemStyle = listItem.getAttribute('style') || '';
-			listItem.setAttribute('style', `${currentListItemStyle}${editingStyleNode}`);
+			listItem.setAttribute('style', `${currentListItemStyle}${nestedInsertedNodeStyle}`);
 		});
 	}
 
 	element.setAttribute('style', `${currentStyle};${nodeSpecificStyle}`);
 };
+
+const combineStyles = (currentStyle: string, appendedStyle: string): string => {
+	const separator =
+		currentStyle && appendedStyle && !currentStyle.trimEnd().endsWith(';') ? '; ' : '';
+	return `${currentStyle}${separator}${appendedStyle}`;
+};
+
+const appendStyleToElement = (element: HTMLElement, style: string): void => {
+	const currentStyle = element.getAttribute('style') || '';
+	element.setAttribute('style', combineStyles(currentStyle, style));
+};
+
+const wrapAtomicInlineNode = ({
+	element,
+	className,
+	style,
+}: {
+	className: string;
+	element: HTMLElement;
+	style: string;
+}): void => {
+	const wrapper = document.createElement('span');
+	wrapper.className = className;
+	wrapper.setAttribute('style', style);
+	element.replaceWith(wrapper);
+	wrapper.append(element);
+};
+
+const applyInlineLeafNodeStyles = ({
+	element,
+	targetNode,
+	contentStyle,
+	colorScheme,
+}: {
+	colorScheme?: ColorScheme;
+	contentStyle: string;
+	element: HTMLElement;
+	targetNode: PMNode;
+}): void => {
+	// NodeViewSerializer appends one DOM node per direct ProseMirror child, preserving order.
+	const childDomNodes = [...element.childNodes];
+
+	targetNode.content.forEach((childNode, _offset, index) => {
+		if (childNode.isText || !childNode.isLeaf) {
+			return;
+		}
+
+		const childElement = childDomNodes[index];
+		if (!(childElement instanceof HTMLElement)) {
+			return;
+		}
+
+		if (!isInlineAttrChangeNodeName(childNode.type.name)) {
+			appendStyleToElement(childElement, contentStyle);
+			return;
+		}
+
+		const { className, styleSuffix } = getAtomicInlineChangedAttrs(
+			childNode.type.name,
+			colorScheme,
+		);
+		// Inline decorations use an outer span so node-specific descendant selectors match.
+		wrapAtomicInlineNode({
+			element: childElement,
+			className,
+			style: combineStyles(contentStyle, styleSuffix),
+		});
+	});
+};
+
+/**
+ * Editor CSS makes `blockquote` `inline-block` for its block formatting context. Inside a widget
+ * that collapses the indicator bar: the container is an inline `span`, so its anchor rect comes from
+ * font metrics, not from an inline-level child. `flow-root` keeps the formatting context but is
+ * block-level — unlike `block`, which lets the child paragraph's top margin collapse out.
+ */
+const quoteBlockLevelStyle = convertToInlineCss({
+	display: 'flow-root',
+});
 
 const applyTextLikeBlockNodeStyles = ({
 	element,
@@ -446,11 +410,13 @@ const applyTextLikeBlockNodeStyles = ({
 	isInserted,
 	diffType,
 	hideAddedDiffsUnderline = false,
+	highlightInlineLeafNodes = false,
 }: {
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
 	element: HTMLElement;
 	hideAddedDiffsUnderline?: boolean;
+	highlightInlineLeafNodes?: boolean;
 	isActive: boolean;
 	isInserted: boolean;
 	targetNode: PMNode;
@@ -497,6 +463,10 @@ const applyTextLikeBlockNodeStyles = ({
 		textNode.replaceWith(contentWrapper);
 		contentWrapper.append(textNode);
 	});
+
+	if (highlightInlineLeafNodes && targetNode.type.inlineContent) {
+		applyInlineLeafNodeStyles({ element, targetNode, contentStyle, colorScheme });
+	}
 };
 
 /**
@@ -588,15 +558,7 @@ const handleEmbedCardWithLozenge = ({
 	}
 
 	if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
-		const showDiffDeletedNodeClass =
-			colorScheme === 'traditional'
-				? 'show-diff-deleted-node-traditional'
-				: 'show-diff-deleted-node';
-		nodeView.classList.add(showDiffDeletedNodeClass);
-		if (isActive) {
-			nodeView.classList.add('show-diff-deleted-active');
-		}
-		maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
+		applyDeletedNodeMarkup({ nodeView, targetNode, colorScheme, isActive });
 	}
 
 	dom.append(nodeView);
@@ -640,15 +602,7 @@ const handleMediaSingleWithLozenge = ({
 
 	// Add deleted node class if needed
 	if (shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
-		const showDiffDeletedNodeClass =
-			colorScheme === 'traditional'
-				? 'show-diff-deleted-node-traditional'
-				: 'show-diff-deleted-node';
-		nodeView.classList.add(showDiffDeletedNodeClass);
-		if (isActive) {
-			nodeView.classList.add('show-diff-deleted-active');
-		}
-		maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
+		applyDeletedNodeMarkup({ nodeView, targetNode, colorScheme, isActive });
 	}
 
 	dom.append(nodeView);
@@ -712,15 +666,7 @@ const wrapBlockNode = ({
 	blockWrapper.append(contentWrapper);
 
 	if (nodeView instanceof HTMLElement && shouldAddShowDiffDeletedNodeClass(targetNode.type.name)) {
-		const showDiffDeletedNodeClass =
-			colorScheme === 'traditional'
-				? 'show-diff-deleted-node-traditional'
-				: 'show-diff-deleted-node';
-		nodeView.classList.add(showDiffDeletedNodeClass);
-		if (isActive) {
-			nodeView.classList.add('show-diff-deleted-active');
-		}
-		maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
+		applyDeletedNodeMarkup({ nodeView, targetNode, colorScheme, isActive });
 	}
 
 	dom.append(blockWrapper);
@@ -741,11 +687,13 @@ export const wrapBlockNodeView = ({
 	isInserted = false,
 	diffType,
 	hideAddedDiffsUnderline = false,
+	highlightInlineLeafNodes = false,
 }: {
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
 	dom: HTMLElement;
 	hideAddedDiffsUnderline?: boolean;
+	highlightInlineLeafNodes?: boolean;
 	intl: IntlShape;
 	isActive?: boolean;
 	isInserted: boolean;
@@ -777,7 +725,11 @@ export const wrapBlockNodeView = ({
 					isInserted,
 					diffType,
 					hideAddedDiffsUnderline,
+					highlightInlineLeafNodes,
 				});
+				if (targetNode.type.name === 'blockquote' && fg('platform_editor_ai_show_diff_patch_1')) {
+					appendStyleToElement(nodeView, quoteBlockLevelStyle);
+				}
 				dom.append(nodeView);
 				return;
 			}
@@ -785,7 +737,7 @@ export const wrapBlockNodeView = ({
 			if (targetNode.type.name === 'table') {
 				if (
 					expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-					expValEquals('platform_editor_table_diff_rounded_corners', 'isEnabled', true)
+					isExperimentEnabled('platform_editor_table_diff_rounded_corners')
 				) {
 					applyTableCellEdgeAttrs({ element: nodeView, tableNode: targetNode });
 				}
@@ -834,51 +786,6 @@ export const wrapBlockNodeView = ({
 	}
 };
 
-const getDeletedContentStyleUnbounded = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-): string => {
-	if (colorScheme === 'traditional' && isActive) {
-		return deletedTraditionalContentStyleUnboundedActive;
-	}
-	return colorScheme === 'traditional'
-		? deletedTraditionalContentStyleUnbounded
-		: deletedContentStyleUnbounded;
-};
-
-const getInsertedContentStyle = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-	hideAddedDiffsUnderline: boolean = false,
-): string => {
-	if (colorScheme === 'traditional') {
-		return isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
-	}
-	if (isActive) {
-		return hideAddedDiffsUnderline
-			? editingStyleActiveExtendedNoUnderline
-			: editingStyleActiveExtended;
-	}
-	return hideAddedDiffsUnderline ? editingStyleExtendedNoUnderline : editingStyleExtended;
-};
-
-const getDeletedContentStyle = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-	diffType?: DiffType,
-): string => {
-	if (colorScheme === 'traditional') {
-		return getDeletedTraditionalInlineStyle(isActive);
-	}
-	if (isExtendedEnabled(diffType)) {
-		return (
-			(isActive ? deletedContentStyleActive : deletedContentStyleNew) +
-			deletedInlineContentStyleExtended
-		);
-	}
-	return isActive ? deletedContentStyleActive : deletedContentStyleNew;
-};
-
 /**
  * Injects a styled inner wrapper span around the children of a block node element.
  * CSS backgrounds don't work when applied to a wrapper around a paragraph, so
@@ -890,19 +797,29 @@ export const injectInnerWrapper = ({
 	isActive,
 	isInserted,
 	diffType,
+	reveal,
 }: {
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
 	node: HTMLElement;
+	reveal?: RevealOptions;
 }): HTMLElement => {
 	const wrapper = document.createElement('span');
+	const revealStyle = applyRevealToElement({
+		colorScheme,
+		element: wrapper,
+		isActive: isActive ?? false,
+		isInserted: isInserted ?? false,
+		reveal,
+	});
 	wrapper.setAttribute(
 		'style',
-		isInserted
+		(isInserted
 			? getInsertedContentStyle(colorScheme, isActive)
-			: getDeletedContentStyle(colorScheme, isActive, diffType),
+			: getDeletedContentStyle(colorScheme, isActive, diffType, Boolean(revealStyle))) +
+			revealStyle,
 	);
 
 	[...node.childNodes].forEach((child) => {
@@ -922,32 +839,42 @@ export const createContentWrapper = (
 	isActive: boolean = false,
 	isInserted: boolean = false,
 	diffType?: DiffType,
+	reveal?: RevealOptions,
 ): HTMLElement => {
 	const wrapper = document.createElement('span');
 	const baseStyle = convertToInlineCss({
 		position: 'relative',
 		width: 'fit-content',
 	});
+	// Empty unless the reveal is running, in which case the static highlight below is withheld so
+	// the animation can wipe it in instead.
+	const revealStyle = applyRevealToElement({
+		colorScheme,
+		element: wrapper,
+		isActive,
+		isInserted,
+		reveal,
+	});
+	const deletedStyle = getDeletedContentStyle(
+		colorScheme,
+		isActive,
+		diffType,
+		Boolean(revealStyle),
+	);
 	if (isExtendedEnabled(diffType)) {
 		if (isInserted) {
 			wrapper.setAttribute(
 				'style',
-				`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}`,
+				`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}${revealStyle}`,
 			);
 		} else {
-			wrapper.setAttribute(
-				'style',
-				`${baseStyle}${getDeletedContentStyle(colorScheme, isActive, diffType)}`,
-			);
+			wrapper.setAttribute('style', `${baseStyle}${deletedStyle}${revealStyle}`);
 			const strikethrough = document.createElement('span');
 			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
 			wrapper.append(strikethrough);
 		}
 	} else {
-		wrapper.setAttribute(
-			'style',
-			`${baseStyle}${getDeletedContentStyle(colorScheme, isActive, diffType)}`,
-		);
+		wrapper.setAttribute('style', `${baseStyle}${deletedStyle}${revealStyle}`);
 		const strikethrough = document.createElement('span');
 		strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
 		wrapper.append(strikethrough);

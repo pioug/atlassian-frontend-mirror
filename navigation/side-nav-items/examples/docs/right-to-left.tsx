@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 import ClockIcon from '@atlaskit/icon/core/clock';
 import HomeIcon from '@atlaskit/icon/core/home';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	ExpandableMenuItem,

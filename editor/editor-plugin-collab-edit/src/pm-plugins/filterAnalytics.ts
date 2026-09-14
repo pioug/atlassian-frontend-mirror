@@ -1,4 +1,4 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { Rebaseable } from '@atlaskit/prosemirror-collab';
 
 /**

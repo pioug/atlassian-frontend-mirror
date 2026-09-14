@@ -1,0 +1,1044 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { useMemo, useReducer } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
+
+import AKBanner from '@atlaskit/banner';
+import IconButton from '@atlaskit/button/icon/button';
+import AddIcon from '@atlaskit/icon/core/add';
+import BoardIcon from '@atlaskit/icon/core/board';
+import HomeIcon from '@atlaskit/icon/core/home';
+import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { Aside } from '@atlaskit/navigation-system/layout/aside';
+import { Banner } from '@atlaskit/navigation-system/layout/banner';
+import {
+	Main,
+	MainStickyHeader,
+	UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY,
+	UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY,
+	UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY,
+} from '@atlaskit/navigation-system/layout/main';
+import { Panel } from '@atlaskit/navigation-system/layout/panel';
+import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import {
+	SideNav,
+	SideNavBody,
+	SideNavToggleButton,
+} from '@atlaskit/navigation-system/layout/side-nav';
+import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
+import {
+	BANNER_HEIGHT,
+	LEFT_PANEL_WIDTH,
+	LEFT_SIDEBAR_WIDTH,
+	RIGHT_PANEL_WIDTH,
+	RIGHT_SIDEBAR_WIDTH,
+	TOP_NAVIGATION_HEIGHT,
+} from '@atlaskit/navigation-system/legacy/css-variables';
+import { Help } from '@atlaskit/navigation-system/top-nav-items';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
+import { Hide } from '@atlaskit/primitives/responsive';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import {
+	FlyoutMenuItem,
+	FlyoutMenuItemContent,
+	FlyoutMenuItemTrigger,
+} from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
+const styles = cssMap({
+	debugSlots: {
+		// We use these styling standard unsafe styles to debug the page layout slots and ensure
+		// none of them are overlapping each other, as well as they take up the expected space.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> * > *': {
+			opacity: 0.7,
+		},
+	},
+	root: {
+		height: '100rem',
+	},
+	sticky: {
+		position: 'sticky',
+		insetBlockStart: token('space.150'),
+	},
+	legacyPositionedSibling: {
+		position: 'absolute',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		insetBlockStart: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
+		insetBlockEnd: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		insetInlineStart: `calc(${LEFT_PANEL_WIDTH} + ${LEFT_SIDEBAR_WIDTH})`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		insetInlineEnd: `calc(${RIGHT_PANEL_WIDTH} + ${RIGHT_SIDEBAR_WIDTH})`,
+		backgroundColor: token('color.background.neutral'),
+		overflow: 'auto',
+	},
+	dangerouslyPositionedSibling: {
+		position: 'absolute',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		insetBlockStart: UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY,
+		insetBlockEnd: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		insetInlineEnd: UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY,
+		backgroundColor: token('color.background.neutral'),
+		overflow: 'auto',
+	},
+	main: {
+		backgroundColor: token('color.background.accent.blue.subtle'),
+	},
+	aside: {
+		backgroundColor: token('color.background.accent.orange.subtle'),
+	},
+	banner: {
+		backgroundColor: token('color.background.accent.lime.subtle'),
+	},
+	panel: {
+		backgroundColor: token('elevation.surface'),
+	},
+	topBar: {
+		backgroundColor: token('color.background.accent.purple.subtle'),
+	},
+	wide: {
+		width: '1000px',
+	},
+	noShrink: {
+		whiteSpace: 'nowrap',
+	},
+});
+
+function ScrollableContent({ children }: { children: React.ReactNode }) {
+	return (
+		<Box
+			xcss={styles.root}
+			/**
+			 * Resolves a11y scanner warnings about scrollable region not being focusable.
+			 * Realistic usage would have real focusable content, such as in the composition examples.
+			 * Taking a shortcut here because these examples are for VRs and not meant to be realistic content.
+			 */
+			tabIndex={0}
+		>
+			{children}
+		</Box>
+	);
+}
+
+function BoardMenuItem() {
+	return (
+		<Inline space="space.050" alignBlock="center">
+			<Flex xcss={iconSpacingStyles.space050}>
+				<BoardIcon label="" />
+			</Flex>
+			<span>Boards</span>
+		</Inline>
+	);
+}
+
+function BannerToggleAction({
+	isSelected,
+	onClick,
+	label,
+}: {
+	isSelected?: boolean;
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	label?: string;
+}) {
+	return (
+		<Hide below="sm">
+			<MenuListItem>
+				<IconButton
+					icon={StatusWarningIcon}
+					label={label}
+					onClick={onClick}
+					isSelected={isSelected}
+				/>
+			</MenuListItem>
+		</Hide>
+	);
+}
+
+export const AllSlots: () => JSX.Element = () => {
+	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
+	const [panelShown, togglePanel] = useReducer((state) => !state, true);
+
+	return (
+		<div css={styles.debugSlots}>
+			<Root>
+				{bannerShown && (
+					<Banner xcss={styles.banner}>
+						<AKBanner appearance="announcement">Great news! A new layout system.</AKBanner>
+					</Banner>
+				)}
+				<TopNav xcss={styles.topBar}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								defaultCollapsed
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+							/>
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+						<BannerToggleAction
+							onClick={toggleBanner}
+							isSelected={bannerShown}
+							label="Toggle banner"
+						/>
+					</TopNavEnd>
+				</TopNav>
+				<SideNav defaultCollapsed>
+					<SideNavBody>
+						<BoardMenuItem />
+					</SideNavBody>
+					<PanelSplitter label="Resize side nav" />
+				</SideNav>
+				<Main xcss={styles.main}>main content</Main>
+				<Aside xcss={styles.aside}>
+					aside
+					<PanelSplitter label="Resize aside" />
+				</Aside>
+				<ExitingPersistence>
+					{panelShown && (
+						<Panel xcss={styles.panel}>
+							panel
+							<PanelSplitter label="Resize panel" />
+						</Panel>
+					)}
+				</ExitingPersistence>
+			</Root>
+		</div>
+	);
+};
+
+export const AllSlotsScrollable: () => JSX.Element = () => {
+	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
+	const [panelShown, togglePanel] = useReducer((state) => !state, false);
+
+	return (
+		<Root>
+			{bannerShown && (
+				<Banner xcss={styles.banner}>
+					<AKBanner appearance="announcement">Great news! A new layout system.</AKBanner>
+				</Banner>
+			)}
+			<TopNav xcss={styles.topBar}>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
+					<span css={styles.noShrink}>top nav</span>
+				</TopNavStart>
+				<TopNavEnd>
+					<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					<BannerToggleAction
+						onClick={toggleBanner}
+						isSelected={bannerShown}
+						label="Toggle banner"
+					/>
+				</TopNavEnd>
+			</TopNav>
+			<SideNav>
+				<SideNavBody>
+					<ScrollableContent>
+						<div css={styles.sticky}>sticky in sticky</div>
+						<BoardMenuItem />
+						<BoardMenuItem />
+						<BoardMenuItem />
+						<BoardMenuItem />
+					</ScrollableContent>
+				</SideNavBody>
+				<PanelSplitter label="Resize side nav" />
+			</SideNav>
+			<Main xcss={styles.main} testId="main">
+				<MainStickyHeader>sticky header</MainStickyHeader>
+				<ScrollableContent>main content</ScrollableContent>
+			</Main>
+			<Aside xcss={styles.aside} testId="aside">
+				<ScrollableContent>
+					aside
+					<div css={styles.sticky}>sticky in sticky</div>
+				</ScrollableContent>
+				<PanelSplitter label="Resize aside" />
+			</Aside>
+			<ExitingPersistence>
+				{panelShown && (
+					<Panel xcss={styles.panel}>
+						<ScrollableContent>panel</ScrollableContent>
+						<PanelSplitter label="Resize panel" />
+					</Panel>
+				)}
+			</ExitingPersistence>
+		</Root>
+	);
+};
+
+export const AllSlotsRTL: () => JSX.Element = () => {
+	const [panelShown, togglePanel] = useReducer((state) => !state, false);
+
+	return (
+		<div dir="rtl">
+			<Root>
+				<Banner xcss={styles.banner}>
+					<AKBanner appearance="error">An error occurred</AKBanner>
+				</Banner>
+				<TopNav xcss={styles.topBar}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					</TopNavEnd>
+				</TopNav>
+				<SideNav>
+					<SideNavBody>side nav</SideNavBody>
+				</SideNav>
+				<Main xcss={styles.main}>main content</Main>
+				<Aside xcss={styles.aside}>aside</Aside>
+				<ExitingPersistence>
+					{panelShown && <Panel xcss={styles.panel}>panel</Panel>}
+				</ExitingPersistence>
+			</Root>
+		</div>
+	);
+};
+
+export const TopBarSideNavMainAside: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav>
+			<SideNavBody>side nav</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+		<Aside xcss={styles.aside}>aside</Aside>
+	</Root>
+);
+
+export const TopBarSideNavMainAsideScrollable: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav>
+			<SideNavBody>
+				<ScrollableContent>side nav</ScrollableContent>
+			</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>
+			<ScrollableContent>main content</ScrollableContent>
+		</Main>
+		<Aside xcss={styles.aside}>
+			<ScrollableContent>aside</ScrollableContent>
+		</Aside>
+	</Root>
+);
+
+export const TopBarSideNavMain: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav>
+			<SideNavBody>side nav</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+	</Root>
+);
+
+export const TopBarSideNavMainScrollable: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav>
+			<SideNavBody>
+				<ScrollableContent>side nav</ScrollableContent>
+			</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>
+			<ScrollableContent>main content</ScrollableContent>
+		</Main>
+	</Root>
+);
+
+export const SideNavMainAside: () => JSX.Element = () => (
+	<Root>
+		<SideNav>
+			<SideNavBody>side nav</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+		<Aside xcss={styles.aside}>aside</Aside>
+	</Root>
+);
+
+export const SideNavMainAsideScrollable: () => JSX.Element = () => (
+	<Root>
+		<SideNav>
+			<SideNavBody>
+				<ScrollableContent>side nav</ScrollableContent>
+			</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>
+			<ScrollableContent>main content</ScrollableContent>
+		</Main>
+		<Aside xcss={styles.aside}>
+			<ScrollableContent>aside</ScrollableContent>
+		</Aside>
+	</Root>
+);
+
+export const MainAside: () => JSX.Element = () => (
+	<Root>
+		<Main xcss={styles.main}>main content</Main>
+		<Aside xcss={styles.aside}>aside</Aside>
+	</Root>
+);
+
+export const MainAsideScrollable: () => JSX.Element = () => (
+	<Root>
+		<Main xcss={styles.main}>
+			<ScrollableContent>main content</ScrollableContent>
+		</Main>
+		<Aside xcss={styles.aside}>
+			<ScrollableContent>aside</ScrollableContent>
+		</Aside>
+	</Root>
+);
+
+export const Resizable: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav>
+			<SideNavBody>
+				side nav
+				<PanelSplitter label="Resize side nav" />
+			</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+	</Root>
+);
+
+export const ResizableRTL: () => JSX.Element = () => (
+	<div dir="rtl">
+		<Root>
+			<TopNav xcss={styles.topBar}>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
+					<span css={styles.noShrink}>top nav</span>
+				</TopNavStart>
+			</TopNav>
+			<SideNav>
+				<SideNavBody>
+					side nav
+					<PanelSplitter label="Resize side nav" />
+				</SideNavBody>
+			</SideNav>
+			<Main xcss={styles.main}>main content</Main>
+			<Aside xcss={styles.aside}>
+				aside
+				<PanelSplitter label="Resize aside" />
+			</Aside>
+		</Root>
+	</div>
+);
+
+export const SideNavCustomWidthGreaterThanMaxWidth: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav defaultWidth={1800}>
+			side nav
+			<PanelSplitter label="Resize side nav" />
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+	</Root>
+);
+
+export const SideNavCustomWidthSmallerThanMinWidth: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav defaultWidth={2}>
+			side nav
+			<PanelSplitter label="Resize side nav" />
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+	</Root>
+);
+
+export const SideNavOverflowingChildren: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav>
+			<SideNavBody>
+				<div
+					css={styles.wide}
+					/**
+					 * Resolves a11y scanner warnings about scrollable region not being focusable.
+					 * Realistic usage would have real focusable content, such as in the composition examples.
+					 * Taking a shortcut here because these examples are for VRs and not meant to be realistic content.
+					 */
+					// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
+					tabIndex={0}
+				>
+					side nav
+				</div>
+				<PanelSplitter label="Resize side nav" />
+			</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+	</Root>
+);
+
+export const EdgeCaseSiblingAbsolutePositioned: () => JSX.Element = () => {
+	const [panelShown, togglePanel] = useReducer((state) => !state, false);
+
+	return (
+		<div css={styles.debugSlots}>
+			<Root UNSAFE_dangerouslyHoistSlotSizes>
+				<TopNav xcss={styles.topBar}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					</TopNavEnd>
+				</TopNav>
+				<SideNav>
+					<SideNavBody>side nav</SideNavBody>
+				</SideNav>
+				<Aside xcss={styles.aside}>aside</Aside>
+				<ExitingPersistence>
+					{panelShown && <Panel xcss={styles.panel}>panel</Panel>}
+				</ExitingPersistence>
+			</Root>
+			<div css={[styles.dangerouslyPositionedSibling, styles.main]}>
+				<MainStickyHeader>sticky content</MainStickyHeader>
+				<ScrollableContent>Sibling element for the Confluence monolith use case</ScrollableContent>
+			</div>
+		</div>
+	);
+};
+
+export const EdgeCaseSiblingAbsolutePositionedCollapsed: () => JSX.Element = () => (
+	<div css={styles.debugSlots}>
+		<Root UNSAFE_dangerouslyHoistSlotSizes>
+			<Banner xcss={styles.banner}>banner</Banner>
+			<TopNav xcss={styles.topBar}>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton
+							collapseLabel="Collapse sidebar"
+							expandLabel="Expand sidebar"
+							defaultCollapsed
+						/>
+					}
+				>
+					<span css={styles.noShrink}>top nav</span>
+				</TopNavStart>
+			</TopNav>
+			<SideNav defaultCollapsed>
+				<SideNavBody>side nav</SideNavBody>
+			</SideNav>
+			<Aside xcss={styles.aside}>aside</Aside>
+		</Root>
+		<div css={[styles.dangerouslyPositionedSibling, styles.main]}>
+			<ScrollableContent>Sibling element for the Confluence monolith use case</ScrollableContent>
+		</div>
+	</div>
+);
+
+export const EdgeCaseSiblingAbsolutePositionedPanelVisible: () => JSX.Element = () => {
+	const [panelShown, togglePanel] = useReducer((state) => !state, true);
+
+	return (
+		<div css={styles.debugSlots}>
+			<Root UNSAFE_dangerouslyHoistSlotSizes>
+				<TopNav xcss={styles.topBar}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					</TopNavEnd>
+				</TopNav>
+				<SideNav>
+					<SideNavBody>side nav</SideNavBody>
+				</SideNav>
+				<Aside xcss={styles.aside}>aside</Aside>
+				<ExitingPersistence>
+					{panelShown && <Panel xcss={styles.panel}>panel</Panel>}
+				</ExitingPersistence>
+			</Root>
+			<div css={[styles.dangerouslyPositionedSibling, styles.main]}>
+				<ScrollableContent>Sibling element for the Confluence monolith use case</ScrollableContent>
+			</div>
+		</div>
+	);
+};
+
+export const EdgeCaseUsingLegacyVars: () => JSX.Element = () => {
+	const [panelShown, togglePanel] = useReducer((state) => !state, false);
+
+	return (
+		<div css={styles.debugSlots}>
+			<Root UNSAFE_dangerouslyHoistSlotSizes>
+				<Banner xcss={styles.banner}>banner</Banner>
+				<TopNav xcss={styles.topBar}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+								defaultCollapsed
+							/>
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					</TopNavEnd>
+				</TopNav>
+				<SideNav defaultCollapsed>
+					<SideNavBody>side nav</SideNavBody>
+				</SideNav>
+				<Aside xcss={styles.aside}>aside</Aside>
+				<ExitingPersistence>
+					{panelShown && <Panel xcss={styles.panel}>panel</Panel>}
+				</ExitingPersistence>
+			</Root>
+			<div css={[styles.legacyPositionedSibling, styles.main]}>
+				<ScrollableContent>Sibling element for the Confluence monolith use case</ScrollableContent>
+			</div>
+		</div>
+	);
+};
+
+export const EdgeCaseSiblingAbsolutePositionedResizable: () => JSX.Element = () => {
+	const [panelShown, togglePanel] = useReducer((state) => !state, false);
+
+	return (
+		<div css={styles.debugSlots}>
+			<Root UNSAFE_dangerouslyHoistSlotSizes>
+				<TopNav xcss={styles.topBar}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					</TopNavEnd>
+				</TopNav>
+				<SideNav>
+					<SideNavBody>
+						side nav
+						<PanelSplitter label="Resize side nav" />
+					</SideNavBody>
+				</SideNav>
+				<Aside xcss={styles.aside}>
+					aside
+					<PanelSplitter label="Resize aside" />
+				</Aside>
+				<ExitingPersistence>
+					{panelShown && (
+						<Panel>
+							panel
+							<PanelSplitter label="Resize panel" />
+						</Panel>
+					)}
+				</ExitingPersistence>
+			</Root>
+			<div css={[styles.dangerouslyPositionedSibling, styles.main]}>
+				<ScrollableContent>Sibling element for the Confluence monolith use case</ScrollableContent>
+			</div>
+		</div>
+	);
+};
+
+const iframeStyles = cssMap({
+	root: {
+		height: '100%',
+		width: '100%',
+	},
+});
+
+export const ResizableWithIframeContent: () => JSX.Element = () => {
+	const [panelShown, togglePanel] = useReducer((state) => !state, false);
+	const theme = useThemeObserver();
+	const iframeSrc: string = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return '';
+		}
+
+		const url = new URL('/example', window.location.origin);
+		url.searchParams.set('groupId', 'design-system');
+		url.searchParams.set('packageId', 'navigation-system');
+		url.searchParams.set('exampleId', 'stand-alone-iframe');
+		if (theme.colorMode) {
+			url.searchParams.set('mode', theme.colorMode);
+		}
+
+		return url.href;
+	}, [theme.colorMode]);
+
+	return (
+		<div css={styles.debugSlots}>
+			<Root UNSAFE_dangerouslyHoistSlotSizes>
+				<TopNav xcss={styles.topBar}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					</TopNavEnd>
+				</TopNav>
+				<SideNav>
+					{/* Not using <SideNavBody> so the iframe can take up the full size */}
+					<Box xcss={iframeStyles.root} as="iframe" title="iframe" src={iframeSrc} />
+					<PanelSplitter label="Resize side nav" />
+				</SideNav>
+				<Main xcss={styles.main}>
+					<Box xcss={iframeStyles.root} as="iframe" title="iframe" src={iframeSrc} />
+				</Main>
+				<Aside xcss={styles.aside}>
+					<Box xcss={iframeStyles.root} as="iframe" title="iframe" src={iframeSrc} />
+					<PanelSplitter label="Resize aside" />
+				</Aside>
+				<ExitingPersistence>
+					{panelShown && (
+						<Panel>
+							panel
+							<PanelSplitter label="Resize panel" />
+						</Panel>
+					)}
+				</ExitingPersistence>
+			</Root>
+		</div>
+	);
+};
+
+export const AllSlotsBannerHeightZero: () => JSX.Element = () => {
+	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
+	const [panelShown, togglePanel] = useReducer((state) => !state, true);
+
+	return (
+		<Root>
+			{bannerShown && (
+				<Banner xcss={styles.banner} height={0}>
+					<AKBanner appearance="announcement">Great news! A new layout system.</AKBanner>
+				</Banner>
+			)}
+			<TopNav xcss={styles.topBar}>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
+					<span css={styles.noShrink}>top nav</span>
+				</TopNavStart>
+				<TopNavEnd>
+					<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					<BannerToggleAction
+						onClick={toggleBanner}
+						isSelected={bannerShown}
+						label="Toggle banner"
+					/>
+				</TopNavEnd>
+			</TopNav>
+			<SideNav>
+				<SideNavBody>
+					<ScrollableContent>
+						<div css={styles.sticky}>sticky in sticky</div>
+						<BoardMenuItem />
+						<BoardMenuItem />
+						<BoardMenuItem />
+						<BoardMenuItem />
+					</ScrollableContent>
+				</SideNavBody>
+			</SideNav>
+			<Main xcss={styles.main}>
+				<ScrollableContent>main content</ScrollableContent>
+			</Main>
+			<Aside xcss={styles.aside}>
+				<ScrollableContent>
+					aside
+					<div css={styles.sticky}>sticky in sticky</div>
+				</ScrollableContent>
+			</Aside>
+			<ExitingPersistence>
+				{panelShown && (
+					<Panel xcss={styles.panel}>
+						<ScrollableContent>panel</ScrollableContent>
+					</Panel>
+				)}
+			</ExitingPersistence>
+		</Root>
+	);
+};
+
+export const AllSlotsCustomSizes: () => JSX.Element = () => {
+	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
+	const [panelShown, togglePanel] = useReducer((state) => !state, true);
+
+	return (
+		<Root>
+			{bannerShown && (
+				<Banner xcss={styles.banner} height={90}>
+					<AKBanner appearance="announcement">Great news! A new layout system.</AKBanner>
+				</Banner>
+			)}
+			<TopNav xcss={styles.topBar} height={40}>
+				<TopNavStart
+					sideNavToggleButton={
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					}
+				>
+					<span css={styles.noShrink}>top nav</span>
+				</TopNavStart>
+				<TopNavEnd>
+					<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+					<BannerToggleAction
+						onClick={toggleBanner}
+						isSelected={bannerShown}
+						label="Toggle banner"
+					/>
+				</TopNavEnd>
+			</TopNav>
+			<SideNav defaultWidth={250}>
+				<SideNavBody>
+					<ScrollableContent>
+						<div css={styles.sticky}>sticky in sticky</div>
+						<BoardMenuItem />
+						<BoardMenuItem />
+						<BoardMenuItem />
+						<BoardMenuItem />
+					</ScrollableContent>
+				</SideNavBody>
+			</SideNav>
+			<Main xcss={styles.main}>
+				<ScrollableContent>main content</ScrollableContent>
+			</Main>
+			<Aside xcss={styles.aside} defaultWidth={195}>
+				<ScrollableContent>
+					aside
+					<div css={styles.sticky}>sticky in sticky</div>
+				</ScrollableContent>
+			</Aside>
+			<ExitingPersistence>
+				{panelShown && (
+					<Panel xcss={styles.panel} defaultWidth={140}>
+						<ScrollableContent>panel</ScrollableContent>
+					</Panel>
+				)}
+			</ExitingPersistence>
+		</Root>
+	);
+};
+
+export const EdgeCaseSiblingAbsolutePositionedCustomSizes: () => JSX.Element = () => {
+	const [bannerShown, toggleBanner] = useReducer((state) => !state, true);
+	const [panelShown, togglePanel] = useReducer((state) => !state, true);
+
+	return (
+		<div css={styles.debugSlots}>
+			<Root UNSAFE_dangerouslyHoistSlotSizes>
+				{bannerShown && (
+					<Banner xcss={styles.banner} height={90}>
+						<AKBanner appearance="announcement">Great news! A new layout system.</AKBanner>
+					</Banner>
+				)}
+				<TopNav xcss={styles.topBar} height={40}>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+						}
+					>
+						<span css={styles.noShrink}>top nav</span>
+					</TopNavStart>
+					<TopNavEnd>
+						<Help isSelected={panelShown} onClick={togglePanel} label="Help" />
+						<BannerToggleAction
+							onClick={toggleBanner}
+							isSelected={bannerShown}
+							label="Toggle banner"
+						/>
+					</TopNavEnd>
+				</TopNav>
+				<SideNav defaultWidth={250}>
+					<SideNavBody>side nav</SideNavBody>
+				</SideNav>
+				<Aside xcss={styles.aside} defaultWidth={195}>
+					aside
+				</Aside>
+				<ExitingPersistence>
+					{panelShown && (
+						<Panel xcss={styles.panel} defaultWidth={140}>
+							panel
+						</Panel>
+					)}
+				</ExitingPersistence>
+			</Root>
+			<div css={[styles.dangerouslyPositionedSibling, styles.main]}>
+				<ScrollableContent>Sibling element for the Confluence monolith use case</ScrollableContent>
+			</div>
+		</div>
+	);
+};
+
+const actions = [
+	<IconButton
+		key="add"
+		label="Add"
+		icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
+		appearance="subtle"
+		spacing="compact"
+	/>,
+	<IconButton
+		key="more"
+		label="More"
+		icon={(iconProps) => <MoreIcon {...iconProps} size="small" />}
+		appearance="subtle"
+		spacing="compact"
+	/>,
+];
+const homeIcon = (
+	<Flex xcss={iconSpacingStyles.space050}>
+		<HomeIcon label="" color="currentColor" />
+	</Flex>
+);
+
+export const SideNavWithMenuItems: () => JSX.Element = () => (
+	<Root>
+		<TopNav xcss={styles.topBar}>
+			<TopNavStart
+				sideNavToggleButton={
+					<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+				}
+			>
+				<span css={styles.noShrink}>top nav</span>
+			</TopNavStart>
+		</TopNav>
+		<SideNav>
+			<SideNavBody>
+				<MenuList>
+					<ButtonMenuItem elemBefore={homeIcon} actions={actions}>
+						Button menu item
+					</ButtonMenuItem>
+					<LinkMenuItem href="#" elemBefore={homeIcon} actionsOnHover={actions}>
+						Link menu item
+					</LinkMenuItem>
+					<FlyoutMenuItem>
+						<FlyoutMenuItemTrigger>Flyout Menu Item</FlyoutMenuItemTrigger>
+						<FlyoutMenuItemContent>
+							<ButtonMenuItem>Menu Button 1</ButtonMenuItem>
+							<ButtonMenuItem>Menu Button 2</ButtonMenuItem>
+						</FlyoutMenuItemContent>
+					</FlyoutMenuItem>
+				</MenuList>
+			</SideNavBody>
+		</SideNav>
+		<Main xcss={styles.main}>main content</Main>
+	</Root>
+);

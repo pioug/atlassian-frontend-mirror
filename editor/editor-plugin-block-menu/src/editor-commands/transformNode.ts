@@ -1,12 +1,4 @@
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	EVENT_TYPE,
-	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
 import { expandedState } from '@atlaskit/editor-common/expand';
-import { logException } from '@atlaskit/editor-common/monitoring';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import {
 	expandSelectionToBlockRange,
@@ -14,22 +6,33 @@ import {
 } from '@atlaskit/editor-common/selection';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
+import {
+	getSingleTransformSourceNode,
+	isExtensionTransformSource,
+} from '../editor-actions/transformSource';
+import type { BlockMenuTransformSourceRegistry } from '../editor-actions/transformSourceRegistry';
 import { isNestedNode } from '../ui/utils/isNestedNode';
 
+import { isEmptyLine } from './is-empty-line';
+import { createTransformAnalytics } from './transform-analytics';
 import { convertNodesToTargetType } from './transform-node-utils/transform';
 import { isListNode } from './transform-node-utils/utils';
 import type { TransformNodeMetadata } from './types';
 
 export const transformNode: (
 	api?: ExtractInjectionAPI<BlockMenuPlugin>,
+	transformRegistry?: Pick<BlockMenuTransformSourceRegistry, 'resolve'>,
 ) => (targetType: NodeType, metadata?: TransformNodeMetadata) => EditorCommand =
 	(
 		api?: ExtractInjectionAPI<BlockMenuPlugin>,
+		transformRegistry?: Pick<BlockMenuTransformSourceRegistry, 'resolve'>,
 	): ((targetType: NodeType, metadata?: TransformNodeMetadata) => EditorCommand) =>
 	(targetType: NodeType, metadata?: TransformNodeMetadata): EditorCommand =>
 	({ tr }) => {
@@ -38,9 +41,96 @@ export const transformNode: (
 		if (!preservedSelection) {
 			return tr;
 		}
+		const isSmallTextTransform = metadata?.targetTypeName === 'smallText';
+		const isTextFormattingTransform =
+			(metadata?.marksToAdd !== undefined || metadata?.marksToRemove !== undefined) &&
+			isExperimentEnabled('platform_editor_block_menu_small_text');
+		if (isSmallTextTransform && !isTextFormattingTransform) {
+			return null;
+		}
+
+		const analytics = createTransformAnalytics(api, tr, preservedSelection);
+
+		if (isExperimentEnabled('platform_editor_block_menu_transform_extensions')) {
+			const { $from, $to, range } = expandSelectionToBlockRange(preservedSelection);
+			const sourceNode = getSingleTransformSourceNode(preservedSelection, range);
+
+			if (isExtensionTransformSource(sourceNode)) {
+				const context = {
+					source: sourceNode.toJSON(),
+					targetTypeName: metadata?.targetTypeName ?? targetType.name,
+				};
+				const resolution = transformRegistry?.resolve(context);
+				if (!resolution || resolution.status === 'unsupported') {
+					return tr;
+				}
+
+				const measureId = `transformNode_${targetType.name}_${Date.now()}`;
+				startMeasure(measureId);
+
+				try {
+					const transformResult = resolution.transform.transform(context);
+					if (!transformResult) {
+						stopMeasure(measureId);
+						return tr;
+					}
+					if (!Array.isArray(transformResult.output) || transformResult.output.length === 0) {
+						throw new Error('Block menu transform returned no output');
+					}
+
+					const resultNodes = transformResult.output.map((nodeAdf) => {
+						const node = Node.fromJSON(tr.doc.type.schema, nodeAdf);
+						node.check();
+						return node;
+					});
+
+					if (
+						!range ||
+						!range.parent.canReplace(range.startIndex, range.endIndex, Fragment.from(resultNodes))
+					) {
+						throw new Error('Block menu transform output is invalid at the selected position');
+					}
+
+					const sliceStart = $from.pos;
+					tr.replaceWith(sliceStart, $to.pos, resultNodes);
+
+					const insertedNode = tr.doc.nodeAt(sliceStart);
+					const nextSelection =
+						insertedNode && NodeSelection.isSelectable(insertedNode)
+							? NodeSelection.create(tr.doc, sliceStart)
+							: Selection.near(tr.doc.resolve(sliceStart));
+					tr.setSelection(nextSelection);
+					api?.blockControls?.commands.stopPreservingSelection()({ tr });
+					api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
+
+					const { expand, nestedExpand } = tr.doc.type.schema.nodes;
+					resultNodes.forEach((node) => {
+						if (node.type === expand || node.type === nestedExpand) {
+							expandedState.set(node, true);
+						}
+					});
+
+					stopMeasure(measureId, (duration, startTime) => {
+						analytics.transformed(duration, startTime, {
+							isNested: isNestedNode(preservedSelection, ''),
+							isSuggested: Boolean(metadata?.isSuggested),
+							outputNodesCount: resultNodes.length,
+							sourceNodes: [sourceNode],
+							targetNodeType: targetType.name,
+						});
+					});
+				} catch (error) {
+					stopMeasure(measureId);
+					analytics.errored(error, [sourceNode], targetType.name);
+				}
+
+				return tr;
+			}
+		}
 
 		const measureId = `transformNode_${targetType.name}_${Date.now()}`;
 		startMeasure(measureId);
+		const docBeforeTransform = tr.doc;
 
 		const { nodes } = tr.doc.type.schema;
 		const { $from, $to } = expandSelectionToBlockRange(preservedSelection);
@@ -51,17 +141,6 @@ export const transformNode: (
 		const isList = isListNode(selectedParent);
 
 		const sourceNodes = getSourceNodesFromSelectionRange(tr, preservedSelection);
-		const sourceNodeTypes: Record<string, number> = {};
-		sourceNodes.forEach((node) => {
-			const typeName = node.type.name;
-			sourceNodeTypes[typeName] = (sourceNodeTypes[typeName] || 0) + 1;
-		});
-
-		// Check if source node is empty paragraph or heading
-		const isEmptyLine =
-			sourceNodes.length === 1 &&
-			(sourceNodes[0].type === nodes.paragraph || sourceNodes[0].type === nodes.heading) &&
-			(sourceNodes[0].content.size === 0 || sourceNodes[0].textContent.trim() === '');
 		const isSuggested = Boolean(metadata?.isSuggested);
 
 		try {
@@ -71,6 +150,8 @@ export const transformNode: (
 				schema: tr.doc.type.schema,
 				isNested,
 				targetAttrs: metadata?.targetAttrs,
+				marksToAdd: isTextFormattingTransform ? metadata?.marksToAdd : undefined,
+				marksToRemove: isTextFormattingTransform ? metadata?.marksToRemove : undefined,
 				parentNode: selectedParent,
 			});
 
@@ -109,6 +190,11 @@ export const transformNode: (
 				tr.replaceWith(sliceStart, $to.pos, content);
 			}
 
+			if (isTextFormattingTransform && tr.doc.eq(docBeforeTransform)) {
+				stopMeasure(measureId);
+				return null;
+			}
+
 			if (preservedSelection instanceof CellSelection) {
 				const insertedNode = tr.doc.nodeAt($from.pos);
 				const isSelectable = insertedNode && NodeSelection.isSelectable(insertedNode);
@@ -124,45 +210,18 @@ export const transformNode: (
 			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
 
 			stopMeasure(measureId, (duration, startTime) => {
-				api?.analytics?.actions?.attachAnalyticsEvent({
-					action: ACTION.TRANSFORMED,
-					actionSubject: ACTION_SUBJECT.ELEMENT,
-					attributes: {
-						duration,
-						isEmptyLine,
-						isNested,
-						isSuggested,
-						sourceNodesCount: sourceNodes.length,
-						sourceNodesCountByType: sourceNodeTypes,
-						sourceNodeType: sourceNodes.length === 1 ? sourceNodes[0].type.name : 'multiple',
-						startTime,
-						targetNodeType: targetType.name,
-						outputNodesCount: content.length,
-						inputMethod: INPUT_METHOD.BLOCK_MENU,
-					},
-					eventType: EVENT_TYPE.TRACK,
-				})(tr);
+				analytics.transformed(duration, startTime, {
+					isEmptyLine: isEmptyLine(sourceNodes),
+					isNested,
+					isSuggested,
+					outputNodesCount: content.length,
+					sourceNodes,
+					targetNodeType: isSmallTextTransform ? 'smallText' : targetType.name,
+				});
 			});
 		} catch (error) {
 			stopMeasure(measureId);
-
-			logException(error as Error, { location: 'editor-plugin-block-menu' });
-
-			api?.analytics?.actions?.attachAnalyticsEvent({
-				action: ACTION.ERRORED,
-				actionSubject: ACTION_SUBJECT.ELEMENT,
-				actionSubjectId: ACTION_SUBJECT_ID.TRANSFORM,
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: {
-					docSize: tr.doc.nodeSize,
-					error: (error as Error).message,
-					errorStack: (error as Error).stack,
-					from: sourceNodes.length === 1 ? sourceNodes[0].type.name : 'multiple',
-					inputMethod: INPUT_METHOD.BLOCK_MENU,
-					selection: preservedSelection.toJSON(),
-					to: targetType.name,
-				},
-			})(tr);
+			analytics.errored(error, sourceNodes, targetType.name);
 		}
 
 		return tr;

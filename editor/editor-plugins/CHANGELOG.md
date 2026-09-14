@@ -1,5 +1,1216 @@
 # @atlaskit/editor-plugins
 
+## 16.1.120
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.119
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.118
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.117
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.116
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.115
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.114
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.113
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.112
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.111
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.110
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.109
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.108
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.107
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.106
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.105
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.104
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.103
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.102
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.101
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.100
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.99
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.98
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.97
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.96
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.95
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.94
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.93
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.92
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.91
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.90
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.89
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.88
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.87
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.86
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.85
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.84
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.83
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.82
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.81
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.80
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.79
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.78
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.77
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.76
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.75
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.74
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.73
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.72
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.71
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.70
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.69
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.68
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.67
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.66
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.65
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.64
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.63
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.62
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.61
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.60
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.59
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.58
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.57
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.56
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.55
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.54
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.53
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.52
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.51
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.50
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`40071c3a1e51d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40071c3a1e51d) -
+  Add the interactivity plugin package and register it in the Confluence full page presets behind
+  the platform_editor_editor_interactivity experiment. The plugin is a stub for now — it collects
+  nothing.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Major Changes
+
+- [`94ddcfaca6b5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94ddcfaca6b5d) -
+  Improve client-only contextual typeahead confidence and responsiveness, and extend it to bigram
+  and phrase completions.
+
+  All of this ships inside the autocomplete plugin, which is only ever added to a preset behind an
+  experiment that defaults to off: `platform_editor_ai_autocomplete_rovo_chat_editor` for Rovo chat,
+  with a Confluence `productKey` check ahead of the read, and
+  `platform_editor_ai_autocomplete_conf_comments` for Confluence comments. The on-device model path
+  these changes concentrate on is additionally behind
+  `platform_editor_ai_autocomplete_conf_local_setup`, which selects the slow-lane client. With those
+  experiments off the plugin is never constructed, so nothing here runs.
+
+  **Confidence.** Candidates competing at the same word boundary are normalised into a posterior
+  over that shortlist, so a suggestion's confidence is the share of probability mass the model puts
+  on it rather than its distance from whichever candidate happens to lead. The comparison is made on
+  each surface's sequence log-likelihood rather than its per-token mean, which is not comparable
+  across surfaces of different token counts. A shortlist is normalised over its minimal members
+  only, so a surface and its own extension are no longer double-counted. A surface must additionally
+  clear an absolute plausibility floor, anchored at the uniform distribution over the model's
+  49,152-token vocabulary (about -10.8 nats) rather than read off a histogram, hold a clear lead
+  over the runner-up, and come from a shortlist that offered a real alternative. Completions shorter
+  than three characters are no longer offered, and multi-word terms are held to the same
+  previous-word grammar transition as single words.
+
+  **Responsiveness.** Candidate work starts at two typed characters while ghost text stays gated at
+  three and must arrive within a 100 ms decision window. Queued scoring work is drained in an order
+  that keeps the engine's decoded sequence alive, so continuing a prefix costs a single decode step
+  instead of a full prompt prefill, and work no live decision would accept is discarded rather than
+  run. Contexts keep their prefilled model state until 128 are resident rather than 32, which stops
+  contexts being evicted while still in use. Once displayed, a ghost is an immutable snapshot shared
+  by rendering, Tab insertion, analytics and cooldown, so a later model result cannot make the
+  visible completion disagree with the inserted one.
+
+  **Per-keystroke cost.** One keystroke runs `predict()` several times — once when the decision
+  opens and again for each async evidence signal that lands inside the budget — and only the
+  evidence differs between those runs. Trie recall and the canonical context derived per candidate
+  are computed once and reused across them, invalidated when an artifact load changes what the tries
+  can return. Within one derivation the position-dependent half of a candidate's context is shared
+  by every candidate starting at the same offset, rather than being rebuilt a couple of hundred
+  times. A distribution's log-partition is memoised per logits buffer, since it does not depend on
+  the token being scored and the two full-vocabulary passes behind it previously ran once per
+  candidate for an answer that could not change. None of this changes which suggestion is chosen.
+
+  **Multi-word completions.** Bigrams and phrases are surfaced from a first-word or in-progress
+  window, frequency is normalised per term type, and selection runs a per-type precision floor
+  followed by expected-value arbitration, so the longest confident unit wins and a shaky long unit
+  self-demotes to a safer shorter one. Phrases surface only once the on-device continuation LM has
+  vouched for them. A whole-surface repetition guard and a post-accept cooldown together prevent
+  echoes such as `end to end` becoming `end to end to end`.
+
+  **Artifacts.** `bigrams.json`, `phrases.json` and `phrase-continuation-tokens.json` are resolved
+  from the artifacts manifest alongside the vocabulary and grammar payloads, so they are served from
+  the CDN rather than bundled. Each is fetched independently, so an unpublished payload disables
+  only its own term type. Every artifact is shape-checked as it downloads, failing at the boundary
+  naming the artifact rather than degrading later into an empty trie.
+
+  **Diagnostics.** Debug output is unified under a single `[CTC]` namespace behind
+  `__atlCtcDebug__.enable()`, with one collapsed group per keystroke and an opt-in verbose level for
+  the scored candidate table. All informational console output is routed behind the flag.
+
+  **Breaking change.** `@atlaskit/editor-plugin-autocomplete` no longer exposes its pm-plugin
+  modules as subpaths. The `./src/pm-plugins/autocomplete-plugin`,
+  `./src/pm-plugins/slow-lane-client` and `./src/pm-plugins/text-predictor` entry points are
+  removed, along with the `CANONICAL_FIX__DO_NOT_USE_ME_A`, `_B` and `_C` subpaths that exposed the
+  same three modules in raw form. The matching `./autocomplete/*` re-export wrappers in
+  `@atlaskit/editor-plugins` are removed too. No product consumed any of them; they were reachable
+  only from this plugin's own test package and the generated aggregator.
+
+  Removing both sets together is deliberate. The curated subpaths were named after real file paths,
+  so each one shadowed the module it wrapped and left two files claiming the same bundler canonical
+  id — which is what the `CANONICAL_FIX` subpaths existed to disambiguate. Keeping either set alone
+  reintroduces the collision. With both gone, nothing shadows a source path, and because the
+  wrappers mirrored the raw modules under an exact export-parity test, `@atlaskit/editor-plugins` is
+  no longer coupled to this plugin's internal module layout. `./autocompletePlugin` and
+  `./autocompletePluginType` are unaffected.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.23
+
+### Patch Changes
+
+- [`42931028bd815`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42931028bd815) -
+  [FFCLEANUP-138148] clean up experiment `platform_editor_find_and_replace_improvements`
+- Updated dependencies
+
+## 15.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.21
+
+### Patch Changes
+
+- [`e8deaf0aa0506`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8deaf0aa0506) -
+  Add the block collapse editor plugin package scaffold.
+- Updated dependencies
+
+## 15.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Major Changes
+
+- [`4cc8b22d77107`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cc8b22d77107) -
+  Remove the legacy JavaScript shadow logic (observer, sentinel elements, and supporting styles)
+  which was no longer in use.
+
+  ### What has changed
+
+  Removes the following public APIs, even though they no longer represented elements rendered by the
+  editor:
+  - `@atlaskit/editor-plugin-table` (also re-exported by `@atlaskit/editor-plugins`):
+    - `ShadowEvent`
+    - `TableCssClassName.TABLE_LEFT_SHADOW`
+    - `TableCssClassName.TABLE_RIGHT_SHADOW`
+    - `TableCssClassName.TABLE_SHADOW_SENTINEL_LEFT`
+    - `TableCssClassName.TABLE_SHADOW_SENTINEL_RIGHT`
+    - `TableCssClassName.TABLE_STICKY_SHADOW`
+  - `@atlaskit/editor-common`:
+    - `TableSharedCssClassName.TABLE_LEFT_SHADOW`
+    - `TableSharedCssClassName.TABLE_RIGHT_SHADOW`
+    - `TableSharedCssClassName.TABLE_SHADOW_SENTINEL_LEFT`
+    - `TableSharedCssClassName.TABLE_SHADOW_SENTINEL_RIGHT`
+    - `TableSharedCssClassName.TABLE_STICKY_SHADOW`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.2
 
 ### Patch Changes

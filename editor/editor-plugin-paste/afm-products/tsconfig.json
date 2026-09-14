@@ -50,6 +50,9 @@
 			"path": "../../editor-plugin-expand/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-extension/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
 		},
 		{
@@ -77,10 +80,16 @@
 			"path": "../../insm/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/linking-common/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-client/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../media/media-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

@@ -6,9 +6,10 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | undefined => {
 	const {
@@ -182,6 +183,17 @@ export const getGapCursorTargetForBlankSpaceClick = (
 			? supportsBlankSpaceGapCursorFallback(onlyChild)
 			: onlyChild?.type.name !== 'paragraph' && onlyChild?.type.name !== 'panel';
 		if (onlyChild && shouldHandleAtomicChild) {
+			// A caption is editable content inside a mediaSingle, not blank layout space. The
+			// image bounds below intentionally exclude the caption so clicks beside the image
+			// can place a gap cursor; bail out before that check when the click is on a caption.
+			const target = event.target as Element | null;
+			if (
+				isExperimentEnabled('platform_editor_fix_edit_media_caption_in_layout') &&
+				target?.closest('[data-caption]')
+			) {
+				return undefined;
+			}
+
 			// Bail when the click is on the child's own content. For media the wrapper is full-width
 			// so test against the <img> rect; resolve it only for a direct mediaSingle child (else
 			// getContentRect could grab an image nested in an expand and break its toggle).

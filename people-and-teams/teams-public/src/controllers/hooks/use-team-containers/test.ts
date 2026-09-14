@@ -1,14 +1,16 @@
 import { renderHook, waitFor } from '@testing-library/react';
 
-import { teamsClient } from '@atlaskit/teams-client';
+import { teamsClient } from '@atlaskit/teams-client/client';
 
 import { MOCK_CONNECTED_TEAMS_RESULT, MOCK_TEAM_CONTAINERS, MOCK_TEAM_CONTAINERSV2 } from './mocks';
-
-import { useConnectedTeams, useTeamContainers, useTeamContainersHook } from './index';
+import { useConnectedTeams } from './use-connected-teams';
+import { useTeamContainers } from './use-team-containers';
+import { useTeamContainersHook } from './use-team-containers-hook';
 
 const fireEvent = jest.fn();
 
-jest.mock('@atlaskit/teams-client', () => ({
+jest.mock('@atlaskit/teams-client/client', () => ({
+	...jest.requireActual('@atlaskit/teams-client/client'),
 	teamsClient: {
 		getTeamContainers: jest.fn(),
 		unlinkTeamContainer: jest.fn(),
@@ -17,17 +19,20 @@ jest.mock('@atlaskit/teams-client', () => ({
 	},
 }));
 
-jest.mock('@atlaskit/teams-app-internal-analytics', () => ({
+jest.mock('@atlaskit/teams-app-internal-analytics/use-analytics-events', () => ({
+	...jest.requireActual('@atlaskit/teams-app-internal-analytics/use-analytics-events'),
 	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
 		fireEvent,
 	})),
 }));
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 
-jest.mock('@atlaskit/analytics-next', () => ({
+jest.mock('@atlaskit/analytics-next/useAnalyticsEvents', () => ({
+	...jest.requireActual('@atlaskit/analytics-next/useAnalyticsEvents'),
 	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
 		createAnalyticsEvent: jest.fn(),
 	})),

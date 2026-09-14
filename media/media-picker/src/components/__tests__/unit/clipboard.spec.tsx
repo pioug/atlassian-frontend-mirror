@@ -3,8 +3,8 @@ import React from 'react';
 jest.mock('../../../service/uploadServiceImpl');
 
 import { render } from '@atlassian/testing-library';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import { ClipboardMockFile, fakeMediaClient } from '@atlaskit/media-test-helpers';
 

@@ -1,37 +1,63 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import SubSup from '../../../../react/marks/subsup';
 
 describe('Renderer - React/Marks/Subsup', () => {
-	describe('<Sub />', () => {
-		const mark = shallow(
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
 			<SubSup dataAttributes={{ 'data-renderer-mark': true }} type="sub">
 				This is sub
 			</SubSup>,
 		);
 
+		await expect(container).toBeAccessible();
+	});
+
+	describe('<Sub />', () => {
 		it('should wrap content with <sub>-tag', () => {
-			expect(mark.is('sub')).toEqual(true);
+			render(
+				<SubSup dataAttributes={{ 'data-renderer-mark': true }} type="sub">
+					This is sub
+				</SubSup>,
+			);
+
+			expect(screen.getByText('This is sub').tagName).toBe('SUB');
 		});
 
 		it('should output correct html', () => {
-			expect(mark.html()).toEqual('<sub data-renderer-mark="true">This is sub</sub>');
+			const { container } = render(
+				<SubSup dataAttributes={{ 'data-renderer-mark': true }} type="sub">
+					This is sub
+				</SubSup>,
+			);
+
+			expect(container.querySelector('sub')?.outerHTML).toEqual(
+				'<sub data-renderer-mark="true">This is sub</sub>',
+			);
 		});
 	});
 
 	describe('<Sup />', () => {
-		const mark = shallow(
-			<SubSup dataAttributes={{ 'data-renderer-mark': true }} type="sup">
-				This is sup
-			</SubSup>,
-		);
-
 		it('should wrap content with <sup>-tag', () => {
-			expect(mark.is('sup')).toEqual(true);
+			render(
+				<SubSup dataAttributes={{ 'data-renderer-mark': true }} type="sup">
+					This is sup
+				</SubSup>,
+			);
+
+			expect(screen.getByText('This is sup').tagName).toBe('SUP');
 		});
 
 		it('should output correct html', () => {
-			expect(mark.html()).toEqual('<sup data-renderer-mark="true">This is sup</sup>');
+			const { container } = render(
+				<SubSup dataAttributes={{ 'data-renderer-mark': true }} type="sup">
+					This is sup
+				</SubSup>,
+			);
+
+			expect(container.querySelector('sup')?.outerHTML).toEqual(
+				'<sup data-renderer-mark="true">This is sup</sup>',
+			);
 		});
 	});
 });

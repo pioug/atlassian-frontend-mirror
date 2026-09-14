@@ -1,5 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient, type EnvironmentsKeys } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 
 import { type BatchResponse, isSuccessfulResponse, request } from './client-utils';
 import { getDefaultResponse } from './utils';

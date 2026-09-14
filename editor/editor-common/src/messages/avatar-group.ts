@@ -1,15 +1,20 @@
 import { defineMessages } from 'react-intl';
 
 export const avatarGroupMessages: {
-	editors: {
-		id: string;
+	agentWithUser: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	anonymousCollaborator: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	editors: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	editors: {
@@ -22,5 +27,11 @@ export const avatarGroupMessages: {
 		defaultMessage: 'Anonymous collaborator',
 		description:
 			'The name of an anonymous collaborator, used when the participant name is not specified',
+	},
+	agentWithUser: {
+		id: 'fabric.editor.agent-with-user',
+		defaultMessage: '{agentName} with {userName}',
+		description:
+			'Tooltip text for an agent avatar in the editor presence avatar group. The agentName placeholder is the AI agent display name. The userName placeholder is the display name of the user the agent is acting on behalf of.',
 	},
 });

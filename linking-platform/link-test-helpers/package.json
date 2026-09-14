@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "11.0.2",
+	"version": "11.2.0",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -85,34 +85,5 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			]
-		}
 	}
 }

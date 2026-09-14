@@ -11,6 +11,7 @@ export enum NCS_ERROR_CODE {
 	NAMESPACE_NOT_FOUND = 'NAMESPACE_NOT_FOUND',
 	TENANT_INSTANCE_MAINTENANCE = 'TENANT_INSTANCE_MAINTENANCE',
 	LOCKED_DOCUMENT = 'LOCKED_DOCUMENT',
+	ARI_BLACKLISTED = 'ARI_BLACKLISTED',
 	EMPTY_BROADCAST = 'EMPTY_BROADCAST',
 	DYNAMO_ERROR = 'DYNAMO_ERROR',
 	INVALID_ACTIVATION_ID = 'INVALID_ACTIVATION_ID',
@@ -135,6 +136,20 @@ type NamespaceLockedError = {
 	};
 	message: string;
 };
+/**
+ * The document ARI has been blacklisted (blocked) by NCS, e.g. via the documentari kill switch
+ * https://switcheroo.atlassian.com/ui/gates/1a5f36bd-0eb6-4634-ba32-ae325174edb8/key/documentari_kill_switch
+ * NCS rejects the connection with a 423 status. Unlike a temporary namespace lock, this is not
+ * expected to clear on its own.
+ */
+type DocumentBlacklistedError = {
+	data: {
+		code: NCS_ERROR_CODE.ARI_BLACKLISTED;
+		meta?: string;
+		status: number; // 423
+	};
+	message: string; // Document is blocked.
+};
 type EmptyBroadcastError = {
 	data: {
 		code: NCS_ERROR_CODE.EMPTY_BROADCAST;
@@ -205,6 +220,7 @@ export type NCSErrors =
 	| SocketNamespaceNotFoundError
 	| TenantInstanceMaintenanceError
 	| NamespaceLockedError
+	| DocumentBlacklistedError
 	| EmptyBroadcastError
 	| DynamoError
 	| InvalidActivationIdError

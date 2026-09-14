@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkButton } from '@atlaskit/button/new';
+import LinkButton from '@atlaskit/button/link';
 
 const LinkButtonWarningExample = (): React.JSX.Element => {
 	return (

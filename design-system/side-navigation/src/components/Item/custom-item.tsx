@@ -6,12 +6,12 @@ import { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import {
-	CustomItem as Custom,
-	type CustomItemProps,
-	type CustomItemComponentProps as MenuCustomItemComponentProps,
-} from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Custom from '@atlaskit/menu/custom-item';
+import type {
+	CustomItemProps,
+	CustomItemComponentProps as MenuCustomItemComponentProps,
+} from '@atlaskit/menu/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -93,7 +93,7 @@ interface CustomItemPropsHack {
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const CustomItem: CustomItemPropsHack = forwardRef<HTMLElement, CustomItemProps>(
+export const CustomItem: CustomItemPropsHack = forwardRef<HTMLElement, CustomItemProps>(
 	({ className, ...props }, ref) => {
 		const { shouldRender } = useShouldNestedElementRender();
 		if (!shouldRender) {
@@ -118,5 +118,3 @@ const CustomItem: CustomItemPropsHack = forwardRef<HTMLElement, CustomItemProps>
 	},
 	// Dirty hack to get generics working with forward ref [2/2]
 ) as any;
-
-export default CustomItem;

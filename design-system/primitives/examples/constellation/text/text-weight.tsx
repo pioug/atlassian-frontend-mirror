@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 export default (): React.JSX.Element => {
 	return (
@@ -9,6 +10,9 @@ export default (): React.JSX.Element => {
 			<Text weight="medium">Text weight: medium</Text>
 			<Text weight="semibold">Text weight: semibold</Text>
 			<Text weight="bold">Text weight: bold</Text>
+			<Text>
+				Text with <Text weight="bold">bold</Text> in a sentence
+			</Text>
 		</Stack>
 	);
 };

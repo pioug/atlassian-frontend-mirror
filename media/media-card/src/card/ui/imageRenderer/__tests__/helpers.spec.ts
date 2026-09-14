@@ -1,5 +1,6 @@
-import { calculateDimensions } from '../helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { calculateDimensions } from '../calculateDimensions';
 
 describe('calculateDimensions', () => {
 	describe('same ratio detection with feature flags', () => {

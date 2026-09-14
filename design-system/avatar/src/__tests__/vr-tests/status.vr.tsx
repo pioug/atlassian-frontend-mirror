@@ -1,5 +1,5 @@
 import { snapshot } from '@af/visual-regression';
 
-import BasicStatus from '../../../examples/05-basic-status';
+import BasicStatus from '../../../examples/05-basic-status.vr.ap';
 
 snapshot(BasicStatus);

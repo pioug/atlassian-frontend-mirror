@@ -1,15 +1,16 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { matchers } from '@emotion/jest';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import EmojiActions, { emojiActionsTestId } from '../../../../components/common/EmojiActions';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
 import { createEmojiWithRovoTestId } from '../../../../components/common/CreateEmojiWithRovo';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { productivityColorSelectorTestId } from '../../../../components/common/ProductivityColorSelector';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
@@ -52,25 +53,16 @@ const props = {
 	onToneSelected: jest.fn(),
 };
 
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(() => false),
-}));
-const mockExpValEquals = expValEquals as jest.MockedFunction<typeof expValEquals>;
-const aiEmojiExperimentName = 'confluence_ai_generated_emojis';
-const setAiEmojiExperimentEnabled = (isEnabled: boolean) => {
-	mockExpValEquals.mockImplementation((experimentName) =>
-		experimentName === aiEmojiExperimentName ? isEnabled : false,
-	);
-};
-
 const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
-let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 
 const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-	getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
-		experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
-	);
+	if (isEnabled) {
+		mockExpEnabled(teamojiRefreshExperimentName);
+	} else {
+		mockExpDisabled(teamojiRefreshExperimentName);
+	}
 };
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
@@ -81,14 +73,12 @@ skipAutoA11yFile();
 describe('<EmojiActions />', () => {
 	beforeEach(() => {
 		jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
-		getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
-		setTeamojiExperimentEnabled(false);
+		checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
+		checkGateSpy.mockRestore();
 		jest.restoreAllMocks();
 	});
 
@@ -960,14 +950,14 @@ describe('<EmojiActions />', () => {
 		});
 
 		it('renders the Rovo section when the experiment is on and a contentId is provided', async () => {
-			setAiEmojiExperimentEnabled(true);
+			mockExpEnabled('confluence_ai_generated_emojis');
 			await renderWithIntl(<EmojiActions {...uploadProps} contentId="content-123" />);
 
 			expect(await screen.findByTestId(createEmojiWithRovoTestId)).toBeInTheDocument();
 		});
 
 		it('does not render the Rovo section when the experiment is off', async () => {
-			setAiEmojiExperimentEnabled(false);
+			mockExpDisabled('confluence_ai_generated_emojis');
 			await renderWithIntl(<EmojiActions {...uploadProps} contentId="content-123" />);
 
 			// Wait for the upload panel to appear before asserting absence.
@@ -976,7 +966,7 @@ describe('<EmojiActions />', () => {
 		});
 
 		it('does not render the Rovo section when contentId is missing (even if experiment on)', async () => {
-			setAiEmojiExperimentEnabled(true);
+			mockExpEnabled('confluence_ai_generated_emojis');
 			await renderWithIntl(<EmojiActions {...uploadProps} />);
 
 			await screen.findByTestId(cancelEmojiUploadPickerTestId);

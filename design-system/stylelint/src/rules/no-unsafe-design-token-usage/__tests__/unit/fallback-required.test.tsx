@@ -23,7 +23,7 @@ jest.mock('@atlaskit/tokens/token-names', (): Record<string, string> => {
 		'color.background.accent.blue.bold',
 	].forEach((token) => {
 		const getCSSCustomProperty = jest.requireActual(
-			'@atlaskit/tokens/token-ids',
+			'@atlaskit/tokens/utils/get-css-custom-property',
 		).getCSSCustomProperty;
 		mockTokens[token] = getCSSCustomProperty(token);
 	});

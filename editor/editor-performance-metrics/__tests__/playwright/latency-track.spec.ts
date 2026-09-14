@@ -6,6 +6,9 @@ import { test } from './fixtures';
 test.describe('Editor Metrics - Latency: mouse events', () => {
 	test.use({
 		examplePage: 'latency-mouse-events',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/02-latency-mouse-events.tsx');
+		examplePage: 'latency-mouse-events';
 	});
 
 	test.describe('when doing a single click', () => {
@@ -117,16 +120,14 @@ test.describe('Editor Metrics - Latency: mouse events', () => {
 			});
 		});
 	});
-
-	test('should capture and report a11y violations', async ({ page }) => {
-		await expect(page.getByTestId('click-me-button')).toBeVisible();
-		await expect(page).toBeAccessible();
-	});
 });
 
 test.describe('Editor Metrics - Latency: keyboard events', () => {
 	test.use({
 		examplePage: 'latency-keyboard-events',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/04-latency-keyboard-events.tsx');
+		examplePage: 'latency-keyboard-events';
 	});
 
 	test.describe('when typing inside a text area', () => {
@@ -165,10 +166,5 @@ test.describe('Editor Metrics - Latency: keyboard events', () => {
 			// @ts-expect-error
 			expect(inputEvents[0].data?.eventName).toEqual('input');
 		});
-	});
-
-	test('should capture and report a11y violations', async ({ page }) => {
-		await expect(page.getByTestId('type-me-textarea')).toBeVisible();
-		await expect(page).toBeAccessible();
 	});
 });

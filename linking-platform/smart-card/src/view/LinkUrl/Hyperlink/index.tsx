@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AKLink, { type LinkProps } from '@atlaskit/link';
+import AKLink, { type LinkProps } from '@atlaskit/link/link';
 
-import { withLinkClickedEvent } from '../../../utils/analytics/click';
+import { withLinkClickedEvent } from '../../../utils/analytics/withLinkClickedEvent';
 import { type LinkUrlProps } from '../types';
 
 const Anchor = withLinkClickedEvent('a');

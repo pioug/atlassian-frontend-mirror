@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button/new';
-import InlineDialog from '@atlaskit/inline-dialog';
+import Button from '@atlaskit/button/default/button';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import { token } from '@atlaskit/tokens';
 
 import { Placements } from '../utils';

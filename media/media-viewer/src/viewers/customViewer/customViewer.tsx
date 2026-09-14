@@ -1,9 +1,11 @@
-import type { FileState, MediaClient, NonErrorFileState } from '@atlaskit/media-client';
-import { MediaViewerError } from '../../errors';
 import { useCallback, useEffect, useState } from 'react';
-import type { CustomRendererConfig } from '../../viewerOptions';
 import React from 'react';
+
+import type { FileState, MediaClient, NonErrorFileState } from '@atlaskit/media-client';
+
+import { MediaViewerError } from '../../MediaViewerError';
 import { Spinner } from '../../loading';
+import type { CustomRendererConfig } from '../../viewerOptions';
 
 export type Props = {
 	mediaClient: MediaClient;

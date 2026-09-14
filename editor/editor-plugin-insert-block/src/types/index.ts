@@ -27,6 +27,7 @@ import type { TablePlugin } from '@atlaskit/editor-plugin-table';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 export type InsertBlockPluginDependencies = [
 	TypeAheadPlugin,
@@ -56,6 +57,7 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<ContextPanelPlugin>,
 	OptionalPlugin<ConnectivityPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 type PluginToolbarComponentsConfig<T extends string> = {

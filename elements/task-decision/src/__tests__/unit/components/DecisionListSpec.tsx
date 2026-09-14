@@ -1,56 +1,51 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { mount } from 'enzyme';
+
+import { screen } from '@testing-library/react';
+
 import { DecisionList, DecisionItem } from '../../../';
+import { renderWithIntl } from '../_testing-library';
 
 describe('<DecisionList/>', () => {
 	it('should render all DecisionItems', () => {
-		const component = mount(
-			<IntlProvider locale="en">
-				<DecisionList>
-					<DecisionItem>1</DecisionItem>
-					<DecisionItem>2</DecisionItem>
-				</DecisionList>
-			</IntlProvider>,
+		renderWithIntl(
+			<DecisionList>
+				<DecisionItem>1</DecisionItem>
+				<DecisionItem>2</DecisionItem>
+			</DecisionList>,
 		);
-		expect(component.find('li').length).toBe(2);
-		expect(component.find(DecisionItem).length).toBe(2);
+
+		expect(screen.getAllByRole('listitem')).toHaveLength(2);
+		expect(screen.getByText('1')).toBeInTheDocument();
+		expect(screen.getByText('2')).toBeInTheDocument();
 	});
+
 	it('should render single DecisionItem', () => {
-		const component = mount(
-			<IntlProvider locale="en">
-				<DecisionList>
-					<DecisionItem>1</DecisionItem>
-				</DecisionList>
-			</IntlProvider>,
+		renderWithIntl(
+			<DecisionList>
+				<DecisionItem>1</DecisionItem>
+			</DecisionList>,
 		);
-		expect(component.find('li').length).toBe(1);
-		expect(component.find(DecisionItem).length).toBe(1);
+
+		expect(screen.getAllByRole('listitem')).toHaveLength(1);
 	});
+
 	it("shouldn't render list when no items", () => {
-		const component = mount(
-			<IntlProvider locale="en">
-				<DecisionList />
-			</IntlProvider>,
-		);
-		expect(component.find('ul').length).toBe(0);
-		expect(component.find('li').length).toBe(0);
-		expect(component.find(DecisionItem).length).toBe(0);
+		renderWithIntl(<DecisionList />);
+
+		expect(screen.queryByRole('list')).not.toBeInTheDocument();
+		expect(screen.queryByRole('listitem')).not.toBeInTheDocument();
 	});
+
 	it('should include data attributes on ol/li', () => {
-		const component = mount(
-			<IntlProvider locale="en">
-				<DecisionList>
-					<DecisionItem>1</DecisionItem>
-				</DecisionList>
-			</IntlProvider>,
+		renderWithIntl(
+			<DecisionList>
+				<DecisionItem>1</DecisionItem>
+			</DecisionList>,
 		);
-		const ol = component.find('ol');
-		expect(ol.length).toEqual(1);
-		expect(ol.prop('data-decision-list-local-id')).toEqual('');
-		expect(ol.prop('data-node-type')).toEqual('decisionList');
-		const li = component.find('li');
-		expect(li.length).toEqual(1);
-		expect(li.prop('data-decision-local-id')).toBeDefined();
+
+		const list = screen.getByRole('list');
+		expect(list).toHaveAttribute('data-decision-list-local-id', '');
+		expect(list).toHaveAttribute('data-node-type', 'decisionList');
+		expect(screen.getByRole('listitem')).toHaveAttribute('data-decision-local-id');
 	});
 });

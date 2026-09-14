@@ -6,11 +6,11 @@ import { type FC, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import { token } from '@atlaskit/tokens';
 
 const radioValues = [

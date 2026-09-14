@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 let delayId: number | null = null;
 

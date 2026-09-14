@@ -82,14 +82,14 @@ describe('<CreateForm />', () => {
 		setUpCreateForm();
 
 		await userEvent.click(screen.getByTestId('link-create-form-button-submit'));
-		expect(handleSubmitMock).toBeCalled();
+		expect(handleSubmitMock).toHaveBeenCalled();
 	});
 
 	it('should cancel the form the form when cancel button is clicked', async () => {
 		setUpCreateForm();
 
 		await userEvent.click(screen.getByTestId('link-create-form-button-cancel'));
-		expect(handleCancelMock).toBeCalled();
+		expect(handleCancelMock).toHaveBeenCalled();
 	});
 
 	it('should hide the footer buttons when the prop is passed', async () => {

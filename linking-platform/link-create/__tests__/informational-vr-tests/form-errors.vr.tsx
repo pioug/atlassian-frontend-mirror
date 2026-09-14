@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { CreateFormWithRequiredFields } from '../../examples/vr/vr-create-form';
+import { CreateFormWithRequiredFields } from '../../examples/vr/vr-create-form.vr.ap';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
 

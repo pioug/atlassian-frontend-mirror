@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';

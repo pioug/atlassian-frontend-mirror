@@ -6,7 +6,6 @@ import type {
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CodeBidiWarningPlugin } from '../codeBidiWarningPluginType';
 
@@ -32,14 +31,6 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: codeBidiWarningPluginKey,
 		state: createPluginState(dispatch, (state) => {
-			if (expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)) {
-				return {
-					decorationSet: DecorationSet.empty,
-					codeBidiWarningLabel: '',
-					tooltipEnabled: false,
-				};
-			}
-
 			if (api?.limitedMode?.sharedState.currentState()?.enabled) {
 				return {
 					decorationSet: DecorationSet.empty,
@@ -61,10 +52,6 @@ export const createPlugin = (
 		}),
 		props: {
 			decorations: (state) => {
-				if (expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)) {
-					return DecorationSet.empty;
-				}
-
 				const { decorationSet } = getPluginState(state);
 
 				return decorationSet;

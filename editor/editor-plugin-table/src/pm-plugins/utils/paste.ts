@@ -9,7 +9,7 @@ import {
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { flatten, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getPluginState } from '../plugin-factory';
 

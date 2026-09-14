@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { act, render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
-import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
+import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
+import type { AppearanceType, SizeType } from '@atlaskit/avatar/types';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import AvatarGroup from '../../avatar-group';

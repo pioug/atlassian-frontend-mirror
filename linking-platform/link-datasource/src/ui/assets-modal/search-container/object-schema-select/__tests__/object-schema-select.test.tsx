@@ -10,7 +10,7 @@ import {
 } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import Form from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import {

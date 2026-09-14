@@ -26,6 +26,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	resizeExtension: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	resizeHandle: {
 		defaultMessage: string;
 		description: string;
@@ -103,5 +108,10 @@ export const messages: {
 		id: 'fabric.editor.breakout.resizePanel',
 		defaultMessage: 'Resize panel',
 		description: 'Tooltip displayed on custom panel width resize handle',
+	},
+	resizeExtension: {
+		id: 'fabric.editor.breakout.resizeExtension',
+		defaultMessage: 'Resize extension',
+		description: 'Tooltip displayed on custom extension width resize handle',
 	},
 });

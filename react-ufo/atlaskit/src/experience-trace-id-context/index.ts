@@ -1,115 +1,50 @@
-import { type Context, context, createContextKey, ROOT_CONTEXT } from '@opentelemetry/api';
-
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { getContextManager, UFOContextManager } from './context-manager';
-import type { TraceIdContext, TraceIdContextStateType } from './types';
-import { makeTraceHttpRequestHeaders } from './utils/make-trace-http-request-headers';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import type { TraceIdContext } from '@atlaskit/react-ufo/types'` instead.
+ */
 export type { TraceIdContext } from './types';
 
-const state: TraceIdContextStateType = {
-	context: null,
-};
-
-const traceIdKey = createContextKey('traceId');
-const spanIdKey = createContextKey('spanId');
-const experienceTypeKey = createContextKey('type');
-
-// DO NOT CALL THIS FUNCTION DIRECTLY!!!!
-// It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
-// Calling this may cause trace context to be broken
-export function generateSpanId(): string {
-	return Array.from(new Array(16), () => Math.floor(Math.random() * 16).toString(16)).join('');
-}
-
-// DO NOT CALL THIS FUNCTION DIRECTLY!!!!
-// It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
-// Calling this may cause trace context to be broken
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function setInteractionActiveTrace(interactionId: string, experienceType: string): void {
-	setActiveTrace(interactionId.replace(/-/g, ''), generateSpanId(), experienceType);
-}
-
-// DO NOT CALL THIS FUNCTION DIRECTLY!!!!
-// It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
-// Calling this may cause trace context to be broken
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function setActiveTrace(traceId: string, spanId: string, type: string): void {
-	if (fg('platform_ufo_enable_otel_context_manager')) {
-		const activeTraceContext: Context = ROOT_CONTEXT.setValue(traceIdKey, traceId)
-			.setValue(spanIdKey, spanId)
-			.setValue(experienceTypeKey, type);
-
-		// Now we need to get the global Context Manager and set the active context
-		// Using type assertion because we've "extended" the ContextManager type
-		if (getContextManager() instanceof UFOContextManager) {
-			let contextManager = getContextManager() as UFOContextManager;
-
-			contextManager.setActive(activeTraceContext);
-		}
-	} else {
-		state.context = {
-			traceId,
-			spanId,
-			type,
-		};
-	}
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function getActiveTrace(): TraceIdContext | undefined {
-	if (fg('platform_ufo_enable_otel_context_manager')) {
-		// Get trace context from active context
-		const activeTraceContext: TraceIdContext = {
-			traceId: String(context.active().getValue(traceIdKey)),
-			spanId: String(context.active().getValue(spanIdKey)),
-			type: String(context.active().getValue(experienceTypeKey)),
-		};
-
-		// Return activeTraceContext if traceId and spanId are not "undefined"
-		return activeTraceContext.traceId !== 'undefined' && activeTraceContext.spanId !== 'undefined'
-			? activeTraceContext
-			: undefined;
-	} else {
-		return state.context || undefined;
-	}
-}
-
-// DO NOT CALL THIS FUNCTION DIRECTLY!!!!
-// It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
-// Calling this may cause trace context to be broken
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function clearActiveTrace(): void {
-	if (fg('platform_ufo_enable_otel_context_manager')) {
-		// Now we need to get the global Context Manager and set the active context
-		// Using type assertion because we've "extended" the ContextManager type
-		if (getContextManager() instanceof UFOContextManager) {
-			let contextManager = getContextManager() as UFOContextManager;
-
-			// ROOT_CONTEXT is an empty context used to initialise ContextManagers
-			contextManager.setActive(ROOT_CONTEXT);
-		}
-	} else {
-		state.context = null;
-	}
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function getActiveTraceHttpRequestHeaders(_url?: string): {
-	'X-B3-TraceId': string;
-	'X-B3-SpanId': string;
-} | null {
-	if (getActiveTrace() === undefined) {
-		return null;
-	}
-
-	const { traceId, spanId } = getActiveTrace() as TraceIdContext;
-	return makeTraceHttpRequestHeaders(traceId, spanId);
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function getActiveTraceAsQueryParams(_url?: string): string | null {
-	const traceHeaders = getActiveTraceHttpRequestHeaders();
-	return traceHeaders ? new URLSearchParams(traceHeaders).toString().toLowerCase() : null;
-}
+/**
+ * @deprecated Use `import { generateSpanId } from '@atlaskit/react-ufo/generate-span-id'` instead.
+ */
+export { generateSpanId } from './generate-span-id';
+/**
+ * @deprecated Use `import { setInteractionActiveTrace } from '@atlaskit/react-ufo/set-interaction-active-trace'` instead.
+ */
+export { setInteractionActiveTrace } from './set-interaction-active-trace';
+/**
+ * @deprecated Use `import { setActiveTrace } from '@atlaskit/react-ufo/set-active-trace'` instead.
+ */
+export { setActiveTrace } from './set-active-trace';
+/**
+ * @deprecated Use `import { getActiveTrace } from '@atlaskit/react-ufo/get-active-trace'` instead.
+ */
+export { getActiveTrace } from './get-active-trace';
+/**
+ * @deprecated Use `import { clearActiveTrace } from '@atlaskit/react-ufo/clear-active-trace'` instead.
+ */
+export { clearActiveTrace } from './clear-active-trace';
+/**
+ * @deprecated Use `import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/get-active-trace-http-request-headers'` instead.
+ */
+export { getActiveTraceHttpRequestHeaders } from './get-active-trace-http-request-headers';
+/**
+ * @deprecated Use `import { getActiveTraceAsQueryParams } from '@atlaskit/react-ufo/get-active-trace-as-query-params'` instead.
+ */
+export { getActiveTraceAsQueryParams } from './get-active-trace-as-query-params';
+/**
+ * @deprecated Use `import { state } from '@atlaskit/react-ufo/state'` instead.
+ */
+export { state } from './state';
+/**
+ * @deprecated Use `import { traceIdKey } from '@atlaskit/react-ufo/trace-id-key'` instead.
+ */
+export { traceIdKey } from './trace-id-key';
+/**
+ * @deprecated Use `import { spanIdKey } from '@atlaskit/react-ufo/span-id-key'` instead.
+ */
+export { spanIdKey } from './span-id-key';
+/**
+ * @deprecated Use `import { experienceTypeKey } from '@atlaskit/react-ufo/experience-type-key'` instead.
+ */
+export { experienceTypeKey } from './experience-type-key';

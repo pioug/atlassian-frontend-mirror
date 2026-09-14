@@ -33,7 +33,6 @@ import {
 	removeSelectedNode,
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CodeBlockPlugin } from '../codeBlockPluginType';
@@ -98,9 +97,11 @@ export const changeLanguage =
 
 		const node = state.doc.nodeAt(pos);
 		const localId = node?.attrs.localId;
-		const shouldIncludeAutoDetectionContext =
-			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
-			fg('platform_editor_code_block_language_detection_flow');
+		const shouldIncludeAutoDetectionContext = expValEquals(
+			'platform_editor_code_block_q4_lovability',
+			'isEnabled',
+			true,
+		);
 		const previousAutoDetectEntry: AutoDetectEntry | undefined = shouldIncludeAutoDetectionContext
 			? autoDetectPluginKey.getState(state)?.languageDetectionMap[localId]
 			: undefined;
@@ -586,6 +587,31 @@ export function createInsertCodeBlockTransaction({ state }: { state: EditorState
 		safeInsert(codeBlock.createAndFill(codeBlockAttrs) as PMNode)(tr).scrollIntoView();
 	}
 
+	return tr;
+}
+
+export function createInsertCodeBlockTransactionWithAnalytics({
+	analyticsAPI,
+	inputMethod,
+	state,
+}: {
+	analyticsAPI?: EditorAnalyticsAPI;
+	inputMethod:
+		| INPUT_METHOD.FORMATTING
+		| INPUT_METHOD.INSERT_MENU
+		| INPUT_METHOD.QUICK_INSERT
+		| INPUT_METHOD.TOOLBAR
+		| INPUT_METHOD.ELEMENT_BROWSER;
+	state: EditorState;
+}): Transaction {
+	const tr = createInsertCodeBlockTransaction({ state });
+	analyticsAPI?.attachAnalyticsEvent({
+		action: ACTION.INSERTED,
+		actionSubject: ACTION_SUBJECT.DOCUMENT,
+		actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
+		attributes: { inputMethod },
+		eventType: EVENT_TYPE.TRACK,
+	})(tr);
 	return tr;
 }
 

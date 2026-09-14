@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { type CreateFlagArgs } from '@atlaskit/flag';
-import type { LinkProvider } from '@atlaskit/link-extractors';
+import type { CreateFlagArgs } from '@atlaskit/flag/flag-provider';
+import type { LinkProvider } from '@atlaskit/link-extractors/types';
 
 import { messages } from '../../../messages';
 import ImageIcon from '../../../view/common/image-icon';

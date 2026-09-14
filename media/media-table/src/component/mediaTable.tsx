@@ -16,7 +16,10 @@ import {
 	type FileIdentifier,
 	type MediaSubscription,
 } from '@atlaskit/media-client';
-import { withMediaClient, type WithMediaClientConfigProps } from '@atlaskit/media-client-react';
+import {
+	withMediaClient,
+	type WithMediaClientConfigProps,
+} from '@atlaskit/media-client-react/with-media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { mediaTableWrapperStyles } from './styles';
 import DownloadButton from './downloadButton';
@@ -35,7 +38,9 @@ import {
 	CELL_KEY_PREVIEW,
 	ANALYTICS_MEDIA_CHANNEL,
 } from '../util';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 export class MediaTable extends Component<
 	MediaTableProps & WrappedComponentProps,

@@ -2,7 +2,7 @@
  * Read a `<meta name="...">` tag's content from the current document, with
  * per-name caching. Browser-only: returns `undefined` under SSR or when absent.
  */
-const cache = new Map<string, string | undefined>();
+export const cache: any = new Map<string, string | undefined>();
 
 export const getMeta = (name: string): string | undefined => {
 	if (typeof document === 'undefined') {
@@ -22,11 +22,4 @@ export const getMeta = (name: string): string | undefined => {
 
 	cache.set(name, value);
 	return value;
-};
-
-/**
- * Test-only: clear the cache so each test starts with a clean slate.
- */
-export const __clearMetaCacheForTests = (): void => {
-	cache.clear();
 };

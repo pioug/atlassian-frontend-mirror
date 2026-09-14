@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Page from '@atlaskit/page';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';

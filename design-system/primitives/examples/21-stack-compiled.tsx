@@ -2,13 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { CSSProperties, JSX, ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 
 import { jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import Heading from '@atlaskit/heading/heading';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
@@ -60,15 +62,13 @@ const styles = cssMap({
 		paddingInlineStart: token('space.200'),
 	},
 	setWidth: { width: '200px' },
-	setHeight: { width: '200px' },
+	setHeight: { height: '200px' },
 });
 
-// NOTE: We just cheat with `style`, do not copy this pattern into your code…
-const Block = (props: { compact?: boolean; style?: CSSProperties; children?: ReactNode }) => (
+const Block = (props: { compact?: boolean; fixedWidth?: boolean; children?: ReactNode }) => (
 	<Box
-		xcss={cx(styles.block, props.compact && styles.blockSmall)}
+		xcss={cx(styles.block, props.compact && styles.blockSmall, props.fixedWidth && styles.setWidth)}
 		backgroundColor="color.background.discovery.bold"
-		style={props.style}
 	>
 		{props.children}
 	</Box>
@@ -95,12 +95,8 @@ export default (): JSX.Element => (
 									{alignBlock}
 
 									<Box
-										xcss={styles.container}
+										xcss={cx(styles.container, styles.setHeight)}
 										backgroundColor="color.background.neutral"
-										style={{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											height: '200px',
-										}}
 									>
 										<Stack space="space.050" alignBlock={alignBlock}>
 											<Block />
@@ -125,12 +121,8 @@ export default (): JSX.Element => (
 									{spread}
 
 									<Box
-										xcss={styles.container}
+										xcss={cx(styles.container, styles.setHeight)}
 										backgroundColor="color.background.neutral"
-										style={{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											height: '200px',
-										}}
 									>
 										<Stack space="space.050" spread={spread}>
 											<Block />
@@ -152,13 +144,7 @@ export default (): JSX.Element => (
 						{alignInlineItems.map((alignInline) => (
 							<Stack key={alignInline} alignInline="center">
 								{alignInline}
-								<Block
-									compact
-									style={{
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-										width: '200px',
-									}}
-								>
+								<Block compact fixedWidth>
 									<Stack grow="fill" alignInline={alignInline} space="space.050">
 										<Block />
 										<Block />

@@ -135,7 +135,7 @@ const testCases: TestCase[] = [
 	{
 		name: 'Set function operand to a field inside a query',
 		input: 'issuetype = bug',
-		expected: 'issuetype = all()',
+		expected: 'issuetype = "all"()',
 		transform: {
 			enterTerminalClause: (terminalClause: TerminalClause) => {
 				terminalClause.setOperand(getAllFunctionOperand());
@@ -175,7 +175,7 @@ const testCases: TestCase[] = [
 	{
 		name: 'Append function operand to a field inside a query',
 		input: 'issuetype = bug',
-		expected: 'issuetype = (bug, all())',
+		expected: 'issuetype = (bug, "all"())',
 		transform: {
 			enterTerminalClause: (terminalClause: TerminalClause) => {
 				terminalClause.appendOperand(getAllFunctionOperand());

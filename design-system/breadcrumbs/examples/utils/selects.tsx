@@ -1,12 +1,13 @@
 import React, { type FC } from 'react';
 
-import Select, {
-	type ActionMeta,
-	type OptionsType,
-	type OptionType,
-	type StylesConfig,
-	type ValueType,
-} from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type {
+	ActionMeta,
+	OptionsType,
+	OptionType,
+	StylesConfig,
+	ValueType,
+} from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 const styles: StylesConfig<OptionType> = {

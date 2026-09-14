@@ -16,12 +16,27 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description: string;
 		id: string;
 	};
+	'#97EDC9': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	'#998DD9': {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
 	'#ABF5D1': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#ADCBFB': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#B1E4F7': {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -37,6 +52,11 @@ export const lightBackgroundPaletteTooltipMessages: {
 		id: string;
 	};
 	'#B3F5FF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#B7B9BE': {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -61,6 +81,11 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description: string;
 		id: string;
 	};
+	'#E3BDFA': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	'#E3FCEF': {
 		defaultMessage: string;
 		description: string;
@@ -72,6 +97,11 @@ export const lightBackgroundPaletteTooltipMessages: {
 		id: string;
 	};
 	'#EAE6FF': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	'#EFDD4E': {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -111,17 +141,17 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description: string;
 		id: string;
 	};
+	'#FFB8B2': {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	'#FFBDAD': {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
 	'#FFC400': {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	'#EFDD4E': {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -175,6 +205,12 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold blue color option.',
 	},
+	'#ADCBFB': {
+		id: 'fabric.theme.bold-blue-new',
+		defaultMessage: 'Bold blue',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold blue color option.',
+	},
 	'#E6FCFF': {
 		id: 'fabric.theme.subtle-teal',
 		defaultMessage: 'Subtle teal',
@@ -193,6 +229,12 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold teal color option.',
 	},
+	'#B1E4F7': {
+		id: 'fabric.theme.bold-teal-new',
+		defaultMessage: 'Bold teal',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold teal color option.',
+	},
 	'#E3FCEF': {
 		id: 'fabric.theme.subtle-green',
 		defaultMessage: 'Subtle green',
@@ -207,6 +249,12 @@ export const lightBackgroundPaletteTooltipMessages: {
 	},
 	'#57D9A3': {
 		id: 'fabric.theme.bold-green',
+		defaultMessage: 'Bold green',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold green color option.',
+	},
+	'#97EDC9': {
+		id: 'fabric.theme.bold-green-new',
 		defaultMessage: 'Bold green',
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold green color option.',
@@ -253,6 +301,12 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold red color option.',
 	},
+	'#FFB8B2': {
+		id: 'fabric.theme.bold-red-new',
+		defaultMessage: 'Bold red',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold red color option.',
+	},
 	'#EAE6FF': {
 		id: 'fabric.theme.subtle-purple',
 		defaultMessage: 'Subtle purple',
@@ -271,6 +325,12 @@ export const lightBackgroundPaletteTooltipMessages: {
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold purple color option.',
 	},
+	'#E3BDFA': {
+		id: 'fabric.theme.bold-purple-new',
+		defaultMessage: 'Bold purple',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold purple color option.',
+	},
 	'#FFFFFF': {
 		id: 'fabric.theme.white',
 		defaultMessage: 'White',
@@ -285,6 +345,12 @@ export const lightBackgroundPaletteTooltipMessages: {
 	},
 	'#B3BAC5': {
 		id: 'fabric.theme.bold-gray',
+		defaultMessage: 'Bold gray',
+		description:
+			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold gray color option.',
+	},
+	'#B7B9BE': {
+		id: 'fabric.theme.bold-gray-new',
 		defaultMessage: 'Bold gray',
 		description:
 			'The text is shown as a tooltip label for a color swatch in the editor background color picker when the user hovers over the bold gray color option.',

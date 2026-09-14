@@ -2,7 +2,7 @@ import sample from 'lodash/sample';
 
 import { type Team } from '../types';
 
-const avatarImages = [
+export const avatarImages: string[] = [
 	'data:image/gif;base64,R0lGODdhgACAAPIHAABRzMHT8l6O3o2w6env+zh22P///xRe0CwAAAAAgACAAAAD/wi63P4wykmrvTjrzbv/YCiOZGmeaKqubOu+cCzPdG3feK7vfO//wKBwSCwaj8ikcslsOp/QqHRKrVqv2Kx2y+16v+CweEwum8/otHrNbrvf8Lh8Tq83CwGDgTA4RA4DBHoBAnADeoh7BQ8HgokGA24Cj4gED3mUBoVsmJmbC5OZe22iepEMh6V+a6UGAQ2poouspacLsZmrap2UswsFpa9sjZnCsLJuBY6IAbrHiQSfbQcCAQED0g8FA9YCznbg4eLj5OVO2zMDvlXKrt8qB3kE61LEg/Qo8ZX4TvrQ2SbaQXvHxB+lPicAiWomBdejaCUEFiPIxOGjAPw04GnFkIiKxYveOFRrBQlLKJKEKDagFohkySwSSRK4NgBbAQE1uS2TCdCKQZdAUaq0ImBn0KN6IIppiTQon6FbqBlt+hBhmm1Tj/LpebVaVkoz1YUrQDZnTbIZzaldy7at27dw48qdS7eu3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI0uenDcBADs=',
 	'data:image/gif;base64,R0lGODdhgACAAPIHAACjv2fE1sXp70S2zR+qxJbV4////+r3+SwAAAAAgACAAAAD/wi63P4wykmrvTjrzbv/YCiOZGmeaKqubOu+cCzPdG3feK7vfO//wKBwSCwaj8ikcslsOp/QqHRKrVqv2Kx2y+16v+CweEwum8/otHrNbrvf8Lh8Tq83BwKD4VAgRAgFB3oCAXAFeoh7Aw8EgokGBW4Bj4gHD3mUBoVsmJmbC5OZe22iepEMh6V+a6UGAg2poouspacLsZmrap2UswsDpa9sjZnCsLJuA46IArrHiQefbQQBAgIF0g8DBdYBznbg4eLj5OVO2zMFvlXKrt8qBHkH61LEg/Qo8ZX4TvrQ2SbaQXvHxB+lPicAiWomBdejaCUEFiPIxOEjAfw04GnFkIiKxYveOFRrBQlLKJKEKDagFohkySwSSR64VgDbgAA1uS2TCdCKQZdAUaq0EmBn0KN6IIppiTQon6FbqBlt+hBhmm1Tj/LpebVaVkoz1YUbQDZnTbIZzaldy7at27dw48qdS7eu3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI0uenDcBADs=',
 	'data:image/gif;base64,R0lGODdhgACAAPIHAACHWur18arVxYjDrlarjMnk2v///yeUbSwAAAAAgACAAAAD/wi63P4wykmrvTjrzbv/YCiOZGmeaKqubOu+cCzPdG3feK7vfO//wKBwSCwaj8ikcslsOp/QqHRKrVqv2Kx2y+16v+CweEwum8/otHrNbrvf8Lh8Tq83CQKDISA4RA4DAXoFBHADeoh7fg4HgokGAm4Ej4gBDwWUeoVsmJkGmwuTnpZsnnqRDIemi2qmBgUNqp6gaa4Dsa6saXmzDQemsGyNmai4mbpqw4kFyAu8lbTCAwUFAtEOeNQDzXbd3t/g4eJMgDPbWMPMLwd5AdxPyq/vJQedilT1jwHXJQSOlfOS5Mt0zgQgT+qiPKO0r98/SgkVuiIUgoC9TBGlLMRIIIagBIuuIGERFdKaRwUH8Dz0dCuLv5CVqg0YQKDmzGkrTTXcwg6mz58Zt7z8SVQfPy6BihINUHAMoJxKEzE96UVl1ErW4AASAJWhgKZ1UhK4ObMm1XFo06pdy7at27dw48qdS7eu3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI8tNAAA7',
@@ -14,7 +14,7 @@ const avatarImages = [
 
 const getAvatar = () => sample(avatarImages)!;
 
-const memberNames = [
+export const memberNames: string[] = [
 	'Kramer Hatfield',
 	'Schwartz Mclaughlin',
 	'Nichole Walter',
@@ -39,16 +39,18 @@ const memberNames = [
 	'Rebecca Woods',
 ];
 
-const members = memberNames.map((name, index) => ({
-	id: index.toString(),
-	avatarUrl: getAvatar(),
-	fullName: name,
-}));
+export const members: { id: string; avatarUrl: string; fullName: string }[] = memberNames.map(
+	(name, index) => ({
+		id: index.toString(),
+		avatarUrl: getAvatar(),
+		fullName: name,
+	}),
+);
 
-const sampleImage =
+export const sampleImage: string =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABACAMAAACqVYydAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAGBQTFRF/zX7+DP73i77uyb8kR78ZhX9PQz+GwX+/jT78jL71Sz7ryT8hRv8WhL9Mwr+EwT+/TT76jD7yyr7pCL8eRn9ThD9KQj+DAL/+jT74i/7wCj8lx/8bBb9Qw3+IAb+BgH/HFKiKQAAAIBJREFUeJztzjkOggAAAEEEORTkFOQS/v9L+u1INDQ7L5ggOOkGIURwhxgSSOHsz6BBgwYNGjRo0OBvgxk84Ak5FPCCEiowaNCgQYMGDRo0eG2whgZa6OANPQzwAYMGDRo0aNCgQYPXBkeYYIYFVvjCBjsYNGjQoEGDBg0a/GvwADIe8BAKQVCtAAAAAElFTkSuQmCC';
 
-const names: Record<string, string> = {
+export const names: Record<string, string> = {
 	Short: 'Lemon',
 	Medium: 'The Fat Cats',
 	Long: 'People and Teams Collective Developers',
@@ -58,7 +60,7 @@ const names: Record<string, string> = {
 const longDescription =
 	'This is information about the team. They are responsible for all the cool stuff that happens at Acme.';
 
-const descriptions: Record<string, string> = {
+export const descriptions: Record<string, string> = {
 	None: '',
 	Short: 'A very cool team!',
 	Medium: 'This is a pretty cool team, that does a lot of work here.',
@@ -84,35 +86,6 @@ export default function teamData({
 		largeHeaderImageUrl: headerImage === 'Picture' ? sampleImage : undefined,
 		displayName: names[displayName] || names.Short,
 		members: members.slice(0, memberCount),
-		description: description ? descriptions[description] : descriptions.Long,
-		isVerified,
-	};
-}
-
-export function staticTeamData({
-	headerImage = 'None',
-	displayName = 'Short',
-	members: memberCount = 1,
-	description = 'Long',
-	isVerified = false,
-}: {
-	headerImage?: 'None' | 'Picture';
-	displayName?: 'Short' | 'Medium' | 'Long' | 'Overlong';
-	members?: number;
-	description?: 'None' | 'Short' | 'Medium' | 'Long' | 'Overlong';
-	isVerified?: boolean;
-}): Team {
-	return {
-		id: 'team-id',
-		largeHeaderImageUrl: headerImage === 'Picture' ? sampleImage : undefined,
-		displayName: names[displayName] || names.Short,
-		members: memberNames
-			.map((name, index) => ({
-				id: index.toString(),
-				avatarUrl: avatarImages[index % avatarImages.length],
-				fullName: name,
-			}))
-			.slice(0, memberCount),
 		description: description ? descriptions[description] : descriptions.Long,
 		isVerified,
 	};

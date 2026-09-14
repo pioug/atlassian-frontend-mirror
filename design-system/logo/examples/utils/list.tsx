@@ -1,5 +1,18 @@
 import { type ComponentType } from 'react';
 
+import { AtlasIcon } from '@atlaskit/logo/atlas-icon';
+import { AtlasLogo } from '@atlaskit/logo/logo';
+import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
+import { AtlassianAccessLogo } from '@atlaskit/logo/atlassian-access/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
+import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
+import { AtlassianMarketplaceLogo } from '@atlaskit/logo/atlassian-marketplace/logo';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { JiraSoftwareLogo } from '@atlaskit/logo/jira-software/logo';
+import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
+import { JiraWorkManagementLogo } from '@atlaskit/logo/jira-work-management/logo';
+import type { LogoProps } from '@atlaskit/logo/types';
 import {
 	AdminIcon,
 	AdminLogo,
@@ -9,20 +22,12 @@ import {
 	AnalyticsLogo,
 	AssetsIcon,
 	AssetsLogo,
-	AtlasIcon,
-	AtlasLogo,
-	AtlassianAccessIcon,
-	AtlassianAccessLogo,
 	AtlassianAdminIcon,
 	AtlassianAdministrationIcon,
 	AtlassianAdministrationLogo,
 	AtlassianAdminLogo,
 	AtlassianAnalyticsIcon,
 	AtlassianAnalyticsLogo,
-	AtlassianIcon,
-	AtlassianLogo,
-	AtlassianMarketplaceIcon,
-	AtlassianMarketplaceLogo,
 	BambooIcon,
 	BambooLogo,
 	BitbucketDataCenterIcon,
@@ -67,11 +72,6 @@ import {
 	JiraServiceManagementDataCenterLogo,
 	JiraServiceManagementIcon,
 	JiraServiceManagementLogo,
-	JiraSoftwareIcon,
-	JiraSoftwareLogo,
-	JiraWorkManagementIcon,
-	JiraWorkManagementLogo,
-	type LogoProps,
 	LoomAttributionIcon,
 	LoomAttributionLogo,
 	LoomBlurpleIcon,
@@ -103,12 +103,12 @@ import {
 } from '@atlaskit/logo';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { logoDocsSchema } from '../../src/logo-config';
+import { logoDocsSchema } from '../../src/logo-docs-schema';
 
 const logoMap: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<LogoProps & { shouldUseHexLogo?: boolean }>;
-	icon: ComponentType<LogoProps & { shouldUseHexLogo?: boolean }>;
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
 }[] = [
 	// Program logos
 	{ name: 'atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
@@ -194,32 +194,22 @@ const logoMap: {
 	{ name: 'jira-work-management', logo: JiraWorkManagementLogo, icon: JiraWorkManagementIcon },
 ];
 
-export const logos: ComponentType<
-	{
-		size?: 'small' | 'large' | 'medium' | 'xlarge' | 'xsmall' | 'xxsmall';
-		appearance?: 'brand' | 'neutral' | 'inverse';
-		textColor?: string;
-		iconColor?: string;
-		label?: string;
-		testId?: string;
-		shouldUseNewLogoDesign?: boolean;
-	} & {
-		shouldUseHexLogo?: boolean;
-	}
->[] = logoMap.map(({ logo }) => logo);
-export const icons: ComponentType<
-	{
-		size?: 'small' | 'large' | 'medium' | 'xlarge' | 'xsmall' | 'xxsmall';
-		appearance?: 'brand' | 'neutral' | 'inverse';
-		textColor?: string;
-		iconColor?: string;
-		label?: string;
-		testId?: string;
-		shouldUseNewLogoDesign?: boolean;
-	} & {
-		shouldUseHexLogo?: boolean;
-	}
->[] = logoMap.map(({ icon }) => icon);
+export const logos: ComponentType<{
+	size?: 'small' | 'large' | 'medium' | 'xlarge' | 'xsmall' | 'xxsmall';
+	appearance?: 'brand' | 'neutral' | 'inverse';
+	textColor?: string;
+	iconColor?: string;
+	label?: string;
+	testId?: string;
+}>[] = logoMap.map(({ logo }) => logo);
+export const icons: ComponentType<{
+	size?: 'small' | 'large' | 'medium' | 'xlarge' | 'xsmall' | 'xxsmall';
+	appearance?: 'brand' | 'neutral' | 'inverse';
+	textColor?: string;
+	iconColor?: string;
+	label?: string;
+	testId?: string;
+}>[] = logoMap.map(({ icon }) => icon);
 
 /**
  * Helper function to find logo schema by name
@@ -238,69 +228,29 @@ const filterByType = (type: 'legacy' | 'migration' | 'new' | 'rovo-hex') =>
 
 export const legacyOnlyLogosAndIcons: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
-	icon: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
 }[] = filterByType('legacy');
 export const migrationLogosAndIcons: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
-	icon: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
 }[] = filterByType('migration');
 export const newOnlyLogosAndIcons: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
-	icon: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
 }[] = filterByType('new');
 export const rovoHexLogosAndIcons: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
-	icon: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
 }[] = filterByType('rovo-hex');
 
 export const deprecatedLogos: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
-	icon: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
 }[] = logoMap.filter(({ name }) => {
 	const logo = getLogoSchema(name);
 	return logo?.deprecated;
@@ -308,16 +258,8 @@ export const deprecatedLogos: {
 
 export const logosAndIcons: {
 	name: (typeof logoDocsSchema)[number]['name'];
-	logo: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
-	icon: ComponentType<
-		LogoProps & {
-			shouldUseHexLogo?: boolean;
-		}
-	>;
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
 }[] = logoMap.sort((a, b) => {
 	const aIndex = logoDocsSchema.findIndex(({ name: logoName }) => logoName === a.name);
 	const bIndex = logoDocsSchema.findIndex(({ name: logoName }) => logoName === b.name);

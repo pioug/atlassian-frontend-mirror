@@ -87,5 +87,7 @@ export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin
 	providerFactory: ProviderFactory;
 	secondaryToolbarComponents?: UIComponentFactory[];
 
+	UNSAFE_containLayout?: boolean;
+
 	useStickyToolbar?: UseStickyToolbarType;
 }

@@ -8,12 +8,13 @@ import { default as React, Fragment, useCallback, useContext, useMemo, useEffect
 import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
-import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { EventHandlers, MediaSingleWidthType } from '@atlaskit/editor-common/ui';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
@@ -345,7 +346,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
 	return <MediaSingleWithChildren {...props} media={media} caption={caption} />;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(MediaSingle);

@@ -10,7 +10,8 @@ import {
 	akEditorTableNumberColumnWidth,
 	akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -484,7 +485,10 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 		width: 12px;
 		height: 12px;
 		margin-bottom: -12px;
-		background: ${token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
+		fg('platform_editor_nest_table_in_panel_patch_3')
+			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+			: token('elevation.surface')};
 		pointer-events: none;
 		z-index: ${nativeStickyHeaderZIndex};
 	}
@@ -504,13 +508,7 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 		sticky / fallback layout. The masks belong to the wrapper of the table
 		that owns the sticky row, never to an ancestor wrapper.
 	*/
-	.${ClassName.TABLE_NODE_WRAPPER}:has(> table > tbody > tr.${expValEquals(
-			'platform_editor_table_q4_patch_4',
-			'isEnabled',
-			true,
-		)
-			? `${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}`
-			: ClassName.NATIVE_STICKY_ACTIVE})
+	.${ClassName.TABLE_NODE_WRAPPER}:has(> table > tbody > tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE})
 		> .${ClassName.TABLE_CORNER_MASK},
 		.${ClassName.TABLE_NODE_WRAPPER}:has(> table.${ClassName.TABLE_STICKY} > tbody > tr.sticky)
 		> .${ClassName.TABLE_CORNER_MASK} {
@@ -606,26 +604,24 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 		border-left-color: transparent;
 	}
 
-	${fg('platform_editor_table_q4_patch_1')
-		? css`
-				/* Node-selected (ak-editor-selected-node) sticky header: the pinned row leaves the table's
-					   rounded overlay behind, so recolour its painted top edge to the selected colour too. */
-				.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-					.${ClassName.TABLE_NODE_WRAPPER}
-					> table
-					> tbody
-					> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-					> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
-					.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-					.${ClassName.TABLE_NODE_WRAPPER}
-					> table
-					> tbody
-					> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-					> td.${ClassName.TABLE_CELL}[data-reaches-top]::after {
-					border-top-color: ${tableBorderSelectedColor};
-				}
-			`
-		: ''}
+	${css`
+		/* Node-selected (ak-editor-selected-node) sticky header: the pinned row leaves the table's
+				   rounded overlay behind, so recolour its painted top edge to the selected colour too. */
+		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+			.${ClassName.TABLE_NODE_WRAPPER}
+			> table
+			> tbody
+			> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+			> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
+			.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+			.${ClassName.TABLE_NODE_WRAPPER}
+			> table
+			> tbody
+			> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+			> td.${ClassName.TABLE_CELL}[data-reaches-top]::after {
+			border-top-color: ${tableBorderSelectedColor};
+		}
+	`}
 `;
 
 const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
@@ -734,45 +730,43 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		box-shadow: none !important;
 	}
 
-	${fg('platform_editor_table_q4_patch_1')
-		? css`
-				/* Node-selected (ak-editor-selected-node) sticky header: recolour the bottom-edge
-					   shadow to the selected colour so it matches the rest of the selection. */
-				.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-					.${ClassName.TABLE_NODE_WRAPPER}
-					> table
-					> tbody
-					> tr.${ClassName.NATIVE_STICKY},
-					.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-					.${ClassName.TABLE_NODE_WRAPPER}
-					> table.${ClassName.TABLE_STICKY}
-					> tbody
-					> tr.sticky {
-					box-shadow: inset 0 -1px ${tableBorderSelectedColor} !important;
-				}
+	${css`
+		/* Node-selected (ak-editor-selected-node) sticky header: recolour the bottom-edge
+				   shadow to the selected colour so it matches the rest of the selection. */
+		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+			.${ClassName.TABLE_NODE_WRAPPER}
+			> table
+			> tbody
+			> tr.${ClassName.NATIVE_STICKY},
+			.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+			.${ClassName.TABLE_NODE_WRAPPER}
+			> table.${ClassName.TABLE_STICKY}
+			> tbody
+			> tr.sticky {
+			box-shadow: inset 0 -1px ${tableBorderSelectedColor} !important;
+		}
 
-				/* Active (pinned) variant keeps its drop shadow but recolours the bottom border. */
-				.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-					.${ClassName.TABLE_NODE_WRAPPER}
-					> table
-					> tbody
-					> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE} {
-					box-shadow:
-						inset 0 -1px ${tableBorderSelectedColor},
-						0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')} !important;
-				}
-			`
-		: ''}
+		/* Active (pinned) variant keeps its drop shadow but recolours the bottom border. */
+		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+			.${ClassName.TABLE_NODE_WRAPPER}
+			> table
+			> tbody
+			> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE} {
+			box-shadow:
+				inset 0 -1px ${tableBorderSelectedColor},
+				0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')} !important;
+		}
+	`}
 `;
 
 export const roundedTableOverrides = (): SerializedStyles => css`
-	${fg('platform_editor_table_q4_patch_1')
-		? // Base corner radius is emitted from the SSR-rendered EditorContentContainer
-			// (tableRoundedCornerStyles in editor-core); only the interaction overlays remain here.
-			roundedTableCellCornerInteractionOverlayStyles()
-		: roundedTableCellCornerStyles()}
+	${
+		// Base corner radius is emitted from the SSR-rendered EditorContentContainer
+		// (tableRoundedCornerStyles in editor-core); only the interaction overlays remain here.
+		roundedTableCellCornerInteractionOverlayStyles()
+	}
 	${roundedTableInteractionOverlayStyles()}
-	${fg('platform_editor_table_q4_patch_1') ? roundedTableSelectedNodeStyles() : ''}
+	${roundedTableSelectedNodeStyles()}
 	${roundedTableNumberedColumnStyles()}
 	${roundedTableStickyHeaderCellCornerStyles()}
 	${roundedTableStickyHeaderNumberColumnStyles()}

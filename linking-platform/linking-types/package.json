@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-types",
-	"version": "15.0.0",
+	"version": "15.3.0",
 	"description": "Schema and Types for frontend and backend parts of linking platform",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -22,12 +22,25 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./entity-types": "./src/entry-points/entity-types.ts",
+		"./as-record": "./src/entry-points/as-record.ts",
 		"./datasource": "./src/entry-points/datasource-types.ts",
 		"./datasource-actions": "./src/entry-points/datasource-action-types.ts",
+		"./entity-types": "./src/entry-points/entity-types.ts",
+		"./is-base-entity": "./src/entry-points/is-base-entity.ts",
+		"./is-conversation-entity": "./src/entry-points/is-conversation-entity.ts",
+		"./is-design-entity": "./src/entry-points/is-design-entity.ts",
+		"./is-document-entity": "./src/entry-points/is-document-entity.ts",
+		"./is-entity-type": "./src/entry-points/is-entity-type.ts",
+		"./is-message-entity": "./src/entry-points/is-message-entity.ts",
+		"./is-object": "./src/entry-points/is-object.ts",
+		"./is-one-of": "./src/entry-points/is-one-of.ts",
+		"./is-project-entity": "./src/entry-points/is-project-entity.ts",
+		"./is-remote-link-entity": "./src/entry-points/is-remote-link-entity.ts",
+		"./is-unsupported-entity": "./src/entry-points/is-unsupported-entity.ts",
+		"./is-work-item-entity": "./src/entry-points/is-work-item-entity.ts",
+		"./smart-link": "./src/smart-link-types.ts",
 		"./smart-link-actions": "./src/entry-points/smart-link-action-types.ts",
-		"./smart-link": "./src/entry-points/smart-link-types.ts",
-		"./supported-feature": "./src/entry-points/supported-feature-types.ts"
+		"./supported-feature": "./src/supported-feature.ts"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",
@@ -37,37 +50,5 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
 	}
 }

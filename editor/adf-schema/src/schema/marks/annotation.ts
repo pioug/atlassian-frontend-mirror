@@ -95,3 +95,6 @@ export const annotation: MarkSpec = annotationFactory({
 		];
 	},
 });
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { buildDataAttributes as buildAnnotationMarkDataAttributes };

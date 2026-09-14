@@ -1,4 +1,4 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
@@ -16,7 +16,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { rebaseSteps } from '../index';
 
@@ -267,7 +266,7 @@ describe('rebaseSteps', () => {
 		);
 	});
 
-	eeTest.describe('platform_editor_offline_editing_web', 'mark preservation').variant(true, () => {
+	describe('mark preservation', () => {
 		it('preserves marks modified (by remote) before a move (by local)', () => {
 			rebase(
 				doc(p('first paragraph'), p('second paragraph'))(schema),

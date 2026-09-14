@@ -6,7 +6,6 @@ import { type CSSProperties, forwardRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -31,7 +30,7 @@ const webkitStyles = css({
 		height: thumbSize,
 		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold')})`,
 		border: 'none',
-		borderRadius: token('radius.full', '50%'),
+		borderRadius: token('radius.full'),
 		boxShadow: 'var(--thumb-shadow)',
 		cursor: 'pointer',
 		marginBlockStart: token('space.negative.075'),
@@ -49,7 +48,7 @@ const webkitStyles = css({
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'var(--track-fg-width) 100%',
 		border: 0,
-		borderRadius: token('radius.xsmall'),
+		borderRadius: token('radius.full'),
 		cursor: 'pointer',
 		transition: 'background-color 0.2s ease-in-out',
 	},
@@ -75,7 +74,7 @@ const firefoxStyles = css({
 		height: thumbSize,
 		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold')})`,
 		border: 'none',
-		borderRadius: token('radius.full', '50%'),
+		borderRadius: token('radius.full'),
 		boxShadow: 'var(--thumb-shadow)',
 		cursor: 'pointer',
 		outline: `solid ${token('border.width.selected')} var(--thumb-border)`,
@@ -102,7 +101,7 @@ const firefoxStyles = css({
 		height: 4,
 		backgroundColor: 'var(--track-bg)',
 		border: 0,
-		borderRadius: token('radius.xsmall'),
+		borderRadius: token('radius.full'),
 		cursor: 'pointer',
 		transition: 'background-color 0.2s ease-in-out',
 	},
@@ -157,7 +156,7 @@ const trackStyles = cssMap({
 			height: '4px',
 			position: 'absolute',
 			backgroundColor: token('color.background.neutral.bold.pressed'),
-			borderRadius: token('radius.full', '50%'),
+			borderRadius: token('radius.full'),
 			content: '',
 			insetBlockStart: '50%',
 			insetInlineStart: 'calc(100% - 3px)',
@@ -184,35 +183,18 @@ const rangeA11yStyles = css({
 	'&::-webkit-slider-runnable-track': {
 		height: trackHeight,
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.full'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-moz-range-progress': {
 		height: trackHeight,
 		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.full'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:hover:not(:disabled)': {
 		'--track-bg': token('color.background.inverse.subtle.hovered'),
-	},
-});
-
-const stylesT26Shape = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&::-webkit-slider-runnable-track': {
-		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.full'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&::-moz-range-progress': {
-		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.full'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
-	'&::-moz-range-track': {
-		borderRadius: token('radius.full'),
 	},
 });
 
@@ -235,14 +217,7 @@ const Input: React.ForwardRefExoticComponent<
 				} as CSSProperties
 			}
 			ref={ref}
-			css={[
-				baseStyles,
-				webkitStyles,
-				firefoxStyles,
-				themeStyles,
-				rangeA11yStyles,
-				fg('platform-dst-shape-theme-default') && stylesT26Shape,
-			]}
+			css={[baseStyles, webkitStyles, firefoxStyles, themeStyles, rangeA11yStyles]}
 		/>
 	);
 

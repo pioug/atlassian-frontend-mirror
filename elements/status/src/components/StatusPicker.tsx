@@ -2,9 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
-import React, { type FormEvent, PureComponent } from 'react';
+import React, { type FormEvent, PureComponent, type ReactNode } from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { css, jsx } from '@compiled/react';
 import ColorPalette from './internal/color-palette';
@@ -24,12 +24,23 @@ const fieldTextWrapperStyles = css({
 	},
 });
 
+// Keep the existing content position while reserving space inside the scrollport for focus rings.
+const scrollContainerStyles = css({
+	marginTop: token('space.050'),
+	maxHeight: '232px',
+	overflowY: 'auto',
+	overscrollBehaviorY: 'none',
+	paddingTop: token('space.050'),
+	width: '100%',
+});
+
 export interface Props {
 	autoFocus?: boolean;
 	onColorClick: (value: ColorType) => void;
 	onColorHover?: (value: ColorType) => void;
 	onEnter: () => void;
 	onTextChanged: (value: string) => void;
+	scrollableContent?: ReactNode;
 	selectedColor: ColorType;
 	text: string;
 }
@@ -45,7 +56,15 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 	};
 
 	render() {
-		const { text, selectedColor, onColorClick, onColorHover, intl } = this.props;
+		const { text, selectedColor, onColorClick, onColorHover, intl, scrollableContent } = this.props;
+		const colorPalette = (
+			<ColorPalette
+				key={this.colorPaletteKey}
+				onClick={onColorClick}
+				onHover={onColorHover}
+				selectedColor={selectedColor}
+			/>
+		);
 
 		// Using <React.Fragment> instead of [] to workaround Enzyme
 		// (https://github.com/airbnb/enzyme/issues/1149)
@@ -63,12 +82,14 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 						aria-label={intl.formatMessage(messages.statusInputLabel)}
 					/>
 				</div>
-				<ColorPalette
-					key={this.colorPaletteKey}
-					onClick={onColorClick}
-					onHover={onColorHover}
-					selectedColor={selectedColor}
-				/>
+				{scrollableContent ? (
+					<div css={scrollContainerStyles} data-status-picker-scroll-container>
+						{colorPalette}
+						{scrollableContent}
+					</div>
+				) : (
+					colorPalette
+				)}
 			</React.Fragment>
 		);
 	}
@@ -114,7 +135,7 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const StatusPicker: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(Picker);

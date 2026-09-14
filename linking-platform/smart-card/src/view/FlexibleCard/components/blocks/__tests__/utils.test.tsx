@@ -7,8 +7,9 @@ import { getFlexibleCardTestWrapper } from '../../../../../__tests__/__utils__/u
 import { ElementName, SmartLinkStatus } from '../../../../../constants';
 import { type ElementItem } from '../../blocks/types';
 import Block from '../block';
-import { MetadataBlock } from '../index';
-import { ElementDisplaySchema, type ElementDisplaySchemaType, renderElementItems } from '../utils';
+import { default as MetadataBlock } from '../metadata-block';
+import { renderElementItems } from '../renderElementItems';
+import { ElementDisplaySchema, type ElementDisplaySchemaType } from '../utils';
 
 const TestRenderElementItemBlock = ({
 	display,

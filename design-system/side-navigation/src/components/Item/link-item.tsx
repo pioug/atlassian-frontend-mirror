@@ -6,8 +6,9 @@ import { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { LinkItem as Link, type LinkItemProps } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Link from '@atlaskit/menu/link-item';
+import type { LinkItemProps } from '@atlaskit/menu/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -84,7 +85,7 @@ const styles = cssMap({
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const LinkItem: React.ForwardRefExoticComponent<
+export const LinkItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<LinkItemProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, LinkItemProps>(({ href, children, className, ...rest }, ref) => {
 	const { shouldRender } = useShouldNestedElementRender();
@@ -113,5 +114,3 @@ const LinkItem: React.ForwardRefExoticComponent<
 		</Link>
 	);
 });
-
-export default LinkItem;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Badge from '@atlaskit/badge';
+import Badge from '@atlaskit/badge/badge';
 
 const BadgeNewMaxValueDisabledExample = (): React.JSX.Element => {
 	return <Badge max={false}>{5000}</Badge>;

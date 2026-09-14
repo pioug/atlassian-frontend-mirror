@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "basic.tsx",
-    "themed.tsx"
+    "basic.vr.ap.tsx",
+    "themed.vr.ap.tsx"
   ]
 }

@@ -1,4 +1,6 @@
-import Button, { CustomThemeButton, LoadingButton } from '../../../../index';
+import Button from '../../../../old-button/button';
+import CustomThemeButton from '../../../../old-button/custom-theme-button/custom-theme-button';
+import LoadingButton from '../../../../old-button/loading-button';
 
 type Case = {
 	name: string;

@@ -1,12 +1,14 @@
 import { matchers } from '@emotion/jest';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import React from 'react';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { messages } from '../../../../components/i18n';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
-import * as utils from '../../../../components/picker/utils';
+import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
 import {
 	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type PickerListRef,
@@ -37,11 +39,12 @@ expect.extend(matchers);
 describe('<EmojiPickerList />', () => {
 	mockReactDomWarningGlobal();
 	const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
-	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+	let getExperimentValueSpy: jest.SpiedFunction<(typeof FeatureGates)['getExperimentValue']>;
+	let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 
 	beforeEach(() => {
 		jest
-			.spyOn(utils, 'scrollToRow')
+			.spyOn(scrollToRowModule, 'scrollToRow')
 			.mockImplementation((listRef?: any, index?: number) =>
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
@@ -49,10 +52,11 @@ describe('<EmojiPickerList />', () => {
 		getExperimentValueSpy = jest
 			.spyOn(FeatureGates, 'getExperimentValue')
 			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
-		setTeamojiExperimentEnabled(false);
+		checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 	});
 
 	afterEach(() => {
+		checkGateSpy.mockRestore();
 		jest.restoreAllMocks();
 	});
 
@@ -91,9 +95,11 @@ describe('<EmojiPickerList />', () => {
 		};
 	};
 	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
-			experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
-		);
+		if (isEnabled) {
+			mockExpEnabled(teamojiRefreshExperimentName);
+		} else {
+			mockExpDisabled(teamojiRefreshExperimentName);
+		}
 	};
 	const emojiPickerListExperimentName = 'platform_a11y_fixes_emoji_picker_list';
 	const setEmojiPickerListExperimentEnabled = (isEnabled: boolean) => {
@@ -157,8 +163,8 @@ describe('<EmojiPickerList />', () => {
 			expect(headings[0]).toHaveTextContent(messages.peopleCategory.defaultMessage);
 		});
 
-		describe('A11Y-31084: experiment platform_a11y_fixes_emoji_picker_list', () => {
-			it('renders emoji rows as lists with listitem emojis when enabled', async () => {
+		describe('A11Y-31084: emoji picker list semantics', () => {
+			it('renders emoji rows as lists with listitem emojis when the experiment is enabled', async () => {
 				setEmojiPickerListExperimentEnabled(true);
 				renderEmojiPickerList({ emojis: allEmojis });
 
@@ -169,12 +175,15 @@ describe('<EmojiPickerList />', () => {
 				expect(within(container).getAllByRole('listitem').length).toBeGreaterThan(0);
 			});
 
-			it('does not render list markup when disabled', async () => {
+			it('renders emoji rows as lists with listitem emojis when the experiment is disabled', async () => {
 				setEmojiPickerListExperimentEnabled(false);
 				renderEmojiPickerList({ emojis: allEmojis });
 
 				const container = await screen.findByTestId('virtual-list-scroll-container');
-				await waitFor(() => expect(within(container).queryAllByRole('listitem')).toHaveLength(0));
+				await waitFor(() =>
+					expect(within(container).getAllByRole('list').length).toBeGreaterThan(0),
+				);
+				expect(within(container).getAllByRole('listitem').length).toBeGreaterThan(0);
 			});
 		});
 

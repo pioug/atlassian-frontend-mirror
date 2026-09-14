@@ -1,16 +1,21 @@
 import React from 'react';
 
-import { MentionItem } from '../src/item';
-import { generateMentionItem, onSelection, sampleAvatarUrl as avatarUrl } from '../example-helpers';
 import { IntlProvider } from 'react-intl';
+
+import { sampleAvatarUrl as avatarUrl } from '../example-helpers';
+import { generateMentionItem } from '../example-helpers/generate-mention-item';
+import { onSelection } from '../example-helpers/on-selection';
+import { MentionItem } from '../src/item';
+import type { MentionDescription } from '../src/types';
 
 export default function Example(): React.JSX.Element {
 	// A non-selectable loading placeholder. `isPlaceholder` makes `MentionItem`
 	// render a skeleton/shimmer row instead of the usual avatar + name. Used to
 	// indicate a slower mention source (e.g. agents) is still loading.
-	const loadingPlaceholder = {
+	const loadingPlaceholder: MentionDescription = {
 		id: '__loading-placeholder__',
 		isPlaceholder: true,
+		placeholderType: 'loading',
 	};
 
 	const regularMention = {

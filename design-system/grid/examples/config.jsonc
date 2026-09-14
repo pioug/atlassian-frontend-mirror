@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "01-grid-cards.tsx",
-    "02-grid-widths.tsx",
-    "03-grid-no-inline-padding.tsx",
-    "20-grid-hidden-item.tsx",
+    "01-grid-cards.vr.ap.tsx",
+    "02-grid-widths.vr.ap.tsx",
+    "03-grid-no-inline-padding.vr.ap.tsx",
+    "20-grid-hidden-item.vr.ap.tsx",
     "90-jsm-grid.tsx",
-    "96-grid-container.tsx"
+    "96-grid-container.vr.ap.tsx"
   ]
 }

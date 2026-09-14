@@ -1,6 +1,6 @@
-import { type DatasourceType } from '@atlaskit/linking-types';
+import type { DatasourceType } from '@atlaskit/linking-types/datasource';
 
-import { stringifyType } from '../render-type';
+import { stringifyType } from './stringifyType';
 
 let mockFormatMessage = jest.fn();
 const mockFormatDate = jest.fn();

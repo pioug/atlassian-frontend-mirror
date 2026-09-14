@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
-
+import { render } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 import Tooltip from '../../tooltip';
 

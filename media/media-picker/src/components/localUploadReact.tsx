@@ -1,12 +1,17 @@
 import { Component } from 'react';
+
 import { start, end } from 'perf-marks';
+
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import {
 	type MediaClient,
 	getMediaClientErrorReason,
 	isCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { ANALYTICS_MEDIA_CHANNEL, type MediaFeatureFlags } from '@atlaskit/media-common';
+
 import { type UploadService } from '../service/types';
+import { UploadServiceImpl } from '../service/uploadServiceImpl';
 import {
 	type UploadEndEventPayload,
 	type UploadErrorEventPayload,
@@ -16,17 +21,14 @@ import {
 	type UploadRejectionData,
 	type UploadEventPayloadMap,
 } from '../types';
-import { UploadComponent } from './component';
-import { UploadServiceImpl } from '../service/uploadServiceImpl';
-import { type LocalUploadConfig } from './types';
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type AnalyticsEventPayload } from '../types';
-import { type ComponentName, getRequestMetadata } from '../util/analytics';
-import {
-	startMediaUploadUfoExperience,
-	succeedMediaUploadUfoExperience,
-	failMediaUploadUfoExperience,
-} from '../util/ufoExperiences';
+import type { ComponentName } from '../util/analytics';
+import { getRequestMetadata } from '../util/getRequestMetadata';
+import { startMediaUploadUfoExperience } from '../util/startMediaUploadUfoExperience';
+import { succeedMediaUploadUfoExperience } from '../util/succeedMediaUploadUfoExperience';
+import { failMediaUploadUfoExperience } from '../util/failMediaUploadUfoExperience';
+import { UploadComponent } from './component';
+import { type LocalUploadConfig } from './types';
 
 export type LocalUploadComponentBaseProps = {
 	mediaClient: MediaClient;

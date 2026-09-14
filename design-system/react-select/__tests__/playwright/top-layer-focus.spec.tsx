@@ -52,7 +52,7 @@ test.describe('react-select: top-layer focus contract', () => {
 		await expect(page.getByRole('listbox')).toHaveCount(0);
 	});
 
-	test('click inside the combobox while menu is open does NOT close the menu', async ({ page }) => {
+	test('clicking the combobox while the menu is open closes the menu', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/testing-top-layer-focus.tsx')>(
 			'design-system',
 			'react-select',
@@ -65,15 +65,10 @@ test.describe('react-select: top-layer focus contract', () => {
 		await page.keyboard.press('ArrowDown');
 		await expect(page.getByRole('listbox')).toBeVisible();
 
-		// Light-dismiss would hide on this pointerdown; the consumer
-		// reconcile re-shows because the target is inside the control.
 		await combobox.click();
-		await expect(page.getByRole('listbox')).toBeVisible();
-
-		// Re-assert after a no-op key press so any deferred close path has
-		// had a chance to run.
-		await page.keyboard.press('Shift');
-		await expect(page.getByRole('listbox')).toBeVisible();
+		await expect(page.getByRole('listbox')).toBeHidden();
+		await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+		await expect(combobox).toBeFocused();
 	});
 
 	test('virtual focus: ArrowDown sets aria-activedescendant; DOM focus stays on combobox', async ({
@@ -145,6 +140,7 @@ test.describe('react-select: top-layer focus contract', () => {
 
 		await page.keyboard.press('Escape');
 		await expect(page.getByRole('listbox')).toBeHidden();
+		await expect(combobox).toHaveAttribute('aria-expanded', 'false');
 
 		await page.keyboard.press('ArrowDown');
 		await expect(page.getByRole('listbox')).toBeVisible();

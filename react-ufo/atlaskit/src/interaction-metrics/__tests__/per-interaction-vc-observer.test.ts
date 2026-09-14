@@ -1,18 +1,22 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getCapabilityRate, getConfig } from '../../config';
 import { DefaultInteractionID } from '../../interaction-id-context';
-import { getVCObserver, newVCObserver } from '../../vc';
+import { getVCObserver } from '../../vc/getVCObserver';
+import { newVCObserver } from '../../vc/newVCObserver';
 import { addNewInteraction, getActiveInteraction, remove } from '../index';
 
 // Mock the feature flag
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
 // Mock the VC observer
-jest.mock('../../vc', () => ({
+jest.mock('../../vc/getVCObserver', () => ({
 	getVCObserver: jest.fn(),
+}));
+jest.mock('../../vc/newVCObserver', () => ({
 	newVCObserver: jest.fn(),
 }));
 

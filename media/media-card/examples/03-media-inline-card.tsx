@@ -14,6 +14,7 @@ import {
 	createUploadMediaClientConfig,
 	defaultCollectionName,
 	unknownFileId,
+	dataURItoBlob,
 } from '@atlaskit/media-test-helpers';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
@@ -34,6 +35,8 @@ const file: UploadableFile = {
 	content: smallImage,
 	collection: defaultCollectionName,
 	name: 'test.png',
+	// `content` is a data URI, so the byte size has to come from the decoded blob
+	size: dataURItoBlob(smallImage).size,
 };
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead

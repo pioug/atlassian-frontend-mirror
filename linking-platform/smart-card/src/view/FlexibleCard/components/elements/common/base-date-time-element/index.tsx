@@ -2,12 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, cssMap, jsx } from '@compiled/react';
 import { selectUnit } from '@formatjs/intl-utils';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 
 import type { Prettify } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../../../messages';
@@ -31,6 +32,7 @@ const styles = css({
 });
 
 type DateTypeVariation = 'relative' | 'absolute';
+
 const ABSOLUTE_DATE_FORMAT: Intl.DateTimeFormatOptions = {
 	month: 'short',
 	day: 'numeric',
@@ -201,10 +203,3 @@ const BaseDateTimeElement = ({
 };
 
 export default BaseDateTimeElement;
-
-export const toDateTimeProps = (
-	type: 'created' | 'modified' | 'sent',
-	dateString?: string,
-): Partial<BaseDateTimeElementProps> | undefined => {
-	return dateString ? { date: new Date(dateString), type } : undefined;
-};

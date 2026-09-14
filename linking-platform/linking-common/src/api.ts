@@ -1,5 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { NetworkError } from './errors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+
+import { NetworkError } from './NetworkError';
 
 const ALLOWED_RESPONSE_STATUS_CODES = [200, 401, 404];
 

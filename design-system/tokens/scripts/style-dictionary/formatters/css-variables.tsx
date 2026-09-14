@@ -8,4 +8,3 @@ const fileFormatter: Format['formatter'] = (args) =>
 	createSignedArtifact(cssVariableFormatter(args), `yarn build tokens`);
 
 export default fileFormatter;
-export { cssVariableFormatter } from './css-variable-formatter';

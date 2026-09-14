@@ -1,10 +1,11 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import React from 'react';
 
 import type { Prettify } from '@atlaskit/linking-common';
 
 import type { SmartLinkStatus } from '../../../../../constants';
-import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import type { ElementProps } from '../index';
+import { CustomByStatusElement } from './CustomByStatusElement';
 
 export type CustomElementProps = Prettify<
 	Pick<ElementProps, 'className' | 'testId'> & {
@@ -12,38 +13,9 @@ export type CustomElementProps = Prettify<
 	} & Partial<Record<SmartLinkStatus, React.ReactNode>>
 >;
 
-/**
- * Public API — exported externally. Do not add props without external support intent.
- */
-const CustomByStatusElement = ({
-	className,
-	testId = 'custom-by-status-element',
-	...props
-}: CustomElementProps): JSX.Element | null => {
-	const context = useFlexibleCardContext();
-	const status = context?.status;
-
-	if (!status) {
-		return null;
-	}
-
-	const component = props[status];
-	if (!component) {
-		return null;
-	}
-
-	return (
-		<span
-			data-separator
-			data-smart-element="custom-element"
-			data-smart-element-text
-			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={className}
-		>
-			{component}
-		</span>
-	);
-};
-
 export default CustomByStatusElement;
+
+/**
+ * @deprecated Use `import { CustomByStatusElement } from '@atlaskit/smart-card/custom-by-status-element'` instead.
+ */
+export { CustomByStatusElement } from './CustomByStatusElement';

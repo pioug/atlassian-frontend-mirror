@@ -1,16 +1,7 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": [
-    "__tests__/**/*.ts",
-    "__tests__/**/*.tsx",
-    "docs/**/*.ts",
-    "docs/**/*.tsx",
-    "schema/**/*.ts",
-    "schema/**/*.tsx",
-    "examples/**/*.ts",
-    "examples/**/*.tsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "scripts",
-  ],
+	"extends": "./tsconfig.dev.json",
+	"compilerOptions": {
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true
+	}
 }

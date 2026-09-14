@@ -1,9 +1,9 @@
 import { type MouseEvent, useState } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
-import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 
 const toUrl = (url: string, base?: string): URL | undefined => {
 	try {

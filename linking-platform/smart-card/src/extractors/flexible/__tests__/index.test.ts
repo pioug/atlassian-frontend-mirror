@@ -1,6 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import AtlasProject from '../../../__fixtures__/atlas-project';
 import BitbucketPullRequest from '../../../__fixtures__/bitbucket-pull-request';
@@ -858,198 +857,196 @@ describe('extractFlexibleUiContext', () => {
 		expect(data?.actions?.AISummaryAction?.url).toEqual('prop-url');
 	});
 
-	ffTest.on('platform_lp_use_entity_icon_url_for_icon', 'with entity support', () => {
-		it('returns flexible ui context for Figma document with entity support', () => {
-			const data = extractFlexibleUiContext({
-				status: SmartLinkStatus.Resolved,
-				response: FigmaEntity as SmartLinkResponse,
-			});
-			expect(data).toEqual(
-				expect.objectContaining({
-					actions: {
-						CopyLinkAction: {
-							invokeAction: expect.objectContaining({
-								actionSubjectId: 'copyLink',
-								actionType: 'CopyLinkAction',
-								definitionId: '19ec1155-f5d8-45d3-ab2a-3f4a3d9d060e',
-								display: undefined,
-								extensionKey: 'figma-object-provider',
-								id: undefined,
-								resourceType: 'file',
-							}),
-						},
-						DownloadAction: undefined,
-						FollowAction: undefined,
-						PreviewAction: {
-							hasPreviewPanel: false,
-							invokeAction: expect.objectContaining({
-								actionSubjectId: 'invokePreviewScreen',
-								actionType: 'PreviewAction',
-								display: undefined,
-								extensionKey: 'figma-object-provider',
-								id: undefined,
-							}),
-						},
-						AutomationAction: undefined,
-						AISummaryAction: undefined,
-						ViewRelatedLinksAction: undefined,
-					},
-					linkIcon: { label: 'FILE', url: 'https://icon-url' },
-					modifiedOn: '2025-01-08T22:26:52.501Z',
-					preview: { type: 'image', url: 'https://image-url' },
-					linkTitle: expect.objectContaining({ text: 'Flexible Links' }),
-					url: 'https://figma-url/Flexible-Links?node-id=node-id',
-					type: ['Document'],
-					meta: {
-						objectId: 'figma-id',
-						resourceType: 'file',
-						tenantId: 'figma-tenant',
-					},
-					hostName: 'figma-url',
-				}),
-			);
+	it('returns flexible ui context for Figma document with entity support', () => {
+		const data = extractFlexibleUiContext({
+			status: SmartLinkStatus.Resolved,
+			response: FigmaEntity as SmartLinkResponse,
 		});
+		expect(data).toEqual(
+			expect.objectContaining({
+				actions: {
+					CopyLinkAction: {
+						invokeAction: expect.objectContaining({
+							actionSubjectId: 'copyLink',
+							actionType: 'CopyLinkAction',
+							definitionId: '19ec1155-f5d8-45d3-ab2a-3f4a3d9d060e',
+							display: undefined,
+							extensionKey: 'figma-object-provider',
+							id: undefined,
+							resourceType: 'file',
+						}),
+					},
+					DownloadAction: undefined,
+					FollowAction: undefined,
+					PreviewAction: {
+						hasPreviewPanel: false,
+						invokeAction: expect.objectContaining({
+							actionSubjectId: 'invokePreviewScreen',
+							actionType: 'PreviewAction',
+							display: undefined,
+							extensionKey: 'figma-object-provider',
+							id: undefined,
+						}),
+					},
+					AutomationAction: undefined,
+					AISummaryAction: undefined,
+					ViewRelatedLinksAction: undefined,
+				},
+				linkIcon: { label: 'FILE', url: 'https://icon-url' },
+				modifiedOn: '2025-01-08T22:26:52.501Z',
+				preview: { type: 'image', url: 'https://image-url' },
+				linkTitle: expect.objectContaining({ text: 'Flexible Links' }),
+				url: 'https://figma-url/Flexible-Links?node-id=node-id',
+				type: ['Document'],
+				meta: {
+					objectId: 'figma-id',
+					resourceType: 'file',
+					tenantId: 'figma-tenant',
+				},
+				hostName: 'figma-url',
+			}),
+		);
+	});
 
-		it('returns flexible ui context for Google document with entity support', () => {
-			const data = extractFlexibleUiContext({
-				status: SmartLinkStatus.Resolved,
-				response: DocumentEntity as SmartLinkResponse,
-			});
-			expect(data).toEqual(
-				expect.objectContaining({
-					actions: {
-						CopyLinkAction: {
-							invokeAction: expect.objectContaining({
-								actionSubjectId: 'copyLink',
-								actionType: 'CopyLinkAction',
-								definitionId: 'bf155190-d90c-449f-9690-d1d1aa9910e6',
-								display: undefined,
-								extensionKey: 'google-object-provider',
-								id: undefined,
-								resourceType: 'file',
-							}),
-						},
-						DownloadAction: undefined,
-						FollowAction: undefined,
-						// TODO: Update to have PreviewAction when Embed Link for Documents is supported
-						PreviewAction: undefined,
-						AutomationAction: undefined,
-						AISummaryAction: undefined,
-						ViewRelatedLinksAction: {
-							ari: 'ari:cloud:graph::document/my-document',
-						},
+	it('returns flexible ui context for Google document with entity support', () => {
+		const data = extractFlexibleUiContext({
+			status: SmartLinkStatus.Resolved,
+			response: DocumentEntity as SmartLinkResponse,
+		});
+		expect(data).toEqual(
+			expect.objectContaining({
+				actions: {
+					CopyLinkAction: {
+						invokeAction: expect.objectContaining({
+							actionSubjectId: 'copyLink',
+							actionType: 'CopyLinkAction',
+							definitionId: 'bf155190-d90c-449f-9690-d1d1aa9910e6',
+							display: undefined,
+							extensionKey: 'google-object-provider',
+							id: undefined,
+							resourceType: 'file',
+						}),
 					},
-					linkIcon: {
-						label: 'document',
-						url: 'http://icon-url',
+					DownloadAction: undefined,
+					FollowAction: undefined,
+					// TODO: Update to have PreviewAction when Embed Link for Documents is supported
+					PreviewAction: undefined,
+					AutomationAction: undefined,
+					AISummaryAction: undefined,
+					ViewRelatedLinksAction: {
+						ari: 'ari:cloud:graph::document/my-document',
 					},
-					modifiedOn: '2022-06-22T00:44:14.956Z',
-					preview: { type: 'image', url: 'https://preview-image-url' },
-					linkTitle: expect.objectContaining({
-						text: 'Google Sheets: Public',
-						url: 'https://document.com',
-					}),
+				},
+				linkIcon: {
+					label: 'document',
+					url: 'http://icon-url',
+				},
+				modifiedOn: '2022-06-22T00:44:14.956Z',
+				preview: { type: 'image', url: 'https://preview-image-url' },
+				linkTitle: expect.objectContaining({
+					text: 'Google Sheets: Public',
 					url: 'https://document.com',
-					type: ['Document'],
-					meta: {
-						objectId: undefined,
-						resourceType: 'file',
-						tenantId: undefined,
-					},
 				}),
-			);
-		});
+				url: 'https://document.com',
+				type: ['Document'],
+				meta: {
+					objectId: undefined,
+					resourceType: 'file',
+					tenantId: undefined,
+				},
+			}),
+		);
+	});
 
-		it('returns flexible ui context for Slack message with entity support', () => {
-			const data = extractFlexibleUiContext({
-				status: SmartLinkStatus.Resolved,
-				response: MessageEntity as SmartLinkResponse,
-			});
-			expect(data).toEqual(
-				expect.objectContaining({
-					actions: {
-						CopyLinkAction: {
-							invokeAction: expect.objectContaining({
-								actionSubjectId: 'copyLink',
-								actionType: 'CopyLinkAction',
-								definitionId: 'e1bfa9cc-ecfe-4466-bcfb-8759bf9a1c60',
-								display: undefined,
-								extensionKey: 'slack-object-provider',
-								id: undefined,
-								resourceType: 'message',
-							}),
-						},
-						DownloadAction: undefined,
-						FollowAction: undefined,
-						PreviewAction: undefined,
-						AutomationAction: undefined,
-						AISummaryAction: undefined,
-						ViewRelatedLinksAction: undefined,
+	it('returns flexible ui context for Slack message with entity support', () => {
+		const data = extractFlexibleUiContext({
+			status: SmartLinkStatus.Resolved,
+			response: MessageEntity as SmartLinkResponse,
+		});
+		expect(data).toEqual(
+			expect.objectContaining({
+				actions: {
+					CopyLinkAction: {
+						invokeAction: expect.objectContaining({
+							actionSubjectId: 'copyLink',
+							actionType: 'CopyLinkAction',
+							definitionId: 'e1bfa9cc-ecfe-4466-bcfb-8759bf9a1c60',
+							display: undefined,
+							extensionKey: 'slack-object-provider',
+							id: undefined,
+							resourceType: 'message',
+						}),
 					},
-					linkIcon: {
-						label: 'Slack',
-						url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
-					},
-					createdOn: '2025-05-30T15:45:15.934Z',
-					linkTitle: expect.objectContaining({
-						text: 'Message from Mel Policicchio in #swifties',
-						url: 'https://atlassian.slack.com/archives/C02NKSU9XME/p1748619915934759',
-					}),
+					DownloadAction: undefined,
+					FollowAction: undefined,
+					PreviewAction: undefined,
+					AutomationAction: undefined,
+					AISummaryAction: undefined,
+					ViewRelatedLinksAction: undefined,
+				},
+				linkIcon: {
+					label: 'Slack',
+					url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
+				},
+				createdOn: '2025-05-30T15:45:15.934Z',
+				linkTitle: expect.objectContaining({
+					text: 'Message from Mel Policicchio in #swifties',
 					url: 'https://atlassian.slack.com/archives/C02NKSU9XME/p1748619915934759',
-					type: ['schema:Message'],
-					meta: {
-						objectId: 'slack-message-12345',
-						resourceType: 'message',
-						tenantId: 'slack-tenant',
-					},
 				}),
-			);
-		});
+				url: 'https://atlassian.slack.com/archives/C02NKSU9XME/p1748619915934759',
+				type: ['schema:Message'],
+				meta: {
+					objectId: 'slack-message-12345',
+					resourceType: 'message',
+					tenantId: 'slack-tenant',
+				},
+			}),
+		);
+	});
 
-		it('returns flexible ui context for Slack channel with entity support', () => {
-			const data = extractFlexibleUiContext({
-				status: SmartLinkStatus.Resolved,
-				response: ConversationEntity as SmartLinkResponse,
-			});
-			expect(data).toEqual(
-				expect.objectContaining({
-					actions: {
-						CopyLinkAction: {
-							invokeAction: expect.objectContaining({
-								actionSubjectId: 'copyLink',
-								actionType: 'CopyLinkAction',
-								definitionId: 'e1bfa9cc-ecfe-4466-bcfb-8759bf9a1c60',
-								display: undefined,
-								extensionKey: 'slack-object-provider',
-								id: undefined,
-								resourceType: 'channel',
-							}),
-						},
-						DownloadAction: undefined,
-						FollowAction: undefined,
-						PreviewAction: undefined,
-						AutomationAction: undefined,
-						AISummaryAction: undefined,
-						ViewRelatedLinksAction: undefined,
-					},
-					linkIcon: {
-						label: 'Slack',
-						url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
-					},
-					modifiedOn: '2025-06-07T11:15:08.398Z',
-					linkTitle: expect.objectContaining({
-						text: '#swifties',
-						url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
-					}),
-					url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
-					type: ['Document'],
-					meta: {
-						objectId: 'slack-channel-67890',
-						resourceType: 'channel',
-						tenantId: 'slack-tenant',
-					},
-				}),
-			);
+	it('returns flexible ui context for Slack channel with entity support', () => {
+		const data = extractFlexibleUiContext({
+			status: SmartLinkStatus.Resolved,
+			response: ConversationEntity as SmartLinkResponse,
 		});
+		expect(data).toEqual(
+			expect.objectContaining({
+				actions: {
+					CopyLinkAction: {
+						invokeAction: expect.objectContaining({
+							actionSubjectId: 'copyLink',
+							actionType: 'CopyLinkAction',
+							definitionId: 'e1bfa9cc-ecfe-4466-bcfb-8759bf9a1c60',
+							display: undefined,
+							extensionKey: 'slack-object-provider',
+							id: undefined,
+							resourceType: 'channel',
+						}),
+					},
+					DownloadAction: undefined,
+					FollowAction: undefined,
+					PreviewAction: undefined,
+					AutomationAction: undefined,
+					AISummaryAction: undefined,
+					ViewRelatedLinksAction: undefined,
+				},
+				linkIcon: {
+					label: 'Slack',
+					url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
+				},
+				modifiedOn: '2025-06-07T11:15:08.398Z',
+				linkTitle: expect.objectContaining({
+					text: '#swifties',
+					url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
+				}),
+				url: 'https://atlassian.enterprise.slack.com/archives/C02NKSU9XME',
+				type: ['Document'],
+				meta: {
+					objectId: 'slack-channel-67890',
+					resourceType: 'channel',
+					tenantId: 'slack-tenant',
+				},
+			}),
+		);
 	});
 });

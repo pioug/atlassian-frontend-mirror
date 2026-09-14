@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkIconButton } from '@atlaskit/button/new';
+import LinkIconButton from '@atlaskit/button/icon/link';
 import PullRequestIcon from '@atlaskit/icon/core/pull-request';
 
 const LinkIconButtonSelectedExample = (): React.JSX.Element => {

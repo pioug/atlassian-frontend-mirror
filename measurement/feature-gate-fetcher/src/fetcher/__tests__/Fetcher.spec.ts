@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 
-import { FeatureGateEnvironment, PerimeterType } from '@atlaskit/feature-gate-js-client';
+import { FeatureGateEnvironment, PerimeterType } from '@atlaskit/feature-gate-js-client/types';
 
 import { ResponseError } from '../errors';
 import Fetcher from '../index';

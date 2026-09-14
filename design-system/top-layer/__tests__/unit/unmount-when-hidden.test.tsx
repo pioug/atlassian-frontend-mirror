@@ -4,8 +4,8 @@ import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 import { render, screen, waitFor } from '@atlassian/testing-library';
 
-import { Dialog } from '../../src/entry-points/dialog';
-import { Popover } from '../../src/entry-points/popover';
+import { Dialog } from '../../src/dialog/dialog-content';
+import { Popover } from '../../src/popover/popover';
 
 function noop() {}
 

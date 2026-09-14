@@ -27,6 +27,17 @@ const mockOnBackButtonClick = jest.fn();
 
 const defaultContentText = <div id="mock-content">Mock Content</div>;
 
+it('uses the parent message bundle for the header title', () => {
+	const localizedTitle = 'Localized Help';
+	const { getByText } = render(
+		<IntlProvider locale="zh" messages={{ [messages.help_panel_header_title.id]: localizedTitle }}>
+			<HelpLayout />
+		</IntlProvider>,
+	);
+
+	expect(getByText(localizedTitle)).toBeInTheDocument();
+});
+
 describe('BackButton', () => {
 	afterEach(() => {
 		jest.clearAllMocks();

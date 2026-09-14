@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 
-import { EVENT_CHANNEL } from '../../../../analytics';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
 
 import { assetsContext, defaultAssetsMeta, setup } from './_utils';
 

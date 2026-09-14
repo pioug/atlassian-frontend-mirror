@@ -9,7 +9,7 @@ import {
 	type MediaParsedSettings,
 	type MediaSettings,
 	useMediaParsedSettings,
-} from './mediaSettings';
+} from './mediaSettings/mediaParsedSettings';
 
 export interface WithMediaClientConfigAndSettings {
 	mediaClientConfig: MediaClientConfig;

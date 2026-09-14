@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-parser",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "JQL lexer, parser, listener and visitor",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -23,10 +23,10 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./JQLLexer": "./src/entry-points/JQLLexer.ts",
-		"./JQLParser": "./src/entry-points/JQLParser.ts",
-		"./JQLParserListener": "./src/entry-points/JQLParserListener.ts",
-		"./JQLParserVisitor": "./src/entry-points/JQLParserVisitor.ts"
+		"./JQLLexer": "./src/generated/JQLLexer.ts",
+		"./JQLParser": "./src/generated/JQLParser.ts",
+		"./JQLParserListener": "./src/generated/JQLParserListener.ts",
+		"./JQLParserVisitor": "./src/generated/JQLParserVisitor.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",
@@ -34,23 +34,5 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

@@ -936,7 +936,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		status: 'published',
 		id: '7594:13806',
-		usage: 'Multi purpose - Known uses: clear text field, error status.',
+		usage: 'Known uses: clear text field, error status.',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'curly-brackets': {
@@ -956,7 +956,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		status: 'published',
 		id: '7594:13870',
-		usage: 'Multi purpose - Known uses: customize sidebar, customize view, settings.',
+		usage: 'Known uses: customize sidebar, customize view, settings.',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	dashboard: {
@@ -976,7 +976,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		status: 'published',
 		id: '15048:9209',
-		usage: 'Multi purpose - Known usages: Database schema in Jira.',
+		usage: 'Known usages: Database schema in Jira.',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'data-number': {

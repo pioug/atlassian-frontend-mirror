@@ -31,7 +31,7 @@ import {
 	EdgeTopTypeTerminalNoBleedGap0px,
 	EdgeTopTypeTerminalNoBleedGapTokenSpace100,
 	EdgeTopTypeTerminalNoBleedGapTokenSpace100IndentTokenSpace200,
-} from '../../examples/line';
+} from '../../examples/line.vr.ap';
 
 const options: Parameters<typeof snapshot>[1] = {
 	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],

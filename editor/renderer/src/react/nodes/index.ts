@@ -8,7 +8,6 @@ import {
 	UnsupportedInline,
 	type EventHandlers,
 } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Blockquote from './blockquote';
 import BodiedExtension from './bodiedExtension';
 import MultiBodiedExtension from './multiBodiedExtension';
@@ -58,7 +57,8 @@ import type CodeBlockComponent from './codeBlock/codeBlock';
 import type WindowedCodeBlockComponent from './codeBlock/windowedCodeBlock';
 import type SyncBlock from './syncBlock';
 import type BodiedSyncBlockComponent from './bodiedSyncBlock';
-import type { RichMediaLayout, DatasourceAttributeProperties } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
+import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
 import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Diff } from '@atlaskit/editor-common/utils';
@@ -397,28 +397,17 @@ export const toReact = (
 		return DocWithSelectAllTrap;
 	}
 
-	if (!fg('jfp-magma-ssr-iv-editor-codeblock')) {
-		if (node.type.name === 'codeBlock') {
-			if (flags?.allowWindowedCodeBlock === true) {
-				return WindowedCodeBlock;
-			}
-			return CodeBlock;
-		}
-	}
-
 	// Allowing custom components to override those provided in nodeToReact
 	const nodes = {
 		...nodeToReact,
 		...nodeComponents,
 	};
 
-	if (fg('jfp-magma-ssr-iv-editor-codeblock')) {
-		if (node.type.name === 'codeBlock') {
-			if (flags?.allowWindowedCodeBlock === true) {
-				return nodes.windowedCodeBlock ?? WindowedCodeBlock;
-			}
-			return nodes.codeBlock ?? CodeBlock;
+	if (node.type.name === 'codeBlock') {
+		if (flags?.allowWindowedCodeBlock === true) {
+			return nodes.windowedCodeBlock ?? WindowedCodeBlock;
 		}
+		return nodes.codeBlock ?? CodeBlock;
 	}
 
 	nodes['multiBodiedExtension'] = MultiBodiedExtension;

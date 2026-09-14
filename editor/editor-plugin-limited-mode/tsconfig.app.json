@@ -37,7 +37,13 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"

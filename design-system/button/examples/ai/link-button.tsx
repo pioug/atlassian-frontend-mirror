@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkButton } from '@atlaskit/button/new';
+import LinkButton from '@atlaskit/button/link';
 
 const _default_1: React.JSX.Element[] = [
 	<LinkButton href="https://atlassian.com" target="_blank" appearance="subtle">

@@ -2,13 +2,13 @@
 // Keep Media buttons to use static colors from the new color palette to support the hybrid
 // theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
 import React, { type RefObject } from 'react';
-import { type ButtonProps } from '@atlaskit/button/types';
-import Button from '@atlaskit/button/custom-theme-button';
-import {
-	type CustomThemeButtonProps,
-	type Appearance,
-	type ThemeProps,
-} from '@atlaskit/button/types';
+import type { ButtonProps } from '@atlaskit/button/button';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
+import type {
+	CustomThemeButtonProps,
+	ThemeProps,
+} from '@atlaskit/button/custom-theme-button-types';
+import type { Appearance } from '@atlaskit/button/old-button/types';
 
 type MediaButtonAppearance = Appearance;
 

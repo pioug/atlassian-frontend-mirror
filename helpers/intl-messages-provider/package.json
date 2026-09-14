@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/intl-messages-provider",
-	"version": "4.2.0",
+	"version": "4.3.0",
 	"description": " IntlMessagesProvider is a Frontend Utility to asynchronously load i18n translated messages and feed them to IntlProvider based on the locale in product.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,6 +40,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./async": "./src/ui/create-async-intl-provider.tsx",
+		"./common/types": "./src/common/types.ts",
 		"./main": "./src/ui/main.tsx",
 		"./types": "./src/ui/types.ts",
 		"./ui": "./src/ui/index.ts"
@@ -54,43 +55,5 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

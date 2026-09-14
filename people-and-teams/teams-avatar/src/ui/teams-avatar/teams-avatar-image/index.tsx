@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { type SizeType } from '@atlaskit/avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { SizeType } from '@atlaskit/avatar/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

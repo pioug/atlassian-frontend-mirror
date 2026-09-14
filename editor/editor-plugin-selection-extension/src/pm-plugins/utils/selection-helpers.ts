@@ -184,18 +184,18 @@ export const wrapNodesInDoc = (schema: Schema, nodes: PMNode[]): PMNode => {
 export const getSelectionInfoFromSameNode = (
 	selection: TextSelection,
 ): {
+	nodePos: number;
 	selectedNode: PMNode;
 	selectionRanges: {
-		start: {
-			pointer: string;
-			position: number;
-		};
 		end: {
 			pointer: string;
 			position: number;
 		};
+		start: {
+			pointer: string;
+			position: number;
+		};
 	}[];
-	nodePos: number;
 } => {
 	const { $from, $to } = selection;
 
@@ -222,13 +222,13 @@ export const getSelectionInfo = (
 	schema: Schema,
 ):
 	| {
-			selectedNode: PMNode;
 			nodePos: number;
+			selectedNode: PMNode;
 			selectionRanges: SelectionRange[] | undefined;
 	  }
 	| {
-			selectedNode: PMNode;
 			nodePos: number;
+			selectedNode: PMNode;
 			selectionRanges?: undefined;
 	  } => {
 	const { $from, $to } = selection;

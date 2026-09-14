@@ -9,7 +9,7 @@ import { Global, css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
 import { layoutMessages as messages } from '@atlaskit/editor-common/messages';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 const PLACEHOLDER_SELECTOR =

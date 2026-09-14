@@ -1,8 +1,8 @@
 import React, { Fragment, type SyntheticEvent, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Link from '@atlaskit/link';
-import Popup from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import Link from '@atlaskit/link/link';
+import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';

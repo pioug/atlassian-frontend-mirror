@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8ed0fb165110a63c6319f833a950c575>>
+ * @codegen <<SignedSource::4f704f50b686e5c31b5403af1ad00417>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "StatusWorkflowInactive".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const StatusWorkflowInactiveIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const StatusWorkflowInactiveIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "StatusWorkflowInactiveIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M2.343 2.343A8 8 0 1 1 13.658 13.66 8 8 0 0 1 2.343 2.343m10.254 1.06A6.501 6.501 0 1 0 3.404 12.6a6.501 6.501 0 0 0 9.193-9.195m-.885 1.946L5.35 11.712l-1.06-1.06 6.363-6.364z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

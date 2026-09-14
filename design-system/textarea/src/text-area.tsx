@@ -6,8 +6,8 @@ import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type TextAreaProps } from './types';
@@ -38,7 +38,7 @@ const baseStyles = css({
 	position: 'relative',
 	flex: '1 1 100%',
 
-	borderRadius: token('radius.small', '3px'),
+	borderRadius: token('radius.medium'),
 	borderWidth: token('border.width'),
 	color: token('color.text'),
 	font: token('font.body'),
@@ -112,8 +112,8 @@ const baseStyles = css({
 	},
 });
 
-const baseStylesT26Shape = css({
-	borderRadius: token('radius.medium', '6px'),
+const finessePlaceholderStyles = css({
+	'&::placeholder': { color: token('color.text.subtle') },
 });
 
 const appearanceStyles = cssMap({
@@ -337,7 +337,6 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 	const getTextAreaRef = (elementRef: HTMLTextAreaElement | null) => {
 		ourRef.current = elementRef;
 		if (ref && typeof ref === 'object') {
-			// @ts-ignore
 			ref.current = elementRef;
 		}
 		if (ref && typeof ref === 'function') {
@@ -389,7 +388,7 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 			rows={minimumRows}
 			css={[
 				baseStyles,
-				fg('platform-dst-shape-theme-default') && baseStylesT26Shape,
+				fg('platform-dst-tokens-finesse') && finessePlaceholderStyles,
 				appearanceStyles[appearance],
 				fontStyles[isMonospaced ? 'monospace' : 'default'],
 				resizeStyles[resize],
@@ -420,12 +419,11 @@ const TextArea: React.MemoExoticComponent<
 		Omit<TextAreaProps, 'ref'> & React.RefAttributes<HTMLTextAreaElement>
 	>
 > = memo(
-	forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
-		props: TextAreaProps,
-		ref: React.Ref<HTMLTextAreaElement>,
-	) {
-		return <InnerTextArea ref={ref} {...props} />;
-	}),
+	forwardRef<HTMLTextAreaElement, TextAreaProps>(
+		(props: TextAreaProps, ref: React.Ref<HTMLTextAreaElement>) => (
+			<InnerTextArea ref={ref} {...props} />
+		),
+	),
 );
 
 TextArea.displayName = 'TextArea';

@@ -138,8 +138,8 @@ test.describe('List inside a blockquote', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 			adf: blockquoteAdf,
-			editorExperiments: {
-				platform_editor_fix_focus_MediaInsertPicker: true,
+			platformFeatureFlags: {
+				platform_editor_fix_focus_mediainsertpicker: true,
 			},
 			editorProps: {
 				appearance: 'full-page',

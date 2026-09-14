@@ -16,7 +16,7 @@ const parentModalDialogSelector = 'section[role="dialog"]';
 test('When we hover over "Open Dialog" button then "Click Me" tooltip should be visible and a portal should be created', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/1-complex-layering.tsx')>(
+	await page.visitExample<typeof import('../../../examples/1-complex-layering.vr.ap.tsx')>(
 		'design-system',
 		'portal',
 		'complex-layering',
@@ -30,7 +30,7 @@ test('When we hover over "Open Dialog" button then "Click Me" tooltip should be 
 test('When we click on "Open Dialog" button then a parent modal dialog should be visible and a portal should be created', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/1-complex-layering.tsx')>(
+	await page.visitExample<typeof import('../../../examples/1-complex-layering.vr.ap.tsx')>(
 		'design-system',
 		'portal',
 		'complex-layering',
@@ -46,7 +46,7 @@ test('When we click on "Open Dialog" button then a parent modal dialog should be
 test('When we click on "Show onboarding" button then a spot light should be visible and a portal should be created', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/1-complex-layering.tsx')>(
+	await page.visitExample<typeof import('../../../examples/1-complex-layering.vr.ap.tsx')>(
 		'design-system',
 		'portal',
 		'complex-layering',

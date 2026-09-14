@@ -8,7 +8,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { AudioViewer } from '../../../../../viewers/audio';
-import { type Auth } from '@atlaskit/media-core';
+import type { Auth } from '@atlaskit/media-core/auth';
 
 const token = 'some-token';
 const clientId = 'some-client-id';

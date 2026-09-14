@@ -1,6 +1,6 @@
 import { getDocument } from '@atlaskit/browser-apis';
 import { THEME_DATA_ATTRIBUTE } from '@atlaskit/tokens/constants';
-import type { ThemeIds } from '@atlaskit/tokens/theme-config';
+import type { ThemeIds } from '@atlaskit/tokens/theme-ids';
 
 /**
  * Checks if a theme is mounted in the document head.

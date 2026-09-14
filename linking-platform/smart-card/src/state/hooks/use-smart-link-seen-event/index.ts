@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { type CardType } from '@atlaskit/linking-common';
+import type { CardType } from '@atlaskit/linking-common/types';
 
 import type { SmartLinkSeenAttributesType } from '../../../common/analytics/generated/analytics.types';
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
-import { useSmartLinkAnalyticsUtils } from '../../../utils/analytics/SmartLinkAnalyticsContext';
-import { isFlexibleUiCard } from '../../../utils/flexible';
+import { useSmartLinkAnalyticsUtils } from '../../../utils/analytics/useSmartLinkAnalyticsUtils';
+import { isFlexibleUiCard } from '../../../utils/is-flexible-ui-card';
 import type { CardProps } from '../../../view/Card';
 
 type UseSmartLinkSeenEventProps = Pick<CardProps, 'appearance' | 'children' | 'id' | 'ui' | 'url'>;

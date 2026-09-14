@@ -1,60 +1,70 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-	dragToMove: {
-		id: string;
+	collapseSection: {
 		defaultMessage: string;
 		description: string;
-	};
-	dragToMoveClickToOpen: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	dragToRearrange: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	insert: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	moveUp: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	moveDown: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	movedup: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	movedDown: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	moveLeft: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	moveRight: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	delete: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	dragToMove: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	dragToMoveClickToOpen: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	dragToRearrange: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	expandSection: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	insert: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	movedDown: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	moveDown: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	movedup: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	moveLeft: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	moveRight: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	moveUp: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	dragToMove: {
@@ -78,6 +88,16 @@ export const messages: {
 		id: 'fabric.editor.blockControlInsert',
 		defaultMessage: 'Insert',
 		description: 'Label on button to insert content at the current cursor position',
+	},
+	collapseSection: {
+		id: 'editor-common.messages.block-controls.collapseSection',
+		defaultMessage: 'Collapse section',
+		description: 'Accessible label for the button that collapses a heading section.',
+	},
+	expandSection: {
+		id: 'editor-common.messages.block-controls.expandSection',
+		defaultMessage: 'Expand section',
+		description: 'Accessible label for the button that expands a heading section.',
 	},
 	moveUp: {
 		id: 'fabric.editor.blockControlMoveUp',

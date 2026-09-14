@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::83409fb643d49a937228924170dd715a>>
+ * @codegen <<SignedSource::8904d7ecd8870c62b721c48cdb04560c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "AssetsSchema".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const AssetsSchemaIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const AssetsSchemaIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "AssetsSchemaIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M12.75 11a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5m0-8a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5M3 13.5a2 2 0 0 1-2-2V0h1.5v4H8v1.5H2.5v6a.5.5 0 0 0 .5.5h5v1.5zm9.75-4a3.25 3.25 0 1 1 0 6.5 3.25 3.25 0 0 1 0-6.5m0-8a3.25 3.25 0 1 1 0 6.5 3.25 3.25 0 0 1 0-6.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

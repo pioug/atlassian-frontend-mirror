@@ -6,7 +6,7 @@ import type { ContainerTypes } from '../../types';
 
 import { ContainerIcon } from './index';
 
-jest.mock('../loom-avatar', () => ({
+jest.mock('../loom-avatar/main', () => ({
 	LoomSpaceAvatar: () => <div data-testid="loom-space-avatar">Loom Space Avatar</div>,
 }));
 

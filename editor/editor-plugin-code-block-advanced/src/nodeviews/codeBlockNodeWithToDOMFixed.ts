@@ -1,9 +1,9 @@
-import { codeBlock, codeBlockWithLocalId } from '@atlaskit/adf-schema';
+import { codeBlock, codeBlockWithLocalId } from '@atlaskit/adf-schema/code-block';
 import { areCodeBlockLineNumbersHidden } from '@atlaskit/editor-common/code-block';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { NodeSpec, DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';

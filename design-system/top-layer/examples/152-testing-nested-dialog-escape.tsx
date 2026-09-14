@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Dialog } from '@atlaskit/top-layer/dialog';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
 
 /**
  * A modal `Dialog` rendered inside another modal `Dialog`'s subtree. Each

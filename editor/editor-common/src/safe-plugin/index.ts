@@ -1,3 +1,4 @@
+// oxlint-disable-next-line import/no-duplicates
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Plugin } from '@atlaskit/editor-prosemirror/state';
@@ -8,7 +9,6 @@ import type {
 	DecorationSource,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isSSR } from '../core-utils/is-ssr';
@@ -124,7 +124,7 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 					if (
 						result?.dom instanceof HTMLElement ||
 						// SSR result?.dom is not an instance of HTMLElement, but we still want to attach metadata to it
-						(isSSR() && isHTMLElement(result?.dom) && fg('platform_editor_native_anchor_patch_3'))
+						(isSSR() && isHTMLElement(result?.dom))
 					) {
 						// we only attach metadata to the dom if its position is known
 						const pos = safeGetPos();

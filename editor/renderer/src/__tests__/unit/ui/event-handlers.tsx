@@ -1,7 +1,6 @@
 import React from 'react';
-import type { ReactWrapper } from 'enzyme';
 import type { RendererProps } from '../../../ui/renderer-props';
-import Renderer from '../../../ui/Renderer';
+import { Renderer } from '../../../entry-points/renderer-default';
 import { IntlProvider } from 'react-intl';
 import { render } from '@testing-library/react';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
@@ -24,8 +23,6 @@ jest.mock('react-lazily-render', () => {
 });
 
 describe('@atlaskit/renderer/event-handlers', () => {
-	let renderer: ReactWrapper;
-
 	const initRendererTestingLibrary = (doc: any, props: Partial<RendererProps> = {}) => {
 		const finalProps: RendererProps = {
 			document: doc,
@@ -54,13 +51,6 @@ describe('@atlaskit/renderer/event-handlers', () => {
 		window.getSelection = () => {
 			return '';
 		};
-	});
-
-	afterEach(() => {
-		// @ts-ignore - TS2454 TypeScript 5.9.2 upgrade
-		if (renderer && renderer.length) {
-			renderer.unmount();
-		}
 	});
 
 	describe('with all handlers present', () => {
@@ -94,13 +84,13 @@ describe('@atlaskit/renderer/event-handlers', () => {
 
 			link.click();
 
-			expect(mockOnUnhandledClickHandler).toBeCalledTimes(1);
+			expect(mockOnUnhandledClickHandler).toHaveBeenCalledTimes(1);
 
 			// No other handler should be called
-			expect(mockLinkEventClickHandler).toBeCalledTimes(0);
-			expect(mockMentionEventHandlers).toBeCalledTimes(0);
-			expect(mockCardEventClickHandler).toBeCalledTimes(0);
-			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+			expect(mockLinkEventClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockMentionEventHandlers).toHaveBeenCalledTimes(0);
+			expect(mockCardEventClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockSmartCardEventClickHandler).toHaveBeenCalledTimes(0);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -134,12 +124,12 @@ describe('@atlaskit/renderer/event-handlers', () => {
 
 			mention.click();
 
-			expect(mockMentionEventHandlers).toBeCalledTimes(1);
+			expect(mockMentionEventHandlers).toHaveBeenCalledTimes(1);
 
 			// No other handler should be called
-			expect(mockLinkEventClickHandler).toBeCalledTimes(0);
-			expect(mockCardEventClickHandler).toBeCalledTimes(0);
-			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+			expect(mockLinkEventClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockCardEventClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockSmartCardEventClickHandler).toHaveBeenCalledTimes(0);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -174,13 +164,13 @@ describe('@atlaskit/renderer/event-handlers', () => {
 
 			link.click();
 
-			expect(mockLinkEventClickHandler).toBeCalledTimes(1);
+			expect(mockLinkEventClickHandler).toHaveBeenCalledTimes(1);
 
 			// No other handler should be called
-			expect(mockOnUnhandledClickHandler).toBeCalledTimes(0);
-			expect(mockMentionEventHandlers).toBeCalledTimes(0);
-			expect(mockCardEventClickHandler).toBeCalledTimes(0);
-			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+			expect(mockOnUnhandledClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockMentionEventHandlers).toHaveBeenCalledTimes(0);
+			expect(mockCardEventClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockSmartCardEventClickHandler).toHaveBeenCalledTimes(0);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -213,13 +203,13 @@ describe('@atlaskit/renderer/event-handlers', () => {
 			const mediaCard = await findByTestId('media-file-card-view');
 
 			mediaCard.click();
-			expect(mockCardEventClickHandler).toBeCalledTimes(1);
+			expect(mockCardEventClickHandler).toHaveBeenCalledTimes(1);
 
 			// No other handler should be called
-			expect(mockOnUnhandledClickHandler).toBeCalledTimes(0);
-			expect(mockLinkEventClickHandler).toBeCalledTimes(0);
-			expect(mockMentionEventHandlers).toBeCalledTimes(0);
-			expect(mockSmartCardEventClickHandler).toBeCalledTimes(0);
+			expect(mockOnUnhandledClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockLinkEventClickHandler).toHaveBeenCalledTimes(0);
+			expect(mockMentionEventHandlers).toHaveBeenCalledTimes(0);
+			expect(mockSmartCardEventClickHandler).toHaveBeenCalledTimes(0);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -238,7 +228,7 @@ describe('@atlaskit/renderer/event-handlers', () => {
 
 			link.click();
 
-			expect(mockOnUnhandledClickHandler).toBeCalledTimes(1);
+			expect(mockOnUnhandledClickHandler).toHaveBeenCalledTimes(1);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -259,9 +249,9 @@ describe('@atlaskit/renderer/event-handlers', () => {
 
 			link.click();
 
-			expect(mockLinkEventClickHandler).toBeCalledTimes(1);
+			expect(mockLinkEventClickHandler).toHaveBeenCalledTimes(1);
 
-			expect(mockOnUnhandledClickHandler).toBeCalledTimes(0);
+			expect(mockOnUnhandledClickHandler).toHaveBeenCalledTimes(0);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -284,7 +274,7 @@ describe('@atlaskit/renderer/event-handlers', () => {
 
 			mention.click();
 
-			expect(mockMentionEventHandlers).toBeCalledTimes(1);
+			expect(mockMentionEventHandlers).toHaveBeenCalledTimes(1);
 
 			await expect(document.body).toBeAccessible();
 		});

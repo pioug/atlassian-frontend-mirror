@@ -1,7 +1,7 @@
-import { editorExperiment } from '../experiments';
-import { setupEditorExperiments } from '../setup';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { editorExperiment } from '../editor-experiment';
+import { setupEditorExperiments } from '../setup';
 
 const mockGetExperimentValue = jest.fn();
 FeatureGates.getExperimentValue = mockGetExperimentValue;

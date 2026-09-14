@@ -1,4 +1,4 @@
-import { N800 } from '@atlaskit/adf-schema';
+import { N800 } from '@atlaskit/adf-schema/colors';
 import type { NodeSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { applyMarks } from '../apply-marks';

@@ -1,18 +1,19 @@
 import { Component, type ChangeEvent } from 'react';
 import React from 'react';
-import { defaultMediaPickerAuthProvider } from '../src/test-helpers';
+
 import { tallImage } from '@atlaskit/media-common/test-helpers';
+
+import { defaultMediaPickerAuthProvider } from '../src/test-helpers';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
-import {
-	ImagePreview,
-	MetadataWrapper,
-	PreviewWrapper,
-	Wrapper,
-	FileInput,
-} from '../example-helpers/stylesWrapper';
+import { v4 as uuid } from 'uuid';
+import { FileInput } from '../example-helpers/FileInput';
+import { ImagePreview } from '../example-helpers/ImagePreview';
+import { MetadataWrapper } from '../example-helpers/MetadataWrapper';
+import { PreviewWrapper } from '../example-helpers/PreviewWrapper';
+import { Wrapper } from '../example-helpers/Wrapper';
 import { uploadFile, MediaStore, type UploadableFileUpfrontIds } from '../src';
 import { type UploadableFile, type UploadFileCallbacks } from '../src/uploader';
+import { convertBase64ToBlob } from '../src/utils/convertBase64ToBlob';
 import { getRandomTelemetryId } from '@atlaskit/media-common';
 
 type UploaderExampleProps = {};
@@ -95,7 +96,11 @@ class UploaderExample extends Component<UploaderExampleProps, UploaderExampleSta
 	};
 
 	onUploadStringClick = () => {
-		const uploadableFile: UploadableFile = { content: tallImage };
+		const uploadableFile: UploadableFile = {
+			content: tallImage,
+			// `content` is a data URI, so the byte size has to come from the decoded blob
+			size: convertBase64ToBlob(tallImage).size,
+		};
 
 		this.uploadFile(uploadableFile);
 	};
@@ -116,6 +121,7 @@ class UploaderExample extends Component<UploaderExampleProps, UploaderExampleSta
 			content: file,
 			name: file.name,
 			mimeType: file.type,
+			size: file.size,
 		};
 
 		this.uploadFile(uploadableFile);

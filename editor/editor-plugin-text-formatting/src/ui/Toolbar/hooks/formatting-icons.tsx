@@ -40,7 +40,7 @@ import BoldIcon from '@atlaskit/icon/core/text-bold';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';
 import TextStrikethroughIcon from '@atlaskit/icon/core/text-strikethrough';
 import UnderlineIcon from '@atlaskit/icon/core/text-underline';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	toggleCodeWithAnalytics,

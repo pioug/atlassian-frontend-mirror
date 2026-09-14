@@ -8,7 +8,7 @@ import { keyframes } from '@compiled/react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { useMotion } from '@atlaskit/motion/use-motion';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { token } from '@atlaskit/tokens';
 
 const slideIn = keyframes({
@@ -27,12 +27,18 @@ const styles = cssMap({
 		animationTimingFunction: token('motion.easing.out.practical'),
 		animationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,
 		animationFillMode: 'backwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 	exiting: {
 		animationDuration: token('motion.duration.xxlong'),
 		animationTimingFunction: token('motion.easing.in.practical'),
 		animationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,
 		animationFillMode: 'forwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 });
 

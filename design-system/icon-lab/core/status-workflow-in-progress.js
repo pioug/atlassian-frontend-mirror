@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ef2d5e5e6d7a17435925bb7f0a50b50f>>
+ * @codegen <<SignedSource::5846a378d97e7a11071c28f2702e6a69>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "StatusWorkflowInProgress".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const StatusWorkflowInProgressIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const StatusWorkflowInProgressIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "StatusWorkflowInProgressIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 8a6.5 6.5 0 1 0-13 0 6.5 6.5 0 0 0 13 0M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/><path fill="currentcolor" d="M8 3a5 5 0 1 1 0 10z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

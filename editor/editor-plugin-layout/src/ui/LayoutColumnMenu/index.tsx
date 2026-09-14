@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { bind } from 'bind-event-listener';
 
+import { surfaceDragHandleElementStore } from '@atlaskit/editor-common/block-controls/surface-drag-handle-element';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -64,6 +65,7 @@ type LayoutColumnMenuProps = {
 	editorView: EditorView;
 	mountTo?: HTMLElement;
 	scrollableElement?: HTMLElement;
+	useRegistryAnchor: boolean;
 };
 
 export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps> = React.memo(
@@ -73,6 +75,7 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 		mountTo,
 		boundariesElement,
 		scrollableElement,
+		useRegistryAnchor,
 	}: LayoutColumnMenuProps): React.JSX.Element | null {
 		const { isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, openedViaKeyboard, selection } =
 			useSharedPluginStateWithSelector(api, ['layout', 'selection'], (states) => ({
@@ -161,13 +164,27 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 
 		const components = api?.uiControlRegistry?.actions.getComponents(LAYOUT_COLUMN_MENU.key) ?? [];
 
-		const target = useMemo(
+		const legacyTarget = useMemo(
 			() =>
-				isLayoutColumnMenuOpen
+				isLayoutColumnMenuOpen && !useRegistryAnchor
 					? getLayoutColumnMenuTarget(editorView, selection, layoutColumnMenuAnchorPos)
 					: null,
-			[editorView, isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, selection],
+			[editorView, isLayoutColumnMenuOpen, layoutColumnMenuAnchorPos, selection, useRegistryAnchor],
 		);
+		const surfaceTargetRef = useRef<HTMLElement | null>(null);
+		const surfaceAnchorPosRef = useRef<number | undefined>(undefined);
+		if (!useRegistryAnchor || !isLayoutColumnMenuOpen) {
+			surfaceTargetRef.current = null;
+			surfaceAnchorPosRef.current = undefined;
+		} else if (
+			!surfaceTargetRef.current ||
+			surfaceAnchorPosRef.current !== layoutColumnMenuAnchorPos
+		) {
+			surfaceTargetRef.current =
+				surfaceDragHandleElementStore.get(editorView) ?? surfaceTargetRef.current;
+			surfaceAnchorPosRef.current = layoutColumnMenuAnchorPos;
+		}
+		const target = useRegistryAnchor ? surfaceTargetRef.current : legacyTarget;
 
 		const hasValidTarget = target instanceof HTMLElement;
 

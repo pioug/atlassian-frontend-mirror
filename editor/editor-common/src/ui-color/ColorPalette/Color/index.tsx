@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { buttonStyle, buttonWrapperStyle } from './styles';
 

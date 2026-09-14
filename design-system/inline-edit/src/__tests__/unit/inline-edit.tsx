@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import selectEvent from 'react-select-event';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import Select, { type OptionType, type ValueType } from '@atlaskit/select';
-import Textfield from '@atlaskit/textfield';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import Select from '@atlaskit/select/default';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import InlineEdit from '../../inline-edit';
 

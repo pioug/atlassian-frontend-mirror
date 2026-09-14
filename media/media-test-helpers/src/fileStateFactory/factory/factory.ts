@@ -8,7 +8,7 @@ import {
 	type FileDetails,
 } from '@atlaskit/media-client';
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
-import { type MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import {
 	createFileState,

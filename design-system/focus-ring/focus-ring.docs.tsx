@@ -40,7 +40,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic focus ring',
 					description: 'Basic usage of FocusRing.',
-					source: path.resolve(packagePath, './examples/00-basic.tsx'),
+					source: path.resolve(packagePath, './examples/00-basic.vr.ap.tsx'),
 				},
 			],
 		},

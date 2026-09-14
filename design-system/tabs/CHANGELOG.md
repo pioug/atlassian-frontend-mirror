@@ -1,5 +1,86 @@
 # @atlaskit/tabs
 
+## 21.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.1.1
+
+### Patch Changes
+
+- [`61154354c90e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61154354c90e2) -
+  Experimental React 19 support: widen the peer dependency range, use React 19 in development, and
+  replace the React 16-only lorem helper in the overflow example while preserving its generated
+  content. Test coverage remains partial.
+
+## 21.1.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.1
+
+### Patch Changes
+
+- [`46b479a38ec17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46b479a38ec17) -
+  Fix selected tab text colour on hover.
+
+## 21.0.0
+
+### Major Changes
+
+- [`f0bf5f838abd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0bf5f838abd5) -
+  Apply Volt entry-point and barrel-removal standards across these packages. Public `exports` now
+  resolve **directly** to `./src/*` implementations instead of intermediate `./src/entry-points/*`
+  re-exports.
+
+  ### Migration
+
+  Prefer published subpaths over the package root or internal entry-point paths:
+
+  ```ts
+  import Calendar from '@atlaskit/calendar/calendar';
+  import Drawer from '@atlaskit/drawer/drawer';
+  import { WidthObserver } from '@atlaskit/width-detector/width-observer';
+  import { DocumentViewer } from '@atlaskit/media-document-viewer/document-viewer';
+  ```
+
+  If you imported through internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Calendar from '@atlaskit/calendar/entry-points/calendar';
+  +import Calendar from '@atlaskit/calendar/calendar';
+
+  -import WidthObserver from '@atlaskit/width-detector/src/WidthObserver';
+  +import { WidthObserver } from '@atlaskit/width-detector/width-observer';
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.3
 
 ### Patch Changes

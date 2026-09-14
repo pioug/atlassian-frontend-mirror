@@ -1,4 +1,10 @@
-import { type TPlacement } from './resolve-placement';
+import {
+	type TCrossAxisShiftDirection,
+	type TPlacement,
+	type TPlacementAlign,
+	type TPlacementAxis,
+	type TPlacementEdge,
+} from './resolve-placement';
 
 /**
  * JS fallback positioning math. Used only when the browser does not
@@ -11,6 +17,24 @@ import { type TPlacement } from './resolve-placement';
  * first measurement completes, so the popover never paints at the wrong
  * position.
  */
+
+/**
+ * A viewport-relative position, in pixels. Physical rather than logical
+ * because it is written straight to `top` / `left`.
+ */
+type TPosition = { top: number; left: number };
+
+/**
+ * The cross-axis shift with its length already resolved to pixels.
+ *
+ * Mirrors `TCrossAxisShiftOffset`, whose `value` is an unresolved CSS length
+ * string. Only this module needs the pixel form, because only this module does
+ * the arithmetic itself.
+ */
+type TResolvedCrossAxisShift = {
+	value: number;
+	direction: TCrossAxisShiftDirection;
+};
 
 /**
  * Computes the base {top, left} position based on the primary edge,
@@ -27,14 +51,14 @@ function computeEdgePosition({
 	viewport,
 	gap,
 }: {
-	axis: 'block' | 'inline';
-	edge: 'start' | 'end';
+	axis: TPlacementAxis;
+	edge: TPlacementEdge;
 	triggerRect: DOMRect;
 	popoverWidth: number;
 	popoverHeight: number;
 	viewport: { width: number; height: number };
 	gap: number;
-}): { top: number; left: number } {
+}): TPosition {
 	if (axis === 'block' && edge === 'end') {
 		// Below trigger
 		const spaceBelow = viewport.height - triggerRect.bottom;
@@ -104,13 +128,13 @@ function applyAlignment({
 	popoverWidth,
 	popoverHeight,
 }: {
-	position: { top: number; left: number };
-	axis: 'block' | 'inline';
-	align: 'start' | 'center' | 'end';
+	position: TPosition;
+	axis: TPlacementAxis;
+	align: TPlacementAlign;
 	triggerRect: DOMRect;
 	popoverWidth: number;
 	popoverHeight: number;
-}): { top: number; left: number } {
+}): TPosition {
 	if (align === 'center') {
 		return position;
 	}
@@ -135,29 +159,31 @@ function applyAlignment({
 /**
  * Applies the cross-axis shift offset.
  *
- * The sign mirrors the CSS path (see `crossAxisShiftMargin` in
- * `use-anchor-position.tsx`):
- *   - `align: 'start' | 'center'` + `forwards`  → push toward end (positive)
- *   - `align: 'end'`              + `forwards`  → push toward start (negative)
- *   - `backwards` flips the sign in both cases.
+ * `forwards` always moves the popover toward the cross-axis END and
+ * `backwards` toward the START, for every `align` value. See
+ * `notes/decisions/placement-offset.md`.
+ *
+ * This is a coordinate, so the direction is the sign and nothing else. There
+ * is deliberately no per-`align` sign inversion here: the CSS path inverts the
+ * sign only because a margin on the END side pushes a box the opposite way to
+ * a margin on the START side, which is a property of margins rather than of
+ * the shift. Applying that inversion to a coordinate moved `align: 'end'`
+ * popovers the wrong way.
  */
 function applyCrossAxisShift({
 	position,
 	axis,
-	align,
 	crossAxisShift,
 }: {
-	position: { top: number; left: number };
-	axis: 'block' | 'inline';
-	align: 'start' | 'center' | 'end';
-	crossAxisShift: { value: number; direction: 'forwards' | 'backwards' };
-}): { top: number; left: number } {
+	position: TPosition;
+	axis: TPlacementAxis;
+	crossAxisShift: TResolvedCrossAxisShift;
+}): TPosition {
 	if (crossAxisShift.value === 0) {
 		return position;
 	}
 	const directionSign = crossAxisShift.direction === 'forwards' ? 1 : -1;
-	const sideSign = align === 'end' ? -1 : 1;
-	const delta = crossAxisShift.value * directionSign * sideSign;
+	const delta = crossAxisShift.value * directionSign;
 
 	// Cross-axis is the OPPOSITE of the placement axis.
 	if (axis === 'block') {
@@ -187,8 +213,8 @@ export function computeFallbackPosition({
 	placement: TPlacement;
 	viewport: { width: number; height: number };
 	gap: number;
-	crossAxisShift: { value: number; direction: 'forwards' | 'backwards' };
-}): { top: number; left: number } {
+	crossAxisShift: TResolvedCrossAxisShift;
+}): TPosition {
 	const { axis, edge, align } = placement;
 
 	// Measure popover dimensions. Callers must ensure the popover has
@@ -218,7 +244,6 @@ export function computeFallbackPosition({
 	const shiftedPosition = applyCrossAxisShift({
 		position: alignedPosition,
 		axis,
-		align,
 		crossAxisShift,
 	});
 

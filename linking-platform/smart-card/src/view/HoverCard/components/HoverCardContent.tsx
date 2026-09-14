@@ -1,35 +1,34 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import {
-	AnalyticsContext,
-	useAnalyticsEvents as useAnalyticsEventsNext,
-} from '@atlaskit/analytics-next';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	componentWithCondition,
-	functionUnionWithCondition,
-} from '@atlaskit/platform-feature-flags-react';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
+import { functionUnionWithCondition } from '@atlaskit/platform-feature-flags-react/function-union-with-condition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
-import { getClickUrl, getDefinitionId, getExtensionKey, getServices } from '../../../state/helpers';
+import { getClickUrl } from '../../../state/getClickUrl';
+import { getDefinitionId } from '../../../state/getDefinitionId';
+import { getExtensionKey } from '../../../state/getExtensionKey';
+import { getServices } from '../../../state/getServices';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
-import { useSmartLinkCrossProductUrlWrapperGated } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
+import { useSmartLinkCrossProductUrlWrapper } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
 import { useSmartCardState } from '../../../state/store';
-import { type CardState } from '../../../state/types';
-import { isSpecialEvent } from '../../../utils';
-import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
-import { fireLinkClickedEvent } from '../../../utils/analytics/click';
-import { getAnchorAttributesFromEvent, updateAnchorHref } from '../../../utils/click-helpers';
+import type { CardState } from '@atlaskit/linking-common/store';
+import { isSpecialEvent } from '../../../utils/is-special-event';
+import { fireLinkClickedEvent } from '../../../utils/analytics/fireLinkClickedEvent';
+import { getAnchorAttributesFromEvent } from '../../../utils/get-anchor-attributes-from-event';
+import { getIsAISummaryEnabled } from '../../../utils/get-is-ai-summary-enabled';
+import { updateAnchorHref } from '../../../utils/update-anchor-href';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
 import { flexibleUiOptions } from '../styled';
 import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
-
 import ContentContainer from './ContentContainer';
 import HoverCardForbiddenView from './views/forbidden';
 import HoverCardResolvedView from './views/resolved';
@@ -101,7 +100,7 @@ const HoverCardContent = ({
 
 	const services = getServices(linkState.details);
 
-	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapper({
 		details: linkState.details,
 	});
 
@@ -176,20 +175,18 @@ const HoverCardContent = ({
 
 	const onClick = useCallback(
 		(event: React.MouseEvent) => {
-			if (fg('platform_smartlink_xpc_url_wrapping')) {
-				// Prevent the anchor's native navigation so we can open the destination URL
-				// with cross-product analytics query parameters appended.
-				// The cross-product params are client-only and cannot be rendered
-				// server-side. Falls back to the original `url` prop if the event target is
-				// not an anchor element.
-				event.preventDefault();
+			// Prevent the anchor's native navigation so we can open the destination URL
+			// with cross-product analytics query parameters appended.
+			// The cross-product params are client-only and cannot be rendered
+			// server-side. Falls back to the original `url` prop if the event target is
+			// not an anchor element.
+			event.preventDefault();
 
-				const { target } = getAnchorAttributesFromEvent(event);
-				const destinationUrl = getDestinationUrl();
-				updateAnchorHref(event, destinationUrl);
+			const { target } = getAnchorAttributesFromEvent(event);
+			const destinationUrl = getDestinationUrl();
+			updateAnchorHref(event, destinationUrl);
 
-				window.open(destinationUrl, target);
-			}
+			window.open(destinationUrl, target);
 
 			const isModifierKeyPressed = isSpecialEvent(event);
 			fireEvent('ui.smartLink.clicked.titleGoToLink', {
@@ -223,7 +220,8 @@ const HoverCardContent = ({
 		appearance: CardDisplay.HoverCardPreview,
 		cardState: cardState,
 		onClick: onClick,
-		...(fg('platform_smartlink_xpc_url_wrapping') ? { onAuxClick, onContextMenu } : undefined),
+		onAuxClick,
+		onContextMenu,
 		onResolve: onResolve,
 		origin: 'smartLinkPreviewHoverCard',
 		renderers: renderers,

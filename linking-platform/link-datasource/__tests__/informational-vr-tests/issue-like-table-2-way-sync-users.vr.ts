@@ -6,7 +6,7 @@ import { snapshotInformational } from '@af/visual-regression';
 import {
 	VRIssueLikeTableUser,
 	VRIssueLikeTableUserLoading,
-} from '../../examples/vr/issue-like-table-users';
+} from '../../examples/vr/issue-like-table-users.vr.ap';
 
 snapshotInformational(VRIssueLikeTableUserLoading, {
 	description: 'User column - inline edit with flags enabled - loading',

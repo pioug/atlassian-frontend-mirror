@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import { isFedrampModerate } from '@atlaskit/atlassian-context/is-fedramp-moderate';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AssetsConfig, InteractionMetrics, InteractionType } from '../common';
 
@@ -196,6 +196,7 @@ export type Config = {
 	 */
 	readonly population?: string;
 	readonly region: string;
+	readonly isSandbox?: boolean;
 	readonly additionalPayloadData?: (interaction: InteractionMetrics) => AdditionalData;
 	readonly ssr?: {
 		readonly getSSRTimings?: () => SSRTiming[];

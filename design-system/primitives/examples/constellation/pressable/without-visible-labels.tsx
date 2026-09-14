@@ -4,12 +4,13 @@
  */
 import type { JSX } from 'react';
 
-import { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 import { cssMap, jsx } from '@atlaskit/css';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
-import { Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { ReactionsList } from '../../utils/reactions';

@@ -49,18 +49,19 @@ import {
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/consts';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import type { BlockControlsPlugin, HandleOptions, TriggerByNode } from '../blockControlsPluginType';
+import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
 import { key } from '../pm-plugins/main';
 import { selectionPreservationPluginKey } from '../pm-plugins/selection-preservation/plugin-key';
@@ -109,42 +110,6 @@ const iconWrapperStyles = xcss({
 	alignItems: 'center',
 });
 
-const buttonWrapperStyles = css({
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
-			marginBottom: token('space.negative.200'),
-			paddingBottom: token('space.200'),
-			marginTop: token('space.negative.400'),
-			paddingTop: `calc(${token('space.400')} - 1px)`,
-			marginRight: token('space.negative.150'),
-			paddingRight: token('space.150'),
-			boxSizing: 'border-box',
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
-			marginBottom: token('space.negative.200'),
-			paddingBottom: token('space.200'),
-			marginTop: token('space.negative.400'),
-			paddingTop: `calc(${token('space.400')} - 1px)`,
-			marginRight: token('space.negative.150'),
-			paddingRight: token('space.150'),
-			boxSizing: 'border-box',
-		},
-});
-
-// EDITOR-6790 - When the `platform_editor_table_col_insert` experiment is enabled,
-// drop the linear-gradient background that paints over the legacy `tr.sticky` table
-// header so the new left-edge column-insert affordance is not visually clipped.
-// Keep all paddings / margins identical to `buttonWrapperStyles` so the drag-handle
-// layout does not shift between the two variants.
 const buttonWrapperStylesNoBackground = css({
 	display: 'flex',
 	justifyContent: 'center',
@@ -521,7 +486,6 @@ export const DragHandle = ({
 	anchorName,
 	nodeType,
 	handleOptions,
-	isTopLevelNode = true,
 	anchorRectCache,
 }: DragHandleProps): jsx.JSX.Element => {
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -551,29 +515,15 @@ export const DragHandle = ({
 	const start = getPos();
 	const isLayoutColumn = nodeType === 'layoutColumn';
 
-	// Dynamically calculate if node is top-level based on current position (gated by experiment)
-	const isTopLevelNodeDynamic = useMemo(() => {
-		if (!expValEquals('platform_editor_nested_drag_handle_icon', 'isEnabled', true)) {
-			return isTopLevelNode;
-		}
+	// Dynamically calculate if node is top-level based on current position
+	const isTopLevelNodeValue = useMemo(() => {
 		const pos = getPos();
 		if (typeof pos === 'number') {
 			const $pos = view.state.doc.resolve(pos);
 			return $pos?.parent.type.name === 'doc';
 		}
 		return true;
-	}, [getPos, view.state.doc, isTopLevelNode]);
-
-	// Use the dynamic value when experiment is on, otherwise use the prop
-	// When cleaning up the experiment, you can safely remove the isTopLevelNode as an prop and
-	// just rely on the dynamic value (rename it to isTopLevelNode for simplicitiy)
-	const isTopLevelNodeValue = expValEquals(
-		'platform_editor_nested_drag_handle_icon',
-		'isEnabled',
-		true,
-	)
-		? isTopLevelNodeDynamic
-		: isTopLevelNode;
+	}, [getPos, view.state.doc]);
 
 	useEffect(() => {
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
@@ -671,9 +621,7 @@ export const DragHandle = ({
 				api?.blockControls?.commands.toggleBlockMenu({
 					anchorName,
 					openedViaKeyboard: false,
-					triggerByNode: editorExperiment('platform_synced_block', true)
-						? { nodeType, pos: startPos, rootPos: tr.doc.resolve(startPos).before(1) }
-						: undefined,
+					triggerByNode: { nodeType, pos: startPos, rootPos: tr.doc.resolve(startPos).before(1) },
 				})({ tr });
 
 				tr.setMeta('scrollIntoView', false);
@@ -808,15 +756,11 @@ export const DragHandle = ({
 						tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, true));
 					}
 
-					const rootPos = editorExperiment('platform_synced_block', true)
-						? tr.doc.resolve(startPos).before(1)
-						: undefined;
-					const triggerByNode: TriggerByNode | undefined = editorExperiment(
-						'platform_synced_block',
-						true,
-					)
-						? { nodeType, pos: startPos, rootPos }
-						: undefined;
+					const triggerByNode = {
+						nodeType,
+						pos: startPos,
+						rootPos: tr.doc.resolve(startPos).before(1),
+					};
 					api?.blockControls?.commands.toggleBlockMenu({
 						anchorName,
 						triggerByNode,
@@ -1252,7 +1196,7 @@ export const DragHandle = ({
 	const isHandleShown = positionStylesOld.display !== 'none';
 
 	useEffect(() => {
-		if (fg('nike_r19_render_unmount')) {
+		if (isExperimentEnabled('platform_editor_react19_migration')) {
 			return;
 		}
 		if (handleOptions?.isFocused && buttonRef.current) {
@@ -1267,7 +1211,7 @@ export const DragHandle = ({
 	}, [buttonRef, handleOptions?.isFocused, view]);
 
 	useEffect(() => {
-		if (!fg('nike_r19_render_unmount')) {
+		if (!isExperimentEnabled('platform_editor_react19_migration')) {
 			return;
 		}
 		if (!(handleOptions?.isFocused && isHandleShown && buttonRef.current)) {
@@ -1514,21 +1458,19 @@ export const DragHandle = ({
 					setIsFocused(false);
 				}
 
-				if (expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true)) {
-					const pos = getPos();
-					if (pos !== undefined) {
-						api?.core?.actions.execute(({ tr }: { tr: Transaction }) => {
-							tr.setMeta(key, {
-								activeNode: {
-									pos,
-									anchorName,
-									nodeType,
-									handleOptions: { isFocused: false },
-								},
-							});
-							return tr;
+				const pos = getPos();
+				if (pos !== undefined) {
+					api?.core?.actions.execute(({ tr }: { tr: Transaction }) => {
+						tr.setMeta(key, {
+							activeNode: {
+								pos,
+								anchorName,
+								nodeType,
+								handleOptions: { isFocused: false },
+							},
 						});
-					}
+						return tr;
+					});
 				}
 			}}
 		>
@@ -1583,11 +1525,7 @@ export const DragHandle = ({
 					<span
 						css={[
 							shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-								// EDITOR-6790 - drop the masking background under the new
-								// column-insert experiment so the left-edge dot is not clipped.
-								(expValEquals('platform_editor_table_col_insert', 'isEnabled', true)
-									? buttonWrapperStylesNoBackground
-									: buttonWrapperStyles),
+								buttonWrapperStylesNoBackground,
 							buttonWrapperStylesPatch,
 						]}
 					>
@@ -1619,11 +1557,7 @@ export const DragHandle = ({
 				<span
 					css={[
 						shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-							// EDITOR-6790 - drop the masking background under the new
-							// column-insert experiment so the left-edge dot is not clipped.
-							(expValEquals('platform_editor_table_col_insert', 'isEnabled', true)
-								? buttonWrapperStylesNoBackground
-								: buttonWrapperStyles),
+							buttonWrapperStylesNoBackground,
 						buttonWrapperStylesPatch,
 					]}
 				>
@@ -1700,10 +1634,7 @@ export const DragHandleWithVisibility = ({
 					? 'left'
 					: undefined
 			}
-			forceVisibleOnMouseOut={
-				expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true) &&
-				!!handleOptions?.isFocused
-			}
+			forceVisibleOnMouseOut={!!handleOptions?.isFocused}
 			shouldUseDisplayContents={isLayoutColumn && fg('platform-dst-top-layer-tooltip')}
 		>
 			<DragHandle
@@ -1714,7 +1645,6 @@ export const DragHandleWithVisibility = ({
 				anchorName={anchorName}
 				nodeType={nodeType}
 				handleOptions={handleOptions}
-				isTopLevelNode={isTopLevelNode}
 				anchorRectCache={anchorRectCache}
 			/>
 		</VisibilityContainer>

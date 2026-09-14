@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { easeIn, easeInOut, easeOut, linear } from '@atlaskit/motion';
+import { easeIn, easeInOut, easeOut, linear } from '@atlaskit/motion/curves';
 
 import { MovesRightBlock } from './utils/blocks';
 

@@ -1,15 +1,16 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { FormHeader } from '@atlaskit/form/form-header';
-import { ErrorMessage, MessageWrapper } from '@atlaskit/form/messages';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Text } from '@atlaskit/primitives/compiled/text';
-import Select from '@atlaskit/select/select';
+import Select from '@atlaskit/select/default';
 import { type ValueType } from '@atlaskit/select/types';
 import TextField from '@atlaskit/textfield/text-field';
 

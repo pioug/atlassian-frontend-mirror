@@ -1,45 +1,50 @@
-import Avatar from '@atlaskit/avatar';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { type Props, SizeableAvatar } from '../../../components/SizeableAvatar';
 
+jest.mock('@atlaskit/avatar/avatar', () => ({
+	...jest.requireActual('@atlaskit/avatar/avatar'),
+	__esModule: true,
+	default: (props: { presence?: string; size: string }) => (
+		<div data-testid="avatar" data-presence={props.presence} data-size={props.size} />
+	),
+}));
+
 describe('SizeableAvatar', () => {
-	const shallowSizeableAvatar = (props: Partial<Props> = {}) =>
-		shallow(<SizeableAvatar appearance="normal" {...props} />);
+	const renderSizeableAvatar = (props: Partial<Props> = {}) =>
+		render(<SizeableAvatar appearance="normal" {...props} />);
 
-	it('should render Avatar', () => {
-		const component = shallowSizeableAvatar({ appearance: 'normal' });
-		const avatar = component.find(Avatar);
-		expect(avatar).toHaveLength(1);
+	const expectAvatarSize = (appearance: Props['appearance'], size: string) => {
+		renderSizeableAvatar({ appearance });
+		expect(screen.getByTestId('avatar')).toHaveAttribute('data-size', size);
+	};
+
+	it('renders an Avatar', async () => {
+		renderSizeableAvatar();
+
+		expect(screen.getByTestId('avatar')).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render small Avatar with normal appearance', () => {
-		const component = shallowSizeableAvatar({ appearance: 'normal' });
-		const avatar = component.find(Avatar);
-		expect(avatar.prop('size')).toEqual('small');
+	it('renders a small Avatar with normal appearance', () => {
+		expectAvatarSize('normal', 'small');
 	});
 
-	it('should render small Avatar with compact appearance', () => {
-		const component = shallowSizeableAvatar({ appearance: 'compact' });
-		const avatar = component.find(Avatar);
-		expect(avatar.prop('size')).toEqual('small');
+	it('renders a small Avatar with compact appearance', () => {
+		expectAvatarSize('compact', 'small');
 	});
 
-	it('should render medium Avatar with big appearance', () => {
-		const component = shallowSizeableAvatar({ appearance: 'big' });
-		const avatar = component.find(Avatar);
-		expect(avatar.prop('size')).toEqual('medium');
+	it('renders a medium Avatar with big appearance', () => {
+		expectAvatarSize('big', 'medium');
 	});
 
-	it('should render xsmall Avatar with multi appearance', () => {
-		const component = shallowSizeableAvatar({ appearance: 'multi' });
-		const avatar = component.find(Avatar);
-		expect(avatar.prop('size')).toEqual('xsmall');
+	it('renders an xxsmall Avatar with multi appearance', () => {
+		expectAvatarSize('multi', 'xxsmall');
 	});
 
-	it('should set presence in Avatar component', () => {
-		const component = shallowSizeableAvatar({ presence: 'online' });
-		const avatar = component.find(Avatar);
-		expect(avatar.prop('presence')).toEqual('online');
+	it('passes presence through to Avatar', () => {
+		renderSizeableAvatar({ presence: 'online' });
+
+		expect(screen.getByTestId('avatar')).toHaveAttribute('data-presence', 'online');
 	});
 });

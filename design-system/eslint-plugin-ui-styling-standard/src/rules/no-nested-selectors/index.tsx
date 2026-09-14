@@ -1,11 +1,13 @@
 import type { Property } from 'estree';
-import cssSelectorParser, { isNesting, isPseudo, type Selector } from 'postcss-selector-parser';
+import { isNesting, isPseudo, type Selector } from 'postcss-selector-parser';
 
-import { getScope } from '@atlaskit/eslint-utils/context-compat';
 import { importSources } from '@atlaskit/eslint-utils/schema';
-import { walkStyleProperties } from '@atlaskit/eslint-utils/walk-style-properties';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
+import { isSimpleSelector } from '../utils/is-simple-selector';
+import { parseSelector } from '../utils/parse-selector';
+import { getStyleCalls } from '../utils/style-calls';
+import { walkStyleCallProperties } from '../utils/walk-style-call-properties';
 
 const getCssSelector = (key: Property['key']): string | null => {
 	if (key.type === 'Literal' && typeof key.value === 'string') {
@@ -35,8 +37,6 @@ function isAllowedSelector(selector: Selector): boolean {
 	return isHeadAllowed && isTailAllowed;
 }
 
-const cssSelectorProcessor = cssSelectorParser();
-
 const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
 		name: 'no-nested-selectors',
@@ -59,39 +59,43 @@ const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 	},
 	create(context, { importSources }) {
 		return {
-			CallExpression(node) {
-				const { references } = getScope(context, node);
-
-				walkStyleProperties(node, references, importSources, ({ key, value }) => {
-					if (value.type !== 'ObjectExpression') {
-						// If the value is a CSS object, safe to assume we're at a CSS selector
-						return;
+			Program() {
+				for (const styleCall of getStyleCalls(context)) {
+					if (!importSources.includes(styleCall.importSource)) {
+						continue;
 					}
-
-					const selectorText = getCssSelector(key);
-					if (selectorText === null) {
-						return;
-					}
-
-					// Ignore at-rules
-					if (selectorText.includes('@')) {
-						return;
-					}
-
-					try {
-						const selectorList = cssSelectorProcessor.astSync(selectorText);
-
-						if (!selectorList.nodes.every(isAllowedSelector)) {
-							context.report({
-								messageId: 'no-nested-selectors',
-								node: key,
-							});
+					walkStyleCallProperties(styleCall, ({ key, value }) => {
+						if (value.type !== 'ObjectExpression') {
+							return;
 						}
-					} catch (_) {
-						// If it is not parsable then `no-unsafe-selectors` will give it an error,
-						// we can ignore it here.
-					}
-				});
+
+						const selectorText = getCssSelector(key);
+						if (selectorText === null || selectorText.includes('@')) {
+							return;
+						}
+						if (
+							isSimpleSelector(selectorText, {
+								allowBareNesting: true,
+								allowLeadingPseudo: true,
+							})
+						) {
+							return;
+						}
+
+						try {
+							const selectorList = parseSelector(context, selectorText);
+
+							if (!selectorList.nodes.every(isAllowedSelector)) {
+								context.report({
+									messageId: 'no-nested-selectors',
+									node: key,
+								});
+							}
+						} catch {
+							// `no-unsafe-selectors` reports unparsable selectors.
+						}
+					});
+				}
 			},
 		};
 	},

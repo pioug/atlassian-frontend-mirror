@@ -28,12 +28,12 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic Avatar',
 					description: 'Standard agent avatar display.',
-					source: path.resolve(packagePath, './examples/02-agent-avatar.tsx'),
+					source: path.resolve(packagePath, './examples/02-agent-avatar.vr.ap.tsx'),
 				},
 				{
 					name: 'Generated Avatar',
 					description: 'Agent avatar with a generated image.',
-					source: path.resolve(packagePath, './examples/03-agent-avatar-generated.tsx'),
+					source: path.resolve(packagePath, './examples/03-agent-avatar-generated.vr.ap.tsx'),
 				},
 			],
 			keywords: ['rovo', 'agent', 'avatar', 'identity', 'ai'],
@@ -59,7 +59,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Profile Info',
 					description: 'Standard agent profile information display.',
-					source: path.resolve(packagePath, './examples/01-agent-profile-info.tsx'),
+					source: path.resolve(packagePath, './examples/01-agent-profile-info.vr.ap.tsx'),
 				},
 			],
 			keywords: ['rovo', 'agent', 'profile', 'info', 'ai'],

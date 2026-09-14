@@ -3,12 +3,12 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { InlineCardErroredView } from '../../index';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const URL =
 	'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';

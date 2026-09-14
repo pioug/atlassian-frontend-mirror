@@ -1,11 +1,11 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractTitle } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractTitle } from '@atlaskit/link-extractors/extract-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { IconType } from '../../../constants';
-import { prioritiseIcon } from '../../common/icon';
+import { prioritiseIcon } from '../../common/icon/prioritiseIcon';
 import { extractorPriorityMap as priorityMap } from '../../common/icon/priority';
-import { extractTaskType } from '../../common/lozenge';
+import { extractTaskType } from '../../common/lozenge/extractTaskType';
 import { JIRA_GENERATOR_ID } from '../../constants';
 
 import extractDocumentTypeIcon from './extract-document-type-icon';

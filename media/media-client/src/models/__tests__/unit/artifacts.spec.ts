@@ -1,5 +1,5 @@
 import { getArtifactUrl } from '../../artifacts';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 
 jsdom.reconfigure({

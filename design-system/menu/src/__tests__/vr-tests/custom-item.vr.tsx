@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import CustomItem from '../../../examples/custom-item';
+import CustomItem from '../../../examples/custom-item.vr.ap';
 
 snapshot(CustomItem, {
 	variants: [

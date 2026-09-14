@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "35.11.2",
+	"version": "36.2.19",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,6 +44,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
@@ -73,7 +74,10 @@
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/ufo": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
@@ -113,19 +117,6 @@
 		"./types": "./src/types/index.ts",
 		"./useCloseManager": "./src/hooks/useCloseManager.ts"
 	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"compiled"
-			]
-		},
-		"@atlassian/frontend": {
-			"tree-shaking": []
-		}
-	},
 	"scripts": {
 		"setup-first-time": "yarn run setup-local-config; yarn run setup-env",
 		"setup-local-config": "cp -nv local-config-template.ts local-config.ts",
@@ -143,6 +134,10 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
+		"platform-dst-motion-uplift-custom-button": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_optimistic_reaction_emoji": {
 			"type": "boolean"
 		},
@@ -152,13 +147,19 @@
 		"platform_suppression_removal_fix_reactions": {
 			"type": "boolean"
 		},
-		"platform_ceps-5921-a11y-fix-reactions": {
+		"a11y_reactions_reading_order": {
 			"type": "boolean"
 		},
-		"platform_reactions_view_more_styling_fix": {
+		"platform_a11y_fixes_reading_order": {
 			"type": "boolean"
 		},
-		"platform_a11y_fixes_reaction_emoji": {
+		"platform_reactions_a11y_group_added_reactions": {
+			"type": "boolean"
+		},
+		"tef_fix_a11y_add_reaction_button_language_support": {
+			"type": "boolean"
+		},
+		"platform_teamoji_26_refresh_emoji_picker_user_id": {
 			"type": "boolean"
 		}
 	},

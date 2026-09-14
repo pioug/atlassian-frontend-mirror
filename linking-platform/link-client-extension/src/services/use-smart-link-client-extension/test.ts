@@ -1,13 +1,13 @@
 import { renderHook } from '@testing-library/react';
 
-import { CardClient } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
 import { NetworkError } from '@atlaskit/linking-common';
 import {
 	InvokeError,
 	type InvokeRequest,
 	SmartLinkActionType,
 	type StatusUpdateActionPayload,
-} from '@atlaskit/linking-types';
+} from '@atlaskit/linking-types/smart-link-actions';
 
 import { useSmartLinkClientExtension } from './index';
 
@@ -156,10 +156,7 @@ describe('useSmartLinkClientExtension', () => {
 				});
 
 				await expect(result.current.invoke(data)).rejects.toThrow(
-					new InvokeError(
-						`Expected property name or '}' in JSON at position 1 (line 1 column 2)`,
-						400,
-					),
+					`Expected property name or '}' in JSON at position 1 (line 1 column 2)`,
 				);
 			});
 		};

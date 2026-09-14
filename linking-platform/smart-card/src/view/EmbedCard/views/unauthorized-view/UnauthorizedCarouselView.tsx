@@ -7,7 +7,7 @@ import LinkGlyph from '@atlaskit/icon/core/link';
 import SmartLinkIcon from '@atlaskit/icon/core/smart-link';
 import IconTile from '@atlaskit/icon/icon-tile';
 import Image from '@atlaskit/image/image';
-import type { ProductType } from '@atlaskit/linking-common';
+import type { ProductType } from '@atlaskit/linking-common/types';
 
 import { useAnalyticsEvents } from '../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../messages';
@@ -113,7 +113,9 @@ const UnauthorizedCarouselView = ({
 					messages.connect_link_account_embed_carousel_sl_description,
 					{ context: i18nSelectContext, product: parentProduct },
 				),
-				image: <SmartLinkBenefitImage productIcon={parentProductIcon} />,
+				image: (
+					<SmartLinkBenefitImage productIcon={parentProductIcon} providerIcon={providerIcon} />
+				),
 			},
 		];
 

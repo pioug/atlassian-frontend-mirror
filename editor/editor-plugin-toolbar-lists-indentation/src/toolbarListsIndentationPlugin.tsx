@@ -12,8 +12,8 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	getIndentationButtonsState,
@@ -167,8 +167,9 @@ export function PrimaryToolbarComponent({
 		isIndentationAllowed: states.indentationState?.isIndentationAllowed,
 		indentDisabled: states.indentationState?.indentDisabled,
 		outdentDisabled: states.indentationState?.outdentDisabled,
-		// decorationSet is required to re-render PrimaryToolbarComponent component, so that the toolbar states updates regularly
-		decorationSet: states.listState?.decorationSet,
+		// listStructureToken changes when a list edit could have altered indent/outdent
+		// availability, which none of the flags above capture on their own
+		listStructureToken: states.listState?.listStructureToken,
 	}));
 	const [taskDecisionState, setTaskDecisionState] = useState<TaskDecisionState | undefined>();
 	usePluginStateEffect(

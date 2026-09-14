@@ -6,7 +6,7 @@ import {
 	CreateFormWithAsyncSelect,
 	CreateFormWithTextField,
 	DefaultCreateForm,
-} from '../../examples/vr/vr-create-form';
+} from '../../examples/vr/vr-create-form.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

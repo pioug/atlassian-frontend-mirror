@@ -11,22 +11,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 import type { EmojiDescription } from '../../types';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { AddOwnEmoji } from '../common/AddEmoji';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 
 const emojiPickerFooter = css({
 	flex: '0 0 auto',

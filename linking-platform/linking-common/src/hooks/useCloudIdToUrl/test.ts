@@ -1,18 +1,8 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
-import fetchMock from 'fetch-mock/cjs/client';
 import { renderHook, waitFor } from '@testing-library/react';
+import fetchMock from 'fetch-mock/cjs/client';
 
-import {
-	mockAvailableSites,
-	mockAvailableSitesForGatewayUrl,
-} from '../../common/mocks/mockAvailableSites';
+import { mockAvailableSites } from '../../common/mocks/mock-available-sites';
+import { mockAvailableSitesForGatewayUrl } from '../../common/mocks/mock-available-sites-for-gateway-url';
 import { useCloudIdToUrl } from '.';
 
 describe('useCloudIdToUrl', () => {
@@ -24,13 +14,7 @@ describe('useCloudIdToUrl', () => {
 		mockAvailableSites();
 		const { result } = renderHook(() => useCloudIdToUrl('0131afab-28cf-45ea-a211-963f638f99bc'));
 
-		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": undefined,
-        "error": undefined,
-        "loading": true,
-      }
-    `);
+		expect(result.current).toEqual({ data: undefined, error: undefined, loading: true });
 		await waitFor(() => {
 			expect(result.current.loading).toBe(false);
 			expect(result.current.error).toBeUndefined();
@@ -44,25 +28,17 @@ describe('useCloudIdToUrl', () => {
 			useCloudIdToUrl('cloudid-for-custom-baseurl', 'https://customgatewaybaseurl.com'),
 		);
 
-		expect(result.current).toMatchInlineSnapshot(`
-      {
-        "data": undefined,
-        "error": undefined,
-        "loading": true,
-      }
-    `);
+		expect(result.current).toEqual({ data: undefined, error: undefined, loading: true });
 		await waitFor(() => {
 			expect(result.current.loading).toBe(false);
 		});
 
 		await waitFor(() => {
-			expect(result.current).toMatchInlineSnapshot(`
-        {
-          "data": "https://custom-domain-for-custom-baseurl.jira-dev.com",
-          "error": undefined,
-          "loading": false,
-        }
-        `);
+			expect(result.current).toEqual({
+				data: 'https://custom-domain-for-custom-baseurl.jira-dev.com',
+				error: undefined,
+				loading: false,
+			});
 		});
 	});
 
@@ -74,13 +50,7 @@ describe('useCloudIdToUrl', () => {
 			expect(result.current.loading).toBe(false);
 		});
 		await waitFor(() => {
-			expect(result.current).toMatchInlineSnapshot(`
-        {
-          "data": undefined,
-          "error": undefined,
-          "loading": false,
-        }
-        `);
+			expect(result.current).toEqual({ data: undefined, error: undefined, loading: false });
 		});
 	});
 });

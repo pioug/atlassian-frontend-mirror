@@ -11,8 +11,8 @@ import { css, jsx } from '@emotion/react';
 import { Notifications } from '@atlaskit/atlassian-navigation';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
-import Popup from '@atlaskit/popup';
-import SectionMessage from '@atlaskit/section-message';
+import { Popup } from '@atlaskit/popup/popup';
+import SectionMessage from '@atlaskit/section-message/message';
 
 const wrapperStyles = css({
 	width: 540,

@@ -5,15 +5,13 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import Popup from '@atlaskit/popup';
-import {
-	Popup as CompositionalPopup,
-	PopupContent,
-	PopupTrigger,
-} from '@atlaskit/popup/experimental';
+import { Popup } from '@atlaskit/popup/popup';
+import { Popup as CompositionalPopup } from '@atlaskit/popup/compositional/popup';
+import { PopupContent } from '@atlaskit/popup/compositional/popup-content';
+import { PopupTrigger } from '@atlaskit/popup/compositional/popup-trigger';
 import { token } from '@atlaskit/tokens';
 
 const contentContainerStyles = cssMap({

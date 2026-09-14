@@ -2,13 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { token } from '@atlaskit/tokens';
-import { WidthObserver } from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import {
 	ActionName,
@@ -17,12 +18,12 @@ import {
 	SmartLinkSize,
 	SmartLinkWidth,
 } from '../../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import { Provider } from '../../../elements';
+import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { default as Provider } from '../../../elements/provider-element';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
-import { filterActionItems } from '../../utils';
+import { filterActionItems } from '../../filterActionItems';
 import type { FooterBlockProps } from '../types';
 
 const actionGroupStyles = css({

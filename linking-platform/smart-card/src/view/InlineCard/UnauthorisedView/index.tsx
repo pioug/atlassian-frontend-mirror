@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
@@ -9,18 +10,18 @@ import { di } from 'react-magnetic-di';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
-import { getCachedProviderPctMapAndRefresh } from '../../../state/services/personalization';
-import { HoverCard } from '../../HoverCard';
-import { ActionButton } from '../common/action-button';
+import { getCachedProviderPctMapAndRefresh } from '../../../state/services/personalization/getCachedProviderPctMapAndRefresh';
+import { HoverCard } from '../../HoverCard/HoverCard';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
+import { ActionButton } from '../common/action-button';
 
 export interface InlineCardUnauthorizedViewProps {
 	/** The name of the service (e.g. Dropbox/Asana/Google/etc) to display */
@@ -195,11 +196,7 @@ const UnauthorisedConnectWithSocialProof = ({
 				<Box as="span" xcss={socialProofPillStyles.root} testId={`${testId}-social-proof-tag`}>
 					<Box
 						as="span"
-						xcss={cx(
-							socialProofPillStyles.label,
-							fg('platform_lp_social_proof_inline_overflow_bug') &&
-								socialProofPillStyles.wrappingLabel,
-						)}
+						xcss={cx(socialProofPillStyles.label, socialProofPillStyles.wrappingLabel)}
 					>
 						{socialProofPillContent}
 					</Box>
@@ -226,19 +223,11 @@ const UnauthorisedConnectWithSocialProof = ({
 		<Pressable
 			onClick={onConnectClick}
 			style={{ font: `inherit` }}
-			xcss={cx(
-				socialProofPillStyles.button,
-				fg('platform_lp_social_proof_inline_overflow_bug') &&
-					socialProofPillStyles.pressableContents,
-			)}
+			xcss={cx(socialProofPillStyles.button, socialProofPillStyles.pressableContents)}
 		>
-			{fg('platform_lp_social_proof_inline_overflow_bug') ? (
-				<Box as="span" xcss={socialProofPillStyles.inlineGroup}>
-					{buttonContent}
-				</Box>
-			) : (
-				buttonContent
-			)}
+			<Box as="span" xcss={socialProofPillStyles.inlineGroup}>
+				{buttonContent}
+			</Box>
 		</Pressable>
 	) : (
 		buttonContent

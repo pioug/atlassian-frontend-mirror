@@ -1,4 +1,5 @@
 import type { AgentInteractionsEventPayload } from '../actions/groups/agent-interactions';
+import type { BrowseAgentsEventPayload } from '../actions/groups/browse-agents';
 import type { CreateFlowEventPayload } from '../actions/groups/create-flow';
 import type { DebugEventPayload } from '../actions/groups/debug';
 import type { EditingEventPayload } from '../actions/groups/editing';
@@ -8,6 +9,7 @@ import type { KnowledgeFiltersEventPayload } from '../actions/groups/knowledge-f
 import type { ModelPreferencesEventPayload } from '../actions/groups/model-preferences';
 import type { SubagentInteractionsEventPayload } from '../actions/groups/subagent-interactions';
 import type { ToolsEventPayload } from '../actions/groups/tools';
+import type { ValueCalculatorEventPayload } from '../actions/groups/value-calculator';
 
 export type RemainingRequired<T, P extends Partial<T>> = Required<Omit<T, keyof P>>;
 
@@ -60,11 +62,13 @@ export type ErrorEventPayload = {
 export type EventPayload =
 	| EditingEventPayload
 	| AgentInteractionsEventPayload
+	| BrowseAgentsEventPayload
 	| SubagentInteractionsEventPayload
 	| DebugEventPayload
 	| ToolsEventPayload
 	| EvaluationEventPayload
 	| InsightsEventPayload
+	| ValueCalculatorEventPayload
 	| ErrorEventPayload
 	| KnowledgeFiltersEventPayload
 	| ModelPreferencesEventPayload

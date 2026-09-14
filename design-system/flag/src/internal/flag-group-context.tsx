@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { defaultFlagGroupContext } from './default-flag-group-context';
 

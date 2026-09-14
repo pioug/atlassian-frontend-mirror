@@ -1,5 +1,6 @@
 import {
 	panelC1FallbackTransform,
+	panelC1FallbackTransformV2,
 	syncBlockFallbackTransform,
 	transformDedupeMarks,
 	transformIndentationMarks,
@@ -12,15 +13,18 @@ import {
 	transformContainerNodes,
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import { isNestedTablesSupported } from '../nesting/isNestedTablesSupported';
+import { isPanelC1SchemaEnabled } from '../nesting/isPanelC1SchemaEnabled';
+import { isPanelNestingContainerExperimentEnabled } from '../nesting/isPanelNestingContainerExperimentEnabled';
+import { isPanelNestingContainerSupported } from '../nesting/isPanelNestingContainerSupported';
 import { isPanelNestingTableSupported } from '../nesting/isPanelNestingTableSupported';
 import type { ProviderFactory } from '../provider-factory';
 import type { ReplaceRawValue, Transformer } from '../types';
@@ -28,6 +32,15 @@ import type { ReplaceRawValue, Transformer } from '../types';
 import { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 import { findAndTrackUnsupportedContentNodes } from './track-unsupported-content';
 import { validateADFEntity } from './validate-using-spec';
+
+// Gate the generalised (table + expand + panel + blockquote + bodiedExtension) panel_c1
+// fallback behind the consolidated container-in-panel experiment. The in-production
+// table-in-panel path keeps using the deprecated table-only transform until
+// platform_editor_nest_container_in_panel is rolled out.
+const runPanelC1FallbackTransform = (schema: Schema, adf: ADFEntity) =>
+	isPanelNestingContainerExperimentEnabled()
+		? panelC1FallbackTransformV2(schema, adf)
+		: panelC1FallbackTransform(schema, adf);
 
 interface NodeType {
 	// Ignored via go/ees005
@@ -112,6 +125,17 @@ const transformContainerNodesWithAnalytics = (
 	return { transformedAdf: node, isTransformed: false };
 };
 
+/**
+ * Converts a raw ADF value into a ProseMirror `Node` without running full ADF validation.
+ *
+ * Applies the relevant document transforms (nested tables, sync block and panel_c1 fallbacks,
+ * container node nesting) before building the node directly from the resulting JSON.
+ *
+ * @param schema - The ProseMirror schema to build the node against.
+ * @param value - The raw ADF value (string or object) to process.
+ * @param dispatchAnalyticsEvent - Optional callback used to report transform analytics.
+ * @returns The resulting ProseMirror `Node`, or `undefined` when no value is provided or parsing fails.
+ */
 export function processRawValueWithoutValidation(
 	schema: Schema,
 	value?: ReplaceRawValue,
@@ -147,7 +171,7 @@ export function processRawValueWithoutValidation(
 	}
 
 	if (fg('platform_editor_panel_c1_fallback_transform')) {
-		const panelC1Result = panelC1FallbackTransform(schema, transformedAdf as ADFEntity);
+		const panelC1Result = runPanelC1FallbackTransform(schema, transformedAdf as ADFEntity);
 		if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
 			transformedAdf = panelC1Result.transformedAdf;
 		}
@@ -164,6 +188,20 @@ export function processRawValueWithoutValidation(
 	return Node.fromJSON(schema, transformedAdf);
 }
 
+/**
+ * Converts a raw ADF value into a validated ProseMirror `Node`.
+ *
+ * Applies document transforms and validates the resulting ADF against the schema, tracking any
+ * unsupported content and optionally sanitizing private content before building the node.
+ *
+ * @param schema - The ProseMirror schema to build and validate the node against.
+ * @param value - The raw ADF value (string or object) to process.
+ * @param providerFactory - Optional provider factory used during validation/sanitization.
+ * @param sanitizePrivateContent - When `true`, private content is stripped from the document.
+ * @param contentTransformer - Optional transformer used to parse string content into ADF.
+ * @param dispatchAnalyticsEvent - Optional callback used to report transform/validation analytics.
+ * @returns The resulting ProseMirror `Node`, or `undefined` when no value is provided or processing fails.
+ */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function processRawValue(
 	schema: Schema,
@@ -327,7 +365,7 @@ export function processRawValue(
 		}
 
 		if (fg('platform_editor_panel_c1_fallback_transform')) {
-			const panelC1Result = panelC1FallbackTransform(schema, transformedAdf as ADFEntity);
+			const panelC1Result = runPanelC1FallbackTransform(schema, transformedAdf as ADFEntity);
 			if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
 				transformedAdf = panelC1Result.transformedAdf;
 			}
@@ -337,11 +375,13 @@ export function processRawValue(
 		// This matches the renderer's behavior in render-document.ts
 		const allowNestedTables = isNestedTablesSupported(schema);
 		const allowTableInPanel = isPanelNestingTableSupported(schema);
+		const allowContainerInPanel = isPanelNestingContainerSupported(schema);
 		const validateADFEntityOptions =
-			allowNestedTables || allowTableInPanel
+			allowNestedTables || allowTableInPanel || allowContainerInPanel
 				? {
 						allowNestedTables: allowNestedTables || undefined,
 						allowTableInPanel: allowTableInPanel || undefined,
+						allowContainerInPanel: allowContainerInPanel || undefined,
 					}
 				: undefined;
 		let entity: ADFEntity = validateADFEntity(
@@ -355,7 +395,9 @@ export function processRawValue(
 		({ transformedAdf } = transformNestedTablesWithAnalytics(entity, dispatchAnalyticsEvent));
 		entity = transformedAdf;
 
-		if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+		// The container-node promotion (panel -> panel_c1) is schema-driven and shared across
+		// nesting scenarios, so it runs when any panel container-variant experiment is on.
+		if (isPanelC1SchemaEnabled()) {
 			({ transformedAdf } = transformContainerNodesWithAnalytics(
 				entity as ADFEntity,
 				schema,

@@ -1,10 +1,16 @@
+import { Search } from 'js-search';
 import pWaitFor from 'p-wait-for';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import EmojiRepository, { getEmojiVariation } from '../../../api/EmojiRepository';
-import { customCategory, customType, frequentCategory } from '../../../util/constants';
-import { containsEmojiId, toEmojiId } from '../../../util/type-helpers';
+
+import EmojiRepository from '../../../api/EmojiRepository';
+import { getEmojiVariation } from '../../../api/getEmojiVariation';
 import { type EmojiDescription, SearchSort } from '../../../types';
+import { customCategory, customType, frequentCategory } from '../../../util/constants';
+import { containsEmojiId } from '../../../util/contains-emoji-id';
+import { toEmojiId } from '../../../util/to-emoji-id';
 import {
 	emojis as allEmojis,
 	newEmojiRepository,
@@ -383,28 +389,24 @@ export const siteEmojiGreek3: {
 
 describe('EmojiRepository', () => {
 	let emojiRepository: EmojiRepository;
-	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+	let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 	let initializeCompletedSpy: jest.SpiedFunction<typeof FeatureGates.initializeCompleted>;
 
 	beforeEach(() => {
 		setupEditorExperiments('confluence');
 		initializeCompletedSpy = jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
-		getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
+		checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 		// emojiRepository has state that can influence search results so make it fresh for each test.
 		emojiRepository = newEmojiRepository();
 	});
 
 	afterEach(() => {
-		getExperimentValueSpy.mockRestore();
+		checkGateSpy.mockRestore();
 		initializeCompletedSpy.mockRestore();
 	});
 
 	const enableTeamojiRefreshExperiment = () => {
-		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
-			experimentName === teamojiRefreshExperimentName ? true : defaultValue,
-		);
+		mockExpEnabled(teamojiRefreshExperimentName);
 	};
 
 	describe('Search with non standard characters', () => {
@@ -647,6 +649,42 @@ describe('EmojiRepository', () => {
 		});
 	});
 
+	describe('search index', () => {
+		let addDocumentsSpy: jest.SpiedFunction<typeof Search.prototype.addDocuments>;
+
+		beforeEach(() => {
+			addDocumentsSpy = jest.spyOn(Search.prototype, 'addDocuments');
+		});
+
+		afterEach(() => {
+			addDocumentsSpy.mockRestore();
+		});
+
+		it('is not built until a text search is performed', () => {
+			const repository = new EmojiRepository(searchableEmojis);
+
+			expect(addDocumentsSpy).not.toHaveBeenCalled();
+
+			// searches without a name query are served from the emoji list, not the index
+			repository.all();
+
+			expect(addDocumentsSpy).not.toHaveBeenCalled();
+
+			repository.search(':smiley');
+
+			expect(addDocumentsSpy).toHaveBeenCalled();
+		});
+
+		it('is only built once for repeated text searches', () => {
+			const repository = new EmojiRepository(searchableEmojis);
+
+			repository.search(':smiley');
+			repository.search(':grin');
+
+			expect(addDocumentsSpy).toHaveBeenCalledTimes(1);
+		});
+	});
+
 	describe('#addUnknownEmoji', () => {
 		it('add custom emoji', () => {
 			const siteEmojiId = toEmojiId(siteTest);
@@ -715,6 +753,34 @@ describe('EmojiRepository', () => {
 		it('does not partially match on shortname', () => {
 			const repository = new EmojiRepository([...allEmojis, standardTest]);
 			expect(repository.findAllMatchingShortName(':test:')).toEqual([]);
+		});
+	});
+
+	describe('#findByShortName', () => {
+		it('returns the last matching emoji by default', () => {
+			const repository = new EmojiRepository([siteTest, atlassianTest]);
+			expect(repository.findByShortName(':test:')).toEqual(atlassianTest);
+		});
+
+		it('uses the first matching emoji type in the provided lookup order', () => {
+			const standardDuplicate = {
+				...standardTest,
+				id: 'standard-test',
+				shortName: ':test:',
+			};
+			const repository = new EmojiRepository([standardDuplicate, siteTest, atlassianTest]);
+
+			expect(repository.findByShortName(':test:', ['STANDARD', 'ATLASSIAN'])).toEqual(
+				standardDuplicate,
+			);
+			expect(repository.findByShortName(':test:', ['ATLASSIAN', 'STANDARD'])).toEqual(
+				atlassianTest,
+			);
+		});
+
+		it('falls back to the default lookup order if no preferred emoji type matches', () => {
+			const repository = new EmojiRepository([siteTest, atlassianTest]);
+			expect(repository.findByShortName(':test:', ['STANDARD'])).toEqual(atlassianTest);
 		});
 	});
 

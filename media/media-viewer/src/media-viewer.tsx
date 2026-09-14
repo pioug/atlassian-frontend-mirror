@@ -1,21 +1,25 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { type SyntheticEvent } from 'react';
+
+import { start } from 'perf-marks';
+import FocusLock from 'react-focus-lock';
+import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl';
+import ScrollLock from 'react-scrolllock';
+
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { type Identifier } from '@atlaskit/media-client';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
-import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl';
-import { Shortcut } from '@atlaskit/media-ui';
-import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { fireAnalytics } from './analytics';
+import { Shortcut } from '@atlaskit/media-ui/shortcut';
+
 import { createModalEvent } from './analytics/events/screen/modal';
 import { createClosedEvent } from './analytics/events/ui/closed';
-import { List } from './list';
-import { Content } from './content';
-import { Blanket, SidebarWrapper } from './styleWrappers';
-import { start } from 'perf-marks';
-import { type MediaViewerExtensions } from './components/types';
+import { fireAnalytics } from './analytics/fireAnalytics';
 import { mediaViewerPopupClass } from './classnames';
-import ScrollLock from 'react-scrolllock';
-import FocusLock from 'react-focus-lock';
+import { type MediaViewerExtensions } from './components/types';
+import { Content } from './content';
+import { List } from './list';
+import { Blanket, SidebarWrapper } from './styleWrappers';
 import { type ViewerOptionsProps } from './viewerOptions';
 
 export type Props = {

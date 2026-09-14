@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::568f663154fd35333110385dd0c22e41>>
+ * @codegen <<SignedSource::4a71f1bafee561e44e31c57546523335>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,12 +20,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * A temporary component to represent the icon for Loom.
  * @deprecated This component has been replaced by the component `LoomIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * Please migrate any usages of this temporary component.
  *
  */
 export function LoomIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Loom',
 	testId,

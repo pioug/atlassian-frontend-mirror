@@ -14,11 +14,10 @@ import React, {
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { PopupContent } from '@atlaskit/popup/experimental';
+import { PopupContent } from '@atlaskit/popup/compositional/popup-content';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -211,7 +210,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				xcss={flyoutMenuItemContentStyles.root}
 				autoFocus={autoFocus}
 				role="dialog"
-				titleId={fg('navx-5180-flyout-dialog-aria-label') ? titleId : undefined}
+				titleId={titleId}
 				/**
 				 * Disabling GPU acceleration removes the use of `transform` by popper.js for this popup.
 				 *

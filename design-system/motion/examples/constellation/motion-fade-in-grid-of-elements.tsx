@@ -7,34 +7,40 @@ import { cloneElement, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
 	JiraIcon,
 	JiraServiceManagementIcon,
-	JiraSoftwareIcon,
-	JiraWorkManagementIcon,
 	OpsgenieIcon,
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
-import { Motion, StaggeredEntrance } from '@atlaskit/motion';
+import Motion from '@atlaskit/motion/entering/motion';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from '../utils';
+import { Block } from '../utils/blocks';
+import { RetryContainer } from '../utils/containers';
 
 const styles = cssMap({
 	entering: {
 		animationDuration: token('motion.duration.xlong'),
 		animationTimingFunction: token('motion.easing.out.practical'),
-		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token(
+			'motion.keyframe.fade.in',
+		)}`,
 	},
 	exiting: {
 		animationDuration: token('motion.duration.long'),
 		animationTimingFunction: token('motion.easing.in.practical'),
-		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token(
+			'motion.keyframe.fade.out',
+		)}`,
 	},
 });
 

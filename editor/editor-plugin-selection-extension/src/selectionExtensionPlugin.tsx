@@ -12,7 +12,7 @@ import type {
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { insertAdfAtEndOfDoc } from './pm-plugins/actions/insertAdfAtEndOfDoc';
 import { replaceWithAdf } from './pm-plugins/actions/replaceWithAdf';

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import { type Props as ObjectResultProps } from '../../src/components/Results/ObjectResult';
 import { type Props as ContainerResultProps } from '../../src/components/Results/ContainerResult';
 import { type Props as PersonResultProps } from '../../src/components/Results/PersonResult';

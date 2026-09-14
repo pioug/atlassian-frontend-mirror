@@ -8,12 +8,11 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
-import { useSmartLinkModal } from '../../../../../state/modal';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { useSmartLinkModal } from '../../../../../state/modal/useSmartLinkModal';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
-
 import { getModalContent } from './utils';
 
 const AutomationModal = lazy(

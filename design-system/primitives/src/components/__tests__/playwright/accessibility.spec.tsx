@@ -12,7 +12,7 @@ test.describe('Primitives components should pass basic aXe audit', () => {
 	});
 
 	test('Flex, should pass basic aXe audit', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/61-flex.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/61-flex.vr.ap.tsx')>(
 			'design-system',
 			'primitives',
 			'flex',
@@ -30,7 +30,7 @@ test.describe('Primitives components should pass basic aXe audit', () => {
 		await expect(page.locator('[data-testid="grid-basic"]').first()).toBeVisible();
 	});
 	test('Inline, should pass basic aXe audit', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/10-inline-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/10-inline-basic.vr.ap.tsx')>(
 			'design-system',
 			'primitives',
 			'inline-basic',
@@ -40,17 +40,15 @@ test.describe('Primitives components should pass basic aXe audit', () => {
 	});
 
 	test('Stack, should pass basic aXe audit', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/20-stack-basic-compiled.tsx')>(
-			'design-system',
-			'primitives',
-			'stack-basic-compiled',
-		);
+		await page.visitExample<
+			typeof import('../../../../examples/20-stack-basic-compiled.vr.ap.tsx')
+		>('design-system', 'primitives', 'stack-basic-compiled');
 
 		await expect(page.locator('[data-testid="stack-example"]')).toBeVisible();
 	});
 
 	test('Text, should pass basic aXe audit', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/70-text-compiled.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/70-text-compiled.vr.ap.tsx')>(
 			'design-system',
 			'primitives',
 			'text-compiled',

@@ -258,7 +258,6 @@ export default function plugin():
 
 							// Replace path and call scope.crawl() to refresh the scope bindings + references
 							replacementNode && path.replaceWith(replacementNode);
-							// @ts-ignore crawl is a valid property
 							tokenImportScope.crawl();
 						},
 					});

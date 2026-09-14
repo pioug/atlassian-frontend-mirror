@@ -1,5 +1,12 @@
 # @atlaskit/codemod-utils
 
+## 5.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
 ## 5.0.0
 
 ### Major Changes

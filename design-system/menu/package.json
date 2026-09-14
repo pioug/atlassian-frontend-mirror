@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "9.2.5",
+	"version": "10.2.0",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,8 +58,8 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -73,49 +73,32 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"ui-components": "lite-mode",
-			"design-system": "v1",
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./button-item": "./src/entry-points/menu-item/button-item.tsx",
-		"./custom-item": "./src/entry-points/menu-item/custom-item.tsx",
-		"./heading-item": "./src/entry-points/menu-item/heading-item.tsx",
-		"./link-item": "./src/entry-points/menu-item/link-item.tsx",
-		"./menu-context": "./src/entry-points/menu-context.tsx",
-		"./menu-group": "./src/entry-points/menu-section/menu-group.tsx",
-		"./popup-menu-group": "./src/entry-points/menu-section/popup-menu-group.tsx",
-		"./section": "./src/entry-points/menu-section/section.tsx",
-		"./skeleton-heading-item": "./src/entry-points/menu-item/skeleton-heading-item.tsx",
-		"./skeleton-item": "./src/entry-points/menu-item/skeleton-item.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./button-item": "./src/menu-item/button-item.tsx",
+		"./custom-item": "./src/menu-item/custom-item.tsx",
+		"./heading-item": "./src/menu-item/heading-item.tsx",
+		"./link-item": "./src/menu-item/link-item.tsx",
+		"./menu-context": "./src/internal/components/menu-context.tsx",
+		"./menu-group": "./src/menu-section/menu-group.tsx",
+		"./popup-menu-group": "./src/menu-section/popup-menu-group.tsx",
+		"./section": "./src/menu-section/section.tsx",
+		"./selection-style-context-do-not-use": "./src/internal/components/selection-style-context-do-not-use.tsx",
+		"./skeleton-heading-item": "./src/menu-item/skeleton-heading-item.tsx",
+		"./skeleton-item": "./src/menu-item/skeleton-item.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"platform-feature-flags": {
 		"platform-dst-top-layer": {

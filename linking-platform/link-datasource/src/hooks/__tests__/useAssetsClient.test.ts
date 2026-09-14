@@ -1,21 +1,25 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import {
-	fetchObjectSchema,
-	fetchObjectSchemas,
-	getWorkspaceId,
-	resolvePrimaryWorkspace,
-} from '../../services/cmdbService';
+import { fetchObjectSchema } from '../../services/fetchObjectSchema';
+import { fetchObjectSchemas } from '../../services/fetchObjectSchemas';
 import { getMeta } from '../../services/getMeta';
+import { getWorkspaceId } from '../../services/getWorkspaceId';
+import { resolvePrimaryWorkspace } from '../../services/resolvePrimaryWorkspace';
 import { type ObjectSchema } from '../../types/assets/types';
 import { useAssetsClient } from '../useAssetsClient';
 
 jest.mock('../../services/cmdbService');
+jest.mock('../../services/fetchObjectSchema');
+jest.mock('../../services/fetchObjectSchemas');
+jest.mock('../../services/getWorkspaceId');
+jest.mock('../../services/resolvePrimaryWorkspace');
+jest.mock('../../services/validateAql');
+jest.mock('../../services/__clearMetaCacheForTests');
 jest.mock('../../services/getMeta');
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const mockFetchObjectSchemasResponse = {
 	startAt: 0,

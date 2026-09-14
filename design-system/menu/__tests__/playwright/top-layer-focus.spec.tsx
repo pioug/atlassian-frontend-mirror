@@ -28,7 +28,7 @@ const featureFlag = 'platform-dst-top-layer';
 
 test.describe('Menu top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('ButtonItem responds to keyboard activation', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -48,7 +48,7 @@ test.describe('Menu top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('LinkItem responds to keyboard navigation', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/link-item.tsx')>(
+		await page.visitExample<typeof import('../../examples/link-item.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'link-item',
@@ -67,7 +67,7 @@ test.describe('Menu top-layer — WCAG 2.1.1 Keyboard', () => {
 
 test.describe('Menu top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('focus enters and exits MenuGroup', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -88,7 +88,7 @@ test.describe('Menu top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('PopupMenuGroup receives focus when rendered', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -107,7 +107,7 @@ test.describe('Menu top-layer — WCAG 2.4.3 Focus Order', () => {
 
 test.describe('Menu top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('ButtonItem shows focus-visible when keyboard focused', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -125,7 +125,7 @@ test.describe('Menu top-layer — WCAG 2.4.7 Focus Visible', () => {
 	});
 
 	test('LinkItem shows focus-visible when keyboard focused', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/link-item.tsx')>(
+		await page.visitExample<typeof import('../../examples/link-item.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'link-item',

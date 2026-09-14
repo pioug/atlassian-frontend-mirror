@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library';
 import Lorem from 'react-lorem-component';
 
 import { axe } from '@af/accessibility-testing';

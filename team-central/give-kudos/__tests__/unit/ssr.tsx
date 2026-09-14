@@ -1,6 +1,5 @@
 import { hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
-// @ts-ignore
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 afterEach(() => {

@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Button from '@atlaskit/button/new';
-import { RadioGroup } from '@atlaskit/radio';
+import Button from '@atlaskit/button/default/button';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import type { OptionsPropType } from '@atlaskit/radio/types';
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';

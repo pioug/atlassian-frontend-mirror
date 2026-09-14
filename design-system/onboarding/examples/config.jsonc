@@ -5,13 +5,13 @@
  */
 {
   "testExamples": [
-    "00-different-spotlights.tsx",
-    "101-modal-wide-button-text.tsx",
-    "104-spotlight-target-height.tsx",
+    "00-different-spotlights.vr.ap.tsx",
+    "101-modal-wide-button-text.vr.ap.tsx",
+    "104-spotlight-target-height.vr.ap.tsx",
     "105-spotlight-target-tabs.tsx",
-    "90-spotlight-button-appearance.tsx",
-    "96-spotlight-without-pulse.tsx",
-    "99-modal-basic.tsx",
+    "90-spotlight-button-appearance.vr.ap.tsx",
+    "96-spotlight-without-pulse.vr.ap.tsx",
+    "99-modal-basic.vr.ap.tsx",
     "spotlight-dialog-placement.tsx"
   ],
   "exampleDependencies": []

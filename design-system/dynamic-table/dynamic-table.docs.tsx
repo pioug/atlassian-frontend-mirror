@@ -23,7 +23,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Stateful',
 					description: 'Stateful dynamic table example',
-					source: path.resolve(__dirname, './examples/0-stateful.tsx'),
+					source: path.resolve(__dirname, './examples/0-stateful.vr.ap.tsx'),
 				},
 				{
 					name: 'Stateless',
@@ -35,6 +35,7 @@ const documentation: StructuredContentSource = {
 				'table',
 				'dynamic-table',
 				'data',
+				'sortable',
 				'rows',
 				'columns',
 				'sorting',

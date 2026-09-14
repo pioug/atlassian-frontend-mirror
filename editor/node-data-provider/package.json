@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/node-data-provider",
-	"version": "13.0.31",
+	"version": "19.0.0",
 	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,33 +33,5 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"deprecation": "no-deprecated-imports",
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			],
-			"styling": [
-				"emotion"
-			]
-		}
-	},
-	"stricter": {
-		"no-unused-dependencies": {
-			"checkDevDependencies": true
-		}
 	}
 }

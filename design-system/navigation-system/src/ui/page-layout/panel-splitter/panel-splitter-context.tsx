@@ -1,6 +1,6 @@
 import { createContext, type MutableRefObject } from 'react';
 
-import type { TooltipProps } from '@atlaskit/tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import { type ResizeBounds } from './types';
 

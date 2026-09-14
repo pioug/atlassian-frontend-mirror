@@ -1,5 +1,47 @@
 # @atlaskit/media-svg
 
+## 3.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.0
+
+### Minor Changes
+
+- [`7a45f40a4704b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a45f40a4704b) -
+  Add missing changeset for the new @atlaskit/media-svg/media-svg-error public subpath
+
+## 3.3.0
+
+### Minor Changes
+
+- [`ae3b452f54cbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae3b452f54cbe) -
+  Add a clean granular subpath export `@atlaskit/media-svg/create-unexpected-error-callback` for
+  `createUnexpectedErrorCallback`, so the symbol has a non-deprecated import target (Volt Stage-1).
+  The existing `@atlaskit/media-svg/errors` shim is unchanged.
+
+## 3.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

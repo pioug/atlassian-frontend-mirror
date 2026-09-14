@@ -1,6 +1,6 @@
 import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
-const EXPERIMENT_NAME = 'platform_editor_static_css';
+const EXPERIMENT_NAME = 'platform_editor_renderer_static_css';
 const JSX_PRAGMA_REGEX = /\*\s*@jsx\s+jsx\b/u;
 const EMOTION_IMPORT_SOURCE_REGEX = /@jsxImportSource\s+@emotion\/react/u;
 
@@ -8,16 +8,16 @@ const EMOTION_IMPORT_SOURCE_REGEX = /@jsxImportSource\s+@emotion\/react/u;
  * Recursively checks whether a css prop expression is gated by the migration experiment.
  *
  * Handles the expected patterns:
- *   - css={[expValEquals('platform_editor_static_css', ...) && styles]}
- *   - css={expValEquals(...) ? styles : undefined}
- *   - css={expValEquals(...) && styles}
+ *   - css={[isExperimentEnabled('platform_editor_renderer_static_css') && styles]}
+ *   - css={isExperimentEnabled(...) ? styles : undefined}
+ *   - css={isExperimentEnabled(...) && styles}
  */
 function isGatedByExperiment(node: TSESTree.Node): boolean {
 	switch (node.type) {
 		case 'CallExpression':
 			return (
 				node.callee.type === 'Identifier' &&
-				node.callee.name === 'expValEquals' &&
+				node.callee.name === 'isExperimentEnabled' &&
 				node.arguments[0]?.type === 'Literal' &&
 				node.arguments[0].value === EXPERIMENT_NAME
 			);
@@ -73,12 +73,11 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 		type: 'problem',
 		docs: {
 			description:
-				'Enforce that compiled css props on components returned from withCompiledMigration are gated behind the platform_editor_static_css experiment.',
-			recommended: 'error',
+				'Enforce that compiled css props on components returned from withCompiledMigration are gated behind the platform_editor_renderer_static_css experiment.',
 		},
 		messages: {
-			missingGate: `The css prop on a component wrapped with withCompiledMigration must be gated behind the '${EXPERIMENT_NAME}' experiment. Use css={[expValEquals('${EXPERIMENT_NAME}', 'isEnabled', true) && styles]}.`,
-			missingCssProp: `A component wrapped with withCompiledMigration is missing a css prop. Did you forget to apply the compiled styles? Use css={[expValEquals('${EXPERIMENT_NAME}', 'isEnabled', true) && styles]}.`,
+			missingGate: `The css prop on a component wrapped with withCompiledMigration must be gated behind the '${EXPERIMENT_NAME}' experiment. Use css={[isExperimentEnabled('${EXPERIMENT_NAME}') && styles]}.`,
+			missingCssProp: `A component wrapped with withCompiledMigration is missing a css prop. Did you forget to apply the compiled styles? Use css={[isExperimentEnabled('${EXPERIMENT_NAME}') && styles]}.`,
 			emotionPragma: `This file uses the emotion JSX pragma but passes a css prop to a migration-wrapped component. The css prop should contain compiled styles, so this file should not use the emotion pragma.`,
 		},
 		schema: [],

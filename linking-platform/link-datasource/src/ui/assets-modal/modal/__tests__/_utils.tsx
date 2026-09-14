@@ -14,10 +14,10 @@ import {
 } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
-import { EVENT_CHANNEL } from '../../../../analytics';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { useAssetsClient, type UseAssetsClientState } from '../../../../hooks/useAssetsClient';
 import {
 	type DatasourceTableState,

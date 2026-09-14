@@ -8,7 +8,7 @@ import React from 'react';
 import memoizeOne from 'memoize-one';
 
 import type { RendererContext } from '../react/types';
-import type { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import { getNodeRenderer } from '@atlaskit/editor-common/extensions';
 import type {
 	ExtensionHandlers,
@@ -34,12 +34,12 @@ interface Props {
 		node: ExtensionParams<Parameters>;
 		result?: JSX.Element | null;
 	}) => JSX.Element;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	content?: any;
 	extensionHandlers?: ExtensionHandlers;
 	extensionKey: string;
 	extensionType: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getContent?: () => any;
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
@@ -92,7 +92,7 @@ export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 		extensionType,
 		extensionKey,
 		parameters,
-		content,
+		getContent,
 		text,
 		type,
 		localId,
@@ -138,12 +138,15 @@ export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 		) => {
 			const fragmentLocalId = marks?.find((m) => m.type.name === 'fragment')?.attrs?.localId;
 
+			// Extension handlers read the macro body off `node.content`, so this is the one place that
+			// always has to serialize. `getContent` is what makes it a single pass instead of one per
+			// ancestor node.
 			const node = {
 				type,
 				extensionKey,
 				extensionType,
 				parameters,
-				content: content || text,
+				content: getContent?.() || text,
 				localId,
 				fragmentLocalId,
 			};
@@ -182,7 +185,7 @@ export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 		[
 			actions,
 			children,
-			content,
+			getContent,
 			extensionHandlers,
 			extensionKey,
 			extensionType,

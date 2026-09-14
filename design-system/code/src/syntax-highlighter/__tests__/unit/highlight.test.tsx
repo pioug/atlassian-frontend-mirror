@@ -8,7 +8,6 @@
 import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import refractor from 'refractor';
-
 import Highlight from '../../async';
 import { type SyntaxHighlighterProps } from '../../types';
 
@@ -57,7 +56,7 @@ describe('Highlight', () => {
 		const highlight = <Highlight {...props} language={undefined} text={javaCodeLine} />;
 		render(highlight);
 
-		expect(refractorSpy).not.toBeCalled();
+		expect(refractorSpy).not.toHaveBeenCalled();
 		expect(screen.getByText(javaCodeLine)).toBeInTheDocument();
 	});
 
@@ -70,7 +69,7 @@ describe('Highlight', () => {
 		render(highlight);
 
 		expect(screen.getByText(javaCodeLine)).toBeInTheDocument();
-		expect(refractorSpy).toBeCalled();
+		expect(refractorSpy).toHaveBeenCalled();
 		expect(refractorSpy).toThrow();
 	});
 
@@ -82,7 +81,7 @@ describe('Highlight', () => {
 		expect(screen.getByText('num')).toBeInTheDocument();
 		expect(screen.getByText('=')).toBeInTheDocument();
 		expect(screen.getByText('21')).toBeInTheDocument();
-		expect(refractorSpy).toBeCalledTimes(process.env.IS_REACT_18_STRICT_MODE ? 2 : 1);
+		expect(refractorSpy).toHaveBeenCalledTimes(process.env.IS_REACT_18_STRICT_MODE ? 2 : 1);
 		expect(container.querySelector('code')).toBeInTheDocument();
 	});
 

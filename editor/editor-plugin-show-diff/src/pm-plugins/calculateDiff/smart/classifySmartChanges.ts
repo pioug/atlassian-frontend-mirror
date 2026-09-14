@@ -2,8 +2,10 @@ import type { Change } from 'prosemirror-changeset';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import { buildCharsByOffset } from '../../utils/charsByOffset';
+
 import { makePromotedChange, mergeOverlappingByNewDocRange, rangesOverlap } from './helpers';
-import { buildCharsByOffset, countWords, segmentSentences, segmentWordSpans } from './segmentText';
+import { countWords, segmentSentences, segmentWordSpans } from './segmentText';
 import { resolveThresholds, type SmartDiffThresholds } from './thresholds';
 
 export type ClassifySmartChangesArgs = {
@@ -214,7 +216,6 @@ const TEXT_BLOCK_TYPES = new Set<string>(['paragraph', 'heading']);
  *   layoutColumn → layoutSection, tableCell/tableHeader → tableRow → table.
  */
 const RIGID_CHILD_TYPES = new Set<string>(['layoutColumn', 'tableCell', 'tableHeader']);
-const TABLE_TYPE = 'table';
 
 /**
  * Emit a single whole-block (node-level) change covering both sides of a group. Used for
@@ -261,6 +262,13 @@ const classifyBlockGroup = (
 	// Node-type / structural change: the whole block was replaced. No further analysis — this
 	// is what makes list→table, paragraph→panel, heading→paragraph "just work".
 	if (blockA.node.type.name !== blockB.node.type.name) {
+		return [wholeBlockChange(blockA, blockB, changes)];
+	}
+
+	// A meaningful attribute-only change is represented by a node-boundary token. Text analysis
+	// starts inside the block, so it cannot associate that token with a sentence and would otherwise
+	// drop the change. Promote the block before choosing text or container granularity.
+	if (!blockA.node.sameMarkup(blockB.node)) {
 		return [wholeBlockChange(blockA, blockB, changes)];
 	}
 
@@ -500,8 +508,16 @@ const classifyContainer = (
 	const typeName = blockB.node.type.name;
 
 	// Tables need cell-level counting across rows; handle them specially.
-	if (typeName === TABLE_TYPE) {
+	if (typeName === 'table') {
 		return classifyTable(blockA, blockB, changes, originalDoc, newDoc, locale, thresholds);
+	}
+
+	// Container's own markup changed (same type, differing attrs) — e.g. a panel type
+	// change. It touches no inner child, so the child-density check below would drop it.
+	// Promote the whole container to a before/after change. (Table cells take the
+	// `classifyChild` path, not this one.)
+	if (!blockA.node.sameMarkup(blockB.node)) {
+		return [wholeBlockChange(blockA, blockB, changes)];
 	}
 
 	const childrenB = childRefs(blockB);
@@ -697,6 +713,15 @@ const classifyChild = (
 		const childrenB = childRefs(blockB);
 		const childrenA = wrapperA ? childRefs(wrapperA) : [];
 		const out: Change[] = [];
+
+		// An attribute-only change on the wrapper itself (e.g. a table cell's
+		// `background`) sits on the node boundary, not inside any inner child, so the
+		// recursion below would emit nothing and the change would be dropped. Emit a
+		// whole-wrapper change instead, which also subsumes any inner content change.
+		if (wrapperA && !wrapperA.node.sameMarkup(blockB.node)) {
+			out.push(makePromotedChange(wrapperA.from, wrapperA.to, blockB.from, blockB.to, 'node'));
+			return out;
+		}
 		// LCS-align inner children (mirrors classifyContainer) so a paragraph inserted/deleted
 		// inside the cell/column does not mis-pair every subsequent inner child by index. We never
 		// promote the wrapper itself here — we only classify each inner child.

@@ -1,0 +1,43 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
+
+import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
+import { default as StoryPoints } from '../../src/view/FlexibleCard/components/elements/story-points-element';
+import { getContext } from '../utils/flexible-ui';
+import { HorizontalWrapper } from '../utils/vr-test';
+import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import '../utils/vr-preload-metadata-icons';
+
+const context = getContext({
+	storyPoints: 3,
+});
+
+const overrideCss = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'> span': {
+		backgroundColor: token('color.background.accent.blue.subtle'),
+	},
+});
+
+export default (): JSX.Element => {
+	return (
+		<VRTestWrapper>
+			<FlexibleCardContext.Provider value={{ data: context }}>
+				<h5>Default View</h5>
+				<HorizontalWrapper>
+					<StoryPoints testId="vr-test-badge-storyPoint" />
+				</HorizontalWrapper>
+				<h5>Override CSS</h5>
+				<HorizontalWrapper>
+					<StoryPoints css={overrideCss} />
+				</HorizontalWrapper>
+			</FlexibleCardContext.Provider>
+		</VRTestWrapper>
+	);
+};

@@ -1,11 +1,12 @@
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type {
 	EditorAnalyticsAPI,
 	InputMethodInsertMedia,
 	InsertEventPayload,
 	MediaSwitchType,
+	// oxlint-disable-next-line import/no-duplicates
 } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -40,7 +41,7 @@ import { safeInsert as pmSafeInsert, removeSelectedNode } from '@atlaskit/editor
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaState } from '../../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';

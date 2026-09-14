@@ -1,4 +1,5 @@
 export { default as zh } from './zh';
+export { default as zh_TW } from './zh_TW';
 export { default as cs } from './cs';
 export { default as da } from './da';
 export { default as nl } from './nl';
@@ -22,3 +23,4 @@ export { default as ru } from './ru';
 export { default as sk } from './sk';
 export { default as es } from './es';
 export { default as sv } from './sv';
+export { default as tr } from './tr';

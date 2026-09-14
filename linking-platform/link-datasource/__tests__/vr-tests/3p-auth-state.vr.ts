@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import AuthState from '../../examples/issue-like-table-3p-unauth';
+import AuthState from '../../examples/issue-like-table-3p-unauth.vr.ap';
 
 snapshot(AuthState, {
 	description: '3P auth empty state',

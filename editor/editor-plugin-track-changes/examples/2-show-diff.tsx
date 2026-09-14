@@ -12,7 +12,7 @@ import {
 	useConfluenceFullPagePreset,
 	getExamplesProviders,
 } from '@af/editor-examples-helpers/example-presets';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -91,7 +91,7 @@ function Editor(): React.JSX.Element {
 				},
 			},
 		},
-		[providers],
+		providers,
 	);
 
 	// ------------------------------------------------------------------

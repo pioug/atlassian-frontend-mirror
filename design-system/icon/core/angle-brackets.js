@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f7b24824c84b534a59c0f495a8a5cc05>>
+ * @codegen <<SignedSource::fe170e3e7b80264b949b54a1ecf34342>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "AngleBrackets".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const AngleBracketsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const AngleBracketsIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "AngleBracketsIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m4.315 14.445 6-13.5 1.37.61-6 13.5zM13.982 10l-2.925 2.145.886 1.21 3.75-2.75a.75.75 0 0 0 0-1.21l-3.75-2.75-.886 1.21zM2.018 6l2.926 2.145-.888 1.21-3.75-2.75a.75.75 0 0 1 0-1.21l3.75-2.75.888 1.21z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

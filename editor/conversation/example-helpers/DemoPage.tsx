@@ -11,7 +11,7 @@ import type { State } from '../src/internal/store';
 import { MOCK_USERS } from './MockData';
 
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 const DUMMY_CODE = `
 class Main() {

@@ -5,13 +5,15 @@
 
 import React, { useState } from 'react';
 
-import Lorem from 'react-lorem-component';
-
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer, DrawerCloseButton, DrawerContent } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import { Lorem } from '../lorem';
 
 const styles = cssMap({
 	buttonLayout: {

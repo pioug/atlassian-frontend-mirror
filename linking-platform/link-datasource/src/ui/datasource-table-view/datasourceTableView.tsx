@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import {
 	useCallback,
 	useEffect,
@@ -14,21 +15,21 @@ import {
 import { css, jsx } from '@compiled/react';
 import isEqual from 'lodash/isEqual';
 
-import { withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
-import type { DatasourceParameters } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { componentMetadata } from '../../analytics/constants';
-import { startUfoExperience } from '../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
 import { useDataRenderedUfoExperience } from '../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
+import { startUfoExperience } from '../../analytics/ufoExperiences/startUfoExperience';
 import { fetchMessagesForLocale } from '../../common/utils/locale/fetch-messages-for-locale';
-import {
-	DatasourceExperienceIdProvider,
-	useDatasourceExperienceId,
-} from '../../contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
+import { useDatasourceExperienceId } from '../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import { useDeepEffect } from '../../hooks/useDeepEffect';
 import { useIsInPDFRender } from '../../hooks/useIsInPDFRender';
@@ -39,15 +40,13 @@ import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
 import { NoResults } from '../common/error-state/no-results';
 import { ProviderAuthRequired } from '../common/error-state/provider-auth-required';
-import { IssueLikeDataTableView } from '../issue-like-table';
 import EmptyState from '../issue-like-table/empty-state';
+import { IssueLikeDataTableView } from '../issue-like-table/issue-like-data-table-view';
 import type { IssueLikeDataTableViewProps } from '../issue-like-table/types';
+import type { DatasourceTableSortState } from '../issue-like-table/types';
 import { TableFooter } from '../table-footer';
 
-import {
-	getDatasourceColumnSortGetter,
-	type DatasourceTableSortState,
-} from './datasource-column-sort';
+import { getDatasourceColumnSortGetter } from './datasource-column-sort';
 import { type DatasourceTableViewProps } from './types';
 
 const containerStyles = css({
@@ -66,6 +65,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	onColumnResize,
 	wrappedColumnKeys,
 	onWrappedColumnChange,
+	onWrappedColumnsChange,
 	scrollableContainerHeight = DefaultScrollableContainerHeight,
 }: DatasourceTableViewProps) => {
 	// Local copy lets us apply in-session sort mutations without mutating external parameters.
@@ -127,9 +127,9 @@ const DatasourceTableViewWithoutAnalytics = ({
 	const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
 	/*  Need this to make sure that the datasource in the editor gets updated new info if any edits are made in the modal
-      But we don't want to call it on initial load. This screws up useDatasourceTableState's internal
-      mechanism of initial loading. Use of ref here makes it basically work as a `componentDidUpdate` but not `componentDidMount`
-   */
+			But we don't want to call it on initial load. This screws up useDatasourceTableState's internal
+			mechanism of initial loading. Use of ref here makes it basically work as a `componentDidUpdate` but not `componentDidMount`
+	 */
 	const isInitialRender = useRef(true);
 	const hasColumns = !!columns.length;
 	const isDataReady = hasColumns && responseItems.length > 0 && totalCount && totalCount > 0;
@@ -234,7 +234,13 @@ const DatasourceTableViewWithoutAnalytics = ({
 		reset({ shouldForceRequest: true });
 	}, [reset]);
 
-	if ((status === 'resolved' && !responseItems.length) || status === 'forbidden') {
+	const isResolvedWithNoResults = status === 'resolved' && !responseItems.length;
+	// With columns available the table can keep its headers and footer and show the empty state
+	// in place of the rows, instead of replacing the whole view with it.
+	const shouldRenderTableWithNoResults =
+		isResolvedWithNoResults && hasColumns && fg('platform_lp_sllv_ux_improvements');
+
+	if ((isResolvedWithNoResults && !shouldRenderTableWithNoResults) || status === 'forbidden') {
 		return <NoResults />;
 	}
 
@@ -281,6 +287,9 @@ const DatasourceTableViewWithoutAnalytics = ({
 							: {})}
 						wrappedColumnKeys={wrappedColumnKeys}
 						onWrappedColumnChange={onWrappedColumnChange}
+						{...(onWrappedColumnsChange && fg('platform_lp_sllv_table_settings_menu')
+							? { onWrappedColumnsChange }
+							: {})}
 						scrollableContainerHeight={
 							isInPDFRender
 								? undefined
@@ -295,9 +304,9 @@ const DatasourceTableViewWithoutAnalytics = ({
 				)}
 				<TableFooter
 					datasourceId={datasourceId}
-					itemCount={isDataReady ? totalCount : undefined}
+					itemCount={isDataReady ? totalCount : shouldRenderTableWithNoResults ? 0 : undefined}
 					onRefresh={onRefresh}
-					isLoading={!isDataReady || status === 'loading'}
+					isLoading={shouldRenderTableWithNoResults ? false : !isDataReady || status === 'loading'}
 					url={url}
 				/>
 			</div>
@@ -317,6 +326,7 @@ export const DatasourceTableView: ForwardRefExoticComponent<
 			| 'onVisibleColumnKeysChange'
 			| 'wrappedColumnKeys'
 			| 'onWrappedColumnChange'
+			| 'onWrappedColumnsChange'
 			| 'onColumnResize'
 			| 'onColumnSort'
 			| 'sortState'
@@ -346,6 +356,7 @@ export const DataSourceTableViewNoSuspense: ForwardRefExoticComponent<
 			| 'onVisibleColumnKeysChange'
 			| 'wrappedColumnKeys'
 			| 'onWrappedColumnChange'
+			| 'onWrappedColumnsChange'
 			| 'onColumnResize'
 			| 'onColumnSort'
 			| 'sortState'

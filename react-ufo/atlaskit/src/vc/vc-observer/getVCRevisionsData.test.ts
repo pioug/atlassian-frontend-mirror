@@ -1,11 +1,11 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isVCRevisionEnabled } from '../../config';
 import { getPageVisibilityState } from '../../hidden-timing';
 
 import { getVCRevisionsData } from './getVCRevisionsData';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockFg = fg as jest.Mock;
 
 jest.mock('../../config');

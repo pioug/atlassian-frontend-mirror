@@ -7,9 +7,10 @@ import Tooltip from '../../tooltip';
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-function runAllTimers() {
-	act(() => {
+async function runAllTimers() {
+	await act(async () => {
 		jest.runAllTimers();
+		await Promise.resolve();
 	});
 }
 
@@ -66,7 +67,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
@@ -85,15 +86,15 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Unhover trigger
 		await user.unhover(screen.getByTestId('trigger'));
 		// First runAllTimers: tooltip-manager hide delay fires, state → 'top-layer-exit'.
-		// Second runAllTimers: exit animation timeout fires, finishHideAnimation → state → 'hide'.
-		runAllTimers();
-		runAllTimers();
+		// Second runAllTimers: animation settlement completes, finishHideAnimation → state → 'hide'.
+		await runAllTimers();
+		await runAllTimers();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
@@ -111,16 +112,16 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show, hide, then show again
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		await user.unhover(screen.getByTestId('trigger'));
-		runAllTimers();
-		runAllTimers();
+		await runAllTimers();
+		await runAllTimers();
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 	});
 
@@ -137,13 +138,13 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Simulate popover light dismiss
 		const popover = screen.getByTestId('tooltip--popover');
 		simulatePopoverClose(popover);
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
@@ -161,20 +162,20 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Light dismiss
 		const popover = screen.getByTestId('tooltip--popover');
 		simulatePopoverClose(popover);
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 
 		// Unhover and re-hover to re-show
 		await user.unhover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 	});
@@ -189,7 +190,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		fireEvent.focus(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 	});
@@ -205,13 +206,13 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show via focus
 		fireEvent.focus(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Blur to hide
 		fireEvent.blur(screen.getByTestId('trigger'));
-		runAllTimers();
-		runAllTimers();
+		await runAllTimers();
+		await runAllTimers();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
@@ -229,12 +230,12 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Scroll to hide
 		fireEvent.scroll(window);
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
@@ -278,7 +279,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(onShow).toHaveBeenCalledTimes(1);
 	});
@@ -297,12 +298,12 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		// Hide tooltip
 		await user.unhover(screen.getByTestId('trigger'));
-		runAllTimers();
-		runAllTimers();
+		await runAllTimers();
+		await runAllTimers();
 
 		expect(onHide).toHaveBeenCalledTimes(1);
 	});
@@ -327,12 +328,12 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip A
 		await user.hover(screen.getByTestId('trigger-a'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip-a')).toBeInTheDocument();
 
 		// Hover trigger B. A should hide and B should show.
 		await user.hover(screen.getByTestId('trigger-b'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.queryByTestId('tooltip-a')).not.toBeInTheDocument();
 		expect(screen.getByTestId('tooltip-b')).toBeInTheDocument();
@@ -350,7 +351,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		// Empty content guard: tooltip should not be rendered
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
@@ -368,7 +369,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
@@ -386,7 +387,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Unhover to start waiting-to-hide phase
@@ -395,7 +396,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Scroll triggers isImmediate hide while in waiting-to-hide
 		fireEvent.scroll(window);
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
@@ -414,7 +415,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
@@ -434,7 +435,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		// Tooltips use popover="hint" so they do not close other popover="auto"
 		// surfaces (menus, dialogs) when shown. Browsers without hint support
@@ -455,7 +456,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		const popover = screen.getByTestId('tooltip--popover');
 		expect(popover).toHaveAttribute('role', 'tooltip');
@@ -475,7 +476,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		const popover = screen.getByTestId('tooltip--popover');
 		expect(popover).toHaveAttribute('data-popover-open');
@@ -495,7 +496,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		// The popover element should be inside the wrapper, not portalled to end of body
 		const wrapper = screen.getByTestId('wrapper');
@@ -519,7 +520,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show tooltip
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		// Hidden content should be rendered for aria-describedby
 		const hiddenContent = screen.getByTestId('tooltip-hidden');
@@ -540,7 +541,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('Content with update: function');
@@ -558,7 +559,7 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		// The popover should be in the document. The gap is applied internally
 		// by useAnchorPosition (defaults to `token('space.100', '8px')` when no
@@ -579,24 +580,24 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 
 		// Show via hover
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Hide via unhover
 		await user.unhover(screen.getByTestId('trigger'));
-		runAllTimers();
-		runAllTimers();
+		await runAllTimers();
+		await runAllTimers();
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 
 		// Show via focus
 		fireEvent.focus(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Hide via blur
 		fireEvent.blur(screen.getByTestId('trigger'));
-		runAllTimers();
-		runAllTimers();
+		await runAllTimers();
+		await runAllTimers();
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 	});
 
@@ -612,12 +613,12 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 		);
 
 		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
 
 		// Focus while already shown via hover. Should not create a second tooltip.
 		fireEvent.focus(screen.getByTestId('trigger'));
-		runAllTimers();
+		await runAllTimers();
 
 		// Still exactly one tooltip popover
 		expect(screen.getAllByTestId('tooltip--popover')).toHaveLength(1);

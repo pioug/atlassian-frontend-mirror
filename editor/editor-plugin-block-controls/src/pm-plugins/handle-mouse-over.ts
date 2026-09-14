@@ -4,9 +4,10 @@ import { isMultiBlockSelection } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
@@ -66,6 +67,23 @@ const getDefaultNodeSelector = memoizeOne(() => {
 		[...IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT, 'table'],
 	);
 });
+
+/**
+ * `panel_c1` is the nestable panel variant and renders the same DOM as `panel`, so it must
+ * suppress block controls on its first child too. No-exposure check as this runs on every
+ * mouseover.
+ */
+const isPanelNodeTypeName = (nodeTypeName: string | null | undefined): boolean => {
+	if (nodeTypeName === 'panel') {
+		return true;
+	}
+
+	return (
+		nodeTypeName === 'panel_c1' &&
+		expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+		fg('platform_editor_controls_reliable_anchor_patch_1')
+	);
+};
 
 // Block marks (e.g. font-size) wrap paragraphs in an extra div, making parentRootElement
 // the mark wrapper instead of the panel content container. When that happens, recalculate
@@ -141,6 +159,18 @@ export const handleMouseOver = (
 	const editorViewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 	const isViewMode = editorViewMode === 'view';
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
+
+	// EDITOR-7926: bail out while a diff is on screen (or a suggestion card is open) so hovering
+	// doesn't dispatch showDragHandleAt and cause the drag handle to jitter over the diff.
+	// No-exposure check as this runs on every mouseover.
+	const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
+	const isDisplayingDiff = api?.showDiff?.sharedState.currentState()?.isDisplayingChanges ?? false;
+	if (
+		(isDisplayingDiff || currentUserIntent === 'reviewing') &&
+		expValEqualsNoExposure('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	) {
+		return false;
+	}
 
 	// We shouldn't be firing mouse over transactions when the editor is disabled,
 	// except in view mode when right-side controls are enabled (show controls on block hover)
@@ -315,7 +345,7 @@ export const handleMouseOver = (
 				parentRootElement?.children[0]?.classList.contains('ProseMirror-widget');
 			if (
 				parentElement &&
-				parentElementType === 'panel' &&
+				isPanelNodeTypeName(parentElementType) &&
 				!parentElement.classList.contains('ak-editor-panel__no-icon') &&
 				(panelIndex === 0 || (firstChildIsWidget && panelIndex === 1))
 			) {

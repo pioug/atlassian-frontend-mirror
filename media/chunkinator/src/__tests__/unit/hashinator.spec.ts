@@ -1,7 +1,9 @@
-import { toArray } from 'rxjs/operators/toArray';
 import { of } from 'rxjs/observable/of';
+import { toArray } from 'rxjs/operators/toArray';
+
+import { blobToHashedBlob } from '../../blobToHashedBlob';
 import { type HashedBlob } from '../../domain';
-import { hashinator, blobToHashedBlob } from '../../hashinator';
+import { hashinator } from '../../hashinator';
 
 const crypto = {
 	subtle: {
@@ -32,10 +34,10 @@ describe('Hashinator', () => {
 		it('should convert blob to hashed blob', () => {
 			const blob = new Blob(['1234567890']);
 			mockNextDigest('1234567890');
-			return blobToHashedBlob(async (_blog) => 'fakeHash')({
+			return blobToHashedBlob(async (_blog: any) => 'fakeHash')({
 				blob: blob,
 				partNumber: 1,
-			}).then((hashedBlob) => {
+			}).then((hashedBlob: any) => {
 				expect(hashedBlob).toEqual({
 					blob,
 					hash: 'fakeHash-10',

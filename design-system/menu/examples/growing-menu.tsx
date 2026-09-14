@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+import Button from '@atlaskit/button/default/button';
+import ButtonItem from '@atlaskit/menu/button-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import ImgIcon from './common/img-icon';

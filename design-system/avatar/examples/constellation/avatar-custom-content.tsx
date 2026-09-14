@@ -3,7 +3,8 @@
  * @jsx jsx
  */
 
-import Avatar, { AvatarContent } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
+import { AvatarContent } from '@atlaskit/avatar/avatar-content';
 import { css, jsx } from '@atlaskit/css';
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import { token } from '@atlaskit/tokens';

@@ -38,10 +38,10 @@ const noChildrenStyles = cssMap({
 // This can be safely removed (and applied on Box) when tokens are on by default
 const highlightOverlayStyles = cssMap({
 	root: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		position: 'absolute',
 		inset: token('space.negative.100'),
 		gridArea: '1 / 1 / 2 / 3',

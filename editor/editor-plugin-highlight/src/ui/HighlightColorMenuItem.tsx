@@ -25,10 +25,10 @@ import {
 } from '@atlaskit/editor-palette';
 import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Bleed, Stack, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

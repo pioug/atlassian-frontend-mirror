@@ -29,6 +29,17 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 */
 			resetBaseline: EditorCommand;
 			/**
+			 * Disables (or re-enables) the ability to toggle track changes.
+			 *
+			 * Intended for other plugins that temporarily own the diff decorations — for example
+			 * the AI Review moment — so the toolbar button and keyboard shortcut don't fight over
+			 * the same diff. While disabled the toolbar button renders in a disabled state and
+			 * `toggleChanges` becomes a no-op.
+			 *
+			 * Callers are responsible for re-enabling (passing `false`) once they are done.
+			 */
+			setToggleChangesDisabled: (isDisabled: boolean) => EditorCommand;
+			/**
 			 * Toggles the displaying of changes in the editor.
 			 */
 			toggleChanges: EditorCommand;
@@ -64,6 +75,12 @@ export type TrackChangesPlugin = NextEditorPlugin<
 			 * This will only be false initially before any changes in the session.
 			 */
 			isShowDiffAvailable: boolean;
+			/**
+			 * Whether toggling track changes has been disabled by another plugin that currently
+			 * owns the diff decorations (see the `setToggleChangesDisabled` command).
+			 * Defaults to false.
+			 */
+			isToggleChangesDisabled: boolean;
 		};
 	}
 >;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { Box } from '@atlaskit/primitives/compiled';
-import { Radio } from '@atlaskit/radio';
+import Radio from '@atlaskit/radio/radio';
 
 export default function RadioDefaultExample(): React.JSX.Element {
 	return (

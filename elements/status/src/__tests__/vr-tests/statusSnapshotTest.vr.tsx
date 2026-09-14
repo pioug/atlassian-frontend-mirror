@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
-import SimpleStatus from '../../../examples/00-simple-status';
-import SimpleBoldStatus from '../../../examples/00-simple-bold-status';
+import SimpleStatus from '../../../examples/00-simple-status.vr.ap';
+import SimpleBoldStatus from '../../../examples/00-simple-bold-status.vr.ap';
 import {
 	NeutralStatus,
 	PurpleStatus,
@@ -8,7 +8,7 @@ import {
 	RedStatus,
 	YellowStatus,
 	GreenStatus,
-} from '../../../examples/01-status-picker';
+} from '../../../examples/01-status-picker.vr.ap';
 
 snapshot(SimpleStatus, {
 	featureFlags: {

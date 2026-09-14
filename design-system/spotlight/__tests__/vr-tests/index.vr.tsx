@@ -1,16 +1,16 @@
 /* eslint-disable @atlaskit/design-system/no-dark-theme-vr-tests */
 import { snapshot } from '@af/visual-regression';
 
-import Links from '../../examples/action-links';
-import AllPlacements from '../../examples/all-placements';
-import Card from '../../examples/card';
-import FullWidthTarget from '../../examples/full-width-target';
-import Offset from '../../examples/offset';
-import OnModal from '../../examples/on-modal';
-import OverlayingUI from '../../examples/overlaying-ui';
-import Reflow from '../../examples/reflow';
-import StepVariants from '../../examples/step-variants';
-import NoMedia from '../../examples/without-image';
+import Links from '../../examples/action-links.vr.ap';
+import AllPlacements from '../../examples/all-placements.vr.ap';
+import Card from '../../examples/card.vr.ap';
+import FullWidthTarget from '../../examples/full-width-target.vr.ap';
+import Offset from '../../examples/offset.vr.ap';
+import OnModal from '../../examples/on-modal.vr.ap';
+import OverlayingUI from '../../examples/overlaying-ui.vr.ap';
+import Reflow from '../../examples/reflow.vr.ap';
+import StepVariants from '../../examples/step-variants.vr.ap';
+import NoMedia from '../../examples/without-image.vr.ap';
 
 snapshot(Card, {
 	featureFlags: {

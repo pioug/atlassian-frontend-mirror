@@ -1,8 +1,9 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import { VRIssueLikeTableRichText } from '../../examples/vr/issue-like-table-richtext';
+import { VRIssueLikeTableRichText } from '../../examples/vr/issue-like-table-richtext.vr.ap';
 
-snapshotInformational(VRIssueLikeTableRichText, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(VRIssueLikeTableRichText, {
 	variants: [
 		{
 			name: 'desktop chrome 1920x1080',

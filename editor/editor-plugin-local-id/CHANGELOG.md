@@ -1,5 +1,387 @@
 # @atlaskit/editor-plugin-local-id
 
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.10
+
+### Patch Changes
+
+- [`a945d3cbd6408`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a945d3cbd6408) -
+  Clean up experiment `platform_editor_ai_template_localids`
+- Updated dependencies
+
+## 14.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.11
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 13.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`bbd0908b16b23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbd0908b16b23) -
+  Under `platform_editor_local_id_reliability`, improve local ID reliability by validating blank IDs
+  and rescanning the document before Rovo reads it.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.4
+
+### Patch Changes
+
+- [`dc25bddeafe4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc25bddeafe4d) -
+  Clean up experiment `platform_editor_ai_tablecell_localids`
+- Updated dependencies
+
+## 12.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- [`0eee224e21f86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eee224e21f86) -
+  Clean up feature gate `platform_editor_use_localid_dedupe`
+- Updated dependencies
+
+## 11.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

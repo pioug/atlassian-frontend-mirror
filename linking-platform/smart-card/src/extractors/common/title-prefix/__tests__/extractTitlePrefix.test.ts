@@ -15,7 +15,7 @@ describe('extractors.title-prefix.extractTitlePrefix', () => {
 	it('returns emoji component', () => {
 		expect(
 			extractTitlePrefix(TEST_DATA_WITH_EMOJI, {
-				emoji: (emojiId, _) => emojiId,
+				emoji: (emojiId?: string) => emojiId,
 			}),
 		).toBe(TEST_EMOJI_SANITIZED);
 	});

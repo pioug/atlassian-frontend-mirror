@@ -5,7 +5,8 @@ import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
@@ -71,10 +72,18 @@ export class ResizingMarkView implements NodeView {
 		dom.setAttribute('data-layout', mark.attrs.mode);
 		dom.setAttribute('data-testid', 'ak-editor-breakout-mark');
 
-		const isResizingExperimentEnabled = expValEquals(
+		const isRemoveLeftResizeHandleEnabled = isExperimentEnabled(
+			'platform_editor_remove_left_resize_handle',
+		);
+
+		const isResizingDividersPanelsEnabled = expValEquals(
 			'platform_editor_lovability_resize_dividers_panels',
 			'isEnabled',
 			true,
+		);
+
+		const isResizingExtensionsEnabled = isExperimentEnabled(
+			'platform_editor_lovability_resize_extensions',
 		);
 
 		// DOM styles
@@ -90,13 +99,20 @@ export class ResizingMarkView implements NodeView {
 		contentDOM.style.zIndex = '1';
 
 		if (mark.attrs.width) {
-			dom.style.gridTemplateColumns = isResizingExperimentEnabled
-				? // new code - phantom left track + content + right handle
-					`${RESIZE_HANDLE_TRACK_WIDTH} max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) ${RESIZE_HANDLE_TRACK_WIDTH}`
-				: // old code - left handle + content + right handle
-					`auto max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) auto`;
+			dom.style.gridTemplateColumns =
+				isResizingDividersPanelsEnabled ||
+				isResizingExtensionsEnabled ||
+				isRemoveLeftResizeHandleEnabled
+					? // new code - phantom left track + content + right handle
+						`${RESIZE_HANDLE_TRACK_WIDTH} max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) ${RESIZE_HANDLE_TRACK_WIDTH}`
+					: // old code - left handle + content + right handle
+						`auto max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) auto`;
 		} else {
-			if (isResizingExperimentEnabled) {
+			if (
+				isResizingDividersPanelsEnabled ||
+				isResizingExtensionsEnabled ||
+				isRemoveLeftResizeHandleEnabled
+			) {
 				dom.style.gridTemplateColumns = `${RESIZE_HANDLE_TRACK_WIDTH} auto ${RESIZE_HANDLE_TRACK_WIDTH}`;
 			}
 			if (mark.attrs.mode === 'wide') {
@@ -118,13 +134,15 @@ export class ResizingMarkView implements NodeView {
 
 		const isLiveViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 		if (!isLiveViewMode) {
-			fg('platform_editor_lovability_resize_gracefully')
+			fg('platform_editor_lovability_resize_gracefully') ||
+			fg('platform_editor_lovability_resize_exts_gracefully')
 				? this.setupResizerCallbacksIfSupported(
 						dom,
 						contentDOM,
 						view,
 						mark,
-						isResizingExperimentEnabled,
+						isResizingDividersPanelsEnabled,
+						isResizingExtensionsEnabled,
 						api,
 					)
 				: this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
@@ -132,7 +150,10 @@ export class ResizingMarkView implements NodeView {
 
 		this.unsubscribeToViewModeChange = api?.editorViewMode?.sharedState.onChange((sharedState) => {
 			if (sharedState.nextSharedState?.mode !== sharedState.prevSharedState?.mode) {
-				if (fg('platform_editor_lovability_resize_gracefully')) {
+				if (
+					fg('platform_editor_lovability_resize_gracefully') ||
+					fg('platform_editor_lovability_resize_exts_gracefully')
+				) {
 					if (sharedState.nextSharedState?.mode === 'view') {
 						this.cancelScheduledResizeHandleSetup?.();
 						this.cancelScheduledResizeHandleSetup = undefined;
@@ -146,7 +167,8 @@ export class ResizingMarkView implements NodeView {
 							contentDOM,
 							view,
 							mark,
-							isResizingExperimentEnabled,
+							isResizingDividersPanelsEnabled,
+							isResizingExtensionsEnabled,
 							api,
 						);
 					}
@@ -188,21 +210,22 @@ export class ResizingMarkView implements NodeView {
 		contentDOM: HTMLElement,
 		view: EditorView,
 		mark: Mark,
-		isResizingExperimentEnabled: boolean,
+		isResizingDividersPanelsEnabled: boolean,
+		isResizingExtensionsEnabled: boolean,
 		api?: ExtractInjectionAPI<BreakoutPlugin>,
 	): void {
 		// cancel any pending setup before scheduling a new one
 		this.cancelScheduledResizeHandleSetup?.();
 		this.cancelScheduledResizeHandleSetup = undefined;
 
-		// if panels and rules support breakout resizing,
-		// set up the resizer callbacks
-		if (isResizingExperimentEnabled) {
+		// if breakout resizing is supported,
+		// continue to set up the resizer callbacks
+		if (isResizingDividersPanelsEnabled && isResizingExtensionsEnabled) {
 			this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
 			return;
 		}
 
-		// else if panels and rules don't support breakout resizing,
+		// else if breakout resizing is not supported,
 		// do NOT set up the resizer callbacks (yet)
 		// wait for the mark view DOM to be attached to the DOM first
 		this.cancelScheduledResizeHandleSetup = scheduleResizeHandleSetup(() => {
@@ -215,9 +238,15 @@ export class ResizingMarkView implements NodeView {
 			const pos = view.posAtDOM(dom, 0);
 			const nodeName = view.state.doc.nodeAt(pos)?.type.name;
 
-			// if the node is a panel or a rule, do NOT set up the resizer callbacks
+			// if the node is a panel or a rule but resizing is not supported, do NOT set up the resizer callbacks
+			// if the node is an extension but resizing is not supported, do NOT set up the resizer callbacks
 			if (
-				(nodeName && ['panel', 'rule', 'panel_c1'].includes(nodeName)) ||
+				(nodeName &&
+					['panel', 'rule', 'panel_c1'].includes(nodeName) &&
+					!isResizingDividersPanelsEnabled) ||
+				(nodeName &&
+					['extension', 'bodiedExtension', 'multiBodiedExtension'].includes(nodeName) &&
+					!isResizingExtensionsEnabled) ||
 				this.isResizingInitialised
 			) {
 				return;

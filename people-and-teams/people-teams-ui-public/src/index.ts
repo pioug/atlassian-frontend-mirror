@@ -1,1 +1,1 @@
-export { VerifiedTeamIcon } from './ui/verified-team-icon';
+export { VerifiedTeamIcon } from './ui/verified-team-icon/main';

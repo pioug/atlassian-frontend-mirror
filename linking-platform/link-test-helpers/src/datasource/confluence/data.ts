@@ -1,4 +1,4 @@
-import { type DatasourceDataResponseItem } from '@atlaskit/linking-types';
+import type { DatasourceDataResponseItem } from '@atlaskit/linking-types/datasource';
 
 import { profile as profileBase64Image } from '../../images';
 
@@ -1115,9 +1115,9 @@ const mockData: Array<DatasourceDataResponseItem> = [
 ];
 
 export const mockConfluenceData: {
+	data: DatasourceDataResponseItem[];
 	nextPageCursor: string;
 	totalIssues: number;
-	data: DatasourceDataResponseItem[];
 } = {
 	nextPageCursor: '_f_MjA=_sa_WyJkdW1teS1zb3J0LXZhbHVlcyJd',
 	totalIssues: 1357,

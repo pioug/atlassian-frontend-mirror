@@ -6,9 +6,11 @@ import userEvent from '@testing-library/user-event';
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
-import Calendar, { type CalendarProps } from '../../index';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import Calendar from '../../calendar';
 import dateToString from '../../internal/utils/date-to-string';
-import { type TabIndex, type WeekDay } from '../../types';
+import type { CalendarProps, TabIndex, WeekDay } from '../../types';
 
 const makeHandlerObject = ({
 	day,
@@ -295,6 +297,46 @@ describe('Calendar', () => {
 			const selectedDayElement = getSelectedDay();
 
 			expect(selectedDayElement).toHaveAttribute('aria-pressed', 'true');
+		});
+
+		it('should preserve the original selected date colors when the Finesse gate is disabled', () => {
+			failGate('platform-dst-tokens-finesse');
+			setup();
+
+			const selectedDayElement = getSelectedDay();
+
+			expect(selectedDayElement).toHaveCompiledCss(
+				'backgroundColor',
+				'var(--ds-background-selected,#e9f2fe)',
+			);
+			expect(selectedDayElement).toHaveCompiledCss('color', 'var(--ds-text-selected,#1868db)');
+			expect(selectedDayElement).not.toHaveCompiledCss(
+				'backgroundColor',
+				'var(--ds-background-selected-bold,#1868db)',
+			);
+		});
+
+		it('should use bold selected date colors when the Finesse gate is enabled', () => {
+			passGate('platform-dst-tokens-finesse');
+			setup();
+
+			const selectedDayElement = getSelectedDay();
+
+			expect(selectedDayElement).toHaveCompiledCss(
+				'backgroundColor',
+				'var(--ds-background-selected-bold,#1868db)',
+			);
+			expect(selectedDayElement).toHaveCompiledCss('color', 'var(--ds-text-inverse,#fff)');
+			expect(selectedDayElement).toHaveCompiledCss(
+				'backgroundColor',
+				'var(--ds-background-selected-bold-hovered,#1558bc)',
+				{ target: ':hover' },
+			);
+			expect(selectedDayElement).toHaveCompiledCss(
+				'backgroundColor',
+				'var(--ds-background-selected-bold-pressed,#123263)',
+				{ target: ':active' },
+			);
 		});
 
 		it('should render each day with a label containing the full date', () => {

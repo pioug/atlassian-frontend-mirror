@@ -7,6 +7,10 @@ test.describe('TTVC: basic page (100 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-any-number-sections', // hardcoded to 100 in the code
 		featureFlags: ['ufo_payload_use_idle_callback'],
+	} satisfies {
+		examplePage: 'basic-any-number-sections';
+		featureFlags: string[];
+		__exampleDependency?: typeof import('../../examples/03-basic-any-number-sections.tsx');
 	});
 
 	for (const viewport of viewports) {

@@ -7,9 +7,9 @@ export const i18nConversionGuide: ConversionGuide = {
 	id: 'hardcoded-string-to-formatmessage',
 	title: 'Hardcoded String to formatMessage Conversion Guide',
 	description:
-		'Comprehensive guide for converting hardcoded strings to use formatMessage or FormattedMessage from @atlassian/jira-intl or react-intl',
+		'Comprehensive guide for converting hardcoded strings to use formatMessage or FormattedMessage from @jira/platform__react-intl or react-intl',
 	purpose:
-		'This guide instructs LLM agents to convert hardcoded strings to use formatMessage or FormattedMessage. The import source depends on the file path: use @atlassian/jira-intl for Jira files (path contains "jira"), and react-intl for any non-Jira files. **CRITICAL: Check for existing imports** - If the file already imports from react-intl or react-intl, reuse that import. If the file already uses FormattedMessage, use FormattedMessage for consistency instead of useIntl + formatMessage. The goal is to find all hardcoded strings in JSX and convert them to internationalized messages.',
+		'This guide instructs LLM agents to convert hardcoded strings to use formatMessage or FormattedMessage. The import source depends on the file path: use @jira/platform__react-intl for Jira files (path contains "jira"), and react-intl for any non-Jira files. **CRITICAL: Check for existing imports** - If the file already imports from react-intl or react-intl, reuse that import. If the file already uses FormattedMessage, use FormattedMessage for consistency instead of useIntl + formatMessage. The goal is to find all hardcoded strings in JSX and convert them to internationalized messages.',
 	scope: `**CRITICAL SCOPE**: This process should **ONLY** focus on converting hardcoded strings (literal strings in JSX, eslint-disable comments for no-literal-string-in-jsx, etc.) to use formatMessage. Do NOT modify pre-existing messages that were already in the codebase, even if they have poor descriptions, incorrect placeholder names, or other quality issues. Only convert NEW hardcoded strings.
 
 **PATH SCOPE LIMITATION**: If a specific file, package name, or path is provided, **ONLY** find and convert hardcoded strings within that specified path. Do NOT modify files outside the provided scope.
@@ -24,7 +24,7 @@ export const i18nConversionGuide: ConversionGuide = {
 		'**CRITICAL: Check for existing imports** - If the file already imports from react-intl or react-intl, REUSE that import. Only add a new import if none exists.',
 		'**CRITICAL: Match existing pattern** - If the file already uses FormattedMessage, use FormattedMessage with inline props. If it uses useIntl + formatMessage, use defineMessage + formatMessage. Match the existing code style.',
 		"**CRITICAL: When to use formatMessage() vs <FormattedMessage>** - Use formatMessage() for prop values (labels, placeholders, aria-labels), computed values, event handlers, and non-JSX contexts. Use <FormattedMessage> for JSX content where you'd otherwise write {formatMessage(...)}.",
-		'Import: Use "@atlassian/jira-intl" for Jira files or "react-intl" for non-Jira files. Note: "react-intl" and "react-intl" are treated the same way - both use the same API. When adding to existing imports, maintain alphabetical order: import { defineMessage, FormattedMessage } from "react-intl";',
+		'Import: Use "@jira/platform__react-intl" for Jira files or "react-intl" for non-Jira files. Note: "react-intl" and "react-intl" are treated the same way - both use the same API. When adding to existing imports, maintain alphabetical order: import { defineMessage, FormattedMessage } from "react-intl";',
 		'**CRITICAL: FormattedMessage pattern** - When using FormattedMessage, define message details directly inline: <FormattedMessage id="..." defaultMessage="..." description="..." />. NO need to use defineMessage - FormattedMessage accepts these props directly.',
 		'**CRITICAL: formatMessage pattern** - When using useIntl + formatMessage, create message constants using defineMessage (singular) at the top of the file - use defineMessage for each individual message, NOT defineMessages. Then use: const { formatMessage } = useIntl(); formatMessage(messageKey)',
 		'**CRITICAL: i18n ID Format**: For files in `/next/packages/`, i18n ids MUST start with the package name (with dashes). Format: `{package-name}.{component-or-feature}.{message-key}`. Example: For package `comment-extension-handlers`, use `comment-extension-handlers.legacy-content-modal.close-button`. For package `rovo-ai-search`, use `rovo-ai-search.view-profile-text` or `rovo-ai-search.knowledge-cards.copy-email-address`.',
@@ -41,7 +41,7 @@ export const i18nConversionGuide: ConversionGuide = {
 			before: `<Button style={styles} onClick={onClearVersion}>
   Exit {description.join(' ')}
 </Button>`,
-			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@jira/platform__react-intl';
 
 const exitButton = defineMessage({
   id: 'rovo-ai-search.exit-button.ai-non-final',
@@ -72,7 +72,7 @@ export function MyComponent() {
     </Badge>
   )}
 </Box>`,
-			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@jira/platform__react-intl';
 
 const statusLabel = defineMessage({
   id: 'filter.status-label.ai-non-final',
@@ -105,7 +105,7 @@ export function MyComponent() {
 			title: 'Dynamic Text Content',
 			description: 'Converting conditional hardcoded strings',
 			before: `<Text>{state.hasMore ? 'Show more' : 'Show less'}</Text>`,
-			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@jira/platform__react-intl';
 
 const showMore = defineMessage({
   id: 'work-item.comments.show-more.ai-non-final',
@@ -137,7 +137,7 @@ export function MyComponent() {
 			title: 'ICU Format for Numeric Values',
 			description: 'Converting numeric placeholders to ICU plural format',
 			before: `const moreMessage = \`+ \${count} more\`;`,
-			after: `import { useIntl, defineMessage } from '@atlassian/jira-intl';
+			after: `import { useIntl, defineMessage } from '@jira/platform__react-intl';
 
 const moreProjectsMessage = defineMessage({
   id: 'app.more-projects.ai-non-final',
@@ -271,7 +271,7 @@ export function MyComponent() {
 		"**CRITICAL**: Converting strings that don't have eslint-disable comments - only convert strings with @atlassian/i18n/no-literal-string-in-jsx eslint-disable comments. Field labels and other strings without these comments should remain as-is.",
 		'**CRITICAL**: Converting/removing eslint-disable for strings matching ignore patterns - technical/non-user-facing strings should remain hardcoded',
 		'**CRITICAL**: Forgetting to remove eslint-disable comments after conversion - once a string is converted to use formatMessage/FormattedMessage, the eslint-disable comment must be removed',
-		'Using wrong import path - "jira" path needs @atlassian/jira-intl (with eslint-disable), others use react-intl',
+		'Using wrong import path - "jira" path needs @jira/platform__react-intl (with eslint-disable), others use react-intl',
 		'Adding eslint-disable for defineMessage in non-Jira files or forgetting it in Jira files',
 		'Missing useIntl hook when using formatMessage pattern, generic placeholder names, descriptions < 40 chars, or descriptions that do not follow the translator guidelines (missing UI element location, missing action explanation, etc.)',
 		"Using placeholder names that don't match variable names - placeholder names in defaultMessage must exactly match the keys in the values object or formatMessage parameters",

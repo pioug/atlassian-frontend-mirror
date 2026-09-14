@@ -1,33 +1,41 @@
-import * as x from '@atlaskit/analytics-next';
-import type { CreateEventMap } from '@atlaskit/analytics-next/types';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateEventMap, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import withAnalyticsContextHoc, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEventsHoc, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react';
 
 export const withAnalyticsEvents: (
 	createEventMap?: CreateEventMap,
 ) => <Props, Component>(
 	WrappedComponent: (
-		| React.ComponentType<x.WithAnalyticsEventsProps & Props>
-		| React.ForwardRefExoticComponent<Omit<x.WithAnalyticsEventsProps, 'ref'> & Props>
+		| React.ComponentType<WithAnalyticsEventsProps & Props>
+		| React.ForwardRefExoticComponent<Omit<WithAnalyticsEventsProps, 'ref'> & Props>
 	) &
 		Component,
 ) => ForwardRefExoticComponent<
 	PropsWithoutRef<
-		JSX.LibraryManagedAttributes<Component, Omit<Props, keyof x.WithAnalyticsEventsProps>>
+		JSX.LibraryManagedAttributes<Component, Omit<Props, keyof WithAnalyticsEventsProps>>
 	> &
 		RefAttributes<any>
-> = x.withAnalyticsEvents;
+> = withAnalyticsEventsHoc;
 export const withAnalyticsContext: (
 	defaultData?: any,
 ) => <Props, Component>(
 	WrappedComponent: React.ComponentType<Props> & Component,
 ) => ForwardRefExoticComponent<
-	PropsWithoutRef<JSX.LibraryManagedAttributes<Component, Props & x.WithContextProps>> &
+	PropsWithoutRef<JSX.LibraryManagedAttributes<Component, Props & WithContextProps>> &
 		RefAttributes<any>
-> = x.withAnalyticsContext;
+> = withAnalyticsContextHoc;
 export const createAndFire: (
-	payload: x.AnalyticsEventPayload,
-) => (createAnalyticsEvent: x.CreateUIAnalyticsEvent) => x.UIAnalyticsEvent =
-	x.createAndFireEvent('atlaskit');
+	payload: AnalyticsEventPayload,
+) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent =
+	createAndFireEvent('atlaskit');
 export const defaultAnalyticsAttributes: {
 	componentName: string;
 	packageName: string;

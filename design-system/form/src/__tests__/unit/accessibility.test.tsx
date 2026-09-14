@@ -1,31 +1,29 @@
 import React, { type ReactElement } from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import { axe } from '@af/accessibility-testing';
-import Checkbox from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import noop from '@atlaskit/ds-lib/noop';
-import Range from '@atlaskit/range';
-import TextField from '@atlaskit/textfield';
+import Range from '@atlaskit/range/range';
+import TextField from '@atlaskit/textfield/text-field';
 
-import Form, {
-	CharacterCounterField,
-	CheckboxField,
-	ErrorMessage,
-	Field,
-	Fieldset,
-	FormFooter,
-	FormHeader,
-	FormSection,
-	HelperMessage,
-	Label,
-	Legend,
-	RangeField,
-	RequiredAsterisk,
-	ValidMessage,
-} from '../../index';
+import Form from '../../form';
+import { CharacterCounterField } from '../../character-counter-field';
+import { CheckboxField } from '../../checkbox-field';
+import { ErrorMessage } from '../../error-message';
+import Field from '../../field';
+import { Fieldset } from '../../fieldset';
+import { FormFooter } from '../../form-footer';
+import { FormHeader } from '../../form-header';
+import { FormSection } from '../../form-section';
+import { HelperMessage } from '../../helper-message';
+import { Label } from '../../label';
+import { Legend } from '../../legend';
+import { RangeField } from '../../range-field';
+import { RequiredAsterisk } from '../../required-asterisk';
+import { ValidMessage } from '../../valid-message';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('should pass axe accessibility testing', () => {

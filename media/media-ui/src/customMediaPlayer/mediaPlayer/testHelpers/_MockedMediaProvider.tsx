@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { MediaApi, MediaClientConfig } from '@atlaskit/media-client';
 import {
 	isUploadingFileState,
@@ -7,6 +8,8 @@ import {
 	type ResponseFileItem,
 	type UploadingFileState,
 } from '@atlaskit/media-client';
+import type { MediaSettings } from '@atlaskit/media-client-react/media-parsed-settings';
+import { MockedMediaProvider } from '@atlaskit/media-client-react/mocked-media-provider';
 import {
 	createEmptyFileItem,
 	createErrorFileState,
@@ -17,13 +20,10 @@ import {
 	type SetItems,
 	createMockedMediaApi,
 } from '@atlaskit/media-client/test-helpers';
-import type { MediaStore } from '@atlaskit/media-state/media-store';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import type { MediaStore } from '@atlaskit/media-state/media-store';
 
-import { MockedMediaProvider } from '@atlaskit/media-client-react/test-helpers';
-import { type MediaSettings } from '@atlaskit/media-client-react';
-
-import { dataURItoBlob } from './_helpers';
+import { dataURItoBlob } from './dataURItoBlob';
 
 type ComponentWithChildren = React.ComponentType<{ children: React.ReactNode }>;
 

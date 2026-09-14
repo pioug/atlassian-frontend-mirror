@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import Popup from '@atlaskit/popup';
-import Tooltip from '@atlaskit/tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { Popup } from '@atlaskit/popup/popup';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
 
@@ -134,6 +135,34 @@ describe('SideNavPanelSplitter', () => {
 			expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 			expect(onCollapse).not.toHaveBeenCalled();
 		});
+	});
+
+	it('should display the tooltip with the built-in shortcut when desired FHS features are enabled', async () => {
+		failGate('navx-full-height-sidebar');
+		passGate('platform-dst-keep-desired-fhs-features');
+		const user = createUser();
+		setMediaQuery('(min-width: 64rem)', { initial: true });
+
+		render(
+			<Root isSideNavShortcutEnabled>
+				<SideNav testId="sidenav">
+					<SideNavPanelSplitter
+						label="Resize or collapse side nav"
+						testId="panel-splitter"
+						tooltipContent="Double click to collapse"
+					/>
+				</SideNav>
+			</Root>,
+		);
+
+		await user.hover(screen.getByTestId('panel-splitter'));
+		act(() => {
+			jest.runAllTimers();
+		});
+
+		expect(
+			await screen.findByRole('tooltip', { name: 'Double click to collapse Ctrl [' }),
+		).toBeInTheDocument();
 	});
 
 	ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {

@@ -1,7 +1,7 @@
 import { type ComponentType, type ReactNode } from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type Placement } from '@atlaskit/popper';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { Placement } from '@atlaskit/popper/main';
 
 import { type TooltipPrimitiveProps } from './tooltip-primitive';
 
@@ -14,7 +14,17 @@ export interface TriggerProps {
 	onMouseOver: (event: React.MouseEvent<HTMLElement>) => void;
 	onMouseOut: (event: React.MouseEvent<HTMLElement>) => void;
 	onMouseMove: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
+	/**
+	 * Drives `hideTooltipOnMouseDown`. With `platform-dst-top-layer-tooltip` it
+	 * also records the press, which is what keeps the tooltip hidden after native
+	 * light dismiss. Must be spread onto the trigger, or a pointer move inside the
+	 * trigger re-shows a tooltip the browser just dismissed.
+	 */
 	onMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
+	/**
+	 * Drives `hideTooltipOnClick`. Inert with `platform-dst-top-layer-tooltip`:
+	 * native light dismiss has already hidden the tooltip by the time `click` fires.
+	 */
 	onClick: (event: React.MouseEvent<HTMLElement>) => void;
 	onFocus: (event: React.FocusEvent<HTMLElement>) => void;
 	onBlur: (event: React.FocusEvent<HTMLElement>) => void;
@@ -71,6 +81,10 @@ export interface TooltipProps {
 	/**
 	 * Hide the tooltip when the click event is triggered. Use this when the tooltip should be hidden if `onClick` react synthetic event
 	 * is triggered, which happens after `onMouseDown` event.
+	 *
+	 * **With `platform-dst-top-layer-tooltip` this has no observable effect:**
+	 * native `popover="hint"` light dismiss already hid the tooltip on pointerup,
+	 * before `click` fires.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideTooltipOnClick?: boolean;
@@ -79,6 +93,11 @@ export interface TooltipProps {
 	 * Hide the tooltip when the mousedown event is triggered. This should be
 	 * used when tooltip should be hidden if `onMouseDown` react synthetic event
 	 * is triggered, which happens before `onClick` event.
+	 *
+	 * **With `platform-dst-top-layer-tooltip` this is still honoured**, and is the
+	 * only way to hide before the press completes. Without it, native
+	 * `popover="hint"` light dismiss hides on pointerup instead. Either way the
+	 * tooltip stays hidden until the trigger is re-entered or blurred.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideTooltipOnMouseDown?: boolean;

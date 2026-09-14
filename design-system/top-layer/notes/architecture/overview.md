@@ -9,6 +9,11 @@ animations, role-based focus management, light-dismiss, and nested-popover focus
 does **not** know about positioning — compose with `useAnchorPosition` when anchor positioning is
 needed.
 
+The shared visibility terminology and state machine are defined by the
+[canonical visibility lifecycle contract](./animations.md#canonical-visibility-lifecycle-contract).
+In particular, `isOpen` expresses controlled intent while the primitive owns lifecycle phase and
+host mounting.
+
 `Popover` covers three usage patterns:
 
 1. **Button opens anchored content** — pair with `useAnchorPosition` and own the trigger yourself.

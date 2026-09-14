@@ -1,7 +1,7 @@
 import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import Flag from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
 
 const FlagSuccessExample = (): React.JSX.Element => {
 	return (

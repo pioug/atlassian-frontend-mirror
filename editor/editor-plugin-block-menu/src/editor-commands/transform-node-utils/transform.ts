@@ -1,21 +1,59 @@
 import { isNodeTypeValidChildOf } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getTargetNodeTypeNameInContext } from '../transform-node-utils/utils';
 
 import { TRANSFORMATION_MATRIX, TRANSFORMATION_MATRIX_PANEL_C1 } from './TRANSFORMATION_MATRIX';
-import type { NodeTypeName, TransformStepContext } from './types';
+import type { NodeTypeName, TargetNodeMarks, TransformStepContext } from './types';
 import { getNodeName, toNodeTypeValue } from './types';
 
 interface GetOutputNodesArgs {
 	isNested: boolean;
+	marksToAdd?: TargetNodeMarks;
+	marksToRemove?: string[];
 	parentNode?: PMNode;
 	schema: Schema;
 	sourceNodes: PMNode[];
 	targetAttrs?: Record<string, unknown>;
 	targetNodeType: NodeType;
 }
+
+const applyTargetNodeMarks = (
+	node: PMNode,
+	targetNodeType: NodeType,
+	marksToAdd: TargetNodeMarks | undefined,
+	marksToRemove: string[] | undefined,
+	schema: Schema,
+): PMNode => {
+	let nextNode = node;
+
+	if (node.type === targetNodeType) {
+		const marksAfterRemovals = (marksToRemove ?? []).reduce((currentMarks, name) => {
+			const markType = schema.marks[name];
+			return markType ? markType.removeFromSet(currentMarks) : currentMarks;
+		}, node.marks);
+		const marks = Object.entries(marksToAdd ?? {}).reduce((currentMarks, [name, attrs]) => {
+			const markType = schema.marks[name];
+			return markType
+				? markType.create(attrs).addToSet(markType.removeFromSet(currentMarks))
+				: currentMarks;
+		}, marksAfterRemovals);
+		nextNode = node.mark(marks);
+	}
+
+	if (nextNode.childCount === 0) {
+		return nextNode;
+	}
+
+	const children: PMNode[] = [];
+	nextNode.forEach((child) =>
+		children.push(applyTargetNodeMarks(child, targetNodeType, marksToAdd, marksToRemove, schema)),
+	);
+	return nextNode.copy(Fragment.fromArray(children));
+};
 
 // Upgrade broken-out panel nodes to panel_c1 if the parent node allows it
 export const upgradePanelNodesToPanelC1 = (
@@ -53,6 +91,8 @@ export const upgradePanelNodesToPanelC1 = (
  * @param args.schema - The schema to use for the conversion
  * @param args.isNested - Whether the conversion is nested
  * @param args.targetAttrs - The attributes to use for the conversion
+ * @param args.marksToAdd - Block marks to add or replace on converted target nodes
+ * @param args.marksToRemove - Block marks to remove from converted target nodes
  * @param args.parentNode - The parent node of the selected node
  * @returns The converted list of nodes
  */
@@ -62,6 +102,8 @@ export const convertNodesToTargetType = ({
 	schema,
 	isNested,
 	targetAttrs,
+	marksToAdd,
+	marksToRemove,
 	parentNode,
 }: GetOutputNodesArgs): PMNode[] => {
 	const sourceNode = sourceNodes.at(0);
@@ -95,15 +137,27 @@ export const convertNodesToTargetType = ({
 		targetAttrs,
 	};
 
-	if (!steps || steps.length === 0) {
-		return sourceNodes;
+	const shouldApplyTargetNodeMarkChanges =
+		isExperimentEnabled('platform_editor_block_menu_small_text') &&
+		Boolean(marksToAdd || marksToRemove);
+
+	if (!shouldApplyTargetNodeMarkChanges) {
+		if (!steps || steps.length === 0) {
+			return sourceNodes;
+		}
+
+		const resultNodes = steps.reduce((nodes, step) => step(nodes, context), sourceNodes);
+		return upgradePanelNodesToPanelC1(resultNodes, parentNode, schema);
 	}
 
-	const resultNodes = steps.reduce((nodes, step) => {
-		return step(nodes, context);
-	}, sourceNodes);
-
-	return upgradePanelNodesToPanelC1(resultNodes, parentNode, schema);
+	const resultNodes =
+		steps?.reduce((nodes, step) => step(nodes, context), sourceNodes) ?? sourceNodes;
+	const upgradedNodes = steps?.length
+		? upgradePanelNodesToPanelC1(resultNodes, parentNode, schema)
+		: resultNodes;
+	return upgradedNodes.map((node) =>
+		applyTargetNodeMarks(node, targetNodeType, marksToAdd, marksToRemove, schema),
+	);
 };
 
 export const isTransformDisabledBasedOnStepsConfig = (

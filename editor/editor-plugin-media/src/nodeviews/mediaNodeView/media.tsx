@@ -4,8 +4,8 @@ import type { UnbindFn } from 'bind-event-listener';
 import { bind } from 'bind-event-listener';
 import memoizeOne from 'memoize-one';
 
-import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type {
 	ContextIdentifierProvider,
@@ -28,16 +28,17 @@ import type {
 import { Card, CardLoading } from '@atlaskit/media-card';
 import type { Identifier } from '@atlaskit/media-client';
 import type { SSR } from '@atlaskit/media-common';
-import type { MediaClientConfig } from '@atlaskit/media-core';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import type {
 	MediaOptions,
+	MediaRenderEventPayload,
 	getPosHandler as ProsemirrorGetPosHandler,
 	ReactNodeProps,
 } from '../../types';
@@ -52,6 +53,7 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	getPos: ProsemirrorGetPosHandler;
 	isAIGenerating?: boolean;
+	isCwrAIGenerating?: boolean;
 	isLoading?: boolean;
 	isMediaSingle?: boolean;
 	isViewOnly?: boolean;
@@ -74,6 +76,7 @@ interface MediaNodeState {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
+	private readonly mediaInstance = {};
 	private mediaPluginState: MediaPluginState | undefined;
 
 	state: MediaNodeState = {};
@@ -106,6 +109,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.node.attrs.id !== nextProps.node.attrs.id ||
 			this.props.node.attrs.collection !== nextProps.node.attrs.collection ||
 			this.props.isAIGenerating !== nextProps.isAIGenerating ||
+			this.props.isCwrAIGenerating !== nextProps.isCwrAIGenerating ||
 			this.props.maxDimensions.height !== nextProps.maxDimensions.height ||
 			this.props.maxDimensions.width !== nextProps.maxDimensions.width ||
 			this.props.contextIdentifierProvider !== nextProps.contextIdentifierProvider ||
@@ -113,6 +117,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.isViewOnly !== nextProps.isViewOnly ||
 			this.props.mediaProvider !== nextProps.mediaProvider ||
 			this.props.syncProvider !== nextProps.syncProvider ||
+			this.getDataConsumerSource() !== this.getDataConsumerSource(nextProps) ||
+			this.props.mediaOptions?.onMediaRenderEvent !== nextProps.mediaOptions?.onMediaRenderEvent ||
 			hasNewViewMediaClientConfig ||
 			hasNewViewAndUploadMediaClientConfig
 		) {
@@ -126,8 +132,24 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			? this.props.node.marks.find((m) => m.type.name === 'dataConsumer')
 			: undefined;
 
+	private getDataConsumerSource = (props: MediaNodeProps = this.props): string | undefined =>
+		props.node.marks.find((mark) => mark.type.name === 'dataConsumer')?.attrs.sources?.[0];
+
+	private emitMediaRenderEvent = (
+		event: MediaRenderEventPayload,
+		props: MediaNodeProps = this.props,
+	): void => {
+		props.mediaOptions?.onMediaRenderEvent?.({
+			...event,
+			dataConsumerSource: this.getDataConsumerSource(props),
+			mediaId: props.node.attrs.id,
+			mediaInstance: this.mediaInstance,
+		});
+	};
+
 	async componentDidMount(): Promise<void> {
 		this.handleNewNode(this.props);
+		this.emitMediaRenderEvent({ type: 'mounted' });
 
 		const { node, pluginInjectionApi } = this.props;
 		const dataConsumerMark = this.getDataConsumerMark();
@@ -156,6 +178,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 	componentWillUnmount(): void {
 		const { node } = this.props;
+		this.emitMediaRenderEvent({ type: 'unmounted' });
 		this.mediaPluginState?.handleMediaNodeUnmount(node);
 		if (this.unbindKeyDown && typeof this.unbindKeyDown === 'function') {
 			this.unbindKeyDown();
@@ -163,6 +186,15 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	}
 
 	componentDidUpdate(prevProps: Readonly<MediaNodeProps>): void {
+		if (
+			prevProps.node.attrs.id !== this.props.node.attrs.id ||
+			this.getDataConsumerSource(prevProps) !== this.getDataConsumerSource() ||
+			prevProps.mediaOptions?.onMediaRenderEvent !== this.props.mediaOptions?.onMediaRenderEvent
+		) {
+			this.emitMediaRenderEvent({ type: 'unmounted' }, prevProps);
+			this.emitMediaRenderEvent({ type: 'mounted' });
+		}
+
 		if (prevProps.node.attrs.id !== this.props.node.attrs.id) {
 			this.mediaPluginState?.handleMediaNodeUnmount(prevProps.node);
 			this.handleNewNode(this.props);
@@ -290,16 +322,15 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		(viewAndUploadMediaClientConfig: MediaClientConfig | undefined, isViewOnly?: boolean) => {
 			return {
 				canUpdateVideoCaptions: fg('platform_media_video_captions')
-					? fg('platform_editor_video_caption_commit')
-						? !!viewAndUploadMediaClientConfig && !isViewOnly
-						: !!viewAndUploadMediaClientConfig
+					? !!viewAndUploadMediaClientConfig && !isViewOnly
 					: false,
 			};
 		},
 	);
 
 	private onPreviewRender = (fileId: string) => {
-		if (expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true)) {
+		this.emitMediaRenderEvent({ renderedMediaId: fileId, type: 'preview-rendered' });
+		if (isExperimentEnabled('aifc_page_create_with_rovo_include_infographics')) {
 			this.props.pluginInjectionApi?.core?.actions.execute(({ tr }) =>
 				tr.setMeta(mediaStateKey, { type: 'PREVIEW_RENDERED', fileId }),
 			);
@@ -307,8 +338,20 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	};
 
 	private onError = (reason: string) => {
+		this.emitMediaRenderEvent({ reason, type: 'error' });
 		const nestedUnder = this.getNestedUnder();
 		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason, nestedUnder);
+	};
+
+	private onRemixRenderError = (reason: string) => {
+		this.emitMediaRenderEvent({ reason, type: 'error' });
+	};
+
+	private getMediaRenderErrorHandler = () => {
+		if (expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)) {
+			return this.onError;
+		}
+		return this.props.mediaOptions?.onMediaRenderEvent ? this.onRemixRenderError : undefined;
 	};
 
 	/**
@@ -387,7 +430,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		const resolvedViewAndUploadMediaClientConfig = fg('platform_media_video_captions')
 			? viewAndUploadMediaClientConfig
 			: undefined;
-
 		// mediaClientConfig is not needed for "external" case. So we have to cheat here.
 		// there is a possibility mediaClientConfig will be part of a identifier,
 		// so this might be not an issue
@@ -399,6 +441,13 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			};
 
 		const ssr: SSR = process.env.REACT_SSR ? 'server' : 'client';
+
+		// CWR (create-with-Rovo) infographics get a distinct loading treatment so the
+		// generic media type icon isn't shown while the image streams in. Gated on the
+		// existing infographics experiment.
+		const isCWR =
+			!!this.props.isCwrAIGenerating &&
+			isExperimentEnabled('aifc_page_create_with_rovo_include_infographics');
 
 		return (
 			<MediaCardWrapper
@@ -441,13 +490,10 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 							this.props.isViewOnly,
 						)}
 						isAIGenerating={!!this.props.isAIGenerating}
+						isCWR={isCWR}
 						onPreviewRender={this.onPreviewRender}
 						fallbackMediaNameFetcher={mediaOptions?.fallbackMediaNameFetcher}
-						onError={
-							expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
-								? this.onError
-								: undefined
-						}
+						onError={this.getMediaRenderErrorHandler()}
 					/>
 				</AnalyticsContext>
 			</MediaCardWrapper>

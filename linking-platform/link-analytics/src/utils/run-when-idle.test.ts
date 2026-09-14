@@ -7,7 +7,7 @@ describe('runWhenIdle', () => {
 
 		runWhenIdle(cb);
 
-		expect(global.requestIdleCallback).toBeCalledWith(cb, { timeout: 5000 });
+		expect(global.requestIdleCallback).toHaveBeenCalledWith(cb, { timeout: 5000 });
 	});
 
 	it('falls back to `window.requestAnimationFrame` with the callback function if `window.requestIdleCallback` is not implemented', () => {
@@ -17,6 +17,6 @@ describe('runWhenIdle', () => {
 
 		runWhenIdle(cb);
 
-		expect(global.requestAnimationFrame).toBeCalledWith(cb);
+		expect(global.requestAnimationFrame).toHaveBeenCalledWith(cb);
 	});
 });

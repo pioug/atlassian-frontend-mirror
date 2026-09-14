@@ -167,6 +167,202 @@ test('should be able to traverse cyclic structures', () => {
 	expect(visitor.node).toHaveBeenCalledTimes(3);
 });
 
+test('should only flag a cycle for a node that is an ancestor in the current branch', () => {
+	const listItem = adfNode('listItem');
+	const list = adfNode('list').define({
+		root: true,
+		content: [$onePlus($or(listItem))],
+	});
+	listItem.define({
+		content: [$onePlus($or(list))],
+	});
+	const visitor = {
+		node: jest.fn().mockReturnValue('node'),
+		group: jest.fn(),
+		$or: jest.fn().mockReturnValue('or'),
+		$onePlus: jest.fn().mockReturnValue('one+'),
+	};
+
+	traverse(list, visitor);
+
+	// only the `listItem -> list` back reference is a cycle
+	expect(visitor.node.mock.calls.filter(([, , cycle]) => cycle)).toEqual([[list, [], true]]);
+	expect(visitor.node).toHaveBeenCalledWith(listItem, ['one+']);
+});
+
+test('should not treat a node reused in a sibling subtree as a cycle', () => {
+	const text = adfNode('text').define({});
+	const paragraph = adfNode('paragraph').define({
+		content: [$zeroPlus($or(text))],
+	});
+	const panel = adfNode('panel').define({
+		content: [$onePlus($or(paragraph))],
+	});
+	const expand = adfNode('expand').define({
+		content: [$onePlus($or(paragraph))],
+	});
+	const doc = adfNode('doc').define({
+		root: true,
+		content: [$onePlus($or(panel, expand))],
+	});
+	const visitor = {
+		node: jest.fn().mockReturnValue('node'),
+		group: jest.fn(),
+		$or: jest.fn().mockReturnValue('or'),
+		$onePlus: jest.fn().mockReturnValue('one+'),
+		$zeroPlus: jest.fn().mockReturnValue('zero+'),
+	};
+
+	traverse(doc, visitor);
+
+	// `paragraph` and `text` are reachable through both `panel` and `expand`,
+	// these are separate branches of the DFS, so none of them is a cycle
+	expect(visitor.node.mock.calls.filter(([, , cycle]) => cycle)).toEqual([]);
+	expect(visitor.node.mock.calls.filter(([node]) => node === paragraph)).toEqual([
+		[paragraph, ['zero+']],
+		[paragraph, ['zero+']],
+	]);
+	expect(visitor.node.mock.calls.filter(([node]) => node === text)).toEqual([
+		[text, []],
+		[text, []],
+	]);
+});
+
+test('should fully traverse a node that is both a sibling and a descendant of a sibling', () => {
+	const text = adfNode('text').define({});
+	const paragraph = adfNode('paragraph').define({
+		content: [$zeroPlus($or(text))],
+	});
+	const panel = adfNode('panel').define({
+		content: [$onePlus($or(paragraph))],
+	});
+	const doc = adfNode('doc').define({
+		root: true,
+		// `paragraph` is visited first as a direct child of `doc`, and then
+		// again while descending into `panel`
+		content: [$onePlus($or(paragraph, panel))],
+	});
+	const visitor = {
+		node: jest.fn().mockReturnValue('node'),
+		group: jest.fn(),
+		$or: jest.fn().mockReturnValue('or'),
+		$onePlus: jest.fn().mockReturnValue('one+'),
+		$zeroPlus: jest.fn().mockReturnValue('zero+'),
+	};
+
+	traverse(doc, visitor);
+
+	expect(visitor.node.mock.calls.filter(([node]) => node === paragraph)).toEqual([
+		[paragraph, ['zero+']],
+		[paragraph, ['zero+']],
+	]);
+});
+
+test('should fully traverse a node shared between two groups', () => {
+	const text = adfNode('text').define({});
+	const paragraph = adfNode('paragraph').define({
+		content: [$zeroPlus($or(text))],
+	});
+	const blockGroup = adfNodeGroup('block', [paragraph]);
+	const layoutGroup = adfNodeGroup('layout', [paragraph]);
+	const doc = adfNode('doc').define({
+		root: true,
+		content: [$onePlus($or(blockGroup, layoutGroup))],
+	});
+	const visitor = {
+		node: jest.fn().mockReturnValue('node'),
+		group: jest.fn().mockReturnValue('group'),
+		$or: jest.fn().mockReturnValue('or'),
+		$onePlus: jest.fn().mockReturnValue('one+'),
+		$zeroPlus: jest.fn().mockReturnValue('zero+'),
+	};
+
+	traverse(doc, visitor);
+
+	expect(visitor.node.mock.calls.filter(([node]) => node === paragraph)).toEqual([
+		[paragraph, ['zero+']],
+		[paragraph, ['zero+']],
+	]);
+	expect(visitor.group).toHaveBeenCalledWith(blockGroup, ['node']);
+	expect(visitor.group).toHaveBeenCalledWith(layoutGroup, ['node']);
+});
+
+test('should expand a cyclic node again when it is reused in a sibling subtree', () => {
+	const listItem = adfNode('listItem');
+	const list = adfNode('list').define({
+		content: [$onePlus($or(listItem))],
+	});
+	listItem.define({
+		content: [$onePlus($or(list))],
+	});
+	const panel = adfNode('panel').define({
+		content: [$onePlus($or(list))],
+	});
+	const doc = adfNode('doc').define({
+		root: true,
+		content: [$onePlus($or(list, panel))],
+	});
+	const visitor = {
+		node: jest.fn().mockReturnValue('node'),
+		group: jest.fn(),
+		$or: jest.fn().mockReturnValue('or'),
+		$onePlus: jest.fn().mockReturnValue('one+'),
+	};
+
+	traverse(doc, visitor);
+
+	// `list` is expanded under `doc` and under `panel`, each expansion is only
+	// stopped by the `listItem -> list` back reference within its own branch
+	expect(visitor.node.mock.calls.filter(([node, , cycle]) => node === list && !cycle)).toEqual([
+		[list, ['one+']],
+		[list, ['one+']],
+	]);
+	expect(visitor.node.mock.calls.filter(([node]) => node === listItem)).toEqual([
+		[listItem, ['one+']],
+		[listItem, ['one+']],
+	]);
+	expect(visitor.node.mock.calls.filter(([, , cycle]) => cycle)).toEqual([
+		[list, [], true],
+		[list, [], true],
+	]);
+});
+
+test('should build the same content expression for a node reachable through multiple parents', () => {
+	const text = adfNode('text').define({});
+	const paragraph = adfNode('paragraph').define({
+		content: [$zeroPlus($or(text))],
+	});
+	const panel = adfNode('panel').define({
+		content: [$onePlus($or(paragraph))],
+	});
+	const expand = adfNode('expand').define({
+		content: [$onePlus($or(paragraph))],
+	});
+	const doc = adfNode('doc').define({
+		root: true,
+		content: [$onePlus($or(panel, expand))],
+	});
+
+	const specs: Record<string, string> = {};
+
+	traverse<string, string, string>(doc, {
+		node(node, children, cycle) {
+			const expr = children.length ? `${node.getType()}(${children.join(',')})` : node.getType();
+			if (!cycle) {
+				specs[node.getType()] = expr;
+			}
+			return expr;
+		},
+		$or: (content) => content.join(' | '),
+		$onePlus: (content) => `(${content})+`,
+		$zeroPlus: (content) => `(${content})*`,
+	});
+
+	// the second parent of `paragraph` must not end up with a truncated subtree
+	expect(specs.panel).toBe('panel((paragraph((text)*))+)');
+	expect(specs.expand).toBe('expand((paragraph((text)*))+)');
+});
+
 test('should be able to build a PMNodeSpec like structure for a cyclic DSL', () => {
 	const linkMark = adfMark('link').define({});
 	const codeMark = adfMark('code').define({});

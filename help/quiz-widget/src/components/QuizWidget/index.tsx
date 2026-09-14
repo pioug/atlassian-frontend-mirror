@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import CheckIcon from '@atlaskit/icon/core/check-mark';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { Radio } from '@atlaskit/radio';
-import Spinner from '@atlaskit/spinner';
+import Radio from '@atlaskit/radio/radio';
+import Spinner from '@atlaskit/spinner/spinner';
 import {
 	Answer,
 	Footer,

@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
@@ -48,18 +40,6 @@ describe('ArticleWasHelpfulForm', () => {
 	 * FIXME Snapshot tests that test a large surface area cause friction to platform teams.
 	 * Review if this test is required or whether it can be removed.
 	 */
-	it.skip('Match snapshot', () => {
-		const { container } = render(
-			<IntlProvider locale="en">
-				<ArticleWasHelpfulForm
-					onWasHelpfulNoButtonClick={mockOnWasHelpfulNoButtonClick}
-					onWasHelpfulYesButtonClick={mockOnWasHelpfulYesButtonClick}
-				/>
-			</IntlProvider>,
-		);
-
-		expect(container.firstChild).toMatchSnapshot();
-	});
 
 	it('onWasHelpfulYesButtonClick prop function is called when the user clicks the button in WasHelpfulYesButton component', () => {
 		const { getByText } = render(

@@ -1,4 +1,4 @@
-import { type Auth } from '@atlaskit/media-core';
+import type { Auth } from '@atlaskit/media-core/auth';
 import type { MediaTraceContext } from '@atlaskit/media-common';
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD';

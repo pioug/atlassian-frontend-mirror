@@ -74,7 +74,7 @@ export function resolveCssLengthToPixels({
 	}
 
 	// Fast path: bare `${n}px` strings come from the consumer normalisation
-	// in `getPlacement`. Avoid a reflow when we can.
+	// in `resolvePlacement`. Avoid a reflow when we can.
 	const pxMatch = value.match(/^(-?\d+(?:\.\d+)?)px$/);
 	if (pxMatch) {
 		return Number(pxMatch[1]);

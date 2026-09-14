@@ -1,17 +1,13 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 /** @deprecated Use @atlaskit/link-provider */
 export { type CardContext } from '@atlaskit/link-provider';
-import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
+import type { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge/lozenge';
 
 /** @deprecated Use @atlaskit/json-ld-types */
 export type ResolveResponse = JsonLd.Response;
 
-export {
-	/** @deprecated Use @atlaskit/link-provider */
-	type ProviderProps,
-	/** @deprecated Use @atlaskit/linking-common */
-	type CardType,
-} from './state';
+export type { ProviderProps } from '@atlaskit/link-provider';
+export type { CardType } from '@atlaskit/linking-common';
 
 /** @deprecated Use @atlaskit/smart-card/card/types */
 export { type CardProps, type CardAppearance, type CardPlatform } from './view/Card/types';

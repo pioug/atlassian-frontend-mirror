@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { useCreateContainers } from '../use-create-containers';
-import { useTeamContainers } from '../use-team-containers';
+import { useTeamContainers } from '../use-team-containers/use-team-containers';
 
 const PRODUCT_TO_CONTAINER_TYPE = {
 	Jira: 'JiraProject',

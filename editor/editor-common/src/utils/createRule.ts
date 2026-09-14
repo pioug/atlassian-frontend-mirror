@@ -1,4 +1,4 @@
-import { closeHistory } from '@atlaskit/prosemirror-history';
+import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 
 import type { InputRuleHandler, InputRuleWrapper } from '../types';
 

@@ -1,22 +1,27 @@
-import '@atlaskit/link-test-helpers/jest';
-
 import React from 'react';
 
 import * as jestExtendedMatchers from 'jest-extended';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import '@atlaskit/link-test-helpers/jest';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuid } from 'uuid';
+
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library';
 
 import { ActionName, Card, TitleBlock } from '../../../index';
-import * as ufo from '../../../state/analytics/ufoExperiences';
-import * as utils from '../../../utils';
-import { fakeFactory } from '../../../utils/mocks';
-import * as modalUtils from '../../EmbedModal/utils';
+
+import * as failUfoExperienceUtils from '../../../state/analytics/failUfoExperience';
+import * as startUfoExperienceUtils from '../../../state/analytics/startUfoExperience';
+import * as succeedUfoExperienceUtils from '../../../state/analytics/succeedUfoExperience';
+import * as downloadUrlUtils from '../../../utils/download-url';
+import { fakeFactory } from '../../../utils/fake-factory';
+import * as embedModalUtils from '../../EmbedModal/utils';
 
 mockSimpleIntersectionObserver();
 jest.mock('react-lazily-render', () => (data: any) => data.content);
@@ -24,7 +29,7 @@ jest.mock('react-transition-group/Transition', () => (data: any) => data.childre
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),
 	__esModule: true,
-	default: jest.fn().mockReturnValue('some-uuid-1'),
+	v4: jest.fn().mockReturnValue('some-uuid-1'),
 }));
 jest.mock('@atlaskit/linking-common/user-agent', () => ({
 	browser: jest.fn(() => ({
@@ -106,9 +111,9 @@ describe('actions', () => {
 	const getActionFnSpy = (actionType: string): jest.SpyInstance => {
 		switch (actionType) {
 			case 'DownloadAction':
-				return jest.spyOn(utils, 'downloadUrl');
+				return jest.spyOn(downloadUrlUtils, 'downloadUrl');
 			case 'PreviewAction':
-				return jest.spyOn(modalUtils, 'openEmbedModal');
+				return jest.spyOn(embedModalUtils, 'openEmbedModal');
 			default:
 				return jest.fn();
 		}
@@ -222,8 +227,8 @@ describe('actions', () => {
 					});
 
 					it('fires button click and action resolved', async () => {
-						const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-						const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+						const ufoStartSpy = jest.spyOn(startUfoExperienceUtils, 'startUfoExperience');
+						const ufoSucceedSpy = jest.spyOn(succeedUfoExperienceUtils, 'succeedUfoExperience');
 						const actionFnSpy = getActionFnSpy(actionType).mockImplementationOnce(async () =>
 							Promise.resolve(),
 						);
@@ -293,8 +298,8 @@ describe('actions', () => {
 					});
 
 					it('fires button click and action unresolved', async () => {
-						const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-						const ufoFailSpy = jest.spyOn(ufo, 'failUfoExperience');
+						const ufoStartSpy = jest.spyOn(startUfoExperienceUtils, 'startUfoExperience');
+						const ufoFailSpy = jest.spyOn(failUfoExperienceUtils, 'failUfoExperience');
 
 						const actionFnSpy = getActionFnSpy(actionType).mockImplementationOnce(async () =>
 							Promise.reject(new Error('something went wrong')),

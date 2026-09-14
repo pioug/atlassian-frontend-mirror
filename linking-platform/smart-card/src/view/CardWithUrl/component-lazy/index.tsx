@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { isIntersectionObserverSupported } from '../../../utils';
+import { isIntersectionObserverSupported } from '../../../utils/is-intersection-observer-supported';
 import { type CardWithUrlContentProps } from '../types';
 
 import { LazyIntersectionObserverCard } from './LazyIntersectionObserverCard';

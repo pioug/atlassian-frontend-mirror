@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-
 import type { PastePlugin } from './pastePluginType';
 import { createPlugin } from './pm-plugins/main';
 import { createPlugin as createMoveAnalyticsPlugin } from './pm-plugins/move-analytics/plugin';
@@ -10,7 +7,13 @@ import { pluginKey } from './pm-plugins/plugin-factory';
 import { Flag } from './ui/Flag';
 
 export const pastePlugin: PastePlugin = ({ config, api }) => {
-	const { cardOptions, sanitizePrivateContent, isFullPage, pasteWarningOptions } = config ?? {};
+	const {
+		cardOptions,
+		sanitizePrivateContent,
+		isFullPage,
+		pasteWarningOptions,
+		markdownToPmConverter,
+	} = config ?? {};
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	return {
@@ -32,6 +35,7 @@ export const pastePlugin: PastePlugin = ({ config, api }) => {
 							sanitizePrivateContent,
 							providerFactory,
 							pasteWarningOptions,
+							markdownToPmConverter,
 						),
 				},
 				{
@@ -43,17 +47,13 @@ export const pastePlugin: PastePlugin = ({ config, api }) => {
 			];
 		},
 
-		contentComponent:
-			!editorExperiment('platform_synced_block', true) &&
-			!fg('platform_synced_block_unsupported_products')
-				? undefined
-				: () => {
-						if (!pasteWarningOptions) {
-							return null;
-						}
+		contentComponent: () => {
+			if (!pasteWarningOptions) {
+				return null;
+			}
 
-						return <Flag api={api} />;
-					},
+			return <Flag api={api} />;
+		},
 
 		getSharedState: (editorState) => {
 			if (!editorState) {

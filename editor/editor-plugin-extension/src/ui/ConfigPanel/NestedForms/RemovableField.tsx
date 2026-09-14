@@ -12,7 +12,7 @@ import { injectIntl } from 'react-intl';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const removableFieldWrapperStyles = css({
 	position: 'relative',
@@ -85,7 +85,7 @@ const RemovableField = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props>> & {
 	WrappedComponent: React.ComponentType<Props>;
 } = injectIntl(RemovableField);

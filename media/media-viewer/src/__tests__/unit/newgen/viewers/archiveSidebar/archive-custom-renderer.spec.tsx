@@ -1,5 +1,6 @@
-import type { CustomRendererProps, ViewerOptionsProps } from '@atlaskit/media-viewer';
 import Loadable from 'react-loadable';
+
+import type { CustomRendererProps, ViewerOptionsProps } from '@atlaskit/media-viewer';
 
 jest.mock('../../../../../analytics/events/operational/zipEntryLoadSucceeded', () => ({
 	createZipEntryLoadSucceededEvent: jest.fn(),
@@ -41,10 +42,8 @@ jest.mock('unzipit', () => ({
 	},
 }));
 
-import {
-	ArchiveViewerBase,
-	type Props as ArchiveViewerProps,
-} from '../../../../../viewers/archiveSidebar/archive';
+import type { Props as ArchiveViewerProps } from '../../../../../viewers/archiveSidebar/archive';
+import { ArchiveViewerBase } from '../../../../../viewers/archiveSidebar/archive-viewer-base';
 
 describe('Archive with custom renderer', () => {
 	const fileState: ProcessedFileState = {

@@ -1,13 +1,14 @@
 import type { Metadata, StepJson } from '@atlaskit/editor-common/collab';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { catchupv2, isOutOfSync } from '../catchupv2';
 import type { Catchupv2Options, Catchupv2Response } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { CatchupEventReason } from '../../helpers/const';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 const fgMock = fg as jest.Mock;
@@ -130,6 +131,38 @@ describe('Catchupv2 ', () => {
 		});
 		expect(options.updateMetadata).toHaveBeenCalledTimes(1);
 		expect(options.updateMetadata).toHaveBeenCalledWith(metadata);
+	});
+
+	it('Should keep the invocationId of every catchup step', async () => {
+		// A catchup response may replay several invocations alongside steps that have no invocationId.
+		const steps = [
+			{ ...step1, invocationId: '01K3M8R7Y9X2Q4W6E8T0V1N3P5' },
+			{ ...step2, invocationId: '01K3M8R7Y9X2Q4W6E8T0V1N3P5' },
+			{ ...step2, invocationId: '01K3M8R7Y9X2Q4W6E8T0V1N3P6' },
+			step1,
+		] as unknown as StepJson[];
+
+		const options: Catchupv2Options = {
+			getCurrentPmVersion: jest.fn().mockReturnValue(1),
+			fetchCatchupv2: jest.fn().mockResolvedValue({ steps, metadata }),
+			updateMetadata: jest.fn(),
+			analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+			clientId,
+			onStepsAdded: jest.fn(),
+			catchUpOutofSync: false,
+			getState: jest.fn(),
+		};
+
+		await catchupv2(options);
+
+		expect(options.onStepsAdded).toHaveBeenCalledTimes(1);
+		const addedSteps = (options.onStepsAdded as jest.Mock).mock.calls[0][0].steps as StepJson[];
+		expect(addedSteps.map((step) => step.invocationId)).toEqual([
+			'01K3M8R7Y9X2Q4W6E8T0V1N3P5',
+			'01K3M8R7Y9X2Q4W6E8T0V1N3P5',
+			'01K3M8R7Y9X2Q4W6E8T0V1N3P6',
+			undefined,
+		]);
 	});
 
 	it('Should send error analytics event for fetchCatchupv2 failing', async () => {

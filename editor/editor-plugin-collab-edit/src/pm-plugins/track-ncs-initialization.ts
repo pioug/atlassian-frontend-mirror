@@ -2,7 +2,7 @@ import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 import type { CollabInitializedMetadata } from '../types';

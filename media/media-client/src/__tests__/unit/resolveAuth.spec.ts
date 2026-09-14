@@ -1,11 +1,14 @@
-import { resolveAuth, resolveInitialAuth } from '../../client/media-store/resolveAuth';
-import { MediaStoreError } from '../../client/media-store/error';
-import { MediaStore } from '../../client/media-store';
-import { type AsapBasedAuth, type AuthProvider, type ClientBasedAuth } from '@atlaskit/media-core';
-import { resolveTimeout } from '../../utils/setTimeoutPromise';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import * as requestModule from '../../utils/request';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
+import type { AsapBasedAuth, AuthProvider, ClientBasedAuth } from '@atlaskit/media-core/auth';
+
+import { MediaStore } from '../../client/media-store/MediaStore';
+import { MediaStoreError } from '../../client/media-store/MediaStoreError';
+import { resolveAuth } from '../../client/media-store/resolveAuth';
+import { resolveInitialAuth } from '../../client/media-store/resolveInitialAuth';
 import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
+import * as requestModule from '../../utils/request';
+import { resolveTimeout } from '../../utils/resolveTimeout';
 
 // expires in 1619827800000
 const token =

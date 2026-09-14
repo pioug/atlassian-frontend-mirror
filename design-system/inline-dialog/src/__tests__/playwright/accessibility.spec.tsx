@@ -16,6 +16,7 @@ test.fixme('InlineDialog should pass basic aXe audit', async ({ page }) => {
 		'design-system',
 		'inline-dialog',
 		'testing',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();

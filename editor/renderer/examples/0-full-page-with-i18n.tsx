@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { IntlProvider } from 'react-intl';
-import { getTranslations } from './helper/get-translations';
+import { getTranslations } from '@af/editor-examples-helpers/utils/get-translations';
 
 const Example = (): React.JSX.Element => {
 	const [locale] = useState('en');

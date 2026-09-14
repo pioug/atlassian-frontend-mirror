@@ -1,4 +1,5 @@
-import { createTimeRangeNavigatedEvent, type PlaybackState } from '../../../analytics';
+import { createTimeRangeNavigatedEvent } from '../../../analytics/events/ui/timeRangeNavigated';
+import type { PlaybackState } from '../../../analytics/utils/playbackAttributes';
 
 describe('createTimeRangeNavigatedEvent', () => {
 	const playbackState: PlaybackState = {

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { syncBlock, bodiedSyncBlock } from '@atlaskit/adf-schema';
+import { syncBlock } from '@atlaskit/adf-schema/sync-block';
+import { bodiedSyncBlock } from '@atlaskit/adf-schema/bodied-sync-block';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type {
 	EditorCommand,
@@ -8,10 +9,10 @@ import type {
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {
 	flushBodiedSyncBlocks,
@@ -24,13 +25,14 @@ import {
 } from './editor-commands';
 import { createPlugin, syncedBlockPluginKey } from './pm-plugins/main';
 import { getMenuAndToolbarExperiencesPlugin } from './pm-plugins/menu-and-toolbar-experiences';
-import type { SyncedBlockPlugin } from './syncedBlockPluginType';
+import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from './syncedBlockPluginType';
 import type { SyncedBlockSharedState } from './types';
 import { getBlockMenuComponents } from './ui/block-menu-components';
 import { DeleteConfirmationModal } from './ui/DeleteConfirmationModal';
 import { Flag } from './ui/Flag';
 import { getToolbarConfig } from './ui/floating-toolbar';
 import { getQuickInsertConfig } from './ui/quick-insert';
+import { getSyncedBlockQuickInsertComponents } from './ui/quick-insert/getSyncedBlockQuickInsertComponents';
 import { SourceSyncBlockPlaceholder } from './ui/SourceSyncBlockPlaceholder';
 import { SyncBlockRefresher } from './ui/SyncBlockRefresher';
 import { getToolbarComponents } from './ui/toolbar-components';
@@ -46,8 +48,14 @@ import { getToolbarComponents } from './ui/toolbar-components';
 const LazySyncedBlockUI = ({
 	syncBlockStore: syncBlockStoreManager,
 	api,
+	editorView,
+	onFeedbackPromptShown,
+	onGiveFeedback,
 }: {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	editorView?: EditorView;
+	onFeedbackPromptShown: SyncedBlockPluginOptions['onFeedbackPromptShown'];
+	onGiveFeedback: SyncedBlockPluginOptions['onGiveFeedback'];
 	syncBlockStore: SyncBlockStoreManager;
 }): React.JSX.Element | null => {
 	const hasSyncBlocks = useSharedPluginStateWithSelector(
@@ -56,18 +64,23 @@ const LazySyncedBlockUI = ({
 		(states) => states.syncedBlockState?.hasSyncedBlocks,
 	);
 
-	// Use expValEqualsNoExposure here because the exposure is already fired
-	// once at plugin creation time (see syncedBlockPlugin below).
-	// This component re-renders on every transaction — avoid redundant SDK evaluations.
-	if (!hasSyncBlocks && expValEqualsNoExposure('editor_synced_block_perf', 'isEnabled', true)) {
+	if (!hasSyncBlocks) {
 		return null;
 	}
 
 	return (
 		<>
 			<SyncBlockRefresher syncBlockStoreManager={syncBlockStoreManager} api={api} />
-			<DeleteConfirmationModal syncBlockStoreManager={syncBlockStoreManager} api={api} />
-			<Flag api={api} />
+			<DeleteConfirmationModal
+				syncBlockStoreManager={syncBlockStoreManager}
+				api={api}
+				editorView={editorView}
+			/>
+			<Flag
+				api={api}
+				onFeedbackPromptShown={onFeedbackPromptShown}
+				onGiveFeedback={onGiveFeedback}
+			/>
 		</>
 	);
 };
@@ -85,7 +98,6 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		viewMode,
 		config?.__livePage,
 	);
-	const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
 	syncBlockStore.setFireAnalyticsEvent(api?.analytics?.actions?.fireAnalyticsEvent);
 
 	// --- Memoized getSharedState (EDITOR-6929 / PR-F) ---
@@ -101,6 +113,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 	api?.toolbar?.actions.registerComponents(
 		getToolbarComponents(api, config?.enableSourceCreation ?? false),
 	);
+
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+
+	if (isRegisteredSlashCommandEnabled && config?.enableSourceCreation) {
+		api?.uiControlRegistry?.actions.register(
+			getSyncedBlockQuickInsertComponents({ api, syncBlockStore }),
+		);
+	}
 
 	return {
 		name: 'syncedBlock',
@@ -176,15 +196,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		},
 
 		pluginsOptions: {
-			quickInsert: getQuickInsertConfig(config, api, syncBlockStore),
+			...(!isRegisteredSlashCommandEnabled && {
+				quickInsert: getQuickInsertConfig(config, api, syncBlockStore),
+			}),
 			floatingToolbar: (state, intl) => {
-				// When the experiment is ON and the document has no synced blocks,
+				// When registered slash-command support is on and the document has no synced blocks,
 				// skip the toolbar config entirely to avoid the per-selection-change
 				// cost of findSyncBlockOrBodiedSyncBlock (EDITOR-6931).
-				// Save the expValEquals('editor_synced_block_perf', 'isEnabled', true) in a const
-				// because floatingToolbar is called on every selection change.
-				// computing it once at plugin initialisation is more efficient.
-				if (!syncedBlockPluginKey.getState(state)?.hasSyncedBlocks && isPerfExperimentOn) {
+				if (!syncedBlockPluginKey.getState(state)?.hasSyncedBlocks) {
 					return undefined;
 				}
 				return getToolbarConfig(
@@ -198,7 +217,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			},
 		},
 
-		contentComponent: ({ containerElement, wrapperElement, popupsMountPoint }) => {
+		contentComponent: ({ containerElement, wrapperElement, popupsMountPoint, editorView }) => {
 			refs.containerElement = containerElement || undefined;
 			refs.popupsMountPoint = popupsMountPoint || undefined;
 			refs.wrapperElement = wrapperElement || undefined;
@@ -208,7 +227,13 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 					{expValEquals('platform_editor_sync_block_activation', 'isEnabled', true) && (
 						<SourceSyncBlockPlaceholder />
 					)}
-					<LazySyncedBlockUI syncBlockStore={syncBlockStore} api={api} />
+					<LazySyncedBlockUI
+						syncBlockStore={syncBlockStore}
+						api={api}
+						editorView={editorView}
+						onFeedbackPromptShown={config?.onFeedbackPromptShown}
+						onGiveFeedback={config?.onGiveFeedback}
+					/>
 				</>
 			);
 		},
@@ -236,8 +261,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				cachedSharedState.bodiedSyncBlockDeletionStatus === bodiedSyncBlockDeletionStatus &&
 				cachedSharedState.retryCreationPosMap === retryCreationPosMap &&
 				cachedSharedState.hasSyncedBlocks === hasSyncedBlocks &&
-				cachedSharedState.hasUnsavedBodiedSyncBlockChanges === hasUnsavedBodiedSyncBlockChanges &&
-				isPerfExperimentOn
+				cachedSharedState.hasUnsavedBodiedSyncBlockChanges === hasUnsavedBodiedSyncBlockChanges
 			) {
 				return cachedSharedState;
 			}
@@ -257,9 +281,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 		// Destroy the SyncBlockStoreManager on editor unmount to cancel
 		// pending timers, subscriptions, and in-flight fetches.
 		destroy() {
-			if (fg('platform_synced_block_patch_14')) {
-				syncBlockStore.destroy();
-			}
+			syncBlockStore.destroy();
 		},
 	};
 };

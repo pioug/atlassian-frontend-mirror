@@ -13,8 +13,6 @@ import type {
 	ObservedMutationType,
 } from './types';
 
-export type { ObservedMutationType } from './types';
-
 const state = {
 	normal: 1,
 	waitingForFirstRender: 2,

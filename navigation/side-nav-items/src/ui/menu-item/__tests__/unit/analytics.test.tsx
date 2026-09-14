@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 

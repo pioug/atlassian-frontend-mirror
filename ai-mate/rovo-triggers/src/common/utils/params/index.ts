@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { ROVO_PARAM_PREFIX, ROVO_VALID_PARAMS } from './constants';
 import { type BaseRovoChatParams, type RovoChatParams, type ValidParam } from './types';
 
@@ -88,8 +90,18 @@ export const getRovoParams = (url?: string): RovoChatParams => {
 };
 
 // Update the address bar without reloading the page
-export const updatePageRovoParams = (params: RovoChatParams): void => {
-	window.history.pushState({}, '', addRovoParamsToUrl(window.location.pathname, params));
+export const updatePageRovoParams = (
+	params: RovoChatParams,
+	{ historyMode = 'push' }: { historyMode?: 'push' | 'replace' } = {},
+): void => {
+	const updatedUrl = addRovoParamsToUrl(window.location.pathname, params);
+
+	if (historyMode === 'replace' && fg('rovo_chat_replace_url_param_history')) {
+		window.history.replaceState({}, '', updatedUrl);
+		return;
+	}
+
+	window.history.pushState({}, '', updatedUrl);
 };
 
 // Add any valid rovoChat params to a URL

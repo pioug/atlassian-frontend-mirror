@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b855025fa2abb629499e10e4913b075a>>
+ * @codegen <<SignedSource::4098b2cc2b1b896d070723f03ff319ea>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 110 24">
  *
  */
 export function StatuspageLogo({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Statuspage',
 	testId,

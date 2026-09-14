@@ -1,7 +1,7 @@
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import React from 'react';
 import { md, code, Props } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { Text } from '@atlaskit/primitives/compiled';
 
 const LinkComponent = (props: any) => <Link {...props}>{props.children}</Link>;

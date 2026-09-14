@@ -1,5 +1,16 @@
 # @atlaskit/right-side-panel
 
+## 5.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.2
 
 ### Patch Changes
@@ -438,7 +449,7 @@
 
 - [#26424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26424)
   [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) -
-  Consolidate In Product Help & Self-Help Experiences ownership
+  Consolidate In Product Help & PACE PS2 ownership
 
 ## 1.1.7
 

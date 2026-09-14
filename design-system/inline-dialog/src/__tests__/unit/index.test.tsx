@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import Button from '@atlaskit/button/new';
-import Link from '@atlaskit/link';
+import Button from '@atlaskit/button/default/button';
+import Link from '@atlaskit/link/link';
 
-import InlineDialog from '../../index';
+import InlineDialog from '../../inline-dialog';
 
 declare var global: any;
 
@@ -13,24 +13,6 @@ interface InlineDialogWrapperProps {
 	inlineDialogTestId: string;
 	buttonTestId: string;
 }
-
-jest.mock('popper.js', () => {
-	// @ts-ignore requireActual property is missing from jest
-	const PopperJS = jest.requireActual('popper.js');
-
-	return class Popper {
-		static placements = PopperJS.placements;
-
-		constructor() {
-			return {
-				// eslint-disable-next-line
-				destroy: () => {},
-				// eslint-disable-next-line
-				update: () => {},
-			};
-		}
-	};
-});
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('inline-dialog', () => {

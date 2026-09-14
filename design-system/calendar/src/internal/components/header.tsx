@@ -6,14 +6,14 @@ import React, { memo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import ChevronDoubleLeftIcon from '@atlaskit/icon/core/chevron-double-left';
 import ChevronDoubleRightIcon from '@atlaskit/icon/core/chevron-double-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

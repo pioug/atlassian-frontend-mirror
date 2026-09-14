@@ -1,4 +1,4 @@
-import { type MediaStoreGetFileImageParams } from '../client/media-store';
+import type { MediaStoreGetFileImageParams } from '../client/media-store/types';
 
 export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
 

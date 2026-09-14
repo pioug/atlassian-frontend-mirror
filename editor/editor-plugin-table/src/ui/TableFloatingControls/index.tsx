@@ -13,17 +13,13 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
-import { isTableNested } from '../../pm-plugins/utils/nodes';
 import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
 
-import { DragCornerControlsWithSelection } from './CornerControls/DragCornerControls';
 import NumberColumn from './NumberColumn';
 import { DragControlsWithSelection } from './RowControls/DragControls';
 
@@ -138,12 +134,6 @@ export const TableFloatingControls = ({
 			: ClassName.DRAG_ROW_CONTROLS_WRAPPER
 		: ClassName.ROW_CONTROLS_WRAPPER;
 
-	const tablePos = findTable(editorView.state.selection)?.pos;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const isNested = tablePos !== undefined && isTableNested(editorView.state, tablePos!);
-	const shouldShowCornerControls = isNested && !fg('platform_editor_nested_dnd_styles_changes');
-
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -169,15 +159,6 @@ export const TableFloatingControls = ({
 
 				{tableActive && (
 					<Fragment>
-						{shouldShowCornerControls && (
-							<DragCornerControlsWithSelection
-								editorView={editorView}
-								tableRef={tableRef}
-								isInDanger={isInDanger}
-								isResizing={isResizing}
-								api={api}
-							/>
-						)}
 						<DragControlsWithSelection
 							tableRef={tableRef}
 							tableNode={tableNode}

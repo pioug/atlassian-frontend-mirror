@@ -5,10 +5,10 @@
  */
 {
   "testExamples": [
-    "0-basic.tsx",
-    "1-no-icon.tsx",
-    "2-max-width.tsx",
-    "3-spacious.tsx",
-    "4-dropdown-trigger.tsx"
+    "0-basic.vr.ap.tsx",
+    "1-no-icon.vr.ap.tsx",
+    "2-max-width.vr.ap.tsx",
+    "3-spacious.vr.ap.tsx",
+    "4-dropdown-trigger.vr.ap.tsx"
   ]
 }

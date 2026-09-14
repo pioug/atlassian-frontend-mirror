@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bf5a18c938ae75ae4dc979cbb82a2f5b>>
+ * @codegen <<SignedSource::4c8e691ac9d762b98de2feb2ae30913b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "SpeedometerLeftDown".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const SpeedometerLeftDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const SpeedometerLeftDownIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "SpeedometerLeftDownIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M8 1a8 8 0 0 1 5.518 13.793l-1.036-1.086A6.5 6.5 0 1 0 1.546 9.762l-1.39.803A8 8 0 0 1 8 1"/><path fill="currentcolor" d="M6.75 7.335a2.5 2.5 0 1 1-.441 4.007l-5.295 3.057-.75-1.298 5.295-3.058A2.5 2.5 0 0 1 6.75 7.335M8.866 9a1 1 0 1 0-1.732 1.001A1 1 0 0 0 8.866 9"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

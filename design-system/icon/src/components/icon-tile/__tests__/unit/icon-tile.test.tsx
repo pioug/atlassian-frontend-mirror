@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@atlassian/testing-library';
 
 import AddIcon from '../../../../../core/add';
 import IconTile from '../../index';

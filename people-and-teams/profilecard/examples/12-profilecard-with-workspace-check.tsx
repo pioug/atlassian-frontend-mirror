@@ -1,12 +1,14 @@
 import React, { useCallback, useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import Flag, { FlagGroup, type FlagProps } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
+import type { FlagProps } from '@atlaskit/flag/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import ProfileCardResourced from '../src';
-import ProfileCardTrigger from '../src/components/User';
+import ProfileCardResourced from '../src/components/User/ProfileCardResourced';
+import ProfileCardTrigger from '../src/components/User/ProfileCardTrigger';
 
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';

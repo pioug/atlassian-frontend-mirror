@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-import { _DJB2, _makeTypedGet } from '@statsig/client-core';
-
 import { PersistentOverrideAdapter } from './PersistentOverrideAdapter';
 
 export type LocalOverrides = {

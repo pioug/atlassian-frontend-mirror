@@ -1,14 +1,12 @@
-export { SmartCardProvider } from './provider';
+export { SmartCardProvider } from './smart-card-provider';
 export type { ProviderProps } from './provider';
 export { default as CardClient } from './client';
 export type { EnvironmentsKeys } from './linking-common';
-export {
-	useSmartCardContext,
-	useSmartLinkContext,
-	SmartCardContext,
-	EditorSmartCardProvider,
-	EditorSmartCardProviderValueGuard,
-} from './state/context';
+export { EditorSmartCardProvider } from './state/context/EditorSmartCardProvider';
+export { EditorSmartCardProviderValueGuard } from './state/context/EditorSmartCardProviderValueGuard';
+export { SmartCardContext } from './state/context';
+export { useSmartCardContext } from './state/context/useSmartCardContext';
+export { useSmartLinkContext } from './state/context/useSmartLinkContext';
 // eslint-disable-next-line import/no-unresolved
 export type { CardContext } from './state/context';
 export type {

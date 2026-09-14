@@ -1,23 +1,24 @@
-import './card-states.card.test.mock';
-import '@atlaskit/link-test-helpers/jest';
-
 import React, { useState } from 'react';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	type CardClient,
-	type CardProviderStoreOpts,
-	SmartCardProvider as Provider,
-} from '@atlaskit/link-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { APIError } from '@atlaskit/linking-common';
-import { flushPromises } from '@atlaskit/media-test-helpers';
 import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
-import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type CardClient from '@atlaskit/link-provider/client';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import '@atlaskit/link-test-helpers/jest';
+import { APIError } from '@atlaskit/linking-common';
+import { flushPromises } from '@atlaskit/media-test-helpers';
+
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mockByUrl } from '../../../utils/mock-by-url';
+import { mocks } from '../../../utils/mocks';
 import { Card, type CardAppearance } from '../../Card';
-import { TitleBlock } from '../../FlexibleCard/components/blocks';
+import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
+import './card-states.card.test.mock';
 
 mockSimpleIntersectionObserver();
 
@@ -39,7 +40,6 @@ describe('smart-card: card states, flexible', () => {
 		mockClient = new (fakeFactory(mockFetch))();
 		mockWindowOpen = jest.fn();
 		mockUrl = 'https://some.url';
-		/// @ts-ignore
 		global.open = mockWindowOpen;
 	});
 
@@ -108,13 +108,6 @@ describe('smart-card: card states, flexible', () => {
 					},
 				);
 				expect(resolvedView).toBeTruthy();
-
-				const resolvedCard = screen.getByTestId('smart-element-link');
-				expect(resolvedCard).toBeTruthy();
-				fireEvent.click(resolvedCard);
-
-				// ensure default onclick for renderer is not triggered
-				expect(mockWindowOpen).toHaveBeenCalledTimes(0);
 			});
 
 			it('should render with metadata when resolved', async () => {

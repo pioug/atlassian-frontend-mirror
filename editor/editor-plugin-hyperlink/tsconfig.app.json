@@ -64,6 +64,9 @@
 			"path": "../editor-plugin-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-user-intent/tsconfig.app.json"
 		},
 		{
@@ -79,7 +82,13 @@
 			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

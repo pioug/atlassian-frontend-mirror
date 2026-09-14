@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import {
 	memo,
 	useContext,
@@ -12,16 +13,20 @@ import {
 	type PointerEvent,
 	type SyntheticEvent,
 } from 'react';
+
 import { css, jsx } from '@compiled/react';
 import { IntlContext } from 'react-intl';
-import { Radio } from '@atlaskit/radio';
+
+import Radio from '@atlaskit/radio/radio';
 import { token } from '@atlaskit/tokens';
+
 import type { EmojiDescription } from '../../types';
 import { type ProductivityColor, productivityColors } from '../../util/productivity-colors';
 import { messages } from '../i18n';
 import Emoji from './Emoji';
 
 export const productivityColorSelectorTestId = 'productivity-color-selector';
+
 export const productivityColorSelectorId = 'emoji-picker-productivity-color-selector';
 
 const selectorGrid = css({
@@ -252,4 +257,5 @@ export const ProductivityColorSelector = ({
 
 const _default_1: MemoExoticComponent<typeof ProductivityColorSelector> =
 	memo(ProductivityColorSelector);
+
 export default _default_1;

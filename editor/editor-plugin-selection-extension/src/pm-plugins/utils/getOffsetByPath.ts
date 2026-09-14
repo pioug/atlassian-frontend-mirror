@@ -1,6 +1,5 @@
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 const NUMERIC_KEY_REGEX = /^[0-9]+$/u;
 
 // TODO: ED-28434 - move this to a shared package

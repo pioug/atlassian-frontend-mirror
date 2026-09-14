@@ -1,4 +1,4 @@
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import { DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -11,7 +11,7 @@ import type { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getRandomHex } from '@atlaskit/media-common';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { PastePlugin } from '../pastePluginType';
 
@@ -231,6 +231,17 @@ export const unwrapNestedMediaElements = (html: string): string => {
 			return;
 		}
 
+		// Bypass mention avatars - a mention's avatar <img> is nested only inside <span>s
+		// (never a valid container), so it would otherwise get hoisted out of the mention's
+		// DOM subtree and parsed as a standalone image instead of leaving the mention intact
+		// for its own parseDOM rule to match.
+		if (
+			isExperimentEnabled('platform_editor_preserve_mention_on_paste') &&
+			imageTag.closest('[data-mention-id]')
+		) {
+			return;
+		}
+
 		// Bypass mediaInline images - don't hoist images that are inside a mediaInline wrapper
 		// as this would break parseDOM matching for mediaInline nodes
 		// We remove the img from the DOM since mediaInline is a leaf node with no content
@@ -250,11 +261,7 @@ export const unwrapNestedMediaElements = (html: string): string => {
 		// so we hoist the <img> to replace the entire mediaSingle wrapper
 		// so the editor can treat it as a plain external image and render/re-upload it correctly.
 		const mediaSingleWrapper = imageTag.closest('[data-node-type="mediaSingle"]');
-		if (
-			mediaSingleWrapper &&
-			shouldHoistFromMediaSingle(imageTag) &&
-			expValEquals('fix_copy_paste_external_media_renderer_to_editor', 'isEnabled', true)
-		) {
+		if (mediaSingleWrapper && shouldHoistFromMediaSingle(imageTag)) {
 			// Hoist the <img> to replace the entire mediaSingle wrapper
 			if (mediaSingleWrapper.parentElement) {
 				mediaSingleWrapper.parentElement.insertBefore(imageTag, mediaSingleWrapper);

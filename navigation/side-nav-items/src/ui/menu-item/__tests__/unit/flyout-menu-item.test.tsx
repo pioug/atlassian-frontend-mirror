@@ -5,7 +5,6 @@ import { bind } from 'bind-event-listener';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import HomeIcon from '@atlaskit/icon/core/home';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
 import { ButtonMenuItem } from '../../button-menu-item';
@@ -112,9 +111,7 @@ describe('FlyoutMenuItem', () => {
 			expect(dialog).toBeInTheDocument();
 		});
 
-		it('should have aria-labelledby set to the title id for the flyout menu container when gate is ON', async () => {
-			passGate('navx-5180-flyout-dialog-aria-label');
-
+		it('should have aria-labelledby set to the title id for the flyout menu container', async () => {
 			render(
 				<FlyoutMenuItem>
 					<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
@@ -139,59 +136,32 @@ describe('FlyoutMenuItem', () => {
 			expect(container).toHaveAttribute('aria-labelledby', titleId);
 		});
 
-		describe('navx-5180-flyout-dialog-aria-label gate', () => {
-			it('should set aria-labelledby on the outer Popup dialog when gate is ON', async () => {
-				passGate('navx-5180-flyout-dialog-aria-label');
+		it('should set aria-labelledby on the outer Popup dialog', async () => {
+			render(
+				<FlyoutMenuItem>
+					<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
+					<FlyoutMenuItemContent containerTestId="dialog">
+						<FlyoutHeader title="Title" closeButtonLabel="Close flyout menu" />
+						<FlyoutBody>
+							<ButtonMenuItem>Item 1</ButtonMenuItem>
+						</FlyoutBody>
+					</FlyoutMenuItemContent>
+				</FlyoutMenuItem>,
+			);
 
-				render(
-					<FlyoutMenuItem>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent containerTestId="gate-on-dialog">
-							<FlyoutHeader title="Title" closeButtonLabel="Close flyout menu" />
-							<FlyoutBody>
-								<ButtonMenuItem>Item 1</ButtonMenuItem>
-							</FlyoutBody>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>,
-				);
+			await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
 
-				await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
+			// Use testId to target the PopupContent dialog element directly,
+			// avoiding ambiguity when multiple elements with role="dialog" exist.
+			const dialog = await screen.findByTestId('dialog');
+			expect(dialog).toHaveAttribute('aria-labelledby');
 
-				// Use testId to target the PopupContent dialog element directly,
-				// avoiding ambiguity when multiple elements with role="dialog" exist.
-				const dialog = await screen.findByTestId('gate-on-dialog');
-				expect(dialog).toHaveAttribute('aria-labelledby');
+			const titleId = dialog.getAttribute('aria-labelledby') as string;
+			expect(titleId).toBeTruthy();
 
-				const titleId = dialog.getAttribute('aria-labelledby') as string;
-				expect(titleId).toBeTruthy();
-
-				// The aria-labelledby should point to the heading element
-				const heading = screen.getByText('Title');
-				expect(heading).toHaveAttribute('id', titleId);
-			});
-
-			it('should not set aria-labelledby on the outer Popup dialog when gate is OFF', async () => {
-				failGate('navx-5180-flyout-dialog-aria-label');
-
-				render(
-					<FlyoutMenuItem>
-						<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
-						<FlyoutMenuItemContent containerTestId="gate-off-dialog">
-							<FlyoutHeader title="Title" closeButtonLabel="Close flyout menu" />
-							<FlyoutBody>
-								<ButtonMenuItem>Item 1</ButtonMenuItem>
-							</FlyoutBody>
-						</FlyoutMenuItemContent>
-					</FlyoutMenuItem>,
-				);
-
-				await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
-
-				// Use testId to target the PopupContent dialog element directly,
-				// avoiding ambiguity when multiple elements with role="dialog" exist.
-				const dialog = await screen.findByTestId('gate-off-dialog');
-				expect(dialog).not.toHaveAttribute('aria-labelledby');
-			});
+			// The aria-labelledby should point to the heading element
+			const heading = screen.getByText('Title');
+			expect(heading).toHaveAttribute('id', titleId);
 		});
 
 		it('dismisses dialog on escape and returns focus to the trigger', async () => {

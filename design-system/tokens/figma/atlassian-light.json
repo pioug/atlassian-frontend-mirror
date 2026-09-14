@@ -2098,6 +2098,15 @@
       },
       "value": "#8C8F97"
     },
+    "Light/color.border.input.search": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.12.0",
+        "description": "Use for the border of search inputs."
+      },
+      "value": "#0B120E24"
+    },
     "Light/color.border.inverse": {
       "attributes": {
         "group": "paint",

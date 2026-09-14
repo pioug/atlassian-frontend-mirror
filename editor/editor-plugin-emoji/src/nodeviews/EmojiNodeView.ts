@@ -12,7 +12,10 @@ import {
 } from '@atlaskit/editor-common/emoji';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { VanillaTooltip } from '@atlaskit/editor-common/vanilla-tooltip';
+import {
+	VANILLA_TOOLTIP_DEFAULT_CLASS,
+	VanillaTooltip,
+} from '@atlaskit/editor-common/vanilla-tooltip';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
@@ -27,10 +30,11 @@ import type {
 	EmojiRepresentation,
 	OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
 import { token } from '@atlaskit/tokens';
 
 import type { EmojiPlugin } from '../emojiPluginType';
@@ -40,7 +44,6 @@ import { emojiToDom } from './emojiNodeSpec';
 
 const SINGLE_EMOJI_REGEX =
 	// Regular expression to match a single emoji character
-	// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 	/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
 
 interface Params {
@@ -65,6 +68,21 @@ export function isSingleEmoji(fallbackText: string): boolean {
  * Emoji node view for renderering emoji nodes
  */
 const EMOJI_TOOLTIP_CLASS = 'emoji-tooltip-editor';
+
+/**
+ * Shared default look plus our own hook, replacing the inline styles the control arm passes.
+ */
+const EMOJI_TOOLTIP_CLASS_NAMES = `${VANILLA_TOOLTIP_DEFAULT_CLASS} ${EMOJI_TOOLTIP_CLASS}`;
+
+/**
+ * Control arm only — `VanillaTooltip` generates its own id when none is supplied.
+ * `crypto.randomUUID()` is undefined outside a secure context, hence the `uniqueId` fallback.
+ */
+const nextFallbackTooltipId = (): string =>
+	typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+		? `emoji-tooltip-${crypto.randomUUID()}`
+		: uniqueId('emoji-tooltip-');
+
 export class EmojiNodeView implements NodeView {
 	dom: Node;
 	domElement: HTMLElement | undefined;
@@ -84,8 +102,12 @@ export class EmojiNodeView implements NodeView {
 	private destroyTooltip(): void {
 		this.destroyLazyTooltipListeners?.();
 		this.tooltipInstance?.destroy();
-		this.tooltipTarget?.removeAttribute('popovertarget');
-		this.tooltipTarget?.removeAttribute('aria-describedby');
+		// with platform_editor_use_vanilla_components the tooltipInstance?.destroy()
+		// will remove the popovertarget and aria-describedby attributes from the tooltipTarget
+		if (!isExperimentEnabled('platform_editor_use_vanilla_components')) {
+			this.tooltipTarget?.removeAttribute('popovertarget');
+			this.tooltipTarget?.removeAttribute('aria-describedby');
+		}
 		this.destroyLazyTooltipListeners = undefined;
 		this.tooltipInstance = undefined;
 		this.tooltipTarget = undefined;
@@ -185,8 +207,7 @@ export class EmojiNodeView implements NodeView {
 					if (
 						isOfflineMode(prevSharedState?.mode) &&
 						nextSharedState?.mode === 'online' &&
-						this.renderingFallback &&
-						editorExperiment('platform_editor_offline_editing_web', true)
+						this.renderingFallback
 					) {
 						this.updateDom(sharedState.currentState()?.emojiProvider);
 					}
@@ -309,22 +330,16 @@ export class EmojiNodeView implements NodeView {
 			this.destroyLazyTooltipListeners?.();
 			this.destroyLazyTooltipListeners = undefined;
 
-			const tooltipId =
-				typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-					? `emoji-tooltip-${crypto.randomUUID()}`
-					: uniqueId('emoji-tooltip-');
-			try {
-				const tooltipInstance = new VanillaTooltip(
-					// VanillaTooltip types expect HTMLButtonElement but works with any HTMLElement
-					element as unknown as HTMLButtonElement,
-					shortName,
-					tooltipId,
-					EMOJI_TOOLTIP_CLASS,
-					// default timeout
-					300,
-					// Inline styles are required because the Popover API promotes the tooltip
-					// to the browser's top layer, where ancestor CSS selectors cannot reach it.
-					{
+			// `undefined` lets `VanillaTooltip` generate the id.
+			const tooltipId = isExperimentEnabled('platform_editor_use_vanilla_components')
+				? undefined
+				: nextFallbackTooltipId();
+
+			// Control arm only — the experiment arm gets the same declarations from
+			// `VANILLA_TOOLTIP_DEFAULT_CLASS`.
+			const tooltipStyles = isExperimentEnabled('platform_editor_use_vanilla_components')
+				? undefined
+				: {
 						boxSizing: 'border-box',
 						maxWidth: '240px',
 						backgroundColor: token('color.background.neutral.bold'),
@@ -341,7 +356,21 @@ export class EmojiNodeView implements NodeView {
 						paddingInlineEnd: token('space.075', '6px'),
 						paddingInlineStart: token('space.075', '6px'),
 						whiteSpace: 'normal',
-					},
+					};
+
+			try {
+				// Flag-on (platform-dst-top-layer), positioning is async via a React root;
+				// safe here as VanillaTooltip stays hidden until positioned.
+				const tooltipInstance = new VanillaTooltip(
+					element,
+					shortName,
+					tooltipId,
+					isExperimentEnabled('platform_editor_use_vanilla_components')
+						? EMOJI_TOOLTIP_CLASS_NAMES
+						: EMOJI_TOOLTIP_CLASS,
+					// default timeout
+					300,
+					tooltipStyles,
 				);
 
 				this.tooltipInstance = tooltipInstance;
@@ -526,17 +555,13 @@ export class EmojiNodeView implements NodeView {
 		imageElement.height = defaultEmojiHeight;
 
 		imageElement.onerror = () => {
-			if (editorExperiment('platform_editor_offline_editing_web', true)) {
-				// If there's an error (ie. offline) render the ascii fallback if possible, otherwise
-				// mark the node to refresh when returning online.
-				// Create a check that confirms if this.node.attrs.text if an ascii emoji
-				if (isSingleEmoji(this.node.attrs.text)) {
-					this.renderFallback();
-				} else {
-					this.renderingFallback = true;
-				}
-			} else {
+			// If there's an error (ie. offline) render the ascii fallback if possible, otherwise
+			// mark the node to refresh when returning online.
+			// Create a check that confirms if this.node.attrs.text if an ascii emoji
+			if (isSingleEmoji(this.node.attrs.text)) {
 				this.renderFallback();
+			} else {
+				this.renderingFallback = true;
 			}
 		};
 

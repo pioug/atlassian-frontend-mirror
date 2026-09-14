@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8dd5947dd69d8cedc53cec5847688d40>>
+ * @codegen <<SignedSource::29c7322dd95328d239ae1ca6bd298f91>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "ChevronDoubleRight".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ChevronDoubleRightIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const ChevronDoubleRightIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "ChevronDoubleRightIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="m8.28 1.47 6 6a.75.75 0 0 1 .052 1.004l-.052.056-6 6-1.06-1.06L12.69 8 7.22 2.53z"/><path fill="currentcolor" d="m3.53 1.47 6 6a.75.75 0 0 1 .052 1.004l-.052.056-6 6-1.06-1.06L7.94 8 2.47 2.53z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

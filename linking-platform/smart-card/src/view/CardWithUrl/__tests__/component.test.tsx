@@ -5,22 +5,20 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { useCrossProductUrlWrapper } from '@atlaskit/analytics-cross-product/useCrossProductUrlWrapper';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { UnAuthClient } from '@atlaskit/link-test-helpers';
-import { type ProductType } from '@atlaskit/linking-common';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { ProductType } from '@atlaskit/linking-common/types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render } from '@atlassian/testing-library';
 
-import { useSmartLink } from '../../../state';
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
-import { TitleBlock } from '../../FlexibleCard/components/blocks';
-import * as SmartLinkEventsModule from '../../SmartLinkEvents/useSmartLinkEvents';
+import { useSmartLink } from '../../../state/hooks/useSmartLink';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
+import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
+import * as Fire3PWorkflowsClickEventModule from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';
 import { CardWithUrl } from '../component';
 
 type SmartLinkMetaWithFirstPartySignal = SmartLinkResponse['meta'] & {
@@ -52,19 +50,19 @@ const createSmartLinkDetails = (isFirstPartyLink?: boolean): SmartLinkResponse =
 jest.mock('@atlaskit/analytics-cross-product/useCrossProductUrlWrapper', () => ({
 	useCrossProductUrlWrapper: jest.fn(() => (url: string) => url),
 }));
-jest.mock('../../SmartLinkEvents/useSmartLinkEvents', () => ({
+jest.mock('../../SmartLinkEvents/useFire3PWorkflowsClickEvent', () => ({
 	useFire3PWorkflowsClickEvent: jest.fn(),
 }));
-jest.mock('../../../state/helpers', () => {
-	const actual = jest.requireActual('../../../state/helpers');
-	return {
-		...actual,
-		getThirdPartyARI: jest.fn().mockReturnValue('ari:third-party:something/abc'),
-		getFirstPartyIdentifier: jest.fn().mockReturnValue('test-first-party-id'),
-		getClickUrl: jest.fn((url: string) => url),
-	};
-});
-jest.mock('../../../state', () => ({
+jest.mock('../../../state/getThirdPartyARI', () => ({
+	getThirdPartyARI: jest.fn().mockReturnValue('ari:third-party:something/abc'),
+}));
+jest.mock('../../../state/getFirstPartyIdentifier', () => ({
+	getFirstPartyIdentifier: jest.fn().mockReturnValue('test-first-party-id'),
+}));
+jest.mock('../../../state/getClickUrl', () => ({
+	getClickUrl: jest.fn((url: string) => url),
+}));
+jest.mock('../../../state/hooks/useSmartLink', () => ({
 	useSmartLink: jest.fn(() => ({
 		state: {
 			status: 'resolved',
@@ -93,9 +91,6 @@ jest.mock('../../../state', () => ({
 		error: undefined,
 		isPreviewPanelAvailable: undefined,
 		openPreviewPanel: undefined,
-	})),
-	useSmartLinkContext: jest.fn(() => ({
-		connections: { client: { baseUrlOverride: undefined } },
 	})),
 }));
 jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
@@ -159,7 +154,6 @@ describe('CardWithUrl', () => {
 		(appearance) => {
 			let mockFireEvent: jest.Mock;
 
-			const NON_PRIMARY_EXPERIMENT = 'linking_platform_track_non_primary_3p_clicks';
 			const SMARTLINK_3P_ANALYTICS_FF = 'platform_smartlink_3pclick_analytics';
 
 			const renderResolved3P = () =>
@@ -188,20 +182,14 @@ describe('CardWithUrl', () => {
 
 			beforeEach(() => {
 				mockFireEvent = jest.fn();
-				(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+				(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 					mockFireEvent,
 				);
 			});
 
-			describe('with 3P analytics FF and experiment ON', () => {
+			describe('with 3P analytics FF ON', () => {
 				beforeEach(() => {
 					passGate(SMARTLINK_3P_ANALYTICS_FF);
-					(expValEqualsNoExposure as jest.Mock).mockReturnValue(true);
-				});
-
-				it('fires experiment exposure once on mount', () => {
-					renderResolved3P();
-					expect(expValEquals).toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
 				});
 
 				it('fires 3P click event with isAuxClick on middle click', () => {
@@ -223,35 +211,9 @@ describe('CardWithUrl', () => {
 				});
 			});
 
-			describe('with 3P analytics FF ON but experiment OFF', () => {
-				beforeEach(() => {
-					passGate(SMARTLINK_3P_ANALYTICS_FF);
-					(expValEqualsNoExposure as jest.Mock).mockReturnValue(false);
-				});
-
-				it('still fires experiment exposure on mount', () => {
-					renderResolved3P();
-					expect(expValEquals).toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
-				});
-
-				it('does NOT fire 3P click events on middle or right click', () => {
-					const { container } = renderResolved3P();
-					const link = container.querySelector('a')!;
-					fireAuxClick(link, 1);
-					fireEvent.contextMenu(link);
-					expect(mockFireEvent).not.toHaveBeenCalled();
-				});
-			});
-
 			describe('with 3P analytics FF OFF', () => {
 				beforeEach(() => {
 					failGate(SMARTLINK_3P_ANALYTICS_FF);
-					(expValEqualsNoExposure as jest.Mock).mockReturnValue(true);
-				});
-
-				it('does NOT fire experiment exposure on mount', () => {
-					renderResolved3P();
-					expect(expValEquals).not.toHaveBeenCalledWith(NON_PRIMARY_EXPERIMENT, 'isEnabled', true);
 				});
 
 				it('does NOT fire 3P click events on middle or right click', () => {
@@ -304,7 +266,7 @@ describe('CardWithUrl', () => {
 			openSpy.mockRestore();
 		});
 
-		ffTest.on('platform_smartlink_xpc_url_wrapping', 'when gate is on', () => {
+		describe('when gate is on', () => {
 			it('opens the link in the same tab on a regular left click', () => {
 				renderInlineCard();
 
@@ -449,90 +411,6 @@ describe('CardWithUrl', () => {
 
 					expect(wrapUrl).not.toHaveBeenCalled();
 					expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
-				});
-			});
-		});
-
-		ffTest.off('platform_smartlink_xpc_url_wrapping', 'when gate is off', () => {
-			it('opens the link via window.open with the original URL (no decoration)', () => {
-				renderInlineCard();
-
-				fireEvent.click(document.querySelector('a')!);
-
-				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
-			});
-
-			it('calls onClick and does not call window.open when onClick is provided', () => {
-				const onClick = jest.fn();
-				renderInlineCard({ onClick });
-
-				fireEvent.click(document.querySelector('a')!);
-
-				expect(onClick).toHaveBeenCalled();
-				expect(openSpy).not.toHaveBeenCalled();
-			});
-
-			it('does not update anchor href', () => {
-				const { container } = renderInlineCard();
-				const anchor = container.querySelector('a')!;
-
-				fireEvent.click(anchor);
-
-				expect(anchor.href).toBe('https://example.com/');
-			});
-
-			describe('cross-product URL wrapping', () => {
-				const renderResolvedLink = ({
-					appearance = 'inline',
-					details,
-					product = 'CONFLUENCE',
-					url = 'https://example.com',
-				}: {
-					appearance?: 'inline' | 'block' | 'embed' | 'flexible';
-					details: SmartLinkResponse;
-					product?: ProductType;
-					url?: string;
-				}) => {
-					(useSmartLink as jest.Mock).mockReturnValue(createUseSmartLinkResult(details));
-
-					return render(
-						<IntlProvider locale="en">
-							<SmartCardProvider client={new CardClient()} product={product}>
-								{appearance === 'flexible' ? (
-									<CardWithUrl appearance="block" id="uid" url={url}>
-										<TitleBlock />
-									</CardWithUrl>
-								) : (
-									<CardWithUrl appearance={appearance} id="uid" url={url} />
-								)}
-							</SmartCardProvider>
-						</IntlProvider>,
-					);
-				};
-
-				it('does not wrap when the SmartLinks integration gate is disabled', () => {
-					const { container } = renderResolvedLink({
-						details: createSmartLinkDetails(true),
-					});
-
-					fireEvent.click(container.querySelector('a')!);
-
-					// wrapUrl should not be called since gated hook is disabled.
-					// The legacy path still opens the link via window.open, but with the original URL.
-					expect(wrapUrl).not.toHaveBeenCalled();
-					expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
-				});
-
-				it('does not double wrap URLs that already include cross-product interaction params', () => {
-					const { container } = renderResolvedLink({
-						details: createSmartLinkDetails(true),
-						url: 'https://example.com?xpis=existing',
-					});
-
-					fireEvent.click(container.querySelector('a')!);
-
-					expect(wrapUrl).not.toHaveBeenCalled();
-					expect(openSpy).toHaveBeenCalledWith('https://example.com?xpis=existing', '_self');
 				});
 			});
 		});

@@ -1,4 +1,4 @@
-import type { MediaAttributes } from '@atlaskit/adf-schema';
+import type { MediaAttributes } from '@atlaskit/adf-schema/media';
 
 export const hasPrivateAttrsChanged = (
 	currentAttrs: MediaAttributes,

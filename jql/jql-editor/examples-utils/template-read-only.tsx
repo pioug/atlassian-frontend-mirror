@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { JQLEditorReadOnly } from '../src';
+import { JQLEditorReadOnly } from '../src/ui/jql-editor-layout/JQLEditorReadOnly';
 
 import { Container } from './styled';
 

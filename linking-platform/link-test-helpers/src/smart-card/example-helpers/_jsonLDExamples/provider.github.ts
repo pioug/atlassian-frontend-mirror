@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 export const GithubFile = {
 	meta: {
@@ -36,12 +36,6 @@ export const GithubFile = {
 } as JsonLd.Response;
 
 export const GithubPullRequestJson: {
-	meta: {
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-	};
 	data: {
 		'@context': {
 			'@vocab': string;
@@ -50,12 +44,13 @@ export const GithubPullRequestJson: {
 		};
 		'@id': string;
 		'@type': string[];
-		url: string;
 		'atlassian:isMerged': boolean;
+		'atlassian:mergeable': boolean;
 		'atlassian:mergeCommit': {
 			'@type': string;
 			href: string;
 		};
+		'atlassian:mergedBy': undefined;
 		'atlassian:mergeDestination': {
 			'@type': string;
 			href: string;
@@ -64,8 +59,6 @@ export const GithubPullRequestJson: {
 			'@type': string;
 			href: string;
 		};
-		'atlassian:mergeable': boolean;
-		'atlassian:mergedBy': undefined;
 		'atlassian:reviewedBy': {
 			'@type': string;
 			icon: string;
@@ -121,6 +114,13 @@ export const GithubPullRequestJson: {
 			url: string;
 		}[];
 		updated: string;
+		url: string;
+	};
+	meta: {
+		access: string;
+		key: string;
+		resourceType: string;
+		visibility: string;
 	};
 } = {
 	meta: {

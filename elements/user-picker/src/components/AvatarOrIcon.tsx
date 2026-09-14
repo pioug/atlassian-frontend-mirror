@@ -2,10 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { type ReactNode } from 'react';
-import { type AppearanceType } from '@atlaskit/avatar';
+
+import type { AppearanceType } from '@atlaskit/avatar/types';
+
 import { SizeableAvatar } from './SizeableAvatar';
-import { getAvatarSize } from './utils';
+import { getAvatarSize } from './getAvatarSize';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
@@ -27,6 +30,7 @@ const iconStyle = css({
 });
 
 const iconSizes = {
+	xxsmall: css({ width: '20px', height: '20px' }),
 	xsmall: css({ width: '20px', height: '20px' }),
 	small: css({ width: '28px', height: '28px' }),
 	medium: css({ width: '36px', height: '36px' }),

@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../../build/website/docs/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-decorations/afm-products/tsconfig.json"
 		},
 		{
@@ -48,6 +51,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/theme/afm-products/tsconfig.json"

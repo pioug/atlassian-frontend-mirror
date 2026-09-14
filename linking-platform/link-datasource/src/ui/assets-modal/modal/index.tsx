@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import {
 	useCallback,
 	useEffect,
@@ -15,24 +16,22 @@ import {
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import {
-	type UIAnalyticsEvent,
-	withAnalyticsContext,
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import withAnalyticsContext, {
 	type WithContextProps,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsContext';
 import Button from '@atlaskit/button/standard-button';
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
-import { type Link } from '@atlaskit/linking-types';
-import {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import type { Link } from '@atlaskit/linking-types/datasource';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
-import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
+import { EVENT_CHANNEL } from '../../../analytics/constants';
 import { componentMetadata } from '../../../analytics/constants';
+import { useDatasourceAnalyticsEvents } from '../../../analytics/index';
 import type {
 	AnalyticsContextAttributesType,
 	AnalyticsContextType,
@@ -43,20 +42,20 @@ import {
 	DatasourceDisplay,
 	DatasourceSearchMethod,
 } from '../../../analytics/types';
-import { startUfoExperience } from '../../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
+import { startUfoExperience } from '../../../analytics/ufoExperiences/startUfoExperience';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { buildDatasourceAdf } from '../../../common/utils/schema-utils';
-import {
-	DatasourceExperienceIdProvider,
-	useDatasourceExperienceId,
-} from '../../../contexts/datasource-experience-id';
-import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
+import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id/datasource-experience-id-provider';
+import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id/use-datasource-experience-id';
+
+import { UserInteractionsProvider } from '../../../contexts/user-interactions/user-interactions-provider';
+import { useUserInteractions } from '../../../contexts/user-interactions/use-user-interactions';
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
-import { PermissionError } from '../../../services/cmdbService.utils';
+import { PermissionError } from '../../../services/PermissionError';
 import { StoreContainer } from '../../../state';
 import { AccessRequired } from '../../../ui/common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
@@ -435,6 +434,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
 			<ModalTransition>
 				<DatasourceModal testId="asset-datasource-modal" onClose={onCancel}>
+					{/* eslint-disable-next-line @atlaskit/design-system/use-modal-title */}
 					<ModalHeader>{renderModalTitleContent()}</ModalHeader>
 					<ModalBody>
 						{errorState ? (

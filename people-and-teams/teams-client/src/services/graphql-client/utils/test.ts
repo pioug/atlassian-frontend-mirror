@@ -1,12 +1,14 @@
-import {
-	EXPONENTIAL_BACKOFF_RETRY_POLICY,
-	withExponentialBackoff,
-} from '../../../common/utils/http';
+import { EXPONENTIAL_BACKOFF_RETRY_POLICY } from '../../../common/utils/http';
 import { handleResponse } from '../../../common/utils/status-code-handlers-provider';
+import { withExponentialBackoff } from '../../../common/utils/with-exponential-backoff';
 
-import { handleGraphQLRequest, makeGraphQLRequestWithoutRetries } from './index';
+import { handleGraphQLRequest } from './handleGraphQLRequest';
+import { makeGraphQLRequestWithoutRetries } from './makeGraphQLRequestWithoutRetries';
 
 jest.mock('../../../common/utils/http');
+jest.mock('../../../common/utils/is-fetch-response');
+jest.mock('../../../common/utils/is5xx');
+jest.mock('../../../common/utils/with-exponential-backoff');
 jest.mock('../../../common/utils/status-code-handlers-provider');
 
 describe('makeGraphQLRequestWithoutRetries and handleGraphQLRequest', () => {

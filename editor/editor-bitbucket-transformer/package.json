@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-bitbucket-transformer",
-	"version": "10.1.0",
+	"version": "10.2.2",
 	"description": "Editor Bitbucket transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -31,24 +32,20 @@
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"react": "^19.2.0"
-	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
 	},
 	"exports": {
 		".": "./src/index.ts",
 		"./serializer": "./src/serializer.ts",
 		"./tableSerializer": "./src/tableSerializer.ts",
 		"./util": "./src/util.ts"
+	},
+	"platform-feature-flags": {
+		"platform_bitbucket_fix_shortname_and_ordering": {
+			"type": "boolean"
+		}
 	}
 }

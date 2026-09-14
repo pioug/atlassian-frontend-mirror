@@ -3,33 +3,36 @@
  * @jsx jsx
  */
 
-import { type CSSProperties, forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { cssMap as compiledCssMap, css, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 import FocusLock from 'react-focus-lock';
 import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import Blanket from '@atlaskit/blanket';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import Blanket from '@atlaskit/blanket/blanket';
 import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Layering } from '@atlaskit/layering/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
-import { Motion } from '@atlaskit/motion';
-import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence';
+import Motion from '@atlaskit/motion/entering/motion';
+import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence/use-exiting-persistence';
 import FadeIn from '@atlaskit/motion/fade-in';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Portal from '@atlaskit/portal';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Portal from '@atlaskit/portal/portal';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
-import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
+import { createCloseEvent } from '@atlaskit/top-layer/create-close-event';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
+import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
-import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
+import type { KeyboardOrMouseEvent, ModalDialogProps, WidthNames } from '../../types';
 import { ModalContext } from '../context';
 import useModalStack from '../hooks/use-modal-stack';
 import usePreventProgrammaticScroll from '../hooks/use-prevent-programmatic-scroll';
@@ -38,9 +41,8 @@ import { disableDraggingToCrossOriginIFramesForExternal } from '../pragmatic-dra
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 import { ScrollContext } from '../scroll-context';
 import type { InternalModalWrapperProps } from '../types';
+import { width } from '../width';
 
-import { dialogHeight } from './dialog-height';
-import { dialogWidth as getDialogWidth } from './dialog-width';
 import { default as ModalDialog } from './modal-dialog';
 
 export type { ModalDialogProps };
@@ -57,17 +59,40 @@ const fillScreenStyles = css({
 	WebkitOverflowScrolling: 'touch',
 });
 
+/**
+ * Styles applied to the <dialog> wrapper, NOT the visual modal surface.
+ */
+const dialogStyles = compiledCssMap({
+	'body-scroll': {
+		// Need visible overflow otherwise the box-shadow is clipped
+		overflow: 'visible',
+		margin: '0px',
+		'@media (min-width: 30rem)': {
+			margin: '60px auto',
+		},
+	},
+	'viewport-scroll': {
+		// Prevents horizontal movement from scrollbar show/hide
+		scrollbarGutter: 'stable',
+		// We want the dialog to be the whole viewport so the scrolling is on the whole viewport
+		width: '100vw',
+		height: '100vh',
+	},
+	'full-screen': {},
+});
+
 // Visual styles for modal content inside native <dialog>.
 // Uses cssMap (not css) to avoid triggering no-nested-styles lint rule.
 
 const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
 	'--ds-elevation-surface-current';
 
-const topLayerStyles = cssMap({
-	content: {
+/**
+ * Styles applied to the visual modal surface.
+ */
+const surfaceStyles = cssMap({
+	root: {
 		display: 'flex',
-		// Fill viewport-height dialog on mobile.
-		height: '100%',
 		flexDirection: 'column',
 
 		backgroundColor: token('elevation.surface.overlay'),
@@ -99,45 +124,56 @@ const topLayerStyles = cssMap({
 		},
 	},
 	borderRadius: {
-		'@media (min-width: 30rem)': {
-			borderRadius: token('radius.small', '3px'),
-		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	borderRadiusT26: {
+		borderRadius: 0,
 		'@media (min-width: 30rem)': {
 			borderRadius: token('radius.xlarge', '12px'),
 		},
 	},
 });
 
-// Scroll-mode styles for the content div.
-// Height overrides use ID-scoped <style> (see dialogPositionStyles) because
-// Compiled atomic classes have specificity (0,1,0) (increaseSpecificity is disabled).
-// The doubled-ID selector (#id#id > div) at (2,0,1) reliably wins.
-// Only non-height properties needing the && boost remain here.
+const topLayerScrollModeStyles = compiledCssMap({
+	'full-screen': {
+		width: '100vw',
+		height: '100vh',
 
-const topLayerBodyScrollStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (min-width: 30rem)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
-		'&&': {
-			// 120px = 60px top gutter + 60px bottom gutter
-			maxHeight: 'calc(100vh - 120px + 1px)',
+		position: 'fixed',
+		insetBlockStart: token('space.0'),
+		insetInlineStart: token('space.0'),
+
+		overflowY: 'auto',
+		WebkitOverflowScrolling: 'touch',
+	},
+	'viewport-scroll': {
+		height: '100vh',
+		'@media (min-width: 30rem)': {
+			minHeight: 'min-content',
+			height: 'var(--modal-dialog-height)',
+			width: 'var(--modal-dialog-width)',
+			maxWidth: 'calc(100vw - 120px)',
+			margin: '60px auto',
+		},
+	},
+	'body-scroll': {
+		width: '100vw',
+		height: '100vh',
+		'@media (min-width: 30rem)': {
+			height: 'var(--modal-dialog-height)',
+			width: 'var(--modal-dialog-width)',
+			maxWidth: 'calc(100vw - 120px)',
 		},
 	},
 });
 
-const topLayerViewportScrollStyles = css({
-	// Fill viewport on mobile; allow overflow when content is taller.
-	minHeight: '100vh',
-	maxHeight: 'none',
+const topLayerAutoHeightStyles = css({
+	'@media (min-width: 30rem)': {
+		maxHeight: 'max-content',
+	},
 });
 
 const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElement) => boolean) => {
 	// Allow focus outside modal when AUI dialog is visible
 	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- legacy FocusLock allowlist
-	if (Boolean(document.querySelector('.aui-blanket:not([hidden])'))) {
+	if (document.querySelector('.aui-blanket:not([hidden])')) {
 		return false;
 	}
 	// Optional callback to let consumers exclude elements from focus lock
@@ -159,6 +195,94 @@ function useModalCloseHandler(providedOnClose: InternalModalWrapperProps['onClos
 	});
 }
 
+function getScrollMode({
+	shouldScrollInViewport,
+	isFullScreen,
+}: {
+	shouldScrollInViewport: boolean;
+	isFullScreen: boolean;
+}) {
+	if (isFullScreen) {
+		return 'full-screen';
+	}
+
+	if (shouldScrollInViewport) {
+		return 'viewport-scroll';
+	}
+
+	return 'body-scroll';
+}
+
+function isWidthName(value: string): value is WidthNames {
+	return width.values.includes(value);
+}
+
+function getTopLayerSurfaceWidth(input: ModalDialogProps['width']) {
+	if (!input) {
+		return 'auto';
+	}
+
+	if (typeof input === 'number') {
+		return `${input}px`;
+	}
+
+	if (isWidthName(input)) {
+		return `${width.widths[input]}px`;
+	}
+
+	if (input.endsWith('%')) {
+		// Percentage widths need special handling in the top layer.
+		// In legacy, the percentage resolved against the Positioner's max-width
+		// (100vw - 120px). In the top layer, the <dialog>'s containing block is the
+		// viewport (100vw), so a raw percentage would produce a wider modal.
+		// Transform e.g. '42%' → 'calc(42 * (100vw - 120px) / 100)' to match legacy.
+		return `calc(${parseFloat(input)} * (100vw - 120px) / 100)`;
+	}
+
+	return input;
+}
+
+function getTopLayerSurfaceHeight(input: ModalDialogProps['height']) {
+	if (!input) {
+		// Although this value would ordinarily fill the viewport height,
+		// there is also a `max-height: max-content` applied to keep it constrained.
+		// But we need to provide the modal with a fixed height (non-keyword, non-percentage)
+		// in order for child elements with 100% height to work correctly.
+		return 'calc(100vh - 120px)';
+	}
+
+	if (typeof input === 'number') {
+		return `${input}px`;
+	}
+
+	if (input.endsWith('%')) {
+		// Percentage heights need special handling in the top layer.
+		// In legacy, the percentage resolved against the Positioner's max-height
+		// (100vh - 120px). In the top layer, the <dialog>'s containing block is the
+		// viewport (100vh), so a raw percentage would produce a taller modal.
+		// Transform e.g. '42%' → 'calc(42 * (100vh - 120px) / 100)' to match legacy.
+		return `calc(${parseFloat(input)} * (100vh - 120px) / 100)`;
+	}
+
+	return input;
+}
+
+function getDialogDismissedBy({
+	shouldCloseOnEscapePress,
+	shouldCloseOnOverlayClick,
+}: {
+	shouldCloseOnEscapePress: boolean;
+	shouldCloseOnOverlayClick: boolean;
+}): React.ComponentPropsWithoutRef<typeof Dialog>['dismissedBy'] {
+	if (shouldCloseOnEscapePress && shouldCloseOnOverlayClick) {
+		return 'escape-and-outside-click';
+	}
+	if (shouldCloseOnEscapePress) {
+		return 'escape';
+	}
+	return 'none';
+}
+
 /**
  * Top-layer rendering path (platform-dst-top-layer).
  *
@@ -167,8 +291,7 @@ function useModalCloseHandler(providedOnClose: InternalModalWrapperProps['onClos
  *
  * Key decisions:
  * - Animation: CSS transitions via @starting-style / allow-discrete.
- * - Close gating: onDialogClose only forwards allowed reasons
- *   (see notes/guides/dialog-close-flow.md).
+ * - Close gating: Dialog only forwards allowed reasons.
  * - onClose event param: undefined - consumers should use close reason.
  * - Focus restoration: native <dialog> behavior replaces react-focus-lock's
  *   returnFocus (see accessibility-criteria.md).
@@ -183,22 +306,20 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 		shouldCloseOnOverlayClick = true,
 		shouldScrollInViewport = false,
 		shouldReturnFocus = true,
-		stackIndex: stackIndexOverride,
 		onClose: providedOnClose,
 		onStackChange = noop,
 		isBlanketHidden,
 		children,
 		height,
-		width,
+		width = 'medium',
 		onCloseComplete,
 		onOpenComplete,
 		label,
 		testId,
-		isFullScreen,
+		isFullScreen = false,
 	} = props;
 
-	const calculatedStackIndex = useModalStack({ onStackChange });
-	const stackIndex = stackIndexOverride || calculatedStackIndex;
+	useModalStack({ onStackChange });
 
 	const onCloseHandler = useModalCloseHandler(providedOnClose);
 
@@ -234,19 +355,39 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 		[defaultTestId, titleId, onCloseHandler, providedOnClose, isFullScreen],
 	);
 
-	// Only forward close when the reason is allowed by props.
-	// Passes a synthetic event to satisfy the KeyboardOrMouseEvent contract.
+	// Dialog has already applied the close behavior configured by `dismissedBy`.
+	// Pass a synthetic event to satisfy the KeyboardOrMouseEvent contract.
 	const onDialogClose = useCallback(
 		({ reason }: { reason: TDialogCloseReason }) => {
-			if (reason === 'escape' && shouldCloseOnEscapePress) {
-				onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
-			}
-			if (reason === 'overlay-click' && shouldCloseOnOverlayClick) {
-				onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
-			}
+			onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
 		},
-		[onCloseHandler, shouldCloseOnEscapePress, shouldCloseOnOverlayClick],
+		[onCloseHandler],
 	);
+
+	const dismissedBy = getDialogDismissedBy({
+		shouldCloseOnEscapePress,
+		shouldCloseOnOverlayClick,
+	});
+
+	const shouldShimCloseOnOverlayClick = shouldCloseOnOverlayClick && !shouldCloseOnEscapePress;
+
+	// Required until we fully remove `shouldCloseOnEscapePress`.
+	// Dialog's `dismissedBy` options do not support outside click without Escape (because it is a bad pattern)
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog || !shouldShimCloseOnOverlayClick) {
+			return;
+		}
+
+		return bind(dialog, {
+			type: 'click',
+			listener(event) {
+				if (event.target === event.currentTarget) {
+					onDialogClose({ reason: 'overlay-click' });
+				}
+			},
+		});
+	}, [onDialogClose, shouldShimCloseOnOverlayClick]);
 
 	// ExitingPersistence: isExiting → isOpen={false} → Dialog exit animation →
 	// onExitFinish → onCloseComplete + unmount.
@@ -259,13 +400,11 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 		onExitFinish?.();
 	}, [onExitFinish, onCloseComplete]);
 
-	// Fire onOpenComplete after mount.
-	useEffect(() => {
+	const handleDialogEnterFinish = useCallback(() => {
 		if (onOpenComplete && contentRef.current) {
 			onOpenComplete(contentRef.current, true);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [onOpenComplete]);
 
 	// Honor `shouldReturnFocus={ref}` on unmount.
 	// Native <dialog>.close() restores focus to the trigger that opened it,
@@ -299,70 +438,23 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 		);
 	}, []);
 
-	// Responsive layout via ID-scoped <style> (same pattern as Dialog's hideBackdrop).
-	// ID selector beats Compiled atomic classes without !important and supports @media.
-	const namedWidth = getDialogWidth(width ?? 'medium');
-	const dialogId = `modal-dialog-${id}`;
-	const escapedDialogId = CSS.escape(dialogId);
-
-	// Percentage widths need special handling in the top layer.
-	// In legacy, the percentage resolved against the Positioner's max-width
-	// (100vw - 120px). In the top layer, the <dialog>'s containing block is the
-	// viewport (100vw), so a raw percentage would produce a wider modal.
-	// Transform e.g. '42%' → 'calc(42 * (100vw - 120px) / 100)' to match legacy.
-	const resolvedWidth = namedWidth.endsWith('%')
-		? `calc(${parseFloat(namedWidth)} * (100vw - 120px) / 100)`
-		: namedWidth;
-
-	const dialogStyle: Record<string, string> = isFullScreen
-		? {
-				width: '100vw',
-				height: '100vh',
-				margin: '0',
-			}
-		: {
-				width: `min(${resolvedWidth}, 100vw)`,
-			};
-
-	// Shift stacked background modals down by space.100 (8px) per level.
-	if (stackIndex > 0) {
-		dialogStyle['transform'] = `translateY(calc(${stackIndex}px * ${token('space.100')}))`;
-	}
-
-	// Mobile: viewport fill. Desktop (≥ 30rem): gutter margins, auto height.
-	// Content-div height set via #id > div to beat Compiled's atomic specificity.
-	const desktopMargin = shouldScrollInViewport ? '60px auto' : '60px auto auto';
-	const resolvedHeight = dialogHeight(height);
-	// Body-scroll: specified height or auto. Viewport-scroll: uses min-height.
-	const desktopContentHeight = shouldScrollInViewport ? 'auto' : resolvedHeight;
-	const desktopContentMinHeight = shouldScrollInViewport ? resolvedHeight : 'auto';
-	// Viewport-scroll: the legacy Positioner was a fixed 100vh container that
-	// scrolled internally, so the modal section could fill (100vh - 60px top gutter).
-	// In the top layer the <dialog> sizes to content with height:auto, so we need
-	// an explicit min-height to ensure the dialog stretches to the same visible area.
-	const desktopDialogMinHeight = shouldScrollInViewport ? 'min-height:calc(100vh - 60px);' : '';
-	// Doubled-ID selector (#id#id > div) at specificity (2,0,1) beats
-	// Compiled atomic classes at (0,1,0) (increaseSpecificity is disabled).
-	const dialogPositionStyles = isFullScreen
-		? ''
-		: // Mobile: edge-to-edge. Desktop (≥ 30rem): 60px gutters, max-width.
-			`#${escapedDialogId}#${escapedDialogId}{margin:0;height:100vh}#${escapedDialogId}#${escapedDialogId}>div{height:100%}@media(min-width:30rem){#${escapedDialogId}#${escapedDialogId}{margin:${desktopMargin};height:auto;${desktopDialogMinHeight}max-width:calc(100vw - 120px)}#${escapedDialogId}#${escapedDialogId}>div{height:${desktopContentHeight};min-height:${desktopContentMinHeight}}}`;
+	const scrollMode = getScrollMode({ isFullScreen, shouldScrollInViewport });
 
 	return (
 		<Dialog
 			ref={dialogRef}
-			id={dialogId}
 			onClose={onDialogClose}
+			dismissedBy={dismissedBy}
 			onExitFinish={handleDialogExitFinish}
 			shouldAnimate={!isFullScreen}
 			isOpen={!isExiting}
-			shouldHideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}
+			onEnterFinish={handleDialogEnterFinish}
+			shouldHideBackdrop={isBlanketHidden}
 			// Dialog requires at least one of `label` or `labelledBy` (string, not undefined).
 			// Prefer the consumer-provided `label`; otherwise reference the internal `titleId`.
 			{...(label ? { label } : { labelledBy: titleId })}
 			testId={defaultTestId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={dialogStyle as CSSProperties}
+			xcss={dialogStyles[scrollMode]}
 		>
 			{/*
 			 * Prevent background scroll (native inertness only blocks focus/click).
@@ -379,11 +471,6 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 			 * `ExitingPersistence` unmounts this subtree after the exit settles.
 			 */}
 			<DialogScrollLock isOpen={true} />
-			{/* ID-scoped responsive positioning (overrides atomic margin: auto). */}
-			{dialogPositionStyles && (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-				<style>{dialogPositionStyles}</style>
-			)}
 			{/* Visual content container - Dialog handles the raw <dialog>. */}
 			{/* No tabIndex: native <dialog>.showModal() picks the first focusable
 			    descendant as initial focus target. A tabIndex on this wrapper
@@ -393,12 +480,18 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 			<div
 				ref={contentRef}
 				css={[
-					topLayerStyles.content,
-					!isFullScreen && topLayerStyles.borderRadius,
-					!isFullScreen && fg('platform-dst-shape-theme-default') && topLayerStyles.borderRadiusT26,
-					!isFullScreen && !shouldScrollInViewport && topLayerBodyScrollStyles,
-					!isFullScreen && shouldScrollInViewport && topLayerViewportScrollStyles,
+					surfaceStyles.root,
+					!isFullScreen && surfaceStyles.borderRadius,
+					topLayerScrollModeStyles[scrollMode],
+					// Unless the consumer is explicitly setting a height, we don't want to be taller than the content
+					!height && !isFullScreen && topLayerAutoHeightStyles,
 				]}
+				style={
+					{
+						'--modal-dialog-height': getTopLayerSurfaceHeight(height),
+						'--modal-dialog-width': getTopLayerSurfaceWidth(width),
+					} as React.CSSProperties
+				}
 			>
 				<ModalContext.Provider value={modalDialogContext}>
 					<ScrollContext.Provider value={shouldScrollInViewport}>{children}</ScrollContext.Provider>

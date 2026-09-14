@@ -15,7 +15,8 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
+import { easeOut } from '@atlaskit/motion/curves';
+import { prefersReducedMotion } from '@atlaskit/motion/utils/accessibility';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';

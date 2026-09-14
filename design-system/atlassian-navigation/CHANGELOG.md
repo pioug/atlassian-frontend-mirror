@@ -1,5 +1,110 @@
 # @atlaskit/atlassian-navigation
 
+## 6.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.1
+
+### Patch Changes
+
+- [`07dd4ad421f6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07dd4ad421f6e) -
+  Experimental React 19 peer dependency support. Test coverage is partial.
+
+## 6.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`234fda770bd2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/234fda770bd2b) -
+  [ux] Fixed unsafe styles that distorted the inline (top-layer) tooltip/popover by excluding
+  top-layer elements from the offending selectors via `:not(:where([popover], dialog))` (and
+  `:nth-last-child(... of ...)` for positional selectors). The `:where()` wrapper keeps the guard at
+  zero specificity, so matching is otherwise unchanged, and the guards are no-ops for the legacy
+  portalled tooltip.
+
+  `@atlassian/gemini` additionally ignores Emotion's `":nth-last-child"` server-side-rendering
+  console warning, which it already ignored for `":first-child"` and `":nth-child"`
+  (emotion-js/emotion#1105).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.6
 
 ### Patch Changes

@@ -6,21 +6,31 @@ import React, { useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { useMotion } from '@atlaskit/motion/use-motion';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	entering: {
 		animationDuration: token('motion.duration.xlong'),
 		animationTimingFunction: token('motion.easing.out.practical'),
-		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token(
+			'motion.keyframe.fade.in',
+		)}`,
 		animationFillMode: 'backwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 	exiting: {
 		animationDuration: token('motion.duration.long'),
 		animationTimingFunction: token('motion.easing.in.practical'),
-		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token(
+			'motion.keyframe.fade.out',
+		)}`,
 		animationFillMode: 'forwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 });
 

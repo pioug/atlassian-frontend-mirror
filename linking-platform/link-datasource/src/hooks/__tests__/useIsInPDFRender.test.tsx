@@ -1,17 +1,14 @@
 import { renderHook } from '@testing-library/react';
 
-import { useSmartCardContext } from '@atlaskit/link-provider';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { useIsInPDFRender } from '../useIsInPDFRender';
 
-jest.mock('@atlaskit/link-provider', () => {
-	const originalModule = jest.requireActual('@atlaskit/link-provider');
-	return {
-		...originalModule,
-		useSmartCardContext: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/link-provider/use-smart-card-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-card-context'),
+	useSmartCardContext: jest.fn(),
+}));
 
 describe('useIsInPdfExport', () => {
 	beforeEach(() => {

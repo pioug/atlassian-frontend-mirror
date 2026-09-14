@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import WithAssetsModalVR from '../../../../../examples/vr/with-assets-modal-vr';
+import WithAssetsModalVR from '../../../../../examples/vr/with-assets-modal-vr.vr.ap';
 
 snapshotInformational(WithAssetsModalVR, {
 	description: 'display assets modal schema selector dropdown',

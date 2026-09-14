@@ -7,13 +7,13 @@ import { Fragment, type SyntheticEvent, useCallback, useEffect, useState } from 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
-import { Code } from '@atlaskit/code';
-import Heading from '@atlaskit/heading';
-import { IconTile } from '@atlaskit/icon';
+import Code from '@atlaskit/code/code';
+import Heading from '@atlaskit/heading/heading';
+import IconTile from '@atlaskit/icon/icon-tile';
 import metadata from '@atlaskit/icon-lab/metadata';
 import FlaskIcon from '@atlaskit/icon/core/flask';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import IconExplorerCell, { type IconExplorerCellProps } from './utils/new-icon-explorer-cell';

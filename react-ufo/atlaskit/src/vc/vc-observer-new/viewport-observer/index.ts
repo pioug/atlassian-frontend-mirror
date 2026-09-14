@@ -1,8 +1,8 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { SearchPageConfig } from '../../types';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
-import isDnDStyleMutation from '../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
+import isAnchorNameStyleMutation from '../../vc-observer/observers/non-visual-styles/is-anchor-name-style-mutation';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
 import isPdndAttribute from '../../vc-observer/observers/non-visual-styles/is-pdnd-attribute';
 import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
@@ -10,9 +10,10 @@ import { type VCObserverEntryType } from '../types';
 
 import { createIntersectionObserver, type VCIntersectionObserver } from './intersection-observer';
 import createMutationObserver from './mutation-observer';
-import createPerformanceObserver from './performance-observer';
+import { default as createPerformanceObserver } from './performance-observer/index';
 import { type MutationData, type MutationDataWithTimestamp } from './types';
-import checkWithinComponent, { cleanupCaches } from './utils/check-within-component';
+import checkWithinComponent from './utils/check-within-component';
+import { cleanupCaches } from './utils/cleanup-caches';
 import { isContainedWithinSmartAnswers } from './utils/is-contained-within-smart-answers';
 import { isElementVisible } from './utils/is-element-visible';
 import isInVCIgnoreIfNoLayoutShiftMarker from './utils/is-in-vc-ignore-if-no-layout-shift-marker';
@@ -529,7 +530,7 @@ export default class ViewportObserver {
 				};
 			}
 
-			if (isDnDStyleMutation({ target, attributeName, oldValue, newValue })) {
+			if (isAnchorNameStyleMutation({ target, attributeName, oldValue, newValue })) {
 				return {
 					type: 'mutation:attribute:non-visual-style',
 					mutationData: {

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { LinkButton as AkLinkButton } from '@atlaskit/button/new';
+import AkLinkButton from '@atlaskit/button/link';
 
 import { useHasCustomTheme } from './has-custom-theme-context';
 import { ThemedLinkButton, type ThemedLinkButtonProps } from './themed-link-button';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IconProps } from '@atlaskit/icon';
+import type { IconProps } from '@atlaskit/icon/types';
 import LayoutThreeColumnsSidebarsLeftIcon from '@atlaskit/icon-lab/core/layout-three-columns-sidebars-left';
 
 export const LayoutThreeWithLeftSidebarsIcon = (

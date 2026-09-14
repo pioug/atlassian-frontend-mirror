@@ -3,7 +3,7 @@ import React from 'react';
 import { axe } from '@af/accessibility-testing';
 import { render } from '@atlassian/testing-library';
 
-import Badge from '../../../src';
+import Badge from '../../badge';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('badge accessibility', () => {

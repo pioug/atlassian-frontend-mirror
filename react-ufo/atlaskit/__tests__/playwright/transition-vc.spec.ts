@@ -3,6 +3,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: transition VC', () => {
 	test.use({
 		examplePage: 'app-with-top-left-nav',
+	} satisfies {
+		examplePage: 'app-with-top-left-nav';
+		__exampleDependency?: typeof import('../../examples/21-app-with-top-left-nav.tsx');
 	});
 
 	test('interactionMetrics transition VC', async ({

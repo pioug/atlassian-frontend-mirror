@@ -8,4 +8,4 @@ export type {
 	ProcessingFailedState,
 	MediaFileArtifact,
 	MediaFileArtifacts,
-} from '@atlaskit/media-state';
+} from '@atlaskit/media-state/file-state';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TabName } from '../../utils';
+import { TabName } from '../../utils/index';
 import ContentTabs from '../../utils/content-tabs';
 import customMd from '../../utils/custom-md';
 

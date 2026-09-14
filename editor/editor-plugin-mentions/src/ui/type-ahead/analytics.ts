@@ -203,6 +203,7 @@ export const buildTypeAheadRenderedPayload = (
 	query: string,
 	teams: TeamInfoAttrAnalytics[] | null,
 	xProductMentionsLength: number,
+	mentionTypeaheadSessionId: string,
 	agentAnalytics?: {
 		agentCount: number;
 		agentSectioningEnabled: boolean;
@@ -227,6 +228,7 @@ export const buildTypeAheadRenderedPayload = (
 		attributes: {
 			componentName,
 			duration,
+			mentionTypeaheadSessionId,
 			userIds,
 			teams,
 			queryLength,

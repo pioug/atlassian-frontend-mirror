@@ -11,9 +11,9 @@ import type { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { concatMap } from 'rxjs/operators/concatMap';
 
-import { EventType } from '@atlaskit/jql-editor-common';
+import { EventType } from '@atlaskit/jql-editor-common/constants';
 
-import { Action, ActionSubject } from '../analytics';
+import { Action, ActionSubject } from '../analytics/types';
 import { type JQLFieldResponse, type JQLFunctionResponse } from '../common/types';
 
 import { type Actions, type Store as JqlAutocompleteStoreModel } from './types';
@@ -118,7 +118,7 @@ export const store: Store<JqlAutocompleteStoreModel, Actions> = createStore<
  * initial autocomplete data can be shared across all JQL editor instances but this can be useful for storybook testing
  * if you want to mock different responses for each story.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const JQLAutocompleteContainer: ContainerComponent<{}> = createContainer<
 	JqlAutocompleteStoreModel,
 	Actions

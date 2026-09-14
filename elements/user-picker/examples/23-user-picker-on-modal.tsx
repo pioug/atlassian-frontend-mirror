@@ -1,9 +1,10 @@
-import Button from '@atlaskit/button/new';
-import ModalDialog, { ModalBody } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import { token } from '@atlaskit/tokens';
 import React, { useState } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import UserPicker from '../src';
+import { UserPicker } from '../src/components/UserPicker';
 
 const closeMenuOnScroll: EventListener = () => {
 	return true;

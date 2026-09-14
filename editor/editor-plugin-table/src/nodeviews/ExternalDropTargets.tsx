@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 
 import { getColumnsWidths } from '../pm-plugins/utils/column-controls';
 import type { DraggableSourceData } from '../types';

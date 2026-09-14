@@ -35,12 +35,13 @@ export class SSRPlaceholderHandlers {
 
 		if (window.document) {
 			try {
-				// Collect initial placeholders using SSR dimensions
+				// Collect initial placeholders using SSR dimensions. __SSR_PLACEHOLDERS_DIMENSIONS__ is
+				// deliberately left in place: several VCObserverWrappers are built per page load and each
+				// builds its own handler, so dropping it here would leave every later handler measuring
+				// each placeholder with getBoundingClientRect() — a synchronous style recalc and a
+				// full-document layout mid-hydration. Keeping it costs one small map per document.
 				this.collectPlaceholdersInternal();
-			} catch {
-			} finally {
-				delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;
-			}
+			} catch {}
 		}
 	}
 
@@ -127,8 +128,6 @@ export class SSRPlaceholderHandlers {
 			this.collectPlaceholdersInternal();
 		} catch {
 			// Silently fail if there are any issues
-		} finally {
-			delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;
 		}
 	}
 

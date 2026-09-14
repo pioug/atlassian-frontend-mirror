@@ -11,6 +11,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockCollapsePlugin } from '@atlaskit/editor-plugin-block-collapse/blockCollapsePluginType';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -19,9 +20,11 @@ import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
@@ -84,12 +87,18 @@ export interface PluginState {
 	menuTriggerByNode?: TriggerByNode;
 	multiSelectDnD?: MultiSelectDnD;
 	preservedSelection?: Selection;
+	surfaceNodePositions: number[];
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 
 export type BlockControlsPluginConfig = {
-	/** Enable the quick insert plus button icon on the left of the drag handle */
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- EDITOR-8696 tracks migration to the Quick Insert plugin configuration.
+	/**
+	 * Enable the quick insert plus button icon on the left of the drag handle.
+	 *
+	 * @deprecated Use `QuickInsertPluginOptions.blockControlButtonEnabled` instead.
+	 */
 	quickInsertButtonEnabled?: boolean;
 	/** Enable left/right hover split: show left controls when hovering left, right controls when hovering right */
 	rightSideControlsEnabled?: boolean;
@@ -119,6 +128,7 @@ export type BlockControlsSharedState =
 			preservedSelection?: Selection;
 			/** Whether left/right hover split is enabled (from plugin config) */
 			rightSideControlsEnabled?: boolean;
+			surfaceNodePositions?: number[];
 	  }
 	| undefined;
 
@@ -166,6 +176,7 @@ export type MoveNode = (
 ) => EditorCommand;
 
 export type BlockControlsPluginDependencies = [
+	OptionalPlugin<BlockCollapsePlugin>,
 	OptionalPlugin<LimitedModePlugin>,
 	OptionalPlugin<EditorDisabledPlugin>,
 	OptionalPlugin<EditorViewModePlugin>,
@@ -181,6 +192,8 @@ export type BlockControlsPluginDependencies = [
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<ShowDiffPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type BlockControlsPlugin = NextEditorPlugin<

@@ -1,9 +1,9 @@
 import React, { type ChangeEvent, type FC, type FormEvent, useState } from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/new';
+import Avatar from '@atlaskit/avatar/avatar';
+import Button from '@atlaskit/button/default/button';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 type State = {

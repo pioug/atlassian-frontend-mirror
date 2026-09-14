@@ -129,18 +129,3 @@ export const placeholderOverflowStyles: SerializedStyles = css({
 		textOverflow: 'ellipsis',
 	},
 });
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const placeholderWrapStyles: SerializedStyles = css({
-	// As part of controls work, we add placeholder `Search` to quick insert command
-	// This style is to prevent `/Search` being wrapped if it's triggered at the end of the line
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ProseMirror mark[data-type-ahead-query="true"]:has(.placeholder-decoration-wrap)': {
-		whiteSpace: 'nowrap',
-	},
-});

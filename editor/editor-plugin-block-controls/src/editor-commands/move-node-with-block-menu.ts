@@ -2,7 +2,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';

@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
+import { act } from '@atlassian/testing-library/act';
+import { fireEvent } from '@atlassian/testing-library/fire-event';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { waitFor } from '@atlassian/testing-library/wait-for';
 import { skipA11yAudit } from '@af/accessibility-testing';
-import DropdownMenu from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
-import { Popup } from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import {
 	FlyoutMenuItem,
 	FlyoutMenuItemContent,
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
-import Tooltip from '@atlaskit/tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 
 import { Main } from '../../main/main';

@@ -30,7 +30,7 @@ describe('Step Queue State', () => {
 			{ steps: [], version: 2 },
 			{ steps: [], version: 3 },
 		]);
-		expect(condition).toBeCalledTimes(3); // Once for each step added to the queue
+		expect(condition).toHaveBeenCalledTimes(3); // Once for each step added to the queue
 	});
 
 	it('Pauses and resumes the queue', () => {

@@ -2,12 +2,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles';
-import {
-	akEditorShadowZIndex,
-	akEditorTableNumberColumnWidth,
-	akEditorUnitZIndex,
-} from '@atlaskit/editor-shared-styles';
+import { tableCellBorderWidth } from '@atlaskit/editor-common/styles';
+import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -34,7 +30,6 @@ import {
 	tableDeleteButtonSize,
 	tableHeaderCellBackgroundColor,
 	tableInsertColumnButtonSize,
-	tableOverflowShadowWidthWide,
 	tableToolbarDeleteColor,
 	tableToolbarSelectedColor,
 	tableToolbarSize,
@@ -326,64 +321,6 @@ export const DeleteButton = (): SerializedStyles => css`
 		background: ${tableCellHoverDeleteIconBackground};
 		color: ${tableCellHoverDeleteIconColor};
 		cursor: pointer;
-	}
-`;
-
-export const OverflowShadow = (): SerializedStyles => css`
-	.${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
-		display: block;
-		height: calc(100% - ${tableMarginTop}px);
-		position: absolute;
-		pointer-events: none;
-		top: ${tableMarginTop}px;
-		z-index: ${akEditorShadowZIndex};
-		width: ${tableOverflowShadowWidthWide}px;
-	}
-	.${ClassName.TABLE_LEFT_SHADOW} {
-		background:
-			linear-gradient(to left, transparent 0, ${token('elevation.shadow.overflow.spread')} 140%),
-			linear-gradient(
-				to right,
-				${token('elevation.shadow.overflow.perimeter')} 0px,
-				transparent 1px
-			);
-		left: 0px;
-	}
-	.${ClassName.TABLE_CONTAINER}[data-number-column='true'] > :not(.${ClassName.TABLE_STICKY_SHADOW}).${ClassName.TABLE_LEFT_SHADOW} {
-		left: ${akEditorTableNumberColumnWidth - 1}px;
-	}
-	.${ClassName.TABLE_RIGHT_SHADOW} {
-		background:
-			linear-gradient(to right, transparent 0, ${token('elevation.shadow.overflow.spread')} 140%),
-			linear-gradient(to left, ${token('elevation.shadow.overflow.perimeter')} 0px, transparent 1px);
-		left: calc(100% - ${tableOverflowShadowWidthWide}px);
-	}
-	.${ClassName.WITH_CONTROLS} {
-		.${ClassName.TABLE_LEFT_SHADOW} {
-			border-left: 1px solid ${tableBorderColor};
-		}
-	}
-`;
-
-export const OverflowShadowLessPadding = (
-	tableOverflowShadowWidth: number,
-): SerializedStyles => css`
-	.${ClassName.TABLE_LEFT_SHADOW}, .${ClassName.TABLE_RIGHT_SHADOW} {
-		width: ${tableOverflowShadowWidth}px;
-	}
-
-	.${ClassName.TABLE_LEFT_SHADOW} {
-		left: 6px;
-	}
-	.${ClassName.TABLE_LEFT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
-		left: 8px;
-	}
-
-	.${ClassName.TABLE_RIGHT_SHADOW} {
-		left: calc(100% - 6px);
-	}
-	.${ClassName.TABLE_RIGHT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
-		left: calc(100% - 16px);
 	}
 `;
 

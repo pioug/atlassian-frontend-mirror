@@ -1,6 +1,6 @@
 import { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import {
-	type Step,
 	ReplaceStep,
 	ReplaceAroundStep,
 	type Transform,

@@ -4,7 +4,10 @@ import { render, screen, act, waitFor } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 import { mockLoadImage, mockLoadImageError, unMockLoadImage } from '@atlaskit/media-test-helpers';
 
-import { Vector2, Rectangle, Bounds, type FileInfo } from '@atlaskit/media-ui';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
+import { Bounds } from '@atlaskit/media-ui/bounds';
+import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
 
 import {
 	ImagePlacer,
@@ -13,6 +16,14 @@ import {
 	type ImageActions,
 } from '../../image-placer';
 import { initialiseImagePreview } from '../../image-placer/imageProcessor';
+
+jest.mock('@atlaskit/media-ui/loadImage', () => ({
+	loadImage: jest.requireMock('@atlaskit/media-ui').loadImage,
+}));
+
+jest.mock('@atlaskit/media-ui/imageMetaData/getOrientation', () => ({
+	getOrientation: jest.requireMock('@atlaskit/media-ui').getOrientation,
+}));
 
 const smallSize = 5;
 const mediumSize = 10;

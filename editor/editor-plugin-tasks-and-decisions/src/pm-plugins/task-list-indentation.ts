@@ -1,4 +1,4 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type {
 	FlattenedItem,
 	FlattenListOptions,
@@ -6,7 +6,7 @@ import type {
 } from '@atlaskit/editor-common/lists';
 import { flattenList as flattenListBase } from '@atlaskit/editor-common/lists';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Flattens a taskList into one item per task item, recording which items the

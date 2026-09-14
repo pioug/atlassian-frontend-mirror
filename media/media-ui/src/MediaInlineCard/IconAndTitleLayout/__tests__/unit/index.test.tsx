@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { renderWithIntl } from '../../../../test-helpers';
+import { renderWithIntl } from '../../../../test-helpers/renderWithIntl';
 import { IconAndTitleLayout } from '../../index';
 
 jest.mock('react-render-image');

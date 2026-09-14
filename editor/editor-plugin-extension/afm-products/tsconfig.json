@@ -44,6 +44,9 @@
 			"path": "../../../design-system/checkbox/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/code/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/datetime-picker/afm-products/tsconfig.json"
 		},
 		{
@@ -51,6 +54,9 @@
 		},
 		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-block-menu/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-connectivity/afm-products/tsconfig.json"
@@ -107,6 +113,12 @@
 			"path": "../../../elements/mention/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/menu/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
@@ -114,6 +126,9 @@
 		},
 		{
 			"path": "../../../design-system/radio/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/react-select/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/section-message/afm-products/tsconfig.json"
@@ -147,6 +162,9 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/user-picker/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-products/tsconfig.json"

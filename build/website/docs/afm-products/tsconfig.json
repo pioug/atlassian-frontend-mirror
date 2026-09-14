@@ -1,0 +1,52 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../tsDist/@atlaskit__docs/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"references": [
+		{
+			"path": "../../../../packages/design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/code/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/css/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/heading/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/section-message/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/theme/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../../packages/design-system/tooltip/afm-products/tsconfig.json"
+		}
+	]
+}

@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import BasicDrawer from '../../../examples/02-drawer-default';
+import BasicDrawer from '../../../examples/02-drawer-default.vr.ap';
 
 it('Basic drawer should pass axe audit', async () => {
 	const { container } = render(<BasicDrawer />);

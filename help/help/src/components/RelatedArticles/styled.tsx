@@ -6,7 +6,7 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 
 const relatedArticlesTitleStyles = css({
 	color: token('color.text'),

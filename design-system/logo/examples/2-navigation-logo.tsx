@@ -7,16 +7,18 @@ import React, { Fragment, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
+import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import {
 	AdminIcon,
 	AlignIcon,
 	AnalyticsIcon,
-	AtlassianAccessIcon,
 	AtlassianAdminIcon,
 	AtlassianAdministrationIcon,
 	AtlassianAnalyticsIcon,
-	AtlassianIcon,
-	AtlassianMarketplaceIcon,
 	BitbucketIcon,
 	CompassIcon,
 	ConfluenceIcon,
@@ -26,8 +28,6 @@ import {
 	JiraIcon,
 	JiraProductDiscoveryIcon,
 	JiraServiceManagementIcon,
-	JiraSoftwareIcon,
-	JiraWorkManagementIcon,
 	LoomAttributionIcon,
 	LoomIcon,
 	OpsgenieIcon,

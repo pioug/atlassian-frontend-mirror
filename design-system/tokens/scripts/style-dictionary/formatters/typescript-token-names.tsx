@@ -1,47 +1,7 @@
+import { createSignedArtifact } from '@atlassian/codegen';
 import type { Format } from 'style-dictionary';
 
-import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
-
-import { getCSSCustomProperty } from '../../../src/utils/get-css-custom-property';
-import { getTokenId } from '../../../src/utils/get-token-id';
-import sortTokens from '../sort-tokens';
-
-export const typescriptTokenFormatter: Format['formatter'] = ({ dictionary }) => {
-	const tokens: Record<string, string> = {};
-
-	sortTokens(
-		dictionary.allTokens.filter(
-			(token) => token.attributes?.group !== 'palette' && token.attributes?.group !== 'scale',
-		),
-	).forEach((token) => {
-		const tokenName = getTokenId(token.path);
-		tokens[tokenName] = getCSSCustomProperty(token.path);
-	});
-
-	const tokensKeyValues = Object.keys(tokens)
-		.map((name) => `  '${name}': '${tokens[name]}',`)
-		.join('\n');
-
-	const tokenReturnKeyValues = Object.keys(tokens)
-		.map((name) => `  '${name}': 'var(${tokens[name]})',`)
-		.join('\n');
-
-	return format(
-		`const tokens = {
-      ${tokensKeyValues}
-    } as const;
-
-    export type CSSTokenMap = {
-      ${tokenReturnKeyValues}
-    };
-
-    export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
-
-    export default tokens;\n`,
-		'typescript',
-	);
-};
+import { typescriptTokenFormatter } from './typescript-token-formatter';
 
 const fileFormatter: Format['formatter'] = (args) =>
 	createSignedArtifact(typescriptTokenFormatter(args), `yarn build tokens`);

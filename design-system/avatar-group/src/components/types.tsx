@@ -1,9 +1,10 @@
 import type { ElementType, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 
-import type { AnalyticsEvent } from '@atlaskit/analytics-next';
-import { type default as Avatar, type AvatarPropTypes, type SizeType } from '@atlaskit/avatar';
-import { type MenuGroupProps } from '@atlaskit/menu';
-import { type ContentProps } from '@atlaskit/popup';
+import type AnalyticsEvent from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { default as Avatar, AvatarPropTypes } from '@atlaskit/avatar/avatar';
+import type { SizeType } from '@atlaskit/avatar/types';
+import type { MenuGroupProps } from '@atlaskit/menu/types';
+import type { ContentProps } from '@atlaskit/popup/types';
 
 import type { AvatarGroupItemProps } from './avatar-group-item';
 import { type MoreIndicatorProps } from './more-indicator';

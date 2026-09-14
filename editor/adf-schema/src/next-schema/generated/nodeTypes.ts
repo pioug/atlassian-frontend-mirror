@@ -172,6 +172,7 @@ export interface BodiedExtensionDefinition {
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -186,6 +187,7 @@ export interface BodiedExtensionDefinition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TableWithNestedTableDefinition
     | TaskListDefinition
@@ -207,10 +209,75 @@ export type BodiedExtensionNode = PMNode & BodiedExtensionDefinition;
 export const bodiedExtension: PMNodeSpecFactoryInstance<BodiedExtensionNode> =
   createPMNodeSpecFactory<BodiedExtensionNode>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock)+',
     marks:
       'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
     group: 'block',
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+    defining: true,
+    isolating: true,
+  });
+
+export interface BodiedExtensionRootOnlyStage0Definition {
+  type: 'bodiedExtension';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BodiedRuleStage0Definition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | RuleWithAttrsStage0Definition
+    | TableDefinition
+    | TableWithNestedTableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    | BreakoutMark
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
+}
+
+export type BodiedExtensionRootOnlyStage0Node = PMNode &
+  BodiedExtensionRootOnlyStage0Definition;
+
+export const bodiedExtensionRootOnlyStage0: PMNodeSpecFactoryInstance<BodiedExtensionRootOnlyStage0Node> =
+  createPMNodeSpecFactory<BodiedExtensionRootOnlyStage0Node>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock)+',
+    marks:
+      'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
     attrs: {
       extensionKey: { default: '' },
       extensionType: { default: '' },
@@ -263,12 +330,71 @@ export const bodiedExtensionWithMarks: PMNodeSpecFactoryInstance<BodiedExtension
     isolating: true,
   });
 
+export interface BodiedRuleRootOnlyStage0Definition {
+  type: 'bodiedRule';
+  content: Array<HeadingWithNoMarksDefinition | ParagraphWithNoMarksDefinition>;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    localId: string;
+    alignment?: 'start' | 'center' | 'end';
+    color?: string;
+    style?: 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';
+    weight?: number;
+  };
+}
+
+export type BodiedRuleRootOnlyStage0Node = PMNode &
+  BodiedRuleRootOnlyStage0Definition;
+
+export const bodiedRuleRootOnlyStage0: PMNodeSpecFactoryInstance<BodiedRuleRootOnlyStage0Node> =
+  createPMNodeSpecFactory<BodiedRuleRootOnlyStage0Node>({
+    content: '(paragraph | heading){1,1}',
+    attrs: {
+      localId: { default: '' },
+      alignment: { default: null },
+      color: { default: null },
+      style: { default: null },
+      weight: { default: null },
+    },
+  });
+
+export interface BodiedRuleStage0Definition {
+  type: 'bodiedRule';
+  content: Array<HeadingWithNoMarksDefinition | ParagraphWithNoMarksDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    localId: string;
+    alignment?: 'start' | 'center' | 'end';
+    color?: string;
+    style?: 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';
+    weight?: number;
+  };
+}
+
+export type BodiedRuleStage0Node = PMNode & BodiedRuleStage0Definition;
+
+export const bodiedRuleStage0: PMNodeSpecFactoryInstance<BodiedRuleStage0Node> =
+  createPMNodeSpecFactory<BodiedRuleStage0Node>({
+    content: '(paragraph | heading){1,1}',
+    group: 'block',
+    attrs: {
+      localId: { default: '' },
+      alignment: { default: null },
+      color: { default: null },
+      style: { default: null },
+      weight: { default: null },
+    },
+  });
+
 export interface BodiedSyncBlockDefinition {
   type: 'bodiedSyncBlock';
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
     | BlockquoteLegacyDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | ConfluenceUnsupportedBlockDefinition
@@ -288,13 +414,14 @@ export interface BodiedSyncBlockDefinition {
     | MediaSingleFullDefinition
     | MediaSingleWidthTypeDefinition
     | OrderedListDefinition
-    | PanelC1Definition
+    | PanelC1Stage0Definition
     | PanelDefinition
     | ParagraphDefinition
     | ParagraphWithAlignmentDefinition
     | ParagraphWithIndentationDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TableWithNestedTableDefinition
     | TaskListDefinition
@@ -311,7 +438,7 @@ export type BodiedSyncBlockNode = PMNode & BodiedSyncBlockDefinition;
 export const bodiedSyncBlock: PMNodeSpecFactoryInstance<BodiedSyncBlockNode> =
   createPMNodeSpecFactory<BodiedSyncBlockNode>({
     content:
-      '(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | panel_c1 | rule | table | taskList | unsupportedBlock)+',
+      '(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel_c1 | panel | rule | bodiedRule | table | taskList | unsupportedBlock)+',
     marks:
       'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation breakout link fragment',
     attrs: { resourceId: { default: '' }, localId: { default: '' } },
@@ -566,14 +693,21 @@ export interface DocDefinition {
   content: Array<
     | BlockDefinition
     | BlockRootOnlyDefinition
+    | BodiedExtensionRootOnlyStage0Definition
+    | BodiedRuleRootOnlyStage0Definition
     | BodiedSyncBlockDefinition
     | CodeBlockRootOnlyDefinition
     | ExpandRootOnlyDefinition
+    | ExtensionRootOnlyStage0Definition
     | LayoutSectionDefinition
     | LayoutSectionFullDefinition
     | LayoutSectionWithSingleColumnStage0Definition
+    | MultiBodiedExtensionRootOnlyStage0Definition
+    | PanelC1RootOnlyStage0Definition
+    | PanelC1Stage0Definition
     | PanelRootOnlyStage0Definition
     | RuleRootOnlyStage0Definition
+    | RuleWithAttrsRootOnlyStage0Definition
     | SyncBlockDefinition
   >;
 }
@@ -583,7 +717,7 @@ export type DocNode = PMNode & DocDefinition;
 export const doc: PMNodeSpecFactoryInstance<DocNode> =
   createPMNodeSpecFactory<DocNode>({
     content:
-      '(block | codeBlock | panel | rule | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
+      '(block | panel_c1 | codeBlock | panel | panel_c1_root_only | rule | bodiedRule | extension | bodiedExtension | multiBodiedExtension | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
     marks:
       'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment breakout',
   });
@@ -673,6 +807,7 @@ export interface ExpandDefinition {
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -688,6 +823,7 @@ export interface ExpandDefinition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TableWithNestedTableDefinition
     | TaskListDefinition
@@ -701,7 +837,7 @@ export type ExpandNode = PMNode & ExpandDefinition;
 export const expand: PMNodeSpecFactoryInstance<ExpandNode> =
   createPMNodeSpecFactory<ExpandNode>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
     marks:
       'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
     group: 'block',
@@ -719,6 +855,7 @@ export interface ExpandRootOnlyDefinition {
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -734,6 +871,7 @@ export interface ExpandRootOnlyDefinition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TableWithNestedTableDefinition
     | TaskListDefinition
@@ -750,7 +888,7 @@ export type ExpandRootOnlyNode = PMNode & ExpandRootOnlyDefinition;
 export const expandRootOnly: PMNodeSpecFactoryInstance<ExpandRootOnlyNode> =
   createPMNodeSpecFactory<ExpandRootOnlyNode>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
     marks:
       'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
     attrs: {
@@ -780,6 +918,42 @@ export type ExtensionNode = PMNode & ExtensionDefinition;
 export const extension: PMNodeSpecFactoryInstance<ExtensionNode> =
   createPMNodeSpecFactory<ExtensionNode>({
     group: 'block',
+    atom: true,
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
+
+export interface ExtensionRootOnlyStage0Definition {
+  type: 'extension';
+  marks: Array<
+    | BreakoutMark
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
+}
+
+export type ExtensionRootOnlyStage0Node = PMNode &
+  ExtensionRootOnlyStage0Definition;
+
+export const extensionRootOnlyStage0: PMNodeSpecFactoryInstance<ExtensionRootOnlyStage0Node> =
+  createPMNodeSpecFactory<ExtensionRootOnlyStage0Node>({
     atom: true,
     attrs: {
       extensionKey: { default: '' },
@@ -833,6 +1007,7 @@ export interface ExtensionFrameStage0Definition {
     | BlockCardDefinition
     | BlockquoteDefinition
     | BodiedExtensionWithMarksDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -847,6 +1022,7 @@ export interface ExtensionFrameStage0Definition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TableWithNestedTableDefinition
     | TaskListDefinition
@@ -865,7 +1041,7 @@ export type ExtensionFrameStage0Node = PMNode & ExtensionFrameStage0Definition;
 export const extensionFrameStage0: PMNodeSpecFactoryInstance<ExtensionFrameStage0Node> =
   createPMNodeSpecFactory<ExtensionFrameStage0Node>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
     marks:
       'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
     attrs: {},
@@ -1111,7 +1287,9 @@ export const inlineExtensionWithMarks: PMNodeSpecFactoryInstance<InlineExtension
 
 export interface LayoutColumnDefinition {
   type: 'layoutColumn';
-  content: Array<BlockDefinition | UnsupportedBlockDefinition>;
+  content: Array<
+    BlockDefinition | PanelC1Stage0Definition | UnsupportedBlockDefinition
+  >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: {
     width: number;
@@ -1124,7 +1302,7 @@ export type LayoutColumnNode = PMNode & LayoutColumnDefinition;
 
 export const layoutColumn: PMNodeSpecFactoryInstance<LayoutColumnNode> =
   createPMNodeSpecFactory<LayoutColumnNode>({
-    content: '(block | unsupportedBlock)+',
+    content: '(block | panel_c1 | unsupportedBlock)+',
     marks:
       'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment',
     attrs: {
@@ -1639,6 +1817,41 @@ export const mentionStage0: PMNodeSpecFactoryInstance<MentionStage0Node> =
     selectable: true,
   });
 
+export interface MultiBodiedExtensionRootOnlyStage0Definition {
+  type: 'multiBodiedExtension';
+  content: Array<ExtensionFrameStage0Definition>;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'default' | 'wide' | 'full-width';
+    localId?: string;
+  };
+}
+
+export type MultiBodiedExtensionRootOnlyStage0Node = PMNode &
+  MultiBodiedExtensionRootOnlyStage0Definition;
+
+export const multiBodiedExtensionRootOnlyStage0: PMNodeSpecFactoryInstance<MultiBodiedExtensionRootOnlyStage0Node> =
+  createPMNodeSpecFactory<MultiBodiedExtensionRootOnlyStage0Node>({
+    content: 'extensionFrame+',
+    marks: 'unsupportedNodeAttribute unsupportedMark',
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+    definingAsContext: true,
+  });
+
 export interface MultiBodiedExtensionStage0Definition {
   type: 'multiBodiedExtension';
   content: Array<ExtensionFrameStage0Definition>;
@@ -1677,6 +1890,7 @@ export interface NestedExpandDefinition {
   type: 'nestedExpand';
   content: Array<
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -1690,6 +1904,7 @@ export interface NestedExpandDefinition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TaskListDefinition
     | UnsupportedBlockDefinition
   >;
@@ -1702,7 +1917,7 @@ export type NestedExpandNode = PMNode & NestedExpandDefinition;
 export const nestedExpand: PMNodeSpecFactoryInstance<NestedExpandNode> =
   createPMNodeSpecFactory<NestedExpandNode>({
     content:
-      '(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | panel | blockquote | unsupportedBlock | extension)+',
+      '(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | bodiedRule | panel | blockquote | unsupportedBlock | extension)+',
     marks:
       'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: {
@@ -1755,6 +1970,7 @@ export interface PanelDefinition {
   type: 'panel';
   content: Array<
     | BlockCardDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -1767,6 +1983,7 @@ export interface PanelDefinition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TaskListDefinition
     | UnsupportedBlockDefinition
   >;
@@ -1793,7 +2010,7 @@ export type PanelNode = PMNode & PanelDefinition;
 export const panel: PMNodeSpecFactoryInstance<PanelNode> =
   createPMNodeSpecFactory<PanelNode>({
     content:
-      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
     marks:
       'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     group: 'block',
@@ -1808,10 +2025,11 @@ export const panel: PMNodeSpecFactoryInstance<PanelNode> =
     selectable: true,
   });
 
-export interface PanelC1Definition {
+export interface PanelC1RootOnlyStage0Definition {
   type: 'panel';
   content: Array<
     | BlockCardDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -1824,6 +2042,69 @@ export interface PanelC1Definition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
+    | TableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    panelType:
+      | 'info'
+      | 'note'
+      | 'tip'
+      | 'warning'
+      | 'error'
+      | 'success'
+      | 'custom';
+    panelIcon?: string;
+    panelIconId?: string;
+    panelIconText?: string;
+    panelColor?: string;
+    localId?: string;
+  };
+}
+
+export type PanelC1RootOnlyStage0Node = PMNode &
+  PanelC1RootOnlyStage0Definition;
+
+export const panelC1RootOnlyStage0: PMNodeSpecFactoryInstance<PanelC1RootOnlyStage0Node> =
+  createPMNodeSpecFactory<PanelC1RootOnlyStage0Node>({
+    content:
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension | table)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      panelType: { default: 'info' },
+      panelIcon: { default: null },
+      panelIconId: { default: null },
+      panelIconText: { default: null },
+      panelColor: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
+
+export interface PanelC1Stage0Definition {
+  type: 'panel';
+  content: Array<
+    | BlockCardDefinition
+    | BodiedRuleStage0Definition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TaskListDefinition
     | UnsupportedBlockDefinition
@@ -1846,12 +2127,12 @@ export interface PanelC1Definition {
   };
 }
 
-export type PanelC1Node = PMNode & PanelC1Definition;
+export type PanelC1Stage0Node = PMNode & PanelC1Stage0Definition;
 
-export const panelC1: PMNodeSpecFactoryInstance<PanelC1Node> =
-  createPMNodeSpecFactory<PanelC1Node>({
+export const panelC1Stage0: PMNodeSpecFactoryInstance<PanelC1Stage0Node> =
+  createPMNodeSpecFactory<PanelC1Stage0Node>({
     content:
-      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension | table)+',
     marks:
       'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     group: 'block',
@@ -1870,6 +2151,7 @@ export interface PanelRootOnlyStage0Definition {
   type: 'panel';
   content: Array<
     | BlockCardDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -1882,6 +2164,7 @@ export interface PanelRootOnlyStage0Definition {
     | ParagraphWithFontSizeDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TaskListDefinition
     | UnsupportedBlockDefinition
   >;
@@ -1910,7 +2193,7 @@ export type PanelRootOnlyStage0Node = PMNode & PanelRootOnlyStage0Definition;
 export const panelRootOnlyStage0: PMNodeSpecFactoryInstance<PanelRootOnlyStage0Node> =
   createPMNodeSpecFactory<PanelRootOnlyStage0Node>({
     content:
-      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
     marks:
       'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: {
@@ -2061,6 +2344,55 @@ export const ruleRootOnlyStage0: PMNodeSpecFactoryInstance<RuleRootOnlyStage0Nod
     attrs: { localId: { default: null } },
   });
 
+export interface RuleWithAttrsRootOnlyStage0Definition {
+  type: 'rule';
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    localId?: string;
+    color?: string;
+    style?: 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';
+    weight?: number;
+  };
+}
+
+export type RuleWithAttrsRootOnlyStage0Node = PMNode &
+  RuleWithAttrsRootOnlyStage0Definition;
+
+export const ruleWithAttrsRootOnlyStage0: PMNodeSpecFactoryInstance<RuleWithAttrsRootOnlyStage0Node> =
+  createPMNodeSpecFactory<RuleWithAttrsRootOnlyStage0Node>({
+    attrs: {
+      localId: { default: null },
+      color: { default: null },
+      style: { default: null },
+      weight: { default: null },
+    },
+  });
+
+export interface RuleWithAttrsStage0Definition {
+  type: 'rule';
+  attrs: {
+    localId?: string;
+    color?: string;
+    style?: 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';
+    weight?: number;
+  };
+}
+
+export type RuleWithAttrsStage0Node = PMNode & RuleWithAttrsStage0Definition;
+
+export const ruleWithAttrsStage0: PMNodeSpecFactoryInstance<RuleWithAttrsStage0Node> =
+  createPMNodeSpecFactory<RuleWithAttrsStage0Node>({
+    group: 'block',
+    attrs: {
+      localId: { default: null },
+      color: { default: null },
+      style: { default: null },
+      weight: { default: null },
+    },
+  });
+
 export interface StatusDefinition {
   type: 'status';
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
@@ -2092,12 +2424,7 @@ export interface StatusStage0Definition {
   marks: Array<
     AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
   >;
-  attrs: {
-    text: string;
-    color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
-    localId?: string;
-    style?: string;
-  };
+  attrs: { text: string; color: string; localId?: string; style?: string };
 }
 
 export type StatusStage0Node = PMNode & StatusStage0Definition;
@@ -2220,6 +2547,7 @@ export interface TableCellDefinition {
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -2237,6 +2565,7 @@ export interface TableCellDefinition {
     | ParagraphWithAlignmentDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TaskListDefinition
     | UnsupportedBlockDefinition
   >;
@@ -2256,7 +2585,7 @@ export type TableCellNode = PMNode & TableCellDefinition;
 export const tableCell: PMNodeSpecFactoryInstance<TableCellNode> =
   createPMNodeSpecFactory<TableCellNode>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
     marks:
       'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: {
@@ -2277,6 +2606,7 @@ export interface TableCellWithNestedTableDefinition {
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -2294,6 +2624,7 @@ export interface TableCellWithNestedTableDefinition {
     | ParagraphWithAlignmentDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TaskListDefinition
     | UnsupportedBlockDefinition
@@ -2315,7 +2646,7 @@ export type TableCellWithNestedTableNode = PMNode &
 export const tableCellWithNestedTable: PMNodeSpecFactoryInstance<TableCellWithNestedTableNode> =
   createPMNodeSpecFactory<TableCellWithNestedTableNode>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
     marks:
       'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: {
@@ -2336,6 +2667,7 @@ export interface TableHeaderDefinition {
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -2354,6 +2686,7 @@ export interface TableHeaderDefinition {
     | ParagraphWithAlignmentDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TaskListDefinition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
@@ -2372,7 +2705,7 @@ export type TableHeaderNode = PMNode & TableHeaderDefinition;
 export const tableHeader: PMNodeSpecFactoryInstance<TableHeaderNode> =
   createPMNodeSpecFactory<TableHeaderNode>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
     marks:
       'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: {
@@ -2393,6 +2726,7 @@ export interface TableHeaderWithNestedTableDefinition {
   content: Array<
     | BlockCardDefinition
     | BlockquoteDefinition
+    | BodiedRuleStage0Definition
     | BulletListDefinition
     | CodeBlockDefinition
     | DecisionListDefinition
@@ -2411,6 +2745,7 @@ export interface TableHeaderWithNestedTableDefinition {
     | ParagraphWithAlignmentDefinition
     | ParagraphWithNoMarksDefinition
     | RuleDefinition
+    | RuleWithAttrsStage0Definition
     | TableDefinition
     | TaskListDefinition
   >;
@@ -2431,7 +2766,7 @@ export type TableHeaderWithNestedTableNode = PMNode &
 export const tableHeaderWithNestedTable: PMNodeSpecFactoryInstance<TableHeaderWithNestedTableNode> =
   createPMNodeSpecFactory<TableHeaderWithNestedTableNode>({
     content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
     marks:
       'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
     attrs: {

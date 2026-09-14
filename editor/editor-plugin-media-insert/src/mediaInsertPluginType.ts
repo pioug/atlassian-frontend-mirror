@@ -8,8 +8,10 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 import type { CustomizedHelperMessage, InsertMediaSingle } from './types';
 
@@ -51,6 +53,12 @@ export type RegisterInsertTab = {
 	 * registering plugin owns its own i18n.
 	 */
 	label: ReactNode;
+	/**
+	 * Numeric position relative to the picker's built-in tabs. Lower ranks are
+	 * rendered first and equal ranks preserve registration order. Defaults to `0`
+	 * for backward compatibility.
+	 */
+	rank?: number;
 };
 
 export type MediaInsertPluginState = {
@@ -62,6 +70,8 @@ export type MediaInsertPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	MediaPlugin,
 	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<ConnectivityPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type MediaInsertPluginCommands = {
@@ -84,11 +94,15 @@ export type MediaInsertPluginActions = {
 	 * Intended to be called from another plugin's setup, e.g.:
 	 *
 	 * ```tsx
+	 * import { MEDIA_INSERT_TAB } from '@atlaskit/editor-common/analytics';
+	 * import { MEDIA_INSERT_TAB_RANK } from '@atlaskit/editor-common/media-insert/rank';
+	 *
 	 * // inside aiImageGenerationPlugin
 	 * api?.mediaInsert?.actions.registerInsertTab({
 	 *   key: 'ai-image-generation',
 	 *   label: <FormattedMessage {...messages.generateTabTitle} />,
 	 *   component: MediaInsertImageGenerationTab,
+	 *   rank: MEDIA_INSERT_TAB_RANK[MEDIA_INSERT_TAB.CREATE],
 	 * });
 	 * ```
 	 */

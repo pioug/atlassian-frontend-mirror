@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Popup from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 

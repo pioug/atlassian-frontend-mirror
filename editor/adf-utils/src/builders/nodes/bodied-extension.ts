@@ -1,4 +1,5 @@
-import type { BodiedExtensionDefinition, NonNestableBlockContent } from '@atlaskit/adf-schema';
+import type { BodiedExtensionDefinition } from '@atlaskit/adf-schema/bodied-extension';
+import type { NonNestableBlockContent } from '@atlaskit/adf-schema/non-nestable-block-content';
 
 export const bodiedExtension =
 	(attrs: BodiedExtensionDefinition['attrs']) =>

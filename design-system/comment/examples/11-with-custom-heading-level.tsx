@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import Comment, { CommentAuthor, CommentEdited, CommentTime } from '@atlaskit/comment';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 

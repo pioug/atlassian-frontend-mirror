@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-utils",
-	"version": "20.4.0",
+	"version": "20.9.15",
 	"description": "Set of utilities to traverse, modify and create ADF documents.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"./decision-item": "./src/builders/nodes/decision-item.ts",
 		"./decision-list": "./src/builders/nodes/decision-list.ts",
 		"./dedupe-marks-transform": "./src/transforms/dedupe-marks-transform.ts",
+		"./depth-limited-nesting-container-nodes-transform": "./src/transforms/depth-limited-nesting-container-nodes-transform.ts",
 		"./doc": "./src/builders/nodes/doc.ts",
 		"./em": "./src/builders/marks/em.ts",
 		"./embed-card": "./src/builders/nodes/embed-card.ts",
@@ -70,6 +71,8 @@
 		"./nodes-missing-content-transform": "./src/transforms/nodes-missing-content-transform.ts",
 		"./ordered-list": "./src/builders/nodes/ordered-list.ts",
 		"./panel": "./src/builders/nodes/panel.ts",
+		"./panel-c1-fallback-transform": "./src/transforms/panel-c1-fallback-transform.ts",
+		"./panel-c1-fallback-transform-v2": "./src/transforms/panel-c1-fallback-transform-v2.ts",
 		"./paragraph": "./src/builders/nodes/paragraph.ts",
 		"./placeholder": "./src/builders/nodes/placeholder.ts",
 		"./reduce": "./src/traverse/reduce.ts",
@@ -99,39 +102,44 @@
 		"./types": "./src/types/index.ts",
 		"./underline": "./src/builders/marks/underline.ts",
 		"./validator/main": "./src/validator/validator.ts",
-		"./validator": "./src/validator.ts",
+		"./validator": "./src/validator/validator.ts",
 		"./validatorTypes": "./src/types/validatorTypes.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
 		"@atlassian/adf-schema-json": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"react": "^19.2.0",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"circular-dependencies": [
-				"file-level"
-			]
-		},
-		"@repo/internal": {
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"platform_adf-utils_fix-dummy-text-index-oob": {
 			"type": "boolean"
 		},
+		"platform_editor_adf_validator_empty_marks": {
+			"type": "boolean"
+		},
+		"platform_editor_adf_validator_no_base_override": {
+			"type": "boolean"
+		},
+		"platform_editor_adf_validator_stage0": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_adf-validator_mutation_bug": {
+			"type": "boolean"
+		},
 		"platform_editor_lovability_resize_gracefully": {
+			"type": "boolean"
+		},
+		"platform_editor_lovability_resize_exts_gracefully": {
 			"type": "boolean"
 		}
 	}

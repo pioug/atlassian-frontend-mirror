@@ -1,5 +1,5 @@
-import { type LinkPerson } from '@atlaskit/link-extractors';
-import type { ProductType } from '@atlaskit/linking-common';
+import type { LinkPerson } from '@atlaskit/link-extractors/types';
+import type { ProductType } from '@atlaskit/linking-common/types';
 
 import {
 	type ActionName,

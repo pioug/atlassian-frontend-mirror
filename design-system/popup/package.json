@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "5.2.2",
+	"version": "6.3.4",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,12 +18,12 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./compositional/popup-content": "./src/entry-points/compositional-popup-content.tsx",
-		"./compositional/popup-trigger": "./src/entry-points/compositional-popup-trigger.tsx",
-		"./compositional/popup": "./src/entry-points/compositional-popup.tsx",
+		"./compositional/popup": "./src/compositional/popup.tsx",
+		"./compositional/popup-content": "./src/compositional/popup-content.tsx",
+		"./compositional/popup-trigger": "./src/compositional/popup-trigger.tsx",
 		"./experimental": "./src/entry-points/experimental/compositional.tsx",
-		"./popup": "./src/entry-points/popup.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./popup": "./src/popup.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {
@@ -59,66 +59,48 @@
 		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
+		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlaskit/select": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
+		"@atlaskit/visually-hidden": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
 		"raf-stub": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"cc_blocks_changeboarding": {
-			"type": "boolean"
-		},
-		"jsmgrowth_popup_fix": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {
@@ -136,13 +118,16 @@
 		"popup-onclose-fix": {
 			"type": "boolean"
 		},
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
 		"platform_dst_nested_escape": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-popup": {
+			"type": "boolean"
+		},
+		"platform_dst-popup-trigger-initial-focus-ref": {
+			"type": "boolean"
+		},
+		"platform_dst_popup_media_query_perf_fix": {
 			"type": "boolean"
 		}
 	},

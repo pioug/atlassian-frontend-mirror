@@ -4,7 +4,7 @@ import React from 'react';
 import { parseISO } from 'date-fns';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 
 const weekendFilter = (date: string) => {
 	const dayOfWeek = parseISO(date).getDay();

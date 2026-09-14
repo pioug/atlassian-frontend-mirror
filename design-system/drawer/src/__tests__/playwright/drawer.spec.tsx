@@ -6,6 +6,7 @@ test.describe('Drawer with Fixed Contents', () => {
 			'design-system',
 			'drawer',
 			'drawer-with-fixed-contents',
+			{ 'react-18-mode': 'modern' },
 		);
 		await page.getByTestId('dropdown--trigger').click();
 		const dropDownMenu = page.getByTestId('dropdown--content');
@@ -17,20 +18,22 @@ test.describe('Drawer with Fixed Contents', () => {
 
 test.describe('Default Drawer', () => {
 	test('should have focus on first element when opened', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
+			{ 'react-18-mode': 'modern' },
 		);
 		await page.getByTestId('drawer-trigger').click();
 		const drawerCloseButton = page.getByTestId('DrawerCloseButton');
 		await expect(drawerCloseButton).toBeFocused();
 	});
 	test('should return focus to trigger element when closed', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
+			{ 'react-18-mode': 'modern' },
 		);
 		const drawerTrigger = page.getByTestId('drawer-trigger');
 		await drawerTrigger.click();
@@ -39,10 +42,11 @@ test.describe('Default Drawer', () => {
 		await expect(drawerTrigger).toBeFocused();
 	});
 	test('focus should not go beyond drawer container', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
+			{ 'react-18-mode': 'modern' },
 		);
 		console.log(await page.evaluate(`document.querySelectorAll('button')`));
 		const drawerTrigger = page.getByTestId('drawer-trigger');
@@ -58,6 +62,9 @@ test.describe('Scrollable Drawer', () => {
 			'design-system',
 			'drawer',
 			'scroll',
+			{
+				'react-18-mode': 'modern',
+			},
 		);
 		await page.setViewportSize({ width: 600, height: 150 });
 		await page.getByTestId('open-drawer').click();
@@ -71,6 +78,9 @@ test.describe('Scrollable Drawer', () => {
 			'design-system',
 			'drawer',
 			'scroll',
+			{
+				'react-18-mode': 'modern',
+			},
 		);
 		await page.setViewportSize({ width: 600, height: 150 });
 		await page.getByTestId('open-drawer').click();

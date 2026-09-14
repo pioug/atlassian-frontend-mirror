@@ -3,7 +3,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -32,7 +32,10 @@ export type CollabEditPlugin = NextEditorPlugin<
 		actions: {
 			addInlineCommentMark: (props: { from: number; mark: Mark; to: number }) => boolean;
 			addInlineCommentNodeMark: (props: { mark: Mark; pos: number }) => boolean;
-			getAvatarColor: (str: string) => {
+			getAvatarColor: (
+				str: string,
+				agentType?: string,
+			) => {
 				backgroundColor: string;
 				index: number;
 				textColor: string;

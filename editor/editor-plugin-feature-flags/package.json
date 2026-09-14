@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-feature-flags",
-	"version": "11.0.0",
+	"version": "17.0.0",
 	"description": "Feature flags plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,28 +25,6 @@
 		".": "./src/index.ts",
 		"./featureFlagsPlugin": "./src/entry-points/featureFlagsPlugin.tsx",
 		"./featureFlagsPluginType": "./src/entry-points/featureFlagsPluginType.ts"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-level"
-			]
-		},
-		"@repo/internal": {
-			"deprecation": "no-deprecated-imports",
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"emotion"
-			]
-		}
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^"

@@ -1,7 +1,8 @@
 import React, { type ReactElement } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import Flag, { type AppearanceTypes } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import type { AppearanceTypes } from '@atlaskit/flag/types';
 import Error from '@atlaskit/icon/core/status-error';
 import Info from '@atlaskit/icon/core/status-information';
 import Tick from '@atlaskit/icon/core/status-success';

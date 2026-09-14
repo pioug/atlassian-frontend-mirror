@@ -1,1 +1,1 @@
-export { navigateToTeamsApp } from './utils/teams-app-navigation';
+export { navigateToTeamsApp } from './utils/teams-app-navigation/navigateToTeamsApp';

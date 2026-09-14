@@ -3328,6 +3328,27 @@ events:
           type: number
           description: the status code if the action failed
           required: false
+  - diagnoseTeamPermissionsNudge rendered:
+      type: ui
+      description:
+        fired when the diagnose team permissions Rovo nudge is registered on a team error screen
+      attributes:
+        teamId:
+          type: string
+          description: id of the team the user could not open
+        screen:
+          type: ['teamNotFound', 'teamDeleted', 'teamRestore']
+          description: the team screen the nudge was rendered on
+  - diagnoseTeamPermissionsNudge clicked:
+      type: ui
+      description: fired when the diagnose team permissions Rovo nudge is clicked
+      attributes:
+        teamId:
+          type: string
+          description: id of the team the user could not open
+        screen:
+          type: ['teamNotFound', 'teamDeleted', 'teamRestore']
+          description: the team screen the nudge was clicked from
   - archivedTeamBannerMergedTeam succeeded:
       type: operational
       description:
@@ -3831,6 +3852,11 @@ events:
       description:
         fired when the View all link is clicked on the Recent Work section on the compact user
         profile preview
+  - userProfilePreview clicked (recentWorkShowMore):
+      type: ui
+      description:
+        fired when the Show more control is clicked to reveal additional items in the Recent Work
+        section on the user profile preview
   - userInlinePreview succeeded (request):
       type: operational
       description: fired when the user inline preview list data request succeeds

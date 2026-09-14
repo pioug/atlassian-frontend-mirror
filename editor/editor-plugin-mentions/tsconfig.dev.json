@@ -42,19 +42,43 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-core/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/mention/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/popup/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

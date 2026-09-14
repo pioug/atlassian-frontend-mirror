@@ -4,10 +4,9 @@ import { JastBuilder } from '@atlaskit/jql-ast';
 
 import { mockIntl } from '../../../mocks';
 
-import JQLEditorErrorStrategy, {
-	getJavaCodeFromChar,
-	getPrintableChar,
-} from './JQLEditorErrorStrategy';
+import JQLEditorErrorStrategy from './JQLEditorErrorStrategy';
+import { getJavaCodeFromChar } from './getJavaCodeFromChar';
+import { getPrintableChar } from './getPrintableChar';
 import { errorMessages } from './messages';
 
 type TestCase = {
@@ -44,7 +43,7 @@ const testValidation = (descriptorName: MessageKeys, testCases: TestCase[]) => {
 		it(replaceXmlIncompatibleCodepoint(jql), () => {
 			jastBuilder.build(jql);
 			const message = mockIntl.formatMessage(errorMessages[descriptorName], values);
-			expect(errorListener.errorMessage).toBeCalledWith(message);
+			expect(errorListener.errorMessage).toHaveBeenCalledWith(message);
 		});
 	});
 };
@@ -66,7 +65,7 @@ const hasNoValidation = (testCases: TestCase[]) => {
 		testCases.forEach(({ jql }) => {
 			it(replaceXmlIncompatibleCodepoint(jql), () => {
 				jastBuilder.build(jql);
-				expect(errorListener.errorMessage).not.toBeCalled();
+				expect(errorListener.errorMessage).not.toHaveBeenCalled();
 			});
 		});
 	});

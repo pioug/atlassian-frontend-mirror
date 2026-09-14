@@ -9,9 +9,10 @@ import {
 	type VCIntersectionObserver,
 } from './intersection-observer';
 import createMutationObserver, { type CreateMutationObserverProps } from './mutation-observer';
-import createPerformanceObserver, {
+import {
+	default as createPerformanceObserver,
 	type CreatePerformanceObserverArgs,
-} from './performance-observer';
+} from './performance-observer/index';
 import type { AttributeMutationData } from './types';
 import { isContainedWithinSmartAnswers } from './utils/is-contained-within-smart-answers';
 
@@ -30,7 +31,8 @@ const isContainedWithinSmartAnswersMock = isContainedWithinSmartAnswers as jest.
 jest.mock('../../vc-observer/observers/rll-placeholders');
 jest.mock('./intersection-observer');
 jest.mock('./mutation-observer');
-jest.mock('./performance-observer');
+jest.mock('./performance-observer/convertPhysicalToLogicalResolution');
+jest.mock('./performance-observer/index');
 describe('ViewportObserver', () => {
 	let mockIntersectionObserver: jest.Mocked<VCIntersectionObserver>;
 	let mockMutationObserver: jest.Mocked<MutationObserver>;
@@ -120,7 +122,6 @@ describe('ViewportObserver', () => {
 		expect(mockPerformanceObserver.observe).toHaveBeenCalledWith({
 			type: 'layout-shift',
 			buffered: true,
-			// @ts-ignore -error
 			durationThreshold: 30,
 		});
 	});

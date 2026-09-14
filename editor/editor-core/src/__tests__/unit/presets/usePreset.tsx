@@ -12,7 +12,7 @@ describe('usePreset', () => {
 
 		expect(result.current).toHaveProperty('editorApi');
 		expect(result.current).toHaveProperty('preset');
-		expect(createPreset).toBeCalledTimes(1);
+		expect(createPreset).toHaveBeenCalledTimes(1);
 	});
 
 	it('memoizes the preset creation', () => {
@@ -23,7 +23,7 @@ describe('usePreset', () => {
 
 		// @ts-ignore
 		expect(result.current.preset.data).toStrictEqual([]);
-		expect(createPreset).toBeCalledTimes(1); // createPreset should not be called again on rerender
+		expect(createPreset).toHaveBeenCalledTimes(1); // createPreset should not be called again on rerender
 	});
 
 	it('recreates the preset if a dependency changes', () => {
@@ -34,7 +34,7 @@ describe('usePreset', () => {
 
 		rerender('changed');
 
-		expect(createPreset).toBeCalledTimes(2); // createPreset should be called again when dependency changes
+		expect(createPreset).toHaveBeenCalledTimes(2); // createPreset should be called again when dependency changes
 	});
 
 	it('updates the editor API when resolves', async () => {

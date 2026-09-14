@@ -166,20 +166,18 @@ export const SomeFeature = () => {
 			after: `
 // file2.tsx - Spotlight code has been co-located to the targeted element
 import { Text } from '@atlaskit/primitives/compiled';
-import {
-  PopoverContent,
-  PopoverProvider,
-  PopoverTarget,
-  SpotlightActions,
-  SpotlightBody,
-  SpotlightCard,
-  SpotlightControls,
-  SpotlightDismissControl,
-  SpotlightFooter,
-  SpotlightHeader,
-  SpotlightHeadline,
-  SpotlightPrimaryAction,
-} from '@atlaskit/spotlight';
+import { PopoverContent } from '@atlaskit/spotlight/popover-content';
+import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
+import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
+import { SpotlightActions } from '@atlaskit/spotlight/actions';
+import { SpotlightBody } from '@atlaskit/spotlight/body';
+import { SpotlightCard } from '@atlaskit/spotlight/card';
+import { SpotlightControls } from '@atlaskit/spotlight/controls';
+import { SpotlightDismissControl } from '@atlaskit/spotlight/dismiss-control';
+import { SpotlightFooter } from '@atlaskit/spotlight/footer';
+import { SpotlightHeader } from '@atlaskit/spotlight/header';
+import { SpotlightHeadline } from '@atlaskit/spotlight/headline';
+import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
 import Image from '@atlaskit/image';
 import { ChoreographedComponent } from '@atlassian/jira-spotlight/src/ui/ChoreographedComponent.tsx';
 

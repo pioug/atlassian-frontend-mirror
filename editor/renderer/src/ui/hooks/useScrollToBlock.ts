@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { useEffect } from 'react';
 import { getDocument } from '@atlaskit/browser-apis';
 import {
@@ -9,7 +9,6 @@ import {
 	findNodeWithExpandParents,
 	getLocalIdSelector,
 } from '@atlaskit/editor-common/block-menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useStableScroll } from './useStableScroll';
 
 /**
@@ -129,17 +128,13 @@ export const useScrollToBlock = (
 			// Element found and all parent expands are open! Use the utility to scroll.
 			// (This will handle any final edge cases and do the actual scrolling).
 			// Capture cleanup function to cancel pending timeouts.
-			if (fg('platform_editor_block_menu_v2_patch_4')) {
-				cancelExpandAndScroll = expandAllParentsThenScroll(element, 0, (el) => {
-					if (scrollToBlock) {
-						scrollToBlock(el);
-					} else {
-						el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-					}
-				});
-			} else {
-				cancelExpandAndScroll = expandAllParentsThenScroll(element);
-			}
+			cancelExpandAndScroll = expandAllParentsThenScroll(element, 0, (el) => {
+				if (scrollToBlock) {
+					scrollToBlock(el);
+				} else {
+					el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			});
 
 			return true;
 		};

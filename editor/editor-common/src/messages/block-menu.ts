@@ -1,6 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
+	changeFormat: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	codeBlock: {
 		defaultMessage: string;
 		description: string;
@@ -81,6 +86,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	normalText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	paragraph: {
 		defaultMessage: string;
 		description: string;
@@ -101,12 +111,12 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	turnInto: {
+	textFormatting: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
-	changeFormat: {
+	turnInto: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -153,6 +163,11 @@ export const messages: {
 		id: 'fabric.editor.block.menu.paragraph',
 		defaultMessage: 'Paragraph',
 		description: 'Change the selected block to a paragraph',
+	},
+	normalText: {
+		id: 'fabric.editor.block.menu.normal.text',
+		defaultMessage: 'Normal text',
+		description: 'Change the selected block to normal text',
 	},
 	codeBlock: {
 		id: 'fabric.editor.block.menu.codeblock',
@@ -214,6 +229,11 @@ export const messages: {
 		id: 'fabric.editor.block.menu.headings',
 		defaultMessage: 'Headings',
 		description: 'Menu section title for heading block types',
+	},
+	textFormatting: {
+		id: 'fabric.editor.block.menu.text.formatting',
+		defaultMessage: 'Text formatting',
+		description: 'Menu section title for text formatting block types',
 	},
 	suggested: {
 		id: 'fabric.editor.block.menu.suggested',

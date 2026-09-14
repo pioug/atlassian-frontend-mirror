@@ -10,7 +10,7 @@ const messageHeading = 'h2';
 test('InlineMessage should be able to be identified and clicked by data-testid', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/99-testing.vr.ap.tsx')>(
 		'design-system',
 		'inline-message',
 		'testing',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "11.3.0",
+	"version": "11.8.1",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,13 +55,17 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/select": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/integrations": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"graphql-tag": "root:*",
 		"mock-apollo-client": "root:*",
@@ -70,13 +74,10 @@
 		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
-		"twcg-444-invite-usd-improvements-m2-gate": {
+		"smart-user-picker-fetch-error-fix": {
 			"type": "boolean"
 		},
 		"smart-user-picker-load-options-gate": {
-			"type": "boolean"
-		},
-		"smart-user-picker-restrict-to-gate": {
 			"type": "boolean"
 		},
 		"user_picker_guest_lozenges": {

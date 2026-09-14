@@ -1,43 +1,182 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { ResourcedMention } from '@atlaskit/mention/element';
-import MentionNode from '../../../../react/nodes/mention';
-import type { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/ui';
-import { Mention } from '@atlaskit/editor-common/mention';
+import { renderToString } from 'react-dom/server';
+import { IntlProvider } from 'react-intl';
 
-const mentionHandler: MentionEventHandler = (_mentionId, _text, _event?) => {};
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
+import type { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/ui';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
+
+import MentionNode from '../../../../react/nodes/mention';
+
+const mentionId = 'abcd-abcd-abcd';
 
 describe('Renderer - React/Nodes/Mention', () => {
+	afterEach(() => {
+		resetAllExperiments();
+	});
+
 	it('should render UI mention component', () => {
-		const mention = mountWithIntl(<MentionNode id="abcd-abcd-abcd" text="@Oscar Wallhult" />);
-		expect(mention.find(Mention)).toHaveLength(1);
-		mention.unmount();
+		renderWithIntl(<MentionNode id={mentionId} text="@Oscar Wallhult" />);
+
+		expect(screen.getByTestId(`mention-${mentionId}`)).toHaveTextContent('@Oscar Wallhult');
 	});
 
 	it('should render with access level if prop exists', () => {
-		const mention = mountWithIntl(
-			<MentionNode id="abcd-abcd-abcd" text="@Oscar Wallhult" accessLevel="APPLICATION" />,
+		renderWithIntl(<MentionNode id={mentionId} text="@Oscar Wallhult" accessLevel="APPLICATION" />);
+
+		expect(screen.getByTestId(`mention-${mentionId}`).closest('[data-mention-id]')).toHaveAttribute(
+			'data-access-level',
+			'APPLICATION',
 		);
-		expect(mention.find(Mention).prop('accessLevel')).toEqual('APPLICATION');
-		mention.unmount();
 	});
 
-	it('should pass event handlers into resourced mention', () => {
+	it('should pass event handlers into resourced mention', async () => {
+		const onClick: MentionEventHandler = jest.fn();
 		const eventHandlers: EventHandlers = {
 			mention: {
-				onClick: mentionHandler,
-				onMouseEnter: mentionHandler,
-				onMouseLeave: mentionHandler,
+				onClick,
+				onMouseEnter: () => {},
+				onMouseLeave: () => {},
 			},
 		};
 
-		const mention = mountWithIntl(
-			<MentionNode id="abcd-abcd-abcd" text="@Oscar Wallhult" eventHandlers={eventHandlers} />,
+		renderWithIntl(
+			<MentionNode id={mentionId} text="@Oscar Wallhult" eventHandlers={eventHandlers} />,
 		);
-		const resourcedMention = mention.find(ResourcedMention);
 
-		expect(resourcedMention.prop('onClick')).toEqual(mentionHandler);
-		mention.unmount();
+		await userEvent.click(screen.getByTestId(`mention-${mentionId}`));
+
+		expect(onClick).toHaveBeenCalledWith(
+			mentionId,
+			'@Oscar Wallhult',
+			expect.anything(),
+			expect.anything(),
+		);
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(<MentionNode id={mentionId} text="@Oscar Wallhult" />);
+
+		await expect(container).toBeAccessible();
+	});
+
+	it('should pass the client mention data provider into the mention UI', async () => {
+		mockExpEnabled('platform_editor_mention_node_avatar');
+		const mentionNodeDataProvider: MentionNodeDataProvider = {
+			getMentionData: jest.fn((_mention, callback) =>
+				callback({ data: { avatarUrl: 'https://example.com/avatar.png' } }),
+			),
+			getMentionDataFromCache: jest.fn(),
+		};
+
+		renderWithIntl(
+			<MentionNode
+				id="abcd-abcd-abcd"
+				text="@Oscar Wallhult"
+				mentionNodeDataProvider={mentionNodeDataProvider}
+			/>,
+		);
+
+		expect(await screen.findByTestId('mention-avatar')).toBeInTheDocument();
+		expect(mentionNodeDataProvider.getMentionData).toHaveBeenCalledWith(
+			{ id: 'abcd-abcd-abcd', userType: undefined },
+			expect.any(Function),
+		);
+	});
+
+	it('should not resolve mention avatar data when the experiment is disabled', () => {
+		mockExpDisabled('platform_editor_mention_node_avatar');
+		const mentionNodeDataProvider: MentionNodeDataProvider = {
+			getMentionData: jest.fn(),
+			getMentionDataFromCache: jest.fn(),
+		};
+
+		renderWithIntl(
+			<MentionNode
+				id={mentionId}
+				text="@Oscar Wallhult"
+				mentionNodeDataProvider={mentionNodeDataProvider}
+			/>,
+		);
+
+		expect(screen.getByTestId(`mention-${mentionId}`)).toHaveTextContent('@Oscar Wallhult');
+		expect(mentionNodeDataProvider.getMentionDataFromCache).not.toHaveBeenCalled();
+		expect(mentionNodeDataProvider.getMentionData).not.toHaveBeenCalled();
+	});
+
+	it('should preserve the provider-less render path when the experiment is disabled', () => {
+		mockExpDisabled('platform_editor_mention_node_avatar');
+		const mentionNodeDataProvider: MentionNodeDataProvider = {
+			getMentionData: jest.fn(),
+			getMentionDataFromCache: jest.fn(),
+		};
+		const renderMention = (provider?: MentionNodeDataProvider) =>
+			renderToString(
+				<IntlProvider locale="en">
+					<MentionNode id={mentionId} text="@Oscar Wallhult" mentionNodeDataProvider={provider} />
+				</IntlProvider>,
+			);
+
+		expect(renderMention(mentionNodeDataProvider)).toBe(renderMention());
+		expect(mentionNodeDataProvider.getMentionDataFromCache).not.toHaveBeenCalled();
+		expect(mentionNodeDataProvider.getMentionData).not.toHaveBeenCalled();
+	});
+
+	it.each(['HipChat', 'all', 'here'])(
+		'should preserve the at-sign and skip avatar resolution for generic mention %s',
+		(id) => {
+			mockExpEnabled('platform_editor_mention_node_avatar');
+			const mentionNodeDataProvider: MentionNodeDataProvider = {
+				getMentionData: jest.fn(),
+				getMentionDataFromCache: jest.fn(),
+			};
+
+			renderWithIntl(
+				<MentionNode id={id} text={`@${id}`} mentionNodeDataProvider={mentionNodeDataProvider} />,
+			);
+
+			expect(screen.getByTestId(`mention-${id}`)).toHaveTextContent(`@${id}`);
+			expect(screen.queryByTestId('mention-avatar-slot')).not.toBeInTheDocument();
+			expect(mentionNodeDataProvider.getMentionDataFromCache).not.toHaveBeenCalled();
+			expect(mentionNodeDataProvider.getMentionData).not.toHaveBeenCalled();
+		},
+	);
+
+	it('should synchronously render deterministic avatar data on the server', () => {
+		mockExpEnabled('platform_editor_mention_node_avatar');
+		const mentionNodeDataProvider: MentionNodeDataProvider = {
+			getMentionData: jest.fn(),
+			getMentionDataFromCache: jest.fn(() => ({
+				appType: 'agent',
+				avatarUrl: '/wiki/aa-avatar/agent-1',
+			})),
+		};
+
+		const html = renderToString(
+			<IntlProvider locale="en">
+				<MentionNode
+					id="agent-1"
+					text="@Agent"
+					userType="APP"
+					mentionNodeDataProvider={mentionNodeDataProvider}
+				/>
+			</IntlProvider>,
+		);
+
+		expect(mentionNodeDataProvider.getMentionDataFromCache).toHaveBeenCalledWith({
+			id: 'agent-1',
+			userType: 'APP',
+		});
+		expect(mentionNodeDataProvider.getMentionData).not.toHaveBeenCalled();
+		expect(html).toContain('mention-avatar-slot');
+		expect(html).toContain('/wiki/aa-avatar/agent-1');
+		expect(html).toContain('Agent');
+		expect(html).not.toContain('@Agent');
 	});
 });

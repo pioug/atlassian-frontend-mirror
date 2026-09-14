@@ -58,6 +58,6 @@ describe('useAnalyticsContext', () => {
 
 		render(<UnderTest callback={callback} context={context} />);
 
-		expect(callback).toBeCalledWith(context);
+		expect(callback).toHaveBeenCalledWith(context);
 	});
 });

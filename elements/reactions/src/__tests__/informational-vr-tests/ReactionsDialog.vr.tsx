@@ -1,4 +1,7 @@
-import { LoadedReactionsWithModal, MoreLoadedReactionsWithModal } from './ReactionsDialog.fixtures';
+import {
+	LoadedReactionsWithModal,
+	MoreLoadedReactionsWithModal,
+} from './ReactionsDialog.fixtures.vr.ap';
 import { snapshotInformational } from '@af/visual-regression';
 import mockPeopleSpriteImage from './assets/people.png';
 import mockSymbolSpriteImage from './assets/symbols.png';

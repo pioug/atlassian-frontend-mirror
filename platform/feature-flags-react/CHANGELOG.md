@@ -1,5 +1,17 @@
 # @atlaskit/platform-feature-flags-react
 
+## 1.2.0
+
+### Minor Changes
+
+- [`ae3b452f54cbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae3b452f54cbe) -
+  Flatten the deprecated `entry-points` re-export shims onto clean granular subpaths (Volt Stage-1).
+  Single-symbol entry points (`component-with-condition`, `component-with-fg`, `function-with-fg`)
+  now resolve straight to their implementation modules, and the multi-symbol entry points are split
+  into per-symbol subpaths (`function-union-with-condition`,
+  `do-not-use-this-in-production-ever-reset-conditional-hooks-factory-cache`, etc.). No existing
+  subpath key was removed; the public surface only gains new entry points.
+
 ## 1.1.1
 
 ### Patch Changes

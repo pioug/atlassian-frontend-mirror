@@ -6,7 +6,7 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
-import type { TooltipProps } from '@atlaskit/tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
 import type { DropdownMenuItemProps } from '../floating-toolbar';

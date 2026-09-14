@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import WithSurfaceDetection from '../../../examples/94-surface-detection';
+import WithSurfaceDetection from '../../../examples/94-surface-detection.vr.ap';
 
 snapshot(WithSurfaceDetection, {
 	drawsOutsideBounds: true,

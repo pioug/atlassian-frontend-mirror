@@ -67,6 +67,7 @@ export type AutomationRuleUpdatePayload = PayloadCore<'automation-rule-update'> 
 export type UpdateAgentConfigurationPayload = PayloadCore<'agent-configuration-update'> & {
 	data: {
 		ari: string;
+		cloudId?: string;
 	};
 };
 

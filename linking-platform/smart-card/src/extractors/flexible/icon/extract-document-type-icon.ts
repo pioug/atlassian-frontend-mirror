@@ -1,6 +1,6 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { isConfluenceGenerator } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { isConfluenceGenerator } from '@atlaskit/link-extractors/is-confluence-generator';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { IconType } from '../../../constants';
 

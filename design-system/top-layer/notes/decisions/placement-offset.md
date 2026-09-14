@@ -95,7 +95,7 @@ type TPlacement = {
 **Resolution:**
 
 - `TPlacementOptions.offset` is a deep-partial type; consumers may omit parts and get defaults.
-- `getPlacement()` returns a resolved `TPlacement` with all parts filled.
+- `resolvePlacement()` returns a resolved `TPlacement` with all parts filled.
 - `useAnchorPosition()` and fallback code paths receive a fully-resolved `TPlacement`.
 
 ---
@@ -135,31 +135,59 @@ inline-end). The margin direction determines which edge it applies to. Example:
 }
 ```
 
-**`shift` (new):** One cross-axis logical margin carrying a SIGNED value. The margin SIDE is chosen
-based on `align` because CSS `position-area` anchors the popover to a specific edge:
+**`shift`:** BOTH cross-axis logical margins, carrying the signed value antisymmetrically:
+`margin-{cross}-start: +value` and `margin-{cross}-end: -value`. `forwards` is a positive value and
+moves the popover toward the cross-axis end; `backwards` negates it.
 
-- `align: 'start'` — popover anchored at cross-axis START. Use `margin-{cross}-start`. Positive
-  value pushes toward end (forwards); negative pulls past start (backwards).
-- `align: 'end'` — popover anchored at cross-axis END. Use `margin-{cross}-end` with the SIGN
-  INVERTED (so `forwards` still maps to a positive `shift.value` from the consumer's perspective).
-- `align: 'center'` — popover spans the full cross axis and is centered. Either margin side works;
-  we use the START side for consistency.
+**Why both sides, rather than the side picked from `align`:**
 
-Four custom properties cover all combinations (only one is non-zero at any time):
+CSS Anchor Positioning constrains the popover within its `position-area`, and only the margin on the
+side the popover is actually anchored to moves the box. Writing one margin, chosen from `align`, is
+the obvious response to that, and it is what this hook did until it was found to be wrong in two
+ways:
+
+1. **`align: 'center'` was half strength.** A centered popover is aligned with `anchor-center`,
+   which centers the popover's MARGIN box on the anchor. A single-sided margin widens the margin
+   box, so the border box moves by only half the requested value. An antisymmetric pair sums to
+   zero, so it leaves the margin box width unchanged while moving its center by the full value.
+2. **The shift vanished after a cross-axis slide.** `position-try-fallbacks` can slide the popover
+   onto the opposite cross-axis side (`span-inline-end` to `span-inline-start`, and the mirror). A
+   `<position-area>` fallback keeps the base style's margins, but the anchored side has swapped, so
+   the single margin is now on the un-anchored side, where it has no effect.
+
+With both sides written, whichever side ends up anchored moves the popover the same physical
+direction, so the shift survives a cross-axis slide and a same-axis flip. Leaving the margin box
+width unchanged also means the shift does not move the point at which `position-try-fallbacks`
+decides the popover overflows.
+
+**Where the shift is NOT invariant: the diagonal flip.**
+
+A `<try-tactic>` fallback is not like a `<position-area>` one. `flip-block` and `flip-inline` SWAP
+the start and end margins rather than keeping them, which is exactly what carries the gap to the
+correct side through a flip (verified by the `flip-*` VR fixtures, where the flipped popover keeps
+its gap and its full shift).
+
+That means a flip across the CROSS axis mirrors the shift too, rather than preserving its physical
+direction. In the fallback list only rule 3, the diagonal flip (`flip-block flip-inline`), does
+this, and only for `align: 'start' | 'end'`. A popover escaping into the opposite corner therefore
+has its shift mirrored along with its alignment, which is arguably the point of a mirrored
+placement, but it is not the "same physical direction" guarantee that holds for the slide and the
+same-axis flip.
+
+This behaviour is unchanged from the single-margin implementation and currently has no test
+coverage.
+
+Four custom properties mirror the margins, two of which are non-zero at a time (the two on the
+active cross axis):
 
 - `--ds-cross-axis-shift-margin-start`: block-axis cross (inline) START margin
 - `--ds-cross-axis-shift-margin-end`: block-axis cross (inline) END margin
 - `--ds-cross-axis-shift-margin-block-start`: inline-axis cross (block) START margin
 - `--ds-cross-axis-shift-margin-block-end`: inline-axis cross (block) END margin
 
-**Why side choice depends on `align`:**
-
-CSS Anchor Positioning constrains the popover within its `position-area`. When `align: 'start'`, the
-popover's start edge is anchored to the position area's start; adding margin on the END side has no
-effect (the popover is already at the area's far end and cannot push past). The same is true
-mirrored for `align: 'end'`: only END-side margin moves the box. Choosing the side per `align` makes
-the API symmetric — `forwards` always shifts toward the cross-axis end, `backwards` always shifts
-toward the start, regardless of which align value the consumer picks.
+Nothing reads these yet. They are written for the planned named arrow `@position-try` rules
+described below, and the shift itself no longer depends on them, because the antisymmetric margins
+survive a cross-axis slide on their own.
 
 **Arrow handling:**
 
@@ -183,10 +211,12 @@ honours both `offset.gap` and `offset.crossAxisShift`. It computes a final posit
    `Popup.Content.offset` default) along the edge axis.
 3. Picking the side with more viewport space if the requested side overflows.
 4. Snapping the cross-axis position to the trigger's start, center, or end edge per `align`.
-5. Applying the consumer-supplied cross-axis `shift` with the same per-`align` and per-`direction`
-   sign rules as the CSS path. (`align: 'end'` inverts the sign so a `forwards` shift is consistent
-   regardless of which edge the popover is anchored to; `direction: 'backwards'` inverts the sign on
-   top of that.)
+5. Applying the consumer-supplied cross-axis `shift` as a signed coordinate delta: `forwards` is
+   positive and moves the popover toward the cross-axis end, `backwards` negative, for every `align`
+   value. There is deliberately no per-`align` sign inversion here. The CSS path inverts the sign
+   only because a margin on the END side pushes a box the opposite way to a margin on the START
+   side, which is a property of margins and not of the shift. This path once mirrored that
+   inversion, which moved `align: 'end'` popovers the opposite direction to the CSS path.
 6. Clamping the result to the viewport so the popover is never offscreen.
 
 **Resolving CSS length strings to pixels:**
@@ -198,7 +228,7 @@ viewport units, etc). `useAnchorPosition` resolves them per measurement using
 
 1. Numbers are returned as-is.
 2. `${n}px` strings hit a fast regex path (no DOM mutation) — this catches the common case produced
-   by `getPlacement`'s number normalisation.
+   by `resolvePlacement`'s number normalisation.
 3. Everything else: mount a hidden `<div>` next to the popover, set `margin-left: <value>` on it (we
    use `margin-left` rather than `width` so signed values are preserved — `width` clamps to 0), read
    `parseFloat(getComputedStyle(probe).marginLeft)`, then remove the probe.
@@ -260,7 +290,7 @@ consistent rendering on both paths.
 
 ## Number / String Handling
 
-`getPlacement` normalizes any number input to a `${n}px` string at the API boundary. After
+`resolvePlacement` normalizes any number input to a `${n}px` string at the API boundary. After
 resolution, internal code only sees strings:
 
 - Consumer enters `gap: 8` → `placement.offset.gap === '8px'`.
@@ -325,7 +355,7 @@ breaking changes:
    `placement.offset.gap` instead.
 
 2. **`TPlacement.offset` is required after resolution.** `TPlacementOptions.offset` is deep-partial,
-   so callers can omit it, but `getPlacement()` always returns a fully-resolved offset with both
+   so callers can omit it, but `resolvePlacement()` always returns a fully-resolved offset with both
    `gap` and `crossAxisShift`.
 
 3. **`useAnchorPosition` no longer accepts an `offset` parameter.** The hook signature is now:
@@ -419,7 +449,7 @@ to ensure they explicitly reset arrow geometry not relevant to that fallback.
   - "Risks when flag is turned on" (item 1) — cross-axis drop removed from risks.
 - **Source files**:
   - `packages/design-system/top-layer/src/internal/resolve-placement.tsx` — `TPlacement` definition,
-    `getPlacement()` defaults.
+    `resolvePlacement()` defaults.
   - `packages/design-system/top-layer/src/internal/resolve-css-length.tsx` — `toCssLengthString`
     helper that normalizes number offsets to `${n}px` strings at the API boundary.
   - `packages/design-system/top-layer/src/internal/use-anchor-position.tsx` — custom property

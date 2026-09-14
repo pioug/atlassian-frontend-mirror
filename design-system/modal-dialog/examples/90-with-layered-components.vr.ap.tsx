@@ -1,0 +1,328 @@
+import React, { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
+
+import PlaceholderContent from './placeholder-content';
+
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Code from '@atlaskit/code/code';
+import { cssMap } from '@atlaskit/css';
+import { DatePicker } from '@atlaskit/datetime-picker';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import noop from '@atlaskit/ds-lib/noop';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import AddCommentIcon from '@atlaskit/icon/core/comment-add';
+import Info from '@atlaskit/icon/core/status-information';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { Popup } from '@atlaskit/popup/popup';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
+import Select from '@atlaskit/select/default';
+import { PopupSelect } from '@atlaskit/select/popup-select';
+import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
+const Break = () => <br />;
+
+export function WithLayeredComponentsExample(): React.JSX.Element {
+	const [isOpen, setIsOpen] = useState(false);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
+
+	const middleRef = useRef<HTMLDivElement>(null);
+	const bottomRef = useRef<HTMLDivElement>(null);
+
+	const open = useCallback(() => setIsOpen(true), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	const scrollToMiddle = useCallback(
+		() => middleRef.current && middleRef.current.scrollIntoView(true),
+		[],
+	);
+	const scrollToBottom = useCallback(
+		() => bottomRef.current && bottomRef.current.scrollIntoView(true),
+		[],
+	);
+
+	return (
+		<Box padding="space.200" testId="container">
+			<CheckboxField name="sb" label="Scrolling behavior">
+				{() => (
+					<Checkbox
+						label="Should scroll within the viewport"
+						name="scroll"
+						testId="scroll"
+						onChange={(e) => setShouldScrollInViewPort(e.target.checked)}
+						isChecked={shouldScrollInViewport}
+					/>
+				)}
+			</CheckboxField>
+			<Break />
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="open-modal">
+				Open modal
+			</Button>
+			<ModalTransition>
+				{isOpen && (
+					<ModalDialog
+						onClose={close}
+						shouldScrollInViewport={shouldScrollInViewport}
+						testId="modal"
+					>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal Title</ModalTitle>
+						</ModalHeader>
+						<ModalBody>
+							<PlaceholderContent count={4} />
+							<div ref={middleRef} />
+							<Break />
+							<Popup
+								shouldRenderToParent
+								isOpen={isPopupOpen}
+								onClose={() => setIsPopupOpen(false)}
+								placement="bottom-start"
+								zIndex={layers.modal()}
+								content={() => (
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									<Box style={{ padding: '5px' }}>I'm a little popup!</Box>
+								)}
+								trigger={(triggerProps) => (
+									<Fragment>
+										<IconButton
+											{...triggerProps}
+											testId="popup-trigger"
+											isSelected={isPopupOpen}
+											onClick={() => setIsPopupOpen(!isPopupOpen)}
+											icon={AddCommentIcon}
+											label="Add"
+										/>
+										<Break />
+									</Fragment>
+								)}
+							/>
+							<Break />
+							<Tooltip testId="tooltip" position="left" content="I'm a little tooltip">
+								<Button testId="tooltip-trigger">Hover on me to view tooltip!</Button>
+								<Break />
+							</Tooltip>
+							<Break />
+							<PopupSelect
+								placeholder="PopupSelect"
+								options={selectOptions}
+								target={({ ref }: { ref: React.RefObject<any> }) => (
+									<Fragment>
+										<Button testId="popup-select-trigger" ref={ref}>
+											I'm a pop up select, click me!
+										</Button>
+										<Break />
+									</Fragment>
+								)}
+								popperProps={{ placement: 'bottom' }}
+								searchThreshold={10}
+							/>
+							<Break />
+							{/* This replicates the bug reported in
+              https://ecosystem.atlassian.net/browse/DS-7622,
+              but 'fixed' by setting the menuPosition. */}
+							<Text>
+								<Code>
+									placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
+								</Code>
+							</Text>
+							<Select
+								testId="select-zindex-fixed"
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className="select-zindex-fixed"
+								options={selectOptions}
+								menuPortalTarget={document.body}
+								styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+								menuPosition="fixed"
+								formatOptionLabel={({ label }) => (
+									<Tooltip position="bottom" content="I'm a little tooltip">
+										<div>{label}</div>
+									</Tooltip>
+								)}
+							/>
+							<Break />
+							<Text>
+								<Code>placeholder="menuPosition: fixed"</Code>
+							</Text>
+							<Select
+								testId="select-fixed"
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className="select-fixed"
+								options={selectOptions}
+								menuPosition="fixed"
+								formatOptionLabel={({ label }) => (
+									<Tooltip position="bottom" content="I'm a little tooltip">
+										<div>{label}</div>
+									</Tooltip>
+								)}
+							/>
+							<Break />
+							<Text>
+								<Code>placeholder="menuPosition: absolute"</Code>
+							</Text>
+							<Select
+								testId="select-absolute"
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className="select-absolute"
+								options={selectOptions}
+								menuPosition="absolute"
+								formatOptionLabel={({ label }) => (
+									<Tooltip position="bottom" content="I'm a little tooltip">
+										<div>{label}</div>
+									</Tooltip>
+								)}
+							/>
+							<Break />
+							<FlagGroupExample />
+							<Break />
+							<PlaceholderContent count={5} />
+							<Break />
+							<AvatarGroup
+								testId="avatar-group"
+								appearance="stack"
+								data={avatarGroupUsers.map((d) => ({
+									email: d.email,
+									key: d.email,
+									name: d.name,
+									href: '#',
+								}))}
+							/>
+							<Break />
+							<DatePicker shouldShowCalendarButton testId="date-picker" />
+							<Break />
+							<DropdownMenu testId="dropdown-menu" trigger="I'm a dropdown menu, click me!">
+								<DropdownItemGroup>
+									<DropdownItem>Edit</DropdownItem>
+									<DropdownItem>Share</DropdownItem>
+									<DropdownItem>Move</DropdownItem>
+								</DropdownItemGroup>
+							</DropdownMenu>
+							<Break />
+							<div ref={bottomRef} />
+						</ModalBody>
+						<ModalFooter>
+							<Button appearance="subtle" onClick={scrollToMiddle} testId="scroll-to-middle">
+								Scroll to middle
+							</Button>
+							<Button appearance="subtle" onClick={scrollToBottom} testId="scroll-to-bottom">
+								Scroll to bottom
+							</Button>
+							<Button appearance="primary" onClick={close}>
+								Close
+							</Button>
+						</ModalFooter>
+					</ModalDialog>
+				)}
+			</ModalTransition>
+		</Box>
+	);
+}
+
+const selectOptions = [
+	{ label: 'Sydney', value: 'sydney' },
+	{ label: 'Tokyo', value: 'tokyo' },
+	{ label: 'New York', value: 'new york' },
+	{ label: 'Jakarta', value: 'jakarta' },
+];
+
+const avatarGroupUsers = [
+	{ email: 'chaki@me.com', name: 'Chaki Caronni' },
+	{ email: 'nanop@outlook.com', name: 'Nanop Rgiersig' },
+	{ email: 'dowdy@outlook.com', name: 'Dowdy Metzzo' },
+	{ email: 'daveewart@msn.com', name: 'Daveewart Grdschl' },
+	{ email: 'fwitness@optonline.net', name: 'Fwitness Tezbo' },
+	{ email: 'nighthawk@yahoo.com', name: 'Nighthawk Wikinerd' },
+	{ email: 'naupa@me.com', name: 'Naupa Telbij' },
+	{ email: 'jsmith@verizon.net', name: 'Jsmith Rnelson' },
+	{ email: 'maneesh@msn.com', name: 'Maneesh Solomon' },
+	{ email: 'kiddailey@yahoo.com', name: 'Kiddailey Kodeman' },
+	{ email: 'kodeman@att.net', name: 'Kodeman Kiddailey' },
+	{ email: 'solomon@att.net', name: 'Solomon Maneesh' },
+	{ email: 'rnelson@optonline.net', name: 'Rnelson Jsmith' },
+	{ email: 'telbij@msn.com', name: 'Telbij Naupa' },
+];
+
+type FlagData = {
+	created: number;
+	description: string;
+	icon: ReactNode;
+	id: number;
+	key: number;
+	title: string;
+};
+
+const flagGroupContainerStyles = cssMap({
+	root: {
+		width: '100%',
+		textAlign: 'right',
+	},
+});
+
+const FlagGroupExample = () => {
+	const [flags, setFlags] = useState<Array<FlagData>>([]);
+
+	const addFlag = () => {
+		setFlags((current) => [generateFlagData(flags), ...current]);
+	};
+
+	const dismissFlag = useCallback(
+		(id: string | number) => {
+			setFlags((current) => current.filter((flag) => flag.id !== id));
+		},
+		[setFlags],
+	);
+
+	return (
+		<Box xcss={flagGroupContainerStyles.root}>
+			<Button testId="flag-trigger" appearance="primary" onClick={addFlag}>
+				Add flag
+			</Button>
+			<FlagGroup onDismissed={dismissFlag}>
+				{flags.map((flag, index) => (
+					<Flag
+						testId={`flag-${index + 1}`}
+						actions={[
+							{ content: 'Nice one!', onClick: noop },
+							{ content: 'No, thanks', onClick: () => dismissFlag(flag.id) },
+						]}
+						{...flag}
+					/>
+				))}
+			</FlagGroup>
+		</Box>
+	);
+};
+
+const generateFlagData = (flags: FlagData[]): FlagData => ({
+	created: Date.now(),
+	description: 'Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.',
+	icon: (
+		<Flex xcss={iconSpacingStyles.space050}>
+			<Info label="Info icon" color={token('color.icon.discovery')} />
+		</Flex>
+	),
+	id: flags.length,
+	key: flags.length,
+	title: `${flags.length + 1}: Whoa a new flag!`,
+});
+
+export default WithLayeredComponentsExample;

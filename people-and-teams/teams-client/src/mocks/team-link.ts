@@ -1,7 +1,7 @@
 import type FakerType from 'faker';
 import times from 'lodash/times';
 
-import { type TeamLink } from '../types';
+import { type TeamLink } from '../types/links';
 
 type MockConfig = {
 	faker: typeof FakerType;

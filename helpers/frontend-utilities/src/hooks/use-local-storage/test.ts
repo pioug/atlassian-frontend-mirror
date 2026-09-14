@@ -1,14 +1,16 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useLocalStorage, useLocalStorageRecord } from './index';
+import { useLocalStorage } from './useLocalStorage';
+import { useLocalStorageRecord } from './useLocalStorageRecord';
 
 const mockStorageClientGetItem = jest.fn();
 const mockStorageClientSetItemWithExpiry = jest.fn();
 
-jest.mock('../../storage/storage-client', () => ({
+jest.mock('../../storage/storage-client/StorageClient', () => ({
+	...jest.requireActual('../../storage/storage-client/StorageClient'),
 	StorageClient: function () {
 		return {
-			...jest.requireActual('../../storage/storage-client').StorageClient,
+			...jest.requireActual('../../storage/storage-client/main').StorageClient,
 			getItem: mockStorageClientGetItem,
 			setItemWithExpiry: mockStorageClientSetItemWithExpiry,
 		};

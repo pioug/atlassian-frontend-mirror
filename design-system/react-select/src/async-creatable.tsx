@@ -50,7 +50,6 @@ const AsyncCreatableSelect = forwardRef(
 		>(stateManagerProps);
 		const selectProps = useCreatable<Option, IsMulti, Group>(creatableProps);
 
-		// @ts-ignore - TS2322: Complex generic type causing issues for help-center local consumption with TS 5.9.2
 		return <Select ref={ref} {...selectProps} />;
 	},
 ) as AsyncCreatableSelect;

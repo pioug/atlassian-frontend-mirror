@@ -1,10 +1,10 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MutationRecordWithTimestamp } from '../types';
 
 import isNonVisualStyleMutation from './is-non-visual-style-mutation';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const mockFg = fg as jest.Mock;
 

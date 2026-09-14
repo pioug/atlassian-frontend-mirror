@@ -5,8 +5,8 @@ import { render, screen } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 
 import { Box, Flex, Grid, Inline, Stack, Text } from '../../../index';
-import Anchor from '../../anchor';
-import Pressable from '../../pressable';
+import { Anchor } from '../../anchor';
+import { Pressable } from '../../pressable';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Primitives', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import Range, { type RangeProps } from '../../index';
+import Range, { type RangeProps } from '../../range';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Range', () => {

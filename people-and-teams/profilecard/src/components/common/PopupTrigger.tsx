@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { type TriggerProps } from '@atlaskit/popup';
+import type { TriggerProps } from '@atlaskit/popup/types';
 
 import { type ProfileCardTriggerProps } from './types';
 
@@ -19,7 +18,6 @@ const PopupTriggerInner = <T,>(
 	} & Pick<ProfileCardTriggerProps<T>, 'ariaLabelledBy' | 'trigger' | 'children'>,
 	ref: React.Ref<HTMLSpanElement>,
 ) => {
-	// rename to onMouseOver when cleaning up update_profile_card_to_open_on_mouse_over
 	const onMouseEnter = useCallback(() => {
 		showProfilecard();
 	}, [showProfilecard]);
@@ -47,9 +45,8 @@ const PopupTriggerInner = <T,>(
 		() =>
 			trigger === 'hover'
 				? {
-						...(fg('update_profile_card_to_open_on_mouse_over')
-							? { onMouseOver: onMouseEnter, onMouseOut: hideProfilecard }
-							: { onMouseEnter, onMouseLeave: hideProfilecard }),
+						onMouseEnter,
+						onMouseLeave: hideProfilecard,
 						onBlur: hideProfilecard,
 						onKeyPress,
 					}

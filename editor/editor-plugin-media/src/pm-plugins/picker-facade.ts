@@ -1,7 +1,7 @@
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
-import type { MediaClientConfig } from '@atlaskit/media-core';
-import { isImagePreview } from '@atlaskit/media-picker';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { isImagePreview } from '@atlaskit/media-picker/preview';
 import type {
 	MediaFile,
 	UploadEndEventPayload,

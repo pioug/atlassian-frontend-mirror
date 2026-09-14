@@ -1,5 +1,68 @@
 # @atlaskit/editor-jira-transformer
 
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.0
 
 ### Minor Changes

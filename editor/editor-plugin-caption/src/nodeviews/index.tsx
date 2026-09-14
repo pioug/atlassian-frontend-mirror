@@ -3,7 +3,7 @@ import React from 'react';
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
@@ -109,7 +109,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 			</Caption>
 		);
 
-		if (!this.intl || !isSSR() || !isSSRStreaming()) {
+		if (!this.intl || !isSSR()) {
 			return children;
 		}
 

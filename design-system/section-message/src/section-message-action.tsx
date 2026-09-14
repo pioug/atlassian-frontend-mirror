@@ -6,8 +6,7 @@ import { forwardRef, Fragment, memo } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Link from '@atlaskit/link/link';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -28,6 +27,7 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.0'),
 		paddingBlockEnd: token('space.0'),
 		paddingInlineStart: token('space.0'),
+		borderRadius: token('radius.xsmall'),
 
 		'&:hover': {
 			textDecoration: 'underline',
@@ -37,9 +37,6 @@ const styles = cssMap({
 		'&:active': {
 			color: token('color.link.pressed'),
 		},
-	},
-	pressableT26Shape: {
-		borderRadius: token('radius.xsmall'),
 	},
 });
 
@@ -57,68 +54,63 @@ const SectionMessageAction: React.MemoExoticComponent<
 		React.PropsWithoutRef<SectionMessageActionProps> & React.RefAttributes<HTMLElement>
 	>
 > = memo(
-	forwardRef<HTMLElement, SectionMessageActionProps>(function SectionMessageAction(
-		{ children, onClick, href, testId, linkComponent, target },
-		ref,
-	) {
-		if (!linkComponent) {
-			if (href) {
-				return (
-					<span css={[styles.common, styles.anchor]}>
-						<Link
+	forwardRef<HTMLElement, SectionMessageActionProps>(
+		({ children, onClick, href, testId, linkComponent, target }, ref) => {
+			if (!linkComponent) {
+				if (href) {
+					return (
+						<span css={[styles.common, styles.anchor]}>
+							<Link
+								testId={testId}
+								onClick={onClick}
+								href={href}
+								target={target}
+								ref={ref as React.Ref<HTMLAnchorElement>}
+							>
+								{children}
+							</Link>
+						</span>
+					);
+				}
+
+				if (onClick) {
+					return (
+						<Pressable
 							testId={testId}
 							onClick={onClick}
-							href={href}
-							target={target}
-							ref={ref as React.Ref<HTMLAnchorElement>}
+							xcss={cx(styles.common, styles.pressable)}
+							ref={ref as React.Ref<HTMLButtonElement>}
 						>
 							{children}
-						</Link>
-					</span>
-				);
-			}
+						</Pressable>
+					);
+				}
 
-			if (onClick) {
 				return (
-					<Pressable
-						testId={testId}
-						onClick={onClick}
-						xcss={cx(
-							styles.common,
-							styles.pressable,
-							fg('platform-dst-shape-theme-default') && styles.pressableT26Shape,
-						)}
-						ref={ref as React.Ref<HTMLButtonElement>}
-					>
+					<Box as="span" testId={testId} xcss={styles.common} ref={ref}>
 						{children}
-					</Pressable>
+					</Box>
 				);
 			}
 
-			return (
-				<Box as="span" testId={testId} xcss={styles.common} ref={ref}>
+			// TODO: Remove this once the deprecated `linkComponent` prop is removed.
+			return onClick || href ? (
+				<Button
+					testId={testId}
+					appearance="link"
+					spacing="none"
+					onClick={onClick}
+					href={href}
+					component={href ? linkComponent : undefined}
+					ref={ref}
+				>
 					{children}
-				</Box>
+				</Button>
+			) : (
+				<Fragment>{children}</Fragment>
 			);
-		}
-
-		// TODO: Remove this once the deprecated `linkComponent` prop is removed.
-		return onClick || href ? (
-			<Button
-				testId={testId}
-				appearance="link"
-				spacing="none"
-				onClick={onClick}
-				href={href}
-				component={href ? linkComponent : undefined}
-				ref={ref}
-			>
-				{children}
-			</Button>
-		) : (
-			<Fragment>{children}</Fragment>
-		);
-	}),
+		},
+	),
 );
 
 SectionMessageAction.displayName = 'SectionMessageAction';

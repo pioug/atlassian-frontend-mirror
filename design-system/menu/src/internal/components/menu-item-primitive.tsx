@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { ClassNames, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Inline, type InlineProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -43,10 +43,8 @@ const styles = cssMap({
 		},
 		'&:focus, &:focus-visible': {
 			outlineColor: token('color.border.focused'),
-			// @ts-ignore
 			outlineOffset: `calc(0px - ${token('border.width.focused')})`,
 			outlineStyle: 'solid',
-			// @ts-ignore
 			outlineWidth: token('border.width.focused'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors

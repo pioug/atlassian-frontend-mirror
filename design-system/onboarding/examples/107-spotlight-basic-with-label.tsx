@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
@@ -26,10 +26,10 @@ const wrapperStyles = cssMap({
 	root: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		paddingTop: token('space.500'),
-		paddingRight: token('space.500'),
-		paddingBottom: token('space.500'),
-		paddingLeft: token('space.500'),
+		paddingBlockStart: token('space.500'),
+		paddingInlineEnd: token('space.500'),
+		paddingBlockEnd: token('space.500'),
+		paddingInlineStart: token('space.500'),
 	},
 });
 

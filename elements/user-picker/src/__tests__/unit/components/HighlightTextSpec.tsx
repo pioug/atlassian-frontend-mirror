@@ -1,125 +1,112 @@
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import React from 'react';
 import { HighlightText, type Props } from '../../../components/HighlightText';
 
 describe('HighlightText', () => {
-	const shallowHighlightText = (props: Partial<Props> = {}) =>
-		shallow(<HighlightText children="Some text" {...props} />);
+	const text = 'Some text';
+	const renderHighlightText = (props: Partial<Props> = {}) =>
+		render(<HighlightText {...props}>{text}</HighlightText>);
 
-	const testTemplate =
-		(props: Partial<Props> = {}) =>
-		(expectedHtml: string | null) =>
-		() => {
-			const component = shallowHighlightText(props);
+	const expectHighlightedParts = (highlights: Props['highlights'], expected: string[]) => {
+		const { container } = renderHighlightText({ highlights });
 
-			const html = component
-				.map((wrapper) => {
-					if (wrapper.html() === '') {
-						return wrapper.text();
-					}
-					return wrapper.html();
-				})
-				.reduce((a, b) => a + b);
-			expect(html).toEqual(expectedHtml);
-		};
+		expect(container).toHaveTextContent(text);
+		expect(Array.from(container.querySelectorAll('b')).map((part) => part.textContent)).toEqual(
+			expected,
+		);
+	};
 
-	describe('with no highlight object', () => {
-		it('should render plain text', testTemplate()('Some text'));
+	it('renders plain text when no highlight configuration is supplied', async () => {
+		const { container } = renderHighlightText();
+
+		expect(container).toHaveTextContent(text);
+		expect(container.querySelector('b')).not.toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
-	describe('with highlight configuration', () => {
-		it(
-			'should highlight none with an empty highlights array',
-			testTemplate({ highlights: [] })('Some text'),
-		);
+	it('does not highlight anything with an empty highlights array', () => {
+		expectHighlightedParts([], []);
+	});
 
-		it(
-			'should highlight all the text',
-			testTemplate({ highlights: [{ start: 0, end: 9 }] })('<b>Some text</b>'),
-		);
+	it('highlights all the text', () => {
+		expectHighlightedParts([{ start: 0, end: 9 }], [text]);
+	});
 
-		it(
-			'should highlight multiple parts',
-			testTemplate({
-				highlights: [
-					{ start: 0, end: 1 },
-					{ start: 3, end: 4 },
-				],
-			})('<b>So</b>m<b>e </b>text'),
+	it('highlights multiple parts', () => {
+		expectHighlightedParts(
+			[
+				{ start: 0, end: 1 },
+				{ start: 3, end: 4 },
+			],
+			['So', 'e '],
 		);
+	});
 
-		it(
-			'should not duplicate text with overlapping intervals',
-			testTemplate({
-				highlights: [
-					{ start: 0, end: 3 },
-					{ start: 2, end: 4 },
-				],
-			})('<b>Some </b>text'),
+	it('does not duplicate text with overlapping intervals', () => {
+		expectHighlightedParts(
+			[
+				{ start: 0, end: 3 },
+				{ start: 2, end: 4 },
+			],
+			['Some '],
 		);
+	});
 
-		it(
-			'should render with out of order highlights',
-			testTemplate({
-				highlights: [
-					{ start: 5, end: 7 },
-					{ start: 0, end: 2 },
-				],
-			})('<b>Som</b>e <b>tex</b>t'),
+	it('renders out-of-order highlights in text order', () => {
+		expectHighlightedParts(
+			[
+				{ start: 5, end: 7 },
+				{ start: 0, end: 2 },
+			],
+			['Som', 'tex'],
 		);
+	});
 
-		it(
-			'should not break with contained intervals',
-			testTemplate({
-				highlights: [
-					{ start: 0, end: 5 },
-					{ start: 1, end: 4 },
-				],
-			})('<b>Some t</b>ext'),
+	it('does not break with contained intervals', () => {
+		expectHighlightedParts(
+			[
+				{ start: 0, end: 5 },
+				{ start: 1, end: 4 },
+			],
+			['Some t'],
 		);
+	});
 
-		it(
-			'should join contiguous intervals',
-			testTemplate({
-				highlights: [
-					{ start: 0, end: 2 },
-					{ start: 3, end: 5 },
-				],
-			})('<b>Some t</b>ext'),
+	it('joins contiguous intervals', () => {
+		expectHighlightedParts(
+			[
+				{ start: 0, end: 2 },
+				{ start: 3, end: 5 },
+			],
+			['Some t'],
 		);
+	});
 
-		it(
-			'should not break with interval out of bounds',
-			testTemplate({
-				highlights: [
-					{ start: -1, end: 2 },
-					{ start: 5, end: 15 },
-				],
-			})('<b>Som</b>e <b>text</b>'),
+	it('does not break with intervals outside the text bounds', () => {
+		expectHighlightedParts(
+			[
+				{ start: -1, end: 2 },
+				{ start: 5, end: 15 },
+			],
+			['Som', 'text'],
 		);
+	});
 
-		it(
-			'should highlight all text with two contiguous out bounds intervals',
-			testTemplate({
-				highlights: [
-					{ start: -1, end: 3 },
-					{ start: 4, end: 15 },
-				],
-			})('<b>Some text</b>'),
+	it('highlights all text with two contiguous out-of-bounds intervals', () => {
+		expectHighlightedParts(
+			[
+				{ start: -1, end: 3 },
+				{ start: 4, end: 15 },
+			],
+			[text],
 		);
+	});
 
-		it(
-			'should not add highlight if start is less than end',
-			testTemplate({
-				highlights: [{ start: 1, end: 0 }],
-			})('Some text'),
-		);
+	it('does not add a highlight when start is greater than end', () => {
+		expectHighlightedParts([{ start: 1, end: 0 }], []);
+	});
 
-		it(
-			'should not add highlight if start and end are equal',
-			testTemplate({
-				highlights: [{ start: 1, end: 1 }],
-			})('Some text'),
-		);
+	it('does not add a highlight when start and end are equal', () => {
+		expectHighlightedParts([{ start: 1, end: 1 }], []);
 	});
 });

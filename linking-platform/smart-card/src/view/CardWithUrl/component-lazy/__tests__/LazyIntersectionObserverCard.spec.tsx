@@ -1,11 +1,11 @@
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { renderWithIntl, ResolvedClient } from '@atlaskit/link-test-helpers';
 
-import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import * as componentModule from '../../component';
 import { LazyIntersectionObserverCard } from '../LazyIntersectionObserverCard';
 

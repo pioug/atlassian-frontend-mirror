@@ -1,4 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { mocks } from '../../../../utils/mocks';
 import { extractEmbedProps } from '../../../embed';
@@ -37,12 +39,15 @@ describe('extractEmbedProps', () => {
 		expect(props).toEqual({
 			context: {
 				icon: 'https://some.image.icon',
+				iconLabel: 'provider-name',
+				id: undefined,
 				image: 'https://some.image.url',
 				text: 'provider-name',
 			},
 			isTrusted: true,
 			isSupportTheming: false,
 			link: 'https://some.url',
+			preview: undefined,
 			title: 'I love cheese',
 			type: ['Object'],
 		});
@@ -98,6 +103,8 @@ describe('embed icon behaviour with standardise flag on', () => {
 
 describe('entity support', () => {
 	it('extracts embed props with provider details', () => {
+		failGate('platform_lp_use_generator_icon_for_provider');
+
 		const meta = {
 			...mocks.unauthorized.meta,
 			generator: {
@@ -113,6 +120,8 @@ describe('entity support', () => {
 			context: {
 				text: 'I love cheese',
 				icon: 'https://www.ilovecheese.com',
+				iconLabel: 'I love cheese',
+				id: undefined,
 				image: 'https://www.ilovecheese.com',
 			},
 			isTrusted: true,
@@ -127,14 +136,50 @@ describe('entity support', () => {
 	});
 });
 
-describe('embed icon behaviour with standardise flag on', () => {
-	it('returns object icon url when it exists', () => {
-		const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
-		expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
+describe('entity embed icon behaviour', () => {
+	const response = {
+		...mocks.entityDataSuccess,
+		meta: {
+			...mocks.entityDataSuccess.meta,
+			generator: {
+				name: 'Google Drive',
+				icon: { url: 'https://provider-icon.com/icon.png' },
+			},
+		},
+		entityData: {
+			displayName: 'Entity',
+			id: 'entity-id',
+			url: 'https://entity-url.com',
+			type: {
+				category: 'document',
+				iconUrl: 'https://entity-icon.com/icon.png',
+			},
+		},
+	} as unknown as SmartLinkResponse;
+
+	it('exposes separate entity and provider icons when the provider icon gate is on', () => {
+		passGate('platform_lp_use_generator_icon_for_provider');
+
+		const props = extractEmbedProps(response, 'web');
+
+		expect(props.context?.icon).toEqual('https://entity-icon.com/icon.png');
+		expect(props.context?.iconLabel).toEqual('document');
+		expect(props.context?.providerIcon).toEqual('https://provider-icon.com/icon.png');
+		expect(props.context?.providerIconLabel).toEqual('Google Drive');
+		expect(props.context?.image).toEqual('https://provider-icon.com/icon.png');
+		expect(props.context?.text).toEqual('Google Drive');
 	});
 
-	it(`returns provider icon if object icon url doesn't exist`, () => {
-		const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
-		expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
+	it('retains the legacy entity-only context when the provider icon gate is off', () => {
+		failGate('platform_lp_use_generator_icon_for_provider');
+
+		const props = extractEmbedProps(response, 'web');
+
+		expect(props.context?.icon).toEqual('https://entity-icon.com/icon.png');
+		expect(props.context?.iconLabel).toEqual('document');
+		expect(props.context?.providerIcon).toBeUndefined();
+		expect(props.context?.providerIconLabel).toBeUndefined();
+		expect(props.context?.image).toEqual('https://entity-icon.com/icon.png');
+		expect(props.context?.text).toEqual('Google Drive');
 	});
 });

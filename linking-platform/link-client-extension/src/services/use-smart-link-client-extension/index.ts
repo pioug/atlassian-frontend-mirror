@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
-import type { CardClient } from '@atlaskit/link-provider';
-import { request } from '@atlaskit/linking-common';
+import type CardClient from '@atlaskit/link-provider/client';
+import { request } from '@atlaskit/linking-common/api';
 import {
 	InvokeError,
 	type InvokeRequest,

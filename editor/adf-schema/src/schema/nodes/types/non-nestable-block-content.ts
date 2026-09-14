@@ -6,6 +6,7 @@ import type {
 	BulletListDefinition as BulletList,
 } from '../types/list';
 import type { RuleDefinition as Rule } from '../rule';
+import type { BodiedRuleDefinition as BodiedRule } from '../bodied-rule';
 import type { HeadingDefinition as Heading } from '../heading';
 import type { CodeBlockDefinition as CodeBlock } from '../code-block';
 import type { MediaGroupDefinition as MediaGroup } from '../media-group';
@@ -29,6 +30,7 @@ export type NonNestableBlockContent =
 	| OrderedList
 	| BulletList
 	| Rule
+	| BodiedRule
 	| Heading
 	| CodeBlock
 	| MediaGroup

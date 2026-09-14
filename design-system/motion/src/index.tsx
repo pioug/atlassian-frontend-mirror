@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export { durations, durationStep } from './utils/durations';
 export { exitingDurations } from './utils/exiting-durations';
 export type { Durations } from './utils/durations';
@@ -14,10 +15,8 @@ export { default as StaggeredEntrance } from './entering/staggered-entrance';
 export type { StaggeredEntranceProps } from './entering/staggered-entrance';
 export { ResizingHeight } from './resizing/height';
 export { useResizingHeight } from './resizing/use-resizing-height';
-export {
-	default as ExitingPersistence,
-	useExitingPersistence,
-} from './entering/exiting-persistence';
+export { default as ExitingPersistence } from './entering/exiting-persistence';
+export { useExitingPersistence } from './entering/use-exiting-persistence';
 export type { ExitingPersistenceProps } from './entering/exiting-persistence';
 export { default as ZoomIn } from './entering/zoom-in';
 export { default as SlideIn } from './entering/slide-in';

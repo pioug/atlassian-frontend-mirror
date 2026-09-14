@@ -121,7 +121,7 @@ import React from 'react';
 import { Radio } from '@atlaskit/radio';
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { FormattedMessage } from '@atlassian/jira-intl';
+import { FormattedMessage } from '@jira/platform__react-intl';
 import { isDefined } from '@atlassian/jira-portfolio-3-portfolio/src/common/ramda/index.tsx';
 import {
   AUTO_SCHEDULE_OVERWRITE,
@@ -348,7 +348,7 @@ import React from 'react';
 import { Radio } from '@atlaskit/radio';
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { FormattedMessage } from '@atlassian/jira-intl';
+import { FormattedMessage } from '@jira/platform__react-intl';
 import { isDefined } from '@atlassian/jira-portfolio-3-portfolio/src/common/ramda/index.tsx';
 import {
   AUTO_SCHEDULE_OVERWRITE,

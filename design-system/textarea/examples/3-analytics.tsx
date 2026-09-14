@@ -5,9 +5,10 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import noop from '@atlaskit/ds-lib/noop';
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 
 const sendAnalytics = (analytic: UIAnalyticsEvent) => console.log('analytic: ', analytic.payload);
 const wrapperStyles = css({

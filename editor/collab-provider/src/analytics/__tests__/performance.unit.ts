@@ -1,5 +1,5 @@
 import AnalyticsHelper from '../analytics-helper';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 
 import {
 	startMeasure,
@@ -79,7 +79,7 @@ describe('Performance unit tests', () => {
 
 		startMeasure(measureName, analyticsHelper);
 		expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-		expect(sendErrorEventSpy).toBeCalledWith(
+		expect(sendErrorEventSpy).toHaveBeenCalledWith(
 			fakeError,
 			'Error while measuring performance when marking the start',
 		);
@@ -95,7 +95,7 @@ describe('Performance unit tests', () => {
 
 		stopMeasure(measureName, analyticsHelper, (a, b) => {});
 		expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-		expect(sendErrorEventSpy).toBeCalledWith(
+		expect(sendErrorEventSpy).toHaveBeenCalledWith(
 			fakeError,
 			'Error while measuring performance when marking the end',
 		);
@@ -111,7 +111,7 @@ describe('Performance unit tests', () => {
 
 		stopMeasure(measureName, analyticsHelper, (a, b) => {});
 		expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
-		expect(sendErrorEventSpy).toBeCalledWith(
+		expect(sendErrorEventSpy).toHaveBeenCalledWith(
 			fakeError,
 			'Error while measuring performance when completing the measurement',
 		);

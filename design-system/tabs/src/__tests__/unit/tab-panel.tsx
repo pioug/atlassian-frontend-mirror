@@ -5,7 +5,11 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import noop from '@atlaskit/ds-lib/noop';
 import { Text } from '@atlaskit/primitives/compiled';
 
-import Tabs, { Tab, TabList, TabPanel, useTabPanel } from '../../index';
+import Tabs from '../../components/tabs';
+import Tab from '../../components/tab';
+import TabList from '../../components/tab-list';
+import TabPanel from '../../components/tab-panel';
+import useTabPanel from '../../use-tab-panel';
 import { TabPanelContext } from '../../internal/tab-panel-context';
 
 const CustomTabPanel = ({ children }: { children: ReactNode }) => {

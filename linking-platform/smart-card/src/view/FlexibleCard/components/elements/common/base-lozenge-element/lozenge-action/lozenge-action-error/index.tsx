@@ -2,22 +2,23 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { Fragment, useCallback, useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../../../../messages';
 import useInvokeClientAction from '../../../../../../../../state/hooks/use-invoke-client-action';
-import { getFormattedMessage } from '../../../../../utils';
-
+import { getFormattedMessage } from '../../../../../getFormattedMessage';
 import type { LozengeActionErrorProps } from './types';
 
 const MAX_LINE_NUMBER = 8;
@@ -84,6 +85,7 @@ const styles = cssMap({
 		paddingRight: token('space.0'),
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),
+		transition: token('motion.button.hovered'),
 	},
 });
 

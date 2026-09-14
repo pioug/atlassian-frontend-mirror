@@ -172,6 +172,60 @@ describe('SSR Placeholder Display Contents Fix', () => {
 		});
 	});
 
+	describe('SSR dimensions reuse across handler instances', () => {
+		const SSR_RECT = { x: 11, y: 22, width: 333, height: 44 };
+		const LIVE_RECT = { x: 1, y: 2, width: 3, height: 4 };
+		let getRectSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			document.body.innerHTML = '<div data-ssr-placeholder="p1"></div>';
+			window.__SSR_PLACEHOLDERS_DIMENSIONS__ = { p1: SSR_RECT as DOMRectReadOnly };
+			getRectSpy = jest
+				.spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+				.mockReturnValue(LIVE_RECT as DOMRect);
+		});
+
+		afterEach(() => {
+			getRectSpy.mockRestore();
+			document.body.innerHTML = '';
+			delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;
+		});
+
+		it('uses the SSR dimensions without measuring the DOM', () => {
+			const handler = new SSRPlaceholderHandlers({});
+
+			expect(handler['staticPlaceholders'].get('p1')).toEqual(SSR_RECT);
+			expect(getRectSpy).not.toHaveBeenCalled();
+		});
+
+		it('keeps the SSR payload for later handlers', () => {
+			new SSRPlaceholderHandlers({});
+
+			expect(window.__SSR_PLACEHOLDERS_DIMENSIONS__).toEqual({ p1: SSR_RECT });
+		});
+
+		it('reuses the SSR dimensions for later handlers instead of forcing layout', () => {
+			new SSRPlaceholderHandlers({});
+			getRectSpy.mockClear();
+
+			const second = new SSRPlaceholderHandlers({});
+
+			expect(second['staticPlaceholders'].get('p1')).toEqual(SSR_RECT);
+			expect(getRectSpy).not.toHaveBeenCalled();
+		});
+
+		it('still measures placeholders that were not rendered during SSR', () => {
+			new SSRPlaceholderHandlers({});
+			document.body.innerHTML = '<div data-ssr-placeholder="added-later"></div>';
+			getRectSpy.mockClear();
+
+			const handler = new SSRPlaceholderHandlers({});
+
+			expect(handler['staticPlaceholders'].get('added-later')).toEqual(LIVE_RECT);
+			expect(getRectSpy).toHaveBeenCalled();
+		});
+	});
+
 	describe('SSRPlaceholderHandlers with display contents support', () => {
 		let handler: SSRPlaceholderHandlers;
 

@@ -1,4 +1,4 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -15,28 +15,18 @@ import type {
 	TOOLBAR_MENU_TYPE,
 } from '@atlaskit/editor-common/types';
 import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
+// oxlint-disable-next-line import/no-duplicates
 import { Fragment, type Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ClosingPayload, StatusType } from '../types';
+import { createStatusNode, getDefaultStatusAttrs } from '../utils/createStatusNode';
 
 import { pluginKey } from './plugin-key';
-
-export const DEFAULT_STATUS: StatusType = {
-	text: '',
-	color: 'neutral',
-};
-
-export const DEFAULT_STATUS_NEW: StatusType = {
-	text: '',
-	color: 'neutral',
-	style: 'mixedCase',
-};
 
 export const verifyAndInsertStatus = (
 	statusNode: Node,
@@ -69,16 +59,7 @@ export const verifyAndInsertStatus = (
 export const createStatus = (tr: Transaction): Transaction => {
 	const annotationMarksForPos: Mark[] | undefined = getAnnotationMarksForPos(tr.selection.$head);
 
-	const statusNode = tr.doc.type.schema.nodes.status.createChecked(
-		{
-			...(fg('platform-dst-lozenge-tag-badge-visual-uplifts')
-				? DEFAULT_STATUS_NEW
-				: DEFAULT_STATUS),
-			localId: uuid.generate(),
-		},
-		null,
-		annotationMarksForPos,
-	);
+	const statusNode = createStatusNode(tr.doc.type.schema, {}, annotationMarksForPos);
 	return verifyAndInsertStatus(statusNode, tr, annotationMarksForPos);
 };
 
@@ -117,9 +98,7 @@ export const updateStatus =
 			: status;
 
 		const statusProps = {
-			...(fg('platform-dst-lozenge-tag-badge-visual-uplifts')
-				? DEFAULT_STATUS_NEW
-				: DEFAULT_STATUS),
+			...getDefaultStatusAttrs(),
 			...selectedStatus,
 		};
 

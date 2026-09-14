@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-marker",
-	"version": "12.1.0",
+	"version": "18.0.0",
 	"description": "Selection marker plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,6 +25,7 @@
 		"./selection-marker-plugin-type": "./src/entry-points/selection-marker-plugin-type.ts"
 	},
 	"dependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-focus": "workspace:^",
@@ -34,6 +35,7 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -48,46 +50,11 @@
 	},
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"platform-feature-flags": {}
 }

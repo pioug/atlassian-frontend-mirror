@@ -29,6 +29,12 @@ describe('loadAndAppendThemeCss', () => {
 		it('should add dark theme', async () => {
 			await verifyTheme('dark', verifyDarkColor);
 		});
+		it('should add an increased-contrast override for explicit and automatic contrast modes', async () => {
+			await verifyTheme('light-increased-contrast-finesse', (content) => {
+				expect(content).toContain('[data-theme~="light:light-increased-contrast"]');
+				expect(content).toContain('[data-contrast-mode="more"][data-theme~="light:light"]');
+			});
+		});
 	});
 
 	it('should not add a theme a second time if one is already present on the page', async () => {

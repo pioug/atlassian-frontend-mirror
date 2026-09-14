@@ -2,7 +2,8 @@ import { useCallback, useRef, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { getUserRecommendations, type OptionData } from '@atlaskit/smart-user-picker';
+import getUserRecommendations from '@atlaskit/smart-user-picker/recommendation-client';
+import type { OptionData } from '@atlaskit/user-picker/types';
 
 import { type FilterPopupSelectProps } from '../../../common/modal/popup-select';
 import { type SelectOption } from '../../../common/modal/popup-select/types';

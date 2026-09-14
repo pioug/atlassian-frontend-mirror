@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
-import { getTokenId } from '@atlaskit/tokens/token-ids';
+import { getTokenId } from '@atlaskit/tokens/utils/get-token-id';
 
 import { createLintRule } from '../utils/create-lint-rule';
 

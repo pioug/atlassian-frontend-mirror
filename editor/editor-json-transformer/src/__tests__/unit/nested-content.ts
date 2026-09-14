@@ -15,10 +15,10 @@ import {
 	p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { JSONTransformer } from '../../index';
-import type { JSONDocNode } from '../../index';
+import { JSONTransformer } from '../../JSONTransformer-2';
+import type { JSONDocNode } from '../../types';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 describe('JSONTransformer - Nested content', () => {
 	const createEditor = createEditorFactory();

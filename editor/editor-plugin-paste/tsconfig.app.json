@@ -103,6 +103,9 @@
 			"path": "../../media/media-common/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

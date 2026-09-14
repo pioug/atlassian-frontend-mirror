@@ -16,7 +16,8 @@ export const onboardingMultiStep: MigrationGuide = {
 			description:
 				'Replace the single SpotlightManager pattern with multiple PopoverProvider instances, one for each target in the tour',
 			before: `import React, { useState } from 'react';
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import {
@@ -81,26 +82,25 @@ const OnboardingTour = () => {
   );
 };`,
 			after: `import React, { useState } from 'react';
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import { Text } from '@atlaskit/primitives/compiled';
-import {
-  PopoverContent,
-  PopoverProvider,
-  PopoverTarget,
-  SpotlightActions,
-  SpotlightBody,
-  SpotlightCard,
-  SpotlightControls,
-  SpotlightDismissControl,
-  SpotlightFooter,
-  SpotlightHeader,
-  SpotlightHeadline,
-  SpotlightPrimaryAction,
-  SpotlightSecondaryAction,
-  SpotlightStepCount,
-} from '@atlaskit/spotlight';
+import { PopoverContent } from '@atlaskit/spotlight/popover-content';
+import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
+import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
+import { SpotlightActions } from '@atlaskit/spotlight/actions';
+import { SpotlightBody } from '@atlaskit/spotlight/body';
+import { SpotlightCard } from '@atlaskit/spotlight/card';
+import { SpotlightControls } from '@atlaskit/spotlight/controls';
+import { SpotlightDismissControl } from '@atlaskit/spotlight/dismiss-control';
+import { SpotlightFooter } from '@atlaskit/spotlight/footer';
+import { SpotlightHeader } from '@atlaskit/spotlight/header';
+import { SpotlightHeadline } from '@atlaskit/spotlight/headline';
+import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
+import { SpotlightSecondaryAction } from '@atlaskit/spotlight/secondary-action';
+import { SpotlightStepCount } from '@atlaskit/spotlight/step-count';
 
 const SpotlightTour = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);

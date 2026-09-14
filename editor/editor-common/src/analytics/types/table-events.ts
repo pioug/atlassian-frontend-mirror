@@ -1,4 +1,4 @@
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 
 import type { EditorBreakpointKey } from '../../utils/analytics';

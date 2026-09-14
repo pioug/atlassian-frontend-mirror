@@ -7,25 +7,24 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
 import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
-import Link from '@atlaskit/link';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Portal from '@atlaskit/portal';
+import Link from '@atlaskit/link/link';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Portal from '@atlaskit/portal/portal';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -130,10 +129,6 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	// the back button. Focus the back button and, for a short grace period,
 	// restore it whenever focus moves into the iframe.
 	const handleIframeLoad = useCallback(() => {
-		if (!fg('teams-a11y-35569-35538-35421')) {
-			return;
-		}
-
 		focusGuardCleanupRef.current?.();
 		focusBackButton();
 

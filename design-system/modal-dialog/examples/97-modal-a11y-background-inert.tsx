@@ -1,15 +1,14 @@
 import React, { useCallback, useState } from 'react';
 
-import Lorem from 'react-lorem-component';
+import PlaceholderContent from './placeholder-content';
 
-import Button from '@atlaskit/button/new';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 /**
  * Example for Playwright: background focusables + modal to verify native `showModal()` inertness.
@@ -35,7 +34,7 @@ export default function ModalA11yBackgroundInert(): React.JSX.Element {
 							<ModalTitle>Modal Title</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<Lorem count={1} />
+							<PlaceholderContent count={1} />
 						</ModalBody>
 						<ModalFooter>
 							<Button testId="secondary" appearance="subtle" onClick={close}>

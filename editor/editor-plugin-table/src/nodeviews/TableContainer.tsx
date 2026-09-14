@@ -9,6 +9,10 @@ import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import {
+	resizerHoverZoneClassName,
+	resizerItemClassName,
+} from '@atlaskit/editor-common/styles/resizer';
 import type { EditorContainerWidth, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -19,11 +23,11 @@ import {
 	akEditorFullPageNarrowBreakout,
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
+import { getResizerMinWidth } from '../pm-plugins/table-resizing/utils/colgroup';
 import {
 	TABLE_MAX_WIDTH,
 	TABLE_FULL_WIDTH,
@@ -33,11 +37,13 @@ import {
 import {
 	getTableResizerContainerMaxWidthInCSS,
 	getTableResizerContainerForFullPageWidthInCSS,
+	getTableResizerItemWidthInCSS,
 } from '../pm-plugins/table-resizing/utils/misc';
 import { ALIGN_CENTER, ALIGN_START } from '../pm-plugins/utils/alignment';
 import type tablePlugin from '../tablePlugin';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
 import { TableCssClassName as ClassName } from '../types';
+import { useIsTableInLimitedMode } from '../ui/hooks/useIsTableInLimitedMode';
 
 import { getAlignmentStyle } from './table-container-styles';
 import { TableResizer } from './TableResizer';
@@ -276,9 +282,7 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 
 		// If the editor is in max width mode and the table has no width, use the max width value rather than the default table value
 		const tableWidth =
-			isMaxWidthModeEnabled && !node.attrs.width && fg('platform_editor_max_width_default_width')
-				? TABLE_MAX_WIDTH
-				: getTableContainerWidth(node);
+			isMaxWidthModeEnabled && !node.attrs.width ? TABLE_MAX_WIDTH : getTableContainerWidth(node);
 
 		const updateContainerHeight = useCallback((height: number | 'auto') => {
 			// current StickyHeader State is not stable to be fetch.
@@ -361,10 +365,7 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 			// issues when viwport width is less than full/max width Editor's width. To detect avoid them
 			// we need to use lineLength to defined responsiveWidth instead of containerWidth
 			// (which does not get updated when Mac setting changes) in Full-width/Max-width editor.
-			if (
-				isFullWidthModeEnabled ||
-				(isMaxWidthModeEnabled && fg('platform_editor_max_width_default_width'))
-			) {
+			if (isFullWidthModeEnabled || isMaxWidthModeEnabled) {
 				// When: Show scroll bars -> containerWidth = akEditorGutterPadding * 2 + lineLength;
 				// When: Always -> containerWidth = akEditorGutterPadding * 2 + lineLength + scrollbarWidth;
 				// scrollbarWidth can vary. Values can be 14, 15, 16 and up to 20px;
@@ -532,6 +533,113 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 	},
 );
 
+type StaticTableContainerProps = {
+	className: string;
+	editorView: EditorView;
+	getPos: () => number | undefined;
+	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
+	isTableAlignmentEnabled?: boolean;
+	isTableScalingEnabled?: boolean;
+	node: PMNode;
+	pluginInjectionApi?: PluginInjectionAPI;
+};
+
+/**
+ * Stand-in for `ResizableTableContainer`, used when limited mode has disabled resizing the table as
+ * a whole. Column resizing is unaffected and keeps working through the cell decorations.
+ *
+ * It reproduces the same DOM and CSS that `toDOM` renders for a resizable table
+ * (`.pm-table-resizer-container` > `.resizer-item` > `.resizer-hover-zone`) so that swapping the
+ * nodeView in over the initial ProseMirror render leaves the table exactly where it was — and so
+ * that the column resize handles still find the elements they measure against — but it mounts no
+ * `TableResizer`, so there is no `re-resizable` instance, no table width handle, no handle tooltip,
+ * no `clientHeight` read for the handle size and no per-table subscription to the interaction and
+ * table shared states.
+ *
+ * Every width here comes from the same pure-CSS helpers `toDOM` uses, so unlike
+ * `ResizableTableContainer` it needs no measured container width and does no layout maths.
+ */
+const StaticTableContainer = ({
+	children,
+	className,
+	node,
+	editorView,
+	getPos,
+	pluginInjectionApi,
+	isTableScalingEnabled,
+	isTableAlignmentEnabled,
+	isCommentEditor,
+	isChromelessEditor,
+}: PropsWithChildren<StaticTableContainerProps>): React.JSX.Element => {
+	const isFullPageAppearance = !isCommentEditor && !isChromelessEditor;
+
+	const containerStyle = useMemo(
+		() =>
+			({
+				'--ak-editor-table-gutter-padding': 'calc(var(--ak-editor--large-gutter-padding) * 2)',
+				'--ak-editor-table-width': isFullPageAppearance
+					? getTableResizerContainerForFullPageWidthInCSS(node, isTableScalingEnabled)
+					: `calc(100cqw - calc(var(--ak-editor--large-gutter-padding) * 2))`,
+				width: 'var(--ak-editor-table-width)',
+			}) as React.CSSProperties,
+		[node, isTableScalingEnabled, isFullPageAppearance],
+	);
+
+	const itemStyle = useMemo(
+		() =>
+			({
+				position: 'relative',
+				boxSizing: 'border-box',
+				minWidth: `${getResizerMinWidth(node)}px`,
+				maxWidth: getTableResizerContainerMaxWidthInCSS(
+					isCommentEditor,
+					isChromelessEditor,
+					isTableScalingEnabled,
+				),
+				width: getTableResizerItemWidthInCSS(node, isCommentEditor, isChromelessEditor),
+			}) as React.CSSProperties,
+		[node, isCommentEditor, isChromelessEditor, isTableScalingEnabled],
+	);
+
+	return (
+		<AlignmentTableContainerWrapper
+			isTableAlignmentEnabled={isTableAlignmentEnabled}
+			node={node}
+			pluginInjectionApi={pluginInjectionApi}
+			getPos={getPos}
+			editorView={editorView}
+		>
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={ClassName.TABLE_RESIZER_CONTAINER}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={containerStyle}
+			>
+				<div
+					// `display-handle` carries no handle to show here, but it keeps this element matching both
+					// `toDOM` and the `.resizer-item.display-handle` lookup in `measureTableWithAutoLayout`.
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={classNames(resizerItemClassName, 'display-handle')}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={itemStyle}
+				>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+					<span className={resizerHoverZoneClassName}>
+						<InnerContainer
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={className}
+							node={node}
+						>
+							{children}
+						</InnerContainer>
+					</span>
+				</div>
+			</div>
+		</AlignmentTableContainerWrapper>
+	);
+};
+
 type TableContainerProps = {
 	allowFixedColumnWidthOption?: boolean;
 	className: string;
@@ -575,7 +683,29 @@ export const TableContainer = ({
 	isCommentEditor,
 	isChromelessEditor,
 }: PropsWithChildren<TableContainerProps>): React.JSX.Element => {
+	// Limited mode drops the whole-table resizer only; column resizing is untouched.
+	const isTableWidthResizingDisabled = useIsTableInLimitedMode(pluginInjectionApi, editorView);
+
 	if (isTableResizingEnabled && !isNested) {
+		if (isTableWidthResizingDisabled) {
+			return (
+				<StaticTableContainer
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={className}
+					node={node}
+					editorView={editorView}
+					getPos={getPos}
+					pluginInjectionApi={pluginInjectionApi}
+					isTableScalingEnabled={isTableScalingEnabled}
+					isTableAlignmentEnabled={isTableAlignmentEnabled}
+					isCommentEditor={isCommentEditor}
+					isChromelessEditor={isChromelessEditor}
+				>
+					{children}
+				</StaticTableContainer>
+			);
+		}
+
 		return (
 			<ResizableTableContainer
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

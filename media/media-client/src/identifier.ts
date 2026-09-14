@@ -1,4 +1,4 @@
-import deepEqual from 'deep-equal';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
 export type Identifier = FileIdentifier | ExternalImageIdentifier;
 
@@ -14,22 +14,16 @@ export interface ExternalImageIdentifier {
 	readonly dataURI: string;
 	readonly name?: string;
 }
-export const isFileIdentifier = (identifier: Identifier): identifier is FileIdentifier => {
-	return identifier.mediaItemType === 'file';
-};
 
-export const isExternalImageIdentifier = (
-	identifier: Identifier,
-): identifier is ExternalImageIdentifier => {
-	return identifier.mediaItemType === 'external-image';
-};
-
-export const isDifferentIdentifier = (a: Identifier, b: Identifier): boolean => {
-	if (isFileIdentifier(a) && isFileIdentifier(b)) {
-		return (
-			a.id !== b.id || a.collectionName !== b.collectionName || a.occurrenceKey !== b.occurrenceKey
-		);
-	} else {
-		return !deepEqual(a, b);
-	}
-};
+/**
+ * @deprecated Use `import { isFileIdentifier } from '@atlaskit/media-client'` instead.
+ */
+export { isFileIdentifier } from './is-file-identifier';
+/**
+ * @deprecated Use `import { isExternalImageIdentifier } from '@atlaskit/media-client'` instead.
+ */
+export { isExternalImageIdentifier } from './is-external-image-identifier';
+/**
+ * @deprecated Use `import { isDifferentIdentifier } from '@atlaskit/media-client'` instead.
+ */
+export { isDifferentIdentifier } from './is-different-identifier';

@@ -6,27 +6,33 @@ import { type ReactNode, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
-import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import Motion from '@atlaskit/motion/entering/motion';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import { Radio } from '@atlaskit/radio';
+import Radio from '@atlaskit/radio/radio';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from '../utils';
+import { Block } from '../utils/blocks';
+import { RetryContainer } from '../utils/containers';
 
 const styles = cssMap({
 	entering: {
 		animationDuration: token('motion.duration.xlong'),
 		animationTimingFunction: token('motion.easing.out.practical'),
-		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,
+		animationName: `${token('motion.keyframe.scale.in.medium')}, ${token(
+			'motion.keyframe.fade.in',
+		)}`,
 	},
 	exiting: {
 		animationDuration: token('motion.duration.long'),
 		animationTimingFunction: token('motion.easing.in.practical'),
-		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,
+		animationName: `${token('motion.keyframe.scale.out.medium')}, ${token(
+			'motion.keyframe.fade.out',
+		)}`,
 	},
 });
 

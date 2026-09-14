@@ -20,7 +20,7 @@ test.describe('Resize', () => {
 		'The default export of @atlaskit/textarea is a hybrid uncontrolled/controlled component; it is uncontrolled by default, but can be optionally controlled by setting the value prop. To set a default value for TextArea while leaving component uncontrolled, specify a defaultValue prop.';
 
 	test.beforeEach(async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/2-resize.tsx')>(
+		await page.visitExample<typeof import('../../../examples/2-resize.vr.ap.tsx')>(
 			'design-system',
 			'textarea',
 			'resize',

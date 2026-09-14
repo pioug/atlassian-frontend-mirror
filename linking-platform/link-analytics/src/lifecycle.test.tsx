@@ -4,10 +4,11 @@ import { act, fireEvent, render, renderHook, screen, waitFor } from '@testing-li
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
 import { LinkPicker, type LinkPickerProps } from '@atlaskit/link-picker';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { icon } from '@atlaskit/link-test-helpers/images';
 import '@atlaskit/link-test-helpers/jest';
 
@@ -496,11 +497,11 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 			const { result } = setup();
 			result.current.linkCreated({ url: 'test.com', smartLinkId: 'xyz' });
 
-			expect(runWhenIdle).toBeCalled();
-			expect(fireEventSpy).not.toBeCalled();
+			expect(runWhenIdle).toHaveBeenCalled();
+			expect(fireEventSpy).not.toHaveBeenCalled();
 
 			await waitFor(() => {
-				expect(fireEventSpy).toBeCalled();
+				expect(fireEventSpy).toHaveBeenCalled();
 			});
 
 			await expect(document.body).toBeAccessible();

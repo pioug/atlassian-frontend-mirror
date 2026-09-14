@@ -1,5 +1,5 @@
 import type { FeatureFlagsPluginOptions } from '@atlaskit/editor-plugin-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 interface Props {
 	options: never;

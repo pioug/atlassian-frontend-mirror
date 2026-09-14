@@ -5,9 +5,10 @@
 import { type ReactNode, useContext, useEffect, useLayoutEffect, useRef } from 'react';
 
 import { jsx } from '@atlaskit/css';
-import { Motion } from '@atlaskit/motion';
+import Motion from '@atlaskit/motion/entering/motion';
 import { token } from '@atlaskit/tokens';
-import { createPopoverCloseEvent, Popover } from '@atlaskit/top-layer/popover';
+import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dismiss';
 

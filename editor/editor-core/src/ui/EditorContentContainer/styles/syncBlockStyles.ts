@@ -294,7 +294,6 @@ export const syncBlockOverflowStyles: SerializedStyles = css({
 });
 
 // Styles for text selection in reference sync blocks.
-// Gated behind platform_synced_block_patch_14.
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in

@@ -13,8 +13,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
@@ -80,9 +78,6 @@ const stickyToolbarCompiledStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'span svg': { maxWidth: '100%' },
 	},
-	mainToolbarWithRadius: {
-		borderRadius: `${token('radius.small', '3px')} ${token('radius.small', '3px')} 0 0`,
-	},
 	mainToolbarRadius: {
 		borderRadius: `${token('radius.medium', '6px')} ${token('radius.medium', '6px')} 0 0`,
 	},
@@ -141,11 +136,7 @@ export const StickyToolbarCompiled = (props: StickyToolbarCompiledProps): React.
 				stickyToolbarCompiledStyles.mainToolbarWrapperVisualRefresh,
 				stickyToolbarCompiledStyles.stickyToolbarWrapper,
 				props.isNewToolbarEnabled && stickyToolbarCompiledStyles.mainToolbarWithPadding,
-				expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
-					stickyToolbarCompiledStyles.mainToolbarRadius,
-				!expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
-					fg('platform_editor_comments_border_radius') &&
-					stickyToolbarCompiledStyles.mainToolbarWithRadius,
+				stickyToolbarCompiledStyles.mainToolbarRadius,
 				props.isEditorModernisationEnabled &&
 					stickyToolbarCompiledStyles.editorModernisationToolbar,
 			]}

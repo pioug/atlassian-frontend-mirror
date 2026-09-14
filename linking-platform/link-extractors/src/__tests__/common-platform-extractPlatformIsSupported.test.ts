@@ -1,5 +1,5 @@
 import { TEST_BASE_DATA, TEST_LINK, TEST_OBJECT } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractPlatformIsSupported } from '../index';
+import { extractPlatformIsSupported } from '../extract-platform-is-supported';
 
 describe('extractPlatformIsSupported()', () => {
 	it('returns supported when no preview present', () => {

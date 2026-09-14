@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Extension from '../../../../react/nodes/extension';
 import type { RendererContext } from '../../../../react/types';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
@@ -8,9 +7,9 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
+import { act, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import Loadable from 'react-loadable';
-import { act } from 'react-dom/test-utils';
 
 describe('Renderer - React/Nodes/Extension', () => {
 	const providerFactory = ProviderFactory.create({});
@@ -65,7 +64,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 	};
 
 	it('should be able to fall back to default content', () => {
-		const extension = mount(
+		const { container } = render(
 			<Extension
 				providers={providerFactory}
 				extensionHandlers={extensionHandlers}
@@ -77,12 +76,11 @@ describe('Renderer - React/Nodes/Extension', () => {
 			/>,
 		);
 
-		expect(extension.find('div').first().text()).toEqual('This is the default text');
-		extension.unmount();
+		expect(container.querySelector('div')?.textContent).toEqual('This is the default text');
 	});
 
-	it('should be able to render React.Element from extensionHandler', () => {
-		const extension = mount(
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
 			<Extension
 				providers={providerFactory}
 				extensionHandlers={extensionHandlers}
@@ -93,12 +91,26 @@ describe('Renderer - React/Nodes/Extension', () => {
 			/>,
 		);
 
-		expect(extension.find('div').first().text()).toEqual('This is a react element');
-		extension.unmount();
+		await expect(container).toBeAccessible();
+	});
+
+	it('should be able to render React.Element from extensionHandler', () => {
+		const { container } = render(
+			<Extension
+				providers={providerFactory}
+				extensionHandlers={extensionHandlers}
+				rendererContext={rendererContext}
+				extensionType="com.atlassian.fabric"
+				extensionKey="react"
+				localId="c145e554-f571-4208-a0f1-2170e1987722"
+			/>,
+		);
+
+		expect(container.querySelector('div')?.textContent).toEqual('This is a react element');
 	});
 
 	it('should render the default content if extensionHandler throws an exception', () => {
-		const extension = mount(
+		const { container } = render(
 			<Extension
 				providers={providerFactory}
 				extensionHandlers={extensionHandlers}
@@ -109,8 +121,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 			/>,
 		);
 
-		expect(extension.find('div').first().text()).toEqual('extension');
-		extension.unmount();
+		expect(container.querySelector('div')?.textContent).toEqual('extension');
 	});
 
 	it('extension handler should receive type = extension', () => {
@@ -124,7 +135,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 			localId: fragmentLocalId,
 		});
 
-		const extension = mount(
+		render(
 			<Extension
 				providers={providerFactory}
 				extensionHandlers={extensionHandlers}
@@ -145,8 +156,6 @@ describe('Renderer - React/Nodes/Extension', () => {
 			localId: 'c145e554-f571-4208-a0f1-2170e1987722',
 			fragmentLocalId,
 		});
-
-		extension.unmount();
 	});
 
 	describe('extension providers', () => {
@@ -167,7 +176,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 		});
 
 		it('should be able to render extensions with the extension provider', async () => {
-			const extension = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<Extension
 						providers={providers}
@@ -185,11 +194,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 				await Loadable.preloadAll();
 			});
 
-			extension.update();
-
-			expect(extension.text()).toEqual('Extension provider: Hello extension');
-
-			extension.unmount();
+			expect(container.textContent).toEqual('Extension provider: Hello extension');
 		});
 
 		it('should prioritize extension handlers (sync) over extension provider', async () => {
@@ -197,7 +202,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 				'fake.confluence': (node: any) => <div>Extension handler: {node.content}</div>,
 			};
 
-			const extension = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<Extension
 						providers={providers}
@@ -211,9 +216,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 				</IntlProvider>,
 			);
 
-			expect(extension.text()).toEqual('Extension handler: Hello extension');
-
-			extension.unmount();
+			expect(container.textContent).toEqual('Extension handler: Hello extension');
 		});
 
 		it('should fallback to extension provider if not handled by extension handler', async () => {
@@ -221,7 +224,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 				'fake.confluence': () => null,
 			};
 
-			const extension = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<Extension
 						providers={providers}
@@ -239,11 +242,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 				await Loadable.preloadAll();
 			});
 
-			extension.update();
-
-			expect(extension.text()).toEqual('Extension provider: Hello extension');
-
-			extension.unmount();
+			expect(container.textContent).toEqual('Extension provider: Hello extension');
 		});
 
 		const renderExtensionWithProvider = (
@@ -251,7 +250,7 @@ describe('Renderer - React/Nodes/Extension', () => {
 			extensionKey: 'extension-a' | 'extension-b' = 'extension-a',
 			hideExtensionKeysWhilePending?: string[],
 		) =>
-			mount(
+			render(
 				<IntlProvider locale="en">
 					<Extension
 						providers={providers}
@@ -272,10 +271,11 @@ describe('Renderer - React/Nodes/Extension', () => {
 					extensionProvider: new Promise<never>(() => {}),
 				});
 
-				const extension = renderExtensionWithProvider(providers, 'extension-a', ['extension-a']);
+				const { container } = renderExtensionWithProvider(providers, 'extension-a', [
+					'extension-a',
+				]);
 
-				expect(extension.text()).toEqual('');
-				extension.unmount();
+				expect(container.textContent).toEqual('');
 			});
 
 			it('should render the provider content after it resolves', async () => {
@@ -290,18 +290,18 @@ describe('Renderer - React/Nodes/Extension', () => {
 					'extension-a',
 					({ node }: any) => <div>Extension provider</div>,
 				);
-				const extension = renderExtensionWithProvider(providers, 'extension-a', ['extension-a']);
+				const { container } = renderExtensionWithProvider(providers, 'extension-a', [
+					'extension-a',
+				]);
 
-				expect(extension.text()).toEqual('');
+				expect(container.textContent).toEqual('');
 
 				await act(async () => {
 					resolveProvider(combineExtensionProviders([extensionProvider]));
 					await Loadable.preloadAll();
 				});
 
-				extension.update();
-				expect(extension.text()).toEqual('Extension provider');
-				extension.unmount();
+				expect(container.textContent).toEqual('Extension provider');
 			});
 
 			it('should render the generic fallback after the provider rejects', async () => {
@@ -311,18 +311,18 @@ describe('Renderer - React/Nodes/Extension', () => {
 						rejectProvider = reject;
 					}),
 				});
-				const extension = renderExtensionWithProvider(providers, 'extension-a', ['extension-a']);
+				const { container } = renderExtensionWithProvider(providers, 'extension-a', [
+					'extension-a',
+				]);
 
-				expect(extension.text()).toEqual('');
+				expect(container.textContent).toEqual('');
 
 				await act(async () => {
 					rejectProvider(new Error('extension provider failed'));
 					await Promise.resolve();
 				});
 
-				extension.update();
-				expect(extension.text()).toEqual('extension');
-				extension.unmount();
+				expect(container.textContent).toEqual('extension');
 			});
 
 			it('should render the generic fallback for extension keys not in the list while pending', () => {
@@ -330,10 +330,11 @@ describe('Renderer - React/Nodes/Extension', () => {
 					extensionProvider: new Promise<never>(() => {}),
 				});
 
-				const extension = renderExtensionWithProvider(providers, 'extension-b', ['extension-a']);
+				const { container } = renderExtensionWithProvider(providers, 'extension-b', [
+					'extension-a',
+				]);
 
-				expect(extension.text()).toEqual('extension');
-				extension.unmount();
+				expect(container.textContent).toEqual('extension');
 			});
 		});
 
@@ -343,10 +344,9 @@ describe('Renderer - React/Nodes/Extension', () => {
 					extensionProvider: new Promise<never>(() => {}),
 				});
 
-				const extension = renderExtensionWithProvider(providers);
+				const { container } = renderExtensionWithProvider(providers);
 
-				expect(extension.text()).toEqual('extension');
-				extension.unmount();
+				expect(container.textContent).toEqual('extension');
 			});
 		});
 	});

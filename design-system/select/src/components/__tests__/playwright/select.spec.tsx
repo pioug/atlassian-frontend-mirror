@@ -15,7 +15,7 @@ const selectCheckboxMenu = `${testId}-select--listbox-container`;
 test(`Single-select should display a menu once clicked and select a menu item`, async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../../examples/00-single-select.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/00-single-select.vr.ap.tsx')>(
 		'design-system',
 		'select',
 		'single-select',
@@ -76,7 +76,7 @@ test(`Async-select should display a menu once clicked and not throwing errors`, 
 test(`Checkbox-select should display a menu once clicked and not throwing errors`, async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../../examples/03-checkbox-select.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/03-checkbox-select.vr.ap.tsx')>(
 		'design-system',
 		'select',
 		'checkbox-select',
@@ -105,7 +105,7 @@ test.describe('Select dropdown indicator voice-control accessibility', () => {
 	test('with FF on: a named, non-tabbable button wraps the dropdown chevron and toggles the menu when clicked', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../examples/00-single-select.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/00-single-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'single-select',
@@ -142,7 +142,7 @@ test.describe('Select dropdown indicator voice-control accessibility', () => {
 	test('with FF off: no voice-control button is rendered (legacy aria-hidden wrapper only)', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../examples/00-single-select.tsx')>(
+		await page.visitExample<typeof import('../../../../examples/00-single-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'single-select',
@@ -163,13 +163,13 @@ test.describe('Select dropdown indicator voice-control accessibility', () => {
 
 		// Baseline: gate off (legacy icon-in-a-div, no button).
 		await page.visitExample<
-			typeof import('../../../../examples/35-dropdown-indicator-constrained-width.tsx')
+			typeof import('../../../../examples/35-dropdown-indicator-constrained-width.vr.ap.tsx')
 		>('design-system', 'select', example);
 		const widthGateOff = (await page.getByTestId(indicator).boundingBox())?.width;
 
 		// Gate on: indicator becomes a <button>; the size reset must keep it identical.
 		await page.visitExample<
-			typeof import('../../../../examples/35-dropdown-indicator-constrained-width.tsx')
+			typeof import('../../../../examples/35-dropdown-indicator-constrained-width.vr.ap.tsx')
 		>('design-system', 'select', example, {
 			featureFlag: 'platform_dst_select_dropdown_voice_control',
 		});

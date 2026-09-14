@@ -1,4 +1,7 @@
-import type { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
+import type {
+	RichMediaAttributes,
+	Layout as RichMediaLayout,
+} from '@atlaskit/adf-schema/rich-media-common';
 
 import { wrappedLayouts } from '../ui/MediaSingle/wrappedLayouts';
 

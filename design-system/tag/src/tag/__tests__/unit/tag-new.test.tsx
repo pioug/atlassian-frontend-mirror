@@ -1,11 +1,14 @@
 import React from 'react';
 
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Text } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-import { render as rtlRender } from '@atlassian/testing-library/testing-library/react';
+import { act, render as rtlRender } from '@atlassian/testing-library/testing-library/react';
 
-import { colorMapping, default as TagNew } from '../../../tag-new/tag-new';
+import { colorMapping } from '../../../tag-new/color-mapping';
+import { default as TagNew } from '../../../tag-new/tag-new';
 import { default as SimpleTag } from '../../internal/simple';
 
 const render = (component: React.ReactNode) => {
@@ -146,33 +149,127 @@ describe('TagNew component (UI uplift)', () => {
 			expect(screen.getByTestId(testId)).toBeInTheDocument();
 		});
 	});
+	describe('motion uplift', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
+		});
+
+		afterEach(() => {
+			act(() => {
+				jest.runOnlyPendingTimers();
+			});
+			jest.useRealTimers();
+			jest.restoreAllMocks();
+		});
+
+		it('does not animate on initial render and applies exit motion when removed', () => {
+			passGate('platform-dst-motion-uplift-labels');
+			const onAfterRemoveAction = jest.fn();
+			const { container } = render(
+				<TagNew
+					text="Motion tag"
+					removeButtonLabel="Remove"
+					testId={testId}
+					onAfterRemoveAction={onAfterRemoveAction}
+				/>,
+			);
+			const tag = screen.getByTestId(testId);
+			const removeButton = screen.getByTestId(`close-button-${testId}`);
+
+			// useMotion is attached to the tag itself without a layout-affecting wrapper.
+			// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+			expect(container.firstElementChild).toBe(tag);
+			expect(tag).toContainElement(removeButton);
+			expect(tag).toHaveStyle({ animation: '' });
+			const visibleClassName = tag.className;
+
+			act(() => {
+				removeButton.click();
+			});
+
+			expect(screen.queryByTestId(`close-button-${testId}`)).not.toBeInTheDocument();
+			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
+			expect(tag.className).not.toBe(visibleClassName);
+
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+			expect(screen.queryByTestId(`close-button-${testId}`)).not.toBeInTheDocument();
+			expect(onAfterRemoveAction).toHaveBeenCalledWith('Motion tag');
+		});
+
+		it('applies enter motion when added after its presence boundary mounts', () => {
+			passGate('platform-dst-motion-uplift-labels');
+			const MotionTag = ({ isVisible }: { isVisible: boolean }) => (
+				<ExitingPersistence>
+					{isVisible ? <TagNew key="motion-tag" text="Motion tag" testId={testId} /> : null}
+				</ExitingPersistence>
+			);
+			const { rerender } = render(<MotionTag isVisible={false} />);
+
+			rerender(
+				<React.StrictMode>
+					<MotionTag isVisible />
+				</React.StrictMode>,
+			);
+
+			const tag = screen.getByTestId(testId);
+			const enteringClassName = tag.className;
+
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			// Compiled style tags can be deduplicated away on rerender in jsdom. The atomic class
+			// change verifies that the entering variant completed and returned to visible styles.
+			// eslint-disable-next-line jest-dom/prefer-to-have-class -- comparing complete atomic class sets verifies the compiled variant changed
+			expect(tag.className).not.toBe(enteringClassName);
+		});
+
+		it('removes immediately and completes the callback when reduced motion is preferred', () => {
+			passGate('platform-dst-motion-uplift-labels');
+			jest.spyOn(window, 'matchMedia').mockReturnValue({ matches: true } as MediaQueryList);
+			const onAfterRemoveAction = jest.fn();
+			render(
+				<TagNew
+					text="Reduced motion tag"
+					testId={testId}
+					onAfterRemoveAction={onAfterRemoveAction}
+				/>,
+			);
+
+			expect(screen.getByTestId(testId)).toHaveStyle({ animation: '' });
+			act(() => {
+				screen.getByTestId(`close-button-${testId}`).click();
+			});
+
+			expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
+			expect(onAfterRemoveAction).toHaveBeenCalledWith('Reduced motion tag');
+		});
+	});
 });
 
 describe('swatch a11y attributes', () => {
 	const testId = 'test-tag-swatch';
 
-	ffTest.on(
-		'parent-field-switcher-missing-info-image-text',
-		'applies aria-label and role to swatch when feature gate is on',
-		() => {
-			it('should set aria-label and role on the swatch span', () => {
-				render(
-					<TagNew
-						aria-label="Epic"
-						color="purple"
-						isRemovable={false}
-						swatchBefore
-						swatchBeforeLabel="Epic"
-						swatchBeforeRole="img"
-						testId={testId}
-						text="Epic Tag"
-					/>,
-				);
-				const swatch = screen.getByRole('img', { name: 'Epic' });
-				expect(swatch).toBeInTheDocument();
-			});
-		},
-	);
+	it('should set aria-label and role on the swatch span', () => {
+		render(
+			<TagNew
+				aria-label="Epic"
+				color="purple"
+				isRemovable={false}
+				swatchBefore
+				swatchBeforeLabel="Epic"
+				swatchBeforeRole="img"
+				testId={testId}
+				text="Epic Tag"
+			/>,
+		);
+		const swatch = screen.getByRole('img', { name: 'Epic' });
+		expect(swatch).toBeInTheDocument();
+	});
 });
 
 describe('SimpleTag with feature flag', () => {

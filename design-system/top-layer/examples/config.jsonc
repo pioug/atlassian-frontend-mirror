@@ -40,6 +40,7 @@
 		"125-testing-animation-exit.tsx",
 		"126-testing-animation-reduced-motion.tsx",
 		"127-testing-animation-callbacks.tsx",
+		"testing-dialog-animation-callbacks.tsx",
 		"128-testing-keyboard-mouse-interleaving.tsx",
 		"129-testing-focus-return-ref.tsx",
 		"131-testing-rapid-open-toggle.tsx",
@@ -49,9 +50,16 @@
 		"138-testing-click-outside-passthrough.tsx",
 		"139-testing-hint-no-close-auto.tsx",
 		"140-testing-arrow-navigation.tsx",
+		"141-testing-focusable-browser-edge-cases.tsx",
 		"150-testing-native-api-timing.tsx",
 		"152-testing-nested-dialog-escape.tsx",
-		"153-testing-safari-flex-collapse.tsx",
+		"153-testing-safari-flex-collapse.vr.ap.tsx",
+		"157-testing-pointer-events-reset.tsx",
+		"158-testing-popover-drag-and-drop.tsx",
+		"159-testing-dialog-drag-and-drop.tsx",
 	],
+	// Entries here are excluded from the test cache hash, so
+	// `@atlaskit/pragmatic-drag-and-drop` is deliberately absent: it is what the
+	// drag and drop examples above are testing.
 	"exampleDependencies": [],
 }

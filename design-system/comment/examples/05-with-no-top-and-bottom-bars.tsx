@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import Comment from '@atlaskit/comment';
 import { Text } from '@atlaskit/primitives/compiled';
 

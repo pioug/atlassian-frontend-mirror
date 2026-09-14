@@ -1,8 +1,10 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { Field, FormFooter } from '@atlaskit/form';
-import TextArea from '@atlaskit/textarea';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import TextArea from '@atlaskit/textarea/text-area';
 
 function validate(value: unknown) {
 	if (value !== 'open sesame') {

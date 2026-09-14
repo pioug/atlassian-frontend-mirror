@@ -3,12 +3,13 @@ import React from 'react';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
-import { EVENT_CHANNEL } from '../../analytics';
-import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
+import { EVENT_CHANNEL } from '../../analytics/constants';
+import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import {
 	type DatasourceTableStateProps,
 	useDatasourceTableState,

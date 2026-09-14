@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css",
-	"version": "1.0.2",
+	"version": "1.1.2",
 	"description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,6 +37,38 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
+		"./at-rules/media-above-xxs": "./src/at-rules/media-above-xxs.tsx",
+		"./at-rules/media-above-xs": "./src/at-rules/media-above-xs.tsx",
+		"./at-rules/media-above-sm": "./src/at-rules/media-above-sm.tsx",
+		"./at-rules/media-above-md": "./src/at-rules/media-above-md.tsx",
+		"./at-rules/media-above-lg": "./src/at-rules/media-above-lg.tsx",
+		"./at-rules/media-above-xl": "./src/at-rules/media-above-xl.tsx",
+		"./at-rules/media-below-xs": "./src/at-rules/media-below-xs.tsx",
+		"./at-rules/media-below-sm": "./src/at-rules/media-below-sm.tsx",
+		"./at-rules/media-below-md": "./src/at-rules/media-below-md.tsx",
+		"./at-rules/media-below-lg": "./src/at-rules/media-below-lg.tsx",
+		"./at-rules/media-below-xl": "./src/at-rules/media-below-xl.tsx",
+		"./at-rules/media-only-xxs": "./src/at-rules/media-only-xxs.tsx",
+		"./at-rules/media-only-xs": "./src/at-rules/media-only-xs.tsx",
+		"./at-rules/media-only-sm": "./src/at-rules/media-only-sm.tsx",
+		"./at-rules/media-only-md": "./src/at-rules/media-only-md.tsx",
+		"./at-rules/media-only-lg": "./src/at-rules/media-only-lg.tsx",
+		"./at-rules/media-only-xl": "./src/at-rules/media-only-xl.tsx",
+		"./at-rules/media-dark-mode": "./src/at-rules/media-dark-mode.tsx",
+		"./at-rules/media-light-mode": "./src/at-rules/media-light-mode.tsx",
+		"./at-rules/media-reduced-motion": "./src/at-rules/media-reduced-motion.tsx",
+		"./at-rules/media-reduced-transparency": "./src/at-rules/media-reduced-transparency.tsx",
+		"./at-rules/media-forced-colors-active": "./src/at-rules/media-forced-colors-active.tsx",
+		"./at-rules/media-legacy-high-contrast": "./src/at-rules/media-legacy-high-contrast.tsx",
+		"./at-rules/media-forced-colors-or-legacy-high-contrast": "./src/at-rules/media-forced-colors-or-legacy-high-contrast.tsx",
+		"./at-rules/container": "./src/at-rules/container.tsx",
+		"./at-rules/supports": "./src/at-rules/supports.tsx",
+		"./at-rules/property": "./src/at-rules/property.tsx",
+		"./at-rules/layer": "./src/at-rules/layer.tsx",
+		"./at-rules/scope": "./src/at-rules/scope.tsx",
+		"./at-rules/keyframes": "./src/at-rules/keyframes.tsx",
+		"./at-rules/starting-style": "./src/at-rules/starting-style.tsx",
+		"./at-rules/view-transition": "./src/at-rules/view-transition.tsx",
 		"./test-utils": "./src/test-utils/index.tsx"
 	},
 	"dependencies": {
@@ -45,7 +77,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
@@ -53,48 +85,13 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/jscodeshift": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"homepage": "https://atlassian.design/components/css"
 }

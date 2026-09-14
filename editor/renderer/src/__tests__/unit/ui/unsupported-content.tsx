@@ -1,21 +1,17 @@
 import React from 'react';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import type { RendererProps } from '../../../ui/renderer-props';
-import Renderer from '../../../ui/Renderer';
-import type { WrappedComponentProps } from 'react-intl';
+import { Renderer } from '../../../entry-points/renderer-default';
 import { IntlProvider } from 'react-intl';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import Tooltip from '@atlaskit/tooltip';
-import type { ReactWrapper } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
+const tooltipMessage =
+	'Content is not available in this editor, this will be preserved when you edit and save';
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Unsupported Content', () => {
 	describe('Block Node', () => {
-		let renderer: ReactWrapper<any & WrappedComponentProps, any, any>;
-		afterEach(() => {
-			renderer.unmount();
-		});
-
 		const doc = {
 			version: 1,
 			type: 'doc',
@@ -41,37 +37,38 @@ describe('Unsupported Content', () => {
 			locale: string = 'en',
 			messages = {},
 		) =>
-			mountWithIntl(
+			render(
 				<IntlProvider locale={locale} messages={messages}>
+					{/* eslint-disable-next-line react/jsx-props-no-spreading */}
 					<Renderer document={doc} {...props} />
 				</IntlProvider>,
 			);
 
 		it('should return a node of type div', () => {
-			renderer = initRendererWithIntl(doc, {
+			const { container } = initRendererWithIntl(doc, {
 				useSpecBasedValidator: true,
 			});
 
-			expect(renderer.find('[className$="-UnsupportedBlockNode"]').getDOMNode().tagName).toEqual(
-				'DIV',
-			);
+			expect(container.querySelector('.unsupported')?.tagName).toEqual('DIV');
 		});
 
 		it('should node contains tooltip', () => {
-			renderer = initRendererWithIntl(doc, {
+			initRendererWithIntl(doc, {
 				useSpecBasedValidator: true,
 			});
-			expect(renderer.find(Tooltip)).toHaveLength(1);
+
+			// the tooltip hangs off the help icon rendered next to the message
+			expect(screen.getByLabelText('?')).toBeInTheDocument();
 		});
 
-		it('should show correct message when hover on tooltip', () => {
-			renderer = initRendererWithIntl(doc, {
+		it('should show correct message when hover on tooltip', async () => {
+			initRendererWithIntl(doc, {
 				useSpecBasedValidator: true,
 			});
-			expect(renderer.find(Tooltip).exists()).toBeTruthy();
-			expect(renderer.find(Tooltip).props().content).toEqual(
-				'Content is not available in this editor, this will be preserved when you edit and save',
-			);
+
+			await userEvent.hover(screen.getByLabelText('?'));
+
+			expect(await screen.findByRole('tooltip')).toHaveTextContent(tooltipMessage);
 		});
 
 		it(
@@ -83,8 +80,16 @@ describe('Unsupported Content', () => {
 						'This editor does not support displaying this content',
 				};
 
-				renderer = initRendererWithIntl(doc, { useSpecBasedValidator: true }, 'de', messages);
-				expect(renderer.text()).toEqual('This editor does not support displaying this content');
+				const { container } = initRendererWithIntl(
+					doc,
+					{ useSpecBasedValidator: true },
+					'de',
+					messages,
+				);
+
+				expect(container.textContent).toEqual(
+					'This editor does not support displaying this content',
+				);
 			},
 		);
 
@@ -92,10 +97,11 @@ describe('Unsupported Content', () => {
 			'should have text content as string "Unsupported Status"' +
 				' when language english locale provided',
 			() => {
-				renderer = initRendererWithIntl(doc, {
+				const { container } = initRendererWithIntl(doc, {
 					useSpecBasedValidator: true,
 				});
-				expect(renderer.text()).toEqual(
+
+				expect(container.textContent).toEqual(
 					'This editor does not support displaying this content: FooBarNode',
 				);
 			},
@@ -103,8 +109,6 @@ describe('Unsupported Content', () => {
 	});
 
 	describe('Inline Node', () => {
-		let renderer: ReactWrapper<any & WrappedComponentProps, any, any>;
-
 		const doc = {
 			version: 1,
 			type: 'doc',
@@ -131,37 +135,37 @@ describe('Unsupported Content', () => {
 			locale: string = 'en',
 			messages = {},
 		) =>
-			mountWithIntl(
+			render(
 				<IntlProvider locale={locale} messages={messages}>
+					{/* eslint-disable-next-line react/jsx-props-no-spreading */}
 					<Renderer document={doc} {...props} />
 				</IntlProvider>,
 			);
 
 		it('should return a node of type span', () => {
-			renderer = initRendererWithIntl(doc, {
+			const { container } = initRendererWithIntl(doc, {
 				useSpecBasedValidator: true,
 			});
 
-			expect(renderer.find('[className$="-UnsupportedInlineNode"]').getDOMNode().tagName).toEqual(
-				'SPAN',
-			);
+			expect(container.querySelector('[class*="-UnsupportedInlineNode"]')?.tagName).toEqual('SPAN');
 		});
 
 		it('should node contains tooltip', () => {
-			renderer = initRendererWithIntl(doc, {
+			initRendererWithIntl(doc, {
 				useSpecBasedValidator: true,
 			});
-			expect(renderer.find(Tooltip)).toHaveLength(1);
+
+			expect(screen.getByLabelText('?')).toBeInTheDocument();
 		});
 
-		it('should show correct message when hover on tooltip', () => {
-			renderer = initRendererWithIntl(doc, {
+		it('should show correct message when hover on tooltip', async () => {
+			initRendererWithIntl(doc, {
 				useSpecBasedValidator: true,
 			});
-			expect(renderer.find(Tooltip).exists()).toBeTruthy();
-			expect(renderer.find(Tooltip).props().content).toEqual(
-				'Content is not available in this editor, this will be preserved when you edit and save',
-			);
+
+			await userEvent.hover(screen.getByLabelText('?'));
+
+			expect(await screen.findByRole('tooltip')).toHaveTextContent(tooltipMessage);
 		});
 
 		it(
@@ -172,8 +176,14 @@ describe('Unsupported Content', () => {
 					'fabric.editor.unsupportedContent': 'Unsupported content',
 				};
 
-				renderer = initRendererWithIntl(doc, { useSpecBasedValidator: true }, 'de', messages);
-				expect(renderer.text()).toEqual('Unsupported content');
+				const { container } = initRendererWithIntl(
+					doc,
+					{ useSpecBasedValidator: true },
+					'de',
+					messages,
+				);
+
+				expect(container.textContent).toEqual('Unsupported content');
 			},
 		);
 
@@ -181,11 +191,11 @@ describe('Unsupported Content', () => {
 			'should have text content as string "Unsupported Status"' +
 				' when language english locale provided',
 			() => {
-				renderer = initRendererWithIntl(doc, {
+				const { container } = initRendererWithIntl(doc, {
 					useSpecBasedValidator: true,
 				});
 
-				expect(renderer.text()).toEqual('Unsupported FooBarNode');
+				expect(container.textContent).toEqual('Unsupported FooBarNode');
 			},
 		);
 	});

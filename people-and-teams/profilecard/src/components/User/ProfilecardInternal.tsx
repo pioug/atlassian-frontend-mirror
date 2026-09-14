@@ -1,0 +1,336 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { FormattedMessage, useIntl } from 'react-intl';
+
+import Avatar from '@atlaskit/avatar/avatar';
+import Button from '@atlaskit/button/default/button';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
+import { TeamsLinkButton } from '@atlaskit/teams-app-internal-navigation/teams-link-button';
+import { token } from '@atlaskit/tokens';
+
+import messages from '../../messages';
+import {
+	ActionButtonGroup,
+	ActionsFlexSpacer,
+	AnimatedKudosButton,
+	AnimationWrapper,
+	CardContainer,
+	CardContent,
+	KudosBlobAnimation,
+	ProfileImage,
+} from '../../styled/Card';
+import { CardWrapper } from '../../styled/UserTrigger';
+import {
+	type AnalyticsProps,
+	type AnalyticsWithDurationProps,
+	type ProfileCardAction,
+	type ProfilecardProps,
+} from '../../types';
+import { PACKAGE_META_DATA } from '../../util/analytics';
+import { isBasicClick } from '../../util/click';
+import { getPageTime } from '../../util/performance';
+import { default as ErrorMessage } from '../Error/ErrorMessage';
+
+import { LoadingView } from './LoadingView';
+import {
+	ACTION_OVERFLOW_THRESHOLD,
+	OverflowProfileCardButtons,
+} from './OverflowProfileCardButtons';
+import { ProfileCardDetails } from './ProfileCardDetails';
+
+const GIVE_KUDOS_ACTION_ID = 'give-kudos';
+
+const useKudos = (
+	cloudId?: string,
+	userId?: string,
+	teamCentralBaseUrl?: string,
+	openKudosDrawer?: () => void,
+) => {
+	const kudosUrl = useMemo(() => {
+		const recipientId = userId ? `&recipientId=${userId}` : '';
+		const cloudIdParam = cloudId ? `&cloudId=${cloudId}` : '';
+
+		return `${teamCentralBaseUrl || ''}/kudos/give?type=individual${recipientId}${cloudIdParam}`;
+	}, [cloudId, teamCentralBaseUrl, userId]);
+
+	const kudosButtonCallback = useCallback(() => {
+		if (openKudosDrawer) {
+			openKudosDrawer();
+		} else {
+			window.open(kudosUrl);
+		}
+	}, [kudosUrl, openKudosDrawer]);
+
+	const kudosAction = useMemo(() => {
+		return {
+			label: <FormattedMessage {...messages.giveKudosButton} />,
+			id: GIVE_KUDOS_ACTION_ID,
+			callback: kudosButtonCallback,
+			link: kudosUrl,
+		};
+	}, [kudosButtonCallback, kudosUrl]);
+
+	return {
+		kudosAction,
+		kudosButtonCallback,
+		kudosUrl,
+	};
+};
+
+const Wrapper = (props: { children: React.ReactNode; ariaLabel?: string; labelledBy?: string }) => (
+	<CardWrapper
+		testId="profilecard"
+		role="dialog"
+		labelledBy={props.labelledBy}
+		ariaLabel={props.ariaLabel}
+	>
+		{props.children}
+	</CardWrapper>
+);
+
+interface ActionsProps extends AnalyticsWithDurationProps {
+	actions: ProfileCardAction[];
+	isTriggeredUsingKeyboard: boolean | undefined;
+	isRenderedInPortal?: boolean;
+	fullName?: string;
+}
+
+const Actions = ({
+	actions,
+	fireAnalyticsWithDuration,
+	isTriggeredUsingKeyboard,
+	isRenderedInPortal,
+	fullName,
+}: ActionsProps) => {
+	const onActionClick = useCallback(
+		(
+			action: ProfileCardAction,
+			args: any,
+			event: React.MouseEvent | React.KeyboardEvent,
+			index: number,
+		) => {
+			fireAnalyticsWithDuration('ui.profilecard.clicked.action', (duration) => ({
+				method: 'click',
+				firedAt: Math.round(getPageTime()),
+				duration,
+				hasHref: !!action.link,
+				hasOnClick: !!action.callback,
+				index,
+				actionId: action.id || 'no-id-specified',
+				...PACKAGE_META_DATA,
+			}));
+
+			if (action.callback && isBasicClick(event)) {
+				event.preventDefault();
+				action.callback(event, ...args);
+			}
+		},
+		[fireAnalyticsWithDuration],
+	);
+
+	if (!actions || actions.length === 0) {
+		return null;
+	}
+
+	const regularActions = actions.slice(0, ACTION_OVERFLOW_THRESHOLD);
+	const overflowActions =
+		actions.length > ACTION_OVERFLOW_THRESHOLD
+			? actions.slice(ACTION_OVERFLOW_THRESHOLD)
+			: undefined;
+
+	return (
+		<ActionButtonGroup testId="profilecard-actions">
+			{regularActions.map((action, index) => {
+				const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
+
+				if (isKudos && fg('fix_give_kudos_btn_incorrect_role')) {
+					const kudosButton = (
+						<Button
+							appearance="default"
+							key={action.id || index}
+							onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+								onActionClick(action, args, event, index)
+							}
+							autoFocus={index === 0 && isTriggeredUsingKeyboard && !isRenderedInPortal}
+							id={`action-button-${action.id}`}
+							aria-labelledby={`action-button-${action.id} profilecard-name-label`}
+						>
+							{action.label}
+							<AnimationWrapper>
+								<KudosBlobAnimation />
+							</AnimationWrapper>
+						</Button>
+					);
+
+					return (
+						<AnimatedKudosButton key={`profile-card-action-kudos_${action.id || index}`}>
+							{kudosButton}
+						</AnimatedKudosButton>
+					);
+				}
+
+				const button = (
+					<TeamsLinkButton
+						appearance="default"
+						key={action.id || index}
+						onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+							onActionClick(action, args, event, index)
+						}
+						href={action.link || ''}
+						intent="action"
+						autoFocus={index === 0 && isTriggeredUsingKeyboard && !isRenderedInPortal}
+						id={`action-button-${action.id}`}
+						aria-labelledby={`action-button-${action.id} profilecard-name-label`}
+					>
+						{action.label}
+						{isKudos && (
+							<AnimationWrapper>
+								<KudosBlobAnimation />
+							</AnimationWrapper>
+						)}
+					</TeamsLinkButton>
+				);
+
+				// TODO: Remove this once fix_give_kudos_btn_incorrect_role is fully rolled out
+				if (isKudos) {
+					return (
+						<AnimatedKudosButton key={`profile-card-action-kudos_${action.id || index}`}>
+							{button}
+						</AnimatedKudosButton>
+					);
+				}
+
+				return button;
+			})}
+			{overflowActions && (
+				<OverflowProfileCardButtons
+					actions={overflowActions}
+					fireAnalyticsWithDuration={fireAnalyticsWithDuration}
+					onItemClick={(action, args, event, index) =>
+						onActionClick(action, args, event, index + ACTION_OVERFLOW_THRESHOLD)
+					}
+					{...(fg('jfp_a11y_team_profile_card_actions_label') && {
+						fullName,
+					})}
+				/>
+			)}
+		</ActionButtonGroup>
+	);
+};
+
+export const ProfilecardInternal = (
+	props: ProfilecardProps & AnalyticsProps,
+): React.JSX.Element | null => {
+	const [openTime] = useState<number>(getPageTime());
+	const intl = useIntl();
+
+	const { fireEvent } = useAnalyticsEvents();
+
+	const fireAnalyticsWithDuration = useCallback(
+		<K extends keyof AnalyticsEventAttributes>(
+			eventKey: K,
+			generator: (duration: number) => AnalyticsEventAttributes[K],
+		) => {
+			const duration = getPageTime() - openTime;
+			const attributes = generator(duration);
+			fireEvent(eventKey, attributes);
+		},
+		[openTime, fireEvent],
+	);
+
+	const { kudosAction } = useKudos(
+		props.cloudId,
+		props.userId,
+		props.teamCentralBaseUrl,
+		props.openKudosDrawer,
+	);
+
+	const { actions = [], isCurrentUser, isKudosEnabled, status = 'active' } = props;
+
+	const realActions = useMemo(() => {
+		if (isCurrentUser || !isKudosEnabled || status !== 'active') {
+			return actions;
+		}
+
+		return actions.concat([kudosAction]);
+	}, [actions, isCurrentUser, isKudosEnabled, kudosAction, status]);
+
+	const { isLoading, fullName, hasError } = props;
+
+	const canRender = !hasError && !isLoading && !!(fullName || status === 'closed');
+
+	useEffect(() => {
+		if (canRender) {
+			fireAnalyticsWithDuration('ui.profilecard.rendered.content', (duration) => ({
+				duration,
+				numActions: realActions.length,
+				firedAt: Math.round(getPageTime()),
+				...PACKAGE_META_DATA,
+			}));
+		}
+	}, [canRender, fireAnalyticsWithDuration, realActions]);
+
+	if (hasError) {
+		return (
+			<Wrapper ariaLabel={intl.formatMessage(messages.errorDialogLabel)}>
+				<ErrorMessage
+					reload={props.clientFetchProfile}
+					errorType={props.errorType || null}
+					fireAnalytics={fireEvent}
+				/>
+			</Wrapper>
+		);
+	}
+
+	if (isLoading) {
+		return (
+			<Wrapper ariaLabel={intl.formatMessage(messages.loadingDialogLabel)}>
+				<LoadingView fireAnalyticsWithDuration={fireAnalyticsWithDuration} />
+			</Wrapper>
+		);
+	}
+
+	if (!canRender) {
+		return null;
+	}
+
+	const isDisabledUser = status === 'inactive' || status === 'closed';
+
+	return (
+		<Wrapper labelledBy="profilecard-name-label">
+			<CardContainer isDisabledUser={isDisabledUser} withoutElevation={props.withoutElevation}>
+				<ProfileImage>
+					<Avatar
+						size="xlarge"
+						src={status !== 'closed' ? props.avatarUrl : undefined}
+						borderColor={token('elevation.shadow.overlay')}
+					/>
+				</ProfileImage>
+				<CardContent>
+					<ProfileCardDetails
+						{...props}
+						status={status}
+						fireAnalyticsWithDuration={fireAnalyticsWithDuration}
+					/>
+					{realActions && (
+						<>
+							<ActionsFlexSpacer />
+							<Actions
+								{...(fg('jfp_a11y_team_profile_card_actions_label') && {
+									fullName,
+								})}
+								fullName={fullName}
+								actions={realActions}
+								fireAnalyticsWithDuration={fireAnalyticsWithDuration}
+								isTriggeredUsingKeyboard={props.isTriggeredUsingKeyboard}
+								isRenderedInPortal={props.isRenderedInPortal}
+							/>
+						</>
+					)}
+				</CardContent>
+			</CardContainer>
+		</Wrapper>
+	);
+};

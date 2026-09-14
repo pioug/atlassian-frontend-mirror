@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/json-ld-types",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "A set of types for the Atlassian Object Vocabulary",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -22,9 +22,9 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./default-states": "./src/entry-points/default-states.ts",
-		"./jsonld": "./src/entry-points/jsonld.ts",
-		"./jsonld-response-types": "./src/entry-points/jsonld-response-types.ts"
+		"./default-states": "./src/defaults.ts",
+		"./jsonld": "./src/jsonld.ts",
+		"./jsonld-response-types": "./src/objects.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*",
@@ -33,40 +33,5 @@
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",
 		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
 import type { EnumRadioField } from '@atlaskit/editor-common/extensions';
-import { Field } from '@atlaskit/form';
-import { RadioGroup } from '@atlaskit/radio';
+import Field from '@atlaskit/form/field';
+import RadioGroup from '@atlaskit/radio/radio-group';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';

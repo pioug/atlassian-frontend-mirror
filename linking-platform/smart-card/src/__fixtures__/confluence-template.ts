@@ -1,4 +1,4 @@
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 export default {
 	data: {

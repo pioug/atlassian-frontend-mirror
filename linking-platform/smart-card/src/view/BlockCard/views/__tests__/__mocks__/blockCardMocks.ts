@@ -448,6 +448,116 @@ export const mockPassionfruitResponseWithOwnedBy: {
 	},
 };
 
+export const mockMercuryResponse: {
+	meta: {
+		key: string;
+		visibility: string;
+		access: string;
+		auth: never[];
+		definitionId: string;
+	};
+	data: {
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string[];
+		name: string;
+		summary: string;
+		'schema:potentialAction': {
+			'@id': string;
+			'@type': string;
+			identifier: string;
+			name: string;
+		};
+		attributedTo: {
+			'@type': string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			name: string;
+		};
+		preview: {
+			'@type': string;
+			href: string;
+		};
+		image: {
+			'@type': string;
+			url: string;
+		};
+		url: string;
+	};
+} = {
+	...mockBaseResponse,
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'mercury-object-provider',
+	},
+};
+
+export const mockMercuryResponseWithOwnedBy: {
+	meta: {
+		key: string;
+		visibility: string;
+		access: string;
+		auth: never[];
+		definitionId: string;
+	};
+	data: {
+		'atlassian:ownedBy': {
+			'@type': string;
+			icon: string;
+			name: string;
+		};
+		'@context': {
+			'@vocab': string;
+			atlassian: string;
+			schema: string;
+		};
+		'@type': string[];
+		name: string;
+		summary: string;
+		'schema:potentialAction': {
+			'@id': string;
+			'@type': string;
+			identifier: string;
+			name: string;
+		};
+		attributedTo: {
+			'@type': string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			name: string;
+		};
+		preview: {
+			'@type': string;
+			href: string;
+		};
+		image: {
+			'@type': string;
+			url: string;
+		};
+		url: string;
+	};
+} = {
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'mercury-object-provider',
+	},
+	data: {
+		...mockBaseResponse.data,
+		'atlassian:ownedBy': {
+			'@type': 'Person',
+			icon: 'avatar_url',
+			name: 'Aashna Shah',
+		},
+	},
+};
+
 export const mockCompassResponseWithAppliedToComponentsCount: {
 	meta: {
 		key: string;

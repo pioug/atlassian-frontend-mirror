@@ -1,4 +1,4 @@
-import { type MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type FileFetcher, FileFetcherImpl } from '../file-fetcher';
 
 export class MediaClient {

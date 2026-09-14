@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import { useUserInteractions } from '../../../../../contexts/user-interactions';
+import { useUserInteractions } from '../../../../../contexts/user-interactions/use-user-interactions';
+import { getColumnAction } from '../../../../issue-like-table/get-column-action';
 import { type IssueLikeDataTableViewProps } from '../../../../issue-like-table/types';
-import { getColumnAction } from '../../../../issue-like-table/utils';
 
 export type ColumnVisibilityProps = Pick<
 	IssueLikeDataTableViewProps,

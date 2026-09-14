@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "7.3.26",
+	"version": "7.10.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,65 +26,136 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
+		".": "./src/index.ts",
+		"./add-bm3-timings-to-ufo": "./src/custom-timings/addBM3TimingsToUFO.ts",
+		"./add-timing-from-performance-mark": "./src/initial-page-load-extra-timing/addTimingFromPerformanceMark.ts",
+		"./add-ufo-custom-cohort-data": "./src/custom-cohort-data/addUFOCustomCohortData.ts",
+		"./add-ufo-custom-data": "./src/custom-data/addUFOCustomData.ts",
+		"./add-ufo-custom-mark": "./src/custom-mark/addUFOCustomMark.ts",
+		"./additional-payload/cache-hit-ratio": "./src/additional-payload/utils/cache-hit-ratio/index.ts",
+		"./additional-payload/lighthouse-metrics": "./src/additional-payload/utils/lighthouse-metrics/index.ts",
 		"./additional-payload": "./src/additional-payload/index.ts",
 		"./bundle-eval-timing": "./src/bundle-eval-timing/index.ts",
+		"./clear-active-trace": "./src/experience-trace-id-context/clear-active-trace.ts",
 		"./coinflip": "./src/coinflip/index.ts",
 		"./common": "./src/common/index.ts",
 		"./config": "./src/config/index.ts",
+		"./create-extra-search-page-interaction-payload": "./src/create-payload/createExtraSearchPageInteractionPayload.ts",
+		"./create-interaction-metrics-payload": "./src/create-payload/createInteractionMetricsPayload.ts",
 		"./create-payload": "./src/create-payload/index.ts",
+		"./create-payloads": "./src/create-payload/createPayloads.ts",
 		"./create-post-interaction-log-payload": "./src/create-post-interaction-log-payload/index.ts",
-		"./custom-data": "./src/custom-data/index.ts",
 		"./custom-cohort-data": "./src/custom-cohort-data/index.ts",
+		"./custom-data": "./src/custom-data/index.ts",
 		"./custom-mark": "./src/custom-mark/index.ts",
 		"./custom-spans": "./src/custom-spans/index.ts",
 		"./custom-timings": "./src/custom-timings/index.ts",
+		"./default-interaction-id": "./src/interaction-id-context/defaultInteractionId.ts",
 		"./experience-trace-id-context": "./src/experience-trace-id-context/index.ts",
+		"./experience-type-key": "./src/experience-trace-id-context/experience-type-key.ts",
 		"./feature-flags-accessed": "./src/feature-flags-accessed/index.ts",
+		"./gen-ai-segment": "./src/segment/gen-ai-segment.tsx",
 		"./generate-id": "./src/generate-id/index.ts",
+		"./generate-span-id": "./src/experience-trace-id-context/generate-span-id.ts",
+		"./get-active-trace": "./src/experience-trace-id-context/get-active-trace.ts",
+		"./get-active-trace-as-query-params": "./src/experience-trace-id-context/get-active-trace-as-query-params.ts",
+		"./get-active-trace-http-request-headers": "./src/experience-trace-id-context/get-active-trace-http-request-headers.ts",
+		"./get-assets-metrics": "./src/create-payload/getAssetsMetrics.ts",
+		"./get-bm3-timings": "./src/custom-timings/getBm3Timings.ts",
+		"./get-bm3-tracker-timings": "./src/create-payload/getBm3TrackerTimings.ts",
+		"./get-bundle-eval-timings": "./src/create-payload/getBundleEvalTimings.ts",
+		"./get-earliest-legacy-stop-time": "./src/create-payload/getEarliestLegacyStopTime.ts",
+		"./get-error-counts": "./src/create-payload/getErrorCounts.ts",
+		"./get-global-error-count": "./src/global-error-handler/get-global-error-count.ts",
+		"./get-interaction-id": "./src/interaction-id-context/getInteractionId.ts",
+		"./get-metric-variant-hold-info": "./src/create-payload/getMetricVariantHoldInfo.ts",
+		"./get-more-accurate-page-visibility-up-to-tti": "./src/create-payload/getMoreAccuratePageVisibilityUpToTTI.ts",
+		"./get-page-visibility-up-to-tti": "./src/create-payload/getPageVisibilityUpToTTI.ts",
+		"./get-payload-size-and-annotate": "./src/create-payload/getPayloadSizeAndAnnotate.ts",
+		"./get-pps-metrics": "./src/create-payload/getPPSMetrics.ts",
+		"./get-react-profiler-timings-by-metric-window": "./src/create-payload/getReactProfilerTimingsByMetricWindow.ts",
+		"./get-react-profiler-timings-for-window": "./src/create-payload/getReactProfilerTimingsForWindow.ts",
+		"./get-resource-timings": "./src/create-payload/getResourceTimings.ts",
+		"./get-resource-timings-payload": "./src/create-payload/getResourceTimingsPayload.ts",
+		"./get-segment3p-timing-abort-markers": "./src/create-payload/getSegment3pTimingAbortMarkers.ts",
+		"./get-ssr-properties": "./src/create-payload/getSSRProperties.ts",
+		"./get-stylesheet-metrics": "./src/create-payload/getStylesheetMetrics.ts",
+		"./get-timings": "./src/initial-page-load-extra-timing/getTimings.ts",
+		"./get-tracing-context-data": "./src/create-payload/getTracingContextData.ts",
+		"./get-vc-observer": "./src/vc/getVCObserver.ts",
+		"./getLighthouseMetrics": "./src/additional-payload/utils/lighthouse-metrics/getLighthouseMetrics.ts",
 		"./global-error-handler": "./src/global-error-handler/index.ts",
 		"./hidden-timing": "./src/hidden-timing/index.ts",
 		"./initial-page-load-extra-timing": "./src/initial-page-load-extra-timing/index.ts",
 		"./interaction-context": "./src/interaction-context/index.ts",
-		"./interaction-ignore": "./src/interaction-ignore/index.ts",
 		"./interaction-id-context": "./src/interaction-id-context/index.ts",
+		"./interaction-ignore/ufo-interaction-ignore": "./src/interaction-ignore/ufo-interaction-ignore.tsx",
+		"./interaction-ignore": "./src/interaction-ignore/ufo-interaction-ignore.tsx",
 		"./interaction-metrics": "./src/interaction-metrics/index.ts",
 		"./interaction-metrics-init": "./src/interaction-metrics-init/index.ts",
+		"./is-environment-supported": "./src/vc/isEnvironmentSupported.ts",
 		"./label": "./src/label/index.ts",
 		"./load-hold": "./src/load-hold/index.ts",
+		"./new-vc-observer": "./src/vc/newVCObserver.ts",
+		"./object-to-array": "./src/create-payload/objectToArray.ts",
+		"./optimize-custom-data": "./src/create-payload/optimizeCustomData.ts",
+		"./optimize-redirects": "./src/create-payload/optimizeRedirects.ts",
 		"./placeholder": "./src/placeholder/index.ts",
-		"./resource-timing": "./src/resource-timing/index.ts",
+		"./preload-hold": "./src/preload-hold/index.ts",
+		"./preload-hold/make-preload-key": "./src/preload-hold/make-preload-key.ts",
+		"./redact-value": "./src/feature-flags-accessed/common/utils/redactValue.ts",
 		"./report-error": "./src/report-error/index.ts",
+		"./resource-timing/config": "./src/resource-timing/common/utils/config.ts",
+		"./resource-timing/main": "./src/resource-timing/main.ts",
+		"./resource-timing/types": "./src/resource-timing/common/types.ts",
+		"./resource-timing/utils": "./src/resource-timing/utils.tsx",
+		"./resource-timing": "./src/resource-timing/index.ts",
 		"./round-number": "./src/round-number/index.ts",
 		"./route-name": "./src/route-name/index.ts",
 		"./route-name-context": "./src/route-name-context/index.ts",
+		"./rrr-plugin": "./src/rrr-plugin/index.ts",
+		"./schedule-on-paint": "./src/segment/schedule-on-paint.ts",
 		"./segment": "./src/segment/index.ts",
+		"./set-active-trace": "./src/experience-trace-id-context/set-active-trace.ts",
+		"./set-interaction-active-trace": "./src/experience-trace-id-context/set-interaction-active-trace.ts",
 		"./set-interaction-error": "./src/set-interaction-error/index.ts",
 		"./set-terminal-error": "./src/set-terminal-error/index.ts",
+		"./setup-ufo-global-error-handler": "./src/global-error-handler/setup-ufo-global-error-handler.ts",
+		"./sink-error-handler": "./src/global-error-handler/sink-error-handler.ts",
 		"./short-id": "./src/short-id/index.ts",
+		"./span-id-key": "./src/experience-trace-id-context/span-id-key.ts",
 		"./ssr": "./src/ssr/index.ts",
+		"./ssr-render-profiler": "./src/segment/ssr-render-profiler.tsx",
+		"./ssr-scripts/bindAbortListeners": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/bindAbortListeners.ts",
+		"./ssr-scripts/collectSSRPlaceholderDimensions": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/collectSSRPlaceholderDimensions.ts",
 		"./ssr-scripts": "./src/vc/vc-observer/observers/ssr-placeholders/ssr-scripts/index.ts",
+		"./startLighthouseObserver": "./src/additional-payload/utils/lighthouse-metrics/startLighthouseObserver.ts",
+		"./state": "./src/experience-trace-id-context/state.ts",
+		"./subscribe-to-interaction-id-changes": "./src/interaction-id-context/subscribeToInteractionIdChanges.ts",
 		"./suspense": "./src/suspense/index.ts",
+		"./third-party-segment": "./src/segment/third-party-segment.tsx",
+		"./timings": "./src/initial-page-load-extra-timing/timings.ts",
 		"./trace-hover": "./src/trace-hover/index.ts",
+		"./trace-id-key": "./src/experience-trace-id-context/trace-id-key.ts",
 		"./trace-interaction": "./src/trace-interaction/index.ts",
 		"./trace-pageload": "./src/trace-pageload/index.ts",
 		"./trace-press": "./src/trace-press/index.ts",
 		"./trace-redirect": "./src/trace-redirect/index.ts",
 		"./trace-transition": "./src/trace-transition/index.ts",
+		"./trace-ufo-interaction": "./src/trace-interaction/internal/trace-ufo-interaction.ts",
+		"./types": "./src/experience-trace-id-context/types.ts",
 		"./typing-performance-tracing": "./src/typing-performance-tracing/index.ts",
+		"./ufo-custom-marks": "./src/custom-mark/UFOCustomMarks.ts",
+		"./ufobm3-timings-to-ufo": "./src/custom-timings/UFOBM3TimingsToUFO.ts",
+		"./update-pageload-name": "./src/trace-pageload/updatePageloadName.ts",
+		"./use-interaction-context": "./src/interaction-context/useInteractionContext.ts",
+		"./use-interaction-id": "./src/interaction-id-context/useInteractionId.ts",
 		"./use-press-tracing": "./src/use-press-tracing/index.ts",
+		"./use-ufo-transition-completer": "./src/trace-transition/useUFOTransitionCompleter.ts",
 		"./vc": "./src/vc/index.ts",
-		"./vc-media": "./src/vc/vc-observer/media-wrapper/index.ts",
-		".": "./src/index.ts",
-		"./additional-payload/cache-hit-ratio": "./src/entry-points/additional-payload-cache-hit-ratio.ts",
-		"./additional-payload/lighthouse-metrics": "./src/entry-points/additional-payload-lighthouse-metrics.ts",
-		"./interaction-ignore/ufo-interaction-ignore": "./src/entry-points/interaction-ignore-ufo-interaction-ignore.tsx",
-		"./resource-timing/config": "./src/entry-points/resource-timing-config.ts",
-		"./resource-timing/main": "./src/entry-points/resource-timing-main.ts",
-		"./resource-timing/types": "./src/entry-points/resource-timing-types.ts",
-		"./resource-timing/utils": "./src/entry-points/resource-timing-utils.tsx",
-		"./ssr-scripts/bindAbortListeners": "./src/entry-points/ssr-scripts-bindAbortListeners.ts",
-		"./ssr-scripts/collectSSRPlaceholderDimensions": "./src/entry-points/ssr-scripts-collectSSRPlaceholderDimensions.ts",
-		"./vc-media/MediaWrapper": "./src/entry-points/vc-media-MediaWrapper.tsx"
+		"./vc-media/MediaWrapper": "./src/vc/vc-observer/media-wrapper/MediaWrapper.tsx",
+		"./vc-media": "./src/vc/vc-observer/media-wrapper/MediaWrapper.tsx",
+		"./vc-observer-wrapper": "./src/vc/VCObserverWrapper.ts"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
@@ -114,41 +185,6 @@
 		"is-ci": "root:*",
 		"react": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform_ufo_canvas_heatmap_full_precision": {
 			"type": "boolean"
@@ -163,9 +199,6 @@
 			"type": "boolean"
 		},
 		"platform_ufo_data-is-hovered-v4-exclusion": {
-			"type": "boolean"
-		},
-		"platform_ufo_exclude_3p_extensions_from_ttvc": {
 			"type": "boolean"
 		},
 		"media-perf-uplift-mutation-fix": {
@@ -183,9 +216,6 @@
 		"platform_ufo_page_visibility_timeline": {
 			"type": "boolean"
 		},
-		"platform_ufo_exclude_dark_reader_extension": {
-			"type": "boolean"
-		},
 		"platform_ufo_exclude_fdprocessedid_attribute": {
 			"type": "boolean"
 		},
@@ -198,7 +228,16 @@
 		"platform_ufo_exclude_pdnd_attributes_from_vc": {
 			"type": "boolean"
 		},
+		"platform_ufo_exclude_anchor_name_from_ttvc": {
+			"type": "boolean"
+		},
 		"ufo-bump-walk-levels": {
+			"type": "boolean"
+		},
+		"platform_ufo_emit_metric_variant_holds": {
+			"type": "boolean"
+		},
+		"platform_ufo_preload_hold_adoption": {
 			"type": "boolean"
 		}
 	}

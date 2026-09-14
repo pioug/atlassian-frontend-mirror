@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 const _default_1: React.JSX.Element[] = [
 	<ButtonGroup titleId="heading-options">

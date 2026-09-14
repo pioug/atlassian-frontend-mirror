@@ -10,8 +10,8 @@ import DownloadIcon from '@atlaskit/icon/core/download';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { IconButton } from '@atlaskit/button/new';
-import Tooltip from '@atlaskit/tooltip';
+import IconButton from '@atlaskit/button/icon/button';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 

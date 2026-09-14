@@ -15,7 +15,7 @@ test.describe('Popover dialog focus trap - Tab wrapping', () => {
 
 		await page.getByTestId('dialog-trigger').click();
 
-		// Focus should move into the dialog (via onOpenChange + getFirstFocusable)
+		// Focus should move to the first focusable element in the dialog.
 		await expect(page.getByTestId('dialog-button-a')).toBeFocused();
 
 		await page.keyboard.press('Tab');

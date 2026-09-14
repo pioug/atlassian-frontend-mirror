@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link",
-	"version": "5.0.0",
+	"version": "5.1.2",
 	"description": "A link takes people to a new location in the app or another website.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,7 +44,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -56,48 +56,13 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"homepage": "https://atlassian.design/components/link",
 	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
 		"platform-dst-motion-uplift-list-item": {
 			"type": "boolean"
 		}

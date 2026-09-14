@@ -1,7 +1,8 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import type { MediaADFAttrs, MediaInlineAttributes } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
+import type { MediaInlineAttributes } from '@atlaskit/adf-schema/media-inline';
 import type {
 	MediaProvider,
 	ProviderFactory,
@@ -14,7 +15,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FileIdentifier } from '@atlaskit/media-client';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaFile, UploadParams } from '@atlaskit/media-picker/types';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 // TODO: ED-26962 - Once we extract the placeholder-text we should import this type again
@@ -35,6 +36,17 @@ export type MediaStateStatus =
 export type MediaSingleWithType = 'pixel' | 'percentage';
 
 export type MediaCopyScope = 'editor' | 'context';
+
+export type MediaRenderEventPayload =
+	| { type: 'mounted' | 'unmounted' }
+	| { renderedMediaId?: string; type: 'preview-rendered' }
+	| { reason: string; type: 'error' };
+
+export type MediaRenderEvent = {
+	dataConsumerSource?: string;
+	mediaId?: string;
+	mediaInstance: object;
+} & MediaRenderEventPayload;
 
 export interface MediaPluginOptions {
 	alignLeftOnInsert?: boolean;
@@ -127,6 +139,8 @@ export interface MediaPluginOptions {
 	/** Extensions for the media viewer header (e.g. comment navigation button). */
 	mediaViewerExtensions?: MediaViewerExtensions;
 	onCommentButtonMount?: () => void;
+	/** Receives lifecycle events for each rendered media node. */
+	onMediaRenderEvent?: (event: MediaRenderEvent) => void;
 	/**
 	 * When enabled, prevents automatic focus/selection of media nodes after upload completion.
 	 * The existing focus will be preserved instead of switching to the uploaded media.

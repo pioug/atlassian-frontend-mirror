@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "14.2.0",
+	"version": "20.0.0",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,11 +36,14 @@
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -62,44 +65,11 @@
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			],
-			"code-structure": [
-				"editor-plugin"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			]
-		}
-	},
 	"platform-feature-flags": {
-		"platform_editor_use_preferences_plugin": {
+		"platform_editor_middle_click_no_link_toolbar": {
 			"type": "boolean"
 		},
-		"nike_r19_render_unmount": {
+		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		}
 	}

@@ -4,6 +4,8 @@ import type { Node } from 'estree-jsx';
 
 import { getSourceCode } from './get-source-code';
 
+const scopeCache = new WeakMap<object, WeakMap<object, Scope.Scope>>();
+
 /**
  * Returns the Scope object from the ESLint rule context.
  * Compatibility layer to support older versions of ESLint.
@@ -19,8 +21,26 @@ export function getScope(
 	context: Rule.RuleContext | TSESLint.RuleContext<string, unknown[]>,
 	node: Node | TSESTree.Node,
 ): Scope.Scope | TSESLint.Scope.Scope {
-	// `context.sourceCode.getScope()` is the preferred way to access Scope, as
-	// `context.getScope()` was removed in v9.
-	// @ts-expect-error difference in types between typescript eslint and eslint
-	return getSourceCode(context)?.getScope?.(node) ?? context.getScope();
+	const sourceCode = getSourceCode(context as Rule.RuleContext);
+	const getScopeFromSourceCode = (sourceCode as { getScope?: (node: Node) => Scope.Scope })
+		.getScope;
+
+	if (getScopeFromSourceCode) {
+		let sourceCodeCache = scopeCache.get(sourceCode);
+		if (!sourceCodeCache) {
+			sourceCodeCache = new WeakMap();
+			scopeCache.set(sourceCode, sourceCodeCache);
+		}
+
+		const cachedScope = sourceCodeCache.get(node);
+		if (cachedScope) {
+			return cachedScope;
+		}
+
+		const scope = getScopeFromSourceCode.call(sourceCode, node as Node);
+		sourceCodeCache.set(node, scope);
+		return scope;
+	}
+
+	return context.getScope();
 }

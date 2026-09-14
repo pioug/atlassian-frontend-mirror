@@ -3,19 +3,20 @@
  * @jsx jsx
  */
 import React, { useState } from 'react';
-import type { DocNode } from '@atlaskit/adf-schema';
-import { generateUuid } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { generateUuid } from '@atlaskit/adf-schema/uuid';
 
 import RendererDemo from './helper/RendererDemo';
 import { validDocument as storyDataDocument } from './helper/story-data';
 import { RendererActionsContext } from '../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import CardClient from '@atlaskit/link-provider/client';
 import { AnnotationsWrapper } from '../src';
 import { useAnnotationsProvider } from './21-annotations';
 
@@ -128,7 +129,6 @@ export default function Example(): jsx.JSX.Element {
 
 													if (result) {
 														selection.removeAllRanges();
-														// @ts-ignore
 														setDocument(result.doc);
 													}
 												}}
@@ -164,7 +164,6 @@ export default function Example(): jsx.JSX.Element {
 													const result = actions.deleteAnnotation(annotationId, 'inlineComment');
 
 													if (result) {
-														// @ts-ignore
 														setDocument(result.doc);
 													}
 												}}

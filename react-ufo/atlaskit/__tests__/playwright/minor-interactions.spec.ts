@@ -3,6 +3,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: minor interactions', () => {
 	test.use({
 		examplePage: 'basic-with-3-sections-button-minor-interactions-override',
+	} satisfies {
+		examplePage: 'basic-with-3-sections-button-minor-interactions-override';
+		__exampleDependency?: typeof import('../../examples/33-basic-with-3-sections-button-minor-interactions-override.tsx');
 	});
 
 	test('interactionMetrics.minorInteractions should be `test-new-interaction` when the user clicks a button', async ({

@@ -16,7 +16,7 @@ import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import {
 	dropTargetForElements,
 	monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { GroupDropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/group-drop-indicator';
 import {
 	extractInstruction,

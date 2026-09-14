@@ -9,8 +9,13 @@ interface MountPluginHookProps extends HookParameters {
 	usePluginHook: ReactHookFactory;
 }
 
-function MountPluginHook({ usePluginHook, editorView, containerElement }: MountPluginHookProps) {
-	usePluginHook({ editorView, containerElement });
+function MountPluginHook({
+	usePluginHook,
+	editorView,
+	containerElement,
+	wrapperElement,
+}: MountPluginHookProps) {
+	usePluginHook({ editorView, containerElement, wrapperElement });
 	return null;
 }
 
@@ -18,12 +23,14 @@ interface MountPluginHooksProps {
 	containerElement: HTMLElement | null;
 	editorView: EditorView | undefined;
 	pluginHooks: NamedReactHookFactory[] | undefined;
+	wrapperElement?: HTMLElement | null;
 }
 
 export function MountPluginHooks({
 	pluginHooks,
 	editorView,
 	containerElement,
+	wrapperElement,
 }: MountPluginHooksProps): React.JSX.Element | null {
 	if (!editorView) {
 		return null;
@@ -46,6 +53,7 @@ export function MountPluginHooks({
 						usePluginHook={usePluginHook}
 						editorView={editorView}
 						containerElement={containerElement}
+						wrapperElement={wrapperElement}
 					/>
 				);
 			})}

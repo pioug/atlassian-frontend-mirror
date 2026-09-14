@@ -55,7 +55,7 @@ Cross-link to `notes/decisions/placement-offset.md` for the design decision. Sum
 - **`shift`** is a cross-axis shift with `value` and `direction: 'forwards' | 'backwards'`.
 - Both `gap` and `shift.value` accept a number (pixels) or a CSS length string (including design
   tokens like `token('space.100')`). Numbers are normalized to `${n}px` strings at the API boundary
-  by `getPlacement`, so internal code only ever sees strings.
+  by `resolvePlacement`, so internal code only ever sees strings.
 - The CSS path passes the strings through verbatim to logical margins and CSS custom properties.
 - The MARGIN SIDE for `shift` is chosen based on `align` because CSS Anchor Positioning anchors the
   popover at a specific edge of its `position-area`, and margin on the far side has no effect.
@@ -114,8 +114,8 @@ visible. The Playwright spec `__tests__/playwright/form-in-popup.spec.tsx` exerc
 - `src/internal/use-anchor-position.tsx` — main hook; dispatches between CSS path and JS fallback.
 - `src/internal/anchor-positioning-fallback.tsx` — pure functions for JS fallback math; takes
   pre-resolved pixel `gap` and `crossAxisShift`.
-- `src/internal/resolve-placement.tsx` — type definitions and `getPlacement` defaults; normalizes
-  number offsets to `${n}px` strings.
+- `src/internal/resolve-placement.tsx` — type definitions and `resolvePlacement` defaults;
+  normalizes number offsets to `${n}px` strings.
 - `src/internal/resolve-css-length.tsx` — `toCssLengthString` helper for the API boundary.
 - `src/internal/resolve-css-length-to-pixels.tsx` — DOM-probe resolver used by the JS fallback to
   convert any CSS length string (token / `calc` / `var` / etc) to pixels.

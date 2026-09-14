@@ -4,13 +4,12 @@ import type { ComponentProps } from 'react';
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { isConfluenceSlideUrl } from '@atlaskit/editor-card-provider/url-checkers';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
@@ -44,13 +43,13 @@ import {
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
-import type { CardContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { cardPlugin } from '../index';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -74,9 +73,10 @@ import { Card } from './genericCard';
  */
 export const getAspectRatioForUrl = (url: string | undefined): number | undefined => {
 	if (
-		expValEqualsNoExposure('cc-mui-slides-experiment', 'isEnabled', true) &&
 		url &&
-		isConfluenceSlideUrl(url)
+		isConfluenceSlideUrl(url) &&
+		!fg('cc-mui-slides-opted-out') &&
+		expValEqualsNoExposure('cc-mui-slides-experiment', 'isEnabled', true)
 	) {
 		// Slides have a 16:9 canvas
 		return 16 / 9;
@@ -698,11 +698,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 	stopEvent(event: Event): boolean {
 		if (event.type === 'dragstart') {
 			const target = event.target;
-			if (
-				target instanceof HTMLElement &&
-				target.closest('[data-smart-element-link]') &&
-				fg('cc_drag_and_drop_smart_link_from_content_to_tree')
-			) {
+			if (target instanceof HTMLElement && target.closest('[data-smart-element-link]')) {
 				return true;
 			}
 		}
@@ -756,8 +752,8 @@ export const embedCardNodeView =
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
-			intl: isSSRStreaming() ? intl : undefined,
-			smartCardContext: isSSRStreaming() ? smartCardContext : undefined,
+			intl,
+			smartCardContext,
 		};
 
 		return new EmbedCard(

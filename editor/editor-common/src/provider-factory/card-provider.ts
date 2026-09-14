@@ -1,4 +1,4 @@
-import type { CardAdf, DatasourceAdf } from '@atlaskit/linking-common';
+import type { CardAdf, DatasourceAdf } from '@atlaskit/linking-common/types';
 
 export type CardAppearance = 'inline' | 'block' | 'embed';
 

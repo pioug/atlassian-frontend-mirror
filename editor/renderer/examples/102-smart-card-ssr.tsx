@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
-import ReactDOM from 'react-dom';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import CardClient from '@atlaskit/link-provider/client';
+import { hydrateRoot } from 'react-dom/client';
 import Loadable from 'react-loadable';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import ReactDOMServer from 'react-dom/server';
@@ -12,7 +13,7 @@ import {
 	atlassianProjectCardState,
 } from '@atlaskit/media-test-helpers/smart-card-state';
 import { token } from '@atlaskit/tokens';
-import type { DocNode } from '@atlaskit/adf-schema/schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { default as Renderer } from '../src/ui/Renderer';
 import smartCardAdf from './helper/ssr-smart-card.json';
 import type { RendererProps } from '../src/ui/renderer-props';
@@ -69,7 +70,7 @@ const runSSR = async (containerId: string, hydrate?: boolean) => {
 
 	if (container) {
 		container.innerHTML = txt;
-		hydrate && ReactDOM.hydrate(<Page title="Renderer SSR + Hydration" />, container);
+		hydrate && hydrateRoot(container, <Page title="Renderer SSR + Hydration" />);
 	}
 };
 

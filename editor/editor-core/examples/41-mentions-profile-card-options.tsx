@@ -2,7 +2,7 @@ import React, { type ReactNode, useEffect, useMemo, useRef, useState } from 'rea
 
 import { IntlProvider } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import Code from '@atlaskit/code/code';
 import { cssMap } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
@@ -11,8 +11,8 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { Popper } from '@atlaskit/popper';
-import Portal from '@atlaskit/portal';
+import { Popper } from '@atlaskit/popper/main';
+import Portal from '@atlaskit/portal/portal';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import type { ProfileCardClientData } from '@atlaskit/profilecard/types';
 import { token } from '@atlaskit/tokens';

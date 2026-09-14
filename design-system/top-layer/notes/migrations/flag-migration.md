@@ -47,7 +47,8 @@ Flags are persistent notifications, not interactive popovers. They should not ha
 `popover="manual"` gives top-layer rendering (flags appear above all other content) without any
 built-in dismiss behavior. The consumer (flag's own dismiss lifecycle) controls show/hide entirely.
 
-This contrasts with tooltip and popup which use `popover="auto"` for native light dismiss.
+This contrasts with popup, which uses `popover="auto"`, and tooltip, which uses `popover="hint"`,
+both for native light dismiss.
 
 ---
 

@@ -1,12 +1,15 @@
 import type { CodeBlockWithMarksDefinition as CodeBlockWithMarks } from './code-block';
+import type { BodiedExtensionRootOnlyDefinition as BodiedExtensionRootOnly } from './bodied-extension';
 import type { ExpandRootOnlyDefinition as ExpandRootOnly } from './expand';
+import type { ExtensionRootOnlyDefinition as ExtensionRootOnly } from './extension';
 import type { LayoutSectionDefinition as LayoutSection } from './layout-section';
 import type { ParagraphWithIndentationDefinition } from './paragraph';
 import type { BlockContent } from './types/block-content';
-import type { MultiBodiedExtensionDefinition as MultiBodiedExtension } from './multi-bodied-extension';
+import type { MultiBodiedExtensionRootOnlyDefinition as MultiBodiedExtensionRootOnly } from './multi-bodied-extension';
 import type { PanelRootOnlyDefinition as PanelRootOnly } from './panel';
 import { doc as docFactory } from '../../next-schema/generated/nodeTypes';
 import type { RuleRootOnlyDefinition as RuleRootOnly } from './rule';
+import type { BodiedRuleRootOnlyDefinition as BodiedRuleRootOnly } from './bodied-rule';
 import type { SyncBlockDefinition as SyncBlock } from './sync-block';
 import type { BodiedSyncBlockDefinition as BodiedSyncBlock } from './bodied-sync-block';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
@@ -26,8 +29,11 @@ export interface DocNode {
 		| ExpandRootOnly
 		| PanelRootOnly
 		| RuleRootOnly
+		| BodiedRuleRootOnly
+		| ExtensionRootOnly
+		| BodiedExtensionRootOnly
 		| ParagraphWithIndentationDefinition
-		| MultiBodiedExtension
+		| MultiBodiedExtensionRootOnly
 		| BodiedSyncBlock
 		| SyncBlock
 	>;

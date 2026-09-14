@@ -2,7 +2,9 @@ import React from 'react';
 
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 import { token } from '@atlaskit/tokens';
 
 import MenuGroupContainer from './common/menu-group-container';
@@ -30,7 +32,7 @@ export default (): React.JSX.Element => {
 									borderRadius: 3,
 								}}
 							>
-								<Portfolio color={token('color.icon.brand')} aria-label="" />
+								<Portfolio color={token('color.icon.brand')} />
 							</div>
 						}
 						iconAfter={<StarStarredIcon color={token('color.icon.warning')} label="" />}
@@ -38,18 +40,15 @@ export default (): React.JSX.Element => {
 						Portfolio
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<Tempo aria-label="" />}
+						iconBefore={<Tempo />}
 						iconAfter={<StarStarredIcon color={token('color.icon.warning')} label="" />}
 					>
 						Tempo timesheets
 					</ButtonItem>
-					<ButtonItem
-						iconBefore={<Invision aria-label="" />}
-						iconAfter={<StarUnstarredIcon label="" />}
-					>
+					<ButtonItem iconBefore={<Invision />} iconAfter={<StarUnstarredIcon label="" />}>
 						Invision
 					</ButtonItem>
-					<ButtonItem iconBefore={<Slack aria-label="" />}>Slack</ButtonItem>
+					<ButtonItem iconBefore={<Slack />}>Slack</ButtonItem>
 				</Section>
 				<Section hasSeparator>
 					<ButtonItem>Find new apps</ButtonItem>

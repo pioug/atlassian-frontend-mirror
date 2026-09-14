@@ -8,6 +8,10 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import {
+	BLOCK_CONTROLS_LEFT_SURFACE,
+	BLOCK_CONTROLS_RIGHT_SURFACE,
+} from '@atlaskit/editor-common/block-controls/surface-keys';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
 import {
@@ -30,13 +34,17 @@ import type {
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { resolveSurface } from '@atlaskit/editor-ui-control-model/surface-renderer';
+import type { ResolvedSurface } from '@atlaskit/editor-ui-control-model/surface-renderer/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	ActiveDropTargetNode,
@@ -46,6 +54,7 @@ import type {
 	NodeDecorationFactory,
 	PluginState,
 } from '../blockControlsPluginType';
+import { BLOCK_CONTROLS_SURFACE_SELECTOR } from '../ui/consts';
 import { getAnchorAttrName } from '../ui/utils/dom-attr-name';
 
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
@@ -55,6 +64,7 @@ import {
 	emptyParagraphNodeDecorations,
 	findActiveDragHandleNodeDec,
 	findHandleDec,
+	TYPE_ACTIVE_HANDLE_DEC,
 } from './decorations-drag-handle';
 import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-target';
 import { getActiveDropTargetDecorations } from './decorations-drop-target-active';
@@ -63,6 +73,7 @@ import {
 	findActiveQuickInsertNodeDec,
 	findQuickInsertInsertButtonDecoration,
 	quickInsertButtonDecoration,
+	TYPE_ACTIVE_QUICK_INSERT_NODE,
 } from './decorations-quick-insert-button';
 import { handleMouseDown } from './handle-mouse-down';
 import { handleMouseOver } from './handle-mouse-over';
@@ -72,6 +83,10 @@ import { getMultiSelectAnalyticsAttributes } from './utils/analytics';
 import { AnchorRectCache, isAnchorSupported } from './utils/anchor-utils';
 import { selectNode } from './utils/getSelection';
 import { getSelectedSlicePosition } from './utils/selection';
+import {
+	getSurfaceNodePositions,
+	updateSurfaceNodePositions,
+} from './utils/surface-node-positions';
 import { getTrMetadata } from './utils/transactions';
 
 export const key: PluginKey<PluginState> = new PluginKey<PluginState>('blockControls');
@@ -250,6 +265,7 @@ const destroyFn = (
 
 const initialState: PluginState = {
 	decorations: DecorationSet.empty,
+	surfaceNodePositions: [],
 	activeNode: undefined,
 	isDragging: false,
 	isMenuOpen: false,
@@ -265,6 +281,12 @@ const initialState: PluginState = {
 };
 
 export interface FlagType {
+	/**
+	 * Whether the legacy widget-decoration drag handle is rendered. The registry surface renders
+	 * its replacement when this is false.
+	 */
+	legacyDragHandleEnabled: boolean;
+	surfaceNodePositionsEnabled: boolean;
 	toolbarFlagsEnabled: boolean;
 }
 
@@ -303,6 +325,8 @@ export const apply = (
 	anchorRectCache?: AnchorRectCache,
 	resizeObserverWidth?: ResizeObserver,
 	pragmaticCleanup?: (() => void) | null,
+	resolvedSurfaces: readonly ResolvedSurface[] = [],
+	limitedModeTeardown?: { done: boolean },
 ):
 	| PluginState
 	| {
@@ -344,8 +368,11 @@ export const apply = (
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			menuTriggerByNode: any;
 			multiSelectDnD: MultiSelectDnD | undefined;
+			surfaceNodePositions: number[];
 	  } => {
-	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
+	let { activeNode, decorations, isResizerResizing, multiSelectDnD, surfaceNodePositions } =
+		currentState;
+	const previousActiveNode = activeNode;
 	const {
 		editorHeight,
 		editorWidthLeft,
@@ -364,29 +391,109 @@ export const apply = (
 	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr, flags);
 	const meta = tr.getMeta(key);
 
-	const hasDocumentSizeBreachedThreshold = api?.limitedMode?.sharedState
-		.currentState()
-		?.limitedModePluginKey.getState(newState)?.documentSizeBreachesThreshold;
+	if (isExperimentEnabled('platform_editor_dynamic_limited_mode')) {
+		// Both arms read `newState` — the state this transaction is producing. Deriving `enabled` from
+		// `sharedState.currentState()` instead would resolve against `view.state`, which during `apply` is
+		// still the *previous* state, delaying the limited-mode teardown by one transaction.
+		//
+		// Limited mode can now also be latched at runtime by the performance detector, so the treatment
+		// arm considers both reasons rather than just the document one. Identical in the control arm, where
+		// the runtime latch can never be set.
+		const limitedModeState = api?.limitedMode?.sharedState
+			.currentState()
+			?.limitedModePluginKey.getState(newState);
 
-	if (hasDocumentSizeBreachedThreshold) {
-		/**
-		 * INFO: This if statement is a duplicate of the logic in destroy(). When the threshold is breached and we enter limited mode, we want to trigger the cleanup logic in destroy().
-		 */
-		const editorContentArea =
-			getDocument()?.querySelector('.fabric-editor-popup-scroll-parent') ?? null;
+		if (!!limitedModeState?.enabled) {
+			/**
+			 * INFO: This is a duplicate of the logic in destroy(). When we enter limited mode we want to
+			 * trigger the cleanup logic in destroy().
+			 */
+			if (!limitedModeTeardown || !limitedModeTeardown.done) {
+				/**
+				 * Edge-triggered under the experiment: limited mode is a latch, so without this guard the
+				 * teardown re-runs on every subsequent transaction for the rest of the session — and would
+				 * re-register the pragmatic monitors if `pragmaticCleanup` ever became re-entrant.
+				 */
+				if (limitedModeTeardown) {
+					limitedModeTeardown.done = true;
+				}
 
-		if (editorContentArea && resizeObserverWidth) {
-			resizeObserverWidth.unobserve(editorContentArea);
+				const editorContentArea =
+					getDocument()?.querySelector('.fabric-editor-popup-scroll-parent') ?? null;
+
+				if (editorContentArea && resizeObserverWidth) {
+					resizeObserverWidth.unobserve(editorContentArea);
+				}
+
+				pragmaticCleanup?.();
+			}
+
+			/**
+			 * Reset rather than freeze. Returning `currentState` here would keep `decorations`,
+			 * `activeNode` and the multi-select positions from before the latch, while skipping the
+			 * `tr.mapping` remapping below — so they would silently drift out of sync with the document on
+			 * every subsequent edit. Nothing renders them in limited mode (`props.decorations` returns
+			 * early), but stale positions are a latent source of incorrect offsets for anything that reads
+			 * them, so the safe state is empty.
+			 */
+			return {
+				...currentState,
+				activeNode: undefined,
+				decorations: DecorationSet.empty,
+				multiSelectDnD: undefined,
+			};
 		}
+	} else {
+		const hasDocumentSizeBreachedThreshold = api?.limitedMode?.sharedState
+			.currentState()
+			?.limitedModePluginKey.getState(newState)?.documentSizeBreachesThreshold;
 
-		pragmaticCleanup?.();
+		if (hasDocumentSizeBreachedThreshold) {
+			/**
+			 * INFO: This if statement is a duplicate of the logic in destroy(). When the threshold is breached and we enter limited mode, we want to trigger the cleanup logic in destroy().
+			 */
+			const editorContentArea =
+				getDocument()?.querySelector('.fabric-editor-popup-scroll-parent') ?? null;
 
-		return currentState;
+			if (editorContentArea && resizeObserverWidth) {
+				resizeObserverWidth.unobserve(editorContentArea);
+			}
+
+			pragmaticCleanup?.();
+
+			return currentState;
+		}
 	}
+
+	// patch_1: DecorationSet.map() validates node decorations as it maps them — one whose range
+	// no longer exactly covers a node (e.g. after a split) is dropped rather than left misplaced.
+	// Recording that here lets the active-node decoration blocks below re-add only what actually
+	// went away, instead of scanning the whole decoration set on every keystroke (VC90).
+	// The active-node decorations only exist under the reliable anchor experiment, so the patch is
+	// scoped to it as well. No-exposure check as this runs on every document change; the blocks
+	// below that consume these flags are already inside an `expValEquals` guard for the same
+	// experiment, so the exposure is fired there.
+	let activeHandleDecDropped = false;
+	let activeQuickInsertDecDropped = false;
 
 	// When steps exist, remap existing decorations, activeNode and multi select positions
 	if (tr.docChanged) {
-		decorations = decorations.map(tr.mapping, tr.doc);
+		if (
+			expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+			fg('platform_editor_controls_reliable_anchor_patch_1')
+		) {
+			decorations = decorations.map(tr.mapping, tr.doc, {
+				onRemove: (spec) => {
+					if (spec?.type === TYPE_ACTIVE_HANDLE_DEC) {
+						activeHandleDecDropped = true;
+					} else if (spec?.type === TYPE_ACTIVE_QUICK_INSERT_NODE) {
+						activeQuickInsertDecDropped = true;
+					}
+				},
+			});
+		} else {
+			decorations = decorations.map(tr.mapping, tr.doc);
+		}
 
 		// platform_editor_controls note: enables quick insert
 		// don't remap activeNode if it's being dragged
@@ -588,7 +695,7 @@ export const apply = (
 	// In view mode with right-side controls, remove any lingering drag handle decorations
 	// (they may carry over from edit mode). Only remove drag handles specifically, not
 	// the remix button decorations (those are managed separately via showInViewMode).
-	if (isViewMode && rightSideControlsEnabled) {
+	if (flags.legacyDragHandleEnabled && isViewMode && rightSideControlsEnabled) {
 		const allHandleDecs = findHandleDec(decorations, 0, newState.doc.content.size);
 		if (allHandleDecs.length > 0) {
 			decorations = decorations.remove(allHandleDecs);
@@ -596,8 +703,10 @@ export const apply = (
 	}
 
 	if (shouldRemoveHandle) {
-		const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
-		decorations = decorations.remove(oldHandle);
+		if (flags.legacyDragHandleEnabled) {
+			const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
+			decorations = decorations.remove(oldHandle);
+		}
 		// When removing the handle, also remove the anchor-marker node decorations
 		// (data-active-drag-handle / data-active-quick-insert) so the DOM attributes
 		// don't linger on nodes that are no longer active.
@@ -605,7 +714,10 @@ export const apply = (
 		// after a doc change (e.g. pressing Enter splits a node), DecorationSet.map() can shift the
 		// decoration to a different position, so a point-range search would miss it and leave a stale
 		// attribute on the wrong DOM node.
-		if (expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
+		if (
+			(flags.legacyDragHandleEnabled || nodeDecorationRegistry.length > 0) &&
+			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)
+		) {
 			const oldActiveNodeDec = findActiveDragHandleNodeDec(
 				decorations,
 				0,
@@ -619,14 +731,19 @@ export const apply = (
 			);
 			decorations = decorations.remove(oldActiveQuickInsertDec);
 		}
-		// platform_editor_controls note: enables quick insert
-		if (flags.toolbarFlagsEnabled && quickInsertButtonEnabled) {
-			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
-				decorations,
-				activeNode?.rootPos,
-				activeNode?.rootPos,
-			);
-			decorations = decorations.remove(oldQuickInsertButton);
+		// nodeDecorationRegistry cleanup (e.g. the legacy Remix button) is independent of the legacy
+		// quick-insert button, so this must not be gated by quickInsertButtonEnabled — otherwise a
+		// stale decoration is left behind whenever platform_editor_block_control_migration is on.
+		if (flags.toolbarFlagsEnabled) {
+			// platform_editor_controls note: enables quick insert
+			if (quickInsertButtonEnabled) {
+				const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
+					decorations,
+					activeNode?.rootPos,
+					activeNode?.rootPos,
+				);
+				decorations = decorations.remove(oldQuickInsertButton);
+			}
 			for (const factory of nodeDecorationRegistry) {
 				const old = decorations.find(
 					activeNode?.rootPos,
@@ -653,7 +770,12 @@ export const apply = (
 			}
 		}
 	} else if (api) {
-		if (shouldRecreateHandle && (!rightSideControlsEnabled || !isViewMode)) {
+		// The registry surface replaces the legacy drag-handle decorations during migration.
+		if (
+			flags.legacyDragHandleEnabled &&
+			shouldRecreateHandle &&
+			(!rightSideControlsEnabled || !isViewMode)
+		) {
 			const oldHandle = findHandleDec(decorations, activeNode?.pos, activeNode?.pos);
 			decorations = decorations.remove(oldHandle);
 
@@ -673,15 +795,28 @@ export const apply = (
 		}
 
 		if (
+			(flags.legacyDragHandleEnabled ||
+				// nodeDecorationRegistry consumers (e.g. the legacy Remix button) rely
+				// on that same anchor-name for their own CSS anchor() positioning, so this must still run
+				// when such a consumer exists even if the legacy drag handle itself is disabled.
+				nodeDecorationRegistry.length > 0) &&
 			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
 			latestActiveNode
 		) {
+			// patch_1: a plain doc change no longer forces a rescan — map() above has already
+			// either kept the decoration correctly positioned or dropped it as invalid, so we
+			// only need to act when it was actually dropped.
+			const docChangeInvalidatedNodeDec = fg('platform_editor_controls_reliable_anchor_patch_1')
+				? activeHandleDecDropped
+				: tr.docChanged;
+
 			// Recreate the drag handle node decoration when the active node changed,
-			// its content was modified, or the document changed (e.g. Enter splits a node).
+			// its content was modified, or the document changed.
 			// This runs independently of shouldRecreateHandle so that doc changes (like pressing
 			// Enter) correctly refresh the decoration even when the handle widget doesn't move.
 			// DecorationSet.map() can misplace the decoration after node splits/inserts.
-			const needsNodeDecUpdate = activeNodeChanged || isActiveNodeModified || tr.docChanged;
+			const needsNodeDecUpdate =
+				activeNodeChanged || isActiveNodeModified || docChangeInvalidatedNodeDec;
 			if (needsNodeDecUpdate) {
 				const nodeSize = newState.doc.nodeAt(latestActiveNode.pos)?.nodeSize;
 				if (nodeSize !== undefined) {
@@ -712,10 +847,13 @@ export const apply = (
 			// independently of the edit-mode node — e.g. when only editorSizeChanged fires but
 			// rootActiveNodeChanged is also true. So we use a separate, broader guard that
 			// includes rootActiveNodeChanged to avoid leaving the attribute on a stale root node.
-			// tr.docChanged is included for the same reason as needsNodeDecUpdate: DecorationSet.map()
-			// can misplace the decoration after a node split, so we must refresh it on every doc change.
 			const needsQuickInsertDecUpdate =
-				activeNodeChanged || isActiveNodeModified || rootActiveNodeChanged || tr.docChanged;
+				activeNodeChanged ||
+				isActiveNodeModified ||
+				rootActiveNodeChanged ||
+				(fg('platform_editor_controls_reliable_anchor_patch_1')
+					? activeQuickInsertDecDropped
+					: tr.docChanged);
 			if (needsQuickInsertDecUpdate && latestActiveNode.rootPos !== undefined) {
 				const rootNodeSize = newState.doc.nodeAt(latestActiveNode.rootPos)?.nodeSize;
 				if (rootNodeSize !== undefined) {
@@ -744,31 +882,33 @@ export const apply = (
 		if (
 			shouldRecreateQuickInsertButton &&
 			latestActiveNode?.rootPos !== undefined &&
+			(quickInsertButtonEnabled || nodeDecorationRegistry.length > 0) &&
 			// platform_editor_controls note: enables quick insert
 			flags.toolbarFlagsEnabled &&
-			quickInsertButtonEnabled &&
 			(!rightSideControlsEnabled || !isViewMode)
 		) {
-			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
-				decorations,
-				activeNode?.rootPos,
-				activeNode?.rootPos,
-			);
-			decorations = decorations.remove(oldQuickInsertButton);
+			if (quickInsertButtonEnabled) {
+				const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
+					decorations,
+					activeNode?.rootPos,
+					activeNode?.rootPos,
+				);
+				decorations = decorations.remove(oldQuickInsertButton);
 
-			const quickInsertButton = quickInsertButtonDecoration({
-				api,
-				formatMessage,
-				anchorName: latestActiveNode?.anchorName,
-				nodeType: latestActiveNode?.nodeType,
-				nodeViewPortalProviderAPI,
-				rootPos: latestActiveNode?.rootPos,
-				rootAnchorName: latestActiveNode?.rootAnchorName,
-				rootNodeType: latestActiveNode?.rootNodeType,
-				anchorRectCache,
-				editorState: newState,
-			});
-			decorations = decorations.add(newState.doc, [quickInsertButton]);
+				const quickInsertButton = quickInsertButtonDecoration({
+					api,
+					formatMessage,
+					anchorName: latestActiveNode?.anchorName,
+					nodeType: latestActiveNode?.nodeType,
+					nodeViewPortalProviderAPI,
+					rootPos: latestActiveNode?.rootPos,
+					rootAnchorName: latestActiveNode?.rootAnchorName,
+					rootNodeType: latestActiveNode?.rootNodeType,
+					anchorRectCache,
+					editorState: newState,
+				});
+				decorations = decorations.add(newState.doc, [quickInsertButton]);
+			}
 
 			// Update quick insert node decoration when the quick insert button is recreated but
 			// the drag handle was NOT recreated (shouldRecreateHandle was false). When
@@ -974,19 +1114,40 @@ export const apply = (
 		// In view mode with right-side controls we render node decorations (right-edge button), not the
 		// handle - so findHandleDec is always empty. Don't clear activeNode in that case.
 		const hasHandleOrViewModeControls =
-			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length > 0 ||
-			(isViewMode && rightSideControlsEnabled);
+			!flags.legacyDragHandleEnabled ||
+			(isViewMode && rightSideControlsEnabled) ||
+			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length > 0;
+		// Keep the registry surface mounted while its Block Menu owns focus.
+		const keepActiveNodeForOpenBlockMenu =
+			!flags.legacyDragHandleEnabled &&
+			isMenuOpen &&
+			editorExperiment('platform_editor_block_menu', true);
 		newActiveNode =
-			meta?.editorBlurred || (!meta?.activeNode && !hasHandleOrViewModeControls)
+			(meta?.editorBlurred && !keepActiveNodeForOpenBlockMenu) ||
+			(!meta?.activeNode && !hasHandleOrViewModeControls)
 				? null
 				: latestActiveNode;
 	} else {
 		newActiveNode =
 			isEmptyDoc ||
 			(!meta?.activeNode &&
+				flags.legacyDragHandleEnabled &&
 				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
 				? null
 				: latestActiveNode;
+	}
+
+	if (flags.surfaceNodePositionsEnabled && resolvedSurfaces.length > 0) {
+		surfaceNodePositions = updateSurfaceNodePositions({
+			activeNode: newActiveNode,
+			currentPositions: surfaceNodePositions,
+			from,
+			newState,
+			previousActiveNode,
+			resolvedSurfaces,
+			to,
+			tr,
+		});
 	}
 
 	let isMenuOpenNew = isMenuOpen;
@@ -1019,6 +1180,7 @@ export const apply = (
 
 	return {
 		decorations,
+		surfaceNodePositions,
 		activeNode: newActiveNode,
 		activeDropTargetNode: currentActiveDropTargetNode,
 		isDragging: meta?.isDragging ?? isDragging,
@@ -1027,9 +1189,7 @@ export const apply = (
 			flags.toolbarFlagsEnabled || editorExperiment('platform_editor_block_menu', true)
 				? meta?.toggleMenu?.anchorName || menuTriggerBy
 				: undefined,
-		menuTriggerByNode: editorExperiment('platform_synced_block', true)
-			? meta?.toggleMenu?.triggerByNode || menuTriggerByNode
-			: undefined,
+		menuTriggerByNode: meta?.toggleMenu?.triggerByNode || menuTriggerByNode,
 		blockMenuOptions: editorExperiment('platform_editor_block_menu', true)
 			? {
 					canMoveUp:
@@ -1066,6 +1226,7 @@ export const createPlugin = (
 	nodeDecorationRegistry: NodeDecorationFactory[],
 	rightSideControlsEnabled = false,
 	quickInsertButtonEnabled = true,
+	legacyDragHandleEnabled = true,
 ): SafePlugin<
 	| PluginState
 	| {
@@ -1107,14 +1268,32 @@ export const createPlugin = (
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			menuTriggerByNode: any;
 			multiSelectDnD: MultiSelectDnD | undefined;
+			surfaceNodePositions: number[];
 	  }
 > => {
 	const { formatMessage } = getIntl();
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
+	// Mirrors `registryBlockControlsEnabled` in blockControlsPlugin.tsx: `legacyDragHandleEnabled` is
+	// only false once that gate is on.
+	const surfaceNodePositionsEnabled = !legacyDragHandleEnabled;
 	const flags: FlagType = {
+		legacyDragHandleEnabled,
+		surfaceNodePositionsEnabled,
 		toolbarFlagsEnabled,
 	};
+	const resolvedSurfaces: ResolvedSurface[] = surfaceNodePositionsEnabled
+		? [
+				resolveSurface(
+					api?.uiControlRegistry?.actions.getComponents(BLOCK_CONTROLS_LEFT_SURFACE) ?? [],
+					BLOCK_CONTROLS_LEFT_SURFACE,
+				),
+				resolveSurface(
+					api?.uiControlRegistry?.actions.getComponents(BLOCK_CONTROLS_RIGHT_SURFACE) ?? [],
+					BLOCK_CONTROLS_RIGHT_SURFACE,
+				),
+			]
+		: [];
 
 	let anchorRectCache: AnchorRectCache | undefined;
 
@@ -1124,12 +1303,20 @@ export const createPlugin = (
 
 	let resizeObserverWidth: ResizeObserver;
 	let pragmaticCleanup: (() => void) | null = null;
+	// Limited mode is a one-way latch, so its teardown must only run on the transition.
+	const limitedModeTeardown = { done: false };
 
 	return new SafePlugin({
 		key,
 		state: {
-			init() {
-				return initialState;
+			init(_config: unknown, editorState: EditorState) {
+				return {
+					...initialState,
+					surfaceNodePositions:
+						resolvedSurfaces.length > 0
+							? getSurfaceNodePositions(editorState, resolvedSurfaces)
+							: [],
+				};
 			},
 			apply: (
 				tr: ReadonlyTransaction,
@@ -1151,6 +1338,8 @@ export const createPlugin = (
 					anchorRectCache,
 					resizeObserverWidth,
 					pragmaticCleanup,
+					resolvedSurfaces,
+					limitedModeTeardown,
 				),
 		},
 
@@ -1177,6 +1366,7 @@ export const createPlugin = (
 				// (created in edit mode) that may not have been cleaned up on mode switch.
 				if (
 					decorationSet &&
+					legacyDragHandleEnabled &&
 					rightSideControlsEnabled &&
 					api?.editorViewMode?.sharedState.currentState()?.mode === 'view'
 				) {
@@ -1440,13 +1630,27 @@ export const createPlugin = (
 						return;
 					}
 					if (editorExperiment('platform_editor_controls', 'variant1')) {
+						// Focus moving into the registry surface remains inside the editor experience.
+						const isChildOfSurface =
+							!flags.legacyDragHandleEnabled &&
+							event.relatedTarget instanceof HTMLElement &&
+							event.relatedTarget.closest(BLOCK_CONTROLS_SURFACE_SELECTOR) !== null;
+						const shouldPreserveRemixInlineDropdownFocus =
+							event.relatedTarget instanceof HTMLElement &&
+							event.relatedTarget.closest('[data-editor-remix-inline-dropdown-preserve-focus]') !==
+								null;
 						const isChildOfEditor =
 							event.relatedTarget instanceof HTMLElement &&
 							event.relatedTarget.closest(`#${EDIT_AREA_ID}`) !== null;
 
 						// don't do anything if the event relatedTarget (the element receiving focus) is a child of the editor
 						// or if the editor has focus
-						if (isChildOfEditor || view.hasFocus()) {
+						if (
+							isChildOfEditor ||
+							isChildOfSurface ||
+							shouldPreserveRemixInlineDropdownFocus ||
+							view.hasFocus()
+						) {
 							return false;
 						}
 
@@ -1477,12 +1681,16 @@ export const createPlugin = (
 					if (!pluginState?.isDragging) {
 						const isResizerResizing = !!dom.querySelector('.is-resizing');
 						const transaction = editorView.state.tr;
+						let shouldDispatch = false;
 
 						if (pluginState?.isResizerResizing !== isResizerResizing) {
 							transaction.setMeta('is-resizer-resizing', isResizerResizing);
+							shouldDispatch = true;
 						}
 
-						if (!isResizerResizing) {
+						// Registry surfaces have their own ResizeObservers and absolute placement.
+						// Width metadata only drives legacy widget recreation.
+						if (legacyDragHandleEnabled && !isResizerResizing) {
 							const editorContentArea = entries[0].target;
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -1495,8 +1703,11 @@ export const createPlugin = (
 								editorWidthLeft,
 								editorWidthRight,
 							});
+							shouldDispatch = true;
 						}
-						editorView.dispatch(transaction);
+						if (shouldDispatch) {
+							editorView.dispatch(transaction);
+						}
 					}
 				}),
 			);

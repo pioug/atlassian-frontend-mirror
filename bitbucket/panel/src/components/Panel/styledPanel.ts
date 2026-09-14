@@ -56,7 +56,7 @@ export const ButtonWrapper: StyledComponentClass<
 	},
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @typescript-eslint/ban-types -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @typescript-eslint/no-restricted-types -- Ignored via go/DSP-18766
 export const PanelHeader: FC<
 	HTMLProps<HTMLDivElement> & { isFocused?: boolean }
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-styled-tagged-template-expression -- Ignored via go/DSP-18766

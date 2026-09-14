@@ -1,10 +1,10 @@
-import {
-	type CardAppearance,
-	type BlockCardAdf,
-	type CardAdf,
-	type EmbedCardAdf,
-	type InlineCardAdf,
-} from '@atlaskit/linking-common';
+import type {
+	CardAppearance,
+	BlockCardAdf,
+	CardAdf,
+	EmbedCardAdf,
+	InlineCardAdf,
+} from '@atlaskit/linking-common/types';
 
 export class Transformer {
 	private buildInlineAdf(url: string): InlineCardAdf {

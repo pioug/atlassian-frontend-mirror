@@ -10,16 +10,14 @@ import {
 	type GasPayload,
 	type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+import { ROVO_EXTENSION_CONTEXT } from '@atlaskit/analytics-namespaced-context/RovoExtensionAnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import {
-	getSources,
-	getExtraAttributes,
-	getPackageInfo,
-	getComponents,
-} from '../helpers/extract-data-from-event';
+import { getComponents } from '../helpers/get-components';
+import { getExtraAttributes } from '../helpers/get-extra-attributes';
+import { getPackageInfo } from '../helpers/get-package-info';
+import { getSources } from '../helpers/get-sources';
 import type Logger from '../helpers/logger';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ROVO_EXTENSION_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 
 const ROVO_EXTENSION_TAG = 'rovoExtension';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;

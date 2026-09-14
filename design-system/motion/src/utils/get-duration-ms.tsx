@@ -4,23 +4,28 @@
  * @returns The duration in milliseconds.
  */
 export const getDurationMs = (animation: string): { duration: number; delay: number } => {
-	const match = [...animation.trim().matchAll(/(-?\d*\.?\d+)(ms|s)\b/g)];
-	if (match.length === 0) {
+	const animations = animation
+		.split(/,(?![^()]*\))/)
+		.map((value) => [...value.trim().matchAll(/(-?\d*\.?\d+)(ms|s)\b/g)])
+		.filter((matches) => matches.length > 0);
+
+	if (animations.length === 0) {
 		return { duration: 0, delay: 0 };
 	}
-	const durationValue = parseFloat(match[0][1]);
-	const durationUnit = match[0][2];
-	const duration = durationUnit === 's' ? durationValue * 1000 : durationValue;
 
-	let delay = 0;
-	if (match[1]) {
-		const delayValue = parseFloat(match[1][1]);
-		const delayUnit = match[1][2];
-		delay = delayUnit === 's' ? delayValue * 1000 : delayValue;
-	}
+	return animations.reduce(
+		(longest, matches) => {
+			const toMilliseconds = (match: RegExpMatchArray): number => {
+				const value = parseFloat(match[1]);
+				return match[2] === 's' ? value * 1000 : value;
+			};
+			const timing = {
+				duration: toMilliseconds(matches[0]),
+				delay: matches[1] ? toMilliseconds(matches[1]) : 0,
+			};
 
-	return {
-		duration,
-		delay,
-	};
+			return timing.duration + timing.delay > longest.duration + longest.delay ? timing : longest;
+		},
+		{ duration: 0, delay: 0 },
+	);
 };

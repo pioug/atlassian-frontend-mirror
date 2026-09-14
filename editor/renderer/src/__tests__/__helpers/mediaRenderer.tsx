@@ -2,8 +2,8 @@ import React from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
-import type { DocNode } from '@atlaskit/adf-schema';
-import Renderer from '../../ui/Renderer';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { Renderer } from '../../entry-points/renderer-default';
 import type { RendererProps } from '../../ui/renderer-props';
 
 export const MediaBaseRenderer = ({

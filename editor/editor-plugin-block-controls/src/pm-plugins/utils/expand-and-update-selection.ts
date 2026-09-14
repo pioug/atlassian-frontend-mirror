@@ -9,8 +9,8 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 

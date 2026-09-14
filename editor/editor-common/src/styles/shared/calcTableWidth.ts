@@ -1,4 +1,4 @@
-import type { TableLayout } from '@atlaskit/adf-schema';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import {
 	akEditorBreakoutPadding,
 	akEditorFullWidthLayoutWidth,

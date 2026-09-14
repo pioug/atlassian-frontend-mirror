@@ -1,6 +1,4 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-
 import { hasTableColumnBeenResized } from './hasTableColumnBeenResized';
 
 /**
@@ -19,12 +17,11 @@ export const hasTableBeenResized = (tableNode: PMNode): boolean =>
  * feature flags / props before calling this function.
  *
  * A table is in content mode when ALL of the following are true:
- * 1. The `platform_editor_table_fit_to_content_auto_convert` experiment is enabled
- * 2. `isSupported` is true (caller has verified resizing is allowed and appearance is full-page)
- * 3. The table is not nested inside another table or block node
- * 4. The table node exists
- * 5. The table has not been explicitly resized (`width === null` and no `colwidth` on cells)
- * 6. The table's layout is `'align-start'`
+ * 1. `isSupported` is true (caller has verified resizing is allowed and appearance is full-page)
+ * 2. The table is not nested inside another table or block node
+ * 3. The table node exists
+ * 4. The table has not been explicitly resized (`width === null` and no `colwidth` on cells)
+ * 5. The table's layout is `'align-start'`
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isTableInContentMode = ({
@@ -37,12 +34,6 @@ export const isTableInContentMode = ({
 	isTableNested?: boolean;
 	tableNode: PMNode | undefined;
 }): boolean => {
-	if (
-		!expValEqualsNoExposure('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
-	) {
-		return false;
-	}
-
 	if (!tableNode || isTableNested) {
 		return false;
 	}

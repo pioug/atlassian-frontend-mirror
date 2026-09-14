@@ -3,7 +3,9 @@
 // StreamsCache will try to import mediaState from here.
 export { mediaState } from './cache';
 export type { CachedMediaState, StateDeferredValue } from './cache';
-export { isClientBasedAuth, isAsapBasedAuth, authToOwner } from './auth';
+export { authToOwner } from './authToOwner';
+export { isAsapBasedAuth } from './isAsapBasedAuth';
+export { isClientBasedAuth } from './isClientBasedAuth';
 export type {
 	ClientBasedAuth,
 	AsapBasedAuth,

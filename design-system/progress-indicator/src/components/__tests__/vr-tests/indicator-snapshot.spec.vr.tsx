@@ -13,8 +13,8 @@ export const themeVariants: SnapshotTestOptions<any>['variants'] = [
 	},
 ];
 
-import ProgressIndicatorAppearances from '../../../../examples/progress-indicator-appearances';
-import ProgressIndicatorSizeSpacing from '../../../../examples/progress-indicator-size-spacing';
+import ProgressIndicatorAppearances from '../../../../examples/progress-indicator-appearances.vr.ap';
+import ProgressIndicatorSizeSpacing from '../../../../examples/progress-indicator-size-spacing.vr.ap';
 
 snapshot(ProgressIndicatorSizeSpacing, {
 	variants: themeVariants,

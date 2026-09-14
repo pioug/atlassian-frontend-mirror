@@ -9,22 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { deleteEmojiLabel } from '../../util/constants';
 import { emojiDeleteButton } from './styles';
 import { Box } from '@atlaskit/primitives/compiled';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 const styles = cssMap({
 	boxWrapperStyle: {

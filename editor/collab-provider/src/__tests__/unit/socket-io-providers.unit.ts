@@ -1,18 +1,7 @@
 import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../config';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import type { InitAndAuthData } from '../../types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
-const fgMock = fg as jest.Mock;
-
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
-const expValEqualsMock = expValEquals as jest.Mock;
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 describe('Socket io provider', () => {
 	const url = 'http://localhost:8080/ccollab/sessionId/123';
@@ -20,11 +9,6 @@ describe('Socket io provider', () => {
 	const presenceUrl = 'http://localhost:8080/collab-presence-confluence/sessionId/123';
 	const presencePath = '/ncs-presence/mock-cloud-id/mock-activation-id/confluence';
 	const editPath = '/ncs/mock-cloud-id/mock-activation-id/confluence';
-
-	afterEach(() => {
-		fgMock.mockReset();
-		expValEqualsMock.mockReset();
-	});
 
 	describe('Socket io client path', () => {
 		it('return io with correct path for ccollab', () => {
@@ -41,42 +25,43 @@ describe('Socket io provider', () => {
 			});
 
 			it('use only websocket transport for presence and FG on', () => {
-				fgMock.mockImplementation(
-					(flag: string) => flag === 'platform-editor-presence-websocket-only',
-				);
+				passGate('platform-editor-presence-websocket-only');
 				const socket = createSocketIOSocket(url, undefined, undefined, true);
 
 				expect((socket as any).io.opts.transports).toEqual(['websocket']);
 			});
 
 			it('use polling and websocket transports for presence and FG off', () => {
-				fgMock.mockReturnValue(false);
+				failGate('platform-editor-presence-websocket-only');
 				const socket = createSocketIOSocket(url, undefined, undefined, true);
 
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
 
 			it('use only websocket transport for collab editing on GCP and FG on', () => {
-				fgMock.mockImplementation(
-					(flag: string) => flag === 'collab_edit_via_websocket_only_for_gcp',
-				);
+				passGate('collab_edit_via_websocket_only_for_gcp');
 				const socket = createSocketIOSocket(gcpUrl);
 
 				expect((socket as any).io.opts.transports).toEqual(['websocket']);
 			});
 
 			it('use polling and websocket transports for collab editing on GCP and FG off', () => {
-				fgMock.mockReturnValue(false);
+				failGate('collab_edit_via_websocket_only_for_gcp');
 				const socket = createSocketIOSocket(gcpUrl);
 
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
 
-			it('use polling and websocket transports for collab editing not on GCP and FG on', () => {
-				fgMock.mockImplementation(
-					(flag: string) => flag === 'collab_edit_via_websocket_only_for_gcp',
-				);
-				const socket = createSocketIOSocket(url);
+			it('use only websocket transport for presence on GCP and FG on', () => {
+				passGate('platform-editor-presence-websocket-only');
+				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
+
+				expect((socket as any).io.opts.transports).toEqual(['websocket']);
+			});
+
+			it('use polling and websocket transports for presence on GCP and FG off', () => {
+				failGate('platform-editor-presence-websocket-only');
+				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
 
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
@@ -97,11 +82,7 @@ describe('Socket io provider', () => {
 		});
 
 		describe('PMR routing for edit traffic', () => {
-			it('should use PMR for edit traffic when experiment is enabled and path is provided', () => {
-				expValEqualsMock.mockImplementation(
-					(flag: string) => flag === 'platform_editor_to_use_pmr_for_collab_edit_none_ic',
-				);
-
+			it('should use PMR for edit traffic when path is provided', () => {
 				const socket = createSocketIOSocket(
 					url,
 					undefined,
@@ -116,24 +97,7 @@ describe('Socket io provider', () => {
 				);
 			});
 
-			it('should not use PMR for edit traffic when experiment is disabled', () => {
-				expValEqualsMock.mockReturnValue(false);
-
-				const socket = createSocketIOSocket(
-					url,
-					undefined,
-					undefined,
-					false, // isPresenceOnly = false for edit traffic
-					undefined,
-					editPath,
-				);
-
-				expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
-			});
-
 			it('should not use PMR for edit traffic when path is not provided', () => {
-				expValEqualsMock.mockReturnValue(true);
-
 				const socket = createSocketIOSocket(
 					url,
 					undefined,
@@ -146,26 +110,7 @@ describe('Socket io provider', () => {
 				expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
 			});
 
-			it('should not use PMR for edit traffic when isPresenceOnly is undefined and experiment is disabled', () => {
-				expValEqualsMock.mockReturnValue(false);
-
-				const socket = createSocketIOSocket(
-					url,
-					undefined,
-					undefined,
-					undefined, // isPresenceOnly is undefined (defaults to edit traffic)
-					undefined,
-					editPath,
-				);
-
-				expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
-			});
-
-			it('should use PMR for edit traffic when isPresenceOnly is undefined and experiment is enabled', () => {
-				expValEqualsMock.mockImplementation(
-					(flag: string) => flag === 'platform_editor_to_use_pmr_for_collab_edit_none_ic',
-				);
-
+			it('should use PMR for edit traffic when isPresenceOnly is undefined', () => {
 				const socket = createSocketIOSocket(
 					url,
 					undefined,
@@ -199,11 +144,6 @@ describe('Socket io provider', () => {
 	});
 
 	describe('Product Information headers', () => {
-		beforeEach(() => {
-			// default to OFF for these tests unless explicitly enabled
-			expValEqualsMock.mockReturnValue(false);
-		});
-
 		it('should set x-client-platform header', () => {
 			const socket = createSocketIOSocket(url);
 			expect(socket?.io?.opts.extraHeaders).toHaveProperty('x-client-platform', 'web');

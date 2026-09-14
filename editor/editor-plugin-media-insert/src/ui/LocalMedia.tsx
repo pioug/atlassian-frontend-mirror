@@ -2,23 +2,23 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { MediaState, MediaStateEventListener } from '@atlaskit/editor-plugin-media/types';
 import UploadIcon from '@atlaskit/icon/core/upload';
-import {
-	Browser,
-	type ImagePreview,
-	type MediaErrorName,
-	type Preview,
-	type UploadEndEventPayload,
-	type UploadErrorEventPayload,
-	type UploadPreviewUpdateEventPayload,
-} from '@atlaskit/media-picker';
+import { BrowserLoader as Browser } from '@atlaskit/media-picker/browser';
+import type {
+	ImagePreview,
+	MediaErrorName,
+	Preview,
+	UploadEndEventPayload,
+	UploadErrorEventPayload,
+	UploadPreviewUpdateEventPayload,
+} from '@atlaskit/media-picker/types';
 import { Stack } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { InsertFile } from '../types';

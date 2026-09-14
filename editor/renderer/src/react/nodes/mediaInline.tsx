@@ -9,10 +9,11 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { InlineCardEvent } from '@atlaskit/media-card';
 import { MediaInlineCard } from '@atlaskit/media-card';
 import type { FileIdentifier, FileState } from '@atlaskit/media-client';
-import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import React, { useCallback, useEffect, useState, useContext } from 'react';
+import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
+import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react';
 import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 import type { ClipboardAttrs } from '../../ui/MediaCard';
@@ -20,7 +21,7 @@ import { getClipboardAttrs, mediaIdentifierMap } from '../../ui/MediaCard';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { RendererContext } from '../types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import type { MediaSSR } from '../../types/mediaOptions';
 import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
@@ -38,6 +39,7 @@ type RenderMediaInlineProps = {
 	intl?: IntlShape;
 	rendererAppearance?: RendererAppearance;
 	rendererContext?: RendererContext;
+	ssr?: MediaSSR;
 };
 
 type MediaInlineProps = {
@@ -59,6 +61,7 @@ const RenderMediaInline = ({
 	eventHandlers,
 	identifier,
 	fallbackMediaNameFetcher,
+	ssr,
 }: RenderMediaInlineProps) => {
 	const [contextIdentifier, setContextIdentifier] = useState<
 		ContextIdentifierProvider | undefined
@@ -68,6 +71,11 @@ const RenderMediaInline = ({
 
 	const mediaClient = useContext(MediaClientContext);
 	const contextIdentifierProvider = useProvider('contextIdentifierProvider');
+
+	const ssrMediaItem = useMemo(
+		() => ssr?.ssrMediaItems?.find((item) => item.id === identifier.id),
+		[ssr?.ssrMediaItems, identifier.id],
+	);
 
 	useEffect(() => {
 		if (contextIdentifierProvider) {
@@ -155,6 +163,7 @@ const RenderMediaInline = ({
 				mediaClientConfig={mediaClient.mediaClientConfig}
 				mediaViewerItems={Array.from(mediaIdentifierMap.values())}
 				fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+				ssrMediaItem={ssrMediaItem}
 			/>
 		</span>
 	);
@@ -230,11 +239,12 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 			collection={collection}
 			featureFlags={featureFlags}
 			fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+			ssr={ssr}
 		/>
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<
 	WithIntlProps<MediaInlineProps & WrappedComponentProps & MediaInlineAttrs>
 > & {

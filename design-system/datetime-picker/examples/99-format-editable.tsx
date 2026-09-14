@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import moment from 'moment';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import { Box } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => {

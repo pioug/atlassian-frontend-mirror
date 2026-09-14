@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports -- exports share Compiled style value(s) [styles] which cannot be exported across files (UI Styling Standard: no-exported-css) */
 // PLEASE NOTE: This file is sync-loaded with the trigger components. Only add components here that
 // are necessary for the main render of the trigger component to help maintain bundle size.
 

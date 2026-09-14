@@ -7,8 +7,8 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip, TextIcon } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
@@ -46,7 +46,7 @@ const usePluginState = (api?: ExtractInjectionAPI<BlockTypePlugin>) => {
 		(state: BlockTypeSelectorState) => {
 			const pmCurrentBlockType =
 				state.interactionState?.interactionState === 'hasNotHadInteraction' &&
-				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_default_toolbar_state')
 					? undefined
 					: state.blockTypeState?.currentBlockType;
 
@@ -159,6 +159,7 @@ export const TextStylesMenuButton = ({
 			label={formatMessage(toolbarMessages.textStyles, {
 				blockTypeName: currentBlockType?.name,
 			})}
+			shouldRenderToParent={fg('platform_editor_return_focus_after_text_styles')}
 		>
 			{children}
 		</ToolbarDropdownMenu>

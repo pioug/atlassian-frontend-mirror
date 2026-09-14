@@ -14,15 +14,16 @@ import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
-import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
-import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { ButtonItem } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
 import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../../analytics';
 import type { QuickInsertItem } from '../../../provider-factory';
@@ -262,13 +263,7 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 		selectedItemIndex,
 	} = props;
 	const { formatMessage } = useIntl();
-	const elementListAriaLabel = expValEquals(
-		'platform_editor_plus_menu_aria_label',
-		'isEnabled',
-		true,
-	)
-		? formatMessage(commonMessages.elementListAriaLabel)
-		: undefined;
+	const elementListAriaLabel = formatMessage(commonMessages.elementListAriaLabel);
 
 	const rowRenderer = useMemo(
 		() =>
@@ -404,13 +399,7 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 	} = props;
 
 	const { formatMessage } = useIntl();
-	const elementListAriaLabel = expValEquals(
-		'platform_editor_plus_menu_aria_label',
-		'isEnabled',
-		true,
-	)
-		? formatMessage(commonMessages.elementListAriaLabel)
-		: undefined;
+	const elementListAriaLabel = formatMessage(commonMessages.elementListAriaLabel);
 
 	const columnWidth = (containerWidth - ELEMENT_ITEM_PADDING * 2) / columnCount;
 	const rowCount = Math.ceil(items.length / columnCount);
@@ -642,18 +631,12 @@ const ItemContent = memo(
 				<div css={itemText}>
 					<Stack space="space.025">
 						<div css={itemTitleWrapper}>
-							{editorExperiment('platform_synced_block', true) || lozenge ? (
-								<Flex alignItems="center" gap="space.050">
-									<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
-										{title}
-									</Text>
-									{lozenge}
-								</Flex>
-							) : (
+							<Flex alignItems="center" gap="space.050">
 								<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
 									{title}
 								</Text>
-							)}
+								{lozenge}
+							</Flex>
 							<div css={itemAfter}>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}

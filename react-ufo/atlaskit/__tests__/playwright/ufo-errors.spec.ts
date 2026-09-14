@@ -6,6 +6,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: Error Reporting', () => {
 	test.use({
 		examplePage: 'basic-with-error',
+	} satisfies {
+		examplePage: 'basic-with-error';
+		__exampleDependency?: typeof import('../../examples/15-basic-with-error.tsx');
 	});
 
 	test('errors reported to UFO is handled correctly', async ({ waitForReactUFOPayload }) => {

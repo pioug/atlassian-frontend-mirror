@@ -1,4 +1,4 @@
-import { UFOExperience } from '@atlaskit/ufo';
+import { UFOExperience } from '@atlaskit/ufo/experience';
 
 import {
 	abortUfoExperience,

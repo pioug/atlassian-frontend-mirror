@@ -13,10 +13,10 @@ import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { useLayering } from '@atlaskit/layering/use-layering';
-import { Motion } from '@atlaskit/motion';
+import Motion from '@atlaskit/motion/entering/motion';
 import FadeIn from '@atlaskit/motion/fade-in';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
@@ -99,13 +99,7 @@ const dialogStyles = cssMap({
 	},
 	borderRadius: {
 		'@media (min-width: 30rem)': {
-			borderRadius: token('radius.small', '3px'),
-		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	borderRadiusT26Shape: {
-		'@media (min-width: 30rem)': {
-			borderRadius: token('radius.xlarge', '12px'),
+			borderRadius: token('radius.xlarge'),
 		},
 	},
 	motion: {
@@ -192,21 +186,23 @@ const ModalDialog: React.ForwardRefExoticComponent<
 	const titleId = `modal-dialog-title-${id}`;
 	const defaultTestId = testId || 'modal-dialog';
 
-	useEffect(() => {
-		// Modal dialogs can appear on top of iframe elements that are on another domain.
-		// There is a Chrome bug where drag and drop in an element on top of a cross domain
-		// iframe is not working. We are applying the workaround for this bug in modal so
-		// that consumers of our modal don't have to worry about this bug and are free to
-		// create whatever drag and drop experience they like inside a modal
-		//
-		// Chrome bug: https://issues.chromium.org/issues/362301053
+	useEffect(
+		() =>
+			// Modal dialogs can appear on top of iframe elements that are on another domain.
+			// There is a Chrome bug where drag and drop in an element on top of a cross domain
+			// iframe is not working. We are applying the workaround for this bug in modal so
+			// that consumers of our modal don't have to worry about this bug and are free to
+			// create whatever drag and drop experience they like inside a modal
+			//
+			// Chrome bug: https://issues.chromium.org/issues/362301053
 
-		return combine(
-			disableDraggingToCrossOriginIFramesForElement(),
-			disableDraggingToCrossOriginIFramesForTextSelection(),
-			disableDraggingToCrossOriginIFramesForExternal(),
-		);
-	}, []);
+			combine(
+				disableDraggingToCrossOriginIFramesForElement(),
+				disableDraggingToCrossOriginIFramesForTextSelection(),
+				disableDraggingToCrossOriginIFramesForExternal(),
+			),
+		[],
+	);
 
 	useAutoFocus(
 		autoFocus,
@@ -269,9 +265,6 @@ const ModalDialog: React.ForwardRefExoticComponent<
 									dialogStyles.root,
 									dialogStyles.rootMotion,
 									!isFullScreen && dialogStyles.borderRadius,
-									!isFullScreen &&
-										fg('platform-dst-shape-theme-default') &&
-										dialogStyles.borderRadiusT26Shape,
 									shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
 								]}
 								role="dialog"
@@ -310,9 +303,6 @@ const ModalDialog: React.ForwardRefExoticComponent<
 									css={[
 										dialogStyles.root,
 										!isFullScreen && dialogStyles.borderRadius,
-										!isFullScreen &&
-											fg('platform-dst-shape-theme-default') &&
-											dialogStyles.borderRadiusT26Shape,
 										shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
 									]}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

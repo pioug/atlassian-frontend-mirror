@@ -1,5 +1,5 @@
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 export const stepHasSlice = (
 	step: Step,

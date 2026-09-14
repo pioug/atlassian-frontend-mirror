@@ -17,7 +17,7 @@ import {
 	LinkMenuItemReorderAFterBlocked,
 	LinkMenuItemReorderBefore,
 	LinkMenuItemReorderBeforeBlocked,
-} from '../../../../../examples/drag-and-drop/simple';
+} from '../../../../../examples/drag-and-drop/simple.vr.ap';
 
 // Adding for all variants as we have had some
 // Note: using a function as the Gemeni generated test file

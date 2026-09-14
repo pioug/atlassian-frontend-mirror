@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/chunkinator",
-	"version": "8.0.0",
+	"version": "8.2.0",
 	"description": "Upload large files from the browser with ease",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,7 +17,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./chunkinator": "./src/chunkinator.ts",
-		"./domain": "./src/domain.ts"
+		"./domain": "./src/domain.ts",
+		"./getObservableFromFile": "./src/getObservableFromFile.ts"
 	},
 	"atlassian": {
 		"team": "Media Exif",

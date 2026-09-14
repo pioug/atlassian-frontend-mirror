@@ -1,5 +1,6 @@
 import { getCustomThemeStyles } from './get-custom-theme-styles';
-import { type ThemeOptionsSchema, type ThemeState } from './theme-config';
+import { type ThemeOptionsSchema } from './theme-options-schema';
+import { type ThemeState } from './theme-state';
 import { limitSizeOfCustomStyleElements } from './utils/limit-size-of-custom-style-elements';
 
 export const CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD = 10;
@@ -20,5 +21,3 @@ export function loadAndAppendCustomThemeCss(
 		styleTag.textContent = theme.css;
 	});
 }
-
-export { getCustomThemeStyles } from './get-custom-theme-styles';

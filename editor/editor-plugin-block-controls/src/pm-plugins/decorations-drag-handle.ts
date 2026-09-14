@@ -1,19 +1,17 @@
 import { createElement } from 'react';
 
-import { bind } from 'bind-event-listener';
-import type { UnbindFn } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { ACTIVE_DRAG_HANDLE_ATTR } from '../ui/consts';
@@ -24,7 +22,7 @@ import { renderToMountPoint } from './react-root-registry';
 import type { AnchorRectCache } from './utils/anchor-utils';
 import { getMatchingBlockMarks } from './utils/marks';
 
-const TYPE_ACTIVE_HANDLE_DEC = 'active-drag-handle-node';
+export const TYPE_ACTIVE_HANDLE_DEC = 'active-drag-handle-node';
 
 /**
  * Creates a Decoration.node that marks the active node with `data-active-drag-handle="true"`.
@@ -97,8 +95,6 @@ export const dragHandleDecoration = ({
 		'data-blocks-drag-handle-container',
 		'data-blocks-drag-handle-key',
 	);
-
-	let unbind: UnbindFn;
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const key = uuid();
 
@@ -119,9 +115,6 @@ export const dragHandleDecoration = ({
 							editorState.schema.marks.fontSize,
 						])
 					: [],
-				destroy: (node: Node) => {
-					unbind && unbind();
-				},
 			}
 		: {
 				side: -1,
@@ -134,9 +127,6 @@ export const dragHandleDecoration = ({
 							editorState.schema.marks.fontSize,
 						])
 					: [],
-				destroy: (node: Node) => {
-					unbind && unbind();
-				},
 			};
 
 	return Decoration.widget(
@@ -173,18 +163,9 @@ export const dragHandleDecoration = ({
 			 * However, the tooltip for nested drag handle is no long working.
 			 */
 			if (newPos === undefined || !isTopLevelNode) {
-				if (fg('platform_editor_fix_widget_destroy')) {
-					element.onmouseover = (e) => {
-						e.stopPropagation();
-					};
-				} else {
-					unbind = bind(element, {
-						type: 'mouseover',
-						listener: (e) => {
-							e.stopPropagation();
-						},
-					});
-				}
+				element.onmouseover = (e) => {
+					e.stopPropagation();
+				};
 			}
 
 			// There are times when global clear: "both" styles are applied to this decoration causing jumpiness

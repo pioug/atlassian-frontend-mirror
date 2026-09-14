@@ -5,7 +5,6 @@ export {
 	RESIZE_HANDLE_AREA_DECORATION_GAP,
 	TableDecorations,
 	TableCssClassName,
-	ShadowEvent,
 } from '@atlaskit/editor-plugin-table/types';
 export type {
 	RowInsertPosition,

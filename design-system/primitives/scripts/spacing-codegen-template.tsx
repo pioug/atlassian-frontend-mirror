@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import format from '@af/formatting/sync';
-import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
+import tokens from '@atlaskit/tokens/atlassian-spacing';
 
 import { generateTypeDefs } from './generate-type-defs';
 import { constructTokenFunctionCall } from './utils';

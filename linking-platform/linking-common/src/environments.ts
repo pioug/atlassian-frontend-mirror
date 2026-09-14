@@ -1,17 +1,18 @@
-import { type EnvironmentsKeys } from './types';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 const devBaseUrl = 'https://api-private.dev.atlassian.com';
+
 const stgBaseUrl = 'https://pug.jira-dev.com/gateway/api';
-const prodBaseUrl = 'https://api-private.atlassian.com';
+
+export const prodBaseUrl: any = 'https://api-private.atlassian.com';
 
 export const BaseUrls: {
 	dev: string;
 	development: string;
-	stg: string;
-	staging: string;
 	prd: string;
 	prod: string;
 	production: string;
+	staging: string;
+	stg: string;
 } = {
 	dev: devBaseUrl,
 	development: devBaseUrl,
@@ -24,42 +25,13 @@ export const BaseUrls: {
 	production: prodBaseUrl,
 };
 
-export const getBaseUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string): string => {
-	// The `custom` environment is used if the full resolver URL is provided by the user.
-	// It could be useful for SSR, where `CardClient` should use direct service URL instead of the Edge Proxy.
-	if (envKey === 'custom') {
-		return baseUrlOverride ?? prodBaseUrl;
-	}
-
-	// If an environment is provided, then use Stargate.
-	if (envKey) {
-		return envKey in BaseUrls
-			? BaseUrls[envKey as Exclude<EnvironmentsKeys, 'custom'>]
-			: prodBaseUrl;
-	}
-
-	return typeof window !== 'undefined' && typeof window.location !== 'undefined'
-		? window.location.origin
-		: '';
-};
-
-export const getResolverUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string): string => {
-	// The `custom` environment is used if the full resolver URL is provided by the user.
-	// It could be useful for SSR, where `CardClient` should use direct service URL instead of the Edge Proxy.
-	if (envKey === 'custom') {
-		return baseUrlOverride ?? '/gateway/api/object-resolver';
-	}
-
-	// If an environment is provided, then use Stargate directly for requests.
-	if (envKey || baseUrlOverride) {
-		const baseUrl = baseUrlOverride || getBaseUrl(envKey);
-
-		return `${baseUrl}/object-resolver`;
-	} else {
-		// Otherwise, we fallback to using the Edge Proxy to access Stargate,
-		// which fixes some cookie issues with strict Browser policies.
-		return '/gateway/api/object-resolver';
-	}
-};
-
 export default BaseUrls;
+
+/**
+ * @deprecated Use `import { getBaseUrl } from '@atlaskit/linking-common/client'` instead.
+ */
+export { getBaseUrl } from './getBaseUrl';
+/**
+ * @deprecated Use `import { getResolverUrl } from '@atlaskit/linking-common/client'` instead.
+ */
+export { getResolverUrl } from './getResolverUrl';

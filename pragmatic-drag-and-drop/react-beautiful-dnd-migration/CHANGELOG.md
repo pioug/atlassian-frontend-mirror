@@ -1,5 +1,58 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 3.4.1
+
+### Patch Changes
+
+- [`6b274793c70be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b274793c70be) -
+  Experimental React 19 peer dependency support. Test coverage is partial.
+
+## 3.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+## 3.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- [`2b6d25f854593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b6d25f854593) -
+  Remove legacy ReactDOM.render/hydrate/unmountComponentAtNode usage from non-production code
+  (tests, demo entries, VR fixtures) as part of the React 19 migration
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [`63844188fce2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63844188fce2c) -
+  Add a `./types` entry point to `@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration`
+  that re-exports the react-beautiful-dnd types, and point leftover rbd type-only imports at it.
+
+  The rbd→pdnd runtime migration left type-only imports on `react-beautiful-dnd`; the migration
+  layer only re-exported those types from its (prohibited-barrel) root, so consumers had no
+  non-barrel path for them. The new `./types` subpath provides one. Type-only change; no runtime or
+  API impact, no feature gate.
+
 ## 3.1.1
 
 ### Patch Changes

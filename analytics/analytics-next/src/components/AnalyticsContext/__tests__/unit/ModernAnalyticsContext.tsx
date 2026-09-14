@@ -91,7 +91,7 @@ describe('ModernAnalyticsContext', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith([{ ticket: 'AFP-123' }]);
+		expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-123' }]);
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 	});
 
@@ -108,7 +108,7 @@ describe('ModernAnalyticsContext', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith([{ board: 'AFP' }, { ticket: 'AFP-123' }]);
+		expect(callback).toHaveBeenCalledWith([{ board: 'AFP' }, { ticket: 'AFP-123' }]);
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 	});
 
@@ -124,7 +124,7 @@ describe('ModernAnalyticsContext', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith([{ ticket: 'AFP-123' }]);
+		expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-123' }]);
 		callback.mockReset();
 
 		rerender(<UnderTestSingleContext data={dataObject} callback={callback} />);
@@ -133,7 +133,7 @@ describe('ModernAnalyticsContext', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith([{ ticket: 'AFP-123' }]);
+		expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-123' }]);
 		callback.mockReset();
 
 		rerender(<UnderTestSingleContext data={{ ticket: 'AFP-234' }} callback={callback} />);
@@ -142,6 +142,6 @@ describe('ModernAnalyticsContext', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith([{ ticket: 'AFP-234' }]);
+		expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-234' }]);
 	});
 });

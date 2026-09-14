@@ -1,6 +1,6 @@
 import React, { type ReactNode, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { type ProgressDotsProps, ProgressIndicator } from '@atlaskit/progress-indicator';
 

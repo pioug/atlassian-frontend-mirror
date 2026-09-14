@@ -1,4 +1,4 @@
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

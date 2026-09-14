@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "14.3.2",
+	"version": "16.1.120",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,14 +35,8 @@
 		"./annotation/annotationPluginType": "./src/annotation/entry-points/annotationPluginType.ts",
 		"./annotation/types": "./src/annotation/entry-points/types.ts",
 		"./annotation": "./src/annotation/index.ts",
-		"./autocomplete/src/pm-plugins/autocomplete-plugin": "./src/autocomplete/entry-points/src-pm-plugins-autocomplete-plugin.ts",
-		"./autocomplete/src/pm-plugins/slow-lane-client": "./src/autocomplete/entry-points/src-pm-plugins-slow-lane-client.ts",
-		"./autocomplete/src/pm-plugins/text-predictor": "./src/autocomplete/entry-points/src-pm-plugins-text-predictor.ts",
 		"./autocomplete/autocompletePlugin": "./src/autocomplete/entry-points/autocompletePlugin.tsx",
 		"./autocomplete/autocompletePluginType": "./src/autocomplete/entry-points/autocompletePluginType.ts",
-		"./autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_A": "./src/autocomplete/pm-plugins/autocomplete-plugin.ts",
-		"./autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_B": "./src/autocomplete/pm-plugins/slow-lane-client.ts",
-		"./autocomplete/CANONICAL_FIX__DO_NOT_USE_ME_C": "./src/autocomplete/pm-plugins/text-predictor.ts",
 		"./autocomplete": "./src/autocomplete/index.ts",
 		"./avatar-group/avatarGroupPlugin": "./src/avatar-group/entry-points/avatarGroupPlugin.tsx",
 		"./avatar-group/avatarGroupPluginType": "./src/avatar-group/entry-points/avatarGroupPluginType.ts",
@@ -61,6 +55,8 @@
 		"./better-type-history/betterTypeHistoryPlugin": "./src/better-type-history/entry-points/betterTypeHistoryPlugin.ts",
 		"./better-type-history/betterTypeHistoryPluginType": "./src/better-type-history/entry-points/betterTypeHistoryPluginType.ts",
 		"./better-type-history": "./src/better-type-history/index.ts",
+		"./block-collapse/blockCollapsePlugin": "./src/block-collapse/entry-points/blockCollapsePlugin.tsx",
+		"./block-collapse/blockCollapsePluginType": "./src/block-collapse/entry-points/blockCollapsePluginType.ts",
 		"./block-controls/block-decoration-utils/anchor-name": "./src/block-controls/entry-points/block-decoration-utils-anchor-name.ts",
 		"./block-controls/block-decoration-utils/consts": "./src/block-controls/entry-points/block-decoration-utils-consts.ts",
 		"./block-controls/block-decoration-utils/dom-attr-name": "./src/block-controls/entry-points/block-decoration-utils-dom-attr-name.ts",
@@ -234,6 +230,7 @@
 		"./interaction/interaction-plugin-type": "./src/interaction/entry-points/interaction-plugin-type.ts",
 		"./interaction/types": "./src/interaction/entry-points/types.ts",
 		"./interaction": "./src/interaction/index.ts",
+		"./interactivity": "./src/interactivity/index.ts",
 		"./layout/layout-plugin": "./src/layout/entry-points/layout-plugin.tsx",
 		"./layout/layout-plugin-type": "./src/layout/entry-points/layout-plugin-type.ts",
 		"./layout/types": "./src/layout/entry-points/types.ts",
@@ -337,6 +334,7 @@
 		"./submit-editor": "./src/submit-editor/index.ts",
 		"./synced-block/synced-block-plugin": "./src/synced-block/entry-points/synced-block-plugin.tsx",
 		"./synced-block/synced-block-plugin-type": "./src/synced-block/entry-points/synced-block-plugin-type.ts",
+		"./synced-block/types": "./src/synced-block/types/index.ts",
 		"./synced-block": "./src/synced-block/index.ts",
 		"./table/ui/common-styles": "./src/table/entry-points/ui-common-styles.ts",
 		"./table/table-plugin": "./src/table/entry-points/table-plugin.tsx",
@@ -410,6 +408,7 @@
 		"@atlaskit/editor-plugin-batch-attribute-updates": "workspace:*",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "workspace:*",
 		"@atlaskit/editor-plugin-better-type-history": "workspace:*",
+		"@atlaskit/editor-plugin-block-collapse": "workspace:*",
 		"@atlaskit/editor-plugin-block-controls": "workspace:*",
 		"@atlaskit/editor-plugin-block-menu": "workspace:*",
 		"@atlaskit/editor-plugin-block-type": "workspace:*",
@@ -456,6 +455,7 @@
 		"@atlaskit/editor-plugin-indentation": "workspace:*",
 		"@atlaskit/editor-plugin-insert-block": "workspace:*",
 		"@atlaskit/editor-plugin-interaction": "workspace:*",
+		"@atlaskit/editor-plugin-interactivity": "workspace:*",
 		"@atlaskit/editor-plugin-layout": "workspace:*",
 		"@atlaskit/editor-plugin-limited-mode": "workspace:*",
 		"@atlaskit/editor-plugin-list": "workspace:*",
@@ -516,39 +516,6 @@
 		"typescript": "root:*",
 		"wait-for-expect": "root:*",
 		"yargs": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"editor_inline_comments_on_inline_nodes": {

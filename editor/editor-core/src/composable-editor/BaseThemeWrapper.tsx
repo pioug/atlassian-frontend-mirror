@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { ThemeProvider } from '@emotion/react';
 
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type BaseThemeProps = {

@@ -1,4 +1,4 @@
-import { type JqlStringContext } from '@atlaskit/jql-parser';
+import type { JqlStringContext } from '@atlaskit/jql-parser/JQLParser';
 
 import { type StringValue } from '../types';
 

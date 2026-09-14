@@ -1,4 +1,4 @@
-import type { IndentationMarkAttributes } from '@atlaskit/adf-schema';
+import type { IndentationMarkAttributes } from '@atlaskit/adf-schema/indentation';
 import type {
 	EditorAnalyticsAPI,
 	FormatEventPayload,

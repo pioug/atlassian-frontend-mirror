@@ -1,10 +1,10 @@
 import { snapshot } from '@af/visual-regression';
 
-import DropdownSpacing from '../../../examples/10-dropdown-spacing';
-import CustomZIndex from '../../../examples/20-setting-z-index';
-import Loading from '../../../examples/93-testing-is-loading-reposition';
-import ComplexDropdown from '../../../examples/99-testing-complex-dropdown-menu';
-import TestingPlacements from '../../../examples/99-testing-placements';
+import DropdownSpacing from '../../../examples/10-dropdown-spacing.vr.ap';
+import CustomZIndex from '../../../examples/20-setting-z-index.vr.ap';
+import Loading from '../../../examples/93-testing-is-loading-reposition.vr.ap';
+import ComplexDropdown from '../../../examples/99-testing-complex-dropdown-menu.vr.ap';
+import TestingPlacements from '../../../examples/99-testing-placements.vr.ap';
 
 snapshot(TestingPlacements);
 snapshot(DropdownSpacing);

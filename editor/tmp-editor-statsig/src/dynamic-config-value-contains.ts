@@ -1,4 +1,4 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 function isStringList(value: unknown): value is string[] {
 	return Array.isArray(value) && value.every((item) => typeof item === 'string');

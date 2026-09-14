@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { Popup } from '@atlaskit/popup';
-import Tooltip from '@atlaskit/tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import Button from '@atlaskit/button/default/button';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { Popup } from '@atlaskit/popup/popup';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
@@ -30,6 +34,18 @@ describe('Side nav keyboard shortcut', () => {
 
 	beforeEach(() => {
 		resetMatchMedia();
+	});
+
+	it('should be accessible', async () => {
+		setMediaQuery('(min-width: 64rem)', { initial: true });
+
+		const { container } = render(
+			<Root isSideNavShortcutEnabled>
+				<SideNav testId="sidenav">sidenav</SideNav>
+			</Root>,
+		);
+
+		await expect(container).toBeAccessible();
 	});
 
 	ffTest.on('navx-full-height-sidebar', 'keyboard shortcut', () => {
@@ -488,6 +504,23 @@ describe('Side nav keyboard shortcut', () => {
 				});
 			});
 		});
+	});
+
+	it('should toggle with the built-in shortcut when desired FHS features are enabled', async () => {
+		failGate('navx-full-height-sidebar');
+		passGate('platform-dst-keep-desired-fhs-features');
+		const user = userEvent.setup();
+		setMediaQuery('(min-width: 64rem)', { initial: true });
+
+		render(
+			<Root isSideNavShortcutEnabled>
+				<SideNav testId="sidenav">sidenav</SideNav>
+			</Root>,
+		);
+
+		await user.keyboard('{Control>}[[');
+
+		expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 	});
 
 	ffTest.off('navx-full-height-sidebar', 'keyboard shortcut', () => {

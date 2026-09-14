@@ -30,7 +30,7 @@ import {
 	akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { FindReplaceProps } from './FindReplace';
@@ -223,7 +223,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 		);
 	}
 }
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<FindReplaceToolbarButtonProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<FindReplaceToolbarButtonProps & WrappedComponentProps>;
 } = injectIntl(FindReplaceToolbarButton);

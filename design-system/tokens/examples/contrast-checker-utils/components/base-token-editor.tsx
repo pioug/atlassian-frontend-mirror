@@ -6,12 +6,13 @@ import { Fragment, useCallback, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import CheckIcon from '@atlaskit/icon/core/check-mark';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import EditIcon from '@atlaskit/icon/core/edit';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

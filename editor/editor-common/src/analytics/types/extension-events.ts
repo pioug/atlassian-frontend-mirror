@@ -1,4 +1,4 @@
-import type { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { SELECTION_TYPE, OperationalAEP, TrackAEP, UIAEP } from './utils';

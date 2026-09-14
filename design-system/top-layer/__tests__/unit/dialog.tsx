@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+import { bind } from 'bind-event-listener';
+
 import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
-import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { act, fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import { Dialog } from '../../src/entry-points/dialog';
+import { Dialog } from '../../src/dialog/dialog-content';
 
 // ── Observer test helpers ──
 
@@ -55,6 +57,26 @@ function CloseLayersButton() {
 	);
 }
 
+function fireDialogCancel(dialog: HTMLElement) {
+	const event = new Event('cancel', { cancelable: true });
+	fireEvent(dialog, event);
+	return event;
+}
+
+function waitForDialogCloseToggle({ dialog }: { dialog: HTMLElement }): Promise<void> {
+	return new Promise((resolve) => {
+		bind(dialog, {
+			type: 'toggle',
+			listener: (event: ToggleEvent) => {
+				if (event.newState === 'closed') {
+					resolve();
+				}
+			},
+			options: { once: true },
+		});
+	});
+}
+
 describe('Dialog primitive', () => {
 	it('opens dialog when isOpen is true', () => {
 		render(
@@ -65,6 +87,7 @@ describe('Dialog primitive', () => {
 
 		const dialogEl = screen.getByRole('dialog', { hidden: true });
 		expect(dialogEl).toHaveAttribute('open');
+		expect(dialogEl).not.toHaveAttribute('closedby');
 	});
 
 	it('does not render the dialog element when isOpen is false', async () => {
@@ -138,7 +161,83 @@ describe('Dialog primitive', () => {
 		expect(screen.getByRole('dialog', { hidden: true })).toHaveAttribute('open');
 	});
 
-	it('fires onClose with reason "overlay-click" when dialog element itself is clicked', () => {
+	it('closes before reporting an overlay click', async () => {
+		const dialogRef = React.createRef<HTMLDialogElement>();
+		const onClose = jest.fn(() => expect(dialogRef.current?.open).toBe(false));
+
+		render(
+			<Dialog ref={dialogRef} onClose={onClose} isOpen={true} label="Test dialog">
+				<p>Content</p>
+			</Dialog>,
+		);
+
+		const dialogEl = screen.getByRole('dialog', { hidden: true });
+		const closeToggle = waitForDialogCloseToggle({ dialog: dialogEl });
+		fireEvent.click(dialogEl);
+		await act(async () => {
+			await closeToggle;
+		});
+
+		expect(onClose).toHaveBeenCalledWith({ reason: 'overlay-click' });
+		expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument();
+	});
+
+	it('reports Escape after native dismissal when dismissedBy is "escape"', async () => {
+		const dialogRef = React.createRef<HTMLDialogElement>();
+		const onClose = jest.fn(() => expect(dialogRef.current?.open).toBe(false));
+
+		render(
+			<Dialog
+				ref={dialogRef}
+				onClose={onClose}
+				isOpen={true}
+				label="Test dialog"
+				dismissedBy="escape"
+			>
+				<p>Content</p>
+			</Dialog>,
+		);
+
+		const dialogEl = screen.getByRole('dialog', { hidden: true }) as HTMLDialogElement;
+		expect(dialogEl).not.toHaveAttribute('closedby');
+
+		fireEvent.click(dialogEl);
+		expect(onClose).not.toHaveBeenCalled();
+
+		const cancelEvent = fireDialogCancel(dialogEl);
+		expect(cancelEvent.defaultPrevented).toBe(false);
+		expect(onClose).not.toHaveBeenCalled();
+
+		// jsdom does not perform the cancel event's native default action.
+		const closeToggle = waitForDialogCloseToggle({ dialog: dialogEl });
+		await act(async () => {
+			dialogEl.close();
+			await closeToggle;
+		});
+
+		expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
+	});
+
+	it('does not request close from user actions when dismissedBy is "none"', () => {
+		const onClose = jest.fn();
+
+		render(
+			<Dialog onClose={onClose} isOpen={true} label="Test dialog" dismissedBy="none">
+				<p>Content</p>
+			</Dialog>,
+		);
+
+		const dialogEl = screen.getByRole('dialog', { hidden: true });
+		expect(dialogEl).not.toHaveAttribute('closedby');
+
+		fireEvent.click(dialogEl);
+		const cancelEvent = fireDialogCancel(dialogEl);
+
+		expect(cancelEvent.defaultPrevented).toBe(true);
+		expect(onClose).not.toHaveBeenCalled();
+	});
+
+	it('does not report a close reason when the dialog closes programmatically', async () => {
 		const onClose = jest.fn();
 
 		render(
@@ -147,10 +246,15 @@ describe('Dialog primitive', () => {
 			</Dialog>,
 		);
 
-		const dialogEl = screen.getByRole('dialog', { hidden: true });
-		fireEvent.click(dialogEl);
+		const dialogEl = screen.getByRole('dialog', { hidden: true }) as HTMLDialogElement;
+		const closeToggle = waitForDialogCloseToggle({ dialog: dialogEl });
+		await act(async () => {
+			dialogEl.close();
+			await closeToggle;
+		});
 
-		expect(onClose).toHaveBeenCalledWith({ reason: 'overlay-click' });
+		expect(onClose).not.toHaveBeenCalled();
+		expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument();
 	});
 
 	it('does NOT fire onClose when a child element is clicked', () => {

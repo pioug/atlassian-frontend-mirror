@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eee691665e02eaa3903236d0d832e952>>
+ * @codegen <<SignedSource::17c71ed2e395e146d0ed5eb5962cd4a6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "TextHeadingOne".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const TextHeadingOneIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const TextHeadingOneIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "TextHeadingOneIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.5 6.25V1H1v12h1.5V7.75H8V13h1.5V1H8v5.25zM12 8.5h1.75a.75.75 0 0 1 .75.75V16H13v-6h-1z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

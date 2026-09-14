@@ -1,4 +1,5 @@
 import {
+	findCrossPackageBridgeExportPath,
 	findExportForSourceFile,
 	isKebabCaseExportKey,
 	parsePackageExports,
@@ -503,5 +504,147 @@ describe('findExportForSourceFile / entry-point named-export filtering', () => {
 		});
 
 		expect(result).toBeNull();
+	});
+});
+
+describe('findExportForSourceFile / @deprecated re-export shim exclusion', () => {
+	// Models the @atlaskit/flag shape: a deprecated shim subpath (`./flag-group`, an
+	// entry-points wrapper whose re-exports are all `@deprecated`) alongside the
+	// non-deprecated generated per-export subpaths.
+	const PKG_DIR = '/pkg';
+
+	function makeFs(files: Record<string, string>): FileSystem {
+		return {
+			existsSync: (p: string) => p in files,
+			readFileSync(path: string): string {
+				if (!(path in files)) {
+					throw new Error(`ENOENT: ${path}`);
+				}
+				return files[path];
+			},
+			realpathSync: (p: string) => p,
+			statSync: (p: string) => ({ isFile: () => p in files, mtimeMs: 1 }),
+			readdirSync: () => [],
+			execSync: () => null,
+			cache: {},
+		};
+	}
+
+	it('prefers the non-deprecated direct subpath over a deprecated entry-point shim', () => {
+		const CONTEXT_SOURCE = `${PKG_DIR}/src/internal/flag-group-context.tsx`;
+		const SHIM = `${PKG_DIR}/src/entry-points/flag-group.tsx`;
+		const fs = makeFs({
+			[CONTEXT_SOURCE]: `export const FlagGroupContext = {};\n`,
+			[SHIM]: `/** @deprecated Import from the generated per-export subpath instead. */\nexport { FlagGroupContext } from '../internal/flag-group-context';\n`,
+		});
+
+		const result = findExportForSourceFile({
+			sourceFilePath: CONTEXT_SOURCE,
+			exportsMap: new Map<string, string>([
+				['.', `${PKG_DIR}/src/index.tsx`],
+				['./flag-group', SHIM],
+				['./flag-group-context', CONTEXT_SOURCE],
+			]),
+			fs,
+			sourceExportName: 'FlagGroupContext',
+		});
+
+		expect(result).toEqual({ exportPath: './flag-group-context' });
+	});
+
+	it('picks the non-deprecated wrapper when a symbol is reachable only via two wrappers', () => {
+		const SOURCE = `${PKG_DIR}/src/flag-group.tsx`;
+		const SHIM = `${PKG_DIR}/src/entry-points/flag-group.tsx`;
+		const GENERATED = `${PKG_DIR}/src/entry-points/flag-width.tsx`;
+		const fs = makeFs({
+			[SOURCE]: `export const flagWidth = 100;\n`,
+			[SHIM]: `/** @deprecated Import from the generated per-export subpath instead. */\nexport { flagWidth } from '../flag-group';\n`,
+			[GENERATED]: `export { flagWidth } from '../flag-group';\n`,
+		});
+
+		const result = findExportForSourceFile({
+			sourceFilePath: SOURCE,
+			exportsMap: new Map<string, string>([
+				['.', `${PKG_DIR}/src/index.tsx`],
+				['./flag-group', SHIM],
+				['./flag-width', GENERATED],
+			]),
+			fs,
+			sourceExportName: 'flagWidth',
+		});
+
+		expect(result).toEqual({ exportPath: './flag-width', entryPointExportName: 'flagWidth' });
+	});
+
+	it('keeps a direct subpath whose local declaration is @deprecated (declaration-level @deprecated is an API deprecation, not a path deprecation)', () => {
+		const SOURCE = `${PKG_DIR}/src/thing.tsx`;
+		const GENERATED = `${PKG_DIR}/src/entry-points/thing-new.tsx`;
+		const fs = makeFs({
+			// The symbol's local *declaration* is @deprecated. That says nothing about which
+			// import PATH to use, so it must NOT disqualify the direct subpath `./thing`.
+			[SOURCE]: `/** @deprecated */\nexport const Thing = 1;\n`,
+			[GENERATED]: `export { Thing } from '../thing';\n`,
+		});
+
+		const result = findExportForSourceFile({
+			sourceFilePath: SOURCE,
+			exportsMap: new Map<string, string>([
+				['.', `${PKG_DIR}/src/index.tsx`],
+				['./thing', SOURCE],
+				['./thing-new', GENERATED],
+			]),
+			fs,
+			sourceExportName: 'Thing',
+		});
+
+		// The direct subpath wins: only a @deprecated on a *re-export* (path/shim) excludes a
+		// subpath. This is the behaviour that unblocked packages like `@atlaskit/motion/*`.
+		expect(result).toEqual({ exportPath: './thing' });
+	});
+
+	it('falls back to a deprecated shim only when it is the sole subpath exposing the symbol', () => {
+		const CONTEXT_SOURCE = `${PKG_DIR}/src/internal/flag-group-context.tsx`;
+		const SHIM = `${PKG_DIR}/src/entry-points/flag-group.tsx`;
+		const fs = makeFs({
+			[CONTEXT_SOURCE]: `export const FlagGroupContext = {};\n`,
+			[SHIM]: `/** @deprecated */\nexport { FlagGroupContext } from '../internal/flag-group-context';\n`,
+		});
+
+		const result = findExportForSourceFile({
+			sourceFilePath: CONTEXT_SOURCE,
+			// Only the deprecated shim wrapper exposes the symbol (no direct subpath).
+			exportsMap: new Map<string, string>([
+				['.', `${PKG_DIR}/src/index.tsx`],
+				['./flag-group', SHIM],
+			]),
+			fs,
+			sourceExportName: 'FlagGroupContext',
+		});
+
+		expect(result).toEqual({
+			exportPath: './flag-group',
+			entryPointExportName: 'FlagGroupContext',
+		});
+	});
+
+	it('prefers a non-deprecated cross-package bridge over a deprecated one', () => {
+		const OLD_BRIDGE = `${PKG_DIR}/src/entry-points/bridge-old.tsx`;
+		const NEW_BRIDGE = `${PKG_DIR}/src/entry-points/bridge-new.tsx`;
+		const fs = makeFs({
+			[OLD_BRIDGE]: `/** @deprecated */\nexport { Foo } from '@scope/dep';\n`,
+			[NEW_BRIDGE]: `export { Foo } from '@scope/dep';\n`,
+		});
+
+		const result = findCrossPackageBridgeExportPath({
+			exportsMap: new Map<string, string>([
+				['./bridge-old', OLD_BRIDGE],
+				['./bridge-new', NEW_BRIDGE],
+			]),
+			crossPackageName: '@scope/dep',
+			exportedName: 'Foo',
+			fs,
+		});
+
+		expect(result).toEqual({ exportPath: './bridge-new', entryPointExportName: undefined });
 	});
 });

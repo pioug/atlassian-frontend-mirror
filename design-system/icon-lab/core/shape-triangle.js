@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5cf20d5505719751aa3a0b30e8701581>>
+ * @codegen <<SignedSource::bb7e6f164309044d44afd49e463795f2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "ShapeTriangle".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ShapeTriangleIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const ShapeTriangleIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "ShapeTriangleIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.8 1.857a1.375 1.375 0 0 1 2.4 0l5.933 10.596a1.375 1.375 0 0 1-1.2 2.047H2.067a1.375 1.375 0 0 1-1.2-2.047zm1.2.928L2.28 13h11.44z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

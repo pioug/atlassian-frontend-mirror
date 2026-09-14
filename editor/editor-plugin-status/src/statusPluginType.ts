@@ -1,6 +1,10 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin, OptionalPlugin, Command } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 import type {
 	commitStatusPicker,
@@ -44,6 +48,10 @@ export type StatusPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<DummyAnnotationPlugin>,
 	OptionalPlugin<DummyEditorViewModePlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
+	OptionalPlugin<BlockMenuPlugin>,
+	OptionalPlugin<BlockControlsPlugin>,
+	OptionalPlugin<SelectionPlugin>,
 ];
 
 export type StatusPluginActions = {

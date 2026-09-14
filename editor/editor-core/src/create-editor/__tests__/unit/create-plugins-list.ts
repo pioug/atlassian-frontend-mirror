@@ -211,8 +211,8 @@ describe('createPluginsList', () => {
 
 	it('should not add statusPlugin if allowStatus prop is false', () => {
 		createPluginsList({ allowStatus: false });
-		expect(statusPlugin).not.toBeCalled();
-		expect(insertBlockPlugin).toBeCalledWith({
+		expect(statusPlugin).not.toHaveBeenCalled();
+		expect(insertBlockPlugin).toHaveBeenCalledWith({
 			config: expect.objectContaining({ nativeStatusSupported: false }),
 		});
 	});
@@ -226,7 +226,7 @@ describe('createPluginsList', () => {
 				allowZeroWidthSpaceAfter: true,
 			},
 		});
-		expect(insertBlockPlugin).toBeCalledWith({
+		expect(insertBlockPlugin).toHaveBeenCalledWith({
 			config: expect.objectContaining({ nativeStatusSupported: true }),
 		});
 	});
@@ -240,7 +240,7 @@ describe('createPluginsList', () => {
 				allowZeroWidthSpaceAfter: true,
 			},
 		});
-		expect(insertBlockPlugin).toBeCalledWith({
+		expect(insertBlockPlugin).toHaveBeenCalledWith({
 			config: expect.objectContaining({ nativeStatusSupported: false }),
 		});
 	});
@@ -254,7 +254,7 @@ describe('createPluginsList', () => {
 				allowZeroWidthSpaceAfter: true,
 			},
 		});
-		expect(insertBlockPlugin).toBeCalledWith({
+		expect(insertBlockPlugin).toHaveBeenCalledWith({
 			config: expect.objectContaining({ nativeStatusSupported: true }),
 		});
 	});
@@ -281,7 +281,7 @@ describe('createPluginsList', () => {
 			packageVersion: '1.1.1',
 		};
 		createPluginsList({ feedbackInfo });
-		expect(feedbackDialogPlugin).toBeCalledWith({
+		expect(feedbackDialogPlugin).toHaveBeenCalledWith({
 			config: { coreVersion: '0.0.0', ...feedbackInfo },
 		});
 	});

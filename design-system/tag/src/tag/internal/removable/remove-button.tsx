@@ -6,7 +6,7 @@ import { type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandl
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import CloseIcon from '@atlaskit/icon/core/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

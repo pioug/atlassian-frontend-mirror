@@ -3,9 +3,10 @@ import {
 	ResourcedEmojiComponent,
 	type Props as ResourcedEmojiProps,
 } from './ResourcedEmojiComponent';
-import { UfoErrorBoundary } from './UfoErrorBoundary';
-import { sampledUfoRenderedEmoji, ufoExperiences } from '../../util/analytics';
+import { sampledUfoRenderedEmoji } from '../../util/analytics/sampledUfoRenderedEmoji';
+import { ufoExperiences } from '../../util/analytics/ufoExperiences';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
+import { UfoErrorBoundary } from './UfoErrorBoundary';
 
 export interface Props extends ResourcedEmojiProps {}
 

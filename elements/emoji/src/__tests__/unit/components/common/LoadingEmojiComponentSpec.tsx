@@ -1,27 +1,25 @@
+/* eslint-disable @atlassian/testing-library/prefer-atlassian-testing-library -- Emoji tests use the package's existing RTL dependency. */
 import React, { Component } from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
-import { waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import LoadingEmojiComponent, {
 	type Props,
 	type State as LoadingState,
 } from '../../../../components/common/LoadingEmojiComponent';
 
-const hasLoaded = (component: ReactWrapper) =>
-	component.update() && (component.instance() as TestLoadingComponent).hasLoaded;
 const asyncLoadMock = jest.fn();
 
-class TestComponent extends Component<Props> {}
-
-interface State {
-	loaded: boolean;
+class TestComponent extends Component<Props> {
+	render() {
+		return null;
+	}
 }
 
-class TestLoadingComponent extends LoadingEmojiComponent<Props, LoadingState & State> {
-	public hasLoaded: boolean = false;
-	renderLoaded(_provider: EmojiProvider, _asyncComponent: React.ComponentClass<any>) {
-		this.hasLoaded = true;
-		return <div />;
+class TestLoadingComponent extends LoadingEmojiComponent<Props, LoadingState> {
+	state: LoadingState = {};
+
+	renderLoaded(_provider: EmojiProvider, _asyncComponent: React.ComponentType<any>) {
+		return <div>Loaded</div>;
 	}
 
 	asyncLoadComponent() {
@@ -38,35 +36,41 @@ describe('<LoadingEmojiComponent />', () => {
 	});
 
 	describe('#render', () => {
-		it('Nothing rendered if Promise not resolved', () => {
+		it('renders nothing if the provider Promise has not resolved', () => {
 			const providerPromise = new Promise<EmojiProvider>(() => {});
-			const component = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			expect(component.isEmptyRender()).toBe(true);
+			const { container } = render(<TestLoadingComponent emojiProvider={providerPromise} />);
+
+			expect(container.children).toHaveLength(0);
 		});
 
-		it('Rendered once Promise resolved', () => {
+		it('renders once the provider Promise resolves', async () => {
 			const providerPromise = Promise.resolve({} as EmojiProvider);
-			const component = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			return waitFor(() => expect(hasLoaded(component)).toBe(true)).then(() =>
-				expect(component.isEmptyRender()).toBe(false),
-			);
+			render(<TestLoadingComponent emojiProvider={providerPromise} />);
+
+			expect(await screen.findByText('Loaded')).toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call #asyncLoadComponent on initial load', () => {
+		it('calls asyncLoadComponent on initial load', async () => {
 			const providerPromise = Promise.resolve({} as EmojiProvider);
-			const component = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			return waitFor(() => expect(hasLoaded(component)).toBe(true)).then(() =>
-				expect(asyncLoadMock.call.length).toBe(1),
-			);
+			render(<TestLoadingComponent emojiProvider={providerPromise} />);
+
+			await screen.findByText('Loaded');
+
+			expect(asyncLoadMock).toHaveBeenCalledTimes(1);
 		});
 
-		it('should only call #asyncLoadComponent on first render', () => {
+		it('only calls asyncLoadComponent on the first render', async () => {
 			const providerPromise = Promise.resolve({} as EmojiProvider);
-			const component1 = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			const component2 = mount(<TestLoadingComponent emojiProvider={providerPromise} />);
-			return waitFor(() => expect(hasLoaded(component1) && hasLoaded(component2)).toBe(true)).then(
-				() => expect(asyncLoadMock.call.length).toBe(1),
-			);
+			const { rerender } = render(<TestLoadingComponent emojiProvider={providerPromise} />);
+
+			await screen.findByText('Loaded');
+			expect(asyncLoadMock).toHaveBeenCalledTimes(1);
+
+			rerender(<TestLoadingComponent emojiProvider={providerPromise} />);
+			await screen.findByText('Loaded');
+
+			expect(asyncLoadMock).toHaveBeenCalledTimes(1);
 		});
 	});
 });

@@ -3,8 +3,8 @@ import React, { useCallback } from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -17,8 +17,8 @@ import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import Link from '@atlaskit/link';
-import type { CardContext } from '@atlaskit/link-provider';
+import Link from '@atlaskit/link/link';
+import type { CardContext } from '@atlaskit/link-provider/types';
 import type { APIError } from '@atlaskit/linking-common';
 import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
 

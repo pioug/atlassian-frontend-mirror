@@ -1,35 +1,51 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
+
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook, waitFor } from '@testing-library/react';
+
 import '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
-// @ts-ignore - This was added due to this import failing with 'no declaration file found for 'fetch-mock/cjs/client' in the Jira Typecheck when the platform is being locally consumed, as Jira does not contain the 'platform/fetch-mock.d.ts' typing. Additionally since this is a custom typing with no properties set it is already adding no type value
 import fetchMock from 'fetch-mock/cjs/client';
 
-import {
-	mockAccessibleProducts,
-	mockAccessibleProductsWithError,
-	mockAvailableSites,
-	mockAvailableSitesWithError,
-} from '../../common/mocks/mockAvailableSites';
-import { mapAccessibleProductsToAvailableSites, useAvailableSites, useAvailableSitesV2 } from '.';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { getOperationFailedAttributes } from './utils';
-import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
+import { mockAccessibleProducts } from '../../common/mocks/mock-accessible-products';
+import { mockAccessibleProductsWithError } from '../../common/mocks/mock-accessible-products-with-error';
+import { mockAvailableSites } from '../../common/mocks/mock-available-sites';
+import { mockAvailableSitesWithError } from '../../common/mocks/mock-available-sites-with-error';
+import { mapAccessibleProductsToAvailableSites } from './mapAccessibleProductsToAvailableSites';
+import { useAvailableSites } from './useAvailableSites';
+import { useAvailableSitesV2 } from './useAvailableSitesV2';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { icon } from '../../common/mocks/icons';
+import { getOperationFailedAttributes } from './getOperationFailedAttributes';
+import { AvailableSitesProductType, type AccessibleProduct, type AvailableSite } from './types';
 
 const AVAILABLE_SITES_PATH = '/gateway/api/available-sites';
 const AVAILABLE_SITES_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/available-sites';
 const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';
 const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/v2/accessible-products';
+const FALLBACK_SITE_URL = 'https://site-without-display-name.atlassian.net';
+
+const createAccessibleProductResponse = (workspaceDisplayName?: string): AccessibleProduct => ({
+	products: [
+		{
+			productDisplayName: 'confluence',
+			productId: AvailableSitesProductType.CONFLUENCE,
+			workspaces: [
+				{
+					cloudId: 'site-without-display-name',
+					workspaceAvatarUrl: 'www.avatarurl.com',
+					workspaceDisplayName,
+					workspaceUrl: FALLBACK_SITE_URL,
+					isPartOf: [],
+					orgId: '',
+					workspaceAri: '',
+					cloudUrl: FALLBACK_SITE_URL,
+				},
+			],
+		},
+	],
+});
 
 describe('useAvailableSites', () => {
 	beforeEach(() => {
@@ -40,12 +56,7 @@ describe('useAvailableSites', () => {
 		mockAvailableSites();
 		const { result } = renderHook(() => useAvailableSites());
 
-		expect(result.current).toMatchInlineSnapshot(`
-		      {
-		        "data": [],
-		        "loading": true,
-		      }
-	    `);
+		expect(result.current).toEqual({ data: [], loading: true });
 
 		await waitFor(() => {
 			expect(result.current.loading).toBe(false);
@@ -64,12 +75,7 @@ describe('useAvailableSites', () => {
 			),
 		});
 
-		expect(result.current).toMatchInlineSnapshot(`
-		      {
-		        "data": [],
-		        "loading": true,
-		      }
-	    `);
+		expect(result.current).toEqual({ data: [], loading: true });
 
 		await waitFor(() => {
 			expect(spy).toBeFiredWithAnalyticEventOnce({
@@ -131,44 +137,11 @@ describe('useAvailableSites', () => {
 			});
 		},
 	);
-
-	ffTest.on(
-		'platform_lp_kill_isvertigo_and_vortexmode',
-		'should set deprecated site metadata to undefined in available sites responses when the gate is enabled',
-		() => {
-			it('sets isVertigo to undefined in the v1 hook result', async () => {
-				mockAvailableSites();
-				const { result } = renderHook(() => useAvailableSites());
-
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
-
-				expect(result.current.data[0]).toHaveProperty('isVertigo', undefined);
-			});
-		},
-	);
-
-	ffTest.off(
-		'platform_lp_kill_isvertigo_and_vortexmode',
-		'should keep deprecated site metadata in available sites responses when the gate is disabled',
-		() => {
-			it('still exposes isVertigo from the v1 hook result', async () => {
-				mockAvailableSites();
-				const { result } = renderHook(() => useAvailableSites());
-
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
-
-				expect(result.current.data[0]).toHaveProperty('isVertigo', true);
-			});
-		},
-	);
 });
 
 describe('mapAccessibleProductsToAvailableSites', () => {
 	it('should map the response from /v2/accessible-products endpoint to match the AvailableSites[] format', () => {
+		failGate('platform_lp_sllv_display_name_fallback');
 		const accessibleProductsResponse: AccessibleProduct = {
 			products: [
 				{
@@ -177,7 +150,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 					workspaces: [
 						{
 							cloudId: '11111',
-							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 1',
 							workspaceUrl: 'https://customsite-1.jira.atlassian.net',
@@ -188,7 +160,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 						},
 						{
 							cloudId: '22222',
-							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 2',
 							workspaceUrl: 'https://customsite-2.jira.atlassian.net',
@@ -205,7 +176,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 					workspaces: [
 						{
 							cloudId: '11111',
-							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 1',
 							workspaceUrl: 'https://customsite-1.jira.atlassian.net',
@@ -216,7 +186,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 						},
 						{
 							cloudId: '33333',
-							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 3',
 							workspaceUrl: 'https://customsite-3.jira.atlassian.net',
@@ -233,7 +202,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 					workspaces: [
 						{
 							cloudId: '22222',
-							vortexMode: 'ENABLED',
 							workspaceAvatarUrl: 'www.avatarurl.com',
 							workspaceDisplayName: 'custom site 2',
 							workspaceUrl: 'https://customsite-2.jira.atlassian.net',
@@ -251,7 +219,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 				avatarUrl: 'www.avatarurl.com',
 				cloudId: '11111',
 				displayName: 'custom site 1',
-				isVertigo: true,
 				products: [AvailableSitesProductType.CONFLUENCE, AvailableSitesProductType.JIRA_SOFTWARE],
 				url: 'https://customsite-1.atlassian.net',
 			},
@@ -259,7 +226,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 				avatarUrl: 'www.avatarurl.com',
 				cloudId: '22222',
 				displayName: 'custom site 2',
-				isVertigo: true,
 				products: [
 					AvailableSitesProductType.CONFLUENCE,
 					AvailableSitesProductType.JIRA_PRODUCT_DISCOVERY,
@@ -270,7 +236,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 				avatarUrl: 'www.avatarurl.com',
 				cloudId: '33333',
 				displayName: 'custom site 3',
-				isVertigo: true,
 				products: [AvailableSitesProductType.JIRA_SOFTWARE],
 				url: 'https://customsite-3.atlassian.net',
 			},
@@ -280,6 +245,30 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 			availableSitesResponse,
 		);
 	});
+
+	it.each([
+		['missing', undefined],
+		['empty', ''],
+	])('uses the site URL when the display name is %s and the gate is on', (_, displayName) => {
+		passGate('platform_lp_sllv_display_name_fallback');
+
+		expect(
+			mapAccessibleProductsToAvailableSites(createAccessibleProductResponse(displayName)),
+		).toEqual([
+			expect.objectContaining({
+				displayName: FALLBACK_SITE_URL,
+				url: FALLBACK_SITE_URL,
+			}),
+		]);
+	});
+
+	it('preserves the existing missing display name behavior when the gate is off', () => {
+		failGate('platform_lp_sllv_display_name_fallback');
+
+		expect(
+			mapAccessibleProductsToAvailableSites(createAccessibleProductResponse())[0].displayName,
+		).toBeUndefined();
+	});
 });
 
 describe('useAvailableSitesV2', () => {
@@ -287,16 +276,41 @@ describe('useAvailableSitesV2', () => {
 		fetchMock.restore();
 	});
 
+	it.each([
+		['current', false, ACCESSIBLE_PRODUCTS_PATH],
+		['unit-compliant', true, ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH],
+	])(
+		'uses the site URL fallback with the %s endpoint',
+		async (_, isUnitCompliant, expectedEndpoint) => {
+			if (isUnitCompliant) {
+				passGate('linking_platform_site_picker_api_unit_compliant');
+			} else {
+				failGate('linking_platform_site_picker_api_unit_compliant');
+			}
+			passGate('platform_lp_sllv_display_name_fallback');
+			mockAccessibleProducts({ data: createAccessibleProductResponse() });
+
+			const { result } = renderHook(() => useAvailableSitesV2({}));
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(expectedEndpoint);
+			expect(result.current.data[0]).toEqual(
+				expect.objectContaining({
+					displayName: FALLBACK_SITE_URL,
+					url: FALLBACK_SITE_URL,
+				}),
+			);
+		},
+	);
+
 	it('should return loading status and the result', async () => {
 		mockAccessibleProducts();
 		const { result } = renderHook(() => useAvailableSitesV2({}));
 
-		expect(result.current).toMatchInlineSnapshot(`
-		{
-		  "data": [],
-		  "loading": true,
-		}
-	`);
+		expect(result.current).toEqual({ data: [], loading: true });
 
 		await waitFor(() => {
 			expect(result.current.loading).toBe(false);
@@ -308,12 +322,7 @@ describe('useAvailableSitesV2', () => {
 		mockAccessibleProducts();
 		const { result } = renderHook(() => useAvailableSitesV2({}));
 
-		expect(result.current).toMatchInlineSnapshot(`
-		{
-		  "data": [],
-		  "loading": true,
-		}
-	`);
+		expect(result.current).toEqual({ data: [], loading: true });
 
 		await waitFor(() => {
 			expect(result.current).toEqual(
@@ -326,7 +335,6 @@ describe('useAvailableSitesV2', () => {
 							url: 'https://jdog.jira-dev.com',
 							displayName: 'jdog',
 							avatarUrl: icon.triangle.base64,
-							isVertigo: true,
 							products: [
 								'confluence.ondemand',
 								'jira-software.ondemand',
@@ -352,35 +360,17 @@ describe('useAvailableSitesV2', () => {
 			),
 		});
 
-		expect(result.current).toMatchInlineSnapshot(`
-		{
-		  "data": [],
-		  "loading": true,
-		}
-	`);
+		expect(result.current).toEqual({ data: [], loading: true });
 		await waitFor(() => {
 			expect(result.current.loading).toBe(false);
 		});
 
 		await waitFor(() => {
-			expect(result.current).toMatchInlineSnapshot(`
-		{
-		  "data": [],
-		  "error": Response {
-		    "_bodyInit": undefined,
-		    "_bodyText": "",
-		    "headers": Headers {
-		      "map": {},
-		    },
-		    "ok": false,
-		    "status": 503,
-		    "statusText": "Service Unavailable",
-		    "type": "default",
-		    "url": "/gateway/api/v2/accessible-products",
-		  },
-		  "loading": false,
-		}
-	`);
+			expect(result.current).toMatchObject({
+				data: [],
+				error: expect.any(Response),
+				loading: false,
+			});
 		});
 	});
 
@@ -416,40 +406,6 @@ describe('useAvailableSitesV2', () => {
 
 				const [requestUrl] = fetchMock.lastCall() ?? [];
 				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
-			});
-		},
-	);
-
-	ffTest.on(
-		'platform_lp_kill_isvertigo_and_vortexmode',
-		'should set deprecated site metadata to undefined in accessible products responses when the gate is enabled',
-		() => {
-			it('sets isVertigo to undefined in the v2 hook result', async () => {
-				mockAccessibleProducts();
-				const { result } = renderHook(() => useAvailableSitesV2({}));
-
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
-
-				expect(result.current.data[0]).toHaveProperty('isVertigo', undefined);
-			});
-		},
-	);
-
-	ffTest.off(
-		'platform_lp_kill_isvertigo_and_vortexmode',
-		'should keep deprecated site metadata in accessible products responses when the gate is disabled',
-		() => {
-			it('still populates isVertigo in the v2 hook result', async () => {
-				mockAccessibleProducts();
-				const { result } = renderHook(() => useAvailableSitesV2({}));
-
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
-
-				expect(result.current.data[0]).toHaveProperty('isVertigo', true);
 			});
 		},
 	);

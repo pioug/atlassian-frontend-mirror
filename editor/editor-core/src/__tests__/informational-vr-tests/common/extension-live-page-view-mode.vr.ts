@@ -6,7 +6,7 @@ import {
 	EmptyBodiedExtension,
 	BodiedExtensionWithSmartLink,
 	InlineExtensionWithSmartLink,
-} from '../../vr-tests/extension-live-page-view-mode.fixtures';
+} from '../../vr-tests/extension-live-page-view-mode.fixtures.vr.ap';
 
 const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 

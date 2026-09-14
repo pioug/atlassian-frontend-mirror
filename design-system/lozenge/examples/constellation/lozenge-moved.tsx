@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 
 const _default: () => React.JSX.Element = () => (
 	<>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dynamic-table",
-	"version": "19.1.5",
+	"version": "19.3.2",
 	"description": "A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,8 +54,8 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -64,6 +64,7 @@
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/drawer": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
@@ -74,27 +75,11 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"tiny-invariant": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
 	}
 }

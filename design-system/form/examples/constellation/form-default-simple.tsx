@@ -1,18 +1,17 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import Form, {
-	CheckboxField,
-	Field,
-	FormFooter,
-	FormHeader,
-	FormSection,
-	RequiredAsterisk,
-} from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Form from '@atlaskit/form/form';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { FormSection } from '@atlaskit/form/form-section';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Flex } from '@atlaskit/primitives/compiled';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 
 const FormDefaultExample = (): React.JSX.Element => (
 	<Flex direction="column">

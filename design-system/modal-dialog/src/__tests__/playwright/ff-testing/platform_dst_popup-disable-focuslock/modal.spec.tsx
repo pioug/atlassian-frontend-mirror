@@ -20,13 +20,13 @@ test.describe('Default Modal', () => {
 	// reading-order coverage is provided by the green
 	// `platform-dst-top-layer/modal.spec.tsx` suite.
 	test.fixme('Modal should move focus based on reading order, and be closed', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/00-default-modal.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'default-modal',
 			{
 				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -61,13 +61,13 @@ test.describe('Default Modal', () => {
 
 test.describe('Modal Dialog Scroll', () => {
 	test('Scrollable modal should have focus on its content', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/55-scroll.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/55-scroll.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'scroll',
 			{
 				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -106,13 +106,13 @@ test.describe('Modal Dialog Scroll', () => {
 	});
 
 	test('Empty modals (no focusable children) should still lock focus', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/55-scroll.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/55-scroll.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'scroll',
 			{
 				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -134,13 +134,13 @@ test.describe('Modal Dialog Scroll', () => {
 
 	// Tests for accessibility properties only testable via integration tests
 	test('Scrollable modal should be accessible to keyboard and AT', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/55-scroll.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/55-scroll.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'scroll',
 			{
 				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -161,13 +161,13 @@ test.describe('Modal Dialog Scroll', () => {
 });
 
 test('Empty modals (no focusable children) should still lock focus', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../../examples/95-custom-child.tsx')>(
+	await page.visitExample<typeof import('../../../../../examples/95-custom-child.vr.ap.tsx')>(
 		'design-system',
 		'modal-dialog',
 		'custom-child',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 
@@ -199,13 +199,13 @@ test.describe('Autofocus', () => {
 		const open = page.getByTestId('boolean-trigger');
 		const modal = page.getByTestId(modalDialog);
 
-		await page.visitExample<typeof import('../../../../../examples/20-autofocus.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/20-autofocus.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'autofocus',
 			{
 				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -219,13 +219,13 @@ test.describe('Autofocus', () => {
 		const open = page.getByTestId('autofocus-trigger');
 		const modal = page.getByTestId(modalDialog);
 
-		await page.visitExample<typeof import('../../../../../examples/20-autofocus.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/20-autofocus.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'autofocus',
 			{
 				featureFlag: 'platform_dst_popup-disable-focuslock',
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -241,13 +241,13 @@ test('Modal with no focusable children should gain focus on its container', asyn
 	const modal = page.getByTestId(modalDialog);
 	const close = page.getByTestId(closeModalBtn);
 
-	await page.visitExample<typeof import('../../../../../examples/95-custom-child.tsx')>(
+	await page.visitExample<typeof import('../../../../../examples/95-custom-child.vr.ap.tsx')>(
 		'design-system',
 		'modal-dialog',
 		'custom-child',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 	await expect(open).toBeVisible();
@@ -267,7 +267,7 @@ test('Focus should return to item specified by ref after modal is closed', async
 		'focus-to-ref-on-modal-close',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 	await expect(openModal).toBeVisible();

@@ -1,64 +1,11 @@
-import { tap } from 'rxjs/operators/tap';
-import { concatMap } from 'rxjs/operators/concatMap';
-import { bufferCount } from 'rxjs/operators/bufferCount';
-import { fromPromise } from 'rxjs/observable/fromPromise';
-import { type Observable } from 'rxjs/Observable';
-import {
-	type Chunkinator,
-	type ChunkinatorFile,
-	type Options,
-	type Callbacks,
-	type HashedBlob,
-} from './domain';
-import { slicenator } from './slicenator';
-import { hashinator } from './hashinator';
-import { uploadinator } from './uploadinator';
-import { processinator } from './processinator';
-import { fetchBlob } from './utils';
-import { from } from 'rxjs/observable/from';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { type Chunkinator } from './domain';
+import { getObservableFromFile } from './getObservableFromFile';
 
-export const getObservableFromFile = (
-	file: ChunkinatorFile,
-	options: Options,
-	callbacks: Callbacks,
-): Observable<HashedBlob[]> =>
-	fromPromise(fetchBlob(file)).pipe(
-		concatMap((blob) => {
-			const { chunkSize } = options;
-			const { onProgress } = callbacks;
-			const totalChunks = Math.ceil(blob.size / chunkSize);
-			const slicenatedBlobs = slicenator(blob, { size: chunkSize });
-			const hashinatedBlobs = hashinator(slicenatedBlobs, {
-				concurrency: options.hashingConcurrency,
-				hasher: options.hashingFunction,
-			});
-
-			let uploadedChunks = 0;
-
-			let uploadedBlobs = uploadinator(hashinatedBlobs, {
-				concurrency: options.uploadingConcurrency,
-				uploader: options.uploadingFunction,
-			});
-
-			if (onProgress) {
-				uploadedBlobs = uploadedBlobs.pipe(
-					tap(() => {
-						uploadedChunks += 1;
-						onProgress(uploadedChunks / totalChunks);
-					}),
-				);
-			}
-			return processinator(uploadedBlobs, {
-				batchSize: options.processingBatchSize,
-				processor: options.processingFunction,
-			}).pipe(
-				concatMap((batchedChunks) => {
-					return from(batchedChunks);
-				}),
-				bufferCount(totalChunks),
-			);
-		}),
-	);
+/**
+ * @deprecated Use `import { getObservableFromFile } from '@atlaskit/chunkinator/getObservableFromFile'` instead.
+ */
+export { getObservableFromFile };
 
 export const chunkinator: Chunkinator = (file, options, callbacks) => {
 	return getObservableFromFile(file, options, callbacks);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import IdeaObject from '@atlaskit/object/idea';
 import PullRequestObject from '@atlaskit/object/pull-request';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';

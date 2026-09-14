@@ -11,6 +11,13 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 			test.use({
 				examplePage: 'non-visual-style-mutation',
 				viewport,
+			} satisfies {
+				examplePage: 'non-visual-style-mutation';
+				viewport: {
+					width: number;
+					height: number;
+				};
+				__exampleDependency?: typeof import('../../examples/11-non-visual-style-mutation.tsx');
 			});
 
 			test(`VC90 should match when the [content-div] is first visible`, async ({

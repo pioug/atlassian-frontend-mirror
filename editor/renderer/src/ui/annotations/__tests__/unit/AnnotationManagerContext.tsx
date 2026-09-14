@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { act } from 'react';
 
-import { screen, renderHook } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { screen, renderHook } from '@atlassian/testing-library';
 
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { createAnnotationManager } from '@atlaskit/editor-common/annotation';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 import {
 	AnnotationManagerProvider,
@@ -33,7 +32,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 
 	describe('when updateAnnotation is called', () => {
 		it('should add missing annotations to annotation map', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -64,7 +63,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should toggle off previous selected annotation when new annotation is selected', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -142,7 +141,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 			// This is to ensure that the user can select an annotation and hover over another one without losing the selection
 			// or hover state of the other annotation.
 
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -239,7 +238,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should not reset selected or hovered if the current selected/hovered is not the same id as the toggled item', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -319,7 +318,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should not reset current selected annotation when the annotation is resolved', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -364,7 +363,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 
 	describe('when annotation manager is used', () => {
 		it('should get draft not started if isDrafting is false', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -381,7 +380,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should get draft started only when the draft has been completely started', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -450,7 +449,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should not trigger draft started callback until after the html element reference is available', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -513,7 +512,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 
 	describe('setIsAnnotationSelected', () => {
 		it('should return false if drafting', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -532,7 +531,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should return false if id is not valid', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -544,7 +543,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should set the annotation as selected programmatically', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -569,7 +568,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should override the current selected annotation programmatically if a different annotation is selected', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -601,7 +600,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should deselect a selected annotation', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -630,7 +629,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 
 	describe('onAnnotationSelectionChange', () => {
 		it('single annotation toggle', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -669,7 +668,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('switch to another annotation', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -717,7 +716,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should only trigger onAnnotationSelectionChange when the annotation is selected and ref is set', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -758,7 +757,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 
 	describe('setIsAnnotationHovered', () => {
 		it('should return false if id is not valid', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -770,7 +769,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should set the annotation as hovered programmatically', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -793,7 +792,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should override the current hovered annotation programmatically if a different annotation is hovered', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -824,7 +823,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 
 	describe('clearAnnotation', () => {
 		it('should return false if id is not valid', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{ wrapper },
 			);
@@ -836,7 +835,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should return false if deleteAnnotation failed', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{
 					wrapper: ({ children }: React.PropsWithChildren) => {
@@ -864,7 +863,7 @@ describe('Annotations: AnnotationManagerProvider', () => {
 		});
 
 		it('should return what deleteAnnotation returns', () => {
-			const { result } = renderHook(
+			const result = renderHook(
 				() => ({ ...useAnnotationManagerState(), ...useAnnotationManagerDispatch() }),
 				{
 					wrapper: ({ children }: React.PropsWithChildren) => {

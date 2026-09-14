@@ -4,7 +4,7 @@ import {
 	CounterUseDarkerFontCompiled,
 	CounterUseHighlightCompiled,
 	CounterUseUpdatedStylesCompiled,
-} from './Counter.fixtures';
+} from './Counter.fixtures.vr.ap';
 
 snapshot(CounterCompiled);
 snapshot(CounterUseHighlightCompiled);

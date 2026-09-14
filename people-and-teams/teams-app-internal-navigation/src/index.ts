@@ -1,2 +1,3 @@
 export { TeamsAnchor } from './ui/TeamsAnchor';
-export { TeamsNavigationProvider, useTeamsNavigationContext } from './ui/TeamsNavigationProvider';
+export { TeamsNavigationProvider } from './ui/TeamsNavigationProvider';
+export { useTeamsNavigationContext } from './ui/useTeamsNavigationContext';

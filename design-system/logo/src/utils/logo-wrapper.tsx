@@ -5,7 +5,7 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -294,7 +294,7 @@ export function LogoWrapper({
 						: cloudLightAppearanceMap[appearance],
 				isAssets &&
 					appearance === 'brand' &&
-					(fg('assets-platform-branding') || fg('assets-platform-branding-with-confluence')) &&
+					(fg('assets-platform-branding') || fg('assets-platform-branding-v2')) &&
 					styles.TEMP_assets,
 			]}
 			style={

@@ -1,3 +1,4 @@
+import scrollbarStyles from './scrollbars';
 import evaluateInner from './utils/evaluate-inner';
 
 const _default_1: string = evaluateInner`
@@ -34,5 +35,7 @@ const _default_1: string = evaluateInner`
 button {
   font-family: inherit;
 }
+
+${scrollbarStyles}
 `;
 export default _default_1;

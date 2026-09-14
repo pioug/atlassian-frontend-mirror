@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library';
 
 import { axe } from '@af/accessibility-testing';
 
-import { CheckboxSelect as AtlaskitSelect } from '../../../index';
+import { CheckboxSelect as AtlaskitSelect } from '../../../checkbox-select';
 
 const OPTIONS = [
 	{ label: '0', value: 'zero' },

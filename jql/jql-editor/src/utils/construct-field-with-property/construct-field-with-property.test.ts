@@ -1,8 +1,9 @@
-import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
 
-import { constructFieldWithProperty, constructFieldWithPropertyFG } from './index';
+import { constructFieldWithProperty } from './constructFieldWithProperty';
+import { constructFieldWithPropertyFG } from './constructFieldWithPropertyFG';
 
 /**
  * Builds the AST for the given JQL and returns the field node of the first terminal clause.

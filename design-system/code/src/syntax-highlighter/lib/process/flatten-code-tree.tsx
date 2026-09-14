@@ -1,6 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { RefractorNode } from 'refractor';
 
-import { type RefractorNode } from '../../types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import createLineElement from './create-line-element';
 

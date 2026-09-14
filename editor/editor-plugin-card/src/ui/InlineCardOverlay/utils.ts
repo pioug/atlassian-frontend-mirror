@@ -1,4 +1,4 @@
-import type { Size } from '@atlaskit/icon';
+import type { Size } from '@atlaskit/icon/types';
 
 /**
  * Find a child element inside a ref.

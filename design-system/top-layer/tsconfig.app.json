@@ -45,6 +45,9 @@
 			"path": "../layering/tsconfig.app.json"
 		},
 		{
+			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
+		},
+		{
 			"path": "../tokens/tsconfig.app.json"
 		}
 	],

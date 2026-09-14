@@ -1,22 +1,4 @@
-import { type MediaFilePreview } from './types';
-
-/**
- * Primary reason is logged through Data Portal.
- * Make sure all the values are whitelisted in Measure -> Event Regitry -> "mediaCardRender failed" event
- */
-export type MediaFilePreviewErrorPrimaryReason =
-	| 'upload'
-	| 'metadata-fetch'
-	| 'error-file-state'
-	| 'failed-processing'
-	| RemotePreviewPrimaryReason
-	| LocalPreviewPrimaryReason
-	| ImageLoadPrimaryReason
-	| SsrPreviewPrimaryReason
-	| 'missing-error-data'
-	// Reasons below are used to wrap unexpected/unknown errors with ensureMediaFilePreviewError
-	| 'preview-fetch';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export type ImageLoadPrimaryReason =
 	| 'cache-remote-uri'
 	| 'cache-local-uri'
@@ -45,102 +27,44 @@ export type SsrPreviewPrimaryReason =
 	| 'ssr-server-uri'
 	| 'ssr-server-load';
 
-export class MediaFilePreviewError extends Error {
-	constructor(
-		readonly primaryReason: MediaFilePreviewErrorPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason);
-		// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
-		Object.setPrototypeOf(this, new.target.prototype);
-
-		// https://v8.dev/docs/stack-trace-api
-		if ('captureStackTrace' in Error) {
-			Error.captureStackTrace(this, new.target);
-		}
-	}
-}
-export class LocalPreviewError extends MediaFilePreviewError {
-	constructor(
-		readonly primaryReason: LocalPreviewPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason, secondaryError);
-	}
-}
-
-export class RemotePreviewError extends MediaFilePreviewError {
-	constructor(
-		readonly primaryReason: RemotePreviewPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason, secondaryError);
-	}
-}
-
-export class SsrPreviewError extends MediaFilePreviewError {
-	constructor(
-		readonly primaryReason: SsrPreviewPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason, secondaryError);
-	}
-}
-
-const getImageLoadPrimaryReason = (source?: MediaFilePreview['source']): ImageLoadPrimaryReason => {
-	switch (source) {
-		case 'cache-remote':
-			return 'cache-remote-uri';
-		case 'cache-local':
-			return 'cache-local-uri';
-		case 'external':
-			return 'external-uri';
-		case 'local':
-			return 'local-uri';
-		case 'remote':
-			return 'remote-uri';
-		case 'ssr-client':
-			return 'ssr-client-uri';
-		case 'ssr-server':
-		case 'ssr-data':
-			return 'ssr-server-uri';
-		// This fail reason will come from a bug, most likely.
-		default:
-			return `unknown-uri`;
-	}
-};
-export class ImageLoadError extends MediaFilePreviewError {
-	constructor(source?: MediaFilePreview['source']) {
-		super(getImageLoadPrimaryReason(source));
-	}
-}
-
-export function isMediaFilePreviewError(err: Error): err is MediaFilePreviewError {
-	return err instanceof MediaFilePreviewError;
-}
-
-export const isLocalPreviewError = (err: Error): err is LocalPreviewError =>
-	err instanceof LocalPreviewError;
-
-export const isRemotePreviewError = (err: Error): err is RemotePreviewError =>
-	err instanceof RemotePreviewError;
-
-export const isUnsupportedLocalPreviewError = (err: Error): boolean =>
-	isMediaFilePreviewError(err) && err.primaryReason === 'local-preview-unsupported';
-
-// In a try/catch statement, the error caught is the type of unknown.
-// We can use this helper to ensure that the error handled is the type of MediaFilePreviewError if unsure
-// If updatePrimaryReason is true, if it's a MediaFilePreviewError already, it will update it's primary reason
-export const ensureMediaFilePreviewError = (
-	primaryReason: MediaFilePreviewErrorPrimaryReason,
-	error: Error,
-	updatePrimaryReason?: boolean,
-): MediaFilePreviewError => {
-	if (isMediaFilePreviewError(error)) {
-		if (updatePrimaryReason && error.primaryReason !== primaryReason) {
-			return new MediaFilePreviewError(primaryReason, error.secondaryError);
-		}
-		return error;
-	}
-	return new MediaFilePreviewError(primaryReason, error);
-};
+/**
+ * @deprecated Use `import { MediaFilePreviewError } from '@atlaskit/media-file-preview/media-file-preview-error'` instead.
+ */
+export { MediaFilePreviewError } from './MediaFilePreviewError';
+export type { MediaFilePreviewErrorPrimaryReason } from './MediaFilePreviewError';
+/**
+ * @deprecated Use `import { LocalPreviewError } from '@atlaskit/media-file-preview/local-preview-error'` instead.
+ */
+export { LocalPreviewError } from './LocalPreviewError';
+/**
+ * @deprecated Use `import { RemotePreviewError } from '@atlaskit/media-file-preview/remote-preview-error'` instead.
+ */
+export { RemotePreviewError } from './RemotePreviewError';
+/**
+ * @deprecated Use `import { SsrPreviewError } from '@atlaskit/media-file-preview/ssr-preview-error'` instead.
+ */
+export { SsrPreviewError } from './SsrPreviewError';
+/**
+ * @deprecated Use `import { ImageLoadError } from '@atlaskit/media-file-preview/image-load-error'` instead.
+ */
+export { ImageLoadError } from './ImageLoadError';
+/**
+ * @deprecated Use `import { isMediaFilePreviewError } from '@atlaskit/media-file-preview/is-media-file-preview-error'` instead.
+ */
+export { isMediaFilePreviewError } from './isMediaFilePreviewError';
+/**
+ * @deprecated Use `import { isLocalPreviewError } from '@atlaskit/media-file-preview/is-local-preview-error'` instead.
+ */
+export { isLocalPreviewError } from './isLocalPreviewError';
+/**
+ * @deprecated Use `import { isRemotePreviewError } from '@atlaskit/media-file-preview/is-remote-preview-error'` instead.
+ */
+export { isRemotePreviewError } from './isRemotePreviewError';
+/**
+ * @deprecated Use `import { isUnsupportedLocalPreviewError } from '@atlaskit/media-file-preview/is-unsupported-local-preview-error'` instead.
+ */
+export { isUnsupportedLocalPreviewError } from './isUnsupportedLocalPreviewError';
+/**
+ * @deprecated Use `import { ensureMediaFilePreviewError } from '@atlaskit/media-file-preview/ensure-media-file-preview-error'` instead.
+ */
+export { ensureMediaFilePreviewError } from './ensureMediaFilePreviewError';

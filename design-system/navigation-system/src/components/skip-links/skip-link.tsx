@@ -7,7 +7,7 @@ import React, { type ReactNode, useCallback } from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

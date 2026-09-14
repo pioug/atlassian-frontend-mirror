@@ -2,7 +2,7 @@ import { sendEvent } from '../analytics-web-client-wrapper';
 import { type AnalyticsWebClient } from '../types';
 import type Logger from '../helpers/logger';
 import { processEventPayload } from './process-event-payload';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 export const handleEvent = (
 	event: UIAnalyticsEvent,

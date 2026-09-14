@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { useCommonTableProps } from '../../examples-helpers/useCommonTableProps';
-import { DatasourceTableView } from '../../src';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '../../src/ui/datasource-table-view/DatasourceTableViewWithWrappers';
 
 mockDatasourceFetchRequests();
 
@@ -18,6 +18,7 @@ export default (): React.JSX.Element => {
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 	} = useCommonTableProps({
 		defaultColumnCustomSizes: {
 			people: 100,
@@ -36,6 +37,7 @@ export default (): React.JSX.Element => {
 					columnCustomSizes={columnCustomSizes}
 					onColumnResize={onColumnResize}
 					onWrappedColumnChange={onWrappedColumnChange}
+					onWrappedColumnsChange={onWrappedColumnsChange}
 					wrappedColumnKeys={wrappedColumnKeys}
 				/>
 			</SmartCardProvider>

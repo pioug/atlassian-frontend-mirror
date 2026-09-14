@@ -1,5 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { TableLayout } from '@atlaskit/adf-schema';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 
 export type SharedTableProps = {

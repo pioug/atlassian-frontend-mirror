@@ -19,7 +19,8 @@ import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/t
 import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common/types';
 import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { MenuGroup } from '@atlaskit/menu';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -180,7 +181,7 @@ const TypeAheadListComponent = React.memo(
 		const itemsLength = showMoreOptionsButton ? Math.max(items.length - 1, 0) : items.length;
 
 		const isEmptyStateActive =
-			expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true) &&
+			isExperimentEnabled('platform_editor_insert_menu_ai') &&
 			!!emptyItem &&
 			itemsLength === 1 &&
 			items[0] === emptyItem;
@@ -598,7 +599,7 @@ const TypeAheadListComponent = React.memo(
 				</Text>
 				<Text align="center" as="p">
 					{intl.formatMessage(
-						expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+						isExperimentEnabled('platform_editor_insert_menu_ai')
 							? showMoreOptionsButton
 								? typeAheadListMessages.emptySearchResultsSuggestionNew
 								: typeAheadListMessages.emptySearchResultsSuggestionAskRovoOnly
@@ -671,7 +672,7 @@ const TypeAheadListComponent = React.memo(
 	},
 );
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const TypeAheadList: React.FC<
 	WithIntlProps<
 		{

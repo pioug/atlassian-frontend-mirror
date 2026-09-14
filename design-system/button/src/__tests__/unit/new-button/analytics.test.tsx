@@ -2,7 +2,8 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import Button from '../../../new-button/variants/default/button';
 import variants from '../../../utils/variants';

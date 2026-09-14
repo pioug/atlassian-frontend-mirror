@@ -1,11 +1,12 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractPreview, extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors';
-import type { EnvironmentsKeys } from '@atlaskit/linking-common';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractPreview } from '@atlaskit/link-extractors/extract-preview';
+import { extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors/extract-url-from-link-json-ld';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 
 import { getBranchDeploy, getDefaultResponse, getDefaultUrl } from './utils';
 

@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { Status as AkStatus } from '@atlaskit/status/element';
 import type { Color } from '@atlaskit/status/element';
-import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 

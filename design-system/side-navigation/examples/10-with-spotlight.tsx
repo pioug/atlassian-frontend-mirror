@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import AppIcon from '@atlaskit/icon/core/app';
 import WorkIcon from '@atlaskit/icon/core/folder-closed';
@@ -10,16 +10,14 @@ import CustomerIcon from '@atlaskit/icon/core/person';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	ButtonItem,
-	LinkItem,
-	NavigationFooter,
-	NavigationHeader,
-	NestableNavigationContent,
-	NestingItem,
-	Section,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+import { LinkItem } from '@atlaskit/side-navigation/link-item';
+import { NavigationFooter } from '@atlaskit/side-navigation/navigation-footer';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
 import { SpotlightBody } from '@atlaskit/spotlight/body';
 import { SpotlightCard } from '@atlaskit/spotlight/card';

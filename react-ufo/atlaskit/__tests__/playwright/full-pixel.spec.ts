@@ -7,6 +7,10 @@ test.describe('ReactUFO: Full precision - Full Vertical Pixel Page', () => {
 	test.use({
 		examplePage: 'full-vertical-pixel-page',
 		featureFlags: ['platform_ufo_canvas_heatmap_full_precision'],
+	} satisfies {
+		examplePage: 'full-vertical-pixel-page';
+		featureFlags: string[];
+		__exampleDependency?: typeof import('../../examples/03-full-vertical-pixel-page.tsx');
 	});
 
 	for (const viewport of viewports) {
@@ -20,7 +24,6 @@ test.describe('ReactUFO: Full precision - Full Vertical Pixel Page', () => {
 				waitForReactUFOPayload,
 				getSectionVisibleAt,
 			}) => {
-				await test.slow();
 				const mainDiv = page.locator('[data-testid="main"]');
 				await expect(mainDiv).toBeVisible();
 
@@ -70,12 +73,7 @@ test.describe('ReactUFO: Full precision - Full Vertical Pixel Page', () => {
 				}
 			});
 
-			test('should capture and report a11y violations', async ({
-				page,
-				waitForReactUFOPayload,
-				getSectionVisibleAt,
-			}) => {
-				await test.slow();
+			test('should capture and report a11y violations', async ({ page }) => {
 				const mainDiv = page.locator('[data-testid="main"]');
 				await expect(mainDiv).toBeVisible();
 
@@ -101,7 +99,6 @@ test.describe('ReactUFO: Scaled (with margin error)- Full Vertical Pixel Page', 
 				waitForReactUFOPayload,
 				getSectionVisibleAt,
 			}) => {
-				await test.slow();
 				const mainDiv = page.locator('[data-testid="main"]');
 				await expect(mainDiv).toBeVisible();
 

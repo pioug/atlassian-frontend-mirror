@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';
 import { TopNavStartProvider } from '../../context/top-nav-start/top-nav-start-context-provider';
@@ -78,8 +78,11 @@ const styles = cssMap({
 	},
 	// used when the `platform-dst-motion-uplift-panel` feature gate is on. Ensures the panel does not cause
 	// scroll bars to appear when panel transforms off screen.
+	// `overflow: clip` is used instead of `overflow: hidden` because `overflow: hidden` creates a new scroll
+	// container, which breaks `position: sticky` on descendants such as the Aside slot's inner element.
+	// `overflow: clip` clips content without creating a scroll container, preserving sticky positioning.
 	panelUplift: {
-		overflow: 'hidden',
+		overflow: 'clip',
 	},
 });
 
@@ -153,7 +156,8 @@ export function Root({
 	 * is pressed, before the SideNav is toggled. You can use this to conditionally disable the shortcut based on your
 	 * your own custom checks, e.g. if there is a legacy dialog open.
 	 *
-	 * Note: The built-in keyboard shortcut is behind `useIsFhsEnabled`.
+	 * Note: The built-in keyboard shortcut is behind the `platform-dst-keep-desired-fhs-features`
+	 * feature gate, or `useIsFhsEnabled` for backwards compatibility.
 	 */
 	isSideNavShortcutEnabled?: boolean;
 }): JSX.Element {

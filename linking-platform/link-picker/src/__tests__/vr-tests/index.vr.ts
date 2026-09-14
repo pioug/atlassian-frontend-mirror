@@ -3,7 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import {
 	VrErrorInPopupWithWhitespaceNowrapAncestor,
 	VrNoResultsInPopupWithWhitespaceNowrapAncestor,
-} from '../../../examples/vr';
+} from '../../../examples/vr/index.vr.ap';
 
 /** Remove on cleanup of platform_link_picker_fix_error_state_text_overflow */
 snapshot(VrNoResultsInPopupWithWhitespaceNowrapAncestor, {

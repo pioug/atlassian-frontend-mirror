@@ -3,9 +3,9 @@ import React, { useCallback, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { IntlProvider } from 'react-intl';
 
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import Link from '@atlaskit/link';
-import type { EnvironmentsKeys } from '@atlaskit/linking-common';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import Link from '@atlaskit/link/link';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';

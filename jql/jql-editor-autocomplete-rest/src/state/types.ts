@@ -1,7 +1,7 @@
 import { type Action } from 'react-sweet-state';
 import type { Observable } from 'rxjs/Observable';
 
-import { type JqlEditorAutocompleteAnalyticsEvent } from '../analytics';
+import type { JqlEditorAutocompleteAnalyticsEvent } from '../analytics/types';
 import {
 	type GetAutocompleteInitialData,
 	type JQLFieldResponse,

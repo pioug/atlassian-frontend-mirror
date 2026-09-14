@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { SmartLinkSize } from '../../constants';
 import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
-import { getPreviewUrlWithTheme } from '../../utils';
+import { getPreviewUrlWithTheme } from '../../utils/get-preview-url-with-theme';
 import { BaseIconElement } from '../FlexibleCard/components/elements/common';
 
 import withAnalytics from './components/analytics';
@@ -121,7 +122,7 @@ const EmbedModal = ({
 	const hasRestoredFocus = useRef(false);
 
 	useEffect(() => {
-		if (!isOpen || !fg('navx-4719-a11y-embed-modal-focus-states')) {
+		if (!isOpen) {
 			hasRestoredFocus.current = false;
 			return;
 		}
@@ -145,6 +146,7 @@ const EmbedModal = ({
 	return (
 		<ModalTransition>
 			{isOpen && (
+				// eslint-disable-next-line @atlaskit/design-system/no-modal-label
 				<ModalDialog
 					height="100%"
 					onClose={handleOnClose}
@@ -169,7 +171,7 @@ const EmbedModal = ({
 						size={width}
 						title={title}
 						testId={testId}
-						{...(fg('navx-4719-a11y-embed-modal-focus-states') ? { focusRef } : {})}
+						focusRef={focusRef}
 					/>
 					<ModalBody>
 						<EmbedContent

@@ -79,21 +79,12 @@ export type ErrorAttributionAttributes = {
 
 /**
  * Builds the {@link ErrorAttributionAttributes} for a failed synced-block operation from
- * the raw result `error` field and optional backend `statusCode`. Returns `undefined`
- * when the `platform_editor_blocks_patch_3` gate is OFF, so the new `reason`/`statusCode`
- * attributes are only emitted once the gate is rolled out (EDITOR-7796).
- *
- * `gateEnabled` is injected by the caller (the store managers evaluate `fg(...)`) so this
- * helper stays pure and trivially unit-testable for both gate states.
+ * the raw result `error` field and optional backend `statusCode` (EDITOR-7796).
  */
 export const buildErrorAttribution = (
-	gateEnabled: boolean,
 	error?: string,
 	statusCode?: number,
-): ErrorAttributionAttributes | undefined => {
-	if (!gateEnabled) {
-		return undefined;
-	}
+): ErrorAttributionAttributes => {
 	return {
 		reason: classifyErrorReason(error),
 		...(statusCode !== undefined && { statusCode }),
@@ -265,22 +256,14 @@ export type FetchErrorAttributionAttributes = {
 /**
  * Builds the {@link FetchErrorAttributionAttributes} for a failed fetch/subscribe
  * synced-block operation from the raw `error` field and optional backend `statusCode`.
- * Returns `undefined` when the `platform_editor_blocks_patch_3` gate is OFF, so the new
- * `reason`/`statusCode`/`benign` attributes are only emitted once the gate is rolled out
- * (EDITOR-7862). The existing free-text `error` attribute is always left unchanged.
- *
- * `gateEnabled` is injected by the caller (the store managers evaluate `fg(...)`) so this
- * helper stays pure and trivially unit-testable for both gate states.
+ * Emits the `reason`/`statusCode`/`benign` attributes (EDITOR-7862). The existing
+ * free-text `error` attribute is always left unchanged.
  */
 export const buildFetchErrorAttribution = (
-	gateEnabled: boolean,
 	error?: string,
 	statusCode?: number,
 	deferred?: boolean,
-): FetchErrorAttributionAttributes | undefined => {
-	if (!gateEnabled) {
-		return undefined;
-	}
+): FetchErrorAttributionAttributes => {
 	const reason = classifyFetchErrorReason(error);
 	return {
 		reason,
@@ -398,8 +381,8 @@ export const fetchErrorPayload = (
 	attribution?: FetchErrorAttributionAttributes,
 ): RendererSyncBlockEventPayload =>
 	// Branch on attribution presence so each call resolves to a concrete overload: with
-	// attribution it hits the fetch overload (wider `reason`); without it (gate OFF) it
-	// hits the no-attribution overload. Both produce a fetch event regardless.
+	// attribution it hits the fetch overload (wider `reason`); without it, the
+	// no-attribution overload. Both produce a fetch event regardless.
 	attribution
 		? getErrorPayload(
 				ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
@@ -475,8 +458,7 @@ export const updateCacheErrorPayload = (
 	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE_CACHE, error, resourceId, sourceProduct);
 /**
  * Payload for `SYNCED_BLOCK_SOURCE_INFO_ORPHANED`. Fired when source-info
- * resolves into a cache that has already been deleted — should be unreachable
- * under `platform_synced_block_patch_14`.
+ * resolves into a cache that has already been deleted — should be unreachable.
  */
 export const sourceInfoOrphanedPayload = (
 	resourceId?: string,
@@ -558,19 +540,20 @@ export const createSuccessPayload = (
 
 /**
  * Optional enrichment for the `syncedBlockCreate` success event. All fields
- * optional so gate-off/legacy payloads are unchanged. `inputMethod`: creating
+ * optional so legacy payloads are unchanged. `inputMethod`: creating
  * surface (enum, PII-safe). `createdEmpty`: true from an empty selection, false
- * when content was converted.
+ * when content was converted. `nodeTypes`: sorted types of top-level nodes
+ * converted from a non-empty selection.
  */
 export type CreateSuccessEnrichment = {
 	createdEmpty?: boolean;
 	inputMethod?: INPUT_METHOD;
+	nodeTypes?: string[];
 };
 
 /**
- * Operational `syncedBlockCreate` success event, behind
- * `platform_editor_blocks_patch_4`, with the `blockInstanceId` join key and,
- * when available, the `inputMethod` + `createdEmpty` creation-type signals.
+ * Operational `syncedBlockCreate` success event with the `blockInstanceId` join key and,
+ * when available, the `inputMethod`, `createdEmpty`, and `nodeTypes` creation signals.
  */
 export const createSuccessOperationalPayload = (
 	resourceId: string,
@@ -588,12 +571,12 @@ export const createSuccessOperationalPayload = (
 		...(sourceProduct && { sourceProduct }),
 		...(enrichment?.inputMethod && { inputMethod: enrichment.inputMethod }),
 		...(enrichment?.createdEmpty !== undefined && { createdEmpty: enrichment.createdEmpty }),
+		...(enrichment?.nodeTypes?.length && { nodeTypes: enrichment.nodeTypes }),
 	},
 });
 
 /**
- * Operational first-content-added event, behind
- * `platform_editor_blocks_patch_4`. Fired once when a block created empty first
+ * Operational first-content-added event. Fired once when a block created empty first
  * gains user content. Join keys only (`resourceId` + `blockInstanceId`), no user
  * content (PII-safe).
  */
@@ -630,9 +613,8 @@ export const updateSuccessPayload = (
 });
 
 /**
- * Optional enrichment for the `syncedBlockDelete` success event behind
- * `platform_editor_blocks_patch_4`. All fields optional so the gate-off payload
- * is unchanged; `blockInstanceId` is the bare-uuid join key.
+ * Optional enrichment for the `syncedBlockDelete` success event. All fields are
+ * optional for extensibility; `blockInstanceId` is the bare-uuid join key.
  */
 export type DeleteSuccessEnrichment = {
 	blockInstanceId?: string;

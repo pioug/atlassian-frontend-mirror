@@ -1,21 +1,22 @@
 import { waitFor } from '@testing-library/react';
+import fetchMock from 'fetch-mock/cjs/client';
+import * as sinon from 'sinon';
+import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
+
 import type {
 	OnProviderChange,
 	SecurityOptions,
 	ServiceConfig,
 } from '@atlaskit/util-service-support';
-import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
-import fetchMock from 'fetch-mock/cjs/client';
-import * as sinon from 'sinon';
-import EmojiResource, {
-	type EmojiProvider,
-	type EmojiResourceConfig,
-	supportsUploadFeature,
-	type UploadingEmojiProvider,
+import type {
+	EmojiProvider,
+	EmojiResourceConfig,
+	UploadingEmojiProvider,
 } from '../../../api/EmojiResource';
+import EmojiResource from '../../../api/EmojiResource';
 import SiteEmojiResource from '../../../api/media/SiteEmojiResource';
-import { selectedToneStorageKey } from '../../../util/constants';
+import { supportsUploadFeature } from '../../../api/supportsUploadFeature';
 import type {
 	EmojiDescription,
 	EmojiId,
@@ -25,6 +26,7 @@ import type {
 	SearchOptions,
 	ToneSelection,
 } from '../../../types';
+import { selectedToneStorageKey } from '../../../util/constants';
 import {
 	evilburnsEmoji,
 	grinEmoji,

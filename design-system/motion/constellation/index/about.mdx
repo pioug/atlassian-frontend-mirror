@@ -65,6 +65,38 @@ import { token } from '@atlaskit/tokens';
 </StaggeredEntrance>
 ```
 
+### useMotion hook
+
+[useMotion](/components/motion/use-motion) runs the same entry and exit lifecycle as the Motion
+primitive, but renders no markup. It returns the current motion `state`, and you apply the animation
+to an element you already render.
+
+```tsx
+import { useMotion } from '@atlaskit/motion/use-motion';
+
+const { ref, state } = useMotion<HTMLLIElement>();
+
+<li ref={ref} css={[styles.item, state === 'entering' && styles.entering]}>
+	Item
+</li>;
+```
+
+Both are the same engine, the Motion primitive is built on `useMotion` internally, and the primitive
+is not being deprecated. Use the Motion primitive by default: it is less code and handles the
+animation styling, the hidden states, and reduced motion for you. Use `useMotion` when the
+primitive's wrapper `<div>` would break something:
+
+- **Layout**, where the animated element must stay a direct child of a CSS grid or flex container.
+- **Semantics or accessibility**, where a parent and child must stay directly related, such as
+  `<ul>` and `<li>`, `<table>` and `<tr>`, or elements with related ARIA roles.
+- **Attributes**, where a parent selects on something that must sit on the animated element itself,
+  such as a layout slot marker or an ARIA attribute.
+- **Composition**, where the animation needs to apply to an element you already render.
+
+The resulting motion is identical either way, so this is an implementation choice rather than a
+design one. See [useMotion](/components/motion/use-motion) for the state machine and the
+responsibilities you take on with the hook.
+
 ### CSS over JavaScript
 
 Where possible this library uses CSS exclusively, and only falls back to JavaScript when there is no
@@ -120,18 +152,18 @@ for the utilities available.
 
 ### Not rendering markup
 
-Every component in this library will not render markup, they will just pass down \`props\` for you
-to wire up. Because of this the majority of _motion atoms_ will utilize children as props or hooks:
-
-```
-<div {...useMotion()} />
-```
+The legacy entering motions do not render markup — they pass down `props` for you to wire up, using
+the children-as-props pattern:
 
 ```
 <FadeIn>
   {props => <div {...props} />}
 </FadeIn>
 ```
+
+Note that this is not the same as [useMotion](/components/motion/use-motion). The hook's return
+value is not a set of props to spread onto an element — it returns `state` for you to map to your
+own styles, plus a `ref` and `reanimate`.
 
 ### Usage with Primitives
 

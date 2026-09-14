@@ -5,7 +5,7 @@ import LinkIcon from '@atlaskit/icon/core/link';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import WhiteboardIcon from '@atlaskit/icon/core/whiteboard';
-import { ButtonItem } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
 import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

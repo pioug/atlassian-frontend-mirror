@@ -1,0 +1,36 @@
+const LESS_COLOR_FUNCTIONS = [
+	'lighten',
+	'darken',
+	'saturate',
+	'desaturate',
+	'fadein',
+	'fadeout',
+	'fade',
+	'spin',
+	'mix',
+	'greyscale',
+	'contrast',
+	'multiply',
+	'screen',
+	'overlay',
+	'softlight',
+	'hardlight',
+	'difference',
+	'exclusion',
+	'average',
+	'negation',
+	'tint',
+	'shade',
+	'luma',
+	'hue',
+	'saturation',
+	'lightness',
+	'alpha',
+	'red',
+	'green',
+	'blue',
+];
+
+export function isLessFunction(value: string): boolean {
+	return LESS_COLOR_FUNCTIONS.some((func) => value.startsWith(`${func}(`));
+}

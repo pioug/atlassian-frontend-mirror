@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fireEvent, render } from '@atlassian/testing-library';
 
-import * as SmartLinkEventsModule from '../../SmartLinkEvents/useSmartLinkEvents';
+import * as Fire3PWorkflowsClickEventModule from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';
 import { HyperlinkWithSmartLinkResolver } from '../HyperlinkResolver';
 
 // Mock the analytics hook with a factory function that returns a jest mock
-jest.mock('../../SmartLinkEvents/useSmartLinkEvents', () => ({
+jest.mock('../../SmartLinkEvents/useFire3PWorkflowsClickEvent', () => ({
 	useFire3PWorkflowsClickEvent: jest.fn().mockImplementation(() => {
 		return jest.fn();
 	}),
@@ -21,13 +20,6 @@ jest.mock('../../../state/helpers', () => ({
 	getFirstPartyIdentifier: jest.fn().mockReturnValue('test-first-party-id'),
 	getThirdPartyARI: jest.fn().mockReturnValue('ari:third-party:something/abc'),
 	getServices: jest.fn().mockReturnValue([]),
-}));
-
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(() => false),
-}));
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure', () => ({
-	expValEqualsNoExposure: jest.fn(() => false),
 }));
 
 // Helper to dispatch a real `auxclick` MouseEvent (testing-library's fireEvent
@@ -92,7 +84,7 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 			const mockFireEvent = jest.fn();
 
 			// Set up the fire3PClickEvent mock to return our mock function
-			(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+			(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 				mockFireEvent,
 			);
 
@@ -130,7 +122,7 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 			const mockFireEvent = jest.fn();
 
 			// Set up the fire3PClickEvent mock to return our mock function
-			(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+			(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 				mockFireEvent,
 			);
 
@@ -168,7 +160,7 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 			const mockFireEvent = jest.fn();
 
 			// Set up the fire3PClickEvent mock to return our mock function
-			(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+			(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 				mockFireEvent,
 			);
 
@@ -212,7 +204,7 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 			const mockFireEvent = jest.fn();
 
 			// Set up the fire3PClickEvent mock to return our mock function
-			(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+			(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 				mockFireEvent,
 			);
 
@@ -244,22 +236,8 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 		});
 	});
 
-	describe('middle/right click + exposure (linking_platform_track_non_primary_3p_clicks)', () => {
-		const setExperimentEnabled = (enabled: boolean) => {
-			(expValEquals as jest.Mock).mockImplementation(
-				(name: string, _param: string, _defaultVal: boolean) =>
-					name === 'linking_platform_track_non_primary_3p_clicks' ? enabled : false,
-			);
-			(expValEqualsNoExposure as jest.Mock).mockImplementation(
-				(name: string, _param: string, _defaultVal: boolean) =>
-					name === 'linking_platform_track_non_primary_3p_clicks' ? enabled : false,
-			);
-		};
-
+	describe('middle/right click', () => {
 		beforeEach(() => {
-			(expValEquals as jest.Mock).mockReset().mockReturnValue(false);
-			(expValEqualsNoExposure as jest.Mock).mockReset().mockReturnValue(false);
-
 			jest
 				.requireMock('../../../state/hooks/use-resolve-hyperlink')
 				.default.mockImplementation(() => ({
@@ -272,51 +250,11 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 		});
 
 		ffTest.on('platform_smartlink_3pclick_analytics', '', () => {
-			it('reads the experiment (firing exposure) exactly once when a 3P link successfully renders', () => {
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver href="https://atlassian.com">
-							Click Me
-						</HyperlinkWithSmartLinkResolver>
-					</SmartCardProvider>,
-				);
-
-				expect(expValEquals).toHaveBeenCalledTimes(1);
-				expect(expValEquals).toHaveBeenCalledWith(
-					'linking_platform_track_non_primary_3p_clicks',
-					'isEnabled',
-					true,
-				);
-			});
-
-			it('does NOT read the experiment (no exposure fired) when the link fails to resolve', () => {
-				jest
-					.requireMock('../../../state/hooks/use-resolve-hyperlink')
-					.default.mockImplementation(() => ({
-						actions: { authorize: jest.fn() },
-						state: {
-							status: 'resolving',
-							details: { meta: { definitionId: 'test-definition-id' } },
-						},
-					}));
-
-				render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver href="https://atlassian.com">
-							Click Me
-						</HyperlinkWithSmartLinkResolver>
-					</SmartCardProvider>,
-				);
-
-				expect(expValEquals).not.toHaveBeenCalled();
-			});
-
-			it('fires 3P click event with isAuxClick=true on a true middle-click when experiment is enabled', () => {
+			it('fires 3P click event with isAuxClick=true on a true middle-click', () => {
 				const mockFireEvent = jest.fn();
-				(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+				(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 					mockFireEvent,
 				);
-				setExperimentEnabled(true);
 
 				const { getByText } = render(
 					<SmartCardProvider client={new CardClient()}>
@@ -331,21 +269,13 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 
 				expect(mockFireEvent).toHaveBeenCalledTimes(1);
 				expect(mockFireEvent).toHaveBeenCalledWith({ isAuxClick: true });
-				// Click handlers must use the no-exposure variant so per-click reads
-				// do not inflate exposure counts.
-				expect(expValEqualsNoExposure).toHaveBeenCalledWith(
-					'linking_platform_track_non_primary_3p_clicks',
-					'isEnabled',
-					true,
-				);
 			});
 
 			it('does NOT fire 3P click event from onAuxClick when button is NOT 1 (Windows right-click safety)', () => {
 				const mockFireEvent = jest.fn();
-				(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+				(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 					mockFireEvent,
 				);
-				setExperimentEnabled(true);
 
 				const { getByText } = render(
 					<SmartCardProvider client={new CardClient()}>
@@ -361,12 +291,11 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 				expect(mockFireEvent).not.toHaveBeenCalled();
 			});
 
-			it('fires 3P click event with isContextMenu=true on right-click when experiment is enabled', () => {
+			it('fires 3P click event with isContextMenu=true on right-click', () => {
 				const mockFireEvent = jest.fn();
-				(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+				(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 					mockFireEvent,
 				);
-				setExperimentEnabled(true);
 
 				const { getByText } = render(
 					<SmartCardProvider client={new CardClient()}>
@@ -381,42 +310,14 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 				expect(mockFireEvent).toHaveBeenCalledTimes(1);
 				expect(mockFireEvent).toHaveBeenCalledWith({ isContextMenu: true });
 			});
-
-			it('does NOT fire middle/right-click events when experiment is disabled (exposure still fired on render)', () => {
-				const mockFireEvent = jest.fn();
-				(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
-					mockFireEvent,
-				);
-				setExperimentEnabled(false);
-
-				const { getByText } = render(
-					<SmartCardProvider client={new CardClient()}>
-						<HyperlinkWithSmartLinkResolver href="https://atlassian.com">
-							Click Me
-						</HyperlinkWithSmartLinkResolver>
-					</SmartCardProvider>,
-				);
-
-				fireAuxClickEvent(getByText('Click Me'), 1);
-				fireEvent.contextMenu(getByText('Click Me'));
-
-				expect(mockFireEvent).not.toHaveBeenCalled();
-				// Exposure-firing read on render should still have happened so allocation is recorded.
-				expect(expValEquals).toHaveBeenCalledWith(
-					'linking_platform_track_non_primary_3p_clicks',
-					'isEnabled',
-					true,
-				);
-			});
 		});
 
 		ffTest.off('platform_smartlink_3pclick_analytics', '', () => {
-			it('does NOT read the experiment or fire middle/right-click events when the analytics FF is off', () => {
+			it('does NOT fire middle/right-click events when the analytics FF is off', () => {
 				const mockFireEvent = jest.fn();
-				(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+				(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 					mockFireEvent,
 				);
-				setExperimentEnabled(true);
 
 				const { getByText } = render(
 					<SmartCardProvider client={new CardClient()}>
@@ -430,8 +331,6 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 				fireEvent.contextMenu(getByText('Click Me'));
 
 				expect(mockFireEvent).not.toHaveBeenCalled();
-				expect(expValEquals).not.toHaveBeenCalled();
-				expect(expValEqualsNoExposure).not.toHaveBeenCalled();
 			});
 		});
 	});
@@ -442,7 +341,7 @@ describe('HyperlinkResolver - 3P Click Events', () => {
 			const mockFireEvent = jest.fn();
 
 			// Set up the fire3PClickEvent mock to return our mock function
-			(SmartLinkEventsModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
+			(Fire3PWorkflowsClickEventModule.useFire3PWorkflowsClickEvent as jest.Mock).mockReturnValue(
 				mockFireEvent,
 			);
 

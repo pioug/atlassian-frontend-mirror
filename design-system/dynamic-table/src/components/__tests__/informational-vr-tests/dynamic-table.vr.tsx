@@ -2,8 +2,8 @@ import invariant from 'tiny-invariant';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import Stateful from '../../../../examples/0-stateful';
-import Basic from '../../../../examples/99-testing';
+import Stateful from '../../../../examples/0-stateful.vr.ap';
+import Basic from '../../../../examples/99-testing.vr.ap';
 
 snapshotInformational(Basic, {
 	description: 'after sorting',

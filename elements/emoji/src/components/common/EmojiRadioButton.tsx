@@ -8,6 +8,7 @@ import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
 import Emoji from './Emoji';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
+import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -83,7 +84,7 @@ export interface Props {
 const handleKeyDown = (props: Props, event: React.KeyboardEvent) => {
 	if (
 		(event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
-		expValEqualsNoExposure('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true)
+		isTeamoji26RefreshEmojiPickerEnabledNoExposure()
 	) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -124,9 +125,7 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				onClick={() => props.onSelected?.()}
 				onKeyDown={(event) => handleKeyDown(props, event)}
 				onChange={
-					expValEqualsNoExposure('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true)
-						? (e) => e.preventDefault()
-						: undefined
+					isTeamoji26RefreshEmojiPickerEnabledNoExposure() ? (e) => e.preventDefault() : undefined
 				}
 			/>
 			<Emoji

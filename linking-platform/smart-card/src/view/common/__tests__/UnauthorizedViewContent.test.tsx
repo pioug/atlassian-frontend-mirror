@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { render, screen } from '@atlassian/testing-library';
 
 import UnauthorisedViewContent from '../UnauthorisedViewContent';
@@ -15,7 +15,8 @@ jest.mock('../../../common/analytics/generated/use-analytics-events', () => ({
 }));
 
 const mockFg = fg as jest.MockedFunction<typeof fg>;
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

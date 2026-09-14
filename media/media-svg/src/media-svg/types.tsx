@@ -2,7 +2,7 @@ import { type CSSProperties } from 'react';
 
 import type { FileIdentifier } from '@atlaskit/media-client';
 
-import { type MediaSVGError } from './errors';
+import type { MediaSVGError } from './MediaSVGError';
 
 type Dimensions = {
 	width?: number | string;

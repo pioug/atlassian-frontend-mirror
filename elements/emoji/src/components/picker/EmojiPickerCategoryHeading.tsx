@@ -2,11 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import Heading from '@atlaskit/heading';
 import { FormattedMessage } from 'react-intl';
-import { isMessagesKey } from '../../util/type-helpers';
+
+import Heading from '@atlaskit/heading/heading';
+import { token } from '@atlaskit/tokens';
+
+import { isMessagesKey } from '../../util/is-messages-key';
 import { messages } from '../i18n';
 import type { CategoryGroupKey } from './categories';
 

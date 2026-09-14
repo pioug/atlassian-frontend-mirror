@@ -1,10 +1,8 @@
 import { useCallback, useContext, useRef } from 'react';
 
-import {
-	type AnalyticsEventPayload,
-	AnalyticsReactContext,
-	useAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import AnalyticsReactContext from '@atlaskit/analytics-next/AnalyticsReactContext';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { ANALYTICS_CHANNEL } from '../common/ANALYTICS_CHANNEL';
 import { LIBRARY_ATTRIBUTE, type EventPayload } from '../common/types';

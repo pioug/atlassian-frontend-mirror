@@ -1,5 +1,139 @@
 # @atlaskit/lozenge
 
+## 15.4.1
+
+### Patch Changes
+
+- [`22d1769061c07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22d1769061c07) -
+  Experimental React 19 test compatibility fix for Lozenge. Test coverage is partial.
+- Updated dependencies
+
+## 15.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.1
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 15.3.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.2.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`0f991757357a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f991757357a9) -
+  Fade between Lozenge Dropdown Trigger content and its loading spinner behind the
+  `platform-dst-motion-uplift-button` feature gate.
+
+## 15.0.2
+
+### Patch Changes
+
+- [`77c80a1010e70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77c80a1010e70) -
+  Include border-color in button motion transitions and apply the motion to interactive lozenge
+  dropdown triggers behind the button motion feature flag.
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Major Changes
+
+- [`b9a07863db348`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9a07863db348) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/lozenge`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. It also introduces new public subpaths:
+  `@atlaskit/lozenge/new/lozenge`.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import Lozenge from '@atlaskit/lozenge/lozenge';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Lozenge from '@atlaskit/lozenge/entry-points/lozenge';
+  +import Lozenge from '@atlaskit/lozenge/lozenge';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+  -   "./lozenge": "./src/entry-points/lozenge.tsx",
+  +   "./lozenge": "./src/lozenge.tsx",
+  -   "./lozenge-dropdown-trigger": "./src/entry-points/lozenge-dropdown-trigger.tsx",
+  +   "./lozenge-dropdown-trigger": "./src/new/lozenge-dropdown-trigger.tsx",
+      "./new": "./src/new/entrypoint.tsx",
+  +   "./new/lozenge": "./src/new/lozenge.tsx",
+  -   "./types": "./src/entry-points/types.tsx",
+  +   "./types": "./src/new/types.tsx",
+    }
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.6
 
 ### Patch Changes

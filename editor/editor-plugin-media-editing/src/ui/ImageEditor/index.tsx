@@ -5,16 +5,21 @@
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import { mediaEditingMessages } from '@atlaskit/editor-common/messages';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import Modal, { ModalBody, ModalFooter, ModalTransition } from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { Cropper } from './Cropper';
@@ -122,6 +127,7 @@ export const ImageEditor = ({
 	return (
 		<ModalTransition>
 			{isOpen && (
+				// eslint-disable-next-line @atlaskit/design-system/no-modal-label
 				<Modal
 					onClose={isSaving ? () => {} : onClose}
 					height={800}

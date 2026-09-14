@@ -7,8 +7,8 @@ import { useRef, useEffect } from 'react';
 
 import { token } from '@atlaskit/tokens';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import Flag from '@atlaskit/flag';
-import { messages } from '@atlaskit/media-ui';
+import Flag from '@atlaskit/flag/flag';
+import { messages } from '@atlaskit/media-ui/messages';
 import { useIntl } from 'react-intl';
 
 const avatarPickerErrorStyles = css({

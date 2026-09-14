@@ -1,5 +1,570 @@
 # @atlaskit/editor-plugin-extension
 
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.10
+
+### Patch Changes
+
+- [`962e8dc0188bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/962e8dc0188bf) -
+  Clean up `platform_editor_offline_editing_web` with `isEnabled: true` for Confluence, keeping
+  offline editing and recovery behavior enabled. Remove the retired experiment from the editor
+  Statsig configuration; consumers must stop querying or overriding this experiment.
+- Updated dependencies
+
+## 20.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.8
+
+### Patch Changes
+
+- [`aca1f7aaf3fd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aca1f7aaf3fd6) -
+  Remove the fully rolled-out `platform_editor_exp_lazy_node_views` experiment and call the block
+  card, embed card, extension, table, and task node views directly.
+- Updated dependencies
+
+## 20.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.6
+
+### Patch Changes
+
+- [`9e88561b1811e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e88561b1811e) -
+  Add generic extension API insertion and node-type replacement support. Use these APIs to preserve
+  the position of newly inserted inline-bodied Forge macros and to restore inline placement when an
+  inline Connect macro is harmonized to Forge while platform_forge_inline_bodied_macro is enabled.
+- Updated dependencies
+
+## 20.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.0
+
+### Minor Changes
+
+- [`dfe761c33db5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfe761c33db5a) -
+  Add `copyEnabled` and `deleteEnabled` plugin options, both defaulting to `true`, behind
+  `platform_editor_extension_hide_toolbar_actions`. Setting either to `false` hides the matching
+  button on the extension floating toolbar, along with the separators that would otherwise be left
+  orphaned. This mirrors the existing `breakoutEnabled` option and lets a product whose page
+  structure is fixed stop offering actions its document would refuse.
+
+  Inert until that gate is enabled, so the options are a no-op on rollout even for a host that sets
+  them. The gate is read only once a host has opted in — the option check short-circuits before it —
+  so it is not exposed on toolbars it cannot affect.
+
+  `copyEnabled` applies to every extension in the editor; the manifest node's `hideCopyButton`
+  remains the way to hide copy on a single extension type and is not behind this gate. Hosts that
+  set neither option are unaffected in either gate state.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 19.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.5
+
+### Patch Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall`.
+- Updated dependencies
+
+## 19.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.14
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 18.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`da5eaf0bc37da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5eaf0bc37da) -
+  Clean up the platform_editor_editor_ssr_streaming experiment. The SSR streaming code paths are now
+  permanent and the isSSRStreaming() utility has been removed from
+  @atlaskit/editor-common/core-utils.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`882186c3b96b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/882186c3b96b6) -
+  Add an optional `hideCopyButton` capability to extension manifest nodes (`ExtensionModuleNode`).
+  When set, the extension's selection floating toolbar hides the copy button. Used by the redaction
+  extension so redacted content is delete-only (no copy, no configure).
+
+  The new toolbar behaviour is gated behind `platform_editor_extension_hide_copy_button`. When the
+  gate is off, the toolbar renders exactly as before. When the copy button is hidden, the trailing
+  toolbar separator is also hidden so delete-only toolbars do not render an orphaned divider.
+
+  ```ts
+  const manifest: ExtensionManifest = {
+  	// ...
+  	modules: {
+  		nodes: {
+  			default: {
+  				type: 'inlineExtension',
+  				render: () => import('./MyExtension'),
+  				// Hide the copy button on this node's selection toolbar
+  				hideCopyButton: true,
+  			},
+  		},
+  	},
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- [`e0edc05cd52d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0edc05cd52d7) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall` as a 1:1 size rename with no visual
+  change.
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`337e6777c26aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/337e6777c26aa) -
+  Add Block Menu transform extension APIs. Extension manifests can declare ADF-only transform
+  capabilities without importing Editor internals:
+
+  ```ts
+  const extensionNode = {
+  	blockTransform: {
+  		key: 'convert-tabs-to-panel',
+  		isSupported: ({ targetTypeName }) => targetTypeName === 'panel',
+  		transform: ({ source }) => ({ output: [{ type: 'panel', content: source.content }] }),
+  	},
+  };
+  ```
+
+  The Extension Plugin registers each keyed transform with Block Menu after manifests load. Block
+  Menu checks support, validates returned ADF, and owns replacement, selection, history, focus, and
+  analytics.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`a7a68486af2c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7a68486af2c3) -
+  Clean up feature gate `platform_editor_conditionally_add_sidebar_summary`
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.0
 
 ### Minor Changes

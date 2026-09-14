@@ -1,5 +1,139 @@
 # @atlaskit/media-file-preview
 
+## 1.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.3.1
+
+### Patch Changes
+
+- [`be8a71519cbc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be8a71519cbc2) -
+  Add support for seeding media card file state from SSR media node metadata, behind the
+  `platform_media_ssr_data_seed` feature gate.
+
+  `@atlaskit/media-client` gains a Relay-free `mapSsrMediaItemToFileState`. Malformed, partial, or
+  non-array input yields `undefined` rather than throwing.
+
+  `@atlaskit/media-card` accepts an optional `ssrMediaItem` prop. When `ssrFileState` is absent and
+  the gate is on, the card converts `ssrMediaItem` to FileState via `mapSsrMediaItemToFileState` and
+  seeds `useFileState`. `ssrFileState` still wins when both are provided (Relay / media-card-relay).
+
+  `@atlaskit/renderer` extends `MediaSSR` with `ssrMediaItems` — the host's SSR media payload,
+  passed through untouched. The renderer finds the matching item by id and forwards it as
+  `ssrMediaItem` to Card. Hosts need no knowledge of `FileState` or of media internals. The field is
+  optional and additive: hosts that do not supply it, and media ids without an entry, keep the
+  current fetch behaviour.
+
+  `@atlaskit/media-card-relay`'s `MediaCardRelay` / `MediaInlineCardRelay` now call the shared
+  `mapSsrMediaItemToFileState` mapper directly (the Relay fragment data is structurally assignable
+  to `SsrMediaItem`, so no cast or wrapper is needed). Its public API and behaviour are unchanged.
+
+  `@atlaskit/media-file-preview` now forwards an SSR-seeded pre-signed `previewCdnUrl` to the new
+  optional `MediaClient.getImageUrlSync(id, params, seededCdnUrl)` argument when
+  `platform_media_ssr_data_seed` is enabled and CDN delivery is in use. `@atlaskit/media-client`
+  preserves the signed CDN asset URL and inserts supported image parameters before the `wm-ari` /
+  `wm-v` watermark anchor, avoiding query-string rebuilding or re-encoding that can invalidate
+  CloudFront signatures. Path-based routing, isolated cloud, GCP, and callers without a seeded URL
+  retain the existing URL-generation behaviour.
+
+- Updated dependencies
+
+## 1.3.0
+
+### Minor Changes
+
+- [`2298857a13801`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2298857a13801) -
+  Apply the Volt one-export-per-file standard via `volt-migrate-package` to
+  `@atlaskit/media-file-preview`. The bump is **minor** because the change is purely additive: the
+  package `exports` map grows from 5 to 15 subpaths, and all 5 pre-existing subpaths (`.`,
+  `./errors`, `./types`, `./use-file-preview`, `./use-media-image`) keep their existing targets and
+  expose exactly the same symbols as before. The error classes and error type guards that used to
+  live inside `./errors` now each own a module, and `./errors` re-exports them as `@deprecated`
+  shims — VOLTC-139 tracks removing those shims.
+
+  ### No public API was removed
+
+  Every existing import keeps working, including the ones that go through `./errors`:
+
+  ```ts
+  import { useMediaImage, isMediaFilePreviewError } from '@atlaskit/media-file-preview';
+  import {
+  	MediaFilePreviewError,
+  	LocalPreviewError,
+  	ensureMediaFilePreviewError,
+  } from '@atlaskit/media-file-preview/errors';
+  ```
+
+  ### New subpaths
+
+  Each of these is the new canonical home for a symbol that `./errors` still re-exports, and all are
+  published:
+  - `@atlaskit/media-file-preview/media-file-preview-error` — `MediaFilePreviewError`,
+    `MediaFilePreviewErrorPrimaryReason`
+  - `@atlaskit/media-file-preview/local-preview-error` — `LocalPreviewError`
+  - `@atlaskit/media-file-preview/remote-preview-error` — `RemotePreviewError`
+  - `@atlaskit/media-file-preview/ssr-preview-error` — `SsrPreviewError`
+  - `@atlaskit/media-file-preview/image-load-error` — `ImageLoadError`
+  - `@atlaskit/media-file-preview/is-media-file-preview-error` — `isMediaFilePreviewError`
+  - `@atlaskit/media-file-preview/is-local-preview-error` — `isLocalPreviewError`
+  - `@atlaskit/media-file-preview/is-remote-preview-error` — `isRemotePreviewError`
+  - `@atlaskit/media-file-preview/is-unsupported-local-preview-error` —
+    `isUnsupportedLocalPreviewError`
+  - `@atlaskit/media-file-preview/ensure-media-file-preview-error` — `ensureMediaFilePreviewError`
+
+  ### Note for consumers that mock these modules
+
+  The split deleted several private modules and barrels, so a `jest.mock()` or `jest.spyOn()` aimed
+  at one of them will silently stop intercepting. None of these paths are reachable through the
+  `exports` map, but deep-path mocks in downstream tests do reach them. Mock the module that now
+  owns the export instead:
+  - `src/getPreview/index.ts` and `src/getPreview/getPreview.ts` (deleted) — `getSSRPreview` →
+    `getPreview/getSSRPreview`, `getRemotePreview` → `getPreview/getRemotePreview`,
+    `getAndCacheRemotePreview` → `getPreview/getAndCacheRemotePreview`, `getAndCacheLocalPreview` →
+    `getPreview/getAndCacheLocalPreview`, `isLocalPreview` / `isRemotePreview` / `isSSRPreview` /
+    `isSSRClientPreview` / `isSSRDataPreview` → one module each, `extractCdnSigningParams` →
+    `getPreview/extractCdnSigningParams`, `isSupportedLocalPreview` →
+    `getPreview/isSupportedLocalPreview`.
+  - `src/globalScope/index.ts` (deleted) — `getMediaCardSSR` → `globalScope/getMediaCardSSR`,
+    `getMediaGlobalScope` → `globalScope/getMediaGlobalScope`, `getKey` → `globalScope/getKey`,
+    `generateScriptProps` → `globalScope/generateScriptProps`. The `GLOBAL_MEDIA_*` constants and
+    `MediaGlobalScope` stay in `globalScope/globalScope`.
+  - `src/helpers.ts` (deleted) — `isBigger` → `isBigger`, `isWider` → `isWider`,
+    `createRequestDimensions` → `createRequestDimensions`, `useCurrentValueRef` →
+    `useCurrentValueRef`.
+  - `src/getPreview/cache.ts` and `src/getPreview/objectURLCache.ts` keep `mediaFilePreviewCache`
+    and `PREVIEW_CACHE_LRU_SIZE`, but `CardPreviewCacheImpl` → `getPreview/CardPreviewCacheImpl`,
+    `getCacheKey` → `getPreview/getCacheKey`, `ObjectURLCache` → `getPreview/ObjectURLCache-2`,
+    `createObjectURLCache` → `getPreview/createObjectURLCache`.
+
+  ### Internal-only renames
+  - `src/getPreview/helpers.ts` → `src/getPreview/getLocalPreview.ts`
+
+  None of these paths are reachable through the `exports` map. No behaviour change.
+
+## 1.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

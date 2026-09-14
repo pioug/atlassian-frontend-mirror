@@ -3,8 +3,8 @@
  * @jsx jsx
  */
 import React, { type AriaAttributes } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { components, type OptionType, type SelectProps } from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { OptionType, SelectProps } from '@atlaskit/select/types';
 import { type AriaAttributesType } from '../types';
 import { token } from '@atlaskit/tokens';
 import { cssMap, jsx } from '@compiled/react';
@@ -38,7 +38,6 @@ export class Input extends React.Component<Props & AriaAttributes> {
 		if (e.key === 'Enter') {
 			e.preventDefault();
 		}
-		//@ts-ignore react-select unsupported props
 		if (this.props.selectProps?.disableInput) {
 			e.preventDefault();
 		}
@@ -55,22 +54,19 @@ export class Input extends React.Component<Props & AriaAttributes> {
 	 * This reassignment should only apply when the input has no other accessible name.
 	 */
 	get ariaLabelledBy(): AriaAttributesType {
-		if (fg('platform_user_picker_fix_redundant_labelledby')) {
-			// A11Y-37267: An explicit aria-labelledby is a deliberate association with a visible label
-			// element and is the field's true accessible name (WCAG 2.5.3 Label in Name), so it always
-			// wins. Otherwise we promote aria-describedby -> aria-labelledby to work around
-			// react-select's placeholder linkage bug, but skip that promotion when the input already
-			// has an accessible name via aria-label so the description is announced via
-			// aria-describedby instead.
-			if (this.props['aria-labelledby']) {
-				return this.props['aria-labelledby'];
-			}
-			if (this.props['aria-label']) {
-				return undefined;
-			}
-			return this.props['aria-describedby'];
+		// A11Y-37267: An explicit aria-labelledby is a deliberate association with a visible label
+		// element and is the field's true accessible name (WCAG 2.5.3 Label in Name), so it always
+		// wins. Otherwise we promote aria-describedby -> aria-labelledby to work around
+		// react-select's placeholder linkage bug, but skip that promotion when the input already
+		// has an accessible name via aria-label so the description is announced via
+		// aria-describedby instead.
+		if (this.props['aria-labelledby']) {
+			return this.props['aria-labelledby'];
 		}
-		return this.props['aria-labelledby'] ?? this.props['aria-describedby'];
+		if (this.props['aria-label']) {
+			return undefined;
+		}
+		return this.props['aria-describedby'];
 	}
 
 	get ariaDescribedBy(): AriaAttributesType {

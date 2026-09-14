@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
-import Lozenge, { LozengeDropdownTrigger } from '@atlaskit/lozenge';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
+import Lozenge from '../../lozenge';
+import LozengeDropdownTrigger from '../../new/lozenge-dropdown-trigger';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -285,6 +288,50 @@ describe('LozengeDropdownTrigger', () => {
 
 		fireEvent.click(trigger);
 		expect(handleClick).not.toHaveBeenCalled();
+	});
+
+	it('should animate loading content when the button motion gate is enabled', () => {
+		passGate('platform-dst-motion-uplift-button');
+
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isLoading
+				onClick={__noop}
+				testId="loading-motion-trigger"
+			>
+				Status
+			</LozengeDropdownTrigger>,
+		);
+
+		expect(screen.getByTestId('loading-motion-trigger--content')).toHaveCompiledCss(
+			'transition-property',
+			'opacity',
+		);
+		expect(screen.getByTestId('loading-motion-trigger--loading-overlay')).toHaveCompiledCss(
+			'animation-duration',
+			'var(--ds-duration-short,.15s)',
+		);
+	});
+
+	it('should not animate loading content when the button motion gate is disabled', () => {
+		failGate('platform-dst-motion-uplift-button');
+
+		render(
+			<LozengeDropdownTrigger
+				appearance="success"
+				isLoading
+				onClick={__noop}
+				testId="loading-motion-trigger"
+			>
+				Status
+			</LozengeDropdownTrigger>,
+		);
+
+		expect(screen.getByTestId('loading-motion-trigger--content')).not.toHaveCompiledCss(
+			'transition-property',
+			'opacity',
+		);
 	});
 
 	it('should have selected state styling when isSelected is true', () => {

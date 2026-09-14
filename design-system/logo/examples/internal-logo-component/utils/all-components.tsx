@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::76707537687d41622edba49cb294ca98>>
+ * @codegen <<SignedSource::372cbad7b2d5ad2941d82fd482ea6c98>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -92,6 +92,8 @@ import { OpsgenieLogoCS } from '../../../src/artifacts/logo-components/opsgenie/
 import { ProjectsIcon } from '../../../src/artifacts/logo-components/projects/icon';
 import { ProjectsLogo } from '../../../src/artifacts/logo-components/projects/logo';
 import { ProjectsLogoCS } from '../../../src/artifacts/logo-components/projects/logo-cs';
+import { RovoClassicIcon } from '../../../src/artifacts/logo-components/rovo-classic/icon';
+import { RovoClassicLogoCS } from '../../../src/artifacts/logo-components/rovo-classic/logo-cs';
 import { RovoDevAgentIcon } from '../../../src/artifacts/logo-components/rovo-dev-agent/icon';
 import { RovoDevAgentLogoCS } from '../../../src/artifacts/logo-components/rovo-dev-agent/logo-cs';
 import { RovoDevIcon } from '../../../src/artifacts/logo-components/rovo-dev/icon';
@@ -421,6 +423,16 @@ export const rows: Array<{
 		Icon32: (props) => <ProjectsIcon {...props} size="32" />,
 		Logo: (props) => <ProjectsLogo {...props} />,
 		LogoCS: (props) => <ProjectsLogoCS {...props} />,
+	},
+	{
+		name: 'Rovo Classic',
+		Icon12: (props) => <RovoClassicIcon {...props} size="12" />,
+		Icon16: (props) => <RovoClassicIcon {...props} size="16" />,
+		Icon20: (props) => <RovoClassicIcon {...props} size="20" />,
+		Icon24: (props) => <RovoClassicIcon {...props} size="24" />,
+		Icon32: (props) => <RovoClassicIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <RovoClassicLogoCS {...props} />,
 	},
 	{
 		name: 'Rovo Dev Agent',

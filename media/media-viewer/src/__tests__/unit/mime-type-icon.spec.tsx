@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@atlassian/testing-library';
-import { MimeTypeIcon } from '@atlaskit/media-ui';
+import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 
 describe('MimeType Icon', () => {
 	it('mimeType cannot be categorised, default to mediaTypeIcon', async () => {

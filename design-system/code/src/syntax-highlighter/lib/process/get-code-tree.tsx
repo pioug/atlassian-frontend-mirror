@@ -1,6 +1,8 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { RefractorNode } from 'refractor';
 
-import { type AstGenerator, type RefractorNode } from '../../types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import type { AstGenerator } from '../../types';
 
 /**
  * When the language is 'markdown', refractor's grammar parses fenced code blocks

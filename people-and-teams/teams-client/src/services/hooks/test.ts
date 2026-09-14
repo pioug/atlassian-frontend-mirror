@@ -2,7 +2,8 @@ import { renderHook } from '@testing-library/react';
 
 import { teamsClient } from '../main';
 
-import { useTeamsClientSetup, useTeamsClientSetupNext } from './use-teams-client-setup';
+import { useTeamsClientSetup } from './use-teams-client-setup';
+import { useTeamsClientSetupNext } from './use-teams-client-setup-next';
 
 jest.mock('../main');
 
@@ -19,7 +20,6 @@ describe('useTeamsClientSetup', () => {
 	});
 
 	it('should not call setTeamClientRootUrl and teamsClient.setBaseUrl when stargateRoot is not defined', () => {
-		// @ts-ignore
 		renderHook(() => useTeamsClientSetup(undefined));
 
 		expect(teamsClient.setBaseUrl).not.toHaveBeenCalled();
@@ -59,7 +59,6 @@ describe('useTeamsClientSetupNext', () => {
 	});
 
 	it('should not call setTeamClientRootUrl and teamsClient.setBaseUrl when stargateRoot is not defined', () => {
-		// @ts-ignore
 		renderHook(() => useTeamsClientSetupNext({}));
 
 		expect(teamsClient.setBaseUrl).not.toHaveBeenCalled();

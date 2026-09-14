@@ -1,9 +1,9 @@
 jest.mock('../../../util/getPreviewFromBlob');
 jest.mock('../../../util/getPreviewFromImage');
 
-jest.mock('uuid/v4', () => ({
+jest.mock('uuid', () => ({
 	__esModule: true, // this property makes it work
-	default: jest.fn().mockReturnValue('some-scope'),
+	v4: jest.fn().mockReturnValue('some-scope'),
 }));
 
 import {
@@ -19,7 +19,7 @@ import {
 	RequestError,
 } from '@atlaskit/media-client';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 import { asMock, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { UploadServiceImpl } from '../../uploadServiceImpl';
 import * as getPreviewModule from '../../../util/getPreviewFromBlob';

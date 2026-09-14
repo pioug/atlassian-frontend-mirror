@@ -1,10 +1,12 @@
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { render } from '@testing-library/react';
 import React from 'react';
 import createNamespaceContext from '../helper/createNamespaceContext';
 
-jest.mock('@atlaskit/analytics-next', () => ({
-	AnalyticsContext: jest.fn().mockImplementation((props) => <div>{props.children}</div>),
+jest.mock('@atlaskit/analytics-next/AnalyticsContext', () => ({
+	...jest.requireActual('@atlaskit/analytics-next/AnalyticsContext'),
+	__esModule: true,
+	default: jest.fn().mockImplementation((props) => <div>{props.children}</div>),
 }));
 
 type Props = React.PropsWithChildren<{

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0aff353506b50e3d60889947d6870864>>
+ * @codegen <<SignedSource::a2aa009cb5120cff5f86ab516245cf4e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "DiagramSymbolMerge".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const DiagramSymbolMergeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const DiagramSymbolMergeIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramSymbolMergeIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M14.603 2a1.375 1.375 0 0 1 1.155 2.121L9.155 14.344a1.375 1.375 0 0 1-2.31 0L.242 4.12A1.375 1.375 0 0 1 1.397 2zM8 13.366 14.373 3.5H1.627z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -1,4 +1,4 @@
-import type { IndentationMarkAttributes } from '@atlaskit/adf-schema';
+import type { IndentationMarkAttributes } from '@atlaskit/adf-schema/indentation';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INDENT_DIRECTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toggleBlockMark } from '@atlaskit/editor-common/commands';

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import { Checkbox } from '@atlaskit/checkbox';
-import { Label } from '@atlaskit/form';
-import { AsyncCreatableSelect as AsyncCreatable, type OptionsType } from '@atlaskit/select';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { Label } from '@atlaskit/form/label/default';
+import AsyncCreatable from '@atlaskit/select/async-creatable-select';
+import type { OptionsType } from '@atlaskit/select/types';
 
 import { cities } from '../common/data';
 

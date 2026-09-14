@@ -1,20 +1,23 @@
-import { shallow } from 'enzyme';
-import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { MultiValue, scrollToValue } from '../../../components/MultiValue';
-import { type Email, EmailType, type User, type Team } from '../../../types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-jest.mock('@atlaskit/select', () => ({
-	...jest.requireActual('@atlaskit/select'),
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
+import { MultiValue } from '../../../components/MultiValue';
+import { scrollToValue } from '../../../components/scrollToValue';
+import { type Email, EmailType, type User, type Team } from '../../../types';
+
+jest.mock('@atlaskit/react-select/components', () => ({
+	...jest.requireActual('@atlaskit/react-select/components'),
 	components: {
-		...jest.requireActual('@atlaskit/select').components,
+		...jest.requireActual('@atlaskit/react-select/components').components,
 		MultiValue: ({ children }: any) => <div>{children}</div>,
 	},
 }));
 
-jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
+jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon/main', () => ({
+	...jest.requireActual('@atlaskit/people-teams-ui-public/verified-team-icon/main'),
 	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
 }));
 
@@ -26,8 +29,10 @@ jest.mock('../../../components/SizeableAvatar', () => ({
 	SizeableAvatar: (props: any) => <div>SizeableAvatar - {JSON.stringify(props)}</div>,
 }));
 
-jest.mock('@atlaskit/tag', () => ({
-	AvatarTag: (props: { text: string }) => (
+jest.mock('@atlaskit/tag/avatar-tag', () => ({
+	...jest.requireActual('@atlaskit/tag/avatar-tag'),
+	__esModule: true,
+	default: (props: { text: string }) => (
 		<div data-testid="user-picker-avatar-tag">{props.text}</div>
 	),
 }));
@@ -49,16 +54,6 @@ describe('MultiValue', () => {
 		} as User,
 	};
 	const onClick = jest.fn();
-
-	const shallowMultiValue = ({ _components, ...props }: any = { components: {} }) =>
-		shallow(
-			<MultiValue
-				data={data}
-				removeProps={{ onClick }}
-				selectProps={{ isDisabled: false }}
-				{...props}
-			/>,
-		);
 
 	const renderMultiValue = ({ _components, ...props }: any = { components: {} }) =>
 		render(
@@ -92,62 +87,6 @@ describe('MultiValue', () => {
 		expect(current.scrollIntoView).toHaveBeenCalledWith(false);
 
 		await expect(document.body).toBeAccessible();
-	});
-
-	describe('shouldComponentUpdate', () => {
-		const defaultProps = {
-			data: data,
-			isFocused: false,
-			innerProps: {},
-		};
-		test.each([
-			[false, defaultProps],
-			[
-				true,
-				{
-					...defaultProps,
-					isFocused: true,
-				},
-			],
-			[
-				true,
-				{
-					...defaultProps,
-					data: {
-						...data,
-						data: {
-							...data.data,
-							publicName: 'crazy_jace',
-						},
-					},
-				},
-			],
-			[
-				true,
-				{
-					...defaultProps,
-					data: {
-						...data,
-						label: 'crazy_jace',
-					},
-				},
-			],
-			[
-				true,
-				{
-					...defaultProps,
-					innerProps: {},
-				},
-			],
-		])('should return %s for nextProps %p', (shouldUpdate, nextProps) => {
-			const component = shallowMultiValue(defaultProps);
-			const instance = component.instance();
-			expect(
-				instance &&
-					instance.shouldComponentUpdate &&
-					instance.shouldComponentUpdate(nextProps, {}, {}),
-			).toEqual(shouldUpdate);
-		});
 	});
 
 	describe('Email', () => {
@@ -373,54 +312,56 @@ describe('MultiValue', () => {
 	});
 
 	describe('AvatarTag (platform-dst-lozenge-tag-badge-visual-uplifts)', () => {
-		ffTest.on('platform-dst-lozenge-tag-badge-visual-uplifts', 'on', () => {
-			it('should render AvatarTag for user when flag is on', async () => {
-				renderMultiValue();
+		it('should render AvatarTag for user when flag is on', async () => {
+			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 
-				const avatarTag = await screen.findByTestId('user-picker-avatar-tag');
-				expect(avatarTag).toBeInTheDocument();
-				expect(avatarTag).toHaveTextContent('Jace Beleren');
+			renderMultiValue();
 
-				await expect(document.body).toBeAccessible();
-			});
+			const avatarTag = await screen.findByTestId('user-picker-avatar-tag');
+			expect(avatarTag).toBeInTheDocument();
+			expect(avatarTag).toHaveTextContent('Jace Beleren');
 
-			it('should render AvatarTag for team when flag is on', async () => {
-				const team: Team = {
-					name: 'Design System',
-					type: 'team',
-					id: 'team-123',
-					verified: true,
-				};
-
-				renderMultiValue({
-					data: {
-						label: team.name,
-						value: team.id,
-						data: team,
-					},
-				});
-
-				const avatarTag = await screen.findByTestId('user-picker-avatar-tag');
-				expect(avatarTag).toBeInTheDocument();
-				expect(avatarTag).toHaveTextContent('Design System');
-
-				await expect(document.body).toBeAccessible();
-			});
+			await expect(document.body).toBeAccessible();
 		});
 
-		ffTest.off('platform-dst-lozenge-tag-badge-visual-uplifts', 'off', () => {
-			it('should render SizeableAvatar for user when flag is off', async () => {
-				renderMultiValue();
+		it('should render AvatarTag for team when flag is on', async () => {
+			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 
-				expect(
-					await screen.findByText(
-						'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
-					),
-				).toBeInTheDocument();
-				expect(screen.queryByTestId('user-picker-avatar-tag')).not.toBeInTheDocument();
+			const team: Team = {
+				name: 'Design System',
+				type: 'team',
+				id: 'team-123',
+				verified: true,
+			};
 
-				await expect(document.body).toBeAccessible();
+			renderMultiValue({
+				data: {
+					label: team.name,
+					value: team.id,
+					data: team,
+				},
 			});
+
+			const avatarTag = await screen.findByTestId('user-picker-avatar-tag');
+			expect(avatarTag).toBeInTheDocument();
+			expect(avatarTag).toHaveTextContent('Design System');
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should render SizeableAvatar for user when flag is off', async () => {
+			failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+
+			renderMultiValue();
+
+			expect(
+				await screen.findByText(
+					'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
+				),
+			).toBeInTheDocument();
+			expect(screen.queryByTestId('user-picker-avatar-tag')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
 		});
 	});
 });

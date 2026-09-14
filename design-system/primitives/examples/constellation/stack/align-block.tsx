@@ -5,8 +5,10 @@
 import type { JSX } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import Heading from '@atlaskit/heading/heading';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import ExampleBox from '../shared/example-box';
 

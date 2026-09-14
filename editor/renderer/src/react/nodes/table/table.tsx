@@ -4,9 +4,7 @@ import { Colgroup, colWidthSum } from './colgroup';
 import type { SharedTableProps } from './types';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import { isContentModeSupported } from './content-mode';
 
@@ -68,32 +66,20 @@ export const Table: React.MemoExoticComponent<
 		) {
 			tableWidth = 'inherit';
 		}
-		if (rendererAppearance === 'comment' && !allowTableResizing) {
-			// in the case we have css container stylings,
-			// we don't need to calculate width here as this
-			// is done via css
-			if (!fg('platform-ssr-table-resize')) {
-				tableWidth = renderWidth;
-			}
-		}
-
 		// for columns that are evenly distributed, do not return `colgroup` since existing table containerQuery
 		// scales up the columns width. This ensures columns always have 42px.
 		if (rendererAppearance === 'comment') {
-			if (fg('platform-ssr-table-resize')) {
-				tableColumnWidths = columnWidths && colWidthSum(columnWidths) ? columnWidths : undefined;
-			}
+			tableColumnWidths = columnWidths && colWidthSum(columnWidths) ? columnWidths : undefined;
 		}
 
 		const tableLayout = tableNode?.attrs.layout;
 		const tableDisplayMode = tableNode?.attrs.displayMode;
 
-		const isContentMode =
-			isTableInContentMode({
-				tableNode,
-				isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
-				isTableNested: isInsideOfBlockNode || isInsideOfNestedRenderer || isInsideOfTable,
-			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
+		const isContentMode = isTableInContentMode({
+			tableNode,
+			isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
+			isTableNested: isInsideOfBlockNode || isInsideOfNestedRenderer || isInsideOfTable,
+		});
 
 		return (
 			<table

@@ -11,18 +11,18 @@
 
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import CompanyHubMockExample from '../../../../../examples/company-hub-mock';
+import CompanyHubMockExample from '../../../../../examples/company-hub-mock.vr.ap';
 import CompositionExample, {
 	CompositionNoBannerVR,
 	CompositionVR,
-} from '../../../../../examples/composition';
+} from '../../../../../examples/composition.vr.ap';
 import NavigationShellExample, {
 	NavigationShellWithToggleButtonOnboarding,
 	NavigationShellWithWideSideNav,
-} from '../../../../../examples/navigation-shell';
-import { SideNavLayering } from '../../../../../examples/side-nav-layering';
-import { TopNavigationCustomLogoImageWithSideNavExample } from '../../../../../examples/top-navigation-custom-logo';
-import TopNavigationThemingWithPickerExample from '../../../../../examples/top-navigation-theming-with-picker';
+} from '../../../../../examples/navigation-shell.vr.ap';
+import { SideNavLayering } from '../../../../../examples/side-nav-layering.vr.ap';
+import { TopNavigationCustomLogoImageWithSideNavExample } from '../../../../../examples/top-navigation-custom-logo.vr.ap';
+import TopNavigationThemingWithPickerExample from '../../../../../examples/top-navigation-theming-with-picker.vr.ap';
 
 const variants = {
 	desktop: {

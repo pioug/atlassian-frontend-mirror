@@ -7,7 +7,7 @@ import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { EditorAppearanceComponentProps } from '../../types/editor-appearance-component';
 import EditorContentContainer from '../EditorContentContainer/EditorContentContainer';
@@ -62,7 +62,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 			(states) => states?.editorViewModeState?.mode,
 		);
 
-		const containerRef = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		const containerRef = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 			? this.setContainerElement
 			: (ref: HTMLElement | null) => (this.containerElement = ref);
 

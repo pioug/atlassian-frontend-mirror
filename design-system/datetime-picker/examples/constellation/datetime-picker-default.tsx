@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 
 const DateTimePickerDefaultExample = (): React.JSX.Element => (
 	<>

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { fireEvent, screen } from '@testing-library/react';
-import type { ReactWrapper } from 'enzyme';
 
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -26,14 +25,6 @@ describe('full page editor', () => {
 			doc,
 			editorProps: { allowExtension: true },
 		});
-	let fullPage: ReactWrapper<any, unknown, typeof EditorContext> | undefined;
-
-	afterAll(() => {
-		if (fullPage) {
-			fullPage.unmount();
-			fullPage = undefined;
-		}
-	});
 
 	it('should create empty terminal empty paragraph when clicked outside editor', () => {
 		const { editorView } = editor(doc(p('Hello world'), p('Hello world')));

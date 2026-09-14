@@ -2,32 +2,27 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { forwardRef, useCallback, useMemo } from 'react';
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
-import { LoadingButton } from '@atlaskit/button';
-import Button, {
-	type ButtonProps,
-	IconButton,
-	type IconButtonProps,
-	type IconProp,
-	LinkButton,
-	LinkIconButton,
-} from '@atlaskit/button/new';
+import Button, { type ButtonProps } from '@atlaskit/button/default/button';
+import IconButton, { type IconButtonProps } from '@atlaskit/button/icon/button';
+import LinkIconButton from '@atlaskit/button/icon/link';
+import LinkButton from '@atlaskit/button/link';
+import LoadingButton from '@atlaskit/button/loading-button';
+import type { IconProp } from '@atlaskit/button/variants/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ActionName, SmartLinkSize } from '../../../../../../constants';
-import {
-	useFlexibleUiContext,
-	useFlexibleUiOptionContext,
-} from '../../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
 import useRovoConfig from '../../../../../../state/hooks/use-rovo-config';
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
-
 import { type ActionButtonProps } from './types';
 
 const IconOnlyLarge = css({

@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	AnnotationUpdateEmitter,
@@ -126,6 +126,8 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 	// always position toolbar above the selection
 	isToolbarAbove?: boolean;
 	onCommentButtonMount?: () => void;
+	/** Checks whether the active inline comment can be safely closed. */
+	requestClose?: () => Promise<boolean>;
 	/**
 	 * @experimental Still under development. Do not use.
 	 *

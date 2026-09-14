@@ -7,20 +7,19 @@ import { type ComponentType, type FC, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { IconTile } from '@atlaskit/icon';
-import { type coreIconMetadata } from '@atlaskit/icon/metadata';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import IconTile from '@atlaskit/icon/icon-tile';
+import type coreIconMetadata from '@atlaskit/icon/metadata-core';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
-import Tooltip from '@atlaskit/tooltip';
+import Textfield from '@atlaskit/textfield/text-field';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const pressableStyles = xcss({
 	borderRadius: 'radius.small',

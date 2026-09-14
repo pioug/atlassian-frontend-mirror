@@ -10,7 +10,7 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isSSR } from '../core-utils';
@@ -317,11 +317,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			this.reactComponentProps?.macroInteractionDesignFeatureFlags
 				?.showMacroInteractionDesignUpdates;
 
-		if (
-			isBodiedExtension &&
-			showMacroInteractionDesignUpdates &&
-			expValEquals('platform_editor_bodiedextension_layoutshift_fix', 'isEnabled', true)
-		) {
+		if (isBodiedExtension && showMacroInteractionDesignUpdates) {
 			// Create outer wrapper to hold space for the lozenge
 			const outerWrapper = document.createElement('div');
 			outerWrapper.className = `${this.node.type.name}-content-outer-wrapper`;

@@ -8,6 +8,7 @@ import { type CSSProperties, type JSX, type ReactNode } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import CrossIcon from '@atlaskit/icon/core/cross-circle';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -72,6 +73,7 @@ const clearIndicatorStyles = cssMap({
 		paddingBlockStart: 0,
 		paddingBlockEnd: 0,
 	},
+	finesse: { color: token('color.icon.subtle'), '&:hover': { color: token('color.icon') } },
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -87,7 +89,11 @@ export const ClearIndicator: <Option, IsMulti extends boolean, Group extends Gro
 	});
 	return (
 		<div
-			css={[clearIndicatorStyles.default, isCompact && clearIndicatorStyles.compact]}
+			css={[
+				clearIndicatorStyles.default,
+				fg('platform-dst-tokens-finesse') && clearIndicatorStyles.finesse,
+				isCompact && clearIndicatorStyles.compact,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

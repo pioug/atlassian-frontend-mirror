@@ -6,9 +6,9 @@ import { type FC, useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { type Placement } from '@atlaskit/popper';
-import Popup from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import type { Placement } from '@atlaskit/popper/main';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

@@ -21,7 +21,7 @@ import {
 } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import TaskIcon from '@atlaskit/icon/core/task';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import { isMarkdownCompatibleToolbarEnabled } from '../utils/markdown-compatible-toolbar';
@@ -56,7 +56,7 @@ function useListsIndentationHeroButtonInfo({
 		(states) => {
 			const useDefaultToolbarState =
 				states.interactionState?.interactionState === 'hasNotHadInteraction' &&
-				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true);
+				isExperimentEnabled('platform_editor_default_toolbar_state');
 
 			return {
 				pmBulletListActive: useDefaultToolbarState ? false : states.listState?.bulletListActive,

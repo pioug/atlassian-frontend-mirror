@@ -2,8 +2,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { WikiMarkupTransformer } from '../..';
 
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);

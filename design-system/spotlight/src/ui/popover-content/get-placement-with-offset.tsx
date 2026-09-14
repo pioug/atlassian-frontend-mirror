@@ -1,5 +1,5 @@
 import { token } from '@atlaskit/tokens';
-import { type TPlacementOptions } from '@atlaskit/top-layer/placement-map';
+import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
 
 import type { Placement } from '../../types';
 

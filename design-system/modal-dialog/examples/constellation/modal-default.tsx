@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Modal from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';

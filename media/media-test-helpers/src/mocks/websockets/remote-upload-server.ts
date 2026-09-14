@@ -13,7 +13,7 @@ import { mergeMap } from 'rxjs/operators/mergeMap';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { tap } from 'rxjs/operators/tap';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import {
 	notifyMetadataPayload,

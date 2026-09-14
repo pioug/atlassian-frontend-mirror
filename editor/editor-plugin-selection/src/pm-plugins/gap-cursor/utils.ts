@@ -5,7 +5,7 @@ import {
 	UnsupportedSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT => side === Side.LEFT;
 

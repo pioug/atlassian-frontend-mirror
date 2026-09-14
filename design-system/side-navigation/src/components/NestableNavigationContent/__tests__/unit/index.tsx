@@ -6,10 +6,10 @@ import { replaceRaf } from 'raf-stub';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import { step } from '../../../../__tests__/unit/__utils__/raf';
-import ButtonItem from '../../../Item/button-item';
-import GoBackItem from '../../../Item/go-back-item';
-import { default as NestingItem } from '../../../NestingItem';
-import { default as NestingTransitionProvider } from '../../index';
+import { ButtonItem } from '../../../Item/button-item';
+import { GoBackItem } from '../../../Item/go-back-item';
+import { NestingItem } from '../../../NestingItem';
+import { NestableNavigationContent as NestingTransitionProvider } from '../../index';
 
 replaceRaf();
 

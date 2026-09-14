@@ -1,4 +1,4 @@
-import { shape as shapeTokens } from '@atlaskit/tokens/tokens-raw';
+import shapeTokens from '@atlaskit/tokens/atlassian-shape';
 
 export const radiusValueToToken: any = Object.fromEntries(
 	shapeTokens

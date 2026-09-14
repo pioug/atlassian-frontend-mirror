@@ -215,7 +215,7 @@ describe('main', () => {
 	it('should warn when no transforms are available', async () => {
 		(getTransforms as jest.Mock).mockImplementation(() => []);
 
-		await expect(main([mockPath], mockFlags)).rejects.toThrowError(
+		await expect(main([mockPath], mockFlags)).rejects.toThrow(
 			new NoTransformsExistError(
 				'No codemods available. Please make sure you have the latest version of the packages you are trying to upgrade before running the codemod',
 			),
@@ -308,7 +308,7 @@ describe('main', () => {
 						transform: undefined,
 						packages: format,
 					}),
-				).rejects.toThrowError(maybeErrorMsg || /^Invalid version/);
+				).rejects.toThrow(maybeErrorMsg || /^Invalid version/);
 			}
 		});
 
@@ -326,7 +326,7 @@ describe('main', () => {
 					transform: undefined,
 					sinceRef: 'head',
 				}),
-			).rejects.toThrowError(
+			).rejects.toThrow(
 				'Detected invalid previous versions of packages upgraded since "head". Previous versions must be valid semver.\n' +
 					'Invalid version "https://s3-ap-southeast-2.amazonaws.com/atlaskit-artefacts/564d4e483122/dists/atlaskit-button-13.4.0.tgz" for package "@atlaskit/button"',
 			);

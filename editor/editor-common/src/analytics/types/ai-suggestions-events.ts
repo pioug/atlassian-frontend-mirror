@@ -1,10 +1,40 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
 
-export type AiSuggestionsEntryPoint = 'primaryToolbar' | 'commentsEmptyState';
+export type AiSuggestionsEntryPoint =
+	| 'primaryToolbar'
+	/**
+	 * Legacy entry point retained for the suggestions surface in the comments panel.
+	 * Use `suggestionsPanelEmptyState` for the standalone suggestions panel.
+	 */
+	| 'commentsEmptyState'
+	| 'suggestionsPanelEmptyState'
+	| 'suggestionsPanelHeader'
+	| 'objectSidebarControl'
+	/**
+	 * Generation started automatically because a suggestions surface was opened
+	 * with nothing to show — no explicit user action. Kept distinct from
+	 * `suggestionsPanelEmptyState` and the legacy `commentsEmptyState` (the "Review"
+	 * button in those empty states) so automatic and user-initiated generation can
+	 * be told apart in analytics.
+	 */
+	| 'suggestionsPanelMount'
+	/**
+	 * The "Review" button on the follow-up card shown in place of the suggestion card
+	 * once the last inline comment suggestion has been actioned.
+	 */
+	| 'followUpCard';
 export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar';
+export type AiSuggestionsRightRailEntryPoint =
+	| 'suggestionsPanel'
+	| 'suggestionsTab'
+	| 'suggestionCard'; // 'suggestionsTab' will be deprecated;
 export type AiSuggestionsConversationErrorReason =
 	| 'agentDeactivated'
+	// The OOTB agent that owns the suggestions skill could not be provisioned.
+	| 'agentProvisioning'
+	// The OOTB agent could not be resolved from its external config reference.
+	| 'agentExternalConfigReference'
 	| 'conversationSetup'
 	| 'streamError';
 
@@ -55,6 +85,19 @@ type EntryPointClickedAEP = TrackAEP<
 	undefined
 >;
 
+/**
+ * Fired when the user clicks the "Try again" / retry button on the suggested
+ * edits error screen (the thinking bar's error state). Lets us measure how
+ * often users attempt to recover from a suggestions failure.
+ */
+type SuggestionsErrorRetryClickedAEP = TrackAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	ACTION_SUBJECT_ID.SUGGESTIONS_ERROR_RETRY,
+	undefined,
+	undefined
+>;
+
 type EntryPointExposureAEP = TrackAEP<
 	ACTION.EXPOSED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
@@ -71,8 +114,8 @@ type AcceptSuggestionAEP = TrackAEP<
 	undefined,
 	{
 		affectedBlocks: number;
-		charactersAdded: number;
-		charactersRemoved: number;
+		charactersAdded?: number;
+		charactersRemoved?: number;
 		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionType: string;
 	},
@@ -84,6 +127,7 @@ type DiscardSuggestionAEP = TrackAEP<
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
 	{
+		actionKind: string;
 		affectedBlocks: number;
 		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionType: string;
@@ -108,12 +152,42 @@ type ViewSuggestionAEP = TrackAEP<
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
 	{
+		actionKind: string;
 		affectedBlocks: number;
 		blockTypes: string[];
-		charactersToAdd: number;
-		charactersToRemove: number;
+		charactersToAdd?: number;
+		charactersToRemove?: number;
 		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionCardCharacterCount: number;
+		suggestionType: string;
+	},
+	undefined
+>;
+
+type RightRailViewedAEP = TrackAEP<
+	ACTION.RIGHT_RAIL_VIEWED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		entryPoint: AiSuggestionsRightRailEntryPoint;
+		numberOfSuggestions: number;
+		suggestionDetails: Array<{
+			actionKind: string;
+			affectedBlocks: number;
+			suggestionType: string;
+		}>;
+	},
+	undefined
+>;
+
+type ViewSuggestionReasoningAEP = TrackAEP<
+	ACTION.REASONING_VIEWED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		affectedBlocks: number;
+		interactionPoint: AiSuggestionInteractionPoint;
+		reasoningCharacterCount: number;
 		suggestionType: string;
 	},
 	undefined
@@ -124,8 +198,11 @@ export type AiSuggestionsEventPayload =
 	| ConversationErrorAEP
 	| RegenerateSuggestionsErrorAEP
 	| EntryPointClickedAEP
+	| SuggestionsErrorRetryClickedAEP
 	| EntryPointExposureAEP
 	| AcceptSuggestionAEP
 	| DiscardSuggestionAEP
 	| DismissSuggestionAEP
-	| ViewSuggestionAEP;
+	| ViewSuggestionAEP
+	| RightRailViewedAEP
+	| ViewSuggestionReasoningAEP;

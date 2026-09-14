@@ -1,12 +1,16 @@
 import { mockGetUrl, mockInvokeUrl, mockRules } from '../common/mocks';
 import { type ManualRulesById, UserInputType, type UserInputValue } from '../common/types';
-import { performPostRequest } from '../common/utils';
+import { performPostRequest } from '../common/utils/performPostRequest';
+import { invokeManuallyTriggeredRule } from './invokeManuallyTriggeredRule';
+import { searchManuallyTriggeredRules } from './searchManuallyTriggeredRules';
 
-import { invokeManuallyTriggeredRule, searchManuallyTriggeredRules } from './index';
-
-jest.mock('../common/utils/api', () => ({
-	getSearchUrl: jest.fn().mockImplementation(() => mockGetUrl),
+jest.mock('../common/utils/getInvocationUrl', () => ({
 	getInvocationUrl: jest.fn().mockImplementation(() => mockInvokeUrl),
+}));
+jest.mock('../common/utils/getSearchUrl', () => ({
+	getSearchUrl: jest.fn().mockImplementation(() => mockGetUrl),
+}));
+jest.mock('../common/utils/performPostRequest', () => ({
 	performPostRequest: jest.fn().mockImplementation(() => mockRules),
 }));
 

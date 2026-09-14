@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { date, dateWithLocalId } from '@atlaskit/adf-schema';
+import { date, dateWithLocalId } from '@atlaskit/adf-schema/date';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import {
 	ACTION,
@@ -30,7 +30,8 @@ import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DatePlugin } from './datePluginType';
 import { closeDatePicker, closeDatePickerWithAnalytics, createDate } from './pm-plugins/actions';
@@ -40,6 +41,7 @@ import createDatePlugin from './pm-plugins/main';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
 import type { DateType } from './types';
 import type { Props as DatePickerProps } from './ui/DatePicker';
+import { getDateQuickInsertComponents } from './ui/quick-insert/getDateQuickInsertComponents';
 
 const DatePicker = Loadable({
 	loader: () =>
@@ -84,7 +86,7 @@ function ContentComponent({
 	| 'popupsBoundariesElement'
 	| 'popupsScrollableElement'
 > & {
-	dependencyApi?: ExtractInjectionAPI<typeof datePlugin>;
+	dependencyApi?: ExtractInjectionAPI<DatePlugin>;
 } & {
 	weekStartDay?: WeekDay;
 }): JSX.Element | null {
@@ -168,199 +170,210 @@ function ContentComponent({
 	);
 }
 
-const datePlugin: DatePlugin = ({ config = {}, api }) => ({
-	name: 'date',
-	getSharedState(editorState) {
-		if (!editorState) {
-			return {
-				showDatePickerAt: null,
-				isNew: false,
-				focusDateInput: false,
-				isInitialised: true,
-			};
-		}
-		const { showDatePickerAt, isNew, focusDateInput, isInitialised } =
-			datePluginKey.getState(editorState) || {};
-		return {
-			showDatePickerAt,
-			isNew: !!isNew,
-			focusDateInput: !!focusDateInput,
-			isInitialised: !!isInitialised,
-		};
-	},
+const datePlugin: DatePlugin = ({ config = {}, api }) => {
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getDateQuickInsertComponents({ api }));
+	}
 
-	commands: {
-		insertDate: insertDateCommand(api),
-		deleteDate: deleteDateCommand(api),
-	},
-
-	nodes() {
-		return [
-			{
-				name: 'date',
-				node: fg('platform_editor_adf_with_localid') ? dateWithLocalId : date,
-			},
-		];
-	},
-
-	pmPlugins() {
-		return [
-			{
-				name: 'date',
-				plugin: (pmPluginFactoryParams) => {
-					DatePicker.preload();
-					return createDatePlugin(pmPluginFactoryParams);
-				},
-			},
-			{
-				name: 'dateKeymap',
-				plugin: () => {
-					DatePicker.preload();
-					return keymap();
-				},
-			},
-		];
-	},
-
-	contentComponent({
-		editorView,
-		dispatchAnalyticsEvent,
-		popupsMountPoint,
-		popupsBoundariesElement,
-		popupsScrollableElement,
-	}) {
-		if (!editorView) {
-			return null;
-		}
-		return (
-			<ContentComponent
-				dependencyApi={api}
-				editorView={editorView}
-				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-				popupsMountPoint={popupsMountPoint}
-				popupsBoundariesElement={popupsBoundariesElement}
-				popupsScrollableElement={popupsScrollableElement}
-				weekStartDay={config.weekStartDay}
-			/>
-		);
-	},
-	pluginsOptions: {
-		quickInsert: ({ formatMessage }) => [
-			{
-				id: 'date',
-				title: formatMessage(messages.date),
-				description: formatMessage(messages.dateDescription),
-				priority: 800,
-				keywords: ['calendar', 'day', 'time', 'today', '/'],
-				keyshortcut: '//',
-				icon: () => <IconDate />,
-				action(insert, state, source) {
-					const tr = createDate(true)(state);
-
-					api?.analytics?.actions?.attachAnalyticsEvent?.({
-						action: ACTION.INSERTED,
-						actionSubject: ACTION_SUBJECT.DOCUMENT,
-						actionSubjectId: ACTION_SUBJECT_ID.DATE,
-						eventType: EVENT_TYPE.TRACK,
-						attributes: { inputMethod: source ?? INPUT_METHOD.QUICK_INSERT },
-					})(tr);
-
-					return tr;
-				},
-			},
-		],
-		floatingToolbar: (state, intl) => {
-			const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-
-			if (!isViewMode()) {
-				return undefined;
+	return {
+		name: 'date',
+		getSharedState(editorState) {
+			if (!editorState) {
+				return {
+					showDatePickerAt: null,
+					isNew: false,
+					focusDateInput: false,
+					isInitialised: true,
+				};
 			}
-
-			const onClick: Command = (stateFromClickEvent, dispatch) => {
-				if (!api?.annotation) {
-					return true;
-				}
-				if (api?.analytics?.actions) {
-					api?.analytics?.actions?.fireAnalyticsEvent({
-						action: ACTION.CLICKED,
-						actionSubject: ACTION_SUBJECT.BUTTON,
-						actionSubjectId: ACTION_SUBJECT_ID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
-						eventType: EVENT_TYPE.UI,
-						attributes: {
-							source: 'highlightActionsMenu',
-							pageMode: 'edit',
-							sourceNode: 'date',
-						},
-					});
-				}
-				const command = api.annotation?.actions?.setInlineCommentDraftState(
-					true,
-					INPUT_METHOD.TOOLBAR,
-				);
-				return command(stateFromClickEvent, dispatch);
-			};
-
+			const { showDatePickerAt, isNew, focusDateInput, isInitialised } =
+				datePluginKey.getState(editorState) || {};
 			return {
-				title: 'Date floating toolbar',
-				nodeType: [state.schema.nodes.date],
-				getDomRef: (editorView) => {
-					const dateState = datePluginKey.getState(state);
-					const datePosition = dateState?.showDatePickerAt;
-
-					if (!datePosition) {
-						return undefined;
-					}
-
-					const domAtPos = editorView.domAtPos.bind(editorView);
-					const domRef = findDomRefAtPos(datePosition, domAtPos);
-					const isHTMLElement = (element: Node): element is HTMLElement => {
-						return element instanceof HTMLElement;
-					};
-
-					if (isHTMLElement(domRef)) {
-						return domRef;
-					}
-					return undefined;
-				},
-				onPositionCalculated: calculateToolbarPositionAboveSelection('Date floating toolbar'),
-				items: (node: ProseMirrorNode): Array<FloatingToolbarItem<Command>> => {
-					const annotationState = api?.annotation?.sharedState.currentState();
-					const activeCommentMark = node.marks.find(
-						(mark) =>
-							mark.type.name === 'annotation' &&
-							annotationState?.annotations[mark.attrs.id] === false,
-					);
-					const showAnnotation =
-						annotationState &&
-						annotationState.isVisible &&
-						isViewMode() &&
-						!annotationState.bookmark &&
-						!annotationState.mouseData.isSelecting &&
-						!activeCommentMark;
-
-					if (showAnnotation) {
-						return [
-							{
-								type: 'button',
-								showTitle: true,
-								testId: 'add-comment-date-button',
-								icon: CommentIcon,
-								title: intl.formatMessage(annotationMessages.createComment),
-								onClick,
-								tooltipContent: (
-									<ToolTipContent
-										description={intl.formatMessage(annotationMessages.createComment)}
-									/>
-								),
-								supportsViewMode: true,
-							},
-						];
-					}
-					return [];
-				},
+				showDatePickerAt,
+				isNew: !!isNew,
+				focusDateInput: !!focusDateInput,
+				isInitialised: !!isInitialised,
 			};
 		},
-	},
-});
+
+		commands: {
+			insertDate: insertDateCommand(api),
+			deleteDate: deleteDateCommand(api),
+		},
+
+		nodes() {
+			return [
+				{
+					name: 'date',
+					node: fg('platform_editor_adf_with_localid') ? dateWithLocalId : date,
+				},
+			];
+		},
+
+		pmPlugins() {
+			return [
+				{
+					name: 'date',
+					plugin: (pmPluginFactoryParams) => {
+						DatePicker.preload();
+						return createDatePlugin(pmPluginFactoryParams);
+					},
+				},
+				{
+					name: 'dateKeymap',
+					plugin: () => {
+						DatePicker.preload();
+						return keymap();
+					},
+				},
+			];
+		},
+
+		contentComponent({
+			editorView,
+			dispatchAnalyticsEvent,
+			popupsMountPoint,
+			popupsBoundariesElement,
+			popupsScrollableElement,
+		}) {
+			if (!editorView) {
+				return null;
+			}
+			return (
+				<ContentComponent
+					dependencyApi={api}
+					editorView={editorView}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					popupsMountPoint={popupsMountPoint}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsScrollableElement={popupsScrollableElement}
+					weekStartDay={config.weekStartDay}
+				/>
+			);
+		},
+		pluginsOptions: {
+			...(isRegisteredSlashCommandEnabled
+				? {}
+				: {
+						quickInsert: ({ formatMessage }) => [
+							{
+								id: 'date',
+								title: formatMessage(messages.date),
+								description: formatMessage(messages.dateDescription),
+								priority: 800,
+								keywords: ['calendar', 'day', 'time', 'today', '/'],
+								keyshortcut: '//',
+								icon: () => <IconDate />,
+								action(insert, state, source) {
+									const tr = createDate(true)(state);
+
+									api?.analytics?.actions?.attachAnalyticsEvent?.({
+										action: ACTION.INSERTED,
+										actionSubject: ACTION_SUBJECT.DOCUMENT,
+										actionSubjectId: ACTION_SUBJECT_ID.DATE,
+										eventType: EVENT_TYPE.TRACK,
+										attributes: { inputMethod: source ?? INPUT_METHOD.QUICK_INSERT },
+									})(tr);
+
+									return tr;
+								},
+							},
+						],
+					}),
+			floatingToolbar: (state, intl) => {
+				const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
+				if (!isViewMode()) {
+					return undefined;
+				}
+
+				const onClick: Command = (stateFromClickEvent, dispatch) => {
+					if (!api?.annotation) {
+						return true;
+					}
+					if (api?.analytics?.actions) {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.CLICKED,
+							actionSubject: ACTION_SUBJECT.BUTTON,
+							actionSubjectId: ACTION_SUBJECT_ID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
+							eventType: EVENT_TYPE.UI,
+							attributes: {
+								source: 'highlightActionsMenu',
+								pageMode: 'edit',
+								sourceNode: 'date',
+							},
+						});
+					}
+					const command = api.annotation?.actions?.setInlineCommentDraftState(
+						true,
+						INPUT_METHOD.TOOLBAR,
+					);
+					return command(stateFromClickEvent, dispatch);
+				};
+
+				return {
+					title: 'Date floating toolbar',
+					nodeType: [state.schema.nodes.date],
+					getDomRef: (editorView) => {
+						const dateState = datePluginKey.getState(state);
+						const datePosition = dateState?.showDatePickerAt;
+
+						if (!datePosition) {
+							return undefined;
+						}
+
+						const domAtPos = editorView.domAtPos.bind(editorView);
+						const domRef = findDomRefAtPos(datePosition, domAtPos);
+						const isHTMLElement = (element: Node): element is HTMLElement => {
+							return element instanceof HTMLElement;
+						};
+
+						if (isHTMLElement(domRef)) {
+							return domRef;
+						}
+						return undefined;
+					},
+					onPositionCalculated: calculateToolbarPositionAboveSelection('Date floating toolbar'),
+					items: (node: ProseMirrorNode): Array<FloatingToolbarItem<Command>> => {
+						const annotationState = api?.annotation?.sharedState.currentState();
+						const activeCommentMark = node.marks.find(
+							(mark) =>
+								mark.type.name === 'annotation' &&
+								annotationState?.annotations[mark.attrs.id] === false,
+						);
+						const showAnnotation =
+							annotationState &&
+							annotationState.isVisible &&
+							isViewMode() &&
+							!annotationState.bookmark &&
+							!annotationState.mouseData.isSelecting &&
+							!activeCommentMark;
+
+						if (showAnnotation) {
+							return [
+								{
+									type: 'button',
+									showTitle: true,
+									testId: 'add-comment-date-button',
+									icon: CommentIcon,
+									title: intl.formatMessage(annotationMessages.createComment),
+									onClick,
+									tooltipContent: (
+										<ToolTipContent
+											description={intl.formatMessage(annotationMessages.createComment)}
+										/>
+									),
+									supportsViewMode: true,
+								},
+							];
+						}
+						return [];
+					},
+				};
+			},
+		},
+	};
+};
 
 export default datePlugin;

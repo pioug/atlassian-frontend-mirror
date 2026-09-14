@@ -8,7 +8,7 @@ import { createElement } from 'react';
 
 import { RawIntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -17,7 +17,6 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type tablePlugin from '../../tablePlugin';
 import { SortingIconWrapper } from '../../ui/icons/SortingIconWrapper';
@@ -162,13 +161,7 @@ export const createPlugin = (
 										// side: -1 ensures the widget is placed before any content at the
 										// position, making it the first direct child of the <th> element and ensuring
 										// block marks do not affect CSS styling
-										side: expValEquals(
-											'platform_editor_fix_table_sort_with_mark',
-											'isEnabled',
-											true,
-										)
-											? -1
-											: undefined,
+										side: -1,
 										type: 'sorting-decoration',
 										tableId,
 									},

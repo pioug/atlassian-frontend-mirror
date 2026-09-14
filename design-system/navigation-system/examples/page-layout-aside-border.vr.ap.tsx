@@ -1,0 +1,153 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
+import Badge from '@atlaskit/badge/badge';
+import Button from '@atlaskit/button/default/button';
+import { cssMap, jsx } from '@atlaskit/css';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import Heading from '@atlaskit/heading/heading';
+import AppsIcon from '@atlaskit/icon/core/apps';
+import InboxIcon from '@atlaskit/icon/core/inbox';
+import ProjectIcon from '@atlaskit/icon/core/project';
+import { ConfluenceIcon } from '@atlaskit/logo';
+import { Aside } from '@atlaskit/navigation-system/layout/aside';
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import {
+	SideNav,
+	SideNavBody,
+	SideNavToggleButton,
+} from '@atlaskit/navigation-system/layout/side-nav';
+import {
+	TopNav,
+	TopNavEnd,
+	TopNavMiddle,
+	TopNavStart,
+} from '@atlaskit/navigation-system/layout/top-nav';
+import {
+	AppLogo,
+	AppSwitcher,
+	CreateButton,
+	Help,
+	Notifications,
+	Profile,
+	Search,
+	Settings,
+} from '@atlaskit/navigation-system/top-nav-items';
+import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { token } from '@atlaskit/tokens';
+
+import { WithResponsiveViewport } from './utils/example-utils';
+
+const asideStyles = cssMap({
+	root: { backgroundColor: token('elevation.surface.sunken') },
+	content: {
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingBlockEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
+		borderInlineStart: `${token('border.width')} solid ${token('color.border')}`,
+		height: '100%',
+	},
+});
+
+const headingStyles = cssMap({
+	root: {
+		paddingInline: token('space.300'),
+		paddingBlockStart: token('space.300'),
+	},
+});
+
+export default function AsideBorderExample(): JSX.Element {
+	return (
+		<WithResponsiveViewport>
+			<Root>
+				<TopNav>
+					<TopNavStart
+						sideNavToggleButton={
+							<SideNavToggleButton
+								testId="side-nav-toggle-button"
+								collapseLabel="Collapse sidebar"
+								expandLabel="Expand sidebar"
+							/>
+						}
+					>
+						<AppSwitcher label="Switch apps" />
+						<AppLogo href="" icon={ConfluenceIcon} name="Confluence" label="Home page" />
+					</TopNavStart>
+					<TopNavMiddle>
+						<Search label="Search" />
+						<CreateButton>Create</CreateButton>
+					</TopNavMiddle>
+					<TopNavEnd>
+						<Help label="Help" />
+						<Notifications
+							label="Notifications"
+							badge={() => (
+								<Badge max={9} appearance="dangerBold">
+									{99999}
+								</Badge>
+							)}
+						/>
+						<Settings label="Settings" />
+						<DropdownMenu
+							shouldRenderToParent
+							trigger={({ triggerRef: ref, ...props }) => (
+								<Profile ref={ref} label="Profile" {...props} />
+							)}
+						>
+							<DropdownItemGroup>
+								<DropdownItem>Account</DropdownItem>
+							</DropdownItemGroup>
+						</DropdownMenu>
+					</TopNavEnd>
+				</TopNav>
+
+				<SideNav>
+					<SideNavBody>
+						<MenuList>
+							<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
+								Your work
+							</LinkMenuItem>
+							<LinkMenuItem href="#" elemBefore={<AppsIcon label="" color="currentColor" />}>
+								Apps
+							</LinkMenuItem>
+							<LinkMenuItem href="#" elemBefore={<ProjectIcon label="" color="currentColor" />}>
+								Projects
+							</LinkMenuItem>
+						</MenuList>
+					</SideNavBody>
+					<PanelSplitter label="Resize side nav" />
+				</SideNav>
+
+				<Main id="main-container">
+					<Stack xcss={headingStyles.root}>
+						<Heading size="small">Project Blueshift</Heading>
+					</Stack>
+				</Main>
+				<Aside xcss={asideStyles.root}>
+					<Stack space="space.400" xcss={asideStyles.content}>
+						<Heading size="small">Aside</Heading>
+						<Inline space="space.100">
+							<Button>Following</Button>
+							<Button>Share</Button>
+						</Inline>
+
+						<Stack space="space.050">
+							<Heading size="small">Owner</Heading>
+							<Text weight="medium">Michael Dougall</Text>
+						</Stack>
+					</Stack>
+					<PanelSplitter label="Resize aside" />
+				</Aside>
+			</Root>
+		</WithResponsiveViewport>
+	);
+}

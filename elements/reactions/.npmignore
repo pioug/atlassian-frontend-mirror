@@ -7,3 +7,4 @@ local-config-template.ts
 .env-template
 tsconfig.app.json
 tsconfig.dev.json
+*.docs.tsx

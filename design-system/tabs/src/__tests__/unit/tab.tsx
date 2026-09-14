@@ -5,7 +5,11 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 
-import Tabs, { Tab, TabList, TabPanel, useTab } from '../../index';
+import Tabs from '../../components/tabs';
+import Tab from '../../components/tab';
+import TabList from '../../components/tab-list';
+import TabPanel from '../../components/tab-panel';
+import useTab from '../../use-tab';
 import { TabContext } from '../../internal/tab-context';
 
 const CustomTab = ({ label }: { label: string }) => {
@@ -81,13 +85,13 @@ describe('@atlaskit/tabs', () => {
 				expect(tab).toHaveAttribute('tabIndex', '0');
 
 				// Test methods
-				expect(onClick).not.toBeCalled();
+				expect(onClick).not.toHaveBeenCalled();
 				tab.click();
-				expect(onClick).toBeCalled();
+				expect(onClick).toHaveBeenCalled();
 
-				expect(onKeyDown).not.toBeCalled();
+				expect(onKeyDown).not.toHaveBeenCalled();
 				fireEvent.keyDown(tab, { key: 'ArrowRight' });
-				expect(onKeyDown).toBeCalled();
+				expect(onKeyDown).toHaveBeenCalled();
 			});
 
 			it('should call onClick when clicked', () => {
@@ -95,22 +99,22 @@ describe('@atlaskit/tabs', () => {
 				const tab = screen.getByRole('tab');
 
 				// Test methods
-				expect(onClick).not.toBeCalled();
+				expect(onClick).not.toHaveBeenCalled();
 				tab.click();
-				expect(onClick).toBeCalled();
+				expect(onClick).toHaveBeenCalled();
 
-				expect(onKeyDown).not.toBeCalled();
+				expect(onKeyDown).not.toHaveBeenCalled();
 				fireEvent.keyDown(tab, { key: 'ArrowRight' });
-				expect(onKeyDown).toBeCalled();
+				expect(onKeyDown).toHaveBeenCalled();
 			});
 
 			it('should call onKeyDown when key down', () => {
 				setup();
 				const tab = screen.getByRole('tab');
 
-				expect(onKeyDown).not.toBeCalled();
+				expect(onKeyDown).not.toHaveBeenCalled();
 				fireEvent.keyDown(tab, { key: 'ArrowRight' });
-				expect(onKeyDown).toBeCalled();
+				expect(onKeyDown).toHaveBeenCalled();
 			});
 		});
 
@@ -219,13 +223,13 @@ describe('@atlaskit/tabs', () => {
 			expect(tab).toHaveAttribute('tabIndex', '0');
 
 			// Test methods
-			expect(onClick).not.toBeCalled();
+			expect(onClick).not.toHaveBeenCalled();
 			tab.click();
-			expect(onClick).toBeCalled();
+			expect(onClick).toHaveBeenCalled();
 
-			expect(onKeyDown).not.toBeCalled();
+			expect(onKeyDown).not.toHaveBeenCalled();
 			fireEvent.keyDown(tab, { key: 'ArrowRight' });
-			expect(onKeyDown).toBeCalled();
+			expect(onKeyDown).toHaveBeenCalled();
 		});
 
 		it('should change the custom tab when clicked', () => {

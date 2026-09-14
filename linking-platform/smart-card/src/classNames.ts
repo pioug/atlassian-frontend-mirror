@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export const contentFooterClassName = 'smart-link-content-footer';
 export const metadataListClassName = 'smart-link-metadata-list';
 export const blockCardResolvingViewClassName = 'block-card-resolving-view';
@@ -6,6 +7,9 @@ export const blockCardResolvedViewByClassName = 'block-card-resolved-view-by';
 export const blockCardForbiddenViewClassName = 'block-card-forbidden-view';
 export const blockCardForbiddenViewLinkClassName = 'block-card-forbidden-view-link';
 
+/**
+ * @deprecated Use `import { blockCardIconImageClassName } from '@atlaskit/smart-card/icon'` instead.
+ */
 export { blockCardIconImageClassName } from './view/common/Icon';
 export const blockCardContentClassName = 'block-card-content';
 export const blockCardContentHeaderClassName = 'block-card-content-header';

@@ -1,7 +1,7 @@
 import { NCS_STORAGE } from '@atlaskit/editor-common/ncs-step-metrics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { StorageClient } from '@atlaskit/frontend-utilities';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
 

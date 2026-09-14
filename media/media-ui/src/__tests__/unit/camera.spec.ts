@@ -1,5 +1,9 @@
-import { Bounds, Rectangle, Camera, Vector2 } from '../../camera';
 import * as jsc from 'jsverify';
+
+import { Bounds } from '../../Bounds';
+import { Camera } from '../../Camera-2';
+import { Rectangle } from '../../Rectangle';
+import { Vector2 } from '../../Vector2';
 
 const ACCEPTABLE_FLOATING_ERROR = 0.001;
 

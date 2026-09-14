@@ -6,14 +6,15 @@ import { type ReactElement, type SyntheticEvent, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
-import Flag, { FlagGroup } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import { AppearanceArray, type AppearanceTypes } from '@atlaskit/flag/types';
 import Error from '@atlaskit/icon/core/status-error';
 import Tick from '@atlaskit/icon/core/status-success';
 import Warning from '@atlaskit/icon/core/status-warning';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
-import Spinner from '@atlaskit/spinner';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

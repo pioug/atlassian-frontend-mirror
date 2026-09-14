@@ -9,7 +9,7 @@
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export type AdfRendererProps = {
 	/**

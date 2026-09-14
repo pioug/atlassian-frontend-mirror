@@ -2,9 +2,10 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
+import AppProvider from '@atlaskit/app-provider/app-provider';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 
-import Link from '../../../../index';
+import Link from '../..';
 
 type MyRouterLinkConfig = {
 	to: string;

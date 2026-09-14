@@ -1,8 +1,12 @@
 import React, { useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
-import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 interface FormData {

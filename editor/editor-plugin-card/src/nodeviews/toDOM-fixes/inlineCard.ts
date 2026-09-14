@@ -1,4 +1,4 @@
-import { inlineCard, inlineCardWithLocalId } from '@atlaskit/adf-schema';
+import { inlineCard, inlineCardWithLocalId } from '@atlaskit/adf-schema/inline-card';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type {
 	AttributeSpec,
@@ -7,7 +7,7 @@ import type {
 	TagParseRule,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 // @nodeSpecException:toDOM patch

@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { functionWithCondition } from '../function-with-condition/functionWithCondition';
 

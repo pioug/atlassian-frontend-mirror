@@ -14,7 +14,7 @@ import {
 	type Page,
 } from '@af/integration-testing';
 import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
 import type { RendererProps } from '@atlaskit/renderer';

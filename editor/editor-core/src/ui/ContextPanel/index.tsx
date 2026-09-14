@@ -5,6 +5,7 @@ import { injectIntl } from 'react-intl';
 import type { IntlShape, WithIntlProps } from 'react-intl';
 import Transition from 'react-transition-group/Transition';
 
+import { getDocument } from '@atlaskit/browser-apis';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { contextPanelMessages } from '@atlaskit/editor-common/messages';
@@ -12,8 +13,9 @@ import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/ty
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ContextPanelContentCompiled, ContextPanelWrapperCompiled } from './index-compiled';
@@ -79,8 +81,39 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 		this.unsetPluginContent();
 	};
 
-	focusEditor = () => {
+	/**
+	 * Returns focus to the editor when the panel starts closing, so keyboard users
+	 * are not left with focus on an element that is about to disappear.
+	 *
+	 * Skipped when focus is already on a live element *outside* the exiting panel:
+	 * that means the consumer has restored focus itself (e.g. to the button that
+	 * opened the panel, per the WAI-ARIA dialog pattern), and overriding it would
+	 * strand keyboard and screen-reader users in the editor.
+	 *
+	 * @param node The exiting panel content, as passed by `Transition`'s `onExiting`.
+	 */
+	focusEditor = (node?: HTMLElement) => {
 		const { editorAPI } = this.props;
+
+		// `node` can be null here: consumers often clear the panel's children in the
+		// same update that hides it, so `Transition` has no DOM node to hand us. Treat
+		// that as "focus is not inside the panel" and rely on the active element alone.
+		//
+		// `Element` rather than `HTMLElement`: focusable SVG elements (e.g. an
+		// SVG-based trigger button) are valid focus targets but are not HTMLElements.
+		const activeDocument = getDocument();
+		const activeElement = activeDocument?.activeElement;
+		const focusHeldOutsidePanel =
+			!!activeDocument &&
+			activeElement instanceof Element &&
+			activeElement !== activeDocument.body &&
+			activeElement.isConnected &&
+			!(node?.contains(activeElement) ?? false);
+
+		if (focusHeldOutsidePanel) {
+			return;
+		}
+
 		editorAPI?.core?.actions.focus({ scrollIntoView: false });
 	};
 
@@ -101,7 +134,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 
 		const animSpeedMs = fg('platform_editor_disable_context_panel_animation') ? 0 : ANIM_SPEED_MS;
 
-		const onExited = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		const onExited = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 			? this.handleTransitionExited
 			: () => this.unsetPluginContent();
 
@@ -185,7 +218,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const SwappableContentArea: React.FC<WithIntlProps<SwappableContentAreaProps>> & {
 	WrappedComponent: React.ComponentType<SwappableContentAreaProps>;
 } = injectIntl(SwappableContentAreaInner);

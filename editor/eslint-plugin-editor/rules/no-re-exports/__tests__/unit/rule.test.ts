@@ -1,3 +1,4 @@
+/** @jest-environment node */
 import { tester } from '../../../../__tests__/utils/_tester';
 import { rule } from '../../index';
 

@@ -5,14 +5,12 @@ import { IntlProvider } from 'react-intl';
 
 import TeamProfileCard from '../../components/Team/TeamProfileCard';
 import type { AnalyticsFunction } from '../../types';
-import {
-	actionClicked,
-	errorRetryClicked,
-	moreActionsClicked,
-	moreMembersClicked,
-	profileCardRendered,
-	teamAvatarClicked,
-} from '../../util/analytics';
+import { actionClicked } from '../../util/actionClicked';
+import { errorRetryClicked } from '../../util/errorRetryClicked';
+import { moreActionsClicked } from '../../util/moreActionsClicked';
+import { moreMembersClicked } from '../../util/moreMembersClicked';
+import { profileCardRendered } from '../../util/profileCardRendered';
+import { teamAvatarClicked } from '../../util/teamAvatarClicked';
 
 type AnalyticsEventPayload = Record<string, any>;
 const analyticsListener = jest.fn();

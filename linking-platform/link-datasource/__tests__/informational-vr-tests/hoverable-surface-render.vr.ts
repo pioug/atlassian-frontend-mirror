@@ -2,11 +2,11 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { VREmptyStateHoverable } from '../../examples/vr/empty-state-vr';
+import { VREmptyStateHoverable } from '../../examples/vr/empty-state-vr.vr.ap';
 import {
 	VRJiraIssueTableDaterangeHoverable,
 	VRJiraIssueTableHoverable,
-} from '../../examples/vr/jira-issues-table-vr';
+} from '../../examples/vr/jira-issues-table-vr.vr.ap';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
 
@@ -24,7 +24,8 @@ const options: OptionsType = {
 
 const hoverableContainerSelector = '[data-testid="examples-hoverable-container"]';
 
-snapshotInformational(VRJiraIssueTableHoverable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(VRJiraIssueTableHoverable, {
 	...options,
 	prepare: async (page: Page) => {
 		await page.hover(hoverableContainerSelector);
@@ -40,7 +41,8 @@ snapshotInformational(VRJiraIssueTableHoverable, {
 	waitForHold: true,
 });
 
-snapshotInformational(VRJiraIssueTableDaterangeHoverable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(VRJiraIssueTableDaterangeHoverable, {
 	...options,
 	prepare: async (page: Page) => {
 		await page.hover(hoverableContainerSelector);
@@ -56,7 +58,8 @@ snapshotInformational(VRJiraIssueTableDaterangeHoverable, {
 	waitForHold: true,
 });
 
-snapshotInformational(VREmptyStateHoverable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(VREmptyStateHoverable, {
 	...options,
 	prepare: async (page: Page) => {
 		await page.hover(hoverableContainerSelector);

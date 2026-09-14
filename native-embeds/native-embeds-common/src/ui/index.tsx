@@ -3,11 +3,11 @@ import React, { useCallback } from 'react';
 import { cssMap } from '@compiled/react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type { CorePlugin } from '@atlaskit/editor-common/types';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { LocalIdPlugin } from '@atlaskit/editor-plugin-local-id';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

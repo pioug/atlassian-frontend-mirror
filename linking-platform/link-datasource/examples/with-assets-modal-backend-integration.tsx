@@ -6,19 +6,21 @@ import { useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { DatasourceTableView, JSMAssetsConfigModal } from '@atlaskit/link-datasource';
-import { CardClient as SmartCardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '../src/ui/datasource-table-view/DatasourceTableViewWithWrappers';
+import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../src/ui/assets-modal/AssetsConfigModalWithWrappers';
+import SmartCardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { forceCmdbBaseUrl } from '@atlaskit/link-test-helpers/assets';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Card } from '@atlaskit/smart-card';
 
 import {
-	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	type AssetsDatasourceAdf,
 	type AssetsDatasourceParameters,
-} from '../src';
+} from '../src/ui/assets-modal/types';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
 
 const tableContainerStyles = css({
 	width: '700px',

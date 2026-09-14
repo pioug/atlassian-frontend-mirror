@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/interaction-context",
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"description": "Interaction context for handling tracing",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,43 +33,5 @@
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"react": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

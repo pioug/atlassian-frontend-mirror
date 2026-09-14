@@ -1,6 +1,8 @@
 import React from 'react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 const mockCopyTextToClipboard = jest.fn();
 jest.mock('../../../../react/utils/clipboard', () => {
@@ -13,32 +15,39 @@ jest.mock('../../../../react/utils/clipboard', () => {
 
 import CopyButton from '../../../../react/nodes/codeBlock/components/codeBlockCopyButton';
 
-const render = () => {
-	return mountWithIntl(<CopyButton content={'Some code'} />);
+const renderCopyButton = () => {
+	return renderWithIntl(<CopyButton content={'Some code'} />);
 };
 
 describe('CopyButton', () => {
-	it('should call CopyTextToClipboard on click', () => {
-		const copyButton = render();
-		copyButton.find('button.copy-to-clipboard').simulate('click');
+	it('should call CopyTextToClipboard on click', async () => {
+		renderCopyButton();
+
+		await userEvent.click(screen.getByRole('button', { name: 'Copy as text' }));
 
 		expect(mockCopyTextToClipboard).toHaveBeenCalledWith('Some code');
 	});
 
-	it('should update the component on click and mouseLeave', () => {
-		const copyButton = render();
-		copyButton.find('button.copy-to-clipboard').simulate('click');
+	it('should update the component on click and mouseLeave', async () => {
+		renderCopyButton();
 
-		expect(copyButton.find('button.copy-to-clipboard').props().className).toContain('clicked');
-		expect(copyButton.find('button.copy-to-clipboard').props()['aria-label']).toEqual('Copied!');
+		const copyButton = screen.getByRole('button', { name: 'Copy as text' });
 
-		copyButton.find('div').at(1).simulate('mouseleave');
+		await userEvent.click(copyButton);
 
-		copyButton.update();
+		expect(copyButton).toHaveClass('clicked');
+		expect(copyButton).toHaveAttribute('aria-label', 'Copied!');
 
-		expect(copyButton.find('button.copy-to-clipboard').props().className).not.toContain('clicked');
-		expect(copyButton.find('button.copy-to-clipboard').props()['aria-label']).toEqual(
-			'Copy as text',
-		);
+		await userEvent.hover(copyButton);
+		await userEvent.unhover(copyButton);
+
+		expect(copyButton).not.toHaveClass('clicked');
+		expect(copyButton).toHaveAttribute('aria-label', 'Copy as text');
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderCopyButton();
+
+		await expect(container).toBeAccessible();
 	});
 });

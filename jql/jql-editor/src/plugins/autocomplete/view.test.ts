@@ -1,7 +1,7 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type SelectableAutocompleteOption } from './components/types';
-import { shouldInsertOpeningParenthesis } from './view';
+import { shouldInsertOpeningParenthesis } from './shouldInsertOpeningParenthesis';
 
 const createOption = (
 	overrides: Partial<SelectableAutocompleteOption> = {},

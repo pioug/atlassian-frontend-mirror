@@ -737,9 +737,6 @@ export default function SSRTableBasic(): React.JSX.Element {
 				allowLayouts: true,
 				allowBreakout: true,
 			}}
-			experiments={{
-				platform_editor_exp_lazy_node_views: true,
-			}}
 			featureFlags={{}}
 		/>
 	);

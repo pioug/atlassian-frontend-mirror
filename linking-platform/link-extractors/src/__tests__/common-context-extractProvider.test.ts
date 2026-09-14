@@ -1,5 +1,4 @@
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	TEST_BASE_DATA,
@@ -10,7 +9,7 @@ import {
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
-import { extractProvider } from '../index';
+import { extractProvider } from '../extract-provider';
 
 describe('extractors.context.provider', () => {
 	afterEach(() => jest.clearAllMocks());
@@ -55,7 +54,13 @@ describe('extractors.context.provider', () => {
 				...TEST_BASE_DATA,
 				generator: { ...TEST_OBJECT, icon: undefined },
 			}),
-		).toEqual({ text: TEST_NAME, image: TEST_URL });
+		).toEqual({
+			text: TEST_NAME,
+			icon: undefined,
+			iconLabel: TEST_NAME,
+			id: undefined,
+			image: TEST_URL,
+		});
 	});
 
 	it('returns generator with name, icon if object has name, icon', () => {
@@ -64,7 +69,13 @@ describe('extractors.context.provider', () => {
 				...TEST_BASE_DATA,
 				generator: TEST_OBJECT,
 			}),
-		).toEqual({ text: TEST_NAME, icon: TEST_URL, image: TEST_URL });
+		).toEqual({
+			text: TEST_NAME,
+			icon: TEST_URL,
+			iconLabel: TEST_NAME,
+			id: undefined,
+			image: TEST_URL,
+		});
 	});
 
 	it('returns generator icon for Confluence', () => {
@@ -87,42 +98,14 @@ describe('extractors.context.provider', () => {
 		expect(getByLabelText('Jira')).toBeDefined();
 	});
 
-	describe('with platform_sl_google_rebrand gate OFF', () => {
-		beforeEach(() => {
-			failGate('platform_sl_google_rebrand');
-		});
-
-		it('returns text as-is for a Link generator named "Google"', () => {
-			expect(
-				extractProvider({
-					...TEST_BASE_DATA,
-					generator: { '@type': 'Link', href: TEST_URL, name: 'Google' },
-				}),
-			).toEqual({ text: 'Google' });
-		});
-
-		it('returns text as-is for an Object generator named "Google"', () => {
-			expect(
-				extractProvider({
-					...TEST_BASE_DATA,
-					generator: { ...TEST_OBJECT, name: 'Google', icon: undefined },
-				}),
-			).toEqual({ text: 'Google', image: TEST_URL });
-		});
-	});
-
-	describe('with platform_sl_google_rebrand gate ON', () => {
-		beforeEach(() => {
-			passGate('platform_sl_google_rebrand');
-		});
-
+	describe('provider rebranding', () => {
 		it('renames "Google" to "Google Drive" for a Link generator', () => {
 			expect(
 				extractProvider({
 					...TEST_BASE_DATA,
 					generator: { '@type': 'Link', href: TEST_URL, name: 'Google' },
 				}),
-			).toEqual({ text: 'Google Drive' });
+			).toEqual({ text: 'Google Drive', iconLabel: 'Google Drive' });
 		});
 
 		it('renames "Google" to "Google Drive" for an Object generator', () => {

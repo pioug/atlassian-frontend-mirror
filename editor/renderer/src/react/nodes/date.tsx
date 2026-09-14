@@ -48,7 +48,7 @@ const Date = memo(function Date(props: Props & WrappedComponentProps) {
 	);
 });
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const DateComponent: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(Date);

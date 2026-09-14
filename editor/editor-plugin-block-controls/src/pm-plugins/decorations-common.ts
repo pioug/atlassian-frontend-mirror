@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';

@@ -1,4 +1,4 @@
-import type { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import {
 	getParentNodeWidth,
 	getTableContainerWidth,
@@ -18,7 +18,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { TableOptions } from '../../../nodeviews/types';
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0276df52cce3ff4af21c51ddcfcd1999>>
+ * @codegen <<SignedSource::3ade31facb70e7039ef1c7025dee828a>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,7 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  */
 export function GuardDetectIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Guard Detect',
 	testId,

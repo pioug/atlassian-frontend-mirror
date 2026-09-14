@@ -7,7 +7,7 @@ import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { InternalActionName } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 
 const styles = cssMap({
 	button: {

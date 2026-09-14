@@ -1,50 +1,13 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
 
 import CachingClient, { type CacheConfig } from './CachingClient';
+import { buildReportingLinesQuery } from './buildReportingLinesQuery';
+import { directoryGraphqlQuery } from './directoryGraphqlQuery';
 import { getOrgIdForCloudIdFromAGG } from './getOrgIdForCloudIdFromAGG';
-import { directoryGraphqlQuery } from './graphqlUtils';
 
 const UNSHARDED_PREFIX = '/gateway/api/watermelon';
-
-export const buildReportingLinesQuery = (
-	aaid: string,
-): {
-	query: string;
-	variables: {
-		aaid: string;
-	};
-} => ({
-	query: `
-    fragment ReportingLinesUserPII on UserPII {
-      name
-      picture
-    }
-
-    fragment ReportingLinesUserFragment on ReportingLinesUser {
-      accountIdentifier
-      identifierType
-      pii {
-        ...ReportingLinesUserPII
-      }
-    }
-
-    query ReportingLines($aaid: String) {
-      reportingLines(aaidOrHash: $aaid) {
-        managers {
-          ...ReportingLinesUserFragment
-        }
-        reports {
-          ...ReportingLinesUserFragment
-        }
-      }
-    }
-  `,
-	variables: {
-		aaid,
-	},
-});
 
 export type TeamCentralCardClientOptions = CacheConfig & {
 	cloudId?: string;
@@ -58,7 +21,9 @@ export type TeamCentralCardClientOptions = CacheConfig & {
 };
 
 const orgContainsAnyWorkspacePromiseCache: Map<string, Promise<boolean>> = new Map();
+
 const orgIdPromiseCache: Map<string, Promise<string | null>> = new Map();
+
 const workspaceExistsWithTypePromiseCache: Map<string, Promise<string | undefined>> = new Map();
 
 class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData> {

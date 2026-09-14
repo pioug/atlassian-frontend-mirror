@@ -1,4 +1,5 @@
-import type { EmDefinition, TextDefinition } from '@atlaskit/adf-schema';
+import type { EmDefinition } from '@atlaskit/adf-schema/em';
+import type { TextDefinition } from '@atlaskit/adf-schema/text';
 import { applyMark } from '../utils/apply-mark';
 import type { WithMark } from '../types';
 

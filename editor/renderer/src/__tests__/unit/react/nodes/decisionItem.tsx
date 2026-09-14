@@ -1,29 +1,30 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { DecisionItem as AkDecisionItem } from '@atlaskit/task-decision';
+import { screen } from '@testing-library/react';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DecisionItem from '../../../../react/nodes/decisionItem';
 import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/DecisionItem', () => {
 	const serialiser = new ReactSerializer({});
 	const text: any = 'This is a list item';
-	const listItem = shallow(
-		<DecisionItem
-			marks={[]}
-			serializer={serialiser}
-			nodeType="decisionItem"
-			dataAttributes={{ 'data-renderer-start-pos': 0 }}
-		>
-			{text}
-		</DecisionItem>,
-	);
 
 	it('should wrap content with <AkDecisionItem>-tag', () => {
-		expect(listItem.is(AkDecisionItem)).toEqual(true);
+		renderWithIntl(
+			<DecisionItem
+				marks={[]}
+				serializer={serialiser}
+				nodeType="decisionItem"
+				dataAttributes={{ 'data-renderer-start-pos': 0 }}
+			>
+				{text}
+			</DecisionItem>,
+		);
+
+		expect(screen.getByTestId('elements-decision-item')).toHaveTextContent('This is a list item');
 	});
 
 	it('should render if no children', () => {
-		const decisionItem = shallow(
+		renderWithIntl(
 			<DecisionItem
 				marks={[]}
 				serializer={serialiser}
@@ -31,6 +32,22 @@ describe('Renderer - React/Nodes/DecisionItem', () => {
 				dataAttributes={{ 'data-renderer-start-pos': 0 }}
 			/>,
 		);
-		expect(decisionItem.isEmptyRender()).toEqual(false);
+
+		expect(screen.getByTestId('elements-decision-item')).toBeInTheDocument();
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(
+			<DecisionItem
+				marks={[]}
+				serializer={serialiser}
+				nodeType="decisionItem"
+				dataAttributes={{ 'data-renderer-start-pos': 0 }}
+			>
+				{text}
+			</DecisionItem>,
+		);
+
+		await expect(container).toBeAccessible();
 	});
 });

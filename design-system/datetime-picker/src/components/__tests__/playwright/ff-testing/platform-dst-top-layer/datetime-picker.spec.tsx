@@ -10,17 +10,18 @@ test.beforeEach(({ skipAxeCheck }) => {
 
 test.describe('DateTimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('opens date picker and selects date via keyboard', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const dateInput = page.locator('input[data-testid="dateTimePicker--datepicker-select--input"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByRole('grid');
 		const firstDate = page.locator('[role="gridcell"]').nth(6);
 
 		await expect(calendar).toBeHidden();
@@ -31,12 +32,13 @@ test.describe('DateTimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('enters time via keyboard and updates value', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -52,17 +54,18 @@ test.describe('DateTimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 
 test.describe('DateTimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Escape closes date picker and returns focus to input', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const dateInput = page.locator('input[data-testid="dateTimePicker--datepicker-select--input"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByRole('grid');
 
 		await dateInput.click();
 		await expect(calendar).toBeVisible();
@@ -72,12 +75,13 @@ test.describe('DateTimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => 
 	});
 
 	test('Escape closes time picker and returns focus to input', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -93,18 +97,19 @@ test.describe('DateTimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => 
 });
 
 test.describe('DateTimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
-	test('focus moves into date calendar on open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+	test('date input remains focused when the calendar opens', async ({ page }) => {
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const dateInput = page.locator('input[data-testid="dateTimePicker--datepicker-select--input"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByRole('grid');
 
 		await expect(calendar).toBeHidden();
 		await dateInput.click();
@@ -119,17 +124,18 @@ test.describe('DateTimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus returns to date input on calendar close', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const dateInput = page.locator('input[data-testid="dateTimePicker--datepicker-select--input"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByRole('grid');
 
 		await dateInput.click();
 		await expect(calendar).toBeVisible();
@@ -141,12 +147,13 @@ test.describe('DateTimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('time input remains focused when time menu is open (aria-activedescendant)', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -161,12 +168,13 @@ test.describe('DateTimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 
 test.describe('DateTimePicker top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('focused date cell is visually distinct', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -182,29 +190,31 @@ test.describe('DateTimePicker top-layer — WCAG 2.4.7 Focus Visible', () => {
 
 test.describe('DateTimePicker top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 	test('date calendar is fully visible on screen', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const dateInput = page.locator('input[data-testid="dateTimePicker--datepicker-select--input"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByRole('grid');
 
 		await dateInput.click();
 		await expect(calendar).toBeVisible();
 	});
 
 	test('time menu options are fully visible on screen', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -218,12 +228,13 @@ test.describe('DateTimePicker top-layer — WCAG 2.4.11 Focus Not Obscured', () 
 
 test.describe('DateTimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('date input has proper ARIA attributes', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -233,12 +244,13 @@ test.describe('DateTimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () =>
 	});
 
 	test('time input has proper ARIA attributes', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -250,18 +262,19 @@ test.describe('DateTimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () =>
 
 test.describe('DateTimePicker top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('both date and time components work correctly in sequence', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const dateInput = page.locator('input[data-testid="dateTimePicker--datepicker-select--input"]');
 		const dateContainer = page.locator('[data-testid="dateTimePicker--datepicker--container"]');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const calendar = page.getByRole('grid');
 		const firstDate = page.locator('[role="gridcell"]').nth(6);
 		const timeInput = page.locator('input[data-testid="dateTimePicker--timepicker-select--input"]');
 		const timeContainer = page.locator('[data-testid="dateTimePicker--timepicker--container"]');
@@ -283,12 +296,13 @@ test.describe('DateTimePicker top-layer — WCAG 1.3.2 Meaningful Sequence', () 
 
 test.describe('DateTimePicker top-layer — Backspace Behavior', () => {
 	test('backspace clears date but not time', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/00-basic.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/00-basic.vr.ap.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'basic',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 

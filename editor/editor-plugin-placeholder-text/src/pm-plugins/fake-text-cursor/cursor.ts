@@ -50,8 +50,8 @@ export class FakeTextCursorSelection extends Selection {
 	}
 
 	toJSON(): {
-		type: string;
 		pos: number;
+		type: string;
 	} {
 		return { type: 'Cursor', pos: this.head };
 	}

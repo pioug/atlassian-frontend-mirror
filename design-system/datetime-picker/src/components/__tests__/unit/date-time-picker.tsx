@@ -3,20 +3,17 @@ import React from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 
-import Select, { type OptionsType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { OptionsType } from '@atlaskit/select/types';
 
 import { type DateTimePickerBaseProps } from '../../../types';
 import DateTimePicker from '../../date-time-picker';
 
-jest.mock('@atlaskit/select', () => {
-	const actual = jest.requireActual('@atlaskit/select');
-
-	return {
-		__esModule: true,
-		...actual,
-		default: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/select/default', () => ({
+	...jest.requireActual('@atlaskit/select/default'),
+	__esModule: true,
+	default: jest.fn(),
+}));
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DateTimePicker', () => {

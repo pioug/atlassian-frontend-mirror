@@ -5,9 +5,9 @@
 import { Fragment, useCallback, useState } from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Modal from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';

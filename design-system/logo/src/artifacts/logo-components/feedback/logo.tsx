@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e5f1938cfaebed6a843816aaeb404a5>>
+ * @codegen <<SignedSource::5dbc51e5341438aea42a2280054f5e9d>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 127 24">
  *
  */
 export function FeedbackLogo({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Feedback',
 	testId,

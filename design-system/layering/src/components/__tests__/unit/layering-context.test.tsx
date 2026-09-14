@@ -3,8 +3,10 @@ import React, { useCallback, useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Button from '@atlaskit/button/new';
-import Modal, { ModalBody, ModalHeader } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 
 import { useLayering } from '../../../hooks/use-layering';
 import { Layering } from '../../layering';
@@ -78,7 +80,9 @@ describe('Layering', () => {
 	it('should set topLevel correctly when parent re-rendered', async () => {
 		const ChildModal = ({ onCancel, onClose }: { onCancel: () => void; onClose: () => void }) => {
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/no-modal-label
 				<Modal width={400} onClose={onCancel} label="child modal">
+					{/* eslint-disable-next-line @atlaskit/design-system/use-modal-title */}
 					<ModalHeader hasCloseButton>Are you sure?</ModalHeader>
 					<ModalBody>
 						<Button onClick={onCancel}>Whoops go back!!!</Button>
@@ -100,12 +104,14 @@ describe('Layering', () => {
 						Open Modal
 					</Button>
 					{isParentOpen && (
+						// eslint-disable-next-line @atlaskit/design-system/no-modal-label
 						<Modal
 							label="parent modal"
 							onClose={() => {
 								setIsChildOpen(true);
 							}}
 						>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-modal-title */}
 							<ModalHeader hasCloseButton>Primary Modal</ModalHeader>
 							<ModalBody>
 								{isChildOpen && (

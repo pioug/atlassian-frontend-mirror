@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ElementName } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { BaseLinkElement, type BaseLinkElementProps } from '../common';
 
 export type TitleElementProps = BaseLinkElementProps;

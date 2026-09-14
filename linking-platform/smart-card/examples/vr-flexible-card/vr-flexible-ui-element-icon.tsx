@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import { IconType, SmartLinkSize } from '../../src/constants';
 import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
-import { LinkIcon } from '../../src/view/FlexibleCard/components/elements';
+import { default as LinkIcon } from '../../src/view/FlexibleCard/components/elements/link-icon-element';
 import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';

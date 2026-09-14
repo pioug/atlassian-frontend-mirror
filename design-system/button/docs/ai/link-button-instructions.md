@@ -9,7 +9,7 @@
 An example diff of a migration from Tailwind generated code to ADS generated code.
 
 ```diff
-+import { LinkButton } from '@atlaskit/button/new';
++import LinkButton from '@atlaskit/button/link';
 +import AddIcon from '@atlaskit/icon/core/add';
 // Link styled as button
 -<a href="/dashboard" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded inline-block">

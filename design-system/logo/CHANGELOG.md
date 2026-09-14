@@ -1,5 +1,96 @@
 # @atlaskit/logo
 
+## 23.0.0
+
+### Major Changes
+
+- [`6b4b7bd1571b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b4b7bd1571b1) -
+  Remove unused logo rebrand feature-flag wrappers. Icon and logo components now default `size` to
+  `'medium'` themselves. Adds a jscodeshift codemod to migrate barrel imports to entry-points.
+  removal of obsolete props shouldUseNewLogoDesign and shouldUseHexLogo.
+
+## 22.0.0
+
+### Major Changes
+
+- [`fa980ed20c8fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa980ed20c8fd) -
+  Remove unused logo rebrand feature-flag wrappers. Icon and logo components now default `size` to
+  `'medium'` themselves. Adds a jscodeshift codemod to migrate barrel imports to entry-points.
+  removal of obsolete props shouldUseNewLogoDesign and shouldUseHexLogo.
+
+## 21.6.1
+
+### Patch Changes
+
+- [`7c11695adc550`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c11695adc550) -
+  Renamed the internal `assets-platform-branding-with-confluence` feature gate check to
+  `assets-platform-branding-v2`. No visible behaviour change.
+
+## 21.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.5.2
+
+### Patch Changes
+
+- [`e974cd0ae082c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e974cd0ae082c) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 21.5.1
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+
+## 21.5.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.4.4
+
+### Patch Changes
+
+- [`af4ee14c58af1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af4ee14c58af1) -
+  Internal refactor to support tree shaking. No consumer changes.
+
+## 21.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.4.1
 
 ### Patch Changes

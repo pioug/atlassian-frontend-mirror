@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`9df0d15ebfb51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9df0d15ebfb51) -
+  Add aria-readonly during SSR only for editor view mode, and use the configured mode when plugin
+  state is unavailable.
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.0
 
 ### Minor Changes

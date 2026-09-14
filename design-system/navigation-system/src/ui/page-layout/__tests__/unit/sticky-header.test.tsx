@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { cssMap } from '@compiled/react';
-import { render, screen } from '@testing-library/react';
+
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { Main } from '../../main/main';
 import { MainStickyHeader } from '../../main/main-sticky-header';

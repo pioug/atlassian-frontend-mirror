@@ -18,7 +18,7 @@ test.describe('ConfluenceSearchModal', () => {
 		packageIdSelection: string = 'link-datasource',
 		exampleIdSelection: string = 'with-confluence-search-modal',
 	) {
-		await page.visitExample<typeof import('../../examples/with-confluence-search-modal.tsx')>(
+		await page.visitExample<typeof import('../../examples/with-confluence-search-modal.vr.ap.tsx')>(
 			groupIdSelection,
 			packageIdSelection,
 			exampleIdSelection,

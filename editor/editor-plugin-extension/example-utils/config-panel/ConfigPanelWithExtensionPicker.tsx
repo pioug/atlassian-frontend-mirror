@@ -10,17 +10,17 @@ import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/code-block';
 import type {
 	ExtensionModule,
 	ExtensionProvider,
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-promise';

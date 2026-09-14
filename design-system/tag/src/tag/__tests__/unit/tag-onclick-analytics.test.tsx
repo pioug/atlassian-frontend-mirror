@@ -1,12 +1,12 @@
 import React from 'react';
 
-import userEvent from '@testing-library/user-event';
 import { replaceRaf } from 'raf-stub';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Avatar from '@atlaskit/avatar';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import Avatar from '@atlaskit/avatar/avatar';
 import { Anchor } from '@atlaskit/primitives/compiled';
-import { render, screen } from '@atlassian/testing-library';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import AvatarTag from '../../../tag-new/avatar-tag';
 import { default as TagNew } from '../../../tag-new/tag-new';

@@ -45,7 +45,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Multi user picker',
 					description: 'Basic usage of UserPicker in multi-select mode.',
-					source: path.resolve(packagePath, './examples/01-multi.tsx'),
+					source: path.resolve(packagePath, './examples/01-multi.vr.ap.tsx'),
 				},
 			],
 		},

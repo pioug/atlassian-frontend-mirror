@@ -3,6 +3,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: metric variants', () => {
 	test.use({
 		examplePage: 'basic-three-sections',
+	} satisfies {
+		examplePage: 'basic-three-sections';
+		__exampleDependency?: typeof import('../../examples/02-basic-three-sections.tsx');
 	});
 
 	test('custom.interaction-metrics includes standard metric window when enabled', async ({
@@ -28,7 +31,7 @@ test.describe('ReactUFO: metric variants', () => {
 			start: interactionMetrics.start,
 			end: interactionMetrics.end,
 			includeCategories: [],
-			excludeCategories: ['third-party'],
+			excludeCategories: ['third-party', 'gen-ai'],
 		});
 
 		const includeThirdPartyWindow = interactionMetrics.metricWindows['include-third-party'];

@@ -1,3 +1,3 @@
-import { AllSlotsScrollable } from './page-layout';
+import { AllSlotsScrollable } from './page-layout.vr.ap';
 
 export default AllSlotsScrollable;

@@ -5,11 +5,16 @@
 
 import React from 'react';
 
-import Avatar, { type AppearanceType, type PresenceType, type StatusType } from '@atlaskit/avatar';
-import { Code } from '@atlaskit/code';
+import Avatar from '@atlaskit/avatar/avatar';
+import type {
+	AppearanceType,
+	Presence as PresenceType,
+	Status as StatusType,
+} from '@atlaskit/avatar/types';
+import Code from '@atlaskit/code/code';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Heading from '@atlaskit/heading/heading';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Grid, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

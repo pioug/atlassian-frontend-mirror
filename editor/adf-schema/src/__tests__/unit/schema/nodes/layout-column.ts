@@ -27,7 +27,7 @@ describe(`${packageName}/schema layout-column node`, () => {
 						default: null,
 					},
 				},
-				content: '(block | unsupportedBlock)+',
+				content: '(block | panel_c1 | unsupportedBlock)+',
 				isolating: true,
 				marks:
 					'alignment fontSize dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute',

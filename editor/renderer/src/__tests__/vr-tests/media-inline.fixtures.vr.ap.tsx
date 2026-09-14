@@ -1,0 +1,59 @@
+import React from 'react';
+
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import { Renderer } from '../../entry-points/renderer-default';
+import { mediaInlineAdf } from './__fixtures__/media-inline.adf';
+import { mediaInlineInParagraphAdf } from './__fixtures__/media-inline-in-paragraph.adf';
+import { mediaInlineMultipleInParagraphAdf } from './__fixtures__/media-inline-multiple-in-paragraph.adf';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { RendererProps } from '../../ui/renderer-props';
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
+
+const Media = ({
+	adf,
+	appearance,
+	nodeComponents,
+}: {
+	adf: DocNode;
+	appearance: string;
+	nodeComponents?: RendererProps['nodeComponents'];
+}) => {
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ padding: '10px' }}>
+			<MockMediaClientProvider>
+				<Renderer
+					document={adf}
+					// @ts-expect-error
+					appearance={appearance}
+					adfStage={'stage0'}
+					media={{ allowLinking: true, allowCaptions: true }}
+					nodeComponents={nodeComponents}
+				/>
+			</MockMediaClientProvider>
+		</div>
+	);
+};
+
+export const MediaInlineADF = (): React.JSX.Element => {
+	return <Media adf={mediaInlineAdf} appearance={'full-page'} />;
+};
+
+export const MediaInlineInParagraphADF = (): React.JSX.Element => {
+	return <Media adf={mediaInlineInParagraphAdf} appearance={'full-page'} />;
+};
+
+export const MediaInlineMultipleInParagraphADF = (): React.JSX.Element => {
+	return <Media adf={mediaInlineMultipleInParagraphAdf} appearance={'full-page'} />;
+};
+
+export const MediaInlineADFWithReactLooselyLazy = (): React.JSX.Element => {
+	return (
+		<Media
+			adf={mediaInlineMultipleInParagraphAdf}
+			appearance={'full-page'}
+			nodeComponents={looselyLazyNodes}
+		/>
+	);
+};

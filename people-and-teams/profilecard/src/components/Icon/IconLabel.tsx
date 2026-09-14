@@ -19,6 +19,7 @@ type Props = {
 	icon: string;
 	children?: React.ReactNode;
 	extraTopSpace?: boolean;
+	isDescriptionListItem?: boolean;
 };
 
 export default class IconLabel extends React.PureComponent<Props> {
@@ -37,11 +38,17 @@ export default class IconLabel extends React.PureComponent<Props> {
 			<IconElement label={`${this.props.icon}`} color={token('color.text.subtlest')} />
 		) : null;
 
-		return (
-			<DetailsLabel extraTopSpace={this.props.extraTopSpace}>
+		const label = (
+			<>
 				<DetailsLabelIcon>{displayIcon}</DetailsLabelIcon>
 				<DetailsLabelText>{this.props.children}</DetailsLabelText>
-			</DetailsLabel>
+			</>
 		);
+
+		if (this.props.isDescriptionListItem) {
+			return label;
+		}
+
+		return <DetailsLabel extraTopSpace={this.props.extraTopSpace}>{label}</DetailsLabel>;
 	}
 }

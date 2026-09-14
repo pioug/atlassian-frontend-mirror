@@ -1,8 +1,9 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import Select, { type OptionType } from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/select/default';
+import type { OptionType } from '@atlaskit/select/types';
 
 const getOptionValue = (option: OptionType) => {
 	if (option.filterValues && option.filterValues.length) {

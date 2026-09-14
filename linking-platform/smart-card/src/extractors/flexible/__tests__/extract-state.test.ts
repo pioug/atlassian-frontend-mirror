@@ -1,6 +1,5 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 
 import jiraTask from '../../../__fixtures__/jira-task';
 import { ActionName } from '../../../index';
@@ -252,41 +251,36 @@ describe('extractState', () => {
 			});
 		});
 
-		ffTest.on('platform_smartlink_xpc_url_wrapping', '', () => {
-			it('passes transformUrl to extractInvokePreviewAction', () => {
-				const transformUrl = jest.fn();
-				const extractInvokePreviewActionSpy = jest.spyOn(
-					previewAction,
-					'extractInvokePreviewAction',
-				);
-				extractState(
-					response([
-						{
+		it('passes transformUrl to extractInvokePreviewAction', () => {
+			const transformUrl = jest.fn();
+			const extractInvokePreviewActionSpy = jest.spyOn(previewAction, 'extractInvokePreviewAction');
+			extractState(
+				response([
+					{
+						'@type': 'UpdateAction',
+						name: 'UpdateAction',
+						dataUpdateAction: {
 							'@type': 'UpdateAction',
-							name: 'UpdateAction',
-							dataUpdateAction: {
-								'@type': 'UpdateAction',
-								name: SmartLinkActionType.StatusUpdateAction,
-							},
-							refField: 'tag',
-							resourceIdentifiers,
+							name: SmartLinkActionType.StatusUpdateAction,
 						},
-					]),
-					{ hide: false },
-					id,
-					'block',
-					'smartLinkCard',
-					jest.fn(),
-					jest.fn(),
-					undefined,
-					undefined,
-					transformUrl,
-				);
+						refField: 'tag',
+						resourceIdentifiers,
+					},
+				]),
+				{ hide: false },
+				id,
+				'block',
+				'smartLinkCard',
+				jest.fn(),
+				jest.fn(),
+				undefined,
+				undefined,
+				transformUrl,
+			);
 
-				expect(extractInvokePreviewActionSpy).toHaveBeenCalledWith(
-					expect.objectContaining({ transformUrl }),
-				);
-			});
+			expect(extractInvokePreviewActionSpy).toHaveBeenCalledWith(
+				expect.objectContaining({ transformUrl }),
+			);
 		});
 
 		it('should pass preview panel parameters when provided', () => {

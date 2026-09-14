@@ -16,7 +16,7 @@ import { useAISummary } from '../index';
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),
 	__esModule: true,
-	default: jest.fn().mockReturnValue('some-uuid-1'),
+	v4: jest.fn().mockReturnValue('some-uuid-1'),
 }));
 
 jest.mock('../ai-summary-service/readStream', () => ({

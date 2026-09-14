@@ -1,5 +1,761 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.3
+
+### Patch Changes
+
+- [`cab51c9396669`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cab51c9396669) -
+  Use the React root API when `platform_editor_react19_migration` is enabled or the legacy ReactDOM
+  API is unavailable.
+- Updated dependencies
+
+## 18.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.0
+
+### Minor Changes
+
+- [`cc32ee1bcd20b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc32ee1bcd20b) -
+  Behind the `platform_editor_controls_reliable_anchor` experiment and the
+  `platform_editor_controls_reliable_anchor_patch_1` feature gate, reduce active node decoration
+  recreation for reliable anchor.
+
+  Previously every document change scanned the full decoration set to find and recreate the active
+  drag handle and quick insert node decorations, which regressed VC90 on Edit and Live pages because
+  the scan ran on every keystroke.
+
+  `DecorationSet.map()` already validates node decorations as it maps them and drops any whose range
+  no longer exactly covers a node. This change records those removals via the `onRemove` callback of
+  the existing `map()` call, so the decorations are only recreated when they were actually
+  invalidated. The full-range scan is still used when the active node itself changes, since no
+  mapping runs in that case.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.7
+
+### Patch Changes
+
+- [`e8d06b88688a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8d06b88688a5) -
+  Use the React root API when `platform_editor_react19_migration` is enabled or the legacy ReactDOM
+  API is unavailable.
+- Updated dependencies
+
+## 18.2.6
+
+### Patch Changes
+
+- [`80f8db8984c15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80f8db8984c15) -
+  Fix collapsible headings causing invalid css anchors
+- Updated dependencies
+
+## 18.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.4
+
+### Patch Changes
+
+- [`5403eacb2945d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5403eacb2945d) -
+  [ux] Position the left and right block controls surfaces with CSS anchor positioning instead of
+  measured pixel offsets. Anchored surfaces stay attached to their block without re-rendering and
+  bind no scroll or resize listeners. This applies within the existing
+  `platform_editor_block_control_migration` rollout, which is the only place these surfaces render,
+  and falls back to the measured path on browsers without `anchor-name` support. Nodes whose visible
+  box belongs to an inner container, such as resized tables, media and extensions, stay on the
+  measured path.
+- Updated dependencies
+
+## 18.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.1
+
+### Patch Changes
+
+- [`0cec43eb08826`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cec43eb08826) -
+  Clean up experiment platform_editor_nested_drag_handle_icon
+- Updated dependencies
+
+## 18.2.0
+
+### Minor Changes
+
+- [`00fc2f11bb42e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00fc2f11bb42e) -
+  [ux] Support dragging and changing the format of complete collapsed heading sections under
+  `platform_editor_collapsible_headings`.
+
+### Patch Changes
+
+- [`834dc6bee730b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/834dc6bee730b) -
+  [ux] Keep collapsed heading controls visible under `platform_editor_collapsible_headings` when
+  another editor node is active.
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`aec3fcfe13ff9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aec3fcfe13ff9) -
+  EDITOR-8303 Add runtime input-latency trigger for limited mode behind
+  platform_editor_dynamic_limited_mode. Limited mode can now latch mid-session when sustained slow
+  input or repeated browser freezes indicate the device is struggling, in addition to the existing
+  document-size decision. The latch is one-way. Nothing is constructed when the experiment is off.
+
+  How much evidence is needed is a single tunable, `requiredConfirmations`: that many qualifying
+  windows, each separated from the last by `confirmationGapMs`. The hardware no longer feeds into
+  the decision — `navigator.hardwareConcurrency` and `navigator.deviceMemory` are reported with the
+  `limitedModeLatched` event instead, so which devices latch can be answered from the data rather
+  than assumed up front.
+
+  `LimitedModePluginState` gains a derived `enabled` flag, which is now the single thing consumers
+  should branch on — the individual reasons (`documentSizeBreachesThreshold`, `latchPolicyBreached`)
+  no longer need to be combined at each call site, so a future reason needs no change outside this
+  plugin. `sharedState.enabled` reads from it.
+
+  Under the experiment the document decision is also evaluated on load and on document replacement
+  only, rather than on every transaction that changes the document. That check walks the whole
+  document, so it was a full-document scan per keystroke on exactly the pages least able to afford
+  one. The trade-off is that a document editing its way past the thresholds is not re-judged until
+  it next loads.
+
+  Consumers updated to react to a mid-session change: table sticky headers now subscribe instead of
+  reading once at construction, block-controls resets rather than freezes its state on entry, and
+  the expand, media and table nodeviews read the derived flag so they no longer miss a runtime
+  latch.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.4
+
+### Patch Changes
+
+- [`f3766cc0ca65e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3766cc0ca65e) -
+  Fix drag handle incorrectly showing on the first child of a `panel_c1` node. The hover guard that
+  suppresses block controls for the first child of a panel with an icon only matched the `panel`
+  node type, so the nestable `panel_c1` variant fell through and rendered a drag handle behind the
+  panel icon. Both panel node types are now treated the same when the
+  `platform_editor_controls_reliable_anchor` experiment and the
+  `platform_editor_controls_reliable_anchor_patch_1` feature gate are enabled.
+
+## 17.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.2
+
+### Patch Changes
+
+- [`3531759a623d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3531759a623d1) -
+  Move the registry-backed right block-control surface and released Remix button under
+  `platform_editor_block_control_migration`, while keeping AI Suggestions behind
+  `platform_editor_block_control_right_surface`. Avoid legacy widget work and empty-surface
+  measurement in the migrated path, and preserve registry controls across hover transitions.
+
+## 17.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.0
+
+### Minor Changes
+
+- [`6d830aac99d6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d830aac99d6d) -
+  Add deprecation tag to blockControlsPlugin quickInsertButtonEnabled property - this has been
+  replaced with a new `blockControlButtonEnabled` plugin config in the quickInsertPlugin, which is
+  currently gated under `platform_editor_block_control_migration` and will be removed in future
+  update.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.11
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 17.3.10
+
+### Patch Changes
+
+- [`42ff8dffbdf01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42ff8dffbdf01) -
+  EDITOR-8771: Buttons registered on the same surface position now stay visible independently of
+  eachother: a button that renders without hover (e.g. an AI suggestions icon) no longer
+  hides/showstogether with a hover-only button (e.g. Remix) that shares its position.Increase the
+  default drag-handle/surface gap for non-resizable, default-sized nodes from 8px to12px, matching
+  the gap already used for resizable/breakout nodes, so spacing is consistent acrossnode
+  types.Simplify `surfaceNodePositionsEnabled` (which controls whether the "stored" whole-doc
+  surface scanruns) to depend only on `platform_editor_block_control_migration`, dropping the
+  extra`platform_editor_collapsible_headings` OR-condition now
+  that`platform_editor_block_control_right_surface` consumers need the same behavior.
+- Updated dependencies
+
+## 17.3.9
+
+### Patch Changes
+
+- [`09b54fe3854bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09b54fe3854bd) -
+  Keep Quick Insert stationary when the drag handle moves to a nested block under
+  `platform_editor_block_control_migration`, and keep layout-column drag handles visible across the
+  full editor width.
+- Updated dependencies
+
+## 17.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.7
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+- Updated dependencies
+
+## 17.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.5
+
+### Patch Changes
+
+- [`68c9e797f649f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68c9e797f649f) -
+  EDITOR-8771: Registry-backed left and right block-controls surfaces now stay sticky within the
+  target node while scrolling long tables, panels, expands, etc., matching the legacy decoration
+  controls' sticky behavior. Also fix legacy registerNodeDecoration consumers that were missing due
+  to incorrect gating behind the quick insert button flag.
+
+## 17.3.4
+
+### Patch Changes
+
+- [`f81d0745374cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f81d0745374cd) -
+  Fix createSurfaceContext imports to use the dedicated editor UI control model entry point.
+- Updated dependencies
+
+## 17.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.0
+
+### Minor Changes
+
+- [`14f10ff093c15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14f10ff093c15) -
+  EDITOR-8770: Add the right control surface - currently only used in example page and behind
+  platform_editor_block_control_right_surface
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.5
+
+### Patch Changes
+
+- [`6304662fbdf4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6304662fbdf4a) -
+  Use the supported `createRoot` API when `platform_editor_react19_migration` is enabled.
+- Updated dependencies
+
+## 17.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.1
+
+### Patch Changes
+
+- [`c5ff0c329170a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5ff0c329170a) -
+  Add a dedicated createSurfaceContext entrypoint and use it in editor runtime packages.
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`dce725fd04593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dce725fd04593) -
+  [ux] make right block nudge remix stable gated by cc-ce-maui-remix-menu-multivariant
+
+## 17.1.5
+
+### Patch Changes
+
+- [`0841b102bfe4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0841b102bfe4a) -
+  Add a PM-state-backed multi-location left block-controls surface and register the display-only
+  heading collapse button behind `platform_editor_block_control_migration` and
+  `platform_editor_collapsible_headings`.
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.3
+
+### Patch Changes
+
+- [`f745000fb169b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f745000fb169b) -
+  Permanently apply the first editor node margin fix and remove the `platform_editor_first_node_fix`
+  experiment.
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- [`e62dacf4416fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e62dacf4416fd) -
+  Add the shared popup-anchor contract, registry-backed drag handle, and menu integrations behind
+  `platform_editor_block_control_migration`.
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`5f66a8c3706e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f66a8c3706e3) -
+  Add the registry-backed Block Controls Quick Insert surface behind
+  `platform_editor_block_control_migration`, including typed surface context, cached registry
+  lookup, stable left/right surface identities, and experiment-gated Quick Insert registration.
+
+### Patch Changes
+
+- [`63734bcc6ac05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63734bcc6ac05) -
+  Clean up feature gate `platform_editor_fix_widget_destroy`
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`d96f86ff344b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d96f86ff344b8) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_vc90_transition_expand_icon, platform_editor_add_image_editing,
+  platform_editor_ai_multi_format_streaming, platform_editor_default_toolbar_state,
+  platform_editor_early_exit_return_draft, platform_editor_fix_focus_MediaInsertPicker,
+  platform_editor_fix_table_move_shortcut, platform_editor_menu_radius_update,
+  platform_editor_react19_migration, and show_mentions_in_suggest_reply.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- [`7d9913d23d739`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d9913d23d739) -
+  Clean up feature gate `platform_editor_track_node_types`
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- [`6cf283ca60155`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf283ca60155) -
+  Clean up experiment `platform_editor_table_col_insert`
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- [`698eb28037b8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/698eb28037b8a) -
+  Clean up experiment `platform_editor_drag_handle_keyboard_a11y`
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`47b2ae576b031`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47b2ae576b031) -
+  [ux] Under the `cc_maui_remix_button_hover_corridor` experiment, replace the Remix button's
+  rendered hover corridor and fixed right-margin exclusion with the existing click-wrapper hover
+  tracking. Hide block controls over the marked object sidebar container and its control surfaces.
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- [`0cdf73fdf7d3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cdf73fdf7d3e) -
+  [ux] [EDITOR-8273] add breakout resizing to extension nodes behind
+  `platform_editor_lovability_resize_extensions` with graceful rendering behind
+  `platform_editor_lovability_resize_ext_gracefully`
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.6
+
+### Patch Changes
+
+- [`2857e277050c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2857e277050c6) -
+  Behind the `platform-dst-top-layer` feature gate, `@atlaskit/popper/unsafe-imperative`'s
+  `createPopper` now renders and positions in the browser top layer via `@atlaskit/top-layer`
+  instead of running the Popper.js engine. Positioning and teardown are applied asynchronously, as
+  Popper.js' own first update is. Flag-off behaviour is unchanged.
+
+  `@atlaskit/top-layer`: the JavaScript positioning fallback no longer clears a consumer's own
+  inline positioning and visibility styles.
+
+- [`d1b5e85073e48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1b5e85073e48) -
+  [ED-7926] Fix block controls hover jitter when viewing an AI Suggested Edits diff.
+
+  While a diff is on screen the block controls UI is hidden, but the hover handlers kept running:
+  `handleMouseOver` dispatched `showDragHandleAt` (flip-flopping the active node between
+  neighbouring blocks) and the right-side hover-side tracker kept dispatching
+  `setHoverSide`/`mouseEnter`, both causing visible jitter. Block controls now suppress both hover
+  paths (and hide the drag handle) while a diff is displayed, detected via the show-diff plugin's
+  `isDisplayingChanges` shared state (plus the `reviewing` user intent for AI suggestions with no
+  diff decorations), gated behind `platform_editor_diff_plugin_extended`.
+
+  To let block controls read that state without forming a circular project reference
+  (`block-controls -> show-diff -> expand -> block-controls`), the `toggleExpandRange` command and
+  `TOGGLE_EXPAND_RANGE_META_KEY` were moved from `@atlaskit/editor-plugin-expand` into
+  `@atlaskit/editor-common` (re-exported from expand for backwards compatibility).
+  `@atlaskit/editor-plugin-show-diff` no longer depends on `@atlaskit/editor-plugin-expand`, and
+  `@atlaskit/editor-plugin-block-controls` now takes an optional dependency on
+  `@atlaskit/editor-plugin-show-diff`.
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.3
+
+### Patch Changes
+
+- [`e4a610e4c20f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4a610e4c20f3) -
+  Clean up experiment `remix_button_right_margin_hover`
+- Updated dependencies
+
+## 13.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.1
+
+### Patch Changes
+
+- [`82270dfb1e67e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82270dfb1e67e) -
+  Migrate block-controls drag-handle render/unmount to the React 18/19 createRoot API behind
+  nike_r19_render_unmount
+- Updated dependencies
+
 ## 13.4.0
 
 ### Minor Changes

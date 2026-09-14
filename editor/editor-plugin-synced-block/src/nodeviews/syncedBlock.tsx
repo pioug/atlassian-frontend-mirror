@@ -7,6 +7,7 @@ import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+// oxlint-disable-next-line import/no-duplicates
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import {
@@ -23,8 +24,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
@@ -109,17 +108,15 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
 		const domRef = document.createElement('div');
 		domRef.classList.add(SyncBlockSharedCssClassName.prefix);
-		if (fg('platform_synced_block_patch_14')) {
-			// Prevent native browser drag on the contentEditable="false" wrapper.
-			// Without this, clicking in empty space (outside the contentEditable
-			// renderer but inside the domRef) initiates a native element drag.
-			domRef.draggable = false;
-			this.dragStartHandler = (e: Event) => {
-				e.preventDefault();
-			};
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @repo/internal/dom-events/no-unsafe-event-listeners
-			domRef.addEventListener('dragstart', this.dragStartHandler);
-		}
+		// Prevent native browser drag on the contentEditable="false" wrapper.
+		// Without this, clicking in empty space (outside the contentEditable
+		// renderer but inside the domRef) initiates a native element drag.
+		domRef.draggable = false;
+		this.dragStartHandler = (e: Event) => {
+			e.preventDefault();
+		};
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @repo/internal/dom-events/no-unsafe-event-listeners
+		domRef.addEventListener('dragstart', this.dragStartHandler);
 		return domRef;
 	}
 
@@ -150,10 +147,6 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	 * native text selection and preventing browser drag behaviour.
 	 */
 	stopEvent(event: Event): boolean {
-		if (!fg('platform_synced_block_patch_14')) {
-			return false;
-		}
-
 		const target = event.target;
 		if (!(target instanceof Element)) {
 			return false;
@@ -271,10 +264,6 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			return null;
 		}
 
-		// Use expValEqualsNoExposure — the exposure is already fired once at plugin
-		// creation time in syncedBlockPlugin.tsx and main.ts createPlugin().
-		const isPerfEnabled = expValEqualsNoExposure('editor_synced_block_perf', 'isEnabled', true);
-
 		// get document node from data provider
 		return (
 			<SyncBlockSSRReactContextsProvider intl={this.intl}>
@@ -284,24 +273,8 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 					fallbackComponent={null}
 				>
 					<SyncBlockActionsProvider
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						removeSyncBlock={
-							isPerfEnabled
-								? this.removeSyncBlockStable
-								: () => {
-										const pos = getPos();
-										if (pos !== undefined) {
-											removeSyncedBlockAtPos(this.api, pos);
-										}
-									}
-						}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						fetchSyncBlockSourceInfo={
-							isPerfEnabled
-								? this.fetchSyncBlockSourceInfoStable
-								: (sourceAri: string) =>
-										syncBlockStore.referenceManager.fetchSyncBlockSourceInfoBySourceAri(sourceAri)
-						}
+						removeSyncBlock={this.removeSyncBlockStable}
+						fetchSyncBlockSourceInfo={this.fetchSyncBlockSourceInfoStable}
 					>
 						<SyncBlockRendererWrapper
 							localId={localId}

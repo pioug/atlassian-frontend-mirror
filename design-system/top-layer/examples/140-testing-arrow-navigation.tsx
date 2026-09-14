@@ -8,7 +8,8 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import { isAtCurrentMenuLevel, useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation';
+import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-level';
+import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 
 const styles = cssMap({
 	menuItem: {

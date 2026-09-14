@@ -1,5 +1,63 @@
 # @atlaskit/media-client-react
 
+## 6.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.0
+
+### Minor Changes
+
+- [`1646c59e857d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1646c59e857d9) -
+  Add granular subpath exports `./get-file-state-error-reason` and `./is-media-file-state-error`,
+  giving Volt Stage-1 clean, non-deprecated homes for the `getFileStateErrorReason` and
+  `isMediaFileStateError` values that were previously only reachable through the root barrel.
+  Consumers can now migrate off the bare `@atlaskit/media-client-react` specifier.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.1
+
+### Patch Changes
+
+- [`b0b41cee945c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b41cee945c5) -
+  VOLTC-94 - run volt-migrate-package on @atlaskit/media-client-react
+
 ## 6.1.0
 
 ### Minor Changes

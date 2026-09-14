@@ -1,6 +1,7 @@
 import React, { type Ref } from 'react';
 
-import { type Direction, SlideIn } from '@atlaskit/motion';
+import type { Direction } from '@atlaskit/motion/entering/types';
+import SlideIn from '@atlaskit/motion/slide-in';
 
 interface ChildrenAsFunctionProps {
 	'data-enter-from': string;

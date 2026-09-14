@@ -41,12 +41,14 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
 				allowSelectionToNewNode?: boolean;
 			},
 		) => void;
+		insertAtSelection?: (adf: ADFEntity) => void;
 		scrollTo: (localId: string) => void;
 		update: (
 			localId: string,
 			mutationCallback: (
-				currentValue: Pick<ADFEntity, 'content' | 'attrs' | 'marks'>,
-			) => Pick<ADFEntity, 'content' | 'attrs' | 'marks'>,
+				currentValue: Pick<ADFEntity, 'content' | 'attrs' | 'marks'> &
+					Partial<Pick<ADFEntity, 'type'>>,
+			) => Pick<ADFEntity, 'content' | 'attrs' | 'marks'> & Partial<Pick<ADFEntity, 'type'>>,
 			options?: {
 				addToHistory?: boolean;
 				scrollIntoView?: boolean;

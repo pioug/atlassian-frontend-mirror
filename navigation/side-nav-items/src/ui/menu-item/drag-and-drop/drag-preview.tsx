@@ -7,7 +7,7 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandableMenuItemLevelContext } from '../expandable-menu-item/expandable-menu-item-level-context';

@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/media-client';
 import type { MediaStore } from '@atlaskit/media-state/media-store';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
-import { type MediaSettings } from '@atlaskit/media-client-react';
+import type { MediaSettings } from '@atlaskit/media-client-react/media-parsed-settings';
 // TODO: these types should be exported from here (the public package), and imported in test-data
 import {
 	type Binaries,

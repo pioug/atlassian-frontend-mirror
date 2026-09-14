@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container } from '../examples-utils/styled';
-import { JQLEditorReadOnly } from '../src';
+import { JQLEditorReadOnly } from '../src/ui/jql-editor-layout/JQLEditorReadOnly';
 
 export default (): React.JSX.Element => {
 	return (

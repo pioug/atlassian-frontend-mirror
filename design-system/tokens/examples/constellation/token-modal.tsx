@@ -4,7 +4,7 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
 
 export const TokenModalCodeBlock = `

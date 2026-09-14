@@ -82,10 +82,16 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/popper/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/range/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/react-select/tsconfig.app.json"
 		},
 		{
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"

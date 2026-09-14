@@ -7,7 +7,8 @@ import { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -30,7 +31,7 @@ import type {
 	SyncBlockProduct,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockJiraIssueType } from '@atlaskit/editor-synced-block-provider/types';
-import { IconTile } from '@atlaskit/icon';
+import IconTile from '@atlaskit/icon/icon-tile';
 // eslint-disable-next-line import/order -- CI requires icon-lab imports before core icon imports.
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import BugIcon from '@atlaskit/icon/core/bug';
@@ -42,16 +43,20 @@ import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import StoryIcon from '@atlaskit/icon/core/story';
 import SubtaskIcon from '@atlaskit/icon/core/subtasks';
 import TaskIcon from '@atlaskit/icon/core/task';
-import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
-import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box, Text, Inline, Anchor, Stack } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
+
+import { SyncedLocationsEmptyStateIllustration } from './assets/SyncedLocationsEmptyStateIllustration';
 
 interface Props {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
@@ -119,6 +124,21 @@ const styles = cssMap({
 	},
 	noResultsContainer: {
 		width: '235px',
+		textAlign: 'center',
+	},
+	activationDropdownContent: {
+		width: '400px',
+		paddingBlock: token('space.0'),
+	},
+	activationNoResultsContainer: {
+		boxSizing: 'border-box',
+		width: '400px',
+		paddingTop: token('space.300'),
+		paddingBottom: token('space.300'),
+	},
+	activationNoResultsContent: {
+		width: '290px',
+		marginInline: 'auto',
 		textAlign: 'center',
 	},
 	dropdownContent: {
@@ -333,9 +353,8 @@ const ItemIcon = ({ reference, intl }: { intl: IntlShape; reference: SyncBlockSo
 		);
 	}
 
-	// Render a Jira issue-type icon when we have one, gated by the shared rollout flag.
+	// Render a Jira issue-type icon when we have one.
 	// Falls through to the generic product icon when:
-	//   - the gate is off,
 	//   - we don't have access (issueType is not surfaced for no-access references),
 	//   - AGG returned no `issueType` (partial index, deleted, etc.), or
 	//   - the issue type is unrecognised AND has no `iconUrl`.
@@ -371,10 +390,13 @@ export const processReferenceData = (
 		if (references.length > 1) {
 			references.forEach(
 				(reference, index) =>
-					(reference.title = `${reference.title === '' && reference.hasAccess ? formatMessage(messages.syncedLocationDropdownUntitledPage) : reference.title}: ${formatMessage(
-						messages.syncedLocationDropdownTitleBlockIndex,
-						{ index: index + 1 },
-					)}`),
+					(reference.title = `${
+						reference.title === '' && reference.hasAccess
+							? formatMessage(messages.syncedLocationDropdownUntitledPage)
+							: reference.title
+					}: ${formatMessage(messages.syncedLocationDropdownTitleBlockIndex, {
+						index: index + 1,
+					})}`),
 			);
 		}
 	}
@@ -405,19 +427,6 @@ export const SyncedLocationDropdown = ({
 	api,
 	floatingToolbarRenderContext,
 }: Props): JSX.Element => {
-	if (!fg('platform_synced_block_patch_13')) {
-		return (
-			<LegacySyncedLocationDropdown
-				syncBlockStore={syncBlockStore}
-				resourceId={resourceId}
-				intl={intl}
-				isSource={isSource}
-				localId={localId}
-				api={api}
-			/>
-		);
-	}
-
 	return (
 		<EditorPositionedSyncedLocationDropdown
 			syncBlockStore={syncBlockStore}
@@ -512,55 +521,6 @@ const EditorPositionedSyncedLocationDropdown = ({
 	);
 };
 
-const LegacySyncedLocationDropdown = ({
-	syncBlockStore,
-	resourceId,
-	intl,
-	isSource,
-	localId,
-	api,
-}: Props): JSX.Element => {
-	const triggerTitle = intl.formatMessage(messages.syncedLocationDropdownTitle);
-	const [isOpen, setIsOpen] = useState(false);
-
-	const content = isOpen ? (
-		<DropdownContent
-			syncBlockStore={syncBlockStore}
-			resourceId={resourceId}
-			intl={intl}
-			isSource={isSource}
-			localId={localId}
-			api={api}
-		/>
-	) : null;
-
-	return (
-		<DropdownMenu
-			isOpen={isOpen}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			onOpenChange={({ isOpen }) => setIsOpen(isOpen)}
-			testId={SYNCED_LOCATIONS_DROPDOWN_TEST_ID}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			trigger={({ triggerRef, ...triggerProps }) => (
-				<Button
-					ref={triggerRef}
-					areAnyNewToolbarFlagsEnabled={true}
-					selected={isOpen}
-					iconAfter={
-						<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />
-					}
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...triggerProps}
-				>
-					{triggerTitle}
-				</Button>
-			)}
-		>
-			{content}
-		</DropdownMenu>
-	);
-};
-
 export const SyncedLocationDropdownWithCount = ({
 	syncBlockStore,
 	resourceId,
@@ -578,7 +538,14 @@ export const SyncedLocationDropdownWithCount = ({
 		resourceId,
 		syncBlockStore,
 	});
-
+	const referenceCount = useMemo(
+		() => referenceData.filter(({ isSource: isSourceItem }) => !isSourceItem).length,
+		[referenceData],
+	);
+	const tooltipContent =
+		!isOpen && fetchStatus === 'success' && referenceCount === 0
+			? intl.formatMessage(messages.syncedLocationDropdownNoReferencesTooltip)
+			: null;
 	const content = isOpen ? (
 		<DropdownContentWithReferenceData
 			resourceId={resourceId}
@@ -622,19 +589,22 @@ export const SyncedLocationDropdownWithCount = ({
 				}
 				onClick={toggleOpen}
 				ariaHasPopup
+				tooltipContent={tooltipContent ?? undefined}
 			>
 				<SyncedLocationTriggerContent
 					intl={intl}
 					fetchStatus={fetchStatus}
-					referenceData={referenceData}
+					referenceCount={referenceCount}
 				/>
 			</Button>
 		),
-		[fetchStatus, intl, isOpen, referenceData, toggleOpen],
+		[fetchStatus, intl, isOpen, referenceCount, toggleOpen, tooltipContent],
 	);
 
 	return (
 		<DropdownContainer
+			alignDropdownWithParentElement
+			alignX="left"
 			testId={SYNCED_LOCATIONS_DROPDOWN_TEST_ID}
 			isOpen={isOpen}
 			trigger={trigger}
@@ -756,14 +726,11 @@ const useReferenceData = ({
 const SyncedLocationTriggerContent = ({
 	intl,
 	fetchStatus,
-	referenceData,
-}: ReferenceDataState & { intl: IntlShape }) => {
+	referenceCount,
+}: Pick<ReferenceDataState, 'fetchStatus'> & { intl: IntlShape; referenceCount: number }) => {
 	const { formatMessage } = intl;
 	const triggerTitle = formatMessage(messages.syncedLocationDropdownTitle);
-	const referenceCount = useMemo(
-		() => referenceData.filter(({ isSource }) => !isSource).length,
-		[referenceData],
-	);
+	const syncedLocationCount = referenceCount === 0 ? 0 : referenceCount + 1;
 
 	switch (fetchStatus) {
 		case 'loading':
@@ -774,7 +741,7 @@ const SyncedLocationTriggerContent = ({
 				</Inline>
 			);
 		case 'success': {
-			const count = referenceCount > 99 ? '99+' : intl.formatNumber(referenceCount);
+			const count = syncedLocationCount > 99 ? '99+' : intl.formatNumber(syncedLocationCount);
 
 			return formatMessage(messages.syncedLocationDropdownTitleWithCount, { count });
 		}
@@ -870,6 +837,10 @@ const DropdownContentWithReferenceData = ({
 		<Box
 			xcss={cx(
 				styles.dropdownContent,
+				expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true) &&
+					fetchStatus === 'success' &&
+					referenceData.length === 0 &&
+					styles.activationDropdownContent,
 				shouldApplyMinHeight(fetchStatus, referenceData.length) && styles.containerWithMinHeight,
 			)}
 		>
@@ -905,7 +876,27 @@ const ErrorScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessag
 };
 
 const NoResultScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessage'] }) => {
-	return (
+	return expValEquals('platform_editor_sync_block_activation', 'isEnabled', true) ? (
+		<Box
+			xcss={styles.activationNoResultsContainer}
+			testId="synced-locations-dropdown-content-no-results"
+		>
+			<Stack alignInline="center" xcss={styles.activationNoResultsContent} space="space.150">
+				<SyncedLocationsEmptyStateIllustration />
+				<Text as="p">{formatMessage(messages.syncedLocationDropdownActivationNoResults)}</Text>
+				<Text as="p">
+					<Anchor
+						href={SYNCED_BLOCKS_DOCUMENTATION_URL}
+						target="_blank"
+						rel="noopener noreferrer"
+						xcss={styles.learnMoreLink}
+					>
+						{formatMessage(messages.syncedLocationDropdownLearnMoreLink)}
+					</Anchor>
+				</Text>
+			</Stack>
+		</Box>
+	) : (
 		<Stack
 			xcss={styles.noResultsContainer}
 			space="space.100"

@@ -8,7 +8,7 @@ import cases from 'jest-in-case';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 
-import Select from '../../index';
+import Select from '../../state-manager';
 
 import { type Option, OPTIONS } from './constants.mock';
 

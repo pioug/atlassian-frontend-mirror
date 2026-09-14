@@ -1,4 +1,4 @@
-import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
 import { TeamsUFOExperience } from './index';
 

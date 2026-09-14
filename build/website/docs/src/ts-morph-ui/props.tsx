@@ -18,6 +18,10 @@ const propsStyles = css({
 	},
 });
 
+const withoutMarginBlockStartStyles = css({
+	marginBlockStart: 0,
+});
+
 /**
  * This gets imported in two places:
  *   1. Top-level component pages
@@ -105,12 +109,17 @@ export const TSMorphProps = ({
 	props,
 	filter,
 	componentDisplayName,
+	withoutMarginBlockStart,
 }: {
 	props: PropDefinition[];
 	filter?: PropFilter;
 	componentDisplayName?: string;
+	withoutMarginBlockStart?: boolean;
 }): JSX.Element => (
-	<div css={propsStyles} data-testid="tsmorph-props--container">
+	<div
+		css={[propsStyles, withoutMarginBlockStart && withoutMarginBlockStartStyles]}
+		data-testid="tsmorph-props--container"
+	>
 		{/* TODO Add conditional rendering for different types */}
 		{props
 			?.filter(toPredicate(filter))

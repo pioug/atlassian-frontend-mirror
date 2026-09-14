@@ -1,22 +1,11 @@
-import { mount } from 'enzyme';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { render, screen } from '@testing-library/react';
 import React, { type ReactNode } from 'react';
 import { type LozengeProps } from '../../../types';
 import { AvatarItemOption } from '../../../components/AvatarItemOption';
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-
-jest.mock('@atlaskit/tooltip', () => ({
-	...jest.requireActual<any>('@atlaskit/tooltip'),
-	__esModule: true,
-	default: ({ children, content }: { children: ReactNode; content: string }) => (
-		<div>
-			<div>{children}</div>
-			<div>{content}</div>
-		</div>
-	),
-}));
 
 describe('AvatarItemOption', () => {
-	describe('should render AvatarItem with', () => {
+	describe('option content', () => {
 		const primaryText = 'PrimaryText';
 		const secondaryText = 'SecondaryText';
 		const lozenge: LozengeProps = {
@@ -32,46 +21,46 @@ describe('AvatarItemOption', () => {
 			/>
 		);
 
-		it('primary as well as secondary texts', () => {
-			const primaryText = 'PrimaryText';
-			const secondaryText = 'SecondaryText';
-			const component = mount(
+		it('renders primary and secondary text', async () => {
+			render(
 				<AvatarItemOption
 					primaryText={primaryText}
 					secondaryText={secondaryText}
-					avatar="Avatar"
+					avatar={<span>Avatar</span>}
 				/>,
 			);
 
-			expect(component.text()).toContain(primaryText);
-			expect(component.text()).toContain(secondaryText);
-			expect(component.text()).not.toContain(lozenge.text);
+			expect(screen.getByText('Avatar')).toBeInTheDocument();
+			expect(screen.getByText(primaryText)).toBeInTheDocument();
+			expect(screen.getByText(secondaryText)).toBeInTheDocument();
+			expect(screen.queryByText(lozenge.text)).not.toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
 		});
 
-		it('with lozenge when lozenge is present', () => {
-			const component = mount(
+		it('renders a text lozenge when one is supplied', () => {
+			render(
 				<AvatarItemOption
 					primaryText={primaryText}
 					secondaryText={secondaryText}
 					lozenge={lozenge}
-					avatar="Avatar"
+					avatar={<span>Avatar</span>}
 				/>,
 			);
 
-			expect(component.text()).toContain(lozenge.text);
+			expect(screen.getByText(lozenge.text)).toBeInTheDocument();
 		});
 
-		it('with html lozenge when lozenge is present', async () => {
-			const component = mount(
+		it('renders a React node lozenge when one is supplied', () => {
+			render(
 				<AvatarItemOption
 					primaryText={primaryText}
 					secondaryText={secondaryText}
 					lozenge={lozengeHtml}
-					avatar="Avatar"
+					avatar={<span>Avatar</span>}
 				/>,
 			);
 
-			expect(component.html()).toContain('lozenge-chevron-right-icon');
+			expect(screen.getByTestId('lozenge-chevron-right-icon')).toBeInTheDocument();
 		});
 	});
 });

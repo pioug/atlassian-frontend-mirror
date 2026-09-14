@@ -12,15 +12,14 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { EditorAnalyticsAPI } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import type { BreakoutEventPayload } from '../analytics/types/breakout-events';
 import type { GuidelineConfig } from '../guideline';
-import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
+import { LAYOUT_SECTION_MARGIN } from '../styles';
 import type { EditorContainerWidth, getPosHandlerNode } from '../types';
 import { getBrowserInfo } from '../utils/browser';
 
@@ -47,9 +46,7 @@ const getHandleStyle = (node: BreakoutSupportedNodes, hidden: boolean) => {
 			return { left: { left: '-12px' }, right: { right: '-12px' } };
 		// expand and layout section elements have a negative margin applied
 		default:
-			const handleOffset = fg('platform_editor_nested_dnd_styles_changes')
-				? LAYOUT_SECTION_MARGIN * 2 + layoutMarginOffset
-				: LAYOUT_COLUMN_PADDING * 2;
+			const handleOffset = LAYOUT_SECTION_MARGIN * 2 + layoutMarginOffset;
 			return {
 				left: {
 					left: `-${handleOffset}px`,
@@ -406,7 +403,7 @@ const BreakoutResizer = ({
 		<Resizer
 			ref={resizerRef}
 			enable={
-				expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_perf_lint_cleanup')
 					? RESIZER_ENABLE_HANDLES
 					: { left: true, right: true }
 			}

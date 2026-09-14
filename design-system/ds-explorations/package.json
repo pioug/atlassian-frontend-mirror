@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-explorations",
-	"version": "6.1.1",
+	"version": "6.3.0",
 	"description": "DEPRECATED. Use @atlaskit/primitives. An experimental package for exploration and validation of spacing / typography foundations.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 	},
 	"scripts": {
 		"ak-postbuild": "cd ../../../ && yarn build --includeDependencies @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
-		"codegen-styles": "ts-node --project ../../../tsconfig.node.json ./scripts/codegen-styles",
+		"codegen-styles": "yarn run -T run-ts ./scripts/codegen-styles",
 		"prepare": "yarn ak-postbuild"
 	},
 	"dependencies": {
@@ -30,36 +30,23 @@
 		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/formatting": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
-		"ts-node": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions",
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"deprecation": "no-deprecated-imports"
-		}
+		"react": "^19.0.0",
+		"react-dom": "root:*"
 	},
 	"exports": {
 		".": "./src/index.tsx"

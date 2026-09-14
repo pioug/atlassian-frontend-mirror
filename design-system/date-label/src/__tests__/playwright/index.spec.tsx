@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 const dateLabelTestId = "[data-testid='date-label']";
 
 test('DateLabel should be able to be identified by data-testid', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/0-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/0-basic.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'basic',
@@ -12,7 +12,7 @@ test('DateLabel should be able to be identified by data-testid', async ({ page }
 });
 
 test('DateLabel should render label text', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/0-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/0-basic.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'basic',
@@ -21,7 +21,7 @@ test('DateLabel should render label text', async ({ page }) => {
 });
 
 test('DateLabel should render icons by default', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/0-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/0-basic.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'basic',
@@ -31,7 +31,7 @@ test('DateLabel should render icons by default', async ({ page }) => {
 });
 
 test('DateLabel should not render icons when hasIconBefore is false', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/1-no-icon.tsx')>(
+	await page.visitExample<typeof import('../../../examples/1-no-icon.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'no-icon',
@@ -41,7 +41,7 @@ test('DateLabel should not render icons when hasIconBefore is false', async ({ p
 });
 
 test('DateLabel should truncate long text when maxWidth is set', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/2-max-width.tsx')>(
+	await page.visitExample<typeof import('../../../examples/2-max-width.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'max-width',
@@ -51,7 +51,7 @@ test('DateLabel should truncate long text when maxWidth is set', async ({ page }
 });
 
 test('DateLabel should be visible when isSpacious is true', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/3-spacious.tsx')>(
+	await page.visitExample<typeof import('../../../examples/3-spacious.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'spacious',
@@ -60,7 +60,7 @@ test('DateLabel should be visible when isSpacious is true', async ({ page }) => 
 });
 
 test('DateLabel isSpacious should have a min-height of 32px', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/3-spacious.tsx')>(
+	await page.visitExample<typeof import('../../../examples/3-spacious.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'spacious',
@@ -71,7 +71,7 @@ test('DateLabel isSpacious should have a min-height of 32px', async ({ page }) =
 });
 
 test('DateLabel isSpacious should render icons', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/3-spacious.tsx')>(
+	await page.visitExample<typeof import('../../../examples/3-spacious.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'spacious',
@@ -83,7 +83,7 @@ test('DateLabel isSpacious should render icons', async ({ page }) => {
 // ─── DateLabelDropdownTrigger tests ──────────────────────────────────────────
 
 test('DateLabelDropdownTrigger should be visible and render as a button', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',
@@ -95,7 +95,7 @@ test('DateLabelDropdownTrigger should be visible and render as a button', async 
 });
 
 test('DateLabelDropdownTrigger should render a chevron icon', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',
@@ -106,7 +106,7 @@ test('DateLabelDropdownTrigger should render a chevron icon', async ({ page }) =
 });
 
 test('DateLabelDropdownTrigger should render label text', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',
@@ -115,7 +115,7 @@ test('DateLabelDropdownTrigger should render label text', async ({ page }) => {
 });
 
 test('DateLabelDropdownTrigger warning appearance should be visible', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',
@@ -124,7 +124,7 @@ test('DateLabelDropdownTrigger warning appearance should be visible', async ({ p
 });
 
 test('DateLabelDropdownTrigger danger appearance should be visible', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',
@@ -133,7 +133,7 @@ test('DateLabelDropdownTrigger danger appearance should be visible', async ({ pa
 });
 
 test('DateLabelDropdownTrigger spacious should have min-height of 32px', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',
@@ -144,7 +144,7 @@ test('DateLabelDropdownTrigger spacious should have min-height of 32px', async (
 });
 
 test('DateLabelDropdownTrigger without icon should not render leading svg', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',
@@ -157,7 +157,7 @@ test('DateLabelDropdownTrigger without icon should not render leading svg', asyn
 test('DateLabelDropdownTrigger no-icon + spacious should have min-height of 32px and only chevron', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.tsx')>(
+	await page.visitExample<typeof import('../../../examples/4-dropdown-trigger.vr.ap.tsx')>(
 		'design-system',
 		'date-label',
 		'dropdown-trigger',

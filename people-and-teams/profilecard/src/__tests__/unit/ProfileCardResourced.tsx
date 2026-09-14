@@ -7,7 +7,7 @@ import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils
 
 import ProfileClient from '../../client/ProfileCardClient';
 import ProfileCardResourced from '../../components/User/ProfileCardResourced';
-import { profileCardRendered } from '../../util/analytics';
+import { profileCardRendered } from '../../util/profileCardRendered';
 
 import { flexiTime } from './helper/_mock-analytics';
 

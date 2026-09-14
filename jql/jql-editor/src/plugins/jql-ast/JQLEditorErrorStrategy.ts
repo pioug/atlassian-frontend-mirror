@@ -9,12 +9,12 @@ import {
 } from 'antlr4ts';
 import { type NoViableAltException } from 'antlr4ts/NoViableAltException';
 import { type RecognitionException } from 'antlr4ts/RecognitionException';
-import padStart from 'lodash/padStart';
 import { type IntlShape } from 'react-intl';
 
 import { normaliseJqlString } from '@atlaskit/jql-ast';
-import { JQLAutocomplete } from '@atlaskit/jql-autocomplete';
-import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
+import { JQLAutocomplete } from '@atlaskit/jql-autocomplete/jql-autocomplete';
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
+import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
 
 import { ignoredTokens, preferredRules } from './constants';
 import { handleCustomFieldRuleError } from './error-handlers/CustomFieldRuleErrorHandler';
@@ -24,20 +24,12 @@ import { handleFieldRuleError } from './error-handlers/FieldRuleErrorHandler';
 import { handleFunctionArgumentRuleError } from './error-handlers/FunctionArgumentRuleErrorHandler';
 import { handleOperandRuleError } from './error-handlers/OperandRuleErrorHandler';
 import { handleOperatorRuleError } from './error-handlers/OperatorRuleErrorHandler';
+import { getExpectedTokensFromParserOrException } from './getExpectedTokensFromParserOrException';
+import { getJavaCodeFromChar } from './getJavaCodeFromChar';
+import { getPrintableChar } from './getPrintableChar';
 import { errorMessages } from './messages';
-import { getExpectedTokensFromParserOrException } from './utils';
 
 const isEscape = (char: string | void) => char === '\\';
-
-export const getPrintableChar = (char: string) => {
-	const hex = char.charCodeAt(0).toString(16).toUpperCase();
-	return `U+${padStart(hex, 4, '0')}`;
-};
-
-export const getJavaCodeFromChar = (char: string) => {
-	const hex = char.charCodeAt(0).toString(16);
-	return `\\u${padStart(hex, 4, '0')}`;
-};
 
 export default class JQLEditorErrorStrategy extends DefaultErrorStrategy {
 	intlRef: MutableRefObject<IntlShape>;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "12.1.0",
+	"version": "18.0.0",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,50 +54,12 @@
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform_editor_comments_api_manager": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"editor_inline_comments_on_inline_nodes": {
-			"type": "boolean"
-		},
-		"confluence_frontend_new_dangling_comments_ux": {
 			"type": "boolean"
 		}
 	}

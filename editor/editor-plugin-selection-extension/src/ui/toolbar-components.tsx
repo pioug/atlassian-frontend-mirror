@@ -14,6 +14,7 @@ import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
+// oxlint-disable-next-line import/no-duplicates
 import type { ExtensionMenuItemConfiguration } from '../types';
 import type { SelectionExtensionPluginOptions } from '../types';
 

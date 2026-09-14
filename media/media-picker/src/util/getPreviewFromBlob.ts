@@ -1,9 +1,7 @@
-import { type MediaType, type Dimensions, getDimensionsFromBlob } from '@atlaskit/media-client';
+import { type MediaType, getDimensionsFromBlob } from '@atlaskit/media-client';
 
 import { type Preview } from '../types';
-
-export const isUnknownDimensions = (dimensions: Dimensions): boolean =>
-	!dimensions.width && !dimensions.height;
+import { isUnknownDimensions } from './isUnknownDimensions';
 
 export async function getPreviewFromBlob(mediaType: MediaType, file: Blob): Promise<Preview> {
 	switch (mediaType) {

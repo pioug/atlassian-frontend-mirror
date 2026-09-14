@@ -7,9 +7,9 @@ import React, { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { Checkbox as AKCheckbox } from '@atlaskit/checkbox';
+import { Checkbox as AKCheckbox } from '@atlaskit/checkbox/checkbox';
 import type { BooleanField } from '@atlaskit/editor-common/extensions';
-import { Field } from '@atlaskit/form';
+import Field from '@atlaskit/form/field';
 import { Text } from '@atlaskit/primitives/compiled';
 import AKToggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';

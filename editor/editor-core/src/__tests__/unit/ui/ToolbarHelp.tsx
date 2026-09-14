@@ -1,41 +1,48 @@
 import React from 'react';
 
-import Tooltip from '@atlaskit/tooltip';
+import { screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import EditorContext from '../../../ui/EditorContext';
 import ToolbarHelp from '../../../ui/ToolbarHelp';
-import { mountWithIntl } from '../../__helpers/enzyme';
 
 describe('@atlaskit/editor-core/ui/ToolbarHelp', () => {
-	const mountWithEditorContext = (props = {}) => {
-		return mountWithIntl(
+	const renderWithEditorContext = (props = {}) => {
+		return renderWithIntl(
 			<EditorContext>
 				<ToolbarHelp {...props} editorApi={undefined} />
 			</EditorContext>,
 		);
 	};
 
-	it('should use default values if no props passed in', () => {
-		const toolbarHelpElem = mountWithEditorContext();
+	it('should render a tooltip with the default title and placement', async () => {
+		renderWithEditorContext();
 
-		const tooltip = toolbarHelpElem.find(Tooltip);
-		expect(tooltip).toHaveLength(1);
-		expect(tooltip.prop('position')).toEqual('left');
-		expect(tooltip.html()).toContain('Open help dialog');
-		toolbarHelpElem.unmount();
+		await userEvent.hover(screen.getByRole('button', { name: 'Open help dialog' }));
+
+		const tooltip = await screen.findByRole('tooltip', { name: 'Open help dialog' });
+		expect(tooltip).toBeVisible();
+		expect(tooltip).toHaveAttribute('data-placement', 'left');
 	});
 
-	it('should use the title passed in from props', () => {
-		const toolbarHelpElem = mountWithEditorContext({ title: 'Custom title' });
+	it('should use the title passed in from props', async () => {
+		renderWithEditorContext({ title: 'Custom title' });
 
-		expect(toolbarHelpElem.find(Tooltip).html()).toContain('Custom title');
-		toolbarHelpElem.unmount();
+		await userEvent.hover(screen.getByRole('button', { name: 'Custom title' }));
+
+		expect(await screen.findByRole('tooltip', { name: 'Custom title' })).toBeVisible();
 	});
 
-	it('should use the titlePosition passed in from props', () => {
-		const toolbarHelpElem = mountWithEditorContext({ titlePosition: 'top' });
+	it('should use the titlePosition passed in from props', async () => {
+		renderWithEditorContext({ titlePosition: 'top' });
 
-		expect(toolbarHelpElem.find(Tooltip).prop('position')).toEqual('top');
-		toolbarHelpElem.unmount();
+		await userEvent.hover(screen.getByRole('button', { name: 'Open help dialog' }));
+
+		expect(await screen.findByRole('tooltip', { name: 'Open help dialog' })).toHaveAttribute(
+			'data-placement',
+			'top',
+		);
 	});
 });

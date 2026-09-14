@@ -3,32 +3,27 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import {
-	mockDatasourceDataResponseWithSchema,
-	mockDatasourceDetailsResponse,
-	useDatasourceClientExtension,
-} from '@atlaskit/link-client-extension';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
+import { mockDatasourceDetailsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDetailsResponse';
+import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
-import { EVENT_CHANNEL } from '../../../../analytics';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { getAccessibleProducts } from '../../../../services/getAvailableSites';
-import JiraIssuesConfigModal from '../../index';
+import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../../JiraIssuesConfigModalWithWrappers';
 
 jest.mock('../../../../services/getAvailableSites', () => ({
 	getAccessibleProducts: jest.fn(),
 }));
 
-jest.mock('@atlaskit/link-client-extension', () => {
-	const originalModule = jest.requireActual('@atlaskit/link-client-extension');
-	return {
-		...originalModule,
-		useDatasourceClientExtension: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/link-client-extension/use-data-source-client-extension', () => ({
+	...jest.requireActual('@atlaskit/link-client-extension/use-data-source-client-extension'),
+	useDatasourceClientExtension: jest.fn(),
+}));
 
 const getDefaultParameters = () => ({
 	cloudId: '67899',

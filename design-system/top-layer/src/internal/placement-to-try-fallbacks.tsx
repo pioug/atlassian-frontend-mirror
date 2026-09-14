@@ -1,4 +1,4 @@
-import { getPlacement, type TPlacement, type TPlacementOptions } from './resolve-placement';
+import { resolvePlacement, type TPlacement, type TPlacementOptions } from './resolve-placement';
 
 /**
  * A `position-area` primary edge — the placement axis joined to its edge, e.g.
@@ -49,7 +49,7 @@ export function placementToTryFallbacks({ placement }: { placement: TPlacementOp
 	 * The browser tries them _in order_ and uses the _first_ one that fits.
 	 */
 
-	const resolved = getPlacement({ placement });
+	const resolved = resolvePlacement({ placement });
 	const { axis, edge, align } = resolved;
 	const crossAxis = axis === 'block' ? 'inline' : 'block';
 	const flippedEdge = edge === 'start' ? 'end' : 'start';

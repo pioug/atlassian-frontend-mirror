@@ -1,4 +1,4 @@
-import { createLocalizationProvider } from '@atlaskit/locale';
+import { createLocalizationProvider } from '@atlaskit/locale/localization-provider';
 
 import type { DateType } from '../../../types';
 

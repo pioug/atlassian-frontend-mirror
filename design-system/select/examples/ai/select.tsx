@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 
 const cityOptions = [
 	{ label: 'Brisbane', value: 'brisbane' },

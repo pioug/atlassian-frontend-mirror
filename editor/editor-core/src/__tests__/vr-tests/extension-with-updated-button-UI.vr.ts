@@ -10,7 +10,7 @@ import {
 	InlineExtensionCenterAligned,
 	InlineExtensionRightAligned,
 	InlineExtensionWithSmartLink,
-} from './extension-with-updated-button-UI.fixtures';
+} from './extension-with-updated-button-UI.fixtures.vr.ap';
 
 snapshot(BlockExtension);
 snapshot(BlockExtensionWithSmartLink, { waitForReactLazy: true });

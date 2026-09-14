@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
@@ -87,7 +88,7 @@ describe('Renderer - Fallback analytics', () => {
 				expect(captureException).toHaveBeenCalled();
 			});
 			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-			expect(onAnalyticFireEvent).toBeCalledWith(
+			expect(onAnalyticFireEvent).toHaveBeenCalledWith(
 				expect.objectContaining(renderFailedPayload),
 				EVENT_CHANNEL,
 			);
@@ -109,7 +110,7 @@ describe('Renderer - Fallback analytics', () => {
 				expect(captureException).toHaveBeenCalled();
 			});
 			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-			expect(onAnalyticFireEvent).toBeCalledWith(
+			expect(onAnalyticFireEvent).toHaveBeenCalledWith(
 				expect.objectContaining(renderFailedPayload),
 				EVENT_CHANNEL,
 			);
@@ -130,7 +131,7 @@ describe('Renderer - Fallback analytics', () => {
 				datasourceId,
 			});
 			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-			expect(onAnalyticFireEvent).toBeCalledWith(
+			expect(onAnalyticFireEvent).toHaveBeenCalledWith(
 				expect.objectContaining(renderFailedPayload),
 				EVENT_CHANNEL,
 			);

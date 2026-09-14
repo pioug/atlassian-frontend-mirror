@@ -1,4 +1,4 @@
-import type { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 export type ExtensionType =

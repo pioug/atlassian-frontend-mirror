@@ -1,4 +1,4 @@
-import { logException } from '../sentry';
+import { logException } from '../sentry/logException';
 import { type ClientContext, type ClientContextProps } from '../types';
 
 type NestedContext = {

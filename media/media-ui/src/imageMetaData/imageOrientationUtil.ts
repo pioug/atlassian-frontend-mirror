@@ -1,19 +1,9 @@
-const ORIENT_TRANSFORMS: { [key: number]: string } = {
-	1: 'none', // Horizontal (normal)
-	2: 'rotateY(180deg)', // Mirror horizontal
-	3: 'rotate(180deg)', // Rotate 180
-	4: 'rotate(180deg) rotateY(180deg)', // Mirror vertical
-	5: 'rotate(270deg) rotateY(180deg)', // Mirror horizontal and rotate 270 CW
-	6: 'rotate(90deg)', // Rotate 90 CW
-	7: 'rotate(90deg) rotateY(180deg)', // Mirror horizontal and rotate 90 CW
-	8: 'rotate(270deg)', // Rotate 270 CW
-};
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
- * Returns true if image rotated 90 or 270 degrees (on it's side)
+ * @deprecated Use `import { isRotated } from '@atlaskit/media-ui/imageMetaData/isRotated'` instead.
  */
-export const isRotated = (orientation: number): boolean => orientation >= 5;
-
-export const getCssFromImageOrientation = (orientation: number): string => {
-	return ORIENT_TRANSFORMS[orientation];
-};
+export { isRotated } from './isRotated';
+/**
+ * @deprecated Use `import { getCssFromImageOrientation } from '@atlaskit/media-ui/imageMetaData/getCssFromImageOrientation'` instead.
+ */
+export { getCssFromImageOrientation } from './getCssFromImageOrientation';

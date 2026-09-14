@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { ModalTransition as PlatformModalTransition } from '@atlaskit/modal-dialog';
+import PlatformModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 type PlatformModalTransitionProps = React.ComponentProps<typeof PlatformModalTransition>;
 

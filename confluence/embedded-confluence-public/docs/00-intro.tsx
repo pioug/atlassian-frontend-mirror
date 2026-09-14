@@ -48,5 +48,9 @@ const intro: React.ReactElement = md`
 	   - Since pop-ups are necessary for the login page to function properly and enable users to log
 	     in to their Atlassian account, the flow will be disrupted at this stage, potentially
 	     preventing users from advancing further.
+
+	### Open Issues
+	
+	You can find and report open issues on our [JAC Component](https://jira.atlassian.com/browse/CONFCLOUD-84991?jql=project%20%3D%20CONFCLOUD%20AND%20component%20%3D%20%22Integrations%20-%20Embeddable%20Pages%22)
 `;
 export default intro;

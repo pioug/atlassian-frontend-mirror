@@ -4,7 +4,7 @@ import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { type ValueType } from '@atlaskit/select';
+import type { ValueType } from '@atlaskit/select/types';
 
 import type { Site } from '../../../../../common/types';
 import { FilterPopupSelect } from '../../../../common/modal/popup-select';

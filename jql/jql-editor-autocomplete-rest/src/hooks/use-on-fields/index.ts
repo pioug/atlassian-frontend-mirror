@@ -8,35 +8,18 @@ import { map } from 'rxjs/operators/map';
 import { take } from 'rxjs/operators/take';
 import { toArray } from 'rxjs/operators/toArray';
 
-import { type AutocompleteOptions, type JQLClause } from '@atlaskit/jql-editor-common';
+import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import type { JQLClause } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
 
 import { type JQLFieldResponse } from '../../common/types';
 import { filterJqlValue } from '../../utils/filter-jql-value';
-import { normalize } from '../../utils/strings';
+import { normalize } from '../../utils/normalize';
 import { type OnFields } from '../use-autocomplete-provider/types';
+
+import { getFieldType } from './getFieldType';
 
 // Hard coded limit to prevent excessive number of options being rendered in the autocomplete dropdown.
 export const MAX_VISIBLE_OPTIONS = 20;
-
-const CF_ID_PATTERN = /^"?cf\[\d+]"?$/;
-const COLLAPSED_FIELD_PATTERN = /^"?.+\[(.+)]"?$/;
-
-const isCollapsedField = ({ value }: JQLFieldResponse) =>
-	COLLAPSED_FIELD_PATTERN.test(value) && !CF_ID_PATTERN.test(value);
-
-export const getFieldType = (field: JQLFieldResponse): string | null => {
-	if (!isCollapsedField(field)) {
-		return null;
-	}
-
-	const matches = COLLAPSED_FIELD_PATTERN.exec(field.value);
-
-	if (!matches || matches.length < 2) {
-		return null;
-	}
-
-	return matches[1];
-};
 
 const useOnFields = (
 	jqlSearchableFields$: Observable<JQLFieldResponse>,

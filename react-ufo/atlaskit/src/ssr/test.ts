@@ -1,6 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 // Helpers to mock PerformanceNavigationTiming with serverTiming + responseStart
 function mockNavigationTimings(options?: {
@@ -11,7 +11,6 @@ function mockNavigationTimings(options?: {
 		responseStart: options?.responseStart,
 		serverTiming: options?.serverTiming,
 	};
-	// @ts-ignore - JSDOM's performance is writable for tests
 	global.performance.getEntriesByType = jest.fn().mockReturnValue([navEntry]);
 }
 

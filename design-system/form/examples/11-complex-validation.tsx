@@ -1,18 +1,17 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	FormHeader,
-	HelperMessage,
-	MessageWrapper,
-	RequiredAsterisk,
-	ValidMessage,
-} from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
+import { ValidMessage } from '@atlaskit/form/valid-message';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 
 interface FormData {
 	username: string;

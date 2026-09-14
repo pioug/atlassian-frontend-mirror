@@ -6,7 +6,8 @@ import { type CSSProperties, forwardRef, useCallback } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { type AppearanceType, type AvatarClickEventHandler } from '@atlaskit/avatar';
+import type { AppearanceType, AvatarClickEventHandler } from '@atlaskit/avatar/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type AvatarGroupSize } from './types';
@@ -36,7 +37,7 @@ const styles = cssMap({
 		boxShadow: `var(${boxShadowCssVar})`,
 		overflow: 'hidden',
 		transform: 'translateZ(0)',
-		transition: 'transform 200ms, opacity 200ms',
+		transition: token('motion.button.hovered'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered'),
 			color: token('color.text'),
@@ -44,6 +45,7 @@ const styles = cssMap({
 		'&:active': {
 			backgroundColor: token('color.background.neutral.pressed'),
 			color: token('color.text'),
+			transition: token('motion.button.pressed'),
 		},
 		'&:focus-visible': {
 			boxShadow: 'none',
@@ -73,7 +75,9 @@ const styles = cssMap({
 		'&:active': {
 			backgroundColor: token('color.background.selected.pressed'),
 			color: token('color.text.selected'),
+			transition: token('motion.button.pressed'),
 		},
+		transition: token('motion.button.hovered'),
 	},
 	disabled: {
 		cursor: 'not-allowed',
@@ -81,6 +85,9 @@ const styles = cssMap({
 			opacity: token('opacity.disabled'),
 			backgroundColor: token('elevation.surface'),
 		},
+	},
+	motion: {
+		transition: token('motion.button.hovered'),
 	},
 });
 
@@ -240,6 +247,7 @@ const MoreIndicator: React.ForwardRefExoticComponent<
 					widthHeightMap[size],
 					fontMap[size],
 					isActive && styles.active,
+					fg('platform-dst-motion-uplift-custom-button') && styles.motion,
 				]}
 			>
 				+{displayCount}

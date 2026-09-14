@@ -1,10 +1,11 @@
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+
 import React from 'react';
 
 import { SmartLinkSize } from '../../../../../../constants';
 import { LoadingSkeleton } from '../../../../../common/loading-skeleton';
-import { LinkIcon } from '../../../elements';
-import { getIconWidth } from '../../../utils';
+import { default as LinkIcon } from '../../../elements/link-icon-element';
+import { getIconWidth } from '../../../getIconWidth';
 import Block from '../../block';
 import { type TitleBlockViewProps } from '../types';
 

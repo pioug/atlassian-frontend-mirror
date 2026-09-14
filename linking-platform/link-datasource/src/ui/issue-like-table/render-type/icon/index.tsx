@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type Icon } from '@atlaskit/linking-types';
+import type { Icon } from '@atlaskit/linking-types/datasource';
 
 import { SharedIconComponent } from '../../shared-components/icon';
 

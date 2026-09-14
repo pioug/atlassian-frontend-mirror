@@ -13,6 +13,31 @@ import { expect, test } from '@af/integration-testing';
  *      visited.
  */
 test.describe('Popup - nested top-layer focus scope', () => {
+	test('inner popover owns navigation from a pointer-focused non-tabbable element', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../examples/135-testing-nested-focus-scope.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-nested-focus-scope',
+		);
+
+		await page.getByTestId('outer-trigger').click();
+		await page.getByTestId('inner-trigger').click();
+		await expect(page.getByTestId('inner-popover')).toBeVisible();
+
+		const origin = page.getByTestId('inner-origin');
+		await origin.click();
+		await expect(origin).toBeFocused();
+
+		await page.keyboard.press('Tab');
+		await expect(page.getByTestId('inner-button')).toBeFocused();
+
+		await origin.click();
+		await page.keyboard.press('Shift+Tab');
+		await expect(page.getByTestId('inner-before')).toBeFocused();
+	});
+
 	test('outer Tab cycle excludes nested popover focusables', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/135-testing-nested-focus-scope.tsx')>(
 			'design-system',

@@ -6,7 +6,7 @@ import type { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/st
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isCursorSelectionAtTextStartOrEnd, isEmptyNode, isSelectionInsidePanel } from '../index';

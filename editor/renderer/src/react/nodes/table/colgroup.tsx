@@ -10,10 +10,8 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
-import { useFeatureFlags } from '../../../use-feature-flags';
-import type { RendererContextProps } from '../../../renderer-context';
 import { useRendererContext } from '../../../renderer-context';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // we allow scaling down column widths by no more than 30%
@@ -253,7 +251,7 @@ const renderScaleDownColgroup = (
 	// explicitly use the width coming from the table node as the final table container width.
 	const tableContainerWidth =
 		(rendererAppearance === 'comment' && !tableNode?.attrs.width) ||
-		(isRendererNested && (!fg('platform_fix_nested_num_column_scaling') || !isNumberColumnEnabled))
+		(isRendererNested && !isNumberColumnEnabled)
 			? renderWidth
 			: getTableContainerWidth(tableNode);
 
@@ -364,16 +362,10 @@ const renderScaleDownColgroup = (
 	}
 	// scaling down
 	else if (renderWidth < tableWidth && !isTableWidthFixed) {
-		const shouldTable100ScaleDown =
-			rendererAppearance === 'comment' && allowTableResizing && !tableNode?.attrs.width;
 		scaleDownPercent = calcScalePercent({
 			renderWidth,
 			tableWidth,
-			maxScale: fg('platform-ssr-table-resize')
-				? maxScalingPercent
-				: shouldTable100ScaleDown
-					? 1
-					: maxScalingPercent,
+			maxScale: maxScalingPercent,
 			isNumberColumnEnabled: isNumberColumnEnabled,
 		});
 	}
@@ -425,17 +417,11 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 	const { isTopLevelRenderer, nestedRendererType } = useRendererContext();
 	const { columnWidths, isNumberColumnEnabled } = props;
 	const { width: contextWidth } = useContext(WidthContext);
-	const flags = useFeatureFlags() as RendererContextProps['featureFlags'] | undefined;
 	if (!columnWidths) {
 		return null;
 	}
 
-	const isTableFixedColumnWidthsOptionEnabled =
-		(fg('platform_editor_table_fixed_column_width_prop')
-			? props.allowFixedColumnWidthOption
-			: flags &&
-				'tableWithFixedColumnWidthsOption' in flags &&
-				flags.tableWithFixedColumnWidthsOption) ?? false;
+	const isTableFixedColumnWidthsOptionEnabled = props.allowFixedColumnWidthOption ?? false;
 
 	// For referenced sync blocks, nestedRendererType='syncedBlock' is set via RendererContextProvider
 	// in AKRendererWrapper. ReactSerializer is a class and cannot read React context, so we detect

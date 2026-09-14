@@ -1,4 +1,5 @@
-import { createPlaybackSpeedChangedEvent, type PlaybackState } from '../../../analytics';
+import { createPlaybackSpeedChangedEvent } from '../../../analytics/events/ui/playbackSpeedChanged';
+import type { PlaybackState } from '../../../analytics/utils/playbackAttributes';
 
 describe('createPlaybackSpeedChangedEvent', () => {
 	const playbackState: PlaybackState = {

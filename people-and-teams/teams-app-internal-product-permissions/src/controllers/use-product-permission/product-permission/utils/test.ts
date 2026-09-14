@@ -1,20 +1,17 @@
 import type { ProductPermissionsResponse } from '../types';
 
-import { fetchPermissionForProduct, getEndpoint } from './permission-endpoints';
-import {
-	getProductPermissionRequestBody,
-	makeGraphqlRequest,
-	makeRestApiRequest,
-} from './requests';
+import { fetchPermissionForProduct } from './fetch-permission-for-product';
+import { getEndpoint } from './get-endpoint';
+import { getProductPermissionRequestBody } from './get-product-permission-request-body';
+import { makeGraphqlRequest } from './make-graphql-request';
+import { makeRestApiRequest } from './make-rest-api-request';
 
-jest.mock('./requests', () => {
-	const actual = jest.requireActual('./requests');
-	return {
-		...actual,
-		makeGraphqlRequest: jest.fn(),
-		makeRestApiRequest: jest.fn(),
-	};
-});
+jest.mock('./make-graphql-request', () => ({
+	makeGraphqlRequest: jest.fn(),
+}));
+jest.mock('./make-rest-api-request', () => ({
+	makeRestApiRequest: jest.fn(),
+}));
 
 describe('permission-endpoints utils', () => {
 	beforeEach(() => {
@@ -169,7 +166,7 @@ describe('permission-endpoints utils', () => {
 			(makeGraphqlRequest as jest.Mock).mockRejectedValueOnce(new Error('graphql failed'));
 
 			const permissionEndpointsModule =
-				require('./permission-endpoints') as typeof import('./permission-endpoints');
+				require('./get-endpoint') as typeof import('./get-endpoint');
 			const originalGetEndpoint = permissionEndpointsModule.getEndpoint;
 			const getEndpointSpy = jest
 				.spyOn(permissionEndpointsModule, 'getEndpoint')

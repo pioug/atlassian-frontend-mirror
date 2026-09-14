@@ -2,9 +2,10 @@ import React, { memo, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import {
 	ReactRenderer,
 	ValidationContextProvider,
@@ -12,7 +13,7 @@ import {
 } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { RendererContextProvider } from '@atlaskit/renderer/renderer-context';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { SyncedBlockRendererOptions } from '../types';
 
@@ -73,9 +74,18 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 		doc,
 		dataProviders,
 		options,
+		headingIdPrefix,
 	}: {
 		dataProviders: ProviderFactory | undefined;
 		doc: DocNode;
+		/**
+		 * When provided, headings inside the synced block are rendered with stable
+		 * ids prefixed by this value (typically the reference node's `localId`),
+		 * enabling heading anchor links and Table-of-Contents deep links. When
+		 * omitted, heading ids are disabled (the historical default) so unrelated
+		 * consumers are unaffected.
+		 */
+		headingIdPrefix?: string;
 		options: SyncedBlockRendererOptions | undefined;
 	}) => React.JSX.Element
 > = memo(
@@ -83,9 +93,11 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 		doc,
 		dataProviders,
 		options,
+		headingIdPrefix,
 	}: {
 		dataProviders: ProviderFactory | undefined;
 		doc: DocNode;
+		headingIdPrefix?: string;
 		options: SyncedBlockRendererOptions | undefined;
 	}): React.JSX.Element => {
 		const mergedOptions = { ...defaultOptions, ...options };
@@ -106,10 +118,22 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 			emojiResourceConfig,
 			eventHandlers,
 			media,
+			mentionNodeDataProvider,
 			smartLinks,
 			stickyHeaders,
 			contentMode,
 		} = mergedOptions ?? {};
+
+		// Only stamp heading ids when a prefix is supplied AND the consumer has
+		// opted into heading anchor links. This keeps the change scoped: consumers
+		// that enable ToC/anchor support (e.g. Confluence, behind its experiment)
+		// pass both a per-instance prefix (the reference block's localId) and
+		// `allowHeadingAnchorLinks`; every other consumer keeps id-less headings and
+		// is unaffected.
+		const headingIdsEnabled =
+			typeof headingIdPrefix === 'string' &&
+			headingIdPrefix.length > 0 &&
+			Boolean(allowHeadingAnchorLinks);
 
 		const nodeComponents = useMemo(() => {
 			return {
@@ -136,7 +160,8 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 								appearance={appearance}
 								adfStage="stage0"
 								document={doc}
-								disableHeadingIDs={true}
+								disableHeadingIDs={!headingIdsEnabled}
+								headingIdPrefix={headingIdsEnabled ? headingIdPrefix : undefined}
 								dataProviders={dataProviders}
 								nodeComponents={nodeComponents}
 								allowAltTextOnImages={allowAltTextOnImages}
@@ -154,6 +179,15 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 								emojiResourceConfig={emojiResourceConfig}
 								eventHandlers={eventHandlers}
 								media={media}
+								// Synced block replica locations render through this wrapper rather than the
+								// main editor/renderer surfaces, so forwarding the provider here is gated
+								// independently of `platform_editor_mention_node_avatar` (which still controls
+								// whether the avatar itself renders once a provider is present).
+								mentionNodeDataProvider={
+									isExperimentEnabled('platform_editor_mention_avatar_synced_block')
+										? mentionNodeDataProvider
+										: undefined
+								}
 								smartLinks={smartLinks}
 								stickyHeaders={stickyHeaders}
 								contentMode={contentMode}

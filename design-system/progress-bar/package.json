@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-bar",
-	"version": "5.1.1",
+	"version": "5.3.2",
 	"description": "A progress bar communicates the status of a system process.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -55,33 +55,16 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform-dst-shape-theme-default": {
 			"type": "boolean"

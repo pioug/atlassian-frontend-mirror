@@ -1,13 +1,11 @@
 import React from 'react';
 
+import { bulletList, bulletListWithLocalId } from '@atlaskit/adf-schema/bullet-list';
+import { listItem, listItemWithLocalId } from '@atlaskit/adf-schema/list-item';
 import {
-	bulletList,
-	bulletListWithLocalId,
-	listItem,
-	listItemWithLocalId,
 	orderedListWithOrder,
 	orderedListWithOrderAndLocalId,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/ordered-list';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -18,8 +16,9 @@ import {
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ListPlugin } from './listPluginType';
 import {
@@ -36,6 +35,7 @@ import { createPlugin, pluginKey as listPluginKey } from './pm-plugins/main';
 import { findRootParentListNode } from './pm-plugins/utils/find';
 import { isInsideListItem } from './pm-plugins/utils/selection';
 import { getListComponents } from './ui';
+import { getListQuickInsertComponents } from './ui/quick-insert/getListQuickInsertComponents';
 
 /*
   Toolbar buttons to bullet and ordered list can be found in
@@ -52,6 +52,10 @@ export const listPlugin: ListPlugin = ({ api }) => {
 
 	if (editorExperiment('platform_editor_block_menu', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents(getListComponents(api));
+	}
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getListQuickInsertComponents({ api }));
 	}
 
 	return {
@@ -117,71 +121,73 @@ export const listPlugin: ListPlugin = ({ api }) => {
 			];
 		},
 
-		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => {
-				return [
-					{
-						id: 'unorderedList',
-						title: formatMessage(messages.unorderedList),
-						description: formatMessage(messages.unorderedListDescription),
-						keywords: ['ul', 'unordered'],
-						priority: 1100,
-						keyshortcut: tooltip(toggleBulletList),
-						icon: () => <IconList />,
-						action(insert, state) {
-							const tr = insert(
-								state.schema.nodes.bulletList.createChecked(
-									{},
-									state.schema.nodes.listItem.createChecked(
-										{},
-										state.schema.nodes.paragraph.createChecked(),
-									),
-								),
-							);
-							editorAnalyticsAPI?.attachAnalyticsEvent({
-								action: ACTION.INSERTED,
-								actionSubject: ACTION_SUBJECT.LIST,
-								actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
-								eventType: EVENT_TYPE.TRACK,
-								attributes: {
-									inputMethod: INPUT_METHOD.QUICK_INSERT,
+		pluginsOptions: isRegisteredSlashCommandEnabled
+			? {}
+			: {
+					quickInsert: ({ formatMessage }) => {
+						return [
+							{
+								id: 'unorderedList',
+								title: formatMessage(messages.unorderedList),
+								description: formatMessage(messages.unorderedListDescription),
+								keywords: ['ul', 'unordered'],
+								priority: 1100,
+								keyshortcut: tooltip(toggleBulletList),
+								icon: () => <IconList />,
+								action(insert, state) {
+									const tr = insert(
+										state.schema.nodes.bulletList.createChecked(
+											{},
+											state.schema.nodes.listItem.createChecked(
+												{},
+												state.schema.nodes.paragraph.createChecked(),
+											),
+										),
+									);
+									editorAnalyticsAPI?.attachAnalyticsEvent({
+										action: ACTION.INSERTED,
+										actionSubject: ACTION_SUBJECT.LIST,
+										actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
+										eventType: EVENT_TYPE.TRACK,
+										attributes: {
+											inputMethod: INPUT_METHOD.QUICK_INSERT,
+										},
+									})(tr);
+									return tr;
 								},
-							})(tr);
-							return tr;
-						},
-					},
-					{
-						id: 'orderedList',
-						title: formatMessage(messages.orderedList),
-						description: formatMessage(messages.orderedListDescription),
-						keywords: ['ol', 'ordered'],
-						priority: 1200,
-						keyshortcut: tooltip(toggleOrderedList),
-						icon: () => <IconListNumber />,
-						action(insert, state) {
-							const tr = insert(
-								state.schema.nodes.orderedList.createChecked(
-									{},
-									state.schema.nodes.listItem.createChecked(
-										{},
-										state.schema.nodes.paragraph.createChecked(),
-									),
-								),
-							);
-							editorAnalyticsAPI?.attachAnalyticsEvent({
-								action: ACTION.INSERTED,
-								actionSubject: ACTION_SUBJECT.LIST,
-								actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
-								eventType: EVENT_TYPE.TRACK,
-								attributes: {
-									inputMethod: INPUT_METHOD.QUICK_INSERT,
+							},
+							{
+								id: 'orderedList',
+								title: formatMessage(messages.orderedList),
+								description: formatMessage(messages.orderedListDescription),
+								keywords: ['ol', 'ordered'],
+								priority: 1200,
+								keyshortcut: tooltip(toggleOrderedList),
+								icon: () => <IconListNumber />,
+								action(insert, state) {
+									const tr = insert(
+										state.schema.nodes.orderedList.createChecked(
+											{},
+											state.schema.nodes.listItem.createChecked(
+												{},
+												state.schema.nodes.paragraph.createChecked(),
+											),
+										),
+									);
+									editorAnalyticsAPI?.attachAnalyticsEvent({
+										action: ACTION.INSERTED,
+										actionSubject: ACTION_SUBJECT.LIST,
+										actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+										eventType: EVENT_TYPE.TRACK,
+										attributes: {
+											inputMethod: INPUT_METHOD.QUICK_INSERT,
+										},
+									})(tr);
+									return tr;
 								},
-							})(tr);
-							return tr;
-						},
+							},
+						];
 					},
-				];
-			},
-		},
+				},
 	};
 };

@@ -1,5 +1,5 @@
 import ProfileCardClient from '../client/ProfileCardClient';
-import RovoAgentCardClient from '../client/RovoAgentCardClient';
+import { default as RovoAgentCardClient } from '../client/RovoAgentCardClient';
 import TeamProfileCardClient from '../client/TeamProfileCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
 import {
@@ -10,9 +10,10 @@ import {
 } from '../types';
 
 import agentData, { agentAggData } from './agent-data';
+import { getTimeString } from './get-time-string';
+import { getWeekday } from './get-weekday';
 import profiles from './profile-data';
 import teamData from './team-data';
-import { getTimeString, getWeekday } from './util';
 
 class SimpleMockTeamClient extends TeamProfileCardClient {
 	makeRequest(teamId: string): Promise<Team> {

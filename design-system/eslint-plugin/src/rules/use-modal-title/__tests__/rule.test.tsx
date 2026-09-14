@@ -64,6 +64,51 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 	</ModalHeader>
 </ModalDialog>
 `,
+		// Deeply chained ternaries — the original containsModalTitle recursed into both
+		// branches of every ConditionalExpression, producing 2^D call-frames for depth D.
+		// The stack-based implementation delegates to ESLint's own traversal instead.
+		`
+import ModalDialog, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog>
+	<ModalHeader>
+		{a ? b ? c ? <ModalTitle>T</ModalTitle> : null : null : null}
+	</ModalHeader>
+</ModalDialog>
+`,
+		// Nested arrow functions — the original rule recursed into ArrowFunctionExpression
+		// bodies, which could be arbitrarily deep.
+		`
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+
+<ModalDialog>
+	<ModalHeader>
+		{items.map(() => <ModalTitle>T</ModalTitle>)}
+	</ModalHeader>
+</ModalDialog>
+`,
+		// ModalTitle inside a nested array expression
+		`
+import ModalDialog, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog>
+	<ModalHeader>
+		{[<ModalTitle key="t">T</ModalTitle>]}
+	</ModalHeader>
+</ModalDialog>
+`,
+		// ModalTitle inside a JSX fragment
+		`
+import ModalDialog, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog>
+	<ModalHeader>
+		<><ModalTitle>T</ModalTitle></>
+	</ModalHeader>
+</ModalDialog>
+`,
 	],
 	invalid: [
 		{

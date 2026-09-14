@@ -6,7 +6,7 @@ import { avatar1, avatar2, avatar3, image1 as previewImage } from '@atlaskit/lin
 
 import { ActionName, IconType, MediaType, SmartLinkStatus } from '../../src/constants';
 import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
-import { isFlexibleUiBlock } from '../../src/utils/flexible';
+import { isFlexibleUiBlock } from '../../src/utils/is-flexible-ui-block';
 import { getContext } from '../utils/flexible-ui';
 
 const today = new Date();

@@ -3,7 +3,8 @@ import React, { useRef } from 'react';
 import { render } from '@testing-library/react';
 import { from } from 'rxjs/observable/from';
 
-import { type AutocompleteOptions, type JQLClause } from '@atlaskit/jql-editor-common';
+import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import type { JQLClause } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
 
 import {
 	accountJqlField,
@@ -22,9 +23,11 @@ import {
 	statusJqlField,
 } from '../../common/mocks';
 import { type JQLFieldResponse } from '../../common/types';
-import { normalize } from '../../utils/strings';
+import { normalize } from '../../utils/normalize';
 
-import useOnFields, { getFieldType, MAX_VISIBLE_OPTIONS } from './index';
+import { getFieldType } from './getFieldType';
+
+import useOnFields, { MAX_VISIBLE_OPTIONS } from './index';
 
 const mockJqlSearchableFields: JQLFieldResponse[] = [
 	accountJqlField,

@@ -7,7 +7,7 @@ const previousMonthQuery = '[data-testid="the-calendar--previous-month"]';
 const nextMonthQuery = '[data-testid="the-calendar--next-month"]';
 
 test('A user is able to select a date', async ({ page, skipAxeCheck }) => {
-	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.vr.ap.tsx')>(
 		'design-system',
 		'calendar',
 		'testing',
@@ -21,7 +21,7 @@ test('A user is able to select a date', async ({ page, skipAxeCheck }) => {
 });
 
 test('A user is able to navigate between months', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.vr.ap.tsx')>(
 		'design-system',
 		'calendar',
 		'testing',

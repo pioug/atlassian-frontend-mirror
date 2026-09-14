@@ -7,7 +7,7 @@ import { forwardRef, memo, useCallback, useEffect, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Grid } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,6 +16,7 @@ import type { DateObj } from '../types';
 
 const dateCellSiblingStyle = css({
 	color: token('color.text.subtlest'),
+	transition: token('motion.listitem.hovered'),
 	'&:hover': {
 		color: token('color.text.subtlest'),
 	},
@@ -39,6 +40,7 @@ const dateCellTodayStyle = css({
 const dateCellPrevSelectedStyle = css({
 	backgroundColor: token('color.background.selected'),
 	color: token('color.text.subtle'),
+	transition: token('motion.listitem.hovered'),
 	'&:hover': {
 		color: token('color.text.subtle'),
 	},
@@ -47,15 +49,33 @@ const dateCellPrevSelectedStyle = css({
 const dateCellSelectedStyle = css({
 	backgroundColor: token('color.background.selected'),
 	color: token('color.text.selected'),
+	transition: token('motion.listitem.hovered'),
 	'&:hover': {
 		backgroundColor: token('color.background.selected.hovered'),
 		color: token('color.text.selected'),
 	},
 });
 
+// platform-dst-tokens-finesse cleanup: merge into dateCellSelectedStyle after rollout
+const dateCellSelectedFinesseStyle = css({
+	backgroundColor: token('color.background.selected.bold'),
+	color: token('color.text.inverse'),
+	transition: token('motion.listitem.hovered'),
+	'&:hover': {
+		backgroundColor: token('color.background.selected.bold.hovered'),
+		color: token('color.text.inverse'),
+	},
+	'&:active': {
+		backgroundColor: token('color.background.selected.bold.pressed'),
+		color: token('color.text.inverse'),
+		transition: token('motion.listitem.pressed'),
+	},
+});
+
 const dateCellDisabledStyle = css({
 	color: token('color.text.disabled'),
 	cursor: 'not-allowed',
+	transition: token('motion.listitem.hovered'),
 	'&:hover': {
 		backgroundColor: 'transparent',
 		color: token('color.text.disabled'),
@@ -69,7 +89,7 @@ const dateCellStyles = css({
 	flexGrow: 1,
 	backgroundColor: 'transparent',
 	borderColor: 'transparent',
-	borderRadius: token('radius.small', '3px'),
+	borderRadius: token('radius.medium'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
 	color: token('color.text'),
@@ -82,6 +102,7 @@ const dateCellStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	paddingInlineStart: '9px',
 	textAlign: 'center',
+	transition: token('motion.listitem.hovered'),
 	'&:focus-visible': {
 		borderColor: token('color.border.focused'),
 		borderStyle: 'solid',
@@ -94,11 +115,8 @@ const dateCellStyles = css({
 	'&:active': {
 		backgroundColor: token('color.background.neutral.subtle.pressed'),
 		color: token('color.text'),
+		transition: token('motion.listitem.pressed'),
 	},
-});
-// platform-dst-shape-theme-default TODO: Merge into base after rollout
-const dateCellStylesT26Shape = css({
-	borderRadius: token('radius.medium', '6px'),
 });
 
 // platform-dst-motion-uplift-list-item cleanup: once fully rolled out, fold these
@@ -144,99 +162,101 @@ const Date: import('react').MemoExoticComponent<
 		DateProps & import('react').RefAttributes<HTMLButtonElement>
 	>
 > = memo(
-	forwardRef<HTMLButtonElement, DateProps>(function Date(
-		{
-			children: day,
-			isDisabled = false,
-			isFocused = false,
-			isToday = false,
-			dayLong,
-			month,
-			monthLong,
-			onClick = noop,
-			isPreviouslySelected = false,
-			isSelected = false,
-			isSibling = false,
-			year,
-			shouldSetFocus,
-			tabIndex,
-			testId,
-		},
-		_ref,
-	) {
-		const dateRef = useRef({ day, month, year, isDisabled });
-
-		useEffect(() => {
-			dateRef.current = {
-				day,
+	forwardRef<HTMLButtonElement, DateProps>(
+		(
+			{
+				children: day,
+				isDisabled = false,
+				isFocused = false,
+				isToday = false,
+				dayLong,
 				month,
+				monthLong,
+				onClick = noop,
+				isPreviouslySelected = false,
+				isSelected = false,
+				isSibling = false,
 				year,
-				isDisabled,
-			};
-		}, [day, month, year, isDisabled]);
+				shouldSetFocus,
+				tabIndex,
+				testId,
+			},
+			_ref,
+		) => {
+			const dateRef = useRef({ day, month, year, isDisabled });
 
-		const focusRef = useRef(null);
+			useEffect(() => {
+				dateRef.current = {
+					day,
+					month,
+					year,
+					isDisabled,
+				};
+			}, [day, month, year, isDisabled]);
 
-		useEffect(() => {
-			if (isFocused && shouldSetFocus && focusRef.current) {
-				(focusRef.current as HTMLButtonElement).focus();
-			}
-		}, [isFocused, shouldSetFocus]);
+			const focusRef = useRef(null);
 
-		const handleClick = useCallback(() => {
-			const {
-				day: dayValue,
-				month: monthValue,
-				year: yearValue,
-				isDisabled: isDisabledValue,
-			} = dateRef.current;
+			useEffect(() => {
+				if (isFocused && shouldSetFocus && focusRef.current) {
+					(focusRef.current as HTMLButtonElement).focus();
+				}
+			}, [isFocused, shouldSetFocus]);
 
-			if (!isDisabledValue) {
-				onClick({
+			const handleClick = useCallback(() => {
+				const {
 					day: dayValue,
 					month: monthValue,
 					year: yearValue,
-				});
-			}
-		}, [onClick]);
+					isDisabled: isDisabledValue,
+				} = dateRef.current;
 
-		return (
-			<Grid role="gridcell" alignItems="center">
-				<button
-					css={[
-						dateCellStyles,
-						fg('platform-dst-shape-theme-default') && dateCellStylesT26Shape,
-						isSibling && dateCellSiblingStyle,
-						isToday && dateCellTodayStyle,
-						isPreviouslySelected && dateCellPrevSelectedStyle,
-						isSelected && dateCellSelectedStyle,
-						isDisabled && dateCellDisabledStyle,
-						fg('platform-dst-motion-uplift-list-item') && dateCellMotionStyles,
-						(isSelected || isPreviouslySelected) &&
-							fg('platform-dst-motion-uplift-list-item') &&
-							dateCellSelectedMotionStyles,
-					]}
-					aria-current={isToday ? 'date' : undefined}
-					aria-disabled={isDisabled || undefined}
-					aria-label={`${day}, ${dayLong} ${monthLong} ${year}`}
-					aria-pressed={isSelected ? 'true' : 'false'}
-					tabIndex={isFocused ? tabIndex : -1}
-					type="button"
-					onClick={handleClick}
-					ref={focusRef}
-					data-disabled={isDisabled || undefined}
-					data-focused={isFocused || undefined}
-					data-prev-selected={isPreviouslySelected || undefined}
-					data-selected={isSelected || undefined}
-					data-sibling={isSibling || undefined}
-					data-today={isToday || undefined}
-					data-testid={testId && (isSelected ? `${testId}--selected-day` : `${testId}--day`)}
-				>
-					{day}
-				</button>
-			</Grid>
-		);
-	}),
+				if (!isDisabledValue) {
+					onClick({
+						day: dayValue,
+						month: monthValue,
+						year: yearValue,
+					});
+				}
+			}, [onClick]);
+
+			return (
+				<Grid role="gridcell" alignItems="center">
+					<button
+						css={[
+							dateCellStyles,
+							isSibling && dateCellSiblingStyle,
+							isToday && dateCellTodayStyle,
+							isPreviouslySelected && dateCellPrevSelectedStyle,
+							isSelected && dateCellSelectedStyle,
+							isSelected && fg('platform-dst-tokens-finesse') && dateCellSelectedFinesseStyle,
+							isDisabled && dateCellDisabledStyle,
+							fg('platform-dst-motion-uplift-list-item') && dateCellMotionStyles,
+							(isSelected || isPreviouslySelected) &&
+								fg('platform-dst-motion-uplift-list-item') &&
+								dateCellSelectedMotionStyles,
+						]}
+						aria-current={isToday ? 'date' : undefined}
+						aria-disabled={isDisabled || undefined}
+						aria-label={`${day}, ${dayLong} ${monthLong} ${year}`}
+						aria-pressed={isSelected ? 'true' : 'false'}
+						tabIndex={isFocused ? tabIndex : -1}
+						type="button"
+						onClick={handleClick}
+						ref={focusRef}
+						data-disabled={isDisabled || undefined}
+						data-focused={isFocused || undefined}
+						data-prev-selected={isPreviouslySelected || undefined}
+						data-selected={isSelected || undefined}
+						data-sibling={isSibling || undefined}
+						data-today={isToday || undefined}
+						data-testid={testId && (isSelected ? `${testId}--selected-day` : `${testId}--day`)}
+					>
+						{day}
+					</button>
+				</Grid>
+			);
+		},
+	),
 );
 
 Date.displayName = 'Date';

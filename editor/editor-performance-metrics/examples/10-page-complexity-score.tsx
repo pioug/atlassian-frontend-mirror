@@ -8,14 +8,14 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { Checkbox } from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import type {
 	AdfNode,
 	ComplexityResult,
 	DebugNodePath,
 } from '@atlaskit/editor-performance-metrics/page-complexity-score';
 import { calculateADFComplexity } from '@atlaskit/editor-performance-metrics/page-complexity-score';
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 import bigDocumentADF from './big-document.json';

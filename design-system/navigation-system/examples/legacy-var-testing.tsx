@@ -7,8 +7,9 @@ import { type ChangeEvent, useCallback, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { ConfluenceIcon } from '@atlaskit/logo';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
@@ -29,7 +30,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { RadioGroup } from '@atlaskit/radio';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import type { OptionsPropType } from '@atlaskit/radio/types';
 import { token } from '@atlaskit/tokens';
 
@@ -158,17 +159,19 @@ export function ResizableSlots(): JSX.Element {
 				</Aside>
 			)}
 
-			{legacyVar === 'rightPanelWidth' && (
-				<Panel defaultWidth={350} id="panel" testId="panel">
-					<div css={panelStyles.content}>
-						<Heading size="small">Panel</Heading>
-					</div>
-					<PanelSplitter
-						label="Resize panel"
-						testId="panel-slot-panel-splitter" // testId is used in integration tests
-					/>
-				</Panel>
-			)}
+			<ExitingPersistence>
+				{legacyVar === 'rightPanelWidth' && (
+					<Panel defaultWidth={350} id="panel" testId="panel">
+						<div css={panelStyles.content}>
+							<Heading size="small">Panel</Heading>
+						</div>
+						<PanelSplitter
+							label="Resize panel"
+							testId="panel-slot-panel-splitter" // testId is used in integration tests
+						/>
+					</Panel>
+				)}
+			</ExitingPersistence>
 		</Root>
 	);
 }

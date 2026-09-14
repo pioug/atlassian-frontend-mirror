@@ -22,7 +22,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Object',
 					description: 'Object example',
-					source: path.resolve(__dirname, './examples/object.tsx'),
+					source: path.resolve(__dirname, './examples/object.vr.ap.tsx'),
 				},
 			],
 			keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
@@ -43,7 +43,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Object Tile',
 					description: 'Object tile example',
-					source: path.resolve(__dirname, './examples/object-tile.tsx'),
+					source: path.resolve(__dirname, './examples/object-tile.vr.ap.tsx'),
 				},
 			],
 			keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],

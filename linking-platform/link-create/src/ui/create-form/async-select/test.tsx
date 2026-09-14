@@ -5,18 +5,19 @@ import { Form } from 'react-final-form';
 import { IntlProvider } from 'react-intl';
 
 import { flushPromises } from '@atlaskit/link-test-helpers';
-import { AsyncSelect as AkAsyncSelect } from '@atlaskit/select';
+import AkAsyncSelect from '@atlaskit/select/async-select';
 
 import { LinkCreateCallbackProvider } from '../../../controllers/callback-context/main';
 import { FormContextProvider } from '../../../controllers/form-context/main';
 
 import { AsyncSelect, TEST_ID } from './main';
 
-jest.mock('@atlaskit/select', () => {
-	const originalModule = jest.requireActual('@atlaskit/select');
+jest.mock('@atlaskit/select/async-select', () => {
+	const originalModule = jest.requireActual('@atlaskit/select/async-select');
 	return {
-		...originalModule,
-		AsyncSelect: jest.fn((props) => <originalModule.AsyncSelect {...props} />),
+		...jest.requireActual('@atlaskit/select/async-select'),
+		__esModule: true,
+		default: jest.fn((props) => <originalModule.AsyncSelect {...props} />),
 	};
 });
 
@@ -79,12 +80,12 @@ describe('AsyncSelect', () => {
 		});
 		const { onFailure } = setup({ loadOptions });
 
-		expect(AkAsyncSelect).not.toBeCalledWith(
+		expect(AkAsyncSelect).not.toHaveBeenCalledWith(
 			expect.objectContaining({
 				loadOptions,
 			}),
 		);
-		expect(AkAsyncSelect).toBeCalledWith(
+		expect(AkAsyncSelect).toHaveBeenCalledWith(
 			expect.objectContaining({
 				loadOptions: expect.any(Function),
 			}),

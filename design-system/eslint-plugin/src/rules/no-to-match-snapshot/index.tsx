@@ -11,45 +11,68 @@ const rule: Rule.RuleModule = createLintRule({
 		type: 'problem',
 		docs: {
 			description:
-				'Disallow using toMatchSnapshot() in favor of toMatchInlineSnapshot(). See https://hello.atlassian.net/wiki/spaces/DST/pages/6105892000/DSTRFC-038+-+Removal+of+.toMatchSnapshot for rationale.',
+				'Disallow using toMatchSnapshot() and toMatchInlineSnapshot() in unit tests. Snapshot assertions should be replaced with explicit assertions.',
 			recommended: false,
 			severity: 'error',
 		},
 		messages: {
-			useInlineSnapshot:
-				'Use toMatchInlineSnapshot() instead of toMatchSnapshot(). See https://hello.atlassian.net/wiki/spaces/DST/pages/6105892000/DSTRFC-038+-+Removal+of+.toMatchSnapshot for rationale.',
+			avoidSnapshots:
+				'Avoid snapshot matchers in unit tests. Replace toMatchSnapshot()/toMatchInlineSnapshot() with explicit assertions.',
 		},
 	},
 	create(context: Rule.RuleContext) {
+		const snapshotMatchers = new Set(['toMatchSnapshot', 'toMatchInlineSnapshot']);
+
+		const getStaticString = (node: any): string | null => {
+			if (!node) {
+				return null;
+			}
+			if (node.type === 'Literal' && typeof node.value === 'string') {
+				return node.value;
+			}
+			if (node.type === 'BinaryExpression' && node.operator === '+') {
+				const left = getStaticString(node.left);
+				const right = getStaticString(node.right);
+				return left !== null && right !== null ? left + right : null;
+			}
+			return null;
+		};
+
+		const isExpectCall = (node: any): boolean =>
+			isNodeOfType(node, 'CallExpression') &&
+			isNodeOfType(node.callee, 'Identifier') &&
+			node.callee.name === 'expect';
+
 		return {
-			MemberExpression(node) {
-				// Check if this is a call to toMatchSnapshot
+			CallExpression(node) {
+				// Handle expect(x).toMatchSnapshot() and expect(x).toMatchInlineSnapshot()
 				if (
-					!isNodeOfType(node.property, 'Identifier') ||
-					node.property.name !== 'toMatchSnapshot'
+					isNodeOfType(node.callee, 'MemberExpression') &&
+					!node.callee.computed &&
+					isNodeOfType(node.callee.property, 'Identifier') &&
+					isExpectCall(node.callee.object) &&
+					snapshotMatchers.has(node.callee.property.name)
 				) {
-					return;
+					context.report({
+						node: node.callee.property,
+						messageId: 'avoidSnapshots',
+					});
 				}
 
-				// Check if the object is an expect() call
+				// Handle expect(x)['toMatch' + 'Snapshot']() / ['toMatch' + 'InlineSnapshot']
 				if (
-					!isNodeOfType(node.object, 'CallExpression') ||
-					!isNodeOfType(node.object.callee, 'Identifier') ||
-					node.object.callee.name !== 'expect'
+					isNodeOfType(node.callee, 'MemberExpression') &&
+					node.callee.computed &&
+					isExpectCall(node.callee.object)
 				) {
-					return;
+					const prop = getStaticString(node.callee.property);
+					if (prop && snapshotMatchers.has(prop)) {
+						context.report({
+							node: node.callee.property,
+							messageId: 'avoidSnapshots',
+						});
+					}
 				}
-
-				// Only report if this is being called (i.e., it's part of a CallExpression)
-				// We want to catch expect(...).toMatchSnapshot() but not just the property access
-				if (!node.parent || !isNodeOfType(node.parent, 'CallExpression')) {
-					return;
-				}
-
-				context.report({
-					node: node.property,
-					messageId: 'useInlineSnapshot',
-				});
 			},
 		};
 	},

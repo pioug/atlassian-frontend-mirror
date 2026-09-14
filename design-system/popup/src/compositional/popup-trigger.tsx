@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Reference } from '@atlaskit/popper';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Reference } from '@atlaskit/popper/reference';
 
 import type { TriggerProps } from '../types';
 import { useGetMemoizedMergedTriggerRefNew } from '../use-get-memoized-merged-trigger-ref-new';

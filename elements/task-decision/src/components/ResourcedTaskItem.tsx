@@ -9,7 +9,7 @@ import {
 	type TaskState,
 	type DecisionState,
 } from '../types';
-import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 
 export interface Props {
 	appearance?: Appearance;

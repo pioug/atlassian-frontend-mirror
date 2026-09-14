@@ -2,9 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
 
-import AKBadge from '@atlaskit/badge';
+import AKBadge from '@atlaskit/badge/badge';
 
 import type { ElementProps } from '../../index';
 
@@ -23,7 +24,6 @@ const badgeStyles = css({
  * @internal
  * @see StoryPoints
  * */
-
 const BaseAtlaskitElementBadge = ({
 	value,
 	name,
@@ -49,9 +49,3 @@ const BaseAtlaskitElementBadge = ({
 };
 
 export default BaseAtlaskitElementBadge;
-
-export const toAtlaskitBadgeProps = (
-	value?: number,
-): Partial<BaseAtlaskitBadgeElementProps> | undefined => {
-	return value ? { value } : undefined;
-};

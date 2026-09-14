@@ -1,12 +1,10 @@
 import type { CSSProperties } from 'react';
 import React from 'react';
-import type { CellAttributes } from '@atlaskit/adf-schema';
 import {
-	tableBackgroundColorPalette,
-	tableBackgroundColorPaletteNew,
+	tableBackgroundColorNameByHex,
+	type CellAttributes,
 } from '@atlaskit/adf-schema/tableNodes';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { getDarkModeLCHColor } from '@atlaskit/adf-schema/lch-color-inversion';
+import { getDarkModeLCHColor } from '@atlaskit/adf-schema/get-dark-mode-lch-color';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
@@ -241,12 +239,8 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 
 		// This is used to set the background color of the cell
 		// to a dark mode color in mobile dark mode
-		const palette =
-			expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-			fg('platform_editor_lovability_text_bg_color_patch_2')
-				? tableBackgroundColorPaletteNew
-				: tableBackgroundColorPalette;
-		const colorName = background ? palette.get(background) : '';
+		const backgroundHex = background?.toLowerCase();
+		const colorName = backgroundHex ? tableBackgroundColorNameByHex.get(backgroundHex) : '';
 
 		return (
 			<WrapperComponent

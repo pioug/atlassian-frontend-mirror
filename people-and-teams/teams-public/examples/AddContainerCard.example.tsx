@@ -4,7 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { Playground } from '@atlassian/teams-app-internal-playground/playground';
 
-import { AddContainerCard } from '../src/next';
+import { AddContainerCard } from '../src/next/ui/team-containers/add-container-card';
 
 const styles = cssMap({
 	wrapper: {

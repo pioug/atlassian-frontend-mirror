@@ -1,4 +1,10 @@
-This rule disallows the use of `toMatchSnapshot()` in favor of `toMatchInlineSnapshot()`.
+This rule disallows the use of Jest snapshot matchers in unit tests:
+
+- `toMatchSnapshot()`
+- `toMatchInlineSnapshot()`
+
+Use explicit assertions instead (for example `toEqual`, `toMatchObject`, `toContain`, or Testing
+Library assertions like `toHaveTextContent`).
 
 ## Examples
 
@@ -13,25 +19,33 @@ expect(screen.getByTestId('test')).toMatchSnapshot();
 ### Correct
 
 ```tsx
-expect(container).toMatchInlineSnapshot(`<div>test</div>`);
-expect(container).toMatchInlineSnapshot(`
-  <div>
-    <span>test</span>
-  </div>
-`);
+expect(container).toEqual(expect.any(HTMLElement));
+expect(container.querySelector('span')).not.toBeNull();
+
+// Testing Library examples
+expect(screen.getByText('test')).toBeInTheDocument();
+expect(screen.getByTestId('my-thing')).toHaveTextContent('test');
 ```
 
 ## Rationale
 
-The use of `toMatchSnapshot()` is being deprecated in favor of `toMatchInlineSnapshot()` as part of
-[DSTRFC-038](https://hello.atlassian.net/wiki/spaces/DST/pages/6105892000/DSTRFC-038+-+Removal+of+.toMatchSnapshot).
-Inline snapshots provide several benefits:
+Snapshot matchers are intentionally disallowed in unit tests to avoid brittle, hard-to-review
+baselines.
 
-- They keep the snapshot value close to the test code, making it easier to review changes
-- They reduce the number of separate snapshot files that need to be maintained
-- They make it clearer what the expected output is when reading the test
+Instead of snapshots, assert on the specific behavior you care about (text, attributes, structure,
+and key style properties) using explicit assertions.
+
+If you’re migrating an existing snapshot-based test, a good approach is:
+
+- replace snapshots with focused `toEqual` / `toMatchObject` assertions for data objects
+- prefer Testing Library queries/assertions for UI behavior
+- if you need to validate styles, assert on specific resolved style properties rather than a whole
+  serialized blob
 
 ## When not to use it
 
-This rule should be enabled for all test files to ensure consistent snapshot testing practices
-across the codebase.
+This rule should be enabled for unit test files to enforce the snapshot-ban policy across the
+codebase.
+
+> Note: ESLint rule fixture tests may still include snapshot matcher examples because they exist to
+> validate the lint rule behavior.

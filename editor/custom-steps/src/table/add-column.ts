@@ -2,7 +2,8 @@ import memoizeOne from 'memoize-one';
 
 import type { Node as ProseMirrorNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
-import { Step, StepMap, StepResult, Transform } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { StepMap, StepResult, Transform } from '@atlaskit/editor-prosemirror/transform';
 
 import type { TableRect } from '@atlaskit/editor-tables/table-map';
 

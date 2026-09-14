@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { ButtonItem } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
 
 import isRadioItem from '../is-radio-item';
 

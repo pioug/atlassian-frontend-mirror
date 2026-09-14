@@ -6,10 +6,13 @@ import React, { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { ExitingPersistence, StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
+import Button from '@atlaskit/button/default/button';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
+import ZoomIn from '@atlaskit/motion/zoom-in';
 
-import { Block, Centered, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { Centered, RetryContainer } from './utils/containers';
 
 const centeredStyles = css({
 	height: '82px',

@@ -170,7 +170,6 @@ const convertAroundList = ({
 	tr: Transaction;
 }) => {
 	for (let i = nodeRange.endIndex - 1; i >= nodeRange.startIndex; i--) {
-		// @ts-ignore posAtIndex is a public API but has no type yet
 		const position = nodeRange.$from.posAtIndex(i, nodeRange.depth);
 		const resolvedPos = tr.doc.resolve(position + 1);
 		const range = resolvedPos.blockRange(resolvedPos);

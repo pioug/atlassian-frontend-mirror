@@ -1,5 +1,5 @@
 import { TEST_BASE_DATA, TEST_LINK, TEST_URL } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractLink } from '../index';
+import { extractLink } from '../extract-link';
 
 describe('extractors.primitives.link', () => {
 	afterEach(() => jest.clearAllMocks());

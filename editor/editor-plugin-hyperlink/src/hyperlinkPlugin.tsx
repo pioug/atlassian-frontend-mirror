@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { link } from '@atlaskit/adf-schema';
+import { link } from '@atlaskit/adf-schema/link';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -23,9 +23,10 @@ import type {
 import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	hideLinkToolbarSetMeta,
@@ -41,6 +42,7 @@ import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
 import { toolbarButtonsPlugin } from './pm-plugins/toolbar-buttons';
+import { getHyperlinkQuickInsertComponents } from './ui/quick-insert/getHyperlinkQuickInsertComponents';
 import { getToolbarComponents } from './ui/toolbar-components';
 import { getToolbarConfig } from './ui/toolbar/Toolbar';
 
@@ -66,6 +68,10 @@ const selectionToolbarLinkButtonTestId = 'ak-editor-selection-toolbar-link-butto
 export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) => {
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getHyperlinkQuickInsertComponents({ api }));
+	}
 
 	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getToolbarComponents(api));
@@ -175,41 +181,45 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'hyperlink',
-					title: formatMessage(messages.link),
-					description: formatMessage(messages.linkDescription),
-					keywords: ['hyperlink', 'url'],
-					priority: expValEquals(
-						'confluence_quick_insert_embeds',
-						'cohort',
-						'prioritizeLinkInQIM',
-						'control',
-					)
-						? -300
-						: 1200,
-					keyshortcut: tooltip(addLink),
-					icon: () => <IconLink />,
-					action(insert, state) {
-						const tr = insert(undefined);
-						tr.setMeta(stateKey, {
-							type: LinkAction.SHOW_INSERT_TOOLBAR,
-							inputMethod: INPUT_METHOD.QUICK_INSERT,
-						});
+			...(isRegisteredSlashCommandEnabled
+				? {}
+				: {
+						quickInsert: ({ formatMessage }) => [
+							{
+								id: 'hyperlink',
+								title: formatMessage(messages.link),
+								description: formatMessage(messages.linkDescription),
+								keywords: ['hyperlink', 'url'],
+								priority: expValEquals(
+									'confluence_quick_insert_embeds',
+									'cohort',
+									'prioritizeLinkInQIM',
+									'control',
+								)
+									? -300
+									: 1200,
+								keyshortcut: tooltip(addLink),
+								icon: () => <IconLink />,
+								action(insert, state) {
+									const tr = insert(undefined);
+									tr.setMeta(stateKey, {
+										type: LinkAction.SHOW_INSERT_TOOLBAR,
+										inputMethod: INPUT_METHOD.QUICK_INSERT,
+									});
 
-						const analyticsAttached = api?.analytics?.actions?.attachAnalyticsEvent?.({
-							action: ACTION.INVOKED,
-							actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-							actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_LINK,
-							attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-							eventType: EVENT_TYPE.UI,
-						})(tr);
+									const analyticsAttached = api?.analytics?.actions?.attachAnalyticsEvent?.({
+										action: ACTION.INVOKED,
+										actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+										actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_LINK,
+										attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+										eventType: EVENT_TYPE.UI,
+									})(tr);
 
-						return analyticsAttached !== false ? tr : false;
-					},
-				},
-			],
+									return analyticsAttached !== false ? tr : false;
+								},
+							},
+						],
+					}),
 
 			floatingToolbar: getToolbarConfig(options, api),
 

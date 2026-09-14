@@ -1,10 +1,11 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Heading from '@atlaskit/heading/heading';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { response1 } from '@atlaskit/link-test-helpers';
-import { AtlassianIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { Bleed, Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

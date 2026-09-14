@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
-import { FlagGroup } from '@atlaskit/flag';
-import { ErrorMessage, Field, MessageWrapper } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import FlagGroup from '@atlaskit/flag/flag-group';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import ThumbsDownIcon from '@atlaskit/icon/core/thumbs-down';
 import ThumbsUpIcon from '@atlaskit/icon/core/thumbs-up';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';

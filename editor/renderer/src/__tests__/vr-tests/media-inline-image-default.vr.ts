@@ -5,7 +5,7 @@ import {
 	MediaImageInlineWithBorders,
 	MediaImageInlineWithLinks,
 	MediaImageInlineWithLinksAndBorders,
-} from '../__helpers/rendererComponents';
+} from '../__helpers/rendererComponents.vr.ap';
 
 snapshot(MediaImageInlineDefault, {
 	variants: [
@@ -35,6 +35,7 @@ snapshot(MediaImageInlineWithBorders, {
 });
 
 // Flaky Test https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2942703/steps/%7B2cd9f3bd-29cb-49d1-816a-d1b6a862b09b%7D
+// Will be re-enabled as part of UTEST-2316.
 snapshot.skip(MediaImageInlineWithLinks, {
 	variants: [
 		{
@@ -44,7 +45,8 @@ snapshot.skip(MediaImageInlineWithLinks, {
 	],
 });
 
-snapshot(MediaImageInlineWithLinksAndBorders, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(MediaImageInlineWithLinksAndBorders, {
 	variants: [
 		{
 			name: 'desktop',

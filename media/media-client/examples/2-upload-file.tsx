@@ -1,10 +1,12 @@
 import React from 'react';
 import { Component, type SyntheticEvent } from 'react';
-import { defaultCollectionName, defaultMediaPickerAuthProvider } from '../src/test-helpers';
-import { type MediaClientConfig } from '@atlaskit/media-core';
+
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+
+import { FileWrapper } from '../example-helpers/FileWrapper';
 import { type FileState, MediaClient, UploadController } from '../src';
-import { FileWrapper } from '../example-helpers/stylesWrapper';
-import { type MediaSubscribable, type MediaSubscription } from '../src/utils/mediaSubscribable';
+import { defaultCollectionName, defaultMediaPickerAuthProvider } from '../src/test-helpers';
+import type { MediaSubscribable, MediaSubscription } from '../src/utils/mediaSubscribable/types';
 
 export interface ComponentProps {}
 export interface ComponentState {
@@ -50,6 +52,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 			content: file,
 			name: file.name,
 			collection: defaultCollectionName,
+			size: file.size,
 		};
 		const uploadController = new UploadController();
 		const stream = mediaClient.file.upload(uplodableFile, uploadController);

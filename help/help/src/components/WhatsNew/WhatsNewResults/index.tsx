@@ -6,11 +6,11 @@
 import React, { useCallback, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import isEqual from 'lodash/isEqual';
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 
 import { VIEW } from '../../constants';
 

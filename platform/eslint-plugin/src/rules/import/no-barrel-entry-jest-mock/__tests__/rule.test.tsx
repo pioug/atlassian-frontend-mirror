@@ -115,10 +115,26 @@ function runWithFs(
 	name: string,
 	fs: FileSystem,
 	tests: { valid: unknown[]; invalid: unknown[] },
+	defaultOptions?: Record<string, unknown>,
 ): void {
+	const applyDefaultOptions = (cases: unknown[]): unknown[] => {
+		if (!defaultOptions) {
+			return cases;
+		}
+		return cases.map((testCase) => {
+			if (typeof testCase !== 'object' || testCase === null || 'options' in testCase) {
+				return testCase;
+			}
+			return { ...testCase, options: [defaultOptions] };
+		});
+	};
+
 	// Create a rule instance with the mock file system
 	const rule = createRule(fs);
-	atlaskitRuleTester.run(name, rule, tests);
+	atlaskitRuleTester.run(name, rule, {
+		valid: applyDefaultOptions(tests.valid),
+		invalid: applyDefaultOptions(tests.invalid),
+	});
 }
 
 // Base paths used in tests
@@ -127,6 +143,9 @@ const PLATFORM_PACKAGES = `${WORKSPACE_ROOT}/platform/packages`;
 const AI_MATE_DIR = `${PLATFORM_PACKAGES}/ai-mate`;
 const TEST_PACKAGE_DIR = `${AI_MATE_DIR}/conversation-assistant-store`;
 const TEST_FILE = `${AI_MATE_DIR}/some-consumer/src/test.test.tsx`;
+
+/** Opt out of the default preferImportedPackageSubpath: true rewrite-to-bridge behaviour. */
+const rewriteToDependencyPackage = { preferImportedPackageSubpath: false };
 
 /**
  * Creates a standard mock file system for testing the rule.
@@ -2060,21 +2079,24 @@ describe('no-barrel-entry-jest-mock', () => {
 			`,
 		});
 
-		runWithFs('no-barrel-entry-jest-mock - cross-package basic', fsWithCrossPackage, {
-			valid: [],
-			invalid: [
-				// Basic cross-package re-export: Package A re-exports from Package B's sub-path
-				{
-					code: outdent`
+		runWithFs(
+			'no-barrel-entry-jest-mock - cross-package basic',
+			fsWithCrossPackage,
+			{
+				valid: [],
+				invalid: [
+					// Basic cross-package re-export: Package A re-exports from Package B's sub-path
+					{
+						code: outdent`
 						jest.mock('@atlassian/package-a', () => ({
 							...jest.requireActual('@atlassian/package-a'),
 							SomeUtil: jest.fn(),
 							localFunction: jest.fn(),
 						}));
 					`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryMock' }],
-					output: tabindent`
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: tabindent`
 						jest.mock('@atlassian/package-b/utils', () => ({
 							...jest.requireActual('@atlassian/package-b/utils'),
 							SomeUtil: jest.fn(),
@@ -2084,9 +2106,11 @@ describe('no-barrel-entry-jest-mock', () => {
 							localFunction: jest.fn(),
 						}));
 					`,
-				},
-			],
-		});
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Test cross-package with aliased exports
 		// Package B has the symbol in a sub-path, Package A imports directly from sub-path
@@ -2121,28 +2145,33 @@ describe('no-barrel-entry-jest-mock', () => {
 			`,
 		});
 
-		runWithFs('no-barrel-entry-jest-mock - cross-package aliased', fsWithCrossPackageAliased, {
-			valid: [],
-			invalid: [
-				// Cross-package with aliased export should use original name in target mock
-				{
-					code: outdent`
+		runWithFs(
+			'no-barrel-entry-jest-mock - cross-package aliased',
+			fsWithCrossPackageAliased,
+			{
+				valid: [],
+				invalid: [
+					// Cross-package with aliased export should use original name in target mock
+					{
+						code: outdent`
 						jest.mock('@atlassian/package-a', () => ({
 							...jest.requireActual('@atlassian/package-a'),
 							renamedUtil: jest.fn(),
 						}));
 					`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryMock' }],
-					output: outdent`
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: outdent`
 						jest.mock('@atlassian/package-b/helpers', () => ({
 							...jest.requireActual('@atlassian/package-b/helpers'),
 							originalUtil: jest.fn(),
 						}));
 					`,
-				},
-			],
-		});
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Test cross-package star exports
 		// Package A star re-exports from Package B's sub-path
@@ -2205,6 +2234,7 @@ describe('no-barrel-entry-jest-mock', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 
 		// Test cross-package with subpath exports
@@ -2239,28 +2269,33 @@ describe('no-barrel-entry-jest-mock', () => {
 			`,
 		});
 
-		runWithFs('no-barrel-entry-jest-mock - cross-package subpath', fsWithCrossPackageSubpath, {
-			valid: [],
-			invalid: [
-				// Cross-package with subpath export should use the subpath in the mock
-				{
-					code: outdent`
+		runWithFs(
+			'no-barrel-entry-jest-mock - cross-package subpath',
+			fsWithCrossPackageSubpath,
+			{
+				valid: [],
+				invalid: [
+					// Cross-package with subpath export should use the subpath in the mock
+					{
+						code: outdent`
 						jest.mock('@atlassian/package-a', () => ({
 							...jest.requireActual('@atlassian/package-a'),
 							subpathUtil: jest.fn(),
 						}));
 					`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryMock' }],
-					output: outdent`
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: outdent`
 						jest.mock('@atlassian/package-b/utils', () => ({
 							...jest.requireActual('@atlassian/package-b/utils'),
 							subpathUtil: jest.fn(),
 						}));
 					`,
-				},
-			],
-		});
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Test external package not in target folder should remain unmapped
 		const fsWithExternalPackage = createMockFileSystem({
@@ -2287,33 +2322,36 @@ describe('no-barrel-entry-jest-mock', () => {
 			// Note: @atlaskit/external-package is NOT in the ai-mate folder
 		});
 
-		runWithFs('no-barrel-entry-jest-mock - external package unmapped', fsWithExternalPackage, {
-			valid: [
-				// When all symbols come from external packages, no error should be reported
-				// because there's nothing to fix
-				{
-					code: outdent`
+		runWithFs(
+			'no-barrel-entry-jest-mock - external package unmapped',
+			fsWithExternalPackage,
+			{
+				valid: [
+					// When all symbols come from external packages, no error should be reported
+					// because there's nothing to fix
+					{
+						code: outdent`
 						jest.mock('@atlassian/package-a', () => ({
 							...jest.requireActual('@atlassian/package-a'),
 							externalUtil: jest.fn(),
 						}));
 					`,
-					filename: TEST_FILE,
-				},
-			],
-			invalid: [
-				// Mixed external and local - local should be split, external stays in barrel mock
-				{
-					code: outdent`
+						filename: TEST_FILE,
+					},
+				],
+				invalid: [
+					// Mixed external and local - local should be split, external stays in barrel mock
+					{
+						code: outdent`
 						jest.mock('@atlassian/package-a', () => ({
 							...jest.requireActual('@atlassian/package-a'),
 							externalUtil: jest.fn(),
 							localFunction: jest.fn(),
 						}));
 					`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryMock' }],
-					output: tabindent`
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: tabindent`
 						jest.mock('@atlassian/package-a/local', () => ({
 							...jest.requireActual('@atlassian/package-a/local'),
 							localFunction: jest.fn(),
@@ -2323,9 +2361,11 @@ describe('no-barrel-entry-jest-mock', () => {
 							externalUtil: jest.fn(),
 						}));
 					`,
-				},
-			],
-		});
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Test nested cross-package chains: A → B → C
 		// Each package imports directly from the next package's sub-path
@@ -2375,28 +2415,33 @@ describe('no-barrel-entry-jest-mock', () => {
 			`,
 		});
 
-		runWithFs('no-barrel-entry-jest-mock - nested cross-package chain', fsWithNestedCrossPackage, {
-			valid: [],
-			invalid: [
-				// Should trace through chain A → B → C and suggest mocking Package C's sub-path
-				{
-					code: outdent`
+		runWithFs(
+			'no-barrel-entry-jest-mock - nested cross-package chain',
+			fsWithNestedCrossPackage,
+			{
+				valid: [],
+				invalid: [
+					// Should trace through chain A → B → C and suggest mocking Package C's sub-path
+					{
+						code: outdent`
 						jest.mock('@atlassian/package-a', () => ({
 							...jest.requireActual('@atlassian/package-a'),
 							deepUtil: jest.fn(),
 						}));
 					`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryMock' }],
-					output: outdent`
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: outdent`
 						jest.mock('@atlassian/package-c/deep', () => ({
 							...jest.requireActual('@atlassian/package-c/deep'),
 							deepUtil: jest.fn(),
 						}));
 					`,
-				},
-			],
-		});
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Test circular cross-package dependencies should not infinite loop
 		// Package A imports from Package B's sub-path, Package B imports from Package A (circular)
@@ -2433,28 +2478,33 @@ describe('no-barrel-entry-jest-mock', () => {
 			`,
 		});
 
-		runWithFs('no-barrel-entry-jest-mock - circular cross-package', fsWithCircularCrossPackage, {
-			valid: [],
-			invalid: [
-				// Should handle circular dependency without infinite loop
-				{
-					code: outdent`
+		runWithFs(
+			'no-barrel-entry-jest-mock - circular cross-package',
+			fsWithCircularCrossPackage,
+			{
+				valid: [],
+				invalid: [
+					// Should handle circular dependency without infinite loop
+					{
+						code: outdent`
 						jest.mock('@atlassian/package-a', () => ({
 							...jest.requireActual('@atlassian/package-a'),
 							utilB: jest.fn(),
 						}));
 					`,
-					filename: TEST_FILE,
-					errors: [{ messageId: 'barrelEntryMock' }],
-					output: outdent`
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryMock' }],
+						output: outdent`
 						jest.mock('@atlassian/package-b/utils', () => ({
 							...jest.requireActual('@atlassian/package-b/utils'),
 							utilB: jest.fn(),
 						}));
 					`,
-				},
-			],
-		});
+					},
+				],
+			},
+			rewriteToDependencyPackage,
+		);
 
 		// Test cross-package default export
 		// Package A imports default from Package B's sub-path
@@ -2516,6 +2566,7 @@ describe('no-barrel-entry-jest-mock', () => {
 					},
 				],
 			},
+			rewriteToDependencyPackage,
 		);
 	});
 
@@ -2571,7 +2622,6 @@ describe('no-barrel-entry-jest-mock', () => {
 							}));
 						`,
 						filename: TEST_FILE,
-						options: [{ preferImportedPackageSubpath: true }],
 						errors: [{ messageId: 'barrelEntryMock' }],
 						output: outdent`
 							jest.mock('@atlassian/package-a/bridge', () => ({
@@ -2638,8 +2688,9 @@ describe('no-barrel-entry-jest-mock', () => {
 					},
 				],
 				invalid: [
-					// Without prefer, the rule rewrites to the dependency package (the
-					// crossPackageSource.exportPath is '.' here, so the rewrite drops the subpath).
+					// With preferImportedPackageSubpath: false, the rule rewrites to the
+					// dependency package (the crossPackageSource.exportPath is '.' here, so
+					// the rewrite drops the subpath).
 					{
 						code: outdent`
 							jest.mock('@atlassian/package-a', () => ({
@@ -2648,6 +2699,7 @@ describe('no-barrel-entry-jest-mock', () => {
 							}));
 						`,
 						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: false }],
 						errors: [{ messageId: 'barrelEntryMock' }],
 						output: outdent`
 							jest.mock('@atlassian/package-b', () => ({
@@ -3218,6 +3270,62 @@ describe('no-barrel-entry-jest-mock', () => {
 								Card: () => null,
 							}));
 						`,
+				},
+			],
+		});
+	});
+
+	describe('@deprecated re-export shim exclusion', () => {
+		const FLAG_PKG_DIR = `${AI_MATE_DIR}/flag-eap`;
+
+		function createFlagMockFs(): FileSystem {
+			return createMockFileSystem({
+				[`${WORKSPACE_ROOT}/package.json`]: '{}',
+				[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+				[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+
+				[`${FLAG_PKG_DIR}/package.json`]: JSON.stringify({
+					name: '@atlassian/flag-eap',
+					exports: {
+						'.': './src/index.ts',
+						'./flag-group': './src/entry-points/flag-group.tsx',
+						'./flag-group-context': './src/internal/flag-group-context.tsx',
+					},
+				}),
+
+				[`${FLAG_PKG_DIR}/src/index.ts`]: outdent`
+					export { FlagGroupContext } from './internal/flag-group-context';
+				`,
+
+				[`${FLAG_PKG_DIR}/src/entry-points/flag-group.tsx`]: outdent`
+					/** @deprecated Import from the generated per-export subpath instead. */
+					export { FlagGroupContext } from '../internal/flag-group-context';
+				`,
+
+				[`${FLAG_PKG_DIR}/src/internal/flag-group-context.tsx`]: outdent`
+					export const FlagGroupContext = {};
+				`,
+			});
+		}
+
+		runWithFs('no-barrel-entry-jest-mock - deprecated shim exclusion', createFlagMockFs(), {
+			valid: [],
+			invalid: [
+				// Factory mock routes to the non-deprecated subpath, NOT the deprecated shim.
+				{
+					code: outdent`
+						jest.mock('@atlassian/flag-eap', () => ({
+							FlagGroupContext: jest.fn(),
+						}));
+					`,
+					filename: TEST_FILE,
+					errors: [{ messageId: 'barrelEntryMock' }],
+					output: tabindent`
+						jest.mock('@atlassian/flag-eap/flag-group-context', () => ({
+							...jest.requireActual('@atlassian/flag-eap/flag-group-context'),
+							FlagGroupContext: jest.fn(),
+						}));
+					`,
 				},
 			],
 		});

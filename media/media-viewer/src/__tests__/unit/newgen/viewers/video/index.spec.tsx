@@ -3,6 +3,7 @@ jest.mock('../../../../../utils/isIE', () => ({
 }));
 
 import React from 'react';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
@@ -17,8 +18,10 @@ import {
 	expectToEqual,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
+import { MediaViewerError } from '../../../../../MediaViewerError';
+import { getErrorDetail } from '../../../../../getErrorDetail';
+import { getSecondaryErrorReason } from '../../../../../getSecondaryErrorReason';
 import { VideoViewer, type Props } from '../../../../../viewers/video';
-import { getErrorDetail, getSecondaryErrorReason, MediaViewerError } from '../../../../../errors';
 
 const token = 'some-token';
 const clientId = 'some-client-id';
@@ -140,6 +143,103 @@ describe('Video viewer', () => {
 			asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
 			'video_1280.mp4',
 		);
+	});
+
+	describe('SD fallback (platform_media_video_sd_fallback)', () => {
+		// Resolves an artifact URL only when that artifact actually exists on the item,
+		// mirroring the real getArtifactURL behaviour (undefined/'' when missing).
+		function setupWithArtifactResolver(item: ProcessedFileState) {
+			const authPromise = Promise.resolve({ token, clientId, baseUrl });
+			const mediaClient = fakeMediaClient({ authProvider: () => authPromise });
+
+			jest
+				.spyOn(mediaClient.file, 'getArtifactURL')
+				.mockImplementation((artifacts, artifactName) =>
+					Promise.resolve(
+						artifacts[artifactName as keyof typeof artifacts]
+							? `${baseUrl}/${artifactName}?client=${clientId}&token=${token}`
+							: '',
+					),
+				);
+
+			const el = render(
+				<IntlProvider locale="en">
+					<VideoViewer
+						identifier={{ id: 'some-id', mediaItemType: 'file' }}
+						onCanPlay={() => {}}
+						onError={jest.fn()}
+						mediaClient={mediaClient}
+						item={item}
+						previewCount={0}
+						traceContext={{ traceId: 'some-trace-id' }}
+					/>
+				</IntlProvider>,
+			);
+
+			return { mediaClient, el };
+		}
+
+		const sdOnlyItem: ProcessedFileState = {
+			...videoItem,
+			artifacts: {
+				'video_640.mp4': {
+					url: '/video',
+					processingStatus: 'succeeded',
+				},
+			},
+		};
+
+		it('falls back to the SD artifact when the HD artifact is missing', async () => {
+			passGate('platform_media_video_sd_fallback');
+
+			const { mediaClient, el } = setupWithArtifactResolver(sdOnlyItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
+			// The viewer requested the SD artifact rather than throwing.
+			expectToEqual(
+				asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
+				'video_640.mp4',
+			);
+			// A playable <video> element is rendered (no "Something went wrong" error).
+			expect(el.container.querySelector('video')?.src).toEqual(
+				'http://localhost/some-base-url/video_640.mp4?client=some-client-id&token=some-token',
+			);
+			expect(
+				screen.queryByText("We couldn't generate a preview for this file."),
+			).not.toBeInTheDocument();
+		});
+
+		it('still prefers the HD artifact when both HD and SD are available', async () => {
+			passGate('platform_media_video_sd_fallback');
+
+			const { mediaClient } = setupWithArtifactResolver(videoItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
+			expectToEqual(
+				asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
+				'video_1280.mp4',
+			);
+		});
+
+		it('when the flag is off, requests only the HD artifact (legacy behaviour)', async () => {
+			failGate('platform_media_video_sd_fallback');
+
+			const { mediaClient } = setupWithArtifactResolver(sdOnlyItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
+			// Legacy path only ever asks for the HD artifact and shows the error screen.
+			expectToEqual(
+				asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][1],
+				'video_1280.mp4',
+			);
+			expect(screen.getByText("We couldn't generate a preview for this file.")).toBeInTheDocument();
+		});
 	});
 
 	describe('AutoPlay', () => {

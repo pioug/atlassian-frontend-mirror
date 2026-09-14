@@ -6,6 +6,7 @@ type Props = {
 	props: {
 		types: Parameters<typeof TSMorphProps>[0]['props'];
 	};
+	withoutMarginBlockStart?: boolean;
 	filter?: {
 		omit?: string[];
 		pick?: string[];
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export function TSProps(params: Props): React.JSX.Element {
-	const { props, filter } = params;
+	const { props, filter, withoutMarginBlockStart } = params;
 
 	// Filter the props if required
 	let filteredProps = props.types;
@@ -26,5 +27,5 @@ export function TSProps(params: Props): React.JSX.Element {
 		filteredProps = filteredProps.filter((t) => !filter.omit?.includes(t.name));
 	}
 
-	return <TSMorphProps props={filteredProps} />;
+	return <TSMorphProps props={filteredProps} withoutMarginBlockStart={withoutMarginBlockStart} />;
 }

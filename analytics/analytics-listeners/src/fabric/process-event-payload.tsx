@@ -3,8 +3,9 @@ import {
 	type GasPayload,
 	type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import { ELEMENTS_CONTEXT, EDITOR_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ELEMENTS_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
+import { EDITOR_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import merge from 'lodash/merge';
 import { ELEMENTS_TAG } from './FabricElementsListener';
 import { EDITOR_TAG } from './FabricEditorListener';

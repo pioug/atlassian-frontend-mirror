@@ -1,8 +1,7 @@
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { doc, p, emoji } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ConflictChanges } from '@atlaskit/editor-common/collab';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { getConflictChanges } from '../getConflictChanges';
 
@@ -39,7 +38,7 @@ const getAllHighlights = (changes: ConflictChanges, doc: PMNode) => {
 	return highlights;
 };
 
-eeTest.describe('platform_editor_offline_editing_web', 'mark preservation').variant(true, () => {
+describe('mark preservation', () => {
 	describe('conflicting steps', () => {
 		it('basic rebase with remote', () => {
 			const defaultDoc = doc(p('This is Sparta{<>}'));

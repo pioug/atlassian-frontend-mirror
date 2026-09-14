@@ -1,0 +1,31 @@
+import React from 'react';
+
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+
+import { Card } from '../../src';
+import { mockUnauthorisedResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
+import VRTestWrapper from '../utils/vr-test-wrapper';
+
+class CustomClient extends Client {
+	fetchData(_: string) {
+		return Promise.resolve(mockUnauthorisedResponse as JsonLd.Response);
+	}
+}
+
+export default (): React.JSX.Element => (
+	<VRTestWrapper>
+		<Provider
+			client={new CustomClient('staging')}
+			rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: false }}
+		>
+			<Card
+				url={'https://www.mockurl.com'}
+				appearance="inline"
+				showHoverPreview={true}
+				testId="test-card"
+			/>
+		</Provider>
+	</VRTestWrapper>
+);

@@ -16,7 +16,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
-import { useBidiWarnings } from '../../../hooks/use-bidi-warnings';
 import { RendererCssClassName } from '../../../../consts';
 import type { Props as CodeBlockProps } from '../codeBlock';
 import { token } from '@atlaskit/tokens';
@@ -199,25 +198,18 @@ export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = (): Serial
 };
 
 const LightWeightCodeBlock: React.ForwardRefExoticComponent<
-	Pick<CodeBlockProps, 'text' | 'className' | 'codeBidiWarningTooltipEnabled' | 'hideLineNumbers'> &
+	Pick<CodeBlockProps, 'text' | 'className' | 'hideLineNumbers'> &
 		React.RefAttributes<HTMLDivElement>
 > = forwardRef(
 	(
 		{
 			text,
-			codeBidiWarningTooltipEnabled = true,
 			hideLineNumbers = false,
 			className,
-		}: Pick<
-			CodeBlockProps,
-			'text' | 'codeBidiWarningTooltipEnabled' | 'className' | 'hideLineNumbers'
-		>,
+		}: Pick<CodeBlockProps, 'text' | 'className' | 'hideLineNumbers'>,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
 		const textRows = useMemo(() => (text ?? '').split('\n'), [text]);
-		const { renderBidiWarnings } = useBidiWarnings({
-			enableWarningTooltip: codeBidiWarningTooltipEnabled,
-		});
 		const classNames = [LightWeightCodeBlockCssClassName.CONTAINER, className].join(' ');
 		const codeBlockBackgroundImage = overflowShadow({
 			leftCoverWidth: token('space.300'),
@@ -257,7 +249,7 @@ const LightWeightCodeBlock: React.ForwardRefExoticComponent<
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 						<div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}>
 							{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
-							<code>{renderBidiWarnings(text)}</code>
+							<code>{text}</code>
 						</div>
 					</div>
 				</div>

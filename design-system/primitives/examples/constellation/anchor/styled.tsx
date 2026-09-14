@@ -1,12 +1,17 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import { type IconProps } from '@atlaskit/icon';
+import Heading from '@atlaskit/heading/heading';
+import type { IconProps } from '@atlaskit/icon/types';
 import BlogObjectTile from '@atlaskit/object/tile/blog';
 import ImprovementObjectTile from '@atlaskit/object/tile/improvement';
 import PageObjectTile from '@atlaskit/object/tile/page';
-import { Anchor, Box, Grid, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const BlogIcon = () => <BlogObjectTile size="small" />;

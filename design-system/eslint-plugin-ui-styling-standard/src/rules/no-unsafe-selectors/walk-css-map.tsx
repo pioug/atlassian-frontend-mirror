@@ -4,10 +4,7 @@
  * This is because the API is likely to change and should not be considered stable.
  */
 
-import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
-
-import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 /**
  * At-rules that are allowed to be used in "grouped" form within cssMap.
@@ -66,55 +63,11 @@ type CssMapVisitorArgs =
 
 type CssMapVisitor = (args: CssMapVisitorArgs) => void;
 
-export function walkCssMap({
-	context,
-	importSources,
-	visitor,
-}: {
-	context: Rule.RuleContext;
-	program: ESTree.Program;
-	importSources: string[];
-	visitor: CssMapVisitor;
-}): void {
-	const program = getSourceCode(context).ast;
-
-	const importDeclaration = program.body.find(
-		(node): node is ESTree.ImportDeclaration =>
-			node.type === 'ImportDeclaration' && importSources.includes(node.source.value as string),
-	);
-
-	const specifier = importDeclaration?.specifiers.find(
-		(specifier) =>
-			specifier.type === 'ImportSpecifier' &&
-			'name' in specifier.imported &&
-			specifier.imported.name === 'cssMap',
-	);
-
-	if (!specifier) {
-		return;
-	}
-
-	const [variable] = getSourceCode(context).scopeManager.getDeclaredVariables(specifier);
-
-	if (!variable) {
-		return;
-	}
-
-	variable.references.forEach((reference) => {
-		const identifier = reference.identifier as ESTree.Identifier & Rule.NodeParentExtension;
-
-		const { parent } = identifier;
-		if (parent.type !== 'CallExpression') {
-			return;
-		}
-
-		const variantMap = parent.arguments[0];
-		if (variantMap.type !== 'ObjectExpression') {
-			return;
-		}
-
+export function walkCssMapCall(call: ESTree.CallExpression, visitor: CssMapVisitor): void {
+	const variantMap = call.arguments[0];
+	if (variantMap?.type === 'ObjectExpression') {
 		walkCssMapVariantMap({ variantMap, visitor });
-	});
+	}
 }
 
 function walkCssMapVariantMap({

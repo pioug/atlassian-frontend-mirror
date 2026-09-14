@@ -53,7 +53,6 @@ describe('<FabricAnalyticsListeners />', () => {
 	afterEach(() => {
 		global.console.warn.mockRestore();
 		global.console.error.mockRestore();
-		// @ts-ignore
 		Reflect.deleteProperty(global.console, 'hasError');
 
 		analyticsWebClientMock = {
@@ -69,7 +68,6 @@ describe('<FabricAnalyticsListeners />', () => {
 			const compOnClick = jest.fn();
 			expect(() =>
 				render(
-					// @ts-ignore
 					<FabricAnalyticsListeners>
 						<DummyElementsCompWithAnalytics onClick={compOnClick} />
 					</FabricAnalyticsListeners>,
@@ -326,7 +324,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -346,7 +344,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -366,7 +364,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -386,7 +384,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -406,7 +404,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -426,7 +424,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -446,7 +444,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -466,7 +464,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -486,7 +484,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -506,7 +504,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -526,7 +524,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -546,7 +544,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -566,7 +564,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -586,7 +584,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -606,7 +604,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -626,7 +624,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -646,7 +644,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -666,7 +664,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -686,7 +684,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -706,7 +704,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -726,7 +724,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -746,7 +744,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -766,7 +764,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -786,7 +784,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -806,7 +804,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -826,7 +824,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -846,7 +844,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -866,7 +864,7 @@ describe('<FabricAnalyticsListeners />', () => {
 
 			await fireEvent.click(dummyComponent);
 
-			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalled();
 
 			await expect(document.body).toBeAccessible();
 		});

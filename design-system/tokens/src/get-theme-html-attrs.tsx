@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	COLOR_MODE_ATTRIBUTE,
@@ -6,17 +6,15 @@ import {
 	CUSTOM_THEME_ATTRIBUTE,
 	THEME_DATA_ATTRIBUTE,
 } from './constants';
-import {
-	type DataColorModes,
-	type DataContrastModes,
-	type ThemeState,
-	themeStateDefaults,
-} from './theme-config';
+import { type DataColorModes, type DataContrastModes } from './theme-config';
+import { type ThemeState } from './theme-state';
+import { themeStateDefaults } from './theme-state-defaults';
 import { themeObjectToString } from './theme-object-to-string';
 import { hash } from './utils/hash';
 import { isValidBrandHex } from './utils/is-valid-brand-hex';
 
 const defaultColorMode: DataColorModes = 'light';
+
 const defaultContrastMode: DataContrastModes = 'no-preference';
 
 /**
@@ -34,7 +32,7 @@ const defaultContrastMode: DataContrastModes = 'no-preference';
  *
  * @returns {Object} Object of HTML attributes to be applied to the document root
  */
-const getThemeHtmlAttrs = ({
+export const getThemeHtmlAttrs = ({
 	colorMode = themeStateDefaults['colorMode'],
 	dark = themeStateDefaults['dark'],
 	light = themeStateDefaults['light'],

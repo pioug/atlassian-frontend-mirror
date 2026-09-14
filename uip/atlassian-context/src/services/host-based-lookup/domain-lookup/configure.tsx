@@ -5,6 +5,5 @@ export function configure(data: DomainConfig): void {
 		throw new Error('Data are not available');
 	}
 
-	// @ts-ignore - This is causing ts errors when this package is being enrolled into jira local consumption so temporarily ts ignoring this line for now
 	globalThis.ATL_CONTEXT_DOMAIN = data;
 }

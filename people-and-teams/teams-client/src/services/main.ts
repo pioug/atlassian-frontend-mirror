@@ -5,11 +5,12 @@ import {
 import {
 	type MembershipState,
 	type TeamMembership,
-	type TeamWithImageUrls,
 	type TeamWithMemberships,
-} from '../types';
+} from '../types/membership';
+import { type TeamWithImageUrls } from '../types/team';
 
-import { aggClient, type TeamContainers } from './agg-client';
+import { aggClient } from './agg-client';
+import { type TeamContainers } from './agg-client/TeamContainers';
 import { type AGGPageInfoVariables, type ResultWithPageInfo } from './agg-client/types';
 import collaborationGraphClient from './collaborationgraph-client';
 import { directoryClient } from './directory-client';

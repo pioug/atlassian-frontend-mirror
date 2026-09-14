@@ -2,8 +2,11 @@ import React, { type ErrorInfo, type PropsWithChildren } from 'react';
 import { type MediaFeatureFlags, withMediaAnalyticsContext } from '@atlaskit/media-common';
 import { type CardDimensions, type CardOnClickCallback } from '../types';
 import { UnhandledErrorCard } from './ui/unhandledErrorCard';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type AnalyticsErrorBoundaryCardPayload, fireMediaCardEvent } from '../utils/analytics';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
+import type { AnalyticsErrorBoundaryCardPayload } from '../utils/analytics/analytics';
 
 export type MediaCardAnalyticsErrorBoundaryProps = PropsWithChildren<
 	{

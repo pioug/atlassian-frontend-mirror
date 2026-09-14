@@ -2,7 +2,6 @@
 order: 0
 ---
 
-import SectionMessage from '@atlaskit/section-message';
 import DropdownMenuDefault from '../../examples/constellation/dropdown-menu-default';
 import DropdownMenuTall from '../../examples/constellation/dropdown-menu-tall';
 import DropdownMenuCustomTrigger from '../../examples/constellation/dropdown-menu-custom-trigger';
@@ -18,11 +17,7 @@ import DropdownMenuDensity from '../../examples/constellation/dropdown-menu-dens
 import DropdownMenuWithoutPortal from '../../examples/constellation/dropdown-menu-without-portal';
 import DropdownMenuFullWidth from '../../examples/constellation/dropdown-menu-full-width';
 import DropdownMenuLabel from '../../examples/constellation/dropdown-menu-label';
-
-<SectionMessage title="Motion in Early Access" appearance="warning">
-	The motion added into Dropdown menu is in Early Access. The motion updates are currently behind
-	the feature flag: platform-dst-motion-uplift.
-</SectionMessage>
+import DropdownItemGroupTitle from '../../examples/constellation/dropdown-item-group-title';
 
 ## Appearance
 
@@ -191,7 +186,9 @@ dropdown menu will be rendered as a sibling to the trigger element, and will be 
 	featureFlagSwitchers={['motionPopup']}
 />
 
-## Accessible labels
+## Accessibility
+
+### Accessible trigger labels
 
 Sometimes multiple instances of a dropdown menu with the same visible label are required. In order
 to provide more context to assistive technologies, you can specify a unique `aria-label` for each
@@ -203,6 +200,17 @@ label to interact with controls.
 
 <Example
 	Component={DropdownMenuLabel}
+	packageName="@atlaskit/dropdown-menu"
+	featureFlagSwitchers={['motionPopup']}
+/>
+
+### Accessible group labels
+
+If multiple dropdown item groups are used, a `title` should be provided for the user to understand
+the menu's structure.
+
+<Example
+	Component={DropdownItemGroupTitle}
 	packageName="@atlaskit/dropdown-menu"
 	featureFlagSwitchers={['motionPopup']}
 />

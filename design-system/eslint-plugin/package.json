@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-design-system",
 	"description": "The essential plugin for use with the Atlassian Design System.",
-	"version": "16.6.0",
+	"version": "16.12.4",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
@@ -35,7 +35,7 @@
 		"./package.json": "./package.json"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"dependencies": {
 		"@atlaskit/eslint-utils": "workspace:^",
@@ -71,28 +71,13 @@
 		"eslint": "root:*",
 		"jscodeshift": "root:*",
 		"outdent": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"ts-jest": "root:*"
 	},
 	"scripts": {
 		"ak-postbuild": "cp -r configs dist",
 		"codegen": "run-ts ./scripts/codegen.tsx",
 		"codegen-token-maps": "run-ts ./scripts/token-maps/codegen-token-maps.tsx"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions",
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
 	},
 	"homepage": "https://atlassian.design/components/eslint-plugin-design-system"
 }

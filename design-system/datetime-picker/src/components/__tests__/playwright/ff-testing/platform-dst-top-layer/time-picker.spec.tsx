@@ -16,6 +16,7 @@ test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -34,6 +35,7 @@ test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -61,6 +63,7 @@ test.describe('TimePicker top-layer — WCAG 2.1.1 Keyboard', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -83,6 +86,7 @@ test.describe('TimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -104,6 +108,7 @@ test.describe('TimePicker top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -132,6 +137,7 @@ test.describe('TimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -151,6 +157,7 @@ test.describe('TimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -171,6 +178,7 @@ test.describe('TimePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -194,6 +202,7 @@ test.describe('TimePicker top-layer — WCAG 2.4.7 Focus Visible', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -216,6 +225,7 @@ test.describe('TimePicker top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -235,6 +245,7 @@ test.describe('TimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -250,6 +261,7 @@ test.describe('TimePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -269,6 +281,7 @@ test.describe('TimePicker top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -288,6 +301,7 @@ test.describe('TimePicker top-layer — Input Validation', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -315,6 +329,7 @@ test.describe('TimePicker top-layer — Input Validation', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -347,6 +362,7 @@ test.describe('TimePicker top-layer — Input Validation', () => {
 			'times',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 

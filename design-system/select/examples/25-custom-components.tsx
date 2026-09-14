@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 
-import { Label } from '@atlaskit/form';
-import Select, {
-	type OptionProps,
-	type SingleValueProps,
-	type ValueType,
-	components,
-} from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/select/default';
+import type { OptionProps, SingleValueProps, ValueType } from '@atlaskit/select/types';
+import { components } from '@atlaskit/react-select/components';
 import { token } from '@atlaskit/tokens';
 
 interface Option {

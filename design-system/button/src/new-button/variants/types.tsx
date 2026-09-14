@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type IconProps, type NewIconProps } from '@atlaskit/icon/types';
 
 export type ButtonAppearance =

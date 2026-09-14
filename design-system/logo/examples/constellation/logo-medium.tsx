@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianLogo } from '@atlaskit/logo';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
 
 const LogoMedium = (): React.JSX.Element => {
 	return <AtlassianLogo size="medium" appearance="brand" />;

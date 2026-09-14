@@ -14,7 +14,8 @@ import {
 	withReactEditorViewOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { MenuGroup, Section } from '@atlaskit/menu';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 
 import { dragMenuDropdownWidth } from '../consts';
 

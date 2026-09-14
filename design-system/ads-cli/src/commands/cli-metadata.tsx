@@ -6,6 +6,7 @@ import type { CommandFlag } from './types';
 
 export const CLI_NAME = '@atlaskit/ads-cli';
 export const CLI_BIN_NAME = 'ads-cli';
+export const CLI_ATLAS_INVOCATION = 'atlas ads';
 export const CLI_DESCRIPTION =
 	'Query Atlassian Design System (ADS) structured content — components, tokens, icons, and guidelines — from the terminal.';
 

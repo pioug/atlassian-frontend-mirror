@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 
-import AkSpinner from '@atlaskit/spinner';
-import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
+import AkSpinner from '@atlaskit/spinner/spinner';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
 
 import { SpinnerContainer } from '../../styled/UserTrigger';
 import { type ProfileType } from '../../types';
-import { getActionSubject, PACKAGE_META_DATA } from '../../util/analytics';
+import { PACKAGE_META_DATA } from '../../util/analytics';
+import { getActionSubject } from '../../util/getActionSubject';
 import { getPageTime } from '../../util/performance';
 
 interface AnalyticsProps {

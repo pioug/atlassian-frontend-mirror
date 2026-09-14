@@ -1,6 +1,7 @@
 import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
-import { clipboardTextParser, clipboardTextSerializer } from './index';
+import { clipboardTextParser } from './clipboardTextParser';
+import { clipboardTextSerializer } from './clipboardTextSerializer';
 
 const testCases = [
 	'',

@@ -5,9 +5,9 @@
 import { useCallback, useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Label } from '@atlaskit/form';
-import { AtlassianIcon } from '@atlaskit/logo';
-import { useResizing } from '@atlaskit/motion/resizing';
+import { Label } from '@atlaskit/form/label/default';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { useResizing } from '@atlaskit/motion/use-resizing';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';

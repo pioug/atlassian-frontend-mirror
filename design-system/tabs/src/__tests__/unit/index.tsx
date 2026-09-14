@@ -4,7 +4,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 
-import Tabs, { Tab, TabList, TabPanel } from '../../index';
+import Tabs from '../../components/tabs';
+import Tab from '../../components/tab';
+import TabList from '../../components/tab-list';
+import TabPanel from '../../components/tab-panel';
 import { type TabsProps } from '../../types';
 
 declare var global: any;
@@ -36,7 +39,6 @@ describe('@atlaskit/tabs', () => {
 				);
 				expect(errorCalls).toHaveLength(0);
 
-				// @ts-ignore - Property 'mockRestore' does not exist
 				global.console.error.mockRestore();
 
 				// Should render each tab

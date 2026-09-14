@@ -4,8 +4,17 @@
  */
 import { type JSX, type ReactNode } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
-import { type BackgroundColor, Box, type Space } from '@atlaskit/primitives/compiled';
+import {
+	cssMap,
+	cx,
+	jsx,
+	type StrictXCSSProp,
+	type XCSSAllProperties,
+	type XCSSAllPseudos,
+} from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import type { Space } from '@atlaskit/primitives/compiled/components/types';
+import type { BackgroundColor } from '@atlaskit/primitives/compiled/utils/types';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -21,23 +30,17 @@ const styles = cssMap({
 });
 
 const Block = ({
-	style = {},
+	xcss,
 	padding = 'space.200',
 	backgroundColor = 'color.background.discovery',
 	children,
 }: {
-	style?: React.CSSProperties;
+	xcss?: StrictXCSSProp<Exclude<XCSSAllProperties, 'background'>, XCSSAllPseudos>;
 	padding?: Space;
 	backgroundColor?: BackgroundColor;
 	children?: ReactNode;
 }): JSX.Element => (
-	<Box
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={style}
-		xcss={styles.block}
-		padding={padding}
-		backgroundColor={backgroundColor}
-	>
+	<Box xcss={cx(styles.block, xcss)} padding={padding} backgroundColor={backgroundColor}>
 		{children}
 	</Box>
 );

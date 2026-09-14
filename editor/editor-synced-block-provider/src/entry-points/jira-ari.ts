@@ -1,2 +1,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
-export { getJiraWorkItemAri, getJiraWorkItemIdFromAri } from '../clients/jira/ari';
+export {
+	getJiraIssueAriFromSourceAri,
+	getJiraWorkItemAri,
+	getJiraWorkItemIdFromAri,
+} from '../clients/jira/ari';

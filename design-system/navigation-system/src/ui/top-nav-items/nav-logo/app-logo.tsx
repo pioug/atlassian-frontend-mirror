@@ -6,11 +6,11 @@ import React, { useCallback, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import type { LogoProps } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { LogoProps } from '@atlaskit/logo/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
@@ -22,10 +22,9 @@ const anchorStyles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		height: '32px',
-		borderRadius: '10px',
+		borderRadius: token('radius.large'),
 		flexShrink: 0,
 		// '&&' is required to add more CSS specificity to ensure styles take precedence over the default Anchor styles
-		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&&': {
 			textDecoration: 'none',
@@ -34,9 +33,6 @@ const anchorStyles = cssMap({
 		// Additional margin is added to the left of the interactive element, to create visual alignment
 		// with the app tile icon and the other icon buttons that use normal (non-tile) icons.
 		marginInlineStart: token('space.050'),
-	},
-	rootT26Shape: {
-		borderRadius: token('radius.large'),
 	},
 	// This is the same between app-logo and nav-logo
 	interactionStates: {
@@ -104,7 +100,6 @@ const logoTextStyles = cssMap({
 		justifyContent: 'center',
 
 		'@media (min-width: 64rem)': {
-			// @ts-ignore
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&&': {
 				display: 'flex',
@@ -194,7 +189,6 @@ export const AppLogo = ({
 			// eslint-disable-next-line @compiled/no-suppress-xcss
 			xcss={cx(
 				anchorStyles.root,
-				fg('platform-dst-shape-theme-default') && anchorStyles.rootT26Shape,
 				hasCustomTheme
 					? anchorStyles.interactionStatesCustomTheming
 					: anchorStyles.interactionStates,
@@ -210,11 +204,7 @@ export const AppLogo = ({
 				<div
 					css={[iconContainerStyles.root, isFhsEnabled && iconContainerStyles.fullHeightSidebar]}
 				>
-					<LogoRenderer
-						// Top nav always uses the new logo design
-						shouldUseNewLogoDesign={true}
-						logoOrIcon={icon}
-					/>
+					<LogoRenderer logoOrIcon={icon} />
 				</div>
 				<span css={logoTextStyles.root}>
 					<Tooltip

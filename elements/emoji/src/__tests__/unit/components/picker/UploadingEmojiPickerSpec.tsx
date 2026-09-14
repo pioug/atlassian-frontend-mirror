@@ -3,7 +3,9 @@
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import console from 'console';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
@@ -11,21 +13,19 @@ import {
 	chooseFileButtonTestId,
 	fileUploadInputTestId,
 } from '../../../../components/common/FileChooser';
-import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
 import { uploadEmojiNameInputTestId } from '../../../../components/common/EmojiUploadPicker';
+import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
 import { messages } from '../../../../components/i18n';
-import {
-	deleteBeginEvent,
-	deleteCancelEvent,
-	deleteConfirmEvent,
-	selectedFileEvent,
-	ufoExperiences,
-	uploadBeginButton,
-	uploadCancelButton,
-	uploadConfirmButton,
-	uploadFailedEvent,
-	uploadSucceededEvent,
-} from '../../../../util/analytics';
+import { deleteBeginEvent } from '../../../../util/analytics/deleteBeginEvent';
+import { deleteCancelEvent } from '../../../../util/analytics/deleteCancelEvent';
+import { deleteConfirmEvent } from '../../../../util/analytics/deleteConfirmEvent';
+import { selectedFileEvent } from '../../../../util/analytics/selectedFileEvent';
+import { ufoExperiences } from '../../../../util/analytics/ufoExperiences';
+import { uploadBeginButton } from '../../../../util/analytics/uploadBeginButton';
+import { uploadCancelButton } from '../../../../util/analytics/uploadCancelButton';
+import { uploadConfirmButton } from '../../../../util/analytics/uploadConfirmButton';
+import { uploadFailedEvent } from '../../../../util/analytics/uploadFailedEvent';
+import { uploadSucceededEvent } from '../../../../util/analytics/uploadSucceededEvent';
 import * as ImageUtil from '../../../../util/image';
 import {
 	atlassianEmojis,
@@ -42,8 +42,8 @@ import * as helperTestingLibrary from './_emoji-picker-helpers-testing-library';
 import * as helper from './_emoji-picker-test-helpers';
 
 import userEvent from '@testing-library/user-event';
-import * as utils from '../../../../components/picker/utils';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
+import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
 import * as constants from '../../../../util/constants';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
@@ -59,12 +59,14 @@ const createSvgFile = (): File =>
 	});
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 let initializeCompletedSpy: jest.SpiedFunction<typeof FeatureGates.initializeCompleted>;
-let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 
 const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-	getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
-		experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
-	);
+	if (isEnabled) {
+		mockExpEnabled(teamojiRefreshExperimentName);
+	} else {
+		mockExpDisabled(teamojiRefreshExperimentName);
+	}
 };
 
 describe('<UploadingEmojiPicker />', () => {
@@ -81,10 +83,7 @@ describe('<UploadingEmojiPicker />', () => {
 		ufoSuccessSpy = jest.spyOn(experience, 'success');
 		ufoFailureSpy = jest.spyOn(experience, 'failure');
 		initializeCompletedSpy = jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
-		getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
-		setTeamojiExperimentEnabled(false);
+		checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 	});
 
 	afterEach(() => {
@@ -92,7 +91,7 @@ describe('<UploadingEmojiPicker />', () => {
 		ufoStartSpy.mockClear();
 		ufoSuccessSpy.mockClear();
 		ufoFailureSpy.mockClear();
-		getExperimentValueSpy.mockRestore();
+		checkGateSpy.mockRestore();
 		initializeCompletedSpy.mockRestore();
 	});
 
@@ -100,7 +99,7 @@ describe('<UploadingEmojiPicker />', () => {
 		// scrolling of the virutal list doesn't work out of the box for the tests
 		// mocking `scrollToRow` for all tests
 		jest
-			.spyOn(utils, 'scrollToRow')
+			.spyOn(scrollToRowModule, 'scrollToRow')
 			.mockImplementation((listRef?: any, index?: number) =>
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
@@ -880,7 +879,6 @@ describe('<UploadingEmojiPicker />', () => {
 			expect(screen.getByText('Retry')).toBeInTheDocument();
 
 			// remove mock to make upload successful
-			// @ts-ignore: prevent TS from complaining about mockRestore function
 			spy.mockRestore();
 
 			helperTestingLibrary.retryUpload();

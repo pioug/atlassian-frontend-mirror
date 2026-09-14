@@ -9,7 +9,7 @@ import { jsx, css } from '@emotion/react';
 //import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
 import { RendererWithAnalytics as Renderer, AnnotationsWrapper } from '../src/';
 import { RendererActionsContext } from '../src/ui/RendererActionsContext';
-import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import {
 	AnnotationUpdateEmitter,
 	AnnotationUpdateEvent,
@@ -21,9 +21,11 @@ import { annotationsStore, AnnotationsStoreProvider } from './helper/annotations
 import { ExampleSelectionInlineComponent } from './helper/annotations/selection';
 import { ExampleHoverInlineComponent } from './helper/annotations/hover';
 import { ExampleViewInlineCommentComponent } from './helper/annotations/view';
-import type { DocNode, AnnotationId } from '@atlaskit/adf-schema';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import CardClient from '@atlaskit/link-provider/client';
 
 const exampleDocumentWithComments = {
 	version: 1,

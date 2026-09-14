@@ -6,10 +6,9 @@ import LinkIcon from '@atlaskit/icon/core/link';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import Action from '../action';
-
 import { type CopyLinkActionProps } from './types';
 
 const CopyLinkAction = ({

@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { Get } from './types';
 

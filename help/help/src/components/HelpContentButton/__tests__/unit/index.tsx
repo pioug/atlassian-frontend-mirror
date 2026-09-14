@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import ShipIcon from '@atlaskit/icon/core/release';
@@ -70,28 +62,6 @@ describe('HelpContentButton', () => {
 	// 1. Mocking upstream deps to narrow the snapshot
 	// 2. What this snapshot is trying to assert on and narrow the test
 	// 3. Delete the test
-	it.skip('Should match snapshot', async () => {
-		const notificationsClient = new MockNotificationLogClient();
-		const notificationLogProvider = Promise.resolve(notificationsClient);
-		const component = (
-			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
-				<HelpContentButton
-					id="testHelpContentButton"
-					href="https://www.atlassian.com/"
-					notificationMax={9}
-					notificationLogProvider={notificationLogProvider}
-					text={buttonLabel}
-					icon={<ShipIcon color="currentColor" spacing="spacious" label="" />}
-					onClick={mockOnClick}
-				/>
-			</AnalyticsListener>
-		);
-		const { container } = render(component);
-
-		await waitFor(() => notificationLogProvider);
-
-		expect(container.firstChild).toMatchSnapshot();
-	});
 
 	it('Should display the notification icon with the number returned by the notificationLogProvider', async () => {
 		const notificationsClient = new MockNotificationLogClient(5);
@@ -119,8 +89,7 @@ describe('HelpContentButton', () => {
 		});
 	});
 
-	it(`Should display the notification icon with the number specified in the prop notificationMax
-   followed by a "+" when the number returned by the notificationLogProvider if higher than the
+	it(`Should display the notification counter followed by a "+" when the number returned by the notificationLogProvider if higher than the
    number specified in notificationMax`, async () => {
 		const notificationsClient = new MockNotificationLogClient(20);
 		const notificationLogProvider = Promise.resolve(notificationsClient);

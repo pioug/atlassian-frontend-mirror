@@ -1,5 +1,5 @@
 import type { ACTION, ACTION_SUBJECT, INPUT_METHOD } from './enums';
-import type { TrackAEP } from './utils';
+import type { OperationalAEP, TrackAEP } from './utils';
 
 export type InputMethodInsertNativeEmbed =
 	| INPUT_METHOD.CLIPBOARD
@@ -18,4 +18,15 @@ export type InsertNativeEmbedAEP = TrackAEP<
 		insertedCount: number;
 	},
 	undefined
+>;
+
+export type NativeEmbedResizeErroredAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.NATIVE_EMBED,
+	undefined,
+	{
+		errorName: string;
+		mode: 'live-update';
+		owner: 'coordinator-overlay';
+	}
 >;

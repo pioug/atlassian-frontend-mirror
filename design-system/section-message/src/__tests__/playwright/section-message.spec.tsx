@@ -13,7 +13,7 @@ const sectionMessageGoogleAction = `${sectionMessageError} [data-testid='google'
 test('SectionMessage and SectionMessage actions should be able to be identified and clicked by data-testid', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.vr.ap.tsx')>(
 		'design-system',
 		'section-message',
 		'testing',

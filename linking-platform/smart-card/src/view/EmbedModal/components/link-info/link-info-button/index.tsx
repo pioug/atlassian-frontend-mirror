@@ -1,10 +1,10 @@
 import React, { type RefObject } from 'react';
 
-import { IconButton, type IconProp } from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Tooltip from '@atlaskit/tooltip';
+import IconButton from '@atlaskit/button/icon/button';
+import type { IconProp } from '@atlaskit/button/variants/types';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
+import { useMouseDownEvent } from '../../../../../state/analytics/useMouseDownEvent';
 
 export type LinkInfoButtonProps = {
 	content: React.ReactNode;
@@ -37,7 +37,7 @@ const LinkInfoButton = ({
 				onMouseDown={onMouseDown}
 				testId={`${testId}-button`}
 				role={role}
-				{...(fg('navx-4719-a11y-embed-modal-focus-states') ? { ref: focusRef } : {})}
+				ref={focusRef}
 			/>
 		</Tooltip>
 	);

@@ -1,7 +1,7 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { handleMouseOver } from '../handle-mouse-over';
@@ -31,7 +31,19 @@ const clearPendingHoverSide = (view: EditorView) => {
 
 const BLOCK_SELECTORS = '[data-node-anchor], [data-drag-handler-anchor-name]';
 
-const RIGHT_EDGE_SELECTOR = '[data-blocks-right-edge-button-container]';
+const LEGACY_RIGHT_EDGE_SELECTOR = '[data-blocks-right-edge-button-container]';
+const getRightControlSelector = (): string =>
+	isExperimentEnabled('platform_editor_block_control_migration')
+		? `[data-editor-block-controls-side="right"], ${LEGACY_RIGHT_EDGE_SELECTOR}`
+		: LEGACY_RIGHT_EDGE_SELECTOR;
+
+const LEGACY_LEFT_CONTROL_SELECTOR =
+	'[data-blocks-drag-handle-container], [data-testid="block-ctrl-drag-handle"], [data-testid="block-ctrl-drag-handle-container"], [data-testid="block-ctrl-decorator-widget"], [data-testid="block-ctrl-quick-insert-button"]';
+
+const getLeftControlSelector = (): string =>
+	isExperimentEnabled('platform_editor_block_control_migration')
+		? `[data-editor-block-ctrl-drag-handle], ${LEGACY_LEFT_CONTROL_SELECTOR}`
+		: LEGACY_LEFT_CONTROL_SELECTOR;
 
 // Top-level blocks (no block ancestor), matched by anchor attribute so it works under both the
 // legacy and native-anchor schemes.
@@ -60,8 +72,8 @@ const getRightMarginBoundary = (view: EditorView): number =>
 	RIGHT_MARGIN_ROVO_GAP_PX;
 
 type RightMarginZone =
-	| { block: HTMLElement; type: 'active' } // beside a block, before the Rovo gap
-	| { type: 'gap' } // past the gap boundary, reserved for the Rovo button
+	| { block: HTMLElement; type: 'active' } // beside a block in the hoverable right margin
+	| { type: 'gap' } // control cohort only: past the boundary reserved for the Rovo button
 	| null; // not in the right margin
 
 // Classify where the cursor sits in the right margin beside the block at its height, running the
@@ -74,7 +86,8 @@ const classifyRightMarginPosition = (view: EditorView, event: MouseEvent): Right
 	if (event.clientX <= found.rect.right) {
 		return null;
 	}
-	return event.clientX > getRightMarginBoundary(view)
+	return event.clientX > getRightMarginBoundary(view) &&
+		!expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)
 		? { type: 'gap' }
 		: { type: 'active', block: found.block };
 };
@@ -99,9 +112,21 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 	const state = getInteractionTrackingState(view.state);
 	const target = event.target instanceof HTMLElement ? event.target : null;
 
+	// EDITOR-7926: skip hover-side tracking while a diff is on screen (or a suggestion card is open)
+	// so setHoverSide/mouseEnter don't flip-flop and jitter the controls. No-exposure check as this
+	// runs on every mouse move.
+	const currentUserIntent = api?.userIntent?.sharedState.currentState()?.currentUserIntent;
+	const isDisplayingDiff = api?.showDiff?.sharedState.currentState()?.isDisplayingChanges ?? false;
+	if (
+		(isDisplayingDiff || currentUserIntent === 'reviewing') &&
+		expValEqualsNoExposure('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	) {
+		return;
+	}
+
 	// When hovering over block controls directly, infer side from which control we're over.
 	// This is more reliable than bounds when controls are in portals outside the editor DOM.
-	const rightEdgeElement = target?.closest(RIGHT_EDGE_SELECTOR);
+	const rightEdgeElement = target?.closest(getRightControlSelector());
 	if (rightEdgeElement) {
 		if (
 			state?.isMouseOut &&
@@ -115,9 +140,7 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 		}
 		return;
 	}
-	const leftControlElement = target?.closest(
-		'[data-blocks-drag-handle-container], [data-testid="block-ctrl-drag-handle"], [data-testid="block-ctrl-drag-handle-container"], [data-testid="block-ctrl-decorator-widget"], [data-testid="block-ctrl-quick-insert-button"]',
-	);
+	const leftControlElement = target?.closest(getLeftControlSelector());
 	if (leftControlElement) {
 		if (state?.hoverSide !== 'left') {
 			setHoverSide(view, 'left');
@@ -125,50 +148,46 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 		return;
 	}
 
-	// Added right-margin hover, gated so it can be rolled back. When off, fall through to midpoint.
-	if (editorExperiment('remix_button_right_margin_hover', true, { exposure: true })) {
-		const closestBlock = target?.closest(BLOCK_SELECTORS);
-		const blockElement = closestBlock instanceof HTMLElement ? closestBlock : null;
+	const closestBlock = target?.closest(BLOCK_SELECTORS);
+	const blockElement = closestBlock instanceof HTMLElement ? closestBlock : null;
 
-		// Not over a block: the cursor may be in the right margin beside content.
-		const marginZone = blockElement ? null : classifyRightMarginPosition(view, event);
+	// Not over a block: the cursor may be in the right margin beside content.
+	const marginZone = blockElement ? null : classifyRightMarginPosition(view, event);
 
-		if (marginZone?.type === 'active' && api) {
-			// handleMouseOver only reads event.target, so a target-only stand-in is enough here.
-			handleMouseOver(view, { target: marginZone.block } as unknown as Event, api);
-			// mouseenter doesn't fire over the click overlay, so clear isMouseOut here to re-show.
-			if (state?.isMouseOut) {
-				if (expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)) {
-					mouseEnter(view, 'right');
-					return;
-				}
-				mouseEnter(view);
+	if (marginZone?.type === 'active' && api) {
+		// handleMouseOver only reads event.target, so a target-only stand-in is enough here.
+		handleMouseOver(view, { target: marginZone.block } as unknown as Event, api);
+		// mouseenter doesn't fire over the click overlay, so clear isMouseOut here to re-show.
+		if (state?.isMouseOut) {
+			if (expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)) {
+				mouseEnter(view, 'right');
+				return;
 			}
-			if (state?.hoverSide !== 'right') {
-				setHoverSide(view, 'right');
-			}
-			return;
+			mouseEnter(view);
 		}
-
-		// In the Rovo gap, dismiss the controls so the button doesn't linger over the Rovo button.
-		// The corridor experiment keeps controls visible when the pointer is still over a real block;
-		// only empty margin remains reserved for Rovo in that case.
-		if (
-			marginZone?.type === 'gap' ||
-			(event.clientX > getRightMarginBoundary(view) &&
-				(!blockElement ||
-					!expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)))
-		) {
-			if (!state?.isMouseOut) {
-				clearHoverSide(view);
-				mouseLeave(view);
-			}
-			return;
+		if (state?.hoverSide !== 'right') {
+			setHoverSide(view, 'right');
 		}
-
-		// Over a block: fall through to the midpoint split so the left half keeps the drag handle and
-		// the right half shows the Remix button, matching the experiment-off behaviour.
+		return;
 	}
+
+	// Keep the existing fixed Rovo gap in the control cohort. The treatment uses explicitly marked
+	// control surfaces instead, so the rest of the right margin remains hoverable.
+	if (
+		marginZone?.type === 'gap' ||
+		(event.clientX > getRightMarginBoundary(view) &&
+			(!blockElement ||
+				!expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)))
+	) {
+		if (!state?.isMouseOut) {
+			clearHoverSide(view);
+			mouseLeave(view);
+		}
+		return;
+	}
+
+	// Over a block: fall through to the midpoint split so the left half keeps the drag handle and
+	// the right half shows the Remix button.
 
 	// Pick the side from the content midpoint, keeping the original left/right halves.
 	const { left, right } = editorContentArea.getBoundingClientRect();
@@ -192,7 +211,7 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 export const handleMouseMove = (
 	view: EditorView,
 	event: Event,
-	rightSideControlsEnabled = false,
+	rightSideControlsEnabled?: boolean,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ): boolean => {
 	const state = getInteractionTrackingState(view.state);
@@ -220,7 +239,7 @@ export const handleMouseMove = (
 	return false;
 };
 
-export const handleMouseLeave = (view: EditorView, rightSideControlsEnabled = false) => {
+export const handleMouseLeave = (view: EditorView, rightSideControlsEnabled?: boolean): boolean => {
 	if (rightSideControlsEnabled) {
 		clearPendingHoverSide(view);
 	}
@@ -228,7 +247,7 @@ export const handleMouseLeave = (view: EditorView, rightSideControlsEnabled = fa
 	return false;
 };
 
-export const handleMouseEnter = (view: EditorView) => {
+export const handleMouseEnter = (view: EditorView): boolean => {
 	mouseEnter(view);
 	return false;
 };

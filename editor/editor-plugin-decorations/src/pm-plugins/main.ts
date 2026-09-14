@@ -5,7 +5,7 @@ import { type EditorState, NodeSelection, PluginKey } from '@atlaskit/editor-pro
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const decorationStateKey: PluginKey = new PluginKey('decorationPlugin');
 

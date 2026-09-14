@@ -1,5 +1,5 @@
 import metadata from '@atlaskit/icon-lab/metadata';
-import { coreIconMetadata } from '@atlaskit/icon/metadata';
+import coreIconMetadata from '@atlaskit/icon/metadata-core';
 
 // https://hello.atlassian.net/wiki/spaces/DST/pages/6558719954/Icon+content+type
 export type IconMCPSchema = {

@@ -4,7 +4,7 @@ import {
 	MultiBodiedExtensionRendererFullPage,
 	MultiBodiedExtensionRendererFullPageFullWidth,
 	MultiBodiedExtensionRendererFullPageWideMode,
-} from './multi-bodied-extension.fixture';
+} from './multi-bodied-extension.fixture.vr.ap';
 
 snapshot(MultiBodiedExtensionRenderer, {
 	drawsOutsideBounds: true,

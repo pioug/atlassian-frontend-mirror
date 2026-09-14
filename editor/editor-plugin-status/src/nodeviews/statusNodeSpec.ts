@@ -2,11 +2,10 @@ import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 // eg. Version/4.0 Chrome/95.0.4638.50
 const isAndroidChromium =
-	// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 	typeof window !== 'undefined' && /Version\/.* Chrome\/.*/u.test(window.navigator.userAgent);
 
 export const statusToDOM = (node: PMNode): DOMOutputSpec => {

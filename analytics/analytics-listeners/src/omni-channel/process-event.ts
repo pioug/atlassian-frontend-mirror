@@ -1,3 +1,6 @@
+import last from 'lodash/last';
+import merge from 'lodash/merge';
+
 import {
 	DEFAULT_SOURCE,
 	UI_EVENT_TYPE,
@@ -7,18 +10,14 @@ import {
 	type GasPayload,
 	type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+import { OMNI_CHANNEL_CONTEXT } from '@atlaskit/analytics-namespaced-context/OmniChannelAnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
+import { getComponents } from '../helpers/get-components';
+import { getExtraAttributes } from '../helpers/get-extra-attributes';
+import { getPackageInfo } from '../helpers/get-package-info';
+import { getSources } from '../helpers/get-sources';
 import type Logger from '../helpers/logger';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { OMNI_CHANNEL_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import {
-	getSources,
-	getExtraAttributes,
-	getPackageInfo,
-	getComponents,
-} from '../helpers/extract-data-from-event';
-import last from 'lodash/last';
-import merge from 'lodash/merge';
 import { FabricChannel } from '../types';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 

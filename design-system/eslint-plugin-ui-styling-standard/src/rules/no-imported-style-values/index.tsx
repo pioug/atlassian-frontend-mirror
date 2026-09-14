@@ -1,4 +1,4 @@
-import type { AST_NODE_TYPES } from '@typescript-eslint/typescript-estree/dist/ts-estree';
+import type { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 import esquery from 'esquery';

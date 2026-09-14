@@ -1,7 +1,9 @@
+import { bind } from 'bind-event-listener';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as clipboard from 'clipboard-polyfill';
 
+import { getDocument } from '@atlaskit/browser-apis';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -66,7 +68,6 @@ export const copyHTMLToClipboard = async (
 	elementToCopy: HTMLElement,
 	plainTextToCopy?: string,
 ): Promise<void> => {
-	// @ts-ignore
 	if (isClipboardApiSupported() && typeof ClipboardItem !== 'undefined') {
 		try {
 			const data = new ClipboardItem({
@@ -77,7 +78,6 @@ export const copyHTMLToClipboard = async (
 					type: 'text/html',
 				}),
 			});
-			// @ts-ignore
 			await navigator.clipboard.write([data]);
 		} catch (error) {
 			throw new Error('Clipboard api is not supported');
@@ -106,6 +106,42 @@ export const copyHTMLToClipboardPolyfill = async (
 		'text/plain': new Blob([plainTextToCopy || elementToCopy.innerText], { type: 'text/plain' }),
 	});
 	await clipboard.write([dt]);
+};
+
+// Safari can revoke transient user activation before asynchronous clipboard writes complete.
+// Keep this helper synchronous so callers can invoke it directly from a click handler.
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export const copyHTMLToClipboardSynchronously = (
+	elementToCopy: HTMLElement,
+	plainTextToCopy?: string,
+): boolean => {
+	const document = getDocument();
+	if (!document) {
+		return false;
+	}
+
+	let didWriteClipboardData = false;
+	const unbind = bind(document, {
+		type: 'copy',
+		listener: (event: ClipboardEvent) => {
+			if (!event.clipboardData) {
+				return;
+			}
+
+			event.preventDefault();
+			event.clipboardData.setData('text/html', elementToCopy.innerHTML);
+			event.clipboardData.setData('text/plain', plainTextToCopy || elementToCopy.innerText);
+			didWriteClipboardData = true;
+		},
+	});
+
+	try {
+		return document.execCommand('copy') && didWriteClipboardData;
+	} catch {
+		return false;
+	} finally {
+		unbind();
+	}
 };
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports

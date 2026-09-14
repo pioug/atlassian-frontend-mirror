@@ -1,6 +1,6 @@
-import languages from '../../../i18n/languages';
 import englishMessages from '../../../i18n/en';
-import { getMessagesForLocale } from '../../../util/i18n';
+import languages from '../../../i18n/languages';
+import { getMessagesForLocale } from '../../../util/get-messages-for-locale';
 
 describe('Mentions i18n', () => {
 	Object.keys(languages).forEach((locale) => {

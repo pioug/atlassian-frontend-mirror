@@ -1,28 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: remove this and fix types */
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { shallow, type ReactWrapper } from 'enzyme';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import React from 'react';
 import { ReactSerializer } from '../../../index';
-import { createSchema } from '@atlaskit/adf-schema';
+import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import {
 	defaultSchemaConfig,
 	getSchemaBasedOnStage,
 	defaultSchema as schema,
 } from '@atlaskit/adf-schema/schema-default';
+import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { Expand, Emoji } from '../../../react/nodes';
 import {
-	Heading,
-	Expand,
-	Emoji,
-	LayoutColumn,
-	Panel,
-	Table,
-	Extension,
-	BodiedExtension,
-	InlineExtension,
-} from '../../../react/nodes';
-import { DataConsumer } from '../../../react/marks';
+	ExpandBodyBlock,
+	ExpandBodyProvider,
+	ExpandBodyTable,
+} from '../../../ui/utils/expand-body';
+import { Link } from '../../../react/marks';
 import type { MediaSSR } from '../../../types/mediaOptions';
 
 import * as doc from '../../__fixtures__/hello-world.adf.json';
@@ -42,8 +37,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { screen, waitFor } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { screen } from '@testing-library/react';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -60,18 +54,41 @@ const nestedHeadingsWithPanelLayoutTableDocFromSchema = schema.nodeFromJSON(
 );
 const linksDocFromSchema = schema.nodeFromJSON(linkDoc);
 
-const getMedia = (wrapper: ReactWrapper<any, any, any>) => {
-	return wrapper.findWhere(
-		(item: ReactWrapper) => item.is('LoadableComponent') && item.prop('nodeType') === 'media',
+/**
+ * `serializeFragment` is a pure `Fragment -> ReactElement` function, and some of what it decides
+ * never reaches the DOM: `isInsideOfBlockNode`, `shouldOpenMediaViewer`, `ssr`, `nestedHeaderIds`
+ * and the `node`/`dispatchAnalyticsEvent` handed to unsupported-node components are props only.
+ * Those are asserted on the returned element tree; everything with a DOM footprint is rendered.
+ */
+const serializedElements = (node: React.ReactNode): React.ReactElement[] =>
+	React.Children.toArray(node).flatMap((child) =>
+		React.isValidElement(child)
+			? [child, ...serializedElements((child.props as { children?: React.ReactNode }).children)]
+			: [],
 	);
+
+const elementsOfType = (node: React.ReactNode, type: React.ElementType) =>
+	serializedElements(node).filter((element) => element.type === type);
+
+const elementsOfNodeType = (node: React.ReactNode, nodeType: string) =>
+	serializedElements(node).filter((element) => (element.props as any).nodeType === nodeType);
+
+const onlyElement = (elements: React.ReactElement[], description: string) => {
+	if (elements.length === 0) {
+		throw new Error(`Expected the serializer to produce ${description}`);
+	}
+
+	return elements[0].props as any;
 };
 
-const getMediaSingle = (wrapper: ReactWrapper<any, any, any>) => {
-	return wrapper.findWhere(
-		(item: ReactWrapper) =>
-			item.prop('nodeType') === 'mediaSingle' && !!item.prop('intl') && !item.prop('media'),
-	);
+const propsOfType = (node: React.ReactNode, type: React.ElementType) => {
+	const name = typeof type === 'string' ? type : ((type as any).displayName ?? (type as any).name);
+
+	return onlyElement(elementsOfType(node, type), `a <${name} /> element`);
 };
+
+const propsOfNodeType = (node: React.ReactNode, nodeType: string) =>
+	onlyElement(elementsOfNodeType(node, nodeType), `an element with nodeType "${nodeType}"`);
 
 describe('Renderer - ReactSerializer', () => {
 	beforeAll(async () => {
@@ -90,56 +107,41 @@ describe('Renderer - ReactSerializer', () => {
 			 */
 			it('should render document', () => {
 				const reactSerializer = new ReactSerializer({});
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(dataConsumerDocFromSchema.content) as any,
-				);
+				const output = reactSerializer.serializeFragment(dataConsumerDocFromSchema.content);
 
-				const root = wrapper.find('div');
-				const extension = root.find(Extension);
-				const bodiedExtension = root.find(BodiedExtension);
-				const inlineExtension = root.find(InlineExtension);
+				expect(elementsOfNodeType(output, 'extension')).toHaveLength(1);
+				expect(elementsOfNodeType(output, 'bodiedExtension')).toHaveLength(1);
+				expect(elementsOfNodeType(output, 'inlineExtension')).toHaveLength(1);
+				expect(elementsOfNodeType(output, 'paragraph')).toHaveLength(2);
 
-				const dataConsumer = root.find(DataConsumer);
+				const { container } = renderWithIntl(output as any);
 
-				const paragraph = root.find('p');
+				const dataConsumers = container.querySelectorAll('[data-mark-type="dataConsumer"]');
 
-				expect(root.length).not.toEqual(0);
-				expect(extension.length).toEqual(1);
-				expect(bodiedExtension.length).toEqual(1);
-				expect(inlineExtension.length).toEqual(1);
-				expect(dataConsumer.length).toEqual(3);
-				expect(paragraph.length).toEqual(2);
-
-				// block level extensions (extension+bodied extension) should be wrapped with span
-				expect(extension.parent().get(0).type).toEqual('div');
-				expect(bodiedExtension.parent().get(0).type).toEqual('div');
-				// inline Extension should be wrapped with span
-				expect(inlineExtension.parent().get(0).type).toEqual('span');
-
-				wrapper.unmount();
+				expect(dataConsumers).toHaveLength(3);
+				// block level extensions get a div wrapper, the inline extension gets a span
+				expect(dataConsumers[0].tagName).toEqual('DIV');
+				expect(dataConsumers[1].tagName).toEqual('DIV');
+				expect(dataConsumers[2].tagName).toEqual('SPAN');
 			});
 		});
 
 		it('should render document', () => {
 			const reactSerializer = new ReactSerializer({});
-			const wrapper = mountWithIntl(
+			const { container } = renderWithIntl(
 				reactSerializer.serializeFragment(docFromSchema.content) as any,
 			);
 
-			const root = wrapper.find('div');
-			const paragraph = root.find('p');
-			const link = paragraph.find('a');
-			const strong = link.find('strong');
+			expect(container.querySelectorAll('div')).toHaveLength(1);
+			expect(container.querySelectorAll('p')).toHaveLength(1);
+			expect(container.querySelectorAll('p a')).toHaveLength(1);
+			expect(container.querySelectorAll('p a strong')).toHaveLength(1);
 
-			expect(root.length).toEqual(1);
-			expect(paragraph.length).toEqual(1);
-			expect(link.length).toEqual(1);
-			expect(strong.length).toEqual(1);
+			const link = container.querySelector('p a');
 
-			expect(link.text()).toEqual('Hello, World!');
-			expect(link.props()).toHaveProperty('href', 'https://www.atlassian.com');
-			expect(strong.text()).toEqual('World!');
-			wrapper.unmount();
+			expect(link).toHaveTextContent('Hello, World!');
+			expect(link).toHaveAttribute('href', 'https://www.atlassian.com');
+			expect(container.querySelector('p a strong')).toHaveTextContent('World!');
 		});
 		describe('unsupported nodes', () => {
 			describe('block nodes', () => {
@@ -173,11 +175,10 @@ describe('Renderer - ReactSerializer', () => {
 
 				it('should pass node value for unsupported block', () => {
 					const reactSerializer = new ReactSerializer({});
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(unsupportBlockNode.content) as any,
-					);
-					const unsupportedBlock = wrapper.find('UnsupportedBlockNode');
-					const unspportedBlockNodeProp = unsupportedBlock.prop('node') as PMNode;
+					const output = reactSerializer.serializeFragment(unsupportBlockNode.content);
+
+					const unspportedBlockNodeProp = propsOfType(output, UnsupportedBlock).node as PMNode;
+
 					expect(unspportedBlockNodeProp.toJSON()).toEqual(unsupportedNodeJson);
 				});
 
@@ -187,25 +188,19 @@ describe('Renderer - ReactSerializer', () => {
 					const reactSerializer = new ReactSerializer({
 						fireAnalyticsEvent: mockFireAnalyticsEvent,
 					});
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(unsupportBlockNode.content) as any,
+					const output = reactSerializer.serializeFragment(unsupportBlockNode.content);
+
+					expect(propsOfType(output, UnsupportedBlock).dispatchAnalyticsEvent).toEqual(
+						mockFireAnalyticsEvent,
 					);
-					const unsupportedBlock = wrapper.find('UnsupportedBlockNode');
-					const dispatchAnalyticsEventProp = unsupportedBlock.prop('dispatchAnalyticsEvent');
-					expect(dispatchAnalyticsEventProp).toEqual(mockFireAnalyticsEvent);
-					wrapper.unmount();
 				});
 
 				it(`should have not dispatchAnalyticsEvent as prop for unsupported
               block when serializer is not enabled with analytics `, () => {
 					const reactSerializer = new ReactSerializer({});
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(unsupportBlockNode.content) as any,
-					);
-					const unsupportedBlock = wrapper.find('UnsupportedBlockNode');
-					const dispatchAnalyticsEventProp = unsupportedBlock.prop('dispatchAnalyticsEvent');
-					expect(dispatchAnalyticsEventProp).toBeUndefined();
-					wrapper.unmount();
+					const output = reactSerializer.serializeFragment(unsupportBlockNode.content);
+
+					expect(propsOfType(output, UnsupportedBlock).dispatchAnalyticsEvent).toBeUndefined();
 				});
 			});
 
@@ -229,13 +224,11 @@ describe('Renderer - ReactSerializer', () => {
 
 				it('should pass node value for unsupported inline', () => {
 					const reactSerializer = new ReactSerializer({});
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(unsupportInlineNode.content) as any,
-					);
-					const unsupportedInline = wrapper.find('UnsupportedInlineNode');
-					const unspportedInlineNodeProp = unsupportedInline.prop('node') as PMNode;
+					const output = reactSerializer.serializeFragment(unsupportInlineNode.content);
+
+					const unspportedInlineNodeProp = propsOfType(output, UnsupportedInline).node as PMNode;
+
 					expect(unspportedInlineNodeProp.toJSON()).toEqual(unsupportedNodeJson);
-					wrapper.unmount();
 				});
 
 				it(`should have dispatchAnalyticsEvent as prop for unsupported
@@ -244,25 +237,19 @@ describe('Renderer - ReactSerializer', () => {
 					const reactSerializer = new ReactSerializer({
 						fireAnalyticsEvent: mockFireAnalyticsEvent,
 					});
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(unsupportInlineNode.content) as any,
+					const output = reactSerializer.serializeFragment(unsupportInlineNode.content);
+
+					expect(propsOfType(output, UnsupportedInline).dispatchAnalyticsEvent).toEqual(
+						mockFireAnalyticsEvent,
 					);
-					const unsupportedInline = wrapper.find('UnsupportedInlineNode');
-					const dispatchAnalyticsEventProp = unsupportedInline.prop('dispatchAnalyticsEvent');
-					expect(dispatchAnalyticsEventProp).toEqual(mockFireAnalyticsEvent);
-					wrapper.unmount();
 				});
 
 				it(`should have not dispatchAnalyticsEvent as prop for unsupported
                 Inline when serializer is not enabled with analytics `, () => {
 					const reactSerializer = new ReactSerializer({});
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(unsupportInlineNode.content) as any,
-					);
-					const unsupportedInline = wrapper.find('UnsupportedInlineNode');
-					const dispatchAnalyticsEventProp = unsupportedInline.prop('dispatchAnalyticsEvent');
-					expect(dispatchAnalyticsEventProp).toBeUndefined();
-					wrapper.unmount();
+					const output = reactSerializer.serializeFragment(unsupportInlineNode.content);
+
+					expect(propsOfType(output, UnsupportedInline).dispatchAnalyticsEvent).toBeUndefined();
 				});
 			});
 		});
@@ -365,22 +352,14 @@ describe('Renderer - ReactSerializer', () => {
 	describe('media', () => {
 		describe('when inside of', () => {
 			describe('expand', () => {
-				it('media node has isInsideOfBlockNode as true', async () => {
+				it('media node has isInsideOfBlockNode as true', () => {
 					const reactSerializer = new ReactSerializer({});
 
-					const { container } = renderWithIntl(
-						reactSerializer.serializeFragment(schema.nodeFromJSON(expandWithMedia).content) as any,
+					const output = reactSerializer.serializeFragment(
+						schema.nodeFromJSON(expandWithMedia).content,
 					);
-					// Pretty shitty test, as the original Enzyme test was checking isInsideOfBlockNode which has zero impact on actually rendered stuff in this test
-					await waitFor(() =>
-						expect(container.querySelector('[data-node-type="mediaSingle"]')).toHaveAttribute(
-							'data-width-type',
-							'percentage',
-						),
-					);
-					expect(container.querySelector('[data-node-type="mediaSingle"]')).not.toHaveAttribute(
-						'data-width',
-					);
+
+					expect(propsOfNodeType(output, 'mediaSingle').isInsideOfBlockNode).toEqual(true);
 				});
 			});
 
@@ -395,16 +374,11 @@ describe('Renderer - ReactSerializer', () => {
 					});
 					const reactSerializer = new ReactSerializer({});
 
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(
-							schemaWithUnsupportedNodes.nodeFromJSON(tableWithMedia).content,
-						) as any,
+					const output = reactSerializer.serializeFragment(
+						schemaWithUnsupportedNodes.nodeFromJSON(tableWithMedia).content,
 					);
 
-					await waitFor(() =>
-						expect(getMediaSingle(wrapper).first().prop('isInsideOfBlockNode')).toBeFalsy(),
-					);
-					wrapper.unmount();
+					expect(propsOfNodeType(output, 'mediaSingle').isInsideOfBlockNode).toBeFalsy();
 				});
 			});
 
@@ -412,17 +386,11 @@ describe('Renderer - ReactSerializer', () => {
 				it('media node has isInsideOfBlockNode as true', async () => {
 					const reactSerializer = new ReactSerializer({});
 
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(
-							schema.nodeFromJSON(nestedExpandWithMedia).content,
-						) as any,
+					const output = reactSerializer.serializeFragment(
+						schema.nodeFromJSON(nestedExpandWithMedia).content,
 					);
 
-					await waitFor(() =>
-						expect(getMediaSingle(wrapper).prop('isInsideOfBlockNode')).toEqual(true),
-					);
-
-					wrapper.unmount();
+					expect(propsOfNodeType(output, 'mediaSingle').isInsideOfBlockNode).toEqual(true);
 				});
 			});
 
@@ -464,14 +432,11 @@ describe('Renderer - ReactSerializer', () => {
 			describe('layoutSection -> layoutColumn', () => {
 				it('media node has isInsideOfBlockNode as true', async () => {
 					const reactSerializer = new ReactSerializer({});
-					const wrapper = mountWithIntl(
-						reactSerializer.serializeFragment(schema.nodeFromJSON(layoutWithMedia).content) as any,
+					const output = reactSerializer.serializeFragment(
+						schema.nodeFromJSON(layoutWithMedia).content,
 					);
 
-					await waitFor(() =>
-						expect(getMediaSingle(wrapper).prop('isInsideOfBlockNode')).toEqual(true),
-					);
-					wrapper.unmount();
+					expect(propsOfNodeType(output, 'mediaSingle').isInsideOfBlockNode).toEqual(true);
 				});
 			});
 		});
@@ -482,19 +447,11 @@ describe('Renderer - ReactSerializer', () => {
 					shouldOpenMediaViewer: false,
 				});
 
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(schema.nodeFromJSON(mediaGroupFragment).content) as any,
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaGroupFragment).content,
 				);
 
-				// Media under media group takes 2 ticks to render.
-				await act(async () => {
-					await new Promise(process.nextTick);
-					await new Promise(process.nextTick);
-				});
-				wrapper.update();
-
-				expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(false);
-				wrapper.unmount();
+				expect(propsOfNodeType(output, 'media').shouldOpenMediaViewer).toEqual(false);
 			});
 
 			it('media node without parent has shouldOpenMediaViewer set to false', async () => {
@@ -502,19 +459,11 @@ describe('Renderer - ReactSerializer', () => {
 					shouldOpenMediaViewer: false,
 				});
 
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(schema.nodeFromJSON(mediaFragment).content) as any,
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaFragment).content,
 				);
 
-				// Media under media group takes 2 ticks to render.
-				await act(async () => {
-					await new Promise(process.nextTick);
-					await new Promise(process.nextTick);
-				});
-				wrapper.update();
-
-				expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(false);
-				wrapper.unmount();
+				expect(propsOfNodeType(output, 'media').shouldOpenMediaViewer).toEqual(false);
 			});
 		});
 
@@ -524,19 +473,11 @@ describe('Renderer - ReactSerializer', () => {
 					shouldOpenMediaViewer: true,
 				});
 
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(schema.nodeFromJSON(mediaGroupFragment).content) as any,
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaGroupFragment).content,
 				);
 
-				// Media under media group takes 2 ticks to render.
-				await act(async () => {
-					await new Promise(process.nextTick);
-					await new Promise(process.nextTick);
-				});
-				wrapper.update();
-
-				expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(true);
-				wrapper.unmount();
+				expect(propsOfNodeType(output, 'media').shouldOpenMediaViewer).toEqual(true);
 			});
 
 			it('media without parent has shouldOpenMediaViewer set to true', () => {
@@ -544,12 +485,11 @@ describe('Renderer - ReactSerializer', () => {
 					shouldOpenMediaViewer: true,
 				});
 
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(schema.nodeFromJSON(mediaFragment).content) as any,
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaFragment).content,
 				);
 
-				expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(true);
-				wrapper.unmount();
+				expect(propsOfNodeType(output, 'media').shouldOpenMediaViewer).toEqual(true);
 			});
 		});
 
@@ -557,25 +497,21 @@ describe('Renderer - ReactSerializer', () => {
 			it('media node has shouldOpenMediaViewer set to undefined when parent is not mediaSingle', async () => {
 				const reactSerializer = new ReactSerializer({});
 
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(schema.nodeFromJSON(mediaGroupFragment).content) as any,
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaGroupFragment).content,
 				);
 
-				await waitFor(() =>
-					expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(undefined),
-				);
-				wrapper.unmount();
+				expect(propsOfNodeType(output, 'media').shouldOpenMediaViewer).toEqual(undefined);
 			});
 
 			it('media mode without parent has shouldOpenMediaViewer set to undefined', () => {
 				const reactSerializer = new ReactSerializer({});
 
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(schema.nodeFromJSON(mediaFragment).content) as any,
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaFragment).content,
 				);
 
-				expect(getMedia(wrapper).prop('shouldOpenMediaViewer')).toEqual(undefined);
-				wrapper.unmount();
+				expect(propsOfNodeType(output, 'media').shouldOpenMediaViewer).toEqual(undefined);
 			});
 		});
 
@@ -597,12 +533,11 @@ describe('Renderer - ReactSerializer', () => {
 					media: { ssr },
 				});
 
-				const wrapper = mountWithIntl(
-					reactSerializer.serializeFragment(schema.nodeFromJSON(mediaFragment).content) as any,
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaFragment).content,
 				);
 
-				expect(getMedia(wrapper).prop('ssr')).toEqual(ssr);
-				wrapper.unmount();
+				expect(propsOfNodeType(output, 'media').ssr).toEqual(ssr);
 			});
 		});
 	});
@@ -610,66 +545,68 @@ describe('Renderer - ReactSerializer', () => {
 	describe('link mark', () => {
 		it('has correct isMediaLink value when link mark is applied on media', () => {
 			const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-			const wrapper = shallow(reactSerializer.serializeFragment(linksDocFromSchema.content) as any);
-			expect(wrapper.find('Link').first().prop('isMediaLink')).toEqual(true);
+			const output = reactSerializer.serializeFragment(linksDocFromSchema.content);
+
+			expect(propsOfType(output, Link).isMediaLink).toEqual(true);
 		});
 
 		it('has correct isMediaLink value when link mark is not applied on media', () => {
 			const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-			const wrapper = shallow(reactSerializer.serializeFragment(linksDocFromSchema.content)!);
-			expect(wrapper.find('Link').last().prop('isMediaLink')).toBeFalsy();
+			const output = reactSerializer.serializeFragment(linksDocFromSchema.content)!;
+			const links = elementsOfType(output, Link);
+
+			expect((links[links.length - 1].props as any).isMediaLink).toBeFalsy();
 		});
 
 		it('does not render when allowMediaLinking is undefined', () => {
 			const reactSerializer = new ReactSerializer({});
-			const wrapper = shallow(reactSerializer.serializeFragment(linksDocFromSchema.content)!);
-			expect(wrapper.find('Link')).toHaveLength(1);
+			const output = reactSerializer.serializeFragment(linksDocFromSchema.content)!;
+
+			expect(elementsOfType(output, Link)).toHaveLength(1);
 		});
 
 		it('does not render when allowMediaLinking is false', () => {
 			const reactSerializer = new ReactSerializer({ allowMediaLinking: false });
-			const wrapper = shallow(reactSerializer.serializeFragment(linksDocFromSchema.content)!);
-			expect(wrapper.find('Link')).toHaveLength(1);
+			const output = reactSerializer.serializeFragment(linksDocFromSchema.content)!;
+
+			expect(elementsOfType(output, Link)).toHaveLength(1);
 		});
 
 		it('does render when allowMediaLinking is true', () => {
 			const reactSerializer = new ReactSerializer({ allowMediaLinking: true });
-			const wrapper = shallow(reactSerializer.serializeFragment(linksDocFromSchema.content)!);
-			expect(wrapper.find('Link')).toHaveLength(2);
+			const output = reactSerializer.serializeFragment(linksDocFromSchema.content)!;
+
+			expect(elementsOfType(output, Link)).toHaveLength(2);
 		});
 	});
 
 	describe('Heading IDs', () => {
-		it('should render headings with unique ids based on node content', () => {
-			const reactSerializer = new ReactSerializer({});
-			const wrapper = shallow(
+		const renderHeadingDoc = (props: ConstructorParameters<typeof ReactSerializer>[0]) => {
+			const reactSerializer = new ReactSerializer(props);
+			const { container } = renderWithIntl(
 				reactSerializer.serializeFragment(headingDocFromSchema.content) as any,
 			);
 
-			const headings = wrapper.find(Heading);
-			expect(headings.at(0).prop('headingId')).toEqual('Heading-1');
-			expect(headings.at(1).prop('headingId')).toEqual('Heading-2');
-			expect(headings.at(2).prop('headingId')).toEqual('Heading-1.1');
-			expect(headings.at(3).prop('headingId')).toEqual('Heading-2.1');
-			expect(headings.at(4).prop('headingId')).toEqual('!with-special-@!@#$%^&*()-characters-1?');
-			expect(headings.at(5).prop('headingId')).toEqual('CJK-characters-中文-日文-한국어');
-			expect(headings.at(6).prop('headingId')).toEqual('white----spaces');
-			expect(headings.at(7).prop('headingId')).toEqual('❤😏status[date]');
+			return Array.from(container.querySelectorAll('h1')).map((heading) =>
+				heading.getAttribute('id'),
+			);
+		};
+
+		it('should render headings with unique ids based on node content', () => {
+			expect(renderHeadingDoc({})).toEqual([
+				'Heading-1',
+				'Heading-2',
+				'Heading-1.1',
+				'Heading-2.1',
+				'!with-special-@!@#$%^&*()-characters-1?',
+				'CJK-characters-中文-日文-한국어',
+				'white----spaces',
+				'❤😏status[date]',
+			]);
 		});
 
 		it('should not render heading ids if "disableHeadingIDs" is true', () => {
-			const reactSerializer = new ReactSerializer({
-				disableHeadingIDs: true,
-			});
-			const wrapper = shallow(
-				reactSerializer.serializeFragment(headingDocFromSchema.content) as any,
-			);
-
-			const headings = wrapper.find(Heading);
-			expect(headings.at(0).prop('headingId')).toEqual(undefined);
-			expect(headings.at(1).prop('headingId')).toEqual(undefined);
-			expect(headings.at(2).prop('headingId')).toEqual(undefined);
-			expect(headings.at(3).prop('headingId')).toEqual(undefined);
+			expect(renderHeadingDoc({ disableHeadingIDs: true })).toEqual(new Array(8).fill(null));
 		});
 	});
 
@@ -681,11 +618,9 @@ describe('Renderer - ReactSerializer', () => {
 						allowNestedHeaderLinks: true,
 					},
 				});
-				const wrapper = shallow(
-					reactSerializer.serializeFragment(nestedHeadingsDocFromSchema.content) as any,
-				);
-				const expands = wrapper.find(Expand);
-				expect(expands.at(0).prop('nestedHeaderIds')).toEqual([
+				const output = reactSerializer.serializeFragment(nestedHeadingsDocFromSchema.content);
+				const expands = elementsOfType(output, Expand).map((element) => element.props as any);
+				expect(expands[0].nestedHeaderIds).toEqual([
 					'test1',
 					'test2',
 					'test3',
@@ -693,8 +628,8 @@ describe('Renderer - ReactSerializer', () => {
 					'test5',
 					'test6',
 				]);
-				expect(expands.at(1).prop('nestedHeaderIds')).toEqual(['test7']);
-				expect(expands.at(2).prop('nestedHeaderIds')).toEqual([]);
+				expect(expands[1].nestedHeaderIds).toEqual(['test7']);
+				expect(expands[2].nestedHeaderIds).toEqual([]);
 			});
 
 			it('should not provide nested header ids prop to expand nodes when allowNestedHeadersLinks is false', () => {
@@ -703,26 +638,22 @@ describe('Renderer - ReactSerializer', () => {
 						allowNestedHeaderLinks: false,
 					},
 				});
-				const wrapper = shallow(
-					reactSerializer.serializeFragment(nestedHeadingsDocFromSchema.content) as any,
-				);
-				const expands = wrapper.find(Expand);
-				expect(expands.at(0).prop('nestedHeaderIds')).toBeUndefined();
-				expect(expands.at(1).prop('nestedHeaderIds')).toBeUndefined();
-				expect(expands.at(2).prop('nestedHeaderIds')).toBeUndefined();
+				const output = reactSerializer.serializeFragment(nestedHeadingsDocFromSchema.content);
+				const expands = elementsOfType(output, Expand).map((element) => element.props as any);
+				expect(expands[0].nestedHeaderIds).toBeUndefined();
+				expect(expands[1].nestedHeaderIds).toBeUndefined();
+				expect(expands[2].nestedHeaderIds).toBeUndefined();
 			});
 
 			it('should not provide nested header ids prop to expand nodes when allowHeadingAnchorLinks is true', () => {
 				const reactSerializer = new ReactSerializer({
 					allowHeadingAnchorLinks: true,
 				});
-				const wrapper = shallow(
-					reactSerializer.serializeFragment(nestedHeadingsDocFromSchema.content) as any,
-				);
-				const expands = wrapper.find(Expand);
-				expect(expands.at(0).prop('nestedHeaderIds')).toBeUndefined();
-				expect(expands.at(1).prop('nestedHeaderIds')).toBeUndefined();
-				expect(expands.at(2).prop('nestedHeaderIds')).toBeUndefined();
+				const output = reactSerializer.serializeFragment(nestedHeadingsDocFromSchema.content);
+				const expands = elementsOfType(output, Expand).map((element) => element.props as any);
+				expect(expands[0].nestedHeaderIds).toBeUndefined();
+				expect(expands[1].nestedHeaderIds).toBeUndefined();
+				expect(expands[2].nestedHeaderIds).toBeUndefined();
 			});
 		});
 
@@ -732,28 +663,34 @@ describe('Renderer - ReactSerializer', () => {
 					allowNestedHeaderLinks: true,
 				},
 			});
-			const wrapper = mountWithIntl(
-				reactSerializer.serializeFragment(
-					nestedHeadingsWithPanelLayoutTableDocFromSchema.content,
-				) as any,
-			);
+			const renderDoc = () =>
+				renderWithIntl(
+					reactSerializer.serializeFragment(
+						nestedHeadingsWithPanelLayoutTableDocFromSchema.content,
+					) as any,
+				);
 
 			it('should have a heading anchor within a table', () => {
-				const tableWithHeadingAnchor = wrapper.find(Table).find('HeadingAnchor');
-				expect(tableWithHeadingAnchor).toBeDefined();
+				const { container } = renderDoc();
+
+				expect(container.querySelector('table [data-testid="anchor-button"]')).toBeInTheDocument();
 			});
 
 			it('should have heading anchor within a layout', () => {
-				const layoutWithHeadingAnchor = wrapper.find(LayoutColumn).find('HeadingAnchor');
-				expect(layoutWithHeadingAnchor).toBeDefined();
+				const { container } = renderDoc();
+
+				expect(
+					container.querySelector('[data-layout-column] [data-testid="anchor-button"]'),
+				).toBeInTheDocument();
 			});
 
 			it('should have heading anchor within a panel', () => {
-				const panelWithHeadingAnchor = wrapper.find(Panel).find('HeadingAnchor');
-				expect(panelWithHeadingAnchor).toBeDefined();
-			});
+				const { container } = renderDoc();
 
-			wrapper.unmount();
+				expect(
+					container.querySelector('[data-panel-type] [data-testid="anchor-button"]'),
+				).toBeInTheDocument();
+			});
 		});
 
 		describe('Legacy: Inside a table, layout, or panel', () => {
@@ -872,17 +809,19 @@ describe('Renderer - ReactSerializer', () => {
 		it('should add an extra column for numbered rows', () => {
 			const reactSerializer = new ReactSerializer({});
 			const tableFromSchema = schema.nodeFromJSON(tableDoc);
-			const wrapper = mountWithIntl(
+			const { container } = renderWithIntl(
 				reactSerializer.serializeFragment(tableFromSchema.content) as any,
 			);
 
-			expect(wrapper.find('table').prop('data-number-column')).toEqual(true);
-			expect(wrapper.find('table[data-number-column]').length).toEqual(1);
-			wrapper.unmount();
+			expect(container.querySelectorAll('table[data-number-column]')).toHaveLength(1);
+			expect(container.querySelector('table')).toHaveAttribute('data-number-column', 'true');
 		});
 	});
 
-	describe('getExpandProps - loadBodyContent for inline comments', () => {
+	// getExpandProps hands Expand the node itself; Expand derives the collapsed text mirror from it
+	// (see expand-search-text.ts and its tests) and owns both the feature gate and the
+	// inline-comment decision.
+	describe('getExpandProps - passes the expand node', () => {
 		const expandWithInlineComment = {
 			version: 1,
 			type: 'doc',
@@ -973,72 +912,36 @@ describe('Renderer - ReactSerializer', () => {
 			],
 		};
 
-		it('when feature gate hot-121622_lazy_load_expand_content is ON, sets loadBodyContent to true when expand contains inline comment annotation', () => {
-			passGate('hot-121622_lazy_load_expand_content');
+		const serializeAndGetExpandPropsForAdf = (adf: object) => {
 			const serializer = new ReactSerializer({});
-			const docNode = schema.nodeFromJSON(expandWithInlineComment);
+			const docNode = schema.nodeFromJSON(adf);
 			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
 
 			serializer.serializeFragment(docNode.content);
 
 			expect(getExpandPropsSpy).toHaveBeenCalled();
-
 			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
 			expect(expandCall).toBeDefined();
-			expect(expandCall?.value.loadBodyContent).toBe(true);
 
 			getExpandPropsSpy.mockRestore();
+			return expandCall?.value;
+		};
+
+		// Nothing forced here: for a plain `expand` this builder runs either way. Expand decides
+		// whether to hold its body back, so that is covered by its own tests.
+		it('passes the expand node through so Expand knows it can hold its body back', () => {
+			const props = serializeAndGetExpandPropsForAdf(expandWithoutAnnotation);
+
+			expect(props.node?.type.name).toBe('expand');
 		});
 
-		it('when feature gate hot-121622_lazy_load_expand_content is ON, sets loadBodyContent to false when expand does not contain annotations', () => {
-			passGate('hot-121622_lazy_load_expand_content');
-			const serializer = new ReactSerializer({});
-			const docNode = schema.nodeFromJSON(expandWithoutAnnotation);
-			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
-
-			serializer.serializeFragment(docNode.content);
-
-			expect(getExpandPropsSpy).toHaveBeenCalled();
-
-			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
-			expect(expandCall).toBeDefined();
-			expect(expandCall?.value.loadBodyContent).toBe(false);
-
-			getExpandPropsSpy.mockRestore();
-		});
-
-		it('when feature gate hot-121622_lazy_load_expand_content is ON, sets loadBodyContent to false when expand contains non-inlineComment annotation type', () => {
-			passGate('hot-121622_lazy_load_expand_content');
-			const serializer = new ReactSerializer({});
-			const docNode = schema.nodeFromJSON(expandWithNonInlineCommentAnnotation);
-			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
-
-			serializer.serializeFragment(docNode.content);
-
-			expect(getExpandPropsSpy).toHaveBeenCalled();
-
-			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
-			expect(expandCall).toBeDefined();
-			expect(expandCall?.value.loadBodyContent).toBe(false);
-
-			getExpandPropsSpy.mockRestore();
-		});
-
-		it('when feature gate hot-121622_lazy_load_expand_content is OFF, sets loadBodyContent to false even when expand contains inline comment annotation', () => {
-			failGate('hot-121622_lazy_load_expand_content');
-			const serializer = new ReactSerializer({});
-			const docNode = schema.nodeFromJSON(expandWithInlineComment);
-			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
-
-			serializer.serializeFragment(docNode.content);
-
-			expect(getExpandPropsSpy).toHaveBeenCalled();
-
-			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
-			expect(expandCall).toBeDefined();
-			expect(expandCall?.value.loadBodyContent).toBe(false);
-
-			getExpandPropsSpy.mockRestore();
+		it('passes the node regardless of annotations', () => {
+			expect(serializeAndGetExpandPropsForAdf(expandWithInlineComment).node?.type.name).toBe(
+				'expand',
+			);
+			expect(
+				serializeAndGetExpandPropsForAdf(expandWithNonInlineCommentAnnotation).node?.type.name,
+			).toBe('expand');
 		});
 	});
 
@@ -1096,26 +999,134 @@ describe('Renderer - ReactSerializer', () => {
 			],
 		};
 
-		it('when feature gate hot-121622_lazy_load_expand_content is ON, calls getExpandProps for nestedExpand and sets loadBodyContent', () => {
-			passGate('hot-121622_lazy_load_expand_content');
+		// getExpandProps is the only source of a `node` key, so its presence identifies which props
+		// builder ran.
+		const hasNodeKey = (value: unknown) =>
+			typeof value === 'object' && value !== null && 'node' in value;
+
+		// The text a collapsed expand shows in place of its blocks exists only for browser find, so the
+		// serializer joins neighbouring blocks into one string with no element around it. Four
+		// paragraphs become one text node, not four spans.
+		it('when the experiment is on, joins the text of neighbouring blocks in an expand body', () => {
+			mockExpEnabled('platform_editor_defer_collapsed_expand_body');
+			const paragraph = (text: string) => ({
+				type: 'paragraph',
+				content: [{ type: 'text', text }],
+			});
+			const docNode = schema.nodeFromJSON({
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'expand',
+						attrs: { title: 'Outer' },
+						content: [
+							paragraph('first'),
+							paragraph('second'),
+							paragraph('third'),
+							paragraph('fourth'),
+						],
+					},
+				],
+			});
+
+			const output = new ReactSerializer({}).serializeFragment(docNode.content);
+
+			// One block holding the text of all four paragraphs, rather than four blocks. Asserted on
+			// the element tree because `Expand` is loadable, so the DOM holds a placeholder here.
+			const blocks = elementsOfType(output, ExpandBodyBlock);
+			expect(blocks).toHaveLength(1);
+			expect((blocks[0].props as any).searchText).toBe('first second third fourth');
+		});
+
+		// A mark is folded around the serialized node after its children are attached, so the rows of a
+		// marked table are a level further in than they look. Reading the children of what the
+		// serializer hands over finds one element rather than the rows, and the stand-in then renders
+		// the whole table — which looks exactly like this feature being switched off. So the shape is
+		// checked here against the real serializer, with a mark the schema really allows on a table.
+		it('when the experiment is on, finds the rows of a table carrying a mark', () => {
+			mockExpEnabled('platform_editor_defer_collapsed_expand_body');
+			const row = (content: unknown) => ({
+				type: 'tableRow',
+				content: [{ type: 'tableCell', attrs: {}, content: [content] }],
+			});
+			const text = (value: string) => ({
+				type: 'paragraph',
+				content: [{ type: 'text', text: value }],
+			});
+			const docNode = schema.nodeFromJSON({
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'expand',
+						attrs: { title: 'Outer' },
+						content: [
+							{
+								type: 'table',
+								attrs: { isNumberColumnEnabled: false, layout: 'default' },
+								marks: [{ type: 'fragment', attrs: { localId: 'fragment-1' } }],
+								content: [
+									row(text('first row')),
+									row({
+										type: 'nestedExpand',
+										attrs: { title: 'Nested' },
+										content: [text('nested body')],
+									}),
+									row(text('third row')),
+								],
+							},
+						],
+					},
+				],
+			});
+			// Without this the test stops covering the mark case, which is the case that broke.
+			expect(docNode.child(0).child(0).marks).toHaveLength(1);
+
+			const output = new ReactSerializer({}).serializeFragment(docNode.content);
+
+			const standIns = elementsOfType(output, ExpandBodyTable);
+			expect(standIns).toHaveLength(1);
+
+			const { container } = renderWithIntl(
+				<ExpandBodyProvider
+					value={{
+						openWithAncestors: jest.fn(),
+						revealed: false,
+						revealedByFind: new WeakSet<PMNode>(),
+					}}
+				>
+					{standIns[0]}
+				</ExpandBodyProvider>,
+			);
+
+			// Nothing of the real table is mounted, and the rows it stood in for are text.
+			expect(container.querySelector('[data-testid="renderer-table"]')).toBeNull();
+			expect(container.textContent).toContain('first row');
+			expect(container.textContent).toContain('third row');
+			// The row holding the nested expand still renders, inside the least table that is valid.
+			expect(container.querySelectorAll('table > tbody > tr')).toHaveLength(1);
+		});
+
+		it('when the experiment is on, calls getExpandProps for nestedExpand', () => {
+			mockExpEnabled('platform_editor_defer_collapsed_expand_body');
 			const serializer = new ReactSerializer({});
 			const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
 			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
 
 			serializer.serializeFragment(docNode.content);
 
-			// Find the call for nestedExpand (will have loadBodyContent in the result)
-			const nestedExpandCall = getExpandPropsSpy.mock.results.find(
-				(result) => result.value?.loadBodyContent !== undefined,
+			const nestedExpandCall = getExpandPropsSpy.mock.results.find((result) =>
+				hasNodeKey(result.value),
 			);
 			expect(nestedExpandCall).toBeDefined();
-			expect(nestedExpandCall?.value.loadBodyContent).toBe(true);
+			expect(nestedExpandCall?.value.node?.type.name).toBe('nestedExpand');
 
 			getExpandPropsSpy.mockRestore();
 		});
 
-		it('when feature gate hot-121622_lazy_load_expand_content is OFF, calls getProps (not getExpandProps) for nestedExpand', () => {
-			failGate('hot-121622_lazy_load_expand_content');
+		it('when the experiment is off, calls getProps (not getExpandProps) for nestedExpand', () => {
+			mockExpDisabled('platform_editor_defer_collapsed_expand_body');
 			const serializer = new ReactSerializer({});
 			const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
 			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
@@ -1123,10 +1134,10 @@ describe('Renderer - ReactSerializer', () => {
 
 			serializer.serializeFragment(docNode.content);
 
-			// getExpandProps should NOT be called for nestedExpand when FG is off
+			// getExpandProps should NOT be called for nestedExpand when the experiment is off
 			// (it will still be called for regular expand nodes if any)
-			const nestedExpandCall = getExpandPropsSpy.mock.results.find(
-				(result) => result.value?.loadBodyContent !== undefined,
+			const nestedExpandCall = getExpandPropsSpy.mock.results.find((result) =>
+				hasNodeKey(result.value),
 			);
 			expect(nestedExpandCall).toBeUndefined();
 

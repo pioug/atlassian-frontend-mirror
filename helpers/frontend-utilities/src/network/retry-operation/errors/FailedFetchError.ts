@@ -4,7 +4,7 @@ export interface FailedFetchErrorProps {
 	path: string;
 }
 
-export default class FailedFetchError extends Error {
+export class FailedFetchError extends Error {
 	method: string;
 	originalName: string;
 	path: string;
@@ -21,3 +21,5 @@ export default class FailedFetchError extends Error {
 		this.path = /^[/-a-z]+$/i.test(p) ? p : '';
 	}
 }
+
+export default FailedFetchError;

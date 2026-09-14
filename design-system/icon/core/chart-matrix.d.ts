@@ -4,7 +4,7 @@
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 /**
  * @deprecated The icon "chart-matrix" is deprecated in favour of "chart-bubble" from “@atlaskit/icon/core”

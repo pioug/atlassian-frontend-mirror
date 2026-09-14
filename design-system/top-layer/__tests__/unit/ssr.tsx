@@ -28,7 +28,7 @@ test('should ssr then hydrate popover example correctly', async () => {
 });
 
 test('should ssr then hydrate dialog example correctly', async () => {
-	const examplePath = require.resolve('../../examples/04-basic-dialog');
+	const examplePath = require.resolve('../../examples/04-basic-dialog.vr.ap');
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;

@@ -1,7 +1,9 @@
-import { type MediaStoreResponse } from '../../../client/media-store';
-import { type MediaFile, type MediaItemDetails } from '../../media';
-import { mapMediaFileToFileState, mapMediaItemToFileState } from '../../file-state';
 import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+
+import type { MediaStoreResponse } from '../../../client/media-store/types';
+import { mapMediaFileToFileState } from '../../map-media-file-to-file-state';
+import { mapMediaItemToFileState } from '../../map-media-item-to-file-state';
+import { type MediaFile, type MediaItemDetails } from '../../media';
 
 describe('mapMediaFileToFileState', () => {
 	const baseMediaFile: MediaFile = {

@@ -2,7 +2,7 @@ import React, { type ReactNode, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';

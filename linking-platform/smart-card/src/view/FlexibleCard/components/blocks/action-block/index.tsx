@@ -2,22 +2,36 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { token } from '@atlaskit/tokens';
-
-import { type FlexibleUiActionName, ActionName, SmartLinkSize } from '../../../../../constants';
 import {
-	useFlexibleUiContext,
-	useFlexibleUiOptionContext,
-} from '../../../../../state/flexible-ui-context';
-import * as Actions from '../../actions';
-import type { ActionMessage } from '../../actions/action/types';
+	type FlexibleUiActionName,
+	ActionName,
+	InternalActionName,
+	SmartLinkSize,
+} from '../../../../../constants';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
 
+import Action from '../../actions/action';
+import AISummaryAction from '../../actions/ai-summary-action';
+import AutomationAction from '../../actions/automation-action';
+import CopyLinkAction from '../../actions/copy-link-action';
+import CustomUnresolvedAction from '../../actions/custom-unresolved-action';
+import DeleteAction from '../../actions/delete-action';
+import DownloadAction from '../../actions/download-action';
+import EditAction from '../../actions/edit-action';
+import FollowAction from '../../actions/follow-action';
+import PreviewAction from '../../actions/preview-action';
+import RovoChatAction from '../../actions/rovo-chat-action';
+import ViewRelatedLinksAction from '../../actions/view-related-links-action';
+import type { ActionMessage } from '../../actions/action/types';
 import { ActionFooter } from './action-footer';
+import { getPrimitivesPaddingSpaceBySize } from './getPrimitivesPaddingSpaceBySize';
 import type { ActionBlockProps } from './types';
 
 const ignoreContainerPaddingStyles = css({
@@ -31,6 +45,21 @@ const ignoreContainerPaddingStyles = css({
 	marginLeft: 'calc(var(--container-gap-left)  * -1)',
 	marginRight: 'calc(var(--container-gap-right) * -1)',
 });
+
+const Actions = {
+	[ActionName.AutomationAction]: AutomationAction,
+	[ActionName.CopyLinkAction]: CopyLinkAction,
+	[ActionName.CustomAction]: Action,
+	[ActionName.DeleteAction]: DeleteAction,
+	[ActionName.DownloadAction]: DownloadAction,
+	[ActionName.EditAction]: EditAction,
+	[ActionName.FollowAction]: FollowAction,
+	[ActionName.PreviewAction]: PreviewAction,
+	[ActionName.RovoChatAction]: RovoChatAction,
+	[InternalActionName.AISummaryAction]: AISummaryAction,
+	[InternalActionName.UnresolvedAction]: CustomUnresolvedAction,
+	[InternalActionName.ViewRelatedLinksAction]: ViewRelatedLinksAction,
+};
 
 const DEFAULT_SORT_ORDER = ['PreviewAction', 'CopyLinkAction', 'AISummaryAction'];
 
@@ -47,30 +76,6 @@ const sort = (a: FlexibleUiActionName, b: FlexibleUiActionName) => {
 	}
 
 	return idxA - idxB;
-};
-
-/**
- * Get container padding based on smart link size
- * To replace container/index.tsx getPadding() with space token for primitives
- */
-export const getPrimitivesPaddingSpaceBySize = (
-	size: SmartLinkSize,
-):
-	| 'var(--ds-space-100)'
-	| 'var(--ds-space-200)'
-	| 'var(--ds-space-250)'
-	| 'var(--ds-space-300)' => {
-	switch (size) {
-		case SmartLinkSize.XLarge:
-			return token('space.300');
-		case SmartLinkSize.Large:
-			return token('space.250');
-		case SmartLinkSize.Medium:
-			return token('space.200');
-		case SmartLinkSize.Small:
-		default:
-			return token('space.100');
-	}
 };
 
 const ActionBlock = ({

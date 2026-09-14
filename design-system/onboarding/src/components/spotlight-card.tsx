@@ -4,9 +4,10 @@
  */
 import { forwardRef, type ReactNode } from 'react';
 
-import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
+import ButtonTheme from '@atlaskit/button/theme';
 import { css, cssMap, cx, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { useLayering } from '@atlaskit/layering/use-layering';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

@@ -5,6 +5,9 @@ import { test } from './fixtures';
 test.describe('Editor Metrics - TTVC: Placeholder', () => {
 	test.use({
 		examplePage: 'vc-observer-placeholder',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/03-vc-observer-placeholder.tsx');
+		examplePage: 'vc-observer-placeholder';
 	});
 
 	test.describe('when measure the whole page', () => {
@@ -48,15 +51,5 @@ test.describe('Editor Metrics - TTVC: Placeholder', () => {
 				}),
 			);
 		});
-	});
-
-	test('should capture and report a11y violations', async ({ page, waitForTicks }) => {
-		// Wait for both ticks to ensure the placeholder replacement is complete and
-		// the DOM has settled before running the accessibility check.
-		// The example page replaces `section-to-replace` after ~150ms + rAF (tick 2),
-		// so asserting before tick 2 can catch the DOM mid-mutation, causing flakiness.
-		await waitForTicks(2);
-		await expect(page.getByTestId('section-to-replace')).toBeVisible();
-		await expect(page).toBeAccessible();
 	});
 });

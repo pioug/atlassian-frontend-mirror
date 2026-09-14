@@ -6,7 +6,7 @@ import React, { Fragment } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { Card } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 

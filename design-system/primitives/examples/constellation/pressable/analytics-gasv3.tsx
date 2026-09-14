@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import {
 	ANALYTICS_BRIDGE_CHANNEL,

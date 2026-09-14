@@ -11,7 +11,7 @@
 An example diff of a migration from Tailwind generated code to ADS generated code.
 
 ```diff
-+import Button from '@atlaskit/button/new';
++import Button from '@atlaskit/button/default/button';
 -<button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
 -  Create
 -</button>

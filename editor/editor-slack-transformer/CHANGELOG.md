@@ -1,5 +1,19 @@
 # @atlaskit/editor-slack-transformer
 
+## 5.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 5.1.1
+
+### Patch Changes
+
+- [`a0567a3d509c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0567a3d509c2) -
+  Support `panel_c1` nodes in Slack markdown serialization.
+
 ## 5.1.0
 
 ### Minor Changes

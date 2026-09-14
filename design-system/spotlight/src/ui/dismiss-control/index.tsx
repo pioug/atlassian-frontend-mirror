@@ -6,7 +6,6 @@ import { forwardRef, useContext } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,7 +15,7 @@ const styles = cssMap({
 	root: {
 		paddingBlock: token('space.075'),
 		color: token('color.text.inverse'),
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.medium'),
 		backgroundColor: token('color.background.neutral.bold'),
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.bold.hovered'),
@@ -24,9 +23,6 @@ const styles = cssMap({
 		'&:active': {
 			backgroundColor: token('color.background.neutral.bold.pressed'),
 		},
-	},
-	rootT26Shape: {
-		borderRadius: token('radius.medium'),
 	},
 });
 
@@ -75,7 +71,7 @@ export const SpotlightDismissControl: React.ForwardRefExoticComponent<
 				onClick={onClick || dismiss}
 				ref={ref}
 				testId={testId}
-				xcss={cx(styles.root, fg('platform-dst-shape-theme-default') && styles.rootT26Shape)}
+				xcss={cx(styles.root)}
 				aria-label="Dismiss"
 			>
 				<CrossIcon label="Close" />

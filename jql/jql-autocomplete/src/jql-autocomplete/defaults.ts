@@ -1,5 +1,6 @@
-import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
+import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const defaultIgnoredTokens: Set<number> = new Set([
 	JQLLexer.EOF,

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import HeadingContextProvider from '@atlaskit/heading/heading-context';
+import HeadingContextProvider from '@atlaskit/heading/heading-context/default';
 
 const _default_1: React.JSX.Element[] = [
 	<HeadingContextProvider>

@@ -1,9 +1,10 @@
-import { editorExperiment } from '../experiments';
+import { editorExperiment } from '../editor-experiment';
 import { eeTest } from '../editor-experiments-test-utils';
 import { _overrides } from '../setup';
 
 jest.mock('../experiments-config', () => {
-	const { isBoolean, oneOf } = jest.requireActual('../type-guards');
+	const { isBoolean } = jest.requireActual('../is-boolean');
+	const { oneOf } = jest.requireActual('../one-of');
 	return {
 		editorExperimentsConfig: {
 			'example-boolean': {
@@ -97,16 +98,13 @@ describe('eeTest', () => {
 	describe('Booleans', () => {
 		describe('should run each case passed with ', () => {
 			let testsCount = 0;
-			// @ts-ignore
 			eeTest('example-boolean', {
 				true: () => {
 					testsCount += 1;
-					// @ts-ignore
 					expect(editorExperiment('example-boolean', true)).toBe(true);
 				},
 				false: () => {
 					testsCount += 1;
-					// @ts-ignore
 					expect(editorExperiment('example-boolean', false)).toBe(true);
 				},
 			});
@@ -115,19 +113,16 @@ describe('eeTest', () => {
 			});
 		});
 		describe('should run each case with overrides', () => {
-			// @ts-ignore
 			eeTest(
 				'example-boolean',
 				{
 					true: () => {
-						// @ts-ignore
 						expect(editorExperiment('example-boolean', true)).toBe(true);
 						expect(_overrides).toEqual(
 							expect.objectContaining({ 'example-boolean': true, 'example-multivariate': 'one' }),
 						);
 					},
 					false: () => {
-						// @ts-ignore
 						expect(editorExperiment('example-boolean', false)).toBe(true);
 						expect(_overrides).toEqual(
 							expect.objectContaining({ 'example-boolean': false, 'example-multivariate': 'one' }),
@@ -143,22 +138,17 @@ describe('eeTest', () => {
 	describe('Multivariates', () => {
 		describe('should run each case passed with ', () => {
 			let testsCount = 0;
-			// @ts-ignore
 			eeTest('example-multivariate', {
-				// @ts-ignore
 				one: () => {
 					testsCount += 1;
-					// @ts-ignore
 					expect(editorExperiment('example-multivariate', 'one')).toBe(true);
 				},
 				two: () => {
 					testsCount += 1;
-					// @ts-ignore
 					expect(editorExperiment('example-multivariate', 'two')).toBe(true);
 				},
 				three: () => {
 					testsCount += 1;
-					// @ts-ignore
 					expect(editorExperiment('example-multivariate', 'three')).toBe(true);
 				},
 			});
@@ -168,27 +158,22 @@ describe('eeTest', () => {
 		});
 
 		describe('should run each case with overrides', () => {
-			// @ts-ignore
 			eeTest(
 				'example-multivariate',
 				{
-					// @ts-ignore
 					one: () => {
-						// @ts-ignore
 						expect(editorExperiment('example-multivariate', 'one')).toBe(true);
 						expect(_overrides).toEqual(
 							expect.objectContaining({ 'example-multivariate': 'one', 'example-boolean': true }),
 						);
 					},
 					two: () => {
-						// @ts-ignore
 						expect(editorExperiment('example-multivariate', 'two')).toBe(true);
 						expect(_overrides).toEqual(
 							expect.objectContaining({ 'example-multivariate': 'two', 'example-boolean': true }),
 						);
 					},
 					three: () => {
-						// @ts-ignore
 						expect(editorExperiment('example-multivariate', 'three')).toBe(true);
 						expect(_overrides).toEqual(
 							expect.objectContaining({

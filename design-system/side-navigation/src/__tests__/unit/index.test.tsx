@@ -3,7 +3,10 @@ import React from 'react';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
-import { NestableNavigationContent, NestingItem, Section, SideNavigation } from '../../index';
+import { NestableNavigationContent } from '../../components/NestableNavigationContent';
+import { NestingItem } from '../../components/NestingItem';
+import { Section } from '../../components/Section/section';
+import { SideNavigation } from '../../components/SideNavigation';
 
 replaceRaf();
 

@@ -4,7 +4,8 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type { JSONNode } from '../types';
 
-import { removeMarks, removeNonAnnotationMarks } from './remove-marks';
+import { removeMarks } from './remove-marks';
+import { removeNonAnnotationMarks } from './remove-non-annotation-marks';
 
 const hasNestedTable = (tableCellNode: ADFEntity) =>
 	tableCellNode.content?.some((node) => node?.type === 'table');

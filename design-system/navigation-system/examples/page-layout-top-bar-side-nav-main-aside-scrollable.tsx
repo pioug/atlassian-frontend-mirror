@@ -1,3 +1,3 @@
-import { TopBarSideNavMainAsideScrollable } from './page-layout';
+import { TopBarSideNavMainAsideScrollable } from './page-layout.vr.ap';
 
 export default TopBarSideNavMainAsideScrollable;

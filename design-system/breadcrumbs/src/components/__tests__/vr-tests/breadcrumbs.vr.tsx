@@ -1,15 +1,15 @@
 import { snapshot } from '@af/visual-regression';
 
-import BreadcrumbsBasic from '../../../../examples/0-basic';
+import BreadcrumbsBasic from '../../../../examples/0-basic.vr.ap';
 import BreadcrumbsExpandable, {
 	BreadcrumbsExpandableDefaultIsExpanded,
-} from '../../../../examples/1-long';
-import BreadcrumbsTruncation from '../../../../examples/11-truncation';
-import BreadcrumbsSkeleton from '../../../../examples/12-skeleton';
-import BreadcrumbsWithElementToSide from '../../../../examples/14-with-element-next-to-breadcrumbs';
-import BreadcrumbsWithIcons from '../../../../examples/4-icons';
-import BreadcrumbsPrimitives from '../../../../examples/6-primitives';
-import BreadcrumbsWithManyItems from '../../../../examples/7-many-in-container';
+} from '../../../../examples/1-long.vr.ap';
+import BreadcrumbsTruncation from '../../../../examples/11-truncation.vr.ap';
+import BreadcrumbsSkeleton from '../../../../examples/12-skeleton.vr.ap';
+import BreadcrumbsWithElementToSide from '../../../../examples/14-with-element-next-to-breadcrumbs.vr.ap';
+import BreadcrumbsWithIcons from '../../../../examples/4-icons.vr.ap';
+import BreadcrumbsPrimitives from '../../../../examples/6-primitives.vr.ap';
+import BreadcrumbsWithManyItems from '../../../../examples/7-many-in-container.vr.ap';
 
 const refreshFlagVariants = {
 	'platform_dst_breadcrumbs-refresh': [false, true],

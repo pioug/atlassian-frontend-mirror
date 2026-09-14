@@ -1,4 +1,4 @@
-import { type CardAppearance, type ServerActionOpts } from '@atlaskit/linking-common';
+import type { CardAppearance, ServerActionOpts } from '@atlaskit/linking-common/types';
 
 export interface ResolveRequest {
 	context?: string;

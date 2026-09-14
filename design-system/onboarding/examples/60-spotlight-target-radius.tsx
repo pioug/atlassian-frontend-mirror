@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import { Code } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
 

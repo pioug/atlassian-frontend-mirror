@@ -2,7 +2,8 @@ import type { PresencePayload } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
-import { ParticipantsService } from '../participants-service';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { AGENT_PRESENCE_TTL_MS, ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 
 const baseTime = 1676863793756;
@@ -78,14 +79,38 @@ describe('onParticpantUpdated updateParticipantEager', () => {
 	beforeEach(() => jest.clearAllMocks());
 
 	describe('when participant is new', () => {
-		const participantsService = participantsServiceConstructor({
-			emit,
-			getUser,
-		});
-
 		it('should call emit with participant', async () => {
+			const participantsService = participantsServiceConstructor({
+				emit,
+				getUser,
+			});
+
 			await participantsService.onParticipantUpdated(payload);
 			expect(emit).toHaveBeenCalledWith('presence', { joined: [hydratedParticipant] });
+		});
+
+		it('includes agent type when agent presence is moved', async () => {
+			passGate('platform_move_presence_agents');
+			const emit = jest.fn();
+			const participantsService = participantsServiceConstructor({ emit, getUser });
+
+			await participantsService.onParticipantUpdated({ ...payload, agentType: 'mcp' });
+
+			expect(emit).toHaveBeenCalledWith('presence', {
+				joined: [expect.objectContaining({ agentType: 'mcp' })],
+			});
+		});
+
+		it('omits agent type when agent presence is not moved', async () => {
+			failGate('platform_move_presence_agents');
+			const emit = jest.fn();
+			const participantsService = participantsServiceConstructor({ emit, getUser });
+
+			await participantsService.onParticipantUpdated({ ...payload, agentType: 'mcp' });
+
+			expect(emit).toHaveBeenCalledWith('presence', {
+				joined: [expect.objectContaining({ agentType: undefined })],
+			});
 		});
 	});
 
@@ -132,6 +157,34 @@ describe('onParticpantUpdated updateParticipantEager', () => {
 				expect(emit).toHaveBeenCalledTimes(3);
 			});
 		});
+
+		describe('when participant acting user is changed', () => {
+			it('should emit presence with updated participant', async () => {
+				const participantsMap: ParticipantsMap = new Map().set(
+					hydratedParticipant.sessionId,
+					hydratedParticipant,
+				);
+				const participantsService = participantsServiceConstructor({
+					participantsState: new ParticipantsState(participantsMap),
+					emit,
+					getUser,
+				});
+
+				await participantsService.onParticipantUpdated({
+					...payload,
+					actingUserId: 'acting-user',
+				});
+
+				expect(emit).toHaveBeenCalledWith('presence', {
+					joined: [
+						expect.objectContaining({
+							actingUserId: 'acting-user',
+							sessionId: hydratedParticipant.sessionId,
+						}),
+					],
+				});
+			});
+		});
 	});
 
 	describe('on error with getUser', () => {
@@ -157,8 +210,11 @@ describe('onParticpantUpdated updateParticipantEager', () => {
 
 		it('should call analytics', async () => {
 			await participantsService.onParticipantUpdated(payload);
-			expect(sendErrorEventSpy).toBeCalledTimes(1);
-			expect(sendErrorEventSpy).toBeCalledWith(fakeError, 'Error while enriching participant');
+			expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+			expect(sendErrorEventSpy).toHaveBeenCalledWith(
+				fakeError,
+				'Error while enriching participant',
+			);
 		});
 	});
 
@@ -364,6 +420,83 @@ describe('onParticipantUpdated updateParticipantLazy', () => {
 				expect(spyBatchFetchUsers).not.toHaveBeenCalled();
 			});
 
+			it('should emit presence with updated participant when previous participant receives actingUserId', async () => {
+				const participantsState: ParticipantsState = new ParticipantsState();
+				participantsState.setBySessionId('agent-session', {
+					...hydratedParticipant,
+					avatar: '',
+					email: '',
+					isHydrated: undefined,
+					name: '',
+					sessionId: 'agent-session',
+					userId: 'agent:123',
+				});
+
+				const participantsService = participantsServiceConstructor({
+					participantsState,
+					emit,
+					batchProps: defaultBatchProps,
+				});
+
+				// @ts-ignore private variable
+				participantsService.currentlyPollingFetchUsers = isCurrentlyPollingFetchUsers;
+				const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
+
+				await participantsService.onParticipantUpdated({
+					...payload,
+					actingUserId: 'rohan-account-id',
+					sessionId: 'agent-session',
+					userId: 'agent:123',
+				});
+
+				expect(emit).toHaveBeenCalledWith('presence', {
+					joined: [
+						expect.objectContaining({
+							actingUserId: 'rohan-account-id',
+							sessionId: 'agent-session',
+							userId: 'agent:123',
+						}),
+					],
+				});
+				expect(participantsState.getBySessionId('agent-session')).toEqual(
+					expect.objectContaining({
+						actingUserId: 'rohan-account-id',
+						lastActive: payload.timestamp,
+					}),
+				);
+				expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+			});
+
+			it('should update lastActive without emitting presence when actingUserId and activity are unchanged', async () => {
+				const participantsState: ParticipantsState = new ParticipantsState();
+				participantsState.setBySessionId(hydratedParticipant.sessionId, {
+					...hydratedParticipant,
+					actingUserId: 'acting-user',
+					presenceActivity: 'viewer',
+				});
+
+				const participantsService = participantsServiceConstructor({
+					participantsState,
+					emit,
+					batchProps: defaultBatchProps,
+				});
+
+				await participantsService.onParticipantUpdated({
+					...payload,
+					actingUserId: 'acting-user',
+					presenceActivity: 'viewer',
+					timestamp: baseTime + 1,
+				});
+
+				expect(participantsState.getBySessionId(hydratedParticipant.sessionId)).toEqual(
+					expect.objectContaining({
+						actingUserId: 'acting-user',
+						lastActive: baseTime + 1,
+					}),
+				);
+				expect(emit).not.toHaveBeenCalled();
+			});
+
 			test.each([['unidentified'], [undefined]])(
 				'should call emit for anonymous with userId=%s',
 				async (userId) => {
@@ -395,4 +528,123 @@ describe('onParticipantUpdated updateParticipantLazy', () => {
 			);
 		},
 	);
+
+	it('updates agent type when agent presence is moved', async () => {
+		passGate('platform_move_presence_agents');
+		const participantsState = new ParticipantsState();
+		participantsState.setBySessionId(hydratedParticipant.sessionId, hydratedParticipant);
+		const participantsService = participantsServiceConstructor({
+			participantsState,
+			emit,
+			batchProps: defaultBatchProps,
+		});
+
+		await participantsService.onParticipantUpdated({ ...payload, agentType: 'mcp' });
+
+		expect(participantsState.getBySessionId(hydratedParticipant.sessionId)).toEqual(
+			expect.objectContaining({ agentType: 'mcp' }),
+		);
+		expect(emit).toHaveBeenCalledWith('presence', {
+			joined: [expect.objectContaining({ agentType: 'mcp' })],
+		});
+	});
+
+	it('omits agent type when agent presence is not moved', async () => {
+		failGate('platform_move_presence_agents');
+		const participantsState = new ParticipantsState();
+		participantsState.setBySessionId(hydratedParticipant.sessionId, hydratedParticipant);
+		const participantsService = participantsServiceConstructor({
+			participantsState,
+			emit,
+			batchProps: defaultBatchProps,
+		});
+
+		await participantsService.onParticipantUpdated({ ...payload, agentType: 'mcp' });
+
+		expect(participantsState.getBySessionId(hydratedParticipant.sessionId)).toEqual(
+			expect.objectContaining({ agentType: undefined }),
+		);
+		expect(emit).not.toHaveBeenCalled();
+	});
+});
+
+describe('agent expiry lifecycle', () => {
+	const agentSessionId = 'agent-session';
+	const remoteAgentPayload: PresencePayload = {
+		...payload,
+		agentType: 'mcp',
+		sessionId: agentSessionId,
+		userId: 'agent:123',
+	};
+
+	beforeEach(() => {
+		passGate('platform_move_presence_agents');
+		jest.useFakeTimers();
+		jest.setSystemTime(baseTime);
+	});
+
+	afterEach(() => {
+		jest.clearAllTimers();
+		jest.useRealTimers();
+	});
+
+	it('removes a remote agent five minutes after its valid last-active timestamp', async () => {
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({
+			batchProps: { getUsers: jest.fn() },
+			emit,
+		});
+
+		await service.onParticipantUpdated(remoteAgentPayload);
+		expect(service.getAIProviderParticipants()).toEqual([
+			expect.objectContaining({ agentType: 'mcp', sessionId: agentSessionId }),
+		]);
+		emit.mockClear();
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS);
+
+		expect(service.getAIProviderParticipants()).toHaveLength(0);
+		expect(emit).toHaveBeenCalledWith('presence', {
+			left: [{ sessionId: agentSessionId }],
+		});
+	});
+
+	it('does not invent an expiry for a remote agent without a valid timestamp', async () => {
+		const service = participantsServiceConstructor({
+			batchProps: { getUsers: jest.fn() },
+		});
+
+		await service.onParticipantUpdated({ ...remoteAgentPayload, timestamp: Number.NaN });
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS * 2);
+
+		expect(service.getAIProviderParticipants()).toHaveLength(1);
+	});
+
+	it('emits presence when a remote inactive agent becomes active again', async () => {
+		const emit = jest.fn();
+		const participantsState = new ParticipantsState();
+		participantsState.setBySessionId(agentSessionId, {
+			...hydratedParticipant,
+			avatar: '',
+			email: '',
+			lastActive: baseTime,
+			name: '',
+			sessionId: agentSessionId,
+			userId: 'agent:123',
+		});
+		const service = participantsServiceConstructor({
+			batchProps: { getUsers: jest.fn() },
+			emit,
+			participantsState,
+		});
+		jest.setSystemTime(baseTime + 30 * 1000);
+
+		await service.onParticipantUpdated({
+			...remoteAgentPayload,
+			timestamp: baseTime + 30 * 1000,
+		});
+
+		expect(emit).toHaveBeenCalledWith('presence', {
+			joined: [expect.objectContaining({ sessionId: agentSessionId })],
+		});
+	});
 });

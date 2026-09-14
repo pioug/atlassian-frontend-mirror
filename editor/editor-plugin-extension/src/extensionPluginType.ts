@@ -18,8 +18,9 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
@@ -48,6 +49,7 @@ export type ExtensionState<T extends Parameters = Parameters> = {
 	processParametersAfter?: TransformAfter<T>;
 	processParametersBefore?: TransformBefore<T>;
 	showContextPanel: boolean;
+	showCopyButton: boolean;
 	showEditButton: boolean;
 	updateExtension?: Promise<UpdateExtension<T> | void>;
 };
@@ -74,6 +76,24 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 	};
 	appearance?: EditorAppearance;
 	breakoutEnabled?: boolean;
+	/**
+	 * Whether the extension floating toolbar offers a copy button. Defaults to
+	 * `true`. Set `false` for content whose structure the product fixes, so the
+	 * toolbar does not offer an action the document will refuse.
+	 *
+	 * Gated on `platform_editor_extension_hide_toolbar_actions`: until that gate
+	 * is on, setting this has no effect.
+	 *
+	 * For hiding copy on a single extension type instead, use the manifest node's
+	 * `hideCopyButton`, which is not gated on the above.
+	 */
+	copyEnabled?: boolean;
+	/**
+	 * Whether the extension floating toolbar offers a delete button. Defaults to
+	 * `true`, and gated on `platform_editor_extension_hide_toolbar_actions` the
+	 * same way `copyEnabled` is.
+	 */
+	deleteEnabled?: boolean;
 	extensionHandlers?: ExtensionHandlers;
 	/**
 	 * Helps optimize layout shift while rendering by setting minimum heights before the extension content loads.
@@ -125,6 +145,7 @@ export type ExtensionPluginDependencies = [
 	OptionalPlugin<ToolbarPlugin>,
 	OptionalPlugin<MentionsPlugin>,
 	OptionalPlugin<CopyButtonPlugin>,
+	OptionalPlugin<BlockMenuPlugin>,
 ];
 
 export type RegisterExtensionLoadingHandler = (options: {

@@ -1,5 +1,4 @@
 // backup real global Date object
-// @ts-ignore
 const _Date = global.Date;
 
 export default {
@@ -50,7 +49,6 @@ export default {
 	},
 
 	reset: function reset(): void {
-		// @ts-ignore
 		global.Date = _Date;
 	},
 };

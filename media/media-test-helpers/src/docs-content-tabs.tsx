@@ -5,7 +5,10 @@
 import { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
+import Tabs from '@atlaskit/tabs/tabs';
+import Tab from '@atlaskit/tabs/tab';
+import TabList from '@atlaskit/tabs/tab-list';
+import useTabPanel from '@atlaskit/tabs/use-tab-panel';
 
 const panelStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

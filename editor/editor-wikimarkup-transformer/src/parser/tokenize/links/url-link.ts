@@ -1,7 +1,7 @@
 import type { ContentLink } from './link-parser';
 import { TokenType } from '../index';
 import type { Context } from '../../../interfaces';
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import { parseString } from '../../text';
 import { hasAnyOfMarks } from '../../utils/text';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';

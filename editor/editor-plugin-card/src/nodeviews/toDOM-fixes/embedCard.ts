@@ -8,8 +8,8 @@
  * In the long term likely `toDOM` will move back out of `adf-schema` in which
  * case we can consolidate them.
  */
-import { embedCard, embedCardWithLocalId } from '@atlaskit/adf-schema';
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import { embedCard, embedCardWithLocalId } from '@atlaskit/adf-schema/embed-card';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type {
 	AttributeSpec,
@@ -22,7 +22,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 // From `packages/editor/editor-common/src/ui/MediaSingle/styled.tsx`

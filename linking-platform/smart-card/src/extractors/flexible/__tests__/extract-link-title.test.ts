@@ -1,4 +1,4 @@
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import { SmartLinkStatus } from '../../../constants';
 import { mocks } from '../../../utils/mocks';

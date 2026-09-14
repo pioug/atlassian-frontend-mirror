@@ -1,8 +1,10 @@
 # no-container-queries
 
 Blocks `@container` at-rules
-([container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/@container)), which are
-unsafe.
+([container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/@container)) by default. The
+rule allows a narrowly-scoped exception when the named container is declared in the same file and
+the query is dimension-based (width/height or a range). Style queries, unnamed queries, and IDs
+shared across files remain blocked.
 
 Container queries are unsafe because they:
 
@@ -16,6 +18,31 @@ a
 [WidthObserver](https://atlaskit.atlassian.com/packages/design-system/width-detector/docs/migration-guide),
 or a custom [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
 instead.
+
+Approved queries must use `satisfies` with the default type import from
+`@atlaskit/css/at-rules/container`, and the name after `@container` must match the local
+`containerName` declaration:
+
+```tsx
+import { cssMap } from '@atlaskit/css';
+import type ContainerQuery from '@atlaskit/css/at-rules/container';
+
+const styles = cssMap({
+	root: { containerName: 'sidebar', containerType: 'inline-size' },
+	content: {
+		['@container sidebar (width > 300px)' satisfies ContainerQuery]: {},
+	},
+});
+
+export const Card = () => (
+	<div css={styles.root}>
+		<div css={styles.content}>Card content</div>
+	</div>
+);
+```
+
+Test approved responsive states at 400% zoom and 270–320px widths. Do not use style queries such as
+`@container sidebar style(--density: compact)`.
 
 ## Examples
 

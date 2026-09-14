@@ -1,8 +1,9 @@
 // TODO: eventually move this file to @atlaskit/link-actions
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+
+import type { APIError } from './APIError';
 import { type CardActionType, type CardAction, type MetadataStatus } from './types';
-import { type APIError } from './errors';
 export const ACTION_PENDING = 'pending';
 export const ACTION_RESOLVING = 'resolving';
 export const ACTION_RESOLVED = 'resolved';

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 import {
 	UploadController,
 	type TouchFileDescriptor,
@@ -31,7 +31,7 @@ import {
 	getMediaTypeFromMimeType,
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export interface CancellableFileUpload {
 	mediaFile: MediaFile;

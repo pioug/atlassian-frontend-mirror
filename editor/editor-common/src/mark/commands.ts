@@ -3,7 +3,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line no-duplicate-imports
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EditorCommand } from '../types';
 

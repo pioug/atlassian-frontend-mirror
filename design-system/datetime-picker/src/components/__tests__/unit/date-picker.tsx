@@ -7,6 +7,7 @@ import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
@@ -360,6 +361,50 @@ describe('DatePicker', () => {
 				fireEvent.input(input, { target: { value: exampleDate.input } });
 				expect(onChangeSpy).not.toHaveBeenCalled();
 
+				// eslint-disable-next-line testing-library/prefer-user-event
+				fireEvent.keyDown(input, { key: 'Enter' });
+
+				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso, expect.any(Object));
+			});
+
+			it('parses a dateFormat display label when the gate is on', () => {
+				passGate('platform-dst-dp-parse-date-format');
+				const onChangeSpy = jest.fn();
+				const dateFormat = 'MMMM/DD/YYYY';
+				const displayLabel = format(parseISO(exampleDate.iso), convertTokens(dateFormat));
+
+				render(
+					createDatePicker({
+						id: 'dateFormatParse-DatePicker',
+						dateFormat,
+						onChange: onChangeSpy,
+					}),
+				);
+
+				const input = getInput();
+				// eslint-disable-next-line testing-library/prefer-user-event
+				fireEvent.input(input, { target: { value: displayLabel } });
+				// eslint-disable-next-line testing-library/prefer-user-event
+				fireEvent.keyDown(input, { key: 'Enter' });
+
+				expect(onChangeSpy).toHaveBeenCalledWith(exampleDate.iso, expect.any(Object));
+			});
+
+			it('falls back to locale parsing when typed input does not match dateFormat', () => {
+				passGate('platform-dst-dp-parse-date-format');
+				const onChangeSpy = jest.fn();
+
+				render(
+					createDatePicker({
+						id: 'dateFormatFallback-DatePicker',
+						dateFormat: 'MMM D, YYYY',
+						onChange: onChangeSpy,
+					}),
+				);
+
+				const input = getInput();
+				// eslint-disable-next-line testing-library/prefer-user-event
+				fireEvent.input(input, { target: { value: exampleDate.input } });
 				// eslint-disable-next-line testing-library/prefer-user-event
 				fireEvent.keyDown(input, { key: 'Enter' });
 

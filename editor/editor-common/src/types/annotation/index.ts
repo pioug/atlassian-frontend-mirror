@@ -1,5 +1,5 @@
-import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type {
 	AddNodeMarkStep,
 	AddMarkStep,

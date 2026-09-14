@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c7faa61cb893faefd5666749e37c105e>>
+ * @codegen <<SignedSource::da24d10782393264ed5148f381fe2702>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "DiagramSymbolParallelMi".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const DiagramSymbolParallelMiIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const DiagramSymbolParallelMiIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramSymbolParallelMiIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M3.5 15H2V1h1.5zm5.25 0h-1.5V1h1.5zM14 15h-1.5V1H14z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

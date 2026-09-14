@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren, useCallback } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { ErrorBoundaryUI } from '../../../common/ui/error-boundary-ui';

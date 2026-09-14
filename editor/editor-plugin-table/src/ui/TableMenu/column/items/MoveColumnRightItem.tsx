@@ -7,11 +7,13 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { moveColumnRight, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import {
-	TableColumnMoveRightIcon,
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-} from '@atlaskit/editor-toolbar';
+import { TableColumnMoveRightIcon } from '@atlaskit/editor-toolbar/column-move-right-icon';
+import { InformationCircleIcon } from '@atlaskit/editor-toolbar/information-circle-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
+import { Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { moveSourceWithAnalytics } from '../../../../pm-plugins/drag-and-drop/commands-with-analytics';
@@ -62,13 +64,41 @@ export const MoveColumnRightItem = (props: TableMenuComponentsParams): React.JSX
 		return null;
 	}
 
+	const label = formatMessage(messages.moveColumnRight, { 0: selectedColumnCount });
+
+	if (!Boolean(tableMenuContext?.canMoveColumnRight)) {
+		return (
+			<ToolbarDropdownItem
+				elemBefore={
+					<TableColumnMoveRightIcon color={token('color.text.disabled')} label="" size="small" />
+				}
+				elemAfter={
+					<Tooltip
+						content={formatMessage(messages.canNotMoveColumnRightWithMergedCells)}
+						position="top"
+					>
+						{(tooltipProps) => (
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							<span {...tooltipProps}>
+								<InformationCircleIcon label="" size="small" color={token('color.icon')} />
+							</span>
+						)}
+					</Tooltip>
+				}
+			>
+				<Text color="color.text.disabled">{label}</Text>
+			</ToolbarDropdownItem>
+		);
+	}
+
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
 			elemBefore={<TableColumnMoveRightIcon color="currentColor" label="" size="small" />}
 			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(moveColumnRight) ?? ''} />}
 		>
-			{formatMessage(messages.moveColumnRight, { 0: selectedColumnCount })}
+			{label}
 		</ToolbarDropdownItem>
 	);
 };

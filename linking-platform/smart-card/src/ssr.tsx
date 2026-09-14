@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { CardProps } from './types';
 import { context } from './utils/analytics/analytics';
-import { isFlexibleUiCard } from './utils/flexible';
+import { isFlexibleUiCard } from './utils/is-flexible-ui-card';
 import CardErrorBoundary from './view/CardWithUrl/card-error-boundary';
 import { CardWithUrl } from './view/CardWithUrl/component';
 

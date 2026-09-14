@@ -6,11 +6,12 @@ import {
 	type ProcessingFailedState,
 	RequestError,
 } from '@atlaskit/media-client';
-import { getFileAttributes } from '../../../../analytics';
-import { MediaViewerError } from '../../../../errors';
+
+import { MediaViewerError } from '../../../../MediaViewerError';
+import { createDownloadFailedEventPayload } from '../../../../analytics/events/operational/createDownloadFailedEventPayload';
 import { createLoadFailedEvent } from '../../../../analytics/events/operational/loadFailed';
 import { createZipEntryLoadFailedEvent } from '../../../../analytics/events/operational/zipEntryLoadFailed';
-import { createDownloadFailedEventPayload } from '../../../../analytics/events/operational/download';
+import { getFileAttributes } from '../../../../analytics/getFileAttributes';
 
 export const processedFile: ProcessedFileState = {
 	status: 'processed',

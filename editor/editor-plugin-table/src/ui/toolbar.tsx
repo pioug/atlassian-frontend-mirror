@@ -64,9 +64,10 @@ import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	clearHoverSelection,
@@ -119,7 +120,7 @@ import type {
 } from '../types';
 import { TableCssClassName } from '../types';
 
-import { colorPaletteColumns, colorPaletteColumnsOld } from './consts';
+import { colorPaletteColumns, colorPalletteColumns } from './consts';
 import { FloatingAlignmentButtons } from './FloatingAlignmentButtons/FloatingAlignmentButtons';
 
 export const getToolbarMenuConfig = (
@@ -491,6 +492,51 @@ const getTableWrapperFromParentImpl = (parent: Node | undefined) => {
 	return closestElement(tableRef, `.${TableCssClassName.TABLE_NODE_WRAPPER}`) || undefined;
 };
 
+let cachedTableWrapperParent: Node | undefined;
+let cachedTableWrapperEditorRoot: HTMLElement | undefined;
+let cachedTableWrapper: HTMLElement | undefined;
+
+const getCachedTableWrapperFromParent = (parent: Node | undefined, editorView: EditorView) => {
+	const editorRoot = editorView.dom;
+	if (
+		parent &&
+		parent === cachedTableWrapperParent &&
+		editorRoot === cachedTableWrapperEditorRoot &&
+		cachedTableWrapper?.isConnected &&
+		editorRoot.isConnected &&
+		editorRoot.contains(parent) &&
+		editorRoot.contains(cachedTableWrapper) &&
+		parent.contains(cachedTableWrapper) &&
+		cachedTableWrapper.querySelector('table')
+	) {
+		return cachedTableWrapper;
+	}
+
+	cachedTableWrapperParent = parent;
+	cachedTableWrapperEditorRoot = editorRoot;
+	cachedTableWrapper = undefined;
+
+	if (!parent || !parent.isConnected || !editorRoot.isConnected || !editorRoot.contains(parent)) {
+		return undefined;
+	}
+
+	if (!(parent instanceof HTMLElement)) {
+		return undefined;
+	}
+
+	const tableWrapper = getTableWrapperFromParentImpl(parent);
+	if (
+		tableWrapper?.isConnected &&
+		editorRoot.contains(tableWrapper) &&
+		parent.contains(tableWrapper)
+	) {
+		cachedTableWrapper = tableWrapper;
+	}
+
+	return cachedTableWrapper;
+};
+
+// Remove this function when cleaning up `platform_editor_table_toolbar_position_fix`
 // Create memoized version ONCE - reused across all calls
 const getMemoizedTableWrapperFromParent = memoizeOne(getTableWrapperFromParentImpl);
 
@@ -553,7 +599,9 @@ export const getToolbarConfig =
 			const getDomRef = (editorView: EditorView) => {
 				const domAtPos = editorView.domAtPos.bind(editorView);
 				const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
-				return getMemoizedTableWrapperFromParent(parent);
+				return isExperimentEnabled('platform_editor_table_toolbar_position_fix')
+					? getCachedTableWrapperFromParent(parent, editorView)
+					: getMemoizedTableWrapperFromParent(parent);
 			};
 
 			const menu = getToolbarMenuConfig(
@@ -923,7 +971,7 @@ const getColorPicker = (
 			type: 'select',
 			isAriaExpanded: true,
 			selectType: 'color',
-			cols: isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld,
+			cols: isMoreColorsEnabled ? colorPaletteColumns : colorPalletteColumns,
 			defaultValue: defaultPalette,
 			options: activePalette,
 			returnEscToButton: true,

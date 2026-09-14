@@ -9,9 +9,12 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 import type { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
-import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
-import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
-import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

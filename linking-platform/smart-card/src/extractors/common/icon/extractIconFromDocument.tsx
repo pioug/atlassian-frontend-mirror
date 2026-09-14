@@ -1,10 +1,10 @@
 import React from 'react';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
-import { isConfluenceGenerator } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isConfluenceGenerator } from '@atlaskit/link-extractors/is-confluence-generator';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { getIconForFileType } from '../../../utils';
+import { getIconForFileType } from '../../../utils/get-icon-for-file-type';
 
 import { type IconOpts } from './extractIcon';
 import { prioritiseIcon } from './prioritiseIcon';

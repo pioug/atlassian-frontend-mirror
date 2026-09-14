@@ -4,7 +4,8 @@ import { render } from '@testing-library/react';
 
 import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
 
-import { MediaClientProvider, useMediaClient } from '../../src';
+import { MediaClientProvider } from '../../src/MediaClientProvider';
+import { useMediaClient } from '../../src/useMediaClient';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MediaClientProvider', () => {

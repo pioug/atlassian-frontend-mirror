@@ -8,7 +8,7 @@ import {
 	type PlaygroundConfig,
 } from '@atlassian/teams-app-internal-playground/playground';
 
-import { TeamContainers } from '../src';
+import { TeamContainers } from '../src/ui/team-containers/main';
 
 const jiraProject = {
 	node: {

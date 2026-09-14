@@ -1,5 +1,19 @@
 # Changelog
 
+## 8.2.0
+
+### Minor Changes
+
+- [`6fc1266a1e2d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fc1266a1e2d8) -
+  Update Chunkinator to conform to Volt Component standards
+
+## 8.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
 ## 8.0.0
 
 ### Major Changes

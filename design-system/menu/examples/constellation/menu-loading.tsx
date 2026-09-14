@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import ButtonItem from '@atlaskit/menu/button-item';

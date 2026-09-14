@@ -1,16 +1,15 @@
-export {
-	components,
-	createFilter,
-	mergeStyles,
-	type CSSObjectWithLabel,
-} from './entry-points/react-select';
-export { useAsync } from './entry-points/use-async';
-export { useCreatable } from './entry-points/use-creatable';
+export { components } from '@atlaskit/react-select/components';
+export { createFilter } from '@atlaskit/react-select/filters';
+export { mergeStyles } from '@atlaskit/react-select/styles';
+export { type CSSObjectWithLabel } from '@atlaskit/react-select/types';
+export { default as useAsync } from '@atlaskit/react-select/use-async';
+export { default as useCreatable } from '@atlaskit/react-select/use-creatable';
 
 export { CheckboxOption } from './components/checkbox-option';
 export { RadioOption } from './components/radio-option';
 
-export { default, SelectWithoutAnalytics } from './entry-points/select';
+export { default } from './select';
+export { SelectWithoutAnalytics } from './select-without-analytics';
 export { default as AsyncSelect } from './async-select';
 export { default as CreatableSelect } from './creatable-select';
 export { default as AsyncCreatableSelect } from './async-creatable-select';

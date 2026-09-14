@@ -3,10 +3,11 @@ import React, { useEffect } from 'react';
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import {
@@ -21,28 +22,30 @@ import {
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../index';
 import { messages } from '../../../messages';
-import * as ufo from '../../../state/analytics/ufoExperiences';
+
 import type { InvokeClientActionProps } from '../../../state/hooks/use-invoke-client-action/types';
-import { context } from '../../../utils/analytics';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
+import { context } from '../../../utils/analytics/analytics';
 import { mocks } from '../../../utils/mocks';
 import * as EmbedContent from '../components/embed-content';
 import { MAX_MODAL_SIZE } from '../constants';
 import EmbedModal from '../index';
 import { EmbedModalSize } from '../types';
+import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
+import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
 
 jest.mock('uuid', () => ({
 	...jest.requireActual('uuid'),
 	__esModule: true,
-	default: jest.fn().mockReturnValue('some-uuid-1'),
+	v4: jest.fn().mockReturnValue('some-uuid-1'),
 }));
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 // the next line and associated import. For more information, see go/afm-a11y-tooling:jest
 skipAutoA11yFile();
 
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
+jest.mock('@atlaskit/link-provider/use-smart-link-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-link-context'),
 	useSmartLinkContext: () => ({
 		store: {
 			getState: () => ({ 'test-url': mocks.analytics }),
@@ -473,8 +476,8 @@ describe('EmbedModal', () => {
 		});
 
 		it('dispatches analytics event on open url on a new tab', async () => {
-			const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-			const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+			const ufoStartSpy = jest.spyOn(startUfoExperienceModule, 'startUfoExperience');
+			const ufoSucceedSpy = jest.spyOn(succeedUfoExperienceModule, 'succeedUfoExperience');
 			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
 
 			renderEmbedModal({ invokeViewAction, url: 'https://link-url' });
@@ -588,8 +591,8 @@ describe('EmbedModal', () => {
 		});
 
 		it('dispatches analytics event on download url', async () => {
-			const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-			const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+			const ufoStartSpy = jest.spyOn(startUfoExperienceModule, 'startUfoExperience');
+			const ufoSucceedSpy = jest.spyOn(succeedUfoExperienceModule, 'succeedUfoExperience');
 			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
 			const url = 'https://download-url';
 

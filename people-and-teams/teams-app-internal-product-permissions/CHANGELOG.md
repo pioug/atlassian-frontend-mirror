@@ -1,5 +1,19 @@
 # @atlaskit/teams-app-internal-product-permissions
 
+## 2.2.1
+
+### Patch Changes
+
+- [`9b92bd5cd261c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b92bd5cd261c) -
+  VOLTC-156 - run volt-migrate-package on @atlaskit/teams-app-internal-product-permissions
+
+## 2.2.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+
 ## 2.1.0
 
 ### Minor Changes

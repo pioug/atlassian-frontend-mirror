@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, waitFor, screen, cleanup } from '@testing-library/react';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import {
 	VirtualList,
 	virtualListScrollContainerTestId,
@@ -56,7 +55,6 @@ describe('VirtualList', () => {
 	};
 
 	beforeEach(() => {
-		failGate('platform_a11y_fixes_reaction_emoji');
 		getExperimentValueSpy = jest
 			.spyOn(FeatureGates, 'getExperimentValue')
 			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);

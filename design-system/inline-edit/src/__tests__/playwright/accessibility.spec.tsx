@@ -7,6 +7,7 @@ test.describe('Inline Edit textarea-usage should pass basic aXe audit', () => {
 			'design-system',
 			'inline-edit',
 			'textarea-usage',
+			{ 'react-18-mode': 'modern' },
 		);
 	});
 	test('Should hide edit button after confirmation', async ({ page }) => {

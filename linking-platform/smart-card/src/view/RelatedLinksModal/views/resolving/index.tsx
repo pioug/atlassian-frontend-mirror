@@ -4,7 +4,7 @@
  */
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 const styles = cssMap({
 	style: {

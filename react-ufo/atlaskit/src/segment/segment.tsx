@@ -14,6 +14,7 @@ import {
 	unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
@@ -25,8 +26,9 @@ import {
 	getMinorInteractions,
 	isUFOEnabled,
 } from '../config';
-import { sanitizeLabelStackName } from '../create-payload/common/utils';
-import { getActiveTrace, setInteractionActiveTrace } from '../experience-trace-id-context';
+import { sanitizeLabelStackName } from '../create-payload/common/utils/sanitize-label-stack-name';
+import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
+import { setInteractionActiveTrace } from '../experience-trace-id-context/set-interaction-active-trace';
 import UFOInteractionContext, { type LabelStack } from '../interaction-context';
 import UFOInteractionIDContext from '../interaction-id-context';
 import {
@@ -63,6 +65,7 @@ export type Props = {
 	children: ReactNode;
 	mode?: 'list' | 'single';
 	type?: UFOSegmentType;
+	excludeFromMetrics?: boolean;
 };
 
 let tryCompleteHandle: number | undefined;
@@ -75,6 +78,7 @@ const UFOSegment: {
 	children,
 	mode = 'single',
 	type = 'first-party',
+	excludeFromMetrics = false,
 }: Props): React.JSX.Element => {
 	// If UFO is disabled, render children without any tracking overhead
 	// Note: isUFOEnabled() returns a stable value based on config, so it's safe to call before hooks
@@ -103,26 +107,17 @@ const UFOSegment: {
 		return newSegmentId;
 	}, [mode, segmentName, segmentIdMap]);
 
-	const labelStack: LabelStack = useMemo(
-		() =>
-			parentContext?.labelStack
-				? [
-						...parentContext.labelStack,
-						{
-							name: segmentName,
-							segmentId,
-							...(type !== 'first-party' ? { type } : {}),
-						}, // Only pass non-default types (not 'first-party') in payload to reduce size
-					]
-				: [
-						{
-							name: segmentName,
-							segmentId,
-							...(type !== 'first-party' ? { type } : {}),
-						},
-					],
-		[parentContext, segmentName, segmentId, type],
-	);
+	const labelStack: LabelStack = useMemo(() => {
+		// Only stamp `excludeFromMetrics` alongside a third-party type.
+		// So it can never remove first-party work from metrics.
+		const label = {
+			name: segmentName,
+			segmentId,
+			...(type !== 'first-party' ? { type } : {}), // Only pass non-default types (not 'first-party') in payload to reduce size
+			...(excludeFromMetrics && type === 'third-party' ? { excludeFromMetrics: true } : {}),
+		};
+		return parentContext?.labelStack ? [...parentContext.labelStack, label] : [label];
+	}, [parentContext, segmentName, segmentId, type, excludeFromMetrics]);
 
 	const interactionId = useContext(UFOInteractionIDContext);
 	const interactionContext = useMemo<EnhancedUFOInteractionContextType>(() => {

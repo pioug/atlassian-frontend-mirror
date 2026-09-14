@@ -2,16 +2,16 @@ import { createElement } from 'react';
 
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { ACTIVE_QUICK_INSERT_ATTR } from '../ui/consts';
@@ -21,7 +21,7 @@ import type { AnchorRectCache } from './utils/anchor-utils';
 import { getMatchingBlockMarks } from './utils/marks';
 
 const TYPE_QUICK_INSERT = 'INSERT_BUTTON';
-const TYPE_ACTIVE_QUICK_INSERT_NODE = 'active-quick-insert-node';
+export const TYPE_ACTIVE_QUICK_INSERT_NODE = 'active-quick-insert-node';
 
 export const findQuickInsertInsertButtonDecoration = (
 	decorations: DecorationSet,
@@ -97,9 +97,7 @@ export const quickInsertButtonDecoration = ({
 						])
 					: [],
 				destroy: (_: Node) => {
-					if (fg('platform_editor_fix_widget_destroy')) {
-						nodeViewPortalProviderAPI.remove(key);
-					}
+					nodeViewPortalProviderAPI.remove(key);
 					cleanupCallbacks.forEach((cb) => {
 						cb();
 					});
@@ -109,9 +107,7 @@ export const quickInsertButtonDecoration = ({
 				side: -2,
 				type: TYPE_QUICK_INSERT,
 				destroy: (_: Node) => {
-					if (fg('platform_editor_fix_widget_destroy')) {
-						nodeViewPortalProviderAPI.remove(key);
-					}
+					nodeViewPortalProviderAPI.remove(key);
 					cleanupCallbacks.forEach((cb) => {
 						cb();
 					});

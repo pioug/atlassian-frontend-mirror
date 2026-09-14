@@ -1,27 +1,21 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { messages } from '../../../../components/i18n';
-import { CategoryDescriptionMap } from '../../../../components/picker/categories';
-import CategorySelector, {
-	type Props,
-	sortCategories,
-} from '../../../../components/picker/CategorySelector';
-import { RENDER_EMOJI_PICKER_LIST_TESTID } from '../../../../components/picker/EmojiPickerList';
-import { defaultCategories } from '../../../../util/constants';
-import { isMessagesKey } from '../../../../util/type-helpers';
-import type { CategoryId } from '../../../../types';
-import { renderWithIntl } from '../../_testing-library';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { expectTabIndexFromList } from './_emoji-picker-test-helpers';
 import { act } from 'react-test-renderer';
+
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+
+import { messages } from '../../../../components/i18n';
+import type { Props } from '../../../../components/picker/CategorySelector';
+import CategorySelector from '../../../../components/picker/CategorySelector';
+import { RENDER_EMOJI_PICKER_LIST_TESTID } from '../../../../components/picker/EmojiPickerList';
+import { CategoryDescriptionMap } from '../../../../components/picker/categories';
+import { sortCategories } from '../../../../components/picker/sortCategories';
+import type { CategoryId } from '../../../../types';
+import { defaultCategories } from '../../../../util/constants';
+import { isMessagesKey } from '../../../../util/is-messages-key';
+import { renderWithIntl } from '../../_testing-library';
+import { expectTabIndexFromList } from './_emoji-picker-test-helpers';
 
 describe('<CategorySelector />', () => {
 	const setupComponent = (props?: Props) => renderWithIntl(<CategorySelector {...props} />);
@@ -40,6 +34,7 @@ describe('<CategorySelector />', () => {
 			.mockImplementation((experimentName, _parameterName, defaultValue) =>
 				experimentName === 'tef_fix_a11y_keyboard_control_emoji_picker' ? true : defaultValue,
 			);
+		jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 	};
 
 	afterEach(() => {
@@ -126,7 +121,9 @@ describe('<CategorySelector />', () => {
 			}
 			const shouldBeActive = i === 3;
 			if (shouldBeActive) {
-				expect(button).toMatchSnapshot();
+				expect(button).toHaveAttribute('aria-selected', 'true');
+			} else {
+				expect(button).toHaveAttribute('aria-selected', 'false');
 			}
 		});
 	});

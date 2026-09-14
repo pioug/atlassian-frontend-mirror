@@ -109,7 +109,6 @@ export type InlineCommentAction =
 	  };
 
 export type InlineCommentPluginState = {
-	annotationsLoaded: boolean;
 	/**
 	 * The resolved state of the annotations.
 	 *
@@ -131,6 +130,7 @@ export type InlineCommentPluginState = {
 	 * ```
 	 */
 	annotations: InlineCommentMap;
+	annotationsLoaded: boolean;
 	bookmark?: SelectionBookmark;
 	/**
 	 * Indicates the document has annotations which it does not currently know the resolved state of.

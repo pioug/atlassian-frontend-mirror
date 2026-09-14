@@ -8,7 +8,7 @@ import type { SerializedStyles } from '@emotion/react';
 import { Component, createRef } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorProps, EditorActions } from '@atlaskit/editor-core';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
@@ -21,7 +21,7 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 // eslint-disable-next-line  no-restricted-imports -- Legacy package outside of AFM lacks entry points
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';

@@ -1,5 +1,25 @@
 # @atlaskit/editor-performance-metrics
 
+## 4.0.0
+
+### Major Changes
+
+- [`a70e1af6e4130`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a70e1af6e4130) -
+  EDITOR-8867 Remove the `editor inp` implementation: the `EditorINPMetrics` component in
+  `@atlaskit/editor-core` and the `inp` entry point (`setupINPTracking`) with its vendored `onINP`
+  internals in `@atlaskit/editor-performance-metrics`. Interaction latency is reported by the
+  `editor interactivity` event from `@atlaskit/editor-plugin-interactivity`, which should be used
+  instead.
+
+## 3.2.1
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+
 ## 3.2.0
 
 ### Minor Changes

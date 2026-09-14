@@ -1,6 +1,7 @@
 import type { ADFNode, ADFNodeContentOneOrMoreSpec } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or } from '@atlaskit/adf-schema-generator';
 import { blockCard } from '../nodes/blockCard';
+import { bodiedRule } from '../nodes/bodiedRule';
 import { blockquote } from '../nodes/blockquote';
 import { codeBlock } from '../nodes/codeBlock';
 import { decisionList } from '../nodes/decisionList';
@@ -26,6 +27,8 @@ export const tableCellContentNodes: Array<ADFNode<any, any>> = [
 	orderedList,
 	bulletList,
 	rule,
+	rule.use('with_attrs'),
+	bodiedRule,
 	heading.use('with_no_marks'),
 	heading.use('with_alignment'),
 	heading.use('with_indentation'),

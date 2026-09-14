@@ -6,7 +6,7 @@ import {
 	type Identifiers,
 	type OptionsWithDefaults,
 	PerimeterType,
-} from '@atlaskit/feature-gate-js-client';
+} from '@atlaskit/feature-gate-js-client/types';
 
 import SingleFetchProvider, { type ProviderOptions } from '../index';
 

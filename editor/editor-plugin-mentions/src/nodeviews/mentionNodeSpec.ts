@@ -1,4 +1,4 @@
-import { mention } from '@atlaskit/adf-schema';
+import { mention } from '@atlaskit/adf-schema/mention';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';

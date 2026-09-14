@@ -1,22 +1,31 @@
-import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Tag, { type TagColor } from '@atlaskit/tag';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import React from 'react';
-import { token } from '@atlaskit/tokens';
+
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Tag from '@atlaskit/tag/removable-tag';
+import type { TagColor } from '@atlaskit/tag/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import {
-	isRestricted,
-	type MentionDescription,
-	type OnMentionEvent,
-	type Presence,
-	type LozengeProps,
-	type LozengeColor,
+import { token } from '@atlaskit/tokens';
+
+import { isAgentMention } from '../../is-agent-mention';
+import { isRestricted } from '../../is-restricted';
+import type {
+	MentionDescription,
+	OnMentionEvent,
+	Presence,
+	LozengeProps,
+	LozengeColor,
 } from '../../types';
 import { NoAccessLabel } from '../../util/i18n';
-import { leftClick } from '../../util/mouse';
-import AsyncNoAccessTooltip from '../NoAccessTooltip';
+import { leftClick } from '../../util/left-click';
 import AsyncLockCircleIcon from '../LockCircleIcon';
+import { MentionAvatar } from '../MentionAvatar';
+import MentionDescriptionByline from '../MentionDescriptionByline';
+import MessagesIntlProvider from '../MessagesIntlProvider';
+import AsyncNoAccessTooltip from '../NoAccessTooltip';
+import { renderHighlight } from './MentionHighlightHelpers';
 import {
 	AccessSectionStyle,
 	AvatarStyle,
@@ -28,10 +37,6 @@ import {
 	RowStyleNext,
 	TimeStyle,
 } from './styles';
-import { renderHighlight } from './MentionHighlightHelpers';
-import MentionDescriptionByline from '../MentionDescriptionByline';
-import MessagesIntlProvider from '../MessagesIntlProvider';
-import { MentionAvatar } from '../MentionAvatar';
 
 // Lazy-loaded so `@atlaskit/skeleton` (only needed for the loading
 // placeholder) doesn't enter the bundle for every `@atlaskit/mention`
@@ -43,6 +48,9 @@ const MentionItemPlaceholder = React.lazy(
 		),
 );
 
+/**
+ * @deprecated Use `import { MENTION_ITEM_HEIGHT, MENTION_ITEM_HEIGHT_REFRESHED } from '@atlaskit/mention/mention-item/styles'` instead.
+ */
 export { MENTION_ITEM_HEIGHT, MENTION_ITEM_HEIGHT_REFRESHED } from './styles';
 
 const lozengeAppearanceToTagColor: Record<LozengeColor, TagColor> = {
@@ -141,11 +149,15 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 
 		const xProductUserInfoIconColor = selected ? token('color.icon.selected') : token('color.icon');
 
-		const RowStyle =
+		let RowStyle = RowStyleLegacy;
+		let isAgent = false;
+		if (
 			expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
 			fg('platform_editor_agent_mentions_drop_one_fixes')
-				? RowStyleNext
-				: RowStyleLegacy;
+		) {
+			RowStyle = RowStyleNext;
+			isAgent = isAgentMention(mention);
+		}
 
 		return (
 			<MessagesIntlProvider>
@@ -159,6 +171,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 					data-testid={`mention-item-${id}`}
 					data-mention-id={id}
 					data-mention-name={mentionName}
+					data-mention-is-agent={isAgent ? 'true' : undefined}
 					data-selected={selected}
 					ref={forwardedRef}
 				>

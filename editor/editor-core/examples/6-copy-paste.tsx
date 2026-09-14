@@ -11,9 +11,9 @@ import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
 import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
@@ -25,17 +25,21 @@ import { TitleInput, MockActivityResource } from '@atlaskit/editor-test-helpers/
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import type { ImagePreview, UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker';
-import { Clipboard } from '@atlaskit/media-picker';
+import type { ImagePreview, UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import { ClipboardLoader as Clipboard } from '@atlaskit/media-picker/clipboard';
 import {
 	defaultCollectionName,
 	defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers/collectionNames';
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
-import { fileToDataURI } from '@atlaskit/media-ui';
-import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
+import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box } from '@atlaskit/primitives/compiled';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -1,6 +1,6 @@
 import './jest_mocks/socket.io-client.mock';
 
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { collab } from '@atlaskit/prosemirror-collab';
 import { createSocketIOCollabProvider } from '../socket-io-provider';
@@ -77,9 +77,9 @@ describe('participantsService integration tests', () => {
 			participantsService.channelBroadcast('test:type', {
 				whoIsAwesome: 'zarif',
 			});
-			expect(channelBroadcastSpy).toBeCalledTimes(1);
-			expect(channel.getSocket()!.emit).toBeCalledTimes(1);
-			expect(channel.getSocket()!.emit).toBeCalledWith(
+			expect(channelBroadcastSpy).toHaveBeenCalledTimes(1);
+			expect(channel.getSocket()!.emit).toHaveBeenCalledTimes(1);
+			expect(channel.getSocket()!.emit).toHaveBeenCalledWith(
 				'broadcast',
 				{
 					type: 'test:type',
@@ -105,9 +105,9 @@ describe('participantsService integration tests', () => {
 
 			// @ts-expect-error access private variable
 			participantsService.sendPresence();
-			expect(channelBroadcastSpy).toBeCalledTimes(1);
-			expect(channel.getSocket()!.emit).toBeCalledTimes(1);
-			expect(channel.getSocket()!.emit).toBeCalledWith(
+			expect(channelBroadcastSpy).toHaveBeenCalledTimes(1);
+			expect(channel.getSocket()!.emit).toHaveBeenCalledTimes(1);
+			expect(channel.getSocket()!.emit).toHaveBeenCalledWith(
 				'broadcast',
 				{
 					type: 'participant:updated',
@@ -151,13 +151,13 @@ describe('participantsService integration tests', () => {
 		});
 
 		it('emits both presence events when connecting to BE', () => {
-			expect(participantsService.onPresence).toBeCalledTimes(1);
+			expect(participantsService.onPresence).toHaveBeenCalledTimes(1);
 			// 2 times for connecting to BE (i.e. mock.io) 3rd time for other user join behaviour in mock io
 			// we really only looking for first two. ie
 			//  1) when channel recieves a presence event from BE it sends its own details
 			//  2) also sends a presence:joined event
 			// (see onPresence in ParticipantsService)
-			expect(channel.getSocket()!.emit).toBeCalledTimes(2 + 1);
+			expect(channel.getSocket()!.emit).toHaveBeenCalledTimes(2 + 1);
 			expect(channel.getSocket()!.emit).toHaveBeenNthCalledWith(
 				1,
 				'broadcast',
@@ -174,7 +174,7 @@ describe('participantsService integration tests', () => {
 		it('sends presence when other participants join', () => {
 			// first call is from itself after calling sendPresenceJoined inside onPresence
 			// second on is from BE when a new participant joins (the one we are interested in)!
-			expect(participantsService.onPresenceJoined).toBeCalledTimes(1 + 1);
+			expect(participantsService.onPresenceJoined).toHaveBeenCalledTimes(1 + 1);
 			expect(participantsService.onPresenceJoined).toHaveBeenNthCalledWith(2, {
 				sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
 				timestamp: 1680759407925,

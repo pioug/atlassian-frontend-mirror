@@ -4,7 +4,7 @@ import {
 	NestedExpandInExpandDefaultModeRenderer,
 	NestedExpandInExpandWideModeRenderer,
 	NestedExpandInExpandFullWidthModeRenderer,
-} from './nested-expand.fixture';
+} from './nested-expand.fixture.vr.ap';
 
 snapshot(NestedExpandInExpandRenderer);
 

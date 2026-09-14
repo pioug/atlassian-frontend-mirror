@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::44336a9c4a8d1ba1d89b8770fe0f43de>>
+ * @codegen <<SignedSource::4c238d6d416098b4cfbc4da0c13c0134>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "VideoPreviousOverlay".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const VideoPreviousOverlayIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const VideoPreviousOverlayIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "VideoPreviousOverlayIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 1v14h1.5V8.708c.147.336.404.633.77.831l6.148 3.323A1.75 1.75 0 0 0 14 11.322V4.678a1.75 1.75 0 0 0-2.582-1.54L5.27 6.462a1.73 1.73 0 0 0-.771.83V1z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

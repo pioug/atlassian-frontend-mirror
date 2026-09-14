@@ -1,12 +1,14 @@
 import React, { type MouseEvent, PureComponent } from 'react';
-import { emojiTypeAheadMaxHeight } from '../../util/shared-styles';
-import { toEmojiId } from '../../util/type-helpers';
+
 import type { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';
+import { actualMouseMove } from '../../util/actual-mouse-move';
 import debug from '../../util/logger';
-import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
+import type { Position } from '../../util/mouse';
+import { mouseLocation } from '../../util/mouse-location';
+import { emojiTypeAheadMaxHeight } from '../../util/shared-styles';
+import { toEmojiId } from '../../util/to-emoji-id';
 import Scrollable from '../common/Scrollable';
 import EmojiItem from './EmojiTypeAheadItem';
-
 import { EmojiTypeAheadListContainer } from './EmojiTypeAheadListContainer';
 import { EmojiTypeAheadSpinner } from './EmojiTypeAheadSpinner';
 

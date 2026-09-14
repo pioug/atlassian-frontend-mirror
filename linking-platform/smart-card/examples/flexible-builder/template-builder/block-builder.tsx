@@ -1,15 +1,12 @@
 import React, { useCallback } from 'react';
 
-// Allowing existing usage of non Pragmatic drag and drop solution
-// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
-import {
-	DragDropContext,
-	Draggable,
-	Droppable,
-	type DropResult,
-	type OnDragEndResponder,
-} from 'react-beautiful-dnd';
-
+import { DragDropContext } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/drag-drop-context';
+import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/draggable';
+import { Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/droppable';
+import type {
+	DropResult,
+	OnDragEndResponder,
+} from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/types';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { type SmartLinkSize } from '../../../src';

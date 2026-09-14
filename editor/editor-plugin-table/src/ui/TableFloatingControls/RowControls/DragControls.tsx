@@ -14,7 +14,7 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -301,16 +301,8 @@ export const DragControls = ({
 					onClick={handleClick}
 					onMouseOver={handleMouseOver}
 					onMouseOut={handleMouseOut}
-					onBlur={
-						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-							? handleMouseOut
-							: undefined
-					}
-					onFocus={
-						expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-							? handleMouseOver
-							: undefined
-					}
+					onBlur={handleMouseOut}
+					onFocus={handleMouseOver}
 					toggleDragMenu={toggleDragMenuHandler}
 					editorView={editorView}
 				/>

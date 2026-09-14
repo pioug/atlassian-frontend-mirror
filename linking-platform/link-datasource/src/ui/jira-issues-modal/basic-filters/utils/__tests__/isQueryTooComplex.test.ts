@@ -1,9 +1,9 @@
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isQueryTooComplex } from '../isQueryTooComplex';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const nonComplexCases: [string, boolean][] = [
 	// empty jql

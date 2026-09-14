@@ -12,4 +12,5 @@ export type SpacingMode = 'compact' | 'cozy';
 export const SpacingContext: import('react').Context<SpacingMode> =
 	createContext<SpacingMode>('cozy');
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports
 export { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from './selection-style-context-do-not-use';

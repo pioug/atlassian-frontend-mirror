@@ -1,8 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+
 import { doc, p, tr as row, table, td, th } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
-import { addRowAt, cloneRowAt } from '../../add-row-at';
+import { addRowAt } from '../../add-row-at';
+import { cloneRowAt } from '../../clone-row-at';
 
 describe('addRowAt', () => {
 	it("should return an original transaction if table doesn't have a row at `rowIndex`", () => {

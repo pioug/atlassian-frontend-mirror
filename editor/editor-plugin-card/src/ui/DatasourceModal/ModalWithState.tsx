@@ -4,18 +4,17 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { DatasourceModalType, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-	AssetsConfigModal,
-	CONFLUENCE_SEARCH_DATASOURCE_ID,
-	ConfluenceSearchConfigModal,
-	JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-	JiraIssuesConfigModal,
-} from '@atlaskit/link-datasource';
-import type { ConfigModalProps } from '@atlaskit/link-datasource';
-import { EditorSmartCardProviderValueGuard, useSmartLinkContext } from '@atlaskit/link-provider';
-import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common';
-import type { DatasourceParameters } from '@atlaskit/linking-types';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
+import { AssetsConfigModalWithWrappers as AssetsConfigModal } from '@atlaskit/link-datasource/assets-config-modal-with-wrappers';
+import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '@atlaskit/link-datasource/confluence-search-modal';
+import { ConfluenceSearchConfigModalWithWrappers as ConfluenceSearchConfigModal } from '@atlaskit/link-datasource/confluence-search-config-modal-with-wrappers';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
+import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '@atlaskit/link-datasource/jira-issues-config-modal-with-wrappers';
+import type { ConfigModalProps } from '@atlaskit/link-datasource/types';
+import { EditorSmartCardProviderValueGuard } from '@atlaskit/link-provider/editor-smart-card-provider-value-guard';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import type { cardPlugin } from '../../cardPlugin';
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';

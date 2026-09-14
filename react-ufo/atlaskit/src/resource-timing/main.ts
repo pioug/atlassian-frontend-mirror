@@ -3,9 +3,10 @@ import { getConfig as getConfigUFO } from '../config';
 import { roundEpsilon } from '../round-number';
 
 import type { ResourceEntry, ResourceTiming, ResourceTimings } from './common/types';
+import { calculateTransferType } from './common/utils/calculate-transfer-type';
 import { getConfig } from './common/utils/config';
+import { isCacheableType } from './common/utils/is-cacheable-type';
 import { filterResourceTimings } from './common/utils/resource-timing-buffer';
-import { calculateTransferType, isCacheableType } from './common/utils/transfer-type';
 
 const resourceTypes = ['fetch', 'xmlhttprequest'];
 

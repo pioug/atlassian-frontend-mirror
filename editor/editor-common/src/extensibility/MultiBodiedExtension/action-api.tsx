@@ -4,6 +4,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTION } from '../../analytics';
@@ -43,7 +44,7 @@ export const useMultiBodiedExtensionActions = ({
 				}
 
 				const selection = options?.selection ?? 'none';
-				if (selection === 'none') {
+				if (selection === 'none' && !isExperimentEnabled('confluence_native_tabs_m15')) {
 					return updateActiveChildResult;
 				}
 
@@ -72,20 +73,26 @@ export const useMultiBodiedExtensionActions = ({
 					}
 
 					const targetFrame = possiblyMbeNode.content.child(index);
-					if (selection === 'start') {
-						// +1 moves past the extensionFrame opening token; TextSelection.near() finds
-						// the nearest valid text cursor position from there.
-						dispatch(state.tr.setSelection(TextSelection.near(state.doc.resolve(desiredPos + 1))));
-					} else {
-						// Place cursor at the end of the target frame's content.
-						// -1 bias searches backward from the frame's closing token.
+					if (selection === 'end') {
 						dispatch(
 							state.tr.setSelection(
 								TextSelection.near(state.doc.resolve(desiredPos + targetFrame.nodeSize), -1),
 							),
 						);
+						editorView.focus();
+					} else {
+						// for 'start' and 'none' selection place a
+						// collapsed cursor at the start of the target frame so the ProseMirror
+						// selection always points into the active tab. This prevents stale
+						// selections from persisting across tab switches (which causes paste to
+						// land in the wrong tab).
+						// 'none' intentionally skips editorView.focus() so DOM focus can
+						// remain on the tab button for keyboard navigation.
+						dispatch(state.tr.setSelection(TextSelection.near(state.doc.resolve(desiredPos + 1))));
+						if (selection === 'start') {
+							editorView.focus();
+						}
 					}
-					editorView.focus();
 				}
 				return updateActiveChildResult;
 			},

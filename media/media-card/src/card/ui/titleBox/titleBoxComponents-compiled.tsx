@@ -2,15 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { jsx, css, cssMap } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
 
+import { rgba } from '../rgba';
 import {
 	type TitleBoxFooterProps,
 	type TitleBoxHeaderProps,
 	type TitleBoxWrapperProps,
 } from './types';
-import { rgba } from '../styles';
 
 const smallLineHeight = 14;
 const smallVerticalPadding = 4;
@@ -87,6 +89,7 @@ const titleBoxHeaderStyles = css({
 	fontWeight: token('font.weight.semibold'),
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports -- Retain shared module-local Compiled styles across title-box components.
 export const TitleBoxHeader: {
 	(props: TitleBoxHeaderProps): JSX.Element;
 	displayName: string;
@@ -110,6 +113,7 @@ const titleBoxFooterStyles = css({
 	textOverflow: 'ellipsis',
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports -- Retain shared module-local Compiled styles across title-box components.
 export const TitleBoxFooter: {
 	(props: TitleBoxFooterProps): JSX.Element;
 	displayName: string;
@@ -136,6 +140,7 @@ const titleBoxIconStyles = css({
 	bottom: token('space.050'),
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports -- Retain shared module-local Compiled styles across title-box components.
 export const TitleBoxIcon = (props: any): JSX.Element => {
 	return (
 		<div id="titleBoxIcon" data-testid="title-box-icon" css={[titleBoxIconStyles]}>
@@ -152,6 +157,7 @@ const errorMessageWrapperStyles = css({
 	gap: token('space.025'),
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports -- Retain shared module-local Compiled styles across title-box components.
 export const ErrorMessageWrapper = (props: any): JSX.Element => {
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={errorMessageWrapperStyles}>{props.children}</div>;

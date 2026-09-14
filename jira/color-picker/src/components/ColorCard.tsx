@@ -11,7 +11,7 @@ import React, {
 	forwardRef,
 } from 'react';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
 import { css, jsx } from '@atlaskit/css';
 import { css as cssUnbounded } from '@compiled/react';

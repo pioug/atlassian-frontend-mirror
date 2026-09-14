@@ -1,6 +1,6 @@
 import { createMockService } from './document-service.mock';
 import { catchupv2 } from '../catchupv2';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 jest.mock('../catchupv2', () => {
 	return {
@@ -12,7 +12,8 @@ jest.mock('lodash/throttle', () => ({
 	default: jest.fn((fn) => fn),
 	__esModule: true,
 }));
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
@@ -34,7 +35,7 @@ describe('catchupv2 trigged in document service', () => {
 		const { service, stepQueue } = createMockService();
 		stepQueue.pauseQueue();
 		await service.throttledCatchupv2();
-		expect(catchupv2).not.toBeCalled();
+		expect(catchupv2).not.toHaveBeenCalled();
 	});
 
 	it('catchupv2 is noop when namespace is locked', async () => {
@@ -42,8 +43,8 @@ describe('catchupv2 trigged in document service', () => {
 		isNameSpaceLockedMock.mockReturnValue(true);
 		// @ts-ignore - testing private function
 		await service.catchupv2();
-		expect(isNameSpaceLockedMock).toBeCalledTimes(1);
-		expect(catchupv2).not.toBeCalled();
+		expect(isNameSpaceLockedMock).toHaveBeenCalledTimes(1);
+		expect(catchupv2).not.toHaveBeenCalled();
 	});
 
 	it('Calls catchupv2 when process queue is not paused', async () => {
@@ -53,7 +54,7 @@ describe('catchupv2 trigged in document service', () => {
 		jest.spyOn(service, 'processQueue');
 		jest.spyOn(service, 'sendStepsFromCurrentState');
 		await service.throttledCatchupv2();
-		expect(catchupv2).toBeCalledWith({
+		expect(catchupv2).toHaveBeenCalledWith({
 			getCurrentPmVersion: service.getCurrentPmVersion,
 			fetchCatchupv2: fetchCatchupv2Mock,
 			// @ts-ignore
@@ -64,7 +65,7 @@ describe('catchupv2 trigged in document service', () => {
 			onCatchupComplete: expect.any(Function),
 		});
 
-		expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'SUCCESS', {
+		expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith('catchup', 'SUCCESS', {
 			latency: 0,
 			version: 0,
 		});
@@ -73,8 +74,8 @@ describe('catchupv2 trigged in document service', () => {
 		expect(stepQueue.isPaused()).toEqual(false);
 
 		// @ts-expect-error - checking if private method is called
-		expect(service.processQueue).toBeCalled();
-		expect(service.sendStepsFromCurrentState).toBeCalled();
+		expect(service.processQueue).toHaveBeenCalled();
+		expect(service.sendStepsFromCurrentState).toHaveBeenCalled();
 	});
 
 	it('Resets stepRejectCounter after catchupv2', async () => {
@@ -82,7 +83,7 @@ describe('catchupv2 trigged in document service', () => {
 		// @ts-expect-error - Setting private variables
 		service.stepRejectCounter = 10;
 		await service.throttledCatchupv2();
-		expect(catchupv2).toBeCalled();
+		expect(catchupv2).toHaveBeenCalled();
 		// @ts-expect-error - Checking private variables
 		expect(service.stepRejectCounter).toEqual(0);
 	});
@@ -95,15 +96,15 @@ describe('catchupv2 trigged in document service', () => {
 		jest.spyOn(service, 'sendStepsFromCurrentState');
 
 		await service.throttledCatchupv2();
-		expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'FAILURE', {
+		expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith('catchup', 'FAILURE', {
 			latency: 0,
 		});
 
 		// The service must continue processing even if catchup throws an exception
 		expect(stepQueue.isPaused()).toEqual(false);
 		// @ts-expect-error
-		expect(service.processQueue).toBeCalled();
-		expect(service.sendStepsFromCurrentState).toBeCalled();
+		expect(service.processQueue).toHaveBeenCalled();
+		expect(service.sendStepsFromCurrentState).toHaveBeenCalled();
 	});
 
 	it('Logs action event with reconnection reason and metadata when catching up after reconnection', async () => {
@@ -120,7 +121,7 @@ describe('catchupv2 trigged in document service', () => {
 
 		// @ts-ignore - testing private function
 		await service.catchupv2('RECONNECTED', reconnectionMetadata);
-		expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'FAILURE', {
+		expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith('catchup', 'FAILURE', {
 			latency: 0,
 			reason: 'RECONNECTED',
 			unconfirmedStepsLength: 5,
@@ -130,8 +131,8 @@ describe('catchupv2 trigged in document service', () => {
 		// The service must continue processing even if catchup throws an exception
 		expect(stepQueue.isPaused()).toEqual(false);
 		// @ts-expect-error
-		expect(service.processQueue).toBeCalled();
-		expect(service.sendStepsFromCurrentState).toBeCalled();
+		expect(service.processQueue).toHaveBeenCalled();
+		expect(service.sendStepsFromCurrentState).toHaveBeenCalled();
 	});
 
 	describe('Feature flag: platform_collab_provider_skip_client_side_errors', () => {
@@ -149,13 +150,13 @@ describe('catchupv2 trigged in document service', () => {
 			await service.throttledCatchupv2();
 
 			// Analytics event should NOT be called for fetch errors when feature flag is enabled
-			expect(analyticsHelperMock.sendActionEvent).not.toBeCalled();
+			expect(analyticsHelperMock.sendActionEvent).not.toHaveBeenCalled();
 
 			// The service must continue processing even if catchup throws an exception
 			expect(stepQueue.isPaused()).toEqual(false);
 			// @ts-expect-error
-			expect(service.processQueue).toBeCalled();
-			expect(service.sendStepsFromCurrentState).toBeCalled();
+			expect(service.processQueue).toHaveBeenCalled();
+			expect(service.sendStepsFromCurrentState).toHaveBeenCalled();
 		});
 
 		it('Sends analytics event when feature flag is enabled and error is NOT TypeError; Failed to fetch', async () => {
@@ -172,15 +173,15 @@ describe('catchupv2 trigged in document service', () => {
 			await service.throttledCatchupv2();
 
 			// Analytics event SHOULD be called for non-fetch errors when feature flag is enabled
-			expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'FAILURE', {
+			expect(analyticsHelperMock.sendActionEvent).toHaveBeenCalledWith('catchup', 'FAILURE', {
 				latency: 0,
 			});
 
 			// The service must continue processing even if catchup throws an exception
 			expect(stepQueue.isPaused()).toEqual(false);
 			// @ts-expect-error
-			expect(service.processQueue).toBeCalled();
-			expect(service.sendStepsFromCurrentState).toBeCalled();
+			expect(service.processQueue).toHaveBeenCalled();
+			expect(service.sendStepsFromCurrentState).toHaveBeenCalled();
 		});
 	});
 });

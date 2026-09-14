@@ -4,11 +4,17 @@ import type { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 import { map } from 'rxjs/operators/map';
 
-import { type AutocompleteOption, type AutocompleteOptions } from '@atlaskit/jql-editor-common';
-import { type GroupKey } from '@atlaskit/jql-editor-common/autocomplete/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type {
+	GroupKey,
+	AutocompleteOption,
+	AutocompleteOptions,
+} from '@atlaskit/jql-editor-common/autocomplete/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { type OnFunctionArguments, type OnValues } from '../use-autocomplete-provider/types';
+import {
+	type OnFunctionArguments,
+	type OnValuesWithFunctionName,
+} from '../use-autocomplete-provider/types';
 
 const TEAM_SEARCHABLE_FIELD_NAME = '"Team[Team]"';
 const MEMBERS_OF_FUNCTION_NAME = 'membersof';
@@ -74,7 +80,7 @@ const FUNCTION_VALUE_TRANSFORMS: Record<
  *
  * For all other functions it returns an empty Observable (no-op).
  */
-const useOnFunctionArguments = (onValues: OnValues): OnFunctionArguments => {
+const useOnFunctionArguments = (onValues: OnValuesWithFunctionName): OnFunctionArguments => {
 	return useCallback<OnFunctionArguments>(
 		(
 			_fieldName: string,
@@ -88,7 +94,8 @@ const useOnFunctionArguments = (onValues: OnValues): OnFunctionArguments => {
 
 			const transformValue = FUNCTION_VALUE_TRANSFORMS[lowerCaseFunctionName];
 
-			return onValues(fieldValue, TEAM_SEARCHABLE_FIELD_NAME).pipe(
+			// Pass the function name through for analytics.
+			return onValues(fieldValue, TEAM_SEARCHABLE_FIELD_NAME, lowerCaseFunctionName).pipe(
 				map((options) =>
 					options.map((option) => {
 						const transformedOption = transformValue ? transformValue(option) : option;

@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Grid, grid-cards should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-grid-cards.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-grid-cards.vr.ap.tsx')>(
 		'design-system',
 		'grid',
 		'grid-cards',
@@ -11,7 +11,7 @@ test('Grid, grid-cards should pass basic aXe audit', async ({ page }) => {
 });
 
 test('Grid, grid-container should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/96-grid-container.tsx')>(
+	await page.visitExample<typeof import('../../../examples/96-grid-container.vr.ap.tsx')>(
 		'design-system',
 		'grid',
 		'grid-container',

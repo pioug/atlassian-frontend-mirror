@@ -58,7 +58,7 @@ describe('Renderer - utils', () => {
 			const elementA = { parentElement: undefined } as any as HTMLElement;
 
 			const result = findInTree(elementA, elementA, evaluate);
-			expect(evaluate).toBeCalledTimes(0);
+			expect(evaluate).toHaveBeenCalledTimes(0);
 			expect(result).toBe(false);
 		});
 

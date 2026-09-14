@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { FormHeader as PlatformFormHeader } from '@atlaskit/form';
+import { FormHeader as PlatformFormHeader } from '@atlaskit/form/form-header';
 
 type PlatformFormHeaderProps = React.ComponentProps<typeof PlatformFormHeader>;
 

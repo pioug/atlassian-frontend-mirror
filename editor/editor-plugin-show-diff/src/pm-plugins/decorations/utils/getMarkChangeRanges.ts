@@ -1,10 +1,13 @@
-import {
-	type Step as ProseMirrorStep,
-	AddMarkStep,
-	RemoveMarkStep,
-} from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { AddMarkStep, RemoveMarkStep, type StepMap } from '@atlaskit/editor-prosemirror/transform';
+
+import type { DiffStepAttribution } from '../../../showDiffPluginType';
+import { getAttributionKey } from '../colorSchemes/attributions';
+
+import { mapStepRangeToFinal } from './mapStepRangeToFinal';
 
 type StepRange = {
+	attributionKey?: string;
 	fromB: number;
 	toB: number;
 };
@@ -21,11 +24,15 @@ const extractMarkStep = (step: ProseMirrorStep): MarkStep | undefined => {
 	return undefined;
 };
 
-export const getMarkChangeRanges = (steps: ProseMirrorStep[]): StepRange[] => {
+export const getMarkChangeRanges = (
+	steps: ProseMirrorStep[],
+	stepAttributions: Array<DiffStepAttribution | undefined> = [],
+	stepMaps: StepMap[] = [],
+): StepRange[] => {
 	const resultRanges: StepRange[] = [];
 	let lastOp: MarkStep | undefined;
 
-	for (const step of steps) {
+	for (const [stepIndex, step] of steps.entries()) {
 		const op = extractMarkStep(step);
 		if (!op) {
 			continue;
@@ -41,7 +48,16 @@ export const getMarkChangeRanges = (steps: ProseMirrorStep[]): StepRange[] => {
 		) {
 			resultRanges.pop();
 		} else {
-			resultRanges.push({ fromB: op.from, toB: op.to });
+			const finalRange = mapStepRangeToFinal(op.from, op.to, stepIndex, stepMaps);
+			if (!finalRange) {
+				lastOp = op;
+				continue;
+			}
+			resultRanges.push({
+				attributionKey: getAttributionKey(stepAttributions[stepIndex]),
+				fromB: finalRange.fromB,
+				toB: finalRange.toB,
+			});
 		}
 
 		lastOp = op;

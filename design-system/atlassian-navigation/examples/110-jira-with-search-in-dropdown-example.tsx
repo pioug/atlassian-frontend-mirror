@@ -17,18 +17,24 @@ import {
 	Settings,
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
-import Avatar from '@atlaskit/avatar';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import { DropdownItem } from '@atlaskit/dropdown-menu';
-import { Label } from '@atlaskit/form';
+import Avatar from '@atlaskit/avatar/avatar';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { Label } from '@atlaskit/form/label/default';
 import EditorAddIcon from '@atlaskit/icon/core/add';
 import EditorPeopleIcon from '@atlaskit/icon/core/people-group';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
+import ButtonItem from '@atlaskit/menu/button-item';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import { Popup } from '@atlaskit/popup/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 import { Box } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import { DefaultCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

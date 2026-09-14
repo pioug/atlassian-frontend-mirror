@@ -4,7 +4,7 @@ const featureFlag = 'platform-dst-top-layer';
 
 test.describe('Menu top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 	test('MenuGroup content is visible and not obscured', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -24,7 +24,7 @@ test.describe('Menu top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 	});
 
 	test('PopupMenuGroup content is fully visible', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -43,7 +43,7 @@ test.describe('Menu top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 
 test.describe('Menu top-layer — WCAG 4.1.2 Semantics', () => {
 	test('LinkItem preserves aria-current for selection state', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/link-item.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/link-item.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'link-item',
@@ -58,7 +58,7 @@ test.describe('Menu top-layer — WCAG 4.1.2 Semantics', () => {
 	});
 
 	test('LinkItem preserves aria-disabled for disabled state', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/link-item.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/link-item.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'link-item',
@@ -76,7 +76,7 @@ test.describe('Menu top-layer — WCAG 4.1.2 Semantics', () => {
 	});
 
 	test('CustomItem preserves aria-disabled and tabindex for disabled state', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/custom-item.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/custom-item.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'custom-item',
@@ -92,7 +92,7 @@ test.describe('Menu top-layer — WCAG 4.1.2 Semantics', () => {
 	});
 
 	test('ButtonItem and LinkItem selection states are preserved', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/selection-states.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/selection-states.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'selection-states',
@@ -114,7 +114,7 @@ test.describe('Menu top-layer — WCAG 4.1.2 Semantics', () => {
 
 test.describe('Menu top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('section links are DOM descendants of the MenuGroup container', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -135,7 +135,7 @@ test.describe('Menu top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	});
 
 	test('PopupMenuGroup follows first MenuGroup column in document order', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/05-menu-group.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/05-menu-group.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'menu-group',
@@ -167,7 +167,7 @@ test.describe('Menu top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 
 test.describe('Menu top-layer — ButtonItem keyboard and structure', () => {
 	test('first ButtonItem responds to Enter when focused', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/button-item.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/button-item.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'button-item',
@@ -184,7 +184,7 @@ test.describe('Menu top-layer — ButtonItem keyboard and structure', () => {
 	});
 
 	test('ButtonItem list is not attached as the last child of body', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/button-item.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/button-item.vr.ap.tsx')>(
 			'design-system',
 			'menu',
 			'button-item',

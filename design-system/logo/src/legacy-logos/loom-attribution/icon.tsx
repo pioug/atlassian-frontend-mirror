@@ -2,7 +2,7 @@ import React from 'react';
 
 import { defaultLogoParams } from '../../constants';
 import type { LogoProps } from '../../types';
-import { LoomIcon } from '../loom';
+import { LoomIcon } from '../loom/icon';
 
 /**
  * __Loom Attribution icon__

@@ -1,7 +1,5 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { CardAction } from '../../../constants';
-import * as utils from '../../../utils';
+import * as openUrlUtils from '../../../utils/open-url';
 import { TEST_RESPONSE, TEST_RESPONSE_WITH_VIEW, TEST_URL } from '../../common/__mocks__/jsonld';
 import { extractInvokeViewAction } from '../extract-invoke-view-action';
 
@@ -24,7 +22,7 @@ describe('extractInvokeViewAction', () => {
 	});
 
 	it('triggers open url', async () => {
-		const openUrl = jest.spyOn(utils, 'openUrl').mockResolvedValue(undefined);
+		const openUrl = jest.spyOn(openUrlUtils, 'openUrl').mockResolvedValue(undefined);
 		const action = extractInvokeViewAction({
 			appearance: 'block',
 			id: 'test-id',
@@ -80,59 +78,38 @@ describe('extractInvokeViewAction', () => {
 		});
 	});
 
-	describe('platform_smartlink_xpc_url_wrapping', () => {
-		ffTest.on('platform_smartlink_xpc_url_wrapping', 'gate is on', () => {
-			it('calls transformUrl and opens transformed URL', async () => {
-				const openUrl = jest.spyOn(utils, 'openUrl').mockResolvedValue(undefined);
-				const transformUrl = jest.fn().mockReturnValue(`${TEST_URL}?xpc=1`);
+	describe('cross-product URL transformation', () => {
+		it('calls transformUrl and opens transformed URL', async () => {
+			const openUrl = jest.spyOn(openUrlUtils, 'openUrl').mockResolvedValue(undefined);
+			const transformUrl = jest.fn().mockReturnValue(`${TEST_URL}?xpc=1`);
 
-				const action = extractInvokeViewAction({
-					appearance: 'block',
-					id: 'test-id',
-					response: TEST_RESPONSE_WITH_VIEW,
-					transformUrl,
-				});
-
-				await action?.actionFn();
-
-				expect(transformUrl).toHaveBeenCalledWith(TEST_URL);
-				expect(openUrl).toHaveBeenCalledWith(`${TEST_URL}?xpc=1`);
+			const action = extractInvokeViewAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_VIEW,
+				transformUrl,
 			});
 
-			it('falls back to original url if transformUrl returns undefined', async () => {
-				const openUrl = jest.spyOn(utils, 'openUrl').mockResolvedValue(undefined);
-				const transformUrl = jest.fn().mockReturnValue(undefined);
+			await action?.actionFn();
 
-				const action = extractInvokeViewAction({
-					appearance: 'block',
-					id: 'test-id',
-					response: TEST_RESPONSE_WITH_VIEW,
-					transformUrl,
-				});
-
-				await action?.actionFn();
-
-				expect(openUrl).toHaveBeenCalledWith(TEST_URL);
-			});
+			expect(transformUrl).toHaveBeenCalledWith(TEST_URL);
+			expect(openUrl).toHaveBeenCalledWith(`${TEST_URL}?xpc=1`);
 		});
 
-		ffTest.off('platform_smartlink_xpc_url_wrapping', 'gate is off', () => {
-			it('does not call transformUrl and opens original URL', async () => {
-				const openUrl = jest.spyOn(utils, 'openUrl').mockResolvedValue(undefined);
-				const transformUrl = jest.fn().mockReturnValue(`${TEST_URL}?xpc=1`);
+		it('falls back to original url if transformUrl returns undefined', async () => {
+			const openUrl = jest.spyOn(openUrlUtils, 'openUrl').mockResolvedValue(undefined);
+			const transformUrl = jest.fn().mockReturnValue(undefined);
 
-				const action = extractInvokeViewAction({
-					appearance: 'block',
-					id: 'test-id',
-					response: TEST_RESPONSE_WITH_VIEW,
-					transformUrl,
-				});
-
-				await action?.actionFn();
-
-				expect(transformUrl).not.toHaveBeenCalled();
-				expect(openUrl).toHaveBeenCalledWith(TEST_URL);
+			const action = extractInvokeViewAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_VIEW,
+				transformUrl,
 			});
+
+			await action?.actionFn();
+
+			expect(openUrl).toHaveBeenCalledWith(TEST_URL);
 		});
 	});
 });

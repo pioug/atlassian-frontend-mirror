@@ -1,14 +1,6 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
 import { IntlProvider } from 'react-intl';
 
 import { getMockArticleItemList } from '../../../../util/testing/mock';
@@ -18,24 +10,20 @@ import { type ArticlesList as ArticlesListInterface } from '../../model/Articles
 
 const mockOnArticlesListItemClick = jest.fn();
 const mockOnToggleArticlesList = jest.fn();
-let ArticlesListProps: Partial<ArticlesListInterface>;
 
 describe('ArticleContent', () => {
-	beforeEach(() => {
-		ArticlesListProps = {
+	it('renders without crashing', async () => {
+		const props: ArticlesListInterface = {
 			articles: getMockArticleItemList(10),
 			onArticlesListItemClick: mockOnArticlesListItemClick,
 			onToggleArticlesList: mockOnToggleArticlesList,
 		};
-	});
-
-	it.skip('Should match snapshot', () => {
 		const { container } = render(
 			<IntlProvider locale="en">
-				<ArticlesList {...ArticlesListProps} />
+				<ArticlesList {...props} />
 			</IntlProvider>,
 		);
-
-		expect(container.firstChild).toMatchSnapshot();
+		expect(container.firstChild).not.toBeNull();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -1,34 +1,55 @@
 import React from 'react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {
 	akEditorTableNumberColumnWidth,
 	akEditorDefaultLayoutWidth,
 	akEditorTableLegacyCellMinWidth as tableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
-import type { TableLayout } from '@atlaskit/adf-schema';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { inlineCard, p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
-import Table, { TableProcessor } from '../../../../react/nodes/table';
+import Table from '../../../../react/nodes/table';
 import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
 import type { RendererAppearance } from '../../../../ui/Renderer/types';
-import { SortOrder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { ReactWrapper } from 'enzyme';
-import { act } from 'react-dom/test-utils';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererContextProps } from '../../../../renderer-context';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { RendererCssClassName } from '../../../../consts';
 
-const checkColWidths = (table: ReactWrapper, expectedColWidths: number[]) => {
-	table.find('col').forEach((col, index) => {
-		expect(col.prop('style')!.width).toBe(`${expectedColWidths[index]}px`);
-	});
+const getTableContainer = (container: HTMLElement): HTMLElement => {
+	const tableContainer = container.querySelector<HTMLElement>(
+		`.${TableSharedCssClassName.TABLE_CONTAINER}`,
+	);
+
+	if (!tableContainer) {
+		throw new Error('Expected a table container to be rendered');
+	}
+
+	return tableContainer;
 };
+
+const getColStyles = (element: HTMLElement): CSSStyleDeclaration[] =>
+	Array.from(element.querySelectorAll('col')).map((col) => col.style);
+
+const checkColWidths = (element: HTMLElement, expectedColWidths: number[]) => {
+	expect(getColStyles(element).map((style) => style.width)).toEqual(
+		expectedColWidths.map((width) => `${width}px`),
+	);
+};
+
+const getBodyRowsText = (container: HTMLElement): string[][] =>
+	Array.from(container.querySelectorAll('tr'))
+		.slice(1)
+		.map((row) => Array.from(row.querySelectorAll('td')).map((cell) => cell.textContent ?? ''));
+
+const getSortButtons = () => screen.queryAllByRole('button');
 
 const createTable = (width: number, layout: TableLayout) => {
 	return schema.nodeFromJSON({
@@ -50,7 +71,7 @@ const createDefaultTable = (displayMode?: string) => {
 	});
 };
 
-const mountBasicTable = ({
+const basicTable = ({
 	columnWidths,
 	isNumberColumnEnabled = true,
 	renderWidth = akEditorDefaultLayoutWidth,
@@ -66,27 +87,28 @@ const mountBasicTable = ({
 	layout?: TableLayout;
 	rendererAppearance?: RendererAppearance;
 	renderWidth?: number;
-} = {}) => {
-	return mountWithIntl(
-		<Table
-			layout={layout}
-			isNumberColumnEnabled={isNumberColumnEnabled}
-			columnWidths={columnWidths}
-			renderWidth={renderWidth}
-			rendererAppearance={rendererAppearance}
-			isInsideOfBlockNode={isInsideOfBlockNode}
-			allowTableResizing={allowTableResizing}
-		>
-			<TableRow>
-				<TableCell />
-				<TableCell />
-				<TableCell />
-			</TableRow>
-		</Table>,
-	);
-};
+} = {}) => (
+	<Table
+		layout={layout}
+		isNumberColumnEnabled={isNumberColumnEnabled}
+		columnWidths={columnWidths}
+		renderWidth={renderWidth}
+		rendererAppearance={rendererAppearance}
+		isInsideOfBlockNode={isInsideOfBlockNode}
+		allowTableResizing={allowTableResizing}
+	>
+		<TableRow>
+			<TableCell />
+			<TableCell />
+			<TableCell />
+		</TableRow>
+	</Table>
+);
 
-const mountTable = (
+const renderBasicTable = (options?: Parameters<typeof basicTable>[0]) =>
+	renderWithIntl(basicTable(options));
+
+const renderTable = (
 	node: PMNode,
 	rendererWidth: number,
 	columnWidths?: number[],
@@ -96,7 +118,7 @@ const mountTable = (
 	allowTableResizing = false,
 	isInsideOfTable = false,
 ) => {
-	return mountWithIntl(
+	return renderWithIntl(
 		<Table
 			layout={node.attrs.layout}
 			renderWidth={rendererWidth}
@@ -123,7 +145,7 @@ const mountTable = (
 	);
 };
 
-const mountTableWithFF = (
+const renderTableWithFF = (
 	featureFlags: RendererContextProps['featureFlags'],
 	node: PMNode,
 	rendererWidth: number,
@@ -135,7 +157,7 @@ const mountTableWithFF = (
 	allowTableResizing = false,
 	allowFixedColumnWidthOption?: boolean,
 ) => {
-	return mountWithIntl(
+	return renderWithIntl(
 		<RendererContextProvider value={{ featureFlags, isTopLevelRenderer }}>
 			<Table
 				layout={node.attrs.layout}
@@ -168,8 +190,8 @@ const schema = getSchemaBasedOnStage('stage0');
 
 describe('Renderer - React/Nodes/Table', () => {
 	const renderWidth = akEditorDefaultLayoutWidth;
-	const mountContentModeTable = (isTopLevelRenderer: boolean) =>
-		mountTableWithFF(
+	const renderContentModeTable = (isTopLevelRenderer: boolean) =>
+		renderTableWithFF(
 			{},
 			schema.nodeFromJSON({
 				...table(tr([th()(p('Header'))]), tr([td()(p('Body'))])),
@@ -184,90 +206,80 @@ describe('Renderer - React/Nodes/Table', () => {
 			true,
 		);
 
-	eeTest(
-		'platform_editor_table_nested_content_mode_fix',
-		{
-			true: () => {
-				const nestedRendererTable = mountContentModeTable(false);
+	const contentModeTables = (container: HTMLElement) =>
+		container.querySelectorAll('table[data-initial-width-mode="content"]');
 
-				expect(nestedRendererTable.find('table[data-initial-width-mode="content"]')).toHaveLength(
-					0,
-				);
-				nestedRendererTable.unmount();
+	it('disables content mode for nested renderers', () => {
+		const { container: nestedRenderer } = renderContentModeTable(false);
 
-				const topLevelRendererTable = mountContentModeTable(true);
+		expect(contentModeTables(nestedRenderer)).toHaveLength(0);
 
-				expect(topLevelRendererTable.find('table[data-initial-width-mode="content"]')).toHaveLength(
-					1,
-				);
-				topLevelRendererTable.unmount();
-			},
-			false: () => {
-				const nestedRendererTable = mountContentModeTable(false);
+		const { container: topLevelRenderer } = renderContentModeTable(true);
 
-				expect(nestedRendererTable.find('table[data-initial-width-mode="content"]')).toHaveLength(
-					1,
-				);
-				nestedRendererTable.unmount();
-			},
-		},
-		{ platform_editor_table_fit_to_content_auto_convert: true },
-	);
+		expect(contentModeTables(topLevelRenderer)).toHaveLength(1);
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderTable(createDefaultTable(), renderWidth);
+
+		await expect(container).toBeAccessible();
+	});
 
 	it('should render table DOM with all attributes', () => {
-		const table = mountBasicTable({ renderWidth, layout: 'full-width' });
-		expect(table.find('table')).toHaveLength(1);
-		expect(table.find('div[data-layout="full-width"]')).toHaveLength(1);
-		expect(table.find('table').prop('data-number-column')).toEqual(true);
-		table.unmount();
+		const { container } = renderBasicTable({ renderWidth, layout: 'full-width' });
+
+		expect(container.querySelectorAll('table')).toHaveLength(1);
+		expect(container.querySelectorAll('div[data-layout="full-width"]')).toHaveLength(1);
+		expect(screen.getByTestId('renderer-table')).toHaveAttribute('data-number-column', 'true');
 	});
 
 	it('should render table props', () => {
 		const columnWidths = [100, 110, 120];
-		const table = mountBasicTable({ columnWidths, renderWidth });
-		expect(table.prop('layout')).toEqual('default');
-		expect(table.prop('isNumberColumnEnabled')).toEqual(true);
-		expect(table.prop('columnWidths')).toEqual(columnWidths);
-		expect(table.find(TableRow).prop('isNumberColumnEnabled')).toEqual(true);
-		table.unmount();
+		const { container } = renderBasicTable({ columnWidths, renderWidth });
+
+		expect(getTableContainer(container)).toHaveAttribute('data-layout', 'default');
+		expect(screen.getByTestId('renderer-table')).toHaveAttribute('data-number-column', 'true');
+		expect(container.querySelectorAll(`td.${RendererCssClassName.NUMBER_COLUMN}`)).toHaveLength(1);
+		expect(container.querySelectorAll('col')).toHaveLength(columnWidths.length + 1);
 	});
 
 	it('should NOT render a colgroup when columnWidths is an empty array', () => {
 		const columnWidths: Array<number> = [];
-		const table = mountBasicTable({
+		const { container } = renderBasicTable({
 			columnWidths,
 			renderWidth,
 			isNumberColumnEnabled: false,
 		});
-		expect(table.find('col')).toHaveLength(0);
-		table.unmount();
+
+		expect(container.querySelectorAll('col')).toHaveLength(0);
 	});
 
 	it('should NOT render a colgroup when columnWidths is an array of zeros', () => {
 		const columnWidths: Array<number> = [0, 0, 0];
-		const table = mountBasicTable({
+		const { container } = renderBasicTable({
 			columnWidths,
 			renderWidth,
 			isNumberColumnEnabled: false,
 			allowTableResizing: true,
 		});
-		expect(table.find('col')).toHaveLength(3);
-		table.unmount();
+
+		expect(container.querySelectorAll('col')).toHaveLength(3);
 	});
 
 	it('should render children', () => {
-		const table = mountBasicTable({ renderWidth });
-		expect(table.prop('layout')).toEqual('default');
-		expect(table.prop('isNumberColumnEnabled')).toEqual(true);
-		expect(table.find(TableRow)).toHaveLength(1);
-		expect(table.find(TableCell)).toHaveLength(3);
-		table.unmount();
+		const { container } = renderBasicTable({ renderWidth });
+
+		expect(getTableContainer(container)).toHaveAttribute('data-layout', 'default');
+		expect(screen.getAllByRole('row')).toHaveLength(1);
+		expect(
+			container.querySelectorAll(`td:not(.${RendererCssClassName.NUMBER_COLUMN})`),
+		).toHaveLength(3);
 	});
 
 	describe('When number column is enabled', () => {
 		describe('When header row is enabled', () => {
 			it('should start numbers from the second row', () => {
-				const table = mountWithIntl(
+				const { container } = renderWithIntl(
 					<Table
 						layout="default"
 						isNumberColumnEnabled={true}
@@ -289,15 +301,14 @@ describe('Renderer - React/Nodes/Table', () => {
 					</Table>,
 				);
 
-				table.find('tr').forEach((row, index) => {
-					expect(row.find('td').at(0).text()).toEqual(index === 0 ? '' : `${index}`);
+				container.querySelectorAll('tr').forEach((row, index) => {
+					expect(row.querySelector('td')?.textContent).toEqual(index === 0 ? '' : `${index}`);
 				});
-				table.unmount();
 			});
 		});
 		describe('When header row is disabled', () => {
 			it('should start numbers from the first row', () => {
-				const table = mountWithIntl(
+				const { container } = renderWithIntl(
 					<Table
 						layout="default"
 						isNumberColumnEnabled={true}
@@ -319,16 +330,15 @@ describe('Renderer - React/Nodes/Table', () => {
 					</Table>,
 				);
 
-				table.find('tr').forEach((row, index) => {
-					expect(row.find('td').at(0).text()).toEqual(`${index + 1}`);
+				container.querySelectorAll('tr').forEach((row, index) => {
+					expect(row.querySelector('td')?.textContent).toEqual(`${index + 1}`);
 				});
-				table.unmount();
 			});
 		});
 
 		describe('when columnWidths is set and is equal to table container minus 1', () => {
 			it('should have the correct width for numbered column', () => {
-				const table = mountWithIntl(
+				const { container } = renderWithIntl(
 					<RendererContextProvider value={{}}>
 						<Table
 							layout="default"
@@ -349,24 +359,25 @@ describe('Renderer - React/Nodes/Table', () => {
 					</RendererContextProvider>,
 				);
 
-				// equals 43px (number column = 42px)
-				const resultingColumnWidths = [284, 432];
-				expect(table.find('col')).toHaveLength(3);
+				// The table is sized by CSS container queries, so data columns are emitted as
+				// percentages of the scaled table width - only the number column stays fixed.
+				const resultingColumnWidths = [39.6414342629482, 60.3585657370518];
+				const colStyles = getColStyles(container);
+				expect(colStyles).toHaveLength(3);
 
-				table.find('col').forEach((col, index) => {
+				colStyles.forEach((style, index) => {
 					if (index === 0) {
-						expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
+						expect(style.width).toEqual(`${akEditorTableNumberColumnWidth}px`);
 					} else {
-						expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
+						expect(style.width).toEqual(`${resultingColumnWidths[index - 1]}%`);
 					}
 				});
-				table.unmount();
 			});
 		});
 
 		describe('when columnWidths is set and smaller than table container', () => {
 			it('should have the correct width for numbered column ', () => {
-				const table = mountWithIntl(
+				const { container } = renderWithIntl(
 					<RendererContextProvider value={{}}>
 						<Table
 							layout="default"
@@ -387,23 +398,24 @@ describe('Renderer - React/Nodes/Table', () => {
 					</RendererContextProvider>,
 				);
 
-				// col widths get scaled up when num cols is enabled
-				const resultingColumnWidths = [317, 399];
-				expect(table.find('col')).toHaveLength(3);
+				// col widths get scaled up when num cols is enabled, then emitted as percentages
+				// because the table width itself is driven by CSS container queries.
+				const resultingColumnWidths = [44.223107569721115, 55.77689243027888];
+				const colStyles = getColStyles(container);
+				expect(colStyles).toHaveLength(3);
 
-				table.find('col').forEach((col, index) => {
+				colStyles.forEach((style, index) => {
 					if (index === 0) {
-						expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
+						expect(style.width).toEqual(`${akEditorTableNumberColumnWidth}px`);
 					} else {
-						expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
+						expect(style.width).toEqual(`${resultingColumnWidths[index - 1]}%`);
 					}
 				});
-				table.unmount();
 			});
 		});
 
 		it('should have the correct width for numbered column when no columnWidths', () => {
-			const table = mountWithIntl(
+			const { container } = renderWithIntl(
 				<Table
 					layout="default"
 					columnWidths={[0, 0]}
@@ -423,23 +435,23 @@ describe('Renderer - React/Nodes/Table', () => {
 				</Table>,
 			);
 
-			expect(table.find('col')).toHaveLength(3);
+			const colStyles = getColStyles(container);
 
-			table.find('col').forEach((col, index) => {
+			expect(colStyles).toHaveLength(3);
+			colStyles.forEach((style, index) => {
 				if (index === 0) {
-					expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
+					expect(style.width).toEqual(`${akEditorTableNumberColumnWidth}px`);
 				} else {
-					expect(col.prop('style')!.minWidth).toBeUndefined();
+					expect(style.minWidth).toEqual('');
 				}
 			});
-			table.unmount();
 		});
 	});
 
 	describe('When number column is disabled', () => {
 		it('should not add an extra <col> node for number column', () => {
 			const columnWidths = [300, 380];
-			const table = mountWithIntl(
+			const { container } = renderWithIntl(
 				<Table
 					layout="default"
 					isNumberColumnEnabled={false}
@@ -457,102 +469,79 @@ describe('Renderer - React/Nodes/Table', () => {
 					</TableRow>
 				</Table>,
 			);
-			expect(table.find('col')).toHaveLength(2);
 
-			table.find('col').forEach((col, index) => {
-				expect(col.prop('style')!.width).toEqual(`${columnWidths[index] - 1}px`);
-			});
-			table.unmount();
+			// Columns are scaled down by the maximum 30% because the table width is resolved by
+			// CSS container queries rather than a measured render width.
+			checkColWidths(container, [210, 266]);
 		});
 	});
 
 	describe('When multiple columns do not have width', () => {
+		const fourColumnTable = (columnWidths: number[], isNumberColumnEnabled: boolean) => (
+			<Table
+				layout="default"
+				isNumberColumnEnabled={isNumberColumnEnabled}
+				columnWidths={columnWidths}
+				renderWidth={renderWidth}
+				rendererAppearance="full-page"
+			>
+				<TableRow>
+					<TableCell />
+					<TableCell />
+					<TableCell />
+					<TableCell />
+				</TableRow>
+				<TableRow>
+					<TableCell />
+					<TableCell />
+					<TableCell />
+					<TableCell />
+				</TableRow>
+			</Table>
+		);
+
 		describe('when renderWidth is smaller than table minimum allowed width', () => {
 			it('should add minWidth to zero width columns', () => {
 				const columnWidths = [260, 260, 0, 0];
 
-				const table = mountWithIntl(
-					<Table
-						layout="default"
-						isNumberColumnEnabled={true}
-						columnWidths={columnWidths}
-						renderWidth={renderWidth}
-						rendererAppearance="full-page"
-					>
-						<TableRow>
-							<TableCell />
-							<TableCell />
-							<TableCell />
-							<TableCell />
-						</TableRow>
-						<TableRow>
-							<TableCell />
-							<TableCell />
-							<TableCell />
-							<TableCell />
-						</TableRow>
-					</Table>,
-				);
-				table.setProps({ isNumberColumnEnabled: false });
+				const { container, rerender } = renderWithIntl(fourColumnTable(columnWidths, true));
+				rerender(fourColumnTable(columnWidths, false));
 
-				expect(table.find('col')).toHaveLength(4);
-
-				table.find('col').forEach((col, index) => {
-					if (index < 2) {
-						expect(col.prop('style')!.width).toEqual(`${columnWidths[index] - 1}px`);
-					} else {
-						expect(col.prop('style')!.width).toEqual(`${tableCellMinWidth}px`);
-					}
-				});
-				table.unmount();
+				checkColWidths(container, [
+					columnWidths[0] - 1,
+					columnWidths[1] - 1,
+					tableCellMinWidth,
+					tableCellMinWidth,
+				]);
 			});
 		});
-		describe('when renderWidth is greater than table minimum allowed width', () => {
-			it('should not add minWidth to zero width columns', () => {
+		describe('when the table is narrower than the minimum allowed width', () => {
+			it('should add minWidth to zero width columns', () => {
 				const columnWidths = [200, 200, 0, 0];
 
-				const table = mountWithIntl(
-					<Table
-						layout="default"
-						isNumberColumnEnabled={true}
-						columnWidths={columnWidths}
-						renderWidth={renderWidth}
-						rendererAppearance="full-page"
-					>
-						<TableRow>
-							<TableCell />
-							<TableCell />
-							<TableCell />
-							<TableCell />
-						</TableRow>
-						<TableRow>
-							<TableCell />
-							<TableCell />
-							<TableCell />
-							<TableCell />
-						</TableRow>
-					</Table>,
-				);
-				table.setProps({ isNumberColumnEnabled: false });
+				const { container, rerender } = renderWithIntl(fourColumnTable(columnWidths, true));
+				rerender(fourColumnTable(columnWidths, false));
 
-				expect(table.find('col')).toHaveLength(4);
+				const colStyles = getColStyles(container);
 
-				table.find('col').forEach((col, index) => {
+				// With CSS container query sizing there is no measured render width to compare
+				// against, so zero width columns always fall back to the legacy cell min width.
+				expect(colStyles).toHaveLength(4);
+				colStyles.forEach((style, index) => {
 					if (index < 2) {
-						expect(col.prop('style')!.width).toEqual(`${columnWidths[index] - 1}px`);
+						expect(style.width).toEqual(`${columnWidths[index] - 1}px`);
 					} else {
-						expect(typeof col.prop('style')!.width).toEqual('undefined');
+						expect(style.width).toEqual(`${tableCellMinWidth}px`);
 					}
 				});
-				table.unmount();
 			});
 		});
 	});
 
 	describe('when renderWidth is 20% lower than table width', () => {
-		it('should scale down columns widths by 20%', () => {
+		it('should scale down columns widths by the maximum 30%', () => {
 			const columnWidths = [200, 200, 280];
-			const table = mountWithIntl(
+			const { container } = renderWithIntl(
 				<Table
 					layout="default"
 					isNumberColumnEnabled={false}
@@ -572,19 +561,19 @@ describe('Renderer - React/Nodes/Table', () => {
 					</TableRow>
 				</Table>,
 			);
-			expect(table.find('col')).toHaveLength(3);
-			table.find('col').forEach((col, index) => {
-				const width = columnWidths[index] - columnWidths[index] * 0.2;
-				expect(col.prop('style')!.width).toEqual(`${width}px`);
-			});
-			table.unmount();
+			// The table container is sized with CSS container queries, so columns always take the
+			// maximum 30% scale down instead of scaling relative to a measured render width.
+			checkColWidths(
+				container,
+				columnWidths.map((width) => Math.floor(width * 0.7)),
+			);
 		});
 	});
 
 	describe('when renderWidth is 40% lower than table width', () => {
 		it('should scale down columns widths by 30% and then overflow', () => {
 			const columnWidths = [200, 200, 280];
-			const table = mountWithIntl(
+			const { container } = renderWithIntl(
 				<Table
 					layout="default"
 					isNumberColumnEnabled={false}
@@ -604,12 +593,11 @@ describe('Renderer - React/Nodes/Table', () => {
 					</TableRow>
 				</Table>,
 			);
-			expect(table.find('col')).toHaveLength(3);
-			table.find('col').forEach((col, index) => {
-				const width = columnWidths[index] - columnWidths[index] * 0.3;
-				expect(col.prop('style')!.width).toEqual(`${width}px`);
-			});
-			table.unmount();
+
+			checkColWidths(
+				container,
+				columnWidths.map((width) => width - width * 0.3),
+			);
 		});
 	});
 
@@ -630,10 +618,10 @@ describe('Renderer - React/Nodes/Table', () => {
 			attrs: { isNumberColumnEnabled: true },
 		};
 
-		it('should add sortable props to first table row', () => {
+		it('should add sortable props to first table row', async () => {
 			const tableFromSchema = schema.nodeFromJSON(tableDoc);
 
-			const wrap = mountWithIntl(
+			const { container } = renderWithIntl(
 				<Table
 					layout="default"
 					renderWidth={renderWidth}
@@ -642,10 +630,10 @@ describe('Renderer - React/Nodes/Table', () => {
 					isNumberColumnEnabled={false}
 					rendererAppearance="full-page"
 				>
-					<TableRow>
-						<TableHeader />
-						<TableHeader />
-						<TableHeader />
+					<TableRow allowColumnSorting={true}>
+						<TableHeader allowColumnSorting={true} />
+						<TableHeader allowColumnSorting={true} />
+						<TableHeader allowColumnSorting={true} />
 					</TableRow>
 					<TableRow>
 						<TableCell />
@@ -655,28 +643,22 @@ describe('Renderer - React/Nodes/Table', () => {
 				</Table>,
 			);
 
-			const container = wrap.find(TableProcessor).instance();
-			act(() => {
-				container.setState({
-					tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
-				});
-			});
-			wrap.update();
+			const sortButtons = getSortButtons();
+			expect(sortButtons).toHaveLength(3);
 
-			const firstRowProps = wrap.find(TableRow).first().props();
-			expect(firstRowProps.tableOrderStatus).toEqual({
-				columnIndex: 0,
-				sortOrdered: SortOrder.ASC,
-			});
-			expect(typeof firstRowProps.onSorting).toBe('function');
-			wrap.unmount();
+			await userEvent.click(sortButtons[0]);
+
+			const headers = container.querySelectorAll('th');
+			expect(headers[0]).toHaveAttribute('aria-sort', 'ascending');
+			expect(headers[1]).toHaveAttribute('aria-sort', 'none');
+			expect(headers[2]).toHaveAttribute('aria-sort', 'none');
 		});
 
 		describe('when header row is not enabled', () => {
 			it('should not add sortable props to the first table row', () => {
 				const tableFromSchema = schema.nodeFromJSON(tableDoc);
 
-				const wrap = mountWithIntl(
+				renderWithIntl(
 					<Table
 						layout="default"
 						renderWidth={renderWidth}
@@ -685,7 +667,7 @@ describe('Renderer - React/Nodes/Table', () => {
 						isNumberColumnEnabled={false}
 						rendererAppearance="full-page"
 					>
-						<TableRow>
+						<TableRow allowColumnSorting={true}>
 							<TableCell />
 							<TableCell />
 							<TableCell />
@@ -698,17 +680,7 @@ describe('Renderer - React/Nodes/Table', () => {
 					</Table>,
 				);
 
-				const container = wrap.find(TableProcessor).instance();
-
-				container.setState({
-					tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
-				});
-				wrap.update();
-
-				const firstRowProps = wrap.find(TableRow).first().props();
-				expect(firstRowProps.tableOrderStatus).toBeUndefined();
-				expect(firstRowProps.onSorting).toBeUndefined();
-				wrap.unmount();
+				expect(getSortButtons()).toHaveLength(0);
 			});
 		});
 
@@ -716,7 +688,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			it('should not add sortable props to the first table row', () => {
 				const tableFromSchema = schema.nodeFromJSON(tableDocWithMergedCell);
 
-				const wrap = mountWithIntl(
+				const { container } = renderWithIntl(
 					<Table
 						layout="default"
 						renderWidth={renderWidth}
@@ -725,10 +697,10 @@ describe('Renderer - React/Nodes/Table', () => {
 						isNumberColumnEnabled={false}
 						rendererAppearance="full-page"
 					>
-						<TableRow>
-							<TableHeader />
-							<TableHeader />
-							<TableHeader />
+						<TableRow allowColumnSorting={true}>
+							<TableHeader allowColumnSorting={true} />
+							<TableHeader allowColumnSorting={true} />
+							<TableHeader allowColumnSorting={true} />
 						</TableRow>
 						<TableRow>
 							<TableCell />
@@ -737,23 +709,17 @@ describe('Renderer - React/Nodes/Table', () => {
 					</Table>,
 				);
 
-				const container = wrap.find(TableProcessor).instance();
-
-				container.setState({
-					tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
-				});
-				wrap.update();
-
-				const firstRowProps = wrap.find(TableRow).first().props();
-				expect(firstRowProps.tableOrderStatus).toBeUndefined();
-				expect(firstRowProps.onSorting).toBeUndefined();
-				wrap.unmount();
+				expect(getSortButtons()).toHaveLength(0);
+				expect(
+					container.querySelectorAll(`.${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER}`)[0],
+				).toBeInTheDocument();
+				expect(container.querySelectorAll('[aria-disabled="true"]')).toHaveLength(3);
 			});
 		});
 
 		describe('when there is no tableNode', () => {
 			it('should not add sortable props to the first table row', () => {
-				const wrap = mountWithIntl(
+				renderWithIntl(
 					<Table
 						layout="default"
 						renderWidth={renderWidth}
@@ -761,10 +727,10 @@ describe('Renderer - React/Nodes/Table', () => {
 						isNumberColumnEnabled={false}
 						rendererAppearance="full-page"
 					>
-						<TableRow>
-							<TableHeader />
-							<TableHeader />
-							<TableHeader />
+						<TableRow allowColumnSorting={true}>
+							<TableHeader allowColumnSorting={true} />
+							<TableHeader allowColumnSorting={true} />
+							<TableHeader allowColumnSorting={true} />
 						</TableRow>
 						<TableRow>
 							<TableCell />
@@ -774,17 +740,7 @@ describe('Renderer - React/Nodes/Table', () => {
 					</Table>,
 				);
 
-				const container = wrap.find(TableProcessor).instance();
-
-				container.setState({
-					tableOrderStatus: { columnIndex: 0, sortOrdered: SortOrder.ASC },
-				});
-				wrap.update();
-
-				const firstRowProps = wrap.find(TableRow).first().props();
-				expect(firstRowProps.tableOrderStatus).toBeUndefined();
-				expect(firstRowProps.onSorting).toBeUndefined();
-				wrap.unmount();
+				expect(getSortButtons()).toHaveLength(0);
 			});
 		});
 
@@ -826,14 +782,6 @@ describe('Renderer - React/Nodes/Table', () => {
 				),
 				attrs: { isNumberColumnEnabled: true },
 			};
-			const TableRowWithOriginalPos = ({
-				originalIndex: _originalIndex,
-				...tableRowProps
-			}: React.PropsWithChildren<
-				React.ComponentProps<typeof TableRow> & { originalIndex: number }
-			>) => {
-				return <TableRow {...tableRowProps} />;
-			};
 
 			test.each<[Map<string, string>, number[]]>([
 				[
@@ -852,10 +800,10 @@ describe('Renderer - React/Nodes/Table', () => {
 					]),
 					[1, 3, 4, 2],
 				],
-			])('should sort using %p to resolve inlineCard titles', (storage, expected) => {
+			])('should sort using %p to resolve inlineCard titles', async (storage, expected) => {
 				const tableFromSchema = schema.nodeFromJSON(tableWithInlineCardsDoc);
 
-				const wrap = mountWithIntl(
+				const { container } = renderWithIntl(
 					<SmartCardStorageContext.Provider value={storage}>
 						<Table
 							layout="default"
@@ -865,35 +813,28 @@ describe('Renderer - React/Nodes/Table', () => {
 							isNumberColumnEnabled={false}
 							rendererAppearance="full-page"
 						>
-							<TableRowWithOriginalPos originalIndex={1}>
-								<TableHeader />
-								<TableHeader />
-							</TableRowWithOriginalPos>
-							<TableRowWithOriginalPos originalIndex={2}>
-								<TableCell />
-							</TableRowWithOriginalPos>
-							<TableRowWithOriginalPos originalIndex={3}>
-								<TableCell />
-							</TableRowWithOriginalPos>
-							<TableRowWithOriginalPos originalIndex={4}>
-								<TableCell />
-							</TableRowWithOriginalPos>
+							<TableRow allowColumnSorting={true}>
+								<TableHeader allowColumnSorting={true} />
+								<TableHeader allowColumnSorting={true} />
+							</TableRow>
+							<TableRow>
+								<TableCell>row-2</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>row-3</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>row-4</TableCell>
+							</TableRow>
 						</Table>
 					</SmartCardStorageContext.Provider>,
 				);
-				const tableRowProps = wrap.find(TableRow).first().props();
 
-				act(() => {
-					tableRowProps.onSorting!(0, SortOrder.ASC);
-				});
-				wrap.update();
+				await userEvent.click(getSortButtons()[0]);
 
-				const sortPosition = wrap
-					.find(TableRowWithOriginalPos)
-					.map((tableRowWithOriginalPos) => tableRowWithOriginalPos.props().originalIndex);
+				const sortPosition = getBodyRowsText(container).map(([cellText]) => cellText);
 
-				expect(sortPosition).toEqual(expected);
-				wrap.unmount();
+				expect(sortPosition).toEqual(expected.slice(1).map((position) => `row-${position}`));
 			});
 		});
 	});
@@ -930,190 +871,149 @@ describe('Renderer - React/Nodes/Table', () => {
 			</td>
 		);
 		const tableFromSchema = schema.nodeFromJSON(tableDoc);
-		const wrap = mountWithIntl(
-			<Table
-				layout="default"
-				renderWidth={renderWidth}
-				allowColumnSorting={true}
-				isNumberColumnEnabled={false}
-				tableNode={tableFromSchema}
-				rendererAppearance="full-page"
-			>
-				{initialTableState.map((row, rowIndex) => {
-					if (rowIndex === 0) {
+
+		const renderSortableTable = () =>
+			renderWithIntl(
+				<Table
+					layout="default"
+					renderWidth={renderWidth}
+					allowColumnSorting={true}
+					isNumberColumnEnabled={false}
+					tableNode={tableFromSchema}
+					rendererAppearance="full-page"
+				>
+					{initialTableState.map((row, rowIndex) => {
+						if (rowIndex === 0) {
+							return (
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/no-array-index-key
+								<TableRow key={rowIndex} allowColumnSorting={true}>
+									{row.map((_, headerIndex) => (
+										// Ignored via go/ees005
+										// eslint-disable-next-line react/no-array-index-key
+										<TableHeader key={headerIndex} allowColumnSorting={true} />
+									))}
+								</TableRow>
+							);
+						}
+
 						return (
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/no-array-index-key
 							<TableRow key={rowIndex}>
-								{row.map((_, headerIndex) => (
+								{row.map((cellVal, cellIndex) => (
 									// Ignored via go/ees005
 									// eslint-disable-next-line react/no-array-index-key
-									<TableHeader key={headerIndex} />
+									<Cell key={cellIndex} text={cellVal} />
 								))}
 							</TableRow>
 						);
-					}
+					})}
+				</Table>,
+			);
 
-					return (
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/no-array-index-key
-						<TableRow key={rowIndex}>
-							{row.map((cellVal, cellIndex) => (
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/no-array-index-key
-								<Cell key={cellIndex} text={cellVal} />
-							))}
-						</TableRow>
-					);
-				})}
-			</Table>,
-		);
-		const expectTableOrder = (expectedValues: string[][]) => {
-			for (let i = 0; i < expectedValues.length; i++) {
-				for (let j = 0; j < expectedValues[0].length; j++) {
-					const cell = wrap
-						.find(TableRow)
-						.at(i + 1)
-						.find('td')
-						.at(j);
-					const actualValue = cell.text();
-					const expectedValue = expectedValues[i][j];
-
-					expect(actualValue).toEqual(expectedValue);
-				}
+		const sortColumn = async (columnIndex: number, clicks: number) => {
+			for (let click = 0; click < clicks; click++) {
+				await userEvent.click(getSortButtons()[columnIndex]);
 			}
 		};
 
+		const ASCENDING = 1;
+		const DESCENDING = 2;
+		const NO_ORDER = 3;
+
 		describe('when sorting on the first column', () => {
-			it('should sort table by column A to Z', () => {
-				const tableRowProps = wrap.find(TableRow).first().props();
-				act(() => {
-					tableRowProps.onSorting!(0, SortOrder.ASC);
-				});
-				wrap.update();
-				const tableState = [
-					[' C', 'C'],
-					['!c', 'A nEw world'],
-					['1a', '@yolo'],
-					['a1', 'be@ns'],
-					['BBb', ' '],
-					['Bbb', 'A'],
-					['bBBB', 'B'],
-					['C', 'A nEw world!'],
-				];
-				expectTableOrder(tableState);
+			const sortedByFirstColumn = [
+				[' C', 'C'],
+				['!c', 'A nEw world'],
+				['1a', '@yolo'],
+				['a1', 'be@ns'],
+				['BBb', ' '],
+				['Bbb', 'A'],
+				['bBBB', 'B'],
+				['C', 'A nEw world!'],
+			];
+
+			it('should sort table by column A to Z', async () => {
+				const { container } = renderSortableTable();
+
+				await sortColumn(0, ASCENDING);
+
+				expect(getBodyRowsText(container)).toEqual(sortedByFirstColumn);
 			});
 
-			it('should sort table by column Z to A', () => {
-				const tableRowProps = wrap.find(TableRow).first().props();
-				act(() => {
-					tableRowProps.onSorting!(0, SortOrder.DESC);
-				});
-				wrap.update();
-				const tableState = [
-					[' C', 'C'],
-					['!c', 'A nEw world'],
-					['1a', '@yolo'],
-					['a1', 'be@ns'],
-					['BBb', ' '],
-					['Bbb', 'A'],
-					['bBBB', 'B'],
-					['C', 'A nEw world!'],
-				].reverse();
-				expectTableOrder(tableState);
+			it('should sort table by column Z to A', async () => {
+				const { container } = renderSortableTable();
+
+				await sortColumn(0, DESCENDING);
+
+				expect(getBodyRowsText(container)).toEqual([...sortedByFirstColumn].reverse());
 			});
 
-			it('should clear table order', () => {
-				const tableRowProps = wrap.find(TableRow).first().props();
-				act(() => {
-					tableRowProps.onSorting!(0, SortOrder.NO_ORDER);
-				});
-				wrap.update();
-				const tableState = [
-					['Bbb', 'A'],
-					['bBBB', 'B'],
-					['BBb', ' '],
-					[' C', 'C'],
-					['1a', '@yolo'],
-					['a1', 'be@ns'],
-					['!c', 'A nEw world'],
-					['C', 'A nEw world!'],
-				];
-				expectTableOrder(tableState);
+			it('should clear table order', async () => {
+				const { container } = renderSortableTable();
+
+				await sortColumn(0, NO_ORDER);
+
+				expect(getBodyRowsText(container)).toEqual(initialTableState.slice(1));
 			});
 		});
 
 		describe('when sorting on the second column', () => {
-			it('should sort table by column A to Z', () => {
-				const tableRowProps = wrap.find(TableRow).first().props();
-				act(() => {
-					tableRowProps.onSorting!(1, SortOrder.ASC);
-				});
-				wrap.update();
-				const tableState = [
-					['BBb', ' '],
-					['1a', '@yolo'],
-					['Bbb', 'A'],
-					['!c', 'A nEw world'],
-					['C', 'A nEw world!'],
-					['bBBB', 'B'],
-					['a1', 'be@ns'],
-					[' C', 'C'],
-				];
-				expectTableOrder(tableState);
+			const sortedBySecondColumn = [
+				['BBb', ' '],
+				['1a', '@yolo'],
+				['Bbb', 'A'],
+				['!c', 'A nEw world'],
+				['C', 'A nEw world!'],
+				['bBBB', 'B'],
+				['a1', 'be@ns'],
+				[' C', 'C'],
+			];
+
+			it('should sort table by column A to Z', async () => {
+				const { container } = renderSortableTable();
+
+				await sortColumn(1, ASCENDING);
+
+				expect(getBodyRowsText(container)).toEqual(sortedBySecondColumn);
 			});
-			it('should sort table by column Z to A', () => {
-				const tableRowProps = wrap.find(TableRow).first().props();
-				act(() => {
-					tableRowProps.onSorting!(1, SortOrder.DESC);
-				});
-				wrap.update();
-				const tableState = [
-					['BBb', ' '],
-					['1a', '@yolo'],
-					['Bbb', 'A'],
-					['!c', 'A nEw world'],
-					['C', 'A nEw world!'],
-					['bBBB', 'B'],
-					['a1', 'be@ns'],
-					[' C', 'C'],
-				].reverse();
-				expectTableOrder(tableState);
+
+			it('should sort table by column Z to A', async () => {
+				const { container } = renderSortableTable();
+
+				await sortColumn(1, DESCENDING);
+
+				expect(getBodyRowsText(container)).toEqual([...sortedBySecondColumn].reverse());
 			});
-			it('should clear table order', () => {
-				const tableRowProps = wrap.find(TableRow).first().props();
-				act(() => {
-					tableRowProps.onSorting!(1, SortOrder.NO_ORDER);
-				});
-				wrap.update();
-				const tableState = [
-					['Bbb', 'A'],
-					['bBBB', 'B'],
-					['BBb', ' '],
-					[' C', 'C'],
-					['1a', '@yolo'],
-					['a1', 'be@ns'],
-					['!c', 'A nEw world'],
-					['C', 'A nEw world!'],
-				];
-				expectTableOrder(tableState);
+
+			it('should clear table order', async () => {
+				const { container } = renderSortableTable();
+
+				await sortColumn(1, NO_ORDER);
+
+				expect(getBodyRowsText(container)).toEqual(initialTableState.slice(1));
 			});
 		});
 	});
 
 	describe('table with overflow shadows', () => {
 		it('when columnWidths are not set, should not render shadows', () => {
-			const table = mountBasicTable({ columnWidths: [0, 0, 0] });
+			const { container } = renderBasicTable({ columnWidths: [0, 0, 0] });
 
-			expect(table.html().includes(shadowClassNames.LEFT_SHADOW)).toBeFalsy();
-			expect(table.html().includes(shadowClassNames.RIGHT_SHADOW)).toBeFalsy();
+			expect(container.querySelector(`.${shadowClassNames.LEFT_SHADOW}`)).not.toBeInTheDocument();
+			expect(container.querySelector(`.${shadowClassNames.RIGHT_SHADOW}`)).not.toBeInTheDocument();
 		});
 
 		it('when columnWidths are set should render shadows', () => {
-			const table = mountBasicTable({ columnWidths: [100, 100, 100] });
-			expect(table.html().includes(shadowObserverClassNames.SENTINEL_LEFT)).toBeTruthy();
-			expect(table.html().includes(shadowObserverClassNames.SENTINEL_RIGHT)).toBeTruthy();
-			table.unmount();
+			const { container } = renderBasicTable({ columnWidths: [100, 100, 100] });
+
+			expect(
+				container.querySelector(`.${shadowObserverClassNames.SENTINEL_LEFT}`),
+			).toBeInTheDocument();
+			expect(
+				container.querySelector(`.${shadowObserverClassNames.SENTINEL_RIGHT}`),
+			).toBeInTheDocument();
 		});
 	});
 
@@ -1121,20 +1021,31 @@ describe('Renderer - React/Nodes/Table', () => {
 		it('table is centered and has correct width', () => {
 			const tableNode = createTable(700, 'wide');
 			const rendererWidth = 1800;
-			const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-page', false, false, true);
+			const { container } = renderTable(
+				tableNode,
+				rendererWidth,
+				undefined,
+				'full-page',
+				false,
+				false,
+				true,
+			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const tableContainer = getTableContainer(container);
 
-			expect(tableContainer.prop('style')!.width).toBe(700);
-			expect(tableContainer.prop('style')!.left).toBe(undefined);
-			wrap.unmount();
+			expect(tableContainer.style.width).toBe('calc(min(700px, 100cqw - 32px * 2))');
+			// In full-page the table is allowed to break out of the line length, so `left` is a
+			// container query expression that resolves to 0 while the table fits the line length.
+			expect(tableContainer.style.left).toBe(
+				'calc(min(0px, 760px - min(700px, 100cqw - 32px * 2)) / 2)',
+			);
 		});
 
 		it('default table should be full width in full-width mode', () => {
 			const tableNode = createDefaultTable();
 			const rendererWidth = 1800;
 
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				undefined,
@@ -1144,16 +1055,13 @@ describe('Renderer - React/Nodes/Table', () => {
 				true,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe(1800);
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe('calc(min(1800px, 100cqw))');
 		});
 
 		it('default table should be responsively full width in full-width mode', () => {
 			const tableNode = createDefaultTable();
 			const rendererWidth = 900;
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				undefined,
@@ -1163,23 +1071,33 @@ describe('Renderer - React/Nodes/Table', () => {
 				true,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe(900);
-			wrap.unmount();
+			// The container query caps the table at the full-width layout width and lets it shrink
+			// with the container, rather than baking in the measured renderer width.
+			expect(getTableContainer(container).style.width).toBe('calc(min(1800px, 100cqw))');
 		});
 
 		it('table width responsively scales down', () => {
 			const tableNode = createTable(700, 'wide');
 			const rendererWidth = 600;
 
-			const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-page', false, false, true);
+			const { container } = renderTable(
+				tableNode,
+				rendererWidth,
+				undefined,
+				'full-page',
+				false,
+				false,
+				true,
+			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const tableContainer = getTableContainer(container);
 
-			expect(tableContainer.prop('style')!.width).toBe(600);
-			expect(tableContainer.prop('style')!.left).toBe(undefined);
-			wrap.unmount();
+			expect(tableContainer.style.width).toBe('calc(min(700px, 100cqw - 32px * 2))');
+			// Sizing is resolved by the container query, so the same CSS is emitted regardless of
+			// the measured renderer width - it just resolves to a different value at runtime.
+			expect(tableContainer.style.left).toBe(
+				'calc(min(0px, 760px - min(700px, 100cqw - 32px * 2)) / 2)',
+			);
 		});
 
 		it('table scales table columns down', () => {
@@ -1188,14 +1106,13 @@ describe('Renderer - React/Nodes/Table', () => {
 			const tableNode = createTable(tableWidth, 'wide');
 			const rendererWidth = tableWidth * scale;
 			const colWidths = [420, 220, 320];
-			const expectedWidths = colWidths.map((w) => w * scale);
+			// Columns take the maximum 30% scale down: the table width is resolved by CSS container
+			// queries, so there is no measured render width to scale proportionally against.
+			const expectedWidths = colWidths.map((w) => Math.floor(w * 0.7));
 
-			const wrap = mountTable(tableNode, rendererWidth, [420, 220, 320]);
+			const { container } = renderTable(tableNode, rendererWidth, [420, 220, 320]);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			checkColWidths(tableContainer, expectedWidths);
-			wrap.unmount();
+			checkColWidths(getTableContainer(container), expectedWidths);
 		});
 
 		it('table scales table columns down max 30%', () => {
@@ -1206,12 +1123,9 @@ describe('Renderer - React/Nodes/Table', () => {
 			const colWidths = [420, 220, 320];
 			const expectedWidths = colWidths.map((w) => w * 0.7);
 
-			const wrap = mountTable(tableNode, rendererWidth, colWidths);
+			const { container } = renderTable(tableNode, rendererWidth, colWidths);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			checkColWidths(tableContainer, expectedWidths);
-			wrap.unmount();
+			checkColWidths(getTableContainer(container), expectedWidths);
 		});
 
 		describe('column widths undefined', () => {
@@ -1225,7 +1139,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				const expectedWidths = (computedColWidths: Array<number>) =>
 					computedColWidths.map((w) => Math.floor(w * 0.7));
 				// expected to scale down
-				const wrap = mountTable(
+				const { container } = renderTable(
 					tableNode,
 					rendererWidth,
 					colWidths,
@@ -1234,9 +1148,8 @@ describe('Renderer - React/Nodes/Table', () => {
 					false,
 					true,
 				);
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-				checkColWidths(tableContainer, expectedWidths([166, 166, 166]));
-				wrap.unmount();
+
+				checkColWidths(getTableContainer(container), expectedWidths([166, 166, 166]));
 			});
 
 			it('should scale columns when table width is larger than fixed-width line length', () => {
@@ -1250,7 +1163,7 @@ describe('Renderer - React/Nodes/Table', () => {
 					computedColWidths.map((w) => Math.floor(w * 0.7));
 
 				// expected to scale down
-				const wrap = mountTable(
+				const { container } = renderTable(
 					tableNode,
 					rendererWidth,
 					colWidths,
@@ -1259,9 +1172,8 @@ describe('Renderer - React/Nodes/Table', () => {
 					false,
 					true,
 				);
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-				checkColWidths(tableContainer, expectedWidths([399, 399, 399]));
-				wrap.unmount();
+
+				checkColWidths(getTableContainer(container), expectedWidths([399, 399, 399]));
 			});
 
 			it('should render table columns as undefined when nested in a block node', () => {
@@ -1272,11 +1184,9 @@ describe('Renderer - React/Nodes/Table', () => {
 				// column widths 0 as they're undefined
 				const colWidths = [0, 0, 0];
 
-				const wrap = mountTable(tableNode, rendererWidth, colWidths, undefined, true);
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+				const { container } = renderTable(tableNode, rendererWidth, colWidths, undefined, true);
 
-				expect(tableContainer.find('colgroup')).toHaveLength(0);
-				wrap.unmount();
+				expect(getTableContainer(container).querySelectorAll('colgroup')).toHaveLength(0);
 			});
 
 			it('should NOT render a colgroup when isInsideOfTable and columns have not been resized', () => {
@@ -1287,7 +1197,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				// column widths 0 as they're undefined
 				const colWidths = [0, 0, 0];
 
-				const wrap = mountTable(
+				const { container } = renderTable(
 					tableNode,
 					rendererWidth,
 					colWidths,
@@ -1297,10 +1207,8 @@ describe('Renderer - React/Nodes/Table', () => {
 					true,
 					true,
 				);
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				expect(tableContainer.find('colgroup')).toHaveLength(0);
-				wrap.unmount();
+				expect(getTableContainer(container).querySelectorAll('colgroup')).toHaveLength(0);
 			});
 
 			// When Renderer is nested (eg: Renderer is used to render contents inside an extension
@@ -1317,7 +1225,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				const isTopLevelRenderer = false;
 				const rendererWidth = 300;
 
-				const wrap = mountTableWithFF(
+				const { container } = renderTableWithFF(
 					featureFlags,
 					tableNode,
 					rendererWidth,
@@ -1329,36 +1237,31 @@ describe('Renderer - React/Nodes/Table', () => {
 					allowTableResizing,
 				);
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-				// tableWidth = tableContainerWidth - 1 = rendererWidth - 1 = 299
-				// colWidth = tableWidth / 3 = 299/3 = 99.66666666666667
-				// then we need to -1 for the tableCellBorderWidth = 98.66666666666667
-				checkColWidths(tableContainer, [98.66666666666667, 98.66666666666667, 98.66666666666667]);
-
-				wrap.unmount();
+				// The nested renderer no longer measures a render width - the table is sized by CSS
+				// container queries - so unresized columns fall back to the minimum cell width and
+				// the container query keeps them inside the available space.
+				checkColWidths(getTableContainer(container), [48, 48, 48]);
 			});
 		});
 
-		it('table column not scales down when renderer width is bigger than table width', () => {
+		it('table columns scale down even when renderer width is bigger than table width', () => {
 			const tableNode = createDefaultTable();
 			const rendererWidth = 1400;
 			const colWidths = [420, 220, 620];
-			const expectedNotScaledWidths = colWidths.map((w) => w - 1);
+			// Columns take the maximum 30% scale down: the table width is resolved by CSS container
+			// queries, so the renderer width is no longer compared against the table width.
+			const expectedNotScaledWidths = colWidths.map((w) => Math.floor(w * 0.7));
 
-			const wrap = mountTable(tableNode, rendererWidth, colWidths);
+			const { container } = renderTable(tableNode, rendererWidth, colWidths);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			checkColWidths(tableContainer, expectedNotScaledWidths);
-			wrap.unmount();
+			checkColWidths(getTableContainer(container), expectedNotScaledWidths);
 		});
 
 		it('table column does not scales down when table is fixed and tableWithFixedColumnWidthsOption is enabled', () => {
 			const tableNode = createDefaultTable('fixed');
 			const rendererWidth = 700;
 
-			const wrap = mountTableWithFF(
+			const { container } = renderTableWithFF(
 				undefined,
 				tableNode,
 				rendererWidth,
@@ -1371,11 +1274,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				true,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			checkColWidths(tableContainer, [419, 219, 619]);
-
-			wrap.unmount();
+			checkColWidths(getTableContainer(container), [419, 219, 619]);
 		});
 
 		it('table scales down when table when tableWithFixedColumnWidthsOption is disabled', () => {
@@ -1385,7 +1284,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const colWidths = [420, 220, 620];
 			const expectedScaleWidths = colWidths.map((w) => w * scale);
 
-			const wrap = mountTableWithFF(
+			const { container } = renderTableWithFF(
 				undefined,
 				tableNode,
 				rendererWidth,
@@ -1398,10 +1297,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				false,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			checkColWidths(tableContainer, expectedScaleWidths);
-			wrap.unmount();
+			checkColWidths(getTableContainer(container), expectedScaleWidths);
 		});
 
 		it('should have correct style when table alignment is enabled', () => {
@@ -1409,7 +1305,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const rendererWidth = 1000;
 
 			const allowTableAlignment = true;
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				undefined,
@@ -1418,24 +1314,23 @@ describe('Renderer - React/Nodes/Table', () => {
 				allowTableAlignment,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.left).toBe(-80);
-
-			wrap.unmount();
+			// The offset is expressed as a container query so it stays correct as the container
+			// resizes; it resolves to -80px at the 600px table width used here.
+			expect(getTableContainer(container).style.left).toBe(
+				'calc((min(600px, 100cqw - 32px * 2) - 760px) / 2)',
+			);
 		});
 
 		it('should not have left alignment when table alignment is not enabled', () => {
 			const tableNode = createTable(600, 'align-start');
 			const rendererWidth = 1000;
 
-			const wrap = mountTable(tableNode, rendererWidth);
+			const { container } = renderTable(tableNode, rendererWidth);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.left).toBe(undefined);
-
-			wrap.unmount();
+			// Clamped to a maximum of 0px, so the table is never shifted left.
+			expect(getTableContainer(container).style.left).toBe(
+				'calc(min(0px, 760px - min(600px, 100cqw - 32px * 2)) / 2)',
+			);
 		});
 
 		it('should not have left style when table is inside of a block node', () => {
@@ -1444,13 +1339,19 @@ describe('Renderer - React/Nodes/Table', () => {
 			const rendererWidth = 1000;
 
 			const allowTableAlignment = true;
-			const wrap = mountTable(tableNode, rendererWidth, [], undefined, true, allowTableAlignment);
+			const { container } = renderTable(
+				tableNode,
+				rendererWidth,
+				[],
+				undefined,
+				true,
+				allowTableAlignment,
+			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.left).toBe(undefined);
-
-			wrap.unmount();
+			// Clamped to a maximum of 0px, so the table is never shifted left.
+			expect(getTableContainer(container).style.left).toBe(
+				'calc(min(0px, 760px - min(600px, 100cqw - 32px * 2)) / 2)',
+			);
 		});
 	});
 
@@ -1463,7 +1364,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const isInsideOfBlockNode = false;
 			const allowTableResizing = true;
 			const allowTableAlignment = true;
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				columnWidths,
@@ -1473,10 +1374,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				allowTableAlignment,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe('inherit');
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe('inherit');
 		});
 
 		it('default table should have the same width as renderer when table resizing and alignment are disabled', () => {
@@ -1484,12 +1382,9 @@ describe('Renderer - React/Nodes/Table', () => {
 			const rendererWidth = 900;
 
 			const columnWidths = undefined;
-			const wrap = mountTable(tableNode, rendererWidth, columnWidths, 'comment');
+			const { container } = renderTable(tableNode, rendererWidth, columnWidths, 'comment');
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe('inherit');
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe('inherit');
 		});
 
 		it('resized table should have correct width when table resizing is enabled and alignment is NOT enabled', () => {
@@ -1501,7 +1396,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const isInsideOfBlockNode = false;
 			const allowTableResizing = true;
 			const allowTableAlignment = false;
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				columnWidths,
@@ -1511,10 +1406,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				allowTableResizing,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe(tableWidth);
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe(`calc(min(${tableWidth}px, 100cqw))`);
 		});
 
 		it('edge case: a table with 760px width when table resizing is enabled and alignment is NOT enabled should inherit renderer width', () => {
@@ -1526,7 +1418,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const isInsideOfBlockNode = false;
 			const allowTableResizing = true;
 			const allowTableAlignment = false;
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				columnWidths,
@@ -1536,10 +1428,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				allowTableResizing,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe('inherit');
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe('inherit');
 		});
 
 		it('resized table should have correct width when table resizing and alignment are enabled', () => {
@@ -1551,7 +1440,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const isInsideOfBlockNode = false;
 			const allowTableResizing = true;
 			const allowTableAlignment = true;
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				columnWidths,
@@ -1561,10 +1450,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				allowTableResizing,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe(tableWidth);
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe(`calc(min(${tableWidth}px, 100cqw))`);
 		});
 
 		it('resized table should have correct width when table resizing and alignment are disabled', () => {
@@ -1573,12 +1459,9 @@ describe('Renderer - React/Nodes/Table', () => {
 			const rendererWidth = 900;
 
 			const columnWidths = undefined;
-			const wrap = mountTable(tableNode, rendererWidth, columnWidths, 'comment');
+			const { container } = renderTable(tableNode, rendererWidth, columnWidths, 'comment');
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe('inherit');
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe('inherit');
 		});
 
 		it('should have correct styles when table alignment is enabled in Comment Renderer', () => {
@@ -1586,7 +1469,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const rendererWidth = 1000;
 
 			const allowTableAlignment = true;
-			const wrap = mountTable(
+			const { container } = renderTable(
 				tableNode,
 				rendererWidth,
 				undefined,
@@ -1595,24 +1478,19 @@ describe('Renderer - React/Nodes/Table', () => {
 				allowTableAlignment,
 			);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.left).toBe(-200);
-
-			wrap.unmount();
+			// Expressed as a container query; resolves to -200px at the 1000px renderer width.
+			expect(getTableContainer(container).style.left).toBe(
+				'calc((min(600px, 100cqw) - 100cqw) / 2)',
+			);
 		});
 
 		it('should have correct styles when table alignment is not enabled in Comment Renderer', () => {
 			const tableNode = createTable(600, 'align-start');
 			const rendererWidth = 1000;
 
-			const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+			const { container } = renderTable(tableNode, rendererWidth, undefined, 'comment');
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.left).toBe(undefined);
-
-			wrap.unmount();
+			expect(getTableContainer(container).style.left).toBe('');
 		});
 	});
 
@@ -1645,14 +1523,14 @@ describe('Renderer - React/Nodes/Table', () => {
 			});
 		};
 
-		const mountTable = (
+		const renderSSRTable = (
 			node: PMNode,
 			columnWidths?: number[],
 			appearance: RendererAppearance = 'full-page',
 			isInsideOfBlockNode = false,
 			allowTableResizing = false,
 		) => {
-			return mountWithIntl(
+			return renderWithIntl(
 				<Table
 					layout={node.attrs.layout}
 					rendererAppearance={appearance}
@@ -1678,23 +1556,19 @@ describe('Renderer - React/Nodes/Table', () => {
 
 		it('table has its own width in full-width renderer with no width', () => {
 			const tableNode = createTable(700, 'wide');
-			const wrap = mountTable(tableNode, undefined, 'full-width', true, true);
+			const { container } = renderSSRTable(tableNode, undefined, 'full-width', true, true);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const tableContainer = getTableContainer(container);
 
-			expect(tableContainer.prop('style')!.width).toBe(700);
-			expect(tableContainer.prop('style')!.left).toBe(undefined);
-			wrap.unmount();
+			expect(tableContainer.style.width).toBe('calc(min(700px, 100cqw))');
+			expect(tableContainer.style.left).toBe('');
 		});
 
 		it('default table should be full width in full-width mode', () => {
 			const tableNode = createDefaultTable();
-			const wrap = mountTable(tableNode, undefined, 'full-width', false, true);
+			const { container } = renderSSRTable(tableNode, undefined, 'full-width', false, true);
 
-			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-			expect(tableContainer.prop('style')!.width).toBe(1800);
-			wrap.unmount();
+			expect(getTableContainer(container).style.width).toBe('calc(min(1800px, 100cqw))');
 		});
 	});
 });

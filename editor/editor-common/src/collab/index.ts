@@ -6,18 +6,16 @@ import type { ReactElement } from 'react';
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import type {
-	BatchAttrsStep,
-	OverrideDocumentStepJSON as OverrideDocumentStep,
-} from '@atlaskit/adf-schema/steps';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
+import type { OverrideDocumentStepJSON as OverrideDocumentStep } from '@atlaskit/adf-schema/steps/override-document-step';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { participantColors } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
@@ -52,6 +50,7 @@ export enum PROVIDER_ERROR_CODE {
 	INVALID_USER_TOKEN = 'INVALID_USER_TOKEN',
 	DOCUMENT_NOT_FOUND = 'DOCUMENT_NOT_FOUND',
 	LOCKED = 'LOCKED',
+	DOCUMENT_BLOCKED = 'DOCUMENT_BLOCKED',
 	FAIL_TO_SAVE = 'FAIL_TO_SAVE',
 	DOCUMENT_RESTORE_ERROR = 'DOCUMENT_RESTORE_ERROR',
 	INITIALISATION_ERROR = 'INITIALISATION_ERROR',
@@ -123,6 +122,21 @@ type DocumentNotFound = {
  */
 type Locked = {
 	code: PROVIDER_ERROR_CODE.LOCKED;
+	message: string;
+	recoverable: boolean;
+	status?: number;
+};
+
+/**
+ * This error is thrown when the document has been blocked (blacklisted) by NCS, e.g. via the
+ * documentari kill switch. Unlike a temporary Locked namespace, the block is not expected to clear
+ * on its own, so editing should be disabled and the user informed the document can't be edited.
+ * The error is passed to us by NCS as ARI_BLACKLISTED with a 423 status.
+ * @message Message returned to editor, i.e. Document is blocked
+ * @recoverable It is not recoverable, as the provider cannot do anything to unblock the document.
+ */
+type DocumentBlocked = {
+	code: PROVIDER_ERROR_CODE.DOCUMENT_BLOCKED;
 	message: string;
 	recoverable: boolean;
 	status?: number;
@@ -262,6 +276,7 @@ export type ProviderError =
 	| InvalidUserToken
 	| DocumentNotFound
 	| Locked
+	| DocumentBlocked
 	| FailToSave
 	| DocumentNotRestore
 	| InitialisationError
@@ -382,6 +397,16 @@ export interface BaseStepPM extends StepMetadata {
 	agentType?: string;
 	clientId: number | string;
 	from?: number;
+	/**
+	 * Opaque identifier issued by the backend for the agent invocation a step belongs to.
+	 *
+	 * Every step produced by one invocation carries the same value, so steps can be grouped back
+	 * into the invocation that produced them. A single batch is not a whole invocation: one
+	 * invocation's steps can be split across batches by version boundaries or replayed by catch-up,
+	 * so group by this value rather than by batch. Absent on human steps and on steps from backends
+	 * that do not send it, and never validated for format by the frontend.
+	 */
+	invocationId?: string;
 	slice?: SliceJson;
 	stepType: string;
 	to?: number;
@@ -495,6 +520,8 @@ type ProviderParticipantPermitLevel = {
 };
 
 export interface CollabParticipant {
+	actingUserId?: string;
+	agentType?: string;
 	avatar: string;
 	cursorPos?: number;
 	isGuest?: boolean;
@@ -505,6 +532,7 @@ export interface CollabParticipant {
 	presenceActivity?: PresenceActivity;
 	presenceId?: string;
 	sessionId: string;
+	userId?: string;
 }
 
 export type ProviderParticipant = CollabParticipant & {

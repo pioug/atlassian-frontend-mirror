@@ -41,37 +41,7 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../adf-schema/tsconfig.app.json"
-		},
-		{
 			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-prosemirror/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-tables/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-experiments/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/primitives/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
-		},
-		{
-			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

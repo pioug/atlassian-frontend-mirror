@@ -1,9 +1,9 @@
 /**
  * Human-readable renderer for a single ADS design token's detail view.
  *
- * The token dataset is intentionally small — each record has only `name` and `exampleValue` —
- * so the detail view adds the actionable `token('…')` usage line on top of those two fields.
- * Full structured data remains available via `--json`.
+ * Exact token lookups include the full metadata record. The detail view renders its guidance and
+ * adds an actionable `token('…')` usage line; the same structured fields remain available via
+ * `--json`.
  */
 
 /**
@@ -12,14 +12,21 @@
 type TokenPayload = {
 	name?: string;
 	exampleValue?: string;
+	usageGuidelines?: {
+		usage?: string;
+		cssProperties?: string[];
+	};
+	usage?: string;
 };
+
+const oneLine = (text: string): string => text.replace(/\s+/g, ' ').trim();
 
 /**
  * Render a single token payload as a detail view. Returns `null` when the data is not a
  * recognisable token object, so the caller can fall back to generic rendering.
  */
 export const formatToken = (data: unknown): string | null => {
-	// `token <name>` reuses token search with limit 1, so `data` is a one-element array.
+	// `token <name>` returns a ranked candidate array; the command transform selects the detail.
 	const token: TokenPayload | undefined = Array.isArray(data)
 		? (data[0] as TokenPayload | undefined)
 		: (data as TokenPayload);
@@ -34,8 +41,20 @@ export const formatToken = (data: unknown): string | null => {
 		sections.push('', `Example value: ${token.exampleValue}`);
 	}
 
+	if (token.usageGuidelines?.usage) {
+		sections.push('', 'Guidelines:', `  ${oneLine(token.usageGuidelines.usage)}`);
+	}
+
+	if (token.usageGuidelines?.cssProperties?.length) {
+		sections.push(
+			'',
+			'CSS properties:',
+			...token.usageGuidelines.cssProperties.map((item) => `  ${item}`),
+		);
+	}
+
 	// The actionable bit: how to consume the token from `@atlaskit/tokens`.
-	sections.push('', 'Usage:', `  token('${token.name}')`);
+	sections.push('', 'Usage:', `  ${token.usage ?? `token('${token.name}')`}`);
 
 	return sections.join('\n');
 };

@@ -2,7 +2,7 @@ import type { Listener, UnbindFn } from 'bind-event-listener';
 import { bindAll } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, getPosHandlerNode } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -150,33 +150,22 @@ export class TaskItemNodeView implements NodeView {
 	}
 
 	update(node: PMNode): boolean {
-		if (!expValEquals('platform_editor_prevent_taskitem_remount', 'isEnabled', true)) {
-			const isValidUpdate =
-				node.type === this.node.type && !!(node.attrs.state === this.node.attrs.state);
-			if (!isValidUpdate) {
-				return false;
-			}
-		}
-
 		// Only return false if this is a completely different task
 		if (this.node.attrs.localId !== node.attrs.localId) {
 			return false;
 		}
 
-		if (expValEquals('platform_editor_prevent_taskitem_remount', 'isEnabled', true)) {
-			if (node.type !== this.node.type) {
-				return false;
-			}
+		if (node.type !== this.node.type) {
+			return false;
+		}
 
-			const stateChanged =
-				node.type === this.node.type && !!(node.attrs.state !== this.node.attrs.state);
+		const stateChanged = node.attrs.state !== this.node.attrs.state;
 
-			// Update task checkbox state to match document state.
-			// It's possible the state may have changed from a collab edit and not from a checkbox click
-			// so we need to update the checkbox to match.
-			if (stateChanged && this.input) {
-				this.input.checked = node.attrs.state === 'DONE';
-			}
+		// Update task checkbox state to match document state.
+		// It's possible the state may have changed from a collab edit and not from a checkbox click
+		// so we need to update the checkbox to match.
+		if (stateChanged && this.input) {
+			this.input.checked = node.attrs.state === 'DONE';
 		}
 
 		this.updatePlaceholder(node);

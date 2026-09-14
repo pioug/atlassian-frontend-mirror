@@ -1,14 +1,17 @@
 import React, { useCallback, useId, useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import RetryIcon from '@atlaskit/icon/core/retry';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Text from '@atlaskit/primitives/text';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

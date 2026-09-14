@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import { renderHook } from '@atlassian/testing-library';
 
-import { getActiveTrace } from '../../experience-trace-id-context';
+import { getActiveTrace } from '../../experience-trace-id-context/get-active-trace';
 import UFOInteractionContext, { type UFOInteractionContextType } from '../../interaction-context';
 import * as interactionMetricsModule from '../../interaction-metrics';
 import UFORouteName from '../../route-name-context';
@@ -29,7 +29,7 @@ jest.mock('../../route-name-context', () => ({
 	default: { current: null },
 }));
 
-jest.mock('../../experience-trace-id-context', () => ({
+jest.mock('../../experience-trace-id-context/get-active-trace', () => ({
 	getActiveTrace: jest.fn(),
 }));
 const mockGetActiveTrace = getActiveTrace as jest.Mock;

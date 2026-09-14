@@ -6,7 +6,7 @@
 import { cssMap, jsx } from '@atlaskit/css';
 import { code, Disclosure, Example, md, TSProps } from '@atlaskit/docs';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -324,9 +324,10 @@ draggable({
 				y: token('space.100'),
 			}),
 			render({ container }) {
-				ReactDOM.render(<DragPreview elemBefore={<ProjectIcon label="" />} content="Projects" />, container);
+				const root = createRoot(container);
+				root.render(<DragPreview elemBefore={<ProjectIcon label="" />} content="Projects" />);
 				return function cleanup() {
-					ReactDOM.unmountComponentAtNode(container);
+					root.unmount();
 				};
 			},
 			nativeSetDragImage,
@@ -445,9 +446,9 @@ To wire up a group drop indicator, you must:
 ${(
 	<Example
 		packageName="@atlaskit/side-nav-items"
-		Component={require('../../examples/drag-and-drop/simple').AllMenuItems}
+		Component={require('../../examples/drag-and-drop/simple.vr.ap').AllMenuItems}
 		title="Group drop indicator example"
-		source={require('!!raw-loader!../../examples/drag-and-drop/simple')}
+		source={require('!!raw-loader!../../examples/drag-and-drop/simple.vr.ap')}
 	/>
 )}
 

@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { durations, easeInOut } from '@atlaskit/motion';
+import { durations } from '@atlaskit/motion/utils/durations';
+import { easeInOut } from '@atlaskit/motion/curves';
 import {
 	draggable,
 	dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Grid, Inline, Stack, xcss } from '@atlaskit/primitives';
 

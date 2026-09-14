@@ -454,7 +454,10 @@ export interface BorderColorTokenSchema<BaseToken> {
 			bold: PaintToken<BaseToken>;
 			inverse: PaintToken<BaseToken>;
 			focused: PaintToken<BaseToken>;
-			input: PaintToken<BaseToken>;
+			input: {
+				'[default]': PaintToken<BaseToken>;
+				search: PaintToken<BaseToken>;
+			};
 			disabled: PaintToken<BaseToken>;
 			brand: PaintToken<BaseToken>;
 			selected: PaintToken<BaseToken>;
@@ -1440,6 +1443,32 @@ export interface MotionTokenSchema<BaseToken> {
 			exit: MotionToken<BaseToken>;
 		};
 		panel: {
+			enter: {
+				'[default]': MotionToken<BaseToken>;
+				left: MotionToken<BaseToken>;
+				right: MotionToken<BaseToken>;
+			};
+			exit: {
+				'[default]': MotionToken<BaseToken>;
+				left: MotionToken<BaseToken>;
+				right: MotionToken<BaseToken>;
+			};
+			content: {
+				enter: MotionToken<BaseToken>;
+				exit: MotionToken<BaseToken>;
+			};
+		};
+		sidenav: {
+			enter: {
+				left: MotionToken<BaseToken>;
+				right: MotionToken<BaseToken>;
+			};
+			exit: {
+				left: MotionToken<BaseToken>;
+				right: MotionToken<BaseToken>;
+			};
+		};
+		label: {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;
 		};

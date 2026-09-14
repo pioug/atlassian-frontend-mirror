@@ -2,7 +2,7 @@ import { Buffer } from 'buffer';
 
 import React, { Component } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type FormFields, type SelectOptionDetails, type SelectValue } from '../types';
 import { isApiGatewayUrl } from '../utils/is-api-gateway-url';

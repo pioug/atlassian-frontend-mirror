@@ -19,6 +19,11 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 			height: 1080,
 		},
 		featureFlags: ['ufo_payload_use_idle_callback'],
+	} satisfies {
+		examplePage: 'basic';
+		viewport: { width: number; height: number };
+		featureFlags: string[];
+		__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 	});
 
 	test(`UFO payload contains expected fields for a basic implementation`, async ({
@@ -195,12 +200,10 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 		expect(typeof appRootSegment?.c).toBe('object');
 
 		// Verify that app-root has 10 section children
-		// @ts-ignore
 		const sectionSegments = appRootSegment?.c;
 		expect(Object.keys(sectionSegments).length).toBe(10);
 
 		// Check that all section names are present
-		// @ts-ignore
 		const sectionNames = Object.values(sectionSegments).map((segment: any) => segment.n);
 		expect(sectionNames.sort()).toStrictEqual(
 			[

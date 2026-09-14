@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/conversation",
-	"version": "27.1.0",
+	"version": "33.0.0",
 	"description": "DEPRECATED Render conversation threads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,7 +51,6 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",
-		"enzyme": "root:*",
 		"react-dom": "^19.2.0"
 	},
 	"exports": {

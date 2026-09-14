@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "24.3.9",
+	"version": "25.3.3",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -74,21 +74,28 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./button-group": "./src/entry-points/button-group.tsx",
-		"./button": "./src/entry-points/button.tsx",
-		"./containers/button-group": "./src/entry-points/containers-button-group.tsx",
+		"./button": "./src/old-button/button.tsx",
+		"./button-group": "./src/containers/button-group.tsx",
+		"./containers/button-group": "./src/containers/button-group.tsx",
+		"./custom-theme-button/custom-theme-button": "./src/old-button/custom-theme-button/custom-theme-button.tsx",
 		"./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
-		"./default/button": "./src/entry-points/default-button.tsx",
-		"./icon/button": "./src/entry-points/icon-button.tsx",
-		"./icon/link": "./src/entry-points/icon-link.tsx",
-		"./link": "./src/entry-points/link.tsx",
-		"./loading-button": "./src/entry-points/loading-button.tsx",
+		"./custom-theme-button-types": "./src/old-button/custom-theme-button/custom-theme-button-types.tsx",
+		"./default/button": "./src/new-button/variants/default/button.tsx",
+		"./divider": "./src/new-button/containers/split-button/divider.tsx",
+		"./icon/button": "./src/new-button/variants/icon/button.tsx",
+		"./icon/link": "./src/new-button/variants/icon/link.tsx",
+		"./link": "./src/new-button/variants/default/link.tsx",
+		"./loading-button": "./src/old-button/loading-button.tsx",
 		"./new": "./src/entry-points/new.tsx",
-		"./old-button/types": "./src/entry-points/old-button-types.tsx",
+		"./old-button/types": "./src/old-button/types.tsx",
+		"./split-button/split-button": "./src/new-button/containers/split-button/split-button.tsx",
 		"./split-button": "./src/entry-points/split-button.tsx",
-		"./standard-button": "./src/entry-points/standard-button.tsx",
+		"./split-button-container": "./src/new-button/containers/split-button/split-button-container.tsx",
+		"./split-button-with-slots": "./src/new-button/containers/split-button/split-button-with-slots.tsx",
+		"./standard-button": "./src/old-button/button.tsx",
+		"./theme": "./src/old-button/custom-theme-button/theme.tsx",
 		"./types": "./src/entry-points/types.tsx",
-		"./variants/types": "./src/entry-points/variants-types.tsx"
+		"./variants/types": "./src/new-button/variants/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -110,7 +117,7 @@
 		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -125,35 +132,34 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/range": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"ast-types": "root:*",
 		"jscodeshift": "root:*",
 		"lodash": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"homepage": "https://atlassian.design/components/button/",
 	"platform-feature-flags": {
 		"platform_dst_button_chevron_sizing": {
 			"type": "boolean"
 		},
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
-		"platform-dst_fix_not_focusable_loading_button": {
-			"type": "boolean"
-		},
 		"platform-dst-motion-uplift-button": {
 			"type": "boolean"
 		},
 		"platform-dst-legacy-button-anchor-text-color": {
+			"type": "boolean"
+		},
+		"platform-dst-tokens-finesse": {
 			"type": "boolean"
 		}
 	}

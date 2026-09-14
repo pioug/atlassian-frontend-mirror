@@ -5,6 +5,7 @@ test('Tooltip should be visible when tab is focused', async ({ page }) => {
 		'design-system',
 		'tabs',
 		'custom-tab-components',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator('[data-testid="tooltip-tab1"]').focus();
 	await expect(page.locator('[data-testid="tooltip-tab1"]')).toBeFocused();

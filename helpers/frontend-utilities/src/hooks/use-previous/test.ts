@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
-import usePrevious from './index';
+import { usePrevious } from './usePrevious';
 
 describe('usePrevious()', () => {
 	it('should return undefined for the initial render', () => {

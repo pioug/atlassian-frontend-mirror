@@ -1,17 +1,8 @@
-import { useEffect, useRef } from 'react';
-
-const usePrevious = <T = any>(value: T): T | undefined => {
-	// The ref object is a generic container whose current property is mutable ...
-	// ... and can hold any value, similar to an instance property on a class
-	const ref = useRef<T>();
-
-	// Store current value in ref
-	useEffect(() => {
-		ref.current = value;
-	}, [value]); // Only re-run if value changes
-
-	// Return previous value (happens before update in useEffect above)
-	return ref.current;
-};
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { usePrevious } from './usePrevious';
 
 export default usePrevious;
+/**
+ * @deprecated Use `import { usePrevious } from '@atlaskit/frontend-utilities/hooks'` instead.
+ */
+export { usePrevious } from './usePrevious';

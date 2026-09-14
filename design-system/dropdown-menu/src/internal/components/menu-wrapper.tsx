@@ -6,9 +6,9 @@ import { type KeyboardEvent, type MouseEvent, useContext, useEffect, useLayoutEf
 
 import { cssMap, jsx } from '@atlaskit/css';
 import MenuGroup from '@atlaskit/menu/menu-group';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type FocusableElementRef, type MenuWrapperProps } from '../../types';

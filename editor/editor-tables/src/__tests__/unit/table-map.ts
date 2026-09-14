@@ -13,7 +13,7 @@ describe('TableMap', () => {
 	describe('creates correct TableMap', () => {
 		it('throws an error when param is not a table node', () => {
 			const textNode = p('text')(defaultSchema);
-			expect(() => TableMap.get(textNode)).toThrowError('Not a table node: paragraph');
+			expect(() => TableMap.get(textNode)).toThrow('Not a table node: paragraph');
 		});
 
 		it.each([
@@ -134,12 +134,12 @@ describe('TableMap', () => {
 				top: 2,
 				bottom: 3,
 			});
-			expect(() => map.findCell(2)).toThrowError('No cell with offset 2 found');
+			expect(() => map.findCell(2)).toThrow('No cell with offset 2 found');
 		});
 
 		it('can count column correctly', () => {
 			expect(map.colCount(18)).toEqual(2);
-			expect(() => map.colCount(2)).toThrowError('No cell with offset 2 found');
+			expect(() => map.colCount(2)).toThrow('No cell with offset 2 found');
 		});
 
 		it('can find positions correctly', () => {

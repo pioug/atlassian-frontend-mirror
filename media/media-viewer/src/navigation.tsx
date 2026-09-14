@@ -1,20 +1,25 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
 import React from 'react';
 import { Component } from 'react';
-import { type Identifier } from '@atlaskit/media-client';
+
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import ArrowLeftCircleIcon from '@atlaskit/icon/core/chevron-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/core/chevron-right';
-import { hideControlsClassName } from '@atlaskit/media-ui';
-import { Shortcut } from '@atlaskit/media-ui';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { type Identifier } from '@atlaskit/media-client';
+import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
+import { Shortcut } from '@atlaskit/media-ui/shortcut';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { createNavigatedEvent } from './analytics/events/ui/createNavigatedEvent';
+import { fireAnalytics } from './analytics/fireAnalytics';
 import { ArrowsWrapper, RightWrapper, LeftWrapper, Arrow } from './styleWrappers';
-import { getSelectedIndex } from './utils';
-import { createNavigatedEvent } from './analytics/events/ui/navigated';
-import { fireAnalytics } from './analytics';
+import { getSelectedIndex } from './utils/getSelectedIndex';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
-import { type NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 export type NavigationDirection = 'prev' | 'next';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
 	RequestError,
@@ -15,9 +15,14 @@ import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { Browser } from '../../browser/browser';
 import { type BrowserConfig } from '../../../../src/types';
 import { type LocalUploadConfig } from '../../../../src/components/types';
-import * as ufoWrapper from '../../../util/ufoExperiences';
+// Spy on the individual UFO experience modules rather than the aggregating '../util/ufoExperiences'
+// barrel: localUploadReact now imports these functions directly from their own modules, so spying the
+// barrel's re-exports would not intercept the calls made by the component under test.
+import * as startUfoWrapper from '../../../util/startMediaUploadUfoExperience';
+import * as succeedUfoWrapper from '../../../util/succeedMediaUploadUfoExperience';
+import * as failUfoWrapper from '../../../util/failMediaUploadUfoExperience';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const getFileInput = () => screen.getByTestId('media-picker-file-input') as HTMLInputElement;
 const createTestFile = () => new File(['file contents'], 'hello.txt', { type: 'text/plain' });
@@ -29,12 +34,18 @@ describe('Browser analytics instrumentation', () => {
 	const uploadId = 'upload id';
 	let oldDateNow: () => number;
 
-	const mockstartMediaUploadUfoExperience = jest.spyOn(ufoWrapper, 'startMediaUploadUfoExperience');
+	const mockstartMediaUploadUfoExperience = jest.spyOn(
+		startUfoWrapper,
+		'startMediaUploadUfoExperience',
+	);
 	const mocksucceedMediaUploadUfoExperience = jest.spyOn(
-		ufoWrapper,
+		succeedUfoWrapper,
 		'succeedMediaUploadUfoExperience',
 	);
-	const mockfailMediaUploadUfoExperience = jest.spyOn(ufoWrapper, 'failMediaUploadUfoExperience');
+	const mockfailMediaUploadUfoExperience = jest.spyOn(
+		failUfoWrapper,
+		'failMediaUploadUfoExperience',
+	);
 
 	const mediaClient = fakeMediaClient();
 	let fileStateObservable = createMediaSubject();

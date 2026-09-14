@@ -3,7 +3,7 @@ import {
 	DecisionRenderer,
 	DecisionHoverRenderer,
 	DecisionRendererWithReactLooselyLazy,
-} from './decision.fixture';
+} from './decision.fixture.vr.ap';
 
 snapshot(DecisionRenderer);
 

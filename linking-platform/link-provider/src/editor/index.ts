@@ -8,17 +8,12 @@
 // https://product-fabric.atlassian.net/browse/EDM-5755
 
 import DataLoader from 'dataloader';
-import {
-	type CardAdf,
-	type CardAppearance,
-	getBaseUrl,
-	getResolverUrl,
-	type EnvironmentsKeys,
-	request,
-	getStatus,
-} from '@atlaskit/linking-common';
+import type { CardAdf, CardAppearance, EnvironmentsKeys } from '@atlaskit/linking-common/types';
+import { request } from '@atlaskit/linking-common/api';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
+import { getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
 
-import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 
 import {
 	type CardProvider,

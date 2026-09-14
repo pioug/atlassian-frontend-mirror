@@ -11,7 +11,7 @@ test.beforeEach(({ skipAxeCheck }) => {
 });
 test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('popup can be opened via Enter key on trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -28,7 +28,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('popup can be opened via Space key on trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -45,7 +45,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('popup can be opened via click on trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -62,7 +62,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 });
 test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Escape closes the popup', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -115,7 +115,7 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 		 * the popup must explicitly pass `role="dialog"` (or another
 		 * focus-moving role).
 		 */
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -133,7 +133,7 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus returns to trigger after Escape', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -158,7 +158,7 @@ test.describe('Popup top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('trigger matches :focus-visible when focused with keyboard-style focus', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -185,7 +185,7 @@ test.describe('Popup top-layer — WCAG 2.4.7 Focus Visible', () => {
 });
 test.describe('Popup top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 	test('popup content is visible and not obscured', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -205,7 +205,7 @@ test.describe('Popup top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 });
 test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('trigger has aria-expanded=false when popup is closed', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -219,7 +219,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('trigger has aria-expanded=true when popup is open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -234,7 +234,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('trigger has aria-haspopup', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -248,7 +248,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('popup content has popover attribute', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -290,7 +290,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 });
 test.describe('Popup top-layer — WCAG 4.1.3 Status Messages', () => {
 	test('popup state change is perceivable via aria-expanded', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -315,7 +315,7 @@ test.describe('Popup top-layer — WCAG 4.1.3 Status Messages', () => {
 });
 test.describe('Popup top-layer — WCAG 1.3.1 Info and Relationships', () => {
 	test('trigger aria-controls references the actual popup element', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -347,7 +347,7 @@ test.describe('Popup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('popup content follows trigger in document order (not portalled to body end)', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -384,7 +384,7 @@ test.describe('Popup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 });
 test.describe('Popup top-layer — Dismiss behaviors', () => {
 	test('clicking outside closes the popup (light dismiss)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -403,7 +403,7 @@ test.describe('Popup top-layer — Dismiss behaviors', () => {
 	});
 
 	test('Escape key closes the popup', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -422,7 +422,7 @@ test.describe('Popup top-layer — Dismiss behaviors', () => {
 });
 test.describe('Popup top-layer — Positioning and sizing', () => {
 	test('popup is positioned near the trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
@@ -449,14 +449,11 @@ test.describe('Popup top-layer — Positioning and sizing', () => {
 	});
 
 	test('shouldFitContainer makes popup match trigger width', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/18-should-fit-container.tsx')>(
-			'design-system',
-			'popup',
-			'should-fit-container',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/18-should-fit-container.vr.ap.tsx')
+		>('design-system', 'popup', 'should-fit-container', {
+			featureFlag,
+		});
 
 		// The example exports both a default (initially-closed) and a
 		// named (initially-open) instance. The default export is the closed
@@ -541,14 +538,11 @@ test.describe('Popup top-layer — Nested popups', () => {
 });
 test.describe('Popup top-layer — Dialog role focus behavior', () => {
 	test('Tab wraps forward from last to first focusable element', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
-			'design-system',
-			'popup',
-			'popup-role-dialog',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/19-popup-role-dialog.vr.ap.tsx')
+		>('design-system', 'popup', 'popup-role-dialog', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.focus();
@@ -571,14 +565,11 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 	});
 
 	test('Shift+Tab wraps backward from first to last focusable element', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
-			'design-system',
-			'popup',
-			'popup-role-dialog',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/19-popup-role-dialog.vr.ap.tsx')
+		>('design-system', 'popup', 'popup-role-dialog', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.focus();
@@ -600,14 +591,11 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 	});
 
 	test('Tab does not escape dialog popup to background content', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
-			'design-system',
-			'popup',
-			'popup-role-dialog',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/19-popup-role-dialog.vr.ap.tsx')
+		>('design-system', 'popup', 'popup-role-dialog', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.focus();
@@ -627,14 +615,11 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 	});
 
 	test('Escape still closes focus-wrapped dialog popup', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
-			'design-system',
-			'popup',
-			'popup-role-dialog',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/19-popup-role-dialog.vr.ap.tsx')
+		>('design-system', 'popup', 'popup-role-dialog', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.focus();
@@ -658,14 +643,11 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 		 * element inside the popup. This test pins that the trigger
 		 * loses focus and the first dialog button receives it.
 		 */
-		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
-			'design-system',
-			'popup',
-			'popup-role-dialog',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/19-popup-role-dialog.vr.ap.tsx')
+		>('design-system', 'popup', 'popup-role-dialog', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.focus();
@@ -684,14 +666,11 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 		 * the dialog and restores focus to the trigger. Important for
 		 * WCAG 2.4.3 (Focus Order) on dialog-pattern popups.
 		 */
-		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
-			'design-system',
-			'popup',
-			'popup-role-dialog',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/19-popup-role-dialog.vr.ap.tsx')
+		>('design-system', 'popup', 'popup-role-dialog', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.focus();
@@ -713,14 +692,11 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 		 * click the second background button rather than empty page
 		 * space so the test does not rely on layout coordinates.
 		 */
-		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
-			'design-system',
-			'popup',
-			'popup-role-dialog',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/19-popup-role-dialog.vr.ap.tsx')
+		>('design-system', 'popup', 'popup-role-dialog', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();

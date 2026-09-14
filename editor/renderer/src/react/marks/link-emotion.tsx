@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 /**
- * Emotion branch of the `platform_editor_static_css` experiment.
+ * Emotion branch of the `platform_editor_renderer_static_css` experiment.
  * Used via `componentWithCondition` in `link.tsx`.
  *
  * Cleanup: delete this file once the experiment has shipped.

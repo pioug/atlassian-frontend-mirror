@@ -192,6 +192,7 @@ export type BlockMenuExtensionConfiguration =
 			/**
 			 * Optional placement hint to control where the menu items appear in the block menu
 			 * - 'default' (or undefined): Items appear in their normal nested location under create section
+			 * - 'structure': Items appear in the nested Structure section alongside format targets
 			 * - 'featured': Items are promoted to top-level alongside the "Turn into" menu
 			 */
 			placement?: Exclude<BlockMenuPlacement, 'featured-section'>;

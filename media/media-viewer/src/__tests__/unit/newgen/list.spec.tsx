@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from '../../../list';
 import { IntlProvider } from 'react-intl';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { render, screen, waitFor } from '@testing-library/react';

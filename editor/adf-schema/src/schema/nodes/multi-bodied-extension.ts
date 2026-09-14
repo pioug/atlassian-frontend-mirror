@@ -1,30 +1,34 @@
-import { getExtensionAttrs } from '../../utils/extensions';
-import type { ExtensionAttributes } from './types/extensions';
-import type { BodiedExtensionDefinition as BodiedExtension } from './bodied-extension';
-import type { PanelDefinition as Panel } from './panel';
-import type { ParagraphDefinition as Paragraph } from './paragraph';
-import type { BlockQuoteDefinition as Blockquote } from './blockquote';
-import type {
-	OrderedListDefinition as OrderedList,
-	BulletListDefinition as BulletList,
-} from './types/list';
-import type { RuleDefinition as Rule } from './rule';
-import type { HeadingDefinition as Heading } from './heading';
-import type { CodeBlockDefinition as CodeBlock } from './code-block';
-import type { MediaGroupDefinition as MediaGroup } from './media-group';
-import type { MediaSingleDefinition as MediaSingle } from './media-single';
-import type { DecisionListDefinition as DecisionList } from './decision-list';
-import type { TaskListDefinition as TaskList } from './task-list';
-import type { TableDefinition as Table } from './tableNodes';
-import type { ExtensionDefinition as Extension } from './extension';
-import type { BlockCardDefinition as BlockCard } from './block-card';
-import type { EmbedCardDefinition as EmbedCard } from './embed-card';
-import type { DataConsumerDefinition, FragmentDefinition } from '../marks';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
 import {
 	multiBodiedExtensionStage0 as multiBodiedExtensionStage0Factory,
 	extensionFrameStage0 as extensionFrameStage0Factory,
 } from '../../next-schema/generated/nodeTypes';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import { getExtensionAttrs } from '../../utils/get-extension-attrs';
+import type { DataConsumerDefinition, FragmentDefinition } from '../marks';
+import type { BreakoutMarkDefinition } from '../marks/breakout';
+import type { BlockCardDefinition as BlockCard } from './block-card';
+import type { BlockQuoteDefinition as Blockquote } from './blockquote';
+import type { BodiedExtensionDefinition as BodiedExtension } from './bodied-extension';
+import type { CodeBlockDefinition as CodeBlock } from './code-block';
+import type { DecisionListDefinition as DecisionList } from './decision-list';
+import type { EmbedCardDefinition as EmbedCard } from './embed-card';
+import type { ExtensionDefinition as Extension } from './extension';
+import type { HeadingDefinition as Heading } from './heading';
+import type { MediaGroupDefinition as MediaGroup } from './media-group';
+import type { MediaSingleDefinition as MediaSingle } from './media-single';
+import type { PanelDefinition as Panel } from './panel';
+import type { ParagraphDefinition as Paragraph } from './paragraph';
+import type { RuleDefinition as Rule } from './rule';
+import type { TableDefinition as Table } from './tableNodes';
+import type { TaskListDefinition as TaskList } from './task-list';
+import type { ExtensionAttributes } from './types/extensions';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
+import type {
+	OrderedListDefinition as OrderedList,
+	BulletListDefinition as BulletList,
+} from './types/list';
+import type { MarksObject } from './types/mark';
 
 /**
  // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
@@ -47,6 +51,7 @@ export interface ExtensionFrameDefinition {
 		| OrderedList
 		| BulletList
 		| Rule
+		| BodiedRule
 		| Heading
 		| CodeBlock
 		| MediaGroup
@@ -108,6 +113,14 @@ export interface MultiBodiedExtensionDefinition {
 	type: 'multiBodiedExtension';
 }
 
+/**
+ // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
+ * @stage 0
+ * @name multiBodiedExtension_root_only_node
+ */
+export type MultiBodiedExtensionRootOnlyDefinition = MultiBodiedExtensionDefinition &
+	MarksObject<BreakoutMarkDefinition>;
+
 export const multiBodiedExtension: NodeSpec = multiBodiedExtensionStage0Factory({
 	parseDOM: [
 		{
@@ -133,3 +146,8 @@ export const multiBodiedExtension: NodeSpec = multiBodiedExtensionStage0Factory(
 		return ['div', attrs, 0];
 	},
 });
+
+export const multiBodiedExtensionRootOnlyStage0: NodeSpec = {
+	...multiBodiedExtension,
+	marks: `breakout ${multiBodiedExtension.marks}`,
+};

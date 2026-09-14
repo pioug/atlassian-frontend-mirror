@@ -1,4 +1,5 @@
-import { type Context, useContext } from 'react';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { type Context } from 'react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
@@ -13,12 +14,15 @@ export type CustomTiming = {
 };
 
 export type Label = Readonly<{ name: string }>;
+
 export type SegmentLabel = Readonly<{
 	name: string;
 	segmentId?: string;
 	mode?: 'list' | 'single';
 	type?: UFOSegmentType;
+	excludeFromMetrics?: boolean;
 }>;
+
 export type LabelStack = ReadonlyArray<SegmentLabel | Label>;
 
 export interface UFOInteractionContextType extends InteractionContextType {
@@ -32,7 +36,7 @@ export interface UFOInteractionContextType extends InteractionContextType {
 
 export default InteractionContext as Context<UFOInteractionContextType | null>;
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function useInteractionContext() {
-	return useContext(InteractionContext) as UFOInteractionContextType | null;
-}
+/**
+ * @deprecated Use `import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context'` instead.
+ */
+export { useInteractionContext } from './useInteractionContext';

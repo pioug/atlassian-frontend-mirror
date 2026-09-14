@@ -3,7 +3,7 @@ import { createElement } from 'react';
 import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
@@ -15,7 +15,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
 import { nodeMargins } from '../ui/consts';
@@ -58,7 +58,7 @@ const getParentTypesWithEndDropTarget = memoizeOne(() => [
 	...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
 		? ['multiBodiedExtension']
 		: []),
-	...(editorExperiment('platform_synced_block', true) ? ['bodiedSyncBlock'] : []),
+	'bodiedSyncBlock',
 ]);
 
 const shouldDescend = (node: PMNode) => {
@@ -89,27 +89,17 @@ const shouldCollapseMargin = (prevNode?: PMNode, nextNode?: PMNode) => {
 };
 
 const getGapAndOffset = (prevNode?: PMNode, nextNode?: PMNode, parentNode?: PMNode | null) => {
-	const isSyncBlockOffsetPatchEnabled = editorExperiment('platform_synced_block', true);
-
 	if (!prevNode && nextNode) {
 		// first node - adjust for bodied containers
 		let offset = 0;
-		if (
-			isSyncBlockOffsetPatchEnabled &&
-			parentNode?.type.name &&
-			parentNode.type.name === 'bodiedSyncBlock'
-		) {
+		if (parentNode?.type.name === 'bodiedSyncBlock') {
 			offset += 4;
 		}
 		return { gap: 0, offset };
 	} else if (prevNode && !nextNode) {
 		// last node - adjust for bodied containers
 		let offset = 0;
-		if (
-			isSyncBlockOffsetPatchEnabled &&
-			parentNode?.type.name &&
-			parentNode.type.name === 'bodiedSyncBlock'
-		) {
+		if (parentNode?.type.name === 'bodiedSyncBlock') {
 			offset -= 4;
 		}
 		return { gap: 0, offset };

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import InlineEdit from '@atlaskit/inline-edit';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
-import Select, { type OptionType, type ValueType } from '@atlaskit/select';
-import Tag from '@atlaskit/tag';
-import Group from '@atlaskit/tag-group';
+import Select from '@atlaskit/select/default';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
+import Tag from '@atlaskit/tag/removable-tag';
+import Group from '@atlaskit/tag-group/tag-group';
 import { token } from '@atlaskit/tokens';
 
 const readViewContainerStyles = cssMap({

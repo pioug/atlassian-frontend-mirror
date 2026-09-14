@@ -7,10 +7,10 @@ import React, { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import AddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { CREATE_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';

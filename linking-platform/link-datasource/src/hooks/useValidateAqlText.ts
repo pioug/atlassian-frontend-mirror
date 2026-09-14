@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
-import { validateAql } from '../services/cmdbService';
+import { validateAql } from '../services/validateAql';
 
 type IdleResult = {
 	type: 'idle';

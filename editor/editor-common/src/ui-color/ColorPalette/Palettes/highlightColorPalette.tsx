@@ -8,7 +8,7 @@ import type { ComponentProps } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
-import { backgroundColorPalette } from '@atlaskit/adf-schema';
+import { backgroundColorPalette } from '@atlaskit/adf-schema/background-color';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 

@@ -9,6 +9,13 @@ import type {
 
 import { getRuleUrl } from './get-rule-url';
 
+/**
+ * A single shared Ajv instance is reused across every rule instead of constructing
+ * a new one each time a default config is needed. Ajv's constructor is expensive
+ * (it compiles its own meta-schemas), so we only ever want to pay for it once.
+ */
+const ajv = new Ajv({ useDefaults: true });
+
 export interface LintRule<Schema extends JSONSchema, Config> extends Omit<
 	BaseLintRule,
 	'meta' | 'create'
@@ -35,6 +42,17 @@ export const createLintRuleWithTypedConfig = <
 	rule: LintRule<Schema, Config>,
 ) => {
 	/**
+	 * Lazily-computed, cached default config.
+	 *
+	 * The default config is derived purely from the rule's (static) schema, so it is
+	 * constant for the life of the process. Compiling the schema with Ajv involves
+	 * runtime code generation (`new Function`), which is expensive — previously this
+	 * ran on every `getDefaultConfig()` call, i.e. once per linted file. We now compute
+	 * it at most once per rule and reuse the result.
+	 */
+	let defaultConfig: Config | undefined;
+
+	/**
 	 * Gets the default config by running the same validator
 	 * ESLint does against an empty config object with
 	 * `useDefaults` option enabled.
@@ -43,16 +61,19 @@ export const createLintRuleWithTypedConfig = <
 	 * will be populated with the specified default value.
 	 */
 	function getDefaultConfig(): Config {
-		const ajv = new Ajv({ useDefaults: true });
-		const validate = ajv.compile(rule.meta.schema);
+		if (defaultConfig === undefined) {
+			const validate = ajv.compile(rule.meta.schema);
 
-		const config = {};
-		/**
-		 * The `validate()` function mutates the config object.
-		 */
-		validate(config);
+			const config = {};
+			/**
+			 * The `validate()` function mutates the config object.
+			 */
+			validate(config);
 
-		return config as Config;
+			defaultConfig = config as Config;
+		}
+
+		return defaultConfig;
 	}
 
 	return {

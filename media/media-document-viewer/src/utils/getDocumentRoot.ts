@@ -1,6 +1,6 @@
 import { getDocument } from '@atlaskit/browser-apis';
 
-export const DOCUMENT_SCROLL_ROOT_ID = 'document-scroll-root';
+import { DOCUMENT_SCROLL_ROOT_ID } from './constants';
 
 export const getDocumentRoot = (): HTMLElement | Document | undefined => {
 	const doc = getDocument();
@@ -14,9 +14,4 @@ export const getDocumentRoot = (): HTMLElement | Document | undefined => {
 	}
 
 	return doc;
-};
-
-export const getScrollElement = (): HTMLElement | null => {
-	const element = getDocument();
-	return element && element.getElementById(DOCUMENT_SCROLL_ROOT_ID);
 };

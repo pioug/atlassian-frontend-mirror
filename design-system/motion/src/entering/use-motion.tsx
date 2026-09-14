@@ -3,15 +3,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { type StrictXCSSProp } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
-import { convertToMs } from '../utils/convert-to-ms';
+import { getComputedAnimationDurationMs } from '../utils/get-computed-animation-duration-ms';
 import { getDurationMs } from '../utils/get-duration-ms';
 import { isReducedMotion } from '../utils/is-reduced-motion';
 import { resolveMotionToken } from '../utils/resolve-motion-token';
 
-import { useExitingPersistence } from './exiting-persistence';
 import { Reanimate } from './reanimate';
-import { useStaggeredEntrance } from './staggered-entrance';
 import { type Transition } from './types';
+import { useExitingPersistence } from './use-exiting-persistence';
+import { useStaggeredEntrance } from './use-staggered-entrance';
 
 export type CustomMotionXCSS = StrictXCSSProp<
 	'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
@@ -182,7 +182,6 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 		}
 
 		let animationDuration = 0;
-		let animationDelay = 0;
 		if (state === 'entering' || state === 'exiting') {
 			if (elementRef.current) {
 				if (elementRef.current.style.animation) {
@@ -191,16 +190,15 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 						resolveMotionToken(elementRef.current.style.animation),
 					);
 					animationDuration = animationTimings.duration;
-					animationDelay = animationTimings.delay;
+					animationDuration += animationTimings.delay;
 				} else {
 					// Custom motion
 					const computedStyles = window.getComputedStyle(elementRef.current);
-					if (computedStyles.animationDuration) {
-						animationDuration = convertToMs(computedStyles.animationDuration);
-					}
-					if (computedStyles.animationDelay) {
-						animationDelay = convertToMs(computedStyles.animationDelay);
-					}
+					animationDuration = getComputedAnimationDurationMs(
+						computedStyles.animationName,
+						computedStyles.animationDuration,
+						computedStyles.animationDelay,
+					);
 				}
 			}
 		}
@@ -209,12 +207,12 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 		if (state === 'exiting') {
 			animationRef.current = setTimeout(
 				() => onAnimationEnd(state, isCancelled),
-				animationDuration + animationDelay,
+				animationDuration,
 			);
 		} else if (state === 'entering') {
 			animationRef.current = setTimeout(
 				() => onAnimationEnd(state, isCancelled),
-				animationDuration + animationDelay,
+				animationDuration,
 			);
 		}
 

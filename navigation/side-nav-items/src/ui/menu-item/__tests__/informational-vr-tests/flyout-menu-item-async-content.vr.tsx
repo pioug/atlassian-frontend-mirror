@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import FlyoutMenuItemAsyncContentExample from '../../../../../examples/flyout-menu-item-async-content';
+import FlyoutMenuItemAsyncContentExample from '../../../../../examples/flyout-menu-item-async-content.vr.ap';
 
 snapshotInformational(FlyoutMenuItemAsyncContentExample, {
 	description: 'short skeleton',

@@ -7,7 +7,7 @@ import type { JSX } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { type IconProps } from '@atlaskit/icon';
+import type { IconProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
 import { type OptionProps, type OptionType } from '../types';

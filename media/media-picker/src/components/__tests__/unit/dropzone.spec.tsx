@@ -7,15 +7,16 @@ jest.mock('@atlaskit/media-ui/browser', () => ({
 }));
 
 import { act, render } from '@atlassian/testing-library';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';
 
-import { Dropzone, DropzoneBase } from '../../dropzone/dropzone';
-import { type DropzoneDragEnterEventPayload } from '../../types';
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';
+import { DropzoneBase } from '../../dropzone/DropzoneBase';
+import { Dropzone } from '../../dropzone/dropzone';
+import { type DropzoneDragEnterEventPayload } from '../../types';
 
 const MockedUploadServiceImpl = jest.mocked(UploadServiceImpl);
 

@@ -24,8 +24,8 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./document-viewer": "./src/entry-points/documentViewer.tsx",
-		"./get-document-root": "./src/entry-points/getDocumentRoot.ts"
+		"./document-viewer": "./src/documentViewer.tsx",
+		"./get-document-root": "./src/utils/constants.ts"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
@@ -52,43 +52,8 @@
 		"react": "root:*",
 		"react-dom": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"name": "@atlaskit/media-document-viewer",
-	"version": "1.2.3",
+	"version": "2.1.0",
 	"description": "Modern and fast document viewer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

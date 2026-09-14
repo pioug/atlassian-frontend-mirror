@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
-import type { ProfileCardAction, ProfileClient } from '@atlaskit/profilecard';
+import type { ProfileCardAction } from '@atlaskit/profilecard/types';
+import type ProfileClient from '@atlaskit/profilecard/profile-card-client';
 
 /**
  * Render-prop signature for injecting a custom user profile card around a mention. When the
@@ -17,6 +18,10 @@ import type { ProfileCardAction, ProfileClient } from '@atlaskit/profilecard';
 export type RenderUserMentionCard = (props: {
 	children: ReactNode;
 	cloudId: string;
+	/** Optional mention-local marker supplied by the renderer. */
+	localId?: string;
+	/** Known identity to prefill the card with, giving its trigger a concrete accessible name. */
+	prefilledProfileData?: { accountId: string; name: string };
 	referenceElement?: HTMLElement;
 	userId: string;
 }) => ReactNode;

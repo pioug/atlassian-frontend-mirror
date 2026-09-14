@@ -44,6 +44,9 @@
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/focus-ring/tsconfig.app.json"
 		},
 		{
@@ -54,6 +57,9 @@
 		},
 		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

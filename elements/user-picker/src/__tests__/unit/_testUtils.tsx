@@ -1,26 +1,11 @@
-import { shallow, type ShallowWrapper } from 'enzyme';
 import React, { type PropsWithChildren } from 'react';
-import {
-	UFOExperienceState,
-	UFOExperience,
-	ExperienceTypes,
-	ExperiencePerformanceTypes,
-} from '@atlaskit/ufo';
-import { ExusUserSourceProvider } from '../../clients/UserSourceProvider';
-import { type LoadUserSource, type User } from '../../types';
 
-export const renderProp = (
-	wrapper: ShallowWrapper<any>,
-	renderProp: string,
-	...args: any[]
-): ShallowWrapper<any, Readonly<{}>> => {
-	const prop = wrapper.prop(renderProp);
-	if (prop && typeof prop === 'function') {
-		const Wrapper = () => prop(...args);
-		return shallow(<Wrapper />);
-	}
-	throw new Error('renderProp is not a function');
-};
+import { UFOExperience } from '@atlaskit/ufo/experience';
+import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
+import { ExperienceTypes, ExperiencePerformanceTypes } from '@atlaskit/ufo/experience-types';
+
+import { ExusUserSourceProvider } from '../../clients/ExusUserSourceProvider';
+import { type LoadUserSource, type User } from '../../types';
 
 export const testUser: User = {
 	id: 'abc-123',

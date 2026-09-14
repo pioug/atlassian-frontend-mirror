@@ -1,12 +1,9 @@
 import { fireEvent } from '@testing-library/dom';
 import invariant from 'tiny-invariant';
 
-import { combine } from '../../../../src/entry-point/combine';
-import {
-	draggable,
-	type ElementEventPayloadMap,
-} from '../../../../src/entry-point/element/adapter';
-import { setCustomNativeDragPreview } from '../../../../src/entry-point/element/set-custom-native-drag-preview';
+import { combine } from '../../../../src/public-utils/combine';
+import { draggable, type ElementEventPayloadMap } from '../../../../src/adapter/element-adapter';
+import { setCustomNativeDragPreview } from '../../../../src/public-utils/element/custom-native-drag-preview/set-custom-native-drag-preview';
 import {
 	appendToBody,
 	getElements,
@@ -162,7 +159,12 @@ it('should allow custom placement of the drag preview', async () => {
 	// setDragImage not called until the next microtask for framework compatibility
 	await 'microtask';
 
-	expect(setImageMock).nthCalledWith(1, pointerToContainer, previewOffset.x, previewOffset.y);
+	expect(setImageMock).toHaveBeenNthCalledWith(
+		1,
+		pointerToContainer,
+		previewOffset.x,
+		previewOffset.y,
+	);
 
 	// @ts-expect-error
 	requestAnimationFrame.step();
@@ -214,7 +216,7 @@ it('should use the default placement function when none is provided', async () =
 	// setDragImage not called until the next microtask for framework compatibility
 	await 'microtask';
 	// default: positioned on `{x: 0, y: 0}`
-	expect(setImageMock).nthCalledWith(1, pointerToContainer, 0, 0);
+	expect(setImageMock).toHaveBeenNthCalledWith(1, pointerToContainer, 0, 0);
 
 	// @ts-expect-error
 	requestAnimationFrame.step();
@@ -281,7 +283,12 @@ it('should call getOffset after a microtask (some frameworks render after a micr
 	expect(ordered).toEqual(['render:next-microtask', 'getOffset']);
 	ordered.length = 0;
 
-	expect(setImageMock).nthCalledWith(1, pointerToContainer, previewOffset.x, previewOffset.y);
+	expect(setImageMock).toHaveBeenNthCalledWith(
+		1,
+		pointerToContainer,
+		previewOffset.x,
+		previewOffset.y,
+	);
 
 	// @ts-expect-error
 	requestAnimationFrame.step();

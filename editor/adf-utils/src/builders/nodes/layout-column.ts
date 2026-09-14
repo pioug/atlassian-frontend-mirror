@@ -1,4 +1,5 @@
-import type { BlockContent, LayoutColumnDefinition } from '@atlaskit/adf-schema';
+import type { BlockContent } from '@atlaskit/adf-schema/block-content';
+import type { LayoutColumnDefinition } from '@atlaskit/adf-schema/nodes/layout-column';
 
 export const layoutColumn =
 	(attrs: { width: number }) =>

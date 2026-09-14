@@ -4,21 +4,14 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadAndAppendThemeCss = exports.darkModeMediaQuery = void 0;
-Object.defineProperty(exports, "loadThemeCss", {
-  enumerable: true,
-  get: function get() {
-    return _loadThemeCss.loadThemeCss;
-  }
-});
-exports.moreContrastMediaQuery = void 0;
+exports.moreContrastMediaQuery = exports.loadAndAppendThemeCss = exports.darkModeMediaQuery = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 var _constants = require("../constants");
 var _loadThemeCss = require("./load-theme-css");
 var loadAndAppendThemeCss = exports.loadAndAppendThemeCss = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(themeId) {
-    var themeCss, style;
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(themeId, preloadedThemeCss) {
+    var themeCss, style, _t;
     return _regenerator.default.wrap(function (_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -34,21 +27,31 @@ var loadAndAppendThemeCss = exports.loadAndAppendThemeCss = /*#__PURE__*/functio
           }
           return _context.abrupt("return");
         case 2:
-          _context.next = 3;
-          return (0, _loadThemeCss.loadThemeCss)(themeId);
+          if (!(preloadedThemeCss !== null && preloadedThemeCss !== void 0)) {
+            _context.next = 3;
+            break;
+          }
+          _t = preloadedThemeCss;
+          _context.next = 5;
+          break;
         case 3:
-          themeCss = _context.sent;
+          _context.next = 4;
+          return (0, _loadThemeCss.loadThemeCss)(themeId);
+        case 4:
+          _t = _context.sent;
+        case 5:
+          themeCss = _t;
           style = document.createElement('style');
           style.textContent = themeCss;
           style.dataset.theme = themeId;
           document.head.appendChild(style);
-        case 4:
+        case 6:
         case "end":
           return _context.stop();
       }
     }, _callee);
   }));
-  return function loadAndAppendThemeCss(_x) {
+  return function loadAndAppendThemeCss(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();

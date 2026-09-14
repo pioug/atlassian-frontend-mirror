@@ -6,14 +6,15 @@ import { type CSSProperties, memo, useCallback, useEffect, useRef, useState } fr
 
 import { cssMap as unboundedCssMap } from '@compiled/react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import __noop from '@atlaskit/ds-lib/noop';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type TriggerProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { TriggerProps } from '@atlaskit/tooltip/types';
 
 import { type BreadcrumbsCurrentItemProps } from '../types';
 

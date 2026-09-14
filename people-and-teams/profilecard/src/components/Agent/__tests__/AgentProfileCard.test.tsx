@@ -4,15 +4,11 @@ import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
-import {
-	clearFeatureGatesOverrides,
-	overrideFeatureGatesExperiment,
-} from '@atlassian/ptc-test-utils/feature-gates-test-helpers';
 
-import { ProfileClient } from '../../../index';
-import { getMockProfileClient } from '../../../mocks';
+import ProfileClient from '../../../client/ProfileCardClient';
+import getMockProfileClient from '../../../mocks/mock-profile-client';
 import type { RovoAgentProfileCardInfo } from '../../../types';
 import AgentProfileCard from '../AgentProfileCard';
 
@@ -221,65 +217,37 @@ describe('ProfileCardTrigger', () => {
 	});
 
 	describe('hideAiDisclaimer', () => {
-		ffTest.on(
-			'rovo_display_ai_disclaimer_on_agent_profile_card',
-			'display work item disclosure',
-			() => {
-				it.each([
-					{
-						hideAiDisclaimer: false,
-						description: 'by default (hideAiDisclaimer is false)',
-						shouldRender: true,
-					},
-					{
-						hideAiDisclaimer: undefined,
-						description: 'when hideAiDisclaimer is undefined',
-						shouldRender: true,
-					},
-					{
-						hideAiDisclaimer: true,
-						description: 'when hideAiDisclaimer is true',
-						shouldRender: false,
-					},
-				])(
-					'should $<shouldRender ? "" : "not ">render disclosure item $description',
-					({ hideAiDisclaimer, shouldRender }) => {
-						renderWithIntl({ hideAiDisclaimer });
-						const disclaimer = screen.queryByText('Uses AI. Verify results.');
+		describe('display work item disclosure', () => {
+			it.each([
+				{
+					hideAiDisclaimer: false,
+					description: 'by default (hideAiDisclaimer is false)',
+					shouldRender: true,
+				},
+				{
+					hideAiDisclaimer: undefined,
+					description: 'when hideAiDisclaimer is undefined',
+					shouldRender: true,
+				},
+				{
+					hideAiDisclaimer: true,
+					description: 'when hideAiDisclaimer is true',
+					shouldRender: false,
+				},
+			])(
+				'should $<shouldRender ? "" : "not ">render disclosure item $description',
+				({ hideAiDisclaimer, shouldRender }) => {
+					renderWithIntl({ hideAiDisclaimer });
+					const disclaimer = screen.queryByText('Uses AI. Verify results.');
 
-						if (shouldRender) {
-							expect(disclaimer).toBeInTheDocument();
-						} else {
-							expect(disclaimer).not.toBeInTheDocument();
-						}
-					},
-				);
-			},
-		);
-
-		ffTest.off(
-			'rovo_display_ai_disclaimer_on_agent_profile_card',
-			'display work item disclosure',
-			() => {
-				it.each([
-					{
-						hideAiDisclaimer: true,
-						description: 'when feature flag is off',
-					},
-					{
-						hideAiDisclaimer: false,
-						description: 'when hideAiDisclaimer is false and feature flag is off',
-					},
-					{
-						hideAiDisclaimer: undefined,
-						description: 'when hideAiDisclaimer is not provided and FG is off',
-					},
-				])('should not render disclosure item $description', ({ hideAiDisclaimer }) => {
-					renderWithIntl(hideAiDisclaimer !== undefined ? { hideAiDisclaimer } : {});
-					expect(screen.queryByText('Uses AI. Verify results.')).not.toBeInTheDocument();
-				});
-			},
-		);
+					if (shouldRender) {
+						expect(disclaimer).toBeInTheDocument();
+					} else {
+						expect(disclaimer).not.toBeInTheDocument();
+					}
+				},
+			);
+		});
 	});
 
 	describe('hideConversationStarters', () => {
@@ -330,7 +298,7 @@ describe('ProfileCardTrigger', () => {
 		});
 	});
 
-	describe('jira_hide_conversations_for_jca experiment', () => {
+	describe('hide conversations for Rovo Dev and Jira Coding Agent', () => {
 		const conversationStarterText = agent.user_defined_conversation_starters![0];
 
 		// creator_type is 'ROVO_DEV' for both the original Rovo Dev agent and the renamed
@@ -346,54 +314,22 @@ describe('ProfileCardTrigger', () => {
 			creator_type: 'ROVO_DEV',
 		};
 
-		afterEach(() => {
-			clearFeatureGatesOverrides();
+		it('should hide conversation starters and agent actions for the Jira Coding Agent', () => {
+			renderWithIntl({ agentOverride: jiraCodingAgent });
+			expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
 		});
 
-		describe('when the experiment is enabled', () => {
-			beforeEach(async () => {
-				await overrideFeatureGatesExperiment('jira_hide_conversations_for_jca', {
-					isEnabled: true,
-				});
-			});
-
-			it('should hide conversation starters and agent actions for the Jira Coding Agent', () => {
-				renderWithIntl({ agentOverride: jiraCodingAgent });
-				expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
-				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
-			});
-
-			it('should hide conversation starters and agent actions for Rovo Dev', () => {
-				renderWithIntl({ agentOverride: rovoDevAgent });
-				expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
-				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
-			});
-
-			it('should still show conversation starters and agent actions for a regular agent', () => {
-				renderWithIntl({});
-				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
-				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
-			});
+		it('should hide conversation starters and agent actions for Rovo Dev', () => {
+			renderWithIntl({ agentOverride: rovoDevAgent });
+			expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
 		});
 
-		describe('when the experiment is disabled', () => {
-			it('should show conversation starters and agent actions for the Jira Coding Agent', () => {
-				renderWithIntl({ agentOverride: jiraCodingAgent });
-				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
-				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
-			});
-
-			it('should hide conversation starters and agent actions for Rovo Dev', () => {
-				renderWithIntl({ agentOverride: rovoDevAgent });
-				expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
-				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
-			});
-
-			it('should still show conversation starters and agent actions for a regular agent', () => {
-				renderWithIntl({});
-				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
-				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
-			});
+		it('should still show conversation starters and agent actions for a regular agent', () => {
+			renderWithIntl({});
+			expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
 		});
 	});
 });

@@ -7,15 +7,15 @@ import React, { useMemo } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import VidFullScreenOnIcon from '@atlaskit/icon/core/fullscreen-enter';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
-import { CloseButton, useModal } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { messages } from '../../../../messages';
 import { Icon } from '../../../common/Icon';
@@ -114,7 +114,7 @@ const LinkInfo = ({
 				label={formatMessage(messages.download)}
 				onClick={onDownloadButtonClick}
 				testId={`${testId}-download`}
-				{...(fg('navx-4719-a11y-embed-modal-focus-states') ? { focusRef } : {})}
+				focusRef={focusRef}
 			/>
 		),
 		[onDownloadButtonClick, testId, formatMessage, focusRef],
@@ -140,9 +140,7 @@ const LinkInfo = ({
 					onClick={onViewButtonClick}
 					testId={`${testId}-url`}
 					role={'link'}
-					{...(fg('navx-4719-a11y-embed-modal-focus-states')
-						? { focusRef: !onDownloadButtonClick ? focusRef : undefined }
-						: {})}
+					focusRef={!onDownloadButtonClick ? focusRef : undefined}
 				/>
 			);
 		}

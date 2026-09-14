@@ -1,9 +1,7 @@
 import React, { forwardRef } from 'react';
-import {
-	useAnalyticsEvents,
-	type UIAnalyticsEvent,
-	AnalyticsContext,
-} from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';

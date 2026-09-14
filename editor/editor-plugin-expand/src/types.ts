@@ -13,7 +13,9 @@ import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
 import type { LocalIdPlugin } from '@atlaskit/editor-plugin-local-id';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { SelectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -72,9 +74,11 @@ export type ExpandPluginDependencies = [
 	OptionalPlugin<EditorDisabledPlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<LimitedModePlugin>,
 	OptionalPlugin<BlockMenuPlugin>,
 	OptionalPlugin<LocalIdPlugin>,
 	OptionalPlugin<BlockControlsPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type ExpandPlugin = NextEditorPlugin<

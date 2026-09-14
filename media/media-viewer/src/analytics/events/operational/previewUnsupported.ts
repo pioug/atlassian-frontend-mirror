@@ -1,7 +1,8 @@
 import { type FileState } from '@atlaskit/media-client';
 import { type WithFileAttributes } from '@atlaskit/media-common';
+
+import { getFileAttributes } from '../../getFileAttributes';
 import { type MediaFileEventPayload } from './_mediaFile';
-import { getFileAttributes } from '../..';
 
 export type PreviewUnsupportedAttributes = WithFileAttributes;
 

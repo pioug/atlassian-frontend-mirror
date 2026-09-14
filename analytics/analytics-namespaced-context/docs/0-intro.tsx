@@ -62,7 +62,8 @@ const myOnClickHandler = (e): void => {
 }
 
 // Pass the analyticsWebClient instance created by the Product
-ReactDOM.render(
+const root = createRoot(container);
+root.render(
   <div>
     <AnalyticsListener onEvent={listenerHandler} channel="fabricElements">
       <div>
@@ -72,7 +73,6 @@ ReactDOM.render(
       </div>
     </AnalyticsListener>
   </div>,
-  container,
 );
 `}
 `;

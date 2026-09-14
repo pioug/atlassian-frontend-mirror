@@ -2,10 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, cssMap, jsx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
 import { type MediaType } from '@atlaskit/media-common';
-import { getMimeIcon } from './util';
+import { token } from '@atlaskit/tokens';
+
+import { getMimeIcon } from './getMimeIcon';
 import { MediaTypeIcon } from './media-type-icon';
 type MediaTypeProps = {
 	testId?: string;

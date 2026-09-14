@@ -3,7 +3,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../../index';
+import DropdownMenu from '../../../dropdown-menu';
+import DropdownItemRadio from '../../dropdown-item-radio';
+import DropdownItemRadioGroup from '../../dropdown-item-radio-group';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu with RadioGroup and Radio', () => {

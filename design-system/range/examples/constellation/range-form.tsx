@@ -1,8 +1,11 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { FormFooter, HelperMessage, RangeField } from '@atlaskit/form';
-import Range from '@atlaskit/range';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { RangeField } from '@atlaskit/form/range-field';
+import Range from '@atlaskit/range/range';
 
 export default function TextFieldFormExample(): React.JSX.Element {
 	return (

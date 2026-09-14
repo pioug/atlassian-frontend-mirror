@@ -6,7 +6,9 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Manager, Popper, Reference } from '@atlaskit/popper';
+import { Manager } from '@atlaskit/popper/manager';
+import { Popper } from '@atlaskit/popper/main';
+import { Reference } from '@atlaskit/popper/reference';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

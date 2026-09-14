@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	defaultInitialVisibleConfluenceColumnKeys,
 	mockBasicFilterAGGFetchRequests,
@@ -14,7 +14,7 @@ import {
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-modal';
-import { ConfluenceSearchConfigModal } from '../../src/ui/confluence-search-modal/modal';
+import { ConfluenceSearchConfigModal } from '../../src/ui/confluence-search-modal/modal/ConfluenceSearchConfigModal';
 import { type ConfluenceSearchDatasourceParameters } from '../../src/ui/confluence-search-modal/types';
 
 mockDatasourceFetchRequests({

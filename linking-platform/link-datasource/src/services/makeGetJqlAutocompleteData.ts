@@ -1,7 +1,7 @@
-import {
-	type GetAutocompleteInitialData,
-	type JQLAutocompleteResponse,
-} from '@atlaskit/jql-editor-autocomplete-rest';
+import type {
+	GetAutocompleteInitialData,
+	JQLAutocompleteResponse,
+} from '@atlaskit/jql-editor-autocomplete-rest/types';
 
 export type AutocompleteInitialDataResponse = {
 	jqlFields: Awaited<ReturnType<GetAutocompleteInitialData>>['jqlFields'];

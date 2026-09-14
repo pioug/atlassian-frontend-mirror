@@ -4,7 +4,7 @@ type Size = 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
 type BaseLogoProps = {
 	/**
-	 * The size of the icon.
+	 * The size of the icon. Defaults to "medium".
 	 */
 	size?: Size;
 	/**
@@ -28,10 +28,6 @@ type BaseLogoProps = {
 	 * - `{testId}--wrapper` to access the svg element's wrapper
 	 */
 	testId?: string;
-	/**
-	 * @deprecated This prop no longer has any effect. The new logo design is now always used following the full launch of the `platform-logo-rebrand` feature flag. This prop is maintained for backwards compatibility only and will be removed in a future release.
-	 */
-	shouldUseNewLogoDesign?: boolean;
 };
 
 export type LogoProps = BaseLogoProps;

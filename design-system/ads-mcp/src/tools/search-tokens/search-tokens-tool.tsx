@@ -13,6 +13,7 @@ import { type searchTokensInputSchema } from './search-tokens-input-schema';
 export const searchTokensTool = async ({
 	terms,
 	limit = 2,
+	includeMetadata = false,
 }: z.infer<typeof searchTokensInputSchema>): Promise<CallToolResult> => {
 	// Unique cleaned terms (order preserved) so duplicates don't concatenate into a bogus query.
 	const searchTerms = [...new Set(terms.filter(Boolean).map(cleanQuery))];
@@ -72,6 +73,7 @@ export const searchTokensTool = async ({
 	const matchedTokens = matchedItems.map((item: Token) => ({
 		name: item.name,
 		exampleValue: item.exampleValue,
+		...(includeMetadata ? { usageGuidelines: item.usageGuidelines } : {}),
 	}));
 
 	if (!matchedTokens.length) {

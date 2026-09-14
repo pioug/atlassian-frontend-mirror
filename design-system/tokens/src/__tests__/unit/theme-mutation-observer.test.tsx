@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 
-import setGlobalTheme from '../../set-global-theme';
+import { setGlobalTheme } from '../../set-global-theme';
 import ThemeMutationObserver from '../../theme-mutation-observer';
 
 describe('ThemeMutationObserver', () => {

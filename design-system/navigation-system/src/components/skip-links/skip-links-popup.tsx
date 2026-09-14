@@ -7,9 +7,9 @@ import { useCallback, useId, useRef, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { flushSync } from 'react-dom';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
 
 import { type SkipLinkData } from '../../context/skip-links/types';

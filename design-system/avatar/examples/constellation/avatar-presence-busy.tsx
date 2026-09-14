@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 
 const AvatarPresenceBusyExample = (): React.JSX.Element => {
 	return <Avatar name="John Smith" presence="busy" />;

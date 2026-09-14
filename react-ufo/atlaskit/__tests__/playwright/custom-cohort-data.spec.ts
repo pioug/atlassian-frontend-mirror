@@ -11,6 +11,10 @@ test.describe('ReactUFO: Custom Cohort Data', () => {
 			test.use({
 				examplePage: 'basic-with-custom-cohort-data',
 				featureFlags,
+			} satisfies {
+				examplePage: 'basic-with-custom-cohort-data';
+				featureFlags: string[];
+				__exampleDependency?: typeof import('../../examples/03-basic-with-custom-cohort-data.tsx');
 			});
 
 			for (const viewport of viewports) {

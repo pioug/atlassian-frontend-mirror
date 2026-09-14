@@ -1,15 +1,18 @@
 import React, { useState, useMemo, useCallback, type PropsWithChildren } from 'react';
-import { IntlProvider } from 'react-intl';
-import { createMockClient } from 'mock-apollo-client';
-import { type OptionData } from '@atlaskit/user-picker';
 
-import SmartUserPicker, { type RecommendationRequest } from '../src';
-import { users } from '../example-helpers/users';
-import { groups } from '../example-helpers/groups';
-import { UserAndGroupSearchQuery } from '../example-helpers/user-and-group-query';
+import { createMockClient } from 'mock-apollo-client';
+import { IntlProvider } from 'react-intl';
+
+import type { OptionData } from '@atlaskit/user-picker/types';
+
 import { getRecommendations } from '../example-helpers/get-recommendations';
-import { useEndpointMocks } from '../example-helpers/mock-endpoints';
+import { groups } from '../example-helpers/groups';
 import '../example-helpers/mock-ufo';
+import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';
+import { UserAndGroupSearchQuery } from '../example-helpers/user-and-group-query';
+import { users } from '../example-helpers/users';
+import SmartUserPicker from '../src/components';
+import { type RecommendationRequest } from '../src/types';
 
 const ExampleCheckbox = ({
 	isChecked,

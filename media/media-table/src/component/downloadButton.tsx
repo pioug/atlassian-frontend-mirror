@@ -3,10 +3,10 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 import DownloadIcon from '@atlaskit/icon/core/download';
-import Button from '@atlaskit/button/custom-theme-button';
-import { messages } from '@atlaskit/media-ui';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
+import { messages } from '@atlaskit/media-ui/messages';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ANALYTICS_MEDIA_CHANNEL } from '../util';
 
 interface Props {

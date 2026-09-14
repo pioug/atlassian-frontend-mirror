@@ -8,7 +8,7 @@ import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { Position } from './utils';
 import { calculatePlacement, calculatePosition, findOverflowScrollParent } from './utils';

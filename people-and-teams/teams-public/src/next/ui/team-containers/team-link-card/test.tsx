@@ -17,7 +17,7 @@ jest.mock('../../../../common/utils/get-container-properties', () => ({
 	})),
 }));
 
-jest.mock('../../../../common/utils/get-link-domain', () => ({
+jest.mock('../../../../common/utils/get-domain-from-link-uri', () => ({
 	getDomainFromLinkUri: jest.fn((url: string) => {
 		if (url === 'https://www.loom.com/share/123') {
 			return 'loom.com';

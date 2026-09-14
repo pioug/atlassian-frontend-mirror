@@ -1,15 +1,8 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 import { createIntl, createIntlCache } from 'react-intl';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
 import { messages } from '../../../../../../messages';
@@ -39,26 +32,24 @@ describe('ArticleContent', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('Match snapshot', () => {
-		const { asFragment } = render(
-			<ArticleWasHelpfulNoButton isSelected={false} onClick={mockOnClick} intl={intl} />,
-		);
+	it('should render the no button', async () => {
+		render(<ArticleWasHelpfulNoButton isSelected={false} onClick={mockOnClick} intl={intl} />);
 
-		expect(asFragment()).toMatchSnapshot();
+		expect(screen.getByText(messageNo)).toBeInTheDocument();
 	});
 
-	it('props methods "onWasHelpfulNoButtonClick" and "onClick" should be executed when the user click the button', () => {
-		const { getByText } = render(
+	it('props methods "onWasHelpfulNoButtonClick" and "onClick" should be executed when the user click the button', async () => {
+		render(
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<ArticleWasHelpfulNoButton isSelected={false} onClick={mockOnClick} intl={intl} />
 			</AnalyticsListener>,
 		);
 
-		const buttonNo = getByText(messageNo).closest('button');
-		expect(buttonNo).not.toBeNull;
+		const buttonNo = screen.getByText(messageNo).closest('button');
+		expect(buttonNo).not.toBeNull();
 
 		if (buttonNo) {
-			fireEvent.click(buttonNo);
+			await userEvent.click(buttonNo);
 			expect(mockOnClick).toHaveBeenCalledTimes(1);
 		}
 	});

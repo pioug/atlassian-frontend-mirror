@@ -1,7 +1,7 @@
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Schema, MarkType } from '@atlaskit/editor-prosemirror/model';
 
-import { normalizeHexColor } from '@atlaskit/adf-schema';
+import { normalizeHexColor } from '@atlaskit/adf-schema/normalize-hex-color';
 import { AC_XMLNS } from './encode-cxhtml';
 import type { Macro } from './types';
 

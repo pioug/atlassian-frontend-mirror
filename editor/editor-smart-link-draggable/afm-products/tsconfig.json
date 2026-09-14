@@ -34,9 +34,6 @@
 			"path": "../../../linking-platform/linking-types/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../pragmatic-drag-and-drop/core/afm-products/tsconfig.json"
 		},
 		{

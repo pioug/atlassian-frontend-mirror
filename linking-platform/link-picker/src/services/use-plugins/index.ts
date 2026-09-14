@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { convertToError } from '@atlaskit/frontend-utilities/convert-to-error';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useLinkPickerAnalytics } from '../../common/analytics';
 import { ANALYTICS_CHANNEL, RECENT_SEARCH_LIST_SIZE } from '../../common/constants';

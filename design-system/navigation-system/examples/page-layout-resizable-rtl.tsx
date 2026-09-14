@@ -1,3 +1,3 @@
-import { ResizableRTL } from './page-layout';
+import { ResizableRTL } from './page-layout.vr.ap';
 
 export default ResizableRTL;

@@ -4,8 +4,11 @@ import {
 	TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM,
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
+import { TRANSFORM_TEXTFORMATTING_MENU_SECTION } from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_TEXT_FORMATTING_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ListPlugin } from '../listPluginType';
 
@@ -18,16 +21,22 @@ const ORDERED_LIST_NODE_NAME = 'orderedList';
 export const getListComponents = (
 	api: ExtractInjectionAPI<ListPlugin> | undefined,
 ): RegisterBlockMenuComponent[] => {
+	const isSmallTextExperimentEnabled = isExperimentEnabled('platform_editor_block_menu_small_text');
+	const parentKey = isSmallTextExperimentEnabled
+		? TRANSFORM_TEXTFORMATTING_MENU_SECTION.key
+		: TRANSFORM_STRUCTURE_MENU_SECTION.key;
+	const rank = isSmallTextExperimentEnabled
+		? TRANSFORM_TEXT_FORMATTING_MENU_SECTION_RANK
+		: TRANSFORM_STRUCTURE_MENU_SECTION_RANK;
+
 	return [
 		{
 			type: 'block-menu-item',
 			key: TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM.key,
 			parent: {
 				type: 'block-menu-section' as const,
-				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-				rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[
-					TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM.key as keyof typeof TRANSFORM_STRUCTURE_MENU_SECTION_RANK
-				],
+				key: parentKey,
+				rank: rank[TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM.key],
 			},
 			component: createBulletedListBlockMenuItem({ api }),
 			isHidden: () =>
@@ -38,10 +47,8 @@ export const getListComponents = (
 			key: TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM.key,
 			parent: {
 				type: 'block-menu-section' as const,
-				key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
-				rank: TRANSFORM_STRUCTURE_MENU_SECTION_RANK[
-					TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM.key as keyof typeof TRANSFORM_STRUCTURE_MENU_SECTION_RANK
-				],
+				key: parentKey,
+				rank: rank[TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM.key],
 			},
 			component: createNumberedListBlockMenuItem({ api }),
 			isHidden: () =>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 
 export const InfoIcon = (props: NewCoreIconProps): React.JSX.Element => (

@@ -1,6 +1,6 @@
 import React from 'react';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
 import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';
 import { Text } from '@atlaskit/primitives/compiled';

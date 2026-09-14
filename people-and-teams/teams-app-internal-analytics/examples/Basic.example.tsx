@@ -1,7 +1,7 @@
 import React from 'react';
 
-import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
-import Button from '@atlaskit/button/new';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import Button from '@atlaskit/button/default/button';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { selectField, textField } from '@atlassian/teams-app-internal-playground/fields';
 import {
@@ -9,7 +9,7 @@ import {
 	type PlaygroundConfig,
 } from '@atlassian/teams-app-internal-playground/playground';
 
-import { TeamsAppAnalyticsContext } from '../src';
+import { TeamsAppAnalyticsContext } from '../src/ui/analytics-context';
 import { useAnalyticsEvents } from '../src/common/utils/generated/use-analytics-events';
 
 import { createAnalyticsWebClientMock } from './mocks/mockAnalyticsClient';

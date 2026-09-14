@@ -2,16 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { type ReactNode } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { css, jsx, type SerializedStyles } from '@emotion/react';
-import Lozenge from '@atlaskit/lozenge';
-import Tag, { type TagColor } from '@atlaskit/tag';
+
+// oxlint-disable-next-line typescript(consistent-type-imports) -- `jsx` is the runtime factory required by the classic JSX pragma.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
+
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Tag from '@atlaskit/tag/removable-tag';
+import type { TagColor } from '@atlaskit/tag/types';
 import { token } from '@atlaskit/tokens';
 
 import { type LozengeColor, type LozengeProps } from '../types';
-import { isLozengeText } from './utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isLozengeText } from './isLozengeText';
 
 const AsyncTooltip = React.lazy(() =>
 	import(/* webpackChunkName: "@atlaskit-internal_@atlaskit/tooltip" */ '@atlaskit/tooltip').then(
@@ -64,15 +69,6 @@ const additionalInfo = css({
 	float: 'right',
 	marginLeft: token('space.100'),
 });
-
-export const textWrapper = (color?: string): SerializedStyles =>
-	css({
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		display: 'inline',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color,
-	});
 
 const lozengeAppearanceToTagColor: Record<LozengeColor, TagColor> = {
 	default: 'standard',

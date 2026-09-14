@@ -2,7 +2,7 @@ import type { Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
 import type { EditorContentMode } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';

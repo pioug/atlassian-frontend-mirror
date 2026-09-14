@@ -7,8 +7,8 @@ import { useContext } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';

@@ -1,7 +1,7 @@
-import {
-	type DatasourceDataResponseItem,
-	type DatasourceDetailsResponse,
-} from '@atlaskit/linking-types';
+import type {
+	DatasourceDataResponseItem,
+	DatasourceDetailsResponse,
+} from '@atlaskit/linking-types/datasource';
 
 import { type GenerateDataResponse } from '../types';
 
@@ -375,51 +375,51 @@ export const generateResolveResponse = (
 ):
 	| {
 			body: {
-				meta: {
-					auth: never[];
-					definitionId: string;
-					product: string;
-					visibility: string;
-					access: string;
-					resourceType: string;
-					objectId: string;
-					tenantId: string;
-					category: string;
-					key: string;
-				};
 				data: {
 					'@context': {
 						'@vocab': string;
 						atlassian: string;
 						schema: string;
 					};
-					generator: {
+					'@type': string[];
+					'atlassian:titlePrefix': {
 						'@type': string;
+						text: string;
+					};
+					generator: {
 						'@id': string;
-						name: string;
+						'@type': string;
 						icon: {
 							'@type': string;
 							url: string;
 						};
+						name: string;
 					};
-					'@type': string[];
-					url: string;
 					name: string;
-					'atlassian:titlePrefix': {
-						text: string;
-						'@type': string;
-					};
+					url: string;
 				};
 				datasources: {
+					ari: string;
+					description: string;
+					id: string;
 					key: string;
+					name: string;
 					parameters: {
 						searchString: string;
 					};
-					id: string;
-					ari: string;
-					description: string;
-					name: string;
 				}[];
+				meta: {
+					access: string;
+					auth: never[];
+					category: string;
+					definitionId: string;
+					key: string;
+					objectId: string;
+					product: string;
+					resourceType: string;
+					tenantId: string;
+					visibility: string;
+				};
 			};
 			status: number;
 	  }

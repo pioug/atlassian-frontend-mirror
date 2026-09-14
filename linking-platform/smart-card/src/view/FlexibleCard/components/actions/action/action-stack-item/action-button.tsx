@@ -2,18 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
-import type { TriggerProps } from '@atlaskit/tooltip';
+import type { TriggerProps } from '@atlaskit/tooltip/types';
 
-import { getPrimitivesInlineSpaceBySize } from '../../../utils';
+import { getPrimitivesInlineSpaceBySize } from '../../../getPrimitivesInlineSpaceBySize';
 import ActionIcon from '../action-icon';
-
 import type { ActionStackItemProps } from './types';
 
 const styles = cssMap({

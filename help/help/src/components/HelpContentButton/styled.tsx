@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const wrappedSpanStyles = css({
@@ -43,6 +44,15 @@ const helpContentButtonContainerStyles = css({
 	},
 	'&:active': {
 		backgroundColor: token('color.background.neutral.subtle.pressed'),
+		transition: token('motion.button.pressed'),
+	},
+	transition: token('motion.button.hovered'),
+});
+
+const helpContentButtonMotionStyles = css({
+	transition: token('motion.button.hovered'),
+	'&:active': {
+		transition: token('motion.button.pressed'),
 	},
 });
 
@@ -91,7 +101,10 @@ export const HelpContentButtonContainer = ({
 				onKeyDown={onKeyDown}
 				id={id}
 				tabIndex={tabIndex}
-				css={helpContentButtonContainerStyles}
+				css={[
+					helpContentButtonContainerStyles,
+					fg('platform-dst-motion-uplift-custom-button') && helpContentButtonMotionStyles,
+				]}
 			>
 				<span css={wrappedSpanStyles}>{children}</span>
 			</button>

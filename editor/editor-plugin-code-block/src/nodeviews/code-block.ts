@@ -8,7 +8,7 @@ import type {
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { CodeBlockPlugin } from '../codeBlockPluginType';
 import { resetShouldIgnoreFollowingMutations } from '../editor-commands';

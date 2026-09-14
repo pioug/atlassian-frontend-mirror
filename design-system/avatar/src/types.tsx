@@ -1,4 +1,4 @@
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 export type AvatarSizeMap = Record<SizeType, number>;
 
@@ -40,3 +40,7 @@ export type AvatarClickEventHandler = (
 export type Status = 'approved' | 'declined' | 'locked' | 'warning';
 
 export type Presence = 'online' | 'busy' | 'focus' | 'offline';
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { type Presence as PresenceType };
+export { type Status as StatusType };

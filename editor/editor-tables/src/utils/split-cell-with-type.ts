@@ -1,31 +1,22 @@
 import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import { CellSelection } from '../cell-selection';
 import type { CellAttributes, Command } from '../types';
-
-import { cellAround } from './cells';
+import { cellAround } from './cell-around';
+import { cellWrapping } from './cell-wrapping';
+import type { GetCellTypeCallback } from './get-cell-type-callback';
 import { selectedRect } from './selection-rect';
 
-export function cellWrapping($pos: ResolvedPos): PMNode | null {
-	for (let d = $pos.depth; d > 0; d--) {
-		// Sometimes the cell can be in the same depth.
-		const role = $pos.node(d).type.spec.tableRole;
-		if (role === 'cell' || role === 'header_cell') {
-			return $pos.node(d);
-		}
-	}
-	return null;
-}
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { cellWrapping } from './cell-wrapping';
 
 export type GetCellTypeArgs = {
 	col: number;
 	node: PMNode;
 	row: number;
 };
-
-type GetCellTypeCallback = (option: GetCellTypeArgs) => NodeType;
 
 // Split a selected cell, whose rowpan or colspan is greater than one,
 // into smaller cells with the cell type (th, td) returned by getType function.

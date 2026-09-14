@@ -10,9 +10,10 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import LinkIcon from '@atlaskit/icon/core/link';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import Tooltip from '@atlaskit/tooltip';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { token } from '@atlaskit/tokens';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { headingAnchorLinkMessages } from '../../messages';
 import type { MessageDescriptor } from '../../types/i18n';
@@ -97,7 +98,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			},
 			() => {
 				// Reposition tooltip after content change (replaces the key-based remount)
-				if (expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true)) {
+				if (isExperimentEnabled('a11y-fixes-week4-may-2026')) {
 					this._tooltipUpdate?.();
 				}
 			},
@@ -180,13 +181,12 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 		const { tooltipMessage } = this.state;
 
 		if (tooltipMessage) {
-			if (expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true)) {
+			if (isExperimentEnabled('a11y-fixes-week4-may-2026')) {
 				// Fix for A11Y-30972: Use content as a function with update callback so
 				// the Tooltip repositions without unmounting (which caused focus loss).
 				// @see https://hello.jira.atlassian.cloud/browse/A11Y-30972
 				return (
 					<Tooltip
-						// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 						tag={CopyAnchorWrapperWithRef}
 						content={this.renderTooltipContent}
 						position="top"
@@ -207,7 +207,6 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			// @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
 			return (
 				<Tooltip
-					// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 					tag={CopyAnchorWrapperWithRef}
 					content={tooltipMessage}
 					position="top"
@@ -228,7 +227,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<HeadingAnchorProps>> & {
 	WrappedComponent: React.ComponentType<HeadingAnchorProps>;
 } = injectIntl(HeadingAnchor);

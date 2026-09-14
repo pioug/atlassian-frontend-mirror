@@ -1,24 +1,23 @@
-import '@atlaskit/link-test-helpers/jest';
 import React, { useState } from 'react';
 
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
-import Heading from '@atlaskit/heading';
-import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
-import type { CardStore } from '@atlaskit/linking-common';
+import Heading from '@atlaskit/heading/heading';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import '@atlaskit/link-test-helpers/jest';
+import type { CardStore } from '@atlaskit/linking-common/store';
 import { CardAction } from '@atlaskit/smart-card';
 import {
 	type HoverCardProps,
 	HoverCard as StandaloneHoverCard,
 } from '@atlaskit/smart-card/hover-card';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import * as useSmartCardActions from '../../../state/actions';
-import { fakeFactory } from '../../../utils/mocks';
-import { HoverCard } from '../index';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { HoverCard } from '../HoverCard';
 import { type HoverCardInternalProps } from '../types';
-
 import { mockConfluenceResponse } from './__mocks__/mocks';
 import { analyticsTests } from './common/analytics.test-utils';
 import {

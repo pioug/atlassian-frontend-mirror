@@ -45,6 +45,7 @@ export interface EmojiProvider extends Provider<
 	fetchByEmojiId(
 		emojiId: EmojiId,
 		optimistic: boolean,
+		emojiProviderLookupOrder?: EmojiProviderLookupOrder,
 	): OptionalEmojiDescriptionWithVariations | Promise<OptionalEmojiDescriptionWithVariations>;
 
 	/**
@@ -59,7 +60,10 @@ export interface EmojiProvider extends Provider<
 	 *
 	 * Will load media api images before returning.
 	 */
-	findByEmojiId(emojiId: EmojiId): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+	findByEmojiId(
+		emojiId: EmojiId,
+		emojiProviderLookupOrder?: EmojiProviderLookupOrder,
+	): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
 
 	/**
 	 * Return the emoji that matches the supplied id or undefined. As with findByEmojiId, this call should load
@@ -72,7 +76,10 @@ export interface EmojiProvider extends Provider<
 	 *
 	 * Will load media api images before returning.
 	 */
-	findByShortName(shortName: string): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+	findByShortName(
+		shortName: string,
+		emojiProviderLookupOrder?: EmojiProviderLookupOrder,
+	): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
 
 	/**
 	 * Finds emojis belonging to specified category.
@@ -85,6 +92,18 @@ export interface EmojiProvider extends Provider<
 	 * Returns a map matching ascii representations to their corresponding EmojiDescription.
 	 */
 	getAsciiMap(): Promise<Map<string, EmojiDescription>>;
+
+	/**
+	 * Synchronously reads the emoji type (e.g. 'STANDARD', 'SITE', 'ATLASSIAN') from the
+	 * local cache for the given emojiId, without making any network requests.
+	 *
+	 * Returns `undefined` when the emoji is not yet in the cache or no repository has been
+	 * initialised. This is an optional method — callers must fall back gracefully when it is
+	 * absent (e.g. in mock or legacy providers).
+	 *
+	 * Optional.
+	 */
+	getCachedEmojiType?(emojiId: EmojiId): string | undefined;
 
 	/**
 	 * Returns the logged user passed by the Product
@@ -105,18 +124,6 @@ export interface EmojiProvider extends Provider<
 	 * Returns a constructed URL to fetch emoji media asset if 'optimisticImageApi' config has been provided
 	 */
 	getOptimisticImageURL(emojiId: EmojiId): string | undefined;
-
-	/**
-	 * Synchronously reads the emoji type (e.g. 'STANDARD', 'SITE', 'ATLASSIAN') from the
-	 * local cache for the given emojiId, without making any network requests.
-	 *
-	 * Returns `undefined` when the emoji is not yet in the cache or no repository has been
-	 * initialised. This is an optional method — callers must fall back gracefully when it is
-	 * absent (e.g. in mock or legacy providers).
-	 *
-	 * Optional.
-	 */
-	getCachedEmojiType?(emojiId: EmojiId): string | undefined;
 
 	/**
 	 * Used by the picker and typeahead to obtain a skin tone preference
@@ -217,6 +224,13 @@ export interface EmojiId {
 	id?: string;
 	shortName: string;
 }
+
+/**
+ * Preferred emoji provider type order when resolving an emoji by shortName.
+ * The first matching type wins. If no provided type matches, lookup falls back
+ * to the default provider ordering.
+ */
+export type EmojiProviderLookupOrder = string[];
 
 export interface SpriteSheet {
 	column: number;

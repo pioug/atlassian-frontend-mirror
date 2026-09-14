@@ -19,8 +19,9 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorMaxLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
@@ -40,6 +41,8 @@ export const GUIDELINE_KEYS = {
 	maxWidthRight: 'max_width_right',
 } as const;
 
+const SYNC_BLOCK_PADDING = 19;
+const EXTENSION_WRAPPER_PADDING = 20;
 const AK_NESTED_DND_GUTTER_OFFSET = 8;
 const roundToNearest = (value: number, interval: number = 0.5): number =>
 	Math.round(value / interval) * interval;
@@ -72,6 +75,17 @@ export const getGuidelines: MemoizedFn<
 					break;
 				case 'layoutSection':
 					innerPaddingOffset = LAYOUT_COLUMN_PADDING + AK_NESTED_DND_GUTTER_OFFSET;
+					break;
+				case 'bodiedSyncBlock':
+				case 'syncBlock':
+					if (isExperimentEnabled('platform_editor_sync_block_guideline_bugfix')) {
+						innerPaddingOffset = SYNC_BLOCK_PADDING;
+					}
+					break;
+				case 'extension':
+				case 'multiBodiedExtension':
+				case 'bodiedExtension':
+					innerPaddingOffset = EXTENSION_WRAPPER_PADDING;
 					break;
 				default:
 					break;

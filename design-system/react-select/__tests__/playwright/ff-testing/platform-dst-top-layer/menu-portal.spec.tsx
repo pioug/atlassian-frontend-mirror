@@ -100,4 +100,29 @@ test.describe('react-select MenuPortal - top-layer-specific contracts', () => {
 		await expect(page.getByRole('option', { name: 'Brisbane' })).toBeVisible();
 		await expect(page.getByRole('option', { name: 'Adelaide' })).toHaveCount(0);
 	});
+
+	test('Escape closes a nested Select menu without closing its containing popover', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../../../examples/testing-top-layer-nested-popover.tsx')
+		>('design-system', 'react-select', 'testing-top-layer-nested-popover', { featureFlag });
+
+		await page.getByRole('button', { name: 'Open outer popover' }).click();
+		const outerPopover = page.getByTestId('outer-popover');
+		await expect(outerPopover).toHaveJSProperty('popover', 'auto');
+		expect(await outerPopover.evaluate((element) => element.matches(':popover-open'))).toBe(true);
+
+		const combobox = await openMenu(page);
+		await expect(page.getByRole('listbox')).toBeVisible();
+
+		await page.keyboard.press('Escape');
+
+		await expect(page.getByRole('listbox')).toHaveCount(0);
+		await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+		expect(await outerPopover.evaluate((element) => element.matches(':popover-open'))).toBe(true);
+
+		await page.keyboard.press('Escape');
+		expect(await outerPopover.evaluate((element) => element.matches(':popover-open'))).toBe(false);
+	});
 });

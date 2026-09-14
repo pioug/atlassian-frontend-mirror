@@ -4,12 +4,12 @@
  */
 import React, { useRef } from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -101,7 +101,7 @@ const styles = cssMap({
 		alignItems: 'baseline',
 		justifyContent: 'center',
 		columnGap: token('space.050'),
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.medium'),
 		borderWidth: 0,
 		flexShrink: 0,
 		height: '2rem',
@@ -121,10 +121,6 @@ const styles = cssMap({
 			pointerEvents: 'none',
 			position: 'absolute',
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	baseT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	interactiveMotion: {
 		transition: token('motion.button.hovered'),
@@ -169,8 +165,6 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.150'),
 		paddingInlineStart: token('space.150'),
 		verticalAlign: 'middle',
-	},
-	spacingCompactT26Shape: {
 		borderRadius: token('radius.small'),
 	},
 	circle: {
@@ -659,7 +653,6 @@ const ButtonBase: React.ForwardRefExoticComponent<
 				ref={mergeRefs([localRef, ref])}
 				xcss={cx(
 					styles.base,
-					fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
 					isInteractive && fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
 					appearance === 'default' && defaultStyles.root,
 					appearance === 'default' && isInteractive && defaultStyles.interactive,
@@ -692,9 +685,6 @@ const ButtonBase: React.ForwardRefExoticComponent<
 						styles.sharedDisabled,
 					isDisabled && appearance === 'default' && defaultStyles.disabled,
 					spacing === 'compact' && styles.spacingCompact,
-					spacing === 'compact' &&
-						fg('platform-dst-shape-theme-default') &&
-						styles.spacingCompactT26Shape,
 					// This must come after spacing compact styling as it overrides the border radius
 					isCircle && !isSplitButton && styles.circle,
 					shouldFitContainer && styles.fullWidth,
@@ -706,12 +696,9 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					isSplitButton && styles.splitButton,
 					isNavigationSplitButton && styles.navigationSplitButton,
 				)}
-				isDisabled={
-					fg('platform-dst_fix_not_focusable_loading_button') ? isDisabled : isEffectivelyDisabled
-				}
-				{...(fg('platform-dst_fix_not_focusable_loading_button') && { 'aria-live': 'polite' })}
-				{...(isLoading &&
-					fg('platform-dst_fix_not_focusable_loading_button') && { 'aria-disabled': true })}
+				isDisabled={isDisabled}
+				aria-live="polite"
+				{...(isLoading && { 'aria-disabled': true })}
 				aria-label={
 					isLoading && ariaLabel && !ariaLabelledBy ? `${ariaLabel} ${LOADING_LABEL}` : ariaLabel
 				}
@@ -752,10 +739,10 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					{isLoading && (
 						<span css={styles.loadingOverlay}>
 							{renderLoadingOverlay({
-								spacing: spacing,
-								appearance: appearance,
-								isDisabled: isDisabled,
-								isSelected: isSelected,
+								spacing,
+								appearance,
+								isDisabled,
+								isSelected,
 								testId,
 							})}
 						</span>

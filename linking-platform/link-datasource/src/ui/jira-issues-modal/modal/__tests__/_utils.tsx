@@ -10,7 +10,8 @@ import type {
 	waitForOptions,
 } from '@testing-library/react';
 
-import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
+import JQLEditor from '@atlaskit/jql-editor/ui';
+import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 
 import { setupFactory } from '../../../../common/__tests__/_utils';
 import type { DisplayViewModes, Site } from '../../../../common/types';
@@ -23,12 +24,15 @@ import type { ColumnSizesMap, IssueLikeDataTableViewProps } from '../../../issue
 import { type JiraIssueDatasourceParameters, type JiraIssuesDatasourceAdf } from '../../types';
 import { JiraIssuesConfigModal } from '../index';
 
-jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
+jest.mock('@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider', () => ({
+	...jest.requireActual('@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider'),
 	useAutocompleteProvider: jest.fn().mockReturnValue('useAutocompleteProvider-call-result'),
 }));
 
-jest.mock('@atlaskit/jql-editor', () => ({
-	JQLEditor: jest.fn().mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
+jest.mock('@atlaskit/jql-editor/ui', () => ({
+	...jest.requireActual('@atlaskit/jql-editor/ui'),
+	__esModule: true,
+	default: jest.fn().mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
 }));
 
 export const getDefaultParameters: () => JiraIssueDatasourceParameters = () => ({

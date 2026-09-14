@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const isInsideTable = (nodeType: NodeType): Boolean => {
 	const { tableCell, tableHeader } = nodeType.schema.nodes;

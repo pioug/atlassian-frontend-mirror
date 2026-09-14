@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
@@ -12,12 +13,12 @@ import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import { HoverCard } from '../../HoverCard';
+import { HoverCard } from '../../HoverCard/HoverCard';
 import { type RequestAccessContextProps } from '../../types';
-import { ActionButton } from '../common/action-button';
-import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
+import { ActionButton } from '../common/action-button';
+import InlineLozenge from '../common/inline-lozenge';
 
 const styles = cssMap({
 	actionButtonLozengeStyle: {

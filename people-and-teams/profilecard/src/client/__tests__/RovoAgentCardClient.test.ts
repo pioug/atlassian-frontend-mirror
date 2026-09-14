@@ -1,11 +1,11 @@
 import fetchMock from 'fetch-mock';
 
-import { AGGQuery } from '../graphqlUtils';
-import RovoAgentCardClient from '../RovoAgentCardClient';
+import { AGGQuery } from '../AGGQuery';
+import { default as RovoAgentCardClient } from '../RovoAgentCardClient';
 import { sharedAgentProfileCache } from '../sharedAgentProfileCache';
 
-jest.mock('../graphqlUtils', () => ({
-	...jest.requireActual('../graphqlUtils'),
+jest.mock('../AGGQuery', () => ({
+	...jest.requireActual('../AGGQuery'),
 	AGGQuery: jest.fn(),
 }));
 

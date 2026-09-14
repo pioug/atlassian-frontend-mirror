@@ -1,4 +1,4 @@
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import type { ProviderError } from '@atlaskit/editor-common/collab';
 import type { ActionAnalyticsEvent, ErrorAnalyticsEvent, EVENT_STATUS } from '../helpers/const';

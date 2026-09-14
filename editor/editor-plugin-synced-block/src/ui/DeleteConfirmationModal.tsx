@@ -4,25 +4,26 @@ import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl';
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	DeletionReason,
 	SyncBlockAttrs,
 	SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text, Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -72,8 +73,10 @@ const styles = cssMap({
 export const DeleteConfirmationModal = ({
 	syncBlockStoreManager,
 	api,
+	editorView,
 }: {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	editorView?: EditorView;
 	syncBlockStoreManager: SyncBlockStoreManager;
 }): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -119,8 +122,16 @@ export const DeleteConfirmationModal = ({
 					activeFlag: false,
 				});
 			});
+
+			// The delete menu adds a `danger` decoration that it only clears on mouse leave, which
+			// never fires because clicking Delete closes the menu. It stays for the lifetime of this
+			// modal so the block being deleted remains highlighted, and confirming drops it along
+			// with the node, but cancelling has to clear it or the red highlight is left behind.
+			if (!confirm && editorView && fg('platform_editor_blocks_patch_7')) {
+				api?.decorations?.actions.removeDecoration(editorView.state, editorView.dispatch);
+			}
 		},
-		[api?.core?.actions],
+		[api?.core?.actions, api?.decorations?.actions, editorView],
 	);
 
 	// Store activeFlag in a ref so confirmationCallback always reads the latest value
@@ -312,8 +323,16 @@ const ModalContent = ({
 		content;
 
 	const hasNoReferenceOrFailToFetch = referenceCount === 0;
-	const syncBlockCount =
+	const totalLocationCount =
 		deleteReason === 'source-block-deleted' ? referenceCount + sourceCount : referenceCount;
+	const isReferenceCountDescriptionEnabled =
+		deleteReason === 'source-block-deleted' && fg('platform_editor_blocks_patch_7');
+	const descriptionLocationCount = isReferenceCountDescriptionEnabled
+		? referenceCount
+		: totalLocationCount;
+	const descriptionMultipleMessage = isReferenceCountDescriptionEnabled
+		? messages.deletionConfirmationModalDescriptionReferenceCount
+		: descriptionMultiple;
 
 	return (
 		<>
@@ -321,15 +340,15 @@ const ModalContent = ({
 				<ModalTitle appearance="warning">
 					{hasNoReferenceOrFailToFetch
 						? formatMessage(titleSingle)
-						: formatMessage(titleMultiple, { count: syncBlockCount })}
+						: formatMessage(titleMultiple, { count: totalLocationCount })}
 				</ModalTitle>
 			</ModalHeader>
 			<ModalBody>
 				<Text>
 					{hasNoReferenceOrFailToFetch
 						? formatMessage(descriptionSingle)
-						: formatMessage(descriptionMultiple, {
-								syncBlockCount,
+						: formatMessage(descriptionMultipleMessage, {
+								syncBlockCount: descriptionLocationCount,
 							})}
 				</Text>
 			</ModalBody>

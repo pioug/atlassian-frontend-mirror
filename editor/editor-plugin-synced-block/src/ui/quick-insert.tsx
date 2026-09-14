@@ -14,8 +14,8 @@ import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { createSyncedBlock } from '../editor-commands';

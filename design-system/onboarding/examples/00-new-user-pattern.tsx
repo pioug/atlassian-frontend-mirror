@@ -4,7 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';

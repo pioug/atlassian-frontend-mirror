@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::d5ee204f4c379b49390c0f7b2a98f516>>
+ * @codegen <<SignedSource::076472296d8fa5258a25ddd8b94b3ca1>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -60,14 +60,16 @@ export const tokens: Token[] = [
 		name: 'motion.button.hovered',
 		path: ['motion', 'button', 'hovered'],
 		description: 'Use for button hover state transitions.',
-		exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+		exampleValue:
+			'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.button.pressed',
 		path: ['motion', 'button', 'pressed'],
 		description: 'Use for button pressed state transitions.',
-		exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+		exampleValue:
+			'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -314,6 +316,22 @@ export const tokens: Token[] = [
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
+		name: 'motion.label.enter',
+		path: ['motion', 'label', 'enter'],
+		description: 'Use for label enter transitions (e.g. tag component).',
+		exampleValue:
+			'150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleXIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.label.exit',
+		path: ['motion', 'label', 'exit'],
+		description: 'Use for label exit transitions (e.g. tag component).',
+		exampleValue:
+			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleXOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
 		name: 'motion.listitem.hovered',
 		path: ['motion', 'listitem', 'hovered'],
 		description: 'Use for list item hover state transitions.',
@@ -352,17 +370,59 @@ export const tokens: Token[] = [
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
+		name: 'motion.panel.content.enter',
+		path: ['motion', 'panel', 'content', 'enter'],
+		description: 'Use for panel content enter.',
+		exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 100ms backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.panel.content.exit',
+		path: ['motion', 'panel', 'content', 'exit'],
+		description: 'Use for panel content exit.',
+		exampleValue: '50ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
 		name: 'motion.panel.enter',
-		path: ['motion', 'panel', 'enter'],
+		path: ['motion', 'panel', 'enter', '[default]'],
 		description: 'Use for panel enter transitions.',
 		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
+		name: 'motion.panel.enter.left',
+		path: ['motion', 'panel', 'enter', 'left'],
+		description: 'Use for panel enter from the left.',
+		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.panel.enter.right',
+		path: ['motion', 'panel', 'enter', 'right'],
+		description: 'Use for panel enter from the right.',
+		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
 		name: 'motion.panel.exit',
-		path: ['motion', 'panel', 'exit'],
+		path: ['motion', 'panel', 'exit', '[default]'],
 		description: 'Use for panel exit transitions.',
-		exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut100PercentRight forwards',
+		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.panel.exit.left',
+		path: ['motion', 'panel', 'exit', 'left'],
+		description: 'Use for panel exit towards the left.',
+		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.panel.exit.right',
+		path: ['motion', 'panel', 'exit', 'right'],
+		description: 'Use for panel exit towards the right.',
+		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -428,6 +488,34 @@ export const tokens: Token[] = [
 		description: 'Use for popup exit toward the top.',
 		exampleValue:
 			'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.sidenav.enter.left',
+		path: ['motion', 'sidenav', 'enter', 'left'],
+		description: 'Use for side nav enter from the left.',
+		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.sidenav.enter.right',
+		path: ['motion', 'sidenav', 'enter', 'right'],
+		description: 'Use for side nav enter from the right.',
+		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.sidenav.exit.left',
+		path: ['motion', 'sidenav', 'exit', 'left'],
+		description: 'Use for side nav exit towards the left.',
+		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.sidenav.exit.right',
+		path: ['motion', 'sidenav', 'exit', 'right'],
+		description: 'Use for side nav exit towards the right.',
+		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -3088,10 +3176,21 @@ export const tokens: Token[] = [
 	},
 	{
 		name: 'color.border.input',
-		path: ['color', 'border', 'input'],
+		path: ['color', 'border', 'input', '[default]'],
 		description:
 			'Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons.',
 		exampleValue: '#8C8F97',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.input.search',
+		path: ['color', 'border', 'input', 'search'],
+		description: 'Use for the border of search inputs.',
+		exampleValue: '#0B120E24',
 		usageGuidelines: {
 			usage:
 				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',

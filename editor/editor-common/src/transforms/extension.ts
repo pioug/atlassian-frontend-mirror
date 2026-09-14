@@ -1,4 +1,4 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 

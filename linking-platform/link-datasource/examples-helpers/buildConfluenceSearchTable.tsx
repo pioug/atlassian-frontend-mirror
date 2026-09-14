@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
 
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { type DatasourceParameters } from '@atlaskit/linking-types';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
-import { DatasourceTableView } from '../src';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '../src/ui/datasource-table-view/DatasourceTableViewWithWrappers';
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { type ConfluenceSearchDatasourceParameters } from '../src/ui/confluence-search-modal/types';
 
@@ -35,6 +35,7 @@ const ConfluenceSearchTableView = ({ parameters }: ConfluenceSearchTableViewProp
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 	} = useCommonTableProps({
 		defaultColumnCustomSizes: {
 			people: 100,
@@ -50,6 +51,7 @@ const ConfluenceSearchTableView = ({ parameters }: ConfluenceSearchTableViewProp
 			columnCustomSizes={columnCustomSizes}
 			onColumnResize={onColumnResize}
 			onWrappedColumnChange={onWrappedColumnChange}
+			onWrappedColumnsChange={onWrappedColumnsChange}
 			wrappedColumnKeys={wrappedColumnKeys}
 		/>
 	);

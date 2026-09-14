@@ -11,7 +11,7 @@ import { injectIntl } from 'react-intl';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 
 import { Stack } from '@atlaskit/primitives/compiled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { toolbarInsertBlockMessages as messages } from '../../messages';

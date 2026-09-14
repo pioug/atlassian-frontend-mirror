@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { DatasourceAction } from '../../../../analytics/types';
-import { useUserInteractions } from '../../../../contexts/user-interactions';
-import { IssueLikeDataTableView } from '../../../issue-like-table';
+import { useUserInteractions } from '../../../../contexts/user-interactions/use-user-interactions';
+import { IssueLikeDataTableView } from '../../../issue-like-table/issue-like-data-table-view';
 import { type IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
-import { useDatasourceContext } from '../datasource-context';
+import { useDatasourceContext } from '../datasource-context/useDatasourceContext';
 
 export type DatasourcesTableProps = Pick<
 	IssueLikeDataTableViewProps,
@@ -17,6 +19,7 @@ const Table = (props: DatasourcesTableProps): React.JSX.Element => {
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 		visibleColumnKeys,
 		onVisibleColumnKeysChange,
 		tableState: {
@@ -58,6 +61,7 @@ const Table = (props: DatasourcesTableProps): React.JSX.Element => {
 			onColumnResize={onColumnResize}
 			wrappedColumnKeys={wrappedColumnKeys}
 			onWrappedColumnChange={onWrappedColumnChange}
+			{...(fg('platform_lp_sllv_table_settings_menu') ? { onWrappedColumnsChange } : {})}
 		/>
 	);
 };

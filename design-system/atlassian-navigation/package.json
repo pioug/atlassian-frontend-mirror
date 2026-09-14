@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-navigation",
-	"version": "6.1.6",
+	"version": "6.4.3",
 	"description": "A horizontal navigation component for Atlassian apps.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -102,7 +102,7 @@
 		"lodash": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -115,6 +115,7 @@
 		"@atlaskit/drawer": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/form": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/notification-indicator": "workspace:^",
 		"@atlaskit/notification-log-client": "workspace:^",
@@ -123,32 +124,13 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/switcher": "workspace:^",
 		"@atlassian/switcher-test-utils": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jest-emotion": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"react-intl": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"styling": [
-				"emotion",
-				"static"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
 	},
 	"homepage": "https://atlassian.design/components/atlassian-navigation/",
 	"platform-feature-flags": {

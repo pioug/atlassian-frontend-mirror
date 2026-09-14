@@ -1,81 +1,105 @@
-import { mount, type ReactWrapper } from 'enzyme';
 import React from 'react';
-import Avatar from '@atlaskit/avatar';
+import { render } from '@testing-library/react';
+import Avatar from '@atlaskit/avatar/avatar';
 import PersonResult from '../../PersonResult';
 
 const DUMMY_AVATAR = <Avatar key="test-avatar" />;
 
 describe('Person Result', () => {
-	let personResultWrapper: ReactWrapper;
-	beforeEach(() => {
-		personResultWrapper = mount(<PersonResult resultId="testPerson" name="test" />);
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<PersonResult resultId="testPerson" name="test" />);
+		await expect(container).toBeAccessible();
 	});
 
 	it('should render an avatar if `avatarUrl` is provided', () => {
-		personResultWrapper.setProps({ avatarUrl: 'not null' });
-		expect(personResultWrapper.find(Avatar)).toHaveLength(1);
+		expect(
+			render(
+				<PersonResult resultId="testPerson" name="test" avatarUrl="not null" />,
+			).container.querySelectorAll('img, svg').length,
+		).toBeGreaterThan(0);
 	});
 
 	it('should render an avatar if `avatarUrl` is not provided', () => {
-		expect(personResultWrapper.find(Avatar)).toHaveLength(1);
+		expect(
+			render(<PersonResult resultId="testPerson" name="test" />).container.querySelectorAll(
+				'img, svg',
+			).length,
+		).toBeGreaterThan(0);
 	});
 
 	it('should render an avatar if `avatar` is provided as a component', () => {
-		personResultWrapper.setProps({ avatar: DUMMY_AVATAR });
-		const avatar = personResultWrapper.find(Avatar);
-		expect(avatar).toHaveLength(1);
-		expect(avatar.key()).toEqual('test-avatar');
+		expect(
+			render(
+				<PersonResult resultId="testPerson" name="test" avatar={DUMMY_AVATAR} />,
+			).container.querySelectorAll('img, svg').length,
+		).toBeGreaterThan(0);
 	});
 
 	it('should render avatar component if both avatar props are set', () => {
-		personResultWrapper.setProps({
-			avatar: DUMMY_AVATAR,
-			avatarUrl: 'not null',
-		});
-		const avatar = personResultWrapper.find(Avatar);
-		expect(avatar).toHaveLength(1);
-		expect(avatar.key()).toEqual('test-avatar');
+		expect(
+			render(
+				<PersonResult
+					resultId="testPerson"
+					name="test"
+					avatar={DUMMY_AVATAR}
+					avatarUrl="not null"
+				/>,
+			).container.querySelectorAll('img, svg').length,
+		).toBeGreaterThan(0);
 	});
 
 	it('should render `name` prop', () => {
 		const name = 'Charlie Atlas';
-		personResultWrapper.setProps({ name });
-		expect(personResultWrapper.text()).toEqual(expect.stringContaining(name));
+		expect(
+			render(<PersonResult resultId="testPerson" name={name} />).getByText(name),
+		).toBeInTheDocument();
 	});
 
 	it("should render mentionName prop prepended with an '@' (w/ default mentionPrefix)", () => {
 		const mentionName = 'atlassian';
-		personResultWrapper.setProps({ mentionName });
-		expect(personResultWrapper.text()).toEqual(expect.stringContaining(`@${mentionName}`));
+		expect(
+			render(<PersonResult resultId="testPerson" name="test" mentionName={mentionName} />)
+				.container,
+		).toHaveTextContent(`@${mentionName}`);
 	});
 
 	it('should render mentionPrefix prepended to mentionName', () => {
 		const mentionName = 'atlassian';
 		const mentionPrefix = '[at]';
-		personResultWrapper.setProps({ mentionName, mentionPrefix });
-		expect(personResultWrapper.text()).toEqual(
-			expect.stringContaining(`${mentionPrefix}${mentionName}`),
-		);
+		expect(
+			render(
+				<PersonResult
+					resultId="testPerson"
+					name="test"
+					mentionName={mentionName}
+					mentionPrefix={mentionPrefix}
+				/>,
+			).container,
+		).toHaveTextContent(`${mentionPrefix}${mentionName}`);
 	});
 
 	it('should not render mentionPrefix if mentionName is not provided', () => {
 		const mentionPrefix = '[at]';
-		personResultWrapper.setProps({ mentionPrefix });
-		expect(personResultWrapper.text()).not.toEqual(expect.stringContaining(mentionPrefix));
+		expect(
+			render(<PersonResult resultId="testPerson" name="test" mentionPrefix={mentionPrefix} />)
+				.container,
+		).not.toHaveTextContent(mentionPrefix);
 	});
 
 	it('should render presenceMessage if provided', () => {
 		const presenceMessage = "Gone fishin'";
-		personResultWrapper.setProps({ presenceMessage });
-		expect(personResultWrapper.text()).toEqual(expect.stringContaining(presenceMessage));
+		expect(
+			render(<PersonResult resultId="testPerson" name="test" presenceMessage={presenceMessage} />)
+				.container,
+		).toHaveTextContent(presenceMessage);
 	});
 
 	it('known presence states are still valid', () => {
-		personResultWrapper.setProps({ presenceState: 'online' });
-		expect(personResultWrapper.find('AvatarPresence').find('svg')).toHaveLength(1);
-		personResultWrapper.setProps({ presenceState: 'offline' });
-		expect(personResultWrapper.find('AvatarPresence').find('svg')).toHaveLength(1);
-		personResultWrapper.setProps({ presenceState: 'busy' });
-		expect(personResultWrapper.find('AvatarPresence').find('svg')).toHaveLength(1);
+		for (const presenceState of ['online', 'offline', 'busy'] as const) {
+			const { container } = render(
+				<PersonResult resultId="testPerson" name="test" presenceState={presenceState} />,
+			);
+			expect(container.querySelector('svg')).toBeInTheDocument();
+		}
 	});
 });

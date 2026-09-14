@@ -6,15 +6,16 @@ import React, { Fragment, useCallback, useLayoutEffect, useRef, useState } from 
 
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';
-import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';

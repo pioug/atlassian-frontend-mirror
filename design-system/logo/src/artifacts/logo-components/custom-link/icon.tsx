@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6a1acdf5e3aacf1ac91c03f0f8d3dcf4>>
+ * @codegen <<SignedSource::96fa1d1b91a2ac9738598908d095fd19>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,7 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  */
 export function CustomLinkIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Custom Link',
 	testId,

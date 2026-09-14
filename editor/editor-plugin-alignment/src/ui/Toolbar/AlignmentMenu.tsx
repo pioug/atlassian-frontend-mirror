@@ -6,7 +6,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownMenu, ToolbarTooltip } from '@atlaskit/editor-toolbar';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 
@@ -25,7 +25,7 @@ export const AlignmentMenu = ({
 		(states) => ({
 			align:
 				states.interactionState?.interactionState === 'hasNotHadInteraction' &&
-				expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_default_toolbar_state')
 					? 'start'
 					: states.alignmentState?.align,
 			isEnabled: states.alignmentState?.isEnabled,

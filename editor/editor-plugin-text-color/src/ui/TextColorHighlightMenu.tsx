@@ -20,7 +20,8 @@ import {
 	ToolbarTooltip,
 	useToolbarUI,
 } from '@atlaskit/editor-toolbar';
-import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react/conditional-hooks-factory/conditional-hooks-factory';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
@@ -109,7 +110,7 @@ const useTextColorHighlightMenuStateOld = (
 const useTextColorHighlightMenuState: (
 	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
 ) => TextColorHighlightMenuState = conditionalHooksFactory(
-	() => expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true),
+	() => isExperimentEnabled('platform_editor_default_toolbar_state'),
 	useTextColorHighlightMenuStateNew,
 	useTextColorHighlightMenuStateOld,
 );

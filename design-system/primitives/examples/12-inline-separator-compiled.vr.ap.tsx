@@ -1,0 +1,33 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import type { JSX } from 'react';
+
+import { jsx } from '@compiled/react';
+
+import { cssMap } from '@atlaskit/css';
+import Link from '@atlaskit/link/link';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	container: {
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
+});
+
+export default (): JSX.Element => (
+	<div data-testid="inline-example" css={styles.container}>
+		<Inline space="space.150" separator="/">
+			<Link href="/">breadcrumbs</Link>
+			<Link href="/">for</Link>
+			<Link href="/">some</Link>
+			<Link href="/">sub</Link>
+			<Link href="/">page</Link>
+		</Inline>
+	</div>
+);

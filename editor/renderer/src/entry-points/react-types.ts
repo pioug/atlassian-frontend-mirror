@@ -4,6 +4,7 @@ export type {
 	ExtensionViewportSize,
 	MarkMeta,
 	MarkProps,
+	NodeContent,
 	NodeMeta,
 	NodeProps,
 	RendererContext,

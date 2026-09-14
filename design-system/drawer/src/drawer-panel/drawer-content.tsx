@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import ScrollLock from 'react-scrolllock';
 import { mergeRefs } from 'use-callback-ref';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type DrawerContentProps } from '../types';

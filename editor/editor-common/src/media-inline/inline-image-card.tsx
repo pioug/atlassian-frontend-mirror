@@ -10,9 +10,9 @@ import { jsx } from '@emotion/react';
 import type { FileIdentifier } from '@atlaskit/media-client';
 import type { SSR } from '@atlaskit/media-common';
 import { getRandomHex } from '@atlaskit/media-common';
-import { useFilePreview } from '@atlaskit/media-file-preview';
-import { MediaImage } from '@atlaskit/media-ui';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { useFilePreview } from '@atlaskit/media-file-preview/use-file-preview';
+import { MediaImage } from '@atlaskit/media-ui/mediaImage';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { Dimensions } from './types';
 import { InlineImageCardLoadingView } from './views/loading-view';
@@ -80,7 +80,7 @@ export const InlineImageCard = ({
 				alt={alt}
 				previewOrientation={preview.orientation}
 				onImageLoad={
-					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+					isExperimentEnabled('platform_editor_perf_lint_cleanup')
 						? memoizedOnImageLoad
 						: () => {
 								onImageLoad(preview);

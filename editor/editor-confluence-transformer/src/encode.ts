@@ -1,14 +1,8 @@
-import { getEmojiAcName, hexToRgb } from '@atlaskit/adf-schema';
-import {
-	tableBackgroundColorPalette,
-	tableBackgroundColorPaletteNew,
-} from '@atlaskit/adf-schema/tableNodes';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import type {
-	MediaAttributes,
-	RichMediaAttributes as MediaSingleAttributes,
-} from '@atlaskit/adf-schema';
+import { getEmojiAcName } from '@atlaskit/adf-schema/get-emoji-ac-name';
+import { hexToRgb } from '@atlaskit/adf-schema/hex-to-rgb';
+import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
+import type { MediaAttributes } from '@atlaskit/adf-schema/media';
+import type { RichMediaAttributes as MediaSingleAttributes } from '@atlaskit/adf-schema/rich-media-common';
 import { timestampToIsoFormat, calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node as PMNode, Mark, Schema } from '@atlaskit/editor-prosemirror/model';
 import parseCxhtml from './parse-cxhtml';
@@ -187,16 +181,11 @@ export default function encode(node: PMNode, schema: Schema): string {
 				}
 
 				if (background) {
-					cellElement.setAttribute(
-						'data-highlight-colour',
-						(
-							(expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-							fg('platform_editor_lovability_text_bg_color_patch_2')
-								? tableBackgroundColorPaletteNew
-								: tableBackgroundColorPalette
-							).get(background.toLowerCase()) || background
-						).toLowerCase(),
-					);
+					// Ungated union lookup: the storage format written here is read back by every
+					// cohort, so the colour name must not depend on the experiment being on.
+					const colorName =
+						tableBackgroundColorNameByHex.get(background.toLowerCase()) || background;
+					cellElement.setAttribute('data-highlight-colour', colorName.toLowerCase());
 				}
 
 				if (colspan && colspan !== 1) {

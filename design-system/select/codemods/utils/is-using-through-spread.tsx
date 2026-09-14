@@ -67,9 +67,7 @@ export function isUsingThroughSpread({
 							}
 
 							const match: boolean =
-								// @ts-ignore
 								value.init.properties.filter(
-									// @ts-ignore
 									(property) =>
 										property.type === 'ObjectProperty' &&
 										property.key.type === 'Identifier' &&

@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
-import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 
 import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/UserTrigger';
@@ -13,9 +14,9 @@ import {
 	type ProfileCardResourcedState,
 	type TeamCentralReportingLinesData,
 } from '../../types';
-import { ErrorMessage } from '../Error';
+import { default as ErrorMessage } from '../Error/ErrorMessage';
 
-import ProfileCard from './ProfileCard';
+import { ProfilecardInternal as ProfileCard } from './ProfilecardInternal';
 import UserLoadingState from './UserLoadingState';
 
 class ProfileCardResourced extends React.PureComponent<

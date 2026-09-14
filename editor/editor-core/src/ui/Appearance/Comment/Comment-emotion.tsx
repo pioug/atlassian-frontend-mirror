@@ -16,7 +16,7 @@ import classnames from 'classnames';
 import { useIntl } from 'react-intl';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import {
 	useSharedPluginState,
 	useSharedPluginStateWithSelector,
@@ -31,8 +31,8 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
@@ -50,25 +50,6 @@ import { CommentToolbar } from './CommentToolbar';
 import { MainToolbar } from './Toolbar';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
-
-// Remove when platform_editor_comment_editor_border_radius is cleaned up
-const commentEditorStylesOld = css({
-	display: 'flex',
-	flexDirection: 'column',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.less-margin > .ProseMirror': {
-		margin: `${token('space.150')} ${token('space.100')} ${token('space.100')}`,
-	},
-	minWidth: '272px',
-	height: 'auto',
-	backgroundColor: token('color.background.input'),
-	border: `${token('border.width')} solid ${token('color.border.input')}`,
-	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: token('radius.small', '3px'),
-	maxWidth: 'inherit',
-	wordWrap: 'break-word',
-});
 
 const commentEditorStyles = css({
 	display: 'flex',
@@ -260,7 +241,7 @@ export const CommentEditorWithIntlEmotion: {
 		],
 		[maxHeight],
 	);
-	const contentAreaStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const contentAreaStyles = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedContentAreaStyles
 		: [
 				maxHeight
@@ -293,9 +274,7 @@ export const CommentEditorWithIntlEmotion: {
 			<WidthProvider>
 				<div
 					css={[
-						expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true)
-							? commentEditorStyles
-							: commentEditorStylesOld,
+						commentEditorStyles,
 						isEditorModernisationEnabled && modernisedEditorStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css({

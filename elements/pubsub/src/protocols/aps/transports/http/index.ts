@@ -51,7 +51,6 @@ export default class HttpTransport extends AbstractApsTransport {
 	close(): void {
 		logDebug('Connection was closed by client');
 		this.networkUp = false;
-		// @ts-ignore: not sure why typecheck doesn't allow me to pass a parameter here. https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort#syntax
 		this.abortController?.abort('CLOSED_BY_CLIENT');
 	}
 
@@ -88,7 +87,6 @@ export default class HttpTransport extends AbstractApsTransport {
 		document.addEventListener('visibilitychange', this.visibilityChangeListener);
 		this.abortController = new AbortController();
 
-		// @ts-ignore "fetch" should be able to take a URL as parameter. https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
 		const response = await fetch(urlWithParams, {
 			signal: this.abortController?.signal,
 		});
@@ -119,9 +117,7 @@ export default class HttpTransport extends AbstractApsTransport {
 	private isAbortError(error: any) {
 		if (error.name === 'AbortError') {
 			logDebug(
-				'Request was intentionally aborted. Reason: ' +
-					// @ts-ignore AbortSignal does contain a property called "reason". https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/reason
-					this.abortController?.signal?.reason,
+				'Request was intentionally aborted. Reason: ' + this.abortController?.signal?.reason,
 			);
 			return true;
 		}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
-import { Code } from '@atlaskit/code';
+import SectionMessage from '@atlaskit/section-message/message';
+import Code from '@atlaskit/code/code';
 
 const _default_1: any = md`
   ${(

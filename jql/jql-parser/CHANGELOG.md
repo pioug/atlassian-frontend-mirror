@@ -1,5 +1,19 @@
 # @atlaskit/jql-parser
 
+## 3.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 3.0.1
+
+### Patch Changes
+
+- [`1b6167b6ba2dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b6167b6ba2dd) -
+  VOLTC-154 - run volt-migrate-package on @atlaskit/jql-parser
+
 ## 3.0.0
 
 ### Major Changes

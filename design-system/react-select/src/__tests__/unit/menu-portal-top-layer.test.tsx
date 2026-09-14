@@ -2,12 +2,13 @@
 // @ts-nocheck
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { act, createEvent, fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Select from '../../select';
+import StateManagedSelect from '../../state-manager';
 
 /**
  * Unit-test coverage for the `MenuPortal` flag-routing wrapper.
@@ -70,9 +71,8 @@ describe('MenuPortal - flag-routing wrapper module-level smoke', () => {
  * Close-propagation contract: when the popover is closed programmatically
  * (e.g. the open-layer observer dismissing it because a Modal opened),
  * `handlePopoverClose` must propagate `onMenuClose` so `Select.menuIsOpen`
- * stays in sync. Outside-click / Escape are owned by react-select itself
- * (`mode="manual"` opts out of native light-dismiss) and are covered in the
- * Playwright suite.
+ * stays in sync. Native outside-click / Escape dismissal uses the same bridge
+ * so React state updates only after the auto popover has closed.
  */
 function getOnlyPopover(): HTMLElement {
 	const elements = document.querySelectorAll('[popover]');
@@ -88,8 +88,10 @@ function getOnlyPopover(): HTMLElement {
  * follow-up microtask so the assertion sees the post-dismiss state.
  */
 async function flushPopoverScheduling(): Promise<void> {
-	jest.runAllTimers();
-	await Promise.resolve();
+	await act(async () => {
+		jest.runAllTimers();
+		await Promise.resolve();
+	});
 }
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -115,6 +117,99 @@ describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
 
 		expect(popover.matches(':popover-open')).toBe(false);
 		expect(onMenuClose).toHaveBeenCalledTimes(1);
+	});
+
+	it('leaves Escape to the native popover and updates menu state after native dismissal', async () => {
+		const callbackOrder: string[] = [];
+		const onKeyDown = jest.fn();
+		const onInputChange = jest.fn(() => callbackOrder.push('onInputChange'));
+		const onMenuClose = jest.fn(() => callbackOrder.push('onMenuClose'));
+		render(
+			<div role="presentation" onKeyDown={onKeyDown}>
+				<StateManagedSelect
+					testId={TEST_ID}
+					options={options}
+					defaultMenuIsOpen
+					onInputChange={onInputChange}
+					onMenuClose={onMenuClose}
+					shouldPreventEscapePropagation
+				/>
+			</div>,
+		);
+
+		const popover = getOnlyPopover();
+		const input = screen.getByTestId(`${TEST_ID}-select--input`);
+		const escapeEvent = createEvent.keyDown(input, {
+			key: 'Escape',
+			bubbles: true,
+			cancelable: true,
+		});
+
+		fireEvent(input, escapeEvent);
+
+		expect(escapeEvent.defaultPrevented).toBe(false);
+		expect(onKeyDown).toHaveBeenCalledTimes(1);
+		expect(onInputChange).not.toHaveBeenCalled();
+		expect(onMenuClose).not.toHaveBeenCalled();
+		expect(callbackOrder).toEqual([]);
+		expect(popover.matches(':popover-open')).toBe(false);
+		expect(screen.getByTestId(`${TEST_ID}-select--listbox-container`)).toBeInTheDocument();
+
+		await flushPopoverScheduling();
+
+		expect(onInputChange).toHaveBeenCalledTimes(1);
+		expect(onInputChange).toHaveBeenCalledWith('', {
+			action: 'menu-close',
+			prevInputValue: '',
+		});
+		expect(onMenuClose).toHaveBeenCalledTimes(1);
+		expect(callbackOrder).toEqual(['onInputChange', 'onMenuClose']);
+		expect(screen.queryByTestId(`${TEST_ID}-select--listbox-container`)).not.toBeInTheDocument();
+	});
+
+	it('restores a hidden input when Escape closes a controlled top-layer menu', () => {
+		const select = (menuIsOpen: boolean) => (
+			<Select
+				testId={TEST_ID}
+				options={options}
+				value={[options[0]]}
+				isMulti
+				menuIsOpen={menuIsOpen}
+				onInputChange={__noop}
+				onMenuClose={__noop}
+			/>
+		);
+		const { rerender } = render(select(false));
+		const input = screen.getByTestId(`${TEST_ID}-select--input`);
+
+		fireEvent.keyDown(input, { key: 'ArrowLeft' });
+		expect(input).toHaveStyle({ opacity: '0' });
+
+		rerender(select(true));
+		fireEvent.keyDown(input, { key: 'Escape' });
+		rerender(select(false));
+
+		expect(input).not.toHaveStyle({ opacity: '0' });
+	});
+
+	it('does not cancel or stop Escape when the top-layer menu is closed', () => {
+		const onKeyDown = jest.fn();
+		render(
+			<div role="presentation" onKeyDown={onKeyDown}>
+				<StateManagedSelect testId={TEST_ID} options={options} />
+			</div>,
+		);
+		const input = screen.getByTestId(`${TEST_ID}-select--input`);
+		const escapeEvent = createEvent.keyDown(input, {
+			key: 'Escape',
+			bubbles: true,
+			cancelable: true,
+		});
+
+		fireEvent(input, escapeEvent);
+
+		expect(escapeEvent.defaultPrevented).toBe(false);
+		expect(onKeyDown).toHaveBeenCalledTimes(1);
 	});
 });
 

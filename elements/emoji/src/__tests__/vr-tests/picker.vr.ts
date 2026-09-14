@@ -5,7 +5,7 @@ import {
 	EmojiPickerWithoutUpload,
 	EmojiPickerWithFallbackWithUpload,
 	EmojiPickerWithFallbackWithoutUpload,
-} from './picker.fixture';
+} from './picker.fixture.vr.ap';
 
 snapshot(EmojiPickerWithUpload, {
 	ignoredErrors: [

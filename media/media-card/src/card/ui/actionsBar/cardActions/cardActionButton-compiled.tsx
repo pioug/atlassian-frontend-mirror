@@ -7,7 +7,7 @@ import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from '
 import { jsx, css, cssMap } from '@compiled/react';
 import { type CardActionButtonOwnProps } from './styles';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const variantStyleMap = cssMap({
 	filled: {

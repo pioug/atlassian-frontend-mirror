@@ -6,7 +6,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { token } from '@atlaskit/tokens';
 
 import { overrideEmbedContent } from './common';
@@ -43,8 +43,8 @@ export const LozengeActionExample: {
 		action: {
 			actionType: SmartLinkActionType;
 			resourceIdentifiers: {
-				issueKey: string;
 				hostname: string;
+				issueKey: string;
 			};
 		};
 		providerKey: string;
@@ -53,8 +53,8 @@ export const LozengeActionExample: {
 		action: {
 			actionType: SmartLinkActionType;
 			resourceIdentifiers: {
-				issueKey: string;
 				hostname: string;
+				issueKey: string;
 			};
 		};
 		providerKey: string;
@@ -87,8 +87,8 @@ export const LozengeActionWithPreviewExample: {
 		action: {
 			actionType: SmartLinkActionType;
 			resourceIdentifiers: {
-				issueKey: string;
 				hostname: string;
+				issueKey: string;
 			};
 		};
 		providerKey: string;
@@ -97,21 +97,21 @@ export const LozengeActionWithPreviewExample: {
 		action: {
 			actionType: SmartLinkActionType;
 			resourceIdentifiers: {
-				issueKey: string;
 				hostname: string;
+				issueKey: string;
 			};
 		};
-		providerKey: string;
 		details: {
 			id: string;
-			url: string;
 			previewData: {
 				providerName: string;
-				title: string;
 				src: string;
+				title: string;
 				url: string;
 			};
+			url: string;
 		};
+		providerKey: string;
 	};
 } = {
 	read: {
@@ -147,25 +147,25 @@ export const LozengeActionErrorExample: {
 		action: {
 			actionType: SmartLinkActionType;
 			resourceIdentifiers: {
-				issueKey: string;
 				hostname: string;
+				issueKey: string;
 			};
 		};
-		providerKey: string;
 		details: {
+			id: string;
 			invokePreviewAction: {
 				actionFn: () => Promise<void>;
 				actionType: string;
 			};
-			id: string;
-			url: string;
 			previewData: {
 				providerName: string;
-				title: string;
 				src: string;
+				title: string;
 				url: string;
 			};
+			url: string;
 		};
+		providerKey: string;
 	};
 } = {
 	read: {

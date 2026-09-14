@@ -2,34 +2,32 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import Button from '@atlaskit/button/new';
-import { KEY_DOWN, KEY_ENTER, KEY_SPACE } from '@atlaskit/ds-lib/keycodes';
-import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import Button from '@atlaskit/button/default/button';
+import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import MenuGroup from '@atlaskit/menu/menu-group';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
+import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
+import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-level';
+import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
 import SelectionStore from './internal/context/selection-store';
-import {
-	getFirstFocusable,
-	isAtCurrentMenuLevel,
-	useArrowNavigation,
-} from './internal/use-arrow-navigation';
 import type { DropdownMenuProps } from './types';
 
 const MAX_HEIGHT = `calc(100vh - 16px)`;
@@ -44,13 +42,6 @@ const styles = cssMap({
 		paddingBlockEnd: token('space.250', '20px'),
 		paddingInlineStart: token('space.250', '20px'),
 	},
-	menuContent: {
-		// Surface styles matching current dropdown appearance
-		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('radius.small', '3px'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		boxShadow: token('elevation.shadow.overlay'),
-	},
 });
 
 /**
@@ -62,25 +53,13 @@ const styles = cssMap({
  */
 type TriggerEvent = React.MouseEvent<Element> | React.KeyboardEvent<Element> | KeyboardEvent;
 
-/**
- * Determines whether a trigger interaction was keyboard-initiated.
- *
- * Keyboard signals:
- * - `type === 'keydown'` (native KeyboardEvent from ArrowDown handler)
- * - `clientX/clientY === 0` (assistive technology click)
- * - `detail === 0` (keyboard-activated click via Enter/Space)
- */
-function isKeyboardTriggered(event: TriggerEvent): boolean {
-	if (event.type === 'keydown') {
-		return true;
+function getRootMenuPopover({ menu }: { menu: HTMLElement }): HTMLElement {
+	const parentMenu = menu.parentElement?.closest<HTMLElement>('[popover][role="menu"]');
+	if (!parentMenu) {
+		return menu;
 	}
-	if ('clientX' in event && (event.clientX === 0 || event.clientY === 0)) {
-		return true;
-	}
-	if (event.detail === 0) {
-		return true;
-	}
-	return false;
+
+	return getRootMenuPopover({ menu: parentMenu });
 }
 
 /**
@@ -116,7 +95,6 @@ function LoadingIndicator({
  * - Fallback placements / Popper: CSS Anchor Positioning handles positioning
  */
 function DropdownMenuTopLayer({
-	autoFocus = false,
 	children,
 	defaultOpen = false,
 	isLoading = false,
@@ -136,8 +114,6 @@ function DropdownMenuTopLayer({
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpenProp, () => defaultOpen);
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
-	const menuRef = useRef<HTMLDivElement>(null);
-	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
 
 	const popoverId = usePopoverId();
 
@@ -169,30 +145,26 @@ function DropdownMenuTopLayer({
 	// we redirect focus to a different element than the trigger. We do this
 	// in the onClose callback via rAF, which runs after the browser's native
 	// restoration, effectively overriding it.
-	const handleOnClose = useCallback(
-		({ reason: _reason }: { reason: TPopoverCloseReason }) => {
-			if (returnFocusRef) {
-				requestAnimationFrame(() => {
-					returnFocusRef.current?.focus();
-				});
-			}
+	const handleOnClose = useCallback(() => {
+		if (returnFocusRef) {
+			requestAnimationFrame(() => {
+				returnFocusRef.current?.focus();
+			});
+		}
 
-			setLocalIsOpen(false);
-			onOpenChange({ isOpen: false, event: null });
-		},
-		[onOpenChange, returnFocusRef, setLocalIsOpen],
-	);
+		setLocalIsOpen(false);
+		onOpenChange({ isOpen: false, event: null });
+	}, [onOpenChange, returnFocusRef, setLocalIsOpen]);
 
 	// Trigger click handling.
 	const handleTriggerClicked = useCallback(
 		(event: TriggerEvent) => {
-			const newValue = !isLocalOpen;
-			setTriggeredUsingKeyboard(isKeyboardTriggered(event));
-			setLocalIsOpen(newValue);
+			const nextIsOpen = !isLocalOpen;
+			setLocalIsOpen(nextIsOpen);
 
 			// Extract the native DOM event for onOpenChange
 			const nativeEvent: Event = 'nativeEvent' in event ? event.nativeEvent : event;
-			onOpenChange({ isOpen: newValue, event: nativeEvent });
+			onOpenChange({ isOpen: nextIsOpen, event: nativeEvent });
 		},
 		[isLocalOpen, setLocalIsOpen, onOpenChange],
 	);
@@ -205,12 +177,12 @@ function DropdownMenuTopLayer({
 	// and ArrowRight opens nested menus instead.
 	useEffect(() => {
 		if (!isFocused || isLocalOpen) {
-			return noop;
+			return;
 		}
 
 		// Do not open on ArrowDown if this trigger is inside a parent menu.
 		// Nested menus should only be opened via ArrowRight or Enter.
-		const isNestedTrigger = triggerRef.current?.closest('[role="menu"]') != null;
+		const isNestedTrigger = Boolean(triggerRef.current?.closest('[role="menu"]'));
 
 		return bind(window, {
 			type: 'keydown',
@@ -218,60 +190,44 @@ function DropdownMenuTopLayer({
 				if (e.key === KEY_DOWN && !isNestedTrigger) {
 					e.preventDefault();
 					handleTriggerClicked(e);
-				} else if ((e.code === KEY_SPACE || e.key === KEY_ENTER) && e.detail === 0) {
-					setTriggeredUsingKeyboard(true);
 				}
 			},
 		});
 	}, [isFocused, isLocalOpen, handleTriggerClicked]);
 
-	// Arrow navigation.
-	// useArrowNavigation handles ArrowUp/Down, Home/End, and Tab-to-close
-	// by querying focusable elements in the menu DOM container.
-	const handleArrowClose = useCallback(() => {
-		handleOnClose({ reason: 'escape' });
-	}, [handleOnClose]);
-
 	const handleNestedOpen = useCallback(({ trigger }: { trigger: HTMLElement }) => {
 		trigger.click();
 	}, []);
 
-	const handleNestedClose = useCallback(() => {
-		handleOnClose({ reason: 'escape' });
-	}, [handleOnClose]);
-
-	useArrowNavigation({
-		containerRef: menuRef,
-		onClose: handleArrowClose,
-		onNestedOpen: handleNestedOpen,
-		onNestedClose: handleNestedClose,
-		isEnabled: isLocalOpen,
-		filter: isAtCurrentMenuLevel,
-	});
-
-	// Auto-focus first item on open.
-	useEffect(() => {
-		if (!isLocalOpen || (!isTriggeredUsingKeyboard && !autoFocus)) {
+	const handleTabClose = useCallback(() => {
+		const currentMenu = popoverRef.current;
+		if (!currentMenu) {
 			return;
 		}
 
-		requestAnimationFrame(() => {
-			const menu = menuRef.current;
-			if (!menu) {
-				return;
-			}
-			const firstItem = getFirstFocusable({ container: menu });
-			firstItem?.focus();
-		});
-	}, [isLocalOpen, isTriggeredUsingKeyboard, autoFocus]);
+		// Hiding the root native popover synchronously closes its descendant popovers and restores
+		// focus to the root trigger. The browser can then perform the Tab default action from there.
+		getRootMenuPopover({ menu: currentMenu }).hidePopover();
+	}, []);
+
+	useArrowNavigation({
+		containerRef: popoverRef,
+		onClose: handleTabClose,
+		onNestedOpen: handleNestedOpen,
+		onNestedClose: handleOnClose,
+		isEnabled: isLocalOpen,
+		filter: isAtCurrentMenuLevel,
+	});
 
 	// Close on menu item click.
 	// Close when a regular menuitem is clicked, but not checkboxes/radios
 	// and not nested triggers (items with aria-haspopup).
 	const handleMenuClick = useCallback(
 		(e: React.MouseEvent | React.KeyboardEvent) => {
-			const target = e.target as HTMLElement;
-			const menuItem = target.closest?.(
+			if (!(e.target instanceof Element)) {
+				return;
+			}
+			const menuItem = e.target.closest?.(
 				'[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]',
 			);
 			if (!menuItem) {
@@ -300,22 +256,27 @@ function DropdownMenuTopLayer({
 	// top-layer API surface is not yet settled. The runtime value is unchanged; only
 	// the TypeScript-visible type is narrowed at this boundary.
 	const narrowAriaAttributes = ariaAttributes as {
-		'aria-controls': string;
+		'aria-controls': string | undefined;
 		'aria-expanded': boolean;
 		'aria-haspopup': boolean | 'dialog';
 	};
 
-	const renderTrigger = () => {
-		const setRef = (node: HTMLElement | null) => {
-			triggerRef.current = node;
-		};
-		const combinedRef = mergeRefs([setRef]);
+	/**
+	 * Custom trigger consumers historically receive a callback ref,
+	 * and their code assumes it is one.
+	 * Using this wrapper for compatibility...
+	 */
+	const setTriggerRef = useCallback((node: HTMLElement | null) => {
+		triggerRef.current = node;
+	}, []);
 
+	const renderTrigger = () => {
 		if (typeof trigger === 'function') {
 			return trigger({
 				...narrowAriaAttributes,
-				...bindFocus,
-				triggerRef: combinedRef,
+				onFocus: bindFocus.onFocus,
+				onBlur: bindFocus.onBlur,
+				triggerRef: setTriggerRef,
 				isSelected: isLocalOpen,
 				onClick: handleTriggerClicked,
 				testId: testId && `${testId}--trigger`,
@@ -324,8 +285,9 @@ function DropdownMenuTopLayer({
 
 		return (
 			<Button
-				{...bindFocus}
-				ref={combinedRef}
+				onFocus={bindFocus.onFocus}
+				onBlur={bindFocus.onBlur}
+				ref={setTriggerRef}
 				{...narrowAriaAttributes}
 				isSelected={isLocalOpen}
 				iconAfter={(iconProps) => <ExpandIcon {...iconProps} size="small" />}
@@ -353,16 +315,13 @@ function DropdownMenuTopLayer({
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>
-				<div css={styles.menuContent} ref={menuRef}>
+				<PopoverSurface>
 					<MenuGroup
-						isLoading={isLoading}
 						maxHeight={MAX_HEIGHT}
 						maxWidth={shouldFitContainer ? undefined : 800}
 						onClick={handleMenuClick}
-						role="menu"
 						spacing={spacing}
 						testId={testId && `${testId}--menu-wrapper--menu-group`}
-						menuLabel={menuLabel}
 					>
 						{isLoading ? (
 							<LoadingIndicator
@@ -373,7 +332,7 @@ function DropdownMenuTopLayer({
 							children
 						)}
 					</MenuGroup>
-				</div>
+				</PopoverSurface>
 			</Popover>
 		</SelectionStore>
 	);

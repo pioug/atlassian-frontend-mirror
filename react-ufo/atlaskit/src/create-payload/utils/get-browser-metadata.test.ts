@@ -5,7 +5,8 @@ jest.mock('bowser-ultralight', () => ({
 
 import Bowser from 'bowser-ultralight';
 
-import getBrowserMetadata, { getBrowserMetadataToLegacyFormat } from './get-browser-metadata';
+import getBrowserMetadata from './get-browser-metadata';
+import { getBrowserMetadataToLegacyFormat } from './get-browser-metadata-to-legacy-format';
 
 const mockBowser = Bowser as jest.Mocked<typeof Bowser>;
 

@@ -14,7 +14,8 @@ const CONFLUENCE_HREF = 'https://confluence.atlassian.com/pages/123';
 
 let mockWindowOpen: jest.SpyInstance;
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(true),
 }));
 

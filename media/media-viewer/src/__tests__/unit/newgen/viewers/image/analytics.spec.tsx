@@ -1,7 +1,12 @@
+// eslint-disable-next-line import/order -- must be imported first so its `jest.mock` of
+// `viewers/image/interactive-img` registers before `viewers/image` is evaluated below.
 import * as mocks from './analytics.mock';
+
 import React from 'react';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
 import {
 	globalMediaEventEmitter,
 	type MediaViewedEventPayload,
@@ -12,8 +17,9 @@ import {
 	asMock,
 	expectFunctionToHaveBeenCalledWith,
 } from '@atlaskit/media-test-helpers';
+
+import { MediaViewerError } from '../../../../../MediaViewerError';
 import { ImageViewer } from '../../../../../viewers/image';
-import { MediaViewerError } from '../../../../../errors';
 
 const collectionName = 'some-collection';
 const imageItem: ProcessedFileState = {

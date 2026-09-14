@@ -1,4 +1,4 @@
-import type { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 
 import Banner from '@atlaskit/banner';
-import Button, { IconButton } from '@atlaskit/button/new';
-import { Label } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import { Label } from '@atlaskit/form/label/default';
 import EditIcon from '@atlaskit/icon/core/edit';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import Lozenge, { type LozengeProps } from '@atlaskit/lozenge';
+import Lozenge, { type LozengeProps } from '@atlaskit/lozenge/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Pressable from '@atlaskit/primitives/pressable';
-import Select, {
-	type MenuProps,
-	type OptionProps,
-	type ValueType,
-	components,
-} from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { MenuProps, OptionProps, ValueType } from '@atlaskit/select/types';
+import { components } from '@atlaskit/react-select/components';
 
 interface Option {
 	label: string;

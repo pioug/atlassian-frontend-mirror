@@ -1,0 +1,33 @@
+import { timings } from './timings';
+
+import type { ReportedTimings } from './index';
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export function getTimings(): ReportedTimings {
+	const reportedTimingsObj: ReportedTimings = {};
+	timings.forEach(({ name, startMark, stopMark, cleanStart, cleanStop }) => {
+		const startEntryList = performance.getEntriesByName(startMark);
+		const stopEntryList = performance.getEntriesByName(stopMark);
+
+		if (startEntryList?.length > 0 && stopEntryList?.length > 0) {
+			const startEntry = startEntryList[startEntryList.length - 1];
+			const stopEntry = stopEntryList[stopEntryList.length - 1];
+
+			const { startTime } = startEntry;
+			const duration = stopEntry.startTime - startTime;
+			const timing = {
+				startTime: Math.round(startTime),
+				duration: Math.round(duration),
+			};
+
+			reportedTimingsObj[name] = timing;
+		}
+		if (cleanStart) {
+			performance.clearMarks(startMark);
+		}
+		if (cleanStop) {
+			performance.clearMarks(stopMark);
+		}
+	});
+	return reportedTimingsObj;
+}

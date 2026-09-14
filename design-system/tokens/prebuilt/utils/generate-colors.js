@@ -7,7 +7,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.generateColors = void 0;
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 var _getClosestColorIndex = require("./get-closest-color-index");
-var _hctColorUtils = require("./hct-color-utils");
+var _argbFromRgba = require("./hct-color-utils/argb-from-rgba");
+var _contrast = require("./hct-color-utils/contrast");
+var _hct = require("./hct-color-utils/hct");
+var _rgbaFromArgb = require("./hct-color-utils/rgba-from-argb");
 var _hexToHsl = require("./hex-to-hsl");
 var _hexToRgbA = require("./hex-to-rgb-a");
 var _hslToRgb = require("./hsl-to-rgb");
@@ -23,14 +26,14 @@ var generateColors = exports.generateColors = function generateColors(brandColor
   // Choose right palette
   var themeRatios = isLowLuminance ? lowLuminanceContrastRatios : highLuminanceContrastRatios;
   var brandRgba = (0, _hexToRgbA.hexToRgbA)(brandColor);
-  var hctColor = _hctColorUtils.Hct.fromInt((0, _hctColorUtils.argbFromRgba)({
+  var hctColor = _hct.Hct.fromInt((0, _argbFromRgba.argbFromRgba)({
     r: brandRgba[0],
     g: brandRgba[1],
     b: brandRgba[2],
     a: brandRgba[3]
   }));
   var themeRamp = themeRatios.map(function (contrast) {
-    var rgbaColor = (0, _hctColorUtils.rgbaFromArgb)(_hctColorUtils.Hct.from(hctColor.hue, hctColor.chroma, _hctColorUtils.Contrast.darker(100, contrast) + 0.25 // Material's utils provide an offset
+    var rgbaColor = (0, _rgbaFromArgb.rgbaFromArgb)(_hct.Hct.from(hctColor.hue, hctColor.chroma, _contrast.Contrast.darker(100, contrast) + 0.25 // Material's utils provide an offset
     ).toInt());
     return (0, _rgbToHex.rgbToHex)(rgbaColor.r, rgbaColor.g, rgbaColor.b);
   });

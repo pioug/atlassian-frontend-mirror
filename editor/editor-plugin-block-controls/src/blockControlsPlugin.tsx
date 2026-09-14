@@ -1,5 +1,13 @@
 import React from 'react';
 
+import {
+	BLOCK_CONTROLS_LEFT_GROUP,
+	BLOCK_CONTROLS_LEFT_SECTION,
+	BLOCK_CONTROLS_LEFT_SURFACE,
+	BLOCK_CONTROLS_RIGHT_GROUP,
+	BLOCK_CONTROLS_RIGHT_SECTION,
+	BLOCK_CONTROLS_RIGHT_SURFACE,
+} from '@atlaskit/editor-common/block-controls/surface-keys';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { DIRECTION, ExtractInjectionAPI, PMPlugin } from '@atlaskit/editor-common/types';
@@ -7,9 +15,10 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	BlockControlsPlugin,
@@ -39,12 +48,49 @@ import { selectionPreservationPluginKey } from './pm-plugins/selection-preservat
 import { createSelectionPreservationPlugin } from './pm-plugins/selection-preservation/pm-plugin';
 import { expandAndUpdateSelection } from './pm-plugins/utils/expand-and-update-selection';
 import { selectNode } from './pm-plugins/utils/getSelection';
+import { BlockControlsLeftSurfaces } from './ui/block-controls-left-surfaces';
+import { BlockControlsRightSurfaces } from './ui/block-controls-right-surfaces';
+import { getBlockControlsSurfaceDragHandleComponents } from './ui/block-controls-surface-drag-handle-registration';
 import { GlobalStylesWrapper } from './ui/global-styles';
+import { SurfaceEditorViewContext } from './ui/surface-editor-view-context';
 
 export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 	const nodeDecorationRegistry: NodeDecorationFactory[] = [];
 	const rightSideControlsEnabled = config?.rightSideControlsEnabled ?? false;
 	const quickInsertButtonEnabled = config?.quickInsertButtonEnabled ?? true;
+	const registryBlockControlsEnabled = isExperimentEnabled(
+		'platform_editor_block_control_migration',
+	);
+	const legacyBlockControlsEnabled = !registryBlockControlsEnabled;
+	if (registryBlockControlsEnabled) {
+		api?.uiControlRegistry?.actions.register([
+			BLOCK_CONTROLS_LEFT_SURFACE,
+			{
+				...BLOCK_CONTROLS_LEFT_SECTION,
+				parents: [{ ...BLOCK_CONTROLS_LEFT_SURFACE, rank: 100 }],
+			},
+			{
+				...BLOCK_CONTROLS_LEFT_GROUP,
+				parents: [{ ...BLOCK_CONTROLS_LEFT_SECTION, rank: 100 }],
+			},
+			...getBlockControlsSurfaceDragHandleComponents({ api }),
+		]);
+
+		// The right surface host stays generic: it only registers the toolbar/section/group
+		// hierarchy. Individual features contribute their own buttons into
+		// BLOCK_CONTROLS_RIGHT_GROUP from their own plugins, same as the left surface.
+		api?.uiControlRegistry?.actions.register([
+			BLOCK_CONTROLS_RIGHT_SURFACE,
+			{
+				...BLOCK_CONTROLS_RIGHT_SECTION,
+				parents: [{ ...BLOCK_CONTROLS_RIGHT_SURFACE, rank: 100 }],
+			},
+			{
+				...BLOCK_CONTROLS_RIGHT_GROUP,
+				parents: [{ ...BLOCK_CONTROLS_RIGHT_SECTION, rank: 100 }],
+			},
+		]);
+	}
 
 	return {
 		name: 'blockControls',
@@ -115,7 +161,8 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 							nodeViewPortalProviderAPI,
 							nodeDecorationRegistry,
 							rightSideControlsEnabled,
-							quickInsertButtonEnabled,
+							quickInsertButtonEnabled && legacyBlockControlsEnabled,
+							legacyBlockControlsEnabled,
 						),
 				},
 			];
@@ -340,7 +387,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					const $to = $expandedAnchor.max($expandedHead);
 					let expandedNormalisedSel;
 					if (
-						expValEquals('platform_editor_fix_table_move_shortcut', 'isEnabled', true) &&
+						isExperimentEnabled('platform_editor_fix_table_move_shortcut') &&
 						$from.nodeAfter &&
 						$from.nodeAfter === $to.nodeBefore
 					) {
@@ -413,6 +460,10 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 				isSelectedViaDragHandle: key.getState(editorState)?.isSelectedViaDragHandle ?? false,
 			};
 
+			if (registryBlockControlsEnabled) {
+				sharedState.surfaceNodePositions = key.getState(editorState)?.surfaceNodePositions ?? [];
+			}
+
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				sharedState.isMouseOut =
 					interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
@@ -431,8 +482,18 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 			return sharedState;
 		},
 
-		contentComponent() {
-			return <GlobalStylesWrapper api={api} />;
+		contentComponent({ editorView }) {
+			return (
+				<>
+					<GlobalStylesWrapper api={api} />
+					{registryBlockControlsEnabled && editorView && api ? (
+						<SurfaceEditorViewContext.Provider value={editorView}>
+							<BlockControlsLeftSurfaces api={api} editorView={editorView} />
+							<BlockControlsRightSurfaces api={api} editorView={editorView} />
+						</SurfaceEditorViewContext.Provider>
+					) : null}
+				</>
+			);
 		},
 	};
 };

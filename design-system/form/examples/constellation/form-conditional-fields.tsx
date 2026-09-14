@@ -1,8 +1,10 @@
 import React from 'react';
 
-import Form, { Field, useFormState } from '@atlaskit/form';
-import { RadioGroup } from '@atlaskit/radio';
-import TextField from '@atlaskit/textfield';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { useFormState } from '@atlaskit/form/use-form-state';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import TextField from '@atlaskit/textfield/text-field';
 
 const LoginForm = () => (
 	<>

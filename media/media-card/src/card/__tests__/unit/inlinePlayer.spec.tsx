@@ -1,24 +1,27 @@
 import React from 'react';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl';
+
 import {
 	globalMediaEventEmitter,
 	type MediaViewedEventPayload,
 	type FileState,
 } from '@atlaskit/media-client';
-import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
-import { InlinePlayer, getPreferredVideoArtifact } from '../../inlinePlayer';
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
-import { IntlProvider } from 'react-intl';
-
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
 	createMockedMediaApi,
 	createProcessingFileItem,
 } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
+
+import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { getPreferredVideoArtifact } from '../../getPreferredVideoArtifact';
+import { InlinePlayer } from '../../inlinePlayer';
 import { LOCAL_HEIGHT_VARIABLE, LOCAL_WIDTH_VARIABLE } from '../../inlinePlayerWrapper-compiled';
 
 const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
@@ -352,7 +355,7 @@ describe('<InlinePlayer />', () => {
 			const videoElement = container.querySelector('video');
 			const videoSrc = videoElement?.getAttribute('src');
 
-			expect(global.URL.createObjectURL).toBeCalledWith((await localPreview)?.value);
+			expect(global.URL.createObjectURL).toHaveBeenCalledWith((await localPreview)?.value);
 			expect(videoSrc).toEqual('mock result of URL.createObjectURL()');
 		});
 

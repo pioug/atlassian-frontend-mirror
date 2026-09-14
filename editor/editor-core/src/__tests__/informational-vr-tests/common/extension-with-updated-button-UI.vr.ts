@@ -17,7 +17,7 @@ import {
 	InlineExtensionCenterAligned,
 	InlineExtensionRightAligned,
 	InlineExtensionWithSmartLink,
-} from '../../vr-tests/extension-with-updated-button-UI.fixtures';
+} from '../../vr-tests/extension-with-updated-button-UI.fixtures.vr.ap';
 
 const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 

@@ -1,5 +1,571 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.21
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 14.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- [`496cbddbb046d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/496cbddbb046d) -
+  Show diff indicators for tracked changes when `platform_editor_diff_plugin_show_indicators` and
+  `platform_editor_diff_plugin_extended` are enabled.
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.0
+
+### Minor Changes
+
+- [`dcb19ae73b101`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcb19ae73b101) -
+  [CCI-18040] Disable the main toolbar's View changes (track changes) button and its keyboard
+  shortcut while the AI Review moment is visible. Adds a setToggleChangesDisabled command and
+  isToggleChangesDisabled shared state to the track changes plugin.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.0
 
 ### Minor Changes

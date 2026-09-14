@@ -15,6 +15,7 @@ test('When entering a new time in Timepicker, the time should be updated to the 
 		'times',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
+			'react-18-mode': 'modern',
 		},
 	);
 	await page.locator(timePicker).first().click();
@@ -33,6 +34,7 @@ test('Invalid times in TimePicker should be ignored', async ({ page }) => {
 		'times',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
+			'react-18-mode': 'modern',
 		},
 	);
 	await page.locator(timePicker).first().click();

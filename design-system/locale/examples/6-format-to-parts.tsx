@@ -6,12 +6,12 @@ import { useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { Label } from '@atlaskit/form';
-import { createLocalizationProvider } from '@atlaskit/locale';
+import { Label } from '@atlaskit/form/label/default';
+import { createLocalizationProvider } from '@atlaskit/locale/localization-provider';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 
 const wrapperStyles = xcss({ marginInlineStart: 'space.250' });
 

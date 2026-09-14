@@ -45,11 +45,11 @@ export function getSelectedTableInfo(selection: Selection): {
 }
 
 export function getSelectedCellInfo(selection: Selection): {
-	totalRowCount: number;
-	totalColumnCount: number;
 	horizontalCells: number;
-	verticalCells: number;
 	totalCells: number;
+	totalColumnCount: number;
+	totalRowCount: number;
+	verticalCells: number;
 } {
 	let horizontalCells = 1;
 	let verticalCells = 1;
@@ -169,9 +169,9 @@ export const generateResizeFrameRatePayloads = (props: {
 export const useMeasureFramerate = (
 	config: UseMeasureFramerateConfig = {},
 ): {
-	startMeasure: () => void;
-	endMeasure: () => number[];
 	countFrames: () => void;
+	endMeasure: () => number[];
+	startMeasure: () => void;
 } => {
 	const {
 		maxSamples = 10,

@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import DragHandleButtonExample from '../../examples/drag-handle-button';
-import DragHandleButtonSmallExample from '../../examples/drag-handle-button-small';
+import DragHandleButtonSmallExample from '../../examples/drag-handle-button-small.vr.ap';
+import DragHandleButtonExample from '../../examples/drag-handle-button.vr.ap';
 
 snapshot(DragHandleButtonExample, {
 	variants: [

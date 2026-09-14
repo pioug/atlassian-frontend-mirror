@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::38ae22d92d9043415831cd896271ae03>>
+ * @codegen <<SignedSource::4dc09a90e4d0fa92c0759202df107ce7>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1472,6 +1472,14 @@ export type TeamRestoreSucceededAttributesType = undefined;
 export type TeamRestoreFailedAttributesType = {
 	status?: number | null;
 };
+export type DiagnoseTeamPermissionsNudgeRenderedAttributesType = {
+	teamId: string;
+	screen: 'teamNotFound' | 'teamDeleted' | 'teamRestore';
+};
+export type DiagnoseTeamPermissionsNudgeClickedAttributesType = {
+	teamId: string;
+	screen: 'teamNotFound' | 'teamDeleted' | 'teamRestore';
+};
 export type ArchivedTeamBannerMergedTeamSucceededAttributesType = {
 	teamId: string;
 };
@@ -1652,6 +1660,7 @@ export type UserProfilePreviewClickedTabAttributesType = {
 export type UserProfilePreviewClickedRecentWorkSectionAttributesType = undefined;
 export type UserProfilePreviewClickedCollaboratorsSectionAttributesType = undefined;
 export type UserProfilePreviewClickedRecentWorkViewAllAttributesType = undefined;
+export type UserProfilePreviewClickedRecentWorkShowMoreAttributesType = undefined;
 export type UserInlinePreviewSucceededRequestAttributesType = undefined;
 export type UserInlinePreviewFailedRequestAttributesType = undefined;
 export type UserInlinePreviewClickedThirdPartyMessageAttributesType = {
@@ -2664,6 +2673,12 @@ export type AnalyticsEventAttributes = {
 	 * fired when the team restore action fails */
 	'operational.teamRestore.failed': TeamRestoreFailedAttributesType;
 	/**
+	 * fired when the diagnose team permissions Rovo nudge is registered on a team error screen */
+	'ui.diagnoseTeamPermissionsNudge.rendered': DiagnoseTeamPermissionsNudgeRenderedAttributesType;
+	/**
+	 * fired when the diagnose team permissions Rovo nudge is clicked */
+	'ui.diagnoseTeamPermissionsNudge.clicked': DiagnoseTeamPermissionsNudgeClickedAttributesType;
+	/**
 	 * fired when the archived team banner successfully loads the merged destination team */
 	'operational.archivedTeamBannerMergedTeam.succeeded': ArchivedTeamBannerMergedTeamSucceededAttributesType;
 	/**
@@ -2837,6 +2852,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the View all link is clicked on the Recent Work section on the compact user profile preview */
 	'ui.userProfilePreview.clicked.recentWorkViewAll': UserProfilePreviewClickedRecentWorkViewAllAttributesType;
+	/**
+	 * fired when the Show more control is clicked to reveal additional items in the Recent Work section on the user profile preview */
+	'ui.userProfilePreview.clicked.recentWorkShowMore': UserProfilePreviewClickedRecentWorkShowMoreAttributesType;
 	/**
 	 * fired when the user inline preview list data request succeeds */
 	'operational.userInlinePreview.succeeded.request': UserInlinePreviewSucceededRequestAttributesType;

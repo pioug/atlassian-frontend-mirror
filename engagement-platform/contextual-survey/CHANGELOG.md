@@ -1,5 +1,76 @@
 # @atlaskit/contextual-survey
 
+## 7.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.0
+
+### Minor Changes
+
+- [`234fda770bd2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/234fda770bd2b) -
+  [ux] Fixed unsafe styles that distorted the inline (top-layer) tooltip/popover by excluding
+  top-layer elements from the offending selectors via `:not(:where([popover], dialog))` (and
+  `:nth-last-child(... of ...)` for positional selectors). The `:where()` wrapper keeps the guard at
+  zero specificity, so matching is otherwise unchanged, and the guards are no-ops for the legacy
+  portalled tooltip.
+
+  `@atlassian/gemini` additionally ignores Emotion's `":nth-last-child"` server-side-rendering
+  console warning, which it already ignored for `":first-child"` and `":nth-child"`
+  (emotion-js/emotion#1105).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import Popup from '../../../examples/popup-opened-onkeydown';
+import Popup from '../../../examples/popup-opened-onkeydown.vr.ap';
 
 snapshot(Popup, {
 	featureFlags: {

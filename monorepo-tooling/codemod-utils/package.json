@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/codemod-utils",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"description": " jscodeshift-compatible codemod utilities",
@@ -31,32 +31,5 @@
 	"devDependencies": {
 		"@types/jscodeshift": "root:*",
 		"jscodeshift": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			]
-		}
 	}
 }

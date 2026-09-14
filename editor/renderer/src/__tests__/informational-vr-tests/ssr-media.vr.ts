@@ -1,6 +1,6 @@
 import type { Locator, Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
-import { MediaSSR } from './ssr-media.fixture';
+import { MediaSSR } from './ssr-media.fixture.vr.ap';
 
 // TODO: UTEST-1409 - Unskip Gemini tests after mocking API is implemented
 // Gemini does not allow test that relies on network assets (too Flaky)

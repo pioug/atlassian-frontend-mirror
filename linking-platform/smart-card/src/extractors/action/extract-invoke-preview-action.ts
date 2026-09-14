@@ -1,20 +1,17 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	extractPreview as extractPreviewData,
-	extractSmartLinkAri,
-	extractSmartLinkEmbed,
-	extractSmartLinkProvider,
-	extractSmartLinkTitle,
-	extractSmartLinkUrl,
-} from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractPreview as extractPreviewData } from '@atlaskit/link-extractors/extract-preview';
+import { extractSmartLinkAri } from '@atlaskit/link-extractors/extract-smart-link-ari';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
+import { extractSmartLinkTitle } from '@atlaskit/link-extractors/extract-smart-link-title';
+import { extractSmartLinkUrl } from '@atlaskit/link-extractors/extract-smart-link-url';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type FireEventFunction } from '../../common/analytics/types';
-import { CardAction } from '../../constants';
-import { ActionName } from '../../index';
-import { getExtensionKey } from '../../state/helpers';
+import { ActionName, CardAction } from '../../constants';
+import { getExtensionKey } from '../../state/getExtensionKey';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { type AnalyticsOrigin } from '../../utils/types';
@@ -22,8 +19,7 @@ import { type EmbedModalProps } from '../../view/EmbedModal/types';
 import { openEmbedModal } from '../../view/EmbedModal/utils';
 import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
-import { extractLinkIcon } from '../flexible/icon';
-
+import { extractLinkIcon } from '../flexible/icon/extract-link-icon';
 import { extractInvokeDownloadAction } from './extract-invoke-download-action';
 import { extractInvokeViewAction } from './extract-invoke-view-action';
 import { type ExtractClientActionsParam, type TransformUrlFn } from './types';

@@ -6,8 +6,8 @@ import { Children, type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { ExitingPersistence } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const gutter = token('space.negative.050');
@@ -52,12 +52,7 @@ const Grid: FC<{
 	'aria-label': string;
 	id?: string;
 }> = ({ id, children, testId, 'aria-label': label }) => (
-	<ul
-		id={id}
-		data-testid={testId}
-		aria-label={label}
-		css={[listStyles, fg('platform-avatar-group-spacing-fix') && listStylesFlagged]}
-	>
+	<ul id={id} data-testid={testId} aria-label={label} css={[listStyles, listStylesFlagged]}>
 		{fg('platform-dst-motion-uplift') ? (
 			<ExitingPersistence exitThenEnter>
 				{Children.map(children, (child) => child && <li css={listItemStyles}>{child}</li>)}

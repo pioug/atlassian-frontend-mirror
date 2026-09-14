@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dropdown-menu",
-	"version": "17.2.0",
+	"version": "18.3.0",
 	"description": "A dropdown menu displays a list of actions or options to a user.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,8 +51,8 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -74,12 +74,13 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jest-in-case": "root:*",
 		"raf-stub": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"tiny-invariant": "root:*"
 	},
 	"keywords": [
@@ -97,6 +98,9 @@
 		"platform_dst_dropdown_radio_default_selected_fix": {
 			"type": "boolean"
 		},
+		"platform_dst_dropdown_nested_trigger_aria_current": {
+			"type": "boolean"
+		},
 		"platform_dst_menu_item_focus": {
 			"type": "boolean"
 		},
@@ -105,29 +109,6 @@
 		},
 		"platform-dst-top-layer": {
 			"type": "boolean"
-		}
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"analytics": "analytics-next",
-			"deprecation": "no-deprecated-imports"
 		}
 	},
 	"exports": {

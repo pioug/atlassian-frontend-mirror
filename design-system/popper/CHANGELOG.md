@@ -1,5 +1,172 @@
 # @atlaskit/popper
 
+## 9.4.1
+
+### Patch Changes
+
+- [`69272ede1fedc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69272ede1fedc) -
+  Remove an obsolete Compiled JSX pragma to avoid generating unused runtime imports.
+
+## 9.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.3.2
+
+### Patch Changes
+
+- [`d2e353f1b02f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2e353f1b02f6) -
+  Experimental React 19 peer dependency support. This patch widens the peer range and updates the
+  scroll-container fixture to avoid a React 16-only helper; CI coverage is partial.
+
+## 9.3.1
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 9.3.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.0
+
+### Minor Changes
+
+- [`005037db2dcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/005037db2dcaa) -
+  Autofix: update cross-package imports away from barrel entries
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`2857e277050c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2857e277050c6) -
+  Behind the `platform-dst-top-layer` feature gate, `@atlaskit/popper/unsafe-imperative`'s
+  `createPopper` now renders and positions in the browser top layer via `@atlaskit/top-layer`
+  instead of running the Popper.js engine. Positioning and teardown are applied asynchronously, as
+  Popper.js' own first update is. Flag-off behaviour is unchanged.
+
+  `@atlaskit/top-layer`: the JavaScript positioning fallback no longer clears a consumer's own
+  inline positioning and visibility styles.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Major Changes
+
+- [`48e7d03469b80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48e7d03469b80) -
+  Apply Volt entry-point and barrel-removal standards across these design-system packages. Public
+  `exports` now resolve **directly** to `./src/*` implementations instead of intermediate
+  `./src/entry-points/*` re-exports, root barrels and remaining entry-point shims are marked
+  deprecated in favour of per-export subpaths, and a few new subpaths are added
+  (`@atlaskit/badge/badge-new`, `@atlaskit/tile/tile-skeleton`, `@atlaskit/popper/main`,
+  `@atlaskit/section-message/message`, `@atlaskit/section-message/message-action`).
+
+  ### Why this is breaking
+
+  Subpaths and the package root can now resolve to the **same module instance**. Consumers that
+  deep-imported `entry-points/*`, or `jest.mock()`'d a specific subpath may need updates.
+  `@atlaskit/image`'s root export now points at `./src/ui/image/index.tsx`.
+  `@atlaskit/checkbox/checkbox` now exports a named `Checkbox` from the implementation module
+  (default export retained for backwards compatibility).
+
+  ### Migration
+
+  Prefer published subpaths over the package root:
+
+  ```ts
+  import { Checkbox } from '@atlaskit/checkbox/checkbox';
+  import TextField from '@atlaskit/textfield/text-field';
+  import Popup from '@atlaskit/popup/popup';
+  import SectionMessage from '@atlaskit/section-message/message';
+  import EmptyState from '@atlaskit/empty-state/empty-state';
+  ```
+
+  If you imported through internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Checkbox from '@atlaskit/checkbox/entry-points/checkbox';
+  +import { Checkbox } from '@atlaskit/checkbox/checkbox';
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.0
+
+### Minor Changes
+
+- [`6902b31db1608`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6902b31db1608) -
+  Consolidate direct Popper.js callers behind `@atlaskit/popper` compatibility entry points and
+  feature-gated consumer adapters.
+
+  `@atlaskit/popper` now exposes compatibility entry points so existing direct `popper.js` /
+  `react-popper` callers can move their dependency ownership onto `@atlaskit/popper` without a full
+  rewrite:
+  - `@atlaskit/popper/react-popper` re-exports the React `usePopper` hook and `Manager` / `Popper` /
+    `Reference` render-prop components.
+  - `@atlaskit/popper/unsafe-imperative` re-exports the raw Popper.js v2 `createPopper` for
+    non-React, imperative callers. This is an escape hatch for existing callers only. Do not use it
+    for new code; build new overlays on `@atlaskit/top-layer` instead.
+
+  ```ts
+  // Imperative callers (migrating away from a direct `@popperjs/core` / `popper.js` import):
+  import { createPopper } from '@atlaskit/popper/unsafe-imperative';
+
+  const instance = createPopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+
+  // React callers (migrating away from a direct `react-popper` import):
+  import { usePopper } from '@atlaskit/popper/react-popper';
+
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

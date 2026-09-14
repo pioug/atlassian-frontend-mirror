@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import { SmallTextInNestedBlocksRenderer } from './font-size.fixture';
+import { SmallTextInNestedBlocksRenderer } from './font-size.fixture.vr.ap';
 
 snapshotInformational(SmallTextInNestedBlocksRenderer, {
 	description:

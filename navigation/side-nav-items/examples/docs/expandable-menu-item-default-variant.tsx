@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 import HomeIcon from '@atlaskit/icon/core/home';
@@ -86,9 +86,7 @@ export function ExpandableMenuItemDefaultVariantExample(): React.JSX.Element {
 						</ExpandableMenuItem>
 
 						<ExpandableMenuItem>
-							<ExpandableMenuItemTrigger
-								elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
-							>
+							<ExpandableMenuItemTrigger elemBefore={<JiraIcon label="" size="xsmall" />}>
 								Exp default menu item (app tile)
 							</ExpandableMenuItemTrigger>
 							<PlaceholderExpandableContent />

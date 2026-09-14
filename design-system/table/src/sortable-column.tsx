@@ -6,9 +6,9 @@ import { type FC, type ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { useTable } from './hooks/use-table';
 import { SortIcon as SortIconPrimitive } from './ui/sort-icon';

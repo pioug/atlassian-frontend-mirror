@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import { css, jsx, keyframes } from '@compiled/react';
 
-import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
+import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 import { token } from '@atlaskit/tokens';
 
 const LOCAL_STORAGE_CLIENT_KEY = '@atlaskit/smart-card';

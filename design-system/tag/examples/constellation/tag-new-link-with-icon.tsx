@@ -1,7 +1,7 @@
 import React from 'react';
 
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 
 export default (): React.JSX.Element => (
 	<Tag

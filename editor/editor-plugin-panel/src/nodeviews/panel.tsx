@@ -1,10 +1,10 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { PanelType } from '@atlaskit/adf-schema';
+import type { PanelAttributes } from '@atlaskit/adf-schema/panel';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import { Emoji } from '@atlaskit/editor-common/emoji';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Code } from '@atlaskit/code';
-import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import { Label } from '@atlaskit/form';
-import { type Direction } from '@atlaskit/motion';
+import Button from '@atlaskit/button/default/button';
+import Code from '@atlaskit/code/code';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
+import { Label } from '@atlaskit/form/label/default';
+import type { Direction } from '@atlaskit/motion/entering/types';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 const DrawersExample = (): React.JSX.Element => {

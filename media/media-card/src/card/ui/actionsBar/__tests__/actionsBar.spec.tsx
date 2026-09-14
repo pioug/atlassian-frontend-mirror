@@ -9,7 +9,8 @@ import { type CardAction } from '../../../actions';
 
 import { ActionsBar } from '../actionsBar';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 

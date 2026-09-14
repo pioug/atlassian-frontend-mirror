@@ -1,4 +1,4 @@
-import { isRotated } from '../../imageMetaData';
+import { isRotated } from '../../imageMetaData/isRotated';
 import { expectToEqual } from '@atlaskit/media-common/test-helpers';
 
 describe('Image orientation util', () => {

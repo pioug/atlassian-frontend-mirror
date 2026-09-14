@@ -87,14 +87,6 @@ test.describe('Gap-cursor:', () => {
 				head: 165,
 			});
 		});
-
-		test('should capture and report a11y violations', async ({ editor }) => {
-			const nodes = EditorNodeContainerModel.from(editor);
-			await nodes.extension.first().waitFor({ state: 'visible' });
-			await expect(nodes.extension).toHaveCount(2);
-
-			await expect(editor.page).toBeAccessible();
-		});
 	});
 	test.describe('Comment Editor', () => {
 		test.use({

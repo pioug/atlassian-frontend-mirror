@@ -1,5 +1,410 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.7
+
+### Patch Changes
+
+- [`aca1f7aaf3fd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aca1f7aaf3fd6) -
+  Remove the fully rolled-out `platform_editor_exp_lazy_node_views` experiment and call the block
+  card, embed card, extension, table, and task node views directly.
+- Updated dependencies
+
+## 20.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.1
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+- Updated dependencies
+
+## 19.2.0
+
+### Minor Changes
+
+- [`18d27cec35407`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18d27cec35407) -
+  [ux] FFCLEANUP-81253 Cleanup of experiment platform_editor_blocktaskitem_patch_1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- [`44a80d90ea61d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44a80d90ea61d) -
+  Migrate Pressable hover and pressed colour transitions to semantic motion tokens behind
+  platform-dst-motion-uplift-custom-button.
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.15
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 18.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- [`4273da2e1a648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4273da2e1a648) -
+  Register native Quick Insert items behind `platform_editor_slash_command`.
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.0
 
 ### Minor Changes

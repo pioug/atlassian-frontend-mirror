@@ -7,7 +7,7 @@ import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
 import { CancelButton, type CancelButtonProps } from './index';
 
-jest.mock('../../../../analytics', () => ({
+jest.mock('../../../../analytics/index', () => ({
 	useDatasourceAnalyticsEvents: jest.fn(),
 }));
 

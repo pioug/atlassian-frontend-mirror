@@ -3,9 +3,13 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import Tabs, { Tab, TabList, TabPanel } from '../../index';
+import Tabs from '../../components/tabs';
+import Tab from '../../components/tab';
+import TabList from '../../components/tab-list';
+import TabPanel from '../../components/tab-panel';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

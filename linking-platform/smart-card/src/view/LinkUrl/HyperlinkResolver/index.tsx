@@ -1,23 +1,20 @@
-import React, { type ComponentType, useCallback, useEffect } from 'react';
+import React, { type ComponentType, useCallback } from 'react';
 
 import { withErrorBoundary as withReactErrorBoundary } from 'react-error-boundary';
 import { injectIntl } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { getFirstPartyIdentifier, getThirdPartyARI } from '../../../state/helpers';
+import { getFirstPartyIdentifier } from '../../../state/getFirstPartyIdentifier';
+import { getThirdPartyARI } from '../../../state/getThirdPartyARI';
 import useResolveHyperlink from '../../../state/hooks/use-resolve-hyperlink';
-import useResolveHyperlinkValidator from '../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkValidator';
+import { default as useResolveHyperlinkValidator } from '../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkValidator';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
-import { isAuxClick } from '../../../utils/click-helpers';
+import { isAuxClick } from '../../../utils/is-aux-click';
+import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';
 import withIntlProvider from '../../common/intl-provider';
-import { useFire3PWorkflowsClickEvent } from '../../SmartLinkEvents/useSmartLinkEvents';
 import Hyperlink from '../Hyperlink';
 import type { LinkUrlProps } from '../types';
-
-const TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT = 'linking_platform_track_non_primary_3p_clicks';
 
 const HyperlinkFallbackComponent = () => null;
 
@@ -64,21 +61,10 @@ const HyperlinkWithSmartLinkResolverInner = ({
 		[onClickCallback, fire3PClickEvent, shouldFire3PClickEvent],
 	);
 
-	// Fire experiment exposure once per surface mount, not on every re-render.
-	useEffect(() => {
-		if (shouldFire3PClickEvent) {
-			expValEquals(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true);
-		}
-	}, [shouldFire3PClickEvent]);
-
 	const onAuxClick = useCallback(
 		(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 			// isAuxClick guards against Windows right-clicks firing onAuxClick with button === 2.
-			if (
-				isAuxClick(e) &&
-				shouldFire3PClickEvent &&
-				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
-			) {
+			if (isAuxClick(e) && shouldFire3PClickEvent) {
 				fire3PClickEvent?.({ isAuxClick: true });
 			}
 		},
@@ -87,10 +73,7 @@ const HyperlinkWithSmartLinkResolverInner = ({
 
 	const onContextMenu = useCallback(
 		(_e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-			if (
-				shouldFire3PClickEvent &&
-				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
-			) {
+			if (shouldFire3PClickEvent) {
 				fire3PClickEvent?.({ isContextMenu: true });
 			}
 		},

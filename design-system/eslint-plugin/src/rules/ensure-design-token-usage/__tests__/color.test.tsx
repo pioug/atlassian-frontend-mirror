@@ -2,7 +2,7 @@ import { outdent } from 'outdent';
 
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
-import { tester } from '../../__tests__/utils/_tester';
+import { tester, typescriptEslintTester } from '../../__tests__/utils/_tester';
 import type { Tests } from '../../__tests__/utils/_types';
 import rule from '../../ensure-design-token-usage';
 
@@ -1522,3 +1522,23 @@ const allTests: Tests = {
 };
 
 tester.run('ensure-design-token-usage', rule, allTests);
+
+typescriptEslintTester.run(
+	'ensure-design-token-usage TypeScript expressions',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			{
+				filename: 'fixture.tsx',
+				code: `
+					const css = (value: unknown) => value;
+					const value = {};
+					const key = 'x';
+					css({ color: value[key as readonly string[]] });
+				`,
+			},
+		],
+		invalid: [],
+	},
+);

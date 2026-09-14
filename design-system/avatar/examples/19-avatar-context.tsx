@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Avatar, { AvatarContext } from '@atlaskit/avatar';
-import Heading from '@atlaskit/heading';
+import Avatar from '@atlaskit/avatar/avatar';
+import { AvatarContext } from '@atlaskit/avatar/avatar-context';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 const CustomSVG = (): React.JSX.Element => (

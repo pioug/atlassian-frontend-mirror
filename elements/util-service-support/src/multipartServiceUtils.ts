@@ -1,7 +1,11 @@
 import { meros } from 'meros/browser';
-import { buildCredentials, type RequestServiceOptions, type ServiceConfig } from './types';
-import { buildHeaders, buildUrl, defaultRequestServiceOptions } from './shared';
+
 import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
+
+import { buildHeaders } from './buildHeaders';
+import { buildUrl } from './buildUrl';
+import { defaultRequestServiceOptions } from './shared';
+import { buildCredentials, type RequestServiceOptions, type ServiceConfig } from './types';
 
 export type PartsGenerator<PartsType> = AsyncGenerator<Part<PartsType, unknown>>;
 export type MultiPartFetchResult<PartsType> = {

@@ -1,12 +1,12 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
-import type { ProductType } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractSmartLinkUrl } from '@atlaskit/link-extractors/extract-smart-link-url';
+import type { ProductType } from '@atlaskit/linking-common/types';
 
 import { ActionName, CardAction } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
-import { getDefinitionId, getExtensionKey, getResourceType } from '../../../state/helpers';
+import { getDefinitionId } from '../../../state/getDefinitionId';
+import { getExtensionKey } from '../../../state/getExtensionKey';
+import { getResourceType } from '../../../state/getResourceType';
 import type { RovoConfig } from '../../../state/hooks/use-rovo-config';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
@@ -23,22 +23,10 @@ type ExtractInvokeRovoChatActionParam = {
 	rovoConfig?: RovoConfig;
 };
 
-// For block card experiment (NAVX-4814)
-const ELIGIBLE_EXTENSION_KEYS = new Set([
-	'slack-object-provider',
-	'google-object-provider',
-	'onedrive-object-provider',
-	'github-object-provider',
-	'ms-teams-object-provider',
-	'gitlab-object-provider',
-	'salesforce-object-provider',
-]);
-
 const extractRovoChatAction = ({
 	actionOptions,
 	appearance,
 	id,
-	isEmbedRovoActionsFooterExperimentEnabled,
 	product,
 	response,
 	rovoConfig,
@@ -53,21 +41,9 @@ const extractRovoChatAction = ({
 	}
 
 	const extensionKey = getExtensionKey(response);
-	const isInlineExperimentEnabled =
-		fg('platform_sl_3p_auth_inline_tailored_cta_killswitch') &&
-		expValEqualsNoExposure('platform_sl_3p_auth_inline_tailored_cta', 'isEnabled', true);
-	const is3PBlockPostAuthActionsEnabled =
-		extensionKey !== undefined &&
-		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
-		rovoConfig?.product === 'CONFLUENCE';
-	const is3PEmbedPostAuthActionsEnabled = isEmbedRovoActionsFooterExperimentEnabled === true;
-
-	const isSupportedFeature =
-		is3PBlockPostAuthActionsEnabled || isInlineExperimentEnabled || is3PEmbedPostAuthActionsEnabled;
-	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);
-	return isSupportedFeature && isOptIn
+	return actionOptions?.rovoChatAction?.optIn
 		? {
 				invokeAction: {
 					actionSubjectId: 'rovoChatPrompt',

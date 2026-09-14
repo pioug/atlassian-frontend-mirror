@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react';
 
-import type { AnalyticsWithChannel } from '@atlaskit/adf-schema/steps';
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import type { AnalyticsWithChannel } from '@atlaskit/adf-schema/steps/analytics';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type {
 	AnalyticsEventPayload,

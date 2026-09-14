@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-import Link from '@atlaskit/link';
-import SectionMessage from '@atlaskit/section-message';
+import Link from '@atlaskit/link/link';
+import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -210,9 +210,7 @@ function AlternativePackagesMessage({
 		<p>
 			Consider using one of these packages instead:
 			<ul>
-				{alternatePackages.map((p) => (
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-key
+				{alternatePackages.map((p) => ( // oxlint-disable-line react/jsx-key
 					<li>
 						<Link href={p.link}>{p.name}</Link>
 					</li>

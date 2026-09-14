@@ -1,5 +1,454 @@
 # @atlaskit/editor-presets
 
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.0
+
+### Minor Changes
+
+- [`d3a7f9016da28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3a7f9016da28) -
+  Add media render lifecycle callbacks for Remix-generated media behind
+  cc-maui-add-mark-for-remix-generated-images.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.10
+
+### Patch Changes
+
+- [`08bf773f7599a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08bf773f7599a) -
+  Migrate experiments to use the new platform experiment API. This major release removes the
+  migrated experiment entries from `@atlaskit/tmp-editor-statsig`'s `editorExperimentsConfig` and
+  test overrides. Consumers must replace legacy `expVal`/`expValEquals` calls with
+  `@atlaskit/platform-feature-experiments` APIs, using `isExperimentEnabled` for boolean `isEnabled`
+  experiments and `expVal` for parameterized experiments; use `mockExpEnabled`/`mockExpDisabled` in
+  tests.
+- Updated dependencies
+
+## 10.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.5
+
+### Patch Changes
+
+- [`0841b102bfe4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0841b102bfe4a) -
+  Add a PM-state-backed multi-location left block-controls surface and register the display-only
+  heading collapse button behind `platform_editor_block_control_migration` and
+  `platform_editor_collapsible_headings`.
+- Updated dependencies
+
+## 10.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.13
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 9.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.3
+
+### Patch Changes
+
+- [`1eb42bae392d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eb42bae392d7) -
+  Clean up experiment `platform_editor_remove_bidi_char_warning`. Bidirectional character warnings
+  are no longer rendered in code blocks: `codeBidiWarningPlugin` is no longer registered by any
+  preset, and the renderer passes `hasBidiWarnings={false}` to `@atlaskit/code` code blocks. Bidi
+  warnings on inline `code` marks are unaffected.
+
+  `codeBidiWarning` has been removed from the plugin lists and plugin options of the Confluence
+  full-page, Confluence markdown, and Company Hub presets, so consumers no longer need to pass
+  `pluginOptions.codeBidiWarning` or `enabledOptionalPlugins.codeBidiWarning`.
+
+  `@atlaskit/editor-plugin-code-bidi-warning` is retained but now has no consumers; it is scheduled
+  for removal in a follow-up.
+
+- Updated dependencies
+
+## 9.1.2
+
+### Patch Changes
+
+- [`4d7433f9c93d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d7433f9c93d8) -
+  Clean up the enabled `platform_editor_code_block_fold_gutter` experiment for Confluence.
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`40071c3a1e51d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40071c3a1e51d) -
+  Add the interactivity plugin package and register it in the Confluence full page presets behind
+  the platform_editor_editor_interactivity experiment. The plugin is a stub for now — it collects
+  nothing.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.1
+
+### Patch Changes
+
+- [`7a8d5e478d5d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a8d5e478d5d1) -
+  Clean up feature gate `platform_editor_table_fixed_column_width_prop`
+- Updated dependencies
+
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.2
+
+### Patch Changes
+
+- [`4bc741a70d678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc741a70d678) -
+  Add the first registry-backed Quick Insert slice with Table
+- Updated dependencies
+
+## 6.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

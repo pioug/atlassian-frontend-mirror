@@ -19,7 +19,8 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 }));
 
 // Mock the fg function
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
@@ -42,7 +43,7 @@ describe('extractInvokePreviewAction', () => {
 	beforeEach(() => {
 		// Reset the mocks to default behavior
 		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-		const { fg } = require('@atlaskit/platform-feature-flags');
+		const { fg } = require('@atlaskit/platform-feature-flags/fg');
 		const { isWithinPreviewPanelIFrame } = require('@atlaskit/linking-common/utils');
 
 		expValEquals.mockReturnValue(false);
@@ -121,7 +122,7 @@ describe('extractInvokePreviewAction', () => {
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 		const fireEvent = jest.fn();
 
-		const { fg } = require('@atlaskit/platform-feature-flags');
+		const { fg } = require('@atlaskit/platform-feature-flags/fg');
 		fg.mockReturnValue(true);
 
 		const action = extractInvokePreviewAction({
@@ -252,7 +253,7 @@ describe('extractInvokePreviewAction', () => {
 	});
 
 	it('should suppress the preview action entirely (no panel, no modal) when isPreviewRestricted returns true', async () => {
-		const { fg } = require('@atlaskit/platform-feature-flags');
+		const { fg } = require('@atlaskit/platform-feature-flags/fg');
 		fg.mockImplementation((flag: string) => flag === 'preview_panel_unit_check');
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 		const mockOpenPreviewPanel = jest.fn();
@@ -275,7 +276,7 @@ describe('extractInvokePreviewAction', () => {
 	});
 
 	it('should fall back to embed modal when isPreviewRestricted returns false', async () => {
-		const { fg } = require('@atlaskit/platform-feature-flags');
+		const { fg } = require('@atlaskit/platform-feature-flags/fg');
 		fg.mockImplementation((flag: string) => flag === 'preview_panel_unit_check');
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 		const mockIsPreviewRestricted = jest.fn().mockReturnValue(false);
@@ -385,7 +386,7 @@ describe('extractInvokePreviewAction', () => {
 		);
 	});
 
-	describe('platform_smartlink_xpc_url_wrapping', () => {
+	describe('cross-product URL transformation', () => {
 		it('passes transformUrl to invokeViewAction inside openEmbedModal', async () => {
 			const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 			const transformUrl = jest.fn().mockReturnValue(`${TEST_URL}?xpc=1`);

@@ -1,5 +1,6 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
+jest.mock('../../client/media-store/resolveInitialAuth');
 import {
 	type CreatedTouchedFile,
 	MediaStore,
@@ -20,11 +21,12 @@ import {
 	getMediaEnvironment,
 	getMediaRegion,
 } from '../..';
+import { resolveAuth } from '../../client/media-store/resolveAuth';
+import { resolveInitialAuth } from '../../client/media-store/resolveInitialAuth';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
-import { resolveAuth, resolveInitialAuth } from '../../client/media-store/resolveAuth';
-import { type Auth } from '@atlaskit/media-core';
+import type { Auth } from '@atlaskit/media-core/auth';
 import * as requestModule from '../../utils/request';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { nextTick } from '@atlaskit/media-common/test-helpers';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
@@ -256,7 +258,7 @@ describe('MediaStore', () => {
 				mediaStore.request = jest.fn().mockReturnValue(Promise.resolve({ json() {} }));
 				await mediaStore.createUpload(undefined, 'my-collection');
 
-				expect(mediaStore.request).toBeCalledWith('/upload', {
+				expect(mediaStore.request).toHaveBeenCalledWith('/upload', {
 					method: 'POST',
 					endpoint: '/upload',
 					authContext: {
@@ -323,7 +325,7 @@ describe('MediaStore', () => {
 					traceId: 'test-trace-id',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/upload`,
 					expect.objectContaining({
 						auth: {
@@ -389,7 +391,7 @@ describe('MediaStore', () => {
 					traceId: 'test-trace-id',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/chunk/some-etag`,
 					expect.objectContaining({
 						auth: {
@@ -463,6 +465,7 @@ describe('MediaStore', () => {
 						uploadId: 'some-upload-id',
 						name: 'some-name',
 						mimeType: 'application/pdf',
+						conditions: { size: 12345 },
 					};
 					const params = { collection: 'some-collection' };
 
@@ -495,6 +498,7 @@ describe('MediaStore', () => {
 						uploadId: 'some-upload-id',
 						name: 'some-name',
 						mimeType: 'application/pdf',
+						conditions: { size: 12345 },
 					};
 					const params = { collection: 'some-collection' };
 
@@ -606,7 +610,7 @@ describe('MediaStore', () => {
 					statusText: 'Ok',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/file/upload`,
 					expect.objectContaining({
 						auth: {
@@ -728,7 +732,7 @@ describe('MediaStore', () => {
 
 				await mediaStore.getFile(fileId, params, { traceId: 'test-trace-id' });
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/file/faee2a3a-f37d-11e4-aae2-3c15c2c70ce6`,
 					expect.objectContaining({
 						auth: {
@@ -870,7 +874,7 @@ describe('MediaStore', () => {
 					traceId: 'test-trace-id',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/upload/29c49470-adac-4b16-82ec-301340c7b16a/chunks`,
 					expect.objectContaining({
 						auth: {
@@ -1116,7 +1120,7 @@ describe('MediaStore', () => {
 					traceId: 'test-trace-id',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/upload/createWithFiles`,
 					expect.objectContaining({
 						auth: {
@@ -1536,7 +1540,7 @@ describe('MediaStore', () => {
 					{ traceId: 'test-trace-id' },
 				);
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/file/123/image`,
 					expect.objectContaining({
 						auth: {
@@ -1791,7 +1795,7 @@ describe('MediaStore', () => {
 					traceId: 'test-trace-id',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/items`,
 					expect.objectContaining({
 						auth: {
@@ -1899,7 +1903,7 @@ describe('MediaStore', () => {
 
 				await mediaStore.getImageMetadata('123', {}, { traceId: 'some-trace-id' });
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/file/123/image/metadata`,
 					expect.objectContaining({
 						auth: {
@@ -2017,7 +2021,7 @@ describe('MediaStore', () => {
 						// Test against fedramp hostname, should return non-cdn url
 						global.MICROS_PERIMETER = 'fedramp-moderate';
 						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						expect(requestModuleMock).toBeCalledWith(
+						expect(requestModuleMock).toHaveBeenCalledWith(
 							`${baseUrl}/file/1234/binary`,
 							expect.objectContaining(nonCdnObject),
 							undefined,
@@ -2030,7 +2034,7 @@ describe('MediaStore', () => {
 							value: 'atlassian-us-gov-mod.com',
 						});
 						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						expect(requestModuleMock).toBeCalledWith(
+						expect(requestModuleMock).toHaveBeenCalledWith(
 							`${baseUrl}/file/1234/binary`,
 							expect.objectContaining(nonCdnObject),
 							undefined,
@@ -2045,7 +2049,7 @@ describe('MediaStore', () => {
 							value: 'hello.atlassian.net',
 						});
 						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						expect(requestModuleMock).toBeCalledWith(
+						expect(requestModuleMock).toHaveBeenCalledWith(
 							`${baseUrl}/file/1234/binary/cdn`,
 							expect.objectContaining(cdnObject),
 							undefined,
@@ -2057,7 +2061,7 @@ describe('MediaStore', () => {
 						const response = await mediaStore.getFileBinary('1234', 'some-collection-name');
 						// When the feature flag is disabled, the URL should contain the /binary path
 
-						expect(requestModuleMock).toBeCalledWith(
+						expect(requestModuleMock).toHaveBeenCalledWith(
 							`${baseUrl}/file/1234/binary`,
 							expect.objectContaining(nonCdnObject),
 							undefined,
@@ -2729,7 +2733,7 @@ describe('MediaStore', () => {
 					traceId: 'some-trace-id',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/file/copy/withToken`,
 					expect.objectContaining({
 						auth: {
@@ -2941,7 +2945,7 @@ describe('MediaStore', () => {
 					{ traceId: 'some-trace-id' },
 				);
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/file/copy/intents`,
 					expect.objectContaining({
 						auth: {
@@ -3019,6 +3023,17 @@ describe('MediaStore', () => {
 							});
 							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
 							expect(url).toEqual(cdnURL);
+
+							const seededCdnUrl =
+								'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/seeded-id/image?token=cdn-token&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy&Key-Pair-Id=key&Signature=signature';
+							url = mediaStoreSync.getFileImageURLSync(
+								'1234',
+								{ collection, width: 100, height: 200, mode: 'crop' },
+								seededCdnUrl,
+							);
+							expect(url).toEqual(
+								`https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/seeded-id/image?token=cdn-token&width=100&height=200&mode=crop&max-age=${FILE_CACHE_MAX_AGE}&allowAnimated=true&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy&Key-Pair-Id=key&Signature=signature`,
+							);
 						},
 						async () => {
 							const collection = 'some-collection';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2fc7b25031952cd94704eefaa85d7de4>>
+ * @codegen <<SignedSource::df42385ced4660780ede6e8284ebdcf4>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,13 +24,12 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * A temporary component to represent the icon for Trello.
  * @deprecated This component has been replaced by the component `TrelloIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * Please migrate any usages of this temporary component.
  *
  */
 export function TrelloIcon({
 	iconColor,
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Trello',
 	testId,

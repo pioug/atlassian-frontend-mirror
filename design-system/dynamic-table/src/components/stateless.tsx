@@ -1,6 +1,7 @@
 import React, { forwardRef, lazy, Suspense, useEffect, useRef, useState } from 'react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { assertIsSortable } from '../internal/assert-is-sortable';
@@ -198,6 +199,7 @@ const DynamicTable = ({
 							sortOrder={sortOrder}
 							isRanking={isRanking}
 							isRankable={isRankable}
+							isFixedSize={isFixedSize}
 							testId={testId}
 						/>
 					)}

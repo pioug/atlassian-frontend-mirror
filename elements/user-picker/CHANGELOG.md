@@ -1,5 +1,231 @@
 # @atlaskit/user-picker
 
+## 13.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.12.2
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+## 13.12.1
+
+### Patch Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall`.
+- Updated dependencies
+
+## 13.12.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.11.1
+
+### Patch Changes
+
+- [`127ce4da7c607`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/127ce4da7c607) -
+  Cleanup feature gate jsm-wfo-assignee-recommendation-on-queues.
+- [`37a3cff4dac8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37a3cff4dac8d) -
+  Remove `product-terminology-refresh` and permanently use app terminology for external user
+  sources.
+
+## 13.11.0
+
+### Minor Changes
+
+- [`d2606563c5559`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2606563c5559) -
+  Add direct entry points for user-picker utilities and analytics helpers. Consumers can import
+  individual APIs instead of importing from aggregate utility modules:
+  - Utilities: `@atlaskit/user-picker/call-callback`, `@atlaskit/user-picker/extract-option-value`,
+    `@atlaskit/user-picker/get-avatar-size`, `@atlaskit/user-picker/get-avatar-url`, and
+    `@atlaskit/user-picker/has-value`.
+  - Option predicates: `@atlaskit/user-picker/is-custom`, `@atlaskit/user-picker/is-email`,
+    `@atlaskit/user-picker/is-external-user`, `@atlaskit/user-picker/is-group`,
+    `@atlaskit/user-picker/is-team`, and `@atlaskit/user-picker/is-user`.
+  - Analytics helpers: `@atlaskit/user-picker/create-event`, `@atlaskit/user-picker/start-session`,
+    `@atlaskit/user-picker/select-event`, `@atlaskit/user-picker/searched-event`, and
+    `@atlaskit/user-picker/user-info-event`.
+
+## 13.10.1
+
+### Patch Changes
+
+- [`fae4f6a53e4be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae4f6a53e4be) -
+  Render label enter and exit animations through `cssMap` in Tag, React Select, Select, and User
+  Picker. Motion now measures concurrent CSS animation lists correctly so the label scale and fade
+  animations complete together.
+- Updated dependencies
+
+## 13.10.0
+
+### Minor Changes
+
+- [`ef98af289c49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef98af289c49b) -
+  Add motion to Tag, AvatarTag, TagDropdownTrigger, Tag Group, Select, React Select, and User Picker
+  tag values. Tags use `motion.label.enter` and `motion.label.exit` for entry and exit, while
+  interactive tags and dropdown triggers use the button hover and pressed motion tokens; Tag
+  Dropdown Trigger also fades between its content and loading spinner. The remove control is removed
+  when exit begins so it cannot linger while the tag collapses.
+
+  Motion is gated by `platform-dst-motion-uplift-labels`. Compatibility and adoption paths for the
+  visually uplifted Tag, Tag Group, Select, React Select, and User Picker additionally remain behind
+  `platform-dst-lozenge-tag-badge-visual-uplifts`.
+
+  `@atlaskit/react-select` also adds an optional `onMotionFinish` callback to the exported
+  `MultiValueProps` interface so the Select can restore its placeholder after the final multi-value
+  exit completes.
+
+  ```tsx
+  import Tag from '@atlaskit/tag/new';
+
+  <Tag text="Status" />;
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.9.0
+
+### Minor Changes
+
+- [`079dc2326a811`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/079dc2326a811) -
+  Added an optional `renderOptionContent` prop to `Option`'s props, letting consumers wrap the
+  default rendered option content (e.g. to add a profile card) without losing the built-in avatar,
+  name, and email rendering.
+
+  ```tsx
+  <Option
+  	renderOptionContent={(content) => <ProfileCard accountId={accountId}>{content}</ProfileCard>}
+  />
+  ```
+
+## 13.8.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.8.7
+
+### Patch Changes
+
+- [`e0edc05cd52d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0edc05cd52d7) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall` as a 1:1 size rename with no visual
+  change.
+- Updated dependencies
+
+## 13.8.6
+
+### Patch Changes
+
+- [`e9153fd2bb41f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9153fd2bb41f) -
+  Migrate user picker feature gate unit tests to the supported mock-gates test utilities.
+- [`1457e7f84155e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1457e7f84155e) -
+  Cleanup feature gate platform_user_picker_fix_redundant_labelledby. Stop promoting
+  aria-describedby to aria-labelledby when aria-label is present (A11Y-37267).
+- Updated dependencies
+
+## 13.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.8.4
+
+### Patch Changes
+
+- [`f834c7d669731`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f834c7d669731) -
+  Removed feature gate TWCG-444 for Unified Share Dialogue experiment. No change in functionality
+- Updated dependencies
+
+## 13.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.8.2
+
+### Patch Changes
+
+- [`6902b31db1608`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6902b31db1608) -
+  Consolidate direct Popper.js callers behind `@atlaskit/popper` compatibility entry points and
+  feature-gated consumer adapters.
+
+  `@atlaskit/popper` now exposes compatibility entry points so existing direct `popper.js` /
+  `react-popper` callers can move their dependency ownership onto `@atlaskit/popper` without a full
+  rewrite:
+  - `@atlaskit/popper/react-popper` re-exports the React `usePopper` hook and `Manager` / `Popper` /
+    `Reference` render-prop components.
+  - `@atlaskit/popper/unsafe-imperative` re-exports the raw Popper.js v2 `createPopper` for
+    non-React, imperative callers. This is an escape hatch for existing callers only. Do not use it
+    for new code; build new overlays on `@atlaskit/top-layer` instead.
+
+  ```ts
+  // Imperative callers (migrating away from a direct `@popperjs/core` / `popper.js` import):
+  import { createPopper } from '@atlaskit/popper/unsafe-imperative';
+
+  const instance = createPopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+
+  // React callers (migrating away from a direct `react-popper` import):
+  import { usePopper } from '@atlaskit/popper/react-popper';
+
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+  ```
+
+- Updated dependencies
+
 ## 13.8.1
 
 ### Patch Changes

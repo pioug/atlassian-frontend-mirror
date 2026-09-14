@@ -6,12 +6,13 @@ import React, { forwardRef, memo, useState } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CloseIcon from '@atlaskit/icon/core/cross';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

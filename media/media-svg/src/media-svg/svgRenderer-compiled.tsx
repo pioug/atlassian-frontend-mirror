@@ -2,13 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import { type FileIdentifier } from '@atlaskit/media-client';
 
-import { MediaSVGError } from './errors';
+import { MediaSVGError } from './MediaSVGError';
 import type { ContentSource, MediaSvgProps } from './types';
 
 const svgRendererMaxDimensionStyles = css({

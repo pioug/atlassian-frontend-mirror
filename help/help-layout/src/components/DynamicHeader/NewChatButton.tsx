@@ -5,11 +5,11 @@
 
 import { Inline } from '@atlaskit/primitives/compiled';
 import { jsx } from '@compiled/react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import EditIcon from '@atlaskit/icon/core/edit';
 import { useIntl } from 'react-intl';
 import { messages } from '../../messages';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 interface Props {
 	isDisabled?: boolean;

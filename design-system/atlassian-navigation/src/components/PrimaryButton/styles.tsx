@@ -1,4 +1,4 @@
-import { type ThemeProps, type ThemeTokens } from '@atlaskit/button/types';
+import type { ThemeProps, ThemeTokens } from '@atlaskit/button/custom-theme-button-types';
 import { token } from '@atlaskit/tokens';
 
 import { type NavigationTheme } from '../../theme';
@@ -23,7 +23,6 @@ export const getPrimaryButtonTheme =
 				// e.preventDefault() on mouse down in Button.
 				// '&&' is required to add more CSS specificity
 				// && it not a valid CSSObject property
-				// @ts-ignore
 				'&&': {
 					...(props.state === 'active' && primaryButton.active),
 				},

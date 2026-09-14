@@ -3,7 +3,7 @@ import {
 	LoadedReactionsDisallowAllEmojis,
 	LoadedReactionsMiniMode,
 	LoadedReactionsWithPickerQuickReactionEmojiIds,
-} from './Reactions.fixtures';
+} from './Reactions.fixtures.vr.ap';
 import { snapshotInformational } from '@af/visual-regression';
 
 const featureFlags = {

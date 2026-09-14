@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianLogo } from '@atlaskit/logo';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
 
 const LogoNeutral = (): React.JSX.Element => {
 	return <AtlassianLogo appearance="neutral" />;

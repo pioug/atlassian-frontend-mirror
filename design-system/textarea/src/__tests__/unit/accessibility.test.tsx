@@ -5,7 +5,7 @@ import cases from 'jest-in-case';
 
 import { axe } from '@af/accessibility-testing';
 
-import TextArea from '../../index';
+import TextArea from '../../text-area';
 
 cases(
 	'Textarea variants should pass aXe audit',

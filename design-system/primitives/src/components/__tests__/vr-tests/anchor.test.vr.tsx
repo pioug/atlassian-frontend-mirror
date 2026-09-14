@@ -1,8 +1,8 @@
 import { snapshot } from '@af/visual-regression';
 
-import AnchorDefault from '../../../../examples/44-anchor-default';
-import AnchorStyled from '../../../../examples/45-anchor-styled';
-import AnchorNewWindow from '../../../../examples/47-anchor-new-window';
+import AnchorDefault from '../../../../examples/44-anchor-default.vr.ap';
+import AnchorStyled from '../../../../examples/45-anchor-styled.vr.ap';
+import AnchorNewWindow from '../../../../examples/47-anchor-new-window.vr.ap';
 
 snapshot(AnchorDefault, {
 	variants: [

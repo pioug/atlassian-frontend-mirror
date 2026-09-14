@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "0-basic.tsx",
-    "2-baseline-alignment.tsx",
-    "3-custom-color.tsx",
-    "5-width-handling.tsx",
-    "6-containers.tsx"
+    "0-basic.vr.ap.tsx",
+    "2-baseline-alignment.vr.ap.tsx",
+    "3-custom-color.vr.ap.tsx",
+    "5-width-handling.vr.ap.tsx",
+    "6-containers.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

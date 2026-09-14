@@ -1,7 +1,7 @@
 import {
 	LoadedSummaryReactions,
 	LoadedReactionsWithSummaryAllowSelectFromEmojiPicker,
-} from './SummaryReactions.fixtures';
+} from './SummaryReactions.fixtures.vr.ap';
 import { snapshotInformational } from '@af/visual-regression';
 
 const featureFlags = {

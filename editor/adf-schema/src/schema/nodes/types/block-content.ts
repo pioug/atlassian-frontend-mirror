@@ -11,6 +11,7 @@ import type {
 	BulletListDefinition as BulletList,
 } from '../types/list';
 import type { RuleDefinition as Rule } from '../rule';
+import type { BodiedRuleDefinition as BodiedRule } from '../bodied-rule';
 import type {
 	HeadingDefinition as Heading,
 	HeadingWithMarksDefinition as HeadingWithMarks,
@@ -38,6 +39,7 @@ export type BlockContent =
 	| OrderedList
 	| BulletList
 	| Rule
+	| BodiedRule
 	| Heading
 	| HeadingWithMarks
 	| CodeBlock

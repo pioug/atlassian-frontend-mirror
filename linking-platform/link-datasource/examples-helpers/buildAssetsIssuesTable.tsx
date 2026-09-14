@@ -1,9 +1,9 @@
 import React from 'react';
 
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
-import type { DatasourceTableView } from '@atlaskit/link-datasource';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { type DatasourceParameters } from '@atlaskit/linking-types';
+import type { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
@@ -38,6 +38,7 @@ const AssetsTableView = ({
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 	} = useAssetsTableProps({
 		defaultColumnCustomSizes: {
 			people: 100,
@@ -53,6 +54,7 @@ const AssetsTableView = ({
 			columnCustomSizes={columnCustomSizes}
 			onColumnResize={onColumnResize}
 			onWrappedColumnChange={onWrappedColumnChange}
+			onWrappedColumnsChange={onWrappedColumnsChange}
 			wrappedColumnKeys={wrappedColumnKeys}
 		/>
 	);

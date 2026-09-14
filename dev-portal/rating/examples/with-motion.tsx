@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
+import Button from '@atlaskit/button/default/button';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
+import ZoomIn from '@atlaskit/motion/zoom-in';
 
 import { RatingGroup, Star, type StarProps } from '../src';
 

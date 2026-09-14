@@ -1,24 +1,8 @@
-import { useEffect, useRef } from 'react';
-
-function useInterval(callback: () => void, delay: number | null): void {
-	const savedCallback = useRef<() => void>();
-
-	useEffect(() => {
-		savedCallback.current = callback;
-	}, [callback]);
-
-	useEffect(() => {
-		function tick() {
-			if (savedCallback.current) {
-				savedCallback.current();
-			}
-		}
-		if (delay !== null) {
-			const id = setInterval(tick, delay);
-			return () => clearInterval(id);
-		}
-		return;
-	}, [delay]);
-}
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { useInterval } from './useInterval';
 
 export default useInterval;
+/**
+ * @deprecated Use `import { useInterval } from '@atlaskit/frontend-utilities/hooks'` instead.
+ */
+export { useInterval } from './useInterval';

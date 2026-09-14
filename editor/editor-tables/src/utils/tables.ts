@@ -1,16 +1,12 @@
-import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-export function isInTable(state: EditorState): boolean {
-	const { $head } = state.selection;
-	for (let d = $head.depth; d > 0; d--) {
-		if ($head.node(d).type.spec.tableRole === 'row') {
-			return true;
-		}
-	}
-	return false;
-}
-
-export function inSameTable($a: ResolvedPos, $b: ResolvedPos): boolean {
-	return $a.depth === $b.depth && $a.pos >= $b.start(-1) && $a.pos <= $b.end(-1);
-}
+/**
+ * @deprecated Use `import { isInTable } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { isInTable } from './is-in-table';
+/**
+ * @deprecated Use `import { inSameTable } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { inSameTable } from './in-same-table';

@@ -41,10 +41,13 @@ export {
 export type { CardActionParams, CardBaseActionCreator } from './actions';
 
 /** @deprecated Use @atlaskit/linking-common/api/errors */
-export { APIError, InvalidUrlError, NetworkError } from './errors';
+export { APIError } from './APIError';
+export { InvalidUrlError } from './InvalidUrlError';
+export { NetworkError } from './NetworkError';
 
 /** @deprecated Use @atlaskit/linking-common/api/errors */
-export type { APIErrorKind, ErrorType, ServerErrorType } from './errors';
+export type { APIErrorKind } from './APIError';
+export type { ErrorType, ServerErrorType } from './errors';
 
 /** @deprecated Use @atlaskit/linking-common/store */
 export type { CardState, CardStore } from './store';
@@ -65,13 +68,15 @@ export { filterSiteProducts } from './utils/filter-site-products';
 export { withFeatureFlaggedComponent } from './utils/with-feature-flagged-component';
 
 /** @deprecated Use @atlaskit/linking-common/client */
-export { getBaseUrl, getResolverUrl, BaseUrls } from './environments';
+export { BaseUrls } from './environments';
+export { getBaseUrl } from './getBaseUrl';
+export { getResolverUrl } from './getResolverUrl';
 
 /** @deprecated Use @atlaskit/linking-common/api */
 export { request } from './api';
 
 /** @deprecated Use @atlaskit/linking-common/pulse */
-export { Pulse } from './components/Pulse';
+export { Pulse } from './components/Pulse/Pulse';
 
 /** @deprecated Use @atlaskit/linking-common/skeleton */
 export { Skeleton, SpanSkeleton } from './components/Skeleton';
@@ -79,5 +84,5 @@ export { Skeleton, SpanSkeleton } from './components/Skeleton';
 /** @deprecated No longer supported. Please declare type directly instead. */
 export type Prettify<T> = {
 	[K in keyof T]: T[K];
-	// eslint-disable-next-line @typescript-eslint/ban-types
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 } & {};

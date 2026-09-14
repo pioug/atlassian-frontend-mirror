@@ -1,92 +1,35 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages, type MessageDescriptor } from 'react-intl';
 
-export const messages: {
-	help: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	insert: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	close: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	all: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	formatting: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'confluence-content': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	media: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	visuals: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	navigation: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	'external-content': {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	communication: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	reporting: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	admin: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	development: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	AI: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	featuredWhiteboardDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	browse: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-} = defineMessages({
+type Messages<Keys extends string> = Record<Keys, MessageDescriptor>;
+
+export const messages: Messages<
+	| 'admin'
+	| 'AI'
+	| 'all'
+	| 'browse'
+	| 'categoryBlockTemplates'
+	| 'categoryDataAndCharts'
+	| 'categoryEmbed'
+	| 'categoryMedia'
+	| 'categoryOther'
+	| 'categoryRecommended'
+	| 'categoryRovo'
+	| 'categoryStructure'
+	| 'categoryTextFormatting'
+	| 'close'
+	| 'communication'
+	| 'confluence-content'
+	| 'development'
+	| 'external-content'
+	| 'featuredWhiteboardDescription'
+	| 'formatting'
+	| 'help'
+	| 'insert'
+	| 'media'
+	| 'navigation'
+	| 'reporting'
+	| 'visuals'
+> = defineMessages({
 	help: {
 		id: 'fabric.editor.elementBrowser.help',
 		defaultMessage: 'Help',
@@ -188,5 +131,50 @@ export const messages: {
 		defaultMessage: 'Browse',
 		description:
 			'Heading text displayed at the top of the element browser sidebar where users can browse and filter available elements to insert.',
+	},
+	categoryRecommended: {
+		id: 'editor-common.quick-insert.categoryRecommended',
+		defaultMessage: 'Recommended',
+		description: 'Recommended items in the Quick Insert menu.',
+	},
+	categoryStructure: {
+		id: 'editor-common.quick-insert.categoryStructure',
+		defaultMessage: 'Structure',
+		description: 'Structure items in the Quick Insert menu.',
+	},
+	categoryMedia: {
+		id: 'editor-common.quick-insert.categoryMedia',
+		defaultMessage: 'Media',
+		description: 'Media items in the Quick Insert menu.',
+	},
+	categoryEmbed: {
+		id: 'editor-common.quick-insert.categoryEmbed',
+		defaultMessage: 'Embed',
+		description: 'Embed items in the Quick Insert menu.',
+	},
+	categoryTextFormatting: {
+		id: 'editor-common.quick-insert.categoryTextFormatting',
+		defaultMessage: 'Text formatting',
+		description: 'Text formatting items in the Quick Insert menu.',
+	},
+	categoryRovo: {
+		id: 'editor-common.quick-insert.categoryRovo',
+		defaultMessage: 'Rovo',
+		description: 'Rovo items in the Quick Insert menu.',
+	},
+	categoryDataAndCharts: {
+		id: 'editor-common.quick-insert.categoryDataAndCharts',
+		defaultMessage: 'Data and charts',
+		description: 'Data and chart items in the Quick Insert menu.',
+	},
+	categoryBlockTemplates: {
+		id: 'editor-common.quick-insert.categoryBlockTemplates',
+		defaultMessage: 'Block templates',
+		description: 'Block template items in the Quick Insert menu.',
+	},
+	categoryOther: {
+		id: 'editor-common.quick-insert.categoryOther',
+		defaultMessage: 'Other',
+		description: 'Other items in the Quick Insert menu.',
 	},
 });

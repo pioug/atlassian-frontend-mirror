@@ -6,6 +6,7 @@ import {
 } from './operational/download';
 import { type LoadSucceededEventPayload } from './operational/loadSucceeded';
 import { type PreviewUnsupportedEventPayload } from './operational/previewUnsupported';
+import { type PreviewTooLargeEventPayload } from './operational/previewTooLarge';
 import { type ZipEntryLoadFailedEventPayload } from './operational/zipEntryLoadFailed';
 import { type ZipEntryLoadSucceededEventPayload } from './operational/zipEntryLoadSucceeded';
 import { type ModalEventPayload } from './screen/modal';
@@ -23,6 +24,7 @@ export type MediaViewerEventPayload =
 	| LoadFailedEventPayload
 	| LoadSucceededEventPayload
 	| PreviewUnsupportedEventPayload
+	| PreviewTooLargeEventPayload
 	| ZipEntryLoadFailedEventPayload
 	| ZipEntryLoadSucceededEventPayload
 	| ModalEventPayload

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { render, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
 
 import '@atlaskit/link-test-helpers/jest';
@@ -10,7 +10,7 @@ import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils_
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import type { AISummaryState } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics/analytics';
 import AISummaryAction from '../index';
 import type { AISummaryActionProps } from '../types';
 

@@ -1,5 +1,5 @@
 import { snapshot } from '@af/visual-regression';
 
-import FlexExample from '../../../examples/26-buttons-in-flex-containers';
+import FlexExample from '../../../examples/26-buttons-in-flex-containers.vr.ap';
 
 snapshot(FlexExample);

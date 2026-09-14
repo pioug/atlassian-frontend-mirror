@@ -1,5 +1,356 @@
 # @atlaskit/editor-tables
 
+## 3.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [`3ea3e1ea19b04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ea3e1ea19b04) -
+  Add dedicated table selection entry points while preserving existing imports and table editing
+  behavior. Prefer the following imports over the aggregate `@atlaskit/editor-tables/utils` entry
+  point:
+  - `import { selectTable } from '@atlaskit/editor-tables/select-table'`
+  - `import { selectTableClosestToPos } from '@atlaskit/editor-tables/select-table-closest-to-pos'`
+  - `import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/get-table-selection-closes-to-pos'`
+
+## 3.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.67
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.66
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.65
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.64
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.63
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.62
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.61
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.60
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.59
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.58
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 3.0.57
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.56
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.55
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.54
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.53
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.52
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.51
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.50
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.34
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.33
 
 ### Patch Changes

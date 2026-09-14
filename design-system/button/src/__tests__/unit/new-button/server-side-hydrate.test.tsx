@@ -2,8 +2,8 @@ import React from 'react';
 
 import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
 
-import ButtonExample from '../../../../examples/05-button';
-import IconButtonExample from '../../../../examples/07-icon-button';
+import ButtonExample from '../../../../examples/05-button.vr.ap';
+import IconButtonExample from '../../../../examples/07-icon-button.vr.ap';
 
 test('should ssr then hydrate correctly', async () => {
 	expect(await doesHydrateWithSsr(<ButtonExample />)).toBe(true);

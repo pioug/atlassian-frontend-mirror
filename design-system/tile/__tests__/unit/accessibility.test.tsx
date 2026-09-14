@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import Tile from '../../src';
+import Tile from '../../src/tile';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tile Accessibility', () => {

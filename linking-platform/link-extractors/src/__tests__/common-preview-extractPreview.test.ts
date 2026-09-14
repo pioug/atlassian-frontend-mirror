@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { expectToEqual } from '@atlaskit/media-test-helpers';
 
 import {
@@ -10,7 +10,7 @@ import {
 	TEST_STRING,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractPreview } from '../index';
+import { extractPreview } from '../extract-preview';
 
 describe('extractPreview()', () => {
 	it('returns raw string as src - link', () => {

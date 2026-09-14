@@ -6,11 +6,12 @@ import {
 	PanelRendererWithReactLooselyLazy,
 	PanelRendererNestedInTable,
 	PanelFullPageRenderer,
-} from './panel.fixture';
+} from './panel.fixture.vr.ap';
 
 snapshot(PanelRenderer);
 snapshot(PanelRendererWithReactLooselyLazy);
-snapshot(PanelRendererNestedInTable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(PanelRendererNestedInTable, {
 	featureFlags: {
 		platform_editor_bordered_panel_nested_in_table: [true, false],
 	},

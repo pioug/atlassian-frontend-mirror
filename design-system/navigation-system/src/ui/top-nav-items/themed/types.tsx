@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import type { IconButtonProps } from '@atlaskit/button/new';
+import type { IconButtonProps } from '@atlaskit/button/icon/button';
 
 import type { IgnoredPrimitiveProps } from './get-primitives-spread-props';
 

@@ -1,4 +1,3 @@
-// @ts-ignore
 import outdent from 'outdent';
 
 import { tester } from '../../__tests__/utils/_tester';
@@ -24,6 +23,22 @@ tester.run('use-pressable-motion', rule, {
 			`,
 		},
 		{
+			name: 'native button without interactive colour changes is ignored',
+			code: outdent`
+				import { css } from '@compiled/react';
+				const styles = css({ color: 'red' });
+				<button css={styles} />;
+			`,
+		},
+		{
+			name: 'custom Button components are ignored',
+			code: outdent`
+				import { css } from '@compiled/react';
+				const styles = css({ '&:hover': { backgroundColor: 'red' } });
+				<Button css={styles} />;
+			`,
+		},
+		{
 			name: 'unprovable background is ignored',
 			code: outdent`
 				import { css } from '@atlaskit/css';
@@ -32,8 +47,76 @@ tester.run('use-pressable-motion', rule, {
 				<Pressable xcss={styles} />;
 			`,
 		},
+		{
+			name: 'recognises a gated motion member providing the hovered transition in an xcss array',
+			code: outdent`
+				import { Pressable } from '@atlaskit/primitives/${'pressable'}';
+				import { xcss } from '@atlaskit/primitives/${'xcss'}';
+				import { token } from '@atlaskit/tokens';
+				import { fg } from '@atlassian/jira-feature-gating';
+				const baseStyles = xcss({ ':hover': { backgroundColor: 'red' } });
+				const motionStyles = xcss({ transition: token('motion.listitem.hovered') });
+				<Pressable xcss={[baseStyles, fg('platform-dst-motion-uplift-custom-button') && motionStyles]} />;
+			`,
+		},
+		{
+			name: 'recognises a gated motion member providing the pressed transition in an xcss array',
+			code: outdent`
+				import { Pressable } from '@atlaskit/primitives/${'pressable'}';
+				import { xcss } from '@atlaskit/primitives/${'xcss'}';
+				import { token } from '@atlaskit/tokens';
+				import { fg } from '@atlassian/jira-feature-gating';
+				const baseStyles = xcss({ ':active': { color: 'red' } });
+				const motionStyles = xcss({ ':active': { transition: token('motion.listitem.pressed') } });
+				<Pressable xcss={[baseStyles, fg('platform-dst-motion-uplift-custom-button') && motionStyles]} />;
+			`,
+		},
 	],
 	invalid: [
+		{
+			name: 'suggests button and list-item motion for native button css hover and pressed styles',
+			code: outdent`
+				import { css } from '@compiled/react';
+				const styles = css({
+					'&:hover': { backgroundColor: 'red' },
+					'&:active': { backgroundColor: 'blue' },
+				});
+				<button css={styles} />;
+			`,
+			errors: [
+				{
+					messageId: 'missingPressableMotion',
+					suggestions: [
+						{
+							messageId: 'useButtonMotion',
+							output: outdent`
+								import { token } from '@atlaskit/tokens';
+								import { css } from '@compiled/react';
+								const styles = css({
+									'&:hover': { backgroundColor: 'red' },
+									'&:active': { backgroundColor: 'blue', transition: token('motion.button.pressed') },
+									transition: token('motion.button.hovered'),
+								});
+								<button css={styles} />;
+							`,
+						},
+						{
+							messageId: 'useListItemMotion',
+							output: outdent`
+								import { token } from '@atlaskit/tokens';
+								import { css } from '@compiled/react';
+								const styles = css({
+									'&:hover': { backgroundColor: 'red' },
+									'&:active': { backgroundColor: 'blue', transition: token('motion.listitem.pressed') },
+									transition: token('motion.listitem.hovered'),
+								});
+								<button css={styles} />;
+							`,
+						},
+					],
+				},
+			],
+		},
 		{
 			name: 'suggests button and list-item motion for css hover and pressed styles',
 			code: outdent`
@@ -174,13 +257,25 @@ tester.run('use-pressable-motion', rule, {
 		{
 			name: 'suggests motion for static xcss array members',
 			code: outdent`
-				import Pressable from '@atlaskit/primitives/pressable';
-				import { xcss } from '@atlaskit/primitives/xcss';
+				import { Pressable } from '@atlaskit/primitives/${'pressable'}';
+				import { xcss } from '@atlaskit/primitives/${'xcss'}';
 				const defaultStyles = xcss({ ':hover': { backgroundColor: 'red' } });
 				const selectedStyles = xcss({ ':hover': { backgroundColor: 'blue' } });
 				<Pressable xcss={[defaultStyles, isSelected && selectedStyles]} />;
 			`,
 			errors: [{ messageId: 'missingPressableMotion' }, { messageId: 'missingPressableMotion' }],
+		},
+		{
+			name: 'still reports when an xcss array motion member does not cover the hovered transition',
+			code: outdent`
+				import { Pressable } from '@atlaskit/primitives/${'pressable'}';
+				import { xcss } from '@atlaskit/primitives/${'xcss'}';
+				import { token } from '@atlaskit/tokens';
+				const baseStyles = xcss({ ':hover': { backgroundColor: 'red' } });
+				const motionStyles = xcss({ ':active': { transition: token('motion.button.pressed') } });
+				<Pressable xcss={[baseStyles, motionStyles]} />;
+			`,
+			errors: [{ messageId: 'missingPressableMotion' }],
 		},
 		{
 			name: 'reports but does not suggest when a transition already exists',

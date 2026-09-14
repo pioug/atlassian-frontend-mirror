@@ -1,0 +1,31 @@
+# no-migrated-barrel-imports
+
+Disallows importing from known package barrels when a mapped entry-point exists in
+`@atlaskit/volt-components-entry-point-config` and the symbol is marked `consumersMigrated: true`
+(Stage 2).
+
+This is the error-severity companion to `no-barrel-imports` (Stage 1 warn). A symbol is flagged when
+the config gives it an `entry-point` and `consumersMigrated: true`. Stage 1-only symbols
+(`voltCompliant: true`, `consumersMigrated: false`) are left to `no-barrel-imports`. Symbols with
+`voltCompliant: false` or with no mapped entry-point are left alone. Imports carrying a namespace
+binding (`import * as X`) are skipped — they cannot be rewritten to entry-points.
+
+Unlike `no-barrel-imports`, this rule is **autofixable** (`fixable: 'code'`). Fixes run on save and
+with `eslint --fix` / `ESLINT_FIX_MODE=true afm lint eslint`.
+
+## Examples
+
+### Incorrect
+
+```tsx
+import Spinner from '@atlaskit/spinner';
+```
+
+### Correct
+
+```tsx
+import Spinner from '@atlaskit/spinner/spinner';
+```
+
+When one import mixes rewriteable (migrated) and non-rewriteable symbols, the autofix moves only the
+rewriteable ones and leaves the rest on the barrel.

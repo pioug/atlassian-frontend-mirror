@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { MediaType } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type Media as MediaData } from '../../../../../state/flexible-ui-context/types';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import type { ElementProps } from '../index';
 import MediaElement from '../media-element';
 

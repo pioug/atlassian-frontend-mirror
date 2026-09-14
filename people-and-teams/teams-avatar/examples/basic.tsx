@@ -24,7 +24,7 @@ const config = {
 			type: 'select',
 			defaultValue: 'medium',
 			options: [
-				{ label: 'xsmall', value: 'xsmall' },
+				{ label: 'xxsmall', value: 'xxsmall' },
 				{ label: 'small', value: 'small' },
 				{ label: 'medium', value: 'medium' },
 				{ label: 'large', value: 'large' },

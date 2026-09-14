@@ -1,5 +1,49 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 2.3.0
+
+### Minor Changes
+
+- [`660a0143710c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/660a0143710c6) -
+  Apply Volt Standards (OEPF) Stage 1: split multi-export files into one export per file and publish
+  a subpath for the displaced public symbol.
+
+  Adds one new public entry point:
+  - `@atlaskit/teams-app-internal-navigation/use-teams-navigation-context`
+
+  `useTeamsNavigationContext` moved out of `TeamsNavigationProvider.tsx` into its own module, so it
+  now has a dedicated subpath. Every existing entry point and binding continues to work unchanged —
+  the previous path (`@atlaskit/teams-app-internal-navigation/teams-navigation-provider`) keeps
+  exporting it via a `@deprecated` re-export shim, and the root entry point is unaffected. No
+  existing public API was removed or repointed.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.3
 
 ### Patch Changes

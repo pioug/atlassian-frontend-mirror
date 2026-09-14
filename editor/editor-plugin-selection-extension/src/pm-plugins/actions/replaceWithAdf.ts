@@ -2,7 +2,6 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import { SelectionExtensionActionTypes, type ReplaceWithAdfResult } from '../../types';
@@ -36,7 +35,7 @@ export const replaceWithAdf =
 			}
 
 			const endPos =
-				selectedNode.type.name === 'doc' && fg('platform_editor_selection_extension_improvement')
+				selectedNode.type.name === 'doc'
 					? nodePos + selectedNode.content.size
 					: nodePos + selectedNode.nodeSize;
 

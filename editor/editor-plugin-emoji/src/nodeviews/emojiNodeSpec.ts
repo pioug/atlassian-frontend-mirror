@@ -1,7 +1,7 @@
-import { emoji, emojiWithLocalId } from '@atlaskit/adf-schema';
+import { emoji, emojiWithLocalId } from '@atlaskit/adf-schema/emoji';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

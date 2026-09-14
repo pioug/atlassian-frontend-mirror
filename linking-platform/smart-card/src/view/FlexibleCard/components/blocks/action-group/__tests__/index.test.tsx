@@ -5,7 +5,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import PremiumIcon from '@atlaskit/icon/core/premium';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { token } from '@atlaskit/tokens';
 import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 

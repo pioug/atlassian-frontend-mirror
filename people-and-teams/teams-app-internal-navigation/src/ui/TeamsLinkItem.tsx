@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { LinkItem, type LinkItemProps } from '@atlaskit/menu';
+import LinkItem from '@atlaskit/menu/link-item';
+import type { LinkItemProps } from '@atlaskit/menu/types';
 
+import { buildNavigationInput } from '../common/utils/buildNavigationInput';
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';
 import { getNavigationProps } from '../common/utils/getNavigationProps';
-import { buildNavigationInput } from '../common/utils/utils';
 
-import { useTeamsNavigationContext } from './TeamsNavigationProvider';
+import { useTeamsNavigationContext } from './useTeamsNavigationContext';
 
 type BaseLinkItemProps = Omit<LinkItemProps, 'target' | 'rel'>;
 

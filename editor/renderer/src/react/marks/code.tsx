@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
-import AkCode from '@atlaskit/code/inline';
+import AkCode from '@atlaskit/code/code';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
@@ -30,7 +30,7 @@ export function CodeWithIntl(
 		</AkCode>
 	);
 }
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<
 	WithIntlProps<
 		{

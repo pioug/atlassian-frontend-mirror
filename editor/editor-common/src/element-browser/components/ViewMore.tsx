@@ -8,7 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { ButtonItem, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import Section from '@atlaskit/menu/section';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

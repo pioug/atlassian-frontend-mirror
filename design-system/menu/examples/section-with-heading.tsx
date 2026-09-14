@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { ButtonItem, HeadingItem, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import Section from '@atlaskit/menu/section';
 
 export default (): React.JSX.Element => (
 	<>

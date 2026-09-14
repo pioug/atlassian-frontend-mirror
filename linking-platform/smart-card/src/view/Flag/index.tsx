@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports -- exports reassign shared mutable module local(s) [flagGroupState, pendingFirstRender, root]; splitting would fork the singleton and is forbidden by TS2632 */
 /**
  * Smart Link flag module — imperative singleton pattern.
  *
@@ -32,9 +33,10 @@ import { flushSync } from 'react-dom';
 import { createRoot, type Root } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 
-import { FlagGroup, type FlagProps } from '@atlaskit/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
+import type { FlagProps } from '@atlaskit/flag/types';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import AIPrism from '../common/ai-prism';
 

@@ -134,19 +134,19 @@ css({
 
 #### Correct
 
-Use only allowed at-rules:
+Use supported at-rules:
 
-- `@media` (through our
-  [breakpoints](https://atlassian.design/components/primitives/responsive/breakpoints/examples))
+- `@media`, including canonical typed queries from granular
+  [`@atlaskit/css/at-rules/*`](https://atlassian.design/components/css/overview#media-queries)
 - `@property`
 - `@supports`
 
 ```tsx
-import { css } from '@compiled/react';
-import { media } from '@atlaskit/primitives/responsive';
+import { css } from '@atlaskit/css';
+import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
 
 css({
-	[media.above.sm]: {
+	['@media (min-width: 48rem)' satisfies MediaAboveSm]: {
 		display: 'block',
 	},
 });

@@ -1,4 +1,4 @@
-import { fireAnalytics } from '.';
+import { fireAnalytics } from './fireAnalytics';
 
 describe('Fire Analytics', () => {
 	it('should sanitise the file id', () => {

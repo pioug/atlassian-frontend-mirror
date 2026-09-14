@@ -341,23 +341,3 @@ export const firstCodeBlockWithNoMargin: SerializedStyles = css({
 		},
 	},
 });
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const firstCodeBlockWithNoMarginOld: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-panel__content': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> .code-block:first-child': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space,@atlaskit/ui-styling-standard/no-important-styles
-				margin: '0!important',
-			},
-		},
-	},
-});

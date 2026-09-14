@@ -1,7 +1,7 @@
 // eslint-disable-next-line sort-imports
 import { useContext, useEffect, useRef, type MutableRefObject } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type FocusableElementRef } from '../../types';
 import { FocusManagerContext } from '../components/focus-manager-context';

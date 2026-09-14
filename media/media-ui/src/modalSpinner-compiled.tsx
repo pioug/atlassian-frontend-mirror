@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { layers } from '@atlaskit/theme/constants';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { css, jsx } from '@compiled/react';
 
 const blanketStyles = css({

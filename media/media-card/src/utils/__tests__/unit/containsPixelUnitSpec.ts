@@ -1,4 +1,4 @@
-import { containsPixelUnit } from '../..';
+import { containsPixelUnit } from '../../containsPixelUnit';
 
 describe('containsPixelUnit', () => {
 	it('should return false when passing not a pixel value', () => {

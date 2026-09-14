@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "18.2.7",
+	"version": "18.5.2",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,17 +32,26 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
+		"./action-text-color": "./src/action-text-color.tsx",
 		"./auto-dismiss-flag": "./src/auto-dismiss-flag.tsx",
 		"./constants": "./src/constants.tsx",
 		"./flag": "./src/flag.tsx",
 		"./flag-actions": "./src/flag-actions.tsx",
-		"./flag-group": "./src/entry-points/flag-group.tsx",
+		"./flag-background-color": "./src/flag-background-color.tsx",
+		"./flag-context": "./src/flag-context.tsx",
+		"./flag-group": "./src/flag-group.tsx",
 		"./flag-group-context": "./src/internal/flag-group-context.tsx",
+		"./flag-icon-color": "./src/flag-icon-color.tsx",
+		"./flag-icon-glyph": "./src/flag-icon-glyph.tsx",
 		"./flag-provider": "./src/flag-provider.tsx",
-		"./src/flag-group": "./src/flag-group.tsx",
+		"./flag-text-color": "./src/flag-text-color.tsx",
+		"./flag-text-color-token": "./src/flag-text-color-token.tsx",
+		"./flags-provider": "./src/flags-provider.tsx",
 		"./theme": "./src/theme.tsx",
 		"./types": "./src/types.tsx",
-		"./use-flag-group": "./src/internal/use-flag-group.tsx"
+		"./use-flag-group": "./src/internal/use-flag-group.tsx",
+		"./use-flags": "./src/use-flags.tsx",
+		"./with-flags-provider": "./src/with-flags-provider.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -66,7 +75,7 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -75,6 +84,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/drawer": "workspace:^",
 		"@atlaskit/link": "workspace:^",
+		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -83,42 +93,20 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"homepage": "https://atlassian.design/components/flag/",
 	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
+		"platform-dst-flag-collapse-animation-fix": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift": {

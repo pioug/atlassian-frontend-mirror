@@ -5,9 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import type { Option } from '@atlaskit/editor-common/extensions';
-import type { FormatOptionLabelMeta } from '@atlaskit/select';
+import type { FormatOptionLabelMeta } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 const itemWrapperStyles = css({
@@ -34,7 +34,7 @@ const iconWrapperMenuStyles = css({
 
 const getIconSize = (context: 'menu' | 'value', description?: string) => {
 	if (context === 'value' || !description) {
-		return 'xsmall';
+		return 'xxsmall';
 	}
 
 	return 'small';

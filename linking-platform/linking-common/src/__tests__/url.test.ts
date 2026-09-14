@@ -1,4 +1,5 @@
-import { linkifyMatch, normalizeUrl } from '../url';
+import { linkifyMatch } from '../linkifyMatch';
+import { normalizeUrl } from '../normalizeUrl';
 
 describe('normalizeUrl', () => {
 	it.each<string | { expected: string | null; input: string }>([

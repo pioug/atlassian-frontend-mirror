@@ -1,4 +1,4 @@
-import { type OptionsType } from '@atlaskit/select';
+import type { OptionsType } from '@atlaskit/select/types';
 
 export const cities: OptionsType = [
 	{ label: 'Adelaide', value: 'adelaide', extra: 'extra' },

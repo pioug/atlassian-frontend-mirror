@@ -48,7 +48,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/constellation/select-appearance-default.tsx'),
 				},
 			],
-			keywords: ['select', 'dropdown', 'form', 'input', 'options', 'choice', 'picker'],
+			keywords: ['select', 'dropdown', 'combobox', 'form', 'input', 'options', 'choice', 'picker'],
 			categories: ['form'],
 		},
 		{

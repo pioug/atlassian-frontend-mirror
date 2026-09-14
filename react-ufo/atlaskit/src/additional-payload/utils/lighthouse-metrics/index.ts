@@ -1,25 +1,9 @@
-import { getCLS } from './cls';
-import { PerformanceObserverEntryTypes } from './const';
-import { getTBT } from './tbt';
-import { EntriesBuffer } from './utils/buffer';
-import { startLSObserver, startLTObserver } from './utils/observer';
-
-export function startLighthouseObserver(): void {
-	startLSObserver();
-	startLTObserver();
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function getLighthouseMetrics({ start, stop }: { start: number; stop: number }): {
-	[key: string]: number;
-} {
-	const tbt = getTBT(start, stop, EntriesBuffer[PerformanceObserverEntryTypes.LongTask]);
-
-	// no round as CLS is usually 0-1
-	const cls = getCLS(start, stop, EntriesBuffer[PerformanceObserverEntryTypes.LayoutShift]);
-	return {
-		'metric:tbt': Math.round(tbt.total),
-		'metric:tbt:observed': Math.round(tbt.observed),
-		'metric:cls': cls,
-	};
-}
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { startLighthouseObserver } from '@atlaskit/react-ufo/startLighthouseObserver'` instead.
+ */
+export { startLighthouseObserver } from './startLighthouseObserver';
+/**
+ * @deprecated Use `import { getLighthouseMetrics } from '@atlaskit/react-ufo/getLighthouseMetrics'` instead.
+ */
+export { getLighthouseMetrics } from './getLighthouseMetrics';

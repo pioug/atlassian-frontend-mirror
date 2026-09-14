@@ -139,17 +139,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Used by the legacy content macro to disable render tracking due to excessive logs.
-	 * Will be removed once re-rendering issue is resolved.
-	 * Note: This is hardcoded into the LCM code, it does not exist in Switcheroo.
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-26650
-	 * @default false
-	 */
-	lcmPreventRenderTracking?: boolean;
-
-	/**
-	 * @description
 	 * Use the linking platform link picker for link insertion and edit
 	 *
 	 * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone

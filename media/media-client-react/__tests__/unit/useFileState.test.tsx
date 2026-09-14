@@ -8,9 +8,11 @@ import { setupServer } from 'msw/node';
 import { getFileStreamsCache, MediaClient, type ResponseFileItem } from '@atlaskit/media-client';
 import { mediaStore } from '@atlaskit/media-state/media-store';
 
-import { MediaClientContext, MediaClientProvider, useFileState } from '../../src';
+import { MediaClientContext, MediaClientProvider } from '../../src/MediaClientProvider';
+import { useFileState } from '../../src/useFileState';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
@@ -160,7 +162,7 @@ describe('useFileState', () => {
 		const { result } = renderHook(() => useFileState(testFileId, { collectionName }), { wrapper });
 
 		expect(result.current.fileState).toEqual(testState);
-		expect(mediaClient.mediaStore.getItems).not.toBeCalled();
+		expect(mediaClient.mediaStore.getItems).not.toHaveBeenCalled();
 	});
 
 	it('should return the correct file state for a succeeded processing status', async () => {
@@ -543,7 +545,7 @@ describe('useFileState', () => {
 			);
 
 			expect(result.current.fileState).toEqual(undefined);
-			expect(mediaClient.mediaStore.getItems).not.toBeCalled();
+			expect(mediaClient.mediaStore.getItems).not.toHaveBeenCalled();
 		});
 	});
 

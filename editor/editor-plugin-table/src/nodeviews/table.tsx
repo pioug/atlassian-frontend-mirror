@@ -3,7 +3,6 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -15,6 +14,10 @@ import type {
 	getPosHandler,
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
+import {
+	applyContentVisibility,
+	estimateTableIntrinsicHeight,
+} from '@atlaskit/editor-common/utils/content-visibility';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -28,7 +31,7 @@ import type {
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
@@ -98,6 +101,7 @@ export default class TableView extends ReactNodeView<Props> {
 	private resizeObserver?: ResizeObserver;
 	private roundedTableEdges: RoundedTableEdges | undefined;
 	private intl?: IntlShape;
+	private isNestedTable = false;
 	eventDispatcher?: EventDispatcher;
 	getPos: getPosHandlerNode;
 	options: TableOptions | undefined;
@@ -155,10 +159,11 @@ export default class TableView extends ReactNodeView<Props> {
 			const tableElement = rendered.dom.querySelector('table');
 			this.table = tableElement ? tableElement : rendered.dom;
 			this.renderedDOM = rendered.dom;
+
+			this.isNestedTable = isNested;
+			this.updateContentVisibility();
 			const allowFixedColumnWidthOption =
-				(fg('platform_editor_table_fixed_column_width_prop')
-					? this.reactComponentProps?.allowFixedColumnWidthOption
-					: this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption) || false;
+				this.reactComponentProps?.allowFixedColumnWidthOption || false;
 
 			if (
 				!this.options?.isTableScalingEnabled ||
@@ -200,7 +205,7 @@ export default class TableView extends ReactNodeView<Props> {
 			// Patch to prevent selection collapsing when moving the table down with ctrl + shift + down
 			const selectionBeforeMove = this.view.state.selection;
 			const shouldPreserveCellSelection =
-				expValEquals('platform_editor_fix_table_move_shortcut', 'isEnabled', true) &&
+				isExperimentEnabled('platform_editor_fix_table_move_shortcut') &&
 				selectionBeforeMove instanceof CellSelection;
 
 			// Store the current ignoreMutation handler so we can restore it later
@@ -241,15 +246,11 @@ export default class TableView extends ReactNodeView<Props> {
 			}
 
 			// Remove the ProseMirror table DOM structure to avoid duplication, as it's replaced with the React table node.
-			// In SSR streaming the portal renders via `container.innerHTML = html` (portal/common.tsx), which detaches
+			// In SSR the portal renders via `container.innerHTML = html` (portal/common.tsx), which detaches
 			// `renderedDOM` from `dom` before this runs; require it to still be a child so `removeChild` doesn't throw
 			// `NotFoundError` (which would make EditorSSRRenderer fall back to the position-blind schema toDOM and lose
-			// nested detection). CSR keeps the original condition unchanged.
-			if (
-				this.dom &&
-				this.renderedDOM &&
-				(!isSSRStreaming() || this.renderedDOM.parentNode === this.dom)
-			) {
+			// nested detection).
+			if (this.dom && this.renderedDOM && this.renderedDOM.parentNode === this.dom) {
 				this.dom.removeChild(this.renderedDOM);
 			}
 			// Move the table from the ProseMirror table structure into the React rendered table node.
@@ -318,8 +319,7 @@ export default class TableView extends ReactNodeView<Props> {
 						!this.reactComponentProps.options?.isChromelessEditor,
 				}),
 				isTableNested: isTableNested(this.view.state, this.getPos()),
-			}) &&
-			expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
+			})
 		) {
 			attrs['data-initial-width-mode'] = 'content';
 		}
@@ -331,9 +331,7 @@ export default class TableView extends ReactNodeView<Props> {
 		});
 
 		const isTableFixedColumnWidthsOptionEnabled =
-			(fg('platform_editor_table_fixed_column_width_prop')
-				? this.reactComponentProps?.allowFixedColumnWidthOption
-				: this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption) || false;
+			this.reactComponentProps?.allowFixedColumnWidthOption || false;
 		// Preserve Table Width cannot have inline width set on the table
 		if (
 			!this.options?.isTableScalingEnabled ||
@@ -362,6 +360,34 @@ export default class TableView extends ReactNodeView<Props> {
 		return this.node;
 	};
 
+	private updateContentVisibility(): void {
+		if (this.isNestedTable || !this.table) {
+			return;
+		}
+		// Read limited mode from the nodeView's own `this.view.state` via the plugin key exposed on
+		// the (already-typed) shared state, NOT `currentState().enabled`: during initial EditorView
+		// construction the injection API's editor state is undefined, so `.enabled` reads a stale false.
+		//
+		// Reads the plugin's derived `enabled`, so this covers every reason limited mode can be on.
+		const limitedMode = this.reactComponentProps.pluginInjectionApi?.limitedMode;
+		const enabled = Boolean(
+			limitedMode?.sharedState.currentState()?.limitedModePluginKey?.getState(this.view.state)
+				?.enabled,
+		);
+		const applied = applyContentVisibility(this.table, enabled, () => ({
+			// The `<table>` is content-sized (`display: table`), so it needs an explicit intrinsic
+			// width or it collapses to 0 wide while contained. `getTableContainerWidth` covers
+			// wide/full-width tables; explicit inline widths (resizable tables) simply override it.
+			width: getTableContainerWidth(this.node),
+			height: estimateTableIntrinsicHeight(this.node),
+		}));
+		// Marker for the shared table CSS: when content-visibility (→ contain: paint) is actually
+		// applied, it pulls the `::after` outer-border overlay from `inset: -0.5px` to `inset: 0` so
+		// paint clipping doesn't shave the border. Keyed off the real applied style so it stays in
+		// sync with the gate inside applyContentVisibility.
+		this.table.toggleAttribute('data-content-visibility', applied);
+	}
+
 	update(
 		node: PmNode,
 		decorations: ReadonlyArray<Decoration>,
@@ -373,10 +399,13 @@ export default class TableView extends ReactNodeView<Props> {
 		// Keep the rounded-corner edge attrs in sync with structural changes (rows/columns
 		// added, removed, merged, or reordered via drag-and-drop) that the cells themselves
 		// can miss.
+		if (didUpdate) {
+			this.updateContentVisibility();
+		}
+
 		if (didUpdate && expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
 			this.roundedTableEdges?.handleUpdate(node);
 		}
-
 		return didUpdate;
 	}
 
@@ -452,18 +481,6 @@ export default class TableView extends ReactNodeView<Props> {
 			return false;
 		}
 
-		// ED-16668
-		// Do not remove this fixes an issue with windows firefox that relates to
-		// the addition of the shadow sentinels
-		if (
-			type === 'selection' &&
-			nodeName?.toUpperCase() === 'TABLE' &&
-			(firstChild?.nodeName.toUpperCase() === 'COLGROUP' ||
-				firstChild?.nodeName.toUpperCase() === 'SPAN')
-		) {
-			return false;
-		}
-
 		if (!this.contentDOM) {
 			return true;
 		}
@@ -510,10 +527,7 @@ export const createTableView = (
 	const { allowColumnResizing, allowControls, allowTableResizing, allowTableAlignment } =
 		getPluginConfig(pluginConfig);
 
-	const isTableFixedColumnWidthsOptionEnabled =
-		(fg('platform_editor_table_fixed_column_width_prop')
-			? allowFixedColumnWidthOption
-			: getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption) || false;
+	const isTableFixedColumnWidthsOptionEnabled = allowFixedColumnWidthOption || false;
 
 	const shouldUseIncreasedScalingPercent =
 		isTableScalingEnabled && (isTableFixedColumnWidthsOptionEnabled || isCommentEditor);

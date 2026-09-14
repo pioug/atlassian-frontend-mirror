@@ -1,5 +1,6 @@
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffType } from '../showDiffPluginType';
 
@@ -45,9 +46,6 @@ export function isInlineDiffDecorationRenderableInDoc(
 	}
 }
 
-/**
- * Checks if range1 is fully contained within range2
- */
 function isRangeFullyInside(
 	range1Start: number,
 	range1End: number,
@@ -68,6 +66,91 @@ function specHasDiffKeyPrefix(spec: unknown, keyPrefix: string): spec is { key: 
 }
 
 /**
+ * Where a decoration paints relative to others at the same position: negative before the node at
+ * that position, positive after it. Only deleted-content widgets carry one — everything else is
+ * ranged, and so paints where its range starts.
+ */
+function decorationSide(decoration: Decoration): number {
+	return (isDiffDecoration(decoration) && decoration.spec.side) || 0;
+}
+
+/**
+ * Collapses decorations that represent one continuous customer-facing edit.
+ *
+ * Decorations are kept separate in the DecorationSet so each one can retain its own visual
+ * styling. This list is only used for change counting and navigation, where an insertion and a
+ * deletion at the same location should be treated as one replacement. Zero-width decorations
+ * (normally deleted-content widgets) can join a group, but cannot extend its range and therefore
+ * cannot bridge two otherwise separate edits.
+ */
+function groupTouchingDecorations(
+	decorations: Decoration[],
+	isInlineDecoration: (decoration: Decoration) => boolean,
+): Decoration[] {
+	if (decorations.length < 2) {
+		return decorations;
+	}
+
+	const groups: Array<{ decorations: Decoration[]; from: number; to: number }> = [];
+	let currentGroup: Decoration[] = [];
+	let currentGroupFrom = 0;
+	let currentGroupTo = 0;
+	const sortedDecorations = [...decorations].sort((a, b) =>
+		a.from === b.from ? a.to - b.to : a.from - b.from,
+	);
+
+	sortedDecorations.forEach((decoration) => {
+		if (currentGroup.length === 0 || decoration.from > currentGroupTo) {
+			currentGroup = [decoration];
+			currentGroupFrom = decoration.from;
+			currentGroupTo = decoration.to;
+			groups.push({ decorations: currentGroup, from: currentGroupFrom, to: currentGroupTo });
+			return;
+		}
+
+		currentGroup.push(decoration);
+		// A zero-width decoration must not extend the group and bridge a gap.
+		currentGroupTo = Math.max(currentGroupTo, decoration.to);
+		groups[groups.length - 1].to = currentGroupTo;
+	});
+
+	return groups.map(({ decorations: group, from, to }) => {
+		const representative =
+			group.find(isInlineDecoration) ??
+			group.find((decoration) => decoration.from !== decoration.to) ??
+			group[0];
+
+		if (!representative) {
+			return representative;
+		}
+
+		// Deleted content is a widget at the start of the added content that replaced it, on a more
+		// negative side so it paints above. That makes it the visual start of the edit, reachable
+		// only through its own DOM — resolving the group's start position lands on the added content
+		// painted after it. The group keeps its range, which navigation and the active-range
+		// calculation both need, and reports the widget as what to scroll to.
+		const scrollTarget = fg('platform_editor_ai_show_diff_patch_1')
+			? group.find(
+					(decoration) =>
+						decoration.from === from && decorationSide(decoration) < decorationSide(representative),
+				)
+			: undefined;
+
+		if (!scrollTarget && representative.from === from && representative.to === to) {
+			return representative;
+		}
+
+		// This decoration is only used for navigation and active-range calculation. The actual
+		// visual decorations remain in the DecorationSet with their original ranges and styles —
+		// including their spec, hence a copy to add `scrollTarget` for `scrollToDiff` to read.
+		const spec = { ...representative.spec, scrollTarget };
+		return isInlineDecoration(representative)
+			? Decoration.inline(from, to, {}, spec)
+			: Decoration.node(from, to, {}, spec);
+	});
+}
+
+/**
  * Gets scrollable decorations from a DecorationSet, filtering out overlapping decorations
  * and applying various rules for diff visualization.
  *
@@ -77,9 +160,14 @@ function specHasDiffKeyPrefix(spec: unknown, keyPrefix: string): spec is { key: 
  * 3. Deduplicates diff-block decorations with same from, to and nodeName
  * 4. When `doc` is passed: excludes diff-inline decorations whose range has no inline content
  *    (invalid positions, or block-only slices with no text/atoms — e.g. empty blocks)
- * 5. Excludes diff-inline decorations that are fully contained within a diff-block
- * 6. Excludes diff-block decorations that are fully contained within a diff-inline
- * 7. Results are sorted by from position, then by to position
+ * 5. When `confluence_ncs_step_diffing_version_history` is enabled, groups overlapping or
+ *    directly touching ranges across decoration types into one result, using the union of all
+ *    grouped ranges
+ *    (zero-width widgets can join a group without extending it). Under
+ *    `platform_editor_ai_show_diff_patch_1`, a group that starts with content painting above
+ * 	  the content that replaced it — reports that widget as its `scrollTarget` spec,
+ *    so scrolling reaches the visual start of the edit
+ * 6. Results are sorted by from position, then by to position
  *
  * @param set - The DecorationSet to extract scrollable decorations from
  * @param doc - Current document; when set, diff-inline ranges are validated against this doc
@@ -134,7 +222,6 @@ export const getScrollableDecorations = (
 			if (seenBlockKeys.has(key)) return false;
 			seenBlockKeys.add(key);
 		}
-
 		return true;
 	});
 
@@ -147,23 +234,22 @@ export const getScrollableDecorations = (
 			: rawInlines;
 	const widgets = filtered.filter(isWidgetDecoration);
 
-	// Second pass: exclude overlapping decorations
-	// Rules:
-	// - If an inline is fully inside a block, exclude the block (inline takes priority)
-	// - If a block is fully inside an inline, exclude the block (inline takes priority)
-	const nonOverlappingBlocks = blocks.filter((block) => {
-		// Exclude block if:
-		// 1. It's fully contained within any inline, OR
-		// 2. It fully contains any inline
-		return !inlines.some(
-			(inline) =>
-				isRangeFullyInside(block.from, block.to, inline.from, inline.to) || // block inside inline
-				isRangeFullyInside(inline.from, inline.to, block.from, block.to), // inline inside block
+	let result: Decoration[];
+	if (fg('confluence_ncs_step_diffing_version_history')) {
+		// Group overlapping or directly touching ranges into one customer-facing edit.
+		result = groupTouchingDecorations([...blocks, ...inlines, ...widgets], isInlineDecoration);
+	} else {
+		// Legacy behavior: exclude blocks that contain or are contained by an inline decoration.
+		const nonOverlappingBlocks = blocks.filter(
+			(block) =>
+				!inlines.some(
+					(inline) =>
+						isRangeFullyInside(block.from, block.to, inline.from, inline.to) ||
+						isRangeFullyInside(inline.from, inline.to, block.from, block.to),
+				),
 		);
-	});
-
-	// Combine all non-overlapping decorations
-	const result = [...nonOverlappingBlocks, ...inlines, ...widgets];
+		result = [...nonOverlappingBlocks, ...inlines, ...widgets];
+	}
 
 	// Sort by from position, then by to position
 	result.sort((a, b) => (a.from === b.from ? a.to - b.to : a.from - b.from));

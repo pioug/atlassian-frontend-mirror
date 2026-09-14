@@ -10,8 +10,8 @@ import {
 	withStorybookLinkHarness,
 } from '@atlassian/platform-storybook-helpers';
 
-import { AgentProfileCard } from '../src';
-import { simpleProfileClient } from '../src/mocks';
+import AgentProfileCard from '../src/components/Agent/AgentProfileCard';
+import { simpleProfileClient } from '../src/mocks/simple-mock-clients';
 import type { AgentProfileCardProps, RovoAgentProfileCardInfo } from '../src/types';
 
 type StoryArgs = AgentProfileCardProps;

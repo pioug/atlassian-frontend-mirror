@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cedb5d68059644a06a093aa74d8e3cc5>>
+ * @codegen <<SignedSource::f59fa719395279504da0479efb43be80>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,13 +24,12 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * A temporary component to represent the icon for Jira Service Management.
  * @deprecated This component has been replaced by the component `JiraServiceManagementIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * Please migrate any usages of this temporary component.
  *
  */
 export function JiraServiceManagementIcon({
 	iconColor,
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Jira Service Management',
 	testId,

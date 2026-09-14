@@ -26,16 +26,43 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/button/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-ui-control-registry/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../input-rules/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-products/tsconfig.json"

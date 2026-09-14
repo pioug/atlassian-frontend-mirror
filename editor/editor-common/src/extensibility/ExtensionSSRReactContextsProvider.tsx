@@ -3,7 +3,6 @@ import React, { type ReactNode } from 'react';
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
 import { isSSR } from '../core-utils/is-ssr';
-import { isSSRStreaming } from '../core-utils/is-ssr-streaming';
 
 interface Props {
 	children: ReactNode;
@@ -11,7 +10,7 @@ interface Props {
 }
 
 export function ExtensionSSRReactContextsProvider({ children, intl }: Props): ReactNode {
-	if (!isSSR() || !isSSRStreaming()) {
+	if (!isSSR()) {
 		return children;
 	}
 

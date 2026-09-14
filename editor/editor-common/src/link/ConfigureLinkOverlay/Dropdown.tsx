@@ -11,13 +11,15 @@ import { useIntl } from 'react-intl';
 
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import type { CustomTriggerProps, OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import type { CustomTriggerProps, OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import PreferencesIcon from '@atlaskit/icon/core/customize';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { cardMessages as messages } from '../../messages';
 
@@ -110,7 +112,7 @@ const Dropdown = ({
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			trigger={
-				expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_perf_lint_cleanup')
 					? memoizedTrigger
 					: ({ onClick, triggerRef, ...props }) => (
 							<StyledButton

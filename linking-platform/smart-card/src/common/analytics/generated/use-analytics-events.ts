@@ -8,7 +8,7 @@
  */
 import { useCallback } from 'react';
 
-import { useAnalyticsEvents as useAnalyticsNextEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents as useAnalyticsNextEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { EVENT_CHANNEL } from '../constants';
 

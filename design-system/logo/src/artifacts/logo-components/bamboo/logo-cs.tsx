@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a8b53caccfaf8935cadc28439cd96493>>
+ * @codegen <<SignedSource::9e78739b079de5cf7483ff0a4d5033b8>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const svg = `<svg height="100%" viewBox="0 0 154 32">
  *
  */
 export function BambooLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Bamboo',
 	testId,

@@ -1,0 +1,130 @@
+---
+title: useMotion
+description:
+  Apply entry and exit animations to an element you already render, without adding a wrapper.
+order: 2
+---
+
+## Import
+
+```tsx
+import { useMotion, Reanimate } from '@atlaskit/motion/use-motion';
+```
+
+## Signature
+
+```ts
+type MotionState = 'init' | 'entering' | 'visible' | 'exiting' | 'hidden';
+type Transition = 'entering' | 'exiting';
+
+function useMotion<T extends HTMLElement = HTMLElement>(props?: {
+	initialState?: MotionState;
+	onFinish?: (state: Transition) => void;
+}): {
+	state: MotionState;
+	ref: (node: T | null) => void;
+	reanimate: (value: Reanimate) => void;
+};
+```
+
+## Options
+
+Both options are optional, and calling the hook with no arguments is the common case.
+
+| Property       | Type                          | Description                                                                                                                                                                                           |
+| -------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `initialState` | `MotionState`                 | The state the machine starts in, overriding the default mount behaviour. Use `visible` to render at rest with no entry animation, or `hidden` to stay mounted and hidden until `reanimate` is called. |
+| `onFinish`     | `(state: Transition) => void` | Called when an entering or exiting animation completes. Also called with `entering` immediately on mount when the element is not appearing.                                                           |
+
+`useMotion` is generic over the element type it will be attached to, which types the returned `ref`:
+
+```tsx
+const { ref, state } = useMotion<HTMLLIElement>();
+```
+
+## Returns
+
+| Property    | Type                         | Description                                                                                                                                                                         |
+| ----------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `state`     | `MotionState`                | The current state of the animation lifecycle. Map this to your animation styles.                                                                                                    |
+| `ref`       | Ref callback                 | Must be attached to the animated element. The hook reads the animation duration from it to time `onFinish` and removal by `ExitingPersistence`, and to receive its staggered delay. |
+| `reanimate` | `(value: Reanimate) => void` | Imperatively replays the animation. See [Reanimate](#reanimate).                                                                                                                    |
+
+## MotionState
+
+`state` is one of five values. See
+[useMotion is a state machine](/components/motion/use-motion/about) for the full transition table.
+
+| Value      | Meaning                                                                      |
+| ---------- | ---------------------------------------------------------------------------- |
+| `init`     | Mounted and waiting for a stagger delay. Render the element visually hidden. |
+| `entering` | The entry animation is playing.                                              |
+| `visible`  | At rest, with no animation in progress.                                      |
+| `exiting`  | The exit animation is playing. The element is still mounted.                 |
+| `hidden`   | Animated out but still mounted. Render the element visually hidden.          |
+
+## Reanimate
+
+| Value                       | Behaviour                                                                         |
+| --------------------------- | --------------------------------------------------------------------------------- |
+| `Reanimate.enter`           | Plays the entry animation, then settles in `visible`.                             |
+| `Reanimate.exit`            | Plays the exit animation, then settles in `hidden`. The element is not unmounted. |
+| `Reanimate.exit_then_enter` | Plays the exit animation, then the entry animation, then settles in `visible`.    |
+
+## Usage
+
+Select your animation styles from `state` and apply them with Compiled's `css` prop, which accepts
+an array so state-driven styles can be layered over the element's resting styles.
+
+```tsx
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
+import { useMotion } from '@atlaskit/motion/use-motion';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	// Hidden while waiting for a stagger delay, and after `reanimate(Reanimate.exit)`.
+	hidden: {
+		visibility: 'hidden',
+	},
+	entering: {
+		animationName: token('motion.keyframe.fade.in'),
+		animationDuration: token('motion.duration.medium'),
+		animationTimingFunction: token('motion.easing.out.practical'),
+		animationFillMode: 'backwards',
+		// You own the animation styles, so you disable them for reduced motion.
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
+	},
+	exiting: {
+		animationName: token('motion.keyframe.fade.out'),
+		animationDuration: token('motion.duration.medium'),
+		animationTimingFunction: token('motion.easing.in.practical'),
+		animationFillMode: 'forwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
+	},
+});
+
+function AnimatedListItem() {
+	const { ref, state } = useMotion<HTMLLIElement>();
+
+	return (
+		<li
+			ref={ref}
+			css={[
+				(state === 'init' || state === 'hidden') && styles.hidden,
+				state === 'entering' && styles.entering,
+				state === 'exiting' && styles.exiting,
+			]}
+		>
+			I stay a direct child of the list.
+		</li>
+	);
+}
+```

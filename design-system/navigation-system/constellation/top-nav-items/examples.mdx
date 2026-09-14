@@ -11,6 +11,8 @@ import { TopNavStartToggleExample } from '../../examples/constellation/top-nav-i
 import { TopNavMiddleLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-middle';
 import { TopNavEndLayoutExample } from '../../examples/constellation/top-nav-items/top-nav-end';
 import { AppLogoExample } from '../../examples/constellation/top-nav-items/app-logo';
+import { AppLogoSecondaryNameExample } from '../../examples/constellation/top-nav-items/app-logo-secondary-name';
+import { CustomAppSwitcherExample } from '../../examples/constellation/top-nav-items/custom-app-switcher';
 import { CustomLogoExample } from '../../examples/constellation/top-nav-items/custom-logo';
 import { CustomThemingLogoExample } from '../../examples/constellation/top-nav-items/custom-theming--logo';
 import { CustomThemingSearchExample } from '../../examples/constellation/top-nav-items/custom-theming--search';
@@ -45,6 +47,15 @@ landing page:
 
 <Example Component={TopNavStartLayoutExample} />
 
+### App switcher
+
+App switcher opens the app switcher menu. By default, it uses the Atlassian app switcher icon.
+
+Use the optional `icon` prop to replace the default icon with a custom visual, such as a product
+logo. Continue to provide a meaningful `label` so the custom visual has an accessible name.
+
+<Example Component={CustomAppSwitcherExample} />
+
 ### Side nav toggle button
 
 The side nav toggle button must be passed to `TopNavStart` through the `sideNavToggleButton` prop,
@@ -68,6 +79,14 @@ App logo displays an app [logo icon](/components/logo) and name.
 See the [responsive section](#responsive) for more information.
 
 <Example Component={AppLogoExample} />
+
+#### Secondary name
+
+Use the optional `secondaryName` prop to add supporting context below the app name, such as the
+current experience or workspace. The supporting context is displayed in wider viewports and is
+hidden with the app name at `s` breakpoints and below (less than 1024px).
+
+<Example Component={AppLogoSecondaryNameExample} />
 
 ### Custom logo
 

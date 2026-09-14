@@ -2,7 +2,7 @@ import invariant from 'tiny-invariant';
 
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import { ExpandableMenuItemNestedNoSelection } from '../../../../../examples/expandable-menu-item';
+import { ExpandableMenuItemNestedNoSelection } from '../../../../../examples/expandable-menu-item.vr.ap';
 import { expandableMenuItemIndentation } from '../../constants';
 
 // Need to make sure our increased hitbox logic works in all browsers

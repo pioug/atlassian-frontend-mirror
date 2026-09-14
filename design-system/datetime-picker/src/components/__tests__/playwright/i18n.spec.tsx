@@ -15,6 +15,7 @@ test('[i18n] When entering a new time in Timepicker Editable, the time should be
 		'design-system',
 		'datetime-picker',
 		'i18n',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(timePicker).first().click();
 	const previousTime = await page.locator(timePickerValue).first().inputValue();
@@ -38,6 +39,7 @@ test.fixme('[i18n] When a user types a year into the date input in DatetimePicke
 		'design-system',
 		'datetime-picker',
 		'i18n',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(dateTimePicker).first().click();
 	await page.webdriverCompatUtils.fillMultiple(dateTimePickerInput, ['2', '0', '1', '6']);

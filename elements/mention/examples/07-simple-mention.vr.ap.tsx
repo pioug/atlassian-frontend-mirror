@@ -1,0 +1,106 @@
+import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
+import { onMentionEvent } from '../example-helpers/on-mention-event';
+import {
+	MENTION_ID_HIGHLIGHTED,
+	MENTION_ID_WITH_CONTAINER_ACCESS,
+	MENTION_ID_WITH_NO_ACCESS,
+} from '../src/__tests__/unit/_test-constants';
+import { mockMentionData as mentionData } from '../src/__tests__/unit/_test-helpers';
+import { ELEMENTS_CHANNEL } from '../src/_constants';
+import Mention from '../src/components/Mention';
+import debug from '../src/util/logger';
+
+const padding = { padding: '10px' };
+
+const listenerHandler = (e: UIAnalyticsEvent) => {
+	debug('Analytics Next handler - payload:', e.payload, ' context: ', e.context);
+};
+
+const handler = (_mentionId: string, text: string, event?: any, analytics?: any) => {
+	debug('Old Analytics handler: ', text, ' ', event, ' - analytics: ', analytics);
+};
+
+export default function Example(): React.JSX.Element {
+	return (
+		<IntlProvider locale="en">
+			<div data-testid="vr-tested">
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<AnalyticsListener onEvent={listenerHandler} channel={ELEMENTS_CHANNEL}>
+						<Mention
+							{...mentionData}
+							id={MENTION_ID_WITH_CONTAINER_ACCESS}
+							accessLevel={'CONTAINER'}
+							onClick={handler}
+							onMouseEnter={onMentionEvent}
+							onMouseLeave={onMentionEvent}
+						/>
+					</AnalyticsListener>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<Mention
+						{...mentionData}
+						id={MENTION_ID_HIGHLIGHTED}
+						isHighlighted={true}
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<Mention
+						{...mentionData}
+						id={MENTION_ID_WITH_NO_ACCESS}
+						accessLevel={'NONE'}
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<Mention
+						{...mentionData}
+						text=""
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* Disabled variant (with tooltip). The chip is automatically kept tab-focusable
+				    and gets aria-disabled + aria-label by the component itself. */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<Mention
+						{...mentionData}
+						isDisabled
+						disabledTooltip="Only one agent can be active at a time"
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* Disabled variant without a tooltip — chip is still in the DISABLED visual state
+				    but has no on-hover affordance. */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<Mention
+						{...mentionData}
+						isDisabled
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+			</div>
+		</IntlProvider>
+	);
+}

@@ -11,7 +11,7 @@ import {
 	NoResults,
 	NoResultsAdaptive,
 	ShowingResultsWhileLoadingResults,
-} from '../../examples';
+} from '../../examples.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

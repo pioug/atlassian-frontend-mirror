@@ -8,7 +8,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import type { AppearanceType, TagColor } from '../../../index';
+import type { AppearanceType, TagColor } from '../../../types';
 
 // Border colors - Hardcoded for Visual Refresh - to be removed with labelling system work
 const borderColors = cssMap({

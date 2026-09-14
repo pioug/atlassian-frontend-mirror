@@ -1,12 +1,10 @@
 import React from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import {
-	useAnalyticsEvents,
-	type UIAnalyticsEvent,
-	AnalyticsContext,
-} from '@atlaskit/analytics-next';
-import Heading from '@atlaskit/heading';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import Heading from '@atlaskit/heading/heading';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../messages';

@@ -2,13 +2,15 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { PEOPLE_TEAMS_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { PEOPLE_TEAMS_CONTEXT } from '@atlaskit/analytics-namespaced-context/PeopleTeamsAnalyticsContext';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
 import { defaultAnalyticsContextData, TeamsAppAnalyticsContext } from './index';
 
-jest.mock('@atlaskit/analytics-next', () => ({
-	AnalyticsContext: jest.fn().mockImplementation((props) => <div>{props.children}</div>),
+jest.mock('@atlaskit/analytics-next/AnalyticsContext', () => ({
+	...jest.requireActual('@atlaskit/analytics-next/AnalyticsContext'),
+	__esModule: true,
+	default: jest.fn().mockImplementation((props) => <div>{props.children}</div>),
 }));
 
 describe('PeopleTeamsAnalyticsContext', () => {

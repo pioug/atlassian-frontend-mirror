@@ -5,10 +5,10 @@
  */
 {
   "testExamples": [
-    "09-size-function.tsx",
+    "09-size-function.vr.ap.tsx",
     "14-svg.tsx",
     "101-new-icon-explorer.tsx",
-    "107-new-icons-size.tsx",
+    "107-new-icons-size.vr.ap.tsx",
     "vr/vr-new-icon-button.tsx"
   ],
   "exampleDependencies": [

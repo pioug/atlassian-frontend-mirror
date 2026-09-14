@@ -8,6 +8,34 @@ typescriptEslintTester.run(
 	{
 		valid: [
 			{
+				name: 'typed named dimension query matching a local container',
+				code: `
+				  import { cssMap } from '@atlaskit/css';
+				  import type ContainerQuery from '@atlaskit/css/at-rules/container';
+
+				  const styles = cssMap({
+				    root: { containerName: 'sidebar', containerType: 'inline-size' },
+				    content: {
+				    ['@container sidebar (width > 300px)' satisfies ContainerQuery]: {},
+				    },
+				  });
+				`,
+			},
+			{
+				name: 'container query with a chained satisfies expression and local container',
+				code: `
+				  import { cssMap } from '@atlaskit/css';
+				  import type ContainerQuery from '@atlaskit/css/at-rules/container';
+
+				  const styles = cssMap({
+				    root: { containerName: 'sidebar', containerType: 'inline-size' },
+				    content: {
+				    ['@container sidebar (width > 300px)' satisfies ContainerQuery satisfies string]: {},
+				    },
+				  });
+				`,
+			},
+			{
 				name: 'Basic valid test',
 				code: `
           import { css } from '@compiled/react';
@@ -38,6 +66,98 @@ typescriptEslintTester.run(
 		],
 		invalid: [
 			{
+				name: 'typed query without a matching local container name',
+				code: `
+				  import { css } from '@compiled/react';
+				  import type ContainerQuery from '@atlaskit/css/at-rules/container';
+				  css({ ['@container sidebar (width > 300px)' satisfies ContainerQuery]: {} });
+				`,
+				errors: [{ messageId: 'no-mismatched-container-name' }],
+			},
+			{
+				name: 'container name and query name must match exactly',
+				code: `
+				  import { cssMap } from '@atlaskit/css';
+				  import type ContainerQuery from '@atlaskit/css/at-rules/container';
+				  const styles = cssMap({
+				    root: { containerName: 'sidebar', containerType: 'inline-size' },
+				    content: { ['@container card (width > 300px)' satisfies ContainerQuery]: {} },
+				  });
+				`,
+				errors: [{ messageId: 'no-mismatched-container-name' }],
+			},
+			{
+				name: 'dynamic container names are not statically bound',
+				code: `
+				  import { cssMap } from '@atlaskit/css';
+				  import type ContainerQuery from '@atlaskit/css/at-rules/container';
+				  const name = 'card';
+				  const styles = cssMap({
+				    root: { containerName: name, containerType: 'inline-size' },
+				    content: { ['@container card (width > 300px)' satisfies ContainerQuery]: {} },
+				  });
+				`,
+				errors: [{ messageId: 'no-mismatched-container-name' }],
+			},
+			{
+				name: 'typed style query is rejected',
+				code: `
+				  import { cssMap } from '@atlaskit/css';
+				  import type ContainerQuery from '@atlaskit/css/at-rules/container';
+				  const styles = cssMap({
+				    root: { containerName: 'card', containerType: 'normal' },
+				    content: { ['@container card style(--density: compact)' satisfies ContainerQuery]: {} },
+				  });
+				`,
+				errors: [{ messageId: 'no-container-style-queries' }],
+			},
+			{
+				name: 'typed query with a non-dimension condition is rejected',
+				code: `
+				  import { cssMap } from '@atlaskit/css';
+				  import type ContainerQuery from '@atlaskit/css/at-rules/container';
+				  const styles = cssMap({
+				    root: { containerName: 'card', containerType: 'normal' },
+				    content: { ['@container card (orientation: landscape)' satisfies ContainerQuery]: {} },
+				  });
+				`,
+				errors: [{ messageId: 'no-non-dimension-container-queries' }],
+			},
+			{
+				name: 'container query with an unrelated satisfies type',
+				code: `
+          import { css } from '@compiled/react';
+
+          css({
+            ['@container sidebar (width > 300px)' satisfies string]: {},
+          });
+        `,
+				errors: [{ messageId: 'no-mismatched-container-name' }],
+			},
+			{
+				name: 'container query with a type from another entrypoint',
+				code: `
+          import { css } from '@compiled/react';
+          import type ContainerQuery from './container-query';
+
+          css({
+            ['@container sidebar (width > 300px)' satisfies ContainerQuery]: {},
+          });
+        `,
+				errors: [{ messageId: 'no-mismatched-container-name' }],
+			},
+			{
+				name: 'container query with an as assertion',
+				code: `
+          import { css } from '@compiled/react';
+
+          css({
+            ['@container sidebar (width > 300px)' as string]: {},
+          });
+        `,
+				errors: [{ messageId: 'no-mismatched-container-name' }],
+			},
+			{
 				name: 'Basic test for @container',
 				code: `
         import { css } from '@compiled/react';
@@ -50,7 +170,7 @@ typescriptEslintTester.run(
           }
         });
       `,
-				errors: [{ messageId: 'no-container-queries' }],
+				errors: [{ messageId: 'no-unbound-container-queries' }],
 			},
 			{
 				name: '@container template literal in styled div',
@@ -113,7 +233,7 @@ typescriptEslintTester.run(
           },
         });
       `,
-				errors: [{ messageId: 'no-container-queries' }],
+				errors: [{ messageId: 'no-mismatched-container-name' }],
 			},
 			{
 				name: '@container in template literal within styled div with TS type parameter',

@@ -1,37 +1,36 @@
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import {
-	type AriaOnFocusProps,
-	type ClearIndicatorProps,
-	type DropdownIndicatorProps,
-	type FormatOptionLabelMeta,
-	type GroupBase as GroupType,
-	type IndicatorsContainerProps,
-	type InputActionMeta,
-	type InputProps,
-	type LoadingIndicatorProps,
-	type MultiValueGenericProps,
-	type MultiValueProps,
-	type MultiValueRemoveProps,
-	type NoticeProps,
-	type ActionMeta as RSActionMeta,
-	type ControlProps as RSControlProps,
-	type GroupProps as RSGroupProps,
-	type MenuListProps as RSMenuListComponentProps,
-	type MenuProps as RSMenuProps,
-	type Options as RSOptionsType,
-	type PlaceholderProps as RSPlaceholderProps,
-	type SelectComponentsConfig as RSSelectComponentsConfig,
-	type StylesConfig as RSStylesConfig,
-	type ValueContainerProps as RSValueContainerProps,
-	type OnChangeValue as RSValueType,
-	type OptionProps as ReactSelectOptionProps,
-	type Props as ReactSelectProps,
-	type SelectInstance,
-	type SingleValueProps,
-} from '@atlaskit/react-select';
-import { type AsyncProps } from '@atlaskit/react-select/async';
-import type BaseSelect from '@atlaskit/react-select/base';
-import { type CreatableProps } from '@atlaskit/react-select/creatable';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { AriaOnFocusProps } from '@atlaskit/react-select/accessibility';
+import type { ClearIndicatorProps } from '@atlaskit/react-select/clear-indicator';
+import type { DropdownIndicatorProps } from '@atlaskit/react-select/dropdown-indicator';
+import type {
+	GroupBase as GroupType,
+	InputActionMeta,
+	MultiValueGenericProps,
+	NoticeProps,
+	ActionMeta as RSActionMeta,
+	Options as RSOptionsType,
+	OnChangeValue as RSValueType,
+	SelectInstance,
+} from '@atlaskit/react-select/types';
+import type { IndicatorsContainerProps } from '@atlaskit/react-select/indicators-container';
+import type { InputProps } from '@atlaskit/react-select/input';
+import type { LoadingIndicatorProps } from '@atlaskit/react-select/loading-indicator';
+import type { MultiValueProps } from '@atlaskit/react-select/multi-value';
+import type { MultiValueRemoveProps } from '@atlaskit/react-select/multi-value-remove';
+import type { ControlProps as RSControlProps } from '@atlaskit/react-select/control';
+import type { GroupProps as RSGroupProps } from '@atlaskit/react-select/group';
+import type { MenuListProps as RSMenuListComponentProps } from '@atlaskit/react-select/menu-list';
+import type { MenuProps as RSMenuProps } from '@atlaskit/react-select/menu';
+import type { PlaceholderProps as RSPlaceholderProps } from '@atlaskit/react-select/placeholder';
+import type { SelectComponentsConfig as RSSelectComponentsConfig } from '@atlaskit/react-select/components';
+import type { StylesConfig as RSStylesConfig } from '@atlaskit/react-select/styles';
+import type { ValueContainerProps as RSValueContainerProps } from '@atlaskit/react-select/value-container';
+import type { OptionProps as ReactSelectOptionProps } from '@atlaskit/react-select/option';
+import type { StateManagerProps as ReactSelectProps } from '@atlaskit/react-select/use-state-manager';
+import type { SingleValueProps } from '@atlaskit/react-select/single-value';
+import type { AsyncProps } from '@atlaskit/react-select/use-async';
+import type { FormatOptionLabelMeta, default as BaseSelect } from '@atlaskit/react-select/base';
+import type { CreatableProps } from '@atlaskit/react-select/creatable/default';
 
 export type ValidationState = 'default' | 'error' | 'success';
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
@@ -63,6 +62,11 @@ export interface OptionProps<
 }
 
 interface CustomSelectProps extends WithAnalyticsEventsProps {
+	/**
+	 * Controls how the menu is rendered. The default `popup` mode uses the normal transient menu
+	 * rendering. The `inline` mode keeps the menu open and renders it within the parent layout.
+	 */
+	menuRenderMode?: 'popup' | 'inline';
 	/**
 	 * This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5
 	 */

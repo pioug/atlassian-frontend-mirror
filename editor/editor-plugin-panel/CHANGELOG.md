@@ -1,5 +1,465 @@
 # @atlaskit/editor-plugin-panel
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 18.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.15
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 17.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- [`72f7cec91a1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f7cec91a1d4) -
+  Remove stale `platform-feature-flags` registrations for shipped block menu and blocks feature
+  gates. No behaviour change.
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [`ae5ca1873aef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5ca1873aef4) -
+  Clean up feature gate `platform_editor_nested_dnd_styles_changes`
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.1
+
+### Patch Changes
+
+- [`7a9ec6f1fa018`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a9ec6f1fa018) -
+  [EDITOR-7592] Add a new panel background color palette with expanded colors behind the lovability
+  experiment and patch gate.
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

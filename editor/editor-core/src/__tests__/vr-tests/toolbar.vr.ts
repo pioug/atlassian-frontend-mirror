@@ -1,6 +1,6 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import { EditorToolbarWithIconBefore } from './toolbar.fixtures';
+import { EditorToolbarWithIconBefore } from './toolbar.fixtures.vr.ap';
 
 snapshot(EditorToolbarWithIconBefore, {
 	description: 'Toolbar with icon before',

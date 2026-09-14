@@ -7,7 +7,7 @@ import { cssMap, cx } from '@atlaskit/css';
 import VerifiedIcon from '@atlaskit/icon/core/status-verified';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { agentVerified_AtlaskitRovoAgentComponents$key } from './__generated__/agentVerified_AtlaskitRovoAgentComponents.graphql';
 import messages from './messages';

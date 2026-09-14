@@ -9,8 +9,13 @@ import {
 	INSERT_MEDIA_VIA,
 	MEDIA_INSERT_TAB,
 } from '@atlaskit/editor-common/analytics';
+import {
+	DEFAULT_MEDIA_INSERT_TAB_RANK,
+	MEDIA_INSERT_TAB_RANK,
+} from '@atlaskit/editor-common/media-insert/rank';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaInsertPlugin, RegisterInsertTab } from './mediaInsertPluginType';
 import { closeMediaInsertPicker, showMediaInsertPopup } from './pm-plugins/actions';
@@ -18,17 +23,32 @@ import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { InsertExternalMediaSingle, InsertFile, InsertMediaSingle } from './types';
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
+import { getMediaInsertQuickInsertComponents } from './ui/quick-insert/getMediaInsertQuickInsertComponents';
 
 const getInitialMediaInsertTab = (
 	registeredTabs: RegisterInsertTab[],
 	isOnlyExternalLinks?: boolean,
 ): MEDIA_INSERT_TAB => {
-	const registeredTab = registeredTabs[0];
-	if (registeredTab) {
-		return registeredTab.key as MEDIA_INSERT_TAB;
+	const initialBuiltInTab = isOnlyExternalLinks ? MEDIA_INSERT_TAB.LINK : MEDIA_INSERT_TAB.UPLOAD;
+	const initialBuiltInRank = isOnlyExternalLinks
+		? MEDIA_INSERT_TAB_RANK[MEDIA_INSERT_TAB.LINK]
+		: MEDIA_INSERT_TAB_RANK[MEDIA_INSERT_TAB.UPLOAD];
+	const firstRegisteredTab = registeredTabs.reduce<RegisterInsertTab | undefined>(
+		(firstTab, tab) =>
+			!firstTab ||
+			(tab.rank ?? DEFAULT_MEDIA_INSERT_TAB_RANK) < (firstTab.rank ?? DEFAULT_MEDIA_INSERT_TAB_RANK)
+				? tab
+				: firstTab,
+		undefined,
+	);
+	if (
+		firstRegisteredTab &&
+		(firstRegisteredTab.rank ?? DEFAULT_MEDIA_INSERT_TAB_RANK) < initialBuiltInRank
+	) {
+		return firstRegisteredTab.key as MEDIA_INSERT_TAB;
 	}
 
-	return isOnlyExternalLinks ? MEDIA_INSERT_TAB.LINK : MEDIA_INSERT_TAB.UPLOAD;
+	return initialBuiltInTab;
 };
 
 /**
@@ -57,6 +77,10 @@ const createInsertTabRegistry = (): {
 
 export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 	const insertTabRegistry = createInsertTabRegistry();
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getMediaInsertQuickInsertComponents({ api, config }));
+	}
 
 	return {
 		name: 'mediaInsert',
@@ -188,40 +212,42 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 			);
 		},
 
-		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'media-insert',
-					title: formatMessage(messages.mediaFiles),
-					description: formatMessage(messages.mediaFilesDescription),
-					priority: 400,
-					keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
-					icon: () => <IconImages />,
-					isDisabledOffline: true,
-					action(insert) {
-						// Insert empty string to remove the typeahead raw text
-						// close the quick insert immediately
-						const tr = insert('');
-						api?.mediaInsert.commands.showMediaInsertPopup()({ tr });
+		pluginsOptions: isRegisteredSlashCommandEnabled
+			? {}
+			: {
+					quickInsert: ({ formatMessage }) => [
+						{
+							id: 'media-insert',
+							title: formatMessage(messages.mediaFiles),
+							description: formatMessage(messages.mediaFilesDescription),
+							priority: 400,
+							keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
+							icon: () => <IconImages />,
+							isDisabledOffline: true,
+							action(insert) {
+								// Insert empty string to remove the typeahead raw text
+								// close the quick insert immediately
+								const tr = insert('');
+								api?.mediaInsert.commands.showMediaInsertPopup()({ tr });
 
-						api?.analytics?.actions?.attachAnalyticsEvent({
-							action: ACTION.OPENED,
-							actionSubject: ACTION_SUBJECT.PICKER,
-							actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
-							attributes: {
-								inputMethod: INPUT_METHOD.QUICK_INSERT,
-								openedTab: getInitialMediaInsertTab(
-									insertTabRegistry.getAll(),
-									config?.isOnlyExternalLinks,
-								),
+								api?.analytics?.actions?.attachAnalyticsEvent({
+									action: ACTION.OPENED,
+									actionSubject: ACTION_SUBJECT.PICKER,
+									actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
+									attributes: {
+										inputMethod: INPUT_METHOD.QUICK_INSERT,
+										openedTab: getInitialMediaInsertTab(
+											insertTabRegistry.getAll(),
+											config?.isOnlyExternalLinks,
+										),
+									},
+									eventType: EVENT_TYPE.UI,
+								})(tr);
+
+								return tr;
 							},
-							eventType: EVENT_TYPE.UI,
-						})(tr);
-
-						return tr;
-					},
+						},
+					],
 				},
-			],
-		},
 	};
 };

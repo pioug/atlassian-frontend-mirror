@@ -139,6 +139,58 @@ export const listsStyles: SerializedStyles = css({
 			listStyleType: 'square',
 		},
 
+		/* ======== PREDICTABLE LISTS WITHOUT DECORATIONS ======== */
+
+		/*
+		 * Equivalent of the `data-indent-level` rules above, expressed purely in CSS so the list
+		 * plugin does not have to emit an indentation decoration for every list on every keystroke.
+		 *
+		 * `:is(ul, ol)` is what makes this work: a plain `ul ul` chain only counts ancestors of the
+		 * same type, so a numbered list nested under a bullet list resolved to `decimal` instead of
+		 * `lower-alpha`. Matching either list type counts every list ancestor, which is exactly what
+		 * `data-indent-level` counted. Each extra `:is(ul, ol)` adds one to the selector's element
+		 * count, so the deepest matching rule always wins.
+		 *
+		 * `:not([data-indent-level])` keeps these rules inert while the decoration is still being
+		 * emitted, so they only take effect for the cohort that has it removed.
+		 */
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& ul:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) ul:not([data-indent-level])':
+			{
+				listStyleType: 'disc',
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& :is(ul, ol) ul:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ul:not([data-indent-level])':
+			{
+				listStyleType: 'circle',
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& :is(ul, ol) :is(ul, ol) ul:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ul:not([data-indent-level])':
+			{
+				listStyleType: 'square',
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& ol:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) ol:not([data-indent-level])':
+			{
+				listStyleType: 'decimal',
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& :is(ul, ol) ol:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ol:not([data-indent-level])':
+			{
+				listStyleType: 'lower-alpha',
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& :is(ul, ol) :is(ul, ol) ol:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ol:not([data-indent-level])':
+			{
+				listStyleType: 'lower-roman',
+			},
+
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		li: {
 			position: 'relative',

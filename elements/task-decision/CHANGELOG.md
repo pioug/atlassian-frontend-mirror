@@ -1,5 +1,367 @@
 # @atlaskit/task-decision
 
+## 21.9.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+## 21.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.9.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.8.0
 
 ### Minor Changes

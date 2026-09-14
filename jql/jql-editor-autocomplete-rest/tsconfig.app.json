@@ -37,7 +37,13 @@
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
+			"path": "../jql-autocomplete/tsconfig.app.json"
+		},
+		{
 			"path": "../jql-editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

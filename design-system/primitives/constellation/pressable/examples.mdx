@@ -64,6 +64,51 @@ Use button motion only for Pressable elements that are semantically buttons. Kee
 list items, navigation items, links, and form controls motion-neutral or use the motion tokens for
 their semantic component.
 
+For a custom list item built with Pressable, use list-item motion tokens for the interactive state
+transitions:
+
+```tsx
+import { cssMap } from '@atlaskit/css';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const listItemStyles = cssMap({
+	root: {
+		transition: token('motion.listitem.hovered'),
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+		'&[data-selected]': {
+			transition: token('motion.listitem.selected'),
+		},
+		'&[data-selected]:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&[data-selected]:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+		'&:focus-visible': {
+			transition: 'none',
+		},
+	},
+});
+
+export function CustomListItem({ isSelected, children, onClick }) {
+	return (
+		<Pressable
+			xcss={listItemStyles.root}
+			data-selected={isSelected ? 'true' : undefined}
+			onClick={onClick}
+		>
+			{children}
+		</Pressable>
+	);
+}
+```
+
 <Example Component={PressableBasic} packageName="@atlaskit/primitives/compiled/pressable" />
 
 ## Advanced styling

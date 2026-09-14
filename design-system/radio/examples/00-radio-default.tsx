@@ -6,8 +6,8 @@ import { type SyntheticEvent, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { Checkbox } from '@atlaskit/checkbox';
-import { RadioGroup } from '@atlaskit/radio';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 import { token } from '@atlaskit/tokens';
 

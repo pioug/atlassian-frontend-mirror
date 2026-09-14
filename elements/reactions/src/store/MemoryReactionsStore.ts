@@ -1,4 +1,4 @@
-import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
 	createAndFireSafe,
 	createRestFailedEvent,
@@ -35,9 +35,14 @@ import {
 	ReactionsRemove,
 	sampledReactionsRendered,
 } from '../ufo';
-import { type ReactionUpdateSuccess, ReactionUpdateType } from '../types/reaction';
+import {
+	type ReactionUpdateSuccess,
+	type ReactionUpdateFailure,
+	ReactionUpdateType,
+} from '../types/reaction';
 import type { WithSamplingUFOExperience } from '@atlaskit/emoji';
-import type { ConcurrentExperience } from '@atlaskit/ufo';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 
 /**
  * Set of all available UFO experiences relating to reaction element
@@ -48,6 +53,10 @@ export const ufoExperiences: {
 	 */
 	add: ConcurrentExperience;
 	/**
+	 * Experience when a reaction details gets fetched
+	 */
+	fetchDetails: ConcurrentExperience;
+	/**
 	 * Experience when a reaction emoji gets removed/decrement
 	 */
 	remove: ConcurrentExperience;
@@ -55,10 +64,6 @@ export const ufoExperiences: {
 	 * Experience when the list of reactions gets rendered with sampling
 	 */
 	render: (instanceId: string) => WithSamplingUFOExperience;
-	/**
-	 * Experience when a reaction details gets fetched
-	 */
-	fetchDetails: ConcurrentExperience;
 } = {
 	/**
 	 * Experience when a reaction emoji gets added
@@ -276,6 +281,7 @@ export class MemoryReactionsStore implements Store {
 			ari: string,
 			emojiId: string,
 			onSuccess?: ReactionUpdateSuccess,
+			onFailure?: ReactionUpdateFailure,
 		): void => {
 			this.withReadyReaction(
 				containerAri,
@@ -291,7 +297,7 @@ export class MemoryReactionsStore implements Store {
 				const callback: Updater<ReactionSummary> =
 					reaction.reacted || !notReactedCallback ? reactedCallback : notReactedCallback;
 
-				const updatedReaction = callback(reaction, onSuccess);
+				const updatedReaction = callback(reaction, onSuccess, onFailure);
 				if (updatedReaction && !(updatedReaction instanceof Function)) {
 					return readyState(
 						reactionsState.reactions.map(
@@ -306,7 +312,11 @@ export class MemoryReactionsStore implements Store {
 		};
 	}
 
-	private doAddReaction = (reaction: ReactionSummary, onSuccess?: ReactionUpdateSuccess) => {
+	private doAddReaction = (
+		reaction: ReactionSummary,
+		onSuccess?: ReactionUpdateSuccess,
+		onFailure?: ReactionUpdateFailure,
+	) => {
 		const { containerAri, ari, emojiId } = reaction;
 		this.optmisticUpdate(containerAri, ari, emojiId)(addOne);
 		this.flash(reaction);
@@ -350,11 +360,20 @@ export class MemoryReactionsStore implements Store {
 						},
 					});
 				}
+				if (onFailure && expVal('exp-comment-reaction-fail-fix', 'isEnabled', false)) {
+					// revert the optimistic update since the request failed
+					this.optmisticUpdate(containerAri, ari, emojiId)(removeOne);
+					onFailure(ReactionUpdateType.added, ari, emojiId, error);
+				}
 				return Promise.reject(error);
 			});
 	};
 
-	private doRemoveReaction = (reaction: ReactionSummary, onSuccess?: ReactionUpdateSuccess) => {
+	private doRemoveReaction = (
+		reaction: ReactionSummary,
+		onSuccess?: ReactionUpdateSuccess,
+		onFailure?: ReactionUpdateFailure,
+	) => {
 		const { containerAri, ari, emojiId } = reaction;
 		const exp = ufoExperiences.remove.getInstance(`${ari}|${emojiId}`);
 		this.setParticleEffectForEmoji(containerAri, ari, emojiId, false);
@@ -385,6 +404,11 @@ export class MemoryReactionsStore implements Store {
 						reason: 'deleteReaction fetch failed',
 					},
 				});
+				if (onFailure && expVal('exp-comment-reaction-fail-fix', 'isEnabled', false)) {
+					// revert the optimistic update since the request failed
+					this.optmisticUpdate(containerAri, ari, emojiId)(addOne);
+					onFailure(ReactionUpdateType.removed, ari, emojiId, error);
+				}
 			});
 	};
 
@@ -470,12 +494,14 @@ export class MemoryReactionsStore implements Store {
 		ari: string,
 		emojiId: string,
 		onSuccess?: ReactionUpdateSuccess,
+		onFailure?: ReactionUpdateFailure,
 	) => void = this.withReaction(this.doRemoveReaction, this.doAddReaction);
 	public addReaction: (
 		containerAri: string,
 		ari: string,
 		emojiId: string,
 		onSuccess?: ReactionUpdateSuccess,
+		onFailure?: ReactionUpdateFailure,
 	) => void = this.withReaction(this.flash, this.doAddReaction);
 
 	public getDetailedReaction = (containerAri: string, ari: string, emojiId: string): void => {

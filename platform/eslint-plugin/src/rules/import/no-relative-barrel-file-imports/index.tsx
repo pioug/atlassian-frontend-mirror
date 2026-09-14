@@ -20,6 +20,17 @@ type ImportDeclarationNode = TSESTree.ImportDeclaration;
 type AugmentedSpecifier = ImportSpecifierNode & { importKind?: 'type' | 'value' };
 
 /**
+ * TSESTree and ESLint's own ESTree types describe the same runtime nodes, but the
+ * two unions stopped being structurally assignable in typescript-eslint v8, where
+ * `ImportSpecifier.imported` widened to `Identifier | StringLiteral`.
+ *
+ * This rule is written against ESLint's `Rule` API (`context.report`, `fixer`)
+ * while typing its own nodes as TSESTree, so the two meet at those call sites.
+ * Convert only at that boundary — never to weaken typing elsewhere.
+ */
+const asRuleNode = (node: TSESTree.Node): Rule.Node => node as unknown as Rule.Node;
+
+/**
  * Specifier with additional metadata for tracking during barrel file resolution.
  */
 interface SpecifierWithOriginal {
@@ -65,8 +76,10 @@ function getSourcePackageExportsMaps(fs: FileSystem): Map<string, Map<string, st
 }
 
 function getImportedName(spec: TSESTree.ImportSpecifier): string {
-	const imported = spec.imported as TSESTree.Identifier | TSESTree.Literal;
-	return imported.type === 'Identifier' ? imported.name : String(imported.value);
+	const imported = spec.imported;
+	return imported.type === 'Identifier'
+		? imported.name
+		: String((imported as TSESTree.Literal).value);
 }
 
 /**
@@ -243,7 +256,9 @@ function buildImportStatement({
 		)?.local.name;
 		return `import ${typeKeyword}${defaultName} from ${quoteChar}${path}${quoteChar};`;
 	} else {
-		return `import ${typeKeyword}{ ${importNames.join(', ')} } from ${quoteChar}${path}${quoteChar};`;
+		return `import ${typeKeyword}{ ${importNames.join(
+			', ',
+		)} } from ${quoteChar}${path}${quoteChar};`;
 	}
 }
 
@@ -284,8 +299,6 @@ const ruleMeta: Rule.RuleMetaData = {
 	docs: {
 		description:
 			'Warn when imports are from a relative barrel file and provide an auto-fix to split them into specific imports.',
-		category: 'Best Practices',
-		recommended: false,
 	},
 	fixable: 'code',
 	messages: {
@@ -383,8 +396,9 @@ function collectSpecifiersBySource({
 			const parentImportKind = node.type === 'ImportDeclaration' ? node.importKind : undefined;
 			kind = parentImportKind === 'type' || spec.importKind === 'type' ? 'type' : 'value';
 		} else if (spec.type === 'ExportSpecifier') {
-			nameInSource = spec.local.name;
-			nameInLocal = spec.exported.name;
+			nameInSource = spec.local.type === 'Identifier' ? spec.local.name : String(spec.local.value);
+			nameInLocal =
+				spec.exported.type === 'Identifier' ? spec.exported.name : String(spec.exported.value);
 			const parentExportKind = node.type === 'ExportNamedDeclaration' ? node.exportKind : undefined;
 			kind = parentExportKind === 'type' || spec.exportKind === 'type' ? 'type' : 'value';
 		} else {
@@ -689,7 +703,7 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 									});
 
 									if (newImportStatement.length > 0) {
-										fixes.push(fixer.replaceText(existingImport, newImportStatement));
+										fixes.push(fixer.replaceText(asRuleNode(existingImport), newImportStatement));
 									}
 								} else {
 									// Create new import

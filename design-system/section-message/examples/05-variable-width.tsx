@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-import CodeBlock from '@atlaskit/code/block';
-import { Label } from '@atlaskit/form';
+import CodeBlock from '@atlaskit/code/code-block';
+import { Label } from '@atlaskit/form/label/default';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
-import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import Range from '@atlaskit/range/range';
+import SectionMessage from '@atlaskit/section-message/message';
+import SectionMessageAction from '@atlaskit/section-message/message-action';
 
 const Example = (): React.JSX.Element => {
 	const [width, setWidth] = useState(800);

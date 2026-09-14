@@ -5,12 +5,11 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
 import type { CloneOptions } from '../types';
-
 import { determineTableHeaderStateFromTableNode } from './analyse-table';
 import { cloneTr } from './clone-tr';
-import { findTable } from './find';
+import { findTable } from './find-table';
 import { getSelectionRangeInColumn } from './get-selection-range-in-column';
-import { isValidReorder } from './reorder-utils';
+import { isValidReorder } from './is-valid-reorder';
 import type { TableNodeCache } from './table-node-types';
 import { tableNodeTypes } from './table-node-types';
 

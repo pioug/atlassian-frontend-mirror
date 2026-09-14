@@ -1,7 +1,7 @@
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import type { Datasource } from '@atlaskit/linking-common';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import type { Datasource } from '@atlaskit/linking-common/types';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import type { LinkAppearance, UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
 import { EditorCardProvider, isJiraWorkItem } from '../provider';
@@ -1249,8 +1249,8 @@ describe('providers > editor', () => {
 			expect(adf).toEqual(expectedInlineAdf(url));
 		});
 
-		it('should not use embed appearance for AVP Visualization URLs when FF is off', async () => {
-			setBooleanFeatureFlagResolver(() => false);
+		it('should use embed appearance for dashboards chart URLs', async () => {
+			setBooleanFeatureFlagResolver((flag) => flag === 'platform_avp_viz_dashboard_link_embed');
 			const provider = new EditorCardProvider();
 			mockFetch.mockResolvedValueOnce({
 				json: async () =>
@@ -1268,33 +1268,8 @@ describe('providers > editor', () => {
 				ok: true,
 			});
 
-			const url = 'https://hello.atlassian.net/avpviz/c/12345';
-			const adf = await provider.resolve(url, 'inline', false, true);
-			expect(adf).toEqual(expectedInlineAdf(url));
-		});
-
-		it('should use embed appearance for AVP Visualization URLs when FF is on', async () => {
-			setBooleanFeatureFlagResolver(
-				(flag) => flag === 'avp_unfurl_shared_charts_embed_by_default_2',
-			);
-			const provider = new EditorCardProvider();
-			mockFetch.mockResolvedValueOnce({
-				json: async () =>
-					getMockProvidersResponse({
-						userPreferences: {
-							defaultAppearance: 'inline',
-							appearances: [],
-						},
-					}),
-				ok: true,
-			});
-			// Mocking call to /resolve/batch
-			mockFetch.mockResolvedValueOnce({
-				json: async () => [{ body: mocks.success, status: 200 }],
-				ok: true,
-			});
-
-			const url = 'https://hello.atlassian.net/avpviz/c/12345';
+			const url =
+				'https://hello.atlassian.net/dashboards/c/cloud-id/w/workspace-id/d/dashboard-id/chart/chart-id';
 			const adf = await provider.resolve(url, 'inline', false, true);
 			expect(adf).toEqual(expectedEmbedAdf(url));
 		});

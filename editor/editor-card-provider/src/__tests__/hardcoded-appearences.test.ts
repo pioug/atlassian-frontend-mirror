@@ -1,7 +1,8 @@
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { EditorCardProvider } from '..';
 import { mocks } from './__fixtures__/mocks';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { _overrides } from '@atlaskit/tmp-editor-statsig/setup';
 
 import { getMockProvidersResponse, expectedInlineAdf, expectedEmbedAdf } from './test-utils';
@@ -19,7 +20,7 @@ describe('hardcoded appearences', () => {
 		mockFetch = jest.fn();
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(global as any).fetch = mockFetch;
-		setBooleanFeatureFlagResolver((flag) => flag === 'avp_unfurl_shared_charts_embed_by_default_2');
+		setBooleanFeatureFlagResolver(() => false);
 	});
 
 	afterAll(() => {
@@ -68,6 +69,15 @@ describe('hardcoded appearences', () => {
 		[
 			'Loom Video human readable section',
 			'https://www.loom.com/share/human-readable-text-9b62d620bbea4476bbf2286a6b0c83cf',
+		],
+		['Loom Playlist', 'https://www.loom.com/playlists/01234567-89ab-cdef-0123-456789abcdef'],
+		[
+			'Loom Playlist view with positional params',
+			'https://www.loom.com/playlists/01234567-89ab-cdef-0123-456789abcdef/view?v=abcdef0123456789abcdef0123456789&t=42',
+		],
+		[
+			'Loom Playlist embed',
+			'https://www.loom.com/embed/playlists/01234567-89ab-cdef-0123-456789abcdef',
 		],
 		['A whiteboard', 'https://pug.jira-dev.com/wiki/spaces/BT2/whiteboard/452724424706'],
 		[
@@ -298,9 +308,19 @@ describe('hardcoded appearences', () => {
 			'https://hello.atlassian.net/avpviz/c/12345/?foo=bar',
 		],
 		['AVP Visualization view on different domain', 'https://jdog.jira-dev.com/avpviz/c/entity-123'],
+		[
+			'Dashboards chart view',
+			'https://hello.atlassian.net/dashboards/c/cloud-id/w/workspace-id/d/dashboard-id/chart/chart-id',
+		],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
 		async (_, url) => {
+			if (url.includes('/playlists/')) {
+				passGate('loom-playlist-smartlink-embed-default');
+			}
+			if (url.includes('/dashboards/')) {
+				setBooleanFeatureFlagResolver((flag) => flag === 'platform_avp_viz_dashboard_link_embed');
+			}
 			mockGetExperimentValue.mockReturnValue(true);
 			const provider = new EditorCardProvider();
 			mockFetch.mockResolvedValueOnce({

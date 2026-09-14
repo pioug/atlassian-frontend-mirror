@@ -201,6 +201,8 @@ Here are some examples of how you might use `getRovoParams` resulting value:
 - Open new chat and send message `{ pathway: 'chat', prompt: 'What should I work on next?' }`
 - Open specific chat and send message
   `{ pathway: 'chat', conversationId: '123', prompt: 'What should I work on next?' }`
+- Open a chat with Rovo journey attribution
+  `{ pathway: 'chat', rovoJourneyId: '00000000-0000-4000-8000-000000000001' }`
 - Open specific chat with specific agent and send message
   `{ pathway: 'chat', conversationId: '123', agentId: '456', prompt: 'What should I work on next?' }`
 - Browse agents `{ pathway: 'agents-browse' }`

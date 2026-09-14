@@ -17,4 +17,6 @@
 import { MetricText, type MetricTextProps } from '../compiled/components/metric-text';
 
 export type { MetricTextProps };
+export { MetricText };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default MetricText;

@@ -1,4 +1,4 @@
-import { findParentByClassname } from '../..';
+import { findParentByClassname } from '../../findParentByClassname';
 
 describe('findParentByClassname()', () => {
 	it('should return the parent element if the class matches', () => {

@@ -18,8 +18,8 @@ import type {
 	FloatingToolbarOverflowDropdownOptions,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { ButtonItemProps } from '@atlaskit/menu';
-import { HeadingItem } from '@atlaskit/menu';
+import type { ButtonItemProps } from '@atlaskit/menu/types';
+import HeadingItem from '@atlaskit/menu/heading-item';
 import { token } from '@atlaskit/tokens';
 
 export const menuItemDimensions = {
@@ -89,7 +89,6 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 			<div css={menuContainerStyles} role="menu">
 				{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
 				{items
-					// @ts-ignore
 					.filter((item) => item && (!('hidden' in item) || !item.hidden))
 					.map((item, idx) => {
 						if (!('type' in item)) {

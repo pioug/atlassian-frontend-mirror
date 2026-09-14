@@ -1,5 +1,498 @@
 # @atlaskit/media-client
 
+## 38.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.1.0
+
+### Minor Changes
+
+- [`d2921f7a6fcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2921f7a6fcaa) -
+  MIME-derived file extensions on anonymized Rovo image uploads behind experiment gate
+  "cc_maui_polish_changes_batch_8".
+
+## 38.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.0.0
+
+### Major Changes
+
+- [`59efe37532b46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59efe37532b46) -
+  `UploadableFile.size` is now a required field instead of optional, and the size is consistently
+  forwarded to downstream services.
+
+  Because `size` is now always available, `createFileFromUpload` sends `conditions.size` in the
+  request body unconditionally, instead of only sending it when the size happened to be truthy. This
+  lets downstream services validate the number of bytes they received against the size the client
+  declared, rather than accepting an upload whose expected size is unknown.
+
+  Accordingly, `MediaStoreCreateFileFromUploadBody.conditions` and its `size` are now required
+  rather than optional.
+
+## 37.7.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.7.1
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+## 37.7.0
+
+### Minor Changes
+
+- [`be8a71519cbc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be8a71519cbc2) -
+  Add support for seeding media card file state from SSR media node metadata, behind the
+  `platform_media_ssr_data_seed` feature gate.
+
+  `@atlaskit/media-client` gains a Relay-free `mapSsrMediaItemToFileState`. Malformed, partial, or
+  non-array input yields `undefined` rather than throwing.
+
+  `@atlaskit/media-card` accepts an optional `ssrMediaItem` prop. When `ssrFileState` is absent and
+  the gate is on, the card converts `ssrMediaItem` to FileState via `mapSsrMediaItemToFileState` and
+  seeds `useFileState`. `ssrFileState` still wins when both are provided (Relay / media-card-relay).
+
+  `@atlaskit/renderer` extends `MediaSSR` with `ssrMediaItems` — the host's SSR media payload,
+  passed through untouched. The renderer finds the matching item by id and forwards it as
+  `ssrMediaItem` to Card. Hosts need no knowledge of `FileState` or of media internals. The field is
+  optional and additive: hosts that do not supply it, and media ids without an entry, keep the
+  current fetch behaviour.
+
+  `@atlaskit/media-card-relay`'s `MediaCardRelay` / `MediaInlineCardRelay` now call the shared
+  `mapSsrMediaItemToFileState` mapper directly (the Relay fragment data is structurally assignable
+  to `SsrMediaItem`, so no cast or wrapper is needed). Its public API and behaviour are unchanged.
+
+  `@atlaskit/media-file-preview` now forwards an SSR-seeded pre-signed `previewCdnUrl` to the new
+  optional `MediaClient.getImageUrlSync(id, params, seededCdnUrl)` argument when
+  `platform_media_ssr_data_seed` is enabled and CDN delivery is in use. `@atlaskit/media-client`
+  preserves the signed CDN asset URL and inserts supported image parameters before the `wm-ari` /
+  `wm-v` watermark anchor, avoiding query-string rebuilding or re-encoding that can invalidate
+  CloudFront signatures. Path-based routing, isolated cloud, GCP, and callers without a seeded URL
+  retain the existing URL-generation behaviour.
+
+## 37.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.4.0
+
+### Minor Changes
+
+- [`bcd2b3a9ab05b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcd2b3a9ab05b) -
+  Added a fallback for file size: if `size` is not supplied by the integrator, it is now inferred
+  from the Blob content.
+
+## 37.3.0
+
+### Minor Changes
+
+- [`6d7421629b9df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d7421629b9df) -
+  Apply the Volt one-export-per-file standard via `volt-migrate-package` to
+  `@atlaskit/media-client`. The package `exports` map is **unchanged** — all 51 public subpaths keep
+  their existing targets, because `@atlaskit/media-client` already resolved every subpath directly
+  to its `./src/*` implementation. What changed is the module layout: multi-export modules were
+  split so each shippable module owns a single export, with `@deprecated` compatibility re-exports
+  left behind on the original module (VOLTC-139 tracks their removal).
+
+  ### No public API was removed
+
+  Every symbol that moved is still exported from the subpath that previously exposed it, so existing
+  imports keep working:
+
+  ```ts
+  // Still valid — no change required, but deprecated
+  import { fetchRetry } from '@atlaskit/media-client/request/helpers';
+  ```
+
+  ### A few subpaths now expose additional symbols
+
+  Module-private helpers that the split modules need to share had to be hoisted into their own
+  modules and re-exported. They are not intended for consumer use:
+  - `./media-store` — `MEDIA_API_REGION`, `MEDIA_API_ENVIRONMENT`, `getValueFromSessionStorage`
+  - `./request/helpers` — `getStatusCode`
+  - `./url` — `mediaBlobUrlIdentifier`
+  - `./test-helpers/media-client-errors` — `defaultMetadata`, the `MediaHeaders` type
+  - `./test-helpers/media-client-provider` — `defaultAuthParameter`, the `AuthParameter` type
+  - `./test-helpers/media-picker-auth-provider` — `accessUrns`
+
+  ### Note for consumers that mock these modules
+
+  Internal cross-module imports now point at the split modules rather than the module that used to
+  declare everything, and four private barrels were deleted (`client/media-store/index.ts`,
+  `test-helpers/MockedMediaApi/index.ts`, `utils/mediaSubscribable/index.ts`,
+  `utils/mobileUpload/index.ts`). If your tests `jest.mock()` or `jest.spyOn()` a
+  `@atlaskit/media-client` module to intercept a symbol that media-client itself consumes
+  internally, the mock may no longer take effect — mock the module that now owns the export instead
+  (for example `client/media-store/resolveInitialAuth` rather than the `client/media-store` barrel,
+  and `utils/request/isFetchNetworkError` rather than `utils/request/helpers`).
+
+  ### Internal-only renames
+
+  Error classes and helpers were renamed to match their single export: `uploader/error.ts` →
+  `uploader/UploaderError.ts`, `utils/mobileUpload/error.ts` →
+  `utils/mobileUpload/MobileUploadError.ts`, `utils/mobileUpload/helpers.ts` →
+  `utils/mobileUpload/createMobileDownloadFileStream.ts`, `utils/mobileUpload/stateMachine/index.ts`
+  → `utils/mobileUpload/stateMachine/createMobileUploadStateMachine.ts`, and
+  `utils/setTimeoutPromise.ts` → `utils/rejectTimeout.ts`. None of these paths are reachable through
+  the `exports` map. No behaviour change.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.2.18
 
 ### Patch Changes

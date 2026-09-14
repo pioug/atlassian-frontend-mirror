@@ -1,4 +1,4 @@
-import { PanelType } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 
 // SVG path data extracted from panel icon components
 const PANEL_ICON_PATHS: Record<string, string> = {

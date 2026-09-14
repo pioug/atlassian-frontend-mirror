@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render } from '@atlassian/testing-library';
 
 import { IconType, SmartLinkSize } from '../../../../../constants';

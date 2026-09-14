@@ -22,11 +22,14 @@ export const dataCenterApps: string[] = [
 ];
 
 const getLogoDesignCategory = (name: string) => {
-	if (name === 'rovo-hex') {
+	if (name === 'rovo-hex' || name === 'rovo') {
 		return 'rovo';
-	} else if (dataCenterApps.includes(name)) {
+	}
+
+	if (dataCenterApps.includes(name)) {
 		return 'data-center';
 	}
+
 	return 'tile';
 };
 

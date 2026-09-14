@@ -2,12 +2,12 @@ import React, { forwardRef, useMemo } from 'react';
 
 import { cssMap, styled } from '@compiled/react';
 
-import Badge from '@atlaskit/badge';
-import NewButton from '@atlaskit/button/new';
+import Badge from '@atlaskit/badge/badge';
+import NewButton from '@atlaskit/button/default/button';
 import Button from '@atlaskit/button/standard-button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from './types';

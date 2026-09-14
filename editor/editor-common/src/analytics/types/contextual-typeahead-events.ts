@@ -8,7 +8,15 @@ export type CompletionSource =
 	/** Server slow-lane API provided the context vector and LM logits. */
 	| 'server'
 	/** On-device WebGPU/MLC model provided the context vector and LM logits. */
-	| 'localLlm';
+	| 'localLlm'
+	/**
+	 * An inline-code surface harvested from the session, offered only after the
+	 * scored path finished with no vocabulary for the prefix. Reported separately
+	 * because it is authorized by being marked as code rather than by model
+	 * evidence, and would otherwise move the headline acceptance rate with no way
+	 * to attribute the change.
+	 */
+	| 'harvest';
 
 type ContextualTypeaheadViewedAttributes = {
 	completionSource: CompletionSource;
@@ -102,10 +110,10 @@ type ContextualTypeaheadLocalModelLoadFailedAttributes = {
 		| 'model_download_failed'
 		| 'module_load_failed'
 		| 'init_failed';
-	/** Product/editor surface where autocomplete is running. */
-	surface: string;
 	/** Whether the GPU supports the shader-f16 feature the model requires. */
 	shaderF16Supported?: boolean;
+	/** Product/editor surface where autocomplete is running. */
+	surface: string;
 	/** Whether navigator.gpu exists at all. */
 	webgpuAvailable?: boolean;
 };

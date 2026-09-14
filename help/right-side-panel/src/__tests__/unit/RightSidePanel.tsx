@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 import Page from '@atlaskit/page';
 import { RightSidePanel, FlexContainer, ContentWrapper } from '../../index';
 

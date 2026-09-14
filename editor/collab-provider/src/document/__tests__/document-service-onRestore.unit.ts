@@ -1,7 +1,7 @@
 import { Provider } from '../..';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',
@@ -211,8 +211,8 @@ describe('DocumentService onRestore', () => {
 				expect(data).toEqual(dummyPayload.metadata);
 			});
 			await provider.documentService.onRestore(dummyPayload);
-			expect(updateDoc).toBeCalledTimes(1);
-			expect(updateDoc).toBeCalledWith({
+			expect(updateDoc).toHaveBeenCalledTimes(1);
+			expect(updateDoc).toHaveBeenCalledWith({
 				...dummyPayload,
 				reserveCursor: true,
 				caller: 'onRestore',
@@ -240,7 +240,7 @@ describe('DocumentService onRestore', () => {
 			});
 
 			it('fires analytics with correct unconfirmedSteps length', () => {
-				expect(sendActionEventSpy).toBeCalledTimes(2);
+				expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
 				expect(sendActionEventSpy).toHaveBeenNthCalledWith(1, 'reinitialiseDocument', 'INFO', {
 					numUnconfirmedSteps: 0,
 					clientId: '123456',
@@ -262,8 +262,7 @@ describe('DocumentService onRestore', () => {
 			});
 
 			it('doesnot call applyLocalSteps if there are not steps to apply', () => {
-				// @ts-ignore assessing private function for test
-				expect(applyLocalStepsSpy).not.toBeCalled();
+				expect(applyLocalStepsSpy).not.toHaveBeenCalled();
 			});
 		});
 
@@ -275,7 +274,7 @@ describe('DocumentService onRestore', () => {
 
 			it('fires analytics with correct unconfirmedSteps length', async () => {
 				await provider.documentService.onRestore(dummyPayload);
-				expect(sendActionEventSpy).toBeCalledTimes(2);
+				expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
 				expect(sendActionEventSpy).toHaveBeenNthCalledWith(
 					1,
 					'reinitialiseDocument',
@@ -308,8 +307,8 @@ describe('DocumentService onRestore', () => {
 					expect(steps).toEqual(['test', 'test']);
 				});
 				await provider.documentService.onRestore(dummyPayload);
-				expect(applyLocalStepsSpy).toBeCalledTimes(1);
-				expect(applyLocalStepsSpy).toBeCalledWith(['test', 'test']);
+				expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
+				expect(applyLocalStepsSpy).toHaveBeenCalledWith(['test', 'test']);
 			});
 
 			describe('when reconcile on recovery', () => {
@@ -320,12 +319,12 @@ describe('DocumentService onRestore', () => {
 
 				it('call applyLocalSteps by default', async () => {
 					await provider.documentService.onRestore(dummyPayload);
-					expect(applyLocalStepsSpy).toBeCalledTimes(1);
+					expect(applyLocalStepsSpy).toHaveBeenCalledTimes(1);
 				});
 
 				it('fires analytics with correct unconfirmedSteps length', async () => {
 					await provider.documentService.onRestore(dummyPayload);
-					expect(sendActionEventSpy).toBeCalledTimes(2);
+					expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
 					expect(sendActionEventSpy).toHaveBeenNthCalledWith(
 						1,
 						'reinitialiseDocument',
@@ -379,21 +378,21 @@ describe('DocumentService onRestore', () => {
 				} catch (e) {}
 			});
 			await provider.documentService.onRestore(dummyPayload);
-			expect(sendActionEventSpy).toBeCalledTimes(1);
-			expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'FAILURE', {
+			expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+			expect(sendActionEventSpy).toHaveBeenCalledWith('reinitialiseDocument', 'FAILURE', {
 				numUnconfirmedSteps: 2,
 				useReconcile: false,
 				clientId: '123456',
 				triggeredByCatchup: false,
 			});
-			expect(sendErrorEventSpy).toBeCalledTimes(2);
+			expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
 			expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
 				1,
 				testError,
 				'Error while reinitialising document. Use Reconcile: false',
 			);
-			expect(sendProviderErrorEventSpy).toBeCalledTimes(1);
-			expect(onErrorHandledSpy).toBeCalledTimes(1);
+			expect(sendProviderErrorEventSpy).toHaveBeenCalledTimes(1);
+			expect(onErrorHandledSpy).toHaveBeenCalledTimes(1);
 			expect(onErrorHandledSpy).toHaveBeenNthCalledWith(1, {
 				message: 'Caught error while trying to recover the document',
 				data: {

@@ -26,9 +26,9 @@ import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';

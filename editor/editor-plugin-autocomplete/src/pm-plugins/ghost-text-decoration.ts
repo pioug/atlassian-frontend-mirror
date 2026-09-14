@@ -1,4 +1,4 @@
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 const GHOST_TEXT_CLASS = 'autocomplete-ghost-text';
@@ -6,9 +6,12 @@ const GHOST_TEXT_CLASS = 'autocomplete-ghost-text';
 /**
  * Creates a DecorationSet containing a ghost text widget at the given position.
  * The ghost text is rendered as a styled <span> that appears after the cursor.
+ *
+ * Takes the document rather than the whole state so it can also be called from
+ * `apply`, where only the post-transaction doc exists.
  */
 export const createGhostTextDecorationSet = (
-	state: EditorState,
+	doc: PMNode,
 	position: number,
 	text: string,
 ): DecorationSet => {
@@ -39,9 +42,15 @@ export const createGhostTextDecorationSet = (
 		},
 		{
 			side: 1, // Render after content at this position
-			key: 'autocomplete-ghost-text',
+			// A matching key short-circuits `WidgetType.eq`, so ProseMirror reuses
+			// the rendered node and never calls `toDOM` again. Keying on the text
+			// keeps that reuse when nothing changed while still forcing a redraw
+			// when the ghost advances through a keystroke that confirmed it —
+			// otherwise the stale tail stays on screen and Tab inserts a
+			// character the user already typed.
+			key: `autocomplete-ghost-text:${text}`,
 		},
 	);
 
-	return DecorationSet.create(state.doc, [decoration]);
+	return DecorationSet.create(doc, [decoration]);
 };

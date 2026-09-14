@@ -1,5 +1,4 @@
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { FormattedMessage } from 'react-intl';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { messages } from '../../components/i18n';
@@ -9,7 +8,7 @@ const getLabelForType = (
 	type: NonNullable<OptionData['type']>,
 	customLabels?: Partial<Record<NonNullable<OptionData['type']>, React.ReactNode>>,
 ) => {
-	if (customLabels && type in customLabels && fg('jsm-wfo-assignee-recommendation-on-queues')) {
+	if (customLabels && type in customLabels) {
 		return <>{customLabels[type]}</>;
 	}
 	switch (type) {

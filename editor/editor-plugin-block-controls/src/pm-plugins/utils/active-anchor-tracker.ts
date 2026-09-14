@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export class ActiveAnchorTracker {
 	emitter: EventEmitter | null;

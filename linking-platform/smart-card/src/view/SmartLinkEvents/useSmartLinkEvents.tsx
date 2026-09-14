@@ -1,8 +1,7 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { useMemo } from 'react';
 
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
-
-import { SmartLinkEvents } from '../../utils/analytics/analytics';
+import { SmartLinkEvents } from '../../utils/analytics/SmartLinkEvents';
 
 export function useSmartLinkEvents(): SmartLinkEvents {
 	/**
@@ -20,31 +19,7 @@ export type Fire3PWorkflowsClickEventOptions = {
 	isContextMenu?: boolean;
 };
 
-export function useFire3PWorkflowsClickEvent(
-	firstPartyIdentifier: string | undefined,
-	thirdPartyARI: string | undefined,
-) {
-	const { createAnalyticsEvent } = useAnalyticsEventsNext();
-
-	return ({
-		isAuxClick = false,
-		isContextMenu = false,
-	}: Fire3PWorkflowsClickEventOptions = {}): void => {
-		const smartlinkClickAnalyticsEvent = createAnalyticsEvent({
-			action: 'clicked',
-			actionSubject: 'smartLink',
-			actionSubjectId: 'smartlinkClickAnalyticsWorkflows',
-			eventType: 'ui',
-			attributes: {
-				eventName: 'smartLinkClickAnalyticsThirdPartyWorkflows',
-				firstPartyIdentifier: firstPartyIdentifier,
-				isAuxClick,
-				isContextMenu,
-			},
-			nonPrivacySafeAttributes: {
-				thirdPartyARI: thirdPartyARI,
-			},
-		});
-		smartlinkClickAnalyticsEvent.fire('media');
-	};
-}
+/**
+ * @deprecated Use `import { useFire3PWorkflowsClickEvent } from '@atlaskit/smart-card/use-fire3-p-workflows-click-event'` instead.
+ */
+export { useFire3PWorkflowsClickEvent } from './useFire3PWorkflowsClickEvent';

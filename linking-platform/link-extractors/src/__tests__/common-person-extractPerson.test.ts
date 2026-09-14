@@ -5,7 +5,7 @@ import {
 	TEST_STRING,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractPersonFromJsonLd } from '../index';
+import { extractPersonFromJsonLd } from '../extract-person-from-json-ld';
 
 describe('extractPersonFromJsonLd', () => {
 	it('throws on raw string', () => {

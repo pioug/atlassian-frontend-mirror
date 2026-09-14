@@ -2,12 +2,15 @@ import React from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import { ErrorMessage, Field, MessageWrapper } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Textfield from '@atlaskit/textfield';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import messages from '../../common/messages';
 import type { UserInputNumberPrompt } from '../../common/types';
+import { numberValidate } from './numberValidate';
 
 interface NumberInputPromptProps {
 	userInputPrompt: UserInputNumberPrompt;
@@ -17,18 +20,6 @@ export enum Errors {
 	EMPTY = 'EMPTY',
 	INVALID_NUMBER = 'INVALID_NUMBER',
 }
-
-export const numberValidate = (isRequired: boolean, value?: string): Errors | undefined => {
-	if (isRequired && !value) {
-		return Errors.EMPTY;
-	}
-
-	if (value && Number.isNaN(Number(value))) {
-		return Errors.INVALID_NUMBER;
-	}
-
-	return undefined;
-};
 
 const NumberInputPrompt = ({ userInputPrompt }: NumberInputPromptProps): React.JSX.Element => {
 	di(ErrorMessage, Field, Textfield);

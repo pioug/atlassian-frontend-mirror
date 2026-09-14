@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { MinHeightContainer } from '../../common/ui/min-height-container';
 

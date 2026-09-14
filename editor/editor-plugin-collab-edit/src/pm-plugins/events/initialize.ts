@@ -4,7 +4,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { CollabEditProvider, SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

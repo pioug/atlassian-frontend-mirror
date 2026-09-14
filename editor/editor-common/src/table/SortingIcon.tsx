@@ -12,7 +12,7 @@ import { injectIntl } from 'react-intl';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { SortOrder } from '../types';
 

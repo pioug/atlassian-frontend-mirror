@@ -1,9 +1,9 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import Variations from '../../../examples/01-variations';
-import Widths from '../../../examples/01-widths';
-import ElementsBeforeAndAfter from '../../../examples/05-elements-before-and-after';
-import Customisation from '../../../examples/08-customisation';
+import Variations from '../../../examples/01-variations.vr.ap';
+import Widths from '../../../examples/01-widths.vr.ap';
+import ElementsBeforeAndAfter from '../../../examples/05-elements-before-and-after.vr.ap';
+import Customisation from '../../../examples/08-customisation.vr.ap';
 
 snapshot(Variations, {
 	variants: [

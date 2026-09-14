@@ -5,7 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { type JQLEditorProps } from '@atlaskit/jql-editor';
+import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import {
 	fieldValuesResponseForStatusesMapped,
@@ -14,13 +14,14 @@ import {
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
 import { type IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
-import JiraIssuesConfigModal from '../../index'; // Using async one to test lazy integration at the same time
+import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../../JiraIssuesConfigModalWithWrappers'; // Using async one to test lazy integration at the same time
 import { type JiraIssuesDatasourceAdf } from '../../types';
 
 import {
@@ -1039,6 +1040,24 @@ describe('JiraIssuesConfigModal', () => {
 	});
 
 	describe('when user provides callback for when wrapped changed', () => {
+		it('should not pass onWrappedColumnsChange when the table settings menu gate is off', async () => {
+			failGate('platform_lp_sllv_table_settings_menu');
+			const { getLatestIssueLikeTableProps } = await setup({
+				visibleColumnKeys: ['myColumn'],
+			});
+
+			expect(getLatestIssueLikeTableProps().onWrappedColumnsChange).toBeUndefined();
+		});
+
+		it('should pass onWrappedColumnsChange when the table settings menu gate is on', async () => {
+			passGate('platform_lp_sllv_table_settings_menu');
+			const { getLatestIssueLikeTableProps } = await setup({
+				visibleColumnKeys: ['myColumn'],
+			});
+
+			expect(getLatestIssueLikeTableProps().onWrappedColumnsChange).toEqual(expect.any(Function));
+		});
+
 		it('should use updated isWrapped column attributes in resulting ADF', async () => {
 			const { getLatestIssueLikeTableProps, assertInsertResult } = await setup({
 				visibleColumnKeys: ['myColumn'],
@@ -1181,6 +1200,32 @@ describe('JiraIssuesConfigModal', () => {
 	});
 
 	describe('when no issues are returned', () => {
+		const getNoResultsHookState = () => ({
+			...getDefaultHookState(),
+			responseItems: [],
+			responseItemIds: [],
+			totalCount: 0,
+		});
+
+		it('should replace the whole table with the no results screen when the feature gate is off', async () => {
+			failGate('platform_lp_sllv_ux_improvements');
+			await setup({ hookState: getNoResultsHookState() });
+
+			expect(screen.getByTestId('datasource-modal--no-results')).toBeInTheDocument();
+		});
+
+		it('should keep rendering the table so it can show the no results screen in place of the rows when the feature gate is on', async () => {
+			passGate('platform_lp_sllv_ux_improvements');
+			const { getLatestIssueLikeTableProps } = await setup({
+				hookState: getNoResultsHookState(),
+			});
+
+			expect(screen.queryByTestId('datasource-modal--no-results')).not.toBeInTheDocument();
+			expect(getLatestIssueLikeTableProps()).toEqual(
+				expect.objectContaining({ items: [], status: 'resolved' }),
+			);
+		});
+
 		it('should show no results screen in issue view mode', async () => {
 			const { onInsert } = await setup({
 				hookState: { ...getDefaultHookState(), responseItems: [] },

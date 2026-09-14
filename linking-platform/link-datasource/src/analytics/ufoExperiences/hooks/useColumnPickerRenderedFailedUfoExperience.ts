@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
-import { type DatasourceTableStatusType } from '@atlaskit/linking-types';
+import type { DatasourceTableStatusType } from '@atlaskit/linking-types/datasource';
 
-import { failUfoExperience } from '../index';
+import { failUfoExperience } from '../failUfoExperience';
 
 export const useColumnPickerRenderedFailedUfoExperience = (
 	status: DatasourceTableStatusType,

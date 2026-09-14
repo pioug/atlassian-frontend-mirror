@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
+import { render, waitFor } from '@atlassian/testing-library';
 
+import { EmbeddedConfluencePageProvider } from '../../embedded-confluence-page-context';
 import { IFrame } from '../../IFrame';
 
 jest.mock('../../../../../hooks/useConfluencePageData', () => ({
@@ -9,7 +10,8 @@ jest.mock('../../../../../hooks/useConfluencePageData', () => ({
 }));
 
 const mockPage = jest.fn((_props: any) => null);
-jest.mock('@atlaskit/embedded-confluence', () => ({
+jest.mock('@atlaskit/embedded-confluence/page', () => ({
+	...jest.requireActual('@atlaskit/embedded-confluence/page'),
 	Page: (props: any) => mockPage(props),
 }));
 
@@ -55,13 +57,18 @@ describe('IFrame', () => {
 
 	it('should capture and report a11y violations', async () => {
 		const { container } = renderComponent();
+		await waitFor(() => {
+			expect(mockPage).toHaveBeenCalled();
+		});
 		await expect(container).toBeAccessible();
 	});
 
 	it('should render Page with expected props when confluence page data is available', async () => {
 		renderComponent();
 
-		expect(mockPage).toHaveBeenCalledTimes(1);
+		await waitFor(() => {
+			expect(mockPage).toHaveBeenCalledTimes(1);
+		});
 		const props = (mockPage as jest.Mock).mock.calls[0][0];
 
 		expect(props).toMatchObject({
@@ -82,5 +89,37 @@ describe('IFrame', () => {
 		});
 
 		expect(props.iframeRef).toBe(childRef);
+	});
+
+	it('prefers an injected Confluence page renderer over the default async chunk', async () => {
+		const InjectedPage = jest.fn(() => <div data-testid="injected-confluence-page" />);
+		const { useConfluencePageData } = require('../../../../../hooks/useConfluencePageData');
+		(useConfluencePageData as jest.Mock).mockReturnValue({
+			hostname: 'mock.host',
+			spaceKey: 'ABC',
+			contentId: '123',
+			parentProduct: 'TestProduct',
+			hash: '',
+			mode: 'testMode',
+			locale: 'en-US',
+			allowedFeatures: { view: ['edit'], edit: ['template-browser'] },
+			themeStateObject: { colorMode: 'dark' },
+			userInfo: { userId: 'testUser', userIdType: 'atlassianAccount' },
+		});
+
+		render(
+			<EmbeddedConfluencePageProvider value={InjectedPage}>
+				<IFrame
+					childRef={childRef}
+					src="https://example.com/wiki/spaces/ABC/pages/123"
+					extensionKey="confluence.page"
+				/>
+			</EmbeddedConfluencePageProvider>,
+		);
+
+		await waitFor(() => {
+			expect(InjectedPage).toHaveBeenCalled();
+		});
+		expect(mockPage).not.toHaveBeenCalled();
 	});
 });

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { alignment } from '@atlaskit/adf-schema';
+import { alignment } from '@atlaskit/adf-schema/alignment';
 import type {
 	Command,
 	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AlignmentPlugin } from './alignmentPluginType';
 import { keymapPlugin } from './pm-plugins/keymap';

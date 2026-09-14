@@ -1,12 +1,10 @@
 import React from 'react';
 
-import {
-	AnalyticsContext,
-	AnalyticsListener,
-	type UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
-import Heading from '@atlaskit/heading';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import Heading from '@atlaskit/heading/heading';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';

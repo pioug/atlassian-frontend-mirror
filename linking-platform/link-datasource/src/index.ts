@@ -1,17 +1,17 @@
 /** @deprecated Use @atlaskit/link-datasource/confluence-search-modal */
-export { default as ConfluenceSearchConfigModal } from './ui/confluence-search-modal';
+export { ConfluenceSearchConfigModalWithWrappers as ConfluenceSearchConfigModal } from './ui/confluence-search-modal/ConfluenceSearchConfigModalWithWrappers';
 
 /** @deprecated Use @atlaskit/link-datasource/jira-issues-modal */
-export { default as JiraIssuesConfigModal } from './ui/jira-issues-modal';
+export { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from './ui/jira-issues-modal/JiraIssuesConfigModalWithWrappers';
 
 /** @deprecated Use @atlaskit/link-datasource/assets-modal */
-export { default as AssetsConfigModal } from './ui/assets-modal';
+export { AssetsConfigModalWithWrappers as AssetsConfigModal } from './ui/assets-modal/AssetsConfigModalWithWrappers';
 
 /** @deprecated Use @atlaskit/link-datasource/datasource-table-view */
-export { default as DatasourceTableView } from './ui/datasource-table-view';
+export { DatasourceTableViewWithWrappers as DatasourceTableView } from './ui/datasource-table-view/DatasourceTableViewWithWrappers';
 
 /** @deprecated Use @atlaskit/link-datasource/assets-modal (AssetsConfigModal) */
-export { default as JSMAssetsConfigModal } from './ui/assets-modal';
+export { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from './ui/assets-modal/AssetsConfigModalWithWrappers';
 
 /** @deprecated Use @atlaskit/link-datasource/utils/schema */
 export { buildDatasourceAdf } from './common/utils/schema-utils';

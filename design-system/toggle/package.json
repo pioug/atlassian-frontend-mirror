@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/toggle",
-	"version": "17.1.4",
+	"version": "17.3.0",
 	"description": "A toggle is used to view or switch between enabled or disabled states.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -60,38 +60,17 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./toggle": "./src/entry-points/toggle.tsx"

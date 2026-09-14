@@ -1,26 +1,24 @@
 import React, { useRef } from 'react';
 
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
-import { render, screen, waitFor } from '@atlassian/testing-library';
+import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
-import { createCloseEvent, Dialog } from '../../src/entry-points/dialog';
-import { DialogScrollLock } from '../../src/entry-points/dialog-scroll-lock';
-import {
-	getFirstFocusable,
-	getLastFocusable,
-	getNextFocusable,
-} from '../../src/entry-points/focus';
-import { getAriaForTrigger } from '../../src/entry-points/get-aria-for-trigger';
-import { fromLegacyPlacement } from '../../src/entry-points/placement-map';
-import { createPopoverCloseEvent, Popover } from '../../src/entry-points/popover';
-import { PopoverSurface } from '../../src/entry-points/popover-surface';
-import { useAnchorPosition } from '../../src/entry-points/use-anchor-position';
-import {
-	isAtCurrentMenuLevel,
-	useArrowNavigation,
-} from '../../src/entry-points/use-arrow-navigation';
+import { createCloseEvent } from '../../src/dialog/create-close-event';
+import { Dialog } from '../../src/dialog/dialog-content';
+import { DialogScrollLock } from '../../src/dialog-scroll-lock';
+import { getFirstFocusable } from '../../src/focus/get-first-focusable';
+import { getLastFocusable } from '../../src/focus/get-last-focusable';
+import { getNextFocusable } from '../../src/focus/get-next-focusable';
+import { fromLegacyPlacement } from '../../src/placement-map';
+import { isAtCurrentMenuLevel } from '../../src/use-arrow-navigation/is-at-current-menu-level';
+import { useArrowNavigation } from '../../src/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '../../src/entry-points/use-popover-id';
-import { useSimpleLightDismiss } from '../../src/entry-points/use-simple-light-dismiss';
+import { getAriaForTrigger } from '../../src/internal/get-aria-for-trigger';
+import { useAnchorPosition } from '../../src/internal/use-anchor-position';
+import { createPopoverCloseEvent } from '../../src/popover/create-close-event';
+import { Popover } from '../../src/popover/popover';
+import { PopoverSurface } from '../../src/popover-surface/popover-surface';
+import { useSimpleLightDismiss } from '../../src/use-simple-light-dismiss';
 
 function noop() {}
 
@@ -517,21 +515,25 @@ describe('React 19 readiness (top-layer)', () => {
 			expect(onClose).not.toHaveBeenCalled();
 		});
 
-		it('Dialog fires onClose with reason "escape" on native cancel event', () => {
+		it('Dialog fires onClose with reason "escape" on native cancel event', async () => {
 			const onClose = jest.fn<void, [{ reason: 'escape' | 'overlay-click' }]>();
 			render(
 				<Dialog isOpen={true} onClose={onClose} label="cancel">
 					content
 				</Dialog>,
 			);
-			const dialog = screen.getByRole('dialog', { hidden: true });
-			dialog.dispatchEvent(new Event('cancel'));
-			expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
+			const dialog = screen.getByRole('dialog', { hidden: true }) as HTMLDialogElement;
+			const cancelEvent = new Event('cancel', { cancelable: true });
+			fireEvent(dialog, cancelEvent);
+			if (!cancelEvent.defaultPrevented) {
+				dialog.close();
+			}
+			await waitFor(() => expect(onClose).toHaveBeenCalledWith({ reason: 'escape' }));
 		});
 	});
 
 	describe('useAnimatedVisibility StrictMode exit', () => {
-		it('does not double-fire onExitFinish during non-animated close', () => {
+		it('does not double-fire onExitFinish during non-animated close', async () => {
 			const onExitFinish = jest.fn();
 			const onClose = jest.fn();
 
@@ -563,7 +565,10 @@ describe('React 19 readiness (top-layer)', () => {
 				</React.StrictMode>,
 			);
 
-			expect(onExitFinish).toHaveBeenCalledTimes(1);
+			expect(onExitFinish).not.toHaveBeenCalled();
+			await waitFor(() => {
+				expect(onExitFinish).toHaveBeenCalledTimes(1);
+			});
 		});
 	});
 

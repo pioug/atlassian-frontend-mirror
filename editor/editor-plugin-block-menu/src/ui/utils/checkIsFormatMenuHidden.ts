@@ -4,6 +4,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockMenuPlugin } from '../../blockMenuPluginType';
@@ -22,7 +23,10 @@ const getIsFormatMenuHidden = (selection: Selection, schema: Schema) => {
 		return false;
 	}
 
-	const disabledNode = findSelectedNodeOfType(getDisabledNodeTypes(nodes))(selection);
+	const disabledNodeTypes = isExperimentEnabled('platform_editor_block_menu_transform_extensions')
+		? [nodes.rule]
+		: getDisabledNodeTypes(nodes);
+	const disabledNode = findSelectedNodeOfType(disabledNodeTypes)(selection);
 
 	return !!disabledNode;
 };

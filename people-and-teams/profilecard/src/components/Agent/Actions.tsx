@@ -2,12 +2,12 @@ import React, { useCallback, useState } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';
-import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

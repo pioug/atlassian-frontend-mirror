@@ -22,8 +22,8 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -423,8 +423,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	}
 
 	handleColgroupUpdates(force = false) {
-		const { getNode, containerWidth, isResizing, view, getPos, getEditorFeatureFlags, options } =
-			this.props;
+		const { getNode, containerWidth, isResizing, view, getPos, options } = this.props;
 
 		if (!this.table) {
 			return;
@@ -492,10 +491,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isTableResized,
 			});
 
-			const tableWithFixedColumnWidthsOption =
-				(fg('platform_editor_table_fixed_column_width_prop')
-					? this.props?.allowFixedColumnWidthOption
-					: getEditorFeatureFlags()?.tableWithFixedColumnWidthsOption) || false;
+			const tableWithFixedColumnWidthsOption = this.props?.allowFixedColumnWidthOption || false;
 
 			const isTableScalingWithFixedColumnWidthsOptionEnabled =
 				!!this.props.options?.isTableScalingEnabled && tableWithFixedColumnWidthsOption;
@@ -593,16 +589,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			options,
 			isTableScalingEnabled, // we could use options.isTableScalingEnabled here
 			getPos,
-			getEditorFeatureFlags,
 			allowFixedColumnWidthOption,
 		} = this.props;
 
 		let shouldScale = false;
 		let shouldHandleColgroupUpdates = false;
-		const tableWithFixedColumnWidthsOption =
-			(fg('platform_editor_table_fixed_column_width_prop')
-				? allowFixedColumnWidthOption
-				: getEditorFeatureFlags()?.tableWithFixedColumnWidthsOption) || false;
+		const tableWithFixedColumnWidthsOption = allowFixedColumnWidthOption || false;
 
 		if (isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
 			shouldScale = true;
@@ -705,8 +697,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		if (
 			this.table &&
 			this.table !== this.lastSetTableRef &&
-			(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
-				this.props.tableActive) &&
+			this.props.tableActive &&
 			this.props.view
 		) {
 			this.lastSetTableRef = this.table;
@@ -924,10 +915,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				<NodeViewContentHole
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- existing table wrapper class required for legacy styling hooks
 					className={classnames(ClassName.TABLE_NODE_WRAPPER, {
-						[ClassName.TABLE_SCROLL_INLINE_SHADOW]: expValEquals(
+						[ClassName.TABLE_SCROLL_INLINE_SHADOW]: isExperimentEnabled(
 							'platform_editor_table_css_overflow_shadow',
-							'isEnabled',
-							true,
 						),
 					})}
 					ref={this.setWrapperRef}
@@ -952,7 +941,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					)}
 					{allowControls && colControls}
 				</NodeViewContentHole>
-				{expValEquals('platform_editor_table_css_overflow_shadow', 'isEnabled', true) && (
+				{isExperimentEnabled('platform_editor_table_css_overflow_shadow') && (
 					<>
 						<div
 							contentEditable={false}
@@ -1355,7 +1344,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	private handleWindowResizeNewDebounced = rafSchedule(this.handleWindowResizeNew);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<ComponentProps>> & {
 	WrappedComponent: React.ComponentType<ComponentProps>;
 } = injectIntl(TableComponent);

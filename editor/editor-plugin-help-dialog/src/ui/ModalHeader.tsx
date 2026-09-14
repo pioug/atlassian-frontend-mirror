@@ -11,11 +11,12 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { CloseButton, type OnCloseHandler } from '@atlaskit/modal-dialog';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { header, toolbarButton } from './styles';
 

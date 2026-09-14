@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics/use-smart-link-lifecycle-analytics';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { useAtlassianPlugins } from '@atlassian/link-picker-atlassian-plugin';
 

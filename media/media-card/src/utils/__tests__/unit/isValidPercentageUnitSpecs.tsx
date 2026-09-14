@@ -1,4 +1,4 @@
-import { isValidPercentageUnit } from '../..';
+import { isValidPercentageUnit } from '../../isValidPercentageUnit';
 
 describe('isValidPercentageUnit', () => {
 	it('should return true when passing a valid percentage value', () => {

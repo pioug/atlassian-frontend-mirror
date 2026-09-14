@@ -13,7 +13,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/core/question-circle';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ACTION_SUBJECT_ID } from '../../analytics';
 import { unsupportedContentMessages } from '../../messages/unsupportedContent';
@@ -95,7 +95,7 @@ const UnsupportedBlockNode = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(UnsupportedBlockNode);

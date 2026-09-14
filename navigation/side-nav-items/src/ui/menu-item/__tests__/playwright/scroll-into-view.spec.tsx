@@ -8,7 +8,7 @@ test.describe('scroll into view', () => {
 			await page.setViewportSize(viewportSize);
 
 			await page.visitExample<
-				typeof import('../../../../../examples/menu-item-scroll-into-view.tsx')
+				typeof import('../../../../../examples/menu-item-scroll-into-view.vr.ap.tsx')
 			>('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
 
 			// The "Your work" menu item is selected by default, and should be in view
@@ -37,7 +37,7 @@ test.describe('scroll into view', () => {
 			await page.setViewportSize(viewportSize);
 
 			await page.visitExample<
-				typeof import('../../../../../examples/menu-item-scroll-into-view.tsx')
+				typeof import('../../../../../examples/menu-item-scroll-into-view.vr.ap.tsx')
 			>('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
 
 			// Collapse the "Teams" expandable menu item
@@ -68,7 +68,7 @@ test.describe('scroll into view', () => {
 			await page.setViewportSize(viewportSize);
 
 			await page.visitExample<
-				typeof import('../../../../../examples/menu-item-scroll-into-view.tsx')
+				typeof import('../../../../../examples/menu-item-scroll-into-view.vr.ap.tsx')
 			>('navigation', 'side-nav-items', 'menu-item-scroll-into-view');
 
 			// The "Your work" menu item is selected by default, and should be in view

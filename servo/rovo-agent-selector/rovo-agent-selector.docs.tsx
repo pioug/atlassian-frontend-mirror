@@ -27,7 +27,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Standard Rovo agent selector display.',
-					source: path.resolve(packagePath, './examples/basic.tsx'),
+					source: path.resolve(packagePath, './examples/basic.vr.ap.tsx'),
 				},
 			],
 			keywords: ['rovo', 'agent', 'selector', 'ai', 'assistance'],

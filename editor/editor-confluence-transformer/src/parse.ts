@@ -1,10 +1,12 @@
+import type { MediaAttributes } from '@atlaskit/adf-schema/media';
 import type {
-	MediaAttributes,
 	RichMediaAttributes as MediaSingleAttributes,
-	RichMediaLayout as MediaSingleLayout,
-	NameToEmoji,
-} from '@atlaskit/adf-schema';
-import { acNameToEmoji, acShortcutToEmoji, tableBackgroundColorNames } from '@atlaskit/adf-schema';
+	Layout as MediaSingleLayout,
+} from '@atlaskit/adf-schema/rich-media-common';
+import type { NameToEmoji } from '@atlaskit/adf-schema/confluence/emoji';
+import { acNameToEmoji } from '@atlaskit/adf-schema/ac-name-to-emoji';
+import { acShortcutToEmoji } from '@atlaskit/adf-schema/ac-shortcut-to-emoji';
+import { tableBackgroundColorNames } from '@atlaskit/adf-schema/tableNodes';
 import {
 	akEditorFullPageMaxWidth,
 	akEditorTableNumberColumnWidth,

@@ -7,12 +7,16 @@ import { useCallback, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Badge from '@atlaskit/badge';
+import Badge from '@atlaskit/badge/badge';
 import AKBanner from '@atlaskit/banner';
-import Button, { IconButton } from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { FlagsProvider, useFlags } from '@atlaskit/flag';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
+import { useFlags } from '@atlaskit/flag/use-flags';
+import Heading from '@atlaskit/heading/heading';
 import AddIcon from '@atlaskit/icon/core/add';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AppsIcon from '@atlaskit/icon/core/apps';
@@ -22,13 +26,13 @@ import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import { ConfluenceIcon } from '@atlaskit/logo';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
@@ -59,7 +63,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
@@ -424,32 +428,33 @@ function Example() {
 						/>
 					</Aside>
 				)}
+				<ExitingPersistence>
+					{isPanelVisible && (
+						<Panel defaultWidth={persistedPanelWidth}>
+							<Stack space="space.100" xcss={panelStyles.content}>
+								<Heading size="medium">Panel layout area</Heading>
+								<Text>This element is rendered in the panel layout area.</Text>
+								<Text>Panel becomes an overlay on small-medium viewports.</Text>
 
-				{isPanelVisible && (
-					<Panel defaultWidth={persistedPanelWidth}>
-						<Stack space="space.100" xcss={panelStyles.content}>
-							<Heading size="medium">Panel layout area</Heading>
-							<Text>This element is rendered in the panel layout area.</Text>
-							<Text>Panel becomes an overlay on small-medium viewports.</Text>
+								{/* Wrapping div added to prevent Button from taking full width */}
+								<div>
+									<Button
+										isSelected={isPanelLongPlaceholderContentVisible}
+										onClick={() => setIsPanelLongPlaceholderContentVisible((current) => !current)}
+									>
+										Toggle long content
+									</Button>
+								</div>
 
-							{/* Wrapping div added to prevent Button from taking full width */}
-							<div>
-								<Button
-									isSelected={isPanelLongPlaceholderContentVisible}
-									onClick={() => setIsPanelLongPlaceholderContentVisible((current) => !current)}
-								>
-									Toggle long content
-								</Button>
-							</div>
-
-							{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
-						</Stack>
-						<PanelSplitter
-							label="Resize panel"
-							onResizeEnd={({ finalWidth }) => setPersistedPanelWidth(finalWidth)}
-						/>
-					</Panel>
-				)}
+								{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
+							</Stack>
+							<PanelSplitter
+								label="Resize panel"
+								onResizeEnd={({ finalWidth }) => setPersistedPanelWidth(finalWidth)}
+							/>
+						</Panel>
+					)}
+				</ExitingPersistence>
 			</Root>
 		</div>
 	);

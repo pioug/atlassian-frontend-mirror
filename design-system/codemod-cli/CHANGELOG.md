@@ -1,5 +1,35 @@
 # @atlaskit/codemod-cli
 
+## 2.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.4
+
+### Patch Changes
+
+- [`517bbea71d2d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/517bbea71d2d2) -
+  Add `avatar-remove-is-decorative` codemod to automate migration away from the removed
+  `isDecorative` prop on `@atlaskit/avatar`.
+  - `isDecorative` / `isDecorative={true}` → `label=""`
+  - `isDecorative={false}` → prop removed (was already the default)
+  - Dynamic expressions → prop removed with a TODO comment for manual review
+
+  Run with:
+
+  ```
+  npx @atlaskit/codemod-cli --preset avatar-remove-is-decorative --extensions tsx,ts
+  ```
+
+- Updated dependencies
+
 ## 2.0.3
 
 ### Patch Changes

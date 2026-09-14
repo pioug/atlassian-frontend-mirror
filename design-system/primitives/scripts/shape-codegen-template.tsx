@@ -1,5 +1,5 @@
 import format from '@af/formatting/sync';
-import { shape as shapeTokens } from '@atlaskit/tokens/tokens-raw';
+import shapeTokens from '@atlaskit/tokens/atlassian-shape';
 
 import { capitalize } from './capitalize';
 import { generateTypeDefs } from './generate-type-defs';

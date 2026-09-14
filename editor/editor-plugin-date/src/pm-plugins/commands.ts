@@ -10,7 +10,7 @@ import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DatePlugin, DeleteDate, InsertDate } from '../types';
 import { isToday } from '../ui/DatePicker/utils/internal';

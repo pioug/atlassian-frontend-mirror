@@ -1,4 +1,5 @@
-import { LabelStackRegistry, resolveLabelStackFromTrie } from './label-stack-registry';
+import { LabelStackRegistry } from './label-stack-registry';
+import { resolveLabelStackFromTrie } from './resolve-label-stack-from-trie';
 
 function expectResolvedLabelStacks(registry: LabelStackRegistry, refs: Record<string, string>) {
 	const lookupTable = registry.getLookupTable();

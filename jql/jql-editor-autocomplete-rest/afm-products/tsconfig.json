@@ -26,7 +26,13 @@
 			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../jql-autocomplete/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../jql-editor-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

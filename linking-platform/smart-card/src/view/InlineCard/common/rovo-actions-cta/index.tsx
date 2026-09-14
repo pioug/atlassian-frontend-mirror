@@ -2,17 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import extractRovoChatAction from '../../../../extractors/flexible/actions/extract-rovo-chat-action';
-import { getExtensionKey } from '../../../../state/helpers';
+import { getExtensionKey } from '../../../../state/getExtensionKey';
 import useInvokeClientAction from '../../../../state/hooks/use-invoke-client-action';
 import useRovoChat from '../../../../state/hooks/use-rovo-chat';
 import useRovoConfig from '../../../../state/hooks/use-rovo-config';

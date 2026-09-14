@@ -4,7 +4,7 @@
  */
 import { useLayoutEffect } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { ANALYTICS_CHANNEL } from '../../../../common/constants';
 import { type LinkPickerPlugin } from '../../../../common/types';

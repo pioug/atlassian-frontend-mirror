@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
-import { CardClient } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
 
 import { useResolverUrl } from './index';
 

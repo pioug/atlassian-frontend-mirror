@@ -3,6 +3,8 @@
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { fetchWithRetry } from '../../utils/retry';
 
+import { getJiraIssueAriFromSourceAri } from './ari';
+
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
 	Accept: 'application/json',
@@ -63,12 +65,12 @@ const GET_SOURCE_INFO_QUERY = `query ${GET_SOURCE_INFO_OPERATION_NAME} ($id: ID!
 	}
   }}`;
 
-const getJiraWorkItemSourceInfo = async (ari: string): Promise<GetSourceInfoResult> => {
+const getJiraWorkItemSourceInfo = async (issueAri: string): Promise<GetSourceInfoResult> => {
 	const bodyData = {
 		query: GET_SOURCE_INFO_QUERY,
 		operationName: GET_SOURCE_INFO_OPERATION_NAME,
 		variables: {
-			id: ari,
+			id: issueAri,
 		},
 	};
 
@@ -85,14 +87,17 @@ const getJiraWorkItemSourceInfo = async (ari: string): Promise<GetSourceInfoResu
 	return (await response.json()) as GetSourceInfoResult;
 };
 
-const resolveNoAccessWorkItemInfo = async (ari: string): Promise<SyncBlockSourceInfo> => {
+const resolveNoAccessWorkItemInfo = async (
+	sourceAri: string,
+	issueAri: string,
+): Promise<SyncBlockSourceInfo> => {
 	const response = await fetch('/gateway/api/object-resolver/resolve/ari', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json',
 		},
-		body: JSON.stringify({ ari }),
+		body: JSON.stringify({ ari: issueAri }),
 	});
 
 	if (response.ok) {
@@ -103,7 +108,7 @@ const resolveNoAccessWorkItemInfo = async (ari: string): Promise<SyncBlockSource
 		return {
 			url: typeof url === 'string' ? url : undefined,
 			title: typeof title === 'string' ? title : undefined,
-			sourceAri: ari,
+			sourceAri,
 		};
 	} else {
 		throw new Error(`Failed to resolve ari: ${response.statusText}`);
@@ -134,8 +139,12 @@ export const fetchJiraWorkItemInfo = async (
 	workItemAri: string,
 	hasAccess: boolean,
 ): Promise<SyncBlockSourceInfo | undefined> => {
+	// AGG `issueById` and object-resolver only understand issue ARIs. Field-value
+	// source ARIs keep their original identity on the returned `sourceAri`.
+	const issueAri = getJiraIssueAriFromSourceAri({ ari: workItemAri });
+
 	if (hasAccess) {
-		const response = await getJiraWorkItemSourceInfo(workItemAri);
+		const response = await getJiraWorkItemSourceInfo(issueAri);
 
 		const contentData = response.data?.jira?.issueById;
 
@@ -164,6 +173,6 @@ export const fetchJiraWorkItemInfo = async (
 			issueType,
 		});
 	} else {
-		return await resolveNoAccessWorkItemInfo(workItemAri);
+		return await resolveNoAccessWorkItemInfo(workItemAri, issueAri);
 	}
 };

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import AddCommentIcon from '@atlaskit/icon/core/comment';
@@ -10,12 +10,11 @@ import AddCommentIcon from '@atlaskit/icon/core/comment';
 import { jsx, css } from '@emotion/react';
 import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 // AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-helpers';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { token } from '@atlaskit/tokens';
 
 const whiteBoxStyles = css({

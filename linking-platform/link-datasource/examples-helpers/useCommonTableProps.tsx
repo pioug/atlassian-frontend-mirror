@@ -19,14 +19,16 @@ export const useCommonTableProps = (
 		| 'onColumnResize'
 	>
 > &
-	Pick<DatasourceTableViewProps, 'columnCustomSizes'> => {
+	Pick<DatasourceTableViewProps, 'columnCustomSizes' | 'onWrappedColumnsChange'> => {
 	const [visibleColumnKeys, onVisibleColumnKeysChange] = useState<string[]>(
 		props.visibleColumnKeys ?? defaultInitialVisibleJiraColumnKeys,
 	);
 
 	const { columnCustomSizes, onColumnResize } = useColumnResize(props.defaultColumnCustomSizes);
 
-	const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping([]);
+	const { wrappedColumnKeys, onWrappedColumnChange, onWrappedColumnsChange } = useColumnWrapping(
+		[],
+	);
 
 	return {
 		visibleColumnKeys,
@@ -35,5 +37,6 @@ export const useCommonTableProps = (
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 	};
 };

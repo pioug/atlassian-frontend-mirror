@@ -38,7 +38,7 @@ describe(`${packageName}/schema nestedExpand node`, () => {
 				},
 			},
 			content:
-				'(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | panel | blockquote | unsupportedBlock | extension)+',
+				'(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | bodiedRule | panel | blockquote | unsupportedBlock | extension)+',
 			isolating: true,
 			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [

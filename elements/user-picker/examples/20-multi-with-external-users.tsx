@@ -1,13 +1,13 @@
 import React, { type SyntheticEvent, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import Select from '@atlaskit/select';
-import { RadioGroup } from '@atlaskit/radio';
+import Select from '@atlaskit/select/default';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import { exampleOptions } from '../example-helpers';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import UserPicker from '../src';
+import { UserPicker } from '../src/components/UserPicker';
+import { isExternalUser } from '../src/components/isExternalUser';
 import { type UserSource, type UserSourceResult } from '../src/types';
-import { isExternalUser } from '../src/components/utils';
 import { token } from '@atlaskit/tokens';
 
 interface Option {

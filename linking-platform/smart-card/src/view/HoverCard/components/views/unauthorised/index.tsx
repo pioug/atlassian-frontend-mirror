@@ -2,29 +2,29 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName, CardDisplay } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useSmartCardActions } from '../../../../../state/actions';
-import { hasAuthScopeOverrides } from '../../../../../state/helpers';
-import UnauthorisedViewContent from '../../../../common/UnauthorisedViewContent';
+import { hasAuthScopeOverrides } from '../../../../../state/hasAuthScopeOverrides';
 import FlexibleCard from '../../../../FlexibleCard';
-import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
+import { default as CustomBlock } from '../../../../FlexibleCard/components/blocks/block';
+import UnauthorisedViewContent from '../../../../common/UnauthorisedViewContent';
 import {
 	type ActionItem,
 	type CustomActionItem,
 } from '../../../../FlexibleCard/components/blocks/types';
-import { LinkIcon } from '../../../../FlexibleCard/components/elements';
-
+import { default as LinkIcon } from '../../../../FlexibleCard/components/elements/link-icon-element';
 import { type HoverCardUnauthorisedProps } from './types';
 
 const connectButtonStyles = css({

@@ -6,17 +6,21 @@ import React, { useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { useMotion } from '@atlaskit/motion/use-motion';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	entering: {
 		animation: token('motion.modal.enter'),
-		animationFillMode: 'backwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 	exiting: {
 		animation: token('motion.modal.exit'),
-		animationFillMode: 'forwards',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 });
 

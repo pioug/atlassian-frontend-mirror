@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { bind } from 'bind-event-listener';
+import isEqual from 'lodash/isEqual';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
@@ -30,11 +31,17 @@ const CollapsibleHeadingsContext = React.createContext<CollapsibleHeadingsContro
 const emptyCollapsedHeadings = new Set<number>();
 
 function isSameDocument(currentDocument?: PMNode, nextDocument?: PMNode): boolean {
-	// Renderer reparses equivalent ADF on parent rerenders, so object identity is not stable.
-	return (
-		currentDocument === nextDocument ||
-		Boolean(currentDocument && nextDocument && currentDocument.eq(nextDocument))
-	);
+	if (currentDocument === nextDocument) {
+		return true;
+	}
+	if (!currentDocument || !nextDocument) {
+		return false;
+	}
+	// Node.eq compares node-type identity. The shared schema cache can be evicted by another
+	// renderer, producing different node types for identical content on the next render.
+	return currentDocument.type.schema === nextDocument.type.schema
+		? currentDocument.eq(nextDocument)
+		: isEqual(currentDocument.toJSON(), nextDocument.toJSON());
 }
 
 function supportsHiddenUntilFound(rendererRef: React.RefObject<HTMLDivElement>): boolean {

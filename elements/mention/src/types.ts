@@ -1,5 +1,14 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type SyntheticEvent } from 'react';
+
 import { type ServiceConfig } from '@atlaskit/util-service-support/types';
+
+export interface MentionNodeData {
+	appType?: string | null;
+	avatarUrl?: string;
+	/** The image already contains its intended user/agent shape and must not be clipped again. */
+	isAvatarImagePreShaped?: boolean;
+}
 
 export interface MentionNameResolver {
 	cacheName(id: string, name: string): void;
@@ -260,6 +269,7 @@ export interface RealMentionDescription {
 	avatarUrl?: string;
 	// Team mention can use context to store members data
 	context?: MentionDescContext;
+	description?: string;
 	highlight?: Highlight;
 	id: string;
 	inContext?: boolean;
@@ -291,18 +301,21 @@ type RealMentionFieldsForbidden = {
 };
 
 /**
- * Non-selectable loading placeholder surfaced in the mention list while a
- * slower mention source (e.g. agents) resolves. Its own member of the
+ * Placeholder surfaced in the mention list while a slower mention source
+ * (e.g. agents) resolves or fails. Its own member of the
  * {@link MentionDescription} discriminated union (discriminated on
  * `isPlaceholder`).
  *
  * `id` must be unique per placeholder — the typeahead keys rows by id — so
  * multiple placeholders can be rendered at once.
  */
+export const AGENT_MENTION_LOAD_ERROR_ID = '__agent-mentions-load-error__';
+
 export type MentionPlaceholder = RealMentionFieldsForbidden & {
 	appType?: 'agent';
 	id: string;
 	isPlaceholder: true;
+	placeholderType: 'error' | 'loading';
 	userType?: 'APP';
 };
 
@@ -401,40 +414,30 @@ export interface MentionNameDetails {
 	status: MentionNameStatus;
 }
 
-export function isRestricted(accessLevel?: string): boolean {
-	return !!accessLevel && accessLevel === UserAccessLevel[UserAccessLevel.NONE];
-}
-
-export function isSpecialMention(mention: MentionDescription): boolean {
-	return !!mention.userType && mention.userType === UserType[UserType.SPECIAL];
-}
-
-export function isAppMention(mention: MentionDescription): boolean | '' | undefined {
-	return mention.userType && mention.userType === UserType[UserType.APP];
-}
-
-export function isTeamMention(mention: MentionDescription): boolean | '' | undefined {
-	return mention.userType && mention.userType === UserType[UserType.TEAM];
-}
-
-export function isSpecialMentionText(mentionText: string): boolean | '' {
-	return mentionText && (mentionText === '@all' || mentionText === '@here');
-}
-
-export const isPromise = <T>(p: any): p is Promise<T> => !!(p && p.then);
-
 export type InviteFlow = 'mention' | 'assign';
 
 export type UserRole = 'admin' | 'trusted' | 'basic';
 
+export type InlineInvitePopupResult = {
+	error: { email: string }[];
+	failure: boolean;
+	invited: { email: string; id: string }[];
+	requested: { email: string; id: string }[];
+};
+
 export interface InviteFromMentionProvider {
 	// TODO: to be replaced with shouldEnablInlineInvite during experiment cleanup
 	getShouldEnableInlineInvite?: () => boolean;
-	InlineInviteRecaptcha?: React.ComponentType<any> | null;
+	InlineInvitePopup?: React.ComponentType<{
+		anchorElement: HTMLElement | null;
+		onDismiss: () => void;
+		onInviteComplete: (result: InlineInvitePopupResult) => void;
+		onReady: (show: ((email: string) => void) | null) => void;
+	}> | null;
 	onInviteItemClick?(flow: InviteFlow): void;
 	productName?: string;
 	shouldEnableInvite?: boolean;
-	showInlineInviteRecaptcha?: (email: string) => void;
+	showInlineInvitePopup?: (email: string, localId: string) => void;
 	userEmailDomain?: string;
 	userRole?: UserRole;
 }
@@ -442,3 +445,32 @@ export interface InviteFromMentionProvider {
 export interface XProductInviteMentionProvider {
 	inviteXProductUser?: (userId: string, mentionName: string) => Promise<void>;
 }
+
+/**
+ * @deprecated Use `import { isRestricted } from '@atlaskit/mention/types'` instead.
+ */
+export { isRestricted } from './is-restricted';
+/**
+ * @deprecated Use `import { isSpecialMention } from '@atlaskit/mention/types'` instead.
+ */
+export { isSpecialMention } from './is-special-mention';
+/**
+ * @deprecated Use `import { isAppMention } from '@atlaskit/mention/types'` instead.
+ */
+export { isAppMention } from './is-app-mention';
+/**
+ * @deprecated Use `import { isAgentMention } from '@atlaskit/mention/types'` instead.
+ */
+export { isAgentMention } from './is-agent-mention';
+/**
+ * @deprecated Use `import { isTeamMention } from '@atlaskit/mention/types'` instead.
+ */
+export { isTeamMention } from './is-team-mention';
+/**
+ * @deprecated Use `import { isSpecialMentionText } from '@atlaskit/mention/types'` instead.
+ */
+export { isSpecialMentionText } from './is-special-mention-text';
+/**
+ * @deprecated Use `import { isPromise } from '@atlaskit/mention/types'` instead.
+ */
+export { isPromise } from './is-promise';

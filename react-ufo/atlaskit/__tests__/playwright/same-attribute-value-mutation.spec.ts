@@ -6,6 +6,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - replacement node', () => {
 	test.use({
 		examplePage: 'same-attribute-value-mutation',
+	} satisfies {
+		examplePage: 'same-attribute-value-mutation';
+		__exampleDependency?: typeof import('../../examples/09-same-attribute-value-mutation.tsx');
 	});
 
 	for (const viewport of viewports) {
@@ -36,7 +39,8 @@ test.describe('ReactUFO: Revisions - replacement node', () => {
 				expect(ufoRevisions).toBeDefined();
 
 				// const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.02');
-				for (const rev of ufoRevisions!) {
+				// raw-handler carries observations for server-side VC calculation and has no VC90.
+				for (const rev of ufoRevisions!.filter(({ revision }) => revision !== 'raw-handler')) {
 					const revisionName = rev['revision'];
 
 					await test.step(`checking revision ${revisionName}`, () => {

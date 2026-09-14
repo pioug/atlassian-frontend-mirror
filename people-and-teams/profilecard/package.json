@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.14.3",
+	"version": "26.23.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,6 +32,7 @@
 		"./agent-profile-card": "./src/components/Agent/AgentProfileCard.tsx",
 		"./agent-profile-card-resourced": "./src/components/Agent/AgentProfileCardResourced.tsx",
 		"./agent-profile-card-trigger": "./src/components/Agent/AgentProfileCardTrigger.tsx",
+		"./build-agg-user-query": "./src/client/buildAggUserQuery.ts",
 		"./caching-client": "./src/client/CachingClient.ts",
 		"./client": "./src/client/index.ts",
 		"./config": "./src/util/config.ts",
@@ -41,25 +42,29 @@
 			"default": "./src/i18n/*.ts"
 		},
 		"./lazy-profile-card": "./src/components/User/lazyProfileCard.tsx",
+		"./loading-view": "./src/components/User/LoadingView.tsx",
+		"./main": "./src/components/team-profile-card/main.tsx",
 		"./messages": "./src/messages.ts",
 		"./mock-profile-client": "./src/mocks/mock-profile-client.ts",
 		"./mock-team-client": "./src/mocks/mock-team-client.ts",
 		"./mocks": "./src/mocks/index.ts",
-		"./profile-data": "./src/mocks/profile-data.ts",
+		"./modify-response": "./src/client/modifyResponse.ts",
 		"./profile-card": "./src/components/User/ProfileCard.tsx",
+		"./profile-card-client": "./src/client/ProfileCardClient.ts",
+		"./profile-card-resourced": "./src/components/User/ProfileCardResourced.tsx",
 		"./profile-card-trigger": "./src/components/User/ProfileCardTrigger.tsx",
+		"./profile-data": "./src/mocks/profile-data.ts",
+		"./profilecard-internal": "./src/components/User/ProfilecardInternal.tsx",
 		"./simple-mock-clients": "./src/mocks/simple-mock-clients.ts",
 		"./team": "./src/components/Team/index.ts",
+		"./team-profile-card-client": "./src/client/TeamProfileCardClient.ts",
 		"./team-profile-card/main": "./src/components/team-profile-card/main.tsx",
 		"./team-profile-card": "./src/components/Team/TeamProfileCard.tsx",
-		"./team-profile-card-client": "./src/client/TeamProfileCardClient.ts",
 		"./team-profile-card-trigger": "./src/components/Team/TeamProfileCardTrigger.tsx",
 		"./types": "./src/types.ts",
 		"./user": "./src/components/User/index.ts",
 		"./user-profile-card-client": "./src/client/UserProfileCardClient.ts",
-		"./with-outer-listeners": "./src/util/withOuterListeners.tsx",
-		"./profile-card-client": "./src/entry-points/ProfileCardClient.ts",
-		"./main": "./src/entry-points/main.tsx"
+		"./with-outer-listeners": "./src/util/withOuterListeners.tsx"
 	},
 	"scripts": {
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg",
@@ -116,12 +121,16 @@
 		"lru_map": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/flag": "workspace:^",
+		"@atlaskit/inline-edit": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
+		"@atlaskit/select": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-storybook-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -135,8 +144,8 @@
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"loader-utils": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"sinon": "root:*",
 		"typescript": "root:*",
@@ -146,17 +155,6 @@
 		"ui",
 		"profilecard"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"manual-studio-entry-link": {
 			"type": "boolean"
@@ -167,9 +165,6 @@
 		"platform_agg_user_query_doc_change": {
 			"type": "boolean"
 		},
-		"profilecard_scoped_profile_atl_attribution": {
-			"type": "boolean"
-		},
 		"platform-adopt-teams-nav-config": {
 			"type": "boolean"
 		},
@@ -177,9 +172,6 @@
 			"type": "boolean"
 		},
 		"cover-header-image-team-profilecard": {
-			"type": "boolean"
-		},
-		"rovo_display_ai_disclaimer_on_agent_profile_card": {
 			"type": "boolean"
 		},
 		"rovo_agent_versioning_enabled": {
@@ -194,13 +186,7 @@
 		"jira_ai_hide_conversation_starters_profilecard": {
 			"type": "boolean"
 		},
-		"jira_ai_fix_agent_profile_card_flashing": {
-			"type": "boolean"
-		},
 		"confluence_fix_agent_profile_card_flash": {
-			"type": "boolean"
-		},
-		"update_profile_card_to_open_on_mouse_over": {
 			"type": "boolean"
 		},
 		"fix_give_kudos_btn_incorrect_role": {
@@ -209,10 +195,10 @@
 		"create_modernization_ga_fixes_drop_2": {
 			"type": "boolean"
 		},
-		"fix_aria_attribute_violation_on_agent_card_trigger": {
+		"platform_editor_agent_mentions_drop_one_fixes": {
 			"type": "boolean"
 		},
-		"platform_editor_agent_mentions_drop_one_fixes": {
+		"platform_editor_agent_card_fixes": {
 			"type": "boolean"
 		}
 	},

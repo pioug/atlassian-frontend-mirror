@@ -1,4 +1,5 @@
-import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import React, { createRef } from 'react';
 import waitForExpect from 'wait-for-expect';
 
@@ -26,14 +27,12 @@ import {
 	type OnEmojiEvent,
 	type OptionalEmojiDescription,
 } from '../../../../types';
-import {
-	recordFailedEmoji,
-	recordSucceededEmoji,
-	typeaheadCancelledEvent,
-	typeaheadRenderedEvent,
-	typeaheadSelectedEvent,
-	ufoExperiences,
-} from '../../../../util/analytics';
+import { recordFailedEmoji } from '../../../../util/analytics/recordFailedEmoji';
+import { recordSucceededEmoji } from '../../../../util/analytics/recordSucceededEmoji';
+import { typeaheadCancelledEvent } from '../../../../util/analytics/typeaheadCancelledEvent';
+import { typeaheadRenderedEvent } from '../../../../util/analytics/typeaheadRenderedEvent';
+import { typeaheadSelectedEvent } from '../../../../util/analytics/typeaheadSelectedEvent';
+import { ufoExperiences } from '../../../../util/analytics/ufoExperiences';
 import { defaultListLimit } from '../../../../util/constants';
 import { renderWithIntl } from '../../_testing-library';
 
@@ -210,9 +209,9 @@ describe('EmojiTypeAhead', () => {
 			),
 		);
 
-		expect(ufoEmojiRecordedStartSpy).toBeCalled();
-		expect(ufoEmojiRecordedSuccessSpy).toBeCalled();
-		expect(ufoEmojiRecordedFailureSpy).not.toBeCalled();
+		expect(ufoEmojiRecordedStartSpy).toHaveBeenCalled();
+		expect(ufoEmojiRecordedSuccessSpy).toHaveBeenCalled();
+		expect(ufoEmojiRecordedFailureSpy).not.toHaveBeenCalled();
 	});
 
 	it('should fire insertion failed event if provider recordSelection fails', async () => {
@@ -249,9 +248,9 @@ describe('EmojiTypeAhead', () => {
 				),
 			);
 
-			expect(ufoEmojiRecordedStartSpy).toBeCalled();
-			expect(ufoEmojiRecordedSuccessSpy).not.toBeCalled();
-			expect(ufoEmojiRecordedFailureSpy).toBeCalled();
+			expect(ufoEmojiRecordedStartSpy).toHaveBeenCalled();
+			expect(ufoEmojiRecordedSuccessSpy).not.toHaveBeenCalled();
+			expect(ufoEmojiRecordedFailureSpy).toHaveBeenCalled();
 		});
 	});
 

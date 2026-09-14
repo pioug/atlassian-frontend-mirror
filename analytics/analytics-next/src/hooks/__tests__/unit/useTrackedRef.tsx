@@ -39,7 +39,7 @@ describe('useTrackedRef', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalled();
+		expect(callback).toHaveBeenCalled();
 
 		const ref = callback.mock.calls[0][0];
 		expect(ref.current).toBe('firstValue');
@@ -50,7 +50,7 @@ describe('useTrackedRef', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith(ref);
+		expect(callback).toHaveBeenCalledWith(ref);
 		expect(ref.current).toBe('secondValue');
 	});
 

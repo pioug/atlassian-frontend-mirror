@@ -8,8 +8,8 @@ import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import ArrowRight from '@atlaskit/icon/core/arrow-right';
 import { MediaFilmStripListItemSelector } from '.';
 import { css } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const filmStripViewStyles = css({
 	position: 'relative',
@@ -74,7 +74,7 @@ const arrowWrapperStyles = css({
 	borderRadius: token('radius.full'),
 	display: 'flex',
 	cursor: 'pointer',
-	transition: 'opacity 0.3s',
+	transition: token('motion.button.hovered'),
 	boxShadow: token('elevation.shadow.overlay'),
 	color: token('color.icon'),
 	width: '30px',
@@ -86,6 +86,7 @@ const arrowWrapperStyles = css({
 		backgroundColor: token('elevation.surface.overlay.hovered'),
 	},
 	'&:active': {
+		transition: token('motion.button.pressed'),
 		color: token('color.text.selected'),
 		backgroundColor: token('color.background.selected'),
 	},
@@ -93,6 +94,13 @@ const arrowWrapperStyles = css({
 	svg: {
 		height: '30px',
 		width: '20px',
+	},
+});
+
+const arrowWrapperMotionStyles = css({
+	transition: token('motion.button.hovered'),
+	'&:active': {
+		transition: token('motion.button.pressed'),
 	},
 });
 
@@ -148,25 +156,20 @@ export const ArrowLeftWrapper = ({
 }: {
 	children: ReactNode;
 } & OnClick): JSX.Element => {
-	return fg('platform_media_a11y_suppression_fixes') ? (
+	return (
 		<button
-			css={[resetButtonStyle, arrowWrapperStyles, arrowLeftWrapperStyles]}
+			css={[
+				resetButtonStyle,
+				arrowWrapperStyles,
+				arrowLeftWrapperStyles,
+				fg('platform-dst-motion-uplift-custom-button') && arrowWrapperMotionStyles,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className="arrow"
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
 		>
 			{children}
 		</button>
-	) : (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-		<div
-			css={[arrowWrapperStyles, arrowLeftWrapperStyles]}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className="arrow"
-			onClick={onClick}
-		>
-			{children}
-		</div>
 	);
 };
 
@@ -180,25 +183,20 @@ export const ArrowRightWrapper = ({
 }: {
 	children: ReactNode;
 } & OnClick): JSX.Element => {
-	return fg('platform_media_a11y_suppression_fixes') ? (
+	return (
 		<button
-			css={[resetButtonStyle, arrowWrapperStyles, arrowRightWrapperStyles]}
+			css={[
+				resetButtonStyle,
+				arrowWrapperStyles,
+				arrowRightWrapperStyles,
+				fg('platform-dst-motion-uplift-custom-button') && arrowWrapperMotionStyles,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className="arrow"
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
 		>
 			{children}
 		</button>
-	) : (
-		// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
-		<div
-			css={[arrowWrapperStyles, arrowRightWrapperStyles]}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className="arrow"
-			onClick={onClick}
-		>
-			{children}
-		</div>
 	);
 };
 

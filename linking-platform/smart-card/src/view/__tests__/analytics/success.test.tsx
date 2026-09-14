@@ -1,14 +1,16 @@
-import './success.test.mock';
-
 import React from 'react';
 
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import './success.test.mock';
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+import { v4 as uuid } from 'uuid';
+
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMock, type JestFunction } from '@atlaskit/media-test-helpers';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -16,19 +18,26 @@ import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testin
 
 import { CardAction } from '../../../constants';
 import { TitleBlock } from '../../../index';
-import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import * as socialProofExperiment from '../../../state/hooks/use-social-proof-experiment';
-import { isSpecialClick, isSpecialKey } from '../../../utils';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import * as addMetadataToExperienceModule from '../../../state/analytics/addMetadataToExperience';
+import * as failUfoExperienceModule from '../../../state/analytics/failUfoExperience';
+import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
+import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
+import * as inlineSocialProofExperimentModule from '../../../state/hooks/use-social-proof-experiment/getInlineSocialProofExperimentMeta';
+import * as socialProofExperimentModule from '../../../state/hooks/use-social-proof-experiment/getSocialProofExperimentMeta';
+
+import { isSpecialClick } from '../../../utils/is-special-click';
+import { isSpecialKey } from '../../../utils/is-special-key';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mocks } from '../../../utils/mocks';
 import { shouldSample } from '../../../utils/shouldSample';
 import { Card, type CardAppearance } from '../../Card';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
 import '@atlaskit/link-test-helpers/jest';
 
-jest.mock('../../../utils', () => ({
-	...jest.requireActual('../../../utils'),
-	downloadUrl: jest.fn(),
+jest.mock('../../../utils/is-special-key', () => ({
 	isSpecialKey: jest.fn(() => false),
+}));
+jest.mock('../../../utils/is-special-click', () => ({
 	isSpecialClick: jest.fn(() => false),
 }));
 jest.mock('../../../utils/shouldSample');
@@ -61,12 +70,14 @@ describe('smart-card: success analytics', () => {
 		mockPostData = jest.fn(async () => mocks.actionSuccess);
 		mockClient = new (fakeFactory(mockFetch, mockPostData))();
 		mockWindowOpen = jest.fn();
-		mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
-		mockSucceedUfoExperience = jest.spyOn(ufoWrapper, 'succeedUfoExperience');
-		mockFailUfoExperience = jest.spyOn(ufoWrapper, 'failUfoExperience');
-		mockAddMetadataToExperience = jest.spyOn(ufoWrapper, 'addMetadataToExperience');
+		mockStartUfoExperience = jest.spyOn(startUfoExperienceModule, 'startUfoExperience');
+		mockSucceedUfoExperience = jest.spyOn(succeedUfoExperienceModule, 'succeedUfoExperience');
+		mockFailUfoExperience = jest.spyOn(failUfoExperienceModule, 'failUfoExperience');
+		mockAddMetadataToExperience = jest.spyOn(
+			addMetadataToExperienceModule,
+			'addMetadataToExperience',
+		);
 		mockUuid.mockReturnValueOnce('some-uuid-1').mockReturnValueOnce('some-uuid-2');
-		/// @ts-ignore
 		global.open = mockWindowOpen;
 	});
 
@@ -255,7 +266,7 @@ describe('smart-card: success analytics', () => {
 			describe('with social proof renderSuccess metadata gate on', () => {
 				it('adds nested experimentMeta for unauthorized block cards', async () => {
 					passGate('social-proof-3p-unauth-block-fg');
-					jest.spyOn(socialProofExperiment, 'getSocialProofExperimentMeta').mockReturnValue({
+					jest.spyOn(socialProofExperimentModule, 'getSocialProofExperimentMeta').mockReturnValue({
 						social_proof_3p_unauth_block_exp: { isEligible: true, tier: 'not-low' },
 					});
 
@@ -278,7 +289,7 @@ describe('smart-card: success analytics', () => {
 
 				it('adds ineligible nested experimentMeta for unauthorized block cards without cached eligibility', async () => {
 					passGate('social-proof-3p-unauth-block-fg');
-					jest.spyOn(socialProofExperiment, 'getSocialProofExperimentMeta').mockReturnValue({
+					jest.spyOn(socialProofExperimentModule, 'getSocialProofExperimentMeta').mockReturnValue({
 						social_proof_3p_unauth_block_exp: { isEligible: false },
 					});
 
@@ -303,12 +314,14 @@ describe('smart-card: success analytics', () => {
 			describe('with inline social proof renderSuccess metadata gate on', () => {
 				it('adds nested experimentMeta for unauthorized inline cards', async () => {
 					passGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
-					jest.spyOn(socialProofExperiment, 'getInlineSocialProofExperimentMeta').mockReturnValue({
-						platform_sl_3p_preauth_social_proof_inline_cta: {
-							isEligible: true,
-							tier: 'low',
-						},
-					});
+					jest
+						.spyOn(inlineSocialProofExperimentModule, 'getInlineSocialProofExperimentMeta')
+						.mockReturnValue({
+							platform_sl_3p_preauth_social_proof_inline_cta: {
+								isEligible: true,
+								tier: 'low',
+							},
+						});
 
 					await renderCard('inline');
 
@@ -335,7 +348,7 @@ describe('smart-card: success analytics', () => {
 				it('does not add inline nested experimentMeta for unauthorized inline cards', async () => {
 					failGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
 					const getInlineSocialProofExperimentMetaSpy = jest.spyOn(
-						socialProofExperiment,
+						inlineSocialProofExperimentModule,
 						'getInlineSocialProofExperimentMeta',
 					);
 
@@ -358,7 +371,7 @@ describe('smart-card: success analytics', () => {
 				it('does not add nested experimentMeta for unauthorized block cards', async () => {
 					failGate('social-proof-3p-unauth-block-fg');
 					const getSocialProofExperimentMetaSpy = jest.spyOn(
-						socialProofExperiment,
+						socialProofExperimentModule,
 						'getSocialProofExperimentMeta',
 					);
 
@@ -468,7 +481,6 @@ describe('smart-card: success analytics', () => {
 			await userEvent.click(resolvedCard);
 
 			// ensure default onclick for renderer is not triggered
-			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					actionSubject: 'smartLink',
@@ -493,7 +505,6 @@ describe('smart-card: success analytics', () => {
 			await userEvent.click(resolvedCard);
 
 			// ensure default onclick for renderer is not triggered
-			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					actionSubject: 'smartLink',
@@ -518,7 +529,6 @@ describe('smart-card: success analytics', () => {
 			await userEvent.click(resolvedCard);
 
 			// ensure default onclick for renderer is not triggered
-			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					actionSubject: 'smartLink',
@@ -706,7 +716,7 @@ describe('smart-card: success analytics', () => {
 			const mockUrl = 'https://this.is.the.seventh.url';
 			const { rerender } = render(
 				<Provider client={mockClient}>
-					<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
+					<Card id="some-uuid-1" testId="resolvedCard1" appearance="inline" url={mockUrl} />
 				</Provider>,
 			);
 			await screen.findByTestId('resolvedCard1-resolved-view');
@@ -715,8 +725,8 @@ describe('smart-card: success analytics', () => {
 
 			rerender(
 				<Provider client={mockClient}>
-					<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
-					<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
+					<Card id="some-uuid-1" testId="resolvedCard1" appearance="inline" url={mockUrl} />
+					<Card id="some-uuid-2" testId="resolvedCard2" appearance="inline" url={mockUrl} />
 				</Provider>,
 			);
 

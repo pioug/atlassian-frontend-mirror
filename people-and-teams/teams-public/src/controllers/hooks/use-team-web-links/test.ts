@@ -1,10 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react';
 
-import { teamsClient } from '@atlaskit/teams-client';
+import { teamsClient } from '@atlaskit/teams-client/client';
 
-import { useTeamWebLinks } from './index';
+import { useTeamWebLinks } from './use-team-web-links';
 
-jest.mock('@atlaskit/teams-client', () => ({
+jest.mock('@atlaskit/teams-client/client', () => ({
+	...jest.requireActual('@atlaskit/teams-client/client'),
 	teamsClient: {
 		getTeamLinksByTeamId: jest.fn(),
 		createTeamLink: jest.fn(),

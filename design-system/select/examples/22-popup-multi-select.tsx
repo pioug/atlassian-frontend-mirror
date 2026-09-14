@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import DownIcon from '@atlaskit/icon/core/chevron-down';
-import { type OptionType, type OptionsType, PopupSelect } from '@atlaskit/select';
+import type { OptionType, OptionsType } from '@atlaskit/select/types';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 
 const options: OptionsType = [
 	{ label: 'Adelaide', value: 'adelaide' },

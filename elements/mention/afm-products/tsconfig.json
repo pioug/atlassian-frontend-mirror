@@ -32,6 +32,9 @@
 			"path": "../../../design-system/avatar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/focus-ring/afm-products/tsconfig.json"
 		},
 		{
@@ -42,6 +45,9 @@
 		},
 		{
 			"path": "../../../design-system/lozenge/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

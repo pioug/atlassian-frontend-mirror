@@ -3,7 +3,8 @@ import { Box, xcss } from '@atlaskit/primitives';
 import React, { type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AtlassianIcon, ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { SlackIcon } from '../assets/slack';
@@ -12,7 +13,6 @@ import { MicrosoftIcon } from '../assets/microsoft';
 import { messages } from '../i18n';
 import { type UserSource } from '../../types';
 import { type ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const sourcesTooltipContainer = xcss({
 	paddingBottom: 'space.050',
@@ -30,35 +30,6 @@ type RenderableSource = {
 	label: { defaultMessage: string; description: string; id: string };
 	sourceType: UserSource;
 };
-
-const SUPPORTED_SOURCES_APPIFY: RenderableSource[] = [
-	{
-		sourceType: 'jira',
-		icon: <JiraIcon size={'xxsmall'} />,
-		label: messages.jiraSource,
-	},
-	{
-		sourceType: 'confluence',
-		icon: <ConfluenceIcon size={'xxsmall'} />,
-		label: messages.confluenceSource,
-	},
-	{
-		sourceType: 'other-atlassian',
-		icon: <AtlassianIcon size={'xxsmall'} />,
-		label: messages.otherAtlassianSourceAppify,
-	},
-	{ sourceType: 'slack', icon: <SlackIcon />, label: messages.slackProvider },
-	{
-		sourceType: 'google',
-		icon: <GoogleIcon />,
-		label: messages.googleProvider,
-	},
-	{
-		sourceType: 'microsoft',
-		icon: <MicrosoftIcon />,
-		label: messages.microsoftProvider,
-	},
-];
 
 const SUPPORTED_SOURCES: RenderableSource[] = [
 	{
@@ -104,13 +75,7 @@ export const SourcesTooltipContent = ({
 }: ExternalUserSourcesData): React.JSX.Element => {
 	const sourcesToRender = React.useMemo(
 		() =>
-			fg('product-terminology-refresh')
-				? SUPPORTED_SOURCES_APPIFY.filter((supportedSource) =>
-						sources.includes(supportedSource.sourceType),
-					)
-				: SUPPORTED_SOURCES.filter((supportedSource) =>
-						sources.includes(supportedSource.sourceType),
-					),
+			SUPPORTED_SOURCES.filter((supportedSource) => sources.includes(supportedSource.sourceType)),
 		[sources],
 	);
 	return (

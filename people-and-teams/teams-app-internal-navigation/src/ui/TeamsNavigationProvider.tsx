@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useMemo, type ReactNode } from 'react';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import React, { useContext, useMemo, type ReactNode } from 'react';
 
 import { type NavigationContext } from '../common/utils/getNavigationProps';
 
-const NavigationContextReact = createContext<NavigationContext | undefined>(undefined);
+import { NavigationContextReact } from './NavigationContextReact';
 
 export interface TeamsNavigationProviderProps {
 	value: NavigationContext;
@@ -38,11 +39,6 @@ export function TeamsNavigationProvider({
 }
 
 /**
- * Read the current {@link NavigationContext} from the nearest {@link TeamsNavigationProvider}.
- *
- * When no provider is present, returns an empty object so link components can render without a wrapper.
+ * @deprecated Use `import { useTeamsNavigationContext } from '@atlaskit/teams-app-internal-navigation/use-teams-navigation-context'` instead.
  */
-export function useTeamsNavigationContext(): NavigationContext {
-	const context = useContext(NavigationContextReact);
-	return context ?? {};
-}
+export { useTeamsNavigationContext } from './useTeamsNavigationContext';

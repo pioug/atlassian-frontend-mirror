@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required, @atlaskit/volt-strict-mode/no-re-exports, @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type ChunkHashAlgorithm } from './ChunkHashAlgorithm';
 
 export interface ClientAltBasedAuth {
@@ -20,27 +21,6 @@ export interface AsapBasedAuth {
 
 export type Auth = ClientBasedAuth | AsapBasedAuth;
 
-export function isClientBasedAuth(auth: Auth): auth is ClientBasedAuth {
-	return !!(auth as ClientBasedAuth).clientId;
-}
-
-export function isAsapBasedAuth(auth: Auth): auth is AsapBasedAuth {
-	return !!(auth as AsapBasedAuth).asapIssuer;
-}
-
-export const authToOwner = (auth: Auth): ClientAltBasedAuth | AsapBasedAuth => {
-	if (isAsapBasedAuth(auth)) {
-		return auth;
-	}
-
-	const clientAuth: ClientAltBasedAuth = {
-		id: auth.clientId,
-		baseUrl: auth.baseUrl,
-		token: auth.token,
-	};
-
-	return clientAuth;
-};
 export interface MediaClientConfig {
 	readonly authProvider: AuthProvider;
 	readonly initialAuth?: Auth;
@@ -79,3 +59,16 @@ export type MediaApiConfig = {
 	chunkHashAlgorithm?: ChunkHashAlgorithm;
 	authProviderTimeout?: number;
 };
+
+/**
+ * @deprecated Use `import { isClientBasedAuth } from '@atlaskit/media-core/is-client-based-auth'` instead.
+ */
+export { isClientBasedAuth } from './isClientBasedAuth';
+/**
+ * @deprecated Use `import { isAsapBasedAuth } from '@atlaskit/media-core/is-asap-based-auth'` instead.
+ */
+export { isAsapBasedAuth } from './isAsapBasedAuth';
+/**
+ * @deprecated Use `import { authToOwner } from '@atlaskit/media-core/auth-to-owner'` instead.
+ */
+export { authToOwner } from './authToOwner';

@@ -5,7 +5,7 @@ import {
 	BodiedExtensionWithSmartLink,
 	EmptyBodiedExtension,
 	InlineExtensionWithSmartLink,
-} from './2P-bodied-extension-edit-button-enabled.fixtures';
+} from './2P-bodied-extension-edit-button-enabled.fixtures.vr.ap';
 
 snapshot(BlockExtensionWithSmartLink);
 snapshot(BodiedExtensionWithSmartLink);

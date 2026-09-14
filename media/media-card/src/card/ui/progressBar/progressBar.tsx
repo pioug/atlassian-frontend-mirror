@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyledBar } from './styledBar';
+
 import { Breakpoint } from '../common';
+import { getNormalizedProgress } from './getNormalizedProgress';
+import { StyledBar } from './styledBar';
 
 export type ProgressBarProps = {
 	progress?: number;
@@ -8,10 +10,6 @@ export type ProgressBarProps = {
 	positionBottom?: boolean;
 	showOnTop?: boolean;
 	ariaLabel?: string;
-};
-
-export const getNormalizedProgress = (progress?: number): number => {
-	return Math.min(1, Math.max(0, progress || 0)) * 100;
 };
 
 export const ProgressBar = ({

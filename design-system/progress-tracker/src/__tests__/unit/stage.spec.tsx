@@ -1,7 +1,5 @@
 import React from 'react';
-
-// eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library
-import { render as renderFn, screen } from '@testing-library/react';
+import { render as renderFn, screen } from '@atlassian/testing-library';
 
 import { token } from '@atlaskit/tokens';
 
@@ -11,6 +9,7 @@ import { type LinkComponentProps, type Stage } from '../../types';
 
 const defaultTestId = 'test';
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/progress-tracker/stage', () => {
 	it('should render the component', () => {
 		const item: Stage = {

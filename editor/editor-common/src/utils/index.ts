@@ -73,6 +73,8 @@ export {
 } from './breakout';
 export { breakoutResizableNodes } from './breakoutResizableNodes';
 export { getBreakoutResizableNodeTypes } from './getBreakoutResizableNodeTypes';
+export { getBreakoutResizableNodes } from './getBreakoutResizableNodes';
+export { getBreakoutResizableNodeTypesNew } from './getBreakoutResizableNodeTypesNew';
 export { getNextBreakoutMode } from './getNextBreakoutMode';
 export { getTitle } from './getTitle';
 export type { BreakoutConstsType } from './breakout';

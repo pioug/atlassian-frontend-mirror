@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ModalTransition } from '@atlaskit/modal-dialog';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 import { type CreatePayload, type LinkCreatePlugin } from '../../types';
 import { Modal } from '../ModalDialog';

@@ -1,8 +1,12 @@
-import { token } from '@atlaskit/tokens';
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
-import { onSelection, resourceProvider } from '../example-helpers';
+
+import { token } from '@atlaskit/tokens';
+
+import { resourceProvider } from '../example-helpers';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
+import { onSelection } from '../example-helpers/on-selection';
 import ResourcedMentionList from '../src/components/ResourcedMentionList';
 
 export interface State {

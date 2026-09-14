@@ -1,4 +1,4 @@
-import { createCustomMediaPlayerScreenEvent } from '../../../analytics';
+import { createCustomMediaPlayerScreenEvent } from '../../../analytics/events/screen/customMediaPlayer';
 
 describe('createCustomMediaPlayerScreenEvent', () => {
 	it('should create event payload', () =>

@@ -1,4 +1,4 @@
-import { type ErrorResponse, type SuccessResponse } from '@atlaskit/link-provider';
+import type { ErrorResponse, SuccessResponse } from '@atlaskit/link-provider/responses';
 
 import { mocks } from '../../../../utils/mocks';
 

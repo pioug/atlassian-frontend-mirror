@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Button from '@atlaskit/button/standard-button';
-import AkSpinner from '@atlaskit/spinner';
+import AkSpinner from '@atlaskit/spinner/spinner';
 import DetailViewIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import {

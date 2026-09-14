@@ -1,5 +1,7 @@
 import type { Ari } from '../../types';
-import { extractCloudIdAndProductFromSite, performGetRequest, performPostRequest } from '../api';
+import { extractCloudIdAndProductFromSite } from '../extractCloudIdAndProductFromSite';
+import { performGetRequest } from '../performGetRequest';
+import { performPostRequest } from '../performPostRequest';
 
 describe('extractCloudIdAndProductFromSite', () => {
 	test.each([
@@ -42,7 +44,7 @@ describe('extractCloudIdAndProductFromSite', () => {
 		['ari:cloud:confluence2::site/123'],
 		['ari:cloud:confluence*::site/123'],
 	])('Malformed site ARI %p should throw error', (malformedSiteAri: Ari) => {
-		expect(() => extractCloudIdAndProductFromSite(malformedSiteAri)).toThrowError(
+		expect(() => extractCloudIdAndProductFromSite(malformedSiteAri)).toThrow(
 			'Not a site ARI: ' + malformedSiteAri,
 		);
 	});
@@ -51,7 +53,7 @@ describe('extractCloudIdAndProductFromSite', () => {
 		['ari:cloud:confluence::product/abcde-fghijk-12345-12345678901234567'],
 		['ari:cloud:platform::sit/123'],
 	])('Unsupported ARI %p should throw error', (malformedSiteAri: Ari) => {
-		expect(() => extractCloudIdAndProductFromSite(malformedSiteAri)).toThrowError(
+		expect(() => extractCloudIdAndProductFromSite(malformedSiteAri)).toThrow(
 			'Not a site ARI: ' + malformedSiteAri,
 		);
 	});

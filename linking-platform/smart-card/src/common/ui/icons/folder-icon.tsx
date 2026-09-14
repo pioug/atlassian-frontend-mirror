@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 import FolderClosedIcon from '@atlaskit/icon/core/folder-closed';
 
+import { renderIconTile } from './render-icon-tile';
 import type { AtlaskitIconTileProps } from './types';
-import { renderIconTile } from './utils';
 
 const FolderClosedIconWithColor: FC<AtlaskitIconTileProps> = renderIconTile(
 	FolderClosedIcon,

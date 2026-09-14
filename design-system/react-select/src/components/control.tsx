@@ -7,7 +7,7 @@ import { type CSSProperties, type JSX, type ReactNode, type Ref } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -63,7 +63,7 @@ const styles = cssMap({
 		backgroundColor: token('color.background.input'),
 		borderColor: token('color.border.input'),
 		borderStyle: 'solid',
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.medium'),
 		borderWidth: token('border.width'),
 		'&:focus-within': {
 			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.input')}`,
@@ -94,9 +94,6 @@ border-color 200ms ease-in-out`,
 		'&::-webkit-scrollbar-thumb:hover': {
 			backgroundColor: 'rgba(0,0,0,0.4)',
 		},
-	},
-	defaultT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	compact: {
 		minHeight: 32,
@@ -186,7 +183,6 @@ const Control: <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 		<div
 			css={[
 				styles.default,
-				fg('platform-dst-shape-theme-default') && styles.defaultT26Shape,
 				isDisabled && styles.disabled,
 				isInvalid && styles.invalid,
 				isCompact && styles.compact,

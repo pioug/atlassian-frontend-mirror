@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -34,6 +31,12 @@
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../motion/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
 		{
 			"path": "../structured-docs-types/tsconfig.app.json"
 		}

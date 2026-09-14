@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import TargetBlankExample from '../../../../../examples/03-target-blank';
+import TargetBlankExample from '../../../../../examples/03-target-blank.vr.ap';
 
 import { themeVariants } from './utils';
 

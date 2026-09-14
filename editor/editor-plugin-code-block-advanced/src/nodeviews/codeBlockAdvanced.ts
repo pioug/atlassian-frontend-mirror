@@ -7,17 +7,11 @@ import type { ViewUpdate } from '@codemirror/view';
 import { bind } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
-import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	areCodeBlockLineNumbersHidden,
 	isCodeBlockWordWrapEnabled,
 } from '@atlaskit/editor-common/code-block';
-import { messages as floatingToolbarMessages } from '@atlaskit/editor-common/floating-toolbar';
-import {
-	blockTypeMessages,
-	codeBlockMessages,
-	roleDescriptionMessages,
-} from '@atlaskit/editor-common/messages';
+import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type {
 	getPosHandler,
@@ -36,7 +30,7 @@ import type {
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -53,7 +47,6 @@ import { keymapExtension } from './extensions/keymap';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
 import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension';
-import getLanguageName from './languages/getLanguageName';
 import { LanguageLoader } from './languages/loader';
 
 export interface ConfigProps {
@@ -85,7 +78,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private languageLoader: LanguageLoader;
 	private pmFacet = Facet.define<DecorationSource>();
 	private unsubscribeContentFormat: (() => void) | undefined;
-	private invisibleAriaDescription?: HTMLSpanElement;
 	private config: ConfigProps;
 	private cleanupBorderAreaClick: (() => void) | undefined;
 	private cleanupBorderAreaMouseDown: (() => void) | undefined;
@@ -121,8 +113,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		});
 		const { formatMessage } = config.getIntl();
 		const formattedAriaLabel = formatMessage(blockTypeMessages.codeblock);
-
-		const isMacOS = getBrowserInfo().mac;
 
 		this.cm = new CodeMirror({
 			doc: this.node.textContent,
@@ -173,22 +163,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				tripleClickSelectAllExtension(),
 				firstCodeBlockInDocument(getPos),
 				CodeMirror.contentAttributes.of({
-					...(!expValEquals('editor_a11y_role_textbox', 'isEnabled', true) && {
-						'aria-label': `${formattedAriaLabel}`,
-					}),
-					...(isMacOS &&
-						expValEquals('editor_a11y_role_textbox', 'isEnabled', true) && {
-							role: 'textbox',
-							'aria-roledescription': formatMessage(roleDescriptionMessages.codeSnippetTextBox),
-							'aria-describedby': `codesnippet-${this.node.attrs.localId}`,
-							'aria-multiline': 'true',
-							'aria-label': formattedAriaLabel,
-						}),
-					...(!isMacOS &&
-						expValEquals('editor_a11y_role_textbox', 'isEnabled', true) && {
-							'aria-label': formattedAriaLabel,
-							'aria-describedby': `codesnippet-${this.node.attrs.localId}`,
-						}),
+					'aria-label': `${formattedAriaLabel}`,
 				}),
 				config.allowCodeFolding
 					? [
@@ -241,18 +216,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// The editor's outer node is our DOM representation
 		this.dom = this.cm.dom;
 		this.dom.appendChild(spaceContainer);
-
-		if (
-			expValEquals('editor_a11y_role_textbox', 'isEnabled', true) &&
-			fg('platform_editor_adf_with_localid')
-		) {
-			this.invisibleAriaDescription = document.createElement('span');
-			this.invisibleAriaDescription.hidden = true;
-			this.invisibleAriaDescription.id = `codesnippet-${this.node.attrs.localId}`;
-			this.updateAriaDescription();
-
-			this.dom.appendChild(this.invisibleAriaDescription);
-		}
 
 		// This flag is used to avoid an update loop between the outer and
 		// inner editor
@@ -314,34 +277,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 	private updateLanguage() {
 		this.languageLoader.updateLanguage(this.node.attrs.language);
-		if (
-			expValEquals('editor_a11y_role_textbox', 'isEnabled', true) &&
-			fg('platform_editor_adf_with_localid')
-		) {
-			this.updateAriaDescription();
-		}
-	}
-
-	private updateAriaDescription() {
-		if (!this.invisibleAriaDescription) {
-			return;
-		}
-
-		const { formatMessage } = this.config.getIntl();
-		const languageName = getLanguageName(this.node.attrs.language);
-		if (languageName) {
-			this.invisibleAriaDescription.textContent = `${formatMessage(
-				codeBlockMessages.codeblockLanguageAriaDescription,
-				{
-					language: languageName,
-				},
-			)} ${formatMessage(floatingToolbarMessages.floatingToolbarAnnouncer)}`;
-		} else {
-			// If the lanuage is undefined provide a more human readable message
-			this.invisibleAriaDescription.textContent = `${formatMessage(
-				codeBlockMessages.codeBlockLanguageNotSet,
-			)} ${formatMessage(floatingToolbarMessages.floatingToolbarAnnouncer)}`;
-		}
 	}
 
 	private updateLocalIdAttribute() {
@@ -374,10 +309,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	};
 
 	private fireCodeFoldingAnalytics = (folded: boolean, trigger: CodeFoldingTrigger) => {
-		if (!fg('platform_editor_code_block_folding_analytics')) {
-			return;
-		}
-
 		this.config.api?.analytics?.actions.fireAnalyticsEvent(
 			getCodeFoldingAnalyticsPayload(folded, trigger),
 		);

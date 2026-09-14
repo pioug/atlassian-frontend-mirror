@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	type Config,
@@ -21,7 +21,7 @@ import {
 	shouldUseRawDataThirdPartyBehavior,
 } from './index';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 describe('UFO Configuration Module', () => {
 	beforeEach(() => {

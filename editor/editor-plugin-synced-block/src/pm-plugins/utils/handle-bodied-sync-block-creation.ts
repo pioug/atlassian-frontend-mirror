@@ -11,7 +11,11 @@ import { syncedBlockPluginKey } from '../main';
 
 import { deferDispatch } from './utils';
 
-const onRetry = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined, resourceId: string) => {
+const onRetry = (
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	resourceId: string,
+	enrichment?: CreateSuccessEnrichment,
+) => {
 	return () => {
 		api?.core?.actions.focus();
 		api?.core?.actions.execute(({ tr }) => {
@@ -27,7 +31,7 @@ const onRetry = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined, resour
 			tr.setSelection(TextSelection.create(tr.doc, from, to)).setMeta(syncedBlockPluginKey, {
 				activeFlag: false,
 			});
-			api?.syncedBlock?.commands.insertSyncedBlock()({ tr });
+			api?.syncedBlock?.commands.insertSyncedBlock(enrichment?.inputMethod)({ tr });
 
 			return tr;
 		});
@@ -80,7 +84,7 @@ const buildRevertCreationTr = (tr: Transaction, pos: { from: number; to: number 
  *
  * Save the new bodiedSyncBlock to backend with empty content and handles revert (if failed) and retry flow.
  *
- * @param enrichment optional creation-type signals from `createSyncedBlock`,
+ * @param enrichment optional creation analytics signals from `createSyncedBlock`,
  *   forwarded to the store manager to attach to the `syncedBlockCreate` event.
  */
 export const handleBodiedSyncBlockCreation = (
@@ -129,7 +133,7 @@ export const handleBodiedSyncBlockCreation = (
 							.setMeta(syncedBlockPluginKey, {
 								activeFlag: {
 									id: FLAG_ID.CANNOT_CREATE_SYNC_BLOCK,
-									onRetry: onRetry(api, resourceId),
+									onRetry: onRetry(api, resourceId, enrichment),
 									onDismissed: (tr: Transaction) =>
 										tr.setMeta(syncedBlockPluginKey, {
 											...tr.getMeta(syncedBlockPluginKey),

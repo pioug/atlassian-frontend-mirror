@@ -1,3 +1,4 @@
+import type { Mode } from '@atlaskit/editor-common/connectivity/mode';
 import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 export type ConnectivityPlugin = NextEditorPlugin<
@@ -37,11 +38,16 @@ export type PublicPluginState = {
 	mode: Mode;
 };
 
-export type Mode = 'offline' | 'online' | 'collab-offline' | 'internet-offline';
+/**
+ * Use `Mode` from `@atlaskit/editor-common/connectivity/mode` instead.
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-62479 Internal documentation for deprecation (no external access)}
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export type { Mode } from '@atlaskit/editor-common/connectivity/mode';
 
 /**
- * Check if the connectivity mode represents ANY offline state
+ * Use `isOfflineMode` from `@atlaskit/editor-common/connectivity/isOfflineMode` instead.
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-62479 Internal documentation for deprecation (no external access)}
  */
-export const isOfflineMode = (mode: Mode | undefined): boolean => {
-	return mode === 'offline' || mode === 'collab-offline' || mode === 'internet-offline';
-};
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';

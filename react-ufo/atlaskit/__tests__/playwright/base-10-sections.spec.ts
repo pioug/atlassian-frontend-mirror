@@ -11,6 +11,10 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 			test.use({
 				examplePage: 'basic',
 				featureFlags,
+			} satisfies {
+				examplePage: 'basic';
+				featureFlags: string[];
+				__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 			});
 
 			for (const viewport of viewports) {

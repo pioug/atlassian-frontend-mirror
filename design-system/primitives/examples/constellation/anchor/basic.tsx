@@ -2,8 +2,9 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import Image from '@atlaskit/image';
-import Lozenge from '@atlaskit/lozenge';
-import { Anchor, Box } from '@atlaskit/primitives/compiled';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import ButtonIcon from '../../images/button.png';

@@ -1,14 +1,15 @@
 import type { MessageDescriptor } from 'react-intl';
 
-import { type EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 
+import type { EmojiProvider } from '../../api/EmojiResource';
+import { supportsUploadFeature } from '../../api/supportsUploadFeature';
 import type { EmojiDescription, EmojiUpload } from '../../types';
-import { uploadFailedEvent, uploadSucceededEvent } from '../../util/analytics';
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
-
-import { messages } from '../i18n';
+import { extractErrorInfo } from '../../util/analytics/extractErrorInfo';
 import { ufoExperiences } from '../../util/analytics/ufoExperiences';
-import { extractErrorInfo } from '../../util/analytics/analytics';
+import { uploadFailedEvent } from '../../util/analytics/uploadFailedEvent';
+import { uploadSucceededEvent } from '../../util/analytics/uploadSucceededEvent';
+import { messages } from '../i18n';
 
 export const uploadEmoji = (
 	upload: EmojiUpload,

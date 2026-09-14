@@ -1,5 +1,26 @@
 # @atlaskit/charlie-hierarchy
 
+## 1.0.7
+
+### Patch Changes
+
+- [`e1a51b09d74dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1a51b09d74dc) -
+  [ux] Adds connector style prop for consumers to style the line connectors (i.e. cornerRadius) and
+  only paint one connector line per parent to avoid overlapping opacity issues when there are
+  multiple children
+
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.4
 
 ### Patch Changes

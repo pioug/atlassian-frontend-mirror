@@ -1,10 +1,12 @@
 import React from 'react';
-import { PreviewImageWrapper } from './stylesWrapper';
-import { type PreviewData } from './types';
+
 import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
+
 import { type Preview, type ImagePreview } from '../src/types';
 import { NativeMediaViewer } from './NativeMediaViewer';
+import { PreviewImageWrapper } from './PreviewImageWrapper';
+import { type PreviewData } from './types';
 
 const mediaClientConfig = createUploadMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);

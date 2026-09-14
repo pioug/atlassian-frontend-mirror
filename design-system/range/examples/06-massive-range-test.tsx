@@ -7,9 +7,9 @@ import { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import { Text } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({

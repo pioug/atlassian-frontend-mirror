@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import TagDefault from '../../examples/constellation/tag-default';
 import TagLink from '../../examples/constellation/tag-link';
 import TagRemovable from '../../examples/constellation/tag-removable';
@@ -12,37 +13,62 @@ import TagRoundedLink from '../../examples/constellation/tag-rounded-link';
 import TagColors from '../../examples/constellation/tag-colors';
 import TagMaxLength from '../../examples/constellation/tag-max-length';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Tag and is in Early Access. The motion updates are currently behind the
+	feature flag: platform-dst-motion-uplift-labels.
+</SectionMessage>
+
 ## Default
 
 The default form of a tag, where `text` is required. Tags with static text can be used as a flag or
 as a reference to an object or attribute.
 
-<Example Component={TagDefault} packageName="@atlaskit/tag" />
+<Example
+	Component={TagDefault}
+	packageName="@atlaskit/tag"
+	featureFlagSwitchers={['labelling', 'motionLabels']}
+/>
 
 ## Tag link
 
 A tag with an `href` can link to more information on the tagged item.
 
-<Example Component={TagLink} packageName="@atlaskit/tag" />
+<Example
+	Component={TagLink}
+	packageName="@atlaskit/tag"
+	featureFlagSwitchers={['labelling', 'motionLabels']}
+/>
 
 ## Removable
 
 Once a tag has been removed, it cannot be re-rendered. Removable tags are visible in "edit" mode or
 in multi-select controls.
 
-<Example Component={TagRemovable} packageName="@atlaskit/tag" />
+<Example
+	Component={TagRemovable}
+	packageName="@atlaskit/tag"
+	featureFlagSwitchers={['labelling', 'motionLabels']}
+/>
 
 ## Removable link
 
 A removable tag with an `href` can link to more information.
 
-<Example Component={TagRemovableLink} packageName="@atlaskit/tag" />
+<Example
+	Component={TagRemovableLink}
+	packageName="@atlaskit/tag"
+	featureFlagSwitchers={['labelling', 'motionLabels']}
+/>
 
 ## Color
 
 The color theme for background and text.
 
-<Example Component={TagColors} packageName="@atlaskit/tag" />
+<Example
+	Component={TagColors}
+	packageName="@atlaskit/tag"
+	featureFlagSwitchers={['labelling', 'motionLabels']}
+/>
 
 ## Text max length
 
@@ -50,7 +76,11 @@ Once the text reaches 180px, it is truncated with an ellipsis.
 
 Avoid truncation wherever possible by using short text in tags.
 
-<Example Component={TagMaxLength} packageName="@atlaskit/tag" />
+<Example
+	Component={TagMaxLength}
+	packageName="@atlaskit/tag"
+	featureFlagSwitchers={['labelling', 'motionLabels']}
+/>
 
 ## Focus
 

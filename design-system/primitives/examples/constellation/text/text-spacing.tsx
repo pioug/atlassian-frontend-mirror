@@ -4,10 +4,13 @@
  */
 import type { JSX } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import Heading from '@atlaskit/heading/heading';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

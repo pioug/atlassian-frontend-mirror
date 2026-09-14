@@ -1,5 +1,3 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { RESERVED_WORDS } from '../constants';
 
 import { sanitiseJqlString } from './sanitise-jql-string';
@@ -56,12 +54,10 @@ describe('sanitiseJqlString', () => {
 		chars.forEach((char) => expect(sanitiseJqlString(char)).toEqual(`"${char}"`));
 	});
 
-	ffTest.on('queue-setting-page-jql-bug', 'reserved word quoting fix', () => {
-		it('quotes strings that are reserved words', () => {
-			RESERVED_WORDS.forEach((word) => {
-				expect(sanitiseJqlString(word)).toEqual(`"${word}"`);
-				expect(sanitiseJqlString(word.toUpperCase())).toEqual(`"${word.toUpperCase()}"`);
-			});
+	it('quotes strings that are reserved words', () => {
+		RESERVED_WORDS.forEach((word) => {
+			expect(sanitiseJqlString(word)).toEqual(`"${word}"`);
+			expect(sanitiseJqlString(word.toUpperCase())).toEqual(`"${word.toUpperCase()}"`);
 		});
 	});
 });

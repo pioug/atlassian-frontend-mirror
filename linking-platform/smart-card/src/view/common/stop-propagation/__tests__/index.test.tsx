@@ -1,12 +1,13 @@
 import React from 'react';
 
-import Modal from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { StopPropagation } from '../index';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

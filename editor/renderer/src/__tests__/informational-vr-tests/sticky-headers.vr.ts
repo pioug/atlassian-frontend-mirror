@@ -14,10 +14,9 @@ import {
 	StickyHeadersTableOverflowingNumberedColumn,
 	StickyHeadersTableInsideLayout,
 	StickyHeadersTableInsideLayoutBrokenOut,
-	StickyHeadersTableInsideLayoutBrokenOutWithFlexCentering,
 	StickyHeadersTableMultipleHeaderRows,
 	StickyHeadersTableMergedRows,
-} from './sticky-headers.fixture';
+} from './sticky-headers.fixture.vr.ap';
 
 async function scrollToPos(page: Page, pos: number, timeout = 5000) {
 	const scrollContainer = page.locator('#testscrollcontainer');
@@ -137,14 +136,6 @@ snapshotInformational(StickyHeadersTableInsideLayout, {
 
 snapshotInformational(StickyHeadersTableInsideLayoutBrokenOut, {
 	description: 'should have the header stick for an table within layout and brokenout',
-	prepare: async (page: Page, component: Locator) => {
-		await scrollToPos(page, 120);
-	},
-});
-
-snapshotInformational(StickyHeadersTableInsideLayoutBrokenOutWithFlexCentering, {
-	description:
-		'should have the header stick for an table within layout and brokenout (platform_editor_flex_based_centering enabled)',
 	prepare: async (page: Page, component: Locator) => {
 		await scrollToPos(page, 120);
 	},

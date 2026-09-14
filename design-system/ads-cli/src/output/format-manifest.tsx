@@ -1,7 +1,9 @@
 /**
  * Format a scannable human catalog of the ADS CLI capability manifest.
  */
-export const formatManifest = (data: unknown): string | null => {
+import type { RenderContext } from '../commands/types';
+
+export const formatManifest = (data: unknown, { invocation }: RenderContext): string | null => {
 	if (
 		typeof data !== 'object' ||
 		data === null ||
@@ -9,8 +11,6 @@ export const formatManifest = (data: unknown): string | null => {
 		typeof data.bin !== 'string' ||
 		!('version' in data) ||
 		typeof data.version !== 'string' ||
-		!('invocation' in data) ||
-		typeof data.invocation !== 'string' ||
 		!('commands' in data) ||
 		!Array.isArray(data.commands)
 	) {
@@ -42,6 +42,6 @@ export const formatManifest = (data: unknown): string | null => {
 		'',
 		commands.join('\n'),
 		'',
-		`Run \`${data.invocation} manifest --json\` for the full structured manifest.`,
+		`Run \`${invocation} manifest --json\` for the full structured manifest.`,
 	].join('\n');
 };

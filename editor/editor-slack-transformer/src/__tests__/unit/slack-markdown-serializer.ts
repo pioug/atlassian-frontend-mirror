@@ -22,6 +22,7 @@ import {
 	ol,
 	p,
 	panel,
+	panelC1,
 	placeholder,
 	status,
 	strike,
@@ -769,6 +770,14 @@ describe('panel', () => {
 				doc(panel({ panelType: 'info' })(p('This is an info panel')))(defaultSchema),
 			),
 		).toEqual('This is an info panel');
+	});
+
+	it('should convert a panel_c1 node', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(panelC1({ panelType: 'info' })(p('This is a panel_c1')))(defaultSchema),
+			),
+		).toEqual('This is a panel\\_c1');
 	});
 });
 

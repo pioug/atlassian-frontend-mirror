@@ -14,11 +14,10 @@ import { injectIntl } from 'react-intl';
 
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import TextLetterCaseIcon from '@atlaskit/icon-lab/core/text-letter-case';
-import MatchCaseIcon from '@atlaskit/icon/core/text-style';
 import type { IconProps } from '@atlaskit/icon/types';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MatchCaseProps } from '../types';
@@ -235,11 +234,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 	};
 
 	matchCaseIconEle = (iconProps: IconProps) => {
-		return expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) ? (
-			<TextLetterCaseIcon label={iconProps.label} size="small" />
-		) : (
-			<MatchCaseIcon label={this.matchCase} />
-		);
+		return <TextLetterCaseIcon label={iconProps.label} size="small" />;
 	};
 
 	render() {
@@ -308,7 +303,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<
 	WithIntlProps<
 		{

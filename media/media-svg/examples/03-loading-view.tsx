@@ -1,17 +1,19 @@
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { type FileIdentifier, type MediaApi } from '@atlaskit/media-client';
 import {
 	generateItemWithBinaries,
 	type ItemWithBinariesGenerator,
 } from '@atlaskit/media-test-data';
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 
-import MediaSvg from '../src';
+import MediaSvg from '../src/media-svg';
 import { usePrepareMediaState } from '../src/media-svg/__tests__/utils/mockedMediaClientProvider/_usePrepareMediaState';
 
-import { ControlsBox, DimensionsPicker, SvgContainer } from './helpers';
+import { ControlsBox } from './helpers/controls';
+import { DimensionsPicker } from './helpers/dimensionPicker';
+import { SvgContainer } from './helpers/svgContainer';
 
 const generatorsWithKeys: Array<[string, ItemWithBinariesGenerator]> = [
 	['car', generateItemWithBinaries.svg.svgCar],

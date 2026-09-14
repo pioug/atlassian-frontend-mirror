@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
+import { tableBackgroundBorderColor } from '@atlaskit/adf-schema/tableNodes';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';

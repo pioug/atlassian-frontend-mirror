@@ -1,9 +1,4 @@
-import { MediaClient } from '../';
-import { type MediaClientConfig } from '@atlaskit/media-core';
-import { StoryBookAuthProvider } from './authProvider';
-import { collectionNames } from './collectionNames';
-import { type MediaEnv, mediaPickerAuthProvider } from './mediaPickerAuthProvider';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export const defaultBaseUrl = 'https://media.staging.atl-paas.net';
 
 export const defaultParams: {
@@ -16,49 +11,27 @@ export const defaultParams: {
 	baseUrl: defaultBaseUrl,
 };
 
-interface AuthParameter {
-	authType: 'client' | 'asap';
-}
-
-const defaultAuthParameter: AuthParameter = {
-	authType: 'client',
-};
-
 /**
- * Creates and returns `MediaClient` (from `media-client`) based on the data provided in parameter object.
- *
- * @param {AuthParameter} authParameter specifies serviceName and whatever auth should be done with clientId or asapIssuer
- * @returns {Context}
+ * @deprecated Use `import { createStorybookMediaClient } from '@atlaskit/media-client/test-helpers'` instead.
  */
-export const createStorybookMediaClient = (
-	authParameter: AuthParameter = defaultAuthParameter,
-): MediaClient => {
-	return new MediaClient(createStorybookMediaClientConfig(authParameter));
-};
-
-export const createStorybookMediaClientConfig = (
-	authParameter: AuthParameter = defaultAuthParameter,
-): MediaClientConfig => {
-	const scopes: { [resource: string]: string[] } = {
-		'urn:filestore:file:*': ['read'],
-		'urn:filestore:chunk:*': ['read'],
-	};
-	collectionNames.forEach((c) => {
-		scopes[`urn:filestore:collection:${c}`] = ['read', 'update'];
-	});
-
-	const isAsapEnvironment = authParameter.authType === 'asap';
-	const authProvider = StoryBookAuthProvider.create(isAsapEnvironment, scopes);
-	return { authProvider };
-};
-
-export const createUploadMediaClient = (): MediaClient =>
-	new MediaClient(createUploadMediaClientConfig());
-
-export const createUploadMediaClientConfig = (
-	stargateBaseUrl?: string,
-	env?: MediaEnv,
-): MediaClientConfig => ({
-	authProvider: mediaPickerAuthProvider('asap', env),
-	stargateBaseUrl,
-});
+export { createStorybookMediaClient } from './createStorybookMediaClient';
+/**
+ * @deprecated Use `import { createStorybookMediaClientConfig } from '@atlaskit/media-client/test-helpers'` instead.
+ */
+export { createStorybookMediaClientConfig } from './createStorybookMediaClientConfig';
+/**
+ * @deprecated Use `import { createUploadMediaClient } from '@atlaskit/media-client/test-helpers'` instead.
+ */
+export { createUploadMediaClient } from './createUploadMediaClient';
+/**
+ * @deprecated Use `import { createUploadMediaClientConfig } from '@atlaskit/media-client/test-helpers'` instead.
+ */
+export { createUploadMediaClientConfig } from './createUploadMediaClientConfig';
+/**
+ * @deprecated Use `import { AuthParameter } from '@atlaskit/media-client/test-helpers/media-client-provider'` instead.
+ */
+export type { AuthParameter } from './AuthParameter';
+/**
+ * @deprecated Use `import { defaultAuthParameter } from '@atlaskit/media-client/test-helpers/media-client-provider'` instead.
+ */
+export { defaultAuthParameter } from './defaultAuthParameter';

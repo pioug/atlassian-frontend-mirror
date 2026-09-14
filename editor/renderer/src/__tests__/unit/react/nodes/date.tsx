@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
+import { render } from '@testing-library/react';
 import { DateComponent } from '../../../../react/nodes/date';
 import { createIntl, IntlProvider } from 'react-intl';
 import type { IntlShape } from 'react-intl';
@@ -10,11 +10,17 @@ import { RendererContextProvider } from '../../../../renderer-context';
 
 describe('Renderer - React/Nodes/Date', () => {
 	let timestamp: string;
-	let wrapper: ReactWrapper<any>;
-	let date: ReactWrapper<any>;
 	let dateNowMockFn: jest.SpyInstance;
 	let dateUTCMockFn: jest.SpyInstance;
 	let intl: IntlShape;
+
+	const renderDate = (props: Partial<React.ComponentProps<typeof DateComponent>> = {}) =>
+		render(
+			<IntlProvider locale="en">
+				{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+				<DateComponent timestamp={timestamp.toString()} {...props} />
+			</IntlProvider>,
+		);
 
 	beforeEach(() => {
 		dateNowMockFn = jest.spyOn(Date, 'now');
@@ -28,12 +34,6 @@ describe('Renderer - React/Nodes/Date', () => {
 		});
 
 		timestamp = todayTimestampInUTC();
-		wrapper = mount(
-			<IntlProvider locale="en">
-				<DateComponent timestamp={timestamp.toString()} />
-			</IntlProvider>,
-		);
-		date = wrapper.find(DateComponent);
 	});
 
 	afterEach(() => {
@@ -42,25 +42,41 @@ describe('Renderer - React/Nodes/Date', () => {
 	});
 
 	it('should render a <span>-tag', () => {
-		const dateWrapper = date.find(`.${DateSharedCssClassName.DATE_WRAPPER}`);
-		expect(dateWrapper.is('span')).toEqual(true);
+		const { container } = renderDate();
+
+		expect(container.querySelector(`.${DateSharedCssClassName.DATE_WRAPPER}`)?.tagName).toBe(
+			'SPAN',
+		);
 	});
 
 	it('should render formatted date', () => {
-		expect(date.text()).toEqual(timestampToString(timestamp, intl));
+		const { container } = renderDate();
+
+		expect(container.textContent).toEqual(timestampToString(timestamp, intl));
 	});
 
 	it('should render date formatted as today inside task task', () => {
-		const wrapper = mount(
-			<IntlProvider locale="en">
-				<DateComponent timestamp={timestamp.toString()} parentIsIncompleteTask={true} />
-			</IntlProvider>,
-		);
-		const date = wrapper.find(DateComponent);
-		expect(date.text()).toEqual('Today');
+		const { container } = renderDate({ parentIsIncompleteTask: true });
+
+		expect(container.textContent).toEqual('Today');
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderDate();
+
+		await expect(container).toBeAccessible();
 	});
 
 	describe('with timeZone from RendererContext', () => {
+		const renderDateWithTimeZone = (timeZone: string, dateTimestamp: string) =>
+			render(
+				<RendererContextProvider value={{ timeZone }}>
+					<IntlProvider locale="en">
+						<DateComponent timestamp={dateTimestamp} parentIsIncompleteTask={true} />
+					</IntlProvider>
+				</RendererContextProvider>,
+			);
+
 		beforeEach(() => {
 			// Restore Date.UTC so it works normally for timezone-aware calculations
 			dateUTCMockFn.mockRestore();
@@ -77,49 +93,26 @@ describe('Renderer - React/Nodes/Date', () => {
 
 		it('should render Today for June 14 timestamp when timeZone is America/Los_Angeles', () => {
 			const jun14 = Date.UTC(2024, 5, 14).toString();
-			const wrapper = mount(
-				<RendererContextProvider value={{ timeZone: 'America/Los_Angeles' }}>
-					<IntlProvider locale="en">
-						<DateComponent timestamp={jun14} parentIsIncompleteTask={true} />
-					</IntlProvider>
-				</RendererContextProvider>,
-			);
-			expect(wrapper.find(DateComponent).text()).toEqual('Today');
+			const { container } = renderDateWithTimeZone('America/Los_Angeles', jun14);
+
+			expect(container.textContent).toEqual('Today');
 		});
 
 		it('should render Yesterday for June 14 timestamp when timeZone is Asia/Tokyo', () => {
 			const jun14 = Date.UTC(2024, 5, 14).toString();
-			const wrapper = mount(
-				<RendererContextProvider value={{ timeZone: 'Asia/Tokyo' }}>
-					<IntlProvider locale="en">
-						<DateComponent timestamp={jun14} parentIsIncompleteTask={true} />
-					</IntlProvider>
-				</RendererContextProvider>,
-			);
-			expect(wrapper.find(DateComponent).text()).toEqual('Yesterday');
+			const { container } = renderDateWithTimeZone('Asia/Tokyo', jun14);
+
+			expect(container.textContent).toEqual('Yesterday');
 		});
 
 		it('same timestamp renders differently based on timeZone context', () => {
 			const jun14 = Date.UTC(2024, 5, 14).toString();
 
-			const laWrapper = mount(
-				<RendererContextProvider value={{ timeZone: 'America/Los_Angeles' }}>
-					<IntlProvider locale="en">
-						<DateComponent timestamp={jun14} parentIsIncompleteTask={true} />
-					</IntlProvider>
-				</RendererContextProvider>,
-			);
+			const { container: laContainer } = renderDateWithTimeZone('America/Los_Angeles', jun14);
+			const { container: tokyoContainer } = renderDateWithTimeZone('Asia/Tokyo', jun14);
 
-			const tokyoWrapper = mount(
-				<RendererContextProvider value={{ timeZone: 'Asia/Tokyo' }}>
-					<IntlProvider locale="en">
-						<DateComponent timestamp={jun14} parentIsIncompleteTask={true} />
-					</IntlProvider>
-				</RendererContextProvider>,
-			);
-
-			expect(laWrapper.find(DateComponent).text()).toEqual('Today');
-			expect(tokyoWrapper.find(DateComponent).text()).toEqual('Yesterday');
+			expect(laContainer.textContent).toEqual('Today');
+			expect(tokyoContainer.textContent).toEqual('Yesterday');
 		});
 	});
 });

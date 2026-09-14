@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import UserPicker, { type OptionData } from '../src';
+import { type OptionData } from '../src/types';
+import { UserPicker } from '../src/components/UserPicker';
 
 const Example = (): React.JSX.Element => {
 	const [selectedUser, setSelectedUser] = useState<OptionData>();

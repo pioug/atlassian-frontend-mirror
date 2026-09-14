@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { ButtonItem, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import Section from '@atlaskit/menu/section';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content, LeftSidebar, Main, PageLayout, usePageLayoutResize } from '@atlaskit/page-layout';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	Header,
-	NavigationHeader,
-	NestableNavigationContent,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
-import Tooltip from '@atlaskit/tooltip';
+import { Header } from '@atlaskit/side-navigation/header';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel } from './common';
 

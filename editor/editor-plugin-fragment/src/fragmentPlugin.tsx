@@ -1,4 +1,4 @@
-import { fragment } from '@atlaskit/adf-schema';
+import { fragment } from '@atlaskit/adf-schema/fragment';
 
 import type { FragmentPlugin } from './fragmentPluginType';
 import { createPlugin as createFragmentMarkConsistencyPlugin } from './pm-plugins/fragment-consistency';

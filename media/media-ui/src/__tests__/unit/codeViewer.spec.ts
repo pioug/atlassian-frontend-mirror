@@ -1,4 +1,6 @@
-import { getLanguageType, getExtension, isCodeViewerItem } from '../../codeViewer';
+import { getExtension } from '../../getExtension';
+import { getLanguageType } from '../../getLanguageType';
+import { isCodeViewerItem } from '../../isCodeViewerItem';
 
 describe(getLanguageType, () => {
 	test.each([

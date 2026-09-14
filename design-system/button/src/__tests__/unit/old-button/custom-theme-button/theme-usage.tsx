@@ -6,7 +6,8 @@
 import { type CSSObject, jsx } from '@emotion/react';
 import { render, screen } from '@testing-library/react';
 
-import { CustomThemeButton, type CustomThemeButtonProps } from '../../../../index';
+import CustomThemeButton from '../../../../old-button/custom-theme-button/custom-theme-button';
+import { type CustomThemeButtonProps } from '../../../../old-button/custom-theme-button/custom-theme-button-types';
 import { hasStyleRule } from '../../_util/style-rules';
 
 const additions: CSSObject = {

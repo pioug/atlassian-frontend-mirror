@@ -3,29 +3,27 @@ import React, { useCallback, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line no-restricted-imports
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
-import {
-	CloseButton,
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-} from '@atlaskit/modal-dialog';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Flex } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { type ConfigModalProps } from '../../src/common/types';
 import { CancelButton } from '../../src/ui/common/modal/cancel-button';
-import { useDatasourceContext } from '../../src/ui/common/modal/datasource-context';
+import { useDatasourceContext } from '../../src/ui/common/modal/datasource-context/useDatasourceContext';
 import { DatasourceModal } from '../../src/ui/common/modal/datasource-modal';
 import { createDatasourceModal } from '../../src/ui/common/modal/datasource-modal/createDatasourceModal';
 import { InsertButton } from '../../src/ui/common/modal/insert-button';
-import { DatasourceViewModeDropDown } from '../../src/ui/common/modal/mode-switcher';
+import { DatasourceViewModeDropDown } from '../../src/ui/common/modal/mode-switcher/DatasourceViewModeDropDown';
 
 // This is the shape of your `parameters` object. It can be any shape you decide to use.
 // `parameters` is the value that will be persisted when the user clicks the Insert button. It should contain all the information to render the Smart Link List View for that datasource.

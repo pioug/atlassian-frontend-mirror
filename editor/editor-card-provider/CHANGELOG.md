@@ -1,5 +1,387 @@
 # @atlaskit/editor-card-provider
 
+## 7.3.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.11
+
+### Patch Changes
+
+- [`3422261e7a40e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3422261e7a40e) -
+  Clean up experiment `platform_editor_smartlink_local_cache`.
+- Updated dependencies
+
+## 7.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.7
+
+### Patch Changes
+
+- [`2a88c66ba16df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a88c66ba16df) -
+  Recognize dashboard chart URLs as embeds behind the `platform_avp_viz_dashboard_link_embed`
+  feature gate and clean up the `avp_unfurl_shared_charts_embed_by_default_2` feature gate.
+- Updated dependencies
+
+## 7.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.0
+
+### Minor Changes
+
+- [`0fb498dde1977`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fb498dde1977) -
+  Add support for defaulting Loom playlist Smart Links to the embed appearance behind the
+  `loom-playlist-smartlink-embed-default` feature gate.
+
+## 7.1.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.28
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 7.1.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
-import {
-	fetchObjectSchema,
-	fetchObjectSchemas,
-	getWorkspaceId,
-	resolvePrimaryWorkspace,
-} from '../services/cmdbService';
+import { fetchObjectSchema } from '../services/fetchObjectSchema';
+import { fetchObjectSchemas } from '../services/fetchObjectSchemas';
 import { getMeta } from '../services/getMeta';
+import { getWorkspaceId } from '../services/getWorkspaceId';
+import { resolvePrimaryWorkspace } from '../services/resolvePrimaryWorkspace';
 import { type ObjectSchema } from '../types/assets/types';
 import { type AssetsDatasourceParameters } from '../ui/assets-modal/types';
 

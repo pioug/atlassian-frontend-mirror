@@ -1,7 +1,7 @@
 import type { Attrs, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { AnnotationMarkDefinition } from '../marks/annotation';
-import { uuid } from '../../utils';
 import { mention as mentionFactory } from '../../next-schema/generated/nodeTypes';
+import { uuid } from '../../utils/uuid';
+import type { AnnotationMarkDefinition } from '../marks/annotation';
 
 export enum USER_TYPES {
 	DEFAULT = 'DEFAULT',
@@ -98,3 +98,7 @@ export const toJSON = (
 		};
 	}, {}),
 });
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { toJSON as mentionToJSON };
+export { type UserType as MentionUserType };

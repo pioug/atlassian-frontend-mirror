@@ -5,9 +5,9 @@ import { render } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 
 import BasicCodeBlockExample from '../../../examples/00-basic';
-import BasicInlineCodeExample from '../../../examples/01-inline-code-basic';
-import CodeBlockHighlightingExample from '../../../examples/14-code-block-highlighting-long-lines';
-import { CodeBlock } from '../../index';
+import BasicInlineCodeExample from '../../../examples/01-inline-code-basic.vr.ap';
+import CodeBlockHighlightingExample from '../../../examples/14-code-block-highlighting-long-lines.vr.ap';
+import CodeBlock from '../../code-block';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CodeBlock Accessibility jest-axe', () => {

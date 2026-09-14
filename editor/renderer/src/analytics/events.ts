@@ -53,9 +53,9 @@ type RendererRenderedAEP = AEP<
 		nestedRendererType?: NestedRendererType;
 		nodes: Record<string, number>;
 		platform: PLATFORM.WEB;
+		sampleRate?: number;
 		severity?: SEVERITY;
 		ttfb?: number;
-		sampleRate?: number;
 	},
 	EVENT_TYPE.OPERATIONAL
 >;
@@ -288,6 +288,17 @@ type ExpandAEP = AEP<
 	EVENT_TYPE.TRACK
 >;
 
+type CollapsibleHeadingToggledAEP = AEP<
+	ACTION.TOGGLED,
+	ACTION_SUBJECT.HEADING,
+	undefined,
+	{
+		expanded: boolean;
+		headingLevel: 1 | 2 | 3 | 4 | 5 | 6;
+	},
+	EVENT_TYPE.TRACK
+>;
+
 type AnnotationActionType =
 	| ACTION.INSERTED
 	| ACTION.CLOSED
@@ -437,6 +448,7 @@ export type AnalyticsEventPayload<_T = void> =
 	| VisitLinkAEP
 	| VisitMediaLinkAEP
 	| ExpandAEP
+	| CollapsibleHeadingToggledAEP
 	| UnsupportedContentPayload
 	| UnsupportedContentTooltipPayload
 	| AnnotationAEP

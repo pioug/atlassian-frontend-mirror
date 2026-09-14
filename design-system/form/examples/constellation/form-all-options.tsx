@@ -1,27 +1,27 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import noop from '@atlaskit/ds-lib/noop';
-import Form, {
-	CheckboxField,
-	Field,
-	Fieldset,
-	FormFooter,
-	FormHeader,
-	FormSection,
-	Label,
-	RangeField,
-	RequiredAsterisk,
-} from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import Field from '@atlaskit/form/field';
+import { Fieldset } from '@atlaskit/form/fieldset';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { FormSection } from '@atlaskit/form/form-section';
+import { Label } from '@atlaskit/form/label/default';
+import { RangeField } from '@atlaskit/form/range-field';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
-import Range from '@atlaskit/range';
-import Select, { type OptionType, type ValueType } from '@atlaskit/select';
-import TextArea from '@atlaskit/textarea';
-import TextField from '@atlaskit/textfield';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Range from '@atlaskit/range/range';
+import Select from '@atlaskit/select/default';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
+import TextArea from '@atlaskit/textarea/text-area';
+import TextField from '@atlaskit/textfield/text-field';
 import Toggle from '@atlaskit/toggle';
 
 const FormAllOptionsExample = (): React.JSX.Element => (

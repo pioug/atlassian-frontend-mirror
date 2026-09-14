@@ -3,8 +3,8 @@ import React, { useEffect, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { type Jast } from '@atlaskit/jql-ast';
-import { JQLEditor } from '@atlaskit/jql-editor';
-import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
+import JQLEditor from '@atlaskit/jql-editor/ui';
+import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider';
 
 import { makeGetJqlAutocompleteData } from '../../../services/makeGetJqlAutocompleteData';
 import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestionsData';

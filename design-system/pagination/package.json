@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pagination",
-	"version": "17.1.5",
+	"version": "17.3.0",
 	"description": "Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"memoize-one": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -63,32 +63,10 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	}
 }

@@ -1,12 +1,13 @@
 import React from 'react';
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
 import '@atlaskit/link-test-helpers/jest';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
 import { Pressable } from '@atlaskit/primitives/compiled';
 
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { Card } from '@atlaskit/smart-card';
 import { render } from '@testing-library/react';
 
@@ -27,10 +28,8 @@ jest.mock('@atlaskit/smart-card/ssr', () => ({
 	CardSSR: jest.fn(() => <div data-testid="smart-card-ssr" />),
 }));
 
-jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
-	// The width matrix verifies embed MediaSingle sizing. Keep the responsive
-	// preview-panel wrapper disabled so narrow widths do not intentionally render
-	// as block cards and remove the MediaSingle container under assertion.
+jest.mock('@atlaskit/tmp-editor-statsig/editor-experiment', () => ({
+	...jest.requireActual('@atlaskit/tmp-editor-statsig/editor-experiment'),
 	editorExperiment: () => false,
 }));
 
@@ -40,7 +39,6 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 		'https://pug.jira-dev.com/wiki/spaces/CE/blog/2017/08/18/3105751050/A+better+REST+API+for+Confluence+Cloud+via+Swagger';
 
 	it('should call consumer onClick with destinationUrl from Card when provided', () => {
-		passGate('platform_smartlink_xpc_url_wrapping');
 		const mockedOnClick = jest.fn();
 		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
 
@@ -60,14 +58,12 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 	});
 
 	it('should fall back to ADF url when Card onClick fires with no destinationUrl', () => {
-		passGate('platform_smartlink_xpc_url_wrapping');
 		const mockedOnClick = jest.fn();
 		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
 
 		const onCardClick = getCardClickHandler({ smartCard: { onClick: mockedOnClick } }, url);
 
 		// Card fires onClick with empty meta (no destinationUrl)
-		// @ts-ignore Ignore for testing purpose
 		onCardClick!(mockedEvent, {});
 
 		// Falls back to the ADF node's url when destinationUrl is absent
@@ -80,12 +76,11 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 				<EmbedCard url={url} layout={'full-width'} smartLinks={{ frameStyle: 'hide' }} />
 			</Provider>,
 		);
-		expect(Card).toBeCalledWith(
+		expect((Card as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
 			expect.objectContaining({
 				frameStyle: 'hide',
 				appearance: 'embed',
 			}),
-			expect.anything(),
 		);
 	});
 
@@ -385,12 +380,11 @@ describe('Renderer - React/Nodes/EmbedCard - CompetitorPrompt', () => {
 			</Provider>,
 		);
 
-		expect(Card).toHaveBeenCalledWith(
+		expect((Card as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
 			expect.objectContaining({
 				CompetitorPrompt: MockCompetitorPrompt,
 				url: 'test.com',
 			}),
-			expect.anything(),
 		);
 	});
 });

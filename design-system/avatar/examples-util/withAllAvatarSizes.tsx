@@ -2,7 +2,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { type AppearanceType } from '@atlaskit/avatar/types';
 
 import { Block } from './block';

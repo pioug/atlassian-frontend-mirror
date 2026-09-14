@@ -1,6 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
 	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -69,10 +71,19 @@
 			"path": "../../elements/mention/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/util-data-test/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

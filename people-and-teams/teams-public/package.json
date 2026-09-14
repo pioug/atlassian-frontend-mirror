@@ -25,31 +25,46 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./assets": "./src/common/assets/index.ts",
+		"./confluence-icon": "./src/common/assets/confluence-icon.ts",
+		"./ConfluenceIcon": "./src/common/assets/ConfluenceIcon.svg",
 		"./container-icon": "./src/common/ui/container-icon/index.tsx",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
+		"./jira-icon": "./src/common/assets/jira-icon.ts",
+		"./JiraIcon": "./src/common/assets/JiraIcon.svg",
 		"./loom-avatar/main": "./src/common/ui/loom-avatar/main.tsx",
+		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts",
+		"./loom-icon": "./src/common/assets/loom-icon.ts",
+		"./LoomIcon": "./src/common/assets/LoomIcon.svg",
 		"./main": "./src/ui/team-containers/main.tsx",
 		"./next/add-container-card": "./src/next/ui/team-containers/add-container-card/index.tsx",
 		"./next/team-container-skeleton": "./src/next/common/ui/team-container-skeleton/index.tsx",
 		"./next/team-link-card": "./src/next/ui/team-containers/team-link-card/index.tsx",
 		"./next": "./src/next/index.ts",
+		"./product-permission/get-product-permission-request-body": "./src/controllers/product-permission/getProductPermissionRequestBody.ts",
+		"./product-permission/has-product-permission": "./src/controllers/product-permission/hasProductPermission.ts",
+		"./product-permission/transform-permissions": "./src/controllers/product-permission/transformPermissions.ts",
 		"./separator": "./src/common/ui/separator/index.tsx",
 		"./space-invite-scheduler": "./src/common/hooks/useSpaceInviteScheduler.ts",
-		"./team-containers-skeleton": "./src/common/ui/team-containers-skeleton/index.tsx",
 		"./team-containers/types": "./src/ui/team-containers/types.tsx",
 		"./team-containers": "./src/ui/team-containers/index.ts",
+		"./team-containers-skeleton": "./src/common/ui/team-containers-skeleton/index.tsx",
 		"./team-link-card": "./src/ui/team-containers/team-link-card/index.tsx",
 		"./types": "./src/common/types.tsx",
+		"./use-connected-teams": "./src/controllers/hooks/use-team-containers/use-connected-teams.ts",
 		"./use-create-containers": "./src/controllers/hooks/use-create-containers/index.tsx",
 		"./use-product-permission": "./src/controllers/hooks/use-product-permission/index.ts",
+		"./use-team-containers/use-team-containers": "./src/controllers/hooks/use-team-containers/use-team-containers.ts",
+		"./use-team-containers/use-team-containers-hook": "./src/controllers/hooks/use-team-containers/use-team-containers-hook.ts",
 		"./use-team-containers": "./src/controllers/hooks/use-team-containers/index.ts",
 		"./use-team-links-and-containers": "./src/controllers/hooks/use-team-links-and-containers/index.ts",
+		"./use-team-web-links/actions": "./src/controllers/hooks/use-team-web-links/actions.ts",
+		"./use-team-web-links/use-team-web-links": "./src/controllers/hooks/use-team-web-links/use-team-web-links.ts",
 		"./use-team-web-links": "./src/controllers/hooks/use-team-web-links/index.ts",
+		"./use-team-web-links-actions": "./src/controllers/hooks/use-team-web-links/use-team-web-links-actions.ts",
 		"./utils/get-container-properties": "./src/common/utils/get-container-properties.tsx",
 		"./utils/get-is-experiment-enabled": "./src/common/utils/get-is-experiment-enabled.ts",
 		"./utils/space-invite-scheduler": "./src/common/utils/spaceInviteScheduler.ts",
@@ -91,7 +106,7 @@
 		"string-hash": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
+		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
@@ -105,46 +120,12 @@
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"name": "@atlaskit/teams-public",
-	"version": "2.5.3",
+	"version": "2.11.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -156,12 +137,6 @@
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-public/src/**\", \"!packages/people-and-teams/teams-public/src/**/**/types.ts\", \"!packages/people-and-teams/teams-public/src/ui/**/styled.tsx\"]')"
 	},
 	"platform-feature-flags": {
-		"enable_medium_size_icons_for_team_link_cards": {
-			"type": "boolean"
-		},
-		"fix_team_link_card_a11y": {
-			"type": "boolean"
-		},
 		"migrate-product-permissions": {
 			"type": "boolean"
 		},
@@ -175,9 +150,6 @@
 			"type": "boolean"
 		},
 		"enable_teams_t26_design_drop_core_experiences": {
-			"type": "boolean"
-		},
-		"teams-a11y-34974-34752-34709": {
 			"type": "boolean"
 		}
 	}

@@ -3,12 +3,15 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
+import {
+	withMediaClient,
+	type WithMediaClient,
+} from '@atlaskit/media-client-react/with-media-client';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { MediaClientProvider } from '../../src/MediaClientProvider';
-import { withMediaClient, type WithMediaClient } from '../../src/withMediaClient';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

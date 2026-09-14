@@ -1,43 +1,25 @@
-export {
-	type BaseBadgeElementProps,
-	default as BaseBadgeElement,
-	toBadgeProps,
-} from './base-badge-element';
-export {
-	type BaseTextElementProps,
-	default as BaseTextElement,
-	toFormattedTextProps,
-	toTextProps,
-} from './base-text-element';
-export {
-	type BaseAvatarGroupElementProps,
-	default as BaseAvatarGroupElement,
-	type BaseAvatarItemProps,
-	toAvatarGroupProps,
-} from './base-avatar-group-element';
-export {
-	type BaseDateTimeElementProps,
-	default as BaseDateTimeElement,
-	type DateTimeType,
-	toDateTimeProps,
-} from './base-date-time-element';
-export {
-	type BaseLozengeElementProps,
-	default as BaseLozengeElement,
-	toDateLozengeProps,
-} from './base-lozenge-element';
-export {
-	type BaseLinkElementProps,
-	default as BaseLinkElement,
-	toLinkProps,
-} from './base-link-element';
-export {
-	type BaseIconElementProps,
-	default as BaseIconElement,
-	toLinkIconProps,
-} from './base-icon-element';
-export {
-	type BaseAtlaskitBadgeElementProps,
-	default as BaseAtlaskitBadgeElement,
-	toAtlaskitBadgeProps,
-} from './base-atlaskit-badge-element';
+export { default as BaseBadgeElement } from './base-badge-element';
+export type { BaseBadgeElementProps } from './base-badge-element';
+export { toBadgeProps } from './base-badge-element/toBadgeProps';
+export type { BaseTextElementProps } from './base-text-element/BaseTextElement';
+export { default as BaseTextElement } from './base-text-element';
+export { toFormattedTextProps } from './base-text-element/toFormattedTextProps';
+export { toTextProps } from './base-text-element/toTextProps';
+export { default as BaseAvatarGroupElement } from './base-avatar-group-element';
+export type { BaseAvatarGroupElementProps, BaseAvatarItemProps } from './base-avatar-group-element';
+export { toAvatarGroupProps } from './base-avatar-group-element/toAvatarGroupProps';
+export { default as BaseDateTimeElement } from './base-date-time-element';
+export type { BaseDateTimeElementProps, DateTimeType } from './base-date-time-element';
+export { toDateTimeProps } from './base-date-time-element/toDateTimeProps';
+export { default as BaseLozengeElement } from './base-lozenge-element';
+export type { BaseLozengeElementProps } from './base-lozenge-element';
+export { toDateLozengeProps } from './base-lozenge-element/toDateLozengeProps';
+export { default as BaseLinkElement } from './base-link-element';
+export type { BaseLinkElementProps } from './base-link-element';
+export { toLinkProps } from './base-link-element/toLinkProps';
+export { default as BaseIconElement } from './base-icon-element';
+export type { BaseIconElementProps } from './base-icon-element';
+export { toLinkIconProps } from './base-icon-element/toLinkIconProps';
+export { default as BaseAtlaskitBadgeElement } from './base-atlaskit-badge-element';
+export type { BaseAtlaskitBadgeElementProps } from './base-atlaskit-badge-element';
+export { toAtlaskitBadgeProps } from './base-atlaskit-badge-element/toAtlaskitBadgeProps';

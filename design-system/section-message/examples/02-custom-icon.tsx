@@ -2,7 +2,8 @@ import React from 'react';
 
 import FlaskIcon from '@atlaskit/icon/core/flask';
 import { Text } from '@atlaskit/primitives/compiled';
-import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
+import SectionMessageAction from '@atlaskit/section-message/message-action';
 
 const Example = (): React.JSX.Element => (
 	<SectionMessage

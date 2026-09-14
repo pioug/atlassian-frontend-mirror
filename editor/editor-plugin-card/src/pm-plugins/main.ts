@@ -1,6 +1,6 @@
 import rafSchedule from 'raf-schd';
 
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
@@ -9,14 +9,12 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common/constants';
 
 import type { cardPlugin } from '../index';
+import { blockCardNodeView } from '../nodeviews/blockCard';
+import { embedCardNodeView } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
-import { lazyBlockCardView } from '../nodeviews/lazy-block-card';
-import { lazyEmbedCardView } from '../nodeviews/lazy-embed-card';
 import { lazyInlineCardView } from '../nodeviews/lazy-inline-card';
 import type { CardPluginOptions, CardPluginState } from '../types';
 import { eventsFromTransaction } from '../ui/analytics/events-from-tr';
@@ -90,9 +88,9 @@ export const createPlugin =
 				onClickCallback,
 				isPageSSRed,
 				provider,
-				CompetitorPrompt: isSSR() && isSSRStreaming() ? undefined : CompetitorPrompt,
-				intl: isSSRStreaming() ? intl : undefined,
-				smartCardContext: isSSRStreaming() ? smartCardContext : undefined,
+				CompetitorPrompt: isSSR() ? undefined : CompetitorPrompt,
+				intl,
+				smartCardContext,
 			},
 		});
 
@@ -148,12 +146,7 @@ export const createPlugin =
 					const newState = reducer(pluginStateWithUpdatedPos, meta);
 
 					// Track the first resolved inline smart link for PO spotlight DOM targeting
-					if (
-						meta.type === 'RESOLVE' &&
-						pluginState?.requests?.length &&
-						expVal('cc_dnd_smart_link_changeboard_platform_css', 'isEnabled', false) &&
-						fg('cc_drag_and_drop_smart_link_from_content_to_tree')
-					) {
+					if (meta.type === 'RESOLVE' && pluginState?.requests?.length) {
 						const resolvedRequest = pluginState.requests.find((req) => req.url === meta.url);
 						if (resolvedRequest?.appearance === 'inline') {
 							if (
@@ -331,7 +324,7 @@ export const createPlugin =
 						isPageSSRed,
 						// no need provider here, it's in the inlineCardViewProducer.extraComponentProps
 					}),
-					blockCard: lazyBlockCardView({
+					blockCard: blockCardNodeView({
 						pmPluginFactoryParams,
 						actionOptions,
 						pluginInjectionApi,
@@ -340,11 +333,11 @@ export const createPlugin =
 						inlineCardViewProducer,
 						isPageSSRed,
 						provider,
-						CompetitorPrompt: isSSR() && isSSRStreaming() ? undefined : options.CompetitorPrompt,
-						intl: isSSRStreaming() ? intl : undefined,
-						smartCardContext: isSSRStreaming() ? smartCardContext : undefined,
+						CompetitorPrompt: isSSR() ? undefined : options.CompetitorPrompt,
+						intl,
+						smartCardContext,
 					}),
-					embedCard: lazyEmbedCardView({
+					embedCard: embedCardNodeView({
 						allowResizing,
 						fullWidthMode,
 						pmPluginFactoryParams,
@@ -353,9 +346,9 @@ export const createPlugin =
 						onClickCallback: options.onClickCallback,
 						isPageSSRed,
 						provider,
-						CompetitorPrompt: isSSR() && isSSRStreaming() ? undefined : options.CompetitorPrompt,
-						intl: isSSRStreaming() ? intl : undefined,
-						smartCardContext: isSSRStreaming() ? smartCardContext : undefined,
+						CompetitorPrompt: isSSR() ? undefined : options.CompetitorPrompt,
+						intl,
+						smartCardContext,
 					}),
 				},
 				...(enableInlineUpgradeFeatures && {

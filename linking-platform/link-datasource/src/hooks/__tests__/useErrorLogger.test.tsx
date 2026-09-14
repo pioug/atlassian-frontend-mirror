@@ -2,15 +2,15 @@ import React from 'react';
 
 import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { NetworkError } from '@atlaskit/linking-common';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
-import { EVENT_CHANNEL } from '../../analytics';
+import { EVENT_CHANNEL } from '../../analytics/constants';
 import useErrorLogger, { type UseErrorLoggerProps } from '../useErrorLogger';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 jest.mock('@atlaskit/linking-common/sentry', () => {
 	const originalModule = jest.requireActual('@atlaskit/link-client-extension');

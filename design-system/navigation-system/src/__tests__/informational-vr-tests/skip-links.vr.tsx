@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import { CompositionVR } from '../../../examples/composition';
+import { CompositionVR } from '../../../examples/composition.vr.ap';
 
 snapshotInformational(CompositionVR, {
 	description: 'skip link popup trigger',

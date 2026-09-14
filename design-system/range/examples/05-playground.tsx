@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 
-import { Checkbox } from '@atlaskit/checkbox';
-import { Label } from '@atlaskit/form';
-import Range from '@atlaskit/range';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { Label } from '@atlaskit/form/label/default';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 const initialState = {

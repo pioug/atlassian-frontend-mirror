@@ -1,83 +1,19 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
-import type { ComponentClass } from 'react';
-import { css, jsx } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { ufoExperiences } from '../../util/analytics';
-import type { EmojiProvider } from '../../api/EmojiResource';
+
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+
 import type { OnEmojiEvent, PickerSize } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import LoadingEmojiComponent, {
-	type Props as LoadingProps,
-	type State as LoadingState,
-} from '../common/LoadingEmojiComponent';
-import type { PickerRefHandler, Props as ComponentProps } from './EmojiPickerComponent';
-import { LoadingItem } from './EmojiPickerVirtualItems';
-import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
-import { defaultEmojiPickerSize } from '../../util/constants';
-import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
-
-const emojiPicker = css({
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'space-between',
-	backgroundColor: token('elevation.surface.overlay'),
-	border: `${token('color.border')} ${token('border.width')} solid`,
-	borderRadius: token('radius.small', '3px'),
-	boxShadow: token('elevation.shadow.overlay'),
-	height: '375px',
-	width: '350px',
-	minWidth: '350px',
-	minHeight: '340px',
-	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
-});
-
-const emojiPickerNew = css({
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'space-between',
-	backgroundColor: token('elevation.surface.overlay'),
-	border: `${token('color.border')} ${token('border.width')} solid`,
-	borderRadius: token('radius.large', '8px'),
-	boxShadow: token('elevation.shadow.overlay'),
-	height: '375px',
-	width: '350px',
-	minWidth: '350px',
-	minHeight: '340px',
-	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
-});
-
-const emojiPickerModuleLoader = () =>
-	import(/* webpackChunkName:"@atlaskit-internal_emojiPickerComponent" */ './EmojiPickerComponent');
-
-const emojiPickerLoader: () => Promise<
-	React.ComponentType<React.PropsWithChildren<ComponentProps>>
-> = () => emojiPickerModuleLoader().then((module) => module.default);
-
-export const preloadEmojiPicker = (): void => {
-	emojiPickerLoader().then((component) => {
-		EmojiPickerInternal.AsyncLoadedComponent = component;
-	});
-};
+import { type Props as LoadingProps } from '../common/LoadingEmojiComponent';
+import type { PickerRefHandler } from './EmojiPickerComponent';
+import { EmojiPickerInternal } from './EmojiPickerInternal';
 
 export interface Props extends LoadingProps {
 	/**
@@ -104,74 +40,7 @@ export interface Props extends LoadingProps {
 	size?: PickerSize;
 }
 
-export class EmojiPickerInternal extends LoadingEmojiComponent<
-	Props & WithAnalyticsEventsProps,
-	LoadingState
-> {
-	// state initialised with static component to prevent
-	// rerender when the module has already been loaded
-	static AsyncLoadedComponent?: React.ComponentType<React.PropsWithChildren<ComponentProps>>;
-
-	static defaultProps: {
-		size: string;
-	} = {
-		size: defaultEmojiPickerSize,
-	};
-
-	state: {
-		asyncLoadedComponent: React.ComponentType<React.PropsWithChildren<ComponentProps>> | undefined;
-	} = {
-		asyncLoadedComponent: EmojiPickerInternal.AsyncLoadedComponent,
-	};
-
-	constructor(props: Props) {
-		super(props, {});
-		ufoExperiences['emoji-picker-opened'].start();
-	}
-
-	asyncLoadComponent(): void {
-		emojiPickerLoader().then((component) => {
-			EmojiPickerInternal.AsyncLoadedComponent = component;
-			this.setAsyncState(component);
-		});
-	}
-
-	renderLoading(): JSX.Element | null {
-		const item = new LoadingItem();
-		const handlePickerRef = (ref: any) => {
-			if (this.props.onPickerRef) {
-				this.props.onPickerRef(ref);
-			}
-		};
-		ufoExperiences['emoji-picker-opened'].markFMP();
-
-		return isRefreshEmojiPickerEnabled() ? (
-			<div css={emojiPickerNew} ref={handlePickerRef}>
-				{item.renderItem()}
-			</div>
-		) : (
-			<div css={emojiPicker} ref={handlePickerRef}>
-				{item.renderItem()}
-			</div>
-		);
-	}
-
-	renderLoaded(
-		loadedEmojiProvider: EmojiProvider,
-		EmojiPickerComponent: ComponentClass<ComponentProps>,
-	): JSX.Element {
-		const { emojiProvider, ...otherProps } = this.props;
-		return (
-			<UfoErrorBoundary experiences={[ufoExperiences['emoji-picker-opened']]}>
-				<EmojiCommonProvider emojiProvider={loadedEmojiProvider}>
-					<EmojiPickerComponent {...otherProps} />
-				</EmojiCommonProvider>
-			</UfoErrorBoundary>
-		);
-	}
-}
-
-const EmojiPicker: React.ForwardRefExoticComponent<
+export const EmojiPicker: React.ForwardRefExoticComponent<
 	Omit<Props & WithAnalyticsEventsProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
 > = withAnalyticsEvents()<
 	Props & WithAnalyticsEventsProps,
@@ -179,3 +48,20 @@ const EmojiPicker: React.ForwardRefExoticComponent<
 >(EmojiPickerInternal as any);
 
 export default EmojiPicker;
+
+/**
+ * @deprecated Use `import { preloadEmojiPicker } from '@atlaskit/emoji/emoji-picker'` instead.
+ */
+export { preloadEmojiPicker } from './preloadEmojiPicker';
+/**
+ * @deprecated Use `import { EmojiPickerInternal } from '@atlaskit/emoji/emoji-picker'` instead.
+ */
+export { EmojiPickerInternal } from './EmojiPickerInternal';
+/**
+ * @deprecated Use `import { emojiPickerModuleLoader } from '@atlaskit/emoji/emoji-picker'` instead.
+ */
+export { emojiPickerModuleLoader } from './emojiPickerModuleLoader';
+/**
+ * @deprecated Use `import { emojiPickerLoader } from '@atlaskit/emoji/emoji-picker'` instead.
+ */
+export { emojiPickerLoader } from './emojiPickerLoader';

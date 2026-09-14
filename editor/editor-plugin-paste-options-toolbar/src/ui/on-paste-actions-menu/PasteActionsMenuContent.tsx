@@ -10,8 +10,8 @@ import type {
 	AsyncHiddenContext,
 	RegisterComponent,
 } from '@atlaskit/editor-ui-control-model/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getSingleSmartLinkUrlFromSlice } from '../utils/current-pasted-smart-link';
@@ -117,7 +117,7 @@ export const PasteActionsMenuContent = ({
 		[setOutsideClickTargetRef, contentRef],
 	);
 
-	if (expValEquals('platform_editor_menu_radius_update', 'isEnabled', true)) {
+	if (isExperimentEnabled('platform_editor_menu_radius_update')) {
 		return (
 			<ToolbarMenuContainer ref={mergedRef} onMouseDown={onMouseDown} onMouseEnter={onMouseEnter}>
 				<SurfaceRenderer surface={pasteMenuSurface} components={visibleComponents} />

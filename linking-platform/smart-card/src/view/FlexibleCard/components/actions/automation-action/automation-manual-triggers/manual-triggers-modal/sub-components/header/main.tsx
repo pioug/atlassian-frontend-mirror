@@ -5,13 +5,14 @@
 import { defineMessages, useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import AutomationIcon from '@atlaskit/icon/core/automation';
-import { ModalHeader, useModal } from '@atlaskit/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { useAutomationMenu } from '../../menu-context';
+import { useAutomationMenu } from '../../menu-context/useAutomationMenu';
 
 const styles = cssMap({
 	iconStyle: {
@@ -50,6 +51,7 @@ export const AutomationModalHeader = ({
 	const showDescription = initialised && rules.length > 0 && !!modalDescription;
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/use-modal-title
 		<ModalHeader hasCloseButton>
 			<Stack>
 				<Inline alignBlock="center">

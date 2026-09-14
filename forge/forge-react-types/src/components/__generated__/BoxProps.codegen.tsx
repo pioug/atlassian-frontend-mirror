@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::40a9a07bac30844b91c0ad9ba7f8c12b>>
+ * @codegen <<SignedSource::edd923f2013712b764ed1620a00a7cf6>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::2b5c4e2d3ee02b00f78935460cc1a0e5>>
  */
@@ -93,7 +93,7 @@ const borderRadiusSupportedValues = [
 	...borderRadiusTokens,
 	'border.radius',
 ] as unknown as Array<BorderRadius>;
-const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator({
+type XCSSValidatorArg = {
 	// text related props
 	textAlign: {
 		allowCSS: true,
@@ -176,15 +176,15 @@ const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator(
 	paddingTop: true,
 
 	// other box related props
-	borderRadius: { supportedValues: borderRadiusSupportedValues },
-	borderBottomLeftRadius: { supportedValues: borderRadiusSupportedValues },
-	borderBottomRightRadius: { supportedValues: borderRadiusSupportedValues },
-	borderTopLeftRadius: { supportedValues: borderRadiusSupportedValues },
-	borderTopRightRadius: { supportedValues: borderRadiusSupportedValues },
-	borderEndEndRadius: { supportedValues: borderRadiusSupportedValues },
-	borderEndStartRadius: { supportedValues: borderRadiusSupportedValues },
-	borderStartEndRadius: { supportedValues: borderRadiusSupportedValues },
-	borderStartStartRadius: { supportedValues: borderRadiusSupportedValues },
+	borderRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderBottomLeftRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderBottomRightRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderTopLeftRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderTopRightRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderEndEndRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderEndStartRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderStartEndRadius: { supportedValues: typeof borderRadiusSupportedValues },
+	borderStartStartRadius: { supportedValues: typeof borderRadiusSupportedValues },
 	borderWidth: true,
 	borderBlockWidth: true,
 	borderBlockEndWidth: true,
@@ -216,8 +216,8 @@ const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator(
 	position: {
 		supportedValues: ['relative', 'static'],
 	},
-}) as unknown as XCSSPropsValidator<XCSSValidatorParam>;
-type XCSSProp = ReturnType<typeof xcssValidator>;
+};
+type XCSSProp = ReturnType<XCSSPropsValidator<XCSSValidatorArg>>;
 
 export type BoxProps = {
 	/**

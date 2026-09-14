@@ -17,23 +17,27 @@ import {
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { isValid, parseISO } from 'date-fns';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { IconButton } from '@atlaskit/button/new';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
-import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
-import { fg } from '@atlaskit/platform-feature-flags';
+import {
+	createLocalizationProvider,
+	type LocalizationProvider,
+} from '@atlaskit/locale/localization-provider';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import Select, {
-	type ActionMeta,
-	type DropdownIndicatorProps,
-	type GroupType,
-	type IndicatorsContainerProps,
-	type InputActionMeta,
-	mergeStyles,
-	type OptionType,
-} from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type {
+	ActionMeta,
+	DropdownIndicatorProps,
+	GroupType,
+	IndicatorsContainerProps,
+	InputActionMeta,
+	OptionType,
+} from '@atlaskit/select/types';
+import { mergeStyles } from '@atlaskit/react-select/styles';
 import { token } from '@atlaskit/tokens';
 
 import { EmptyComponent } from '../internal/empty-component';
@@ -114,6 +118,9 @@ const DatePicker: React.ForwardRefExoticComponent<
 	const containerRef: React.MutableRefObject<HTMLElement | null> = useRef<HTMLElement>(null);
 	const calendarRef: React.RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
 	const calendarButtonRef: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null);
+	// Track whether focus was caused by an active pointer gesture. Pointer-driven focus must defer
+	// opening a top-layer popover until click, while keyboard and programmatic focus can open it now.
+	const isPointerInteractionRef = useRef(false);
 
 	const {
 		appearance = 'default' as Appearance,
@@ -187,18 +194,14 @@ const DatePicker: React.ForwardRefExoticComponent<
 	}
 
 	useEffect(() => {
-		// We don't want the focus to move if this is a click event
+		// Only move focus when the dedicated calendar button opened the menu.
 		if (!isKeyDown) {
 			return;
 		}
 		if (isOpen && wasOpenedFromCalendarButton) {
 			setIsKeyDown(false);
-			// When using top-layer, Popup.Content with role='dialog' automatically
-			// focuses the first focusable element — no manual focus needed.
-			if (!fg('platform-dst-top-layer')) {
-				// Focus on the first button within the calendar
-				calendarRef?.current?.querySelector('button')?.focus();
-			}
+			// Focus on the first button within the calendar
+			calendarRef?.current?.querySelector('button')?.focus();
 		}
 	}, [isKeyDown, calendarRef, isOpen, wasOpenedFromCalendarButton]);
 
@@ -240,6 +243,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 
 	const onContainerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
 		const newlyFocusedElement = event.relatedTarget as HTMLElement;
+		isPointerInteractionRef.current = false;
 
 		if (!containerRef?.current?.contains(newlyFocusedElement)) {
 			setIsOpen(false);
@@ -275,8 +279,12 @@ const DatePicker: React.ForwardRefExoticComponent<
 			// Don't open menu if focussing after the user has clicked clear
 			setClearingFromIcon(false);
 		} else {
-			// Don't open when focused into via keyboard if the calendar button is present
-			setIsOpen(!shouldShowCalendarButton);
+			// Opening an auto popover during pointer focus allows the matching pointerup
+			// to immediately light-dismiss it. Let the subsequent click open it instead.
+			if (!fg('platform-dst-top-layer') || !isPointerInteractionRef.current) {
+				// Don't open when focused into via keyboard if the calendar button is present
+				setIsOpen(!shouldShowCalendarButton);
+			}
 			setCalendarValue(value);
 			setIsFocused(true);
 			setWasOpenedFromCalendarButton(false);
@@ -318,12 +326,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 
 		switch (keyPressed) {
 			case 'escape':
-				// Restore focus on close. Both code paths handle this here:
-				// the legacy path because it has no built-in restoration, and
-				// the top-layer path because the menu uses `mode="manual"` to
-				// avoid the auto-popover light-dismiss closing the menu on the
-				// same click that opens it (see internal/menu-top-layer.tsx).
-				// `manual` mode disables the browser's native focus return.
+				// Restore focus because it may have moved from the input into the calendar.
 				if (wasOpenedFromCalendarButton) {
 					calendarButtonRef.current?.focus();
 				} else {
@@ -403,6 +406,9 @@ const DatePicker: React.ForwardRefExoticComponent<
 
 	// This event handler is triggered from both keydown and click. It's weird.
 	const onCalendarButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		if (!getIsOpen() && fg('platform-dst-top-layer')) {
+			setIsKeyDown(true);
+		}
 		setIsOpen((isOpen) => {
 			if (isOpen) {
 				props.selectProps?.onMenuClose?.();
@@ -527,7 +533,6 @@ const DatePicker: React.ForwardRefExoticComponent<
 		menuInnerWrapper: props?.menuInnerWrapper,
 	};
 
-	// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'.
 	const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 		control: (base: any) => ({
 			...base,
@@ -566,10 +571,24 @@ const DatePicker: React.ForwardRefExoticComponent<
 			css={styles.pickerContainerStyle}
 			data-testid={testId && `${testId}--container`}
 			onBlur={onContainerBlur}
+			// Reset before descendant click handlers run: click happens after native light-dismiss, so
+			// any focus they move is safe to treat as non-pointer focus. Capture also guarantees cleanup
+			// when a descendant stops the bubbling click.
+			onClickCapture={() => {
+				isPointerInteractionRef.current = false;
+			}}
 			onFocus={onContainerFocus}
 			onClick={onInputClick}
 			onInput={onTextInput}
 			onKeyDown={onInputKeyDown}
+			// A cancelled pointer produces no click, so clear the tracking state here instead.
+			onPointerCancelCapture={() => {
+				isPointerInteractionRef.current = false;
+			}}
+			// Capture pointerdown before it moves focus into a descendant Select control.
+			onPointerDownCapture={() => {
+				isPointerInteractionRef.current = true;
+			}}
 			ref={getContainerRef}
 			// Since the onclick, onfocus are passed down, adding role="presentation" prevents typecheck errors.
 			role="presentation"
@@ -621,7 +640,6 @@ const DatePicker: React.ForwardRefExoticComponent<
 				spacing={spacing}
 				testId={testId}
 				// These aren't part of `Select`'s API, but we're using them here.
-				// @ts-ignore --  Property 'calendarContainerRef' does not exist on type 'IntrinsicAttributes & LibraryManagedAttributes<(<Option extends unknown = OptionType, IsMulti extends boolean = false>(props: AtlaskitSelectProps<Option, IsMulti> & { ...; }) => Element), AtlaskitSelectProps<...> & { ...; }>'.
 				calendarContainerRef={calendarProps.calendarContainerRef}
 				calendarDisabled={calendarProps.calendarDisabled}
 				calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}

@@ -5,8 +5,9 @@
 
 import { css, jsx } from '@compiled/react';
 
-import Lozenge from '@atlaskit/lozenge';
-import Spinner, { type Size } from '@atlaskit/spinner';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import Spinner from '@atlaskit/spinner/spinner';
+import type { Size } from '@atlaskit/spinner/types';
 import { token } from '@atlaskit/tokens';
 
 const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge', 80];

@@ -4,7 +4,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 /**
  * Calculates container or full editor width taking in account editor full width layout

@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { DefaultConfirmDismissDialog } from '../../examples/vr/vr-confirm-dismiss-dialog';
+import { DefaultConfirmDismissDialog } from '../../examples/vr/vr-confirm-dismiss-dialog.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

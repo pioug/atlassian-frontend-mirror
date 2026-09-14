@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/lozenge",
-	"version": "14.1.6",
+	"version": "15.4.1",
 	"description": "A lozenge is a visual indicator used to highlight an item's status for quick recognition.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,10 +18,11 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./lozenge-dropdown-trigger": "./src/entry-points/lozenge-dropdown-trigger.tsx",
-		"./lozenge": "./src/entry-points/lozenge.tsx",
+		"./lozenge": "./src/lozenge.tsx",
+		"./lozenge-dropdown-trigger": "./src/new/lozenge-dropdown-trigger.tsx",
+		"./new/lozenge": "./src/new/lozenge.tsx",
 		"./new": "./src/new/entrypoint.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./types": "./src/new/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {
@@ -71,12 +72,13 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
@@ -86,32 +88,10 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"styling": [
-				"static"
-			],
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"platform-feature-flags": {
 		"platform-lozenge-custom-letterspacing": {
@@ -122,6 +102,10 @@
 		},
 		"platform-dst-motion-uplift": {
 			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-button": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform-dst-motion-uplift-popup": {
 			"type": "boolean"

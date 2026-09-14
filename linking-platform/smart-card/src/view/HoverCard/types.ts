@@ -1,9 +1,9 @@
 import { type MouseEventHandler, type ReactElement } from 'react';
 
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
+import type { CardState } from '@atlaskit/linking-common/store';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import type { ActionName } from '../../constants';
 import { type AnalyticsHandler } from '../../utils/types';

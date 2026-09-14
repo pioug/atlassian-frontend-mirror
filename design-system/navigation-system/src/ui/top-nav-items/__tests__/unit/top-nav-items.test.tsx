@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';

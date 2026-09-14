@@ -54,13 +54,13 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/inline-dialog/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

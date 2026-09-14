@@ -1,8 +1,7 @@
 {
-	"extends": "../../../tsconfig.base.json",
+	"extends": "./tsconfig.dev.json",
 	"compilerOptions": {
-		"outDir": "./dist"
-	},
-	"include": ["src"],
-	"exclude": ["**/__tests__", "**/__stories__"]
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true
+	}
 }

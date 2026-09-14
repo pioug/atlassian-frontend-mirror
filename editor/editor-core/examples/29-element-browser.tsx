@@ -9,8 +9,8 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl, IntlProvider } from 'react-intl';
 
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 

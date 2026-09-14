@@ -1,10 +1,11 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import Rankable from '../../../../examples/12-with-lots-of-pages-rankable';
-import HighlightedRow from '../../../../examples/15-highlighted-row';
-import Loading from '../../../../examples/3-loading-state-many-rows';
-import EmptyView from '../../../../examples/6-empty-view-with-body';
-import Basic from '../../../../examples/99-testing';
+import Rankable from '../../../../examples/12-with-lots-of-pages-rankable.vr.ap';
+import HighlightedRow from '../../../../examples/15-highlighted-row.vr.ap';
+import Loading from '../../../../examples/3-loading-state-many-rows.vr.ap';
+import EmptyView from '../../../../examples/6-empty-view-with-body.vr.ap';
+import SortableHeaderTruncation from '../../../../examples/19-sortable-header-truncation.vr.ap';
+import Basic from '../../../../examples/99-testing.vr.ap';
 
 snapshot(Basic, {
 	variants: [
@@ -17,6 +18,10 @@ snapshot(Basic, {
 });
 
 snapshot(EmptyView);
+
+snapshot(SortableHeaderTruncation, {
+	description: 'sortable header truncation',
+});
 
 snapshot(Rankable, {
 	description: 'rankable row focus state',

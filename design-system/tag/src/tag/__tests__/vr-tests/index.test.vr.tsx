@@ -1,15 +1,15 @@
 import { snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import Colors from '../../../../examples/1-colors';
-import TagDropdownTriggerExamples from '../../../../examples/13-tag-dropdown-trigger';
-import Basic from '../../../../examples/vr-tests/basic-tag';
-import ElementBeforeStates from '../../../../examples/vr-tests/element-before-states';
-import LinkedTagStates from '../../../../examples/vr-tests/linked-tag-states';
-import ColorsNonInteractive from '../../../../examples/vr-tests/non-interactive-colors';
-import NonInteractiveStates from '../../../../examples/vr-tests/non-interactive-states';
-import RemovableAvatar from '../../../../examples/vr-tests/removable-avatar';
-import RemovableTagStates from '../../../../examples/vr-tests/removable-tag-states';
-import TextMaxLengthComprehensive from '../../../../examples/vr-tests/text-max-length-comprehensive';
+import Colors from '../../../../examples/1-colors.vr.ap';
+import TagDropdownTriggerExamples from '../../../../examples/13-tag-dropdown-trigger.vr.ap';
+import Basic from '../../../../examples/vr-tests/basic-tag.vr.ap';
+import ElementBeforeStates from '../../../../examples/vr-tests/element-before-states.vr.ap';
+import LinkedTagStates from '../../../../examples/vr-tests/linked-tag-states.vr.ap';
+import ColorsNonInteractive from '../../../../examples/vr-tests/non-interactive-colors.vr.ap';
+import NonInteractiveStates from '../../../../examples/vr-tests/non-interactive-states.vr.ap';
+import RemovableAvatar from '../../../../examples/vr-tests/removable-avatar.vr.ap';
+import RemovableTagStates from '../../../../examples/vr-tests/removable-tag-states.vr.ap';
+import TextMaxLengthComprehensive from '../../../../examples/vr-tests/text-max-length-comprehensive.vr.ap';
 
 const themeVariants: SnapshotTestOptions<any>['variants'] = [
 	{

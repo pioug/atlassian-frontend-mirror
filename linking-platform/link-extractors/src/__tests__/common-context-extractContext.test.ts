@@ -5,7 +5,7 @@ import {
 	TEST_OBJECT,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractContext } from '../index';
+import { extractContext } from '../extract-context';
 
 describe('extractors.context.context', () => {
 	afterEach(() => jest.clearAllMocks());

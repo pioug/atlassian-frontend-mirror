@@ -4,15 +4,13 @@
  */
 import { jsx, css } from '@compiled/react';
 import React from 'react';
-import {
-	Rectangle,
-	Vector2,
-	Bounds,
-	dataURItoFile,
-	type FileInfo,
-	getFileInfo,
-	getFileInfoFromSrc,
-} from '@atlaskit/media-ui';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+import { Bounds } from '@atlaskit/media-ui/bounds';
+import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
+import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
+import { getFileInfo } from '@atlaskit/media-ui/getFileInfo';
+import { getFileInfoFromSrc } from '@atlaskit/media-ui/getFileInfoFromSrc';
 import { ImagePlacerContainer } from './container';
 import { ImagePlacerImage } from './image';
 import { Margin } from './margin';

@@ -1,3 +1,4 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
@@ -96,11 +97,37 @@ export class NodeViewSerializer {
 			return null;
 		}
 		const constructor = this.nodeViews?.[targetNode.type.name];
-		if (this.nodeViewBlocklist.has(targetNode.type.name)) {
+		const isBlocklisted = this.nodeViewBlocklist.has(targetNode.type.name);
+
+		// Do not bail out a blocklisted container when it holds an atomic inline node
+		// (e.g. date, status) whose schema toDOM is lossy. Text keeps bailing so the caller
+		// renders it inline
+		const hasAtomicInlineChild = (node: PMNode): boolean => {
+			let found = false;
+			node.forEach((child) => {
+				if (child.isLeaf && !child.isText) {
+					found = true;
+				}
+			});
+			return found;
+		};
+
+		const serializeAtomicContainer =
+			isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') &&
+			!targetNode.isInline &&
+			hasAtomicInlineChild(targetNode);
+
+		if (isBlocklisted && !serializeAtomicContainer) {
 			return null;
 		}
 		try {
-			if (!constructor) {
+			// No constructor, or (gated) the node's own view is blocklisted: render the toDOM
+			// shell and recurse via appendChildNodes so nested atomic inline nodes render via
+			// their node views instead of their lossy schema toDOM.
+			if (
+				!constructor ||
+				(isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') && isBlocklisted)
+			) {
 				if (targetNode.isInline) {
 					return null;
 				}
@@ -110,11 +137,16 @@ export class NodeViewSerializer {
 				}
 				const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOMResult);
 				if (dom instanceof HTMLElement) {
-					if (targetNode.type.name === 'paragraph' && targetNode.children.length === 1) {
+					// Legacy shortcut: a single-child paragraph serializes its inline content
+					// directly (no <p> wrapper). Applies only to a non-blocklisted paragraph with
+					// no node view
+					if (
+						!isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') &&
+						targetNode.type.name === 'paragraph' &&
+						targetNode.children.length === 1
+					) {
 						return this.serializeFragment(targetNode.content);
 					}
-
-					// Iteratively populate children
 					this.appendChildNodes(targetNode.children, contentDOM);
 				}
 				return dom;

@@ -1,4 +1,4 @@
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { CardOptions, EmbedCardNodeTransformer } from '@atlaskit/editor-common/card';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
@@ -11,7 +11,7 @@ import type {
 	DatasourceAdf,
 	EmbedCardAdf,
 	InlineCardAdf,
-} from '@atlaskit/linking-common';
+} from '@atlaskit/linking-common/types';
 
 import type { Request } from '../../types';
 import { setProvider } from '../actions';

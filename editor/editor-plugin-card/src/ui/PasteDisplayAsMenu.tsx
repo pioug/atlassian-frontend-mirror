@@ -26,7 +26,8 @@ import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
 import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { type CardContext, useSmartCardContext } from '@atlaskit/link-provider/context';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
@@ -35,6 +36,11 @@ import type { CardPlugin } from '../cardPluginType';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 
 import { getSingleSmartLinkUrlFromSlice } from './currentPastedSmartLink';
+import {
+	changeNativeEmbedAppearance,
+	getNativeEmbedUrl,
+	isNativeEmbedAppearanceSupported,
+} from './nativeEmbedNode';
 import { getCardAtPasteRange } from './pasteDisplayAsUtils';
 
 export const SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION_KEY =
@@ -273,11 +279,20 @@ const getCardUrlAtPasteRange = ({
 	pasteStartPos: number;
 }): string | undefined => {
 	const cardAtPasteRange = getCardAtPasteRange(editorView.state, pasteStartPos, pasteEndPos);
-	const maybeAttrs = cardAtPasteRange
-		? (editorView.state.doc.nodeAt(cardAtPasteRange.pos)?.attrs as
-				| { data?: { url?: unknown }; url?: unknown }
-				| undefined)
-		: undefined;
+	if (!cardAtPasteRange) {
+		return undefined;
+	}
+
+	const node = editorView.state.doc.nodeAt(cardAtPasteRange.pos);
+	if (!node) {
+		return undefined;
+	}
+
+	if (cardAtPasteRange.isNativeEmbed) {
+		return getNativeEmbedUrl(node);
+	}
+
+	const maybeAttrs = node.attrs as { data?: { url?: unknown }; url?: unknown } | undefined;
 	const maybeUrl = maybeAttrs?.url ?? maybeAttrs?.data?.url;
 
 	return typeof maybeUrl === 'string' ? maybeUrl : undefined;
@@ -381,7 +396,6 @@ const PasteDisplayAsMenuHorizontalView = ({
 	const pasteRange = useSharedPluginStateWithSelector(
 		apiWithPasteOptionsToolbar,
 		['pasteOptionsToolbarPlugin'],
-		// @ts-ignore TS7006 - isolated Fast Typecheck can't infer the selector states generic
 		(states) => {
 			const pluginState = states.pasteOptionsToolbarPluginState as
 				| PasteOptionsToolbarSharedState
@@ -395,7 +409,6 @@ const PasteDisplayAsMenuHorizontalView = ({
 		},
 	);
 	// Subscribe to card state so the menu re-renders when resolved card metadata updates.
-	// @ts-ignore TS7006 - isolated Fast Typecheck can't infer the selector states generic
 	useSharedPluginStateWithSelector(api, ['card'], (states) => {
 		return states.cardState as CardSharedState | undefined;
 	});
@@ -416,11 +429,20 @@ const PasteDisplayAsMenuHorizontalView = ({
 		: undefined;
 	const hasResolvedSmartLinkData = Boolean(pastedLinkUrlState?.details);
 
-	const currentAppearance: PasteDisplayAppearance | undefined =
+	const cardAtPasteRange =
 		editorView && pasteRange
-			? (getCardAtPasteRange(editorView.state, pasteRange.pasteStartPos, pasteRange.pasteEndPos)
-					?.appearance ?? 'url')
+			? getCardAtPasteRange(
+					editorView.state,
+					pasteRange.pasteStartPos,
+					pasteRange.pasteEndPos,
+					pastedLinkUrl,
+				)
 			: undefined;
+	const currentAppearance: PasteDisplayAppearance | undefined =
+		editorView && pasteRange ? (cardAtPasteRange?.appearance ?? 'url') : undefined;
+	// A 1P link that resolves to an embed is inserted as a native embed, not an embedCard.
+	// It displays as an embed, but the card commands cannot change its appearance.
+	const isNativeEmbedPaste = Boolean(cardAtPasteRange?.isNativeEmbed);
 
 	const handleClick = useCallback(
 		(appearance: PasteDisplayAppearance) => () => {
@@ -438,16 +460,34 @@ const PasteDisplayAsMenuHorizontalView = ({
 
 			const { state, dispatch } = editorView;
 			const { pasteStartPos, pasteEndPos } = pasteRange;
-			const cardAtPasteRange = getCardAtPasteRange(state, pasteStartPos, pasteEndPos);
+			const cardAtRange = getCardAtPasteRange(state, pasteStartPos, pasteEndPos, pastedLinkUrl);
+
+			if (cardAtRange?.isNativeEmbed) {
+				const nativeEmbedNode = state.doc.nodeAt(cardAtRange.pos);
+				// 'embed' is what a native embed already displays as, so there is nothing to apply.
+				if (nativeEmbedNode && appearance !== 'embed') {
+					changeNativeEmbedAppearance({
+						editorView,
+						pos: cardAtRange.pos,
+						node: nativeEmbedNode,
+						appearance,
+						url: pastedLinkUrl,
+						editorAnalyticsApi: api?.analytics?.actions,
+					});
+				}
+				toolbarDropdownMenu?.closeMenu(null);
+				isApplyingRef.current = false;
+				return;
+			}
 
 			if (appearance === 'url') {
-				if (cardAtPasteRange) {
+				if (cardAtRange) {
 					changeSelectedCardToLink(
 						pastedLinkUrl,
 						pastedLinkUrl,
 						true,
-						state.doc.nodeAt(cardAtPasteRange.pos) ?? undefined,
-						cardAtPasteRange.pos,
+						state.doc.nodeAt(cardAtRange.pos) ?? undefined,
+						cardAtRange.pos,
 						api?.analytics?.actions,
 					)(state, dispatch, editorView);
 				}
@@ -456,7 +496,7 @@ const PasteDisplayAsMenuHorizontalView = ({
 				return;
 			}
 
-			const targetPos = cardAtPasteRange?.pos;
+			const targetPos = cardAtRange?.pos;
 			const targetNodeAttrs =
 				targetPos === undefined
 					? undefined
@@ -557,32 +597,41 @@ const PasteDisplayAsMenuHorizontalView = ({
 			Fragment.from(embedCardNodeType.createChecked({})),
 			undefined,
 		);
-	const isBlockSupported = Boolean(
-		isBlockSupportedFromAppearanceContext || isBlockSupportedFromSelection,
-	);
-	const isEmbedSupported = Boolean(
-		isEmbedSupportedFromAppearanceContext || isEmbedSupportedFromSelection,
-	);
+	// A native embed is replaced in place, so support depends on what its own position
+	// accepts rather than on the current selection or on an embed preview being available.
+	const nativeEmbedPos = isNativeEmbedPaste ? cardAtPasteRange?.pos : undefined;
+	const isSupportedForNativeEmbed = (appearance: 'url' | 'inline' | 'block') =>
+		nativeEmbedPos !== undefined &&
+		isNativeEmbedAppearanceSupported({ editorView, pos: nativeEmbedPos, appearance });
+
+	const isInlineSupported = isNativeEmbedPaste ? isSupportedForNativeEmbed('inline') : true;
+	const isBlockSupported = isNativeEmbedPaste
+		? allowBlockCards && isSupportedForNativeEmbed('block')
+		: Boolean(isBlockSupportedFromAppearanceContext || isBlockSupportedFromSelection);
+	const isEmbedSupported =
+		// Whatever was pasted already displays this way, so the option must stay selectable.
+		currentAppearance === 'embed' ||
+		Boolean(isEmbedSupportedFromAppearanceContext || isEmbedSupportedFromSelection);
 
 	return (
 		<Flex xcss={styles.appearanceBox} gap="space.050">
 			<AppearanceOptionIconButton
 				appearance="url"
 				currentAppearance={currentAppearance}
-				isDisabled={false}
+				isDisabled={isNativeEmbedPaste && !isSupportedForNativeEmbed('url')}
 				label={intl.formatMessage(appearancePropsMap.url.title)}
 				Icon={MinusIcon}
 				onClick={handleClick('url')}
 			/>
 			<InlineAppearanceIconButton
 				currentAppearance={currentAppearance}
-				isDisabled={!isSmartLinkConvertible}
+				isDisabled={isNativeEmbedPaste ? !isInlineSupported : !isSmartLinkConvertible}
 				label={intl.formatMessage(appearancePropsMap.inline.title)}
 				onClick={handleClick('inline')}
 			/>
 			<BlockAppearanceIconButton
 				currentAppearance={currentAppearance}
-				isDisabled={!isSmartLinkConvertible || !isBlockSupported}
+				isDisabled={!isBlockSupported || (!isNativeEmbedPaste && !isSmartLinkConvertible)}
 				label={intl.formatMessage(appearancePropsMap.block.title)}
 				onClick={handleClick('block')}
 			/>

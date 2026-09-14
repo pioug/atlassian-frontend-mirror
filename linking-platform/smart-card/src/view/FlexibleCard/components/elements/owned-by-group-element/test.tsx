@@ -8,7 +8,7 @@ import OwnedByGroupElement from './index';
 
 const testId = 'smart-element-avatar-group';
 
-jest.mock('../../../../../state/flexible-ui-context', () => ({
+jest.mock('../../../../../state/flexible-ui-context/useFlexibleUiContext', () => ({
 	useFlexibleUiContext: jest.fn(() => ({
 		ownedByGroup: [{ name: 'John Doe' }],
 	})),

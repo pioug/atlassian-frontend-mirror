@@ -1,14 +1,14 @@
 import React, {
 	Children,
+	type Context,
 	createContext,
 	memo,
 	type ReactNode,
-	useContext,
 	useEffect,
 	useState,
 } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Internally we will be playing with an element that will always have a key defined.
@@ -41,7 +41,12 @@ export interface ExitingPersistenceProps {
 /**
  * Internal data passed to child motions.
  */
-interface ExitingChildContext {
+export interface ExitingChildContext {
+	/**
+	 * Whether this value was provided by an ExitingPersistence boundary.
+	 */
+	isInsideExitingPersistence: boolean;
+
 	/**
 	 * Will perform an exit animation instead of an enter animation.
 	 */
@@ -62,6 +67,7 @@ interface ExitingChildContext {
 const emptyContext: ExitingChildContext = {
 	// Motions will always appear if not inside a exiting persistence component.
 	appear: true,
+	isInsideExitingPersistence: false,
 	isExiting: false,
 };
 
@@ -70,7 +76,8 @@ const emptyContext: ExitingChildContext = {
  *
  * An exiting context.
  */
-const ExitingContext = createContext<ExitingChildContext>(emptyContext);
+export const ExitingContext: Context<ExitingChildContext> =
+	createContext<ExitingChildContext>(emptyContext);
 
 /**
  * This method will wrap any React element with a context provider. We're using context (instead of
@@ -176,11 +183,19 @@ const ExitingPersistence: React.MemoExoticComponent<
 
 	const [exitingChildren, setExitingChildren] = useState<ElementWithKey[]>([]);
 
-	const [defaultContext, setDefaultContext] = useState(() => ({ appear, isExiting: false }));
+	const [defaultContext, setDefaultContext] = useState<ExitingChildContext>(() => ({
+		appear,
+		isExiting: false,
+		isInsideExitingPersistence: true,
+	}));
 
 	useEffect(() => {
 		if (!defaultContext.appear) {
-			setDefaultContext({ appear: true, isExiting: false });
+			setDefaultContext({
+				appear: true,
+				isExiting: false,
+				isInsideExitingPersistence: true,
+			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -229,6 +244,7 @@ const ExitingPersistence: React.MemoExoticComponent<
 			const isExiting = missingKeys.has(child.key);
 			return wrapChildWithContextProvider(child, {
 				appear: true,
+				isInsideExitingPersistence: true,
 				isExiting,
 				onFinish: isExiting
 					? () => {
@@ -250,11 +266,7 @@ const ExitingPersistence: React.MemoExoticComponent<
 	return visibleChildren;
 });
 
-export const useExitingPersistence = (): ExitingChildContext => {
-	return useContext(ExitingContext);
-};
-
-ExitingPersistence.displayName = 'ExitingPersistence';
-
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default ExitingPersistence;
+
+ExitingPersistence.displayName = 'ExitingPersistence';

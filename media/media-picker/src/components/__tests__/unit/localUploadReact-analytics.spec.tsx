@@ -1,17 +1,25 @@
 import { RequestError } from '@atlaskit/media-client';
 import { LocalUploadComponentReact } from '../../localUploadReact';
 import { type UploadErrorEventPayload } from '../../../types';
-import { failMediaUploadUfoExperience } from '../../../util/ufoExperiences';
+import { failMediaUploadUfoExperience } from '../../../util/failMediaUploadUfoExperience';
 
 // Mock the feature flag
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(() => false),
 }));
 
 // Mock the UFO experience
-jest.mock('../../../util/ufoExperiences', () => ({
+jest.mock('../../../util/startMediaUploadUfoExperience', () => ({
+	...jest.requireActual('../../../util/startMediaUploadUfoExperience'),
 	startMediaUploadUfoExperience: jest.fn(),
+}));
+jest.mock('../../../util/succeedMediaUploadUfoExperience', () => ({
+	...jest.requireActual('../../../util/succeedMediaUploadUfoExperience'),
 	succeedMediaUploadUfoExperience: jest.fn(),
+}));
+jest.mock('../../../util/failMediaUploadUfoExperience', () => ({
+	...jest.requireActual('../../../util/failMediaUploadUfoExperience'),
 	failMediaUploadUfoExperience: jest.fn(),
 }));
 

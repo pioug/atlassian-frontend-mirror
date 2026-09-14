@@ -8,6 +8,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import TextParagraphIcon from '@atlaskit/icon-lab/core/text-paragraph';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
 
@@ -20,6 +21,7 @@ const NODE_NAME = 'paragraph';
 
 const ParagraphBlockMenuItem = ({ api, isSuggested }: ParagraphBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
+	const isNormalTextLabelEnabled = isExperimentEnabled('platform_editor_block_menu_small_text');
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
 		const triggeredFrom =
@@ -32,6 +34,7 @@ const ParagraphBlockMenuItem = ({ api, isSuggested }: ParagraphBlockMenuItemProp
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.paragraph, {
 				inputMethod,
 				isSuggested,
+				marksToRemove: isNormalTextLabelEnabled ? ['fontSize'] : undefined,
 				triggeredFrom,
 				targetTypeName: NODE_NAME,
 			});
@@ -44,7 +47,9 @@ const ParagraphBlockMenuItem = ({ api, isSuggested }: ParagraphBlockMenuItemProp
 			onClick={handleClick}
 			elemBefore={<TextParagraphIcon label="" size="small" />}
 		>
-			{formatMessage(blockMenuMessages.paragraph)}
+			{formatMessage(
+				isNormalTextLabelEnabled ? blockMenuMessages.normalText : blockMenuMessages.paragraph,
+			)}
 		</ToolbarDropdownItem>
 	);
 };

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { PopoverProvider as Legacy } from './legacy';
 import { PopoverProvider as TopLayer } from './top-layer';

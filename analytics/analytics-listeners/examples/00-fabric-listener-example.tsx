@@ -1,4 +1,4 @@
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import React from 'react';
 import FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';
 import { FabricChannel } from '../src/types';

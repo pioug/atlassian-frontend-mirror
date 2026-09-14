@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset';

@@ -17,7 +17,7 @@ import {
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import { getValidDocument } from '@atlaskit/editor-common/validator';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import memoizeOne from 'memoize-one';
 import { PLATFORM } from './analytics/events';
@@ -62,16 +62,19 @@ const withStopwatch = <T>(cb: () => T): ResultWithTime<T> => {
 
 type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
 
+/** Schema-variant escape hatches handed to the ADF validator. */
+type ValidationOverrides = { allowNestedTables?: boolean; allowTableInPanel?: boolean };
+
 const _validation = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any,
 	schema: Schema,
-	adfStage: ADFStage,
+	adfStage: ADFStage | undefined,
 	useSpecBasedValidator: boolean,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	skipValidation?: boolean,
-	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
+	validationOverrides?: ValidationOverrides,
 ) => {
 	let result;
 
@@ -87,6 +90,11 @@ const _validation = (
 			});
 		}
 
+		// Forward `adfStage` only when a caller names one. Omitting it keeps stage-0 specs acceptable,
+		// which is what a renderer wants: stored documents can contain them, and wrapping such content
+		// as unsupported is worse than rendering it. A caller that declares `final` asks for full-ADF
+		// strictness and gets it. The legacy branch below reads the same value as a schema selector and
+		// so keeps its own `final` default.
 		result = skipValidation
 			? transformedAdf || doc
 			: validateADFEntity(
@@ -94,9 +102,10 @@ const _validation = (
 					transformedAdf || doc,
 					dispatchAnalyticsEvent,
 					validationOverrides,
+					adfStage,
 				);
 	} else {
-		result = getValidDocument(doc, schema, adfStage);
+		result = getValidDocument(doc, schema, adfStage ?? 'final');
 	}
 
 	if (!result) {
@@ -202,11 +211,11 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		doc: any,
 		schema: Schema,
-		stage: ADFStage,
+		stage: ADFStage | undefined,
 		useSpecValidator: boolean,
 		DispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
 		skipValidation?: boolean | undefined,
-		validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
+		validationOverrides?: ValidationOverrides,
 	];
 
 	const [
@@ -228,13 +237,15 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 		oldValidationOverrides,
 	]: ValidationArgsType = lastArgs;
 
+	// `areDocsEqual` may stringify the whole document, so it goes last and only runs once everything
+	// cheaper has matched.
 	return (
-		areDocsEqual(newDoc, oldDoc) &&
 		newSchema === oldSchema &&
 		newADFStage === oldADFStage &&
 		newUseSpecValidator === oldUseSpecValidator &&
 		newSkipValidation === oldSkipValidation &&
-		newValidationOverrides === oldValidationOverrides
+		areValidationOverridesEqual(newValidationOverrides, oldValidationOverrides) &&
+		areDocsEqual(newDoc, oldDoc)
 	);
 });
 
@@ -251,11 +262,38 @@ const areDocsEqual = (docA: any, docB: any) => {
 
 	// PMNode
 	if (docA.type && docA.toJSON && docB.type && docB.toJSON) {
+		// `Node.eq` compares markup and content directly; stringifying both `toJSON` trees gives the
+		// same answer ~14x slower on a 5k-node document.
+		if (typeof docA.eq === 'function' && typeof docB.eq === 'function') {
+			return docA.eq(docB);
+		}
 		return JSON.stringify(docA.toJSON()) === JSON.stringify(docB.toJSON());
 	}
 
 	// Object
 	return JSON.stringify(docA) === JSON.stringify(docB);
+};
+
+/**
+ * `Renderer` rebuilds this object in its render body, so a reference check never matches and the memo
+ * re-validates (and re-transforms) an unchanged document every render. A flat bag of optional
+ * booleans, so a shallow key/value comparison is exact and free next to what it protects.
+ */
+const areValidationOverridesEqual = (a?: ValidationOverrides, b?: ValidationOverrides): boolean => {
+	if (a === b) {
+		return true;
+	}
+	if (!a || !b) {
+		return false;
+	}
+	const aEntries = Object.entries(a);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const bRecord = b as Record<string, any>;
+	return (
+		aEntries.length === Object.keys(b).length &&
+		aEntries.every(([key, value]) => bRecord[key] === value)
+	);
 };
 
 const _serializeFragment = <T>(serializer: Serializer<T>, doc: PMNode): T | null => {
@@ -307,7 +345,7 @@ export const renderDocument = <T>(
 	doc: any,
 	serializer: Serializer<T>,
 	schema: Schema = defaultSchema,
-	adfStage: ADFStage = 'final',
+	adfStage?: ADFStage,
 	useSpecBasedValidator: boolean = false,
 	rendererId: string = 'noid',
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
@@ -315,7 +353,7 @@ export const renderDocument = <T>(
 	appearance?: RendererAppearance,
 	includeNodesCountInStats?: boolean,
 	skipValidation?: boolean,
-	validationOverrides?: { allowNestedTables?: boolean; allowTableInPanel?: boolean },
+	validationOverrides?: ValidationOverrides,
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 

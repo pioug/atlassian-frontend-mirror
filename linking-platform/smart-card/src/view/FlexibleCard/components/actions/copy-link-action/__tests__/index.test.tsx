@@ -4,18 +4,18 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { render, screen, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics/analytics';
 import CopyLinkAction from '../index';
 import { type CopyLinkActionProps } from '../types';
 
-jest.mock('../../../../../../state/flexible-ui-context', () => ({
-	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+jest.mock('../../../../../../state/flexible-ui-context/useFlexibleUiContext', () => ({
+	...jest.requireActual('../../../../../../state/flexible-ui-context/useFlexibleUiContext'),
 	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 

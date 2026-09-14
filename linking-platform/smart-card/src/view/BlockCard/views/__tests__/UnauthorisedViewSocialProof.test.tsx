@@ -3,8 +3,8 @@
  */
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { screen, waitFor } from '@atlassian/testing-library';

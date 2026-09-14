@@ -63,9 +63,6 @@
 			"path": "../../design-system/image/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/link/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{

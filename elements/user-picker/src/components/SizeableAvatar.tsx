@@ -1,7 +1,10 @@
-import Avatar, { type AvatarPropTypes, type AppearanceType } from '@atlaskit/avatar';
-import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import React from 'react';
-import { getAvatarSize } from './utils';
+
+import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar/avatar';
+import type { AppearanceType } from '@atlaskit/avatar/types';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
+
+import { getAvatarSize } from './getAvatarSize';
 
 export type Props = {
 	appearance: string;
@@ -15,9 +18,6 @@ export class SizeableAvatar extends React.PureComponent<Props> {
 	render(): React.JSX.Element {
 		const { src, presence, appearance, type = 'person', avatarAppearanceShape } = this.props;
 
-		// `getAvatarSize` only ever returns 'xsmall' | 'small' | 'medium', none of
-		// which is the team-avatar-unsupported `UNSAFE_xsmall` (20px) size. Keeping
-		// `size` narrowed here lets the object satisfy both Avatar and TeamAvatar.
 		const size = getAvatarSize(appearance);
 		const props: Omit<AvatarPropTypes, 'size'> & { size: typeof size } = {
 			size,

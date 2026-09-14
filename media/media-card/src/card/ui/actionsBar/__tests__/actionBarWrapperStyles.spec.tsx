@@ -3,7 +3,8 @@ import { render, screen } from '@testing-library/react';
 
 import { ActionsBarWrapper } from '../actionsBarWrapper';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 

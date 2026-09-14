@@ -2,16 +2,15 @@ import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import rafSchedule from 'raf-schd';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import type { OnClickCallback } from '@atlaskit/smart-card/card/types';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { visitCardLinkAnalytics } from '../ui/toolbar';
@@ -65,7 +64,7 @@ export const InlineCard: React.MemoExoticComponent<
 			removeCardDispatched.current = false;
 			return () => {
 				if (
-					expValEquals('platform_editor_inline_card_dispatch_guard', 'isEnabled', true) &&
+					isExperimentEnabled('platform_editor_inline_card_dispatch_guard') &&
 					removeCardDispatched.current
 				) {
 					return;
@@ -139,10 +138,7 @@ export const InlineCard: React.MemoExoticComponent<
 						view.dispatch,
 					);
 
-					window.open(
-						fg('platform_smartlink_xpc_url_wrapping') ? (data?.destinationUrl ?? url) : url,
-						'_blank',
-					);
+					window.open(data?.destinationUrl ?? url, '_blank');
 				} else {
 					// only trigger the provided onClick callback if the meta key or ctrl key is not pressed
 					propsOnClick?.(event);
@@ -156,12 +152,7 @@ export const InlineCard: React.MemoExoticComponent<
 			: propsOnClick;
 
 		const card = useMemo(() => {
-			if (
-				(isPageSSRed ||
-					(cardState &&
-						expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true))) &&
-				url
-			) {
+			if ((isPageSSRed || cardState) && url) {
 				return (
 					<CardSSR
 						key={url}

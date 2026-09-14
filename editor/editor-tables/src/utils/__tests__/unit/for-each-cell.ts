@@ -1,9 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+
 import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
 import { emptyCell } from '../../empty-cells';
-import { forEachCellInColumn, forEachCellInRow } from '../../for-each-cell';
+import { forEachCellInColumn } from '../../for-each-cell-in-column';
+import { forEachCellInRow } from '../../for-each-cell-in-row';
 import { setCellAttrs } from '../../set-cell-attrs';
 
 describe('forEachCellInColumn', () => {

@@ -6,8 +6,8 @@ import {
 	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { messages } from '@atlaskit/media-ui/messages';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

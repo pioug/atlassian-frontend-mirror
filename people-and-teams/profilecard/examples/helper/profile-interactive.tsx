@@ -7,8 +7,8 @@ import { cssMap } from '@atlaskit/css';
 import { Box, type BoxProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { ProfileCard } from '../../src';
-import { profiles } from '../../src/mocks';
+import { ProfilecardInternal as ProfileCard } from '../../src/components/User/ProfilecardInternal';
+import profiles from '../../src/mocks/profile-data';
 import { reportingLinesData } from '../../src/mocks/reporting-lines-data';
 import { type LozengeProps, type StatusModifiedDateType, type StatusType } from '../../src/types';
 

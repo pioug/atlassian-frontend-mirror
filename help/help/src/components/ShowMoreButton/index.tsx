@@ -1,8 +1,8 @@
 import React from 'react';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Spinner from '@atlaskit/spinner';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import Spinner from '@atlaskit/spinner/spinner';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 
 import { messages } from '../../messages';
 

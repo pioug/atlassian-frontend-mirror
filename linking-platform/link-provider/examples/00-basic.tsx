@@ -1,9 +1,9 @@
 import React, { useState, useEffect, type FormEventHandler } from 'react';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import TextField from '@atlaskit/textfield';
-import { CodeBlock } from '@atlaskit/code';
-import { getUrl } from '@atlaskit/linking-common';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import TextField from '@atlaskit/textfield/text-field';
+import CodeBlock from '@atlaskit/code/code-block';
+import { getUrl } from '@atlaskit/linking-common/store';
 import { SmartCardProvider, CardClient, useSmartLinkContext } from '../src';
 
 const client = new CardClient('stg');

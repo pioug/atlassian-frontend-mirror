@@ -1,10 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Dynamic-table should pass base aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/15-highlighted-row.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/15-highlighted-row.vr.ap.tsx')>(
 		'design-system',
 		'dynamic-table',
 		'highlighted-row',
+		{ 'react-18-mode': 'modern' },
 	);
 
 	const highlightedRowSelector = '[data-ts--dynamic-table--table-row--highlighted="true"]';

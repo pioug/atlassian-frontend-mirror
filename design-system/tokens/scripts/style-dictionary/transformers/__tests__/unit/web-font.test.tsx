@@ -1,5 +1,5 @@
 import { type TypographyToken } from '../../../../../src/types';
-import webFont from '../../web-font';
+import { default as webFont } from '../../web-font';
 
 describe('webFont transformer', () => {
 	it('should transform typography token', () => {

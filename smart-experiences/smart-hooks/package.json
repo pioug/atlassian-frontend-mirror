@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-hooks",
-	"version": "2.2.0",
+	"version": "2.5.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,42 +34,17 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/ufo": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@welldone-software/why-did-you-render": "root:*",
-		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			]
-		}
 	},
 	"exports": {
 		".": "./src/index.ts",

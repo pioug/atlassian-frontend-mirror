@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "issue-like-table-3p-unauth.tsx",
-    "issue-like-table-readonly.tsx",
+    "issue-like-table-3p-unauth.vr.ap.tsx",
+    "issue-like-table-readonly.vr.ap.tsx",
     "issue-like-table-j2ws.tsx",
-	"issue-like-table.tsx",
-    "jira-issues-config-modal-no-results.tsx",
-    "with-issues-modal.tsx"
+	"issue-like-table.vr.ap.tsx",
+    "jira-issues-config-modal-no-results.vr.ap.tsx",
+    "with-issues-modal.vr.ap.tsx"
   ]
 }

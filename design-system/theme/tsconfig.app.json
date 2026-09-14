@@ -30,13 +30,6 @@
 		"outDir": "../../../tsDist/@atlaskit__theme/app",
 		"isolatedDeclarations": true
 	},
-	"references": [
-		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
-			"path": "../tokens/tsconfig.app.json"
-		}
-	],
+	"references": [],
 	"files": []
 }

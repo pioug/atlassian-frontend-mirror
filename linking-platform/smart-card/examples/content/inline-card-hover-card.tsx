@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	ResolvedClient,
 	ResolvedClientEmbedUrl,

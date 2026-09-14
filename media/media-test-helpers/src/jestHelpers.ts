@@ -18,7 +18,6 @@ export const asMockFunctionResolvedValue = <T extends (...args: any[]) => any>(
 ): jest.MockedFunction<T> => asMockFunction(fn).mockResolvedValue(resolveValue);
 
 export const expectToEqual = <T>(actual: T, expected: T): void =>
-	// @ts-ignore TS2339: Property `toEqual` does not exist on `typeAssertion`
 	// This was added when enrolling `@atlaskit/media-test-helpers` into JFE local consumption
 	expect(actual).toEqual(expected);
 
@@ -34,14 +33,12 @@ export const expectConstructorToHaveBeenCalledWith: ExpectConstructorToHaveBeenC
 	func,
 	expectedArgs,
 ) =>
-	// @ts-ignore TS2339: Property `toHaveBeenCalledWith` does not exist on `typeAssertion`
 	// This was added when enrolling `@atlaskit/media-test-helpers` into JFE local consumption
 	expect(func).toHaveBeenCalledWith(...expectedArgs);
 export const expectFunctionToHaveBeenCalledWith: ExpectFunctionToHaveBeenCalledWith = (
 	func,
 	expectedArgs,
 ) =>
-	// @ts-ignore TS2339: Property `toHaveBeenCalledWith` does not exist on `typeAssertion`
 	// This was added when enrolling `@atlaskit/media-test-helpers` into JFE local consumption
 	expect(func).toHaveBeenCalledWith(...expectedArgs);
 

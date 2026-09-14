@@ -1,4 +1,4 @@
-import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
+import type { BorderMarkAttributes } from '@atlaskit/adf-schema/border';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { default as PlatformInlineEdit } from '@atlaskit/inline-edit';
+import { default as PlatformInlineEdit } from '@atlaskit/inline-edit/inline-edit';
 
 type EditViewFieldProps<V> = {
 	'aria-invalid': 'true' | 'false';

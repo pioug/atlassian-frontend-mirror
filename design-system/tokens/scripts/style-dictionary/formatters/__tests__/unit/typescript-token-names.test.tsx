@@ -3,7 +3,7 @@ import format from '@af/formatting/sync';
 jest.mock('@af/formatting/sync');
 
 import { CSS_PREFIX } from '../../../../../src/constants';
-import { typescriptTokenFormatter as formatter } from '../../typescript-token-names';
+import { typescriptTokenFormatter as formatter } from '../../typescript-token-formatter';
 
 describe('formatter', () => {
 	beforeEach(() => {

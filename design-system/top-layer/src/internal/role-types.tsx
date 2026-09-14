@@ -1,19 +1,4 @@
 /**
- * Valid values for the `aria-haspopup` attribute.
- *
- * Derived from the HTML spec - maps popover roles to what the trigger
- * announces. `undefined` means the attribute is omitted entirely (used for
- * non-popup roles like `tooltip`/`status`/`alert`/`note`/`log` where
- * `aria-haspopup` would be misleading).
- *
- * `true` is intentionally NOT in the union - the runtime only ever produces
- * the explicit string forms, so widening the type would invite consumers to
- * pass `true` and get an `aria-haspopup="true"` serialisation that the
- * runtime no longer emits.
- */
-export type TAriaHasPopupValue = 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
-
-/**
  * Roles that require an accessible name (`label` or `labelledBy`) per WCAG 4.1.2.
  * Without a name, assistive technology cannot identify these landmarks.
  */
@@ -72,38 +57,3 @@ type TAccessibleNameOptional = {
 export type TAriaRoleRequired =
 	| ({ role: TRoleRequiringAccessibleName } & TAccessibleNameRequired)
 	| ({ role: TRoleWithImplicitName } & TAccessibleNameOptional);
-
-/**
- * ARIA role props where a role is optional.
- *
- * Used by `TPopoverProps`. The low-level primitive allows omitting
- * the role for cases where it is set externally or not needed.
- */
-export type TAriaRoleOptional =
-	| ({ role: TRoleRequiringAccessibleName } & TAccessibleNameRequired)
-	| ({ role?: TRoleWithImplicitName } & TAccessibleNameOptional);
-
-const rolesThatMoveFocus = new Set<TRoleRequiringAccessibleName | TRoleWithImplicitName>([
-	'dialog',
-	'alertdialog',
-	'menu',
-	'listbox',
-	'tree',
-	'grid',
-]);
-
-/**
- * Returns `true` when the given popover role moves focus into the popover
- * on open, and `false` otherwise (including when `role` is `undefined`).
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function shouldFocusIntoPopover({
-	role,
-}: {
-	role: TRoleRequiringAccessibleName | TRoleWithImplicitName | undefined;
-}): boolean {
-	if (!role) {
-		return false;
-	}
-	return rolesThatMoveFocus.has(role);
-}

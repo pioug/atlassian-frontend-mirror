@@ -1,6 +1,6 @@
 import { useCallback, useContext } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SetSideNavVisibilityState } from './set-side-nav-visibility-state';
 import { SideNavVisibilityState } from './side-nav-visibility-state';

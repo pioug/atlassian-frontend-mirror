@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { cssMap } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { cssMap, cx } from '@atlaskit/css';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import type { AgentCreatorType } from '@atlaskit/rovo-agent-components/common/types';
 import { isForgeAgentByCreatorType } from '@atlaskit/rovo-agent-components/common/utils/is-forge-agent';
@@ -16,7 +16,7 @@ import {
 	AgentProfileCreator,
 	AgentProfileInfo,
 } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
-import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import { TeamsLink } from '@atlaskit/teams-app-internal-navigation/teams-link';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -24,18 +24,22 @@ import { token } from '@atlaskit/tokens';
 import { type AgentProfileCardProps } from '../../types';
 import { PACKAGE_META_DATA } from '../../util/analytics';
 import { getPageTime } from '../../util/performance';
+import { default as ErrorMessage } from '../Error/ErrorMessage';
 import { LoadingState } from '../common/LoadingState';
-import { ErrorMessage } from '../Error';
 
 import { AgentActions } from './Actions';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { ConversationStarters } from './ConversationStarters';
-import { useAgentUrlActions } from './hooks/useAgentActions';
+import { useAgentUrlActions } from './hooks/useAgentUrlActions';
 import { messages } from './messages';
 
 const styles = cssMap({
 	detailWrapper: {
 		paddingBlockStart: token('space.300'),
+	},
+	// Bottom padding when AgentActions is hidden (it normally supplies that space).
+	detailWrapperPreviewBottomPadding: {
+		paddingBlockEnd: token('space.300'),
 	},
 	avatarStyles: {
 		position: 'absolute',
@@ -97,6 +101,7 @@ const AgentProfileCard = ({
 	hideConversationStarters = false,
 	hideAgentActions = false,
 	hideStarButton = false,
+	showCreatorNameWithoutLink = false,
 	footerComponent,
 }: AgentProfileCardProps): React.JSX.Element => {
 	const {
@@ -205,32 +210,39 @@ const AgentProfileCard = ({
 	// isRovoDev naturally becomes false, falling through to the agentNamedId avatar lookup.
 	const isRovoDev = agent.creator_type === 'ROVO_DEV' && agent.name.toLowerCase() === 'rovo dev';
 
-	// Currently, both Jira Coding Agent and Rovo Dev does not support conversations and chat.
-	// We previously disabled these for Rovo Dev but we forgot to do the same changes for JCA
-	// They are actually the same, just different names.
+	// Both Jira Coding Agent and Rovo Dev do not support conversations and chat.
+	// They share the same creator_type ('ROVO_DEV') but have different display names.
 	const isRovoDevOrJiraCodingAgent =
 		isRovoDev ||
 		(agent.creator_type === 'ROVO_DEV' && agent.name.toLowerCase() === 'jira coding agent');
 
 	const shouldShowConversationStarters =
-		(isRovoDevOrJiraCodingAgent &&
-		FeatureGates.getExperimentValue('jira_hide_conversations_for_jca', 'isEnabled', false)
-			? false
-			: !isRovoDev) &&
-		!(fg('jira_ai_hide_conversation_starters_profilecard') && hideConversationStarters);
+		!isRovoDevOrJiraCodingAgent &&
+		!(
+			(fg('jira_ai_hide_conversation_starters_profilecard') ||
+				(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+					fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+				fg('platform_editor_agent_card_fixes')) &&
+			hideConversationStarters
+		);
 
-	const shouldShowAgentActions =
-		(isRovoDevOrJiraCodingAgent &&
-		FeatureGates.getExperimentValue('jira_hide_conversations_for_jca', 'isEnabled', false)
-			? false
-			: !isRovoDev) && !hideAgentActions;
+	const shouldShowAgentActions = !isRovoDevOrJiraCodingAgent && !hideAgentActions;
+
+	// Only for M1 hideAgentActions preview cards so other consumers stay unchanged.
+	const needsBottomPaddingFallback =
+		hideAgentActions &&
+		(FeatureGates.getExperimentValue('jira_agent_recommendations_m1', 'isEnabled', false) ||
+			(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+				fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+			fg('platform_editor_agent_card_fixes'));
 
 	return (
 		<AgentProfileCardWrapper>
 			<Box
 				xcss={
-					expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-					fg('platform_editor_agent_mentions_drop_one_fixes')
+					(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+						fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+					fg('platform_editor_agent_card_fixes')
 						? styles.cardContainerStyles
 						: styles.cardContainerStylesLegacy
 				}
@@ -261,12 +273,16 @@ const AgentProfileCard = ({
 
 				<Stack
 					space={
-						expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-						fg('platform_editor_agent_mentions_drop_one_fixes')
+						(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+							fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+						fg('platform_editor_agent_card_fixes')
 							? 'space.150'
 							: 'space.100'
 					}
-					xcss={styles.detailWrapper}
+					xcss={cx(
+						styles.detailWrapper,
+						needsBottomPaddingFallback && styles.detailWrapperPreviewBottomPadding,
+					)}
 				>
 					<Box xcss={styles.agentProfileInfoWrapper}>
 						<AgentProfileInfo
@@ -285,35 +301,39 @@ const AgentProfileCard = ({
 										}}
 										isLoading={false}
 										onCreatorLinkClick={() => {}}
+										showCreatorNameWithoutLink={showCreatorNameWithoutLink}
 									/>
 								)
 							}
 							starCountRender={null}
 							agentDescription={
-								expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-								fg('platform_editor_agent_mentions_drop_one_fixes')
+								(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+									fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+								fg('platform_editor_agent_card_fixes')
 									? undefined
 									: agent.description
 							}
 						/>
 					</Box>
 					{!!agent.description &&
-						expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-						fg('platform_editor_agent_mentions_drop_one_fixes') && (
+						((expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+							fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+							fg('platform_editor_agent_card_fixes')) && (
 							<Box xcss={styles.descriptionWrapper}>
 								<Box xcss={styles.description} as="p">
 									{agent.description}
 								</Box>
 							</Box>
 						)}
-					{!hideAiDisclaimer && fg('rovo_display_ai_disclaimer_on_agent_profile_card') && (
+					{!hideAiDisclaimer && (
 						<Flex
 							alignItems="start"
 							direction="column"
 							gap="space.050"
 							xcss={
-								expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-								fg('platform_editor_agent_mentions_drop_one_fixes')
+								(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+									fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+								fg('platform_editor_agent_card_fixes')
 									? styles.disclosureWrapper
 									: styles.disclosureWrapperLegacy
 							}

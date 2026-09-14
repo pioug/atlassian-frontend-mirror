@@ -1,6 +1,5 @@
 import React from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { render } from '@atlassian/testing-library';
 
 import { ErrorBoundary } from '../../ErrorBoundary';
@@ -16,7 +15,6 @@ import {
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ErrorBoundary', () => {
 	let mockCreateAnalyticsEvent: jest.Mock;
-	let wrapper: ReactWrapper;
 
 	const CustomError = new Error('oops');
 	const BrokenComponent = (): never => {
@@ -33,11 +31,10 @@ describe('ErrorBoundary', () => {
 	});
 	afterEach(() => {
 		mockCreateAnalyticsEvent.mockClear();
-		wrapper?.length && wrapper.unmount();
 	});
 
 	it('should dispatch an event if props.createAnalyticsEvent exists', () => {
-		wrapper = mount(
+		render(
 			<ErrorBoundary
 				component={ACTION_SUBJECT.RENDERER}
 				createAnalyticsEvent={mockCreateAnalyticsEvent}
@@ -67,7 +64,7 @@ describe('ErrorBoundary', () => {
 	});
 
 	it('should dispatch an event with actionSubjectId if props.createAnalyticsEvent and props.componentId exists', () => {
-		wrapper = mount(
+		render(
 			<ErrorBoundary
 				createAnalyticsEvent={mockCreateAnalyticsEvent}
 				component={ACTION_SUBJECT.RENDERER}
@@ -99,7 +96,7 @@ describe('ErrorBoundary', () => {
 	});
 
 	it('should NOT dispatch an event if props.createAnalyticsEvent does NOT exist', () => {
-		wrapper = mount(
+		render(
 			<ErrorBoundary component={ACTION_SUBJECT.RENDERER}>
 				<BrokenComponent />
 			</ErrorBoundary>,
@@ -111,7 +108,7 @@ describe('ErrorBoundary', () => {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		const ExampleFallback = <div className="my-fallback" />;
 
-		wrapper = mount(
+		const { container } = render(
 			<ErrorBoundary
 				createAnalyticsEvent={mockCreateAnalyticsEvent}
 				component={ACTION_SUBJECT.RENDERER}
@@ -120,7 +117,8 @@ describe('ErrorBoundary', () => {
 				<BrokenComponent />
 			</ErrorBoundary>,
 		);
-		expect(wrapper.find('.my-fallback').length).toEqual(1);
+
+		expect(container.querySelector('.my-fallback')).toBeInTheDocument();
 	});
 
 	it('should NOT render props.fallbackComponent if zero render errors', () => {
@@ -129,7 +127,7 @@ describe('ErrorBoundary', () => {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		const ExampleFallback = <div className="my-fallback" />;
 
-		wrapper = mount(
+		const { container } = render(
 			<ErrorBoundary
 				createAnalyticsEvent={mockCreateAnalyticsEvent}
 				component={ACTION_SUBJECT.RENDERER}
@@ -138,12 +136,13 @@ describe('ErrorBoundary', () => {
 				<GoodComponent />
 			</ErrorBoundary>,
 		);
-		expect(wrapper.find('.my-fallback').length).toEqual(0);
+
+		expect(container.querySelector('.my-fallback')).not.toBeInTheDocument();
 	});
 
 	it('should throw errors upward when props.rethrowError is true and include rethrow info in event', () => {
 		try {
-			wrapper = mount(
+			render(
 				<ErrorBoundary
 					createAnalyticsEvent={mockCreateAnalyticsEvent}
 					component={ACTION_SUBJECT.RENDERER}
@@ -179,7 +178,7 @@ describe('ErrorBoundary', () => {
 
 	it('should NOT throw errors upward when props.rethrowErrors is false', () => {
 		try {
-			wrapper = mount(
+			render(
 				<ErrorBoundary
 					createAnalyticsEvent={mockCreateAnalyticsEvent}
 					component={ACTION_SUBJECT.RENDERER}

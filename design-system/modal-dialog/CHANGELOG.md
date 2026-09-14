@@ -1,5 +1,147 @@
 # @atlaskit/modal-dialog
 
+## 16.6.2
+
+### Patch Changes
+
+- [`610d564dbc5dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/610d564dbc5dd) -
+  Behind `platform-dst-top-layer`, harden the Popover and Dialog animation lifecycle state machine
+  and completion callbacks, restore focus before controlled Popover closure removes native
+  listeners, and preserve Modal Dialog open-complete callbacks across reopen cycles.
+- Updated dependencies
+
+## 16.6.1
+
+### Patch Changes
+
+- [`d20edab2fda3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d20edab2fda3a) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 16.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.5.4
+
+### Patch Changes
+
+- [`4406362492342`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4406362492342) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 16.5.3
+
+### Patch Changes
+
+- [`75e41b355abb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75e41b355abb1) -
+  Change `useExitingPersistence` import to newly created named export
+- Updated dependencies
+
+## 16.5.2
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 16.5.1
+
+### Patch Changes
+
+- [`73079cc6f11c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73079cc6f11c2) -
+  Change `useExitingPersistence` import to newly created named export
+- Updated dependencies
+
+## 16.5.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.4.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.3
+
+### Patch Changes
+
+- [`ccb9237bc10d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccb9237bc10d9) -
+  Add the `dismissedBy` API to control Dialog dismissal consistently across browsers. Align Dialog
+  with Popover by notifying `onClose` after native dismissal, ensure both primitives unmount after
+  native dismissal, and simplify Modal close handling behind `platform-dst-top-layer`.
+- Updated dependencies
+
+## 16.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.3.0
+
+### Minor Changes
+
+- [`a50c282feb7d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a50c282feb7d3) -
+  Fixes various layout issues in the top layer modal variant.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.2.3
 
 ### Patch Changes

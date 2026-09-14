@@ -9,18 +9,14 @@ const overflowMenuItemInsideButton = "button[data-testid='overrides--avatar-grou
 test('should have non interactive avatar inside span', async ({ page }) => {
 	await page.visitExample<
 		typeof import('../../../../examples/02-non-interactive-avatar-group.tsx')
-	>('design-system', 'avatar-group', 'non-interactive-avatar-group', {
-		'react-18-mode': 'legacy',
-	});
+	>('design-system', 'avatar-group', 'non-interactive-avatar-group');
 	await expect(page.locator(avatarInsideSpan)).toBeVisible();
 });
 
 test('should have non interactive overflowed avatar items inside button', async ({ page }) => {
 	await page.visitExample<
 		typeof import('../../../../examples/02-non-interactive-avatar-group.tsx')
-	>('design-system', 'avatar-group', 'non-interactive-avatar-group', {
-		'react-18-mode': 'legacy',
-	});
+	>('design-system', 'avatar-group', 'non-interactive-avatar-group');
 	await page.click(overflowMenuTrigger);
 	await expect(page.locator(overflowMenuItemInsideButton)).toBeVisible();
 });

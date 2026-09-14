@@ -3,9 +3,9 @@ import React from 'react';
 import {
 	Page as PageCommon,
 	type PageProps as Props,
-	type EditPageProps,
-	type ViewPageProps,
-} from '@atlassian/embedded-confluence-common';
+} from '@atlassian/embedded-confluence-common/page';
+import type { EditPageProps } from '@atlassian/embedded-confluence-common/edit-page';
+import type { ViewPageProps } from '@atlassian/embedded-confluence-common/view-page';
 import { useIntl } from 'react-intl';
 
 import { ViewPage } from '../view-page';

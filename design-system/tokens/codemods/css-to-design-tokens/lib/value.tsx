@@ -1,10 +1,13 @@
-import { isGradient, isLessFunction, isNamedColor, isRawColor } from './colors';
-import { extractCssVarName } from './declaration';
 import { extractBetweenParentheses } from './extract-between-parentheses';
+import { extractCssVarName } from './extract-css-var-name';
 import { getCssVarMeta } from './get-css-var-meta';
 import { getNamedColorMeta } from './get-named-color-meta';
 import { getRawColorMeta } from './get-raw-color-meta';
+import { isGradient } from './is-gradient';
 import { isKnownCssVariable } from './is-known-css-variable';
+import { isLessFunction } from './is-less-function';
+import { isNamedColor } from './is-named-color';
+import { isRawColor } from './is-raw-color';
 import findToken from './tokens';
 
 interface Value {

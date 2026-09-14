@@ -1,6 +1,6 @@
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
-import { createPayloads } from '../index';
+import { createPayloads } from '../createPayloads';
 
 const minimalInteraction: InteractionMetrics = {
 	id: 'test-interaction',
@@ -17,6 +17,7 @@ const minimalInteraction: InteractionMetrics = {
 	reactProfilerTimings: [],
 	holdInfo: [],
 	holdActive: new Map(),
+	preloadInfo: [],
 	hold3pActive: new Map(),
 	hold3pInfo: [],
 	measureStart: 1000,

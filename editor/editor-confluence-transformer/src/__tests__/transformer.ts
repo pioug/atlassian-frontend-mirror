@@ -3,8 +3,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ConfluenceTransformer } from '..';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import {
 	doc,
 	blockquote,

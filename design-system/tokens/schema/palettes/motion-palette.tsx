@@ -245,6 +245,24 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
+	ScaleXIn80to100: {
+		value: {
+			'0%': { transform: 'scaleX(0.8)' },
+			'100%': { transform: 'scaleX(1)' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	ScaleXOut100to0: {
+		value: {
+			'0%': { transform: 'scaleX(1)' },
+			'100%': { transform: 'scaleX(0)' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
 } as const;
 
 const baseDurationTokens = {

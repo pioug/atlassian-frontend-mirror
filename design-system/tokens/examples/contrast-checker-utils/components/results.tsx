@@ -7,15 +7,16 @@ import { Fragment, useMemo, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { VariableSizeList as List } from 'react-window';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Heading from '@atlaskit/heading/heading';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
-import TextField from '@atlaskit/textfield';
+import SectionMessage from '@atlaskit/section-message/message';
+import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
-import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens/tokens-raw';
+import rawTokensDark from '@atlaskit/tokens/atlassian-dark';
+import rawTokensLight from '@atlaskit/tokens/atlassian-light';
 
 import checkThemePairContrasts, {
 	darkResults,

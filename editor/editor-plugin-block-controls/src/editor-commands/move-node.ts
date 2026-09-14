@@ -37,9 +37,10 @@ import {
 	findParentNodeOfTypeClosestToPos,
 } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ActiveNode, BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
@@ -47,6 +48,10 @@ import {
 	attachMoveNodeAnalytics,
 	getMultiSelectAnalyticsAttributes,
 } from '../pm-plugins/utils/analytics';
+import {
+	isCollapsedHeading,
+	updateCollapsedHeadingAfterMove,
+} from '../pm-plugins/utils/collapsed-heading';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 import { setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
@@ -236,8 +241,7 @@ export const moveNodeViaShortcut = (
 		}
 
 		const table =
-			expValEquals('platform_editor_fix_table_move_shortcut', 'isEnabled', true) &&
-			isTableSelected(selection)
+			isExperimentEnabled('platform_editor_fix_table_move_shortcut') && isTableSelected(selection)
 				? findTable(selection)
 				: undefined;
 		let currentNodePos: number;
@@ -436,6 +440,8 @@ export const moveNode =
 		if (!handleNode) {
 			return tr;
 		}
+		const wasCollapsedHeading =
+			isExperimentEnabled('platform_editor_collapsible_headings') && isCollapsedHeading(api, start);
 
 		let sliceFrom = start;
 		let sliceTo;
@@ -524,10 +530,7 @@ export const moveNode =
 
 		// Currently we don't support breakout mark for children nodes of bodiedSyncBlock node
 		// Hence strip out the mark for now
-		if (
-			destNode.type.name === 'bodiedSyncBlock' &&
-			editorExperiment('platform_synced_block', true)
-		) {
+		if (destNode.type.name === 'bodiedSyncBlock') {
 			const nodes: PMNode[] = [];
 
 			convertedNodeSlice?.content.forEach((node) => {
@@ -586,6 +589,15 @@ export const moveNode =
 		}
 
 		const $mappedTo = tr.doc.resolve(mappedTo);
+		if (isExperimentEnabled('platform_editor_collapsible_headings')) {
+			updateCollapsedHeadingAfterMove({
+				api,
+				destinationPos: mappedTo,
+				isNested: $mappedTo.parent.type.name !== 'doc',
+				tr,
+				wasCollapsed: wasCollapsedHeading,
+			});
+		}
 
 		const expandAncestor = findParentNodeOfTypeClosestToPos($to, [expand, nestedExpand]);
 

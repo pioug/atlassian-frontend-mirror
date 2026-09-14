@@ -8,7 +8,7 @@ import {
 	/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
 } from '@modelcontextprotocol/sdk/client/stdio.js';
 
-import { coreIconMetadata as allIcons } from '@atlaskit/icon/metadata';
+import allIcons from '@atlaskit/icon/metadata-core';
 import { tokens as allTokens } from '@atlaskit/tokens/token-metadata';
 
 import { components as allComponents } from '../../src/tools/get-all-components/components.codegen';

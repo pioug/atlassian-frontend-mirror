@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const BreadcrumbsControlledExample = (): React.JSX.Element => {

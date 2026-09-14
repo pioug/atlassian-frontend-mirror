@@ -9,7 +9,7 @@
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type { SelectProps as PlatformSelectProps } from '@atlaskit/select';
+import type { SelectProps as PlatformSelectProps } from '@atlaskit/select/types';
 
 export type SelectProps = Pick<
 	PlatformSelectProps<any, true | false>,

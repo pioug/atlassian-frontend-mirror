@@ -1,4 +1,4 @@
-import { type OptionsOrGroups } from '@atlaskit/react-select';
+import type { OptionsOrGroups } from '@atlaskit/react-select/types';
 
 import { type GroupType, type OptionType } from '../types';
 

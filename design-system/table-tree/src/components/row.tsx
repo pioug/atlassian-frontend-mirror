@@ -6,7 +6,8 @@ import React, { Fragment, type ReactNode, useEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import toItemId from '../utils/to-item-id';
 

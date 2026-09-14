@@ -2,18 +2,20 @@ import React, { type KeyboardEvent, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { useOverflowStatus } from '@atlaskit/atlassian-navigation';
-import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/new';
+import Avatar from '@atlaskit/avatar/avatar';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { DropdownItem } from '@atlaskit/dropdown-menu';
-import { Label } from '@atlaskit/form';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { Label } from '@atlaskit/form/label/default';
 import EditorAddIcon from '@atlaskit/icon/core/add';
 import EditorPeopleIcon from '@atlaskit/icon/core/people-group';
-import { ButtonItem, HeadingItem, MenuGroup } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
+import ButtonItem from '@atlaskit/menu/button-item';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import { Popup } from '@atlaskit/popup/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

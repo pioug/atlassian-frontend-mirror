@@ -1,9 +1,9 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import checkWithinComponent from './check-within-component';
 
 // Mock the feature flag
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockFg = fg as jest.Mock;
 
 beforeEach(() => {

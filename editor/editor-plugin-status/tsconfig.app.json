@@ -49,13 +49,37 @@
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-controls/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-block-menu/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-selection/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon-lab/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

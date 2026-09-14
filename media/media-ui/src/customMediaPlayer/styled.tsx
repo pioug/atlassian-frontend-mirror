@@ -1,29 +1,9 @@
 import React, { forwardRef } from 'react';
+
 import {
-	VolumeWrapper as CompiledVolumeWrapper,
-	CurrentTime as CompiledCurrentTime,
 	TimeLine as CompiledTimeLine,
-	CurrentTimeLine as CompiledCurrentTimeLine,
-	Thumb as CompiledThumb,
 	CurrentTimeLineThumb as CompiledCurrentTimeLineThumb,
-	BufferedTime as CompiledBufferedTime,
-	LeftControls as CompiledLeftControls,
-	RightControls as CompiledRightControls,
-	VolumeToggleWrapper as CompiledVolumeToggleWrapper,
-	VolumeTimeRangeWrapper as CompiledVolumeTimeRangeWrapper,
-	MutedIndicator as CompiledMutedIndicator,
-	type VolumeWrapperProps,
-	type MutedIndicatorProps,
 } from './styled-compiled';
-
-export const VolumeWrapper = (
-	props: VolumeWrapperProps &
-		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledVolumeWrapper {...props} />;
-
-export const CurrentTime = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledCurrentTime {...props} />;
 
 export const TimeLine: React.ForwardRefExoticComponent<
 	Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, 'ref'> &
@@ -38,14 +18,6 @@ export const TimeLine: React.ForwardRefExoticComponent<
 	},
 );
 
-export const CurrentTimeLine = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledCurrentTimeLine {...props} />;
-
-export const Thumb = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledThumb {...props} />;
-
 export const CurrentTimeLineThumb: React.ForwardRefExoticComponent<
 	Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement>, 'ref'> &
 		React.RefAttributes<unknown>
@@ -58,31 +30,3 @@ export const CurrentTimeLineThumb: React.ForwardRefExoticComponent<
 		return <CompiledCurrentTimeLineThumb {...props} ref={ref as React.RefObject<HTMLDivElement>} />;
 	},
 );
-
-export const BufferedTime = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledBufferedTime {...props} />;
-
-export const LeftControls = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledLeftControls {...props} />;
-
-export const RightControls = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledRightControls {...props} />;
-
-export const VolumeToggleWrapper = (
-	props: MutedIndicatorProps &
-		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledVolumeToggleWrapper {...props} />;
-
-export const VolumeTimeRangeWrapper = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledVolumeTimeRangeWrapper {...props} />;
-
-export const MutedIndicator = (
-	props: MutedIndicatorProps &
-		React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-): React.JSX.Element => <CompiledMutedIndicator {...props} />;
-
-export type { MutedIndicatorProps, CurrentTimeTooltipProps } from './styled-compiled';

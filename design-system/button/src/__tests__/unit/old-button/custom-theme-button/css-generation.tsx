@@ -6,7 +6,8 @@
 import { type CSSObject, jsx } from '@emotion/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { CustomThemeButton, type InteractionState } from '../../../../index';
+import CustomThemeButton from '../../../../old-button/custom-theme-button/custom-theme-button';
+import { type InteractionState } from '../../../../old-button/custom-theme-button/custom-theme-button-types';
 import { getCustomCss } from '../../../../old-button/custom-theme-button/get-custom-css';
 import { getCss } from '../../../../old-button/shared/get-css';
 

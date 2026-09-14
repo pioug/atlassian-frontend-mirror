@@ -1,9 +1,9 @@
 import React, { forwardRef, type ReactNode, useEffect, useId, useRef } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
-import { Popup } from '@atlaskit/popup/experimental';
+import { Popup } from '@atlaskit/popup/compositional/popup';
 
 import { MenuListItem } from '../menu-list-item';
 

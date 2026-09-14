@@ -8,12 +8,12 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import {
 	akEditorMediaResizeHandlerPaddingWide,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
@@ -183,8 +183,7 @@ export default function MediaSingle({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				isInRenderer: isInRenderer && fg('media-perf-uplift-mutation-fix'),
 			})}
-			// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/platform/no-preconditioning
-			{...(!fg('platform_editor_fix_media_in_renderer') ? {} : { 'data-layout': layout })}
+			data-layout={layout}
 			data-width={mediaSingleWidth}
 			data-width-type={size?.widthType || 'percentage'}
 			data-node-type={nodeType}

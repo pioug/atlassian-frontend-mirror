@@ -12,7 +12,7 @@ import ItalicIcon from '@atlaskit/icon/core/text-italic';
 import TextUnderlineIcon from '@atlaskit/icon/core/text-underline';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const iconSpacingStyles = cssMap({
 	space050: {

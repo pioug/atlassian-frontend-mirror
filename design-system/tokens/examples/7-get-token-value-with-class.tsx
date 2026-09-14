@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/code-block';
 import { token } from '@atlaskit/tokens';
 import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
 import { getTokenValue } from '@atlaskit/tokens/get-token-value';

@@ -6,7 +6,7 @@ import { type SyntheticEvent, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { Radio } from '@atlaskit/radio';
+import Radio from '@atlaskit/radio/radio';
 import { token } from '@atlaskit/tokens';
 
 interface RadioOptions {

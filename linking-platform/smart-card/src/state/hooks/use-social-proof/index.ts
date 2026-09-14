@@ -1,14 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import {
-	getCurrentSiteCloudId,
-	getCurrentSiteCloudIdSync,
-} from '../../services/current-site-cloud-id';
-import {
-	getProviderPctMap,
-	getProviderPctMapSync,
-	SOCIAL_PROOF_TRAIT_NAME,
-} from '../../services/personalization';
+import { getCurrentSiteCloudId } from '../../services/current-site-cloud-id/getCurrentSiteCloudId';
+import { getCurrentSiteCloudIdSync } from '../../services/current-site-cloud-id/getCurrentSiteCloudIdSync';
+import { personalizationConstants } from '../../services/personalization/constants';
+import { getProviderPctMap } from '../../services/personalization/getProviderPctMap';
+import { getProviderPctMapSync } from '../../services/personalization/getProviderPctMapSync';
 import type { ProviderPctMap } from '../../services/personalization/types';
 
 export interface SocialProof {
@@ -60,7 +56,10 @@ const useSocialProof = (
 		const cloudId = getCurrentSiteCloudIdSync(baseUriWithNoTrailingSlash);
 		return {
 			cloudId,
-			providerPctMap: getProviderPctMapSync(cloudId, SOCIAL_PROOF_TRAIT_NAME),
+			providerPctMap: getProviderPctMapSync(
+				cloudId,
+				personalizationConstants.SOCIAL_PROOF_TRAIT_NAME,
+			),
 		};
 	});
 
@@ -71,7 +70,7 @@ const useSocialProof = (
 		}
 
 		void getCurrentSiteCloudId(baseUriWithNoTrailingSlash).then((cloudId) => {
-			void getProviderPctMap(cloudId, SOCIAL_PROOF_TRAIT_NAME);
+			void getProviderPctMap(cloudId, personalizationConstants.SOCIAL_PROOF_TRAIT_NAME);
 		});
 	}, [baseUriWithNoTrailingSlash, isEnabled]);
 

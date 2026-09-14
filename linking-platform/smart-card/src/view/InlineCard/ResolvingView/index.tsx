@@ -6,7 +6,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type InlinePreloaderStyle } from '../../types';

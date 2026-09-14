@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import Drawer from '@atlaskit/drawer/drawer';
 import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
 import { DrawerContent } from '@atlaskit/drawer/drawer-content';

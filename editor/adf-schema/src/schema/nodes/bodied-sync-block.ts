@@ -1,5 +1,5 @@
 import { bodiedSyncBlock as bodiedSyncBlockFactory } from '../../next-schema/generated/nodeTypes';
-import { uuid } from '../../utils';
+import { uuid } from '../../utils/uuid';
 import type { BreakoutMarkDefinition } from '../marks';
 import type { ExpandDefinition as Expand } from './expand';
 import type { PanelC1Definition as PanelC1, PanelDefinition as Panel } from './panel';
@@ -13,19 +13,20 @@ import type {
 	BulletListDefinition as BulletList,
 } from './types/list';
 import type { RuleDefinition as Rule } from './rule';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type {
 	HeadingDefinition as Heading,
 	HeadingWithMarksDefinition as HeadingWithMarks,
 } from './heading';
-import type { CodeBlockDefinition as CodeBlock } from './code-block';
-import type { MediaGroupDefinition as MediaGroup } from './media-group';
-import type { MediaSingleDefinition as MediaSingle } from './media-single';
-import type { DecisionListDefinition as DecisionList } from './decision-list';
-import type { TaskListDefinition as TaskList } from './task-list';
-import type { TableDefinition as Table } from './tableNodes';
 import type { BlockCardDefinition as BlockCard } from './block-card';
+import type { CodeBlockDefinition as CodeBlock } from './code-block';
+import type { DecisionListDefinition as DecisionList } from './decision-list';
 import type { EmbedCardDefinition as EmbedCard } from './embed-card';
 import type { LayoutSectionDefinition as LayoutSection } from './layout-section';
+import type { MediaGroupDefinition as MediaGroup } from './media-group';
+import type { MediaSingleDefinition as MediaSingle } from './media-single';
+import type { TableDefinition as Table } from './tableNodes';
+import type { TaskListDefinition as TaskList } from './task-list';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export interface BodiedSyncBlockAttrs {
@@ -72,6 +73,7 @@ export interface BodiedSyncBlockDefinition {
 		| Panel
 		| PanelC1
 		| Rule
+		| BodiedRule
 		| Table
 		| TaskList
 	>;

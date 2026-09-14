@@ -1,8 +1,10 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import Form, { CheckboxField, FormFooter } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Form from '@atlaskit/form/form';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import { FormFooter } from '@atlaskit/form/form-footer';
 
 export default (): React.JSX.Element => (
 	<Form<{ remember: boolean }> onSubmit={() => {}}>

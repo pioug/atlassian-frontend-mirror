@@ -8,6 +8,16 @@ typescriptEslintTester.run(
 	{
 		valid: [
 			{
+				name: 'Ignores a shadowed style function',
+				code: `
+          import { css } from '@compiled/react';
+
+          function makeStyles(css) {
+            return css({ div: {} });
+          }
+        `,
+			},
+			{
 				name: 'Basic valid test',
 				code: `
           import { css } from '@compiled/react';
@@ -89,6 +99,24 @@ typescriptEslintTester.run(
 			},
 		],
 		invalid: [
+			{
+				name: 'Object value after a comment',
+				code: `
+          import { css } from '@compiled/react';
+
+          css({ div: /* selector styles */ {} });
+        `,
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Aliased import',
+				code: `
+          import { css as compiledCss } from '@compiled/react';
+
+          compiledCss({ div: {} });
+        `,
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
 			{
 				name: 'Universal selector',
 				code: `

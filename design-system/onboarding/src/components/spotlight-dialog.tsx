@@ -2,7 +2,7 @@ import React, { Component, type ComponentType, type ReactNode } from 'react';
 
 import FocusLock from 'react-focus-lock';
 
-import { type Placement, Popper } from '@atlaskit/popper';
+import { type Placement, Popper } from '@atlaskit/popper/main';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { DialogImage } from '../styled/dialog';

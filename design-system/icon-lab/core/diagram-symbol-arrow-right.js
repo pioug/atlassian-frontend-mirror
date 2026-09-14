@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6b09693383688f2f077c3465bd5ef0dc>>
+ * @codegen <<SignedSource::a9b6965fa8ec1c9bf029b577a2ed80e3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "DiagramSymbolArrowRight".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const DiagramSymbolArrowRightIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const DiagramSymbolArrowRightIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramSymbolArrowRightIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M9.457 2.06a.75.75 0 0 1 .814.15l5.5 5.317a.75.75 0 0 1-.006 1.086l-5.5 5.183A.75.75 0 0 1 9 13.25v-2.5H.75A.75.75 0 0 1 0 10V6a.75.75 0 0 1 .75-.75H9v-2.5a.75.75 0 0 1 .457-.69M10.5 6a.75.75 0 0 1-.75.75H1.5v2.5h8.25a.75.75 0 0 1 .75.75v1.512l3.663-3.452L10.5 4.518z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

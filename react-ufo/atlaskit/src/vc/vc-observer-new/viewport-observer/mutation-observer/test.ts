@@ -2,7 +2,8 @@ import createMutationObserver from './index';
 // import { fg } from '@atlaskit/platform-feature-flags';
 
 const mockedFg = new Map<string, boolean>();
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn((flag: string) => mockedFg.get(flag)),
 }));
 

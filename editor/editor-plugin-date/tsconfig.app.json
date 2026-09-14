@@ -58,10 +58,16 @@
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/form/tsconfig.app.json"
@@ -71,6 +77,9 @@
 		},
 		{
 			"path": "../../design-system/locale/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

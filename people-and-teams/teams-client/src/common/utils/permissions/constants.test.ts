@@ -31,11 +31,12 @@
  *   EXTERNAL: not affected by PTC gate (uses enable_edit_team_name_external_type_teams gate instead)
  */
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { getPermissionMap, allPermissions } from './constants';
+import { allPermissions } from './all-permissions';
+import { getPermissionMap } from './get-permission-map';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const PTC_GATE = 'ptc-enable-team-type-permission-enabled';
 const EDIT_EXTERNAL_GATE = 'enable_edit_team_name_external_type_teams';

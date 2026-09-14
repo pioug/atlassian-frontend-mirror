@@ -14,16 +14,14 @@ import {
 	type GasPayload,
 	type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import { NAVIGATION_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import { NAVIGATION_CONTEXT } from '@atlaskit/analytics-namespaced-context/NavigationAnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import {
-	getSources,
-	getExtraAttributes,
-	getPackageInfo,
-	getComponents,
-} from '../helpers/extract-data-from-event';
+import { getComponents } from '../helpers/get-components';
+import { getExtraAttributes } from '../helpers/get-extra-attributes';
+import { getPackageInfo } from '../helpers/get-package-info';
+import { getSources } from '../helpers/get-sources';
 import type Logger from '../helpers/logger';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const NAVIGATION_TAG = 'navigation';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;

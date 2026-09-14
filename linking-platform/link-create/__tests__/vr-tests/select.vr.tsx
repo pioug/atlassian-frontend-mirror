@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { DefaultSelect, SelectorAllProps } from '../../examples/vr/vr-select';
+import { DefaultSelect, SelectorAllProps } from '../../examples/vr/vr-select.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

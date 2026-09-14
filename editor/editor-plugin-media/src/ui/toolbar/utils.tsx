@@ -3,7 +3,8 @@ import React from 'react';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 
-import type { ExternalMediaAttributes, MediaADFAttrs, RichMediaLayout } from '@atlaskit/adf-schema';
+import type { ExternalMediaAttributes, MediaADFAttrs } from '@atlaskit/adf-schema/media';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { LayoutIcon } from '@atlaskit/editor-common/card';
 import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
 import { mediaAndEmbedToolbarMessages } from '@atlaskit/editor-common/messages';
@@ -27,8 +28,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
-import { getMediaClient } from '@atlaskit/media-client-react';
-import { messages } from '@atlaskit/media-ui';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import { messages } from '@atlaskit/media-ui/messages';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';

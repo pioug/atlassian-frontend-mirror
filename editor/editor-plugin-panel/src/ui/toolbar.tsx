@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { PanelType } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -46,7 +46,7 @@ import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';
 import InformationIcon from '@atlaskit/icon/core/status-information';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';

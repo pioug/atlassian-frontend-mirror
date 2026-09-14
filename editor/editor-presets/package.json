@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "6.1.0",
+	"version": "12.0.0",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -42,7 +42,6 @@
 		"@atlaskit/editor-plugin-card": "workspace:^",
 		"@atlaskit/editor-plugin-clear-marks-on-empty-doc": "workspace:^",
 		"@atlaskit/editor-plugin-clipboard": "workspace:^",
-		"@atlaskit/editor-plugin-code-bidi-warning": "workspace:^",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
 		"@atlaskit/editor-plugin-code-block-advanced": "workspace:^",
 		"@atlaskit/editor-plugin-collab-edit": "workspace:^",
@@ -77,6 +76,7 @@
 		"@atlaskit/editor-plugin-indentation": "workspace:^",
 		"@atlaskit/editor-plugin-insert-block": "workspace:^",
 		"@atlaskit/editor-plugin-interaction": "workspace:^",
+		"@atlaskit/editor-plugin-interactivity": "workspace:^",
 		"@atlaskit/editor-plugin-layout": "workspace:^",
 		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
 		"@atlaskit/editor-plugin-list": "workspace:^",
@@ -118,6 +118,7 @@
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlassian/ari": "root:*",
@@ -128,38 +129,6 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"platform_editor_comments_api_manager": {
@@ -175,9 +144,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_aifc_streaming": {
-			"type": "boolean"
-		},
-		"platform_editor_table_fixed_column_width_prop": {
 			"type": "boolean"
 		},
 		"confluence_remix_button_right_side_block_fg": {

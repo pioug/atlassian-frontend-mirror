@@ -1,5 +1,190 @@
 # @atlassian/navigation-system
 
+## 10.16.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.8
+
+### Patch Changes
+
+- [`73b74955b8418`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73b74955b8418) -
+  Added `color.border.input.search` for search input borders. Navigation System Search uses the new
+  token when `platform-dst-tokens-finesse` is enabled; the existing border is unchanged when the
+  gate is disabled.
+- Updated dependencies
+
+## 10.16.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.6
+
+### Patch Changes
+
+- [`d20edab2fda3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d20edab2fda3a) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 10.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.4
+
+### Patch Changes
+
+- [`1cfdd8f6d54e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cfdd8f6d54e6) -
+  Behind `platform-dst-motion-uplift-sidenav`, the side nav now holds `grid-area: main` for the
+  first 150ms of its desktop enter animation instead of switching immediately, so the main content
+  reflows shortly into the animation rather than at the very start.
+
+  Behind `platform-dst-motion-uplift-panel`, the panel holds `position: fixed` for the first 150ms
+  of its enter animation, and its enter and exit animations are now disabled under
+  `prefers-reduced-motion: reduce`.
+
+## 10.16.3
+
+### Patch Changes
+
+- [`24a22ba9f2d72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24a22ba9f2d72) -
+  [ux] Panel on open snaps main content when animation ends. On close the main content snaps on
+  animation start. Changes are behind the `platform-dst-motion-uplift-panel` feature gate.
+- Updated dependencies
+
+## 10.16.2
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 10.16.1
+
+### Patch Changes
+
+- [`547e06541deb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/547e06541deb3) -
+  Added specific print styles to the `Main` component which resets the height to `auto`. This
+  ensures when printing a page that the content can extend beyond the viewport height.
+
+## 10.16.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.15.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.14.0
+
+### Minor Changes
+
+- [`2309581c02076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2309581c02076) -
+  Decouple the built-in side nav shortcut, toggle tooltip shortcut, and side nav splitter tooltip
+  from the full height sidebar rollout behind `platform-dst-keep-desired-fhs-features`.
+
+## 10.13.0
+
+### Minor Changes
+
+- [`0195cea826a48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0195cea826a48) -
+  Use directional motion tokens for RTL-aware panel slide animations. Adds new
+  `motion.panel.content.enter` and `motion.panel.content.exit` motion tokens, applied to the Panel
+  to soften the content when opening and closing.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.12.1
+
+### Patch Changes
+
+- [`8cd40349d33ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cd40349d33ee) -
+  Fix Aside slot appearing below other content when the `platform-dst-motion-uplift-panel` feature
+  gate is enabled. The root grid now uses `overflow: clip` instead of `overflow: hidden` to avoid
+  creating a scroll container that breaks `position: sticky` on descendant elements.
+
+## 10.12.0
+
+### Minor Changes
+
+- [`5bca82622e866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bca82622e866) -
+  [ux] `@atlaskit/navigation-system`: the side nav expand, collapse and flyout animations now use
+  the new Side Nav motion tokens (CSS keyframe animations) instead of `transform` transitions with
+  `@starting-style`, behind the `platform-dst-motion-uplift-sidenav` feature gate. When the gate is
+  off, the animations are unchanged.
+
+## 10.11.1
+
+### Patch Changes
+
+- [`a4d2562b27fc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4d2562b27fc6) -
+  Cleanup feature gate `platform_dst_nav4_side_nav_grid_area_fix`. The side nav's mobile `grid-area`
+  is now always scoped to `@media not (min-width: 64rem)`, the exact inverse of its desktop rule, so
+  the two can never both match at a given viewport and the side nav can no longer render in the
+  wrong grid area when Compiled's atomic rule ordering is non-deterministic (local development /
+  streaming SSR).
+- Updated dependencies
+
+## 10.11.0
+
+### Minor Changes
+
+- [`1960192b10121`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1960192b10121) -
+  Cleanup feature gate `platform-ads-nav-fixed-height`. The `Main` component in `navigation-system`
+  now always applies a fixed height at smaller viewports (the gate-on behaviour is now permanent).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.10.0
 
 ### Minor Changes

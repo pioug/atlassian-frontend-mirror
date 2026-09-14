@@ -1,5 +1,6 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 
+import type { ChatEntryPoint } from './chat-entry-point';
 import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type { JsmJourneyBuilderActionsPayload } from './common/types/jsm-journey-builder';
 import type {
@@ -20,6 +21,9 @@ export const Topics = {
 	AI_MATE_ACTIONS: 'ai-mate-actions',
 	AI_MATE_INSERT_URLS: 'ai-mate-chat-inserts',
 	AI_MATE_CHAT_INPUT_OVERLAY: 'ai-mate-chat-input-overlay',
+	AI_MATE_AIFC: 'ai-mate-aifc',
+	ROVO_REMIX_LAUNCH: 'rovo-remix-launch',
+	ROVO_REMIX: 'rovo-remix',
 	AVP: 'avp',
 } as const;
 export type Topic = (typeof Topics)[keyof typeof Topics];
@@ -79,13 +83,23 @@ type PlaceholderParam = {
 	placeholderType?: 'person' | 'link' | 'generic' | 'skill';
 };
 
+/**
+ * Source-selection behavior requested when opening a chat.
+ *
+ * This public package owns the transport type so consumers do not depend on an internal package.
+ * A test keeps it aligned with the assistance service contract.
+ */
+export type RovoChatSourceMode = 'GENERAL' | 'STRICT';
+
 type ChatModeParam = {
 	deepResearchEnabled?: boolean;
 	thinkDeeperEnabled?: boolean;
 	fastModeEnabled?: boolean;
 	taskModeEnabled?: boolean;
 	webSearchEnabled?: boolean;
+	sourceMode?: RovoChatSourceMode;
 	useCurrentPageContext?: boolean;
+	spaceSourceCount?: number;
 	appFilters?: unknown[];
 };
 
@@ -94,6 +108,50 @@ export type ResultAttributionContextPayload = {
 	 * Source surface that launched the agent chat, appended to generated result analytics.
 	 */
 	launchSource?: string;
+};
+
+type SerializableCreationContextValue =
+	| string
+	| number
+	| boolean
+	| null
+	| undefined
+	| { [key: string | number]: SerializableCreationContextValue }
+	| SerializableCreationContextValue[];
+
+/** Creation metadata forwarded when an editor surface launches Rovo Chat. */
+export type ChatCreationContextParams = {
+	templateInput?: {
+		templateId: string;
+		templateType: string;
+	};
+	jiraContext?: unknown;
+	dynamicUiType?: string;
+	dynamicUiSubtype?: string;
+	dynamicUiSource?: unknown;
+	forcedContentType?: string;
+	contentMauiId?: string;
+	mediaFileId?: string;
+	source?: string;
+	shouldUseExistingContent?: boolean;
+	isViewMode?: boolean;
+	experience?:
+		| 'cwr'
+		| 'cwr_type'
+		| 'cwr_edit'
+		| 'cwr_existing'
+		| 'inline_edit'
+		| 'remix'
+		| 'remix_edit'
+		| 'remix_object'
+		| 'remix_custom'
+		| 'chat_edit'
+		| 'chat_view'
+		| 'keep_existing_page_structure';
+	contentTypes?: string[];
+	blocks?: string[];
+	spaceKey?: string;
+	additionalContext?: Record<string, SerializableCreationContextValue>;
 };
 
 export type ChatNewPayload = PayloadCore<
@@ -113,6 +171,10 @@ export type ChatNewPayload = PayloadCore<
 		}>;
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
+		/** Content targeted by the prompt when an editor surface launches chat. */
+		contentId?: string | number;
+		/** Creation context supplied by the launching editor surface. */
+		creationContextParams?: ChatCreationContextParams;
 		/**
 		 * Overrides the default auto-send behavior for prompts.
 		 * Set this to true to insert prompts not containing backticks into the chat input for dynamic
@@ -124,6 +186,8 @@ export type ChatNewPayload = PayloadCore<
 		files?: UploadedFile[];
 		contentContext?: 'staging-area' | 'global';
 		sourceId?: string;
+		/** Correlates a Quick Find journey with the Chat activity it launches. */
+		rovoJourneyId?: string;
 		minionAlias?: string;
 		// Skip creating a seeded conversation in the BE with auto-generated name
 		skipCreatingSeededConversation?: boolean;
@@ -169,6 +233,13 @@ export type ChatNewPayload = PayloadCore<
 		 */
 		agentName?: string;
 		agentIdentityAccountId?: string;
+		/** Identifies the product surface that launched the conversation for analytics attribution. */
+		chatEntryPoint?: ChatEntryPoint;
+		/**
+		 * The `localId` of the agent-mention node that invoked this run. Threaded through so the
+		 * agent-run-state bridge can key live run-state back to the node.
+		 */
+		invokedByNodeLocalId?: string;
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
 >;
@@ -243,6 +314,7 @@ export type EditorContextPayloadData =
 				fragmentAdf?: string;
 			};
 			dynamicUiType?: string;
+			dynamicUiSubtype?: string;
 			isViewMode?: boolean;
 			isDraftLockedForEditing?: boolean;
 			useGenericEditorSkill?: boolean;
@@ -318,6 +390,20 @@ export type JiraCreateContextPayloadData = {
 		| null;
 };
 
+export type ArtifactContextPayloadData = {
+	artifactId: string;
+	mimeType: string;
+	title: string;
+	description: string;
+	url: string;
+};
+
+// Not using PayloadCore because `data: type | undefined` is necessary
+// but `| undefined` will cause `data` to be removed by PayloadCore.
+export type ArtifactContextPayload = PayloadCore<'artifact-context-payload'> & {
+	data: ArtifactContextPayloadData | undefined;
+};
+
 // Not using the PayloadCore because the `data: type | undefined` is necessary
 // but `| undefined` will cause `data` to be removed by PayloadCore
 export type EditorContextPayload = PayloadCore<'editor-context-payload'> & {
@@ -372,6 +458,51 @@ export type ChatSmartLink3PPostAuthLaunchPayload = PayloadCore<
 export type OpenBrowseAgentPayload = PayloadCore<'open-browse-agent-modal'>;
 
 export type OpenBrowseAgentSidebarPayload = PayloadCore<'open-browse-agent-sidebar'>;
+
+export type RovoRemixConsumer = 'editor' | 'renderer';
+
+export type RovoRemixPreset = 'selection' | 'page';
+
+export type RovoRemixOption =
+	| 'chart'
+	| 'diagram'
+	| 'infographic'
+	| 'visual-aid'
+	| 'slides'
+	| 'whiteboard'
+	| 'database'
+	| 'custom'
+	| 'image';
+
+export type OpenRovoRemixSidebarPayload = PayloadCore<
+	'open-rovo-remix-sidebar',
+	{
+		remixConsumer: RovoRemixConsumer;
+		remixPreset: RovoRemixPreset;
+	}
+>;
+
+export type UpdateRovoRemixPresetPayload = PayloadCore<
+	'update-rovo-remix-preset',
+	{
+		remixConsumer: RovoRemixConsumer;
+		remixPreset: RovoRemixPreset;
+	}
+>;
+
+export type SubmitRovoRemixPayload = PayloadCore<
+	'submit-rovo-remix',
+	{
+		remixConsumer: RovoRemixConsumer;
+		remixPreset: RovoRemixPreset;
+		remixOption: RovoRemixOption;
+		remixSubType?: string;
+		userPrompt: string;
+		conversationId?: string;
+	}
+> & { consumeOnce: true };
+
+export type RovoRemixHandoffFailedPayload = PayloadCore<'rovo-remix-handoff-failed'>;
 
 export type EditorSuggestionRichContent = {
 	type: 'text/adf';
@@ -508,6 +639,7 @@ export type InsertSkillPayload = PayloadCore<
 			color?: string;
 		};
 		skillSelectionSource?: string;
+		targetPromptDraftAndModeKey?: string;
 	}
 >;
 
@@ -552,10 +684,11 @@ export type AddStatusRovoPayload = {
 	statusCategory: StatusCategory;
 };
 export type UpdateStatusRovoPayload = {
-	oldStatusName: string;
-	oldStatusCategory: StatusCategory;
-	newStatusName: string;
-	newStatusCategory: StatusCategory;
+	statusId: StatusId;
+	existingStatusName: string;
+	newStatusName?: string | null;
+	existingStatusCategory: StatusCategory;
+	newStatusCategory?: StatusCategory | null;
 };
 export type DeleteStatusRovoPayload = {
 	statusId: string;
@@ -581,6 +714,15 @@ export type UpdateTransitionRovoPayload = {
 	toStatusName: string;
 	toStatusCategory: StatusCategory;
 	links: {
+		fromStatusId: StatusId;
+		fromStatusName: string;
+		fromStatusCategory: StatusCategory;
+	}[];
+	existingName?: string;
+	existingToStatusId?: StatusId;
+	existingToStatusName?: string;
+	existingToStatusCategory?: StatusCategory;
+	existingLinks?: {
 		fromStatusId: StatusId;
 		fromStatusName: string;
 		fromStatusCategory: StatusCategory;
@@ -628,7 +770,11 @@ export type RedirectToWorkflowRovoPayload = {
 
 export type JiraWorkflowWizardAction =
 	| { operationType: 'ADD_STATUS'; payload: AddStatusRovoPayload }
-	| { operationType: 'UPDATE_STATUS'; payload: UpdateStatusRovoPayload }
+	| {
+			operationType: 'UPDATE_STATUS';
+			payload: UpdateStatusRovoPayload;
+			isUsedInOtherWorkflows?: boolean;
+	  }
 	| { operationType: 'DELETE_STATUS'; payload: DeleteStatusRovoPayload }
 	| { operationType: 'ADD_TRANSITION'; payload: AddNewTransitionRovoPayload }
 	| { operationType: 'UPDATE_TRANSITION'; payload: UpdateTransitionRovoPayload }
@@ -738,6 +884,11 @@ export type CustomSkillUpdatePayload = PayloadCore<
 		skillAri: string;
 		name: string;
 		displayName: string;
+		/**
+		 * Concise, user-facing summary of the skill's purpose. Optional because not every
+		 * publisher edits it — subscribers should fall back to their own persisted value.
+		 */
+		helpText?: string;
 		description: string;
 		instructions: string;
 		tools: { id: string; source: string; type: string }[];
@@ -745,6 +896,8 @@ export type CustomSkillUpdatePayload = PayloadCore<
 >;
 
 export type RecommendedSpacesSelectedPayload = PayloadCore<'recommended-spaces-selected'>;
+export type RecommendedSpacesFirstTimeSelectedPayload =
+	PayloadCore<'recommended-spaces-first-time-selected'>;
 
 export type SmartlinksSubscriptionChangedPayload =
 	PayloadCore<'smartlinks-subscription-changed'> & {
@@ -753,9 +906,18 @@ export type SmartlinksSubscriptionChangedPayload =
 		isActive: boolean;
 	};
 
+/**
+ * Requests that the currently mounted in-context AIFC modal close.
+ *
+ * This event is intentionally unscoped because only one such modal
+ * is expected to be open at a time.
+ */
+export type CloseInContextAifcModalPayload = PayloadCore<'close-in-context-aifc-modal'>;
+
 export type Payload =
 	| MessageSendPayload
 	| ChatClosePayload
+	| CloseInContextAifcModalPayload
 	| SmartCreationModalOpenPayload
 	| ChatNewPayload
 	| InsightsOpenInChatPayload
@@ -767,11 +929,16 @@ export type Payload =
 	| OpenBrowseAgentPayload
 	| SmartlinksSubscriptionChangedPayload
 	| OpenBrowseAgentSidebarPayload
+	| OpenRovoRemixSidebarPayload
+	| UpdateRovoRemixPresetPayload
+	| SubmitRovoRemixPayload
+	| RovoRemixHandoffFailedPayload
 	| EditorSuggestionPayload
 	| EditorAgentChangedPayload
 	| BrowserContextPayload
 	| WhiteboardContextPayload
 	| JiraCreateContextPayload
+	| ArtifactContextPayload
 	| JiraInlineAgentCreationAgentAssignedPayload
 	| JiraWorkItemsCreatingPayload
 	| JiraWorkItemsCreatedPayload
@@ -805,6 +972,7 @@ export type Payload =
 	| SpaceSelectedPayload
 	| SpaceDeselectedPayload
 	| RecommendedSpacesSelectedPayload
+	| RecommendedSpacesFirstTimeSelectedPayload
 	| CustomSkillUpdatePayload
 	| TaskPlanConfirmedPayload
 	| TaskAskQuestionRenderedPayload
@@ -813,7 +981,8 @@ export type Payload =
 	| TaskCancelPlanPayload
 	| TaskAskQuestionConfirmedPayload
 	| TaskModifyPlanRequestedPayload
-	| TaskModifyPlanSubmittedPayload;
+	| TaskModifyPlanSubmittedPayload
+	| ConfluenceContentFinalizedPayload;
 
 export type TaskPlanConfirmedPayload = PayloadCore<
 	'task-plan-confirmed',
@@ -877,6 +1046,12 @@ export type JiraWorkItemCreatingDraft = {
 	invocationId: string;
 	/** Draft summary, used to render the optimistic row immediately. */
 	summary: string;
+	/** Optional Issue type of this draft, used to render the optimistic row's issue-type icon immediately. */
+	issueType?: {
+		id: string;
+		name: string;
+		iconUrl: string;
+	};
 };
 
 export type JiraWorkItemsCreatingPayload = PayloadCore<
@@ -920,6 +1095,28 @@ export type JiraWorkItemsCreateFailedPayload = PayloadCore<
 		invocationId: string;
 	}
 >;
+
+/**
+ * Published when staged Confluence content has been published
+ * out of the Rovo system space into a real space. Any surface showing that content (e.g. a mounted
+ * Rovo preview card) subscribes and refreshes its own state
+ */
+export const CONFLUENCE_CONTENT_FINALIZED_EVENT = 'confluence-content-finalized' as const;
+
+export type ConfluenceContentFinalizedPayload = PayloadCore<
+	typeof CONFLUENCE_CONTENT_FINALIZED_EVENT,
+	{
+		/**
+		 * Every content id the finalize attempt covered, successful or not. A failed item's content
+		 * just stays in the Rovo system space, so a subscriber's refetch harmlessly reconfirms that.
+		 * Content ids are unique across sites, so subscribers match on this alone.
+		 */
+		contentIds: string[];
+	}
+> & {
+	/** Never opens chat — internal signal only. */
+	openChat: false;
+};
 
 export type Callback = (payload: Payload) => void;
 

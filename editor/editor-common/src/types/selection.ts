@@ -1,4 +1,4 @@
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 export interface LongPressSelectionPluginOptions {
 	useLongPressSelection?: boolean;
 }

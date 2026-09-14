@@ -1,6 +1,6 @@
 // eslint-disable-next-line
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
 
 import { dropboxImage } from './images/dropbox';
 import { forbidden } from './images/forbidden';

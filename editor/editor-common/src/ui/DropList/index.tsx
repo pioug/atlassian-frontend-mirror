@@ -8,11 +8,14 @@ import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, keyframes } from '@emotion/react';
 
-import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
-import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
-import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { fg } from '@atlaskit/platform-feature-flags';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import Layer from '../Layer';

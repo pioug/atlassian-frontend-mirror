@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { type MouseEvent, useCallback } from 'react';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { css, jsx } from '@atlaskit/css';
 import { css as cssUnbounded } from '@compiled/react';
 import { token } from '@atlaskit/tokens';

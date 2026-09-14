@@ -1,5 +1,5 @@
-import { useAvailableSites } from '../useAvailableSites';
 import { type AvailableSite } from '../useAvailableSites/types';
+import { useAvailableSites } from '../useAvailableSites/useAvailableSites';
 
 export const useCloudIdToUrl = (
 	cloudId: string,
@@ -7,13 +7,13 @@ export const useCloudIdToUrl = (
 ):
 	| {
 			data: string;
-			loading: boolean;
 			error: Error | undefined;
+			loading: boolean;
 	  }
 	| {
 			data: undefined;
-			loading: boolean;
 			error: Error | undefined;
+			loading: boolean;
 	  } => {
 	const { data, loading, error } = useAvailableSites({ gatewayBaseUrl });
 

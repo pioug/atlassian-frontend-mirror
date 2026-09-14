@@ -1,4 +1,4 @@
-import type { EnvironmentsKeys, ProductType } from '@atlaskit/linking-common';
+import type { EnvironmentsKeys, ProductType } from '@atlaskit/linking-common/types';
 
 export interface AISummaryServiceInt {
 	state: AISummaryState;

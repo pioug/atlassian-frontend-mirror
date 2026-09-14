@@ -1,11 +1,11 @@
-import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
+import { extractSmartLinkUrl } from '@atlaskit/link-extractors/extract-smart-link-url';
 
-import { CardAction } from '../../constants';
-import { ActionName } from '../../index';
-import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
+import { ActionName, CardAction } from '../../constants';
+import { getDefinitionId } from '../../state/getDefinitionId';
+import { getExtensionKey } from '../../state/getExtensionKey';
+import { getResourceType } from '../../state/getResourceType';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { canShowAction } from '../../utils/actions/can-show-action';
-
 import { type ExtractClientActionsParam } from './types';
 
 export const extractInvokeCopyLinkAction = ({

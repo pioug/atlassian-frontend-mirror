@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Label } from '@atlaskit/form';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import { Label } from '@atlaskit/form/label/default';
+import Textfield from '@atlaskit/textfield/text-field';
 
 export default function ForwardRefExample(): React.JSX.Element {
 	let input: HTMLInputElement | null = null;

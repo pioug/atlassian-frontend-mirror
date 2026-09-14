@@ -6,15 +6,14 @@ import { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { Dialog } from '@atlaskit/top-layer/dialog';
-import { getFirstFocusable } from '@atlaskit/top-layer/focus';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
@@ -95,11 +94,6 @@ function PopoverInDialog({
 				label="Actions"
 				isOpen={isOpen}
 				onClose={close}
-				onOpenChange={({ isOpen: nextOpen, element }) => {
-					if (nextOpen) {
-						getFirstFocusable({ container: element })?.focus();
-					}
-				}}
 			>
 				<PopoverSurface>
 					<Stack space="space.050">

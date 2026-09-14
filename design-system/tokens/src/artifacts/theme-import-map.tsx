@@ -6,7 +6,7 @@
  * This allows users to compose their themes and only use the tokens that are requested.
  * When a new theme is created, the import should automatically be added to the map
  *
- * @codegen <<SignedSource::a20c72d683b08b594c5be4160eec5f78>>
+ * @codegen <<SignedSource::3d041793de6aed48f20cb5e398199413>>
  * @codegenCommand yarn build tokens
  */
 
@@ -23,6 +23,16 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
       /* webpackChunkName: "@atlaskit-internal_atlassian-light-future" */
       './themes/atlassian-light-future'
     ),
+  'light-finesse': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_atlassian-light-finesse" */
+      './themes/atlassian-light-finesse'
+    ),
+  'light-increased-contrast-finesse': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_atlassian-light-increased-contrast-finesse" */
+      './themes/atlassian-light-increased-contrast-finesse'
+    ),
   'light-increased-contrast': () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-light-increased-contrast" */
@@ -37,6 +47,16 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-dark-future" */
       './themes/atlassian-dark-future'
+    ),
+  'dark-finesse': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_atlassian-dark-finesse" */
+      './themes/atlassian-dark-finesse'
+    ),
+  'dark-increased-contrast-finesse': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_atlassian-dark-increased-contrast-finesse" */
+      './themes/atlassian-dark-increased-contrast-finesse'
     ),
   'dark-increased-contrast': () =>
     import(
@@ -53,6 +73,11 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
       /* webpackChunkName: "@atlaskit-internal_atlassian-typography" */
       './themes/atlassian-typography'
     ),
+  'typography-finesse': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_atlassian-typography-finesse" */
+      './themes/atlassian-typography-finesse'
+    ),
   'shape': () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-shape" */
@@ -65,5 +90,6 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
     ),
 };
 
+export { themeImportsMap as themeImportMap };
 export default themeImportsMap;
   

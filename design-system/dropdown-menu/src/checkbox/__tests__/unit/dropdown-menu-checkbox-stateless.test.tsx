@@ -4,7 +4,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import DropdownMenu, { DropdownItemCheckbox, DropdownItemCheckboxGroup } from '../../../index';
+import DropdownMenu from '../../../dropdown-menu';
+import DropdownItemCheckbox from '../../dropdown-item-checkbox';
+import DropdownItemCheckboxGroup from '../../dropdown-item-checkbox-group';
 
 const DropdownCheckboxStateless = () => {
 	const [selected, setSelected] = useState<string[]>([]);

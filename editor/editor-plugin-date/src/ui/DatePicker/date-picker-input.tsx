@@ -17,9 +17,8 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { dateMessages as messages } from '@atlaskit/editor-common/messages';
-import { ErrorMessage } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
-import TextField from '@atlaskit/textfield';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import type { DateType } from '../../types';
@@ -118,11 +117,7 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 			this.setInputSelectionPos = undefined;
 		}
 
-		const shouldFocusInput = fg('platform_editor_datepicker_focus_fix')
-			? !prevProps.autoFocus && this.props.autoFocus
-			: this.props.autoFocus;
-
-		if (this.inputRef && shouldFocusInput) {
+		if (this.inputRef && !prevProps.autoFocus && this.props.autoFocus) {
 			this.focusInput();
 		}
 
@@ -243,10 +238,8 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 			return;
 		}
 
-		// focus trap for arrow keys in input field
-		if (fg('platform_editor_datepicker_focus_fix')) {
-			event.stopPropagation();
-		}
+		// Focus trap for arrow keys in the input field.
+		event.stopPropagation();
 
 		const { dispatchAnalyticsEvent } = this.props;
 		const cursorPos = this.inputRef?.selectionStart;
@@ -297,7 +290,7 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<InputProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<InputProps & WrappedComponentProps>;
 } = injectIntl(DatePickerInput);

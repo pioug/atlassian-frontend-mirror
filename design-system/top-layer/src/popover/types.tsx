@@ -77,13 +77,15 @@ type TPopoverBaseProps = {
 	 */
 	id?: string;
 	/**
-	 * Whether the popover is open.
+	 * Controlled visibility intent for the popover. Native visibility and lifecycle
+	 * phase can temporarily differ from this value while a close settles.
 	 *
 	 * - **`true`:** show the popover (calls `showPopover()`). When `shouldAnimate`
 	 *   is `true`, the entry animation plays via `@starting-style`.
 	 * - **`false`:** hide the popover. When `shouldAnimate` is `true`, the exit
-	 *   animation plays via `allow-discrete` before the popover becomes logically closed.
-	 *   Otherwise hides instantly.
+	 *   animation plays via `allow-discrete` while the lifecycle phase is `exiting`.
+	 *   Otherwise it hides visually without animation, while lifecycle settlement still
+	 *   waits for the native closed `toggle`.
 	 *
 	 * The consumer does not conditionally render the `Popover` - visibility is driven
 	 * by this prop.
@@ -96,37 +98,18 @@ type TPopoverBaseProps = {
 	 *   The exact unmount timing is private and may change.
 	 * - The `id` (supplied or generated via `usePopoverId()`) is stable across opens.
 	 * - The `ref` is populated only while the host element is rendered. Consumers
-	 *   that read from the ref outside of `onOpenChange` / `onEnterFinish` should
-	 *   gate the read on `isOpen` being `true`.
+	 *   that read from the ref outside of `onEnterFinish` should gate the read on
+	 *   `isOpen` being `true`.
 	 *
 	 * **Important:** For `mode="auto"` popovers, the browser can dismiss the popover
 	 * via light dismiss (Escape, click outside) independently of this prop. When that
 	 * happens, `onClose` is called and the consumer should respond by setting `isOpen`
 	 * to `false`. If `isOpen` remains `true` after a browser dismiss, the DOM and
-	 * React state will be out of sync (the popover will be hidden despite `isOpen={true}`).
+	 * React state remain out of sync until the consumer changes the prop.
 	 */
 	isOpen: boolean;
 	/**
-	 * Called when the popover's open state changes via browser toggle events.
-	 *
-	 * Receives the new open state and a reference to the popover element,
-	 * which is useful for focus management (e.g. focusing the first interactive
-	 * child on open via `getFirstFocusable` from `@atlaskit/top-layer/focus`).
-	 *
-	 * @example
-	 * ```tsx
-	 * <Popover
-	 *   onOpenChange={({ isOpen, element }) => {
-	 *     if (isOpen) {
-	 *       getFirstFocusable({ container: element })?.focus();
-	 *     }
-	 *   }}
-	 * />
-	 * ```
-	 */
-	onOpenChange?: (args: { isOpen: boolean; element: HTMLDivElement }) => void;
-	/**
-	 * Placement hint for directional animations (e.g. `slideAndFade`).
+	 * Placement hint for the default directional animation.
 	 *
 	 * When `shouldAnimate` is `true`, placement is used to set CSS custom
 	 * properties (like `--ds-popover-tx`, `--ds-popover-ty`) that control the
@@ -144,8 +127,9 @@ type TPopoverBaseProps = {
 	 */
 	onEnterFinish?: () => void;
 	/**
-	 * Called after the exit animation completes (or immediately on close when
-	 * there is no animation or reduced motion is active).
+	 * Called after the native closed `toggle` and any exit animations settle.
+	 * With no animation or reduced motion, this still waits for the browser's
+	 * task-queued `toggle` so focus restoration finishes against a mounted host.
 	 *
 	 * Use this for external lifecycle coordination, e.g. notifying a manager
 	 * that the hide sequence is finished, or firing an `onCloseComplete` callback.
@@ -184,9 +168,9 @@ export type TPopoverProps = TPopoverBaseProps &
 				 * Called when the popover is dismissed via light dismiss
 				 * (Escape, click outside).
 				 *
-				 * Required for `auto` and `hint` modes - without it, browser
-				 * dismissals leave the consumer's `isOpen` stuck at `true` while
-				 * the DOM is hidden, producing a stale-open state.
+				 * Required for `auto` and `hint` modes so the consumer can update
+				 * controlled intent after native dismissal. If `isOpen` remains `true`,
+				 * the Popover remains natively closed until the prop changes.
 				 *
 				 * The `reason` field indicates how the dismiss occurred:
 				 * - `'escape'`: the user pressed the Escape key.
@@ -205,11 +189,12 @@ export type TPopoverProps = TPopoverBaseProps &
  *
  * - `'none'` (default): popover sizes to its content, ignoring the anchor width.
  * - `'match-anchor'`: popover matches the anchor element's width exactly
- *   via CSS `anchor-size(width)`. Falls back to a one-off measurement
- *   of `anchorRef.current.offsetWidth` when CSS Anchor Positioning
- *   is not supported.
+ *   via CSS `inline-size: anchor-size(self-inline)`. Falls back to a
+ *   one-off measurement of `anchorRef.current.offsetWidth` when CSS
+ *   Anchor Positioning is not supported.
  * - `'min-anchor'`: popover is at least as wide as the anchor, but
- *   can grow wider if content requires it. Uses `min-width: anchor-size(width)`.
- *   Falls back to a one-off measurement of the anchor's width.
+ *   can grow wider if content requires it. Uses
+ *   `min-inline-size: anchor-size(self-inline)`. Falls back to a one-off
+ *   measurement of the anchor's width.
  */
 export type TWidthFromAnchorMode = 'none' | 'match-anchor' | 'min-anchor';

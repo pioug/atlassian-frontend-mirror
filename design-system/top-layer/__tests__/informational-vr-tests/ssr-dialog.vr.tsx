@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import DialogSsrInitialOpen from '../../examples/151-testing-dialog-ssr-initial-open';
+import DialogSsrInitialOpen from '../../examples/151-testing-dialog-ssr-initial-open.vr.ap';
 
 snapshotInformational(DialogSsrInitialOpen, {
 	description: 'Dialog with isOpen=true on initial render: open and animated in after hydration',

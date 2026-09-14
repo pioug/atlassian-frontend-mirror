@@ -21,7 +21,7 @@ import {
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const contentContainerStyles = cssMap({

@@ -1,55 +1,45 @@
 export { locales } from './locales';
 
-export {
-	MediaInlineCardErroredView,
-	MediaInlineCardLoadedView,
-	MediaInlineCardLoadingView,
-} from './MediaInlineCard';
-export type {
-	MediaInlineCardErroredViewProps,
-	MediaInlineCardLoadedViewProps,
-	MediaInlineCardLoadingViewProps,
-} from './MediaInlineCard';
-export { Ellipsify } from './ellipsify';
+export { MediaInlineCardLoadingView } from './MediaInlineCard/LoadingView';
+export { MediaInlineCardLoadedView } from './MediaInlineCard/LoadedView';
+export { MediaInlineCardErroredView } from './MediaInlineCard/ErroredView';
+export type { MediaInlineCardErroredViewProps } from './MediaInlineCard/ErroredView';
+export type { MediaInlineCardLoadedViewProps } from './MediaInlineCard/LoadedView';
+export type { MediaInlineCardLoadingViewProps } from './MediaInlineCard/LoadingView';
+export { Ellipsify } from './Ellipsify-2';
 export { default as ModalSpinner } from './modalSpinner';
-export type { EllipsifyProps } from './ellipsify-compiled';
+export type { EllipsifyProps } from './Ellipsify-3';
 export { toHumanReadableMediaSize } from './humanReadableSize';
-export {
-	absolute,
-	borderRadius,
-	borderRadiusBottom,
-	center,
-	easeInOutCubic,
-	ellipsis,
-	size,
-} from './mixins';
-export { Bounds, Camera, Rectangle, Vector2 } from './camera';
+export { absolute } from './absolute';
+export { ellipsis } from './ellipsis';
+export { borderRadius, borderRadiusBottom, center, easeInOutCubic } from './mixins';
+export { size } from './size';
+export { Bounds } from './Bounds';
+export { Camera } from './Camera-2';
+export { Rectangle } from './Rectangle';
+export { Vector2 } from './Vector2';
 export { messages } from './messages';
 export type { MessageKey } from './messages';
 export { default as languages } from './i18n/languages';
 
-export {
-	ExifOrientation,
-	getCssFromImageOrientation,
-	getImageInfo,
-	getMetaTagNumericValue,
-	getOrientation,
-	getScaleFactor,
-	getScaleFactorFromFile,
-	isRotated,
-	readImageMetaData,
-} from './imageMetaData';
-export type { FileInfo, ImageInfo, ImageMetaData, ImageMetaDataTags } from './imageMetaData';
-export {
-	dataURItoFile,
-	fileToArrayBuffer,
-	fileToDataURI,
-	getFileInfo,
-	getFileInfoFromSrc,
-	loadImage,
-	findParentByClassname,
-	getMimeIcon,
-} from './util';
+export { getImageInfo } from './imageMetaData/getImageInfo';
+export { getMetaTagNumericValue } from './imageMetaData/getMetaTagNumericValue';
+export { getOrientation } from './imageMetaData/getOrientation';
+export { getScaleFactor } from './imageMetaData/getScaleFactor';
+export { getScaleFactorFromFile } from './imageMetaData/getScaleFactorFromFile';
+export { ExifOrientation } from './imageMetaData/types';
+export { getCssFromImageOrientation } from './imageMetaData/getCssFromImageOrientation';
+export { isRotated } from './imageMetaData/isRotated';
+export { readImageMetaData } from './imageMetaData/readImageMetaData';
+export type { FileInfo, ImageInfo, ImageMetaData, ImageMetaDataTags } from './imageMetaData/types';
+export { dataURItoFile } from './dataURItoFile';
+export { fileToArrayBuffer } from './fileToArrayBuffer';
+export { fileToDataURI } from './fileToDataURI';
+export { findParentByClassname } from './findParentByClassname';
+export { getFileInfo } from './getFileInfo';
+export { getFileInfoFromSrc } from './getFileInfoFromSrc';
+export { getMimeIcon } from './getMimeIcon';
+export { loadImage } from './loadImage';
 export { MimeTypeIcon } from './mime-type-icon';
 export { CustomMediaPlayer } from './customMediaPlayer';
 export { TimeRange } from './customMediaPlayer/timeRange';
@@ -64,9 +54,10 @@ export type { MediaImageProps, MediaImageState } from './mediaImage';
 export { InactivityDetector } from './inactivityDetector/inactivityDetector';
 export type { WithShowControlMethodProp, AccessTypes, AccessContext } from './types';
 export { isIntersectionObserverSupported } from './intersectionObserver';
-export { Truncate } from './truncateText';
-export type { TruncateProps } from './truncateText-compiled';
+export { Truncate } from './Truncate';
+export type { TruncateProps } from './truncateTextTypes';
 export { errorIcon } from './errorIcon';
 export { formatDate } from './formatDate';
 
-export { MediaPlayer, type MediaPlayerProps } from './customMediaPlayer/mediaPlayer';
+export { MediaPlayer } from './customMediaPlayer/mediaPlayer/mediaPlayer';
+export type { MediaPlayerProps } from './customMediaPlayer/mediaPlayer/types';

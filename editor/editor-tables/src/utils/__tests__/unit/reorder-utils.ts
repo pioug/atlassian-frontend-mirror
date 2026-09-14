@@ -1,4 +1,4 @@
-import { transpose } from '../../reorder-utils';
+import { transpose } from '../../transpose';
 
 describe('transpose', () => {
 	const arr = [

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-file-type",
-	"version": "8.1.2",
+	"version": "8.3.0",
 	"description": "A file type icon is used to represent specific types of content used across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,6 +51,11 @@
 	},
 	"devDependencies": {
 		"@af/icon-build-process": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
 		"@emotion/styled": "root:*",
 		"fs-extra": "root:*",
 		"jscodeshift": "root:*",
@@ -62,13 +67,5 @@
 	"keywords": [
 		"atlaskit",
 		"ui"
-	],
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			]
-		}
-	}
+	]
 }

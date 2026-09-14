@@ -8,6 +8,7 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -140,7 +141,7 @@ const extensionFrameContent = css({
 // Block spacing hook variant of extensionFrameContent. Identical to extensionFrameContent except
 // the extension content margins read from the `--ak-editor-extension-block-spacing` CSS custom
 // property (falling back to the original token values). Selected only when
-// expValEquals('platform_editor_extension_block_spacing') is enabled.
+// isExperimentEnabled('platform_editor_extension_block_spacing') is enabled.
 const extensionFrameContentWithBlockSpacing = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	display: 'block !important',
@@ -226,8 +227,8 @@ export const sharedMultiBodiedExtensionStyles: {
 		}
 		// Block spacing hook — when the experiment is on, use the variant whose extension content
 		// margins read from --ak-editor-extension-block-spacing (falling back to the originals).
-		// expValEquals always fires an exposure event.
-		return expValEquals('platform_editor_extension_block_spacing', 'isEnabled', true)
+		// isExperimentEnabled always fires an exposure event.
+		return isExperimentEnabled('platform_editor_extension_block_spacing')
 			? extensionFrameContentWithBlockSpacing
 			: extensionFrameContent;
 	},

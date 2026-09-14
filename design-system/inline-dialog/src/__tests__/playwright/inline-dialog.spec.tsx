@@ -18,6 +18,7 @@ test('InlineDialog should be able to be identified and clicked by data-testid', 
 		'design-system',
 		'inline-dialog',
 		'testing',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
@@ -36,6 +37,7 @@ test('InlineDialog with Open Modal button should open modal', async ({ page }) =
 		'design-system',
 		'inline-dialog',
 		'modal',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
@@ -50,6 +52,7 @@ test('InlineDialog should stay open when modal is closed through button click', 
 		'design-system',
 		'inline-dialog',
 		'modal',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
@@ -67,6 +70,7 @@ test('InlineDialog should stay open when user clicks modal blanket', async ({ pa
 		'design-system',
 		'inline-dialog',
 		'modal',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
@@ -84,6 +88,7 @@ test('InlineDialog should close correctly after modal is closed', async ({ page 
 		'design-system',
 		'inline-dialog',
 		'modal',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(inlineDialogBtn).first().click();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
@@ -101,6 +106,7 @@ test('InlineDialog should work with Select and set value correctly', async ({ pa
 		'design-system',
 		'inline-dialog',
 		'select-datepicker',
+		{ 'react-18-mode': 'modern' },
 	);
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await expect(page.locator('.react-select__control').first()).toBeVisible();
@@ -116,6 +122,7 @@ test('InlineDialog should work correctly with DatePicker component', async ({ pa
 		'design-system',
 		'inline-dialog',
 		'select-datepicker',
+		{ 'react-18-mode': 'modern' },
 	);
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await expect(page.locator(datePickerContainer).first()).toBeVisible();
@@ -127,6 +134,7 @@ test('InlineDialog should stay open when interacting dropdown in modal', async (
 		'design-system',
 		'inline-dialog',
 		'popup',
+		{ 'react-18-mode': 'modern' },
 	);
 	await page.locator(inlineDialogBtn).click();
 	const inlineDialog = page.locator(inlineDialogTestId);

@@ -46,13 +46,10 @@
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

@@ -341,7 +341,6 @@ describe('collectLeafNodesWeights', () => {
 		expect(debugResult.weight).toBe(nonDebugResult.weight);
 		expect(debugResult.weight).toBeCloseTo(
 			debugResult.debugPaths!.reduce((sum, path) => {
-				// @ts-ignore
 				const leafInfo = path[path.length - 1] as any;
 				return sum + leafInfo.totalWeight;
 			}, 0),

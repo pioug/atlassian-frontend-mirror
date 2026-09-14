@@ -1,7 +1,11 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import type { FeatureFlagValue } from './common/types';
-import { redactValue } from './common/utils';
+import { redactValue } from './common/utils/redactValue';
 
-export { redactValue } from './common/utils';
+/**
+ * @deprecated Use `import { redactValue } from '@atlaskit/react-ufo/redact-value'` instead.
+ */
+export { redactValue } from './common/utils/redactValue';
 export type { FeatureFlagValue } from './common/types';
 
 declare global {

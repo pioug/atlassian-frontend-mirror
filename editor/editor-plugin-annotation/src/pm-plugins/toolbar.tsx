@@ -30,7 +30,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { SelectionBookmark, EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { setInlineCommentDraftState } from '../editor-commands';

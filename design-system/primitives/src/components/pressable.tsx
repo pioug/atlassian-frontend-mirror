@@ -14,7 +14,8 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
@@ -159,7 +160,7 @@ const disabledStyles = css({
  * - [Code](https://atlassian.design/components/primitives/pressable/code)
  * - [Usage](https://atlassian.design/components/primitives/pressable/usage)
  */
-const Pressable: React.ForwardRefExoticComponent<
+export const Pressable: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<PressableProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef(
 	(
@@ -251,4 +252,5 @@ const Pressable: React.ForwardRefExoticComponent<
 	},
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Pressable;

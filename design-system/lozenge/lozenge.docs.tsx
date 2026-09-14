@@ -26,6 +26,8 @@ const documentation: StructuredContentSource = {
 				'Always combine color with a concise, accurate label.',
 				'Use Badge for tallies/scores and Tag for descriptive metadata.',
 				'If users need to click the lozenge to switch status via a dropdown, use LozengeDropdownTrigger instead — it is purpose-built for interactive status switching.',
+				"Use filled icons intentionally to draw user attention where it's needed; reserve them for high-priority or end-of-workflow states.",
+				"Don't overuse filled icons; use outlined icons as the default and filled icons only to signal critical or important status.",
 			],
 			contentGuidelines: [
 				'Use clear, concise text; use accurate labels (e.g. "Error", "Warning")',

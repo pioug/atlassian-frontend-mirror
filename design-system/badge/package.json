@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/badge",
-	"version": "20.0.0",
+	"version": "21.2.0",
 	"description": "A badge is a visual indicator for numeric values such as tallies and scores.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,6 +47,7 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./badge": "./src/badge.tsx",
+		"./badge-new": "./src/badge-new.tsx",
 		"./new": "./src/entry-points/new.tsx",
 		"./types": "./src/types.tsx"
 	},
@@ -59,7 +60,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -73,32 +74,9 @@
 		"@atlassian/ssr-tests": "workspace:*",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions",
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
+		"@atlassian/workbench": "workspace:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"homepage": "https://atlassian.design/components/badge/",
 	"platform-feature-flags": {

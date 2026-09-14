@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 export default (): React.JSX.Element => (
 	<SectionMessage title="Cannot connect to the database" appearance="warning">

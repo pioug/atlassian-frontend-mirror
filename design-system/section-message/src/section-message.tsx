@@ -4,11 +4,10 @@
  */
 import { Children, forwardRef, Fragment, type ReactElement, useCallback, useState } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -18,13 +17,9 @@ import type { SectionMessageProps } from './types';
 const sectionMessageStyles = cssMap({
 	container: {
 		wordBreak: 'break-word',
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.large'),
 		paddingBlock: token('space.200'),
 		paddingInline: token('space.200'),
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	containerT26Shape: {
-		borderRadius: token('radius.large'),
 	},
 	iconContainer: {
 		display: 'flex',
@@ -74,108 +69,105 @@ const appearanceStyles = cssMap({
  */
 const SectionMessage: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SectionMessageProps> & React.RefAttributes<HTMLElement>
-> = forwardRef<HTMLElement, SectionMessageProps>(function SectionMessage(
-	{
-		children,
-		appearance = 'information',
-		actions,
-		title,
-		headingLevel = 'h2',
-		icon,
-		isDismissible,
-		onDismiss,
-		testId,
-	},
-	ref,
-) {
-	const [dismissed, setDismissed] = useState<boolean>(false);
+> = forwardRef<HTMLElement, SectionMessageProps>(
+	(
+		{
+			children,
+			appearance = 'information',
+			actions,
+			title,
+			headingLevel = 'h2',
+			icon,
+			isDismissible,
+			onDismiss,
+			testId,
+		},
+		ref,
+	) => {
+		const [dismissed, setDismissed] = useState<boolean>(false);
 
-	const handleDismiss = useCallback(() => {
-		onDismiss?.();
-		setDismissed(true);
-	}, [onDismiss]);
+		const handleDismiss = useCallback(() => {
+			onDismiss?.();
+			setDismissed(true);
+		}, [onDismiss]);
 
-	const {
-		primaryIconColor: primaryColor,
-		backgroundColor: secondaryColor,
-		Icon,
-	} = getAppearanceIconStyles(appearance, icon);
+		const {
+			primaryIconColor: primaryColor,
+			backgroundColor: secondaryColor,
+			Icon,
+		} = getAppearanceIconStyles(appearance, icon);
 
-	const actionElements =
-		actions && (actions as ReactElement).type === Fragment
-			? (actions as ReactElement).props.children
-			: actions;
-	const actionsArray = Children.toArray(actionElements);
+		const actionElements =
+			actions && (actions as ReactElement).type === Fragment
+				? (actions as ReactElement).props.children
+				: actions;
+		const actionsArray = Children.toArray(actionElements);
 
-	return isDismissible && dismissed ? null : (
-		<section
-			data-testid={testId}
-			ref={ref}
-			css={[
-				sectionMessageStyles.container,
-				fg('platform-dst-shape-theme-default') && sectionMessageStyles.containerT26Shape,
-				appearanceStyles[appearance],
-			]}
-		>
-			<Inline space="space.200" alignBlock="stretch">
-				<div css={sectionMessageStyles.iconContainer}>
-					{/* @ts-ignore - Workaround for typecheck issues with help-center local consumption */}
-					<Icon
-						size="medium"
-						primaryColor={primaryColor}
-						secondaryColor={secondaryColor}
-						// props for new icon
-						color={primaryColor}
-						spacing="spacious"
-					/>
-				</div>
-				<Stack
-					space="space.100"
-					testId={testId && `${testId}--content`}
-					xcss={sectionMessageStyles.contentContainer}
-				>
-					{!!title && (
-						<Heading as={headingLevel} size="small">
-							{title}
-						</Heading>
-					)}
-					<div css={sectionMessageStyles.content}>{children}</div>
-					{actionsArray.length > 0 && (
-						<Inline
-							shouldWrap
-							testId={testId && `${testId}--actions`}
-							separator="·"
-							space="space.100"
-							rowSpace="space.0"
-							// Only use a list role if more than one action is present
-							role={actionsArray.length > 1 ? 'list' : undefined}
-							xcss={sectionMessageStyles.actionsContainer}
-						>
-							{actionsArray.map((action, id) => (
-								// Only use a listitem role if more than one action is present
-								<Inline role={actionsArray.length > 1 ? 'listitem' : undefined} key={id}>
-									{action}
-								</Inline>
-							))}
-						</Inline>
-					)}
-				</Stack>
-				{isDismissible && (
-					<div css={sectionMessageStyles.dismissButtonContainer}>
-						<IconButton
-							testId={testId && `${testId}--dismiss-button`}
-							label="Dismiss"
-							icon={CrossIcon}
-							appearance="subtle"
-							onClick={handleDismiss}
-							spacing="compact"
+		return isDismissible && dismissed ? null : (
+			<section
+				data-testid={testId}
+				ref={ref}
+				css={[sectionMessageStyles.container, appearanceStyles[appearance]]}
+			>
+				<Inline space="space.200" alignBlock="stretch">
+					<div css={sectionMessageStyles.iconContainer}>
+						<Icon
+							size="medium"
+							primaryColor={primaryColor}
+							secondaryColor={secondaryColor}
+							// props for new icon
+							color={primaryColor}
+							spacing="spacious"
 						/>
 					</div>
-				)}
-			</Inline>
-		</section>
-	);
-});
+					<Stack
+						space="space.100"
+						testId={testId && `${testId}--content`}
+						xcss={sectionMessageStyles.contentContainer}
+					>
+						{!!title && (
+							<Heading as={headingLevel} size="small">
+								{title}
+							</Heading>
+						)}
+						<div css={sectionMessageStyles.content}>{children}</div>
+						{actionsArray.length > 0 && (
+							<Inline
+								shouldWrap
+								testId={testId && `${testId}--actions`}
+								separator="·"
+								space="space.100"
+								rowSpace="space.0"
+								// Only use a list role if more than one action is present
+								role={actionsArray.length > 1 ? 'list' : undefined}
+								xcss={sectionMessageStyles.actionsContainer}
+							>
+								{actionsArray.map((action, id) => (
+									// Only use a listitem role if more than one action is present
+									<Inline role={actionsArray.length > 1 ? 'listitem' : undefined} key={id}>
+										{action}
+									</Inline>
+								))}
+							</Inline>
+						)}
+					</Stack>
+					{isDismissible && (
+						<div css={sectionMessageStyles.dismissButtonContainer}>
+							<IconButton
+								testId={testId && `${testId}--dismiss-button`}
+								label="Dismiss"
+								icon={CrossIcon}
+								appearance="subtle"
+								onClick={handleDismiss}
+								spacing="compact"
+							/>
+						</div>
+					)}
+				</Inline>
+			</section>
+		);
+	},
+);
 
 SectionMessage.displayName = 'SectionMessage';
 

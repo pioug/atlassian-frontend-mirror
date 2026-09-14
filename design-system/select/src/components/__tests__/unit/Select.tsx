@@ -1,21 +1,28 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
-import React from 'react';
+/* eslint-disable testing-library/no-container, testing-library/no-node-access */
+import React, { type ReactNode } from 'react';
 
-import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 import selectEvent from 'react-select-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { act, render, screen, waitFor, within } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { act, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
-import AtlaskitSelect, { components } from '../../../index';
+import AtlaskitSelect from '../../../select';
+import AsyncSelect from '../../../async-select';
+import { CheckboxSelect } from '../../../checkbox-select';
+import { components } from '@atlaskit/react-select/components';
+import CreatableSelect from '../../../creatable-select';
 interface Option {
 	readonly label: string;
 	readonly value: string;
 }
 
 const user = userEvent.setup();
+
+const testId = 'testId';
 
 const OPTIONS = [
 	{ label: '0', value: 'zero' },
@@ -75,17 +82,115 @@ describe('Select', () => {
 	});
 
 	it('should toggle the menu on dropdown indicator click', async () => {
-		render(<AtlaskitSelect classNamePrefix="react-select" label="Options" />);
+		render(<AtlaskitSelect classNamePrefix="react-select" label="Options" testId={testId} />);
 
 		// Menu closed by default
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'false');
 
 		act(() => {
-			selectEvent.openMenu(screen.getByText('Select...'));
+			selectEvent.openMenu(screen.getByTestId(new RegExp(`${testId}.*placeholder`)));
 		});
 
 		// Menu to open
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
+	});
+
+	describe('menu render mode', () => {
+		const popupMenuRenderModes: Array<[string, 'popup' | undefined]> = [
+			['the default', undefined],
+			['popup', 'popup'],
+		];
+
+		// The inline Menu wrapper receives the same ID as MenuList. If the wrapper forwards it,
+		// the combobox's aria-controls value points to two elements with the same listbox ID.
+		it('associates the combobox with exactly one listbox in inline mode', () => {
+			render(<AtlaskitSelect menuRenderMode="inline" options={OPTIONS} label="Assignee" />);
+
+			const combobox = screen.getByRole('combobox');
+			const listbox = screen.getByRole('listbox');
+
+			expect(listbox.id).not.toBe('');
+			expect(combobox).toHaveAttribute('aria-controls', listbox.id);
+			expect(document.querySelectorAll(`[id="${listbox.id}"]`)).toHaveLength(1);
+		});
+
+		it.each(popupMenuRenderModes)(
+			'does not force the menu open in %s mode',
+			(_name, menuRenderMode) => {
+				render(
+					<AtlaskitSelect
+						menuRenderMode={menuRenderMode}
+						menuIsOpen={false}
+						options={OPTIONS}
+						label="Assignee"
+					/>,
+				);
+
+				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+			},
+		);
+
+		type MenuPortalComponent = ({ children }: { children: ReactNode }) => ReactNode;
+		type SelectRenderer = (MenuPortal: MenuPortalComponent) => ReactNode;
+		const selectRenderers: Array<[string, SelectRenderer]> = [
+			[
+				'Select',
+				(MenuPortal) => (
+					<AtlaskitSelect
+						menuRenderMode="inline"
+						menuIsOpen={false}
+						components={{ MenuPortal }}
+						options={OPTIONS}
+						label="Assignee"
+					/>
+				),
+			],
+			[
+				'AsyncSelect',
+				(MenuPortal) => (
+					<AsyncSelect
+						menuRenderMode="inline"
+						menuIsOpen={false}
+						components={{ MenuPortal }}
+						options={OPTIONS}
+						label="Assignee"
+					/>
+				),
+			],
+			[
+				'CreatableSelect',
+				(MenuPortal) => (
+					<CreatableSelect
+						menuRenderMode="inline"
+						menuIsOpen={false}
+						components={{ MenuPortal }}
+						options={OPTIONS}
+						label="Assignee"
+					/>
+				),
+			],
+			[
+				'CheckboxSelect',
+				(MenuPortal) => (
+					<CheckboxSelect
+						menuRenderMode="inline"
+						menuIsOpen={false}
+						components={{ MenuPortal }}
+						options={OPTIONS}
+						label="Assignee"
+					/>
+				),
+			],
+		];
+
+		it.each(selectRenderers)('applies persistent inline rendering to %s', (_name, renderSelect) => {
+			const MenuPortal = jest.fn(({ children }: { children: ReactNode }) => children);
+
+			render(renderSelect(MenuPortal));
+
+			expect(screen.getByRole('listbox')).toBeInTheDocument();
+			expect(MenuPortal).not.toHaveBeenCalled();
+		});
 	});
 
 	describe('single value select', () => {
@@ -238,6 +343,49 @@ describe('Select', () => {
 
 			expect(clearIcons.length).toBe(2);
 		});
+
+		it('should apply motion to tag-like custom values added and removed through Select', () => {
+			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+			passGate('platform-dst-motion-uplift-labels');
+			const { container } = render(
+				<AtlaskitSelect
+					classNamePrefix="react-select"
+					formatOptionLabel={(option: Option, meta) =>
+						meta.context === 'value' ? <span>{option.label}</span> : option.label
+					}
+					isMulti
+					label="Options"
+					options={OPTIONS}
+				/>,
+			);
+
+			act(() => {
+				selectEvent.openMenu(screen.getByRole('combobox'));
+			});
+			act(() => {
+				screen.getByRole('option', { name: OPTIONS[0].label }).click();
+			});
+
+			const tagLikeValue = container.querySelector<HTMLElement>(
+				'[data-multi-value-tag-like="true"]',
+			);
+			expect(tagLikeValue).toHaveCompiledCss(
+				'animation',
+				'var(--ds-label-enter,.15s cubic-bezier(.4,1,.6,1) ScaleXIn80to100,.15s cubic-bezier(.4,1,.6,1) FadeIn0to100)',
+			);
+			expect(tagLikeValue).toHaveCompiledCss('transform-origin', 'left');
+			const enteringClassName = tagLikeValue?.className;
+
+			act(() => {
+				screen.getByRole('button', { name: `${OPTIONS[0].label}, remove` }).click();
+			});
+
+			const exitingValue = container.querySelector<HTMLElement>(
+				'[data-multi-value-tag-like="true"]',
+			);
+			expect(exitingValue).toBeInTheDocument();
+			expect(exitingValue?.className).not.toBe(enteringClassName);
+		});
 	});
 
 	it('should disable options if isDisabled prop is true', async () => {
@@ -248,10 +396,11 @@ describe('Select', () => {
 				options={OPTIONS}
 				isMulti
 				label="Options"
+				testId={testId}
 			/>,
 		);
 
-		expect(screen.getByText('Select...')).toBeInTheDocument();
+		expect(screen.getByTestId(new RegExp(`${testId}.*placeholder`))).toBeInTheDocument();
 
 		// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
 		const selectControl = container.getElementsByClassName('react-select__control--is-disabled');
@@ -268,11 +417,12 @@ describe('Select', () => {
 				options={OPTIONS}
 				isMulti
 				label="Options"
+				testId={testId}
 			/>,
 		);
 
 		act(() => {
-			selectEvent.openMenu(screen.getByText('Select...'));
+			selectEvent.openMenu(screen.getByTestId(new RegExp(`${testId}.*placeholder`)));
 		});
 
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
@@ -407,10 +557,17 @@ describe('Select', () => {
 	 */
 	it.skip('should call filterOption when input of select is changed', async () => {
 		const filterOptionSpy = jest.fn();
-		render(<AtlaskitSelect options={OPTIONS} filterOption={filterOptionSpy} label="Options" />);
+		render(
+			<AtlaskitSelect
+				options={OPTIONS}
+				filterOption={filterOptionSpy}
+				label="Options"
+				testId={testId}
+			/>,
+		);
 
 		await user.keyboard('5');
-		await user.clear(screen.getByText('Select...'));
+		await user.clear(screen.getByTestId(`${testId}-select--input`));
 		await user.keyboard('1');
 
 		expect(filterOptionSpy).toHaveBeenCalledTimes(2);

@@ -26,7 +26,7 @@ import AddIcon from '@atlaskit/icon/core/add';
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeTypeWithLevel } from '../pm-plugins/decorations-common';
@@ -217,6 +217,14 @@ const getQuickInsertAnchorReference = ({
 	return `anchor(${safeAnchorName} ${edge})`;
 };
 
+/**
+ * Legacy widget-decoration Quick Insert implementation.
+ *
+ * Its behavior is intentionally duplicated by the registry-backed control in
+ * `editor-plugin-quick-insert`. Remove this implementation when
+ * `platform_editor_block_control_migration` is cleaned up; until then this path remains unchanged
+ * for users outside the experiment.
+ */
 export const TypeAheadControl = ({
 	view,
 	api,

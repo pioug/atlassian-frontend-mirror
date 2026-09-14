@@ -1,7 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
 
-import { BackgroundColorYellow, HighlightPadding } from './highlight.fixture';
+import { BackgroundColorYellow, HighlightPadding } from './highlight.fixture.vr.ap';
 
 snapshotInformational(BackgroundColorYellow, {
 	description: 'should overlap highlight with selection',

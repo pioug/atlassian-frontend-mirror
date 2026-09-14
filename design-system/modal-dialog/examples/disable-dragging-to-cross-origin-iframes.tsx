@@ -6,15 +6,15 @@ import { Global } from '@emotion/react';
 import { bindAll } from 'bind-event-listener';
 import invariant from 'tiny-invariant';
 
-import { Code } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
 import { cssMap, cx } from '@atlaskit/css';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import {
 	draggable,
 	dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
-import { dropTargetForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/text-selection/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
+import { dropTargetForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-text-selection';
 import { Box, Flex, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

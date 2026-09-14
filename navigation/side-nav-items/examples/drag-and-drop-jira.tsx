@@ -1,1 +1,1 @@
-export { App as default } from './drag-and-drop/jira/entry';
+export { App as default } from './drag-and-drop/jira/entry.vr.ap';

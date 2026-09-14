@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Dialog } from '@atlaskit/top-layer/dialog';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
 
 export default function TestingFocusReturn(): React.ReactNode {
 	const [isOpen, setIsOpen] = useState(false);

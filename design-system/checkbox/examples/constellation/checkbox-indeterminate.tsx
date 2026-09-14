@@ -4,7 +4,7 @@
  */
 import { type ChangeEvent, useState } from 'react';
 
-import { Checkbox } from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

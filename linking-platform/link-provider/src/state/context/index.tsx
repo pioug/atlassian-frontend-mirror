@@ -1,59 +1,35 @@
-import React, { useContext, createContext, useMemo } from 'react';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import React, { createContext } from 'react';
+
+import { type ProviderProps } from '../../provider';
+import { SmartCardProvider } from '../../smart-card-provider';
 import { type CardContext } from './types';
-import { SmartCardProvider, type ProviderProps } from '../../provider';
 
 export const SmartCardContext: React.Context<CardContext | undefined> = createContext<
 	CardContext | undefined
 >(undefined);
 
-export function useSmartLinkContext(): CardContext {
-	const context = useContext(SmartCardContext);
-	if (!context) {
-		throw Error('useSmartCard() must be wrapped in <SmartCardProvider>');
-	}
-
-	return context;
-}
-
-export const useSmartCardContext = (): {
-	Provider: React.Provider<CardContext | undefined>;
-	Consumer: React.Consumer<CardContext | undefined>;
-	value: CardContext | undefined;
-} => useContextMemoized(SmartCardContext);
-
-export const EditorSmartCardProviderValueGuard = ({
-	children,
-}: React.PropsWithChildren<{}>): React.JSX.Element | null => {
-	const cardContext = useSmartCardContext();
-
-	if (!cardContext?.value) {
-		return null;
-	}
-	return <>{children}</>;
-};
-
-function useContextMemoized<T>(reactContext: React.Context<T>) {
-	const value = useContext(reactContext);
-	const context = useMemo(
-		() => ({
-			Provider: reactContext.Provider,
-			Consumer: reactContext.Consumer,
-			value,
-		}),
-		[value, reactContext],
-	);
-	return context;
-}
-
-export const EditorSmartCardProvider = ({
-	children,
-}: React.PropsWithChildren<{}>): React.JSX.Element => {
-	const cardContext = useSmartCardContext();
-	const Provider = cardContext.Provider;
-
-	return <Provider value={cardContext.value}>{children}</Provider>;
-};
-
-export { SmartCardProvider };
 export type { ProviderProps, CardContext };
+
 export default SmartCardContext;
+
+/**
+ * @deprecated Use `import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider'` instead.
+ */
+export { SmartCardProvider };
+/**
+ * @deprecated Use `import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context'` instead.
+ */
+export { useSmartLinkContext } from './useSmartLinkContext';
+/**
+ * @deprecated Use `import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context'` instead.
+ */
+export { useSmartCardContext } from './useSmartCardContext';
+/**
+ * @deprecated Use `import { EditorSmartCardProviderValueGuard } from '@atlaskit/link-provider/editor-smart-card-provider-value-guard'` instead.
+ */
+export { EditorSmartCardProviderValueGuard } from './EditorSmartCardProviderValueGuard';
+/**
+ * @deprecated Use `import { EditorSmartCardProvider } from '@atlaskit/link-provider/editor-smart-card-provider'` instead.
+ */
+export { EditorSmartCardProvider } from './EditorSmartCardProvider';

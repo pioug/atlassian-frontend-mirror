@@ -16,7 +16,7 @@ export const onboardingWithMotion: MigrationGuide = {
 			description:
 				'Replace SpotlightTransition with FadeIn from @atlaskit/motion wrapped around the SpotlightCard',
 			before: `import React, { useState } from 'react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import {
   Spotlight,
   SpotlightManager,
@@ -60,23 +60,21 @@ const OnboardingSpotlightWithTransition = () => {
   );
 };`,
 			after: `import React, { useState } from 'react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { FadeIn } from '@atlaskit/motion';
 import { Text } from '@atlaskit/primitives/compiled';
-import {
-  PopoverContent,
-  PopoverProvider,
-  PopoverTarget,
-  SpotlightActions,
-  SpotlightBody,
-  SpotlightCard,
-  SpotlightControls,
-  SpotlightDismissControl,
-  SpotlightFooter,
-  SpotlightHeader,
-  SpotlightHeadline,
-  SpotlightPrimaryAction,
-} from '@atlaskit/spotlight';
+import { PopoverContent } from '@atlaskit/spotlight/popover-content';
+import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
+import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
+import { SpotlightActions } from '@atlaskit/spotlight/actions';
+import { SpotlightBody } from '@atlaskit/spotlight/body';
+import { SpotlightCard } from '@atlaskit/spotlight/card';
+import { SpotlightControls } from '@atlaskit/spotlight/controls';
+import { SpotlightDismissControl } from '@atlaskit/spotlight/dismiss-control';
+import { SpotlightFooter } from '@atlaskit/spotlight/footer';
+import { SpotlightHeader } from '@atlaskit/spotlight/header';
+import { SpotlightHeadline } from '@atlaskit/spotlight/headline';
+import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
 
 const SpotlightWithMotion = () => {
   const [isVisible, setIsVisible] = useState(false);

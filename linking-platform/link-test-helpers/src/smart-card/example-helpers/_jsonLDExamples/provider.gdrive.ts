@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 export const GoogleDocUrl =
 	'https://docs.google.com/document/d/1MbN3KKm5Ih6QDeejgrduvrXeadEQGcINPK8Vz3vgGlc/edit?usp=sharing';

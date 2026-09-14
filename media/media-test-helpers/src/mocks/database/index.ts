@@ -1,8 +1,8 @@
 import { Database } from 'kakapo';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
-import { type ClientBasedAuth } from '@atlaskit/media-core';
+import type { ClientBasedAuth } from '@atlaskit/media-core/auth';
 
 import { createCollection, type MediaCollection } from './collection';
 import { type CollectionItem, createCollectionItem } from './collection-item';

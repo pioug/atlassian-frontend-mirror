@@ -24,7 +24,7 @@ const featureFlag = 'platform-dst-top-layer';
 
 test.describe('Popper: top-layer FF-on a11y contract', () => {
 	test('renders the popper surface visibly', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
+		await page.visitExample<typeof import('../../../examples/00-basic-positioning.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'basic-positioning',
@@ -36,7 +36,7 @@ test.describe('Popper: top-layer FF-on a11y contract', () => {
 	});
 
 	test('does not move focus to the popper surface on mount', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
+		await page.visitExample<typeof import('../../../examples/00-basic-positioning.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'basic-positioning',
@@ -54,7 +54,7 @@ test.describe('Popper: top-layer FF-on a11y contract', () => {
 	});
 
 	test('does not intercept the Escape key', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
+		await page.visitExample<typeof import('../../../examples/00-basic-positioning.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'basic-positioning',
@@ -70,7 +70,7 @@ test.describe('Popper: top-layer FF-on a11y contract', () => {
 	});
 
 	test('does not leak aria-hidden onto the reference element', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
+		await page.visitExample<typeof import('../../../examples/00-basic-positioning.vr.ap.tsx')>(
 			'design-system',
 			'popper',
 			'basic-positioning',

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2bf4732a418598faff0fcffc57f4a7b7>>
+ * @codegen <<SignedSource::63fefb474a17431066ee9558be2867d5>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,12 +20,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * A temporary component to represent the icon for Opsgenie.
  * @deprecated This component has been replaced by the component `OpsgenieIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * Please migrate any usages of this temporary component.
  *
  */
 export function OpsgenieIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Opsgenie',
 	testId,

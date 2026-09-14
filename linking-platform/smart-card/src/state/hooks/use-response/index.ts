@@ -1,25 +1,24 @@
 import { useCallback, useMemo } from 'react';
-
 import { unstable_batchedUpdates } from 'react-dom';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import {
 	ACTION_ERROR,
 	ACTION_ERROR_FALLBACK,
 	ACTION_RELOADING,
 	ACTION_RESOLVED,
 	ACTION_UPDATE_METADATA_STATUS,
-	APIError,
 	cardAction,
-	type CardState,
-	getStatus,
-	type MetadataStatus,
-} from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+} from '@atlaskit/linking-common/actions';
+import type { CardState } from '@atlaskit/linking-common/store';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
+import type { MetadataStatus } from '@atlaskit/linking-common/types';
+import { APIError } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SmartLinkStatus } from '../../../constants';
-import { getUnauthorizedJsonLd } from '../../../utils/jsonld';
+import { getUnauthorizedJsonLd } from '../../../utils/get-unauthorized-json-ld';
 import {
 	ERROR_MESSAGE_FATAL,
 	ERROR_MESSAGE_METADATA,

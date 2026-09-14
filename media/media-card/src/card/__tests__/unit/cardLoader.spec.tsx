@@ -1,3 +1,4 @@
+jest.mock('../../CardBase');
 jest.mock('../../card');
 jest.mock('../../cardWithMediaClient', () => ({
 	__esModule: true,
@@ -13,7 +14,7 @@ import CardLoader from '../../cardLoader';
 const mediaClient = fakeMediaClient();
 
 jest.mock('@atlaskit/media-common', () => ({
-	...jest.requireActual<Object>('@atlaskit/media-common'),
+	...jest.requireActual<object>('@atlaskit/media-common'),
 }));
 
 const identifier: FileIdentifier = {

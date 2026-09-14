@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "13.2.0",
+	"version": "19.0.0",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,9 +32,17 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-block-controls": "workspace:^",
+		"@atlaskit/editor-plugin-block-menu": "workspace:^",
+		"@atlaskit/editor-plugin-selection": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/status": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -56,42 +64,6 @@
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
 			"type": "boolean"
@@ -100,6 +72,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
+			"type": "boolean"
+		},
+		"platform_editor_status_popup_suggestions_patch_1": {
 			"type": "boolean"
 		}
 	}

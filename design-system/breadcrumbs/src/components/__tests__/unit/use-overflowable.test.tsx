@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { renderHook } from '@atlassian/testing-library';
 
 import useOverflowable from '../../internal/use-overflowable';
 
@@ -10,7 +10,7 @@ describe('#useOverflowable', () => {
 
 		const utils = renderHook(() => useOverflowable(truncationWidth, ref, iconWidthAllowance));
 
-		const [hasOverflow, showTooltip] = utils.result.current;
+		const [hasOverflow, showTooltip] = utils.current;
 		expect(hasOverflow).toBe(true);
 		expect(showTooltip).toBe(true);
 	});
@@ -22,7 +22,7 @@ describe('#useOverflowable', () => {
 
 		const utils = renderHook(() => useOverflowable(truncationWidth, ref, iconWidthAllowance));
 
-		const [hasOverflow, showTooltip] = utils.result.current;
+		const [hasOverflow, showTooltip] = utils.current;
 		expect(hasOverflow).toBe(false);
 		expect(showTooltip).toBe(true);
 	});
@@ -34,7 +34,7 @@ describe('#useOverflowable', () => {
 
 		const utils = renderHook(() => useOverflowable(truncationWidth, ref, iconWidthAllowance));
 
-		const [hasOverflow, showTooltip] = utils.result.current;
+		const [hasOverflow, showTooltip] = utils.current;
 		expect(hasOverflow).toBe(false);
 		expect(showTooltip).toBe(false);
 	});
@@ -46,7 +46,7 @@ describe('#useOverflowable', () => {
 
 		const utils = renderHook(() => useOverflowable(truncationWidth, ref, iconWidthAllowance));
 
-		const [hasOverflow, showTooltip] = utils.result.current;
+		const [hasOverflow, showTooltip] = utils.current;
 		expect(hasOverflow).toBe(false);
 		expect(showTooltip).toBe(false);
 	});
@@ -58,8 +58,8 @@ describe('#useOverflowable', () => {
 
 		const utils = renderHook(() => useOverflowable(truncationWidth, ref, iconWidthAllowance));
 
-		let hasOverflow = utils.result.current[0];
-		let showTooltip = utils.result.current[1];
+		let hasOverflow = utils.current[0];
+		let showTooltip = utils.current[1];
 		expect(hasOverflow).toBe(true);
 		expect(showTooltip).toBe(true);
 
@@ -67,10 +67,10 @@ describe('#useOverflowable', () => {
 		ref = { clientWidth: 270 } as any;
 		iconWidthAllowance = 24;
 
-		utils.rerender();
+		utils.update();
 
-		hasOverflow = utils.result.current[0];
-		showTooltip = utils.result.current[1];
+		hasOverflow = utils.current[0];
+		showTooltip = utils.current[1];
 		expect(hasOverflow).toBe(false);
 		expect(showTooltip).toBe(false);
 	});

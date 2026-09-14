@@ -25,11 +25,13 @@ const createPlugin = ({ initialMode }: { initialMode: ViewMode | undefined }) =>
 			},
 		},
 		props: {
-			attributes: (state): Record<string, string> =>
-				viewModePluginKey.getState(state)?.mode === 'view' &&
-				isExperimentEnabled('platform_editor_viewmode_aria_readonly_a11y')
-					? { 'aria-readonly': 'true' }
-					: {},
+			attributes: (state): Record<string, string> => {
+				const mode = viewModePluginKey.getState(state)?.mode ?? initialMode ?? 'edit';
+				const ariaReadonly =
+					mode === 'view' && isExperimentEnabled('platform_editor_viewmode_aria_readonly_a11y');
+
+				return ariaReadonly ? { 'aria-readonly': 'true' } : {};
+			},
 			// If we set to undefined it respects the previous value.
 			// Prosemirror doesn't have this typed correctly for this type of behaviour
 			// We will fast-follow to consolidate the logic with `editor-disabled` so we don't

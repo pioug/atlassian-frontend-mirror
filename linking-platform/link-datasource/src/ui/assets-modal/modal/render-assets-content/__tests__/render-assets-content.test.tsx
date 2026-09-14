@@ -3,9 +3,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 
-import { DatasourceExperienceIdProvider } from '../../../../../contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { RenderAssetsContent, type RenderAssetsContentProps } from '../index';
 
 describe('AssetsConfigModal', () => {

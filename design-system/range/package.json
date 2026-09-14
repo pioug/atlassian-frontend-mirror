@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/range",
-	"version": "11.1.1",
+	"version": "12.2.2",
 	"description": "A range lets users choose an approximate value on a slider.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -57,45 +57,21 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"lodash": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled",
-				"static"
-			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		}
-	},
 	"homepage": "https://atlassian.design/components/range/",
 	"exports": {
 		".": "./src/index.tsx",
-		"./range": "./src/entry-points/range.tsx",
-		"./styled": "./src/entry-points/styled.tsx"
+		"./range": "./src/range.tsx",
+		"./styled": "./src/styled.tsx"
 	}
 }

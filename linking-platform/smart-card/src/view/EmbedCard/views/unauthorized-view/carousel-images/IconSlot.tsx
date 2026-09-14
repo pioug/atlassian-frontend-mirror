@@ -5,10 +5,12 @@
 import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
 const iconSlotDivStyles = css({
 	width: '100%',
 	height: '100%',
+	borderRadius: token('radius.small'),
 	overflow: 'hidden',
 	display: 'flex',
 	alignItems: 'center',

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { FadeIn } from '@atlaskit/motion';
+import Button from '@atlaskit/button/default/button';
+import FadeIn from '@atlaskit/motion/fade-in';
 
-import { Block, Centered, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { Centered, RetryContainer } from './utils/containers';
 
 export default (): React.JSX.Element => {
 	const directions = [

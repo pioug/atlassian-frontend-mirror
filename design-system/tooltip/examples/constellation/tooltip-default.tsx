@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Inline } from '@atlaskit/primitives/compiled';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 export default function TooltipDefaultExample(): React.JSX.Element {
 	return (

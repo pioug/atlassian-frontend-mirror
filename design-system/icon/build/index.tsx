@@ -33,7 +33,7 @@ async function main() {
 		maxHeight: 24,
 		glob: '**/*.svg',
 		packageName: '@atlaskit/icon',
-		baseIconEntryPoint: '@atlaskit/icon/base-new',
+		baseIconEntryPoint: '@atlaskit/icon/components/icon-new',
 		metadata: coreIconMetadata,
 	};
 

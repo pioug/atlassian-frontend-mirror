@@ -2,17 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
-import React, { useRef } from 'react';
-import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
-import { EditorView, lineNumbers, gutters } from '@codemirror/view';
-import { Compartment, EditorState } from '@codemirror/state';
-import { languages } from '@codemirror/language-data';
-import { syntaxHighlighting } from '@codemirror/language';
-import { token } from '@atlaskit/tokens';
-import { cmTheme, highlightStyle } from './theme';
 
-import { type MediaViewerError } from '../../../errors';
+import React, { useRef } from 'react';
+
+import { syntaxHighlighting } from '@codemirror/language';
+import { languages } from '@codemirror/language-data';
+import { Compartment, EditorState } from '@codemirror/state';
+import { EditorView, lineNumbers, gutters } from '@codemirror/view';
+import { jsx, css } from '@compiled/react';
+
+import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
+import { token } from '@atlaskit/tokens';
+
+import type { MediaViewerError } from '../../../MediaViewerError';
+import { cmTheme, highlightStyle } from './theme';
 
 export type Props = {
 	item: Exclude<FileState, ErrorFileState>;

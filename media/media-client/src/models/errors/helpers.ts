@@ -1,19 +1,11 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export type { MediaClientError, MediaClientErrorReason } from './types';
 
-import { type MediaClientError, type MediaClientErrorReason } from './types';
-
-export function isMediaClientError(error: any): error is MediaClientError<{
-	reason: MediaClientErrorReason;
-}> {
-	return (
-		error instanceof Object &&
-		'attributes' in error &&
-		error.attributes instanceof Object &&
-		'reason' in error.attributes &&
-		error instanceof Error
-	);
-}
-
-export function getMediaClientErrorReason(err: Error): MediaClientErrorReason | 'unknown' {
-	return isMediaClientError(err) ? err.attributes.reason : 'unknown';
-}
+/**
+ * @deprecated Use `import { isMediaClientError } from '@atlaskit/media-client/errors'` instead.
+ */
+export { isMediaClientError } from './isMediaClientError';
+/**
+ * @deprecated Use `import { getMediaClientErrorReason } from '@atlaskit/media-client/errors'` instead.
+ */
+export { getMediaClientErrorReason } from './getMediaClientErrorReason';

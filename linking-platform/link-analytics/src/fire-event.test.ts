@@ -1,6 +1,6 @@
 import { type DatasourceDataResponse } from '@atlaskit/linking-types/datasource';
 
-import { fireDatasourceEvent } from './fire-event';
+import { fireDatasourceEvent } from './fire-datasource-event';
 
 const analyticsFire = jest.fn();
 const createAnalyticsEvent = jest.fn().mockReturnValue({

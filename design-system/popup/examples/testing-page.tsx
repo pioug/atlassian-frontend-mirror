@@ -1,12 +1,12 @@
 import React, { type FC, type ReactNode, useState } from 'react';
 
 import Banner from '@atlaskit/banner';
-import Button from '@atlaskit/button/new';
-import { Code } from '@atlaskit/code';
+import Button from '@atlaskit/button/default/button';
+import Code from '@atlaskit/code/code';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

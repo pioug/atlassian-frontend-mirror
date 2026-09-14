@@ -7,21 +7,15 @@ import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import type { SelectOption } from '@atlaskit/editor-common/types';
 import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import {
-	PopupSelect,
-	components,
-	type GroupProps,
-	type OptionProps,
-	type PopupSelectProps,
-	type ValueType,
-} from '@atlaskit/select';
+import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
+import { components } from '@atlaskit/react-select/components';
+import type { GroupProps, OptionProps, ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -73,12 +67,6 @@ const styles = cssMap({
 				content: 'none',
 			},
 		},
-	},
-
-	legacyTriggerTextOverflow: {
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
 	},
 });
 
@@ -195,11 +183,7 @@ export const LanguagePicker = ({
 				? 'search'
 				: (option.selectionSource ?? 'all');
 
-			if (fg('platform_editor_code_block_ga_patch_1')) {
-				onSelection(option, selectionSource, interactionMethodRef.current);
-			} else {
-				onSelection(option, selectionSource);
-			}
+			onSelection(option, selectionSource, interactionMethodRef.current);
 		},
 		[onSelection],
 	);
@@ -223,22 +207,12 @@ export const LanguagePicker = ({
 		setLockedPopperPlacement(undefined);
 		onMenuOpen?.();
 	}, [onMenuOpen]);
-	const handleTriggerMouseDown = useCallback((event: React.MouseEvent<HTMLElement>) => {
-		// PopupSelect's FocusLock returns focus to the element that was focused before the
-		// picker opened. If that is the editor/code block, closing the picker can scroll the
-		// whole code block into view. Focus the trigger first without scrolling so FocusLock
-		// returns to the trigger; see CodeBlockLanguagePicker's handleSelection for restoring
-		// editor focus.
-		focusWithoutScrolling(event.currentTarget);
-	}, []);
 	const handleTriggerMouseUp = useCallback((event: React.MouseEvent<HTMLElement>) => {
-		if (fg('platform_editor_code_block_ga_patch_1')) {
-			interactionMethodRef.current = 'mouse';
-			// Focus the trigger before PopupSelect opens so FocusLock restores focus to the
-			// trigger after a mouse selection. Relying on the button's default mouse focus is too
-			// late here; FocusLock can still remember the code block as the previous focus target.
-			focusWithoutScrolling(event.currentTarget);
-		}
+		interactionMethodRef.current = 'mouse';
+		// Focus the trigger before PopupSelect opens so FocusLock restores focus to the
+		// trigger after a mouse selection. Relying on the button's default mouse focus is too
+		// late here; FocusLock can still remember the code block as the previous focus target.
+		focusWithoutScrolling(event.currentTarget);
 	}, []);
 	const handleTriggerKeyDownCapture = useCallback(() => {
 		interactionMethodRef.current = 'keyboard';
@@ -252,43 +226,27 @@ export const LanguagePicker = ({
 			'aria-expanded': ariaExpanded,
 			'aria-haspopup': ariaHasPopup,
 		}: PopupSelectTargetProps) => (
-			<div
-				css={[
-					styles.trigger,
-					!fg('platform_editor_code_block_ga_patch_1') && styles.legacyTriggerTextOverflow,
-				]}
-			>
+			<div css={styles.trigger}>
 				<Button
 					spacing={triggerSpacing}
 					shouldFitContainer
-					onMouseDown={
-						fg('platform_editor_code_block_ga_patch_1') ? undefined : handleTriggerMouseDown
-					}
-					onMouseUp={fg('platform_editor_code_block_ga_patch_1') ? handleTriggerMouseUp : undefined}
-					onKeyDownCapture={
-						fg('platform_editor_code_block_ga_patch_1') ? handleTriggerKeyDownCapture : undefined
-					}
+					onMouseUp={handleTriggerMouseUp}
+					onKeyDownCapture={handleTriggerKeyDownCapture}
 					onKeyDown={onKeyDown}
 					ref={ref}
 					iconAfter={ChevronDownIcon}
 					appearance="subtle"
 					isSelected={isOpen}
 					aria-controls={ariaControls}
-					aria-expanded={fg('platform_editor_code_block_ga_patch_1') ? ariaExpanded : undefined}
-					aria-haspopup={fg('platform_editor_code_block_ga_patch_1') ? ariaHasPopup : undefined}
+					aria-expanded={ariaExpanded}
+					aria-haspopup={ariaHasPopup}
 					testId="code-block-language-picker-trigger"
 				>
 					{label}
 				</Button>
 			</div>
 		),
-		[
-			label,
-			triggerSpacing,
-			handleTriggerMouseDown,
-			handleTriggerMouseUp,
-			handleTriggerKeyDownCapture,
-		],
+		[label, triggerSpacing, handleTriggerMouseUp, handleTriggerKeyDownCapture],
 	);
 
 	return (

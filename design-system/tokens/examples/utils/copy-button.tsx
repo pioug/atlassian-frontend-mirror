@@ -6,9 +6,9 @@ import { useLayoutEffect, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const copyMessages = {
 	prompt: 'Copy to clipboard',

@@ -1,27 +1,25 @@
-import './card-states.card.test.mock';
-import '@atlaskit/link-test-helpers/jest';
-
 import React from 'react';
 
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	type CardClient,
-	type CardProviderStoreOpts,
-	SmartCardProvider as Provider,
-} from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type CardClient from '@atlaskit/link-provider/client';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import '@atlaskit/link-test-helpers/jest';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
-import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mockGenerator, mocks } from '../../../utils/mocks';
 import { getIsDataExportEnabled } from '../../../utils/should-data-export';
 import { Card } from '../../Card';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
+import './card-states.card.test.mock';
 
 const mockUrl = 'https://some.url';
 
@@ -178,95 +176,43 @@ describe('smart-card: card states, block', () => {
 			},
 		);
 
-		eeTest.describe('platform_editor_preview_panel_linking_exp', 'is enabled').variant(true, () => {
-			it('does not delegate the click to the preview panel handler if disablePreviewPanel set', async () => {
-				const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
-				const openPreviewPanel = jest.fn();
+		it('does not delegate the click to the preview panel handler if disablePreviewPanel set', async () => {
+			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const openPreviewPanel = jest.fn();
 
-				render(
-					<FabricAnalyticsListeners client={mockAnalyticsClient}>
-						<IntlProvider locale="en">
-							<Provider
-								client={mockClient}
-								isPreviewPanelAvailable={isPreviewPanelAvailable}
-								openPreviewPanel={openPreviewPanel}
-							>
-								<Card appearance="block" url={mockUrl} id="some-id" disablePreviewPanel={true} />
-							</Provider>
-						</IntlProvider>
-					</FabricAnalyticsListeners>,
-				);
-				await screen.findByText('I love cheese');
-				await screen.findByText('Here is your serving of cheese: 🧀');
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider
+							client={mockClient}
+							isPreviewPanelAvailable={isPreviewPanelAvailable}
+							openPreviewPanel={openPreviewPanel}
+						>
+							<Card appearance="block" url={mockUrl} id="some-id" disablePreviewPanel={true} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+			await screen.findByText('I love cheese');
+			await screen.findByText('Here is your serving of cheese: 🧀');
 
-				const link = screen.getByRole('link');
-				await userEvent.click(link);
+			const link = screen.getByRole('link');
+			await userEvent.click(link);
 
-				expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
-					ari: 'ari:cloud:example:1234',
-				});
-				expect(openPreviewPanel).not.toHaveBeenCalled();
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'clicked',
-						actionSubject: 'link',
-						attributes: expect.objectContaining({
-							clickOutcome: 'clickThrough',
-						}),
+			expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
+				ari: 'ari:cloud:example:1234',
+			});
+			expect(openPreviewPanel).not.toHaveBeenCalled();
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'link',
+					attributes: expect.objectContaining({
+						clickOutcome: 'clickThrough',
 					}),
-				);
-			});
+				}),
+			);
 		});
-
-		eeTest
-			.describe('platform_editor_preview_panel_linking_exp', 'is disabled')
-			.variant(false, () => {
-				it('delegate the click to the preview panel handler event if disablePreviewPanel set', async () => {
-					const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
-					const openPreviewPanel = jest.fn();
-
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider
-									client={mockClient}
-									isPreviewPanelAvailable={isPreviewPanelAvailable}
-									openPreviewPanel={openPreviewPanel}
-								>
-									<Card appearance="block" url={mockUrl} id="some-id" disablePreviewPanel={true} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-					await screen.findByText('I love cheese');
-					await screen.findByText('Here is your serving of cheese: 🧀');
-
-					const link = screen.getByRole('link');
-					await userEvent.click(link);
-
-					expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
-						ari: 'ari:cloud:example:1234',
-					});
-					expect(openPreviewPanel).toHaveBeenCalledWith({
-						ari: 'ari:cloud:example:1234',
-						url: mockUrl,
-						name: 'I love cheese',
-						iconUrl: 'https://www.ilovecheese.com/icon.png',
-						panelData: {
-							embedUrl: undefined,
-						},
-					});
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'link',
-							attributes: expect.objectContaining({
-								clickOutcome: 'previewPanel',
-							}),
-						}),
-					);
-				});
-			});
 
 		it('does not delegate the click to the preview panel handler if the object type is not supported as a preview panel', async () => {
 			window.open = jest.fn();

@@ -1,10 +1,9 @@
-import {
-	isPathBasedEnabled,
-	mapToPathBasedUrl,
-	mapRetryUrlToPathBasedUrl,
-} from '../../pathBasedUrl';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import getDocument from '../../getDocument';
+import { isPathBasedEnabled } from '../../isPathBasedEnabled';
+import { mapRetryUrlToPathBasedUrl } from '../../mapRetryUrlToPathBasedUrl';
+import { mapToPathBasedUrl } from '../../mapToPathBasedUrl';
 
 jest.mock('../../getDocument');
 

@@ -1,12 +1,12 @@
-import { isConfluenceGenerator } from '@atlaskit/link-extractors';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { isConfluenceGenerator } from '@atlaskit/link-extractors/is-confluence-generator';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen } from '@atlassian/testing-library';
 
 import { TEST_URL } from '../../__mocks__/jsonld';
 import { withIntl } from '../../__mocks__/withIntl';
 import { extractIconFromDocument } from '../extractIconFromDocument';
 
-jest.mock('@atlaskit/link-extractors');
+jest.mock('@atlaskit/link-extractors/is-confluence-generator');
 
 beforeEach(() => {
 	jest.mocked(isConfluenceGenerator).mockReturnValue(false);

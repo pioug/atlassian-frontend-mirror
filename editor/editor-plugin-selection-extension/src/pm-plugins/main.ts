@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 import {

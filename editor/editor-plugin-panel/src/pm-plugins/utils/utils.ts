@@ -1,5 +1,5 @@
-import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { PanelType } from '@atlaskit/adf-schema';
+import type { PanelAttributes } from '@atlaskit/adf-schema/panel';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import type { DOMOutputSpec, NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -11,7 +11,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DomPanelAtrrs } from '../../panelPluginType';
@@ -62,18 +62,11 @@ export const panelAttrsToDom = (
 		// masking elements (sticky-header mask, column-controls wrapper) blend with
 		// the custom panel background instead of showing opaque white.
 		`${isCustomPanelWithColor && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `${akEditorTableContainerBg}: ${panelBackgroundColor};` : ''}`,
-		`${
-			!hasIcon && !fg('platform_editor_nested_dnd_styles_changes')
-				? `padding-left: 12px;padding-right: 12px;`
-				: ''
-		}`,
 	].join('');
 
 	let panelAttrs: DomPanelAtrrs = {
 		class: `${PanelSharedCssClassName.prefix}${
-			!hasIcon && fg('platform_editor_nested_dnd_styles_changes')
-				? ` ${PanelSharedCssClassName.noIcon}`
-				: ''
+			!hasIcon ? ` ${PanelSharedCssClassName.noIcon}` : ''
 		}`,
 		'data-panel-type': panelType || PanelType.INFO,
 		'data-testid': 'panel-node-view',

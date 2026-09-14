@@ -56,7 +56,10 @@ const documentation: ComponentStructuredContentSource[] = [
 				name: 'Expandable menu - non-selectable top-level',
 				description:
 					'A non-selectable expandable menu button for a top-level section (e.g., Projects) with Starred and Recent groups, a directory link, and a flyout for overflow items.',
-				source: path.resolve(packagePath, './examples/expandable-menu-item.tsx'),
+				source: path.resolve(
+					packagePath,
+					'./examples/docs/expandable-menu-item-default-variant.tsx',
+				),
 			},
 			{
 				name: 'Expandable menu - selectable with landing page',

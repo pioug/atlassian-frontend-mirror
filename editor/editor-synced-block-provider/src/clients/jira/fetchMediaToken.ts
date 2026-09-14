@@ -3,6 +3,8 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import { fetchWithRetry } from '../../utils/retry';
 import type { TokenData } from '../confluence/fetchMediaToken';
 
+import { getJiraIssueAriFromSourceAri } from './ari';
+
 const COMMON_HEADERS = {
 	'Content-Type': 'application/json',
 	Accept: 'application/json',
@@ -84,11 +86,12 @@ const getJiraMediaReadToken = async (issueAri: string): Promise<GetJiraMediaRead
  * Fetches a media read token for a Jira issue, to allow media uploaded to Jira
  * to be rendered in cross-product synced block references (e.g. in Confluence).
  *
- * @param issueAri - the Jira issue ARI (e.g. ari:cloud:jira:{cloudId}:issue/{issueId})
+ * @param sourceAri - the Jira issue ARI or field-value source ARI
  * @returns TokenData with token, config (clientId + fileStoreUrl), and optional collectionId
  */
-export const fetchJiraMediaToken = async (issueAri: string): Promise<TokenData> => {
+export const fetchJiraMediaToken = async (sourceAri: string): Promise<TokenData> => {
 	try {
+		const issueAri = getJiraIssueAriFromSourceAri({ ari: sourceAri });
 		const response = await getJiraMediaReadToken(issueAri);
 
 		const mediaReadToken = response.data?.jira?.issueById?.mediaReadToken;

@@ -19,7 +19,7 @@ import { act, fireEvent, screen } from '@atlassian/testing-library';
 
 import { ActionName, ElementName } from '../../../constants';
 import { Card, type CardAppearance } from '../../Card';
-import { TitleBlock } from '../../FlexibleCard/components/blocks';
+import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
 
 import { analyticsTests } from './common/analytics.test-utils';
 import {

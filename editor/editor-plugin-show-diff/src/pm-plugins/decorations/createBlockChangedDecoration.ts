@@ -1,49 +1,139 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
-import type { ColorScheme, DiffType } from '../../showDiffPluginType';
+import type { DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 
 import {
-	standardDecorationMarkerVariable,
-	deletedDecorationMarkerVariable,
-	editingStyleQuoteNode,
-	editingStyleRuleNode,
-	editingStyleCardBlockNode,
-	editingStyleNode,
-	deletedContentStyleNew,
-	deletedStyleQuoteNode,
-	addedCellOverlayStyle,
-	deletedCellOverlayStyle,
-	deletedCellOverlayRoundedStyle,
-} from './colorSchemes/standard';
-import {
-	traditionalDecorationMarkerVariableActive,
-	traditionalDecorationMarkerVariableNew,
-	traditionalDeletedDecorationMarkerVariableActive,
-	traditionalDeletedDecorationMarkerVariableNew,
-	traditionalStyleQuoteNodeActive,
-	traditionalStyleQuoteNodeNew,
-	traditionalStyleRuleNodeActive,
-	traditionalStyleRuleNodeNew,
-	traditionalStyleCardBlockNodeActive,
-	traditionalStyleCardBlockNodeNew,
-	traditionalStyleNodeActive,
-	traditionalStyleNodeNew,
-	getDeletedTraditionalInlineStyle,
-	deletedTraditionalStyleQuoteNode,
-	traditionalAddedCellOverlayStyle,
-	deletedTraditionalCellOverlayStyle,
-	deletedTraditionalCellOverlayRoundedStyle,
-} from './colorSchemes/traditional';
+	buildAddedCellOverlayRoundedStyle,
+	buildAddedCellOverlayStyle,
+	buildDeletedBlockNodeStyle,
+	buildDeletedCellOverlayRoundedStyle,
+	buildDeletedCellOverlayStyle,
+	buildInsertedBlockNodeStyle,
+	type DeletedBlockNodeCategory,
+	type InsertedBlockNodeShape,
+} from './colorSchemes/factory';
+import { colorSchemeRegistry, getLegacyColorScheme } from './colorSchemes/schemes';
+import type { ColorScheme } from './colorSchemes/types';
 import { createBlockIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
+import {
+	type ContributorTagMountContext,
+	createContributorTagWidget,
+} from './createContributorTagWidget';
 import { buildDiffDecorationSpec } from './decorationKeys';
+import {
+	getBlockNodeStyleLegacy,
+	resolveCellOverlayStyleLegacy,
+} from './createBlockChangedDecoration.styles.legacy';
 
 const displayNoneStyle = convertToInlineCss({
 	display: 'none',
 });
+
+const DEFAULT_COLOR_SCHEME: ColorScheme = 'standard';
+
+/** Nodes that carry no decoration styling of their own — layout, lists, text blocks, media groups. */
+const UNSTYLED_NODES = [
+	'mediaSingle',
+	'mediaGroup',
+	'table', // Handle table separately to avoid border issues
+	'tableRow',
+	'paragraph', // Paragraph and heading nodes do not need special styling
+	'heading',
+	'hardBreak',
+	'decisionList',
+	'taskList',
+	'bulletList',
+	'orderedList',
+	'layoutSection',
+];
+
+const CELL_NODES = ['tableCell', 'tableHeader'];
+
+/**
+ * Block nodes that host a contributor tag of their own — those whose whole box reads as one change.
+ * Lists and tables are excluded: they decorate per item and per cell, with no one-tag-per-block
+ * design yet. `blockCard` covers the datasource variant, which is the same node type.
+ */
+const TAGGABLE_BLOCK_NODES: ReadonlySet<string> = new Set([
+	'blockCard',
+	'blockquote',
+	'bodiedExtension',
+	'codeBlock',
+	'embedCard',
+	'expand',
+	'extension',
+	'media',
+	'multiBodiedExtension',
+	'panel',
+	'rule',
+]);
+
+/** Panels, rules and media can also sit in a table cell, which is out of scope for block tags. */
+const isInsideTable = (doc: PMNode, pos: number): boolean =>
+	findParentNodeClosestToPos(doc.resolve(pos), (node) => node.type.name === 'table') !== undefined;
+
+/** Whether this block can host a contributor tag of its own. */
+const canTagBlock = ({
+	diffType,
+	doc,
+	from,
+	name,
+}: {
+	diffType: DiffType | undefined;
+	doc: PMNode | undefined;
+	from: number;
+	name: string;
+}): boolean =>
+	doc !== undefined &&
+	isExtendedEnabled(diffType) &&
+	TAGGABLE_BLOCK_NODES.has(name) &&
+	!isInsideTable(doc, from);
+
+/** Positioning context for the cell overlay widget decorations. */
+const cellPositionStyle = convertToInlineCss({
+	position: 'relative',
+});
+
+const getInsertedBlockNodeShape = (nodeName: string): InsertedBlockNodeShape => {
+	switch (nodeName) {
+		case 'blockquote':
+			return 'quote';
+		case 'rule':
+			return 'rule';
+		case 'blockCard':
+			return 'cardBlock';
+		case 'extension':
+		case 'embedCard':
+		case 'listItem':
+			return 'marker';
+		default:
+			return 'node';
+	}
+};
+
+const getDeletedBlockNodeCategory = (nodeName: string): DeletedBlockNodeCategory => {
+	switch (nodeName) {
+		case 'blockquote':
+			return 'quote';
+		// Media nodes inside mediaSingle should not get position:relative
+		// as it shifts the image outside its parent container (e.g. panel)
+		case 'media':
+		case 'panel':
+			return 'container';
+		case 'listItem':
+			return 'listItem';
+		case 'extension':
+		case 'embedCard':
+			return 'marker';
+		default:
+			return 'generic';
+	}
+};
 
 const getNodeClass = (name: string) => {
 	switch (name) {
@@ -54,7 +144,7 @@ const getNodeClass = (name: string) => {
 	}
 };
 
-const getBlockNodeStyle = ({
+const getBlockNodeStyleNext = ({
 	nodeName,
 	colorScheme,
 	isInserted = true,
@@ -66,162 +156,70 @@ const getBlockNodeStyle = ({
 	isActive?: boolean;
 	isInserted?: boolean;
 	nodeName: string;
-}) => {
-	const isTraditional = colorScheme === 'traditional';
-	if (
-		[
-			'mediaSingle',
-			'mediaGroup',
-			'table', // Handle table separately to avoid border issues
-			'tableRow',
-			'paragraph', // Paragraph and heading nodes do not need special styling
-			'heading',
-			'hardBreak',
-			'decisionList',
-			'taskList',
-			'bulletList',
-			'orderedList',
-			'layoutSection',
-		].includes(nodeName)
-	) {
-		// Layout nodes do not need special styling
+}): string | undefined => {
+	if (UNSTYLED_NODES.includes(nodeName)) {
 		return undefined;
 	}
-	// Media nodes inside mediaSingle should not get position:relative
-	// as it shifts the image outside its parent container (e.g. panel)
-	if (nodeName === 'media') {
-		if (!isInserted && isExtendedEnabled(diffType)) {
-			return isTraditional
-				? getDeletedTraditionalInlineStyle(false)
-				: deletedDecorationMarkerVariable;
-		}
-		return isTraditional
-			? isActive
-				? traditionalStyleNodeActive
-				: traditionalStyleNodeNew
-			: editingStyleNode;
+
+	if (CELL_NODES.includes(nodeName)) {
+		// When the gate is off, cells get no styling — as with UNSTYLED_NODES above.
+		return isExtendedEnabled(diffType) ? cellPositionStyle : undefined;
 	}
-	if (['tableCell', 'tableHeader'].includes(nodeName)) {
-		if (isExtendedEnabled(diffType)) {
-			// This is used for positioning the cell overlay widget decorations
-			return convertToInlineCss({
-				position: 'relative',
+
+	const colors = colorSchemeRegistry[colorScheme ?? DEFAULT_COLOR_SCHEME];
+
+	// Deleted nodes only differ under the extended experience; otherwise all are insertions.
+	if (!isInserted && isExtendedEnabled(diffType)) {
+		return buildDeletedBlockNodeStyle(colors, getDeletedBlockNodeCategory(nodeName), isActive);
+	}
+
+	return buildInsertedBlockNodeStyle(colors, getInsertedBlockNodeShape(nodeName), isActive);
+};
+
+/**
+ * Dispatches to the registry-driven implementation, or to the verbatim pre-refactor one for the
+ * OFF cohort of `platform_editor_show_diff_color_scheme_refactor`. Both are built to emit the
+ * same style strings for both shipped schemes; see EDITOR-8281.
+ */
+const getBlockNodeStyle = (props: {
+	colorScheme?: ColorScheme;
+	diffType?: DiffType;
+	isActive?: boolean;
+	isInserted?: boolean;
+	nodeName: string;
+}): string | undefined => {
+	return isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
+		? getBlockNodeStyleNext(props)
+		: getBlockNodeStyleLegacy({
+				...props,
+				colorScheme: getLegacyColorScheme(props.colorScheme),
 			});
-		}
-		// When gate is off, it should return undefined as above
-		return undefined;
+};
+
+/**
+ * A table cell is "empty" only when it has no content at all — no text AND no
+ * non-text leaf/inline nodes (media, emoji, mention, inlineCard, status, date…).
+ * `textContent` alone misses those non-text nodes, so we also reject any leaf or
+ * inline descendant. An empty ADF cell (`tableCell > empty paragraph`) returns
+ * true; a cell containing only media/emoji returns false.
+ */
+const isCellEmpty = (cellNode: PMNode): boolean => {
+	if (cellNode.textContent.length > 0) {
+		return false;
 	}
-	if (nodeName === 'panel') {
-		if (!isInserted && isExtendedEnabled(diffType)) {
-			return isTraditional
-				? getDeletedTraditionalInlineStyle(false)
-				: deletedDecorationMarkerVariable;
+	let hasNonTextContent = false;
+	cellNode.descendants((node) => {
+		if (hasNonTextContent) {
+			return false;
 		}
-		return isTraditional
-			? isActive
-				? traditionalStyleNodeActive
-				: traditionalStyleNodeNew
-			: editingStyleNode;
-	}
-	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional && isActive
-					? traditionalDecorationMarkerVariableActive
-					: isTraditional
-						? traditionalDecorationMarkerVariableNew
-						: standardDecorationMarkerVariable;
-			} else {
-				if (nodeName === 'listItem') {
-					return isTraditional && isActive
-						? traditionalDeletedDecorationMarkerVariableActive
-						: isTraditional
-							? traditionalDeletedDecorationMarkerVariableNew
-							: deletedDecorationMarkerVariable;
-				}
-				return isTraditional && isActive
-					? traditionalDeletedDecorationMarkerVariableActive
-					: isTraditional
-						? traditionalDeletedDecorationMarkerVariableNew
-						: deletedContentStyleNew;
-			}
+		// A non-text leaf or inline node (media, emoji, mention, etc.) = real content.
+		if (!node.isText && (node.isLeaf || node.isInline)) {
+			hasNonTextContent = true;
+			return false;
 		}
-		return isTraditional && isActive
-			? traditionalDecorationMarkerVariableActive
-			: isTraditional
-				? traditionalDecorationMarkerVariableNew
-				: standardDecorationMarkerVariable;
-	}
-	if (nodeName === 'blockquote') {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional
-					? isActive
-						? traditionalStyleQuoteNodeActive
-						: traditionalStyleQuoteNodeNew
-					: editingStyleQuoteNode;
-			} else {
-				return isTraditional ? deletedTraditionalStyleQuoteNode : deletedStyleQuoteNode;
-			}
-		}
-		return isTraditional
-			? isActive
-				? traditionalStyleQuoteNodeActive
-				: traditionalStyleQuoteNodeNew
-			: editingStyleQuoteNode;
-	}
-	if (nodeName === 'rule') {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional
-					? isActive
-						? traditionalStyleRuleNodeActive
-						: traditionalStyleRuleNodeNew
-					: editingStyleRuleNode;
-			} else {
-				return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
-			}
-		}
-		return isTraditional
-			? isActive
-				? traditionalStyleRuleNodeActive
-				: traditionalStyleRuleNodeNew
-			: editingStyleRuleNode;
-	}
-	if (nodeName === 'blockCard') {
-		if (isExtendedEnabled(diffType)) {
-			if (isInserted) {
-				return isTraditional
-					? isActive
-						? traditionalStyleCardBlockNodeActive
-						: traditionalStyleCardBlockNodeNew
-					: editingStyleCardBlockNode;
-			} else {
-				return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
-			}
-		}
-		return isTraditional
-			? isActive
-				? traditionalStyleCardBlockNodeActive
-				: traditionalStyleCardBlockNodeNew
-			: editingStyleCardBlockNode;
-	}
-	if (isExtendedEnabled(diffType)) {
-		if (isInserted) {
-			return isTraditional
-				? isActive
-					? traditionalStyleNodeActive
-					: traditionalStyleNodeNew
-				: editingStyleNode;
-		} else {
-			return isTraditional ? getDeletedTraditionalInlineStyle(false) : deletedContentStyleNew;
-		}
-	}
-	return isTraditional
-		? isActive
-			? traditionalStyleNodeActive
-			: traditionalStyleNodeNew
-		: editingStyleNode;
+		return true;
+	});
+	return !hasNonTextContent;
 };
 
 /**
@@ -233,15 +231,19 @@ const getBlockNodeStyle = ({
  * @returns Prosemirror node decoration or undefined
  */
 export const createBlockChangedDecoration = ({
+	attributionKey,
 	change,
 	colorScheme,
 	isInserted = true,
 	isActive = false,
 	shouldHideDeleted = false,
+	showContributorTags = false,
 	showIndicators = false,
 	doc,
 	diffType,
+	tagMountContext,
 }: {
+	attributionKey?: string;
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
@@ -249,10 +251,16 @@ export const createBlockChangedDecoration = ({
 	isActive?: boolean;
 	isInserted?: boolean;
 	shouldHideDeleted?: boolean;
+	showContributorTags?: boolean;
 	showIndicators?: boolean;
+	tagMountContext?: ContributorTagMountContext;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
-	const diffId = crypto.randomUUID();
+	// Derived from the node range so it survives a recalculation, as in
+	// `createInlineChangedDecoration`. Changes are disjoint, so no two of them decorate one node.
+	const diffId = showContributorTags ? `block-${change.from}-${change.to}` : crypto.randomUUID();
+	const shouldTagBlock =
+		showContributorTags && canTagBlock({ diffType, doc, from: change.from, name: change.name });
 
 	if (shouldHideDeleted) {
 		return [
@@ -271,28 +279,31 @@ export const createBlockChangedDecoration = ({
 		];
 	}
 
-	let style: string | undefined;
-
-	if (isExtendedEnabled(diffType) && ['tableCell', 'tableHeader'].includes(change.name)) {
+	if (isExtendedEnabled(diffType) && CELL_NODES.includes(change.name)) {
 		const cellOverlay = document.createElement('div');
-		const isTraditional = colorScheme === 'traditional';
-		const isRoundedTable = expValEquals(
-			'platform_editor_table_diff_rounded_corners',
-			'isEnabled',
-			true,
-		);
+		const colors = colorSchemeRegistry[colorScheme ?? DEFAULT_COLOR_SCHEME];
+		const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
 
-		const addedCellStyle = isTraditional ? traditionalAddedCellOverlayStyle : addedCellOverlayStyle;
+		// On an inverted diff, an empty cell being filled is an addition, so give it the
+		// added (purple) overlay instead of the deleted (grey) one (EDITOR-8442).
+		const cellNode = doc?.nodeAt(change.from);
+		const isEmptyCellBeingFilled = !isInserted && !!cellNode && isCellEmpty(cellNode);
+		const useAddedStyle = isInserted || isEmptyCellBeingFilled;
 
-		const deletedCellStyle = isTraditional
-			? isRoundedTable
-				? deletedTraditionalCellOverlayRoundedStyle
-				: deletedTraditionalCellOverlayStyle
-			: isRoundedTable
-				? deletedCellOverlayRoundedStyle
-				: deletedCellOverlayStyle;
+		const cellOverlayStyle = isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
+			? useAddedStyle
+				? isRoundedTable
+					? buildAddedCellOverlayRoundedStyle(colors)
+					: buildAddedCellOverlayStyle(colors)
+				: isRoundedTable
+					? buildDeletedCellOverlayRoundedStyle(colors)
+					: buildDeletedCellOverlayStyle(colors)
+			: resolveCellOverlayStyleLegacy({
+					colorScheme: getLegacyColorScheme(colorScheme),
+					isRoundedTable,
+					useAddedStyle,
+				});
 
-		const cellOverlayStyle = isInserted ? addedCellStyle : deletedCellStyle;
 		cellOverlay.setAttribute('style', cellOverlayStyle);
 		decorations.push(
 			// change.to - 1 to position the overlay inside the end of the cell
@@ -303,17 +314,15 @@ export const createBlockChangedDecoration = ({
 			}),
 		);
 	}
-	if (isExtendedEnabled(diffType)) {
-		style = getBlockNodeStyle({
-			nodeName: change.name,
-			colorScheme,
-			isInserted,
-			isActive,
-			diffType,
-		});
-	} else {
-		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive, diffType });
-	}
+	// isInserted is only read under the extended experience, so pass it unconditionally.
+	const style = getBlockNodeStyle({
+		nodeName: change.name,
+		colorScheme,
+		isInserted,
+		isActive,
+		diffType,
+	});
+
 	const className = getNodeClass(change.name);
 	if (style || className) {
 		decorations.push(
@@ -324,11 +333,16 @@ export const createBlockChangedDecoration = ({
 					style: style,
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
+					// Lets the contributor tag find the block it captions on hover.
+					...(shouldTagBlock && { 'data-diff-id': diffId }),
 				},
 				buildDiffDecorationSpec({
+					attributionKey: shouldTagBlock ? attributionKey : undefined,
+					colorScheme,
 					decorationType: 'block',
 					diffId,
 					isActive,
+					isInserted,
 					nodeName: change.name,
 					diffType,
 				}),
@@ -336,10 +350,32 @@ export const createBlockChangedDecoration = ({
 		);
 	}
 
-	if (decorations.length > 0 && showIndicators && doc && isExtendedEnabled(diffType)) {
+	if (decorations.length === 0) {
+		return decorations;
+	}
+
+	if (showIndicators && doc && isExtendedEnabled(diffType)) {
 		decorations.push(
 			...createBlockIndicatorAnchorWidgets({ doc, from: change.from, to: change.to, diffId }),
 		);
+	}
+
+	// `change.from` is just before the node, so the host sits outside it and the tag renders on the
+	// block's own top-left corner. Resolving inline content instead would put the host inside a
+	// container block's content DOM (panel, expand, blockquote).
+	if (shouldTagBlock && doc) {
+		const tagWidget = createContributorTagWidget({
+			anchorAtRangeStart: true,
+			doc,
+			from: change.from,
+			to: change.to,
+			diffId,
+			mountContext: tagMountContext,
+		});
+
+		if (tagWidget) {
+			decorations.push(tagWidget);
+		}
 	}
 
 	return decorations;

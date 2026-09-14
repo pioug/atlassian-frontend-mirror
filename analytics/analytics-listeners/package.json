@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-listeners",
-	"version": "11.1.0",
+	"version": "11.3.0",
 	"description": "Fabric analytics listeners to be used by the products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -15,10 +15,10 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
 		"./FabricAnalyticsListeners": "./src/FabricAnalyticsListeners.tsx",
 		"./GenericAnalyticsListener": "./src/GenericAnalyticsListener.tsx",
-		"./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
-		"./logger": "./src/entry-points/logger.ts",
+		"./logger": "./src/helpers/logger.ts",
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
@@ -46,6 +46,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@testing-library/react": "root:*",
 		"jest-in-case": "root:*",

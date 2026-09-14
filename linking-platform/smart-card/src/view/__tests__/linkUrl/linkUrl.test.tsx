@@ -2,7 +2,7 @@ import React, { type ComponentProps } from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import {
 	act,
 	createEvent,
@@ -13,7 +13,7 @@ import {
 	userEvent,
 } from '@atlassian/testing-library';
 
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
 import LinkUrl from '../../LinkUrl';
 
 describe('LinkUrl', () => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "7.1.0",
+	"version": "7.3.21",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,6 +28,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-json-transformer": "workspace:^",
+		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/frontend-utilities": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
@@ -56,13 +57,16 @@
 		"issue-link-suggestions-in-comments": {
 			"type": "boolean"
 		},
-		"avp_unfurl_shared_charts_embed_by_default_2": {
-			"type": "boolean"
-		},
 		"platform_smartlink_inline_resolve_optimization": {
 			"type": "boolean"
 		},
+		"platform_avp_viz_dashboard_link_embed": {
+			"type": "boolean"
+		},
 		"loom-support-screenshot-sl-resolution": {
+			"type": "boolean"
+		},
+		"loom-playlist-smartlink-embed-default": {
 			"type": "boolean"
 		},
 		"platform_native_embeds_enable_shortlink_resolution": {

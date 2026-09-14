@@ -3,7 +3,7 @@ import {
 	MediaBorderADF,
 	MediaBorderWithinTableADF,
 	MediaBorderWithLinkADF,
-} from './media-border.fixtures';
+} from './media-border.fixtures.vr.ap';
 
 snapshot(MediaBorderADF, {
 	description: 'should render caption correctly',

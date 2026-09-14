@@ -1,5 +1,523 @@
 # @atlaskit/mention
 
+## 29.0.0
+
+### Major Changes
+
+- [`9cc27b07a28d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cc27b07a28d0) -
+  Change exports to adhere to Volt Component Standards
+
+  Remove default exports from `@atlaskit/mention/mention-resource` and
+  `@atlaskit/mention/presence-resource` Remove `@atlaskit/mention/typeahead`.
+
+  For MentionResource use:
+
+  ```
+  import { MentionResource } from '@atlaskit/mention/mention-resource'
+  ```
+
+  For PresenceResource use:
+
+  ```
+  import { PresenceResource } from '@atlaskit/mention/presence-resource'
+  ```
+
+  For `@atlaskit/mention/typeahead` use:
+
+  ```
+  import { MentionPickerWithAnalytics } from '@atlaskit/mention/mention-picker';
+  ```
+
+## 28.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.0
+
+### Major Changes
+
+- [`c263d4de33054`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c263d4de33054) -
+  Render retryable agent mention load errors in the typeahead menu behind
+  `platform_editor_agent_mentions_rovo_query_timeout`.
+
+## 27.19.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.8
+
+### Patch Changes
+
+- [`5a0128690a065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a0128690a065) -
+  Add mention avatars to Rovo editor and renderer surfaces behind
+  platform_editor_rovo_editor_mention_node_avatar
+
+## 27.19.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+## 27.19.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.19.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.2
+
+### Patch Changes
+
+- [`e7f1b919fb426`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7f1b919fb426) -
+  Keep mention avatars and their error fallback vertically aligned and proportional to surrounding
+  text, including headings, under the `platform_editor_mention_node_avatar` experiment.
+
+## 27.18.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.18.0
+
+### Minor Changes
+
+- [`febe6719dffd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/febe6719dffd4) -
+  Apply Volt multi-export standards via `volt-migrate-package`. `@atlaskit/mention` already resolved
+  its subpaths directly to `./src/*`, so the `exports` map is **unchanged** — all 24 public subpaths
+  keep their existing targets. What changed is the module layout: multi-export modules were split so
+  each shippable module owns a single export (for example `api/AbstractResource.ts`,
+  `api/DefaultMentionNameResolver.ts`, `api/HttpError.ts`, `is-special-mention.ts`,
+  `is-promise.ts`), with `@deprecated` compatibility re-exports left behind on the original module.
+
+  ### No public API was removed
+
+  Every symbol that moved is still exported from the subpath that previously exposed it, so existing
+  imports keep working:
+
+  ```ts
+  // Still valid — no change required, but deprecated
+  import { AbstractMentionResource } from '@atlaskit/mention/resource';
+  ```
+
+  A few subpaths now expose additional symbols as a result of the split:
+  - `./analytics` — `MENTION_ANALYTICS_PREFIX`, `packageName`, `packageVersion`
+  - `./mention-name-resolver` — the `Callback` and `Queue` types
+  - `./presence-resource` — `PresenceResource` as a named export alongside its default
+
+  ### Note for consumers that mock these modules
+
+  Internal cross-module imports now point at the split modules rather than the module that used to
+  declare everything. If your tests `jest.mock()` a `@atlaskit/mention` subpath to intercept a
+  symbol that mention itself consumes internally, the mock may no longer take effect — mock the
+  module that now owns the export instead.
+
+## 27.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.17.0
+
+### Minor Changes
+
+- [`6997a74055219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6997a74055219) -
+  Add profile card on hover in the mentions typeahead for agent mentions
+
+## 27.16.0
+
+### Minor Changes
+
+- [`13e86ff9f1588`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13e86ff9f1588) -
+  [ux] Display avatars for mention nodes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.15.0
+
+### Minor Changes
+
+- [`50992b74009d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50992b74009d1) -
+  Add InlineInvitePopup provider hook, replacing InlineInviteRecaptcha slot
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.14.0
+
+### Minor Changes
+
+- [`e801feda9c00b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e801feda9c00b) -
+  [ux] Add `isAgentMention` to `@atlaskit/mention/types`, and mark agent mention items with a
+  `data-mention-is-agent` attribute for typeahead spotlight targeting.
+  ```ts
+  import { isAgentMention } from '@atlaskit/mention/types';
+  isAgentMention(mention); // true for AGENT userType, or APP with an agent appType
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.13.0
+
+### Minor Changes
+
+- [`0adaa36b0a6bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0adaa36b0a6bc) -
+  Add InlineInvitePopup provider hook, replacing InlineInviteRecaptcha slot
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.7
+
+### Patch Changes
+
+- [`63f19f077a0d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63f19f077a0d1) -
+  Consolidate mention avatar rollout controls under the rovo_chat_mention_agents experiment.
+- Updated dependencies
+
+## 27.12.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.12.2
 
 ### Patch Changes

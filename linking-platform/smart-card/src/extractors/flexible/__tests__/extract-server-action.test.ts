@@ -1,4 +1,4 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { TEST_BASE_DATA } from '../../common/__mocks__/jsonld';
 import extractServerAction from '../extract-server-action';

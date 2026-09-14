@@ -1,4 +1,4 @@
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

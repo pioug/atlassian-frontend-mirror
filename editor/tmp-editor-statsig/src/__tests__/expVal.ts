@@ -1,15 +1,15 @@
-import { expVal, expValNoExposure } from '../expVal';
-
-import { setupEditorExperiments } from '../setup';
-
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
+
+import { expVal } from '../exp-val';
+import { expValNoExposure } from '../exp-val-no-exposure';
+import { setupEditorExperiments } from '../setup';
 
 jest.mock('@atlaskit/react-ufo/feature-flags-accessed', () => ({
 	addFeatureFlagAccessed: jest.fn(),
 }));
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 const mockGetExperimentValue = jest.spyOn(FeatureGates, 'getExperimentValue');
 const mockInitializeCompleted = jest.spyOn(FeatureGates, 'initializeCompleted');
@@ -363,10 +363,9 @@ describe('UFO feature flag reporting (expVal)', () => {
 		jest.clearAllMocks();
 	});
 
-	test('expVal calls addFeatureFlagAccessed when UFO gate is enabled', () => {
+	test('expVal calls addFeatureFlagAccessed', () => {
 		setupEditorExperiments('confluence');
-		// First call: the real experiment value; second call: UFO gate returns true
-		mockGetExperimentValue.mockReturnValueOnce(true).mockReturnValueOnce(true);
+		mockGetExperimentValue.mockReturnValueOnce(true);
 
 		// @ts-expect-error
 		expVal('test-boolean', 'isEnabled', false);
@@ -377,21 +376,22 @@ describe('UFO feature flag reporting (expVal)', () => {
 		);
 	});
 
-	test('expVal does not call addFeatureFlagAccessed when UFO gate is disabled', () => {
+	test('expVal reports false experiment values to addFeatureFlagAccessed', () => {
 		setupEditorExperiments('confluence');
-		// First call: the real experiment value; second call: UFO gate returns false
-		mockGetExperimentValue.mockReturnValueOnce(true).mockReturnValueOnce(false);
+		mockGetExperimentValue.mockReturnValueOnce(false);
 
 		// @ts-expect-error
 		expVal('test-boolean', 'isEnabled', false);
 
-		expect(addFeatureFlagAccessed).not.toHaveBeenCalled();
+		expect(addFeatureFlagAccessed).toHaveBeenCalledWith(
+			'confluence_boolean_example:isEnabled',
+			false,
+		);
 	});
 
-	test('expValNoExposure calls addFeatureFlagAccessed when UFO gate is enabled', () => {
+	test('expValNoExposure calls addFeatureFlagAccessed', () => {
 		setupEditorExperiments('confluence');
-		// First call: the real experiment value; second call: UFO gate returns true
-		mockGetExperimentValue.mockReturnValueOnce(true).mockReturnValueOnce(true);
+		mockGetExperimentValue.mockReturnValueOnce(true);
 
 		// @ts-expect-error
 		expValNoExposure('test-boolean', 'isEnabled', false);

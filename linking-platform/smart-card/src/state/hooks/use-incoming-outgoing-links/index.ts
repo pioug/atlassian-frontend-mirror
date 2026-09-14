@@ -1,10 +1,9 @@
 import { useCallback, useMemo } from 'react';
 
-import { request } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { request } from '@atlaskit/linking-common/api';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { getCurrentSiteCloudId } from '../../services/current-site-cloud-id';
-
+import { getCurrentSiteCloudId } from '../../services/current-site-cloud-id/getCurrentSiteCloudId';
 import { queryIncomingOutgoingLinks as queryIncomingOutgoingAris } from './query';
 
 type Node = {

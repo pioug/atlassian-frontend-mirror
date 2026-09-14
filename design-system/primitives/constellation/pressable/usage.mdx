@@ -111,6 +111,25 @@ motion using base tokens.
 Use the ADS [Button](/components/button/examples) component whenever it supports the customisation
 you need. It includes button motion by default.
 
+### Apply motion to Pressable list items
+
+Pressable has no motion by default. If a custom control looks and acts like a list item, apply
+list-item motion tokens to the properties that change between interaction states.
+
+List-item motion is intended for series of interactive items placed close together, such as
+side-navigation links and menu items. Because users may move across these items quickly, use short,
+snappy transitions to keep the interface responsive.
+
+- Use `motion.listitem.hovered` for normal and hover states (50ms).
+- Use `motion.listitem.pressed` for the pressed (`:active`) state (100ms).
+- Use `motion.listitem.selected` for the selected (`data-selected`) state (100ms).
+- Use `motion.listitem.hovered` for selected hover and `motion.listitem.pressed` for selected
+  active.
+
+Choose the motion family based on how the custom control looks and acts: use button motion for
+buttons, list-item motion for list items, and base motion tokens when neither semantic category
+applies. Do not animate focus indicators; focus feedback should appear immediately.
+
 ### Use pressable for on-page actions, not navigation
 
 Pressable is meant for on-page actions such as opening modals or submitting forms. If you're making

@@ -1,21 +1,19 @@
 import React from 'react';
 
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	extractProvider,
-	extractTitle,
-	extractUrlFromIconJsonLd,
-	type LinkProvider,
-} from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractProvider } from '@atlaskit/link-extractors/extract-provider';
+import { extractTitle } from '@atlaskit/link-extractors/extract-title';
+import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors/extract-url-from-icon-json-ld';
+import type { LinkProvider } from '@atlaskit/link-extractors/types';
 import BranchObject from '@atlaskit/object/branch';
 import CodeObject from '@atlaskit/object/code';
 import CommitObject from '@atlaskit/object/commit';
 import PullRequestObject from '@atlaskit/object/pull-request';
 import TaskObject from '@atlaskit/object/task';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { getIconForFileType } from '../../../utils';
+import { getIconForFileType } from '../../../utils/get-icon-for-file-type';
 import { extractTaskType, type LinkTaskType } from '../lozenge/extractTaskType';
 
 import { extractFileFormat } from './extractFileFormat';

@@ -17,7 +17,6 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkSearchListItemData } from '../../../../../common/types';
-/* eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports */
 import { transformTimeStamp } from '../../../transformTimeStamp';
 
 export const testIds = {

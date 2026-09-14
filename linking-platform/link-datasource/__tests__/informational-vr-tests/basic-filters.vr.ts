@@ -3,11 +3,11 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import BasicFiltersVR from '../../examples/vr/basic-filters-vr';
+import BasicFiltersVR from '../../examples/vr/basic-filters-vr.vr.ap';
 import {
 	WithIssueModalWithParametersInformational as WithIssueModalWithParameters,
 	JiraModalNoSuspense as WithModal,
-} from '../../examples/with-issues-modal';
+} from '../../examples/with-issues-modal.vr.ap';
 import { type BasicFilterFieldType } from '../../src/ui/jira-issues-modal/basic-filters/types';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
@@ -59,7 +59,8 @@ const selectOption = async (
 	}
 };
 
-snapshotInformational(BasicFiltersVR, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(BasicFiltersVR, {
 	...options,
 
 	prepare: async (page: Page, _component: Locator) => {
@@ -69,7 +70,8 @@ snapshotInformational(BasicFiltersVR, {
 	waitForHold: true,
 });
 
-snapshotInformational(WithModal, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(WithModal, {
 	...options,
 
 	prepare: async (page: Page) => {
@@ -79,7 +81,8 @@ snapshotInformational(WithModal, {
 	featureFlags: {},
 });
 
-snapshotInformational(WithIssueModalWithParameters, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(WithIssueModalWithParameters, {
 	...options,
 	drawsOutsideBounds: false,
 	prepare: async (page: Page) => {

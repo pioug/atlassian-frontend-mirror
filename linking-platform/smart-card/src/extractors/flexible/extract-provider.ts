@@ -1,5 +1,5 @@
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import { IconType } from '../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';

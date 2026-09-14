@@ -3,21 +3,19 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
-import Select, { type OptionsType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { OptionsType } from '@atlaskit/select/types';
 
 import TimePicker from '../../time-picker';
 
-jest.mock('@atlaskit/select', () => {
-	const actual = jest.requireActual('@atlaskit/select');
-
-	return {
-		__esModule: true,
-		...actual,
-		default: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/select/default', () => ({
+	...jest.requireActual('@atlaskit/select/default'),
+	__esModule: true,
+	default: jest.fn(),
+}));
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TimePicker', () => {

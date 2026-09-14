@@ -1,8 +1,7 @@
 import './range-validator.mock';
 
-import { act } from '@testing-library/react';
+import { act, render } from '@atlassian/testing-library';
 import React from 'react';
-import { render } from 'react-dom';
 import type RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';
 // @ts-ignore
@@ -19,7 +18,6 @@ describe('Annotations: SelectionRangeValidator', () => {
 		container = document.createElement('div');
 		document.body.appendChild(container);
 		if (process.env.IS_REACT_18 === 'true') {
-			// @ts-ignore react-dom/client only available in react 18
 			// eslint-disable-next-line @repo/internal/import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
 			const { createRoot } = await import('react-dom/client');
 			root = createRoot(container!);
@@ -36,7 +34,7 @@ describe('Annotations: SelectionRangeValidator', () => {
 		createRangeMock.mockRestore();
 	});
 
-	it('should call the SelectionInlineCommentMounter with the positions calculated by the actions', () => {
+	it('should call the SelectionInlineCommentMounter with the positions calculated by the actions', async () => {
 		const ref: React.RefObject<HTMLDivElement> = React.createRef();
 		const spy = jest.spyOn(MounterMock, 'SelectionInlineCommentMounter');
 		const documentPosition = { from: 0, to: 10 };
@@ -91,7 +89,7 @@ describe('Annotations: SelectionRangeValidator', () => {
 						</div>
 						,
 					</RendererContext.Provider>,
-					container,
+					{ container: container! },
 				);
 			});
 		}
@@ -100,5 +98,6 @@ describe('Annotations: SelectionRangeValidator', () => {
 			documentPosition,
 			isAnnotationAllowed: true,
 		});
+		await expect(container).toBeAccessible();
 	});
 });

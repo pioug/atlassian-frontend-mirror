@@ -1,5 +1,5 @@
 import { computeFallbackPosition } from '../../src/internal/anchor-positioning-fallback';
-import { getPlacement } from '../../src/internal/resolve-placement';
+import { resolvePlacement } from '../../src/internal/resolve-placement';
 
 // Tests use the default 8px gap (matches `space.100`) when not overridden.
 const DEFAULT_GAP_PX = 8;
@@ -41,7 +41,7 @@ describe('anchor positioning fallback', () => {
 
 	describe('block-axis placement (above/below)', () => {
 		it('positions below trigger with the default gap and center align', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'center' },
 			});
 			const triggerRect = createTriggerRect();
@@ -61,7 +61,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('snaps left edge to trigger left when align is start', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'start' },
 			});
 			const triggerRect = createTriggerRect();
@@ -81,7 +81,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('snaps right edge to trigger right when align is end', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'end' },
 			});
 			const triggerRect = createTriggerRect();
@@ -101,7 +101,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('positions above trigger with the default gap when edge is start', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'start', align: 'center' },
 			});
 			const triggerRect = createTriggerRect();
@@ -122,7 +122,7 @@ describe('anchor positioning fallback', () => {
 
 	describe('inline-axis placement (left/right)', () => {
 		it('positions right of trigger with the default gap and center align', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'inline', edge: 'end', align: 'center' },
 			});
 			const triggerRect = createTriggerRect();
@@ -142,7 +142,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('snaps top edge to trigger top when align is start', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'inline', edge: 'end', align: 'start' },
 			});
 			const triggerRect = createTriggerRect();
@@ -162,7 +162,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('snaps bottom edge to trigger bottom when align is end', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'inline', edge: 'end', align: 'end' },
 			});
 			const triggerRect = createTriggerRect();
@@ -182,7 +182,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('positions left of trigger with the default gap when edge is start', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'inline', edge: 'start', align: 'center' },
 			});
 			const triggerRect = createTriggerRect();
@@ -203,7 +203,7 @@ describe('anchor positioning fallback', () => {
 
 	describe('viewport flipping', () => {
 		it('flips above when there is no room below', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'center' },
 			});
 			const triggerRect = createTriggerRect({ top: 380, height: 20 });
@@ -222,7 +222,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('flips left when there is no room right', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'inline', edge: 'end', align: 'center' },
 			});
 			const triggerRect = createTriggerRect({ left: 380, width: 20 });
@@ -243,7 +243,7 @@ describe('anchor positioning fallback', () => {
 
 	describe('viewport clamping', () => {
 		it('clamps top to 0 when popover would go above viewport', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'start', align: 'center' },
 			});
 			const triggerRect = createTriggerRect({ top: 0, height: 50 });
@@ -262,7 +262,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('clamps left to 0 when popover would go left of viewport', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'start' },
 			});
 			const triggerRect = createTriggerRect({ left: 0, width: 20 });
@@ -283,7 +283,7 @@ describe('anchor positioning fallback', () => {
 
 	describe('consumer-supplied gap', () => {
 		it('uses the provided gap value along the main axis', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'center' },
 			});
 			const triggerRect = createTriggerRect();
@@ -302,7 +302,7 @@ describe('anchor positioning fallback', () => {
 		});
 
 		it('uses zero gap when explicitly set', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'inline', edge: 'end', align: 'center' },
 			});
 			const triggerRect = createTriggerRect();
@@ -324,7 +324,7 @@ describe('anchor positioning fallback', () => {
 	describe('consumer-supplied shift', () => {
 		// Block-axis placement → shift moves left/right.
 		it('shifts inline-end (positive left) for block axis with align start + forwards', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'start' },
 			});
 			const triggerRect = createTriggerRect();
@@ -342,8 +342,8 @@ describe('anchor positioning fallback', () => {
 			expect(position.left).toBe(triggerRect.left + 10);
 		});
 
-		it('inverts shift sign when align is end', () => {
-			const placement = getPlacement({
+		it('shifts toward the cross-axis end for align end + forwards, same as align start', () => {
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'end' },
 			});
 			const triggerRect = createTriggerRect();
@@ -358,12 +358,34 @@ describe('anchor positioning fallback', () => {
 				crossAxisShift: { value: 10, direction: 'forwards' },
 			});
 
-			// align: 'end' → forwards pushes the popover toward start (negative).
+			// `forwards` means "toward the cross-axis end" for EVERY align value
+			// (see notes/decisions/placement-offset.md), so this moves the same
+			// direction as the `align: 'start'` case above. The popover's end edge
+			// starts at the trigger's end edge, then shifts 10px toward the end.
+			expect(position.left).toBe(triggerRect.right - 40 + 10);
+		});
+
+		it('shifts toward the cross-axis start for align end + backwards', () => {
+			const placement = resolvePlacement({
+				placement: { axis: 'block', edge: 'end', align: 'end' },
+			});
+			const triggerRect = createTriggerRect();
+			const popoverEl = createMockPopoverElement(40, 30);
+
+			const position = computeFallbackPosition({
+				triggerRect,
+				popoverEl,
+				placement,
+				viewport,
+				gap: DEFAULT_GAP_PX,
+				crossAxisShift: { value: 10, direction: 'backwards' },
+			});
+
 			expect(position.left).toBe(triggerRect.right - 40 - 10);
 		});
 
 		it('inverts shift sign when direction is backwards', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'block', edge: 'end', align: 'start' },
 			});
 			const triggerRect = createTriggerRect();
@@ -383,7 +405,7 @@ describe('anchor positioning fallback', () => {
 
 		// Inline-axis placement → shift moves up/down.
 		it('shifts top for inline axis', () => {
-			const placement = getPlacement({
+			const placement = resolvePlacement({
 				placement: { axis: 'inline', edge: 'end', align: 'center' },
 			});
 			const triggerRect = createTriggerRect();

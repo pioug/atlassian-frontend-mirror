@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { WidthObserver } from '@atlaskit/width-detector';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { isFullPage } from '../../utils/is-full-page';
 

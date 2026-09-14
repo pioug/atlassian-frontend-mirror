@@ -4,17 +4,15 @@ import {
 	MediaStoreError,
 	RequestError,
 } from '@atlaskit/media-client';
-import {
-	MediaViewerError,
-	buildVideoErrorDiagnostics,
-	getPrimaryErrorReason,
-	getSecondaryErrorReason,
-	getErrorDetail,
-	getRequestMetadata,
-	type MediaViewerErrorReason,
-	type ArchiveViewerErrorReason,
-} from '../../../../src/errors';
 import { type FileState } from '@atlaskit/media-state/file-state';
+
+import type { ArchiveViewerErrorReason } from '../../../ArchiveViewerError';
+import { MediaViewerError, type MediaViewerErrorReason } from '../../../MediaViewerError';
+import { buildVideoErrorDiagnostics } from '../../../buildVideoErrorDiagnostics';
+import { getErrorDetail } from '../../../getErrorDetail';
+import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';
+import { getRequestMetadata } from '../../../getRequestMetadata';
+import { getSecondaryErrorReason } from '../../../getSecondaryErrorReason';
 
 describe('Errors', () => {
 	const MVError = (

@@ -1,16 +1,14 @@
 import last from 'lodash/last';
 import merge from 'lodash/merge';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { DEFAULT_SOURCE, type GasPayload } from '@atlaskit/analytics-gas-types';
-import { LINKING_PLATFORM_CONTEXT } from '@atlaskit/analytics-namespaced-context';
+import { LINKING_PLATFORM_CONTEXT } from '@atlaskit/analytics-namespaced-context/LinkingPlatformAnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import {
-	getSources,
-	getExtraAttributes,
-	getPackageInfo,
-	getComponents,
-} from '../helpers/extract-data-from-event';
+import { getComponents } from '../helpers/get-components';
+import { getExtraAttributes } from '../helpers/get-extra-attributes';
+import { getPackageInfo } from '../helpers/get-package-info';
+import { getSources } from '../helpers/get-sources';
 import { FabricChannel } from '../types';
 
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;

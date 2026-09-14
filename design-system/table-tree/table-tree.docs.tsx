@@ -20,7 +20,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Controlled Expanded State',
 					description: 'Controlled expanded state example',
-					source: path.resolve(__dirname, './examples/controlled-expanded-state.tsx'),
+					source: path.resolve(__dirname, './examples/controlled-expanded-state.vr.ap.tsx'),
 				},
 			],
 			keywords: ['table-tree', 'table', 'tree', 'expandable', 'nested', 'hierarchy', 'rows'],

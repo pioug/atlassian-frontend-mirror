@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { HelperMessage as PlatformHelperMessage } from '@atlaskit/form';
+import { HelperMessage as PlatformHelperMessage } from '@atlaskit/form/helper-message';
 
 type PlatformHelperMessageProps = React.ComponentProps<typeof PlatformHelperMessage>;
 

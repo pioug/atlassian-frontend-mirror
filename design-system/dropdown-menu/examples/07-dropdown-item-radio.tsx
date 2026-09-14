@@ -1,6 +1,8 @@
 import React from 'react';
 
-import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
+import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
 
 export default (): React.JSX.Element => (
 	<DropdownMenu trigger="Filter cities" shouldRenderToParent>

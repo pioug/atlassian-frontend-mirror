@@ -63,9 +63,8 @@ test.describe('Dialog - open and close', () => {
 		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click');
 	});
 
-	// onClose fires synchronously before the native dialog closes - verified for both dismiss paths.
-	// This timing matters for animation presets that delay unmounting.
-	test('onClose is called before dialog closes (Escape and backdrop click)', async ({ page }) => {
+	// The native dialog closes before onClose fires - verified for both dismiss paths.
+	test('onClose is called after dialog closes (Escape and backdrop click)', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
 			'design-system',
 			'top-layer',
@@ -80,19 +79,55 @@ test.describe('Dialog - open and close', () => {
 		await expect(timingCloseBtn).toBeFocused();
 		await timingCloseBtn.click({ trial: true });
 		await page.keyboard.press('Escape');
-		// onClose fires first → close-reason is set while dialog-body is still visible
-		await expect(page.getByTestId('close-reason')).toHaveText('escape', { timeout: 500 });
-		await expect(page.getByTestId('dialog-body')).toBeVisible();
-		await page.waitForFunction(() => !document.querySelector('dialog[open]'));
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
+		await expect(page.getByTestId('close-reason')).toHaveText('escape', { timeout: 500 });
+		await expect(page.getByTestId('dialog-open-during-on-close')).toHaveText('false');
+		await expect(page.getByTestId('controlled-open-state')).toHaveText('closed');
+		await expect(page.getByTestId('dialog')).toHaveCount(0);
 
 		// Backdrop click path
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
 		await page.mouse.click(1, 1);
+		await expect(page.getByTestId('dialog-body')).toBeHidden();
 		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click', { timeout: 500 });
+		await expect(page.getByTestId('dialog-open-during-on-close')).toHaveText('false');
+		await expect(page.getByTestId('dialog')).toHaveCount(0);
+	});
+
+	test('dismissedBy="escape" ignores backdrop clicks and allows Escape', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/111-testing-dialog-dismissed-by.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-dismissed-by',
+		);
+
+		await page.getByTestId('open-escape').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
-		await page.waitForFunction(() => !document.querySelector('dialog[open]'));
+		await page.mouse.click(1, 1);
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		await expect(page.getByTestId('close-reason')).toBeHidden();
+
+		await page.keyboard.press('Escape');
+		await expect(page.getByTestId('dialog-body')).toBeHidden();
+		await expect(page.getByTestId('close-reason')).toHaveText('escape');
+	});
+
+	test('dismissedBy="none" ignores backdrop clicks and Escape', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/111-testing-dialog-dismissed-by.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-dismissed-by',
+		);
+
+		await page.getByTestId('open-none').click();
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		await page.mouse.click(1, 1);
+		await page.keyboard.press('Escape');
+
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		await expect(page.getByTestId('close-reason')).toBeHidden();
+		await page.getByRole('button', { name: 'Close', exact: true }).click();
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 	});
 

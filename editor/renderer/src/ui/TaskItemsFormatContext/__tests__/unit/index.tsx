@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {
 	TaskItemsFormatConsumer,
 	TaskItemsFormatProvider,
@@ -35,52 +36,57 @@ const Consumer = () => (
 	</TaskItemsFormatConsumer>
 );
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TaskItemsFormatContext', () => {
 	describe('TaskItemsFormatConsumer', () => {
-		it('should not error if provider missing', () => {
-			const wrapper = mount(<Consumer />);
+		it('should not error if provider missing', async () => {
+			render(<Consumer />);
 
-			expect(wrapper.find('button').text()).toMatch('todo');
-			const button = wrapper.find('button');
-			button.simulate('click');
-			expect(wrapper.find('button').text()).toMatch('todo');
+			expect(screen.getByRole('button')).toHaveTextContent('todo');
+
+			await userEvent.click(screen.getByRole('button'));
+
+			expect(screen.getByRole('button')).toHaveTextContent('todo');
 		});
 
-		it('should work if provider available', () => {
-			const wrapper = mount(
+		it('should work if provider available', async () => {
+			render(
 				<TaskItemsFormatProvider>
 					<Consumer />
 				</TaskItemsFormatProvider>,
 			);
 
-			expect(wrapper.find('button').text()).toMatch('todo');
-			const button = wrapper.find('button');
-			button.simulate('click');
-			expect(wrapper.find('button').text()).toMatch('done');
+			expect(screen.getByRole('button')).toHaveTextContent('todo');
+
+			await userEvent.click(screen.getByRole('button'));
+
+			expect(screen.getByRole('button')).toHaveTextContent('done');
 		});
 	});
 
 	describe('useTaskItemsFormatContext', () => {
-		it('should not error if provider missing', () => {
-			const wrapper = mount(<ButtonWithFormatContext />);
+		it('should not error if provider missing', async () => {
+			render(<ButtonWithFormatContext />);
 
-			expect(wrapper.find('button').text()).toMatch('todo');
-			const button = wrapper.find('button');
-			button.simulate('click');
-			expect(wrapper.find('button').text()).toMatch('todo');
+			expect(screen.getByRole('button')).toHaveTextContent('todo');
+
+			await userEvent.click(screen.getByRole('button'));
+
+			expect(screen.getByRole('button')).toHaveTextContent('todo');
 		});
 
-		it('should work if provider available', () => {
-			const wrapper = mount(
+		it('should work if provider available', async () => {
+			render(
 				<TaskItemsFormatProvider>
 					<ButtonWithFormatContext />
 				</TaskItemsFormatProvider>,
 			);
 
-			expect(wrapper.find('button').text()).toMatch('todo');
-			const button = wrapper.find('button');
-			button.simulate('click');
-			expect(wrapper.find('button').text()).toMatch('done');
+			expect(screen.getByRole('button')).toHaveTextContent('todo');
+
+			await userEvent.click(screen.getByRole('button'));
+
+			expect(screen.getByRole('button')).toHaveTextContent('done');
 		});
 	});
 });

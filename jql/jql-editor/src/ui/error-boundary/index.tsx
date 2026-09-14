@@ -5,9 +5,7 @@ import React, {
 	type ReactNode,
 } from 'react';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
-import { JQLEditorReadOnly } from '../jql-editor-layout';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
+import { JQLEditorReadOnly } from '../jql-editor-layout/JQLEditorReadOnly';
 import { type JQLEditorUIProps } from '../jql-editor/types';
 
 type ErrorBoundaryProps = {

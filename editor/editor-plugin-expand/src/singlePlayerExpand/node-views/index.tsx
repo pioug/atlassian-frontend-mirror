@@ -2,10 +2,9 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { keyName } from 'w3c-keyname';
 
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import { expandedState, isExpandCollapsed } from '@atlaskit/editor-common/expand';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
@@ -20,13 +19,19 @@ import type {
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { closestElement, isEmptyNode } from '@atlaskit/editor-common/utils';
+import {
+	applyContentVisibility,
+	estimateExpandIntrinsicHeight,
+} from '@atlaskit/editor-common/utils/content-visibility';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { redo, undo } from '@atlaskit/prosemirror-history';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ExpandPlugin } from '../../types';
 import { renderExpandButton } from '../../ui/renderExpandButton';
@@ -92,7 +97,7 @@ export class ExpandNodeView implements NodeView {
 				this.__livePage,
 				this.intl,
 				editorDisabled,
-				isSSRStreaming() ? !editorDisabled && !isExpandCollapsed(node) : undefined,
+				!editorDisabled && !isExpandCollapsed(node),
 			),
 		);
 		// Ignored via go/ees005
@@ -117,7 +122,11 @@ export class ExpandNodeView implements NodeView {
 			expandedState.set(this.node, false);
 		}
 
-		if (expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)) {
+		applyContentVisibility(this.dom, this.isLimitedModeEnabled(), () => ({
+			height: estimateExpandIntrinsicHeight(this.node, !isExpandCollapsed(this.node)),
+		}));
+
+		if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
 			this.renderNativeIcon(this.node);
 		} else {
 			this.renderIcon(this.icon, !isExpandCollapsed(this.node));
@@ -140,26 +149,56 @@ export class ExpandNodeView implements NodeView {
 		this.icon.addEventListener('keydown', this.handleIconKeyDown);
 
 		if (this.api?.editorDisabled) {
-			this.cleanUpEditorDisabledOnChange = this.api.editorDisabled.sharedState.onChange(
-				(sharedState) => {
-					const editorDisabled = sharedState.nextSharedState.editorDisabled;
+			if (isExperimentEnabled('cc_editor_limited_mode_perf_improvements')) {
+				if (this.content) {
+					this.content.setAttribute(
+						'contenteditable',
+						this.getContentEditable(this.node) ? 'true' : 'false',
+					);
+				}
+				this.cleanUpEditorDisabledOnChange = this.api.editorDisabled.sharedState.onChange(
+					(sharedState) => {
+						const editorDisabled = sharedState.nextSharedState.editorDisabled;
 
-					if (this.input) {
-						if (editorDisabled) {
-							this.input.setAttribute('readonly', 'true');
-						} else {
-							this.input.removeAttribute('readonly');
+						if (this.input) {
+							if (editorDisabled) {
+								this.input.setAttribute('readonly', 'true');
+							} else {
+								this.input.removeAttribute('readonly');
+							}
 						}
-					}
 
-					if (this.content) {
-						this.content.setAttribute(
-							'contenteditable',
-							this.getContentEditable(this.node) ? 'true' : 'false',
-						);
-					}
-				},
-			);
+						const nextContentEditableValue = this.getContentEditable(this.node) ? 'true' : 'false';
+						if (
+							this.content &&
+							this.content.getAttribute('contenteditable') !== nextContentEditableValue
+						) {
+							this.content.setAttribute('contenteditable', nextContentEditableValue);
+						}
+					},
+				);
+			} else {
+				this.cleanUpEditorDisabledOnChange = this.api.editorDisabled.sharedState.onChange(
+					(sharedState) => {
+						const editorDisabled = sharedState.nextSharedState.editorDisabled;
+
+						if (this.input) {
+							if (editorDisabled) {
+								this.input.setAttribute('readonly', 'true');
+							} else {
+								this.input.removeAttribute('readonly');
+							}
+						}
+
+						if (this.content) {
+							this.content.setAttribute(
+								'contenteditable',
+								this.getContentEditable(this.node) ? 'true' : 'false',
+							);
+						}
+					},
+				);
+			}
 		}
 	}
 
@@ -661,6 +700,11 @@ export class ExpandNodeView implements NodeView {
 			}
 
 			this.node = node;
+			// Re-apply in case limited mode flipped from disabled→enabled after the document loaded
+			// (the flip is transaction-driven, so this update() fires once it becomes enabled).
+			applyContentVisibility(this.dom, this.isLimitedModeEnabled(), () => ({
+				height: estimateExpandIntrinsicHeight(this.node, !isExpandCollapsed(this.node)),
+			}));
 			const currentExpanded = expandedState.get(node) ?? false;
 			const hasChanged = editorExperiment('platform_editor_block_menu', true, { exposure: true })
 				? this.isExpanded.expanded !== currentExpanded &&
@@ -678,20 +722,16 @@ export class ExpandNodeView implements NodeView {
 	updateExpandToggleIcon(node: PmNode): void {
 		const expanded = expandedState.get(node) ? expandedState.get(node) : false;
 		if (this.dom && expanded !== undefined) {
-			if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
-				const classes = this.dom.className.split(' ');
-				// find & replace styles might be applied to the expand title and we need to keep them
-				const findReplaceDecorationsApplied = classes
-					.filter((className) => findReplaceExpandDecorations.includes(className))
-					.join(' ');
-				this.dom.className = findReplaceDecorationsApplied
-					? buildExpandClassName(node.type.name, expanded) + ` ${findReplaceDecorationsApplied}`
-					: buildExpandClassName(node.type.name, expanded);
-			} else {
-				this.dom.className = buildExpandClassName(node.type.name, expanded);
-			}
+			const classes = this.dom.className.split(' ');
+			// find & replace styles might be applied to the expand title and we need to keep them
+			const findReplaceDecorationsApplied = classes
+				.filter((className) => findReplaceExpandDecorations.includes(className))
+				.join(' ');
+			this.dom.className = findReplaceDecorationsApplied
+				? buildExpandClassName(node.type.name, expanded) + ` ${findReplaceDecorationsApplied}`
+				: buildExpandClassName(node.type.name, expanded);
 			// Re-render the icon to update the aria-expanded attribute
-			if (expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)) {
+			if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
 				this.renderNativeIcon(node);
 			} else {
 				this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);
@@ -703,6 +743,19 @@ export class ExpandNodeView implements NodeView {
 			: { expanded: expanded ?? false };
 	}
 
+	private isLimitedModeEnabled(): boolean {
+		// Read from `this.view.state` via the exposed plugin key rather than the shared state's
+		// `enabled`, which reads a stale `false` during initial EditorView construction (the injection
+		// API's editor state isn't wired up yet).
+		//
+		// Reads the plugin's derived `enabled`, so this covers every reason limited mode can be on.
+		return Boolean(
+			this.api?.limitedMode?.sharedState
+				.currentState()
+				?.limitedModePluginKey?.getState(this.view.state)?.enabled,
+		);
+	}
+
 	private updateDisplayStyle(node: PmNode): void {
 		if (this.content) {
 			if (isExpandCollapsed(node)) {
@@ -711,6 +764,10 @@ export class ExpandNodeView implements NodeView {
 				this.content.classList.remove(expandClassNames.contentCollapsed);
 			}
 		}
+		// Collapsed vs expanded changes the reserved height, so re-apply the intrinsic-size estimate.
+		applyContentVisibility(this.dom, this.isLimitedModeEnabled(), () => ({
+			height: estimateExpandIntrinsicHeight(node, !isExpandCollapsed(node)),
+		}));
 	}
 
 	updateExpandBodyContentEditable(): void {

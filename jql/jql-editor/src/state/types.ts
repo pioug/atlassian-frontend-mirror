@@ -12,18 +12,16 @@ import { type Subscription } from 'rxjs/Subscription';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type Jast, type JQLParseError } from '@atlaskit/jql-ast';
-import {
-	type JQLRuleContext,
-	type JQLRuleSuggestions,
-	type TokenSuggestions,
-} from '@atlaskit/jql-autocomplete';
+import type {
+	JQLRuleContext,
+	JQLRuleSuggestions,
+} from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
+import type { TokenSuggestions } from '@atlaskit/jql-autocomplete/base-autocomplete/types';
 
-import { type JqlEditorAnalyticsEvent } from '../analytics';
+import { type JqlEditorAnalyticsEvent } from '../analytics/types';
 import { type EditorTheme } from '../hooks/use-editor-theme';
-import {
-	type AutocompleteOptionGroup,
-	type AutocompleteProvider,
-} from '../plugins/autocomplete/types';
+import type { AutocompleteOptionGroup } from '../plugins/autocomplete/components/types';
+import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { type HydratedValue, type HydratedValues } from '../ui/jql-editor/types';
 
 export type ContextAwareTokenSuggestions = TokenSuggestions & {

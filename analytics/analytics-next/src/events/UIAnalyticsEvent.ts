@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import AnalyticsEvent, {
 	type AnalyticsEventPayload,

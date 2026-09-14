@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { type IssueLikeDataTableViewProps } from '../ui/issue-like-table/types';
 

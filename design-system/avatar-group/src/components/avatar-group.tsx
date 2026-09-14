@@ -8,17 +8,18 @@ import React, {
 
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { Section } from '@atlaskit/menu';
-import { Motion } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Popup from '@atlaskit/popup';
+import Section from '@atlaskit/menu/section';
+import Motion from '@atlaskit/motion/entering/motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type PositionType } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
 
 import AvatarGroupItem from './avatar-group-item';
 import { MoreDropdownTopLayer } from './avatar-group-top-layer';

@@ -1,0 +1,41 @@
+import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
+import BasicDrawerExample from './00-basic-drawer';
+import DrawerMenuVrExample from './01-drawer-menu.vr.ap';
+import DrawerDefaultVrExample from './02-drawer-default.vr.ap';
+import DrawerWidthsVrExample from './05-drawer-widths.vr.ap';
+import LongContentDrawerExample from './10-long-content-drawer';
+import ScrollExample from './11-scroll';
+import DrawerFocusToRefOnCloseExample from './12-drawer-focus-to-ref-on-close';
+import DrawerWithFixedContentsExample from './20-drawer-with-fixed-contents';
+import ToggleDrawerWidthExample from './25-toggle-drawer-width';
+import StackedDrawersVrExample from './40-stacked-drawers.vr.ap';
+import DrawerWithZIndexExample from './41-drawer-with-z-index';
+import DrawerStackingContextsVrExample from './42-drawer-stacking-contexts.vr.ap';
+import XcssExample from './45-xcss';
+import SurfaceDetectionVrExample from './94-surface-detection.vr.ap';
+import ToggleDrawerEnterFromExample from './95-toggle-drawer-enter-from';
+import SsrInitialOpenExample from './97-ssr-initial-open';
+import TestingInitialFocusMatrixExample from './98-testing-initial-focus-matrix';
+import LoremExample from './lorem';
+
+const BasicDrawer: WorkbenchExample = wb(BasicDrawerExample);
+
+export default BasicDrawer;
+export const DrawerMenuVr: WorkbenchExample = wb(DrawerMenuVrExample);
+export const DrawerDefaultVr: WorkbenchExample = wb(DrawerDefaultVrExample);
+export const DrawerWidthsVr: WorkbenchExample = wb(DrawerWidthsVrExample);
+export const LongContentDrawer: WorkbenchExample = wb(LongContentDrawerExample);
+export const Scroll: WorkbenchExample = wb(ScrollExample);
+export const DrawerFocusToRefOnClose: WorkbenchExample = wb(DrawerFocusToRefOnCloseExample);
+export const DrawerWithFixedContents: WorkbenchExample = wb(DrawerWithFixedContentsExample);
+export const ToggleDrawerWidth: WorkbenchExample = wb(ToggleDrawerWidthExample);
+export const StackedDrawersVr: WorkbenchExample = wb(StackedDrawersVrExample);
+export const DrawerWithZIndex: WorkbenchExample = wb(DrawerWithZIndexExample);
+export const DrawerStackingContextsVr: WorkbenchExample = wb(DrawerStackingContextsVrExample);
+export const Xcss: WorkbenchExample = wb(XcssExample);
+export const SurfaceDetectionVr: WorkbenchExample = wb(SurfaceDetectionVrExample);
+export const ToggleDrawerEnterFrom: WorkbenchExample = wb(ToggleDrawerEnterFromExample);
+export const SsrInitialOpen: WorkbenchExample = wb(SsrInitialOpenExample);
+export const TestingInitialFocusMatrix: WorkbenchExample = wb(TestingInitialFocusMatrixExample);
+export const Lorem: WorkbenchExample = wb(LoremExample);

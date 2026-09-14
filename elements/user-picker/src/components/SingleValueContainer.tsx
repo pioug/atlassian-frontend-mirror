@@ -3,14 +3,15 @@
  * @jsx jsx
  */
 import React from 'react';
-import { components, type ValueContainerProps } from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { ValueContainerProps } from '@atlaskit/select/types';
 import { type Option, type User } from '../types';
 import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import ValueContainerWrapper from './ValueContainerWrapper';
 import { token } from '@atlaskit/tokens';
 import { css, cssMap, jsx } from '@compiled/react';
-import { getAppearanceForAppType } from '@atlaskit/avatar';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 
 const valueContainerStyles = cssMap({
 	root: {
@@ -46,7 +47,6 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 	private renderAvatar = () => {
 		const {
 			hasValue,
-			//@ts-ignore react-select unsupported props
 			selectProps: { appearance, isFocused, inputValue, value, placeholderAvatar },
 		} = this.props;
 
@@ -79,7 +79,6 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 		return null;
 	};
 
-	//@ts-ignore react-select unsupported props
 	onValueContainerClick: any = this.props.selectProps.onValueContainerClick;
 
 	Wrapper = ({ children }: { children: React.ReactElement }): JSX.Element => {

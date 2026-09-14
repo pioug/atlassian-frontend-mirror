@@ -35,7 +35,7 @@ import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/layout-two-colu
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-right';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { LayoutPlugin } from '../index';
 import {

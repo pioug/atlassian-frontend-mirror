@@ -1,5 +1,5 @@
 import { snapshotInformational } from '@af/visual-regression';
-import { ExtensionsWithinExpand } from './extension.fixture';
+import { ExtensionsWithinExpand } from './extension.fixture.vr.ap';
 import type { Locator, Page } from '@playwright/test';
 
 snapshotInformational(ExtensionsWithinExpand, {

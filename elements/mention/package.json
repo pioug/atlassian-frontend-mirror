@@ -30,10 +30,12 @@
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/focus-ring": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
@@ -46,6 +48,7 @@
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
 		"@emotion/styled": "root:*",
 		"lodash": "root:*",
@@ -56,15 +59,17 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/search-test-utils": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/query-string": "root:*",
 		"@types/serialize-javascript": "root:*",
-		"enzyme": "root:*",
 		"es6-promise": "root:*",
 		"exenv": "root:*",
 		"fetch-mock": "root:*",
@@ -100,7 +105,6 @@
 		"./shared-styles": "./src/shared-styles.ts",
 		"./team-resource": "./src/team-resource.ts",
 		"./team-mention-resource": "./src/api/TeamMentionResource.ts",
-		"./typeahead": "./src/typeahead.ts",
 		"./types": "./src/types.ts"
 	},
 	"keywords": [
@@ -120,8 +124,8 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
-		"rovo_chat_agent_selection": {
-			"type": "boolean",
+		"rovo_chat_mention_agents": {
+			"type": "experiment",
 			"referenceOnly": true
 		},
 		"jira_ai_agent_avatar_issue_view_comment_mentions": {
@@ -141,15 +145,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"techstack": {
-		"@repo/internal": {
-			"deprecation": "no-deprecated-imports",
-			"design-tokens": [
-				"color"
-			],
-			"styling": "emotion"
-		}
-	},
 	"types": "dist/types/index.d.ts",
-	"version": "27.12.2"
+	"version": "29.0.0"
 }

@@ -1,10 +1,8 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-re-exports -- These should be re-exported as they are an external dependency */
 export type {
 	PluginSpec,
-	// @ts-ignore - These types are augmented via typings/prosemirror-state.d.ts and are available in the built package
 	ReadonlyTransaction,
-	// @ts-ignore - These types are augmented via typings/prosemirror-state.d.ts and are available in the built package
 	SafePluginSpec,
-	// @ts-ignore - These types are augmented via typings/prosemirror-state.d.ts and are available in the built package
 	SafeStateField,
 	SelectionBookmark,
 	StateField,

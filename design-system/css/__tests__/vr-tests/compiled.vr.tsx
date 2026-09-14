@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import LooseExample from '../../examples/loose';
-import StrictExample from '../../examples/strict';
+import LooseExample from '../../examples/loose.vr.ap';
+import StrictExample from '../../examples/strict.vr.ap';
 
 snapshot(LooseExample, {
 	variants: [

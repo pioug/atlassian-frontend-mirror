@@ -1,4 +1,4 @@
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { Space } from '@atlaskit/primitives/compiled';
 
 import type { SmartLinkSize } from '../../../../../../constants';

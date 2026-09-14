@@ -6,7 +6,8 @@
   and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
 */
 
-import { uuid } from '@atlaskit/adf-schema';
+import { createSchema } from '@atlaskit/adf-schema/create-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
@@ -64,8 +65,9 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { JSONTransformer, SchemaStage } from '../../index';
-import type { JSONDocNode, JSONNode } from '../../index';
+import { JSONTransformer } from '../../JSONTransformer-2';
+import { SchemaStage } from '../../SchemaStage';
+import type { JSONDocNode, JSONNode } from '../../types';
 import * as markOverride from '../../markOverrideRules';
 import { sanitizeNode } from '../../sanitize/sanitize-node';
 
@@ -2393,8 +2395,8 @@ describe('JSONTransformer:', () => {
 				expect(transformer.parse(adf, SchemaStage.STAGE_0)).toEqualDocument(
 					doc(p(fragmentMark({ localId: '6d9e04f9-7c77-4313-93a7-62c9612e94b1' })('lol'))),
 				);
-				expect(getSchemaBasedOnStageSpy).toBeCalledTimes(1);
-				expect(getSchemaBasedOnStageSpy).toBeCalledWith('stage0');
+				expect(getSchemaBasedOnStageSpy).toHaveBeenCalledTimes(1);
+				expect(getSchemaBasedOnStageSpy).toHaveBeenCalledWith('stage0');
 			});
 
 			it('should use the final / default schema if passed', () => {
@@ -2415,8 +2417,8 @@ describe('JSONTransformer:', () => {
 				};
 
 				expect(transformer.parse(adf, SchemaStage.FINAL)).toEqualDocument(doc(p('hello')));
-				expect(getSchemaBasedOnStageSpy).toBeCalledTimes(1);
-				expect(getSchemaBasedOnStageSpy).toBeCalledWith('final');
+				expect(getSchemaBasedOnStageSpy).toHaveBeenCalledTimes(1);
+				expect(getSchemaBasedOnStageSpy).toHaveBeenCalledWith('final');
 			});
 
 			it('should use the final / default schema when nothing is passed', () => {
@@ -2446,7 +2448,7 @@ describe('JSONTransformer:', () => {
 			type: 'paragraph',
 			content: [{ type: 'text', content: 'hello' }],
 		} as unknown as JSONDocNode;
-		expect(() => parseJSON(badADF)).toThrowError('Expected content format to be ADF');
+		expect(() => parseJSON(badADF)).toThrow('Expected content format to be ADF');
 	});
 
 	it('should throw an error if not a valid PM document', () => {
@@ -2456,6 +2458,25 @@ describe('JSONTransformer:', () => {
 		} as unknown as JSONDocNode;
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
-		expect(() => parseJSON(badADF)).toThrowError(/Invalid input for Fragment.fromJSON/);
+		expect(() => parseJSON(badADF)).toThrow(/Invalid input for Fragment.fromJSON/);
+	});
+
+	it('leaves a panel unchanged on parse even when the schema declares panel_c1', () => {
+		const schema = createSchema({ nodes: ['doc', 'paragraph', 'text', 'panel', 'panel_c1'] });
+		const adf: JSONDocNode = {
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'panel',
+					attrs: { panelType: 'info' },
+					content: [{ type: 'paragraph', content: [] }],
+				},
+			],
+		};
+
+		const pmDoc = new JSONTransformer(schema).parse(adf);
+
+		expect(pmDoc.firstChild?.type.name).toBe('panel');
 	});
 });

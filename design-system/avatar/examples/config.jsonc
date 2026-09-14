@@ -9,7 +9,7 @@
     "03-basicAvatarItem.tsx",
     "04-basicPresence.tsx",
     "05-basicStatus.tsx",
-    "15-skeleton.tsx"
+    "15-skeleton.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

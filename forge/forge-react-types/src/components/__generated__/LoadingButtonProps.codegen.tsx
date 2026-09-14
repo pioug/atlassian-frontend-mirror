@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { LoadingButton as PlatformLoadingButton } from '@atlaskit/button';
+import PlatformLoadingButton from '@atlaskit/button/loading-button';
 
 type PlatformLoadingButtonProps = React.ComponentProps<typeof PlatformLoadingButton>;
 

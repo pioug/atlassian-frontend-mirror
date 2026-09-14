@@ -1,13 +1,11 @@
 import React, { useCallback } from 'react';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
-import {
-	useAnalyticsEvents,
-	type UIAnalyticsEvent,
-	AnalyticsContext,
-} from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
 import {
 	HelpContentButtonContainer,

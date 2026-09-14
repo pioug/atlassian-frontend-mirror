@@ -43,3 +43,15 @@ css({
 	},
 });
 ```
+
+Canonical typed media-query keys are also supported:
+
+```tsx
+import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
+
+css({
+	['@media (min-width: 30rem)' satisfies MediaAboveXs]: {
+		color: 'red',
+	},
+});
+```

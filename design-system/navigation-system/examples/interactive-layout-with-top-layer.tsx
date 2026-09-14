@@ -7,12 +7,16 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Badge from '@atlaskit/badge';
+import Badge from '@atlaskit/badge/badge';
 import AKBanner from '@atlaskit/banner';
-import Button, { IconButton } from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { FlagsProvider, useFlags } from '@atlaskit/flag';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
+import { useFlags } from '@atlaskit/flag/use-flags';
+import Heading from '@atlaskit/heading/heading';
 import AddIcon from '@atlaskit/icon/core/add';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AppsIcon from '@atlaskit/icon/core/apps';
@@ -26,16 +30,16 @@ import ProjectIcon from '@atlaskit/icon/core/project';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StarIcon from '@atlaskit/icon/core/star-starred';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
-import InlineDialog from '@atlaskit/inline-dialog';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { ConfluenceIcon } from '@atlaskit/logo';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
@@ -66,7 +70,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {
@@ -97,8 +101,8 @@ import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
 import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
 import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
-import { Dialog } from '@atlaskit/top-layer/dialog';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 import { LongPlaceholderContent } from './utils/long-placeholder-content';
@@ -915,30 +919,32 @@ function Example(): JSX.Element {
 					</Aside>
 				)}
 
-				{isPanelVisible && (
-					<Panel defaultWidth={persistedPanelWidth}>
-						<Stack space="space.100" xcss={panelStyles.content}>
-							<Heading size="medium">Panel layout area</Heading>
-							<Text>
-								This element is rendered in the panel layout area. Panel becomes an overlay on small
-								/ medium viewports (verification row A8). Try opening the FlyoutMenuItem above while
-								Panel is overlaid to test stacking.
-							</Text>
-							<div>
-								<Button
-									isSelected={isPanelLongPlaceholderContentVisible}
-									onClick={() => {
-										setIsPanelLongPlaceholderContentVisible((previous) => !previous);
-									}}
-								>
-									Toggle panel long content
-								</Button>
-							</div>
-							{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
-						</Stack>
-						<PanelSplitter label="Resize panel" onResizeEnd={onPanelResizeEnd} />
-					</Panel>
-				)}
+				<ExitingPersistence>
+					{isPanelVisible && (
+						<Panel defaultWidth={persistedPanelWidth}>
+							<Stack space="space.100" xcss={panelStyles.content}>
+								<Heading size="medium">Panel layout area</Heading>
+								<Text>
+									This element is rendered in the panel layout area. Panel becomes an overlay on
+									small / medium viewports (verification row A8). Try opening the FlyoutMenuItem
+									above while Panel is overlaid to test stacking.
+								</Text>
+								<div>
+									<Button
+										isSelected={isPanelLongPlaceholderContentVisible}
+										onClick={() => {
+											setIsPanelLongPlaceholderContentVisible((previous) => !previous);
+										}}
+									>
+										Toggle panel long content
+									</Button>
+								</div>
+								{isPanelLongPlaceholderContentVisible && <LongPlaceholderContent />}
+							</Stack>
+							<PanelSplitter label="Resize panel" onResizeEnd={onPanelResizeEnd} />
+						</Panel>
+					)}
+				</ExitingPersistence>
 			</Root>
 		</div>
 	);

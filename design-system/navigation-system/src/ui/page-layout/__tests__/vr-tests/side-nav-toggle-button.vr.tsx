@@ -3,7 +3,7 @@ import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regre
 import {
 	SideNavToggleButtonVR,
 	SideNavToggleButtonWithShortcutVR,
-} from '../../../../../examples/side-nav-toggle-button';
+} from '../../../../../examples/side-nav-toggle-button.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

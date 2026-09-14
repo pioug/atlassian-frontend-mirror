@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { TopNav } from '../../../page-layout/top-nav/top-nav';
 import { Button } from '../../themed/button';
@@ -11,13 +12,16 @@ const noop = () => {};
 
 const mockTheme = { backgroundColor: '#FFF', highlightColor: '#000' };
 
-jest.mock('@atlaskit/button/new', () => {
-	return {
-		__esModule: true,
-		default: jest.fn(() => <button type="button">AkButton</button>),
-		IconButton: jest.fn(() => <button type="button">AkIconButton</button>),
-	};
-});
+jest.mock('@atlaskit/button/default/button', () => ({
+	...jest.requireActual('@atlaskit/button/default/button'),
+	__esModule: true,
+	default: jest.fn(() => <button type="button">AkButton</button>),
+}));
+jest.mock('@atlaskit/button/icon/button', () => ({
+	...jest.requireActual('@atlaskit/button/icon/button'),
+	__esModule: true,
+	default: jest.fn(() => <button type="button">AkIconButton</button>),
+}));
 
 jest.mock('../../themed/themed-button', () => {
 	return {

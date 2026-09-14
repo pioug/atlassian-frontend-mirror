@@ -43,7 +43,6 @@ const useButtonFocusHook: (
 			if (preventFocusOnEditButtonRef && preventFocusOnEditButtonRef.current) {
 				preventFocusOnEditButtonRef.current = false;
 			} else if (editButtonRef && editButtonRef.current) {
-				// @ts-ignore
 				editButtonRef.current.focus();
 			}
 		}

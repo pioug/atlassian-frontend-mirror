@@ -5,7 +5,7 @@ import {
 	TEST_STRING,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractUrlFromIconJsonLd } from '../index';
+import { extractUrlFromIconJsonLd } from '../extract-url-from-icon-json-ld';
 
 describe('extractUrlFromIconJsonLd', () => {
 	it('returns raw string', () => {

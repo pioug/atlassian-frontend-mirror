@@ -1,10 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+
 import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
 import { emptyCell } from '../../empty-cells';
-import { findCellClosestToPos } from '../../find';
-import { forEachCellInColumn } from '../../for-each-cell';
+import { findCellClosestToPos } from '../../find-cell-closest-to-pos';
+import { forEachCellInColumn } from '../../for-each-cell-in-column';
 
 describe('emptyCell', () => {
 	it('should return an original transaction if a given cell is undefined', () => {

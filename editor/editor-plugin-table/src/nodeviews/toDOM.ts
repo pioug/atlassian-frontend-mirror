@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import kebabCase from 'lodash/kebabCase';
 
-import { table, tableWithNestedTable } from '@atlaskit/adf-schema';
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { table, tableWithNestedTable } from '@atlaskit/adf-schema/tableNodes';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -44,16 +44,15 @@ export const tableNodeSpecWithFixedToDOM = (
 		...tableNode,
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const isFullPageEditor = !config.isChromelessEditor && !config.isCommentEditor;
-			const isInContentMode =
-				isTableInContentMode({
-					tableNode: node,
-					isSupported: isContentModeSupported({
-						allowColumnResizing: config.allowColumnResizing,
-						allowTableResizing: config.tableResizingEnabled,
-						isFullPageEditor,
-					}),
-					isTableNested: config.isNested,
-				}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
+			const isInContentMode = isTableInContentMode({
+				tableNode: node,
+				isSupported: isContentModeSupported({
+					allowColumnResizing: config.allowColumnResizing,
+					allowTableResizing: config.tableResizingEnabled,
+					isFullPageEditor,
+				}),
+				isTableNested: config.isNested,
+			});
 
 			const alignmentStyle = Object.entries(getAlignmentStyle(node.attrs.layout))
 				.map(([k, v]) => `${kebabCase(k)}: ${kebabCase(v)}`)
@@ -69,14 +68,11 @@ export const tableNodeSpecWithFixedToDOM = (
 				'data-table-width': node.attrs.width,
 				'data-ssr-placeholder': `table-${node.attrs.localId}`,
 				'data-ssr-placeholder-replace': `table-${node.attrs.localId}`,
+				'data-table-display-mode': node.attrs.displayMode,
 			};
 
 			if (isInContentMode) {
 				attrs['data-initial-width-mode'] = 'content';
-			}
-
-			if (expValEquals('platform_editor_table_display_mode_in_to_dom', 'isEnabled', true)) {
-				attrs['data-table-display-mode'] = node.attrs.displayMode;
 			}
 
 			// This would be used for table scaling in colgroup CSS
@@ -102,10 +98,8 @@ export const tableNodeSpecWithFixedToDOM = (
 				];
 			}
 
-			const overflowShadows: DOMOutputSpec[] = expValEquals(
+			const overflowShadows: DOMOutputSpec[] = isExperimentEnabled(
 				'platform_editor_table_css_overflow_shadow',
-				'isEnabled',
-				true,
 			)
 				? [
 						[
@@ -182,10 +176,8 @@ export const tableNodeSpecWithFixedToDOM = (
 					'div',
 					{
 						class: classNames(ClassName.TABLE_NODE_WRAPPER, {
-							[ClassName.TABLE_SCROLL_INLINE_SHADOW]: expValEquals(
+							[ClassName.TABLE_SCROLL_INLINE_SHADOW]: isExperimentEnabled(
 								'platform_editor_table_css_overflow_shadow',
-								'isEnabled',
-								true,
 							),
 						}),
 					},
@@ -200,27 +192,23 @@ export const tableNodeSpecWithFixedToDOM = (
 						'data-testid': 'sticky-sentinel-bottom',
 					},
 				],
-				...(isSSRStreaming()
-					? [
-							[
-								'div',
-								{
-									contenteditable: 'false',
-									class: 'pm-table-left-border',
-									'data-with-numbered-table': node.attrs.isNumberColumnEnabled,
-									'data-testid': 'table-left-border',
-								},
-							],
-							[
-								'div',
-								{
-									contenteditable: 'false',
-									class: 'pm-table-right-border',
-									'data-testid': 'table-right-border',
-								},
-							],
-						]
-					: []),
+				[
+					'div',
+					{
+						contenteditable: 'false',
+						class: 'pm-table-left-border',
+						'data-with-numbered-table': node.attrs.isNumberColumnEnabled,
+						'data-testid': 'table-left-border',
+					},
+				],
+				[
+					'div',
+					{
+						contenteditable: 'false',
+						class: 'pm-table-right-border',
+						'data-testid': 'table-right-border',
+					},
+				],
 			];
 
 			if (!config.tableResizingEnabled || config.isNested) {
@@ -258,15 +246,7 @@ export const tableNodeSpecWithFixedToDOM = (
 					[
 						'div',
 						{
-							class: expValEquals(
-								'platform_editor_table_fit_to_content_auto_convert',
-								'isEnabled',
-								true,
-							)
-								? 'resizer-item display-handle'
-								: classNames('resizer-item', {
-										'display-handle': !isInContentMode,
-									}),
+							class: 'resizer-item display-handle',
 							style: convertToInlineCss({
 								position: 'relative',
 								userSelect: 'auto',

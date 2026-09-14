@@ -140,16 +140,16 @@ describe('SidebarResizeController', () => {
 			</PageLayout>,
 		);
 
-		expect(collapseFn).toBeCalledTimes(0);
-		expect(expandFn).toBeCalledTimes(0);
+		expect(collapseFn).toHaveBeenCalledTimes(0);
+		expect(expandFn).toHaveBeenCalledTimes(0);
 
 		act(() => {
 			fireEvent.click(getByTestId('expand'));
 		});
 		triggerTransitionEnd(getByTestId('left-sidebar'));
 
-		expect(collapseFn).toBeCalledTimes(0);
-		expect(expandFn).toBeCalledTimes(1);
+		expect(collapseFn).toHaveBeenCalledTimes(0);
+		expect(expandFn).toHaveBeenCalledTimes(1);
 	});
 
 	it('should not call `onLeftSidebarExpand` when trying to expand an already expanded sidebar', () => {
@@ -166,16 +166,16 @@ describe('SidebarResizeController', () => {
 				</Content>
 			</PageLayout>,
 		);
-		expect(collapseFn).toBeCalledTimes(0);
-		expect(expandFn).toBeCalledTimes(0);
+		expect(collapseFn).toHaveBeenCalledTimes(0);
+		expect(expandFn).toHaveBeenCalledTimes(0);
 
 		act(() => {
 			fireEvent.click(getByTestId('expand'));
 		});
 		triggerTransitionEnd(getByTestId('left-sidebar'));
 
-		expect(collapseFn).toBeCalledTimes(0);
-		expect(expandFn).toBeCalledTimes(0);
+		expect(collapseFn).toHaveBeenCalledTimes(0);
+		expect(expandFn).toHaveBeenCalledTimes(0);
 	});
 
 	it('should call `onLeftSidebarCollapse` when collapsing', () => {
@@ -193,16 +193,16 @@ describe('SidebarResizeController', () => {
 			</PageLayout>,
 		);
 
-		expect(collapseFn).toBeCalledTimes(0);
-		expect(expandFn).toBeCalledTimes(0);
+		expect(collapseFn).toHaveBeenCalledTimes(0);
+		expect(expandFn).toHaveBeenCalledTimes(0);
 
 		act(() => {
 			fireEvent.click(getByTestId('collapse'));
 		});
 		triggerTransitionEnd(getByTestId('left-sidebar'));
 
-		expect(collapseFn).toBeCalledTimes(1);
-		expect(expandFn).toBeCalledTimes(0);
+		expect(collapseFn).toHaveBeenCalledTimes(1);
+		expect(expandFn).toHaveBeenCalledTimes(0);
 	});
 
 	it('should not call `onLeftSidebarCollapse` when trying to collapse an already collapsed sidebar', () => {
@@ -225,8 +225,8 @@ describe('SidebarResizeController', () => {
 		});
 		triggerTransitionEnd(getByTestId('left-sidebar'));
 
-		expect(collapseFn).toBeCalledTimes(0);
-		expect(expandFn).toBeCalledTimes(0);
+		expect(collapseFn).toHaveBeenCalledTimes(0);
+		expect(expandFn).toHaveBeenCalledTimes(0);
 	});
 
 	it('should add the correct data attributes while expanding and collapsing', () => {

@@ -27,7 +27,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Basic',
 					description: 'Standard color picker display.',
-					source: path.resolve(packagePath, './examples/00-color-picker.tsx'),
+					source: path.resolve(packagePath, './examples/00-color-picker.vr.ap.tsx'),
 				},
 			],
 			keywords: ['color', 'picker', 'palette', 'select'],

@@ -8,7 +8,7 @@ import { Text } from '@atlaskit/primitives/compiled';
 import type { ContainerTypes } from '../../../common/types';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
-import { AddContainerCard } from './index';
+import { AddContainerCard } from './AddContainerCard';
 
 jest.mock('../../../common/utils/get-container-properties', () => ({
 	getContainerProperties: jest.fn(),

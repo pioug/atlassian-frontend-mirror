@@ -1,7 +1,7 @@
 import type { InteractionMetrics, MarkType } from '../../common';
 import type { OptimizedLabelStack } from '../common/types';
-import { optimizeLabelStackWithRegistry } from '../common/utils';
 import type { LabelStackRegistry } from '../common/utils/label-stack-registry';
+import { optimizeLabelStackWithRegistry } from '../common/utils/optimize-label-stack-with-registry';
 
 import type { getReactUFOPayloadVersion } from './get-react-ufo-payload-version';
 

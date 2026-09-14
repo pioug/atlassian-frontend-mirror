@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "22.6.0",
+	"version": "22.11.2",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 		"./country-select": "./src/country-select.tsx",
 		"./creatable-select": "./src/creatable-select.tsx",
 		"./CreatableSelect": "./src/creatable-select.tsx",
+		"./default": "./src/select.tsx",
 		"./grouped-options-announcement": "./src/utils/grouped-options-announcement.tsx",
 		"./input-options": "./src/entry-points/input-options.tsx",
 		"./popup-select": "./src/popup-select/popup-select.tsx",
@@ -50,7 +51,6 @@
 		"./select": "./src/entry-points/select.tsx",
 		"./Select": "./src/entry-points/select.tsx",
 		"./select-without-analytics": "./src/select-without-analytics.tsx",
-		"./src/select": "./src/select.tsx",
 		"./types": "./src/types.tsx",
 		"./use-async": "./src/entry-points/use-async.tsx",
 		"./use-creatable": "./src/entry-points/use-creatable.tsx"
@@ -61,6 +61,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-select": "workspace:^",
@@ -84,22 +85,26 @@
 		"@af/accessibility-testing": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/drawer": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
+		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"ast-types": "root:*",
 		"jest-in-case": "root:*",
 		"jscodeshift": "root:*",
@@ -108,31 +113,21 @@
 		"react-select-event": "root:*",
 		"tiny-invariant": "root:*"
 	},
-	"techstack": {
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"compiled"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {
 			"type": "boolean"
 		},
+		"platform-dst-popper-consolidation": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
+			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-labels": {
 			"type": "boolean"
 		},
 		"platform_dst_select_dropdown_voice_control": {

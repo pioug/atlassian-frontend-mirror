@@ -6,7 +6,7 @@ import { render, screen } from '@atlassian/testing-library';
 
 import ModifiedOnElement from './index';
 
-jest.mock('../../../../../state/flexible-ui-context', () => ({
+jest.mock('../../../../../state/flexible-ui-context/useFlexibleUiContext', () => ({
 	useFlexibleUiContext: jest.fn(() => ({
 		modifiedOn: '2023-10-01T12:00:00Z',
 	})),

@@ -11,6 +11,10 @@ test.describe('React UFO: pageVisibilityHiddenTimestamp field', () => {
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'basic';
+			viewport: { width: number; height: number };
+			__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 		});
 
 		test('should have undefined timestamp when page was never backgrounded', async ({
@@ -42,6 +46,10 @@ test.describe('React UFO: pageVisibilityHiddenTimestamp field', () => {
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'interactions-simple-button';
+			viewport: { width: number; height: number };
+			__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 		});
 
 		test('should capture hidden timestamp when page is backgrounded during interaction', async ({

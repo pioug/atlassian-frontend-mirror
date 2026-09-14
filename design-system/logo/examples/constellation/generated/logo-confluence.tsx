@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default (): React.JSX.Element => (
 	<LogoTable
-		logo={<ConfluenceLogo appearance="brand" shouldUseNewLogoDesign />}
-		icon={<ConfluenceIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<ConfluenceLogo appearance="brand" />}
+		icon={<ConfluenceIcon appearance="brand" />}
 	/>
 );

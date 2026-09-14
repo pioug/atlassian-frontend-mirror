@@ -3,13 +3,13 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import IssuesIcon from '@atlaskit/icon/core/bug';
 import ReportsIcon from '@atlaskit/icon/core/chart-bar';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import StarIcon from '@atlaskit/icon/core/star-starred';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 import { token } from '@atlaskit/tokens';
 
 const gridStyles = cssMap({

@@ -2,15 +2,14 @@ import React from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { fg } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { importIcon } from '../../utils';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { importIcon } from '../../importIcon';
 import ServerAction from '../action/server-action';
-
 import { type FollowActionProps } from './types';
 import { getFollowActionErrorMessage } from './utils';
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "12.0.1",
+	"version": "12.2.2",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -64,6 +64,7 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlassian/afm-i18n-platform-help-help": "root:*",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"date-fns": "root:*",
@@ -78,10 +79,10 @@
 	},
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",
-		"enzyme": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-intl": "root:*",
@@ -93,19 +94,11 @@
 		"ui",
 		"help"
 	],
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"compiled"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"jfp_a11y_fix_sr_accessibility_for_button_group": {
+			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-custom-button": {
 			"type": "boolean"
 		}
 	}

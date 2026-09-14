@@ -1,18 +1,15 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import type { ADFEntity, ADFEntityMark } from '../types';
-// Ignored via go/ees005
-// eslint-disable-next-line import/no-namespace
-import * as specs from './specs';
-import {
-	copy,
-	isBoolean,
-	isDefined,
-	isInteger,
-	isNumber,
-	isPlainObject,
-	isString,
-	makeArray,
-} from './utils';
+import { copy } from './copy';
+import { isBoolean } from './isBoolean';
+import { isDefined } from './isDefined';
+import { isInteger } from './isInteger';
+import { isNumber } from './isNumber';
+import { isPlainObject } from './isPlainObject';
+import { isString } from './isString';
+import { makeArray } from './makeArray';
+import { specs } from './specs';
 
 import type {
 	AttributesSpec,
@@ -90,7 +87,51 @@ const isVariant = (spec: unknown): spec is { 0: string; 1: ValidatorSpec } =>
 	typeof spec[1] === 'object';
 
 /**
- * Normalizes the structure of files imported from './specs'.
+ * Resolve one content-item name against `specs`. Variant specs are stored as tuples (arrays), so a
+ * name that refers to one (e.g. `paragraph_with_no_marks`) resolves to that tuple. A plain node
+ * name (e.g. `table`) has no tuple in `specs` and is returned unchanged for the matcher to handle
+ * by name.
+ */
+const resolveContentItemName = (name: string): string | [string, ValidatorSpec] => {
+	const referencedSpec = (specs as Record<string, unknown>)[name];
+	return Array.isArray(referencedSpec) ? (referencedSpec as [string, ValidatorSpec]) : name;
+};
+
+/**
+ * Expand the content item NAMES inside a variant tuple's override so they resolve the same way a
+ * base spec's content does. A variant such as `panel_c1` is `['panel', { props: { content: { items:
+ * [['paragraph_with_no_marks', ..., 'table']] } } }]`; those inner names are validator variant
+ * names. Unlike a base spec's content (which `createSpec` resolves), the override names are left
+ * raw, so the variant branch matches only plainly-named children (e.g. `table`) and rejects
+ * variant-named ones (e.g. a normal `paragraph`). Resolve each name one level, leaving plain node
+ * names untouched.
+ */
+const resolveVariantOverrideContentItems = (
+	variantTuple: [string, ValidatorSpec],
+): [string, ValidatorSpec] => {
+	const [baseNodeType, variantSpec] = variantTuple;
+	const content = variantSpec?.props?.content;
+	if (!content || !Array.isArray(content.items)) {
+		return variantTuple;
+	}
+
+	// Each entry in `content.items` is either a single name or an `$or` group (a list of
+	// alternative names). Resolve the names inside each `$or` group; pass single names through.
+	const resolvedItems = content.items.map((entry) =>
+		Array.isArray(entry) ? entry.map(resolveContentItemName) : entry,
+	) as ValidatorContent['items'];
+
+	return [
+		baseNodeType,
+		{
+			...variantSpec,
+			props: { ...variantSpec.props, content: { ...content, items: resolvedItems } },
+		},
+	];
+};
+
+/**
+ * Normalizes the structure of the specs in './specs'.
  * We denormalised the spec to save bundle size.
  */
 export function createSpec(nodes?: Array<string>, marks?: Array<string>): CreateSpecReturn {
@@ -106,6 +147,18 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 			// When the spec is a variant it will be in the form of ['base_spec_name', { props: { ... } }]
 			// The actual validator spec of the variant will be the second item in the array
 			spec = { ...spec[1] };
+		} else if (isVariant(spec)) {
+			// Their override content items are variant names, which match no child by type, so resolve
+			// them one level or valid content gets wrapped as `unsupportedBlock`. For non-panel variants
+			// like `mediaSingle_full` the names are already plain, so this is a no-op.
+			const resolved = resolveVariantOverrideContentItems([spec[0], spec[1]] as [
+				string,
+				ValidatorSpec,
+			]);
+			spec = {
+				...spec,
+				1: resolved[1],
+			};
 		}
 
 		if (spec.props) {
@@ -154,18 +207,17 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 					// [['emoji', 'hr', 'inline_code']] => [['emoji', 'hr', ['text', { marks: {} }]]]
 					.map((item: Array<string>) =>
 						item
-							.map((subItem) =>
+							.map((subItem) => {
 								// Ignored via go/ees005
 								// eslint-disable-next-line @typescript-eslint/no-explicit-any
-								Array.isArray((specs as any)[subItem])
-									? // Ignored via go/ees005
-										// eslint-disable-next-line @typescript-eslint/no-explicit-any
-										(specs as any)[subItem]
-									: isString(subItem)
-										? subItem
-										: // Now `NoMark` produces `items: []`, should be fixed in generator
-											['text', subItem],
-							)
+								const resolved = (specs as any)[subItem];
+								if (Array.isArray(resolved)) {
+									// Resolve the variant tuple's own override content names so a nested match works.
+									return resolveVariantOverrideContentItems(resolved as [string, ValidatorSpec]);
+								}
+								// Now `NoMark` produces `items: []`, should be fixed in generator
+								return isString(subItem) ? subItem : ['text', subItem];
+							})
 							// Remove unsupported nodes & marks
 							// Filter nodes
 							.filter((subItem) => {
@@ -174,10 +226,19 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 									// ['mediaSingle', { props: { content: { items: [ 'media', 'caption' ] } }}]
 									if (Array.isArray(subItem)) {
 										const isMainNodeSupported = nodes.indexOf(subItem[0]) > -1;
-										if (isMainNodeSupported && subItem[1]?.props?.content?.items) {
-											return subItem[1].props.content.items.every(
-												(item: string) => nodes.indexOf(item) > -1,
-											);
+										// Only a variant tuple carries an override spec to read; `['text', spec]` above
+										// builds the same shape, so both are covered.
+										const overrideItems = isVariant(subItem)
+											? subItem[1].props?.content?.items
+											: undefined;
+										// The node-list check below only holds when the override lists child node names. A
+										// nested `$or` list (`string[][]`, as `panel_c1` has) never matches, which would
+										// drop the variant entirely, so keep it and validate its children recursively.
+										const overrideListsChildNodeNames =
+											Array.isArray(overrideItems) &&
+											overrideItems.every((item: unknown) => typeof item === 'string');
+										if (isMainNodeSupported && overrideListsChildNodeNames) {
+											return (overrideItems as string[]).every((item) => nodes.indexOf(item) > -1);
 										}
 										return isMainNodeSupported;
 									}
@@ -192,7 +253,7 @@ export function createSpec(nodes?: Array<string>, marks?: Array<string>): Create
 										 * TODO: Probably try something like immer, but it's 3.3kb gzipped.
 										 * Not worth it just for this.
 										 */
-										[subItem[0], mapMarksItems(subItem[1])]
+										[subItem[0], mapMarksItems(subItem[1] as ValidatorSpec)]
 									: subItem,
 							),
 					);
@@ -224,7 +285,7 @@ function getOptionsForType(type: string, list?: Content): false | Record<string,
 	return false;
 }
 
-const isValidatorSpecAttrs = (spec: AttributesSpec): spec is ValidatorSpecAttrs => {
+const isValidatorSpecAttrs = (spec: unknown): spec is ValidatorSpecAttrs => {
 	return !!(spec as ValidatorSpecAttrs).props;
 };
 
@@ -402,15 +463,45 @@ const unsupportedNodeAttributesContent = (
  *
  * WARNING: The variant spec must be a strict superset of the base spec, i.e. any content valid
  * under the base spec must also be valid under the variant.
+ *
+ * DEPRECATED, being removed behind `platform_editor_adf_validator_no_base_override`. Replacing a
+ * base spec with a variant is unnecessary and harmful:
+ *
+ * - Unnecessary, because `doc`'s content list already names every `*_root_only` variant, so the
+ *   candidate loop offers them exactly where they belong. `codeBlock_root_only` and
+ *   `expand_root_only` are not in this map and get the same breakout-at-root behaviour from the
+ *   content lists alone. Measured: a root panel with `breakout` validates whether or not the
+ *   lovability flags are on.
+ * - Harmful, because variants are supersets of their base (ADF stays backward compatible), so the
+ *   base is the narrowest spec and is what the candidate loop falls back to when it declines a
+ *   variant. Merging a variant into it removes that floor: `breakout` becomes valid on a panel at
+ *   every position, which is the opposite of what `root_only` means. The merge also copies `props`
+ *   without `meta`, so the laundered base spec loses the variant's `meta.stage0`.
+ *
+ * See `__tests__/unit/root-only-variant-override.ts`.
  */
 const getVariantSpecOverrides = (): Record<string, string> => {
+	if (fg('platform_editor_adf_validator_no_base_override')) {
+		return {};
+	}
+
+	let overrides = {};
 	if (fg('platform_editor_lovability_resize_gracefully')) {
-		return {
+		overrides = {
+			...overrides,
 			panel: 'panel_root_only',
 			rule: 'rule_root_only',
 		};
 	}
-	return {};
+	if (fg('platform_editor_lovability_resize_exts_gracefully')) {
+		overrides = {
+			...overrides,
+			extension: 'extension_root_only',
+			bodiedExtension: 'bodiedExtension_root_only',
+			multiBodiedExtension: 'multiBodiedExtension_root_only',
+		};
+	}
+	return overrides;
 };
 
 /**
@@ -437,22 +528,77 @@ const applyVariantSpecOverrides = (validatorSpecs: CreateSpecReturn) => {
 };
 
 /**
+ * Copies the containers that validation writes to, keeping the caller's document read-only.
+ *
+ * Repairing unsupported content mutates the entity in place: `wrapUnSupportedNodeAttributes` deletes
+ * keys from `attrs` and appends an `unsupportedNodeAttribute` mark to `marks`. A plain spread shares
+ * both containers with the input, so those writes would escape into the caller's document and the
+ * candidate-spec retry would re-validate an already-emptied `attrs`.
+ *
+ * Only `attrs` and `marks` need copying; nothing writes below that level.
+ */
+const cloneEntityForValidation = (entity: ADFEntity): ADFEntity => {
+	const clone: ADFEntity = { ...entity };
+	if (entity.attrs) {
+		clone.attrs = { ...entity.attrs };
+	}
+	if (entity.marks) {
+		clone.marks = entity.marks.map((mark) => ({ ...mark }));
+	}
+	return clone;
+};
+
+/**
  * Creates a validator function for ADF documents.
  * Validates document structure against the ADF specification.
  */
 export function validator(
 	nodes?: Array<string>,
 	marks?: Array<string>,
-	options?: ValidationOptions,
+	options: ValidationOptions = {},
 ): Validate {
-	const validatorSpecs = createSpec(nodes, marks);
+	const { allowPrivateAttributes, mode = 'strict', stage0 } = options;
 
+	// Whether specs that only exist in the stage-0 schema are declined for this caller. Resolved once
+	// here to keep the gate out of the per-node path; note that a validator built at module or
+	// describe scope bakes in `false`, because the jest gate resolver is installed in `beforeAll`.
+	// Gate off is the pre-stage-0 behaviour: every stage-0 spec stays available to every caller.
+	const rejectStage0Specs = !stage0 && fg('platform_editor_adf_validator_stage0');
+
+	// Whether an empty `marks` array is dropped from a node that only ever takes an empty one. Resolved
+	// once for the same reasons as above. Gate off keeps such a node rejected.
+	const acceptEmptyMarks = fg('platform_editor_adf_validator_empty_marks');
+
+	// Whether entities are deep-copied before validation. Read once per node and per mark before, so
+	// tens of thousands of Statsig lookups plus their UFO exposure bookkeeping for a value fixed for
+	// the whole validation. Resolved once for the same reasons as `rejectStage0Specs` above.
+	const fixMutationBug = fg('platform_editor_fix_adf-validator_mutation_bug');
+
+	const validatorSpecs = createSpec(nodes, marks);
 	applyVariantSpecOverrides(validatorSpecs);
 
-	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
+	// `extractAllowedContent` scans all of `validatorSpecs` for one node type's candidates, and
+	// `validate` calls it per node. It depends only on `validatorSpecs` — fixed once
+	// `applyVariantSpecOverrides` has run — and `entity.type`, so it caches per type. Sharing one array
+	// across nodes of a type is safe: `getOptionsForType` only iterates it, and the specs inside were
+	// already shared via `validatorSpecs`.
+	const allowedContentByType = new Map<string, Content[]>();
+	const getAllowedContent = (entity: ADFEntity): Content[] => {
+		const { type } = entity;
+		if (typeof type !== 'string') {
+			return extractAllowedContent(validatorSpecs, entity);
+		}
+		let allowedContent = allowedContentByType.get(type);
+		if (allowedContent === undefined) {
+			allowedContent = extractAllowedContent(validatorSpecs, entity);
+			allowedContentByType.set(type, allowedContent);
+		}
+		return allowedContent;
+	};
+
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
 		if (!allowed) {
-			for (const allowed of extractAllowedContent(validatorSpecs, entity)) {
+			for (const allowed of getAllowedContent(entity)) {
 				const validationResult = validateNode(entity, errorCallback, allowed, parentSpec);
 				if (validationResult.valid) {
 					return { entity: validationResult.entity, valid: validationResult.valid };
@@ -471,7 +617,7 @@ export function validator(
 		isMark: boolean = false,
 	): NodeValidationResult => {
 		const { type } = entity;
-		const newEntity: ADFEntity = { ...entity };
+		const newEntity: ADFEntity = fixMutationBug ? cloneEntityForValidation(entity) : { ...entity };
 
 		const err = <T extends ValidationErrorType>(
 			code: T,
@@ -502,6 +648,22 @@ export function validator(
 			if (!spec) {
 				return err('INVALID_TYPE', `${type}: No validation spec found for type!`);
 			}
+			// A spec carrying `meta.stage0` exists only in the stage-0 schema. It reaches here as the
+			// candidate the parent offers for this entity, so declining the candidate lets the caller's
+			// candidate loop fall through to the next spec, normally the base one. Reading the flag from
+			// `parentSpec` would reject the entity's own children and marks instead, emptying a node that
+			// matches a stage-0 variant.
+			//
+			// The rule is partial, and errs towards accepting: `typeOptions` carries variant
+			// candidates only, so a stage-0-only base node such as `extensionFrame` reaches here with
+			// `{}` and is accepted; `applyVariantSpecOverrides` copies a variant's `props` onto its base
+			// without `meta`; and `withoutStage0Meta` clears the flag from variants that also carry
+			// `breakout`. Also reading `validatorSpecs[type].meta` would cover the base-node case, but
+			// only holds while the generator flags stage-0-only specs and nothing else.
+			if (rejectStage0Specs && typeOptions.meta?.stage0) {
+				return { valid: false };
+			}
+
 			const specBasedValidationResult = specBasedValidationFor(
 				spec,
 				typeOptions,
@@ -618,6 +780,24 @@ export function validator(
 		return marksSet;
 	}
 
+	/**
+	 * Whether the node declares a `marks` property that no mark type may go into, which ADF spells as
+	 * `marks: { type: 'array', maxItems: 0 }` — `paragraph`, `heading`, `extension` and `codeBlock` all
+	 * do. An empty array is then the property's only legal value, so it says nothing about the node and
+	 * carries nothing to reject.
+	 *
+	 * The declaration is read off the BASE spec, not the candidate the parent offered. A variant only
+	 * ever widens the mark types (`extension_with_marks` adds `dataConsumer` and `fragment`), which
+	 * cannot make the empty list illegal. Reading the candidate instead would leave a root `extension`
+	 * out, since `doc` offers it as `extension_with_marks`.
+	 *
+	 * A node with no `marks` property at all (`rule`, `panel`, `mediaGroup`) is excluded: for those,
+	 * `marks` is a property ADF does not define, so an empty array is still redundant.
+	 */
+	function declaresEmptyMarksOnly(baseSpec: ValidatorSpec) {
+		return !!baseSpec.props?.marks && allowedMarksFor(baseSpec).length === 0;
+	}
+
 	function marksForEntitySpecNotSupportingMarks(
 		prevEntity: ADFEntity,
 		newEntity: ADFEntity,
@@ -633,8 +813,17 @@ export function validator(
 			}
 			return unsupportedMarkContent(errorCode, mark, errorCallback);
 		});
-		if (newMarks.length) {
-			newEntity.marks = newMarks;
+		// Attribute validation may have already put an `unsupportedNodeAttribute` mark on `newEntity`.
+		// It is not in `prevEntity.marks`, so rebuilding from those alone loses the only record of the
+		// unknown attribute. The check above only covers the mark being on the original entity, which
+		// held while the validated entity still aliased the caller's marks array.
+		const prevMarkTypes = new Set(currentMarks.map((mark: ADFEntityMark) => mark.type));
+		const synthesizedMarks = fixMutationBug
+			? (newEntity.marks ?? []).filter((mark) => !prevMarkTypes.has(mark.type))
+			: [];
+		const allMarks = newMarks.concat(synthesizedMarks);
+		if (allMarks.length) {
+			newEntity.marks = allMarks;
 			return { valid: true, entity: newEntity };
 		} else {
 			return err('REDUNDANT_MARKS', 'redundant marks', {
@@ -1100,7 +1289,7 @@ export function validator(
 			if (prevEntity.content) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const validateChildNode = (child: ADFEntity | undefined, index: any) => {
+				const validateChildNode = (child: ADFEntity | undefined, index: number) => {
 					if (child === undefined) {
 						return child;
 					}
@@ -1143,8 +1332,19 @@ export function validator(
 									}
 								})
 								.filter(Boolean) as ADFEntityMark[];
-							if (finalMarks.length) {
-								childEntity.marks = finalMarks;
+							// `marksValidationOutput` is derived from the ORIGINAL marks, so it omits marks
+							// synthesized during validation. The `unsupportedNodeAttribute` mark is one of those
+							// and is the only record of an unknown attribute, so rebuilding from the output alone
+							// destroys it. This survived by accident before entities were deep-cloned.
+							const validatedMarkTypes = new Set(
+								marksValidationOutput.map((markResult) => markResult.originalMark?.type),
+							);
+							const synthesizedMarks = fixMutationBug
+								? childEntity.marks.filter((mark) => !validatedMarkTypes.has(mark.type))
+								: [];
+							const allMarks = finalMarks.concat(synthesizedMarks);
+							if (allMarks.length) {
+								childEntity.marks = allMarks;
 							} else {
 								delete childEntity.marks;
 								marksAreValid = false;
@@ -1259,6 +1459,14 @@ export function validator(
 
 		// Marks
 		if (prevEntity.marks) {
+			// An empty array on a node that only ever takes an empty array is dropped rather than
+			// validated. Mark validation has nothing to reject in it, so it reports the node valid with an
+			// empty `marksValidationOutput`, which reads to the parent's `validateChildMarks` as every
+			// mark on the child having been rejected, and the candidate spec gets declined.
+			if (acceptEmptyMarks && prevEntity.marks.length === 0 && declaresEmptyMarksOnly(spec)) {
+				delete newEntity.marks;
+				return specBasedValidationResult;
+			}
 			return {
 				hasValidated: true,
 				result: marksValidationFor(validatorSpec, prevEntity, errorCallback, newEntity, err),

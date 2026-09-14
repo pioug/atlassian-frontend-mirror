@@ -2,9 +2,9 @@ import React, { type FC, useState } from 'react';
 
 import shuffle from 'lodash/shuffle';
 
-import AvatarGroup from '@atlaskit/avatar-group';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 import { appearances } from '../examples-util/appearances';
 import { RANDOM_USERS } from '../examples-util/random-users';

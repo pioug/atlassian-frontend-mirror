@@ -1,8 +1,6 @@
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-
 /**
  * Represents the SSR data for a single provider.
  * It's a map where each key is a unique node data key and the value is the prefetched data for that node.
@@ -115,15 +113,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 	 * @param ssrData A map of node data keys to their corresponding data.
 	 */
 	setSSRData(ssrData: SSRData<Data> = {}): void {
-		if (editorExperiment('platform_synced_block', true)) {
-			this.updateCache(ssrData, { strategy: 'replace', source: 'ssr' });
-			return;
-		}
-
-		this.cacheVersion++;
-		this.cache = Object.fromEntries(
-			Object.entries(ssrData).map(([key, data]) => [key, { data, source: 'ssr' }]),
-		);
+		this.updateCache(ssrData, { strategy: 'replace', source: 'ssr' });
 	}
 
 	/**
@@ -242,14 +232,7 @@ export abstract class NodeDataProvider<Node extends JSONNode, Data> {
 				// because it could be stale data.
 				if (cacheVersionBeforeRequest === this.cacheVersion) {
 					// Replace promise with the resolved data in the cache
-					if (editorExperiment('platform_synced_block', true)) {
-						this.updateCache({ [dataKey]: data }, { strategy: 'merge', source: 'network' });
-					} else {
-						this.cache[dataKey] = {
-							data,
-							source: 'network',
-						};
-					}
+					this.updateCache({ [dataKey]: data }, { strategy: 'merge', source: 'network' });
 				}
 			} catch (error) {
 				// If an error occurs, we call the callback with the error

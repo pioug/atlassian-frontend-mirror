@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import SearchIcon from '@atlaskit/icon/core/search';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
@@ -13,22 +13,8 @@ import { useDebouncedCallback } from 'use-debounce';
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
 import { messages } from '../i18n';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 
 const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
 	if (!FeatureGates.initializeCompleted()) {

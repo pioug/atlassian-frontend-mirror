@@ -4,14 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.themeStateDefaults = void 0;
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
+var _fg = require("@atlaskit/platform-feature-flags/fg");
 /**
  * Can't evaluate typography feature flags at the module level,
  * it will always resolve to false when server side rendered or when flags are loaded async.
  */
 
 function getShapeDefault() {
-  if ((0, _platformFeatureFlags.fg)('platform-dst-shape-theme-default')) {
+  if ((0, _fg.fg)('platform-dst-shape-theme-default')) {
     return 'shape';
   }
   return undefined;

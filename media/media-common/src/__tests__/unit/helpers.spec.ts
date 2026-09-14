@@ -49,8 +49,8 @@ describe('helpers', () => {
 
 		debounce(callback, 3000)(1, 2);
 		jest.runAllTimers();
-		expect(callback).toBeCalledTimes(1);
-		expect(callback).toBeCalledWith(1, 2);
+		expect(callback).toHaveBeenCalledTimes(1);
+		expect(callback).toHaveBeenCalledWith(1, 2);
 	});
 
 	it('matches', () => {

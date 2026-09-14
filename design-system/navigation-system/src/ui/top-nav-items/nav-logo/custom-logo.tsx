@@ -6,8 +6,7 @@ import React, { useEffect, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import type { LogoProps } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { LogoProps } from '@atlaskit/logo/types';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -21,14 +20,10 @@ const anchorStyles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		height: '32px',
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.small'),
 	},
 	customLogoBorderRadius: {
-		borderRadius: token('radius.small', '3px'),
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	customLogoBorderRadiusT26Shape: {
-		borderRadius: token('radius.large', '8px'),
+		borderRadius: token('radius.large'),
 	},
 	newMargin: {
 		// Additional margin is added to the left of the interactive element, to create visual alignment
@@ -100,7 +95,6 @@ const iconContainerStyles = cssMap({
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in
 			// both the `icon` and `logo` elements to be displayed at the same time
 			// Clean up task: https://jplat.atlassian.net/browse/BLU-4788
-			// @ts-ignore
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&&': {
 				display: 'none',
@@ -120,7 +114,6 @@ const logoContainerStyles = cssMap({
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in
 			// both the `icon` and `logo` elements to be displayed at the same time
 			// Clean up task: https://jplat.atlassian.net/browse/BLU-4788
-			// @ts-ignore
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&&': {
 				display: 'flex',
@@ -249,7 +242,6 @@ export const CustomLogo: ({
 			xcss={cx(
 				anchorStyles.root,
 				anchorStyles.customLogoBorderRadius,
-				fg('platform-dst-shape-theme-default') && anchorStyles.customLogoBorderRadiusT26Shape,
 				anchorStyles.newMargin,
 				hasCustomTheme
 					? anchorStyles.newInteractionStatesCustomTheming

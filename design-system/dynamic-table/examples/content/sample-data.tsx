@@ -6,11 +6,13 @@ import { type FC, type ReactNode } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import Avatar from '@atlaskit/avatar';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import Avatar from '@atlaskit/avatar/avatar';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

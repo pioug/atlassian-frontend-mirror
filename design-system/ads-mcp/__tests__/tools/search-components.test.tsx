@@ -12,7 +12,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['select'], ['Select', 'PopupSelect']],
 	[
 		['button', 'modal'],
-		['Button', 'Modal', 'IconButton', 'Tooltip'],
+		['Button', 'Modal', 'IconButton', 'LinkButton'],
 	],
 	[
 		['form', 'footer'],
@@ -41,7 +41,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['empty'], ['EmptyState', 'InlineEditableTextfield']],
 	[['heading'], ['Heading', 'HeadingContextProvider']],
 	[['page'], ['PageHeader', 'Pagination']],
-	[['link'], ['Link', 'LinkItem']],
+	[['link'], ['Link', 'LinkButton']],
 	[['tag'], ['Tag', 'TagGroup']],
 
 	// Date & progress
@@ -50,7 +50,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['progress'], ['ProgressTracker', 'ProgressIndicator']],
 
 	// Animation & motion
-	[['motion'], ['Motion', 'useMotion']],
+	[['motion'], ['Motion', 'ExitingPersistence']],
 
 	// Feedback
 	[['spinner'], ['Spinner']],

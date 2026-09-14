@@ -2,12 +2,14 @@ import { type Token } from 'antlr4ts';
 import { type RecognitionException } from 'antlr4ts/RecognitionException';
 import { type IntlShape } from 'react-intl';
 
-import { JQLLexer, type JQLParser } from '@atlaskit/jql-parser';
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
+import type { JQLParser } from '@atlaskit/jql-parser/JQLParser';
 
 import { commonMessages } from '../../../common/messages';
 import { lowPriorityTokens } from '../constants';
+import { getExpectedTokensFromParserOrException } from '../getExpectedTokensFromParserOrException';
+import { getTokenDisplayNames } from '../getTokenDisplayNames';
 import { errorMessages } from '../messages';
-import { getExpectedTokensFromParserOrException, getTokenDisplayNames } from '../utils';
 
 /**
  * Show the appropriate error message when parsing JQL fails and 0 or more tokens were expected.

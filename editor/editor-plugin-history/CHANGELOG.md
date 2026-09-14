@@ -1,5 +1,78 @@
 # @atlaskit/editor-plugin-history
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`db3dc405020c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db3dc405020c5) -
+  Fix undo of a source synced block creation deleting the converted content (e.g. a table). Behind
+  the `platform_editor_blocks_exp_patch_10` experiment, once the deletion is confirmed and persisted
+  the undo is replayed against the live editor state instead of recomputing a whole-node delete, and
+  a redo of the creation unwraps the block instead of deleting its content.
+  `@atlaskit/editor-plugin-history` gains an `undo` `EditorCommand` that builds the next history
+  undo onto a given transaction. EDITOR-8863
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

@@ -2,25 +2,50 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { ActionName, type FlexibleUiActionName } from '../../../../../constants';
-import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import * as Actions from '../../actions';
-import { Provider } from '../../elements';
-import Block from '../block';
+import {
+	ActionName,
+	InternalActionName,
+	type FlexibleUiActionName,
+} from '../../../../../constants';
+import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context/useFlexibleCardContext';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 
+import AISummaryAction from '../../actions/ai-summary-action';
+import AutomationAction from '../../actions/automation-action';
+import CopyLinkAction from '../../actions/copy-link-action';
+import CustomUnresolvedAction from '../../actions/custom-unresolved-action';
+import DownloadAction from '../../actions/download-action';
+import FollowAction from '../../actions/follow-action';
+import PreviewAction from '../../actions/preview-action';
+import RovoChatAction from '../../actions/rovo-chat-action';
+import ViewRelatedLinksAction from '../../actions/view-related-links-action';
+import { default as Provider } from '../../elements/provider-element';
+import Block from '../block';
 import type { ResolvedHoverCardFooterBlockProps } from './types';
 
 /**
  * Allowed footer actions for HoverCard, in display order. Fetched from context.
  */
 const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [ActionName.RovoChatAction];
+
+const Actions = {
+	[ActionName.AutomationAction]: AutomationAction,
+	[ActionName.CopyLinkAction]: CopyLinkAction,
+	[ActionName.DownloadAction]: DownloadAction,
+	[ActionName.FollowAction]: FollowAction,
+	[ActionName.PreviewAction]: PreviewAction,
+	[ActionName.RovoChatAction]: RovoChatAction,
+	[InternalActionName.AISummaryAction]: AISummaryAction,
+	[InternalActionName.UnresolvedAction]: CustomUnresolvedAction,
+	[InternalActionName.ViewRelatedLinksAction]: ViewRelatedLinksAction,
+};
 
 const ignoreContainerMarginStyles = css({
 	boxSizing: 'border-box',

@@ -8,7 +8,8 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Button, { type Appearance, type ButtonProps } from '@atlaskit/button';
+import Button, { type ButtonProps } from '@atlaskit/button/button';
+import type { Appearance } from '@atlaskit/button/old-button/types';
 import Expand from '@atlaskit/icon/core/arrow-down';
 import Open from '@atlaskit/icon/core/arrow-up-right';
 import Calendar from '@atlaskit/icon/core/calendar';

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { LinkButton, type LinkButtonProps } from '@atlaskit/button/new';
+import LinkButton, { type LinkButtonProps } from '@atlaskit/button/link';
 
+import { buildNavigationInput } from '../common/utils/buildNavigationInput';
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';
 import { getNavigationProps } from '../common/utils/getNavigationProps';
-import { buildNavigationInput } from '../common/utils/utils';
 
-import { useTeamsNavigationContext } from './TeamsNavigationProvider';
+import { useTeamsNavigationContext } from './useTeamsNavigationContext';
 
 type BaseLinkButtonProps = Omit<LinkButtonProps, 'target'>;
 

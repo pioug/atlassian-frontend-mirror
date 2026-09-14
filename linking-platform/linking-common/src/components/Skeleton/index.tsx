@@ -50,37 +50,10 @@ const spanSkeletonBackgroundStyleMap = cssMap({
 	},
 });
 
-export const SpanSkeleton = ({
-	width,
-	appearance = 'gray',
-	height = 14,
-	borderRadius = 0,
-	isShimmering = true,
-	testId,
-	style = {},
-}: SkeletonProps): JSX.Element => {
-	return (
-		<span
-			data-testid={testId}
-			css={[spanSkeletonStyles, spanSkeletonBackgroundStyleMap[appearance]]}
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				...style,
-				height: (typeof height === 'number' ? `${height}px` : height) || 'auto',
-				width: (typeof width === 'number' ? `${width}px` : width) || 'auto',
-				borderRadius: (typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius) || 0,
-				backgroundImage: `linear-gradient(
-    to right,
-    transparent 0%,
-    ${appearanceValues[appearance].animation} 20%,
-    transparent 40%,
-    transparent 100%
-  )`,
-				backgroundSize: isShimmering ? `40px ${height}` : '0px',
-			}}
-		></span>
-	);
-};
+/**
+ * @deprecated Use `import { SpanSkeleton } from '@atlaskit/linking-common/span-skeleton'` instead.
+ */
+export { SpanSkeleton } from './span-skeleton';
 
 export const Skeleton = ({
 	width,
@@ -114,4 +87,7 @@ export const Skeleton = ({
 	);
 };
 
+/**
+ * @deprecated Use `import { Skeleton } from '@atlaskit/linking-common/skeleton'` instead.
+ */
 export default Skeleton;

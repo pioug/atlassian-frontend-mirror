@@ -11,7 +11,7 @@ import { IntlProvider } from 'react-intl';
 import { contentStyles, wrapperStyles } from '@af/editor-examples-helpers/example-presets';
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
@@ -27,8 +27,10 @@ import WithEditorActions from '../src/ui/WithEditorActions';
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
+const loadExampleDocument = () => import('../example-helpers/templates/example.adf.json');
+
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
-	const exampleDocument = useExampleDocument();
+	const exampleDocument = useExampleDocument(loadExampleDocument);
 
 	return (
 		<ButtonGroup>

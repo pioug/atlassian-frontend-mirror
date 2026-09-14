@@ -1,7 +1,8 @@
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { border as borderFactory } from '../../next-schema/generated/markTypes';
-import { hexToEditorBorderPaletteColor } from '../../utils/editor-palette';
 import { N300A, N600, N1000 } from '../../utils/colors';
+import { hexToEditorBorderPaletteColor } from '../../utils/hex-to-editor-border-palette-color';
 
 export type BorderMarkAttributes = {
 	/**

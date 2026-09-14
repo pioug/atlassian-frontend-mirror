@@ -6,7 +6,7 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { DropdownToolbarButton } from './dropdown-toolbar-button';
 import { useMenuState } from './hooks/menu-state';

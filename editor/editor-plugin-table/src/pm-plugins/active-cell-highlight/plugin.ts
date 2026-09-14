@@ -1,7 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorState,
-	// @ts-ignore -- ReadonlyTransaction is a local declaration
 	ReadonlyTransaction,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
@@ -9,7 +8,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findCellClosestToPos } from '@atlaskit/editor-tables/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
@@ -92,32 +90,8 @@ const hasHadInteraction = (api: PluginInjectionAPI | undefined): boolean => {
 	return api.interaction.sharedState.currentState()?.interactionState !== 'hasNotHadInteraction';
 };
 
-const createLegacyStateField = (): ActiveCellHighlightStateField => ({
-	init: (_config, state) => buildState(getActiveCellPos(state), state),
-
-	apply: (tr, prev, _oldState, newState) => {
-		if (tr.docChanged) {
-			// Doc changed — always rebuild since positions may have shifted.
-			return buildState(getActiveCellPos(newState), newState);
-		}
-
-		if (!tr.selectionSet) {
-			// Neither doc nor selection changed — nothing to do.
-			return prev;
-		}
-
-		// Selection changed — only rebuild if the cursor moved to a different cell.
-		const nextCellPos = getActiveCellPos(newState);
-		return nextCellPos === prev.cellPos ? prev : buildState(nextCellPos, newState);
-	},
-});
-
-/**
- * Stays hidden until the first interaction
- */
-const createGatedStateField = (
-	api: PluginInjectionAPI | undefined,
-): ActiveCellHighlightStateField => ({
+/** Stays hidden until the first interaction. */
+const createStateField = (api: PluginInjectionAPI | undefined): ActiveCellHighlightStateField => ({
 	init: (_config, state) => {
 		const interacted = hasHadInteraction(api);
 		return {
@@ -155,9 +129,7 @@ const createGatedStateField = (
 export const createPlugin = (api?: PluginInjectionAPI): SafePlugin<ActiveCellHighlightState> => {
 	return new SafePlugin<ActiveCellHighlightState>({
 		key: activeCellHighlightPluginKey,
-		state: expValEquals('platform_editor_table_q4_patch_3', 'isEnabled', true)
-			? createGatedStateField(api)
-			: createLegacyStateField(),
+		state: createStateField(api),
 		props: {
 			decorations: (state) =>
 				activeCellHighlightPluginKey.getState(state)?.decorationSet ?? DecorationSet.empty,

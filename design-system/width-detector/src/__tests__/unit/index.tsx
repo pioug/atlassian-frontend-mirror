@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, waitFor } from '@testing-library/react';
 
-import WidthDetector from '../../index';
+import WidthDetector from '../../WidthDetector';
 
 // requestAnimationFrame is stubbed with `raf-stub`
 const requestAnimationFrame = window.requestAnimationFrame as any;

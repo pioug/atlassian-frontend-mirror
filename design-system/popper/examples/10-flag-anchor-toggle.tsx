@@ -6,7 +6,7 @@ import React, { useLayoutEffect, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Popper } from '@atlaskit/popper';
+import { Popper } from '@atlaskit/popper/main';
 import { token } from '@atlaskit/tokens';
 
 /**

@@ -1,11 +1,9 @@
 import React from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import {
-	useAnalyticsEvents,
-	type UIAnalyticsEvent,
-	AnalyticsContext,
-} from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import Button from '@atlaskit/button/button';
 
 import { messages } from '../../../../messages';
 

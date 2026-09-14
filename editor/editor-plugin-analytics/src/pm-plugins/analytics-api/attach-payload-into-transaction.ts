@@ -1,4 +1,4 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import type { AnalyticsEventPayload, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';

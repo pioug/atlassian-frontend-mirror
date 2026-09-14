@@ -1,11 +1,13 @@
-import { getExtensionAttrs } from '../../utils/extensions';
+import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { bodiedExtension as bodiedExtensionFactory } from '../../next-schema/generated/nodeTypes';
+import { getExtensionAttrs } from '../../utils/get-extension-attrs';
+import type { BreakoutMarkDefinition } from '../marks/breakout';
+import type { DataConsumerDefinition } from '../marks/data-consumer';
+import type { FragmentDefinition } from '../marks/fragment';
 import type { ExtensionAttributes } from './types/extensions';
 import type { MarksObject } from './types/mark';
 import type { NonNestableBlockContent } from './types/non-nestable-block-content';
-import type { DataConsumerDefinition } from '../marks/data-consumer';
-import type { FragmentDefinition } from '../marks/fragment';
-import { bodiedExtension as bodiedExtensionFactory } from '../../next-schema/generated/nodeTypes';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name bodiedExtension_node
@@ -29,6 +31,12 @@ export interface BodiedExtensionBaseDefinition {
  */
 export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition &
 	MarksObject<DataConsumerDefinition | FragmentDefinition>;
+
+/**
+ * @name bodiedExtension_root_only_node
+ */
+export type BodiedExtensionRootOnlyDefinition = BodiedExtensionBaseDefinition &
+	MarksObject<BreakoutMarkDefinition | DataConsumerDefinition | FragmentDefinition>;
 
 export const bodiedExtension: NodeSpec = bodiedExtensionFactory({
 	parseDOM: [
@@ -56,3 +64,8 @@ export const bodiedExtension: NodeSpec = bodiedExtensionFactory({
 		return ['div', attrs, 0];
 	},
 });
+
+export const bodiedExtensionRootOnlyStage0: NodeSpec = {
+	...bodiedExtension,
+	marks: `breakout ${bodiedExtension.marks}`,
+};

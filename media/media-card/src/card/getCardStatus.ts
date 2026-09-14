@@ -1,8 +1,6 @@
 import { type FileStatus } from '@atlaskit/media-client';
-import { type CardStatus, type FilePreviewStatus } from '../types';
 
-export const isFinalCardStatus = (status: CardStatus): boolean =>
-	['complete', 'error', 'failed-processing'].includes(status);
+import { type CardStatus, type FilePreviewStatus } from '../types';
 
 export const getCardStatus = (
 	fileStatus: FileStatus,

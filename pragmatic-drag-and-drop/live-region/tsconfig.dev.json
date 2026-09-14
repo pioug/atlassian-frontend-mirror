@@ -31,11 +31,7 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-live-region/dev",
@@ -62,6 +58,9 @@
 		},
 		{
 			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

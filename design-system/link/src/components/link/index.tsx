@@ -6,17 +6,15 @@ import { type AnchorHTMLAttributes, forwardRef, type Ref } from 'react';
 
 import { css } from '@compiled/react';
 
-import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, type AnchorProps, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	base: {
 		fontFamily: token('font.family.body'),
-	},
-	baseT26Shape: {
 		borderRadius: token('radius.xsmall'),
 	},
 	visitedLink: {
@@ -221,56 +219,52 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 		...htmlAttributes
 	}: LinkProps<RouterLinkConfig>,
 	ref: Ref<HTMLAnchorElement>,
-): JSX.Element => {
-	return (
-		<Anchor
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...htmlAttributes}
-			target={target}
-			ref={ref}
-			xcss={cx(
-				styles.base,
-				fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
-				appearance === 'default' &&
-					(fg('platform-dst-motion-uplift-list-item')
-						? styles.defaultAppearanceMotion
-						: styles.defaultAppearance),
-				appearance === 'subtle' &&
-					(fg('platform-dst-motion-uplift-list-item')
-						? styles.subtleAppearanceMotion
-						: styles.subtleAppearance),
-				appearance === 'inverse' &&
-					(fg('platform-dst-motion-uplift-list-item')
-						? styles.inverseAppearanceMotion
-						: styles.inverseAppearance),
-				// Visited styles are not supported for inverse links due to contrast issues
-				appearance !== 'inverse' && styles.visitedLink,
-			)}
-			testId={testId}
-			componentName="Link"
-			newWindowLabel={newWindowLabel}
-		>
-			{children}
-			{target === '_blank' && (
-				<Box as="span" xcss={styles.iconWrapper} testId={testId && `${testId}__icon`}>
-					{/* Zero-width space to prevent the icon from wrapping onto new line */}
-					&#65279;
-					{/* Unfortunately Shortcut Icon had to be copied directly below to support visited styles.
+): JSX.Element => (
+	<Anchor
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...htmlAttributes}
+		target={target}
+		ref={ref}
+		xcss={cx(
+			styles.base,
+			appearance === 'default' &&
+				(fg('platform-dst-motion-uplift-list-item')
+					? styles.defaultAppearanceMotion
+					: styles.defaultAppearance),
+			appearance === 'subtle' &&
+				(fg('platform-dst-motion-uplift-list-item')
+					? styles.subtleAppearanceMotion
+					: styles.subtleAppearance),
+			appearance === 'inverse' &&
+				(fg('platform-dst-motion-uplift-list-item')
+					? styles.inverseAppearanceMotion
+					: styles.inverseAppearance),
+			// Visited styles are not supported for inverse links due to contrast issues
+			appearance !== 'inverse' && styles.visitedLink,
+		)}
+		testId={testId}
+		componentName="Link"
+		newWindowLabel={newWindowLabel}
+	>
+		{children}
+		{target === '_blank' && (
+			<Box as="span" xcss={styles.iconWrapper} testId={testId && `${testId}__icon`}>
+				{/* Zero-width space to prevent the icon from wrapping onto new line */}
+				&#65279;
+				{/* Unfortunately Shortcut Icon had to be copied directly below to support visited styles.
           This is because icons have a default `color` and although it's set to inherit text color, due to strict security restrictions for visited links it did not allow the color to pass through to the SVG */}
-					<svg width="12" height="12" viewBox="0 0 12 12" fill="none" css={iconStyles}>
-						<path
-							fillRule="evenodd"
-							clipRule="evenodd"
-							d="M0 1.82609C0 0.817938 0.817938 0 1.82609 0H3.91304V1.04348H1.82609C1.39424 1.04348 1.04348 1.39424 1.04348 1.82609V10.1739C1.04348 10.6058 1.39424 10.9565 1.82609 10.9565H10.1739C10.6058 10.9565 10.9565 10.6058 10.9565 10.1739V8.08696H12V10.1739C12 11.1821 11.1821 12 10.1739 12H1.82609C0.817938 12 0 11.1821 0 10.1739V1.82609ZM7.04348 0H12V4.95652H10.9565V1.78133L6.36893 6.36893L5.63107 5.63107L10.2187 1.04348H7.04348V0Z"
-							fill="currentColor"
-						/>
-					</svg>
-				</Box>
-			)}
-		</Anchor>
-	);
-};
-
+				<svg width="12" height="12" viewBox="0 0 12 12" fill="none" css={iconStyles}>
+					<path
+						fillRule="evenodd"
+						clipRule="evenodd"
+						d="M0 1.82609C0 0.817938 0.817938 0 1.82609 0H3.91304V1.04348H1.82609C1.39424 1.04348 1.04348 1.39424 1.04348 1.82609V10.1739C1.04348 10.6058 1.39424 10.9565 1.82609 10.9565H10.1739C10.6058 10.9565 10.9565 10.6058 10.9565 10.1739V8.08696H12V10.1739C12 11.1821 11.1821 12 10.1739 12H1.82609C0.817938 12 0 11.1821 0 10.1739V1.82609ZM7.04348 0H12V4.95652H10.9565V1.78133L6.36893 6.36893L5.63107 5.63107L10.2187 1.04348H7.04348V0Z"
+						fill="currentColor"
+					/>
+				</svg>
+			</Box>
+		)}
+	</Anchor>
+);
 // Workarounds to support generic types with forwardRef
 /**
  * __Link__

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { matchers } from '@emotion/jest';
 import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { render } from '@atlassian/testing-library';
 
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
+jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client/feature-gates'),
 	__esModule: true,
 	default: {
 		getExperimentValue: jest.fn().mockReturnValue(false),
@@ -17,7 +17,8 @@ jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	},
 }));
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 
@@ -42,8 +43,6 @@ jest.mock('@emotion/react', () => {
 });
 
 import { FullPageContentArea } from '../../../ui/Appearance/FullPage/FullPageContentArea';
-
-expect.extend(matchers);
 
 const mockEditorView = {} as EditorView;
 

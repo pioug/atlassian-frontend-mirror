@@ -1,8 +1,6 @@
-import {
-	compactResourceTimings,
-	unpackResourceTimings,
-	type CompactResourceTimings,
-} from './compact-resource-timing';
+import type { CompactResourceTimings } from './compact-resource-timing';
+import { compactResourceTimings } from './compact-resource-timings';
+import { unpackResourceTimings } from './unpack-resource-timings';
 
 const legacyResourceTimings = [
 	{

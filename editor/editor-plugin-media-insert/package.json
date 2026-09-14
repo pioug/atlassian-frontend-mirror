@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-insert",
-	"version": "27.1.0",
+	"version": "33.0.0",
 	"description": "Media Insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,17 +27,22 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-media": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/media-card": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
 		"@atlaskit/media-picker": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/tabs": "workspace:^",
@@ -47,51 +52,11 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0",
 		"react-dom": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"stricter": {
-		"no-unused-dependencies": {
-			"checkDevDependencies": true
-		}
 	},
 	"devDependencies": {
 		"react": "^19.2.0",

@@ -1,8 +1,15 @@
 import React from 'react';
 
-import { Bleed, Box, Stack } from '@atlaskit/primitives/compiled';
+import { cssMap } from '@atlaskit/css';
+import { Bleed } from '@atlaskit/primitives/compiled/bleed';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import ExampleBox from '../shared/example-box';
+
+const styles = cssMap({
+	bleedItem: { position: 'relative' },
+});
 
 export default function Basic(): React.JSX.Element {
 	return (
@@ -12,8 +19,7 @@ export default function Basic(): React.JSX.Element {
 				<ExampleBox />
 				<Bleed block="space.150">
 					<ExampleBox
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ position: 'relative' }}
+						xcss={styles.bleedItem}
 						backgroundColor="color.background.discovery.pressed"
 					/>
 				</Bleed>

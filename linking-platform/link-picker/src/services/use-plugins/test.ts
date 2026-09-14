@@ -213,8 +213,8 @@ describe('usePlugins', () => {
 			await promise.resolve();
 			act(() => {});
 
-			expect(resolve).toBeCalledTimes(1);
-			expect(dispatch).toBeCalledTimes(1);
+			expect(resolve).toHaveBeenCalledTimes(1);
+			expect(dispatch).toHaveBeenCalledTimes(1);
 			expect(dispatch).toHaveBeenCalledWith({
 				type: reducer.ACTION_LOADING,
 			});

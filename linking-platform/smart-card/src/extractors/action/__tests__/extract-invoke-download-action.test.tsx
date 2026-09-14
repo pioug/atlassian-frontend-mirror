@@ -1,5 +1,5 @@
 import { CardAction } from '../../../constants';
-import * as utils from '../../../utils';
+import * as downloadUrlUtils from '../../../utils/download-url';
 import {
 	TEST_RESPONSE,
 	TEST_RESPONSE_WITH_DOWNLOAD,
@@ -26,7 +26,7 @@ describe('extractInvokeDownloadAction', () => {
 	});
 
 	it('triggers download url', async () => {
-		const downloadUrl = jest.spyOn(utils, 'downloadUrl').mockResolvedValue(undefined);
+		const downloadUrl = jest.spyOn(downloadUrlUtils, 'downloadUrl').mockResolvedValue(undefined);
 		const action = extractInvokeDownloadAction({
 			appearance: 'block',
 			id: 'test-id',

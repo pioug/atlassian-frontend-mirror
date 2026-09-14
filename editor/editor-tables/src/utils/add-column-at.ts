@@ -1,10 +1,9 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { TableMap } from '../table-map';
-
 import { addColumn } from './add-column';
 import { cloneTr } from './clone-tr';
-import { findTable } from './find';
+import { findTable } from './find-table';
 
 // Returns a new transaction that adds a new column at index `columnIndex`.
 export const addColumnAt =

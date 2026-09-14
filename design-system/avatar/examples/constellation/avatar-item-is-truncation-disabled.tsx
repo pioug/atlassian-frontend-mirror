@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Avatar, { AvatarItem } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
 import { token } from '@atlaskit/tokens';
 
 const AvatarItemIsTruncationDisabled = (): React.JSX.Element => {

@@ -1,5 +1,31 @@
 # @atlaskit/util-service-support
 
+## 7.4.0
+
+### Minor Changes
+
+- [`a8a0effc7b45c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8a0effc7b45c) -
+  Update @atlaskit/util-service-support to conform to Volt Component standards
+
+## 7.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.1
+
+### Patch Changes
+
+- [`9001b66f2e78c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9001b66f2e78c) -
+  Replace the `export *` barrels in the package entry point with explicit named re-exports
+  (`export { … }` / `export type { … }`). Public API is unchanged; improves tree-shaking.
+
 ## 7.2.0
 
 ### Minor Changes

@@ -1,17 +1,20 @@
 import React from 'react';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+
+import type { FileState } from '@atlaskit/media-client';
+import { RequestError } from '@atlaskit/media-client';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
 	createMockedMediaApi,
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
-import type { FileState } from '@atlaskit/media-client';
-import { RequestError } from '@atlaskit/media-client';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { DocViewer } from '../../../../../viewers/doc/doc-viewer';
+import { generateSampleFileItem } from '@atlaskit/media-test-data';
+
+import { DocViewer } from '../../../../../viewers/doc/DocViewer';
 
 const traceContext = { traceId: 'some-trace-id' };
 
@@ -25,7 +28,8 @@ const createPasswordRequiredError = () =>
 
 // Mock DocumentViewer from @atlaskit/media-document-viewer to avoid complex dependencies
 // but make sure it calls the content callback to trigger password flow
-jest.mock('@atlaskit/media-document-viewer', () => ({
+jest.mock('@atlaskit/media-document-viewer/document-viewer', () => ({
+	...jest.requireActual('@atlaskit/media-document-viewer/document-viewer'),
 	__esModule: true,
 	DocumentViewer: jest.fn(({ getContent, zoom, onSuccess, enableLazyPageRendering }: any) => {
 		// Call getContent to test error handling paths and trigger password flow
@@ -50,11 +54,16 @@ jest.mock('@atlaskit/media-document-viewer', () => ({
 			</div>
 		);
 	}),
+}));
+jest.mock('@atlaskit/media-document-viewer/get-document-root', () => ({
+	...jest.requireActual('@atlaskit/media-document-viewer/get-document-root'),
+	__esModule: true,
 	DOCUMENT_SCROLL_ROOT_ID: 'document-scroll-root',
 }));
 
 // Mock Spinner from @atlaskit/spinner
-jest.mock('@atlaskit/spinner', () => ({
+jest.mock('@atlaskit/spinner/spinner', () => ({
+	...jest.requireActual('@atlaskit/spinner/spinner'),
 	__esModule: true,
 	default: ({ size, appearance }: any) => (
 		<div data-testid="spinner" data-size={size} data-appearance={appearance}>
@@ -560,7 +569,8 @@ describe('<DocViewer />', () => {
 				await screen.findByTestId('media-document-viewer');
 
 				// Verify DocumentViewer was called with enableLazyPageRendering={true}
-				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				const mockDocumentViewer =
+					require('@atlaskit/media-document-viewer/document-viewer').DocumentViewer;
 				expect(mockDocumentViewer).toHaveBeenCalledWith(
 					expect.objectContaining({
 						enableLazyPageRendering: true,
@@ -603,7 +613,8 @@ describe('<DocViewer />', () => {
 
 				await screen.findByTestId('media-document-viewer');
 
-				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				const mockDocumentViewer =
+					require('@atlaskit/media-document-viewer/document-viewer').DocumentViewer;
 				expect(mockDocumentViewer).toHaveBeenCalledWith(
 					expect.objectContaining({
 						enableLazyPageRendering: true,
@@ -646,7 +657,8 @@ describe('<DocViewer />', () => {
 
 				await screen.findByTestId('media-document-viewer');
 
-				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				const mockDocumentViewer =
+					require('@atlaskit/media-document-viewer/document-viewer').DocumentViewer;
 				expect(mockDocumentViewer).toHaveBeenCalledWith(
 					expect.objectContaining({
 						enableLazyPageRendering: true,
@@ -689,7 +701,8 @@ describe('<DocViewer />', () => {
 
 				await screen.findByTestId('media-document-viewer');
 
-				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				const mockDocumentViewer =
+					require('@atlaskit/media-document-viewer/document-viewer').DocumentViewer;
 				expect(mockDocumentViewer).toHaveBeenCalledWith(
 					expect.objectContaining({
 						enableLazyPageRendering: true,
@@ -733,7 +746,8 @@ describe('<DocViewer />', () => {
 
 			await screen.findByTestId('media-document-viewer');
 
-			const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+			const mockDocumentViewer =
+				require('@atlaskit/media-document-viewer/document-viewer').DocumentViewer;
 			expect(mockDocumentViewer).toHaveBeenCalledWith(
 				expect.objectContaining({
 					enableLazyPageRendering: false,
@@ -777,7 +791,8 @@ describe('<DocViewer />', () => {
 
 				await screen.findByTestId('media-document-viewer');
 
-				const mockDocumentViewer = require('@atlaskit/media-document-viewer').DocumentViewer;
+				const mockDocumentViewer =
+					require('@atlaskit/media-document-viewer/document-viewer').DocumentViewer;
 				expect(mockDocumentViewer).toHaveBeenCalledWith(
 					expect.objectContaining({
 						enableLazyPageRendering: false,

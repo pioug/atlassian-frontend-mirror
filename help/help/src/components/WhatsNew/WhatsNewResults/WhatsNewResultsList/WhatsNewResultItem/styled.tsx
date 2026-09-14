@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { css, jsx } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const whatsNewResultListItemWrapperStyles = css({
@@ -35,6 +36,15 @@ const whatsNewResultListItemWrapperStyles = css({
 
 	'&:active': {
 		backgroundColor: `${token('color.background.neutral.subtle.pressed')}`,
+		transition: token('motion.button.pressed'),
+	},
+	transition: token('motion.button.hovered'),
+});
+
+const whatsNewResultListItemMotionStyles = css({
+	transition: token('motion.button.hovered'),
+	'&:active': {
+		transition: token('motion.button.pressed'),
 	},
 });
 
@@ -48,7 +58,15 @@ export const WhatsNewResultListItemWrapper = ({
 	styles?: React.CSSProperties;
 }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-button, @atlaskit/ui-styling-standard/enforce-style-prop
-	<button css={whatsNewResultListItemWrapperStyles} style={styles} {...rest}>
+	<button
+		css={[
+			whatsNewResultListItemWrapperStyles,
+			fg('platform-dst-motion-uplift-custom-button') && whatsNewResultListItemMotionStyles,
+		]}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+		style={styles}
+		{...rest}
+	>
 		{children}
 	</button>
 );

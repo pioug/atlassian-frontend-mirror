@@ -10,10 +10,10 @@ import React, { useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { ButtonProps } from '@atlaskit/button/types';
-import type { PositionType } from '@atlaskit/tooltip';
-import Tooltip from '@atlaskit/tooltip';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { ButtonProps } from '@atlaskit/button/button';
+import type { PositionType } from '@atlaskit/tooltip/types';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
 import type { TOOLBAR_ACTION_SUBJECT_ID } from '../../analytics';

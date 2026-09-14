@@ -1,15 +1,16 @@
-import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 import type Dataloader from 'dataloader';
 import { type LRUMap } from 'lru_map';
 import { type Interpreter } from 'xstate';
 
-import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 import type {
 	ErrorFileState,
 	FileState,
 	UploadingFileState,
 } from '@atlaskit/media-state/file-state';
+import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
 
+import { getFileStreamsCache } from '../file-streams-cache';
 import {
 	type MobileUpload,
 	type MobileUploadStartEvent,
@@ -17,23 +18,19 @@ import {
 	type MobileUploadEndEvent,
 	type MobileUploadErrorEvent,
 } from '../models/mobile-upload';
-import { getFileStreamsCache } from '../file-streams-cache';
-import {
-	createFileDataloader,
-	type DataloaderKey,
-	type DataloaderResult,
-} from '../utils/createFileDataLoader';
-import {
-	createServicesCache,
-	createMobileUploadStateMachine,
-	createMobileUploadService,
-	createMobileFileStateSubject,
-	type StateMachineContext,
-	type StateMachineSchema,
-	type StateMachineEvent,
-	type StateMachineTypestate,
-} from '../utils/mobileUpload';
-import { type MediaStore as MediaApi } from './media-store';
+import type { DataloaderKey, DataloaderResult } from '../utils/createFileDataLoader';
+import { createFileDataloader } from '../utils/createFileDataloader-2';
+import { createMobileFileStateSubject } from '../utils/mobileUpload/createMobileFileStateSubject';
+import { createServicesCache } from '../utils/mobileUpload/servicesCache';
+import { createMobileUploadService } from '../utils/mobileUpload/stateMachine/createMobileUploadService';
+import { createMobileUploadStateMachine } from '../utils/mobileUpload/stateMachine/createMobileUploadStateMachine';
+import type {
+	StateMachineContext,
+	StateMachineSchema,
+	StateMachineEvent,
+	StateMachineTypestate,
+} from '../utils/mobileUpload/stateMachine/types';
+import type { MediaStore as MediaApi } from './media-store/MediaStore';
 export class MobileUploadImpl implements MobileUpload {
 	private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
 	private readonly servicesCache: LRUMap<

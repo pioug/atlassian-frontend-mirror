@@ -1,4 +1,4 @@
-import { tableBackgroundColorNames } from '@atlaskit/adf-schema';
+import { tableBackgroundColorNames } from '@atlaskit/adf-schema/tableNodes';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 
 // This is used in order to support usage of DS tokens. Table cell background-color

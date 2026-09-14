@@ -9,8 +9,9 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
-import type { CreateUIAnalyticsEvent, WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -22,16 +23,16 @@ import {
 import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Status } from '@atlaskit/status/element';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
-import { DEFAULT_STATUS } from '../pm-plugins/actions';
+import { DEFAULT_STATUS } from '../utils/createStatusNode';
 import type { StatusPlugin } from '../statusPluginType';
 import type { ClosingPayload, StatusType } from '../types';
 
@@ -114,7 +115,33 @@ const suggestedStatusesContainerStyles = css({
 	flexDirection: 'column',
 	gap: token('space.100', '8px'),
 	margin: 0,
-	padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token('space.050', '4px')}`,
+	padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token(
+		'space.050',
+		'4px',
+	)}`,
+});
+
+// Fixed input plus capped scrolling color controls and suggestions.
+const STATUS_PICKER_FIT_HEIGHT = 288;
+// Seven suggestions fit below the color palette before the content starts scrolling.
+const MAX_SUGGESTIONS_WITHOUT_SCROLLBAR = 7;
+const STATUS_PICKER_CONTENT_WIDTH = 208;
+const STATUS_PICKER_SCROLLBAR_WIDTH = 16;
+
+const statusPickerWidthStyles = css({
+	width: `${STATUS_PICKER_CONTENT_WIDTH}px`,
+});
+
+const statusPickerWithScrollbarWidthStyles = css({
+	// Reserve space for the native scrollbar without reducing the picker content width.
+	width: `${STATUS_PICKER_CONTENT_WIDTH + STATUS_PICKER_SCROLLBAR_WIDTH}px`,
+});
+
+// When cleaning up `platform_editor_status_popup_suggestions_patch_1`, merge this into
+// `suggestedStatusesContainerStyles` and remove its conditional style array.
+const suggestedStatusesContainerPatchStyles = css({
+	gap: token('space.050', '4px'),
+	paddingLeft: token('space.100', '8px'),
 });
 
 const suggestedStatusButtonStyles = css({
@@ -122,14 +149,41 @@ const suggestedStatusButtonStyles = css({
 	border: 0,
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
-	display: 'flex',
 	justifyContent: 'flex-start',
 	padding: 0,
-	width: '100%',
 	'&:focus-visible': {
 		outline: `2px solid ${token('color.border.focused', '#0C66E4')}`,
 		outlineOffset: token('space.025', '2px'),
 	},
+});
+
+// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_1`.
+const suggestedStatusButtonOldStyles = css({
+	display: 'flex',
+	width: '100%',
+});
+
+const suggestedStatusButtonWrapperStyles = css({
+	alignSelf: 'flex-start',
+	borderWidth: token('border.width', '1px'),
+	borderStyle: 'solid',
+	borderColor: 'transparent',
+	borderRadius: token('space.075', '6px'),
+	display: 'flex',
+	marginLeft: token('space.025', '2px'),
+	maxWidth: '100%',
+	paddingBlock: token('border.width', '1px'),
+	paddingInline: token('border.width', '1px'),
+	'&:hover': {
+		borderColor: token('color.border', '#091E4224'),
+	},
+});
+
+// When cleaning up `platform_editor_status_popup_suggestions_patch_1`, merge this into
+// `suggestedStatusButtonStyles` and remove its conditional style array.
+const suggestedStatusButtonPatchStyles = css({
+	// Allow this flex item to shrink so long statuses can truncate.
+	minWidth: 0,
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -237,7 +291,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	};
 
 	private handleTabPress = (event: React.KeyboardEvent) => {
-		if (!expValEqualsNoExposure('platform_editor_status_popup_suggestions', 'isEnabled', true)) {
+		if (!UNSAFE_expValNoExposure('platform_editor_status_popup_suggestions', 'isEnabled', false)) {
 			/* original tab-navigation behaviour: cycle between color buttons and the input field */
 			const colorButtons = event.currentTarget.querySelectorAll('button');
 			const inputField = event.currentTarget.querySelector<HTMLInputElement>('input');
@@ -352,47 +406,81 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	) {
 		const { isNew, focusStatusInput, api, suggestedStatuses } = this.props;
 		const { color, text } = this.state;
+		const suggestionsPatchEnabled =
+			isExperimentEnabled('platform_editor_status_popup_suggestions') &&
+			fg('platform_editor_status_popup_suggestions_patch_1');
+		const suggestedStatusList =
+			suggestedStatuses?.length &&
+			isExperimentEnabled('platform_editor_status_popup_suggestions') ? (
+				<div
+					css={[
+						suggestedStatusesContainerStyles,
+						suggestionsPatchEnabled ? suggestedStatusesContainerPatchStyles : undefined,
+					]}
+					data-suggested-status-list
+				>
+					{suggestedStatuses.map((suggestedStatus, index) => (
+						<div
+							css={suggestionsPatchEnabled ? suggestedStatusButtonWrapperStyles : undefined}
+							key={`${suggestedStatus.color}:${suggestedStatus.text}`}
+						>
+							<button
+								type="button"
+								css={[
+									suggestedStatusButtonStyles,
+									suggestionsPatchEnabled
+										? suggestedStatusButtonPatchStyles
+										: suggestedStatusButtonOldStyles,
+								]}
+								onClick={() => this.onSuggestedStatusClick(suggestedStatus, index + 1)}
+								onKeyDown={this.handleSuggestedStatusKeyDown}
+								aria-label={suggestedStatus.displayText}
+								data-suggested-status-button
+							>
+								<Status
+									color={suggestedStatus.color}
+									isConstrainedToParent
+									text={suggestedStatus.displayText}
+								/>
+							</button>
+						</div>
+					))}
+				</div>
+			) : null;
+		const pickerContent = (
+			<React.Fragment>
+				<AkStatusPicker
+					autoFocus={isNew || focusStatusInput}
+					selectedColor={color}
+					text={text}
+					onColorClick={this.onColorClick}
+					onColorHover={this.onColorHover}
+					onTextChanged={this.onTextChanged}
+					onEnter={this.onEnter}
+					scrollableContent={suggestionsPatchEnabled ? suggestedStatusList : undefined}
+				/>
+				{suggestionsPatchEnabled ? null : suggestedStatusList}
+			</React.Fragment>
+		);
 		return (
 			<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
 				<div
-					css={
+					css={[
 						fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 							? pickerContainerStylesTeam26
-							: pickerContainerStyles
-					}
+							: pickerContainerStyles,
+						suggestionsPatchEnabled ? statusPickerWidthStyles : undefined,
+						suggestionsPatchEnabled &&
+						(suggestedStatuses?.length ?? 0) > MAX_SUGGESTIONS_WITHOUT_SCROLLBAR
+							? statusPickerWithScrollbarWidthStyles
+							: undefined,
+					]}
 					role="none"
 					ref={this.setRef(setOutsideClickTargetRef)}
 					onClick={this.handlePopupClick}
 					onKeyDown={this.onKeyDown}
 				>
-					<AkStatusPicker
-						autoFocus={isNew || focusStatusInput}
-						selectedColor={color}
-						text={text}
-						onColorClick={this.onColorClick}
-						onColorHover={this.onColorHover}
-						onTextChanged={this.onTextChanged}
-						onEnter={this.onEnter}
-					/>
-					{suggestedStatuses?.length &&
-					expValEquals('platform_editor_status_popup_suggestions', 'isEnabled', true) ? (
-						<div css={suggestedStatusesContainerStyles} data-suggested-status-list>
-							{suggestedStatuses.map((suggestedStatus, index) => (
-								<div key={`${suggestedStatus.color}:${suggestedStatus.text}`}>
-									<button
-										type="button"
-										css={suggestedStatusButtonStyles}
-										onClick={() => this.onSuggestedStatusClick(suggestedStatus, index + 1)}
-										onKeyDown={this.handleSuggestedStatusKeyDown}
-										aria-label={suggestedStatus.displayText}
-										data-suggested-status-button
-									>
-										<Status color={suggestedStatus.color} text={suggestedStatus.displayText} />
-									</button>
-								</div>
-							))}
-						</div>
-					) : null}
+					{pickerContent}
 				</div>
 			</UserIntentPopupWrapper>
 		);
@@ -415,7 +503,12 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 					handleClickOutside={this.handleClickOutside}
 					handleEscapeKeydown={this.handleEscapeKeydown}
 					zIndex={akEditorFloatingDialogZIndex}
-					fitHeight={40}
+					fitHeight={
+						isExperimentEnabled('platform_editor_status_popup_suggestions') &&
+						fg('platform_editor_status_popup_suggestions_patch_1')
+							? STATUS_PICKER_FIT_HEIGHT
+							: 40
+					}
 					mountTo={mountTo}
 					boundariesElement={boundariesElement}
 					scrollableElement={scrollableElement}
@@ -543,7 +636,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		event.nativeEvent.stopImmediatePropagation();
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const StatusPickerWithoutAnalytcs: React.FC<WithIntlProps<Props>> & {
 	WrappedComponent: React.ComponentType<Props>;
 } = injectIntl(StatusPickerWithIntl);

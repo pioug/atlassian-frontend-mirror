@@ -1,7 +1,6 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ComponentRegistry, ToolbarElementConfig } from '../primaryToolbarPluginType';
 
@@ -21,8 +20,7 @@ export const getToolbarComponents = ({
 		contextualFormattingEnabled &&
 		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 	) {
-		const shouldShowUndoRedoGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
-		configuration = toolbarConfigurationV2(true, shouldShowUndoRedoGroup);
+		configuration = toolbarConfigurationV2(true);
 	} else {
 		const shouldShowFindGroup = !!contextualFormattingEnabled;
 		if (componentRegistry.has('trackChanges')) {
@@ -223,10 +221,8 @@ const pinToolbar: ToolbarElementConfig[] = [
 
 const toolbarConfigurationV2 = (
 	shouldShowInsertBlock: boolean,
-	shouldShowUndoRedoGroup: boolean,
 	shouldShowFindGroup = false,
 ): ToolbarElementConfig[] => [
-	...(shouldShowUndoRedoGroup ? undoRedoGroup : []),
 	...blockTypeGroup,
 	...textFormattingGroup,
 	...textColorGroup,

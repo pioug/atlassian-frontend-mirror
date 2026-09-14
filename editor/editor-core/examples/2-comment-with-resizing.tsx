@@ -3,7 +3,7 @@ import React from 'react';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 
 import { exampleDocument } from '../example-helpers/grid-document';
 

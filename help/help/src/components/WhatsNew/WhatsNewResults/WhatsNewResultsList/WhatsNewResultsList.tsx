@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { token } from '@atlaskit/tokens';
 import toDate from 'date-fns/toDate';
 import isYesterday from 'date-fns/isYesterday';

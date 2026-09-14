@@ -6,9 +6,12 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { ExitingPersistence, StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
+import ZoomIn from '@atlaskit/motion/zoom-in';
 
-import { Block, Centered, RetryContainer } from '../utils';
+import { Block } from '../utils/blocks';
+import { Centered, RetryContainer } from '../utils/containers';
 
 const MotionZoomInExample = (): JSX.Element => {
 	return (

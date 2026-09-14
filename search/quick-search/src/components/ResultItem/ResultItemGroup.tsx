@@ -1,5 +1,6 @@
 import React from 'react';
-import { MenuGroup, Section } from '@atlaskit/menu';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 
 type Props = {
 	/** Text to appear as heading above group. Will be auto-capitalised. */

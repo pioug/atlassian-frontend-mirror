@@ -6,6 +6,7 @@ import type {
 	StepJson,
 	UserPermitType,
 } from '@atlaskit/editor-common/collab';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
 import type AnalyticsHelper from '../analytics/analytics-helper';
@@ -40,7 +41,8 @@ export const MULTI_COLLAB_MODE = 'collab';
 // Sliding inactivity window for agent (AI provider) participants that are added locally from
 // remote agent-authored steps. Reset on each new step for that agent.
 // NOTE: temporary/demonstration lifecycle — long-term expiry may move to NCS.
-export const AGENT_PRESENCE_TTL_MS: number = 30 * 1000; // 30 seconds
+export const AGENT_PRESENCE_INACTIVE_MS: number = 30 * 1000; // 30 seconds
+export const AGENT_PRESENCE_TTL_MS: number = 5 * 60 * 1000; // 5 minutes
 
 /**
  * This service is responsible for handling presence and participant events, as well as sending them on to the editor or NCS.
@@ -136,12 +138,23 @@ export class ParticipantsService {
 		}
 	};
 
-	private buildAIProviderPresencePayload = (providerId: string): PresencePayload => {
+	private buildAIProviderPresencePayload = (
+		providerId: string,
+		agentType?: string,
+	): PresencePayload => {
 		const defaultPresenceData = this.getPresenceData();
 		const presencePayload: PresencePayload = {
 			sessionId: `${providerId}::${defaultPresenceData.sessionId}`,
 			userId: providerId,
 			clientId: `${providerId}::${defaultPresenceData.clientId}`,
+			...(fg('confluence_ncs_step_diffing_version_history') && isAIProviderID(providerId)
+				? {
+						// Match the bare agent AAID used by step attribution rather than the synthetic
+						// per-editor-session provider ID, so telepointer and diff colours share a seed.
+						presenceId: providerId.slice('agent:'.length),
+						...(agentType ? { agentType } : {}),
+					}
+				: { agentType }),
 			permit: { isPermittedToComment: false, isPermittedToEdit: false, isPermittedToView: false },
 			timestamp: Date.now(),
 		};
@@ -185,14 +198,20 @@ export class ParticipantsService {
 	 * presence consumer on each streamed step.
 	 *
 	 * @param providerId `agent:<aaid|type>` id of the agent
+	 * @param agentType kind of the agent that authored the step
 	 */
-	upsertAIProviderParticipantLocally = (providerId: string): void => {
-		const payload = this.buildAIProviderPresencePayload(providerId);
+	upsertAIProviderParticipantLocally = (providerId: string, agentType?: string): void => {
+		const payload = this.buildAIProviderPresencePayload(providerId, agentType);
 		const { sessionId } = payload;
 		const existing = this.participantsState.getBySessionId(sessionId);
+		const hasAgentTypeChanged = existing?.agentType !== agentType;
+		const wasInactive = existing
+			? Date.now() - existing.lastActive >= AGENT_PRESENCE_INACTIVE_MS
+			: false;
 
 		const participant: ProviderParticipant = {
 			...payload,
+			...(fg('platform_move_presence_agents') ? { presenceActivity: 'editor' as const } : {}),
 			// `payload.userId` is typed `string | undefined`; here it is always the (string)
 			// providerId, so pin it to satisfy ProviderParticipant.userId (string).
 			userId: providerId,
@@ -206,26 +225,65 @@ export class ParticipantsService {
 		};
 		this.participantsState.setBySessionId(sessionId, participant);
 
-		// Emit only on the first add; a refresh of an already-present agent shouldn't re-emit.
-		if (!existing) {
+		// Active refreshes stay silent. Re-emit when an inactive agent becomes active so consumers
+		// can update its presentation immediately.
+		if (!existing || hasAgentTypeChanged || (fg('platform_move_presence_agents') && wasInactive)) {
 			this.emitPresence({ joined: [participant] }, 'adding agent participant from remote step');
 		}
 
-		this.resetAgentPresenceTimer(sessionId);
+		this.resetAgentPresenceTimer(sessionId, participant.lastActive);
 	};
 
 	/**
-	 * (Re)starts the sliding 30s inactivity timer for an agent participant. Called on every agent
-	 * step so the window slides forward from the agent's most recent activity.
+	 * (Re)starts the sliding expiry timer for an agent participant. The enriched lifecycle retains
+	 * agents for five minutes, while the legacy lifecycle keeps its 30-second removal behavior.
 	 */
-	private resetAgentPresenceTimer = (sessionId: string): void => {
+	private resetAgentPresenceTimer = (sessionId: string, lastActive: number): void => {
 		const existingTimer = this.agentPresenceTimers.get(sessionId);
 		if (existingTimer !== undefined) {
 			clearTimeout(existingTimer);
 		}
+
+		const ttl = fg('platform_move_presence_agents')
+			? AGENT_PRESENCE_TTL_MS
+			: AGENT_PRESENCE_INACTIVE_MS;
+		const delay = Math.max(0, lastActive + ttl - Date.now());
 		this.agentPresenceTimers.set(
 			sessionId,
-			window.setTimeout(() => this.removeAgentParticipant(sessionId), AGENT_PRESENCE_TTL_MS),
+			window.setTimeout(() => this.removeAgentParticipant(sessionId), delay),
+		);
+	};
+
+	private scheduleRemoteAgentExpiry = (participant: ProviderParticipant): void => {
+		if (
+			!fg('platform_move_presence_agents') ||
+			!isAIProviderID(participant.userId) ||
+			!Number.isFinite(participant.lastActive)
+		) {
+			return;
+		}
+
+		this.resetAgentPresenceTimer(participant.sessionId, participant.lastActive);
+	};
+
+	private clearAgentPresenceTimer = (sessionId: string): void => {
+		const timer = this.agentPresenceTimers.get(sessionId);
+		if (timer !== undefined) {
+			clearTimeout(timer);
+			this.agentPresenceTimers.delete(sessionId);
+		}
+	};
+
+	private hasAgentBecomeActive = (
+		previous: ProviderParticipant,
+		current: ProviderParticipant,
+	): boolean => {
+		const now = Date.now();
+		return (
+			fg('platform_move_presence_agents') &&
+			isAIProviderID(current.userId) &&
+			now - previous.lastActive >= AGENT_PRESENCE_INACTIVE_MS &&
+			now - current.lastActive < AGENT_PRESENCE_INACTIVE_MS
 		);
 	};
 
@@ -255,6 +313,20 @@ export class ParticipantsService {
 		current: ProviderParticipant,
 	): boolean => {
 		return previous.presenceActivity !== current.presenceActivity;
+	};
+
+	private hasActingUserChanged = (
+		previous: ProviderParticipant,
+		current: ProviderParticipant,
+	): boolean => {
+		return previous.actingUserId !== current.actingUserId;
+	};
+
+	private hasAgentTypeChanged = (
+		previous: ProviderParticipant,
+		current: ProviderParticipant,
+	): boolean => {
+		return previous.agentType !== current.agentType;
 	};
 
 	private handleAnonymousUser = async (payload: PresencePayload): Promise<void> => {
@@ -320,8 +392,20 @@ export class ParticipantsService {
 		const previousParticipant = this.participantsState.getBySessionId(participant.sessionId);
 
 		this.participantsState.setBySessionId(participant.sessionId, participant);
+		this.scheduleRemoteAgentExpiry(participant);
 
 		if (previousParticipant) {
+			if (
+				this.hasActingUserChanged(previousParticipant, participant) ||
+				this.hasAgentTypeChanged(previousParticipant, participant) ||
+				this.hasAgentBecomeActive(previousParticipant, participant)
+			) {
+				this.emitPresence(
+					{ joined: [participant] },
+					'handling participant acting user changed event',
+				);
+			}
+
 			if (this.hasPresenceActivityChanged(previousParticipant, participant)) {
 				this.emitPresenceActivityChange(
 					{
@@ -373,6 +457,7 @@ export class ParticipantsService {
 			this.participantsState.setBySessionId(sessionId, participant);
 
 			if (isAIProviderID(userId)) {
+				this.scheduleRemoteAgentExpiry(participant);
 				this.emitPresence({ joined: [participant] }, 'handling updated new agent lazy');
 				return;
 			}
@@ -395,12 +480,27 @@ export class ParticipantsService {
 		// would handle activity and lastActive changes
 		const participant = {
 			...previousParticipant,
+			actingUserId: payload.actingUserId,
+			agentType: payload.agentType,
 			presenceActivity: payload.presenceActivity,
 			lastActive: payload.timestamp,
 		};
 
+		this.participantsState.setBySessionId(sessionId, participant);
+		this.scheduleRemoteAgentExpiry(participant);
+
+		if (
+			this.hasActingUserChanged(previousParticipant, participant) ||
+			this.hasAgentTypeChanged(previousParticipant, participant) ||
+			this.hasAgentBecomeActive(previousParticipant, participant)
+		) {
+			this.emitPresence(
+				{ joined: [participant] },
+				'handling participant acting user changed event',
+			);
+		}
+
 		if (this.hasPresenceActivityChanged(previousParticipant, participant)) {
-			this.participantsState.setBySessionId(sessionId, participant);
 			this.emitPresenceActivityChange(
 				{
 					type: 'participant:activity',
@@ -413,10 +513,15 @@ export class ParticipantsService {
 	};
 
 	onParticipantUpdated = async (payload: PresencePayload): Promise<void> => {
+		const gatedPayload = {
+			...payload,
+			agentType: fg('platform_move_presence_agents') ? payload.agentType : undefined,
+		};
+
 		if (this.batchProps) {
-			this.updateParticipantLazy(payload);
+			this.updateParticipantLazy(gatedPayload);
 		} else {
-			await this.updateParticipantEager(payload);
+			await this.updateParticipantEager(gatedPayload);
 		}
 	};
 
@@ -450,12 +555,18 @@ export class ParticipantsService {
 			});
 		}
 
+		this.clearAgentPresenceTimer(sessionId);
 		this.participantsState.removeBySessionId(sessionId);
 		this.emitPresence({ left: [{ sessionId }] }, 'participant leaving');
 	};
 
 	disconnect = (reason: string, sessionId: string | undefined): void => {
-		const left = this.participantsState.getParticipants();
+		const left = fg('platform_move_presence_agents')
+			? [
+					...this.participantsState.getParticipants(),
+					...this.participantsState.getAIProviderParticipants(),
+				]
+			: this.participantsState.getParticipants();
 		this.participantsState.clear();
 		// Stop any pending agent presence timers so they don't fire against cleared state.
 		this.clearAgentPresenceTimers();

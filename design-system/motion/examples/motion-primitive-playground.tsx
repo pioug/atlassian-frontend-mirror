@@ -4,16 +4,20 @@
  */
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import Heading from '@atlaskit/heading';
-import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import Heading from '@atlaskit/heading/heading';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import Motion from '@atlaskit/motion/entering/motion';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import type { Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 
-import { Block, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { RetryContainer } from './utils/containers';
 
 const motionEntryTokens: Record<string, MotionToken> = {
 	'motion.avatar.enter': token('motion.avatar.enter'),

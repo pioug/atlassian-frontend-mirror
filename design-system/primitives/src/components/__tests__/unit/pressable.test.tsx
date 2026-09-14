@@ -2,7 +2,8 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { xcss } from '../../../xcss/xcss';
 import Pressable from '../../pressable';

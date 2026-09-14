@@ -7,7 +7,6 @@ import type { FullPageEditorAppearance } from '../../types';
 
 import { i18n } from './i18n';
 
-// @ts-ignore - TS1501 Typescript 5.9.2 upgrade
 const STORAGE_SUPPORTS_REGEX = /^([\p{L}\p{N},'\.\s\-_\(\)]|&amp;[0-9]{2};)*$/u;
 
 interface Props {
@@ -16,6 +15,7 @@ interface Props {
 		createCommentExperience: MediaPluginOptions['createCommentExperience'];
 		editorAppearance: FullPageEditorAppearance;
 		mediaViewerExtensions: MediaPluginOptions['mediaViewerExtensions'];
+		onMediaRenderEvent?: MediaPluginOptions['onMediaRenderEvent'];
 	};
 	providers: {
 		mediaProvider: Promise<MediaProvider> | undefined;
@@ -72,5 +72,6 @@ export function mediaPluginOptions({ intl, options, providers }: Props): MediaPl
 		waitForMediaUpload: true,
 		// END SECTION
 		mediaViewerExtensions: options.mediaViewerExtensions,
+		onMediaRenderEvent: options.onMediaRenderEvent,
 	};
 }

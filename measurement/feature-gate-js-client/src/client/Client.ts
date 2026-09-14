@@ -1,5 +1,4 @@
 import {
-	_makeExperiment,
 	_makeLayer,
 	LogEventCompressionMode,
 	StableID,
@@ -8,18 +7,23 @@ import {
 	type StatsigUser,
 } from '@statsig/js-client';
 
-import Subscriptions from '../subscriptions';
+import { default as Subscriptions } from '../subscriptions/Subscriptions';
 
 import { DynamicConfig } from './compat/DynamicConfig';
 import { Layer } from './compat/Layer';
 import { EvaluationReason } from './compat/types';
-import Fetcher, { type FetcherOptions } from './fetcher';
+import { deepAssign } from './deepAssign';
+import { type FetcherOptions, default as Fetcher } from './fetcher/Fetcher';
+import { getOptionsWithDefaults } from './getOptionsWithDefaults';
+import { migrateInitializationOptions } from './migrateInitializationOptions';
 import { NoFetchDataAdapter } from './NoFetchDataAdapter';
 import {
 	LOCAL_STORAGE_KEY,
 	type LocalOverrides,
 	PersistentOverrideAdapter,
 } from './PersistentOverrideAdapter';
+import { shallowEquals } from './shallowEquals';
+import { toStatsigUser } from './toStatsigUser';
 import {
 	type BaseClientOptions,
 	type CheckGateOptions,
@@ -38,13 +42,6 @@ import {
 	PerimeterType,
 	type Provider,
 } from './types';
-import {
-	deepAssign,
-	getOptionsWithDefaults,
-	migrateInitializationOptions,
-	shallowEquals,
-	toStatsigUser,
-} from './utils';
 import { CLIENT_VERSION } from './version';
 
 const DEFAULT_CLIENT_KEY = 'client-default-key';

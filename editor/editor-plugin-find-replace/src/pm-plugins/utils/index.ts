@@ -6,19 +6,16 @@ import { timestampToString } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node as PmNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
 
 import type { FindReplacePlugin } from '../../findReplacePluginType';
 import type { Match, TextGrouping } from '../../types';
 import {
-	searchMatchClass,
 	selectedSearchMatchClass,
 	blockSearchMatchClass,
 	darkModeSearchMatchClass,
@@ -73,48 +70,39 @@ export const createDecorations = (selectedIndex: number, matches: Match[]): Deco
 	);
 
 const isElement = (nodeType?: string) =>
-	['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '') ||
-	(nodeType === 'syncBlock' && editorExperiment('platform_synced_block', true));
+	['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date', 'syncBlock'].includes(
+		nodeType || '',
+	);
 
 const isExpandTitle = (match: Match) =>
 	['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
 
 export const createDecoration = (match: Match, isSelected?: Boolean): Decoration => {
 	const { start, end, nodeType } = match;
-	if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
-		const { colorMode } = getGlobalTheme();
+	const { colorMode } = getGlobalTheme();
 
-		if (isElement(nodeType)) {
-			const className = classnames(blockSearchMatchClass, {
-				[selectedBlockSearchMatchClass]: isSelected,
-				[darkModeSearchMatchClass]: colorMode === 'dark',
-			});
-			return Decoration.node(start, end, {
-				class: className,
-			});
-		} else if (isExpandTitle(match)) {
-			const className = classnames(searchMatchExpandTitleClass, {
-				[selectedSearchMatchClass]: isSelected,
-				[darkModeSearchMatchClass]: colorMode === 'dark',
-			});
-			return Decoration.node(start, end, {
-				class: className,
-			});
-		} else {
-			const className = classnames(searchMatchTextClass, {
-				[selectedSearchMatchClass]: isSelected,
-				[darkModeSearchMatchClass]: colorMode === 'dark',
-			});
-
-			return Decoration.inline(start, end, {
-				class: className,
-			});
-		}
+	if (isElement(nodeType)) {
+		const className = classnames(blockSearchMatchClass, {
+			[selectedBlockSearchMatchClass]: isSelected,
+			[darkModeSearchMatchClass]: colorMode === 'dark',
+		});
+		return Decoration.node(start, end, {
+			class: className,
+		});
+	} else if (isExpandTitle(match)) {
+		const className = classnames(searchMatchExpandTitleClass, {
+			[selectedSearchMatchClass]: isSelected,
+			[darkModeSearchMatchClass]: colorMode === 'dark',
+		});
+		return Decoration.node(start, end, {
+			class: className,
+		});
 	} else {
-		let className = searchMatchClass;
-		if (isSelected) {
-			className += ` ${selectedSearchMatchClass}`;
-		}
+		const className = classnames(searchMatchTextClass, {
+			[selectedSearchMatchClass]: isSelected,
+			[darkModeSearchMatchClass]: colorMode === 'dark',
+		});
+
 		return Decoration.inline(start, end, {
 			class: className,
 		});
@@ -164,12 +152,8 @@ export function findMatches({
 			matches.push({
 				start: pos + index,
 				end: pos + end,
-				canReplace: expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					? true
-					: undefined,
-				nodeType: expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					? 'text'
-					: undefined,
+				canReplace: true,
+				nodeType: 'text',
 			});
 			index = text.indexOf(searchText, end);
 		}
@@ -233,91 +217,84 @@ export function findMatches({
 			} else {
 				collectTextMatch(textGrouping);
 				textGrouping = null;
-				if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
-					switch (node.type.name) {
-						case 'status':
-							collectNodeMatch(
-								{
-									text: node.attrs.text as string,
-									pos,
-								},
-								node,
-							);
-							break;
-						case 'date':
-							collectNodeMatch(
-								{
-									text: timestampToString(
-										node.attrs.timestamp,
-										getIntl ? getIntl() : null,
-									) as string,
-									pos,
-								},
-								node,
-							);
-							break;
-						case 'expand':
-						case 'nestedExpand':
-							collectNodeMatch(
-								{
-									text: node.attrs.title as string,
-									pos,
-								},
-								node,
-							);
-							break;
-						case 'mention':
-							let text;
-							if (node.attrs.text) {
-								text = node.attrs.text;
-							} else {
-								// the text may be sanitised from the node for privacy reasons
-								// so we need to use the mentionProvider to resolve it
-								const mentionProvider = api?.mention?.sharedState.currentState()?.mentionProvider;
+				switch (node.type.name) {
+					case 'status':
+						collectNodeMatch(
+							{
+								text: node.attrs.text as string,
+								pos,
+							},
+							node,
+						);
+						break;
+					case 'date':
+						collectNodeMatch(
+							{
+								text: timestampToString(node.attrs.timestamp, getIntl ? getIntl() : null) as string,
+								pos,
+							},
+							node,
+						);
+						break;
+					case 'expand':
+					case 'nestedExpand':
+						collectNodeMatch(
+							{
+								text: node.attrs.title as string,
+								pos,
+							},
+							node,
+						);
+						break;
+					case 'mention':
+						let text;
+						if (node.attrs.text) {
+							text = node.attrs.text;
+						} else {
+							// the text may be sanitised from the node for privacy reasons
+							// so we need to use the mentionProvider to resolve it
+							const mentionProvider = api?.mention?.sharedState.currentState()?.mentionProvider;
 
-								if (isResolvingMentionProvider(mentionProvider)) {
-									const nameDetail = mentionProvider.resolveMentionName(node.attrs.id);
+							if (isResolvingMentionProvider(mentionProvider)) {
+								const nameDetail = mentionProvider.resolveMentionName(node.attrs.id);
 
-									if (isPromise(nameDetail)) {
-										text = '@...';
+								if (isPromise(nameDetail)) {
+									text = '@...';
+								} else {
+									if (nameDetail.status === MentionNameStatus.OK) {
+										text = `@${nameDetail.name || ''}`;
 									} else {
-										if (nameDetail.status === MentionNameStatus.OK) {
-											text = `@${nameDetail.name || ''}`;
-										} else {
-											text = '@_|unknown|_';
-										}
+										text = '@_|unknown|_';
 									}
 								}
 							}
+						}
 
+						if (text) {
+							collectNodeMatch({ text, pos }, node);
+						}
+						break;
+					case 'inlineCard':
+					case 'blockCard':
+					case 'embedCard':
+						collectCardTitleMatch(node, pos);
+						break;
+					case 'syncBlock': {
+						const syncBlockStore = api?.syncedBlock?.sharedState.currentState()?.syncBlockStore;
+						const instance = syncBlockStore?.referenceManager.getFromCache(
+							node.attrs.resourceId as string,
+						);
+						const adfContent = instance?.data?.content;
+						if (adfContent && adfContent.length > 0) {
+							const text = extractTextFromADFContent(adfContent as SimpleADFNode[]);
 							if (text) {
 								collectNodeMatch({ text, pos }, node);
 							}
-							break;
-						case 'inlineCard':
-						case 'blockCard':
-						case 'embedCard':
-							collectCardTitleMatch(node, pos);
-							break;
-						case 'syncBlock': {
-							if (editorExperiment('platform_synced_block', true)) {
-								const syncBlockStore = api?.syncedBlock?.sharedState.currentState()?.syncBlockStore;
-								const instance = syncBlockStore?.referenceManager.getFromCache(
-									node.attrs.resourceId as string,
-								);
-								const adfContent = instance?.data?.content;
-								if (adfContent && adfContent.length > 0) {
-									const text = extractTextFromADFContent(adfContent as SimpleADFNode[]);
-									if (text) {
-										collectNodeMatch({ text, pos }, node);
-									}
-								}
-							}
-							break;
 						}
-						default:
-							break;
+						break;
 					}
+					default:
+						break;
 				}
 			}
 		});

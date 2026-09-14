@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformBlanket from '@atlaskit/blanket';
+import PlatformBlanket from '@atlaskit/blanket/blanket';
 
 type PlatformBlanketProps = React.ComponentProps<typeof PlatformBlanket>;
 

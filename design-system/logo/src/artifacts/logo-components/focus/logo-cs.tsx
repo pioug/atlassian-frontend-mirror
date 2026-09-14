@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7aca4717e5f7edbaa74141430c7d1f8d>>
+ * @codegen <<SignedSource::241a07d60f0c15397819eb19e5c2bb0c>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 117 32">
  *
  */
 export function FocusLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Focus',
 	testId,

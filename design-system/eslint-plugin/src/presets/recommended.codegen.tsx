@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4570dbfd0eed9cd8e93ea405da678db6>>
+ * @codegen <<SignedSource::efd3479518f07c3ac84b66a36297e84c>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -36,7 +36,7 @@ const rules: ESLint.ConfigData = {
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
 			},
 		],
-		'@atlaskit/design-system/no-modal-label': 'warn',
+		'@atlaskit/design-system/no-modal-label': 'error',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-placeholder': 'warn',
 		'@atlaskit/design-system/no-readonly-or-disabled-inputs': 'warn',
@@ -60,7 +60,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-latest-xcss-syntax-typography': 'warn',
 		'@atlaskit/design-system/use-menu-section-title': 'warn',
 		'@atlaskit/design-system/use-modal-dialog-close-button': 'warn',
-		'@atlaskit/design-system/use-modal-title': 'warn',
+		'@atlaskit/design-system/use-modal-title': 'error',
 		'@atlaskit/design-system/use-onboarding-spotlight-label': 'warn',
 		'@atlaskit/design-system/use-popup-label': 'warn',
 		'@atlaskit/design-system/use-primitives-text': 'warn',

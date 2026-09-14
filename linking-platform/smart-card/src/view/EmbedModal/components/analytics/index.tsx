@@ -1,11 +1,9 @@
 import React, { type ErrorInfo, useCallback } from 'react';
 
 import { CardDisplay } from '../../../../constants';
-import {
-	failUfoExperience,
-	startUfoExperience,
-	succeedUfoExperience,
-} from '../../../../state/analytics';
+import { failUfoExperience } from '../../../../state/analytics/failUfoExperience';
+import { startUfoExperience } from '../../../../state/analytics/startUfoExperience';
+import { succeedUfoExperience } from '../../../../state/analytics/succeedUfoExperience';
 import { type EmbedModalContext, type EmbedModalProps, EmbedModalSize } from '../../types';
 
 import { type WithAnalytics } from './types';

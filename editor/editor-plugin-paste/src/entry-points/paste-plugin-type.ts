@@ -6,4 +6,5 @@ export type {
 	LastContentPasted,
 	PastePluginDependencies,
 	ActiveFlag,
+	MarkdownToPmConverter,
 } from '../pastePluginType';

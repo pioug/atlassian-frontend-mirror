@@ -1,7 +1,10 @@
-import { createSchema } from '@atlaskit/adf-schema';
+import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { panelC1FallbackTransform } from '../../../transforms/panel-c1-fallback-transform';
-import { transformContainerNodes } from '../../../transforms/depth-limited-nesting-container-nodes-transform';
+import {
+	transformContainerNodes,
+	upgradeContainerNodes,
+} from '../../../transforms/depth-limited-nesting-container-nodes-transform';
 import type { ADFEntity } from '../../../types';
 
 const LEGACY_CONTENT_MACRO_EXTENSION_TYPE = 'com.atlassian.confluence.migration';
@@ -475,6 +478,48 @@ describe('transformContainerNodes', () => {
 
 		expect(result.isTransformed).toBe(false);
 		expect(result.transformedNodeTypes).toEqual([]);
+		expect(result.transformedAdf).toEqual(paragraphOnlyDoc);
+	});
+});
+
+describe('upgradeContainerNodes', () => {
+	it('promotes a panel to panel_c1 wherever the schema allows it, regardless of content', () => {
+		const schema = createSchemaWithNodes({ includePanelC1: true, includeTable: true });
+
+		// A paragraph-only panel (valid as a base panel) is still promoted — promotion is
+		// positional, not content-conditional.
+		const result = upgradeContainerNodes(docWithPanelWithParagraph, schema);
+
+		expect(result.isTransformed).toBe(true);
+		expect((result.transformedAdf as ADFEntity).content?.[0]?.type).toBe('panel_c1');
+	});
+
+	it('is a no-op when the schema does not declare panel_c1', () => {
+		const schema = createSchemaWithNodes();
+
+		const result = upgradeContainerNodes(docWithPanelWithParagraph, schema);
+
+		expect(result.isTransformed).toBe(false);
+		expect(result.transformedAdf).toEqual(docWithPanelWithParagraph);
+	});
+
+	it('only promotes — it never downgrades or restores (no fallback)', () => {
+		// Schema without panel_c1: transformContainerNodes would downgrade this panel_c1 to a plain
+		// panel + LCM, but the promote-only transform leaves it untouched.
+		const schema = createSchemaWithNodes({ includeExtension: true, includeTable: true });
+
+		const result = upgradeContainerNodes(docWithPanelC1WithTable, schema);
+
+		expect(result.isTransformed).toBe(false);
+		expect(result.transformedAdf).toEqual(docWithPanelC1WithTable);
+	});
+
+	it('leaves documents without panels unchanged', () => {
+		const schema = createSchemaWithNodes({ includePanelC1: true });
+
+		const result = upgradeContainerNodes(paragraphOnlyDoc, schema);
+
+		expect(result.isTransformed).toBe(false);
 		expect(result.transformedAdf).toEqual(paragraphOnlyDoc);
 	});
 });

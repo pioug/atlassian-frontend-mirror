@@ -1,17 +1,15 @@
-import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
-import { TableMap } from '../table-map';
 import type { TableContext } from '../table-map';
 
-import { cloneTr } from './clone-tr';
-import { findCellRectClosestToPos, findTable } from './find';
-import { isTableSelected } from './is-selected';
-import { isSelectionType } from './is-selection-type';
-import { removeTable } from './remove-table';
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { removeRowAt } from './remove-row-at';
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { removeSelectedRows } from './remove-selected-rows';
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { removeRowClosestToPos } from './remove-row-closest-to-pos';
 
-function removeRow(
+export function removeRow(
 	tr: Transaction,
 	{ map, table, tableStart }: TableContext,
 	rowIndex: number,
@@ -57,84 +55,3 @@ function removeRow(
 
 	return tr;
 }
-
-// Returns a new transaction that removes a row at index `rowIndex`. If there is only one row left, it will remove the entire table.
-export const removeRowAt =
-	(rowIndex: number) =>
-	(tr: Transaction): Transaction => {
-		const table = findTable(tr.selection);
-		if (table) {
-			const map = TableMap.get(table.node);
-			if (rowIndex === 0 && map.height === 1) {
-				return removeTable(tr);
-			} else if (rowIndex >= 0 && rowIndex <= map.height) {
-				removeRow(
-					tr,
-					{
-						map,
-						tableStart: table.start,
-						table: table.node,
-					},
-					rowIndex,
-				);
-				return cloneTr(tr);
-			}
-		}
-
-		return tr;
-	};
-
-// Returns a new transaction that removes selected rows.
-export const removeSelectedRows = (tr: Transaction): Transaction => {
-	const { selection } = tr;
-	if (isTableSelected(selection)) {
-		return removeTable(tr);
-	}
-	if (isSelectionType(selection, 'cell')) {
-		const table = findTable(selection);
-		if (table) {
-			const map = TableMap.get(table.node);
-			const rect = map.rectBetween(
-				selection.$anchorCell.pos - table.start,
-				selection.$headCell.pos - table.start,
-			);
-
-			if (rect.top === 0 && rect.bottom === map.height) {
-				return tr;
-			}
-
-			const pmTableRect = {
-				...rect,
-				map,
-				table: table.node,
-				tableStart: table.start,
-			};
-
-			for (let i = pmTableRect.bottom - 1; ; i--) {
-				removeRow(tr, pmTableRect, i);
-				if (i === pmTableRect.top) {
-					break;
-				}
-				pmTableRect.table = pmTableRect.tableStart
-					? (tr.doc.nodeAt(pmTableRect.tableStart - 1) as PMNode)
-					: tr.doc;
-				pmTableRect.map = TableMap.get(pmTableRect.table);
-			}
-
-			return cloneTr(tr);
-		}
-	}
-
-	return tr;
-};
-
-// Returns a new transaction that removes a row closest to a given `$pos`.
-export const removeRowClosestToPos =
-	($pos: ResolvedPos) =>
-	(tr: Transaction): Transaction => {
-		const rect = findCellRectClosestToPos($pos);
-		if (rect) {
-			return removeRowAt(rect.top)(setTextSelection($pos.pos)(tr));
-		}
-		return tr;
-	};

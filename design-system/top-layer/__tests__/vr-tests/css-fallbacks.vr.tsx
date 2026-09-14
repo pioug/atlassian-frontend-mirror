@@ -14,7 +14,7 @@ import {
 	VrFlipInlineEndAlignEnd,
 	VrFlipInlineEndAlignStart,
 	VrFlipInlineStart,
-} from '../../examples/81-vr-popover-css-fallbacks';
+} from '../../examples/81-vr-popover-css-fallbacks.vr.ap';
 
 const opts = { drawsOutsideBounds: true } as const;
 

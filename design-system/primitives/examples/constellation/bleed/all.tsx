@@ -1,13 +1,19 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Bleed, Box, Grid } from '@atlaskit/primitives/compiled';
+import { Bleed } from '@atlaskit/primitives/compiled/bleed';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 
 import ExampleBox from '../shared/example-box';
 
 const gridStyles = cssMap({
 	root: {
 		gridTemplateColumns: '1fr 1fr 1fr',
+	},
+	bleedItem: {
+		height: '100%',
+		position: 'relative',
 	},
 });
 
@@ -21,8 +27,7 @@ export default function Basic(): React.JSX.Element {
 				<ExampleBox />
 				<Bleed all="space.150">
 					<ExampleBox
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ height: '100%', position: 'relative' }}
+						xcss={gridStyles.bleedItem}
 						backgroundColor="color.background.discovery.pressed"
 					/>
 				</Bleed>

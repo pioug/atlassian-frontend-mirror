@@ -3,16 +3,18 @@ import React, { type ErrorInfo, lazy, Suspense, useCallback, useEffect, useState
 import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
-import { failUfoExperience, startUfoExperience } from '../../state/analytics';
-import { importWithRetry } from '../../utils';
-import { useSmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
-import { isFlexibleUiCard } from '../../utils/flexible';
-import { clearMarks, clearMeasures } from '../../utils/performance';
+import { failUfoExperience } from '../../state/analytics/failUfoExperience';
+import { startUfoExperience } from '../../state/analytics/startUfoExperience';
+import { importWithRetry } from '../../utils/import-with-retry';
+import { useSmartLinkAnalyticsContext } from '../../utils/analytics/useSmartLinkAnalyticsContext';
+import { clearMarks } from '../../utils/clear-marks';
+import { clearMeasures } from '../../utils/clear-measures';
+import { isFlexibleUiCard } from '../../utils/is-flexible-ui-card';
 import { type CardProps } from '../Card/types';
 
 import { LoadingCardLink } from './component-lazy/LoadingCardLink';

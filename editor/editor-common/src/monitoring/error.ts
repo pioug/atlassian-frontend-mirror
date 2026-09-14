@@ -2,8 +2,6 @@ import { Integrations } from '@sentry/browser';
 import type { BrowserOptions, EventHint, Scope, Event as SentryEvent } from '@sentry/browser';
 import type { Integration, Primitive } from '@sentry/types';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { isFedRamp } from './environment';
 import {
 	normaliseSentryBreadcrumbs,
@@ -58,28 +56,24 @@ export const logException = async (
 			/* webpackChunkName: "@atlaskit-internal_editor-sentryintegrations" */ '@sentry/integrations'
 		);
 
-		const breadcrumbsIntegration = fg('platform_editor_sentry_breadcrumbs')
-			? new Integrations.Breadcrumbs({
-					// only enable breadcrumbs for dom (UI clicks and inputs)
-					// include 'data-test-id', 'data-testid' in the breadcrumbs if they are found
-					dom: {
-						serializeAttribute: SERIALIZABLE_ATTRIBUTES,
-					},
-					fetch: false,
-					xhr: false,
-					console: false,
-					history: false,
-					sentry: false,
-				})
-			: undefined;
+		const breadcrumbsIntegration = new Integrations.Breadcrumbs({
+			// only enable breadcrumbs for dom (UI clicks and inputs)
+			// include 'data-test-id', 'data-testid' in the breadcrumbs if they are found
+			dom: {
+				serializeAttribute: SERIALIZABLE_ATTRIBUTES,
+			},
+			fetch: false,
+			xhr: false,
+			console: false,
+			history: false,
+			sentry: false,
+		});
 
 		const sentryOptions: BrowserOptions = {
 			dsn: isFedRamp() ? undefined : SENTRY_DSN,
 			release: `${packageName}@${packageVersion}`,
 			environment: process.env.CLOUD_ENV ?? 'unknown',
-			beforeBreadcrumb: fg('platform_editor_sentry_breadcrumbs')
-				? normaliseSentryBreadcrumbs
-				: undefined,
+			beforeBreadcrumb: normaliseSentryBreadcrumbs,
 			ignoreErrors: [
 				// Network issues
 				NETWORK_ERROR_REGEX,
@@ -94,7 +88,7 @@ export const logException = async (
 				// Remove the Breadcrumbs integration from the default as it's too likely to log UGC/PII
 				// https://docs.sentry.io/platforms/javascript/configuration/integrations/default/
 				...defaultIntegrations.filter(({ name }) => name !== 'Breadcrumbs'),
-				...(breadcrumbsIntegration ? [breadcrumbsIntegration] : []),
+				breadcrumbsIntegration,
 				// Extracts all non-native attributes from the error object and attaches them to the event as the extra data
 				// https://docs.sentry.io/platforms/javascript/configuration/integrations/plugin/?original_referrer=https%3A%2F%2Fduckduckgo.com%2F#extraerrordata
 				new ExtraErrorData(),
@@ -104,7 +98,6 @@ export const logException = async (
 		// Use a client to avoid picking up the errors from parent applications
 		const client = new BrowserClient(sentryOptions);
 		const hub = getCurrentHub();
-		// @ts-ignore - TypeScript 5.9.2 upgrade
 		hub.bindClient(client);
 
 		hub.withScope((scope: Scope) => {
@@ -131,7 +124,6 @@ export const logException = async (
 			hub.captureException(error);
 		});
 
-		// @ts-ignore - TypeScript 5.9.2 upgrade
 		return client.close();
 	} catch (_error) {
 		// Error reporting failed, we don't want this to generate more errors

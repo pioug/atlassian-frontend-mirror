@@ -1,2 +1,2 @@
-Entry points in this folder are part of a performance experiment: whether synchronously importing
-renderer nodes is more performant than code-splitting them
+These entry points are deprecated. Use the `nodes` export from
+`@atlaskit/renderer/nodes/default` instead.

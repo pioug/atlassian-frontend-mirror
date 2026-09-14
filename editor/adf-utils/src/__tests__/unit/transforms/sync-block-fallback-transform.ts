@@ -1,4 +1,4 @@
-import { createSchema } from '@atlaskit/adf-schema';
+import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import { syncBlockFallbackTransform } from '../../../transforms/sync-block-fallback-transform';
 import type { ADFEntity } from '../../../types';
 

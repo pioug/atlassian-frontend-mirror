@@ -1,4 +1,4 @@
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { CardPluginActions, CardReplacementInputMethod } from '@atlaskit/editor-common/card';
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';

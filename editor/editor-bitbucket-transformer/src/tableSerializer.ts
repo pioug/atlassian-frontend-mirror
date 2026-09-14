@@ -48,10 +48,10 @@ const renderInlineContent = (state: MarkdownSerializerState, node: PMNode) => {
 const tableSerializer: {
 	// eslint-disable-next-line @typescript-eslint/method-signature-style
 	table(state: MarkdownSerializerState, node: PMNode): void;
+	tableCell: (state: MarkdownSerializerState, node: PMNode) => void;
+	tableHeader: (state: MarkdownSerializerState, node: PMNode) => void;
 	// eslint-disable-next-line @typescript-eslint/method-signature-style
 	tableRow(state: MarkdownSerializerState, node: PMNode): void;
-	tableHeader: (state: MarkdownSerializerState, node: PMNode) => void;
-	tableCell: (state: MarkdownSerializerState, node: PMNode) => void;
 } = {
 	table(state: MarkdownSerializerState, node: PMNode) {
 		if (isHeaderRowPresent(node)) {

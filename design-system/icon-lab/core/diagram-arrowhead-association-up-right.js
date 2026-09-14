@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b0b5e37b2b6db38d0594b3edef64f53e>>
+ * @codegen <<SignedSource::1611e5fb1740c4af674e39a7f2ae8c6f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "DiagramArrowheadAssociationUpRight".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const DiagramArrowheadAssociationUpRightIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const DiagramArrowheadAssociationUpRightIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramArrowheadAssociationUpRightIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M13.173 2.02a.75.75 0 0 1 .808.807l-.53 6.54-1.495-.12.365-4.51-9.34 9.343-1.061-1.06 9.34-9.342-4.506.366-.062-.748-.06-.747z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

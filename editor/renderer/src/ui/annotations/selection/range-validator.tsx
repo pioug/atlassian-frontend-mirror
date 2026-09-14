@@ -3,7 +3,7 @@ import { useUserSelectionRange } from '../hooks/user-selection';
 import { SelectionInlineCommentMounter } from './mounter';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 type Props = {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;

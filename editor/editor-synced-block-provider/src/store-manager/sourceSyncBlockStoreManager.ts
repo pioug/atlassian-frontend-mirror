@@ -1,9 +1,11 @@
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -68,6 +70,15 @@ type SyncBlockData = Data & {
 	pendingDeletion?: boolean;
 };
 
+export type LocalSourceSnapshot = Readonly<
+	Omit<Data, 'content' | 'status'> & {
+		content: ReadonlyArray<ADFEntity>;
+		status?: SyncBlockStatus;
+	}
+>;
+
+export type LocalSourceSubscriber = (snapshot: LocalSourceSnapshot | undefined) => void;
+
 /** Maximum time (ms) flush() will wait for in-flight block creations before proceeding. */
 const FLUSH_CREATION_AWAIT_TIMEOUT_MS = 1000;
 
@@ -92,6 +103,7 @@ export class SourceSyncBlockStoreManager {
 	private fireAnalyticsEvent?: (payload: SyncBlockEventPayload) => void;
 
 	private syncBlockCache: Map<ResourceId, SyncBlockData>;
+	private localSourceSubscribers = new Map<ResourceId, Set<LocalSourceSubscriber>>();
 	private hasReceivedContentChange: boolean = false;
 
 	private confirmationCallback?: ConfirmationCallback;
@@ -153,8 +165,7 @@ export class SourceSyncBlockStoreManager {
 
 	/**
 	 * resourceId -> timestamp (ms) of the last `syncedBlockDelete` emission, used
-	 * to suppress duplicates within {@link DELETE_DEDUPE_WINDOW_MS}. Only consulted
-	 * behind `platform_editor_blocks_patch_4`.
+	 * to suppress duplicates within {@link DELETE_DEDUPE_WINDOW_MS}.
 	 */
 	private recentDeleteEmissions: Map<ResourceId, number> = new Map();
 
@@ -230,10 +241,7 @@ export class SourceSyncBlockStoreManager {
 
 			if (!localId || !resourceId) {
 				// Identifiers not populated yet: benign timing case, skip as a no-op.
-				if (fg('platform_editor_blocks_patch_4')) {
-					return false;
-				}
-				throw new Error('Local ID or resource ID is not set');
+				return false;
 			}
 
 			const cachedBlock = this.syncBlockCache.get(resourceId);
@@ -257,6 +265,7 @@ export class SourceSyncBlockStoreManager {
 				contentFragment: syncBlockNode.content,
 				status: cachedBlock?.status,
 			});
+			this.notifyLocalSource(resourceId);
 
 			return true;
 		} catch (error) {
@@ -373,6 +382,7 @@ export class SourceSyncBlockStoreManager {
 					const cachedData = this.syncBlockCache.get(result.resourceId);
 					if (cachedData) {
 						cachedData.isDirty = true;
+						this.notifyLocalSource(result.resourceId);
 					}
 				}
 			});
@@ -385,6 +395,7 @@ export class SourceSyncBlockStoreManager {
 						const cachedData = this.syncBlockCache.get(result.resourceId);
 						if (cachedData && result.status) {
 							cachedData.status = result.status;
+							this.notifyLocalSource(result.resourceId);
 						}
 						this.fireAnalyticsEvent?.(
 							updateSuccessPayload(
@@ -398,7 +409,6 @@ export class SourceSyncBlockStoreManager {
 				return true;
 			} else {
 				this.saveExperience?.failure();
-				const attributionEnabled = fg('platform_editor_blocks_patch_3');
 				writeResults
 					.filter((result) => !result.resourceId || result.error)
 					.forEach((result) => {
@@ -407,7 +417,7 @@ export class SourceSyncBlockStoreManager {
 								result.error || 'Failed to write data',
 								result.resourceId,
 								getSourceProductFromResourceIdSafe(result.resourceId),
-								buildErrorAttribution(attributionEnabled, result.error, result.statusCode),
+								buildErrorAttribution(result.error, result.statusCode),
 							),
 						);
 					});
@@ -421,12 +431,7 @@ export class SourceSyncBlockStoreManager {
 			// Top-level flush failure is not tied to a single resourceId. There is no structured
 			// SyncBlockError/status here, so the attribution `reason` falls back to `unknown`.
 			this.fireAnalyticsEvent?.(
-				updateErrorPayload(
-					(error as Error).message,
-					undefined,
-					undefined,
-					buildErrorAttribution(fg('platform_editor_blocks_patch_3')),
-				),
+				updateErrorPayload((error as Error).message, undefined, undefined, buildErrorAttribution()),
 			);
 
 			return false;
@@ -472,6 +477,50 @@ export class SourceSyncBlockStoreManager {
 		return this.syncBlockCache.get(resourceId)?.status;
 	}
 
+	public getLocalSourceSnapshot(resourceId: ResourceId): LocalSourceSnapshot | undefined {
+		if (!isExperimentEnabled('editor-synced-block-same-page-sync')) {
+			return undefined;
+		}
+		const cached = this.syncBlockCache.get(resourceId);
+		if (!cached || cached.status === 'deleted') {
+			return undefined;
+		}
+		const { contentFragment: _contentFragment, isDirty: _isDirty, ...data } = cached;
+		return {
+			...data,
+			content: [...data.content],
+		};
+	}
+
+	public subscribeToLocalSource(
+		resourceId: ResourceId,
+		callback: LocalSourceSubscriber,
+	): () => void {
+		if (!isExperimentEnabled('editor-synced-block-same-page-sync')) {
+			return () => {};
+		}
+		let subscribers = this.localSourceSubscribers.get(resourceId);
+		if (!subscribers) {
+			subscribers = new Set();
+			this.localSourceSubscribers.set(resourceId, subscribers);
+		}
+		subscribers.add(callback);
+		callback(this.getLocalSourceSnapshot(resourceId));
+
+		return (): void => {
+			const currentSubscribers = this.localSourceSubscribers.get(resourceId);
+			currentSubscribers?.delete(callback);
+			if (currentSubscribers?.size === 0) {
+				this.localSourceSubscribers.delete(resourceId);
+			}
+		};
+	}
+
+	private notifyLocalSource(resourceId: ResourceId): void {
+		const snapshot = this.getLocalSourceSnapshot(resourceId);
+		this.localSourceSubscribers.get(resourceId)?.forEach((callback) => callback(snapshot));
+	}
+
 	/**
 	 *  Fires callback to insert node (if creation is successful) and clears pending creation data
 	 * @param success
@@ -511,22 +560,26 @@ export class SourceSyncBlockStoreManager {
 
 		if (success) {
 			const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
-			this.fireAnalyticsEvent?.(createSuccessPayload(resourceId || '', sourceProduct));
+			const documentInsertedResourceId = fg('platform_editor_blocks_patch_7')
+				? (this.dataProvider?.generateResourceIdForReference(resourceId) ?? resourceId)
+				: resourceId;
+			this.fireAnalyticsEvent?.(
+				createSuccessPayload(documentInsertedResourceId || '', sourceProduct),
+			);
 			// Operational create-success event with the join key + creation-type
-			// signals (inputMethod / createdEmpty) captured at the command layer.
-			if (fg('platform_editor_blocks_patch_4')) {
-				this.fireAnalyticsEvent?.(
-					createSuccessOperationalPayload(
-						resourceId || '',
-						this.syncBlockCache.get(resourceId)?.blockInstanceId,
-						sourceProduct,
-						this.creationEnrichment.get(resourceId),
-					),
-				);
-			}
+			// signals (inputMethod / createdEmpty / nodeTypes) captured at the command layer.
+			this.fireAnalyticsEvent?.(
+				createSuccessOperationalPayload(
+					resourceId || '',
+					this.syncBlockCache.get(resourceId)?.blockInstanceId,
+					sourceProduct,
+					this.creationEnrichment.get(resourceId),
+				),
+			);
 		} else {
 			// Delete the node from cache if fail to create so it's not flushed to BE
 			this.syncBlockCache.delete(resourceId || '');
+			this.notifyLocalSource(resourceId);
 			this.newSourceBlockResourceIds.delete(resourceId || '');
 			// Creation failed, so there is no block to add content to — drop the
 			// first-content tracking entry so a later unrelated edit cannot fire it.
@@ -547,16 +600,12 @@ export class SourceSyncBlockStoreManager {
 	 * Fire the first-content-added event once when a block created empty this
 	 * session first gains content. The caller detects the in-block edit; this owns
 	 * dedupe + emission (fires at most once per block, only for empty→content).
-	 * Gated behind `platform_editor_blocks_patch_4`.
 	 */
 	public maybeEmitFirstContentAdded(
 		resourceId: ResourceId,
 		blockInstanceId?: BlockInstanceId,
 	): void {
 		if (this.viewMode === 'view') {
-			return;
-		}
-		if (!fg('platform_editor_blocks_patch_4')) {
 			return;
 		}
 		// `delete` returns false when the id was not tracked (already emitted, or
@@ -603,7 +652,7 @@ export class SourceSyncBlockStoreManager {
 	 * @param attrs attributes Ids of the node
 	 * @param node the ProseMirror node to cache
 	 * @param onCompletion callback invoked when creation completes
-	 * @param enrichment optional creation-type signals stashed and attached to the
+	 * @param enrichment optional creation analytics signals stashed and attached to the
 	 *   `syncedBlockCreate` event when the async create resolves. When
 	 *   `createdEmpty` is true the block is also registered for the
 	 *   first-content-added event.
@@ -619,7 +668,7 @@ export class SourceSyncBlockStoreManager {
 		}
 
 		const { resourceId, localId: blockInstanceId } = attrs;
-		// Stash creation-type signals for commitPendingCreation to read.
+		// Stash creation analytics signals for commitPendingCreation to read.
 		if (enrichment) {
 			this.creationEnrichment.set(resourceId, enrichment);
 			// Only empty-created blocks can produce an empty→content transition.
@@ -643,6 +692,7 @@ export class SourceSyncBlockStoreManager {
 			const cached = this.syncBlockCache.get(resourceId);
 			if (cached) {
 				cached.status = 'unpublished';
+				this.notifyLocalSource(resourceId);
 			}
 
 			this.creationCompletionCallbacks.set(resourceId, onCompletion);
@@ -669,11 +719,7 @@ export class SourceSyncBlockStoreManager {
 								result.error || 'Failed to create bodied sync block',
 								resourceId,
 								getSourceProductFromResourceIdSafe(resourceId),
-								buildErrorAttribution(
-									fg('platform_editor_blocks_patch_3'),
-									result.error,
-									result.statusCode,
-								),
+								buildErrorAttribution(result.error, result.statusCode),
 							),
 						);
 					}
@@ -738,10 +784,10 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	/**
-	 * Emit the `syncedBlockDelete` success event. Gate off: legacy payload. Gate
-	 * on: attaches `deletionReason`, `mechanism` and `blockInstanceId`, and
-	 * suppresses repeat emissions within {@link DELETE_DEDUPE_WINDOW_MS}. Must run
-	 * while the cache entry still exists so `blockInstanceId` is available.
+	 * Emit the `syncedBlockDelete` success event. Attaches `deletionReason`,
+	 * `mechanism` and `blockInstanceId`, and suppresses repeat emissions within
+	 * {@link DELETE_DEDUPE_WINDOW_MS}. Must run while the cache entry still exists
+	 * so `blockInstanceId` is available.
 	 */
 	private emitDeleteSuccess(
 		resourceId: ResourceId,
@@ -749,11 +795,6 @@ export class SourceSyncBlockStoreManager {
 		mechanism: DeletionMechanism | undefined,
 	): void {
 		const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
-
-		if (!fg('platform_editor_blocks_patch_4')) {
-			this.fireAnalyticsEvent?.(deleteSuccessPayload(resourceId, sourceProduct));
-			return;
-		}
 
 		const now = Date.now();
 		const lastEmittedAt = this.recentDeleteEmissions.get(resourceId);
@@ -810,7 +851,10 @@ export class SourceSyncBlockStoreManager {
 				results.forEach((result) => {
 					this.emitDeleteSuccess(result.resourceId, reason, mechanism);
 				});
-				callback = (Ids: SyncBlockAttrs) => this.syncBlockCache.delete(Ids.resourceId);
+				callback = (Ids: SyncBlockAttrs) => {
+					this.syncBlockCache.delete(Ids.resourceId);
+					this.notifyLocalSource(Ids.resourceId);
+				};
 				this.clearPendingDeletion();
 				this.deleteExperience?.success();
 			} else {
@@ -819,7 +863,6 @@ export class SourceSyncBlockStoreManager {
 				};
 
 				this.deleteExperience?.failure();
-				const attributionEnabled = fg('platform_editor_blocks_patch_3');
 				results.forEach((result) => {
 					if (result.success) {
 						this.emitDeleteSuccess(result.resourceId, reason, mechanism);
@@ -829,7 +872,7 @@ export class SourceSyncBlockStoreManager {
 								result.error || 'Failed to delete synced block',
 								result.resourceId,
 								getSourceProductFromResourceIdSafe(result.resourceId),
-								buildErrorAttribution(attributionEnabled, result.error, result.statusCode),
+								buildErrorAttribution(result.error, result.statusCode),
 							),
 						);
 					}
@@ -840,8 +883,8 @@ export class SourceSyncBlockStoreManager {
 			return isDeleteSuccessful;
 		} catch (error) {
 			// Thrown (non-result) failure — no structured SyncBlockError/status is available,
-			// so the attribution `reason` falls back to `unknown` when the gate is on.
-			const attribution = buildErrorAttribution(fg('platform_editor_blocks_patch_3'));
+			// so the attribution `reason` falls back to `unknown`.
+			const attribution = buildErrorAttribution();
 			syncBlockIds.forEach((Ids) => {
 				this.setPendingDeletion(Ids, false);
 				this.fireAnalyticsEvent?.(
@@ -925,6 +968,7 @@ export class SourceSyncBlockStoreManager {
 				const cached = this.syncBlockCache.get(sourceResourceId);
 				if (cached && result.data?.status) {
 					cached.status = result.data.status;
+					this.notifyLocalSource(sourceResourceId);
 				}
 			}
 		} catch {
@@ -1065,7 +1109,10 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	public destroy(): void {
+		const subscribedResourceIds = [...this.localSourceSubscribers.keys()];
 		this.syncBlockCache.clear();
+		subscribedResourceIds.forEach((resourceId) => this.notifyLocalSource(resourceId));
+		this.localSourceSubscribers.clear();
 		this.confirmationCallback = undefined;
 		this.creationCompletionCallbacks.clear();
 		this.flushCompletionCallback = undefined;

@@ -3,7 +3,7 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import tokenDefaultValues from '@atlaskit/tokens/token-default-values';
-import { getTokenId } from '@atlaskit/tokens/token-ids';
+import { getTokenId } from '@atlaskit/tokens/utils/get-token-id';
 import tokens from '@atlaskit/tokens/token-names';
 
 import { createLintRule } from '../utils/create-lint-rule';

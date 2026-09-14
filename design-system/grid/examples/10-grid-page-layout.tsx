@@ -17,7 +17,7 @@ import { media, UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsiv
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 
-import GridCards from './01-grid-cards';
+import GridCards from './01-grid-cards.vr.ap';
 
 const dynamicSizedVerticalPaddingStyles = xcss({
 	[media.above.sm]: {

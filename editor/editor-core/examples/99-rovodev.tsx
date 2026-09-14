@@ -10,13 +10,13 @@ import { css, jsx } from '@emotion/react';
 import { createRoot } from 'react-dom/client';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
-import Spinner from '@atlaskit/spinner';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
+import Spinner from '@atlaskit/spinner/spinner';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';

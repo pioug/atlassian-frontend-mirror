@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 import accessibleSites from '../src/mocks/accessibleSites';
 import { catherineHirons } from '../src/mocks/users';

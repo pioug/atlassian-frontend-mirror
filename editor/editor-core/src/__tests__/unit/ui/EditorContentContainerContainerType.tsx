@@ -6,7 +6,6 @@ import { render, screen } from '@testing-library/react';
 import { BaseTheme } from '@atlaskit/editor-common/ui';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles/consts';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EditorContentContainerEmotion } from '../../../ui/EditorContentContainer/EditorContentContainer-emotion';
 
@@ -42,58 +41,35 @@ const renderContentContainer = (appearance: 'comment' | 'chromeless' | 'full-pag
 		</BaseTheme>,
 	);
 
-// The native-embed / media responsiveness fix: in non-full-page appearances there is no
-// `container-type: inline-size` ancestor, so `--ak-editor-max-container-width` (cqw-based)
-// resolves against the viewport and does not shrink with a sidebar. The content area itself
-// becomes a query container for comment/chromeless (full-page keeps the `editor-area` container).
-describe('EditorContentContainer container-query context (platform_comment_container_query)', () => {
+// Comment and chromeless appearances have no `container-type: inline-size` ancestor, so the
+// content area itself is the query container. That gives `--ak-editor-max-container-width`
+// (cqw-based) a sidebar-aware width to resolve against instead of the viewport.
+describe('EditorContentContainer container-query context', () => {
 	beforeEach(() => {
 		setGlobalTheme({ typography: 'typography' });
 	});
 
-	describe('when the gate is on', () => {
-		beforeEach(() => {
-			passGate('platform_comment_container_query');
+	it('makes the comment content area a query container', async () => {
+		renderContentContainer('comment');
+		expect(screen.getByTestId('editor-content-container')).toHaveCompiledCss({
+			containerType: 'inline-size',
 		});
+		await expect(document.body).toBeAccessible();
+	});
 
-		it('makes the comment content area a query container', async () => {
-			renderContentContainer('comment');
-			expect(screen.getByTestId('editor-content-container')).toHaveCompiledCss({
-				containerType: 'inline-size',
-			});
-			await expect(document.body).toBeAccessible();
-		});
-
-		it('makes the chromeless content area a query container', () => {
-			renderContentContainer('chromeless');
-			expect(screen.getByTestId('editor-content-container')).toHaveCompiledCss({
-				containerType: 'inline-size',
-			});
+	it('makes the chromeless content area a query container', () => {
+		renderContentContainer('chromeless');
+		expect(screen.getByTestId('editor-content-container')).toHaveCompiledCss({
+			containerType: 'inline-size',
 		});
 	});
 
 	// Full-page uses the ancestor `editor-area` query container, so the content area itself is
-	// never made a query container here — regardless of the gate (which is not even read for
-	// full-page because of the `isComment || isChromeless` short-circuit).
-	describe('full-page appearance', () => {
-		it('does not make the full-page content area a query container', () => {
-			renderContentContainer('full-page');
-			expect(screen.getByTestId('editor-content-container')).not.toHaveCompiledCss({
-				containerType: 'inline-size',
-			});
-		});
-	});
-
-	describe('when the gate is off', () => {
-		beforeEach(() => {
-			failGate('platform_comment_container_query');
-		});
-
-		it('does not make the comment content area a query container', () => {
-			renderContentContainer('comment');
-			expect(screen.getByTestId('editor-content-container')).not.toHaveCompiledCss({
-				containerType: 'inline-size',
-			});
+	// never made a query container here.
+	it('does not make the full-page content area a query container', () => {
+		renderContentContainer('full-page');
+		expect(screen.getByTestId('editor-content-container')).not.toHaveCompiledCss({
+			containerType: 'inline-size',
 		});
 	});
 });

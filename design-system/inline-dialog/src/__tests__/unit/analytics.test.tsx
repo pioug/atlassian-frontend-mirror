@@ -2,10 +2,11 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import InlineDialog from '../../index';
+import InlineDialog from '../../inline-dialog';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('InlineDialog', () => {

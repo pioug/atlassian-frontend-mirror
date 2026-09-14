@@ -1,0 +1,114 @@
+{
+  "name": "Light increased-contrast-finesse",
+  "tokens": {
+    "Light increased-contrast-finesse/color.background.neutral.subtle.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Hovered state for color.background.neutral.subtle"
+      },
+      "value": "#17171708"
+    },
+    "Light increased-contrast-finesse/color.background.neutral.subtle.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Pressed state for color.background.neutral.subtle"
+      },
+      "value": "#0515240F"
+    },
+    "Light increased-contrast-finesse/color.background.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+      },
+      "value": "#0515240F"
+    },
+    "Light increased-contrast-finesse/color.background.selected.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Hovered state for color.background.selected"
+      },
+      "value": "#0B120E24"
+    },
+    "Light increased-contrast-finesse/color.background.selected.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Pressed state for color.background.selected"
+      },
+      "value": "#080F214A"
+    },
+    "Light increased-contrast-finesse/color.background.selected.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
+      },
+      "value": "#292A2E"
+    },
+    "Light increased-contrast-finesse/color.background.selected.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Hovered state of color.background.selected.bold"
+      },
+      "value": "#3B3D42"
+    },
+    "Light increased-contrast-finesse/color.background.selected.bold.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Pressed state of color.background.selected.bold"
+      },
+      "value": "#505258"
+    },
+    "Light increased-contrast-finesse/color.border.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
+      },
+      "value": "#292A2E"
+    },
+    "Light increased-contrast-finesse/color.text.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
+      },
+      "value": "#292A2E"
+    },
+    "Light increased-contrast-finesse/color.icon.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.2",
+        "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
+      },
+      "value": "#292A2E"
+    },
+    "Light increased-contrast-finesse/color.blanket.selected": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+      },
+      "value": "#0515240F"
+    }
+  },
+  "renameMap": {}
+}

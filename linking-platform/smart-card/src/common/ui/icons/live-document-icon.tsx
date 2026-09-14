@@ -8,8 +8,7 @@ import PageLiveDocObjectTile from '@atlaskit/object/tile/page-live-doc';
 import type { ObjectProps } from '@atlaskit/object/types';
 
 import type { SmartLinkSize } from '../../../constants';
-
-import { renderIconPerSize } from './utils';
+import { renderIconPerSize } from './render-icon-per-size';
 
 const LiveDocumentIconWithColor: FC<
 	Omit<ObjectProps, 'size'> & {

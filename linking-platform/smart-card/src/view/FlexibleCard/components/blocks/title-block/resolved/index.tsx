@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
@@ -14,10 +15,10 @@ import {
 	SmartLinkPosition,
 	SmartLinkWidth,
 } from '../../../../../../constants';
-import { LinkIcon } from '../../../elements';
+import { default as LinkIcon } from '../../../elements/link-icon-element';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
-import { renderElementItems } from '../../utils';
+import { renderElementItems } from '../../renderElementItems';
 import { type TitleBlockViewProps } from '../types';
 
 const style = css({

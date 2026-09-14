@@ -3,9 +3,9 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import type {
-	RichMediaLayout as MediaSingleLayout,
+	Layout as MediaSingleLayout,
 	RichMediaAttributes,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/rich-media-common';
 import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

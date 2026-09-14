@@ -1,7 +1,6 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -9,11 +8,10 @@ exports.ViewingConditions = void 0;
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-var math = _interopRequireWildcard(require("./math-utils"));
+var _lerp = require("./lerp");
 var _whitePointD = require("./white-point-d65");
 var _yFromLstar = require("./y-from-lstar");
 var _ViewingConditions;
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 var ViewingConditions = exports.ViewingConditions = /*#__PURE__*/function () {
   function ViewingConditions(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
     (0, _classCallCheck2.default)(this, ViewingConditions);
@@ -64,7 +62,7 @@ var ViewingConditions = exports.ViewingConditions = /*#__PURE__*/function () {
       var gW = xyz[0] * -0.250268 + xyz[1] * 1.204414 + xyz[2] * 0.045854;
       var bW = xyz[0] * -0.002079 + xyz[1] * 0.048952 + xyz[2] * 0.953127;
       var f = 0.8 + surround / 10.0;
-      var c = f >= 0.9 ? math.lerp(0.59, 0.69, (f - 0.9) * 10.0) : math.lerp(0.525, 0.59, (f - 0.8) * 10.0);
+      var c = f >= 0.9 ? (0, _lerp.lerp)(0.59, 0.69, (f - 0.9) * 10.0) : (0, _lerp.lerp)(0.525, 0.59, (f - 0.8) * 10.0);
       var d = discountingIlluminant ? 1.0 : f * (1.0 - 1.0 / 3.6 * Math.exp((-adaptingLuminance - 42.0) / 92.0));
       d = d > 1.0 ? 1.0 : d < 0.0 ? 0.0 : d;
       var nc = f;

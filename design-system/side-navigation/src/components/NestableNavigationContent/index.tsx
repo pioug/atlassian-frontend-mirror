@@ -6,12 +6,12 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 
 import { css, jsx } from '@compiled/react';
 
-import { ExitingPersistence } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import useChildIds from '../../common/use-child-ids';
-import GoBackButton from '../Item/go-back-item';
-import { default as NestingItem } from '../NestingItem';
+import { GoBackItem as GoBackButton } from '../Item/go-back-item';
+import { NestingItem } from '../NestingItem';
 
 import { NestedContext, type NestedContextValue } from './nested-context';
 import { NestingMotion } from './nesting-motion';
@@ -129,7 +129,7 @@ const nestingRootStyles = css({
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const NestableNavigationContent: (props: NestableNavigationContentProps) => JSX.Element = (
+export const NestableNavigationContent: (props: NestableNavigationContentProps) => JSX.Element = (
 	props: NestableNavigationContentProps,
 ) => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
@@ -314,5 +314,3 @@ const NestableNavigationContent: (props: NestableNavigationContentProps) => JSX.
 		</Fragment>
 	);
 };
-
-export default NestableNavigationContent;

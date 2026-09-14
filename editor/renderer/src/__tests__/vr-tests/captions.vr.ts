@@ -1,5 +1,5 @@
 import { snapshot } from '@af/visual-regression';
-import { Caption, CaptionLong, CaptionComplicated } from './captions.fixtures';
+import { Caption, CaptionLong, CaptionComplicated } from './captions.fixtures.vr.ap';
 
 snapshot(Caption, {
 	description: 'should render caption correctly',

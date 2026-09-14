@@ -1,4 +1,4 @@
-import { cssVariableFormatter as formatter } from '../../css-variables';
+import { cssVariableFormatter as formatter } from '../../css-variable-formatter';
 
 describe('formatter', () => {
 	it('should parse token', () => {

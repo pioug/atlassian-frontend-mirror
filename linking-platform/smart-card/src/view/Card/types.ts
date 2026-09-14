@@ -1,6 +1,6 @@
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type CardPlatform } from '@atlaskit/link-extractors';
-import { type CardAppearance } from '@atlaskit/linking-common';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { CardPlatform } from '@atlaskit/link-extractors/types';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
 
 import type { CardAction } from '../../constants';
 import { type FrameStyle } from '../EmbedCard/types';

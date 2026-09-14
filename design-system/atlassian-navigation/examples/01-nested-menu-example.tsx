@@ -15,10 +15,15 @@ import {
 	ProductHome,
 	Settings,
 } from '@atlaskit/atlassian-navigation';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
+import ButtonItem from '@atlaskit/menu/button-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import { Popup } from '@atlaskit/popup/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 
 const ProductHomeExample = () => (

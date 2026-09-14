@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { type JqlAnalyticsEvent } from './types';
 

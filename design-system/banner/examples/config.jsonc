@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "00-basic-usage.tsx",
-    "announcement-banner-with-long-text.tsx",
-    "announcement-banner.tsx",
-    "banner-with-link.tsx",
-    "error-banner.tsx",
+    "00-basic-usage.vr.ap.tsx",
+    "announcement-banner-with-long-text.vr.ap.tsx",
+    "announcement-banner.vr.ap.tsx",
+    "banner-with-link.vr.ap.tsx",
+    "error-banner.vr.ap.tsx",
     "open-close-example.tsx"
   ],
   "exampleDependencies": []

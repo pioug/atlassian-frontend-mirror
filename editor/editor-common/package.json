@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "116.46.0",
+	"version": "122.2.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,13 +31,22 @@
 		"./ai-messages": "./src/ai-messages/index.ts",
 		"./analytics": "./src/analytics/index.ts",
 		"./annotation": "./src/annotation/index.ts",
+		"./block-controls-suppression": "./src/block-controls-suppression.ts",
+		"./block-controls/block-control-ui-context": "./src/block-controls/block-control-ui-context.ts",
+		"./block-controls/surface-drag-handle-element": "./src/block-controls/surface-drag-handle-element.ts",
+		"./block-controls/surface-keys": "./src/block-controls/surface-keys.ts",
 		"./block-menu": "./src/block-menu/index.ts",
 		"./browser": "./src/utils/browser.ts",
 		"./card": "./src/card/index.ts",
 		"./clipboard": "./src/clipboard/index.ts",
 		"./code-block": "./src/code-block/index.ts",
 		"./collab": "./src/collab/index.ts",
+		"./collab-agent-edit-chrome": "./src/collab/agent-edit-chrome.ts",
+		"./collab-agent-remote-edit-review": "./src/collab/agent-remote-edit-review.ts",
+		"./collab-agent-review-slice-compare": "./src/collab/agent-review-slice-compare.ts",
 		"./commands": "./src/commands/index.ts",
+		"./connectivity/isOfflineMode": "./src/connectivity/isOfflineMode.ts",
+		"./connectivity/mode": "./src/connectivity/mode.ts",
 		"./compiled-migration": "./src/compiled-migration/withCompiledMigration.tsx",
 		"./constants": "./src/link/constants.ts",
 		"./context-panel": "./src/ui/ContextPanel/context.tsx",
@@ -77,6 +86,7 @@
 		"./lists": "./src/lists/index.ts",
 		"./mark": "./src/mark/index.ts",
 		"./media": "./src/media/index.ts",
+		"./media-insert/rank": "./src/media-insert/rank.ts",
 		"./media-inline": "./src/media-inline/index.ts",
 		"./media-single": "./src/media-single/index.ts",
 		"./median": "./src/utils/median.ts",
@@ -104,7 +114,17 @@
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
 		"./provider-factory": "./src/provider-factory.ts",
 		"./provider-helpers": "./src/provider-helpers/index.ts",
-		"./quick-insert": "./src/quick-insert/index.ts",
+		"./quick-insert/context": "./src/quick-insert/QuickInsertContext.ts",
+		"./quick-insert/get-active-quick-insert-categories": "./src/quick-insert/getActiveQuickInsertCategories.ts",
+		"./quick-insert/get-menu-item-parents": "./src/quick-insert/getQuickInsertMenuItemParents.ts",
+		"./quick-insert/get-provider-menu-item-key": "./src/quick-insert/getQuickInsertProviderMenuItemKey.ts",
+		"./quick-insert/keys": "./src/quick-insert/keys.ts",
+		"./quick-insert/is-recommended-item": "./src/quick-insert/is-recommended-item.ts",
+		"./quick-insert/create-quick-insert-matcher": "./src/quick-insert/createQuickInsertMatcher.ts",
+		"./quick-insert/menu-item": "./src/quick-insert/QuickInsertMenuItem.tsx",
+		"./quick-insert/registered-menu-model": "./src/quick-insert/registered-menu-model.ts",
+		"./quick-insert/menu-root": "./src/quick-insert/QuickInsertMenuRoot.tsx",
+		"./quick-insert/menu-section": "./src/quick-insert/QuickInsertMenuSection.tsx",
 		"./react-node-view": "./src/react-node-view/index.tsx",
 		"./resizer": "./src/resizer/index.ts",
 		"./safe-plugin": "./src/safe-plugin/index.ts",
@@ -116,8 +136,14 @@
 		"./table-cell-background-for-compiled": "./src/styles/shared/table-cell-background-for-compiled.ts",
 		"./toolbar": "./src/toolbar/index.ts",
 		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
+		"./transaction-agent-attribution": "./src/transaction-agent-attribution.ts",
 		"./transforms": "./src/transforms/index.ts",
 		"./type-ahead": "./src/type-ahead/index.ts",
+		"./type-ahead-surface-context": "./src/type-ahead/TypeAheadSurfaceContext.ts",
+		"./type-ahead-get-menu-footer-section-key": "./src/type-ahead/getMenuFooterSectionKey.ts",
+		"./type-ahead-get-section-overflow-item-key": "./src/type-ahead/getSectionOverflowItemKey.ts",
+		"./type-ahead-is-menu-footer-section-key": "./src/type-ahead/isMenuFooterSectionKey.ts",
+		"./type-ahead-is-section-overflow-item-key": "./src/type-ahead/isSectionOverflowItemKey.ts",
 		"./types": "./src/types/index.ts",
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
 		"./ui-color": "./src/ui-color/index.ts",
@@ -220,6 +246,7 @@
 		"./utils/compare-props": "./src/utils/compare-props.ts",
 		"./utils/compareNodes": "./src/utils/compareNodes.ts",
 		"./utils/compose": "./src/utils/compose.tsx",
+		"./utils/content-visibility": "./src/utils/content-visibility.ts",
 		"./link/ConfigureLinkOverlay": "./src/link/ConfigureLinkOverlay/index.tsx",
 		"./const": "./src/ui/LinkSearch/const.ts",
 		"./keymaps/consts": "./src/keymaps/consts.ts",
@@ -279,6 +306,7 @@
 		"./monitoring/error": "./src/monitoring/error.ts",
 		"./EventHandlers": "./src/ui/EventHandlers/index.ts",
 		"./analytics/types/events": "./src/analytics/types/events.ts",
+		"./analytics/types/quick-insert-events": "./src/analytics/types/quick-insert-events.ts",
 		"./ui-expand": "./src/ui/Expand/index.tsx",
 		"./ui-toolbar/ExpandIcon": "./src/ui/Toolbar/ExpandIcon.tsx",
 		"./analytics/types/experience-events": "./src/analytics/types/experience-events.ts",
@@ -439,6 +467,7 @@
 		"./types/next-editor-plugin": "./src/types/next-editor-plugin.ts",
 		"./lists/node": "./src/lists/node.ts",
 		"./node-anchor-provider": "./src/node-anchor/node-anchor-provider.ts",
+		"./should-enable-limited-mode": "./src/node-anchor/should-enable-limited-mode.ts",
 		"./analytics/types/node-events": "./src/analytics/types/node-events.ts",
 		"./node-view": "./src/lazy-node-view/node-view.ts",
 		"./utils/node-type-utils": "./src/utils/node-type-utils.ts",
@@ -484,7 +513,11 @@
 		"./provider-factory/types": "./src/provider-factory/types.ts",
 		"./provider-factory/quick-insert-provider": "./src/provider-factory/quick-insert-provider.ts",
 		"./quick-insert/messages": "./src/quick-insert/messages.ts",
+		"./quick-insert/provider": "./src/quick-insert/QuickInsertProvider.ts",
+		"./quick-insert/rank": "./src/quick-insert/rank.ts",
+		"./quick-insert/use-quick-insert-context": "./src/quick-insert/useQuickInsertContext.ts",
 		"./quick-insert/utils": "./src/quick-insert/utils.ts",
+		"./quick-insert": "./src/quick-insert/index.ts",
 		"./block-menu/rank": "./src/block-menu/rank.ts",
 		"./block-menu/rank-deprecated": "./src/block-menu/rank-deprecated.ts",
 		"./react-node-view/types": "./src/react-node-view/types.ts",
@@ -505,8 +538,10 @@
 		"./lists/restore-selection": "./src/lists/restore-selection.ts",
 		"./utils/rich-media-utils": "./src/utils/rich-media-utils.ts",
 		"./messages/roleDescription": "./src/messages/roleDescription.ts",
+		"./messages/rule": "./src/messages/rule.ts",
 		"./utils/scroll-gutter": "./src/utils/scroll-gutter.ts",
 		"./block-menu/scroll-to-block-utils": "./src/block-menu/scroll-to-block-utils.ts",
+		"./block-menu/block-transform-extension": "./src/block-menu/block-transform-extension.ts",
 		"./provider-factory/search-provider": "./src/provider-factory/search-provider.ts",
 		"./analytics/types/selection-events": "./src/analytics/types/selection-events.ts",
 		"./messages/selection-extension": "./src/messages/selection-extension.ts",
@@ -680,7 +715,9 @@
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-datasource": "workspace:^",
@@ -697,8 +734,10 @@
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/object": "workspace:^",
 		"@atlaskit/onboarding": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
+		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
 		"@atlaskit/prosemirror-history": "workspace:^",
@@ -752,7 +791,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
-		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -766,40 +804,46 @@
 		"@types/markdown-it": "root:*",
 		"@types/raf-schd": "root:*",
 		"@types/react-virtualized": "root:*",
-		"enzyme": "root:*",
 		"raf-stub": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
-		"react-test-renderer": "root:*",
 		"sinon": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"circular-dependencies": [
-				"file-level"
-			],
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"deprecation": "no-deprecated-imports",
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"emotion",
-				"compiled"
-			]
-		}
-	},
 	"platform-feature-flags": {
-		"rovo_chat_agent_selection": {
+		"platform_editor_add_text_color_tracking": {
 			"type": "boolean"
+		},
+		"platform_editor_blocks_patch_7": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_blocks_patch_9": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_nested_mbe_frames": {
+			"type": "boolean"
+		},
+		"platform_editor_hide_configure_lozenge_non_configurable": {
+			"type": "boolean"
+		},
+		"platform_editor_adf_validator_stage0": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"rovo_skill_tag_label_wrapping": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_sanitize_selection_fragments": {
+			"type": "boolean"
+		},
+		"platform-dst-popper-consolidation": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_editor_lovability_text_bg_color_patch_2": {
-			"type": "boolean"
-		},
-		"platform_editor_updated_dropdown_colors": {
 			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {
@@ -811,19 +855,16 @@
 		"platform_editor_inline_node_virt_threshold_override": {
 			"type": "boolean"
 		},
-		"confluence-issue-terminology-refresh": {
+		"platform_editor_fix_limited_mode_leaking": {
 			"type": "boolean"
 		},
-		"platform_editor_nested_dnd_styles_changes": {
+		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},
 		"platform_editor_bordered_panel_nested_in_table": {
 			"type": "boolean"
 		},
 		"confluence_connect_macro_preset_height": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_media_in_renderer": {
 			"type": "boolean"
 		},
 		"cc_comments_log_draft_annotation_ancestor_nodes": {
@@ -847,28 +888,10 @@
 		"platform_editor_fix_mixed_types_column_sort": {
 			"type": "boolean"
 		},
-		"draft_reply_contextual_pills_gate": {
-			"type": "boolean"
-		},
-		"platform_editor_sentry_breadcrumbs": {
-			"type": "boolean"
-		},
-		"platform_fix_macro_renders_in_layouts": {
-			"type": "boolean"
-		},
-		"platform_editor_native_anchor_patch_3": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_v2_patch_4": {
-			"type": "boolean"
-		},
 		"jim-lower-ranking-in-jira-macro-search": {
 			"type": "boolean"
 		},
 		"tinymce_display_unknown_macro_body_content": {
-			"type": "boolean"
-		},
-		"platform_editor_extension_renderer_promise_fix": {
 			"type": "boolean"
 		},
 		"platform_editor_media_border_radius_fix": {
@@ -877,14 +900,7 @@
 		"people-teams_migrate-user-profile-card": {
 			"type": "boolean"
 		},
-		"platform_smartlink_xpc_url_wrapping": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_ai_selection_local_ids": {
-			"type": "boolean"
-		},
-		"platform_editor_code_block_language_detection_flow": {
 			"type": "boolean"
 		},
 		"platform_editor_panel_c1_fallback_transform": {
@@ -898,6 +914,16 @@
 		},
 		"platform_editor_embed_height_only_fallback": {
 			"type": "boolean"
+		}
+	},
+	"platform-experiments": {
+		"platform_editor_mention_node_avatar": {
+			"param": "isEnabled",
+			"defaultValue": false
+		},
+		"platform_mention_profilecard_accessible_name_exp": {
+			"param": "isEnabled",
+			"defaultValue": false
 		}
 	}
 }

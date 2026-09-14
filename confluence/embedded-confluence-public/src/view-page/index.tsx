@@ -1,5 +1,5 @@
 import React, { type ComponentProps } from 'react';
-import { I18nProvider } from '@atlassian/embedded-confluence-common';
+import { I18nProvider } from '@atlassian/embedded-confluence-common/i18n/i18n-provider';
 import fetchTranslations from '../i18n/fetchTranslations';
 import { ViewPage as Component } from './ViewPage';
 

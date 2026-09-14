@@ -1,4 +1,4 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
 import { editorExperimentsConfig, type EditorExperimentsConfig } from './experiments-config';
@@ -37,10 +37,8 @@ export function expValEqualsInternal<ExperimentName extends keyof EditorExperime
 	experimentDefaultValue: boolean | string | null,
 	experimentExposure: boolean,
 ): boolean {
-	// @ts-ignore need to loosen the type here to allow for any experiment name
 	if (_overrides[experimentName] !== undefined) {
 		// This will be hit in the case of a test setting an override
-		// @ts-ignore need to loosen the type here to allow for any experiment name
 		return _overrides[experimentName] === experimentExpectedValue;
 	}
 

@@ -1,8 +1,7 @@
 /* eslint-disable testing-library/no-node-access */
 import React, { type Dispatch, forwardRef, type SetStateAction } from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -82,13 +81,14 @@ describe('Popup top-layer adapter: aria-controls linkage', () => {
 		expect(trigger).toHaveAttribute('aria-controls', customId);
 	});
 
-	it('aria-controls is set on the trigger when popup is closed', () => {
+	it('aria-controls is not set on the trigger when popup is closed', () => {
 		renderTopLayerPopup(
 			<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
-		expect(trigger).toHaveAttribute('aria-controls');
+		// aria-controls should not point to popup content that is not mounted.
+		expect(trigger).not.toHaveAttribute('aria-controls');
 	});
 });
 

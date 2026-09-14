@@ -1,4 +1,4 @@
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 import { ACTIONS } from './actions';

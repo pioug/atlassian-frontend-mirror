@@ -12,7 +12,8 @@ import classnames from 'classnames';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { decisionListSelector, taskListSelector } from '@atlaskit/adf-schema';
+import { decisionListSelector } from '@atlaskit/adf-schema/decision-list';
+import { taskListSelector } from '@atlaskit/adf-schema/task-list';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -38,10 +39,10 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import type EditorActions from '../../../actions';
@@ -67,6 +68,14 @@ const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
 const AK_NESTED_DND_GUTTER_OFFSET = 8;
 
 const getTotalPadding = () => akEditorGutterPaddingDynamic() * 2;
+
+// Isolates the scroll container's layout and size from the rest of the page under
+// platform_editor_contain_layout. Because of contain: size wrapper
+// must take its height from the parent rather than from the contained content.
+const containStrictWrapperStyles = css({
+	contain: 'layout size',
+	height: '100%',
+});
 
 const editorContentAreaProsemirrorStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -344,6 +353,7 @@ interface FullPageEditorContentAreaProps {
 	popupsMountPoint: HTMLElement | undefined;
 	popupsScrollableElement: HTMLElement | undefined;
 	providerFactory: ProviderFactory;
+	UNSAFE_containLayout?: boolean;
 	viewMode: ViewMode | undefined;
 	wrapperElement: HTMLElement | null;
 }
@@ -419,6 +429,122 @@ const Content = React.forwardRef<
 	const shouldHideScrollGutterForMarkdownMode =
 		isMarkdownModeExperimentEnabled && markdownPluginCurrentIsMarkdownMode;
 
+	const content = (
+		<EditorContentContainer
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="fabric-editor-popup-scroll-parent"
+			featureFlags={props.featureFlags}
+			ref={scrollContainerRef}
+			viewMode={props?.viewMode}
+			isScrollable
+			appearance={props.appearance}
+			contentMode={props.contentMode}
+			useStandardNodeWidth={useStandardNodeWidth}
+		>
+			<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
+				<div
+					data-markdown-mode-hide-prosemirror={
+						shouldHideProseMirrorForMarkdownMode ? 'true' : undefined
+					}
+					data-markdown-mode-hide-scroll-gutter={
+						shouldHideScrollGutterForMarkdownMode ? 'true' : undefined
+					}
+					css={[
+						editorContentAreaNew,
+						editorContentAreaProsemirrorStyle,
+						// EDITOR-6558: hide ProseMirror when the markdown-mode plugin
+						// reports a non-WYSIWYG view.
+						shouldHideProseMirrorForMarkdownMode &&
+							hideEditorContentAreaProsemirrorWithAttributeStyle,
+						shouldHideScrollGutterForMarkdownMode &&
+							hideEditorContentAreaScrollGutterWithAttributeStyle,
+						shouldHideProseMirrorForMarkdownMode && markdownModeContentAreaStyle,
+						tableFullPageEditorStylesNew,
+						fullWidthNonChromelessBreakoutBlockTableStyle,
+						// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
+						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
+							? editorContentAreaContainerStyleExcludeCodeBlockNew
+							: editorContentAreaContainerStyleNew,
+						editorContentAreaContainerNestedDndStyle,
+					]}
+					style={
+						{
+							'--ak-editor-content-area-max-width': `${contentAreaMaxWidth}px`,
+						} as React.CSSProperties
+					}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className="ak-editor-content-area-region"
+					data-editor-editable-content
+					role="region"
+					aria-label={props.intl.formatMessage(messages.editableContentLabel)}
+					ref={contentAreaRef}
+					data-vc="editor-content-area-region"
+				>
+					<div
+						css={[
+							editorContentGutterStyles,
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							fg('platform_editor_controls_increase_full_page_gutter') &&
+								editorExperiment('platform_editor_controls', 'variant1') &&
+								editorContentGutterStyleFG,
+							editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+								exposure: true,
+							}) && editorContentReducedGutterStyles,
+						]}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={classnames('ak-editor-content-area', 'appearance-full-page', {
+							'fabric-editor--full-width-mode': fullWidthMode,
+							'fabric-editor--max-width-mode': Boolean(maxWidthMode),
+						})}
+						ref={contentAreaRef}
+					>
+						{!!props.customContentComponents && 'before' in props.customContentComponents
+							? contentComponentClickWrapper(props.customContentComponents.before)
+							: contentComponentClickWrapper(props.customContentComponents)}
+						<PluginSlot
+							editorView={props.editorView}
+							editorActions={props.editorActions}
+							eventDispatcher={props.eventDispatcher}
+							providerFactory={props.providerFactory}
+							appearance={props.appearance}
+							items={props.contentComponents}
+							pluginHooks={props.pluginHooks}
+							contentArea={contentAreaRef.current ?? undefined}
+							popupsMountPoint={props.popupsMountPoint}
+							popupsBoundariesElement={props.popupsBoundariesElement}
+							popupsScrollableElement={props.popupsScrollableElement}
+							disabled={!!props.disabled}
+							containerElement={scrollContainerRef.current}
+							dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+							wrapperElement={props.wrapperElement}
+						/>
+						{props.editorDOMElement}
+						{!!props.customContentComponents && 'after' in props.customContentComponents
+							? contentComponentClickWrapper(props.customContentComponents.after)
+							: null}
+						{allowScrollGutter &&
+							(editorExperiment('platform_editor_blocks', true) ? (
+								<div
+									id="editor-scroll-gutter"
+									css={shouldHideScrollGutterForMarkdownMode && hideEditorScrollGutterStyle}
+									style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
+									data-vc="scroll-gutter"
+									data-editor-scroll-gutter="true"
+								></div>
+							) : (
+								<div
+									id="editor-scroll-gutter"
+									css={shouldHideScrollGutterForMarkdownMode && hideEditorScrollGutterStyle}
+									style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
+									data-vc="scroll-gutter"
+								></div>
+							))}
+					</div>
+				</div>
+			</ClickAreaBlock>
+		</EditorContentContainer>
+	);
+
 	return (
 		<div
 			css={[contentAreaNew, props.isEditorToolbarHidden && contentAreaHeightNoToolbar]}
@@ -434,120 +560,16 @@ const Content = React.forwardRef<
 				data-testid={EDITOR_CONTAINER}
 				data-editor-container={'true'}
 			>
-				<EditorContentContainer
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className="fabric-editor-popup-scroll-parent"
-					featureFlags={props.featureFlags}
-					ref={scrollContainerRef}
-					viewMode={props?.viewMode}
-					isScrollable
-					appearance={props.appearance}
-					contentMode={props.contentMode}
-					useStandardNodeWidth={useStandardNodeWidth}
-				>
-					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
-						<div
-							data-markdown-mode-hide-prosemirror={
-								shouldHideProseMirrorForMarkdownMode ? 'true' : undefined
-							}
-							data-markdown-mode-hide-scroll-gutter={
-								shouldHideScrollGutterForMarkdownMode ? 'true' : undefined
-							}
-							css={[
-								editorContentAreaNew,
-								editorContentAreaProsemirrorStyle,
-								// EDITOR-6558: hide ProseMirror when the markdown-mode plugin
-								// reports a non-WYSIWYG view.
-								shouldHideProseMirrorForMarkdownMode &&
-									hideEditorContentAreaProsemirrorWithAttributeStyle,
-								shouldHideScrollGutterForMarkdownMode &&
-									hideEditorContentAreaScrollGutterWithAttributeStyle,
-								shouldHideProseMirrorForMarkdownMode && markdownModeContentAreaStyle,
-								tableFullPageEditorStylesNew,
-								fullWidthNonChromelessBreakoutBlockTableStyle,
-								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
-								expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
-									? editorContentAreaContainerStyleExcludeCodeBlockNew
-									: editorContentAreaContainerStyleNew,
-								fg('platform_editor_nested_dnd_styles_changes') &&
-									editorContentAreaContainerNestedDndStyle,
-							]}
-							style={
-								{
-									'--ak-editor-content-area-max-width': `${contentAreaMaxWidth}px`,
-								} as React.CSSProperties
-							}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-							className="ak-editor-content-area-region"
-							data-editor-editable-content
-							role="region"
-							aria-label={props.intl.formatMessage(messages.editableContentLabel)}
-							ref={contentAreaRef}
-							data-vc="editor-content-area-region"
-						>
-							<div
-								css={[
-									editorContentGutterStyles,
-									// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-									fg('platform_editor_controls_increase_full_page_gutter') &&
-										editorExperiment('platform_editor_controls', 'variant1') &&
-										editorContentGutterStyleFG,
-									editorExperiment('platform_editor_preview_panel_responsiveness', true, {
-										exposure: true,
-									}) && editorContentReducedGutterStyles,
-								]}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={classnames('ak-editor-content-area', 'appearance-full-page', {
-									'fabric-editor--full-width-mode': fullWidthMode,
-									'fabric-editor--max-width-mode': Boolean(maxWidthMode),
-								})}
-								ref={contentAreaRef}
-							>
-								{!!props.customContentComponents && 'before' in props.customContentComponents
-									? contentComponentClickWrapper(props.customContentComponents.before)
-									: contentComponentClickWrapper(props.customContentComponents)}
-								<PluginSlot
-									editorView={props.editorView}
-									editorActions={props.editorActions}
-									eventDispatcher={props.eventDispatcher}
-									providerFactory={props.providerFactory}
-									appearance={props.appearance}
-									items={props.contentComponents}
-									pluginHooks={props.pluginHooks}
-									contentArea={contentAreaRef.current ?? undefined}
-									popupsMountPoint={props.popupsMountPoint}
-									popupsBoundariesElement={props.popupsBoundariesElement}
-									popupsScrollableElement={props.popupsScrollableElement}
-									disabled={!!props.disabled}
-									containerElement={scrollContainerRef.current}
-									dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-									wrapperElement={props.wrapperElement}
-								/>
-								{props.editorDOMElement}
-								{!!props.customContentComponents && 'after' in props.customContentComponents
-									? contentComponentClickWrapper(props.customContentComponents.after)
-									: null}
-								{allowScrollGutter &&
-									(editorExperiment('platform_editor_blocks', true) ? (
-										<div
-											id="editor-scroll-gutter"
-											css={shouldHideScrollGutterForMarkdownMode && hideEditorScrollGutterStyle}
-											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
-											data-vc="scroll-gutter"
-											data-editor-scroll-gutter="true"
-										></div>
-									) : (
-										<div
-											id="editor-scroll-gutter"
-											css={shouldHideScrollGutterForMarkdownMode && hideEditorScrollGutterStyle}
-											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
-											data-vc="scroll-gutter"
-										></div>
-									))}
-							</div>
-						</div>
-					</ClickAreaBlock>
-				</EditorContentContainer>
+				{props.UNSAFE_containLayout ? (
+					<div
+						data-testid="editor-contain-size-and-layout-wrapper"
+						css={containStrictWrapperStyles}
+					>
+						{content}
+					</div>
+				) : (
+					content
+				)}
 			</div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={sidebarArea}>

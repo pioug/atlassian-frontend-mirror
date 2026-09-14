@@ -1,6 +1,10 @@
 import isEqual from 'lodash/isEqual';
 
-import type { CellAttributes, TableAttributes, TableLayout } from '@atlaskit/adf-schema';
+import type {
+	CellAttributes,
+	TableAttributes,
+	Layout as TableLayout,
+} from '@atlaskit/adf-schema/tableNodes';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
@@ -33,6 +37,7 @@ import {
 	selectRow as selectRowTransform,
 	setCellAttrs,
 } from '@atlaskit/editor-tables/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { WidthToWidest } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';
@@ -54,6 +59,34 @@ import { updatePluginStateDecorations } from '../utils/update-plugin-state-decor
 
 const DARK_MODE_CELL_COLOR = '#1f1f21';
 const DARK_MODE_HEADER_COLOR = '#303134';
+
+const selectColumnWithMergedEdgeRows = (
+	tr: Transaction,
+	column: number,
+	expand?: boolean,
+): Transaction => {
+	const transformedTr = selectColumnTransform(column, expand)(tr);
+
+	if (expand) {
+		return transformedTr;
+	}
+
+	const selectableCells = getCellsInColumn(column)(tr.selection)?.filter(
+		({ node }) => node.attrs.colspan === 1,
+	);
+	const firstCell = selectableCells?.[0];
+	const lastCell = selectableCells?.[selectableCells.length - 1];
+	if (!firstCell || !lastCell) {
+		return transformedTr;
+	}
+
+	return transformedTr.setSelection(
+		new CellSelection(
+			transformedTr.doc.resolve(lastCell.pos),
+			transformedTr.doc.resolve(firstCell.pos),
+		),
+	);
+};
 
 export const setEditorFocus = (editorHasFocus: boolean): Command =>
 	createCommand({
@@ -503,9 +536,13 @@ export const selectColumn = (
 				return false;
 			}
 
-			const decorations = createColumnSelectedDecoration(
-				selectColumnTransform(column, expand)(state.tr),
-			);
+			let selectionTransaction: Transaction;
+			if (isExperimentEnabled('platform_editor_table_menu_updates_patch_5')) {
+				selectionTransaction = selectColumnWithMergedEdgeRows(state.tr, column, expand);
+			} else {
+				selectionTransaction = selectColumnTransform(column, expand)(state.tr);
+			}
+			const decorations = createColumnSelectedDecoration(selectionTransaction);
 			const decorationSet = updatePluginStateDecorations(
 				state,
 				decorations,
@@ -518,13 +555,17 @@ export const selectColumn = (
 				data: { targetCellPosition, decorationSet },
 			};
 		},
-		(tr: Transaction) =>
-			selectColumnTransform(
-				column,
-				expand,
-			)(tr)
+		(tr: Transaction) => {
+			let selectionTransaction: Transaction;
+			if (isExperimentEnabled('platform_editor_table_menu_updates_patch_5')) {
+				selectionTransaction = selectColumnWithMergedEdgeRows(tr, column, expand);
+			} else {
+				selectionTransaction = selectColumnTransform(column, expand)(tr);
+			}
+			return selectionTransaction
 				.setMeta('addToHistory', false)
-				.setMeta('selectedColumnViaKeyboard', triggeredByKeyboard),
+				.setMeta('selectedColumnViaKeyboard', triggeredByKeyboard);
+		},
 	);
 
 export const selectColumns = (columnIndexes: number[]): Command =>

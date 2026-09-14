@@ -1,5 +1,5 @@
 import type { ProductPermissionsResponse, UserProductPermissions } from './types';
-import { getProductPermissionRequestBody } from './utils/requests';
+import { getProductPermissionRequestBody } from './utils/get-product-permission-request-body';
 import { transformPermissions } from './utils/transform-permissions';
 
 describe('transformPermissions', () => {

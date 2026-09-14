@@ -22,8 +22,11 @@ import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type EditorActions from '../actions';
+import { getExtensionQuickInsertComponents } from '../ui/quick-insert/getExtensionQuickInsertComponents';
 
 // Structural shape of the markdown-mode plugin's slice of the injection API.
 // Used to read `isMarkdownMode` without importing the `MarkdownModePlugin`
@@ -36,13 +39,17 @@ type MarkdownModeReader = {
 };
 
 /**
- * Utils to send analytics event when a extension is inserted using quickInsert
+ * Utils to send analytics event when an extension is inserted using quickInsert
  */
 function sendExtensionQuickInsertAnalytics(
 	item: MenuItem,
 	selection: Selection,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-	source?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.ELEMENT_BROWSER,
+	source?:
+		| INPUT_METHOD.TOOLBAR
+		| INPUT_METHOD.INSERT_MENU
+		| INPUT_METHOD.QUICK_INSERT
+		| INPUT_METHOD.ELEMENT_BROWSER,
 ) {
 	if (createAnalyticsEvent) {
 		const insertLocation = findInsertLocation(selection);
@@ -56,7 +63,6 @@ function sendExtensionQuickInsertAnalytics(
 					extensionType: item.extensionType,
 					extensionKey: item.extensionKey,
 					key: item.key,
-					// @note inputMethod defaults to QUICK_INSERT if not provided
 					inputMethod: source || INPUT_METHOD.QUICK_INSERT,
 					...(insertLocation ? { insertLocation } : {}),
 				},
@@ -86,6 +92,7 @@ const dummyExtensionAPI: ExtensionAPI = {
 	},
 };
 
+/** Creates legacy and registered Quick Insert representations for extensions. */
 export async function extensionProviderToQuickInsertProvider(
 	extensionProvider: ExtensionProvider,
 	editorActions: EditorActions,
@@ -93,8 +100,27 @@ export async function extensionProviderToQuickInsertProvider(
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): Promise<QuickInsertProvider> {
 	const extensions = await extensionProvider.getExtensions();
+	const getMenuItems = (): MenuItem[] =>
+		getQuickInsertItemsFromModule<MenuItem>(extensions, (item) => item);
 
 	return {
+		getComponents: () => {
+			const isMarkdownMode = (
+				apiRef.current as unknown as MarkdownModeReader | undefined
+			)?.markdownMode?.sharedState.currentState()?.isMarkdownMode;
+			if (!isExperimentEnabled('platform_editor_slash_command') || isMarkdownMode) {
+				return Promise.resolve([] as RegisterMenuItem[]);
+			}
+
+			return Promise.resolve(
+				getExtensionQuickInsertComponents({
+					apiRef,
+					createAnalyticsEvent,
+					editorActions,
+					items: getMenuItems(),
+				}),
+			);
+		},
 		getItems: () => {
 			// `extensionProvider` is supplied independently of the preset, so
 			// suppress its items in markdown mode where rich-only content cannot
@@ -110,12 +136,15 @@ export async function extensionProviderToQuickInsertProvider(
 			const quickInsertItems = getQuickInsertItemsFromModule<QuickInsertItem>(
 				extensions,
 				(item) => {
-					const Icon = Loadable<{ label: string }, Object>({
+					const Icon = Loadable<{ label: string }, object>({
 						loader: item.icon,
 						loading: () => null,
 					});
 
 					return {
+						...(isExperimentEnabled('platform_editor_slash_app_category_analytics') && item.app
+							? { app: item.app }
+							: {}),
 						// Add module key so typeahead/quick-insert can identify items
 						// **locale-agnostically**! nb: we _already_ send key in analytics
 						// events, this standardises and makes our items more predictable.
@@ -126,9 +155,12 @@ export async function extensionProviderToQuickInsertProvider(
 						keywords: item.keywords,
 						featured: item.featured,
 						priority: item.priority,
+						...(item.category ? { category: item.category } : {}),
 						categories: item.categories,
 						...(item.lozenge != null && { lozenge: item.lozenge }),
 						isDisabledOffline: true,
+						// This legacy action intentionally mirrors executeExtensionQuickInsertItem,
+						// which serves the registered representation of the same item.
 						action: (insert, state, source) => {
 							if (typeof item.node === 'function') {
 								const extensionAPI = apiRef?.current?.extension?.actions?.api();
@@ -150,8 +182,7 @@ export async function extensionProviderToQuickInsertProvider(
 								} else {
 									// Originally it was understood we could only use this if we were using the extension plugin
 									// However there are some edge cases where this is not true (ie. in jira)
-									// Since making it optional now would be a breaking change - instead we can just pass a dummy
-									// extension API to consumers that warns them of using the methods.
+									// Since making it optional now would be a breaking change - instead we can just pass a dummy extension API to consumers that warns them of using the methods.
 									resolveImport(item.node(dummyExtensionAPI)).then((node) => {
 										sendExtensionQuickInsertAnalytics(
 											item,

@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { ChromelessEditor } from './chromeless-appearance.fixtures';
+import { ChromelessEditor } from './chromeless-appearance.fixtures.vr.ap';
 
 snapshotInformational(ChromelessEditor, {
 	description: 'Chromeless editor small viewport',

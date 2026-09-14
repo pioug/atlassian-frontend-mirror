@@ -1,8 +1,6 @@
-import {
-	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-	CONFLUENCE_SEARCH_DATASOURCE_ID,
-	JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-} from '@atlaskit/link-datasource';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
+import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '@atlaskit/link-datasource/confluence-search-modal';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 
 import type { DatasourceModalType } from '../types';
 

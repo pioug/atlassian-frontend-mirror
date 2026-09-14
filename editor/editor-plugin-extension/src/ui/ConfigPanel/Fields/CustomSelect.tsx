@@ -14,9 +14,9 @@ import {
 	getCustomFieldResolver,
 	configPanelMessages as messages,
 } from '@atlaskit/editor-common/extensions';
-import { Field } from '@atlaskit/form';
-import { AsyncCreatableSelect } from '@atlaskit/select';
-import type { ValueType } from '@atlaskit/select';
+import Field from '@atlaskit/form/field';
+import AsyncCreatableSelect from '@atlaskit/select/async-creatable-select';
+import type { ValueType } from '@atlaskit/select/types';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';
@@ -184,7 +184,7 @@ function CustomSelect({
 	);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<
 	WithIntlProps<
 		{

@@ -28,9 +28,9 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { MediaInlineCard } from '@atlaskit/media-card';
 import type { FileIdentifier } from '@atlaskit/media-client';
-import { getMediaClient } from '@atlaskit/media-client-react';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
+import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { isImage } from '../pm-plugins/utils/is-type';

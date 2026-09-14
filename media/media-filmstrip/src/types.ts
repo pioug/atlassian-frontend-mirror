@@ -1,6 +1,6 @@
 import { type CardAction, type CardOnClickCallback, type CardEvent } from '@atlaskit/media-card';
 import { type Identifier } from '@atlaskit/media-client';
-import { type MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
 

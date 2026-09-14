@@ -2,24 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import Loadable from 'react-loadable';
 
 import LinkGlyph from '@atlaskit/icon/core/link';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { CardDisplay } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
-import { getExtensionKey } from '../../../state/helpers';
+import { getExtensionKey } from '../../../state/getExtensionKey';
 import useEmbedRovoActionsFooterExperiment from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
-import { getPreviewUrlWithTheme, isProfileType } from '../../../utils';
+import { getPreviewUrlWithTheme } from '../../../utils/get-preview-url-with-theme';
+import { isProfileType } from '../../../utils/is-profile-type';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
 import { getRovoPostAuthPromptKeys } from '../../common/rovo-post-auth-prompts';
 import { ExpandedFrame } from '../components/ExpandedFrame';
@@ -89,7 +90,6 @@ const EmbedFrameWithRovoFooter = ({
 						product,
 						actionOptions,
 						appearance: CardDisplay.Embed,
-						isEmbedRovoActionsFooterExperimentEnabled: isEmbedRovoActionsFooterEnabled,
 					})
 				: undefined,
 		[actionOptions, details, isEmbedRovoActionsFooterEnabled, product, rovoOptions],
@@ -227,7 +227,7 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 			return (
 				<ImageIcon
 					src={src}
-					{...(fg('platform_lp_use_entity_icon_url_for_icon') ? { alt: iconLabel } : undefined)}
+					alt={iconLabel}
 					default={linkGlyph}
 					appearance={isProfileType(type) ? 'round' : 'square'}
 					hideLoadingSkeleton={hideIconLoadingSkeleton}

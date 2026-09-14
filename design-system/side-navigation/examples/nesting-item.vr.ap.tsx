@@ -1,0 +1,156 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef, Fragment, type MouseEvent } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
+
+import SettingsIcon from '@atlaskit/icon/core/settings';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
+import { GoBackItem } from '@atlaskit/side-navigation/go-back-item';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { Section } from '@atlaskit/side-navigation/section';
+import { token } from '@atlaskit/tokens';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
+const styles = cssMap({
+	container: {
+		overflow: 'hidden',
+		height: '340px',
+	},
+	customItem: {
+		color: 'red',
+		'&:hover': {
+			color: 'blue',
+		},
+	},
+});
+
+const CustomNestingItem: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<CustomItemComponentProps & { href: string }> &
+		React.RefAttributes<HTMLAnchorElement>
+> = forwardRef(
+	(
+		{ children, href, ...props }: CustomItemComponentProps & { href: string },
+		ref: React.Ref<HTMLAnchorElement>,
+	) => {
+		return (
+			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+			<a href={href} {...props} ref={ref}>
+				{children}
+			</a>
+		);
+	},
+);
+
+const BasicExample: () => JSX.Element = () => {
+	return (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
+		<Box xcss={styles.container} onClick={(e: MouseEvent) => e.preventDefault()}>
+			<NestableNavigationContent>
+				<Section title="Nesting items">
+					<NestingItem id="0" title="Settings">
+						<Fragment />
+					</NestingItem>
+					<NestingItem
+						testId="selected"
+						id="1"
+						isSelected
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
+						title="Settings"
+					>
+						<Fragment />
+					</NestingItem>
+					<NestingItem description="I have a description" id="2" title="Settings">
+						<Fragment />
+					</NestingItem>
+					<NestingItem
+						id="3"
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
+						iconAfter={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<StarStarredIcon label="" />
+							</Flex>
+						}
+						title="Settings"
+						description="I have a custom after element"
+					>
+						<Fragment />
+					</NestingItem>
+					<NestingItem
+						id="4"
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
+						title="Settings"
+						description="I have a custom back button"
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+						overrides={{
+							GoBackItem: {
+								render: (props) => (
+									<GoBackItem isSelected {...props}>
+										Go home, man!
+									</GoBackItem>
+								),
+							},
+						}}
+					>
+						<Fragment />
+					</NestingItem>
+					<NestingItem
+						id="5"
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
+						title="Settings"
+						description="I'm disabled"
+						isDisabled
+					>
+						<Fragment />
+					</NestingItem>
+					<NestingItem
+						id="6"
+						href="/custom-link"
+						iconBefore={
+							<Flex xcss={iconSpacingStyles.space050}>
+								<SettingsIcon label="" />
+							</Flex>
+						}
+						title="Settings"
+						css={styles.customItem}
+						description="I have a custom item"
+						// @ts-expect-error - Added during @types/react@~18.3.24 upgrade.
+						component={CustomNestingItem}
+					>
+						<Fragment />
+					</NestingItem>
+				</Section>
+			</NestableNavigationContent>
+		</Box>
+	);
+};
+
+export default BasicExample;

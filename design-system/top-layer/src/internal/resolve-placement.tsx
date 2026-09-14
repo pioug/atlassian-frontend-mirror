@@ -10,30 +10,37 @@ import { toCssLengthString } from './resolve-css-length';
 const DEFAULT_GAP = token('space.100', '8px');
 
 /**
+ * Which way along the cross axis a shift moves the popover. `'forwards'` is
+ * always toward the cross-axis END and `'backwards'` toward the START, for
+ * every `align` value. See `notes/decisions/placement-offset.md`.
+ */
+export type TCrossAxisShiftDirection = 'forwards' | 'backwards';
+
+/**
  * Cross-axis shift. `value` is a CSS length string (consumer numbers are
- * normalized to `${n}px`). `direction` is `'forwards'` (toward end) or
- * `'backwards'` (toward start).
+ * normalized to `${n}px`).
  */
 export type TCrossAxisShiftOffset = {
 	value: string;
-	direction: 'forwards' | 'backwards';
+	direction: TCrossAxisShiftDirection;
 };
 
+export type TPlacementAxis = 'block' | 'inline';
+export type TPlacementEdge = 'start' | 'end';
+export type TPlacementAlign = 'start' | 'center' | 'end';
+
 /**
- * Fully-resolved placement (internal). Use `getPlacement` for partial input.
+ * Fully-resolved placement (internal). Use `resolvePlacement` for partial input.
  * `offset.gap` and `offset.crossAxisShift.value` are always CSS
  * length strings.
  */
 export type TPlacement = {
-	axis: 'block' | 'inline';
-	edge: 'start' | 'end';
-	align: 'start' | 'center' | 'end';
+	axis: TPlacementAxis;
+	edge: TPlacementEdge;
+	align: TPlacementAlign;
 	offset: {
 		gap: string;
-		crossAxisShift: {
-			value: string;
-			direction: 'forwards' | 'backwards';
-		};
+		crossAxisShift: TCrossAxisShiftOffset;
 	};
 };
 
@@ -47,14 +54,14 @@ export type TPlacement = {
  *   - `crossAxisShift`  - nudge along the trigger edge (perpendicular to the placement axis)
  */
 export type TPlacementOptions = {
-	axis?: 'block' | 'inline';
-	edge?: 'start' | 'end';
-	align?: 'start' | 'center' | 'end';
+	axis?: TPlacementAxis;
+	edge?: TPlacementEdge;
+	align?: TPlacementAlign;
 	offset?: {
 		gap?: number | string;
 		crossAxisShift?: {
 			value?: number | string;
-			direction?: 'forwards' | 'backwards';
+			direction?: TCrossAxisShiftDirection;
 		};
 	};
 };
@@ -67,7 +74,7 @@ export type TPlacementOptions = {
  * `offset.gap: token('space.100', '8px')`,
  * `offset.crossAxisShift: { value: '0px', direction: 'forwards' }`.
  */
-export function getPlacement({ placement }: { placement: TPlacementOptions }): TPlacement {
+export function resolvePlacement({ placement }: { placement: TPlacementOptions }): TPlacement {
 	const consumerGap = placement.offset?.gap;
 	return {
 		axis: placement.axis ?? 'block',

@@ -1,4 +1,4 @@
-import { type Auth, type AuthProvider, type AuthContext } from '@atlaskit/media-core';
+import type { Auth, AuthProvider, AuthContext } from '@atlaskit/media-core/auth';
 import { defaultCollectionName } from './collectionNames';
 import { MEDIA_PLAYGROUND_BASE_URL } from './mediaBaseURLS';
 
@@ -29,7 +29,8 @@ export class StoryBookAuthProvider {
 
 		return (authContext?: AuthContext): Promise<Auth> => {
 			const isRunningInUnitTest =
-				typeof process.env.JEST_WORKER_ID !== 'undefined' || typeof jest !== 'undefined';
+				(typeof process !== 'undefined' && typeof process.env.JEST_WORKER_ID !== 'undefined') ||
+				typeof jest !== 'undefined';
 
 			if (isRunningInUnitTest) {
 				// This is to prevent accidental staging environment calls from the auth provider in unit tests

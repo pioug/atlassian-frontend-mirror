@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/ban-types -- Ignored via go/DSP-18766 */
+/* eslint-disable @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/no-empty-object-type -- Ignored via go/DSP-18766 */
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

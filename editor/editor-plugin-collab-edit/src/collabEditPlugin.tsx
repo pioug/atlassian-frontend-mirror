@@ -3,16 +3,15 @@ import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type { Rebaseable } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CollabEditPlugin } from './collabEditPluginType';
 import { addSynchronyErrorAnalytics } from './pm-plugins/analytics';
@@ -188,19 +187,9 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			const { useNativePlugin = false, userId = null } = options || {};
 
 			const transformUnconfirmed = (steps: Rebaseable[]) => {
-				let transformed = steps;
+				const transformed = filterAnalyticsSteps(steps);
 
-				if (editorExperiment('platform_editor_reduce_noisy_steps_ncs', true, { exposure: true })) {
-					transformed = filterAnalyticsSteps(transformed);
-				}
-
-				if (
-					editorExperiment('platform_editor_offline_editing_web', true) ||
-					expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
-				) {
-					transformed = mergeUnconfirmedSteps(transformed, api);
-				}
-				return transformed;
+				return mergeUnconfirmedSteps(transformed, api);
 			};
 
 			const plugins = [
@@ -264,12 +253,10 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				plugin: createLastOrganicChangePlugin,
 			});
 
-			if (editorExperiment('platform_editor_offline_editing_web', true)) {
-				plugins.push({
-					name: 'trackLastRemoteConflictPlugin',
-					plugin: createTrackReconnectionConflictPlugin,
-				});
-			}
+			plugins.push({
+				name: 'trackLastRemoteConflictPlugin',
+				plugin: createTrackReconnectionConflictPlugin,
+			});
 
 			return plugins;
 		},

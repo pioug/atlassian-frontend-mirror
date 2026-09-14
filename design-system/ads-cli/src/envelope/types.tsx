@@ -24,8 +24,9 @@ export type EnvelopeMeta = {
 /**
  * Successful command envelope.
  *
- * `data` holds the (already JSON-parsed where possible) payload returned by the underlying
- * ADS MCP tool.
+ * `data` holds the command's output payload. Search and list commands project underlying MCP data
+ * into the same compact records shown by human output; exact detail commands retain their detailed
+ * records.
  */
 export type SuccessEnvelope<Data = unknown> = {
 	/**

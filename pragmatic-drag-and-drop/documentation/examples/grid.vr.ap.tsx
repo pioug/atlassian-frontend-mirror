@@ -1,0 +1,156 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { createContext, memo, useContext, useEffect, useRef, useState } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx, type SerializedStyles } from '@emotion/react';
+import invariant from 'tiny-invariant';
+
+import { easeInOut } from '@atlaskit/motion/curves';
+import { durations } from '@atlaskit/motion/utils/durations';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import {
+	draggable,
+	dropTargetForElements,
+	monitorForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { token } from '@atlaskit/tokens';
+
+import battery from './icons/battery.png';
+import drill from './icons/drill.png';
+import koala from './icons/koala.png';
+import ui from './icons/ui.png';
+import wallet from './icons/wallet.png';
+import yeti from './icons/yeti.png';
+import { GlobalStyles } from './util/global-styles';
+
+function getInstanceId() {
+	return Symbol('instance-id');
+}
+
+const InstanceIdContext = createContext<symbol | null>(null);
+
+const itemStyles = css({
+	objectFit: 'cover',
+	width: '100%',
+	boxSizing: 'border-box',
+	background: token('elevation.surface.raised'),
+	padding: token('space.050'),
+	borderRadius: token('radius.small', '4px'),
+	boxShadow: token('elevation.shadow.raised'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	transition: `all ${durations.small}ms ${easeInOut}`,
+	'-webkit-touch-callout': 'none', // needed to avoid a "save image" popup on iOS
+});
+
+type State = 'idle' | 'dragging' | 'over';
+
+const itemStateStyles: { [Key in State]: undefined | SerializedStyles } = {
+	idle: css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		':hover': {
+			background: token('elevation.surface.overlay'),
+			boxShadow: token('elevation.shadow.overlay'),
+		},
+	}),
+	dragging: css({
+		filter: 'grayscale(0.8)',
+	}),
+	over: css({
+		transform: 'scale(1.1) rotate(8deg)',
+		filter: 'brightness(1.15)',
+		boxShadow: token('elevation.shadow.overlay'),
+	}),
+};
+
+const Item = memo(function Item({ src }: { src: string }) {
+	const ref = useRef<HTMLImageElement | null>(null);
+	const [state, setState] = useState<State>('idle');
+
+	const instanceId = useContext(InstanceIdContext);
+
+	useEffect(() => {
+		const el = ref.current;
+		invariant(el);
+
+		return combine(
+			draggable({
+				element: el,
+				getInitialData: () => ({ type: 'grid-item', src, instanceId }),
+				onDragStart: () => setState('dragging'),
+				onDrop: () => setState('idle'),
+			}),
+			dropTargetForElements({
+				element: el,
+				getData: () => ({ src }),
+				getIsSticky: () => true,
+				canDrop: ({ source }) =>
+					source.data.instanceId === instanceId &&
+					source.data.type === 'grid-item' &&
+					source.data.src !== src,
+				onDragEnter: () => setState('over'),
+				onDragLeave: () => setState('idle'),
+				onDrop: () => setState('idle'),
+			}),
+		);
+	}, [instanceId, src]);
+
+	// eslint-disable-next-line @atlassian/a11y/alt-text
+	return <img css={[itemStyles, itemStateStyles[state]]} ref={ref} src={src} />;
+});
+
+const gridStyles = css({
+	display: 'grid',
+	gridTemplateColumns: 'repeat(3, 96px)',
+	gap: 'var(--grid)',
+});
+
+export default function Grid(): React.JSX.Element {
+	const [items, setItems] = useState<string[]>(() => [battery, drill, koala, ui, wallet, yeti]);
+
+	const [instanceId] = useState(getInstanceId);
+
+	useEffect(() => {
+		return monitorForElements({
+			canMonitor({ source }) {
+				return source.data.instanceId === instanceId;
+			},
+			onDrop({ source, location }) {
+				const destination = location.current.dropTargets[0];
+				if (!destination) {
+					return;
+				}
+				const destinationSrc = destination.data.src;
+				const startSrc = source.data.src;
+
+				if (typeof destinationSrc !== 'string') {
+					return;
+				}
+
+				if (typeof startSrc !== 'string') {
+					return;
+				}
+
+				// swapping item positions
+				const updated = [...items];
+				updated[items.indexOf(startSrc)] = destinationSrc;
+				updated[items.indexOf(destinationSrc)] = startSrc;
+
+				setItems(updated);
+			},
+		});
+	}, [instanceId, items]);
+
+	return (
+		<InstanceIdContext.Provider value={instanceId}>
+			<GlobalStyles />
+			<div css={gridStyles}>
+				{items.map((src) => (
+					<Item src={src} key={src} />
+				))}
+			</div>
+		</InstanceIdContext.Provider>
+	);
+}

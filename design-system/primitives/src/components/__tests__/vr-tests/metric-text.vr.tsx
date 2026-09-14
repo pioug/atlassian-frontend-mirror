@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import Basic from '../../../../examples/73-metric-text';
+import Basic from '../../../../examples/73-metric-text.vr.ap';
 
 snapshot(Basic, {
 	variants: [

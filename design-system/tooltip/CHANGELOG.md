@@ -1,5 +1,142 @@
 # @atlaskit/tooltip
 
+## 24.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.2.1
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 24.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.1.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+- [`005037db2dcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/005037db2dcaa) -
+  Autofix: update cross-package imports away from barrel entries
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.9
+
+### Patch Changes
+
+- [`14c01c9b4877b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14c01c9b4877b) -
+  Behind `platform-dst-top-layer-tooltip`, a pointer press now dismisses the tooltip until the
+  trigger is re-entered, instead of the tooltip re-showing itself on the next pointer movement. No
+  change when the gate is off.
+
+## 24.0.8
+
+### Patch Changes
+
+- [`d84401aa08ea3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d84401aa08ea3) -
+  Behind `platform-dst-top-layer-tooltip`, a pointer press now dismisses the tooltip until the
+  trigger is re-entered, instead of the tooltip re-showing itself on the next pointer movement. No
+  change when the gate is off.
+
+## 24.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.5
+
+### Patch Changes
+
+- [`ecfe7c468ff78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecfe7c468ff78) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 24.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- [`6902b31db1608`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6902b31db1608) -
+  Consolidate direct Popper.js callers behind `@atlaskit/popper` compatibility entry points and
+  feature-gated consumer adapters.
+
+  `@atlaskit/popper` now exposes compatibility entry points so existing direct `popper.js` /
+  `react-popper` callers can move their dependency ownership onto `@atlaskit/popper` without a full
+  rewrite:
+  - `@atlaskit/popper/react-popper` re-exports the React `usePopper` hook and `Manager` / `Popper` /
+    `Reference` render-prop components.
+  - `@atlaskit/popper/unsafe-imperative` re-exports the raw Popper.js v2 `createPopper` for
+    non-React, imperative callers. This is an escape hatch for existing callers only. Do not use it
+    for new code; build new overlays on `@atlaskit/top-layer` instead.
+
+  ```ts
+  // Imperative callers (migrating away from a direct `@popperjs/core` / `popper.js` import):
+  import { createPopper } from '@atlaskit/popper/unsafe-imperative';
+
+  const instance = createPopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+
+  // React callers (migrating away from a direct `react-popper` import):
+  import { usePopper } from '@atlaskit/popper/react-popper';
+
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+  ```
+
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

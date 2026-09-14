@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import AddIcon from '@atlaskit/icon/core/add';
 
 import { Button } from './themed/button';

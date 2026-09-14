@@ -37,6 +37,9 @@
 			"path": "../adf-schema/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -58,10 +61,16 @@
 			"path": "../editor-plugin-metrics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
@@ -73,7 +82,13 @@
 			"path": "../insm/tsconfig.app.json"
 		},
 		{
+			"path": "../../elements/mention/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/menu/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

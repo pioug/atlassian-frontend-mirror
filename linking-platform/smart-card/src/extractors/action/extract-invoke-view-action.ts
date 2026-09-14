@@ -1,14 +1,14 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractLink } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractLink } from '@atlaskit/link-extractors/extract-link';
 
 import { CardAction } from '../../constants';
-import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
+import { getDefinitionId } from '../../state/getDefinitionId';
+import { getExtensionKey } from '../../state/getExtensionKey';
+import { getResourceType } from '../../state/getResourceType';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
-import { openUrl } from '../../utils';
+import { openUrl } from '../../utils/open-url';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { getActionsFromJsonLd } from '../common/actions/extractActions';
-
 import { type ExtractClientActionsParam, type TransformUrlFn } from './types';
 
 export type ExtractInvokeViewActionParam = ExtractClientActionsParam & {
@@ -33,11 +33,8 @@ export const extractInvokeViewAction = (
 	if (url && (viewActionExists || force)) {
 		return {
 			actionFn: async () => {
-				if (fg('platform_smartlink_xpc_url_wrapping')) {
-					const destinationUrl = transformUrl?.(url) ?? url;
-					return openUrl(destinationUrl);
-				}
-				return openUrl(url);
+				const destinationUrl = transformUrl?.(url) ?? url;
+				return openUrl(destinationUrl);
 			},
 			actionSubjectId: 'shortcutGoToLink',
 			actionType: 'ViewAction',

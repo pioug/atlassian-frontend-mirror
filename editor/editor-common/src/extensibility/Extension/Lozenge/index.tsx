@@ -18,6 +18,10 @@ import { LozengeComponent } from './LozengeComponent';
 
 export interface Props {
 	customContainerStyles?: CSSProperties;
+	// When true, the node exposes no configuration affordance, so the "Configure {name}"
+	// lozenge label is omitted. Decided by ExtensionComponent from the same signal the
+	// floating toolbar uses (the node module's optional `update` method).
+	hideConfigureLabel?: boolean;
 	isBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
@@ -87,6 +91,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 				isNodeNested={isNodeNested}
 				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 				extensionName={name}
+				hideConfigureLabel={this.props.hideConfigureLabel}
 				lozengeData={lozengeData}
 				params={params}
 				title={title}

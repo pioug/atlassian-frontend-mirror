@@ -13,11 +13,13 @@ import {
 	DateTimePicker,
 	TimePicker,
 } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
-import Heading from '@atlaskit/heading';
+import { Label } from '@atlaskit/form/label/default';
+import Heading from '@atlaskit/heading/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Box } from '@atlaskit/primitives/compiled';
-import Select, { components, type ValueType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import { components } from '@atlaskit/react-select/components';
+import type { ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 const onChange = (value: string) => {

@@ -1,6 +1,6 @@
-import type { EmojiDefinition } from '@atlaskit/adf-schema';
+import type { EmojiDefinition } from '@atlaskit/adf-schema/emoji';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { defaultEmojiHeight } from '@atlaskit/emoji';
 import type {

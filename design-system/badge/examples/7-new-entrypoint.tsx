@@ -4,10 +4,11 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import Badge from '@atlaskit/badge/new';
-import type { BadgeNewProps } from '@atlaskit/badge/new';
-import { Code } from '@atlaskit/code';
-import Heading from '@atlaskit/heading';
+import Badge from '@atlaskit/badge/badge-new';
+// oxlint-disable-next-line no-duplicate-imports
+import type { BadgeNewProps } from '@atlaskit/badge/types';
+import Code from '@atlaskit/code/code';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -1,5 +1,144 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.12.4
+
+### Patch Changes
+
+- [`4b7046a6ca079`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7046a6ca079) -
+  Improve modal title rule to avoid recursive search of components.
+
+## 16.12.3
+
+### Patch Changes
+
+- [`3dd2bfbb50aa5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dd2bfbb50aa5) -
+  Fix `use-pressable-motion` to recognize semantic transitions in composed xcss arrays, including
+  motion styles gated by `platform-dst-motion-uplift-custom-button`.
+
+## 16.12.2
+
+### Patch Changes
+
+- [`ef9028194ebf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef9028194ebf1) -
+  Mark @atlassian/preview-panel and @atlassian/preview-panels-api as deprecated; add ESLint
+  deprecation rules in favour of @atlassian/panel-system
+
+## 16.12.1
+
+### Patch Changes
+
+- [`c07f65513c732`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c07f65513c732) -
+  Add @atlassian/manual-trial-awareness-modal and
+  @post-office/message-template--jira-manual-trial-awareness-modal to deprecated config. TWCG-208
+  experiment has been shut down.
+
+## 16.12.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.11.3
+
+### Patch Changes
+
+- [`85a3e1ec4b6ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85a3e1ec4b6ff) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 16.11.2
+
+### Patch Changes
+
+- [`fdedfb06aa229`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdedfb06aa229) -
+  Allow canonical typed media queries and typed container-query exceptions in styling lint rules.
+
+## 16.11.1
+
+### Patch Changes
+
+- [`4612437357f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4612437357f61) -
+  Remove references to the unused @atlassian/icon-private package. Its value is dropped from the
+  icon metadata location union, the ensure-icon-color lint rule no longer matches it, and the
+  adoption scanner no longer scans its entrypoint.
+- Updated dependencies
+
+## 16.11.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.10.1
+
+### Patch Changes
+
+- [`25e3dde50eeb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25e3dde50eeb3) -
+  Upgrade `@typescript-eslint` dependencies from v5 to v7
+- Updated dependencies
+
+## 16.10.0
+
+### Minor Changes
+
+- [`b2a44b7d3ce87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2a44b7d3ce87) -
+  Extend `no-modal-label` to disallow `modalProps.label` on modal entry-point triggers.
+
+  Exclude ads-mcp get-lint-rules from content and deprecated-import ratcheting (docs embed
+  intentional bad examples as strings).
+
+## 16.9.0
+
+### Minor Changes
+
+- [`db14bab6f54dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db14bab6f54dc) -
+  Make modal title rules error instead of warn.
+
+## 16.8.1
+
+### Patch Changes
+
+- [`2866cc2465350`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2866cc2465350) -
+  Exclude jira eslint-plugin restricted rules from barrel import ratcheting. Exclude ads-mcp codegen
+  from deprecated entry-point import ratcheting (docs embed example imports). Point
+  use-pressable-motion docs at compiled Pressable.
+- Updated dependencies
+
+## 16.8.0
+
+### Minor Changes
+
+- [`bbc31818ea186`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbc31818ea186) -
+  Extend `use-popup-label` to cover `PopupTrigger` from `@atlassian/entry-points/popup-trigger`.
+
+## 16.7.0
+
+### Minor Changes
+
+- [`b3652ef9d1db3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3652ef9d1db3) -
+  Extend `use-pressable-motion` to suggest semantic hover and pressed motion tokens for native
+  button colour transitions.
+
 ## 16.6.0
 
 ### Minor Changes

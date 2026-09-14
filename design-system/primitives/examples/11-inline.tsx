@@ -1,8 +1,14 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline } from '@atlaskit/primitives/inline';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack } from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss';
 import { token } from '@atlaskit/tokens';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
@@ -35,7 +41,9 @@ const spaceNameStyles = xcss({ minWidth: token('space.1000') });
 const containerStyles = xcss({
 	display: 'flex',
 	borderRadius: 'radius.xsmall',
+	height: '200px',
 });
+const fixedWidthBlockStyles = xcss({ borderRadius: 'radius.xsmall', width: '200px' });
 
 export default (): React.JSX.Element => (
 	<Box padding="space.200" xcss={pageContainerStyles}>
@@ -52,13 +60,9 @@ export default (): React.JSX.Element => (
 					<Stack key={alignInline}>
 						{alignInline}
 						<Box
-							xcss={blockStyles}
+							xcss={fixedWidthBlockStyles}
 							backgroundColor="color.background.neutral"
 							padding="space.050"
-							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								width: '200px',
-							}}
 						>
 							<Inline alignInline={alignInline} space="space.050">
 								<Block />
@@ -78,13 +82,9 @@ export default (): React.JSX.Element => (
 					<Stack key={spread}>
 						{spread}
 						<Box
-							xcss={blockStyles}
+							xcss={fixedWidthBlockStyles}
 							backgroundColor="color.background.neutral"
 							padding="space.050"
-							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								width: '200px',
-							}}
 						>
 							<Inline spread={spread} space="space.050">
 								<Block />
@@ -107,10 +107,6 @@ export default (): React.JSX.Element => (
 								backgroundColor="color.background.neutral"
 								padding="space.050"
 								xcss={containerStyles}
-								style={{
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									height: '200px',
-								}}
 							>
 								<Inline space="space.050" alignBlock={alignBlock}>
 									<Box

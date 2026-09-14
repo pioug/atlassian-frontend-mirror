@@ -1,8 +1,9 @@
 import React, { type ReactElement, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Flag, { FlagGroup } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

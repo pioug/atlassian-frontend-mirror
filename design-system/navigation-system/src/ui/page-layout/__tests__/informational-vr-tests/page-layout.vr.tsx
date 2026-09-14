@@ -3,7 +3,7 @@ import { Device, snapshotInformational } from '@af/visual-regression';
 import {
 	CompanyHubMockExample,
 	CompanyHubMockSmallDefaultPanelWidthExample,
-} from '../../../../../examples/company-hub-mock';
+} from '../../../../../examples/company-hub-mock.vr.ap';
 
 /**
  * With the flag on, the small panel is not forced to be larger on mobile.

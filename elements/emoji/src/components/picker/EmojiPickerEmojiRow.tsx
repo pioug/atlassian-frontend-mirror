@@ -4,13 +4,13 @@
  */
 import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
 import type { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
+import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import type { CategoryGroupKey } from './categories';
 import { messages } from '../i18n';
@@ -70,10 +70,6 @@ const emojiItem = css({
 	},
 });
 
-const emojiPickerRow = css({
-	marginLeft: token('space.100'),
-});
-
 const emojiPickerRowList = css({
 	listStyle: 'none',
 	padding: 0,
@@ -111,11 +107,7 @@ const EmojiPickerEmojiRow = ({
 	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
 		? 24
 		: undefined;
-	const preventFocusOnMouseDown = expValEqualsNoExposure(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		true,
-	);
+	const preventFocusOnMouseDown = isTeamoji26RefreshEmojiPickerEnabledNoExposure();
 	const handleFocus: (index: number) => OnEmojiEvent<HTMLSpanElement> =
 		(index) => (emojiId, emoji, event) => {
 			setEmojisFocus({
@@ -124,71 +116,21 @@ const EmojiPickerEmojiRow = ({
 			});
 			onFocus && onFocus(emojiId, emoji, event);
 		};
-	// A11Y-31084: When the emoji picker list experiment is enabled, each row of
-	// emojis is exposed as an unordered list (<ul role="list">) with every emoji
-	// as a <li role="listitem">, so screen readers announce the list and its
-	// items. Each virtualized row is its own list (valid list/listitem ownership,
-	// virtualization-safe). This is gated separately from the existing
-	// platform_a11y_fixes_reaction_emoji flag.
-	const isEmojiPickerListEnabled = expValEqualsNoExposure(
-		'platform_a11y_fixes_emoji_picker_list',
-		'isEnabled',
-		true,
-	);
-
-	if (isEmojiPickerListEnabled || fg('platform_a11y_fixes_reaction_emoji')) {
-		return (
-			<ul css={emojiPickerRowList} role="list">
-				{emojis.map((emoji, index) => {
-					const { shortName, id } = emoji;
-					const key = id ? `${id}-${title}` : `${shortName}-${title}`;
-					const focus =
-						currentEmojisFocus.rowIndex === rowIndex && currentEmojisFocus.columnIndex === index;
-					return (
-						<li key={key} css={emojiItem}>
-							<CachingEmoji
-								emoji={emoji}
-								selectOnHover={true}
-								onSelected={onSelected}
-								onMouseMove={onMouseMove}
-								onFocus={handleFocus(index)}
-								showDelete={showDelete}
-								onDelete={onDelete}
-								placeholderSize={24}
-								data-focus-index={`${rowIndex}-${index}`}
-								tabIndex={focus ? 0 : -1}
-								aria-roledescription={formatMessage(messages.emojiButtonRoleDescription)}
-								shouldBeInteractive
-								fitToHeight={fitToHeight}
-								preventFocusOnMouseDown={preventFocusOnMouseDown}
-							/>
-						</li>
-					);
-				})}
-			</ul>
-		);
-	}
-
 	return (
-		<div css={emojiPickerRow} role="presentation">
+		<ul css={emojiPickerRowList} role="list">
 			{emojis.map((emoji, index) => {
 				const { shortName, id } = emoji;
 				const key = id ? `${id}-${title}` : `${shortName}-${title}`;
 				const focus =
 					currentEmojisFocus.rowIndex === rowIndex && currentEmojisFocus.columnIndex === index;
 				return (
-					<span
-						css={emojiItem}
-						key={key}
-						role="presentation"
-						onMouseLeave={onMouseLeave}
-						onBlur={onMouseLeave}
-					>
+					<li key={key} css={emojiItem}>
 						<CachingEmoji
 							emoji={emoji}
 							selectOnHover={true}
 							onSelected={onSelected}
 							onMouseMove={onMouseMove}
+							onMouseLeave={onMouseLeave}
 							onFocus={handleFocus(index)}
 							showDelete={showDelete}
 							onDelete={onDelete}
@@ -200,10 +142,10 @@ const EmojiPickerEmojiRow = ({
 							fitToHeight={fitToHeight}
 							preventFocusOnMouseDown={preventFocusOnMouseDown}
 						/>
-					</span>
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 };
 
@@ -212,7 +154,6 @@ const _default_1: MemoExoticComponent<
 		emojis,
 		onSelected,
 		onMouseMove,
-		onMouseLeave,
 		onFocus,
 		title,
 		showDelete,

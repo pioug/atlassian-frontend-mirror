@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { styled } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import Tooltip from '@atlaskit/tooltip';
+import Button from '@atlaskit/button/default/button';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { type PositionTypeBase } from '@atlaskit/tooltip/types';
 
 import { BigTarget } from './styled';

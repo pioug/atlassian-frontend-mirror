@@ -4,8 +4,9 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import Lozenge, { type LozengeProps, type NewLozengeProps } from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Lozenge, { type LozengeProps } from '@atlaskit/lozenge/lozenge';
+import type { NewLozengeProps } from '@atlaskit/lozenge/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const wrapperStylesOld = css({

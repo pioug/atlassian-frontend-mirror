@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
 
-import { render, screen } from '@testing-library/react';
 import replaceRaf from 'raf-stub';
+
+import { render, screen } from '@atlassian/testing-library';
 
 import { useResizingHeight } from '../../../resizing/use-resizing-height';
 import { easeInOut } from '../../../utils/curves';

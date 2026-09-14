@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { EditorAppearance } from '../types';
 import type { ToolbarDocking } from '../user-preferences';
@@ -57,7 +57,7 @@ export const EditorToolbarProvider = ({
 		}),
 		[editorView, editorAppearance, editorViewMode, editorToolbarDockingPreference, isOffline],
 	);
-	const contextValue = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const contextValue = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedValue
 		: {
 				editorView,

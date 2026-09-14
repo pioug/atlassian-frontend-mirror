@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import {
 	convertSyncBlockJSONNodeToSyncBlockNode,
 	useMemoizedSyncBlockStoreManager,
@@ -15,13 +15,21 @@ import type {
 	SyncedBlockProvider,
 	SyncBlockPrefetchData,
 } from '@atlaskit/editor-synced-block-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockRendererOptions } from './types';
 import { SyncedBlockNodeComponentRenderer } from './ui/SyncedBlockNodeComponentRenderer';
 import type { SyncedBlockNodeProps } from './ui/SyncedBlockNodeComponentRenderer';
 
 export type GetSyncedBlockNodeComponentProps = {
+	/**
+	 * Whether reference blocks should hold a real-time subscription and refresh in
+	 * place when their source is edited elsewhere. Defaults to `true`.
+	 *
+	 * Surfaces that must show content as of page load — the Confluence classic
+	 * page/blog renderer — pass `false`, so no `blockService_onBlockUpdated`
+	 * subscription is ever opened.
+	 */
+	enableRealTimeSubscriptions?: boolean;
 	fireAnalyticsEvent?: (payload: AnalyticsEventPayload) => void;
 	getAccountId?: () => string | null;
 	getPrefetchedData?: () => SyncBlockPrefetchData | undefined;
@@ -48,10 +56,12 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 	fireAnalyticsEvent,
 	getAccountId,
 	getPrefetchedData,
+	enableRealTimeSubscriptions,
 }: GetSyncedBlockNodeComponentProps): ((props: SyncedBlockNodeProps) => React.JSX.Element) => {
 	const syncBlockStoreManager = useMemoizedSyncBlockStoreManager(
 		syncBlockProvider,
 		fireAnalyticsEvent,
+		{ enableRealTimeSubscriptions },
 	);
 
 	// Process prefetched data early, if available
@@ -72,13 +82,8 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 		// `destroy()`), so an eager fetch can throw `Data provider not set`
 		// (EDITOR-7860). Skip until ready; the effect re-runs (referenceManager
 		// identity changes) once the provider resolves, fetching exactly once.
-		// Readiness is nested under the gate so it is not consulted when the gate
-		// is off (today's behaviour), while `fg()` stays a standalone condition so
-		// gate exposure is tracked (@atlaskit/platform/no-preconditioning).
-		if (fg('platform_editor_blocks_patch_3')) {
-			if (!(syncBlockStoreManager.referenceManager.hasDataProvider?.() ?? false)) {
-				return;
-			}
+		if (!(syncBlockStoreManager.referenceManager.hasDataProvider?.() ?? false)) {
+			return;
 		}
 		syncBlockStoreManager.referenceManager.fetchSyncBlocksData(syncBlockNodes);
 	}, [syncBlockNodes, syncBlockStoreManager.referenceManager]);

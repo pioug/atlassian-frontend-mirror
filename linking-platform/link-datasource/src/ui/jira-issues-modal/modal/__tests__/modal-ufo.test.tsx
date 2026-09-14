@@ -1,4 +1,4 @@
-import { type ConcurrentExperience } from '@atlaskit/ufo';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 import { getDefaultHookState, getEmptyHookState, getErrorHookState, setup } from './_utils';
 
@@ -9,9 +9,9 @@ const mockUfoAddMetadata = jest.fn();
 
 const mockColumnPickerRenderUfoFailure = jest.fn();
 
-jest.mock('@atlaskit/ufo', () => ({
+jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/ufo'),
 	ConcurrentExperience: jest.fn().mockImplementation(
 		(experienceId: string): Partial<ConcurrentExperience> => ({
 			experienceId: experienceId,

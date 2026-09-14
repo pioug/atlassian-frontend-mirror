@@ -7,7 +7,7 @@ import { memo, type MemoExoticComponent, type ReactNode } from 'react';
 
 import { jsx, keyframes } from '@compiled/react';
 
-import { LayoutRenderer } from 'pretty-proptypes';
+import { LayoutRenderer } from '../pretty-proptypes';
 
 import Heading from '@atlaskit/heading';
 import SimpleMarkdownRenderer from './simple-markdown-renderer';

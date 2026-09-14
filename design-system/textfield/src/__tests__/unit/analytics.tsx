@@ -2,10 +2,11 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import Textfield from '../../index';
+import Textfield from '../../text-field';
 
 const noop = __noop;
 const attributes = {

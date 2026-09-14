@@ -5,7 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Portal from '@atlaskit/portal';
+import Portal from '@atlaskit/portal/portal';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

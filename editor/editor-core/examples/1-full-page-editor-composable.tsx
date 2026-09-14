@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';

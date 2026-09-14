@@ -47,7 +47,6 @@ export function wrapInList(listType: NodeType, attrs?: Attrs) {
 		// This is at the top of an existing list item
 		if (
 			range.depth >= 2 &&
-			// @ts-ignore - missing type for compatibleContent
 			$from.node(range.depth - 1).type.compatibleContent(listType) &&
 			range.startIndex === 0
 		) {

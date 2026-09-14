@@ -48,6 +48,7 @@ export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
 	height: 600,
 	isMaxWidth: false,
 	aspectRatio: 1,
+	remixAppId: undefined,
 	width: undefined,
 };
 

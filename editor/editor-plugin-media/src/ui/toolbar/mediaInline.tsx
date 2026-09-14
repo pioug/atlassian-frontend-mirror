@@ -32,8 +32,8 @@ import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
-import { messages } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { messages } from '@atlaskit/media-ui/messages';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';

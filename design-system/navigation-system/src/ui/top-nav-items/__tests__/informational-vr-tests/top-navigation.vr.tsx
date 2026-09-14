@@ -1,10 +1,10 @@
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { Device, snapshotInformational } from '@atlassian/gemini';
 
-import TopNavWithLongProductName from '../../../../../examples/top-nav-with-long-name';
-import { TopNavWithTempNavAppIconAppLogo } from '../../../../../examples/top-nav-with-temp-nav-app-icon-app-logo';
-import { TopNavigationExample } from '../../../../../examples/top-navigation';
-import { TopNavigationThemingSingleExample } from '../../../../../examples/top-navigation-theming';
+import TopNavWithLongProductName from '../../../../../examples/top-nav-with-long-name.vr.ap';
+import { TopNavWithTempNavAppIconAppLogo } from '../../../../../examples/top-nav-with-temp-nav-app-icon-app-logo.vr.ap';
+import { TopNavigationThemingSingleExample } from '../../../../../examples/top-navigation-theming.vr.ap';
+import { TopNavigationExample } from '../../../../../examples/top-navigation.vr.ap';
 
 snapshotInformational(TopNavigationExample, {
 	description: 'responsive menu items on click',

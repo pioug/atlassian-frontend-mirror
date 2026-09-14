@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../src';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { type MediaClientConfig } from '@atlaskit/media-client';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import { ToggleBox } from '../example-helpers/svg-helpers';

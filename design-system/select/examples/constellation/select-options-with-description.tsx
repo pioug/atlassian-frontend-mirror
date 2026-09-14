@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
-import Select, { type FormatOptionLabelMeta, type OptionType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { FormatOptionLabelMeta, OptionType } from '@atlaskit/select/types';
 
 const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMeta<OptionType>) => {
 	if (context === 'menu') {

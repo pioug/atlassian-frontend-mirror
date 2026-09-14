@@ -1,4 +1,7 @@
-import { BatchAttrsStep, type BatchAttrsStepData } from '@atlaskit/adf-schema/steps';
+import {
+	BatchAttrsStep,
+	type BatchAttrsStepData,
+} from '@atlaskit/adf-schema/steps/batch-attrs-step';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

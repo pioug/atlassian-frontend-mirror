@@ -2,14 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import React from 'react';
+
+import { jsx, css } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import EditorWarningIcon from '@atlaskit/icon/core/status-warning';
-import { messages } from '@atlaskit/media-ui';
+import { messages } from '@atlaskit/media-ui/messages';
 import { token } from '@atlaskit/tokens';
-import { ErrorMessageWrapper, TitleBoxWrapper } from './titleBoxComponents';
+
+import { ErrorMessageWrapper } from './ErrorMessageWrapper';
+import { TitleBoxWrapper } from './TitleBoxWrapper';
 import { type FailedTitleBoxProps } from './types';
 
 const errorMessageWrapperStyles = css({

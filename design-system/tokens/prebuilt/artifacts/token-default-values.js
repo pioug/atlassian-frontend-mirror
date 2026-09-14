@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::95f00360cbbd728cc60ce02a55ce1fac>>
+ * @codegen <<SignedSource::f7932a8ec88c8db760f5593abf406aa9>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
@@ -22,8 +22,8 @@ var defaultTokenValues = {
   'motion.avatar.hovered': 'transform 250ms linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)',
   'motion.blanket.enter': '250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards',
   'motion.blanket.exit': '200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
-  'motion.button.hovered': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
-  'motion.button.pressed': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+  'motion.button.hovered': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+  'motion.button.pressed': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
   'motion.duration.instant': '0ms',
   'motion.duration.long': '250ms',
   'motion.duration.medium': '200ms',
@@ -56,13 +56,21 @@ var defaultTokenValues = {
   'motion.keyframe.slide.out.left.short': 'SlideOutLeft8px',
   'motion.keyframe.slide.out.right.short': 'SlideOutRight8px',
   'motion.keyframe.slide.out.top.short': 'SlideOutTop8px',
+  'motion.label.enter': '150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleXIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
+  'motion.label.exit': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleXOut100to0 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'motion.listitem.hovered': 'background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 50ms cubic-bezier(0.4, 1, 0.6, 1)',
   'motion.listitem.pressed': 'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
   'motion.listitem.selected': 'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
   'motion.modal.enter': '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards',
   'motion.modal.exit': '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards',
+  'motion.panel.content.enter': '150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 100ms backwards',
+  'motion.panel.content.exit': '50ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'motion.panel.enter': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
-  'motion.panel.exit': '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut100PercentRight forwards',
+  'motion.panel.enter.left': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards',
+  'motion.panel.enter.right': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
+  'motion.panel.exit': '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
+  'motion.panel.exit.left': '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards',
+  'motion.panel.exit.right': '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
   'motion.popup.enter.bottom': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   'motion.popup.enter.left': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInLeft8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   'motion.popup.enter.right': '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInRight8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
@@ -71,6 +79,10 @@ var defaultTokenValues = {
   'motion.popup.exit.left': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'motion.popup.exit.right': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'motion.popup.exit.top': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+  'motion.sidenav.enter.left': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards',
+  'motion.sidenav.enter.right': '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
+  'motion.sidenav.exit.left': '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards',
+  'motion.sidenav.exit.right': '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
   'motion.spotlight.enter': '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards',
   'motion.spotlight.exit': '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'color.background.accent.lime.subtlest': '#EFFFD6',
@@ -306,6 +318,7 @@ var defaultTokenValues = {
   'color.border.disabled': '#0515240F',
   'color.border.focused': '#4688EC',
   'color.border.input': '#8C8F97',
+  'color.border.input.search': '#0B120E24',
   'color.border.inverse': '#FFFFFF',
   'color.border.selected': '#1868DB',
   'color.border.brand': '#1868DB',

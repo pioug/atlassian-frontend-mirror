@@ -1,5 +1,7 @@
 import { datePlugin } from '@atlaskit/editor-plugins/date';
 import * as date from '@atlaskit/editor-plugins/date';
+import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
+import * as quickInsert from '@atlaskit/editor-plugins/quick-insert';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import * as table from '@atlaskit/editor-plugins/table';
 
@@ -13,6 +15,11 @@ jest.mock('@atlaskit/editor-plugins/table', () => ({
 jest.mock('@atlaskit/editor-plugins/date', () => ({
 	__esModule: true,
 	...jest.requireActual('@atlaskit/editor-plugins/date'),
+}));
+
+jest.mock('@atlaskit/editor-plugins/quick-insert', () => ({
+	__esModule: true,
+	...jest.requireActual('@atlaskit/editor-plugins/quick-insert'),
 }));
 
 describe('createUniversalPreset', () => {
@@ -84,6 +91,32 @@ describe('createUniversalPreset', () => {
 			expect.arrayContaining(defaultPluginNames.map((name) => expect.objectContaining({ name }))),
 		);
 		expect(plugins.length).toBeGreaterThanOrEqual(defaultPluginNames.length);
+	});
+
+	describe('quick insert', () => {
+		it('merges the initial plugin configuration with existing Quick Insert options', () => {
+			jest.spyOn(quickInsert, 'quickInsertPlugin');
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: {
+					paste: {},
+					quickInsert: { disableDefaultItems: true },
+				},
+				featureFlags: {},
+				initialPluginConfiguration: {
+					quickInsertPlugin: { blockControlButtonEnabled: false },
+				},
+			});
+
+			preset.build();
+
+			expect(quickInsertPlugin).toHaveBeenCalledWith({
+				config: expect.objectContaining({
+					blockControlButtonEnabled: false,
+					disableDefaultItems: true,
+				}),
+			});
+		});
 	});
 
 	describe('table', () => {

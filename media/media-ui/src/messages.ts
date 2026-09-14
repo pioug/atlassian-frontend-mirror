@@ -82,6 +82,8 @@ export type MessageKey =
 	| 'try_downloading_file'
 	| 'archive_format_not_supported'
 	| 'unsupported_file_format'
+	| 'file_too_large_to_preview'
+	| 'file_too_large_description'
 	| 'webgl_warning_description'
 	| 'unable_to_annotate_image'
 	| 'learn_more'
@@ -620,6 +622,18 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Unsupported file format',
 		description:
 			'Heading shown when a file type cannot be previewed (e.g. non-ZIP archives like RAR, TAR, 7z).',
+	},
+	file_too_large_to_preview: {
+		id: 'fabric.media.file_too_large_to_preview',
+		defaultMessage: 'File is too large to preview',
+		description:
+			'Heading shown when a file cannot be previewed because it exceeds the size limit supported by the browser-based viewer.',
+	},
+	file_too_large_description: {
+		id: 'fabric.media.file_too_large_description',
+		defaultMessage: "Preview isn't available for files of this size.",
+		description:
+			'Explanatory line shown under the "File is too large to preview" heading, when a file exceeds the size limit supported by the browser-based viewer.',
 	},
 	webgl_warning_description: {
 		id: 'fabric.media.webgl_warning_description',

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { ErrorMessage } from '@atlaskit/form';
-import InlineEdit from '@atlaskit/inline-edit';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const readViewContainerStyles = cssMap({

@@ -7,6 +7,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: UFOSegment unmount', () => {
 	test.use({
 		examplePage: 'basic-section-unmount',
+	} satisfies {
+		examplePage: 'basic-section-unmount';
+		__exampleDependency?: typeof import('../../examples/03-basic-section-unmount.tsx');
 	});
 
 	for (const viewport of viewports) {

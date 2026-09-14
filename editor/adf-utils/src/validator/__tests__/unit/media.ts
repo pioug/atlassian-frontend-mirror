@@ -1,4 +1,4 @@
-import { validator } from '../../../validator';
+import { validator } from '../../validator';
 
 const validate = validator();
 
@@ -31,7 +31,7 @@ describe('media', () => {
 				],
 			});
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should not throw for a valid media node', () => {
@@ -47,7 +47,7 @@ describe('media', () => {
 				},
 			});
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should throw when attrs is missing', () => {
@@ -56,7 +56,7 @@ describe('media', () => {
 				type: 'media',
 			});
 		};
-		expect(run).toThrowError('media: required prop missing.');
+		expect(run).toThrow('media: required prop missing.');
 	});
 
 	it('should throw when id is empty', () => {
@@ -70,7 +70,7 @@ describe('media', () => {
 				},
 			});
 		};
-		expect(run).toThrowError(`media: 'attrs' validation failed.`);
+		expect(run).toThrow(`media: 'attrs' validation failed.`);
 	});
 
 	it('should throw when id is missing', () => {
@@ -83,7 +83,7 @@ describe('media', () => {
 				},
 			});
 		};
-		expect(run).toThrowError(`media: 'attrs' validation failed.`);
+		expect(run).toThrow(`media: 'attrs' validation failed.`);
 	});
 
 	it('should throw when type is missing', () => {
@@ -96,7 +96,7 @@ describe('media', () => {
 				},
 			});
 		};
-		expect(run).toThrowError(`media: 'attrs' validation failed.`);
+		expect(run).toThrow(`media: 'attrs' validation failed.`);
 	});
 
 	it('should throw when type is wrong', () => {
@@ -110,7 +110,7 @@ describe('media', () => {
 				},
 			});
 		};
-		expect(run).toThrowError(`media: 'attrs' validation failed.`);
+		expect(run).toThrow(`media: 'attrs' validation failed.`);
 	});
 
 	it('should not throw when collection is empty', () => {
@@ -124,7 +124,7 @@ describe('media', () => {
 				},
 			});
 		};
-		expect(run).not.toThrowError();
+		expect(run).not.toThrow();
 	});
 
 	it('should throw when collection is missing', () => {
@@ -137,7 +137,7 @@ describe('media', () => {
 				},
 			});
 		};
-		expect(run).toThrowError(`media: 'attrs' validation failed.`);
+		expect(run).toThrow(`media: 'attrs' validation failed.`);
 	});
 
 	it('should throw when length of mediaSingle is too long', () => {
@@ -172,7 +172,7 @@ describe('media', () => {
 				],
 			});
 		};
-		expect(run).toThrowError(`mediaSingle: 'content' should have less than 1 child.`);
+		expect(run).toThrow(`mediaSingle: 'content' should have less than 1 child.`);
 	});
 
 	// has to be skipped currently due to issue here
@@ -209,7 +209,7 @@ describe('media', () => {
 				],
 			});
 		};
-		expect(run).toReturn();
+		expect(run).toHaveReturned();
 	});
 
 	it('should not invoke INVALID_CONTENT_LENGTH error when media with caption is within list item', () => {
@@ -318,7 +318,7 @@ describe('media', () => {
 				],
 			});
 		};
-		expect(run).toThrowError(`unknownTypeInline: invalid content.`);
+		expect(run).toThrow(`unknownTypeInline: invalid content.`);
 	});
 
 	it('should have valid media with content', () => {

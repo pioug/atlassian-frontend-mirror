@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import FocusRing from '../../src';
+import FocusRing from '../../src/focus-ring';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('focus ring', () => {

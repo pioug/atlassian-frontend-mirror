@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
-import Tag from '@atlaskit/tag/new';
+import Tag from '@atlaskit/tag/tag-new';
 
 export default (): React.JSX.Element => (
 	<Stack space="space.100">

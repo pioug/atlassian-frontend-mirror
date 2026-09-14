@@ -1,5 +1,5 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 export interface ErrorResponseBody {
 	message: string;
@@ -79,26 +79,7 @@ const entityDataResponse = {
 };
 
 export const mocks: {
-	success: JsonLd.Response;
 	datasourceSuccess: {
-		datasources: {
-			key: string;
-			parameters: {
-				jql: string;
-				cloudId: string;
-			};
-			id: string;
-			ari: string;
-			description: string;
-			name: string;
-		}[];
-		meta: {
-			visibility: string;
-			access: string;
-			auth: never[];
-			definitionId: string;
-			key: string;
-		};
 		data: {
 			'@context': {
 				'@vocab': string;
@@ -107,73 +88,92 @@ export const mocks: {
 			};
 			'@type': string;
 			name: string;
-			summary: string;
+			preview: {
+				href: string;
+			};
 			'schema:potentialAction': {
 				'@id': string;
 				'@type': string;
 				identifier: string;
 				name: string;
 			};
-			preview: {
-				href: string;
-			};
+			summary: string;
 			url: string;
+		};
+		datasources: {
+			ari: string;
+			description: string;
+			id: string;
+			key: string;
+			name: string;
+			parameters: {
+				cloudId: string;
+				jql: string;
+			};
+		}[];
+		meta: {
+			access: string;
+			auth: never[];
+			definitionId: string;
+			key: string;
+			visibility: string;
 		};
 	};
 	entityDataSuccess: SmartLinkResponse;
-	searchSuccess: JsonLd.Response;
-	notFound: JsonLd.Response;
 	forbidden: JsonLd.Response;
-	unauthorized: JsonLd.Response;
-	notSupported: ErrorResponseBody;
-	invokeSearchUnsupportedError: {
+	invokeInternalServerError: {
 		error: {
-			type: string;
 			message: string;
 			status: number;
-		};
-		status: number;
-	};
-	invokeSearchTimeoutError: {
-		error: {
 			type: string;
-			message: string;
-			status: number;
-		};
-		status: number;
-	};
-	invokeSearchFailedError: {
-		error: {
-			type: string;
-			message: string;
-			status: number;
 		};
 		status: number;
 	};
 	invokeSearchAuthError: {
 		error: {
-			type: string;
 			message: string;
 			status: number;
+			type: string;
+		};
+		status: number;
+	};
+	invokeSearchFailedError: {
+		error: {
+			message: string;
+			status: number;
+			type: string;
 		};
 		status: number;
 	};
 	invokeSearchRateLimitError: {
 		error: {
-			type: string;
 			message: string;
 			status: number;
+			type: string;
 		};
 		status: number;
 	};
-	invokeInternalServerError: {
+	invokeSearchTimeoutError: {
 		error: {
-			type: string;
 			message: string;
 			status: number;
+			type: string;
 		};
 		status: number;
 	};
+	invokeSearchUnsupportedError: {
+		error: {
+			message: string;
+			status: number;
+			type: string;
+		};
+		status: number;
+	};
+	notFound: JsonLd.Response;
+	notSupported: ErrorResponseBody;
+	searchSuccess: JsonLd.Response;
+	success: JsonLd.Response;
+	unauthorized: JsonLd.Response;
 } = {
 	success: jsonLdResponse as JsonLd.Response,
 	datasourceSuccess: {

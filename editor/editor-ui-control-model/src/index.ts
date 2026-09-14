@@ -5,6 +5,7 @@ export { createRegistry } from './createRegistry';
 export type {
 	ButtonType,
 	CommonComponentProps,
+	ComponentIdentifier,
 	ComponentType,
 	ComponentTypes,
 	GroupType,
@@ -31,7 +32,6 @@ export { SurfaceRenderer } from './ui/surface-renderer';
 export { buildChildrenMap, willComponentRender } from './ui/surface-renderer/utils';
 export type {
 	ChildrenMap,
-	ComponentIdentifier,
 	SurfaceFallbacks,
 	SurfaceIdentifier,
 	SurfaceRendererProps,

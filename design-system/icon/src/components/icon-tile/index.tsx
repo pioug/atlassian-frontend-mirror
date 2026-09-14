@@ -6,7 +6,8 @@ import { type ComponentType } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Tile, { type TileProps } from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
+import type { TileProps } from '@atlaskit/tile/types';
 import { token } from '@atlaskit/tokens';
 
 import { type IconTileAppearance, type IconTileProps } from '../../types';

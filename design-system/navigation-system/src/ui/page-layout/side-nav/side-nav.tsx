@@ -18,13 +18,13 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 import { flushSync } from 'react-dom';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
@@ -111,7 +111,9 @@ const panelSplitterPortalTargetStyles = cssMap({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			height: `calc(100vh - var(${bannerMountedVar}, 0px))`,
 			// On large viewports, we need to factor in the side nav's border, and shift the panel splitter so it is centered over the border.
-			transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px)) - ${token('border.width')}))`,
+			transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px)) - ${token(
+				'border.width',
+			)}))`,
 		},
 	},
 });
@@ -121,10 +123,6 @@ const styles = cssMap({
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
 		boxSizing: 'border-box',
-		// The mobile `grid-area` is applied separately via `gridAreaStyles` (see below) so it can be
-		// scoped to a media query that does not overlap with the desktop rule further down. See MAGMA-4606.
-		// TODO: When cleaning up `platform_dst_nav4_side_nav_grid_area_fix`, add the
-		// `@media not (min-width: 64rem) { gridArea: 'main / aside / aside / aside' }` rule back in here.
 		// Height is set so it takes up all of the available viewport space minus top bar + banner.
 		// Since the side nav is always rendered ontop of other grid items across all viewports height is
 		// always set.
@@ -149,6 +147,13 @@ const styles = cssMap({
 		// Previously we had a transparent border to maintain width, but this unintentionally acted as padding
 		borderInlineStart: 'none',
 		borderInlineEnd: 'none',
+		// Deliberately scoped to the exact inverse of the desktop `@media (min-width: 64rem)` rule
+		// below, so the two can never both match. Unscoped, they would be atomic rules of equal
+		// specificity, leaving the desktop winner up to insertion order — non-deterministic when
+		// Compiled's extraction is disabled (local dev, streaming SSR). See MAGMA-4606.
+		'@media not (min-width: 64rem)': {
+			gridArea: 'main / aside / aside / aside',
+		},
 		'@media (min-width: 48rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			width: `var(${panelSplitterResizingVar}, var(${sideNavVar}))`,
@@ -351,38 +356,129 @@ const styles = cssMap({
 });
 
 /**
- * Workaround for non-deterministic Compiled style ordering in local development. See MAGMA-4606.
+ * Styles for the side nav enter/exit animations when `platform-dst-motion-uplift-sidenav` is enabled.
  *
- * The mobile `grid-area` for the side nav, split out from `styles.root` so it can be gated. The
- * desktop rule (`gridArea: 'side-nav'`) lives in `styles.root` inside `@media (min-width: 64rem)`.
+ * These use the `motion.sidenav.*` tokens (keyframe animations) instead of the `transform` transitions
+ * with `@starting-style` used by `styles`.
  *
- * Why this is needed:
- * The mobile rule (unscoped) and the desktop rule (`@media (min-width: 64rem)`) compile to two atomic
- * rules of equal specificity — a `@media` query adds no specificity — so at desktop widths the winner
- * is decided purely by stylesheet insertion order (last wins). In production this is fine: Compiled's
- * stylesheet extraction sorts the media queries deterministically. But in local development stylesheet
- * extraction is disabled (https://github.com/atlassian-labs/compiled/issues/1306), so styles are
- * injected as inline `<style>` tags in whatever order components happen to render. Under streaming SSR
- * (Suspense), the desktop rule can be emitted earlier on the page by another component, leaving the
- * unscoped mobile rule last — so it wins on desktop and the side nav renders in the wrong grid area.
- *
- * - `mobileLegacy` (gate OFF): the original unscoped mobile rule, which exhibits the bug above.
- * - `mobile` (gate ON): the mobile rule scoped to `@media not (min-width: 64rem)`, the exact inverse
- *   of the desktop `@media (min-width: 64rem)` rule. The two can never both match at a given viewport,
- *   so insertion order no longer matters and the bug cannot occur.
- *
- * Cleaning up `fg('platform_dst_nav4_side_nav_grid_area_fix')` (gate fully rolled out):
- * 1. Move `gridAreaStyles.mobile`'s `@media not (min-width: 64rem)` grid-area rule back into
- *    `styles.root`.
- * 2. Delete this entire block (`gridAreaStyles`) and the `fg(...)` branch in the `css` prop below.
+ * ⚠️ The `transition-duration` values below need to stay in sync with the duration baked into the tokens
+ * (`motion.sidenav.enter.*` is 250ms, `motion.sidenav.exit.*` is 200ms). The `display` property is
+ * transitioned (with `allow-discrete`) so the element stays rendered for the length of the exit animation —
+ * if the transition is shorter than the animation, `display: none` applies early and the exit animation
+ * never runs.
  */
-const gridAreaStyles = cssMap({
-	mobileLegacy: {
-		gridArea: 'main / aside / aside / aside',
+const motionUpliftStyles = cssMap({
+	animationRTLSupport: {
+		// Used to support animations for right-to-left (RTL) languages/text direction. We need to flip the animation direction for RTL.
+		// The motion tokens are directional (the keyframes translate towards a fixed physical side), so instead of flipping a
+		// translate value we swap which animation token is used.
+		'--enter-animation': token('motion.sidenav.enter.left'),
+		'--exit-animation': token('motion.sidenav.exit.left'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		"[dir='rtl'] &": {
+			'--enter-animation': token('motion.sidenav.enter.right'),
+			'--exit-animation': token('motion.sidenav.exit.right'),
+		},
 	},
-	mobile: {
-		'@media not (min-width: 64rem)': {
-			gridArea: 'main / aside / aside / aside',
+	animationBaseStyles: {
+		/**
+		 * Disabling animations if user has opted for reduced motion
+		 *
+		 * ⚠️ Note: the `@media` query needs to be a top-level style to make sure Compiled orders the media queries correctly.
+		 * Compiled currently only sorts top-level CSS rules:
+		 * https://github.com/atlassian-labs/compiled/blob/master/packages/css/src/plugins/sort-atomic-style-sheet.ts#L39
+		 */
+		'@media (prefers-reduced-motion: no-preference)': {
+			// The animation drives the movement, so only `display` needs to be transitioned.
+			transitionProperty: 'display',
+			transitionBehavior: 'allow-discrete',
+			transitionDuration: token('motion.duration.medium'),
+		},
+	},
+	expandAnimationMobile: {
+		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
+		// Desktop styles will need to override these if required.
+		'@media (prefers-reduced-motion: no-preference)': {
+			animation: 'var(--enter-animation)',
+		},
+	},
+	collapseAnimationMobile: {
+		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
+		// Desktop styles will need to override these if required.
+		'@media (prefers-reduced-motion: no-preference)': {
+			gridArea: 'main',
+			animation: 'var(--exit-animation)',
+		},
+	},
+	flyoutOpen: {
+		'@media (min-width: 64rem)': {
+			// These styles are in a media query to override the `styles.root` media query styles
+			backgroundColor: token('elevation.surface.overlay'),
+			boxShadow: token('elevation.shadow.overlay'),
+			gridArea: 'main',
+			// Hide the border for the flyout, because it has a shadow
+			borderInlineEnd: 'none',
+		},
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
+		'@supports not (-moz-appearance: none)': {
+			// Disabling animations if user has opted for reduced motion
+			'@media (prefers-reduced-motion: no-preference)': {
+				transitionDuration: token('motion.duration.long'),
+				transitionBehavior: 'allow-discrete',
+				animation: 'var(--enter-animation)',
+			},
+		},
+	},
+	flyoutAnimateClosed: {
+		display: 'none',
+		'@media (min-width: 64rem)': {
+			// These styles are in a media query to override the `styles.root` media query styles
+			gridArea: 'main',
+		},
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
+		'@supports not (-moz-appearance: none)': {
+			// Disabling animations if user has opted for reduced motion
+			'@media (prefers-reduced-motion: no-preference)': {
+				transitionDuration: token('motion.duration.medium'),
+				transitionBehavior: 'allow-discrete',
+				animation: 'var(--exit-animation)',
+			},
+		},
+	},
+	flyoutOpenFullHeightSidebar: {
+		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+			transitionDuration: token('motion.duration.long'),
+			animation: 'var(--enter-animation)',
+		},
+	},
+	flyoutAnimateClosedFullHeightSidebar: {
+		'@media (min-width: 64rem)': {
+			display: 'none',
+		},
+		// Desktop media query is used here to prevent overriding mobile sidebar styles, if the flyout
+		// was just closed, and then the user resized to mobile viewport with the mobile sidebar expanded.
+		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+			transitionDuration: token('motion.duration.medium'),
+			animation: 'var(--exit-animation)',
+		},
+	},
+	expandAnimationDesktop: {
+		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+			// We need to override the mobile styles for desktop
+			gridArea: 'side-nav',
+			animation: 'var(--enter-animation)',
+			transitionProperty: 'grid-area',
+			transitionDuration: token('motion.duration.instant'),
+			transitionDelay: token('motion.duration.short'),
+			'@starting-style': {
+				gridArea: 'main',
+			},
+		},
+	},
+	collapseAnimationDesktop: {
+		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
+			gridArea: 'main',
+			animation: 'var(--exit-animation)',
 		},
 	},
 });
@@ -1163,9 +1259,11 @@ function SideNavInternal({
 	const hasExpandedStateChanged =
 		isExpandedStateDifferentFromInitial || hasExpandedStateChangedRef.current;
 
+	const isMotionUpliftEnabled = fg('platform-dst-motion-uplift-sidenav');
+
 	// This is only used for the regular expand and collapse animations, not the flyout animations.
 	const shouldShowSidebarToggleAnimation =
-		isFhsEnabled &&
+		(isMotionUpliftEnabled || isFhsEnabled) &&
 		// We do not apply the animation styles on the initial render, as the `@starting-style` rule will cause the sidebar to
 		// slide in initially.
 		hasExpandedStateChanged &&
@@ -1205,13 +1303,6 @@ function SideNavInternal({
 				ref={mergedRef}
 				css={[
 					styles.root,
-					// The mobile `grid-area` is applied here so it can be gated. When the gate is on, it is
-					// scoped to below the desktop breakpoint, so it cannot conflict with the desktop rule in
-					// `styles.root` regardless of Compiled's atomic rule ordering. See `gridAreaStyles` above
-					// for the full explanation and gate cleanup steps. See MAGMA-4606.
-					fg('platform_dst_nav4_side_nav_grid_area_fix')
-						? gridAreaStyles.mobile
-						: gridAreaStyles.mobileLegacy,
 					// We are explicitly using the `isExpandedOnDesktop` and `isExpandedOnMobile` values here to ensure we are displaying the
 					// correct state during SSR render, as the context value would not have been set yet. These values are derived from the
 					// component props (defaultCollapsed) if context hasn't been set yet.
@@ -1225,39 +1316,89 @@ function SideNavInternal({
 						!isFlyoutVisible &&
 						styles.hiddenMobileAndDesktop,
 
-					isFhsEnabled && styles.animationRTLSupport,
+					isMotionUpliftEnabled && motionUpliftStyles.animationRTLSupport,
+					!isMotionUpliftEnabled && isFhsEnabled && styles.animationRTLSupport,
 					// Expand/collapse animation styles
-					shouldShowSidebarToggleAnimation && styles.animationBaseStyles,
+					shouldShowSidebarToggleAnimation &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.animationBaseStyles,
+					shouldShowSidebarToggleAnimation && !isMotionUpliftEnabled && styles.animationBaseStyles,
 					// We need to separately apply the styles for the expand or collapse animations for both mobile and desktop
 					// based on their relevant expansion state.
-					isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.expandAnimationMobile,
-					!isExpandedOnMobile && shouldShowSidebarToggleAnimation && styles.collapseAnimationMobile,
-					isExpandedOnDesktop && shouldShowSidebarToggleAnimation && styles.expandAnimationDesktop,
+					isExpandedOnMobile &&
+						shouldShowSidebarToggleAnimation &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.expandAnimationMobile,
+					isExpandedOnMobile &&
+						shouldShowSidebarToggleAnimation &&
+						!isMotionUpliftEnabled &&
+						styles.expandAnimationMobile,
+					!isExpandedOnMobile &&
+						shouldShowSidebarToggleAnimation &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.collapseAnimationMobile,
+					!isExpandedOnMobile &&
+						shouldShowSidebarToggleAnimation &&
+						!isMotionUpliftEnabled &&
+						styles.collapseAnimationMobile,
+					isExpandedOnDesktop &&
+						shouldShowSidebarToggleAnimation &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.expandAnimationDesktop,
+					isExpandedOnDesktop &&
+						shouldShowSidebarToggleAnimation &&
+						!isMotionUpliftEnabled &&
+						styles.expandAnimationDesktop,
 					!isExpandedOnDesktop &&
 						shouldShowSidebarToggleAnimation &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.collapseAnimationDesktop,
+					!isExpandedOnDesktop &&
+						shouldShowSidebarToggleAnimation &&
+						!isMotionUpliftEnabled &&
 						styles.collapseAnimationDesktop,
 
 					// Flyout styles
-					sideNavState?.flyout === 'open' && !isFhsEnabled && styles.flyoutOpen,
+					sideNavState?.flyout === 'open' &&
+						!isFhsEnabled &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.flyoutOpen,
+					sideNavState?.flyout === 'open' &&
+						!isFhsEnabled &&
+						!isMotionUpliftEnabled &&
+						styles.flyoutOpen,
 					sideNavState?.flyout === 'triggered-animate-close' &&
 						!isFhsEnabled &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.flyoutAnimateClosed,
+					sideNavState?.flyout === 'triggered-animate-close' &&
+						!isFhsEnabled &&
+						!isMotionUpliftEnabled &&
 						styles.flyoutAnimateClosed,
 
 					(sideNavState?.flyout === 'open' || sideNavState?.flyout === 'triggered-animate-close') &&
 						!isFirefox &&
 						isFhsEnabled &&
 						styles.flyoutBaseStylesFullHeightSidebar,
-					sideNavState?.flyout === 'triggered-animate-close' &&
-						!isFirefox &&
-						isFhsEnabled &&
-						styles.flyoutAnimateClosedFullHeightSidebar,
 					sideNavState?.flyout === 'open' &&
 						!isFirefox &&
 						isFhsEnabled &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.flyoutOpenFullHeightSidebar,
+					sideNavState?.flyout === 'open' &&
+						!isFirefox &&
+						isFhsEnabled &&
+						!isMotionUpliftEnabled &&
 						styles.flyoutOpenFullHeightSidebar,
 					sideNavState?.flyout === 'triggered-animate-close' &&
 						!isFirefox &&
 						isFhsEnabled &&
+						isMotionUpliftEnabled &&
+						motionUpliftStyles.flyoutAnimateClosedFullHeightSidebar,
+					sideNavState?.flyout === 'triggered-animate-close' &&
+						!isFirefox &&
+						isFhsEnabled &&
+						!isMotionUpliftEnabled &&
 						styles.flyoutAnimateClosedFullHeightSidebar,
 				]}
 				data-testid={testId}

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -12,7 +12,7 @@ import { SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleCardContext } from '../../../../../../state/flexible-ui-context';
 import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
 import * as useRovoChat from '../../../../../../state/hooks/use-rovo-chat';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics/analytics';
 import { RovoChatPromptKey } from '../../../../../common/rovo-chat-utils';
 import RovoChatAction from '../index';
 

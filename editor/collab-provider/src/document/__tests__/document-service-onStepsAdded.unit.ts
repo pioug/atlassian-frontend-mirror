@@ -31,18 +31,18 @@ describe('onStepsAdded', () => {
 
 	it('Does nothing if no steps are sent', () => {
 		service.onStepsAdded({ steps: null, version: 1 } as any);
-		expect(processStepsMock).not.toBeCalled();
+		expect(processStepsMock).not.toHaveBeenCalled();
 		// Make sure we didn't call anything because of error
-		expect(analyticsMock.sendErrorEvent).not.toBeCalled();
-		expect(participantsServiceMock.updateLastActive).not.toBeCalled();
+		expect(analyticsMock.sendErrorEvent).not.toHaveBeenCalled();
+		expect(participantsServiceMock.updateLastActive).not.toHaveBeenCalled();
 	});
 
 	it('Drops the step if the local doc version is equal or ahead of the step version', () => {
 		const fakeSteps = [{ step: 'fake' }] as unknown as StepJson[];
 		(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 		service.onStepsAdded({ steps: fakeSteps, version: 1 });
-		expect(processStepsMock).not.toBeCalled();
-		expect(analyticsMock.sendErrorEvent).not.toBeCalled();
+		expect(processStepsMock).not.toHaveBeenCalled();
+		expect(analyticsMock.sendErrorEvent).not.toHaveBeenCalled();
 	});
 
 	it('Process the steps if the new step batch version is the expected version', () => {
@@ -52,8 +52,8 @@ describe('onStepsAdded', () => {
 		} as unknown as StepsPayload;
 		(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 		service.onStepsAdded(stepAddData);
-		expect(processStepsMock).toBeCalledTimes(1);
-		expect(processStepsMock).toBeCalledWith(stepAddData);
+		expect(processStepsMock).toHaveBeenCalledTimes(1);
+		expect(processStepsMock).toHaveBeenCalledWith(stepAddData);
 	});
 
 	describe('catchupv2', () => {
@@ -82,10 +82,10 @@ describe('onStepsAdded', () => {
 			} as unknown as StepsPayload;
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 			service.onStepsAdded(stepAddData);
-			expect(queueStepsSpy).toBeCalledTimes(1);
-			expect(queueStepsSpy).toBeCalledWith(stepAddData);
-			expect(processStepsMock).not.toBeCalled();
-			expect(service.throttledCatchupv2).toBeCalledTimes(1);
+			expect(queueStepsSpy).toHaveBeenCalledTimes(1);
+			expect(queueStepsSpy).toHaveBeenCalledWith(stepAddData);
+			expect(processStepsMock).not.toHaveBeenCalled();
+			expect(service.throttledCatchupv2).toHaveBeenCalledTimes(1);
 		});
 
 		it('Does nothing when the step received has already been received', () => {
@@ -95,9 +95,9 @@ describe('onStepsAdded', () => {
 			} as unknown as StepsPayload;
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(5);
 			service.onStepsAdded(stepAddData);
-			expect(queueStepsSpy).not.toBeCalled();
-			expect(processStepsMock).not.toBeCalled();
-			expect(service.throttledCatchupv2).not.toBeCalled();
+			expect(queueStepsSpy).not.toHaveBeenCalled();
+			expect(processStepsMock).not.toHaveBeenCalled();
+			expect(service.throttledCatchupv2).not.toHaveBeenCalled();
 		});
 	});
 
@@ -111,11 +111,11 @@ describe('onStepsAdded', () => {
 				throw new Error('Errr');
 			});
 			service.onStepsAdded(stepAddData);
-			expect(analyticsMock.sendErrorEvent).toBeCalledWith(
+			expect(analyticsMock.sendErrorEvent).toHaveBeenCalledWith(
 				new Error('Errr'),
 				'Error while adding steps in the provider',
 			);
-			expect(onErrorHandledMock).toBeCalledWith({
+			expect(onErrorHandledMock).toHaveBeenCalledWith({
 				data: { code: 'ADD_STEPS_ERROR', status: 500 },
 				message: 'Error while adding steps in the provider',
 			});
@@ -131,11 +131,11 @@ describe('onStepsAdded', () => {
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 
 			service.onStepsAdded(stepAddData);
-			expect(analyticsMock.sendErrorEvent).toBeCalledWith(
+			expect(analyticsMock.sendErrorEvent).toHaveBeenCalledWith(
 				new Error('Errr'),
 				'Error while adding steps in the provider',
 			);
-			expect(onErrorHandledMock).toBeCalledWith({
+			expect(onErrorHandledMock).toHaveBeenCalledWith({
 				data: { code: 'ADD_STEPS_ERROR', status: 500 },
 				message: 'Error while adding steps in the provider',
 			});
@@ -151,11 +151,11 @@ describe('onStepsAdded', () => {
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 
 			service.onStepsAdded(stepAddData);
-			expect(analyticsMock.sendErrorEvent).toBeCalledWith(
+			expect(analyticsMock.sendErrorEvent).toHaveBeenCalledWith(
 				new Error('Errr'),
 				'Error while adding steps in the provider',
 			);
-			expect(onErrorHandledMock).toBeCalledWith({
+			expect(onErrorHandledMock).toHaveBeenCalledWith({
 				data: { code: 'ADD_STEPS_ERROR', status: 500 },
 				message: 'Error while adding steps in the provider',
 			});
@@ -165,17 +165,17 @@ describe('onStepsAdded', () => {
 	describe('update participants', () => {
 		it('does not update participants if steps are not sent', () => {
 			service.onStepsAdded({ steps: null, version: 1 } as any);
-			expect(processStepsMock).not.toBeCalled();
+			expect(processStepsMock).not.toHaveBeenCalled();
 			// Make sure we didn't call anything because of error
-			expect(analyticsMock.sendErrorEvent).not.toBeCalled();
-			expect(participantsServiceMock.updateLastActive).not.toBeCalled();
+			expect(analyticsMock.sendErrorEvent).not.toHaveBeenCalled();
+			expect(participantsServiceMock.updateLastActive).not.toHaveBeenCalled();
 		});
 
 		it('updates participants even if the step version is equal or ahead of the step version', () => {
 			const fakeSteps = [{ userId: 'user1' }, { userId: 'user2' }] as unknown as StepJson[];
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 			service.onStepsAdded({ steps: fakeSteps, version: 1 });
-			expect(participantsServiceMock.updateLastActive).toBeCalledWith(['user1', 'user2']);
+			expect(participantsServiceMock.updateLastActive).toHaveBeenCalledWith(['user1', 'user2']);
 		});
 
 		it('updates participants when the new step batch version is the expected version', () => {
@@ -185,8 +185,8 @@ describe('onStepsAdded', () => {
 			} as unknown as StepsPayload;
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 			service.onStepsAdded(stepAddData);
-			expect(processStepsMock).toBeCalledWith(stepAddData);
-			expect(participantsServiceMock.updateLastActive).toBeCalledWith(['user1', 'user2']);
+			expect(processStepsMock).toHaveBeenCalledWith(stepAddData);
+			expect(participantsServiceMock.updateLastActive).toHaveBeenCalledWith(['user1', 'user2']);
 		});
 
 		it('updates participants when we have a step gap and new step batch', () => {
@@ -196,10 +196,10 @@ describe('onStepsAdded', () => {
 			} as unknown as StepsPayload;
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
 			service.onStepsAdded(stepAddData);
-			expect(queueStepsSpy).toBeCalledTimes(1);
-			expect(queueStepsSpy).toBeCalledWith(stepAddData);
-			expect(processStepsMock).not.toBeCalled();
-			expect(participantsServiceMock.updateLastActive).toBeCalledWith(['user1', 'user2']);
+			expect(queueStepsSpy).toHaveBeenCalledTimes(1);
+			expect(queueStepsSpy).toHaveBeenCalledWith(stepAddData);
+			expect(processStepsMock).not.toHaveBeenCalled();
+			expect(participantsServiceMock.updateLastActive).toHaveBeenCalledWith(['user1', 'user2']);
 		});
 	});
 });

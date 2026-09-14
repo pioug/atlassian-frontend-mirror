@@ -59,9 +59,9 @@ import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import UploadIcon from '@atlaskit/icon/core/upload';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
-import { messages } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { messages } from '@atlaskit/media-ui/messages';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { MediaSingleNodeSelector } from '../../nodeviews/styles';
@@ -721,7 +721,7 @@ const generateMediaSingleFloatingToolbar = (
 			if (
 				!!pluginInjectionApi?.mediaEditing &&
 				allowImageEditing &&
-				expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_add_image_editing')
 			) {
 				const selectedMediaSingleNode = getSelectedMediaSingle(state);
 				const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
@@ -883,7 +883,7 @@ const generateMediaSingleFloatingToolbar = (
 		if (
 			allowAdvancedToolBarOptions &&
 			allowImageEditing &&
-			expValEquals('platform_editor_add_image_editing', 'isEnabled', true)
+			isExperimentEnabled('platform_editor_add_image_editing')
 		) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
@@ -1164,7 +1164,7 @@ export const floatingToolbar = (
 		const showReplaceOption =
 			!isViewOnly &&
 			mediaPluginState.allowsUploads &&
-			expValEquals('platform_editor_inline_media_replacement', 'isEnabled', true) &&
+			isExperimentEnabled('platform_editor_inline_media_replacement') &&
 			selectedNodeType === mediaSingle;
 
 		const customOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
@@ -1220,7 +1220,6 @@ export const floatingToolbar = (
 					title: intl?.formatMessage(commonMessages.copyToClipboard),
 					onClick: () => {
 						pluginInjectionApi?.core?.actions.execute(
-							// @ts-ignore
 							pluginInjectionApi?.floatingToolbar?.commands.copyNode(
 								nodeType,
 								INPUT_METHOD.FLOATING_TB,

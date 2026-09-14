@@ -1,14 +1,8 @@
 import { roundEpsilon } from '../round-number';
 
-type MappedPerformanceMark = { type: 'start' | 'end'; name: string };
+import type { BundleEvalTimingsConfig, ReportedTimings } from './types';
 
-export type BundleEvalTimingsConfig = {
-	mapPerformanceMark: (mark: string) => MappedPerformanceMark | null;
-};
-
-type ReportedTimings = {
-	[key: string]: { startTime: number; duration: number };
-};
+export type { BundleEvalTimingsConfig } from './types';
 
 let config: BundleEvalTimingsConfig | null = null;
 
@@ -20,7 +14,6 @@ function getPerformanceObject() {
 	return (window ?? {}).performance;
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getBundleEvalTimings(interactionStartTime: number): ReportedTimings {
 	if (config == null) {
 		return {};

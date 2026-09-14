@@ -1,18 +1,10 @@
 import { expect, test } from '@af/integration-testing';
 import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
-test.describe('flyout menu item', () => {
-	test('popper should not repeatedly update', async ({ page, skipAxeCheck }) => {
-		// This test exposes one or more accessibility violations (aria-dialog-name) because the
-		// navx-5180-flyout-dialog-aria-label gate is OFF in the test environment. The gate-on fix
-		// is covered by the unit tests in flyout-menu-item.test.tsx.
-		// Once the navx-5180-flyout-dialog-aria-label gate is cleaned up (enabled permanently),
-		// remove this skipAutoA11y() call and the associated import (if no longer used).
-		// For more information, see go/afm-a11y-tooling:playwright
-		skipAutoA11y();
-		skipAxeCheck();
 
+test.describe('flyout menu item', () => {
+	test('popper should not repeatedly update', async ({ page }) => {
 		await page.visitExample<
-			typeof import('../../../../../examples/flyout-menu-item-async-content.tsx')
+			typeof import('../../../../../examples/flyout-menu-item-async-content.vr.ap.tsx')
 		>('navigation', 'side-nav-items', 'flyout-menu-item-async-content');
 
 		const callCountRef = await page.evaluateHandle(() => {

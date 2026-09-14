@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = configurePage;
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
+var _fg = require("@atlaskit/platform-feature-flags/fg");
 var _getThemeHtmlAttrs = _interopRequireDefault(require("../get-theme-html-attrs"));
 var _colorModeListeners = _interopRequireDefault(require("./color-mode-listeners"));
 var _contrastModeListeners = _interopRequireDefault(require("./contrast-mode-listeners"));
@@ -23,7 +23,7 @@ function configurePage(themeState) {
   } else {
     _colorModeListeners.default.unbind();
   }
-  if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
+  if ((0, _fg.fg)('platform_increased-contrast-themes')) {
     if (themeState.contrastMode === 'auto') {
       // Set contrastMode based on the user preference
       themeState.contrastMode = _contrastModeListeners.default.getContrastMode();
@@ -42,7 +42,7 @@ function configurePage(themeState) {
   });
   return function () {
     _colorModeListeners.default.unbind();
-    if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
+    if ((0, _fg.fg)('platform_increased-contrast-themes')) {
       _contrastModeListeners.default.unbind();
     }
   };

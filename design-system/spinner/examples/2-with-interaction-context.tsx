@@ -1,5 +1,5 @@
 import React from 'react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 export default (): React.JSX.Element => <Spinner interactionName="load" label="Loading" />;

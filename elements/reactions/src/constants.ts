@@ -21,7 +21,8 @@ import {
 } from './ufo';
 
 import type { EmojiId, WithSamplingUFOExperience } from '@atlaskit/emoji';
-import type { UFOExperience, ConcurrentExperience } from '@atlaskit/ufo';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 export const constants: {
 	DefaultReactions: EmojiId[];

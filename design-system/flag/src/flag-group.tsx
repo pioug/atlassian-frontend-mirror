@@ -8,21 +8,40 @@ import { Children, type ReactElement, useEffect, useMemo, useRef } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap as cssMapAK, cx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
-import { ExitingPersistence, SlideIn, Motion } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Portal from '@atlaskit/portal';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import SlideIn from '@atlaskit/motion/slide-in';
+import Motion from '@atlaskit/motion/entering/motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Portal from '@atlaskit/portal/portal';
 import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { defaultFlagGroupContext } from './internal/default-flag-group-context';
 import { FlagGroupContext, type FlagGroupAPI } from './internal/flag-group-context';
+
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { FlagGroupContext } from '@atlaskit/flag/flag-group-context'` instead.
+ */
+export { FlagGroupContext } from './internal/flag-group-context';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { useFlagGroup } from '@atlaskit/flag/use-flag-group'` instead.
+ */
+export { useFlagGroup } from './internal/use-flag-group';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { flagWidth } from '@atlaskit/flag/constants'` instead.
+ */
+export { flagWidth } from './constants';
 
 type FlagGroupProps = {
 	/**
@@ -56,13 +75,11 @@ type FlagGroupProps = {
 	shouldRenderToParent?: boolean;
 };
 
-export const flagWidth = 400;
-
 // transition: none is set on first-of-type to prevent a bug in Firefox
 // that causes a broken transition
 const groupStyles = cssMap({
 	root: {
-		width: flagWidth,
+		width: 400,
 		position: 'absolute',
 		insetBlockEnd: 0,
 		transition: 'transform 350ms ease-in-out',
@@ -168,7 +185,7 @@ const flagGroupContainerStylesSymmetric = css({
  * - [Examples](https://atlassian.design/components/flag/flag-group/examples)
  * - [Code](https://atlassian.design/components/flag/flag-group/code)
  */
-const FlagGroup = (props: FlagGroupProps): JSX.Element => {
+export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	const {
 		id,
 		label = 'Flag notifications',
@@ -354,7 +371,6 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 		>
 			{hasFlags ? (
 				<VisuallyHidden>
-					{/* @ts-ignore - TS2604/TS2786: LabelTag type union causing issues for help-center local consumption with TS 5.9.2 */}
 					<LabelTag>{screenReaderLabel}</LabelTag>
 				</VisuallyHidden>
 			) : null}
@@ -374,4 +390,9 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	return shouldRenderToParent ? flags : <Portal zIndex={layers.flag()}>{flags}</Portal>;
 };
 
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { FlagGroup } from '@atlaskit/flag/flag-group'` instead.
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports -- VOLTC-139 tracks removal of this deprecated default export shim.
 export default FlagGroup;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 export default function NewWindow(): React.JSX.Element {
 	return (

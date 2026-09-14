@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 
 interface Props {
 	children: ReactNode;
@@ -21,7 +21,7 @@ interface Props {
  * `SyncBlockSSRReactContextsProvider`.
  */
 export function LayoutSSRReactContextsProvider({ children, intl }: Props): ReactNode {
-	if (!isSSRStreaming() || !isSSR()) {
+	if (!isSSR()) {
 		return children;
 	}
 

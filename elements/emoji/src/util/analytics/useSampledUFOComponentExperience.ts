@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
-import type { CustomData, UFOExperience } from '@atlaskit/ufo';
-import { withSampling } from './samplingUfo';
+
+import type { CustomData } from '@atlaskit/ufo/types';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
+
+import { withSampling } from './withSampling';
 
 const useConstructor = (callback: () => void) => {
 	const hasBeenFired = useRef(false);

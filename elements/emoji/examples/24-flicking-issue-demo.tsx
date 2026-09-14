@@ -1,12 +1,12 @@
 import React, { memo, useState } from 'react';
-import {
-	ResourcedEmojiControl,
-	getEmojiConfig,
-	getRealEmojiProvider,
-} from '../example-helpers/demo-resource-control';
-import { emojiPickerHeight } from '../src/util/constants';
+
 import { IntlProvider } from 'react-intl';
+
+import { getEmojiConfig } from '../example-helpers/get-emoji-config';
+import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';
+import { ResourcedEmojiControl } from '../example-helpers/resourced-emoji-control';
 import { type EmojiProvider, ResourcedEmoji } from '../src';
+import { emojiPickerHeight } from '../src/util/constants';
 
 interface RenderRealEmojisProps {
 	count: number;

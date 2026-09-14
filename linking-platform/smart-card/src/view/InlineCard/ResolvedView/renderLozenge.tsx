@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type LozengeProps } from '../../../types';
 import InlineLozenge from '../common/inline-lozenge';

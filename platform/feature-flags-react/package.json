@@ -34,11 +34,15 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./component-with-condition": "./src/entry-points/component-with-condition.tsx",
-		"./component-with-fg": "./src/entry-points/component-with-fg.ts",
+		"./component-with-condition": "./src/utils/component-with-condition/index.tsx",
+		"./component-with-fg": "./src/utils/component-with-fg/index.ts",
+		"./conditional-hooks-factory/conditional-hooks-factory": "./src/utils/conditional-hooks-factory/conditionalHooksFactory.ts",
 		"./conditional-hooks-factory": "./src/entry-points/conditional-hooks-factory.ts",
+		"./do-not-use-this-in-production-ever-reset-conditional-hooks-factory-cache": "./src/utils/conditional-hooks-factory/DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache.ts",
+		"./function-union-with-condition": "./src/utils/function-with-condition/functionUnionWithCondition.ts",
+		"./function-with-condition/function-with-condition": "./src/utils/function-with-condition/functionWithCondition.ts",
 		"./function-with-condition": "./src/entry-points/function-with-condition.ts",
-		"./function-with-fg": "./src/entry-points/function-with-fg.ts"
+		"./function-with-fg": "./src/utils/function-with-fg/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -50,46 +54,8 @@
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"name": "@atlaskit/platform-feature-flags-react",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"description": "utility library for working with feature flags in react",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

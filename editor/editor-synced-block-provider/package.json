@@ -51,6 +51,7 @@
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/node-data-provider": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -70,43 +71,8 @@
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "8.7.0",
+	"version": "14.0.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -114,17 +80,12 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"platform-feature-flags": {
-		"platform_editor_blocks_patch_3": {
+		"platform_editor_blocks_patch_7": {
 			"type": "boolean"
 		},
-		"platform_editor_blocks_patch_4": {
-			"type": "boolean"
-		},
-		"platform_synced_block_patch_13": {
-			"type": "boolean"
-		},
-		"platform_synced_block_patch_14": {
-			"type": "boolean"
+		"platform_editor_blocks_patch_9": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	}
 }

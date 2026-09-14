@@ -59,9 +59,13 @@ test.describe('table scaling in comment renderer', () => {
 
 			const beforeWidth = (await table.boundingBox())?.width;
 			expect(beforeWidth).toBe(760);
-			// scale percent from 760 -> 300 is 0.6
+			// Scale percent from 760 -> 300 would be 0.6, but column scaling is capped at the comment
+			// renderer's 40% maximum (MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION):
+			// columns [150, 250, 360] * 0.6 = [90, 150, 216] = 456px, plus 1px of cell border = 457px.
+			// Same value as the `table with width column resized` case below, which has identical
+			// columns and also stops at the 40% cap.
 			await renderer.page.setViewportSize({ width: 300, height: 600 });
-			const targetWidth = 300;
+			const targetWidth = 457;
 
 			await renderer.page.waitForFunction(
 				(targetWidth) => {
@@ -73,7 +77,7 @@ test.describe('table scaling in comment renderer', () => {
 			);
 
 			const afterWidth = (await table.boundingBox())?.width;
-			expect(afterWidth).toBeCloseTo(300, 0);
+			expect(afterWidth).toBeCloseTo(targetWidth, 0);
 		});
 
 		test('should capture and report a11y violations', async ({ renderer }) => {
@@ -103,9 +107,11 @@ test.describe('table scaling in comment renderer', () => {
 
 			const beforeWidth = (await table.boundingBox())?.width;
 			expect(beforeWidth).toBe(760);
-			// scale percent from 760 -> 300 is 0.6
+			// The table has an explicit width, so its container query resolves to
+			// min(tableWidth, 100cqw) and the table now tracks the 300px renderer width instead of
+			// stopping at the 40% maximum column scale down.
 			await renderer.page.setViewportSize({ width: 300, height: 600 });
-			const targetWidth = 454;
+			const targetWidth = 300;
 
 			await renderer.page.waitForFunction(
 				(targetWidth) => {
@@ -117,7 +123,7 @@ test.describe('table scaling in comment renderer', () => {
 			);
 
 			const afterWidth = (await table.boundingBox())?.width;
-			expect(afterWidth).toBeCloseTo(454, 0);
+			expect(afterWidth).toBeCloseTo(300, 0);
 		});
 
 		test('table should scale down when scale percent is smaller than 0.4', async ({ renderer }) => {

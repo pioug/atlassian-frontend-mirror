@@ -7,7 +7,7 @@ const mobileViewport = { width: 360, height: 800 };
 test.describe('side nav flyout', () => {
 	test.describe('when useIsFhsEnabled is true', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample<typeof import('../../../examples/side-nav-flyout.tsx')>(
+			await page.visitExample<typeof import('../../../examples/side-nav-flyout.vr.ap.tsx')>(
 				'design-system',
 				'navigation-system',
 				'side-nav-flyout',
@@ -300,7 +300,7 @@ test.describe('side nav flyout', () => {
 
 	test.describe('when useIsFhsEnabled is false', () => {
 		test.beforeEach(async ({ page }) => {
-			await page.visitExample<typeof import('../../../examples/side-nav-flyout.tsx')>(
+			await page.visitExample<typeof import('../../../examples/side-nav-flyout.vr.ap.tsx')>(
 				'design-system',
 				'navigation-system',
 				'side-nav-flyout',

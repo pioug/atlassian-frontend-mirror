@@ -1,5 +1,5 @@
 import { ELEMENTS_CHANNEL } from '../../../_constants';
-import { fireAnalyticsMentionTypeaheadEvent } from '../../../util/analytics';
+import { fireAnalyticsMentionTypeaheadEvent } from '../../../util/fire-analytics-mention-typeahead-event';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -16,7 +16,7 @@ describe('Util Analytics', () => {
 			createAnalyticsEvent: createAnalyticsEventMock,
 		})('someAction', 10, ['abc-123', 'abc-123', 'def-456'], 'someQuery');
 
-		expect(createAnalyticsEventMock).toBeCalledWith({
+		expect(createAnalyticsEventMock).toHaveBeenCalledWith({
 			action: 'someAction',
 			actionSubject: 'mentionTypeahead',
 			attributes: {
@@ -29,7 +29,7 @@ describe('Util Analytics', () => {
 			},
 			eventType: 'operational',
 		});
-		expect(eventMock.fire).toBeCalledWith(ELEMENTS_CHANNEL);
+		expect(eventMock.fire).toHaveBeenCalledWith(ELEMENTS_CHANNEL);
 	});
 
 	it('fireAnalyticsMentionTypeaheadEvent should pass 0 for queryLength when query is undefined', () => {
@@ -41,7 +41,7 @@ describe('Util Analytics', () => {
 			createAnalyticsEvent: createAnalyticsEventMock,
 		})('someAction', 10, ['abc-123'], undefined);
 
-		expect(createAnalyticsEventMock).toBeCalledWith({
+		expect(createAnalyticsEventMock).toHaveBeenCalledWith({
 			action: 'someAction',
 			actionSubject: 'mentionTypeahead',
 			attributes: {

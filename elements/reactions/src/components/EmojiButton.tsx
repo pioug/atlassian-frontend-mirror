@@ -10,7 +10,8 @@ import {
 	type EmojiProvider,
 	ResourcedEmoji,
 } from '@atlaskit/emoji';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { messages } from '../shared/i18n';
 import { isLeftClick } from '../shared/utils';
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
@@ -64,6 +65,35 @@ const styles = cssMap({
 		},
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
+			transition: token('motion.button.pressed'),
+		},
+		transition: token('motion.button.hovered'),
+	},
+	hoverableReactionPickerSelectorEmojiButtonMotion: {
+		outline: 'none',
+		display: 'flex',
+		transformOrigin: 'center center 0',
+		paddingTop: token('space.025'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		borderRadius: token('radius.small'),
+		color: token('color.text.subtle'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
+		transition: token('motion.button.hovered'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+			transition: token('motion.button.pressed'),
 		},
 	},
 
@@ -149,16 +179,14 @@ export const EmojiButton = ({
 			})}
 			xcss={
 				hoverableReactionPickerSelectorEmoji
-					? styles.hoverableReactionPickerSelectorEmojiButton
+					? fg('platform-dst-motion-uplift-custom-button')
+						? styles.hoverableReactionPickerSelectorEmojiButtonMotion
+						: styles.hoverableReactionPickerSelectorEmojiButton
 					: styles.emojiButton
 			}
 		>
-			{/* eslint-disable-next-line @atlaskit/platform/use-recommended-utils */}
-			{FeatureGates.getExperimentValue(
-				'platform_teamoji_26_refresh_emoji_picker',
-				'isEnabled',
-				false,
-			)
+			{expValEquals('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true) ||
+			fg('platform_teamoji_26_refresh_emoji_picker_user_id')
 				? reservedEmoji
 				: emoji}
 		</Pressable>

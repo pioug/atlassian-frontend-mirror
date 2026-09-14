@@ -1,4 +1,5 @@
-import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
+import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
+import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type {
 	TypeAheadHandler,
@@ -9,7 +10,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { closeHistory } from '@atlaskit/prosemirror-history';
+import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 
 import { ACTIONS } from '../actions';
 import { pluginKey } from '../key';
@@ -256,4 +257,123 @@ export const insertTypeAheadItem =
 
 		view.dispatch(tr);
 		view.focus();
+	};
+
+type ExecuteSelectionProps = Omit<Props, 'item'> & {
+	selectItem: (
+		state: EditorState,
+		insert: TypeAheadInsert,
+		meta: {
+			mode: SelectItemMode;
+			query: string;
+			sourceListItem: Array<TypeAheadItem>;
+			stats: ReturnType<StatsModifier['serialize']>;
+		},
+	) => Transaction | false | void;
+};
+
+const executeTypeAheadSelection =
+	(view: EditorView) =>
+	({ selectItem, handler, mode, query, sourceListItem }: ExecuteSelectionProps): void => {
+		const pluginState = getPluginState(view.state);
+		if (!pluginState) {
+			return;
+		}
+
+		const stats = (pluginState.stats || new StatsModifier()).serialize();
+		const meta = {
+			mode,
+			query,
+			stats,
+			sourceListItem,
+		};
+		const { tr } = view.state;
+		const trigger = handler.trigger;
+		let text = `${trigger}${query}`;
+		if (mode === SelectItemMode.SPACE) {
+			text = text.trim().concat(' ');
+		}
+
+		const selectedIndex = -1;
+		const wasInsertedBySpace = mode === SelectItemMode.SPACE;
+		const {
+			selection: { from: textStartPosition },
+		} = tr;
+
+		const insertItem = (newEditorState: EditorState): Transaction | false => {
+			const insertCallback = createInsertCallback({
+				editorState: newEditorState,
+				query,
+				mode,
+				handler,
+				wasInsertedBySpace,
+				selectedIndex,
+				textInserted: text,
+				textStartPosition,
+			});
+			let wasInsertCallbackCalled = false;
+			const insertCallbackProxy = new Proxy(insertCallback, {
+				apply(target, _thisContext, argumentsList) {
+					wasInsertCallbackCalled = true;
+					return target(...argumentsList);
+				},
+			});
+			const nextTr = selectItem(newEditorState, insertCallbackProxy, meta);
+
+			if (!wasInsertCallbackCalled && nextTr) {
+				closeHistory(nextTr);
+				if (!nextTr.getMeta(pluginKey)) {
+					closeTypeAhead(nextTr);
+				}
+			}
+
+			return nextTr || false;
+		};
+
+		const position = {
+			start: tr.selection.from,
+			end: tr.selection.from + text.length,
+		};
+		tr.setMeta(pluginKey, {
+			action: ACTIONS.INSERT_RAW_QUERY,
+			params: createDeleteRawTextCallback({
+				wasInsertedBySpace,
+				selectedIndex,
+				insertItem,
+				position,
+				query,
+				trigger,
+			}),
+		});
+		tr.insertText(text);
+		closeHistory(tr);
+
+		view.dispatch(tr);
+		view.focus();
+	};
+
+export const performTypeAheadSelection =
+	(view: EditorView) =>
+	({
+		inputMethod,
+		selectionHandler,
+		handler,
+		query,
+	}: {
+		handler: TypeAheadHandler;
+		inputMethod: Parameters<QuickInsertSelectionHandler>[0]['source'];
+		query: string;
+		selectionHandler: QuickInsertSelectionHandler;
+	}): void => {
+		executeTypeAheadSelection(view)({
+			handler,
+			mode: SelectItemMode.SELECTED,
+			query,
+			sourceListItem: [],
+			selectItem: (_state, insert) =>
+				selectionHandler({
+					insert,
+					source: inputMethod,
+				}),
+		});
 	};

@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
+
+import { MediaViewerWithMediaClient } from './media-viewer-with-media-client';
 import { type MediaViewerWithMediaClientConfigProps } from './types';
-import { MediaViewerWithMediaClient } from './media-viewer';
 
 export const MediaViewerWithErrorBoundary = (
 	props: MediaViewerWithMediaClientConfigProps,

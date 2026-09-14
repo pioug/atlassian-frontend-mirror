@@ -183,6 +183,262 @@ clamp does not alter how the popover behaves while its anchor is on screen.
 behind `platform-dst-top-layer` (and the analogous per-consumer flags), so the removal does not
 alter any flag-off production behavior. Confirm the gating approach at implementation time.
 
+---
+
+## Imperative `createPopper` adapter (`platform-dst-top-layer`)
+
+`@atlaskit/popper/unsafe-imperative` is the frozen escape hatch for non-React, imperative callers.
+It used to be a bare re-export of Popper.js v2 `createPopper`, and the entry point documented itself
+as having "no top-layer equivalent". It now ships the same FF shape as `<Popper>`: flag-off it is
+the raw Popper.js engine, flag-on it is `createPopperTopLayer`
+(`popper/src/create-popper-top-layer.tsx`).
+
+The only production caller is editor's `VanillaTooltip`
+(`platform/packages/editor/editor-common/src/vanilla-tooltip/index.ts`), grandfathered in the
+`direct-popperjs-imports` ratchet. New callers are blocked, so this adapter exists to carry that one
+consumer (and the entry point's `Instance` contract) across the flag — not to grow the surface.
+
+### Decision: popper brings its own React; `@atlaskit/top-layer` is unchanged
+
+**Date:** 2026-08-04. **Status:** decided and implemented.
+
+**Context.** top-layer's positioning primitives (`useAnchorPosition`, `useAnchorPositionAtPoint`)
+are React hooks. `createPopper` is imperative, so there is a shape mismatch to bridge somewhere.
+
+**Rejected: add imperative entry points to top-layer.** The first implementation extracted the DOM
+work out of both hooks into `applyAnchorPosition` / `applyAnchorPositionAtPoint` and exported them
+(plus `setStyle`) as new subpaths. It worked and was behaviour-neutral, but it put **three permanent
+public API commitments on a foundational package in order to serve a frozen shim with one
+grandfathered caller**. Those entry points would outlive `@atlaskit/popper` itself, and nothing in
+top-layer's own roadmap asks for them. This is the same reasoning that rejected an `overflow` option
+for the `preventOverflow` clamp (see that decision above): do not grow a primitive's configuration
+surface for a behaviour no other consumer wants.
+
+**Decision.** The bridge lives entirely in `@atlaskit/popper`. `create-popper-top-layer.tsx` owns a
+detached React root rendering one of two components that render `null` and exist only to run a
+positioning hook against the DOM nodes the caller already owns: `AnchorBridge` (`useAnchorPosition`,
+for a real DOM anchor) or `PointBridge` (`useAnchorPositionAtPoint`, for everything else). Which one
+is decided when the instance is created and never changes, so each calls exactly one hook
+unconditionally — no `isEnabled` pairing, and no hook-order constraint to defend. The root's
+container element is never appended to the document: the bridges render `null`, so React only needs
+an element to own.
+
+**Why this is better.**
+
+- `@atlaskit/top-layer` gains **no new public API** — the adapter consumes today's, exactly as the
+  React `<Popper>` adapter in `popper-top-layer.tsx` does. (It did surface one bug in shared
+  top-layer code, fixed there; see "the JS fallback does not own the popover's inline styles"
+  below.)
+- No positioning logic is duplicated or reimplemented. The CSS Anchor Positioning path, the JS
+  fallback, and synthetic-anchor handling are all shared with every other consumer, so a fix there
+  reaches the imperative path for free.
+- Everything popper-specific dies with popper.
+
+**Trade-offs (accepted).**
+
+- **Positioning is asynchronous.** React commits on its own schedule, so `createPopper()` /
+  `setOptions()` / `update()` return before the styles land. Popper.js' first update is async too,
+  so callers that tolerate that are unaffected. `flushSync` was tried and reverted: a React consumer
+  calling `createPopper` from an effect trips `flushSync was called from inside a lifecycle method`,
+  which React downgrades to an async commit anyway — buying a console error (and a failing VR run,
+  via the console-error guard) for nothing.
+- **A React root per instance.** Negligible for the one real caller; it would not be acceptable at
+  scale.
+- **Tests must wrap calls in `act()`.** Any test that exercises the FF-on path renders React, so
+  unwrapped calls warn. Both unit suites document this.
+- **Teardown is async too.** See "Decision: `destroy()` tears down on a microtask" below.
+
+### Why not force a synchronous commit (`flushSync`)?
+
+The async commit above is a choice, not a hard constraint, and it is worth recording why sync was
+rejected — it looks like an easy win.
+
+- **It would work mechanically.** Both positioning hooks apply their styles in `useLayoutEffect`
+  (`use-anchor-position.tsx`, `use-anchor-position-at-point.tsx`), and
+  `flushSync(() => root.render(...))` flushes layout effects before returning — so the anchor CSS
+  would land before `createPopper()` / `update()` returns.
+- **But it is not needed.** The one real caller (`VanillaTooltip`) keeps its element
+  `visibility: hidden` for ~300ms after each `show()` before revealing it, so positioning that lands
+  a tick later is invisible. And async is Popper.js parity — its own first update is async — so
+  every legacy caller of the imperative API already tolerates it.
+- **And it is a footgun for a generic escape hatch.** If any caller invokes `createPopper` /
+  `update` during React's render or commit phase, `flushSync` logs _"flushSync was called from
+  inside a lifecycle method"_ and React downgrades to an async commit anyway: a console error (which
+  also fails VR via the console-error guard) for no behavioural gain. `VanillaTooltip` itself would
+  be warning-free — it only calls in from DOM `mouseenter` / `focus` handlers, outside any React
+  lifecycle — but the entry point is a frozen, generically-callable shim, so it is written to be
+  safe for any caller rather than tuned to the one we have.
+- **Sync render ≠ sync paint anyway.** On the CSS Anchor Positioning path the browser computes the
+  final visual placement on its next style/layout pass; a synchronous commit only guarantees the CSS
+  _properties_ are written synchronously, not that the popover is _painted_ in place within the same
+  frame (absent a forced reflow).
+- **If a future caller ever needs synchronous positioning**, the lever is on the consumer side —
+  keep the element hidden until the next frame, as `VanillaTooltip` already does — not `flushSync`
+  in the shared adapter.
+
+### Design stance: reasonable behaviour, not full parity
+
+The adapter deliberately targets **reasonable, documented behaviour** rather than byte-for-byte
+Popper.js equivalence. Given one grandfathered caller and a closed door for new ones, parity
+machinery would be code with no consumer and its own failure modes. Concretely, the adapter does
+**not**:
+
+- honour the `eventListeners` modifier (there are no listeners to toggle on the CSS path, and
+  top-layer owns them on the JS fallback path),
+- resolve function-valued `offset` (which Popper.js recomputes per update against live rects),
+- follow a moving `VirtualElement` on scroll — the rect is re-read on `update()` / `forceUpdate()` /
+  `setOptions()`, matching how the React `<Popper>` adapter latches its point,
+- position anything at all in a browser without the Popover API — but neither does any other
+  top-layer consumer, since the whole stack is built on it.
+
+What is left in `create-popper-top-layer.tsx` is option translation, top-layer promotion, the React
+bridge, and the `Instance` lifecycle.
+
+### What it does
+
+1. **Top-layer promotion.** If the caller's element is not already a popover (or a `<dialog>`), the
+   adapter sets `popover="manual"` and calls `showPopover()`. `manual` mirrors the
+   `<Popover mode="manual">` the React FF-on path uses: top-layer promotion without light dismiss
+   and without joining the auto-dismiss stack, so the caller keeps owning visibility — which is what
+   Popper.js' contract implies. The UA `[popover]` rules are neutralised at the same time (see the
+   decision below), so promotion changes paint order and nothing else. `destroy()` reverses both.
+   When the element **is** already a popover (the `VanillaTooltip` case: `popover="hint"`,
+   caller-driven `showPopover()` / `hidePopover()`), the adapter touches neither the attribute nor
+   visibility nor styling, and only positions.
+2. **Positioning.** `AnchorBridge` calls `useAnchorPosition` with refs to the caller's anchor and
+   popper elements. Promotion happens _before_ the first render, so the popover is already open when
+   the hook's layout effect runs — which matters on the JS fallback path, where the hook detects an
+   already-open popover and measures immediately instead of waiting for a `toggle` event it would
+   otherwise have missed.
+3. **Non-`HTMLElement` references.** A Popper.js `VirtualElement` (or an SVG / cross-realm element)
+   cannot carry `anchor-name`. `PointBridge` reduces its rect to the geometrically-equivalent point
+   for the requested placement with popper's existing `rectPointForPlacement` (the same helper the
+   React `<Popper>` adapter uses for `referenceElement`) and feeds `useAnchorPositionAtPoint`, which
+   owns the synthetic anchor. `update()` / `forceUpdate()` / `setOptions()` bump the bridge's `key`,
+   so it remounts and the point is re-read.
+
+### Option handling — three tiers
+
+| Tier      | Options                                                                                             | Behaviour under the flag                                                                                                                                                                                                                              |
+| --------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Keep**  | `placement`, the `offset` modifier's `[skidding, distance]` tuple                                   | `placement` maps through `fromLegacyPlacement`; the offset maps to top-layer's offset input. The **last** `offset` entry wins, matching Popper.js' merge-by-name. A disabled or function-valued `offset` resolves to **no** offset.                   |
+| **No-op** | `strategy`, and every other modifier (`flip`, `preventOverflow`, `eventListeners`, `arrow`, custom) | Accepted at the type level, no runtime effect, no dev warning — same rationale as the `<Popper>` adapter. Flipping / overflow move to CSS `position-try-fallbacks`; top-layer rendering is always browser-fixed, so `strategy` has nothing to select. |
+| **Drop**  | the Popper.js modifier pipeline itself                                                              | Not constructed. `state.orderedModifiers` is empty and `state.styles` / `state.attributes` / `state.modifiersData` are inert.                                                                                                                         |
+
+**`offset` defaults to `[0, 0]`, not `[0, 8]`.** Popper.js' `offset` modifier default is no gap,
+which differs from both ADS `<Popper>` (`[0, 8]`) and top-layer's own `space.100`. The adapter
+therefore always passes the offset explicitly, so a caller that requested no offset keeps getting
+none.
+
+### Instance surface
+
+`Instance` is preserved in shape. `update` / `forceUpdate` / `setOptions` remount the bridge by
+bumping its `key`, and that remount is load-bearing on **both** bridges:
+
+- `PointBridge` — `useAnchorPositionAtPoint` latches its point once per activation, so nothing else
+  re-reads a virtual reference's rect.
+- `AnchorBridge` — on the JS fallback the hook only measures when its effect runs (plus its own
+  scroll / resize listeners), so the remount is how `update()` honours its "re-measure now" contract
+  for an anchor that moved for some other reason. `editor-plugin-block-controls` relies on exactly
+  this: one `VanillaTooltip` instance follows a quick-insert button that is repositioned as the user
+  hovers different blocks. On the CSS path the browser tracks the anchor, so the remount is a no-op
+  rewrite of the same properties.
+
+An earlier revision narrowed the `key` to `PointBridge` only, on the reasoning that a real DOM
+anchor never needs re-running. That is true only on the CSS path; it silently removed the JS
+fallback's re-measure. Keep the `key` on both.
+
+`setOptions` accepts both the updater-function and plain-object forms. `onFirstUpdate` resolves in a
+microtask, matching Popper.js' async first update, and is skipped if the instance was destroyed
+first. `state` carries `elements`, `options`, `placement`, `strategy` and `rects`, with `rects`
+measured at call time.
+
+### Decision: `destroy()` tears down on a microtask
+
+**Date:** 2026-08-05. **Status:** decided and implemented.
+
+`destroy()` flips its `isDestroyed` flag synchronously (so an in-flight `render()` is dropped and
+`onFirstUpdate` can never fire afterwards) but defers `root.unmount()` and the promotion reversal to
+a microtask.
+
+**Why.** `root.unmount()` is synchronous, and React logs _"Attempted to synchronously unmount a root
+while React was already rendering"_ when it is called during a commit. React effect cleanups run in
+the commit phase, and destroying from an effect cleanup is the ordinary React caller shape — the
+package's own `examples/12-flag-imperative-create-popper.tsx` does it, and editor's cleanup
+callbacks can. React additionally downgrades the unmount to an async commit in that situation, so an
+inline teardown would restore the hooks' styles _after_ `undoPromotion()` had already run, inverting
+the intended order.
+
+This is the mirror image of the `flushSync` decision above: React will not let a generic imperative
+shim drive its scheduler synchronously from inside a lifecycle, in either direction. Rather than
+fight it on the way in and lose on the way out, both ends are async and documented.
+
+**Guarded by** `create-popper-top-layer.test.tsx` -> "does not warn when destroy runs from a React
+effect cleanup", which renders a fixture that destroys from a `useLayoutEffect` cleanup and asserts
+a silent `console.error`.
+
+### Decision: promotion neutralises the UA `[popover]` stylesheet
+
+**Date:** 2026-08-05. **Status:** decided and implemented.
+
+The UA stylesheet gives every popover `border: solid`, `padding: 0.25em`, `overflow: auto`, `width`
+/ `height: fit-content`, `color: CanvasText` and `background-color: Canvas`. `<Popover>` overrides
+these in its own Compiled class, so the React path never sees them; the imperative adapter promotes
+an element the **caller** styles, so without a reset, promotion silently restyles and re-sizes it.
+
+**Inline styles are the wrong tool here.** They would beat the caller's own stylesheet, not just the
+UA's. The adapter instead stamps a `data-ds--popper-promoted` attribute and injects a single
+zero-specificity rule — `:where([data-ds--popper-promoted]) { … }` — into the element's own
+document. Author origin always beats the UA origin, and `:where()` always loses to any caller
+selector, which is exactly the precedence wanted. `inline-size` is deliberately left at the UA
+default, matching `<Popover>` (which keeps it for anchor-width matching). The attribute is removed
+when promotion is reversed.
+
+Only the promotion path is affected. `VanillaTooltip` already owns `popover="hint"`, so it is not
+promoted, and nothing about its rendering changes.
+
+### Fix in top-layer: the JS fallback does not own the popover's inline styles
+
+**Date:** 2026-08-05. **Status:** implemented in `use-anchor-position.tsx`.
+
+The one top-layer change this adapter required — a bug fix in shared code, not new API. The JS
+fallback wrote `top` / `left` / `opacity` with bare `setProperty` and dropped them with
+`removeProperty` on cleanup. That is safe only while top-layer owns the element, which is true for
+every `<Popover>` consumer and false for this adapter.
+
+Concretely, before the fix: `VanillaTooltip.hide()` calls `setOptions()` and then sets `opacity: 0`
+to fade itself out. The `setOptions()` remount commits a tick later, and the effect cleanup ran
+`removeProperty('opacity')` — deleting the consumer's `opacity: 0`. The emoji tooltip has no
+CSS-class opacity to fall back on, so its computed opacity returned to `1` while the popover was
+still open, and `hidePopover()` only ever fires from `transitionend`: the tooltip stayed on screen
+after mouseleave. Browsers without CSS Anchor Positioning only.
+
+All three properties now go through the existing `setStyle` (snapshot the prior inline value,
+restore it), with a `hideUntilPositioned` / `reveal` pair for the hide-until-measured step so a
+repeated hide cannot snapshot our own `opacity: 0`. Behaviour is identical for consumers with no
+prior inline value. Guarded by `use-anchor-position.test.tsx` -> "restores a consumer's own inline
+top / left / opacity rather than removing them".
+
+### Coverage
+
+- **Unit** — `popper/src/__tests__/unit/create-popper-top-layer.test.tsx` (CSS Anchor Positioning
+  path, with `CSS.supports` stubbed because jsdom does not implement it) and
+  `unsafe-imperative.test.tsx` (the gate switch). Both wrap calls in `act()`. The JS fallback is
+  **not** asserted at this level: the adapter holds no positioning logic, and the fallback only
+  measures once a real `ResizeObserver` fires, which jsdom never delivers — top-layer's own tests
+  and the Playwright specs cover it.
+- **Browser** — `popper/src/__tests__/playwright/top-layer-create-popper.spec.tsx`: promotion,
+  trigger-relative geometry, clipping-ancestor escape via `elementFromPoint` (`boundingBox()`
+  reports layout, not paint, so it cannot tell clipped from painted), `setOptions` re-placement,
+  `destroy` reversal, and the flag-off clipped counterpart.
+- **VR** — `examples/12-flag-imperative-create-popper.tsx` under both gate states. Unlike the other
+  popper fixtures, visual parity is **not** the contract for the promoted fixture: flag-off is
+  clipped by its `position: relative; overflow: hidden` ancestor and flag-on is not, and that
+  difference is the migration. The caller-owned (`VanillaTooltip`-shaped) fixture **is** expected to
+  match across gate states. Informational VR covers the post-click `setOptions` state.
+
+---
+
 ### Accessibility outcomes preserved
 
 From [goals/accessibility-criteria.md](../goals/accessibility-criteria.md), the FF-on branch

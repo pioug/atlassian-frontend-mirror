@@ -114,6 +114,3 @@ export const legacyColors: string[] = [
 	'DN20A',
 	'DN10A',
 ];
-
-export { legacyColorMixins } from './legacy-color-mixins';
-export { legacyColorMetaMap } from './legacy-color-meta-map';

@@ -1,5 +1,573 @@
 # @atlaskit/editor-plugin-media
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.2.1
+
+### Patch Changes
+
+- [`357df7b291d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/357df7b291d07) -
+  [ux] remove the left hand resizer behind experiment `platform_editor_remove_left_resize_handle`
+- Updated dependencies
+
+## 19.2.0
+
+### Minor Changes
+
+- [`d3a7f9016da28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3a7f9016da28) -
+  Add media render lifecycle callbacks for Remix-generated media behind
+  cc-maui-add-mark-for-remix-generated-images.
+
+## 19.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`aec3fcfe13ff9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aec3fcfe13ff9) -
+  EDITOR-8303 Add runtime input-latency trigger for limited mode behind
+  platform_editor_dynamic_limited_mode. Limited mode can now latch mid-session when sustained slow
+  input or repeated browser freezes indicate the device is struggling, in addition to the existing
+  document-size decision. The latch is one-way. Nothing is constructed when the experiment is off.
+
+  How much evidence is needed is a single tunable, `requiredConfirmations`: that many qualifying
+  windows, each separated from the last by `confirmationGapMs`. The hardware no longer feeds into
+  the decision — `navigator.hardwareConcurrency` and `navigator.deviceMemory` are reported with the
+  `limitedModeLatched` event instead, so which devices latch can be answered from the data rather
+  than assumed up front.
+
+  `LimitedModePluginState` gains a derived `enabled` flag, which is now the single thing consumers
+  should branch on — the individual reasons (`documentSizeBreachesThreshold`, `latchPolicyBreached`)
+  no longer need to be combined at each call site, so a future reason needs no change outside this
+  plugin. `sharedState.enabled` reads from it.
+
+  Under the experiment the document decision is also evaluated on load and on document replacement
+  only, rather than on every transaction that changes the document. That check walks the whole
+  document, so it was a full-document scan per keystroke on exactly the pages least able to afford
+  one. The trade-off is that a document editing its way past the thresholds is not re-judged until
+  it next loads.
+
+  Consumers updated to react to a mid-session change: table sticky headers now subscribe instead of
+  reading once at construction, block-controls resets rather than freezes its state on entry, and
+  the expand, media and table nodeviews read the derived flag so they no longer miss a runtime
+  latch.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 18.1.6
+
+### Patch Changes
+
+- [`a6c26b16402ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6c26b16402ca) -
+  Migrate nine dogfooding editor experiments from `@atlaskit/tmp-editor-statsig` to the Platform
+  experiment API and move their tests to Platform experiment mocks.
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- [`08bf773f7599a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08bf773f7599a) -
+  Migrate experiments to use the new platform experiment API. This major release removes the
+  migrated experiment entries from `@atlaskit/tmp-editor-statsig`'s `editorExperimentsConfig` and
+  test overrides. Consumers must replace legacy `expVal`/`expValEquals` calls with
+  `@atlaskit/platform-feature-experiments` APIs, using `isExperimentEnabled` for boolean `isEnabled`
+  experiments and `expVal` for parameterized experiments; use `mockExpEnabled`/`mockExpDisabled` in
+  tests.
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- [`53ad40b08a887`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53ad40b08a887) -
+  Clean up platform_editor_video_caption_commit
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 17.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`d96f86ff344b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d96f86ff344b8) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_vc90_transition_expand_icon, platform_editor_add_image_editing,
+  platform_editor_ai_multi_format_streaming, platform_editor_default_toolbar_state,
+  platform_editor_early_exit_return_draft, platform_editor_fix_focus_MediaInsertPicker,
+  platform_editor_fix_table_move_shortcut, platform_editor_menu_radius_update,
+  platform_editor_react19_migration, and show_mentions_in_suggest_reply.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`a285770e5decb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a285770e5decb) -
+  Use @atlaskit/platform-feature-experiments directly for platform_editor_ai_move_node,
+  platform_editor_confluence_base_preset, platform_editor_inline_media_replacement, and
+  platform_editor_lovability_color_schema_change.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.0
+
+### Minor Changes
+
+- [`da5eaf0bc37da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5eaf0bc37da) -
+  Clean up the platform_editor_editor_ssr_streaming experiment. The SSR streaming code paths are now
+  permanent and the isSSRStreaming() utility has been removed from
+  @atlaskit/editor-common/core-utils.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`2d23b40eed4f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d23b40eed4f0) -
+  Add gated content-visibility:auto to tables, expands and media singles to improve editor rendering
+  performance on large documents. Applied only to nodes whose rendered size can be estimated closely
+  — structurally (row/child counts) for tables and expands, and from the media's own dimensions and
+  the renderer's width calculation for media singles. Behind the
+  cc_editor_limited_mode_perf_improvements experiment and only active when limited mode is enabled
+  for the document (shared large-document detection with the limited-mode plugin).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`8043a37357f34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8043a37357f34) -
+  Added an `isCWR` prop to the media `Card`/`FileCard`. When set, the AI-generating loading state
+  renders an opaque `elevation.surface.sunken` overlay (instead of the translucent blanket) so the
+  generic media type icon isn't shown while a create-with-Rovo infographic streams in. Behaviour is
+  gated by the `aifc_page_create_with_rovo_include_infographics` experiment.
+
+  ```tsx
+  <FileCard identifier={identifier} isAIGenerating isCWR />
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.4.0
 
 ### Minor Changes

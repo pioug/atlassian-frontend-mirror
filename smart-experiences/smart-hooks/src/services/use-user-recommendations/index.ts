@@ -5,7 +5,7 @@ import memoizeOne, { type MemoizedFn } from 'memoize-one';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { EntityType, fetchUserRecommendations, type UserSearchItem } from '@atlaskit/smart-common';
 
 import type { UseUserRecommendationsProps } from '../../types';

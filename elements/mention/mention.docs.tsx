@@ -37,7 +37,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Simple mention',
 					description: 'Basic usage of the Mention component.',
-					source: path.resolve(packagePath, './examples/07-simple-mention.tsx'),
+					source: path.resolve(packagePath, './examples/07-simple-mention.vr.ap.tsx'),
 				},
 			],
 		},

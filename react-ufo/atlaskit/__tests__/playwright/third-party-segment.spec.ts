@@ -37,6 +37,10 @@ test.describe('ReactUFO: Third Party Segment', () => {
 			test.use({
 				examplePage: 'third-party-segment',
 				featureFlags,
+			} satisfies {
+				examplePage: 'third-party-segment';
+				featureFlags: string[];
+				__exampleDependency?: typeof import('../../examples/24-third-party-segment.tsx');
 			});
 
 			for (const viewport of viewports) {

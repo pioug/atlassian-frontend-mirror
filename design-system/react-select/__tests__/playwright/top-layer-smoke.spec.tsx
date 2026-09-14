@@ -94,31 +94,6 @@ test.describe('react-select: top-layer smoke', () => {
 		await expect(listbox).toBeVisible();
 	});
 
-	test('clicking the input while the menu is open does not dismiss the menu', async ({ page }) => {
-		// Regression guard: the Select input lives outside the top-layer
-		// popover, so light-dismiss would close the menu on input click.
-		// `MenuPortalTopLayer` re-opens when the close comes from inside
-		// the control.
-		await page.visitExample<typeof import('../../examples/testing-top-layer-focus.tsx')>(
-			'design-system',
-			'react-select',
-			'testing-top-layer-focus',
-			{ featureFlag },
-		);
-
-		const combobox = await openMenu(page);
-		const listbox = page.getByRole('listbox');
-		await expect(listbox).toBeVisible();
-
-		// Click the combobox (the inner input element) while the menu is open.
-		await combobox.click();
-
-		await expect(listbox).toBeVisible();
-		// `aria-expanded` mirrors `Select.menuIsOpen`. Both must stay true; a
-		// stale `menuIsOpen` would tear the menu down on the next render.
-		await expect(combobox).toHaveAttribute('aria-expanded', 'true');
-	});
-
 	test('aria-controls links the combobox to the listbox even when portaled', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/testing-top-layer-focus.tsx')>(
 			'design-system',

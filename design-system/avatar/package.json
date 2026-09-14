@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar",
-	"version": "26.4.0",
+	"version": "28.0.1",
 	"description": "An avatar is a visual representation of a user or entity.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,22 +32,25 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./avatar": "./src/entry-points/avatar.tsx",
-		"./Avatar": "./src/entry-points/avatar.tsx",
-		"./avatar-content": "./src/entry-points/avatar-content.tsx",
-		"./avatar-context": "./src/entry-points/avatar-context.tsx",
-		"./avatar-item": "./src/entry-points/avatar-item.tsx",
-		"./AvatarItem": "./src/entry-points/avatar-item.tsx",
+		"./avatar": "./src/avatar.tsx",
+		"./Avatar": "./src/avatar.tsx",
+		"./avatar-content": "./src/avatar-content.tsx",
+		"./avatar-context": "./src/avatar-context.tsx",
+		"./avatar-item": "./src/avatar-item.tsx",
+		"./avatar-radius": "./src/avatar-radius.tsx",
+		"./avatar-sizes": "./src/avatar-sizes.tsx",
+		"./AvatarItem": "./src/avatar-item.tsx",
+		"./constants/default": "./src/constants.tsx",
 		"./constants": "./src/entry-points/constants.tsx",
-		"./get-appearance": "./src/entry-points/get-appearance.tsx",
-		"./presence": "./src/entry-points/presence.tsx",
+		"./get-appearance": "./src/get-appearance.tsx",
+		"./presence": "./src/presence.tsx",
 		"./Presence": "./src/entry-points/presence-old.tsx",
-		"./skeleton": "./src/entry-points/skeleton.tsx",
-		"./Skeleton": "./src/entry-points/skeleton.tsx",
-		"./status": "./src/entry-points/status.tsx",
+		"./skeleton": "./src/skeleton.tsx",
+		"./Skeleton": "./src/skeleton.tsx",
+		"./status": "./src/status.tsx",
 		"./Status": "./src/entry-points/status-old.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		"./use-avatar-context": "./src/entry-points/use-avatar-context.tsx"
+		"./types": "./src/types.tsx",
+		"./use-avatar-context": "./src/use-avatar-context.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -62,7 +65,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -82,37 +85,17 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"jest-in-case": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"jscodeshift": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"homepage": "https://atlassian.design/components/avatar/",
 	"platform-feature-flags": {
 		"platform.design-system-team.avatar-item-font-size_830x6": {

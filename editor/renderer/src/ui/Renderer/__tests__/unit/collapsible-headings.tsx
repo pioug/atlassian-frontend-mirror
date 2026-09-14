@@ -7,10 +7,13 @@ import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { waitFor } from '@atlassian/testing-library/wait-for';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 import { RendererFunctionalComponent as Renderer } from '../../index';
 import { RendererStyleContainer } from '../../RendererStyleContainer';
@@ -19,11 +22,6 @@ import { Doc } from '../../../../react/nodes';
 import Panel from '../../../../react/nodes/panel';
 import { CollapsibleHeadingsProvider, useCollapsibleHeading } from '../../../collapsible-headings';
 import { buildTopLevelHeadingSections } from '../../../collapsible-headings-section-model';
-
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: (experimentName: string) =>
-		experimentName === 'platform_renderer_collapsible_headings',
-}));
 
 const documentWithHeadingSections: DocNode = {
 	type: 'doc',
@@ -252,16 +250,19 @@ function getDirectRendererChild(element: HTMLElement): HTMLElement | null {
 function renderRenderer({
 	appearance = 'full-page',
 	allowCollapsibleHeadings = true,
+	createAnalyticsEvent,
 	document = documentWithHeadingSections,
 }: {
 	allowCollapsibleHeadings?: boolean;
 	appearance?: RendererAppearance;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	document?: DocNode;
 } = {}) {
 	return render(
 		<RendererWithIntl
 			allowCollapsibleHeadings={allowCollapsibleHeadings}
 			appearance={appearance}
+			createAnalyticsEvent={createAnalyticsEvent}
 			document={document}
 		/>,
 	);
@@ -270,10 +271,12 @@ function renderRenderer({
 function RendererWithIntl({
 	appearance = 'full-page',
 	allowCollapsibleHeadings = true,
+	createAnalyticsEvent,
 	document = documentWithHeadingSections,
 }: {
 	allowCollapsibleHeadings?: boolean;
 	appearance?: RendererAppearance;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	document?: DocNode;
 }) {
 	return (
@@ -281,6 +284,7 @@ function RendererWithIntl({
 			<Renderer
 				allowCollapsibleHeadings={allowCollapsibleHeadings}
 				appearance={appearance}
+				createAnalyticsEvent={createAnalyticsEvent}
 				document={document}
 			/>
 		</IntlProvider>
@@ -411,7 +415,43 @@ afterAll(() => {
 });
 
 describe('collapsible headings', () => {
+	it('fires analytics with the resulting state when a heading is toggled', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
+		const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
+			() => ({ fire: jest.fn() }) as unknown as UIAnalyticsEvent,
+		);
+		renderRenderer({ createAnalyticsEvent });
+
+		await userEvent.hover(screen.getByRole('heading', { name: 'Alpha' }));
+		await userEvent.click(screen.getAllByRole('button', { name: 'Collapse section' })[0]);
+
+		expect(createAnalyticsEvent).toHaveBeenCalledWith({
+			action: 'toggled',
+			actionSubject: 'heading',
+			attributes: {
+				expanded: false,
+				headingLevel: 1,
+			},
+			eventType: 'track',
+		});
+
+		await userEvent.click(screen.getByRole('button', { name: 'Expand section' }));
+
+		expect(createAnalyticsEvent).toHaveBeenCalledWith({
+			action: 'toggled',
+			actionSubject: 'heading',
+			attributes: {
+				expanded: true,
+				headingLevel: 1,
+			},
+			eventType: 'track',
+		});
+	});
+
 	it('builds top-level section ranges from the document model', () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		const pmDocument = defaultSchema.nodeFromJSON(documentWithHeadingSections);
 		const sections = buildTopLevelHeadingSections(pmDocument);
 
@@ -425,6 +465,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('keeps hook results stable until the collapse state changes', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		const observedStates: ReturnType<typeof useCollapsibleHeading>[] = [];
 		const onRender = (collapsibleHeading: ReturnType<typeof useCollapsibleHeading>) => {
 			observedStates.push(collapsibleHeading);
@@ -455,6 +497,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('preserves collapsed sections when the renderer rerenders an equivalent document', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		const { rerender } = renderRenderer();
 		const betaHeading = screen.getByRole('heading', { name: 'Beta' });
 		const betaContent = screen.getByText('Beta content').closest('p');
@@ -480,25 +524,82 @@ describe('collapsible headings', () => {
 		);
 	});
 
+	it('preserves multiple collapsed sections after another renderer evicts the schema cache', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+		const { rerender } = renderRenderer();
+		for (const name of ['Beta', 'Delta']) {
+			const heading = screen.getByRole('heading', { name });
+			const button = getDirectRendererChild(heading)?.querySelector('button');
+			if (!button) {
+				throw new Error(`Expected a collapse button for ${name}`);
+			}
+			await userEvent.hover(heading);
+			await userEvent.click(button);
+		}
+		expect(screen.getAllByRole('button', { name: 'Expand section' })).toHaveLength(2);
+
+		// A nested renderer requesting stage0 evicts the shared, single-entry schema cache.
+		getSchemaBasedOnStage('stage0');
+		rerender(<RendererWithIntl document={{ ...documentWithHeadingSections }} />);
+
+		expect(screen.getAllByRole('button', { name: 'Expand section' })).toHaveLength(2);
+		for (const name of ['Beta', 'Delta']) {
+			expect(screen.getByText(`${name} content`).closest('p')).toHaveAttribute(
+				'hidden',
+				'until-found',
+			);
+		}
+		const omegaHeading = screen.getByRole('heading', { name: 'Omega' });
+		const omegaButton = getDirectRendererChild(omegaHeading)?.querySelector('button');
+		if (!omegaButton) {
+			throw new Error('Expected a collapse button for Omega');
+		}
+		await userEvent.hover(omegaHeading);
+		await userEvent.click(omegaButton);
+		expect(screen.getAllByRole('button', { name: 'Expand section' })).toHaveLength(3);
+	});
+
+	it('resets collapsed sections when document content changes across schema instances', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+		const { rerender } = renderRenderer();
+		await userEvent.hover(screen.getByRole('heading', { name: 'Alpha' }));
+		await userEvent.click(screen.getAllByRole('button', { name: 'Collapse section' })[0]);
+		expect(screen.getByRole('button', { name: 'Expand section' })).toBeInTheDocument();
+
+		getSchemaBasedOnStage('stage0');
+		rerender(<RendererWithIntl document={documentWithEmptyHeadingSections} />);
+
+		expect(screen.queryByRole('button', { name: 'Expand section' })).not.toBeInTheDocument();
+		expect(screen.getByText('Only collapsible content').closest('p')).not.toHaveAttribute('hidden');
+	});
+
 	it('does not render controls when collapsible headings are not allowed', () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer({ allowCollapsibleHeadings: false });
 
 		expect(screen.queryByRole('button', { name: 'Collapse section' })).not.toBeInTheDocument();
 	});
 
 	it('does not render controls outside the supported appearances', () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer({ appearance: 'comment' });
 
 		expect(screen.queryByRole('button', { name: 'Collapse section' })).not.toBeInTheDocument();
 	});
 
 	it('only renders a control for headings with section content', () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer({ document: documentWithEmptyHeadingSections });
 
 		expect(screen.getAllByRole('button', { name: 'Collapse section' })).toHaveLength(1);
 	});
 
 	it('does not collapse an empty heading at the same level', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer({ document: documentWithEmptyHeadingSections });
 
 		const sectionContent = screen.getByText('Only collapsible content').closest('p');
@@ -519,6 +620,8 @@ describe('collapsible headings', () => {
 	it.each(['full-page', 'full-width', 'max'] as const)(
 		'renders controls in the %s appearance',
 		(appearance) => {
+			mockExpEnabled('platform_renderer_collapsible_headings');
+
 			renderRenderer({ appearance });
 
 			expect(screen.getAllByRole('button', { name: 'Collapse section' })).not.toHaveLength(0);
@@ -526,6 +629,8 @@ describe('collapsible headings', () => {
 	);
 
 	it('shows the toggle for keyboard focus', () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer();
 
 		const button = screen.getAllByRole('button', { name: 'Collapse section' })[1];
@@ -549,6 +654,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('hides an expanded toggle after the pointer leaves the heading', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer();
 
 		const heading = screen.getByRole('heading', { name: 'Beta' });
@@ -579,6 +686,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('collapses until the next top-level heading of an equal or greater size', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		const { container } = renderRenderer();
 		await expect(container).toBeAccessible();
 
@@ -609,6 +718,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('tracks every collapsed ancestor of nested section content', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer();
 
 		const alphaHeading = screen.getByRole('heading', { name: 'Alpha' });
@@ -644,6 +755,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('expands a collapsed section when browser Find reveals a matching heading', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer();
 
 		const betaContent = screen.getByText('Beta content').closest('p');
@@ -671,6 +784,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('uses a collapse-only wrapper when the copy-link heading-wrapper experiment is disabled', () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer();
 
 		const alphaHeading = screen.getByRole('heading', { name: 'Alpha' });
@@ -686,6 +801,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('hides a table renderer container within a collapsed section', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		renderRenderer({ document: documentWithTableSectionContent });
 
 		const tableContainer = getDirectRendererChild(screen.getByText('Table section content'));
@@ -704,6 +821,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('hides a panel renderer container within a collapsed section', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		render(<PanelRendererHarness />);
 
 		const panelContainer = getDirectRendererChild(screen.getByText('Panel section content'));
@@ -727,6 +846,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('does not add controls to headings nested in renderer content', () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		const documentWithNestedHeading: DocNode = {
 			type: 'doc',
 			version: 1,
@@ -761,6 +882,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('hides content inserted after a progressively rendered section is collapsed', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		render(<ProgressiveRendererHarness />);
 		await userEvent.click(screen.getByRole('button', { name: 'Toggle progressive heading' }));
 
@@ -788,6 +911,8 @@ describe('collapsible headings', () => {
 	});
 
 	it('collapses headings in every renderer document within the provider', async () => {
+		mockExpEnabled('platform_renderer_collapsible_headings');
+
 		render(<MultipleRendererDocumentsHarness />);
 
 		await userEvent.click(screen.getByRole('button', { name: 'Toggle second heading' }));

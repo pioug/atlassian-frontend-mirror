@@ -1,17 +1,18 @@
 import { useCallback, useMemo, useRef } from 'react';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractSmartLinkProvider, extractSmartLinkTitle } from '@atlaskit/link-extractors';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
+import { extractSmartLinkTitle } from '@atlaskit/link-extractors/extract-smart-link-title';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import {
 	ACTION_RESOLVING,
 	ACTION_UPDATE_METADATA_STATUS,
 	cardAction,
-	type CardAppearance,
-	type MetadataStatus,
-} from '@atlaskit/linking-common';
-import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { fg } from '@atlaskit/platform-feature-flags';
+} from '@atlaskit/linking-common/actions';
+import type { CardAppearance, MetadataStatus } from '@atlaskit/linking-common/types';
+import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
+import type { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { ROVO_POST_MESSAGE_EVENT_TYPE } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { type ChatSmartLink3PPostAuthLaunchPayload } from '@atlaskit/rovo-triggers/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -21,8 +22,11 @@ import { SmartLinkStatus } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
 import { getIsRovoChatEnabled } from '../../utils/rovo';
 import { type CardInnerAppearance } from '../../view/Card/types';
-import { startUfoExperience } from '../analytics';
-import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from '../helpers';
+import { startUfoExperience } from '../analytics/startUfoExperience';
+import { getByDefinitionId } from '../getByDefinitionId';
+import { getDefinitionId } from '../getDefinitionId';
+import { getExtensionKey } from '../getExtensionKey';
+import { getServices } from '../getServices';
 import useActionFlags from '../hooks/use-action-flags';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve, { type ResolveUrlParams } from '../hooks/use-resolve';

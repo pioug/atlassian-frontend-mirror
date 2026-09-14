@@ -15,16 +15,16 @@ import formatterReplacementMapper from './formatters/replacement-mapper';
 import formatterTSCssTypeSchema from './formatters/typescript-css-type-schema';
 import formatterTSTokenDefaults from './formatters/typescript-token-defaults';
 import formatterTSGeneratedTypes from './formatters/typescript-token-generated-types';
-import formatterTSGeneratedTypesInternal from './formatters/typescript-token-generated-types-internal';
+import { default as formatterTSGeneratedTypesInternal } from './formatters/typescript-token-generated-types-internal';
 import formatterTSMetadata from './formatters/typescript-token-metadata';
 import formatterTSTokenNames from './formatters/typescript-token-names';
 import formatterTSGeneratedPairings from './formatters/typescript-token-pairings';
-import motionTransform from './transformers/animation';
+import { default as motionTransform } from './transformers/animation';
 import boxShadowTransform from './transformers/box-shadow';
 import dotSyntax from './transformers/dot-syntax';
 import paletteTransform from './transformers/palette';
 import pixelRemTransform from './transformers/pixel-rem';
-import fontTransform from './transformers/web-font';
+import { default as fontTransform } from './transformers/web-font';
 
 const createGlobalConfig = (schemaInputDir: string): Config => ({
 	source: [`${schemaInputDir}/**/*.tsx`],

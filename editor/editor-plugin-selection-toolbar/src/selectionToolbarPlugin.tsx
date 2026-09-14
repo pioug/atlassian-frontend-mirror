@@ -25,8 +25,8 @@ import {
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	setToolbarDocking,
@@ -505,8 +505,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 		contentComponent:
 			editorExperiment('platform_editor_controls', 'variant1') &&
-			!fg('platform_editor_use_preferences_plugin') &&
-			fg('platform_editor_user_preferences_provider_update')
+			!fg('platform_editor_use_preferences_plugin')
 				? () => (
 						<PageVisibilityWatcher api={api} userPreferencesProvider={userPreferencesProvider} />
 					)

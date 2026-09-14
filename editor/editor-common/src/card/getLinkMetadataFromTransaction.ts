@@ -1,5 +1,5 @@
-import type { LinkStepMetadata } from '@atlaskit/adf-schema/steps';
-import { LinkMetaStep } from '@atlaskit/adf-schema/steps';
+import type { LinkStepMetadata } from '@atlaskit/adf-schema/steps/link-meta-step';
+import { LinkMetaStep } from '@atlaskit/adf-schema/steps/link-meta-step';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export function getLinkMetadataFromTransaction(

@@ -5,18 +5,19 @@
 /// <reference types="node" />
 // for typing `process`
 import React from 'react';
-import { PopupSelect, type PopupSelectProps, type ValueType } from '@atlaskit/select';
+import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
+import type { ValueType } from '@atlaskit/select/types';
 import Trigger from './Trigger';
 import { type Color, type Palette, type SwatchSize, type ColorCardVariant } from '../types';
 import * as components from './components';
 import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB, KEY_ESCAPE } from '../constants';
-import {
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import withAnalyticsContext, {
 	type WithContextProps,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { getOptions } from '../utils';
 import { css, jsx } from '@atlaskit/css';
 import { injectIntl } from 'react-intl';
@@ -165,7 +166,6 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 				// never show search input
 				searchThreshold={Number.MAX_VALUE}
 				// palette props
-				//@ts-ignore react-select unsupported props
 				cols={cols}
 				checkMarkColor={checkMarkColor}
 				variant={variant}

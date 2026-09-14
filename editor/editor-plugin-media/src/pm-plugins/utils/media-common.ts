@@ -1,4 +1,4 @@
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import {
 	atTheBeginningOfBlock,
 	atTheBeginningOfDoc,
@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-common/selection';
 import { createNewParagraphBelow, createParagraphNear } from '@atlaskit/editor-common/utils';
 import { deleteSelection, splitBlock } from '@atlaskit/editor-prosemirror/commands';
+// oxlint-disable-next-line import/no-duplicates
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

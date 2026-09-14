@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ElementName } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { BaseIconElement, type BaseIconElementProps, toLinkIconProps } from '../common';
-
 import { resourceTypeToLabel } from './resourceTypeToLabel';
 
 export type LinkIconElementProps = BaseIconElementProps;
@@ -25,6 +24,22 @@ const LinkIconElement: (props: LinkIconElementProps) => JSX.Element | null = (pr
 
 		if (!linkIconProps) {
 			return null;
+		}
+
+		if (fg('platform_navx_jira_issue_type_icon_label_a11y')) {
+			const jiraIssueTypeLabel =
+				context.meta?.resourceType === 'issue' && context.type?.includes('atlassian:Task')
+					? linkIconProps.label?.trim()
+					: undefined;
+			const label =
+				jiraIssueTypeLabel ??
+				resourceTypeToLabel(context.meta?.resourceType) ??
+				linkIconProps.label?.trim() ??
+				props.label;
+
+			return (
+				<BaseIconElement {...linkIconProps} {...props} label={label} name={ElementName.LinkIcon} />
+			);
 		}
 
 		const label =

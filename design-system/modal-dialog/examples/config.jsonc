@@ -5,23 +5,23 @@
  */
 {
   "testExamples": [
-    "00-default-modal.tsx",
-    "10-appearance.tsx",
-    "20-autofocus.tsx",
-    "40-multiple.tsx",
-    "45-form.tsx",
-    "46-form-as-container.tsx",
-    "50-width.tsx",
-    "55-scroll.tsx",
-    "56-scroll-horizontal.tsx",
-    "65-multi-line-titles.tsx",
-    "80-with-footer-and-select-option.tsx",
-    "90-with-layered-components.tsx",
-    "92-with-hidden-blanket.tsx",
-    "93-multi-column.tsx",
-    "95-custom-child.tsx",
+    "00-default-modal.vr.ap.tsx",
+    "10-appearance.vr.ap.tsx",
+    "20-autofocus.vr.ap.tsx",
+    "40-multiple.vr.ap.tsx",
+    "45-form.vr.ap.tsx",
+    "46-form-as-container.vr.ap.tsx",
+    "50-width.vr.ap.tsx",
+    "55-scroll.vr.ap.tsx",
+    "56-scroll-horizontal.vr.ap.tsx",
+    "65-multi-line-titles.vr.ap.tsx",
+    "80-with-footer-and-select-option.vr.ap.tsx",
+    "90-with-layered-components.vr.ap.tsx",
+    "92-with-hidden-blanket.vr.ap.tsx",
+    "93-multi-column.vr.ap.tsx",
+    "95-custom-child.vr.ap.tsx",
     "97-modal-a11y-background-inert.tsx",
-    "96-with-current-surface.tsx"
+    "96-with-current-surface.vr.ap.tsx"
   ],
   "exampleDependencies": [
     "react-beautiful-dnd"

@@ -16,7 +16,7 @@ import {
 	ExpandableMenuItemWithActionsOnHoverAndElemAfter,
 	ExpandableMenuItemWithAllOptions,
 	ExpandableMenuItemWithDropdownActionOpen,
-} from '../../../../../examples/expandable-menu-item';
+} from '../../../../../examples/expandable-menu-item.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

@@ -1,9 +1,7 @@
 import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
-
-export type { CardType } from '@atlaskit/linking-common';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { CardState } from '@atlaskit/linking-common/store';
 
 const PENDING_STATE = {
 	status: 'pending',

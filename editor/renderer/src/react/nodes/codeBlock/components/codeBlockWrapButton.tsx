@@ -9,9 +9,9 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
 

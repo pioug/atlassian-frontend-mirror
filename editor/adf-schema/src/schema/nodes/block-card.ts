@@ -1,6 +1,6 @@
-import type { Layout, OptionalRichMediaAttributes } from './types/rich-media-common';
 import { blockCard as blockCardFactory } from '../../next-schema/generated/nodeTypes';
-import { uuid } from '../../utils';
+import { uuid } from '../../utils/uuid';
+import type { Layout, OptionalRichMediaAttributes } from './types/rich-media-common';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export interface UrlType {

@@ -8,11 +8,18 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 
 import type { InsertMentionParameters } from './editor-commands';
-import type { MentionChange, MentionPluginOptions, MentionSharedState } from './types';
+import type {
+	AgentRunStateByLocalId,
+	MentionChange,
+	MentionPluginOptions,
+	MentionSharedState,
+} from './types';
 
 export type MentionActionOpenTypeAhead = (inputMethod: TypeAheadInputMethod) => boolean;
 
@@ -22,9 +29,14 @@ export type MentionActionSetProvider = (provider: Promise<MentionProvider>) => P
 
 export type MentionActionUpdateSectionTitle = (props: TypeAheadSectionTitleUpdate) => boolean;
 
+export type MentionActionSetAgentMentionRunStates = (
+	runStateByLocalId: AgentRunStateByLocalId,
+) => boolean;
+
 export type MentionActions = {
 	announceMentionsInsertion: MentionActionAnnounceMentionsInsertion;
 	openTypeAhead: MentionActionOpenTypeAhead;
+	setAgentMentionRunStates: MentionActionSetAgentMentionRunStates;
 	setProvider: MentionActionSetProvider;
 	updateSectionTitle: MentionActionUpdateSectionTitle;
 };
@@ -35,6 +47,7 @@ export type MentionPluginDependencies = [
 	OptionalPlugin<ContextIdentifierPlugin>,
 	OptionalPlugin<BasePlugin>,
 	OptionalPlugin<SelectionPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type MentionsPlugin = NextEditorPlugin<

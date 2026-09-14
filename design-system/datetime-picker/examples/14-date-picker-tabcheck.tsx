@@ -4,11 +4,11 @@
  */
 import { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { DatePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
-import Popup from '@atlaskit/popup';
+import { Label } from '@atlaskit/form/label/default';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({

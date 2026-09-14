@@ -2,6 +2,8 @@ import type { ComponentType, ReactNode } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
+import type { BlockTransformExtension } from '../../block-menu/block-transform-extension';
+
 import type {
 	ExtensionAPI,
 	ExtensionParams,
@@ -47,9 +49,23 @@ export type ExtensionModuleAction<T extends Parameters = Parameters> =
 	| ExtensionModuleActionObject<T>
 	| ExtensionModuleActionHandler;
 
+/** Identifies the app contributing an extension manifest or module. */
+export type ExtensionApp = {
+	/** Stable, non-localized key shared by every extension contributed by the app. */
+	key: string;
+	/** Provenance of the extension contribution. Omit when provenance cannot be determined. */
+	source?: 'internal' | 'ecosystem';
+};
+
 export type ExtensionModule<T extends Parameters = Parameters> = {
 	action: ExtensionModuleAction<T>;
+	app?: ExtensionApp;
 	categories?: string[];
+	/**
+	 * The Quick Insert category for this module. Takes precedence over the
+	 * legacy `categories` field while both are supported.
+	 */
+	category?: string;
 	description?: string;
 	featured?: boolean;
 	icon?: () => ExtensionIconModule;
@@ -64,9 +80,15 @@ export type ExtensionModule<T extends Parameters = Parameters> = {
 export type DynamicFieldDefinitions<T> = (parameters: T) => FieldDefinition[];
 
 export type ExtensionModuleNode<T extends Parameters = Parameters> = {
+	blockTransform?: BlockTransformExtension;
 	getFieldsDefinition?: (
 		extensionParameters: T,
 	) => Promise<FieldDefinition[] | DynamicFieldDefinitions<T>>;
+	/**
+	 * When true, the copy button is hidden from this node's selection toolbar.
+	 * Use for nodes whose content should not be copied (e.g. redactions).
+	 */
+	hideCopyButton?: boolean;
 	render: () => ExtensionComponentModule<T>;
 	type: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
 	update?: UpdateExtension<T>;
@@ -147,8 +169,14 @@ export type ExtensionDeprecationStatus = {
 };
 
 export type ExtensionManifest<T extends Parameters = Parameters> = {
+	app?: ExtensionApp;
 	autoConvert?: { matchers: Array<AutoConvertMatches> };
 	categories?: string[];
+	/**
+	 * The Quick Insert category for modules that do not provide one. Takes
+	 * precedence over the legacy `categories` field while both are supported.
+	 */
+	category?: string;
 	deprecation?: ExtensionDeprecationStatus;
 	description?: string;
 	documentationUrl?: string;

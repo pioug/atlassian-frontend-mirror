@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import TextArea from '@atlaskit/textarea';
+import { Label } from '@atlaskit/form/label/default';
+import TextArea from '@atlaskit/textarea/text-area';
 
 export default function TextAreaAppearanceSubtle(): React.JSX.Element {
 	return (

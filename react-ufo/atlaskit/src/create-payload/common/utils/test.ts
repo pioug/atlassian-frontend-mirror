@@ -1,6 +1,7 @@
 import { type Config, setUFOConfig } from '../../../config';
 
-import { buildSegmentTree, getOldSegmentsLabelStack } from './index';
+import { buildSegmentTree } from './build-segment-tree';
+import { getOldSegmentsLabelStack } from './get-old-segments-label-stack';
 
 const setSlashySegmentThreshold = () => {
 	setUFOConfig({ segmentsThreshold: { slashy: 1 } } as unknown as Config);

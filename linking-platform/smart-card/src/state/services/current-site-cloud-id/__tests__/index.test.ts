@@ -1,13 +1,10 @@
 import * as linkingCommon from '@atlaskit/linking-common';
 
-import {
-	CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY,
-	CURRENT_SITE_CLOUD_ID_TTL_MS,
-	getCurrentSiteCloudIdLocalStorageKey,
-	currentSiteCloudIdService,
-	getCurrentSiteCloudId,
-	getCurrentSiteCloudIdSync,
-} from '../index';
+import { getCurrentSiteCloudId } from '../getCurrentSiteCloudId';
+import { getCurrentSiteCloudIdLocalStorageKey } from '../getCurrentSiteCloudIdLocalStorageKey';
+import { getCurrentSiteCloudIdSync } from '../getCurrentSiteCloudIdSync';
+import { currentSiteCloudIdConstants } from '../constants';
+import { CURRENT_SITE_CLOUD_ID_LOCAL_STORAGE_KEY, currentSiteCloudIdService } from '../index';
 
 const requestSpy = jest.spyOn(linkingCommon, 'request');
 
@@ -107,7 +104,7 @@ describe('getCurrentSiteCloudId', () => {
 		);
 		expect(row).not.toBeNull();
 		expect(JSON.parse(row ?? '{}').expires).toBeGreaterThanOrEqual(
-			Date.now() + CURRENT_SITE_CLOUD_ID_TTL_MS,
+			Date.now() + currentSiteCloudIdConstants.CURRENT_SITE_CLOUD_ID_TTL_MS,
 		);
 	});
 

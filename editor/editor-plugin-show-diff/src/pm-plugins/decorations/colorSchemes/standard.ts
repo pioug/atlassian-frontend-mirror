@@ -1,6 +1,8 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { token } from '@atlaskit/tokens';
 
+import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
+
 // delete on platform_editor_diff_plugin_extended cleanup
 export const editingStyle: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtlest'),
@@ -64,27 +66,30 @@ export const editingContentStyleInBlockExtendedNoUnderline: string = convertToIn
 	padding: `1px 0 2px`,
 });
 
-export const deletedContentStyle: string = convertToInlineCss({
-	color: token('color.text.accent.gray'),
-	textDecoration: 'line-through',
-	position: 'relative',
-	opacity: 0.6,
-});
+export const getStandardDeletedContentStyle = (): string =>
+	convertToInlineCss({
+		color: token('color.text.accent.gray'),
+		...getStandardDeletedTextDecorationStyle(),
+		position: 'relative',
+		opacity: 0.6,
+	});
 
-export const deletedContentStyleActive: string = convertToInlineCss({
-	color: token('color.text'),
-	textDecoration: 'line-through',
-	textDecorationColor: token('color.text.accent.gray'),
-	position: 'relative',
-	opacity: 1,
-});
+export const getStandardDeletedContentStyleActive = (): string =>
+	convertToInlineCss({
+		color: token('color.text'),
+		...getStandardDeletedTextDecorationStyle(),
+		textDecorationColor: token('color.text.accent.gray'),
+		position: 'relative',
+		opacity: 1,
+	});
 
-export const deletedContentStyleNew: string = convertToInlineCss({
-	color: token('color.text.accent.gray'),
-	textDecoration: 'line-through',
-	position: 'relative',
-	opacity: 0.83,
-});
+export const getStandardDeletedContentStyleNew = (): string =>
+	convertToInlineCss({
+		color: token('color.text.accent.gray'),
+		...getStandardDeletedTextDecorationStyle(),
+		position: 'relative',
+		opacity: 0.83,
+	});
 
 /**
  * Merge into existing styles when cleaning up
@@ -148,12 +153,13 @@ export const deletedBlockOutlineRoundedActive: string = convertToInlineCss({
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 
-export const deletedRowStyle: string = convertToInlineCss({
-	color: token('color.text.accent.gray'),
-	textDecoration: 'line-through',
-	opacity: 0.6,
-	display: 'table-row',
-});
+export const getStandardDeletedRowStyle = (): string =>
+	convertToInlineCss({
+		color: token('color.text.accent.gray'),
+		...getStandardDeletedTextDecorationStyle(),
+		opacity: 0.6,
+		display: 'table-row',
+	});
 
 export const editingStyleQuoteNode: string = convertToInlineCss({
 	borderLeft: `2px solid ${token('color.border.accent.purple')}`,

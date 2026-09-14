@@ -4,7 +4,7 @@
  * moved into @atlaskit/analytics-listeners.
  */
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { sendEvent } from './analytics-web-client-wrapper';
 import type Logger from './helpers/logger';

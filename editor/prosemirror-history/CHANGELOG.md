@@ -1,5 +1,30 @@
 # @atlaskit/prosemirror-history
 
+## 1.2.1
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+
+## 1.2.0
+
+### Minor Changes
+
+- [`3b2f9c185d4b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b2f9c185d4b6) -
+  Imports from the package root are deprecated and will be removed in a future release. Migrate to
+  dedicated entry-point imports to reduce upgrade friction:
+  - `@atlaskit/prosemirror-history/closeHistory`
+  - `@atlaskit/prosemirror-history/history`
+  - `@atlaskit/prosemirror-history/undo`
+  - `@atlaskit/prosemirror-history/redo`
+  - `@atlaskit/prosemirror-history/undoNoScroll`
+  - `@atlaskit/prosemirror-history/redoNoScroll`
+  - `@atlaskit/prosemirror-history/undoDepth`
+  - `@atlaskit/prosemirror-history/redoDepth`
+
 ## 1.1.0
 
 ### Minor Changes

@@ -60,6 +60,35 @@ option with folder paths relative to the workspace root:
 	},
 ```
 
+### Preferring imported-package subpaths with `preferImportedPackageSubpath`
+
+When a barrel re-exports symbols from another package, both rules **default to** rewriting to a
+subpath of the imported package when that subpath's entry file bridges to the dependency (for
+example `@scope/pkg/subpath` instead of `@scope/dependency`).
+
+`preferImportedPackageSubpath` defaults to `true` when omitted. Set it to `false` to rewrite
+cross-package re-exports to a subpath of the dependency package instead:
+
+```javascript
+	{
+		name: 'Rewrite cross-package barrel imports to the dependency package',
+		files: ['packages/YOUR_DIRECTORY/YOUR_PACKAGE/**/*.{ts,tsx,js,jsx}'],
+		rules: {
+			'@atlaskit/platform/no-barrel-entry-imports': [
+				'error',
+				{ preferImportedPackageSubpath: false },
+			],
+			'@atlaskit/platform/no-barrel-entry-jest-mock': [
+				'error',
+				{ preferImportedPackageSubpath: false },
+			],
+		},
+	},
+```
+
+If no bridge subpath exists, the import (or mock) is left unchanged rather than being rewritten
+across the package boundary.
+
 ## Running Autofix
 
 ### Recommended: `barrel-removal-autofix` CLI
@@ -214,8 +243,13 @@ Namespace imports are flagged but **not auto-fixed** due to complexity.
 
 ### Cross-package re-exports
 
-Both rules handle cross-package re-exports, where package A re-exports symbols from package B. The
-fix will suggest importing directly from package B when appropriate.
+Both rules handle cross-package re-exports, where package A re-exports symbols from package B.
+
+By default (`preferImportedPackageSubpath: true`), the fix prefers a subpath of the imported
+package when that subpath's entry file bridges to the dependency (for example
+`@scope/pkg-a/bridge` instead of `@scope/pkg-b`). If no such bridge subpath exists, the import is
+left unchanged. Set `preferImportedPackageSubpath: false` to rewrite to a subpath of package B
+instead.
 
 ### Type-only imports
 

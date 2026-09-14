@@ -1,6 +1,21 @@
 // See [Barrel File Removal FAQ](https://hello.atlassian.net/wiki/x/KJT2aAE)
 /* eslint-disable no-barrel-files/no-barrel-files */
-import * as resultTypes from './components/Results';
+import ContainerResultComponent from './components/Results/ContainerResult';
+import ObjectResultComponent from './components/Results/ObjectResult';
+import PersonResultComponent from './components/Results/PersonResult';
+import ResultBaseComponent from './components/Results/ResultBase';
+
+const resultTypes: {
+	readonly ContainerResult: typeof ContainerResultComponent;
+	readonly ObjectResult: typeof ObjectResultComponent;
+	readonly PersonResult: typeof PersonResultComponent;
+	readonly ResultBase: typeof ResultBaseComponent;
+} = {
+	ContainerResult: ContainerResultComponent,
+	ObjectResult: ObjectResultComponent,
+	PersonResult: PersonResultComponent,
+	ResultBase: ResultBaseComponent,
+};
 
 /*
  This component is exported in two different ways.

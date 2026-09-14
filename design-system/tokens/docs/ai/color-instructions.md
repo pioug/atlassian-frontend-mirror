@@ -114,6 +114,8 @@ when the resting surface is `elevation.surface.container`.
 | border-green-500  | #22C55E      | color.border.accent.green  | #4BCE97   |
 | border-yellow-400 | #FACC15      | color.border.accent.yellow | #E2B203   |
 
+Use `color.border.input.search` for search input borders. Continue to use `color.border.input` for other form inputs.
+
 ## Secondary colors
 
 | Tailwind Class | Pixel Value | Design Token                                     | Pixel Value |

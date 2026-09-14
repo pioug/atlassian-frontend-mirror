@@ -7,17 +7,22 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import Button from '@atlaskit/button/default/button';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.400'),
-		paddingRight: token('space.400'),
-		paddingBottom: token('space.400'),
-		paddingLeft: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingBlockEnd: token('space.400'),
+		paddingInlineStart: token('space.400'),
 	},
 	menu: {
 		position: 'fixed',

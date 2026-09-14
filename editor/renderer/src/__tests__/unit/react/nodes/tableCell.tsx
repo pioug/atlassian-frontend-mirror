@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { TableCell } from '../../../../react/nodes/tableCell';
 
@@ -11,49 +11,65 @@ describe('Renderer - React/Nodes/TableCell', () => {
 		colwidth: [10],
 	};
 
+	const renderCell = (cell: React.ReactNode) =>
+		render(
+			<table>
+				<tbody>
+					<tr>{cell}</tr>
+				</tbody>
+			</table>,
+		);
+
 	it('should create a <td>-tag', () => {
-		const tableCell = shallow(<TableCell />);
-		expect(tableCell.name()).toEqual('td');
+		renderCell(<TableCell />);
+
+		expect(screen.getByRole('cell').tagName).toBe('TD');
 	});
 
 	it('should render the <td> props', () => {
-		const tableRow = shallow(<TableCell {...baseProps} />);
-		expect(tableRow.name()).toEqual('td');
+		renderCell(<TableCell {...baseProps} />);
 
-		expect(tableRow.prop('rowSpan')).toEqual(3);
-		expect(tableRow.prop('colSpan')).toEqual(6);
-		expect(tableRow.prop('data-colwidth')).toEqual('10');
+		const tableCell = screen.getByRole('cell');
 
-		expect(tableRow.prop('style')).toEqual({
-			backgroundColor: '#fab',
-		});
+		expect(tableCell.tagName).toBe('TD');
+		expect(tableCell).toHaveAttribute('rowspan', '3');
+		expect(tableCell).toHaveAttribute('colspan', '6');
+		expect(tableCell).toHaveAttribute('data-colwidth', '10');
+		expect(tableCell).toHaveStyle({ backgroundColor: '#fab' });
 	});
 
 	it('should render the colwidths', () => {
-		const colwidth = [10, 12, 14];
-		const tableRow = shallow(<TableCell colwidth={colwidth} />);
+		renderCell(<TableCell colwidth={[10, 12, 14]} />);
 
-		expect(tableRow.prop('data-colwidth')).toEqual('10,12,14');
+		expect(screen.getByRole('cell')).toHaveAttribute('data-colwidth', '10,12,14');
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderCell(<TableCell {...baseProps}>content</TableCell>);
+
+		await expect(container).toBeAccessible();
 	});
 
 	eeTest.describe('platform_editor_table_menu_updates', 'vertical alignment').variant(true, () => {
 		it('should render data-valign and vertical-align on the cell', () => {
-			const tableCell = shallow(<TableCell valign="middle">content</TableCell>);
+			renderCell(<TableCell valign="middle">content</TableCell>);
 
-			expect(tableCell.prop('data-valign')).toEqual('middle');
-			expect(tableCell.prop('style')).toEqual({
-				verticalAlign: 'middle',
-			});
-			expect(tableCell.text()).toEqual('content');
+			const tableCell = screen.getByRole('cell');
+
+			expect(tableCell).toHaveAttribute('data-valign', 'middle');
+			expect(tableCell).toHaveStyle({ verticalAlign: 'middle' });
+			expect(tableCell).toHaveTextContent('content');
 		});
 	});
 
 	eeTest.describe('platform_editor_table_menu_updates', 'vertical alignment').variant(false, () => {
 		it('should not render data-valign or vertical-align', () => {
-			const tableCell = shallow(<TableCell valign="middle">content</TableCell>);
+			renderCell(<TableCell valign="middle">content</TableCell>);
 
-			expect(tableCell.prop('data-valign')).toBeUndefined();
-			expect(tableCell.prop('style')).toEqual({});
+			const tableCell = screen.getByRole('cell');
+
+			expect(tableCell).not.toHaveAttribute('data-valign');
+			expect(tableCell).not.toHaveStyle({ verticalAlign: 'middle' });
 		});
 	});
 });

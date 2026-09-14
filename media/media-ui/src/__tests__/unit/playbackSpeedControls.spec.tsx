@@ -1,12 +1,13 @@
 import React from 'react';
 import { act } from 'react';
-import { type OptionType } from '@atlaskit/select';
-import PlaybackSpeedControls, {
-	type PlaybackSpeedControlsProps,
-} from '../../customMediaPlayer/playbackSpeedControls';
-import { renderWithIntl } from '../../test-helpers';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+
+import { type OptionType } from '@atlaskit/select/types';
+
+import type { PlaybackSpeedControlsProps } from '../../customMediaPlayer/PlaybackSpeedControls-2';
+import PlaybackSpeedControls from '../../customMediaPlayer/playbackSpeedControls';
+import { renderWithIntl } from '../../test-helpers/renderWithIntl';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -16,8 +17,8 @@ skipAutoA11yFile();
 // Capture PopupSelect props for assertions
 let lastPopupSelectProps: Record<string, any> = {};
 
-jest.mock('@atlaskit/select', () => ({
-	...jest.requireActual('@atlaskit/select'),
+jest.mock('@atlaskit/select/popup-select', () => ({
+	...jest.requireActual('@atlaskit/select/popup-select'),
 	PopupSelect: (props: any) => {
 		lastPopupSelectProps = props;
 		return React.createElement('div', { 'data-testid': 'popup-select-mock' });
@@ -26,7 +27,8 @@ jest.mock('@atlaskit/select', () => ({
 
 // Capture WidthObserver setWidth for the resize test
 let setWidthCallback: ((width: number) => void) | null = null;
-jest.mock('@atlaskit/width-detector', () => ({
+jest.mock('@atlaskit/width-detector/width-observer', () => ({
+	...jest.requireActual('@atlaskit/width-detector/width-observer'),
 	WidthObserver: ({ setWidth }: { setWidth: (w: number) => void }) => {
 		setWidthCallback = setWidth;
 		return null;
@@ -79,8 +81,8 @@ describe('<PlaybackSpeedControls />', () => {
 			{ action: 'select-option', option: undefined },
 		);
 
-		expect(onPlaybackSpeedChange).toBeCalledTimes(1);
-		expect(onPlaybackSpeedChange).toBeCalledWith(1.5);
+		expect(onPlaybackSpeedChange).toHaveBeenCalledTimes(1);
+		expect(onPlaybackSpeedChange).toHaveBeenCalledWith(1.5);
 	});
 
 	it('should have label in PopupSelect', () => {

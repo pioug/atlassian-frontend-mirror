@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { type RowType } from '@atlaskit/dynamic-table/types';
 import { token } from '@atlaskit/tokens';

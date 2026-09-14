@@ -9,7 +9,7 @@ import {
 	FlyoutMenuItemSingleItemDefaultOpen,
 	FlyoutMenuItemSlotsManyDefaultOpen,
 	FlyoutMenuItemWithNestedPopupDefaultOpenExample,
-} from '../../../../../examples/flyout-menu-item';
+} from '../../../../../examples/flyout-menu-item.vr.ap';
 
 const variants = {
 	desktop: {

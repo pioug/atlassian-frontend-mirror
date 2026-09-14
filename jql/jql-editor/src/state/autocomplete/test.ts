@@ -2,7 +2,7 @@ import { of } from 'rxjs/observable/of';
 
 import { OPERATORS } from '@atlaskit/jql-ast';
 
-import { type AutocompleteOptions } from '../../plugins/autocomplete/components/types';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 
 import { ORDERED_OPERATORS, sortOperators } from './index';
 
@@ -36,7 +36,6 @@ describe('sortOperators', () => {
 			},
 		]);
 		const sortedOperators$ = sortOperators(operators$);
-		// @ts-ignore
 		sortedOperators$.subscribe((result) => {
 			expect(result).toEqual([
 				{

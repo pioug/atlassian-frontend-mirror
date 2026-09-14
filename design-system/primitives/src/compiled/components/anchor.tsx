@@ -15,8 +15,10 @@ import {
 import { cx, jsx, cssMap as unboundedCssMap } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
+import { useRouterLink } from '@atlaskit/app-provider/use-router-link';
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';

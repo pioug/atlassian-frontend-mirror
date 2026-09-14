@@ -1,12 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 export const AsanaTaskJson: {
-	meta: {
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-	};
 	data: {
 		'@context': {
 			'@vocab': string;
@@ -84,6 +78,12 @@ export const AsanaTaskJson: {
 		}[];
 		updated: string;
 		url: string;
+	};
+	meta: {
+		access: string;
+		key: string;
+		resourceType: string;
+		visibility: string;
 	};
 } = {
 	meta: {

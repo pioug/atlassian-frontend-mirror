@@ -11,6 +11,7 @@ import type {
 import type { TaskListDefinition as TaskList } from './task-list';
 import type { DecisionListDefinition as DecisionList } from './decision-list';
 import type { RuleDefinition as Rule } from './rule';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
 import type { PanelDefinition as Panel } from './panel';
 import type { BlockQuoteDefinition as BlockQuote } from './blockquote';
 import type { NestedExpandNode } from '../../next-schema/generated/nodeTypes';
@@ -37,6 +38,7 @@ export type NestedExpandContent = Array<
 	| TaskList
 	| DecisionList
 	| Rule
+	| BodiedRule
 	| Panel
 	| BlockQuote
 >;

@@ -1,12 +1,8 @@
-import { AnalyticsListener, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import type { HTMLAttributes, ReactWrapper } from 'enzyme';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import React from 'react';
-import FileChooser, {
-	type Props as FileChooserProps,
-} from '../../../../components/common/FileChooser';
 import type { CategoryGroupKey } from '../../../../components/picker/categories';
 import EmojiPicker, { type Props } from '../../../../components/picker/EmojiPicker';
-import type { EmojiDescription } from '../../../../types';
 import { getEmojiResourcePromise, newEmojiRepository } from '../../_test-data';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -74,20 +70,6 @@ const findCategoryHeading = (category: CategoryGroupKey) =>
 export const categoryVisible = (category: CategoryGroupKey): boolean =>
 	findCategoryHeading(category).length > 0;
 
-export const findEmojiInCategory = (
-	emojis: ReactWrapper<any>,
-	categoryId: CategoryGroupKey,
-): EmojiDescription | undefined => {
-	const upperCategoryId = categoryId.toLocaleUpperCase();
-	for (let i = 0; i < emojis.length; i++) {
-		const emoji = emojis.at(i).prop('emoji');
-		if (emoji.category === upperCategoryId) {
-			return emoji;
-		}
-	}
-	return undefined;
-};
-
 export const findHandEmoji = (emojis: HTMLElement[]): number =>
 	emojis.findIndex((emoji) => {
 		const shortName = emoji.getAttribute('data-testid');
@@ -95,36 +77,8 @@ export const findHandEmoji = (emojis: HTMLElement[]): number =>
 		return !!shortName && shortName.indexOf(':raised_hand:') > -1;
 	});
 
-export const findEmojiNameInput = (component: ReactWrapper): ReactWrapper<HTMLAttributes, any> =>
-	component.update() && component.find(`input[aria-label="Enter a name for the new emoji"]`);
-
 export const findEmojiPreview = async (): Promise<HTMLElement> =>
 	await screen.findByTestId('emoji-picker-footer');
-
-export const emojiNameInputVisible = (component: ReactWrapper): boolean =>
-	findEmojiNameInput(component).length > 0;
-
-export const emojiNameInputHasAValue = (component: ReactWrapper): boolean =>
-	emojiNameInputVisible(component) && !!findEmojiNameInput(component).prop('value');
-
-export const chooseFile = (
-	component: ReactWrapper,
-	file: any,
-): ReactWrapper<FileChooserProps, never> => {
-	const fileChooser = component.find(FileChooser);
-	const fileOnClick = fileChooser.prop('onClick');
-	if (fileOnClick) {
-		fileOnClick();
-	}
-	const fileOnChange = fileChooser.prop('onChange');
-	expect(fileOnChange).toBeDefined();
-	fileOnChange!({
-		target: {
-			files: [file],
-		},
-	} as React.ChangeEvent<any>);
-	return fileChooser;
-};
 
 // focusIndex of list should expect tabIndex = 0, and siblings with tabIndex = -1
 export const expectTabIndexFromList = (list: HTMLElement[], focusIndex: number): void => {

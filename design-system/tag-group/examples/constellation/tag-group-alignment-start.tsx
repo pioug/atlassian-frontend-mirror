@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Tag from '@atlaskit/tag';
-import TagGroup from '@atlaskit/tag-group';
+import Tag from '@atlaskit/tag/removable-tag';
+import TagGroup from '@atlaskit/tag-group/tag-group';
 
 export default (): React.JSX.Element => (
 	<TagGroup label="Atlassian apps" alignment="start">

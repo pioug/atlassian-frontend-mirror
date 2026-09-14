@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date-label",
-	"version": "1.0.4",
+	"version": "1.2.1",
 	"description": "Date label is a non-interactive label that displays a date and optionally, visually communicates its status.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,6 +43,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -56,46 +57,15 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
+	"platform-feature-flags": {
+		"platform-dst-motion-uplift-labels": {
+			"type": "boolean"
 		}
 	}
 }

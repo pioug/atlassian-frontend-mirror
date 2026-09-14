@@ -1,5 +1,5 @@
 import { type Reducer } from 'react';
-import { type CardActionType, type CardAction } from '@atlaskit/linking-common';
+import type { CardActionType, CardAction } from '@atlaskit/linking-common/types';
 
 export type CardReducerMap<StateType, ActionType> = Record<
 	CardActionType,

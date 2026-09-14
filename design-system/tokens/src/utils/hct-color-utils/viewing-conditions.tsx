@@ -1,4 +1,4 @@
-import * as math from './math-utils';
+import { lerp } from './lerp';
 import { whitePointD65 } from './white-point-d65';
 import { yFromLstar } from './y-from-lstar';
 
@@ -42,8 +42,7 @@ export class ViewingConditions {
 		const gW = xyz[0] * -0.250268 + xyz[1] * 1.204414 + xyz[2] * 0.045854;
 		const bW = xyz[0] * -0.002079 + xyz[1] * 0.048952 + xyz[2] * 0.953127;
 		const f = 0.8 + surround / 10.0;
-		const c =
-			f >= 0.9 ? math.lerp(0.59, 0.69, (f - 0.9) * 10.0) : math.lerp(0.525, 0.59, (f - 0.8) * 10.0);
+		const c = f >= 0.9 ? lerp(0.59, 0.69, (f - 0.9) * 10.0) : lerp(0.525, 0.59, (f - 0.8) * 10.0);
 		let d = discountingIlluminant
 			? 1.0
 			: f * (1.0 - (1.0 / 3.6) * Math.exp((-adaptingLuminance - 42.0) / 92.0));

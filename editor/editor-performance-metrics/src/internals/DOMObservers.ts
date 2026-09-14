@@ -14,7 +14,6 @@ function isElementVisible(element: Element) {
 
 	try {
 		const visible = element.checkVisibility({
-			// @ts-ignore - TS2353 TypeScript 5.9.2 upgrade
 			visibilityProperty: true,
 		});
 

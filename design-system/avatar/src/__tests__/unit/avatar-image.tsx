@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import AvatarImage from '../../internal/avatar-image';
 

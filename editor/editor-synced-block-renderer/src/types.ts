@@ -17,6 +17,7 @@ export type SyncedBlockRendererOptions = Pick<
 	| 'emojiResourceConfig'
 	| 'eventHandlers'
 	| 'media'
+	| 'mentionNodeDataProvider'
 	| 'smartLinks'
 	| 'stickyHeaders'
 	| 'contentMode'

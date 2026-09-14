@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AtlassianAccessIcon, AtlassianAccessLogo } from '@atlaskit/logo';
+import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
+import { AtlassianAccessLogo } from '@atlaskit/logo/atlassian-access/logo';
 
 import LogoTable from '../utils/logo-table';
 

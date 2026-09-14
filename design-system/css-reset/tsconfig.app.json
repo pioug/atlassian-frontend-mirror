@@ -22,7 +22,8 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"./build/**/*"
 	],
 	"compilerOptions": {
 		"composite": true,

@@ -7,8 +7,8 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { token } from '@atlaskit/tokens';
 
 import { ContextualSurvey, DismissTrigger, type OnDismissArgs, SurveyMarshal } from '../src';

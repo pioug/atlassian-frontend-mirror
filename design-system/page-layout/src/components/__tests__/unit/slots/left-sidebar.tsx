@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import {
 	DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH,

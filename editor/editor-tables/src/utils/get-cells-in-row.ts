@@ -2,8 +2,7 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { TableMap } from '../table-map';
-
-import { findTable } from './find';
+import { findTable } from './find-table';
 
 // Returns an array of cells in a row(s), where `rowIndex` could be a row index or an array of row indexes.
 export const getCellsInRow =

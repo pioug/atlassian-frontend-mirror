@@ -5,14 +5,18 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { commitStatusPicker, updateStatus } from '../pm-plugins/actions';
 import type { StatusPlugin } from '../statusPluginType';
 import type { StatusType, ClosingPayload } from '../types';
 
-import { getSuggestedStatuses } from './getSuggestedStatuses';
+import {
+	getSuggestedStatuses,
+	MAX_SUGGESTED_STATUSES,
+	MAX_SUGGESTED_STATUSES_OLD,
+} from './getSuggestedStatuses';
 import StatusPicker from './statusPicker';
 
 interface ContentComponentProps {
@@ -96,7 +100,7 @@ export function ContentComponent({
 	const suggestedStatuses = useMemo(() => {
 		if (
 			typeof showStatusPickerAt !== 'number' ||
-			!expValEquals('platform_editor_status_popup_suggestions', 'isEnabled', true)
+			!isExperimentEnabled('platform_editor_status_popup_suggestions')
 		) {
 			return [];
 		}
@@ -115,6 +119,9 @@ export function ContentComponent({
 			currentPos: showStatusPickerAt,
 			currentStatus: { color, localId, text },
 			doc: editorView.state.doc,
+			limit: fg('platform_editor_status_popup_suggestions_patch_1')
+				? MAX_SUGGESTED_STATUSES
+				: MAX_SUGGESTED_STATUSES_OLD,
 			shouldUppercaseText: fg('platform-dst-lozenge-tag-badge-visual-uplifts'),
 		});
 	}, [showStatusPickerAt, editorView.state.doc]);

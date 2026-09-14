@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { type MouseEvent } from 'react';
 
 // eslint-disable-next-line no-unused-vars
 import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
+import { useMouseDownEvent } from '../../../state/analytics/useMouseDownEvent';
 import { handleClickCommon } from '../../common/utils';
 import { type FrameStyle } from '../types';
 
@@ -43,12 +44,12 @@ export interface ExpandedFrameProps {
 	onAuxClick?: React.EventHandler<React.MouseEvent>;
 	/** The optional click handler */
 	onClick?: (evt: React.MouseEvent) => void;
-	/** Optional right-click handler. */
-	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	/** Callback for when mouse enters the content wrapper - for dwell tracking */
 	onContentMouseEnter?: () => void;
 	/** Callback for when mouse leaves the content wrapper - for dwell tracking */
 	onContentMouseLeave?: () => void;
+	/** Optional right-click handler. */
+	onContextMenu?: React.EventHandler<React.MouseEvent>;
 	/**
 	 * Should the CSS `overflow` property be set to hidden or auto (clipping or
 	 * supporting a scroll bar), or left out altogether.

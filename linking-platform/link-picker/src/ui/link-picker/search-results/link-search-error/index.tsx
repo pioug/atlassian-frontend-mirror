@@ -3,8 +3,8 @@ import React from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
-import Button from '@atlaskit/button/new';
-import Link from '@atlaskit/link';
+import Button from '@atlaskit/button/default/button';
+import Link from '@atlaskit/link/link';
 
 import { GenericErrorSVG } from '../../../../common/generic-error-svg';
 import { EmptyState } from '../../../../common/ui/empty-state';

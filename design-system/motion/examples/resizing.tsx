@@ -4,21 +4,17 @@
  */
 import { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import {
-	BitbucketIcon,
-	ConfluenceIcon,
-	JiraSoftwareIcon,
-	OpsgenieIcon,
-	StatuspageIcon,
-} from '@atlaskit/logo';
-import { Motion, StaggeredEntrance } from '@atlaskit/motion';
-import { useResizing } from '@atlaskit/motion/resizing';
+import Heading from '@atlaskit/heading/heading';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { BitbucketIcon, ConfluenceIcon, OpsgenieIcon, StatuspageIcon } from '@atlaskit/logo';
+import Motion from '@atlaskit/motion/entering/motion';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
+import { useResizing } from '@atlaskit/motion/use-resizing';
 import { token } from '@atlaskit/tokens';
 
-import { Centered } from './utils';
+import { Centered } from './utils/containers';
 
 const styles = cssMap({
 	buttonContainer: {

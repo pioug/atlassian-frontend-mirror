@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { CompositionVR } from '../../../examples/composition';
+import { CompositionVR } from '../../../examples/composition.vr.ap';
 
 snapshot(CompositionVR, {
 	description: 'skip links',

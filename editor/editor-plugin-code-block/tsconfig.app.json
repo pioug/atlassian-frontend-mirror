@@ -76,6 +76,9 @@
 			"path": "../editor-plugin-toolbar/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
@@ -83,6 +86,9 @@
 		},
 		{
 			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/flag/tsconfig.app.json"
@@ -94,6 +100,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
@@ -101,6 +110,9 @@
 		},
 		{
 			"path": "../input-rules/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/react-select/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/select/tsconfig.app.json"

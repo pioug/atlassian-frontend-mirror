@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { ExtensionNodeView } from '@atlaskit/editor-common/extensibility';
 import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type {
 	Extension,
@@ -32,6 +32,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { clearEditingContext, updateState } from '../editor-commands/commands';
 import type {
@@ -39,8 +40,8 @@ import type {
 	ExtensionPluginOptions,
 	ExtensionState,
 } from '../extensionPluginType';
-import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
 
+import { buildExtensionBlockTransforms } from './block-transforms';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import { updateEditButton } from './update-edit-button';
@@ -83,13 +84,24 @@ const getUpdateExtensionPromise = async (
 };
 
 export const createExtensionProviderHandler =
-	(view: EditorView) =>
+	(view: EditorView, api?: ExtractInjectionAPI<ExtensionPlugin>) =>
 	async (name: string, provider?: Promise<ExtensionProvider>): Promise<void> => {
 		if (name === 'extensionProvider' && provider) {
 			try {
 				const extensionProvider = await provider;
 				updateState({ extensionProvider })(view.state, view.dispatch);
 				await updateEditButton(view, extensionProvider);
+
+				if (isExperimentEnabled('platform_editor_block_menu_transform_extensions')) {
+					try {
+						const manifests = await extensionProvider.getExtensions();
+						api?.blockMenu?.actions.registerBlockMenuTransforms(
+							buildExtensionBlockTransforms(manifests),
+						);
+					} catch {
+						// Transform registration remains unavailable when manifests cannot be loaded.
+					}
+				}
 			} catch {
 				updateState({ extensionProvider: undefined })(view.state, view.dispatch);
 			}
@@ -166,6 +178,10 @@ export const handleUpdate = ({
 			showContextPanel: false,
 			element: newElement,
 			showEditButton,
+			// Default to showing synchronously; the manifest-driven value (if any)
+			// is resolved asynchronously via updateEditButton for provider-based
+			// extensions.
+			showCopyButton: true,
 			updateExtension,
 		})(state, dispatch);
 	}
@@ -196,6 +212,7 @@ export const createPlugin = (
 ): SafePlugin<ExtensionState> => {
 	const state = createPluginState(dispatch, {
 		showEditButton: false,
+		showCopyButton: true,
 		showContextPanel: false,
 	});
 
@@ -214,7 +231,10 @@ export const createPlugin = (
 		state,
 		view: (editorView) => {
 			const domAtPos = editorView.domAtPos.bind(editorView);
-			const extensionProviderHandler = createExtensionProviderHandler(editorView);
+			const extensionProviderHandler = createExtensionProviderHandler(
+				editorView,
+				pluginInjectionApi,
+			);
 
 			providerFactory.subscribe('extensionProvider', extensionProviderHandler);
 
@@ -346,8 +366,7 @@ export const createPlugin = (
 			},
 			nodeViews: {
 				// WARNING: referentiality-plugin also creates these nodeviews
-				extension: lazyExtensionNodeView(
-					'extension',
+				extension: ExtensionNodeView(
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,
@@ -359,11 +378,10 @@ export const createPlugin = (
 					undefined,
 					undefined,
 					undefined,
-					isSSRStreaming() ? intl : undefined,
+					intl,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
-				bodiedExtension: lazyExtensionNodeView(
-					'bodiedExtension',
+				bodiedExtension: ExtensionNodeView(
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,
@@ -375,11 +393,10 @@ export const createPlugin = (
 					showLivePagesBodiedMacrosRendererView,
 					__rendererExtensionOptions?.showUpdated1PBodiedExtensionUI,
 					__rendererExtensionOptions?.rendererExtensionHandlers,
-					isSSRStreaming() ? intl : undefined,
+					intl,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
-				inlineExtension: lazyExtensionNodeView(
-					'inlineExtension',
+				inlineExtension: ExtensionNodeView(
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,
@@ -391,10 +408,9 @@ export const createPlugin = (
 					undefined,
 					undefined,
 					undefined,
-					isSSRStreaming() ? intl : undefined,
+					intl,
 				),
-				multiBodiedExtension: lazyExtensionNodeView(
-					'multiBodiedExtension',
+				multiBodiedExtension: ExtensionNodeView(
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,

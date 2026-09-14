@@ -350,7 +350,6 @@ function moveDateTimePickerProps(
 					j.jsxExpressionContainer(
 						// Adding `true` for boolean attributes that have no value;
 						// This definitely exists on here. Can't coerce right. May god have mercy on my soul for this ts-ignore.
-						// @ts-ignore Argument of type 'LiteralKind | JSXElement | JSXExpressionContainer | JSXFragment | null | undefined' is not assignable to parameter of type 'Literal | JSXText | StringLiteral | NumericLiteral | BigIntLiteral | NullLiteral | BooleanLiteral | ... 53 more ... | TSParameterProperty'. Type 'undefined' is not assignable to type 'Literal | JSXText | StringLiteral | NumericLiteral | BigIntLiteral | NullLiteral | BooleanLiteral | ... 53 more ... | TSParameterProperty'.
 						j.objectExpression([j.property('init', j.identifier(propertyName), newValue)]),
 					),
 				);

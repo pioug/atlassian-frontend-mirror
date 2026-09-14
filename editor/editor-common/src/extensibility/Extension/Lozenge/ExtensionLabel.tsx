@@ -10,11 +10,12 @@ import classnames from 'classnames';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { ExtensionsPluginInjectionAPI } from '../../types';
 
@@ -122,6 +123,9 @@ const i18n = defineMessages({
 type ExtensionLabelProps = {
 	customContainerStyles?: CSSProperties;
 	extensionName: string;
+	// When true, the node exposes no configuration affordance, so the "Configure {name}"
+	// tooltip, label and customize icon are omitted (e.g. redaction nodes).
+	hideConfigureLabel?: boolean;
 	isBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
@@ -141,6 +145,7 @@ export const ExtensionLabel = ({
 	isNodeNested,
 	setIsNodeHovered,
 	isBodiedMacro,
+	hideConfigureLabel,
 	showUpdatedLivePages1PBodiedExtensionUI,
 	showLivePagesBodiedMacrosRendererView,
 	showBodiedExtensionRendererView,
@@ -170,7 +175,7 @@ export const ExtensionLabel = ({
 	});
 
 	const memoizedTooltipValues = useMemo(() => ({ macroName: text }), [text]);
-	const tooltipValues = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const tooltipValues = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedTooltipValues
 		: { macroName: text };
 
@@ -201,43 +206,45 @@ export const ExtensionLabel = ({
 			data-testid="new-lozenge-container"
 			contentEditable={false}
 		>
-			<Tooltip
-				content={
-					<FormattedMessage
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...i18n.configure}
-						values={tooltipValues}
-					/>
-				}
-				position="top"
-			>
-				{(tooltipProps) => (
-					<span
-						data-testid="new-lozenge-button"
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...tooltipProps}
-						css={[
-							labelStyles,
-							!showLivePagesBodiedMacrosRendererView && showLabelStyles,
-							(!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) && hideLabelStyles,
-						]}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={labelClassNames}
-					>
-						{text}
+			{!hideConfigureLabel && (
+				<Tooltip
+					content={
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...i18n.configure}
+							values={tooltipValues}
+						/>
+					}
+					position="top"
+				>
+					{(tooltipProps) => (
 						<span
-							css={[iconStyles, isBodiedMacro && bodiedMacroIconStyles]}
+							data-testid="new-lozenge-button"
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...tooltipProps}
+							css={[
+								labelStyles,
+								!showLivePagesBodiedMacrosRendererView && showLabelStyles,
+								(!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) && hideLabelStyles,
+							]}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={iconClassNames}
-							data-testid="config-icon"
+							className={labelClassNames}
 						>
-							<CustomizeIcon label="" />
+							{text}
+							<span
+								css={[iconStyles, isBodiedMacro && bodiedMacroIconStyles]}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={iconClassNames}
+								data-testid="config-icon"
+							>
+								<CustomizeIcon label="" />
+							</span>
 						</span>
-					</span>
-				)}
-			</Tooltip>
+					)}
+				</Tooltip>
+			)}
 			{/* This is needed since this creates the gap between the macro and button, also provides a seamless transition when mousing over the gap. */}
 			<Box xcss={spacerStyles} />
 		</div>

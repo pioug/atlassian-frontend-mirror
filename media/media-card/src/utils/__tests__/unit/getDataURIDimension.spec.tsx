@@ -1,10 +1,19 @@
 jest.mock('../../isRetina');
 jest.mock('../../getElementDimension');
 import { getDataURIDimension } from '../../getDataURIDimension';
+import { getRequestedDimensions } from '../../getRequestedDimensions';
 import { isRetina } from '../../isRetina';
 import { getElementDimension } from '../../getElementDimension';
 
 describe('getDataURIDimension()', () => {
+	it('resolves both requested dimensions through the shared dimension helper', () => {
+		jest.mocked(isRetina).mockReturnValue(false);
+		expect(getRequestedDimensions({ dimensions: { width: 100, height: 50 } })).toEqual({
+			width: 100,
+			height: 50,
+		});
+	});
+
 	it('should use passed dimensions', () => {
 		const element = document.createElement('div');
 		const dimensions = {

@@ -9,7 +9,9 @@ import { css, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
-import Tabs, { Tab, TabList } from '@atlaskit/tabs';
+import Tabs from '@atlaskit/tabs/tabs';
+import Tab from '@atlaskit/tabs/tab';
+import TabList from '@atlaskit/tabs/tab-list';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../common/types';

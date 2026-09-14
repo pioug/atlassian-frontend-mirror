@@ -1,3 +1,4 @@
+import type { BlockTransformExtension } from '@atlaskit/editor-common/block-menu/block-transform-extension';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -10,7 +11,11 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
-import type { TransformNodeMetadata } from './editor-commands/types';
+import type {
+	TransformInlineNodeMetadata,
+	TransformNodeMarkChanges,
+	TransformNodeMetadata,
+} from './editor-commands/types';
 
 export enum FLAG_ID {
 	LINK_COPIED_TO_CLIPBOARD = 'link-copied-to-clipboard',
@@ -21,6 +26,8 @@ type TransformNodeCommand = (
 	metadata?: TransformNodeMetadata,
 ) => EditorCommand;
 
+type TransformInlineNodeCommand = (metadata: TransformInlineNodeMetadata) => EditorCommand;
+
 export type BlockMenuPlugin = NextEditorPlugin<
 	'blockMenu',
 	{
@@ -29,10 +36,13 @@ export type BlockMenuPlugin = NextEditorPlugin<
 			isTransformOptionDisabled: (
 				optionNodeTypeName: string,
 				optionNodeTypeAttrs?: Record<string, unknown>,
+				targetNodeMarkChanges?: TransformNodeMarkChanges,
 			) => boolean;
 			registerBlockMenuComponents: (blockMenuComponents: Array<RegisterBlockMenuComponent>) => void;
+			registerBlockMenuTransforms: (transforms: readonly BlockTransformExtension[]) => () => void;
 		};
 		commands: {
+			transformInlineNode: TransformInlineNodeCommand;
 			transformNode: TransformNodeCommand;
 		};
 		dependencies: [

@@ -1,41 +1,59 @@
-import { create } from 'react-test-renderer';
-import type { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
+import { createElement, Fragment } from 'react';
+import Loadable from 'react-loadable';
+import { render } from '@atlassian/testing-library/render';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import { emojiList } from './__fixtures__/emoji';
-import Emoji, { EmojiItemComponent } from '../../../react/nodes/emoji';
+import Emoji from '../../../react/nodes/emoji';
 import type { EmojiId } from '@atlaskit/emoji';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+// The emoji node needs an emoji provider to render anything, so it is stubbed out and only the
+// props the serializer hands to it are asserted.
+jest.mock('../../../react/nodes/emoji', () => {
+	const actual = jest.requireActual('../../../react/nodes/emoji');
+
+	return {
+		...actual,
+		__esModule: true,
+		default: jest.fn(() => null),
+	};
+});
+
+const emojiMock = Emoji as unknown as jest.Mock;
+
+const renderEmojiList = (init: ConstructorParameters<typeof ReactSerializer>[0]) => {
+	const reactSerializer = new ReactSerializer(init);
+	const docFromSchema: PMNode = schema.nodeFromJSON(emojiList);
+
+	render(createElement(Fragment, null, reactSerializer.serializeFragment(docFromSchema.content)));
+};
 
 describe('Renderer - ReactSerializer - Emoji', () => {
-	let docFromSchema: PMNode;
-	let reactRenderer: ReactTestRenderer;
+	beforeAll(async () => {
+		// The emoji node is code split, so it renders nothing until the chunk resolves
+		await Loadable.preloadAll();
+	});
 
-	beforeAll(() => {
-		// Working around an issue with pre existing tests using react-test-renderer
-		// https://github.com/facebook/react/issues/17301#issuecomment-557765213
-		EmojiItemComponent.defaultProps = {};
+	beforeEach(() => {
+		emojiMock.mockClear();
 	});
 
 	describe('when emojiResourceConfig is null', () => {
-		beforeAll(() => {
-			const reactSerializer = new ReactSerializer({});
-			docFromSchema = schema.nodeFromJSON(emojiList);
-			reactRenderer = create(reactSerializer.serializeFragment(docFromSchema.content) as any);
-		});
-
 		it('renders an emoji', () => {
-			const testInstance = reactRenderer.root;
-			const components = testInstance.findAllByType(Emoji);
-			expect(components).toHaveLength(3);
-			components.forEach(({ props }) => {
-				expect(props.emojiResourceConfig).toBeUndefined();
+			renderEmojiList({});
+
+			expect(emojiMock).toHaveBeenCalledTimes(3);
+			emojiMock.mock.calls.forEach(([props]) => {
+				expect(props.resourceConfig).toBeUndefined();
 			});
 		});
 	});
+
 	describe('when emojiResourceConfig is defined', () => {
-		beforeAll(() => {
-			const reactSerializer = new ReactSerializer({
+		it('renders an optimistic emoji when optimisticImageApi is defined', () => {
+			renderEmojiList({
 				emojiResourceConfig: {
 					providers: [],
 					singleEmojiApi: {
@@ -43,22 +61,31 @@ describe('Renderer - ReactSerializer - Emoji', () => {
 					},
 				},
 			});
-			docFromSchema = schema.nodeFromJSON(emojiList);
-			reactRenderer = create(reactSerializer.serializeFragment(docFromSchema.content) as any);
-		});
-		it('renders an optimistic emoji when optimisticImageApi is defined', () => {
-			const testInstance = reactRenderer.root;
-			const components = testInstance.findAllByType(Emoji);
-			expect(components).toHaveLength(3);
-			components.forEach(({ props, children }) => {
-				const emojiComponent = children[0] as ReactTestInstance;
-				expect(emojiComponent.props['resourceConfig']).not.toBeUndefined();
+
+			expect(emojiMock).toHaveBeenCalledTimes(3);
+			emojiMock.mock.calls.forEach(([props]) => {
+				expect(props.resourceConfig).not.toBeUndefined();
 				expect(
-					emojiComponent.props['resourceConfig'].singleEmojiApi.getUrl({
-						id: props['id'],
-						shortName: props['shortName'],
+					props.resourceConfig.singleEmojiApi.getUrl({
+						id: props.id,
+						shortName: props.shortName,
 					}),
-				).toEqual(`emoji-path/${props['id']}`);
+				).toEqual(`emoji-path/${props.id}`);
+			});
+		});
+	});
+
+	describe('when emojiProviderLookupOrder is defined', () => {
+		it('passes emojiProviderLookupOrder to emoji nodes', () => {
+			passGate('platform_bitbucket_fix_shortname_and_ordering');
+
+			renderEmojiList({
+				emojiProviderLookupOrder: ['STANDARD', 'ATLASSIAN'],
+			});
+
+			expect(emojiMock).toHaveBeenCalledTimes(3);
+			emojiMock.mock.calls.forEach(([props]) => {
+				expect(props.emojiProviderLookupOrder).toEqual(['STANDARD', 'ATLASSIAN']);
 			});
 		});
 	});

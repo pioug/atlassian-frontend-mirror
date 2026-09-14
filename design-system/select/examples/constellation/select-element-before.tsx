@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { AtlassianIcon } from '@atlaskit/logo';
-import Select, { type FormatOptionLabelMeta, type OptionType } from '@atlaskit/select';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import Select from '@atlaskit/select/default';
+import type { FormatOptionLabelMeta, OptionType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMeta<OptionType>) => {

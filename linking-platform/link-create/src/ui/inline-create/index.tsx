@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 
 import { PACKAGE_DATA } from '../../common/constants';

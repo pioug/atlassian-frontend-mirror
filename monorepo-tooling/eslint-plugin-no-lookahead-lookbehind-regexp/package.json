@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/eslint-plugin-no-lookahead-lookbehind-regexp",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Fork of https://github.com/JonasBa/eslint-plugin-no-lookahead-lookbehind-regexp",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,40 +32,5 @@
 	},
 	"devDependencies": {
 		"@atlassian/eslint-utils": "workspace:^"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

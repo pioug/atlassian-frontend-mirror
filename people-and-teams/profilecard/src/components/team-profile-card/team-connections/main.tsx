@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { LinkItem } from '@atlaskit/menu';
+import LinkItem from '@atlaskit/menu/link-item';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
-import {
-	ContainerIcon,
-	getContainerProperties,
-	type TeamLinkCardProps,
-} from '@atlaskit/teams-public';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
+import { ContainerIcon } from '@atlaskit/teams-public/container-icon';
+import { getContainerProperties } from '@atlaskit/teams-public/utils/get-container-properties';
+import type { TeamLinkCardProps } from '@atlaskit/teams-public/team-link-card';
 
 const styles = cssMap({
 	containerTypeIconButtonStyles: {

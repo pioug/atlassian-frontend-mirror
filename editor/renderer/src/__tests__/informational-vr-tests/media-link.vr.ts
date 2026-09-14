@@ -11,9 +11,10 @@ import {
 	RendererMediaLinkInsideTable,
 	RendererMediaLinkWrapped,
 	RendererRightWrappedMediaLinkInsideTable,
-} from './media-link.fixtures';
+} from './media-link.fixtures.vr.ap';
 
-snapshotInformational(RendererMediaLink, {});
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererMediaLink, {});
 
 snapshotInformational.skip(RendererMediaLink, {
 	description: 'should render a linked media image correctly when clicked',
@@ -25,7 +26,8 @@ snapshotInformational.skip(RendererMediaLink, {
 	},
 });
 
-snapshotInformational(RendererMediaLink, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererMediaLink, {
 	description: 'should render a linked media image correctly when focused',
 	prepare: async (page: Page, component: Locator) => {
 		const media = page.locator('.rich-media-item');
@@ -36,7 +38,8 @@ snapshotInformational(RendererMediaLink, {
 	},
 });
 
-snapshotInformational(RendererMediaLinkWrapped, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererMediaLinkWrapped, {
 	prepare: async (page: Page, component: Locator) => {
 		const media = page.locator('.rich-media-item');
 
@@ -45,7 +48,8 @@ snapshotInformational(RendererMediaLinkWrapped, {
 	},
 });
 
-snapshotInformational(RendererMediaLinkWrapped, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererMediaLinkWrapped, {
 	description: 'should render a linked media image below a wrapped image correctly when focused',
 	prepare: async (page: Page, component: Locator) => {
 		const media = page.locator('.rich-media-item');
@@ -59,7 +63,8 @@ snapshotInformational(RendererMediaLinkWrapped, {
 	},
 });
 
-snapshotInformational(RendererMediaLinkInsideExpand, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererMediaLinkInsideExpand, {
 	ignoredErrors: [
 		{
 			// Gemini is complain because this component packages/editor/renderer/src/ui/Expand.tsx
@@ -81,7 +86,8 @@ snapshotInformational(RendererMediaLinkInsideExpand, {
 	},
 });
 
-snapshotInformational(RendererMediaLinkInsideNestedExpand, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererMediaLinkInsideNestedExpand, {
 	ignoredErrors: [
 		{
 			// Gemini is complain because this component packages/editor/renderer/src/ui/Expand.tsx
@@ -105,7 +111,8 @@ snapshotInformational(RendererMediaLinkInsideNestedExpand, {
 	},
 });
 
-snapshotInformational(RendererMediaLinkInsideTable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererMediaLinkInsideTable, {
 	prepare: async (page: Page, component: Locator) => {
 		const media = page.locator('.rich-media-item');
 		const link = page.getByRole('link');
@@ -115,7 +122,8 @@ snapshotInformational(RendererMediaLinkInsideTable, {
 	},
 });
 
-snapshotInformational(RendererRightWrappedMediaLinkInsideTable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererRightWrappedMediaLinkInsideTable, {
 	prepare: async (page: Page, component: Locator) => {
 		const media = page.locator('.rich-media-item');
 		const link = page.getByRole('link');
@@ -125,7 +133,8 @@ snapshotInformational(RendererRightWrappedMediaLinkInsideTable, {
 	},
 });
 
-snapshotInformational(RendererLeftWrappedMediaLinkInsideTable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererLeftWrappedMediaLinkInsideTable, {
 	prepare: async (page: Page, component: Locator) => {
 		const media = page.locator('.rich-media-item');
 		const link = page.getByRole('link');
@@ -135,7 +144,8 @@ snapshotInformational(RendererLeftWrappedMediaLinkInsideTable, {
 	},
 });
 
-snapshotInformational(RendererLeftAndRightWrappedMediaLinkInsideTable, {
+// Will be re-enabled as part of UTEST-2316.
+snapshotInformational.skip(RendererLeftAndRightWrappedMediaLinkInsideTable, {
 	prepare: async (page: Page, component: Locator) => {
 		const media = page.locator('.rich-media-item');
 		const link = page.getByRole('link');

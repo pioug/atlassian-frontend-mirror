@@ -1,20 +1,22 @@
 // bindAbortListeners.test.ts
 import * as attachAbortListenersModule from '../../../attachAbortListeners';
-import * as getViewportModule from '../../../getViewport';
+import { getViewportHeight } from '../../../getViewportHeight';
+import { getViewportWidth } from '../../../getViewportWidth';
 
 import { bindAbortListeners } from './bindAbortListeners';
 
 // Mock dependencies
 jest.mock('../../../attachAbortListeners');
-jest.mock('../../../getViewport');
+jest.mock('../../../getViewportHeight');
+jest.mock('../../../getViewportWidth');
 
 describe('bindAbortListeners', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 
 		// Set up basic mocks
-		(getViewportModule.getViewportWidth as jest.Mock).mockReturnValue(1024);
-		(getViewportModule.getViewportHeight as jest.Mock).mockReturnValue(768);
+		(getViewportWidth as jest.Mock).mockReturnValue(1024);
+		(getViewportHeight as jest.Mock).mockReturnValue(768);
 		(attachAbortListenersModule.attachAbortListeners as jest.Mock).mockReturnValue(['unbind1']);
 	});
 
@@ -27,8 +29,8 @@ describe('bindAbortListeners', () => {
 		bindAbortListeners(mockDocument, mockWindow);
 
 		// Verify that each dependency was called
-		expect(getViewportModule.getViewportWidth).toHaveBeenCalled();
-		expect(getViewportModule.getViewportHeight).toHaveBeenCalled();
+		expect(getViewportWidth).toHaveBeenCalled();
+		expect(getViewportHeight).toHaveBeenCalled();
 		expect(attachAbortListenersModule.attachAbortListeners).toHaveBeenCalled();
 	});
 

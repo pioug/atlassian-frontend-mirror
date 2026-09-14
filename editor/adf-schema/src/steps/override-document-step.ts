@@ -1,4 +1,5 @@
-import { Step, StepResult, StepMap } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { StepResult, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { ADFEntity } from './types';
 

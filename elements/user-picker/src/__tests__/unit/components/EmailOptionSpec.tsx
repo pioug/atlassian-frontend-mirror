@@ -1,27 +1,10 @@
-import { shallow } from 'enzyme';
-import React, { type ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { token } from '@atlaskit/tokens';
-import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
-import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
-import { EmailOption, type EmailOptionProps } from '../../../components/EmailOption/main';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { IntlProvider } from 'react-intl';
+import { EmailOption } from '../../../components/EmailOption/main';
 import { type Email, EmailType } from '../../../types';
-import { renderProp } from '../_testUtils';
-
-jest.mock('../../../components/AvatarItemOption', () => ({
-	...(jest.requireActual('../../../components/AvatarItemOption') as any),
-	textWrapper: jest.fn(),
-}));
 
 describe('EmailOption', () => {
-	const mockTextWrapper = textWrapper as jest.Mock;
-
-	afterEach(() => {
-		jest.resetAllMocks();
-	});
-
-	const shallowEmailOption = (props: EmailOptionProps) => shallow(<EmailOption {...props} />);
-
 	const email: Email = {
 		type: EmailType,
 		id: 'test@test.com',
@@ -29,88 +12,45 @@ describe('EmailOption', () => {
 		lozenge: 'EMAIL',
 	};
 
-	const suggestedEmail: Email = {
-		type: EmailType,
-		id: 'test@test.com',
-		name: 'test@test.com',
-		lozenge: 'EMAIL',
-		suggestion: true,
-	};
+	const renderEmailOption = (props: Partial<React.ComponentProps<typeof EmailOption>> = {}) =>
+		render(
+			<IntlProvider locale="en" messages={{}}>
+				<EmailOption email={email} isSelected={false} emailValidity="VALID" {...props} />
+			</IntlProvider>,
+		);
 
-	it('should render AvatarItemOption with default message', () => {
-		const component = shallowEmailOption({
-			isSelected: false,
-			email,
-			emailValidity: 'VALID',
-		});
+	it('renders the default invite message', async () => {
+		renderEmailOption();
 
-		const formattedMessage = component.find(FormattedMessage);
-		expect(formattedMessage).toHaveLength(1);
-		const message = renderProp(formattedMessage, 'children', 'Invite');
-		const avatarItemOption = message.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
-		expect(avatarItemOption.props().avatar).toEqual(<AddOptionAvatar label="Invite" />);
-		const primaryText = avatarItemOption.props().primaryText as ReactElement;
-
-		expect(primaryText.props.children).toEqual('test@test.com');
-		expect(primaryText.key).toEqual('name');
-
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual('Invite');
-
-		expect(avatarItemOption.props().lozenge).toEqual({
-			text: 'EMAIL',
-		});
+		expect(screen.getByText(email.id)).toBeInTheDocument();
+		expect(screen.getByTestId('user-picker-email-secondary-text')).toHaveTextContent(
+			'Select an email address',
+		);
+		expect(screen.getByTestId('add-option-avatar-email-icon')).toBeInTheDocument();
+		expect(screen.getByText('EMAIL')).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render AvatarItemOption for suggested emails', () => {
-		const component = shallowEmailOption({
-			isSelected: false,
-			email: suggestedEmail,
-			emailValidity: 'VALID',
-		});
+	it('renders the same invite option for suggested emails', () => {
+		renderEmailOption({ email: { ...email, suggestion: true } });
 
-		const formattedMessage = component.find(FormattedMessage);
-		expect(formattedMessage).toHaveLength(1);
-		const message = renderProp(formattedMessage, 'children', 'Invite');
-		const avatarItemOption = message.find(AvatarItemOption);
-
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
-		expect(avatarItemOption.props().avatar).toEqual(<AddOptionAvatar label="Invite" />);
-		const primaryText = avatarItemOption.props().primaryText as ReactElement;
-
-		expect(primaryText.props.children).toEqual('test@test.com');
-		expect(primaryText.key).toEqual('name');
-
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual('Invite');
-
-		expect(avatarItemOption.props().lozenge).toEqual({
-			text: 'EMAIL',
-		});
+		expect(screen.getByText(email.id)).toBeInTheDocument();
+		expect(screen.getByTestId('user-picker-email-secondary-text')).toHaveTextContent(
+			'Select an email address',
+		);
+		expect(screen.getByTestId('add-option-avatar-email-icon')).toBeInTheDocument();
 	});
 
-	it('should override the default label', () => {
-		const component = shallowEmailOption({
-			isSelected: false,
-			email,
-			label: 'Add new user',
-			emailValidity: 'VALID',
-		});
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.subtlest', '#6B6E76'));
-		expect(avatarItemOption.props().avatar).toEqual(<AddOptionAvatar label="Add new user" />);
-		const primaryText = avatarItemOption.props().primaryText as ReactElement;
+	it('overrides the default label when one is supplied', () => {
+		renderEmailOption({ label: 'Add new user' });
 
-		expect(primaryText.props.children).toEqual('test@test.com');
-		expect(primaryText.key).toEqual('name');
-
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-		expect(secondaryText.props.children).toEqual('Add new user');
+		expect(screen.getByText(email.id)).toBeInTheDocument();
+		expect(screen.getByTestId('user-picker-email-secondary-text')).toHaveTextContent(
+			'Add new user',
+		);
+		expect(screen.getByTestId('add-option-avatar-email-icon')).toHaveAttribute(
+			'aria-label',
+			'Add new user',
+		);
 	});
 });

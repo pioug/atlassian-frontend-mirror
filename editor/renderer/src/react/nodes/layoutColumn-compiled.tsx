@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 /**
- * Compiled branch of the `platform_editor_static_css` experiment.
+ * Compiled branch of the `platform_editor_renderer_static_css` experiment.
  * Used via `componentWithCondition` in `layoutColumn.tsx`.
  *
  * Cleanup: delete this file once the experiment has shipped.
@@ -12,9 +12,8 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
@@ -87,7 +86,7 @@ export const LayoutSectionCompiled = (
 				(isLayoutColumnValignRenderingEnabled || isLayoutColumnMenuEnabled) &&
 					props.valign === 'bottom' &&
 					verticalAlignBottomStyles,
-				fg('platform_editor_fix_media_in_renderer') && multipleWrappedImagesStyle,
+				multipleWrappedImagesStyle,
 			]}
 		>
 			<WidthProvider>

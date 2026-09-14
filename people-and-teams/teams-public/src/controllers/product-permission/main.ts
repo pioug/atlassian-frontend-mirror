@@ -1,11 +1,12 @@
 import { createHook, createStore, type BoundActions, type HookFunction } from 'react-sweet-state';
 
+import { getProductPermissionRequestBody } from './getProductPermissionRequestBody';
+import { transformPermissions } from './transformPermissions';
 import type {
 	ProductPermissionsActions,
 	ProductPermissionsResponse,
 	ProductPermissionsStore,
 } from './types';
-import { getProductPermissionRequestBody, transformPermissions } from './utils';
 
 const actions: ProductPermissionsActions = {
 	getPermissions:

@@ -2,8 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
+
 import { css, jsx } from '@compiled/react';
+
 import { type Props as EmojiProps, EmojiNodeWrapper } from './Emoji';
 import { emojiNodeStyles, commonSelectedStyles, selectOnHoverStyles } from './styles';
 

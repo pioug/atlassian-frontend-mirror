@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useState } from 'react';
 
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { blur, toggleMatchCase } from '../pm-plugins/commands';
 import {
@@ -178,16 +177,10 @@ const FindReplaceToolbarButtonWithState = ({
 			findText={findText}
 			index={index}
 			numMatches={matches.length}
-			isReplaceable={
-				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					? matches[index]?.canReplace
-					: undefined
-			}
+			isReplaceable={matches[index]?.canReplace}
 			numReplaceable={
-				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					? // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-						matches.filter((match) => match.canReplace === true).length
-					: undefined
+				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
+				matches.filter((match) => match.canReplace === true).length
 			}
 			replaceText={replaceText}
 			shouldFocus={shouldFocus}

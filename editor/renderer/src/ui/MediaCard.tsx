@@ -6,10 +6,11 @@ import type {
 	CardAppearance,
 	CardDimensions,
 	CardOnClickCallback,
+	CardProps as AtlaskitMediaCardProps,
 	NumericalCardDimensions,
 } from '@atlaskit/media-card';
 import { Card as CardAsync, CardSync, CardLoading, CardError } from '@atlaskit/media-card';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type {
 	ImageResizeMode,
 	FileIdentifier,
@@ -18,8 +19,8 @@ import type {
 	FileState,
 	MediaClient,
 } from '@atlaskit/media-client';
-import { MediaClientContext } from '@atlaskit/media-client-react';
-import type { MediaType } from '@atlaskit/adf-schema';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import type { MediaType } from '@atlaskit/adf-schema/media';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { withImageLoader } from '@atlaskit/editor-common/utils';
 import type { ImageLoaderProps, ImageStatus } from '@atlaskit/editor-common/utils';
@@ -29,7 +30,6 @@ import type { RendererContext } from '../react/types';
 import type { MediaSSR } from '../types/mediaOptions';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import AnalyticsContext from '../analytics/analyticsContext';
 import type { AnalyticsEventPayload } from '../analytics/events';
 import {
@@ -76,6 +76,8 @@ export interface MediaCardProps {
 	 */
 	nestedUnder?: string;
 	occurrenceKey?: string;
+	onError?: AtlaskitMediaCardProps['onError'];
+	onPreviewRender?: AtlaskitMediaCardProps['onPreviewRender'];
 	originalDimensions?: NumericalCardDimensions;
 	rendererAppearance?: RendererAppearance;
 	/**
@@ -207,8 +209,9 @@ export class MediaCardView extends Component<
 		}
 	};
 
-	private onError = (reason: string) => {
+	private onError: NonNullable<AtlaskitMediaCardProps['onError']> = (reason) => {
 		const { nestedUnder, rendererContext } = this.props;
+		this.props.onError?.(reason);
 
 		this.props.fireAnalyticsEvent?.({
 			action: ACTION.ERRORED,
@@ -218,12 +221,23 @@ export class MediaCardView extends Component<
 			attributes: {
 				reason,
 				external: false,
-				...(nestedUnder && editorExperiment('platform_synced_block', true) ? { nestedUnder } : {}),
-				...(rendererContext?.nestedRendererType && editorExperiment('platform_synced_block', true)
+				...(nestedUnder ? { nestedUnder } : {}),
+				...(rendererContext?.nestedRendererType
 					? { nestedRendererType: rendererContext.nestedRendererType }
 					: {}),
 			},
 		});
+	};
+
+	private onConsumerError: NonNullable<AtlaskitMediaCardProps['onError']> = (reason) => {
+		this.props.onError?.(reason);
+	};
+
+	private getMediaErrorHandler = () => {
+		if (expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)) {
+			return this.onError;
+		}
+		return this.props.onError ? this.onConsumerError : undefined;
 	};
 
 	private renderLoadingCard = () => {
@@ -287,11 +301,8 @@ export class MediaCardView extends Component<
 					featureFlags={featureFlags}
 					ssr={ssr?.mode}
 					shouldHideTooltip={false}
-					onError={
-						expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
-							? this.onError
-							: undefined
-					}
+					onError={this.getMediaErrorHandler()}
+					onPreviewRender={this.props.onPreviewRender}
 				/>
 			</div>
 		);
@@ -393,6 +404,8 @@ export class MediaCardView extends Component<
 			expValEquals('platform_editor_disable_lazy_load_media', 'isEnabled', true) &&
 			currentUrl.includes('/wiki/pdf/spaces/');
 
+		const ssrMediaItem = ssr?.ssrMediaItems?.find((item) => item.id === id);
+
 		return (
 			<div
 				// Ignored via go/ees005
@@ -427,14 +440,13 @@ export class MediaCardView extends Component<
 					featureFlags={featureFlags}
 					shouldEnableDownloadButton={shouldEnableDownloadButton}
 					ssr={ssr?.mode}
+					// Optional SSR seed supplied by the host product. Undefined when absent,
+					ssrMediaItem={ssrMediaItem}
 					shouldHideTooltip={isMobile}
 					mediaViewerExtensions={mediaViewerExtensions}
 					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-					onError={
-						expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
-							? this.onError
-							: undefined
-					}
+					onError={this.getMediaErrorHandler()}
+					onPreviewRender={this.props.onPreviewRender}
 				/>
 			</div>
 		);

@@ -22,7 +22,7 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import Text from '@atlaskit/primitives/text';
+import { Text } from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -129,7 +129,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const DeleteDropdownItem: React.FC<WithIntlProps<Props>> & {
 	WrappedComponent: React.ComponentType<Props>;
 } = injectIntl(DeleteDropdownItemContent);

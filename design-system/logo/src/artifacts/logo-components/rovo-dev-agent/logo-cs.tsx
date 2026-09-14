@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3e07b5682123be769fa70cfe7a8367bf>>
+ * @codegen <<SignedSource::c71c6bc7cc6527ec74323f7e02a8f620>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const svg = `<svg height="100%" viewBox="0 0 160 32">
  *
  */
 export function RovoDevAgentLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Rovo Dev Agent',
 	testId,

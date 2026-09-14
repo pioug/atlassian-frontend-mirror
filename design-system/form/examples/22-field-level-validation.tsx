@@ -1,17 +1,17 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	FormHeader,
-	MessageWrapper,
-	RequiredAsterisk,
-} from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
-import Select, { type ValueType } from '@atlaskit/select';
-import TextField from '@atlaskit/textfield';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
+import TextField from '@atlaskit/textfield/text-field';
 
 interface Option {
 	label: string;

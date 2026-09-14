@@ -3,12 +3,9 @@ import React, { type PropsWithChildren } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Inline } from '@atlaskit/primitives/compiled';
-import AkSelect, {
-	components,
-	type OptionProps,
-	type OptionType,
-	type SingleValueProps,
-} from '@atlaskit/select';
+import AkSelect from '@atlaskit/select/default';
+import { components } from '@atlaskit/react-select/components';
+import type { OptionProps, OptionType, SingleValueProps } from '@atlaskit/select/types';
 import { layers } from '@atlaskit/theme/constants';
 
 import { UrlIcon } from '../../../common/ui/icon';

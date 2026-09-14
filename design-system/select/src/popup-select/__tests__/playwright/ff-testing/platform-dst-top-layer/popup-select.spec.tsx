@@ -6,7 +6,7 @@ const featureFlag = 'platform-dst-top-layer';
 
 test.describe('PopupSelect top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('opens when trigger is clicked', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -28,7 +28,7 @@ test.describe('PopupSelect top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('opens when trigger receives ArrowDown key', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -55,7 +55,7 @@ test.describe('PopupSelect top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('arrow keys navigate through options', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -94,7 +94,7 @@ test.describe('PopupSelect top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('Enter key selects focused option', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -122,7 +122,7 @@ test.describe('PopupSelect top-layer — WCAG 2.1.1 Keyboard', () => {
 
 test.describe('PopupSelect top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Escape closes the menu', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -145,7 +145,7 @@ test.describe('PopupSelect top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	});
 
 	test('Tab key closes the menu', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -173,7 +173,7 @@ test.describe('PopupSelect top-layer — WCAG 2.4.3 Focus Order', () => {
 		page,
 		skipAxeCheck,
 	}) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -197,7 +197,7 @@ test.describe('PopupSelect top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus returns to trigger when selection is made', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -224,7 +224,7 @@ test.describe('PopupSelect top-layer — WCAG 2.4.3 Focus Order', () => {
 
 test.describe('PopupSelect top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('focused option has visible focus indicator', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -260,7 +260,7 @@ test.describe('PopupSelect top-layer — WCAG 2.4.7 Focus Visible', () => {
 
 test.describe('PopupSelect top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 	test('menu is not visually obscured when opened', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -283,7 +283,7 @@ test.describe('PopupSelect top-layer — WCAG 2.4.11 Focus Not Obscured', () => 
 
 test.describe('PopupSelect top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('trigger has correct ARIA attributes when closed', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -299,7 +299,7 @@ test.describe('PopupSelect top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('trigger has correct ARIA attributes when open', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -321,7 +321,7 @@ test.describe('PopupSelect top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('menu has listbox role', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -343,7 +343,7 @@ test.describe('PopupSelect top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('options have correct role and aria-selected attribute', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',
@@ -376,7 +376,7 @@ test.describe('PopupSelect top-layer — WCAG 1.3.2 Meaningful Sequence', () => 
 		page,
 		skipAxeCheck,
 	}) => {
-		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',
 			'select',
 			'popup-select',

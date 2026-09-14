@@ -1,4 +1,3 @@
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '@atlaskit/editor-plugin-paste/src/pm-plugins/util/handlers';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';

@@ -1,4 +1,5 @@
-import type { ExtensionLayout, PanelType } from '@atlaskit/adf-schema';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
+import type { PanelType } from '@atlaskit/adf-schema/panel';
 
 import type {
 	ACTION,
@@ -164,7 +165,8 @@ type InsertStatusAEP = InsertAEP<
 			| INPUT_METHOD.QUICK_INSERT
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.INSERT_MENU
-			| INPUT_METHOD.ELEMENT_BROWSER;
+			| INPUT_METHOD.ELEMENT_BROWSER
+			| INPUT_METHOD.BLOCK_MENU;
 	},
 	undefined
 >;
@@ -227,6 +229,7 @@ type InsertLinkAEP = InsertAEP<
 	ACTION_SUBJECT_ID.LINK,
 	{
 		fromCurrentDomain: boolean;
+		hadBackgroundColor?: boolean;
 		inputMethod: InputMethodInsertLink;
 	},
 	{
@@ -322,7 +325,11 @@ type InsertExtensionAEP = InsertAEP<
 	{
 		extensionKey: string;
 		extensionType: string;
-		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR | INPUT_METHOD.ELEMENT_BROWSER;
+		inputMethod:
+			| INPUT_METHOD.QUICK_INSERT
+			| INPUT_METHOD.TOOLBAR
+			| INPUT_METHOD.INSERT_MENU
+			| INPUT_METHOD.ELEMENT_BROWSER;
 		key: string;
 	},
 	// Ignored via go/ees005
@@ -400,11 +407,17 @@ export type InsertSourceSyncedBlockPayload = InsertAEP<
 	undefined
 >;
 
+export type InsertSnippetInputMethod =
+	| INPUT_METHOD.ELEMENT_BROWSER
+	| INPUT_METHOD.INSERT_MENU
+	| INPUT_METHOD.QUICK_INSERT
+	| INPUT_METHOD.TOOLBAR;
+
 type InsertSnippetAEP = InsertAEP<
 	ACTION_SUBJECT_ID.SNIPPET,
 	{
 		hadMedia?: boolean;
-		inputMethod: INPUT_METHOD.QUICK_INSERT;
+		inputMethod: InsertSnippetInputMethod;
 		snippetId: string;
 		// Template provenance: 'atlassian' (OOTB) vs 'user' (user/space-created).
 		templateType?: 'atlassian' | 'user';

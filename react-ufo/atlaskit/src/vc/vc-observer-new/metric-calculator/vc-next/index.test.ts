@@ -3,7 +3,8 @@ import type { VCObserverEntry, WindowEventEntryData } from '../../types';
 import VCCalculator_Next from './index';
 
 // Mock feature flags
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

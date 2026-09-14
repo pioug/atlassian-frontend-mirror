@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { token } from '@atlaskit/tokens';
 

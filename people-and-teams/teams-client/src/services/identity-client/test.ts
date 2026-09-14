@@ -1,4 +1,5 @@
-import { type MutabilityContraints, transformUserManageConfig } from './utils';
+import { transformUserManageConfig } from './transformUserManageConfig';
+import type { MutabilityContraints } from './utils';
 
 const rawData = {
 	'email.set': {

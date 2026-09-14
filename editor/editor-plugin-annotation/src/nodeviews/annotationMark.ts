@@ -1,4 +1,4 @@
-import { annotation } from '@atlaskit/adf-schema';
+import { annotation } from '@atlaskit/adf-schema/annotation';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**

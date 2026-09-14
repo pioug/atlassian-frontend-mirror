@@ -4,7 +4,8 @@ import { act, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { defaultRegistry } from 'react-sweet-state';
 
-import { SmartCardProvider, useSmartCardContext } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import {
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
@@ -16,21 +17,21 @@ import {
 } from '@atlaskit/linking-types/datasource';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
-import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { Store } from '../../../state';
-import { IssueLikeDataTableView } from '../index';
+import { IssueLikeDataTableView } from '../issue-like-data-table-view';
 import { type IssueLikeDataTableViewProps } from '../types';
 
-jest.mock('../../../state/actions', () => {
+jest.mock('../../../state/actions/useExecuteAtomicAction', () => {
 	return {
 		__esModule: true,
-		...jest.requireActual('../../../state/actions'),
+		...jest.requireActual('../../../state/actions/useExecuteAtomicAction'),
 		useExecuteAtomicAction: () => jest.fn()(),
 	};
 });
 
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
+jest.mock('@atlaskit/link-provider/use-smart-card-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-card-context'),
 	useSmartCardContext: jest.fn(),
 }));
 

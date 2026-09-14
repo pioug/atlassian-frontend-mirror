@@ -1,4 +1,4 @@
-import { bodiedExtension } from '@atlaskit/adf-schema';
+import { bodiedExtension } from '@atlaskit/adf-schema/bodied-extension';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type {
 	AttributeSpec,

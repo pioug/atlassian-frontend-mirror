@@ -1,5 +1,554 @@
 # @atlaskit/emoji
 
+## 72.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.10
+
+### Patch Changes
+
+- [`590c70ad5d166`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/590c70ad5d166) -
+  Behind the `platform_emoji_fetch_in_effect` experiment, `ResourcedEmoji` resolves its emoji from a
+  layout effect instead of a `useMemo` that ran during render. A render React discards (for example
+  a pass that suspends) no longer creates a fetch whose promise callbacks set state and schedule
+  another render. With the experiment off the fetch still happens during render as before.
+
+## 72.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.3
+
+### Patch Changes
+
+- [`e29faa16e0c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e29faa16e0c66) -
+  Migrate selected editor experiment reads and tooling from tmp-editor-statsig to
+  platform-feature-experiments, including static CSS, floating ToC, insert-menu AI, table overflow
+  shadows, and collapsible headings.
+- Updated dependencies
+
+## 72.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.3.0
+
+### Minor Changes
+
+- [`61008cdfc8e14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61008cdfc8e14) -
+  Added optional `isDecorative?: boolean` prop behind the `emoji_decorative_label` feature gate.
+  When set to `true`, the emoji is treated as a decorative image (removes its accessible label) so
+  it does not add noise for screen-reader users.
+
+## 72.2.8
+
+### Patch Changes
+
+- [`c53eca7e4a2bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c53eca7e4a2bf) -
+  Cleanup feature gate `add_emoji_media_size_to_media_file_upload_request`. Emoji media uploads now
+  always send file size information in the media file upload request.
+- [`5598b12df2212`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5598b12df2212) -
+  Add feature gate platform_teamoji_26_refresh_emoji_picker_user_id for teamoji changes - by
+  atlassianAccountId, for evaluation from non-tenanted products
+- Updated dependencies
+
+## 72.2.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 72.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.1.0
+
+### Minor Changes
+
+- [`67cb56528e699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67cb56528e699) -
+  Add emojiProviderLookupOrder as an optional override for the shortName-only emoji lookup priority
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.5
+
+### Patch Changes
+
+- [`955d1bbed0d78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/955d1bbed0d78) -
+  Cleaned up platform_index_emoji_just_in_time which has been enabled in Jira and Confluence for
+  over a year
+- Updated dependencies
+
+## 72.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.0.0
+
+### Major Changes
+
+- [`f48e83877558c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f48e83877558c) -
+  Apply Volt multi-export standards via `volt-migrate-package`. `@atlaskit/emoji` already resolved
+  its subpaths directly to `./src/*`, so the `exports` map is **unchanged** — all 35 public subpaths
+  keep their existing targets. What changed is the module layout: multi-export modules were split so
+  each shippable module owns a single export (around 140 new modules), with `@deprecated`
+  compatibility re-exports left behind on the original module.
+
+  ### Breaking — exports removed from two public subpaths
+
+  Most split-out symbols kept a deprecated re-export on their original module, so they remain
+  importable from the same subpath. Four did not:
+  - `@atlaskit/emoji/emoji` no longer exports **`SpriteEmoji`**, **`UnicodeEmoji`**, or
+    **`ImageEmoji`**. They now live in
+    `./src/components/common/{SpriteEmoji,UnicodeEmoji,ImageEmoji}.tsx`, which are not in the
+    `exports` map, so they are no longer reachable from the package at all. The default export
+    (`Emoji`), `Props`, and `EmojiNodeWrapper` are unaffected, and `unicodeEmojiCanvasSize` is newly
+    exported from this subpath.
+  - `@atlaskit/emoji/usage-frequency-tracker` no longer exports the **`Gateway`** class. It now
+    lives in `./src/api/internal/UsageFrequencyTracker`'s sibling `./Gateway` module, which is not
+    in the `exports` map. `UsageFrequencyTracker` itself is unaffected.
+
+  ### Everything else is import-compatible
+
+  Symbols that moved out of `EmojiPicker`, `EmojiUploader`, `EmojiTypeAheadItem`, `analytics`,
+  `EmojiUtils`, and `samplingUfo` are still re-exported from their original subpath, now marked
+  `@deprecated` with the import to use instead:
+
+  ```ts
+  // Still valid — no change required, but deprecated
+  import { emojiPickerLoader } from '@atlaskit/emoji/emoji-picker';
+  ```
+
+  Several subpaths also expose additional symbols as a result of the split — for example
+  `createEvent`, `extractCommonAttributes`, `getSkinTone`, and `skinTones` from `./analytics`, and
+  `calculateScale` and `denormaliseStandardRepresentation` from `./emoji-utils`.
+
+  ### Why this is a major
+
+  Consumers that `jest.mock()` one of these subpaths, or that relied on a module having a single
+  implementation instance, may observe changed resolution now that implementations live in their own
+  modules — in addition to the removals above.
+
+## 71.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.17.0
+
+### Minor Changes
+
+- [`a32f36ef87959`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a32f36ef87959) -
+  Gated behind `add_emoji_media_size_to_media_file_upload_request`, switches emoji upload to use
+  media client uploadExternal function.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.16.4
+
+### Patch Changes
+
+- [`e115e358fd590`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e115e358fd590) -
+  Retain onMouseLeave effect for updated emoji picker
+- Updated dependencies
+
+## 71.16.3
+
+### Patch Changes
+
+- [`6274e251b8398`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6274e251b8398) -
+  Clean up the `cache_emoji_loader_for_the_same_config` feature gate. `EmojiLoader` now always
+  shares a single in-flight/resolved load promise between loaders created for the same config url,
+  instead of refetching per loader.
+
+  The cache is skipped in test environments (Jest, and automated browsers such as Playwright), so it
+  cannot leak responses between test cases that share a provider url.
+
+## 71.16.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.16.0
+
+### Minor Changes
+
+- [`ef1f56f6c307e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef1f56f6c307e) -
+  Gated behind `add_emoji_media_size_to_media_file_upload_request`, emoji uploads pass file size to
+  media upload requests when enabled.
+
+## 71.15.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.13
+
+### Patch Changes
+
+- [`d95e6444df894`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d95e6444df894) -
+  Cleanup feature gate `platform_a11y_fixes_reaction_emoji`
+- Updated dependencies
+
+## 71.15.12
+
+### Patch Changes
+
+- [`2b6d25f854593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b6d25f854593) -
+  Remove legacy ReactDOM.render/hydrate/unmountComponentAtNode usage from non-production code
+  (tests, demo entries, VR fixtures) as part of the React 19 migration
+- Updated dependencies
+
+## 71.15.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.9
+
+### Patch Changes
+
+- [`8442d3ac8c58b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8442d3ac8c58b) -
+  Migrate ReactDOM.render/unmountComponentAtNode in Popup to createRoot/root.unmount() behind the
+  nike_r19_render_unmount feature gate, as part of the React 19 migration
+- Updated dependencies
+
+## 71.15.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.15.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.15.3
 
 ### Patch Changes

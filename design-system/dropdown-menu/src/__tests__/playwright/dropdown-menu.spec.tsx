@@ -10,7 +10,7 @@ test('Verify that Dropdown Menu is able to open', async ({ page }) => {
 		'dropdown-menu',
 		'testing-ddm-default',
 		{
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 	await page.locator(trigger).first().click();
@@ -23,7 +23,7 @@ test('Verify that Dropdown Menu is able to open - stateless', async ({ page }) =
 		'dropdown-menu',
 		'testing-ddm-stateless',
 		{
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 	await page.locator(trigger).first().click();
@@ -46,7 +46,7 @@ test.describe('Keyboard navigation', () => {
 			'dropdown-menu',
 			'testing-keyboard-navigation',
 			{
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -66,7 +66,7 @@ test.describe('Keyboard navigation', () => {
 			'dropdown-menu',
 			'testing-keyboard-navigation',
 			{
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -85,7 +85,7 @@ test.describe('Keyboard navigation', () => {
 			'dropdown-menu',
 			'testing-keyboard-navigation',
 			{
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -112,7 +112,7 @@ test.describe('Keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../examples/89-testing-keyboard-navigation-disabled-items.tsx')
 		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation-disabled-items', {
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 		await page.getByTestId(triggerTestId).press('Enter');
 		// Should set focus on the first non-disabled element (second element)
@@ -138,7 +138,7 @@ test.describe('Nested keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../examples/91-testing-nested-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation', {
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		// Should open a nested dropdown level 0
@@ -193,7 +193,7 @@ test.describe('Nested keyboard navigation', () => {
 			'nested-dropdown',
 			{
 				featureFlag: 'select-avoid-duplicated-registered-ref',
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 		// Should open a nested dropdown level 0
@@ -231,7 +231,7 @@ test.describe('returnFocusRef', () => {
 			await page.visitExample<
 				typeof import('../../../examples/90-testing-return-focus-ref-rendered-in-parent.tsx')
 			>('design-system', 'dropdown-menu', 'testing-return-focus-ref-rendered-in-parent', {
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			});
 		});
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useColorMode } from '@atlaskit/app-provider';
-import { Code } from '@atlaskit/code';
-import Heading from '@atlaskit/heading';
+import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
+import Code from '@atlaskit/code/code';
+import Heading from '@atlaskit/heading/heading';
 import Image from '@atlaskit/image';
 import { Stack } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 
 import cloudDark from '../images/cloud-dark.svg';
 import cloudLight from '../images/cloud-light.svg';

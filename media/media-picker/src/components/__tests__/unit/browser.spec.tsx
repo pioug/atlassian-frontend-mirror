@@ -6,9 +6,10 @@ import { render, screen, userEvent } from '@atlassian/testing-library';
 import Button from '@atlaskit/button/standard-button';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 
-import { type BrowseFn, Browser, BrowserBase } from '../../browser/browser';
-import { type BrowserConfig } from '../../../types';
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';
+import { type BrowserConfig } from '../../../types';
+import { BrowserBase } from '../../browser/BrowserBase';
+import { type BrowseFn, Browser } from '../../browser/browser';
 
 const MockedUploadServiceImpl = jest.mocked(UploadServiceImpl);
 

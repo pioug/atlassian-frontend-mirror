@@ -17,10 +17,10 @@ import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { CellBookmark } from './cell-bookmark';
 import { TableMap } from './table-map';
 import type { SerializedCellSelection } from './types';
-import { pointsAtCell } from './utils/cells';
-import { removeColSpan } from './utils/colspan';
 import { getCellSelectionRanges } from './utils/get-cell-selection-ranges';
-import { inSameTable } from './utils/tables';
+import { inSameTable } from './utils/in-same-table';
+import { pointsAtCell } from './utils/points-at-cell';
+import { removeColSpan } from './utils/remove-col-span';
 
 // ::- A [`Selection`](http://prosemirror.net/docs/ref/#state.Selection)
 // subclass that represents a cell selection spanning part of a table.

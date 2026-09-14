@@ -6,16 +6,16 @@ import { type SyntheticEvent, useCallback, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import { Radio } from '@atlaskit/radio';
+import Radio from '@atlaskit/radio/radio';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	selectedValue: {
 		marginBlock: token('space.200'),
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		borderColor: token('color.border'),
 		borderStyle: 'dashed',
 		borderWidth: token('border.width'),

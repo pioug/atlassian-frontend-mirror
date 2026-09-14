@@ -1,10 +1,7 @@
-jest.mock('@atlaskit/media-ui', () => {
-	const actual = jest.requireActual('@atlaskit/media-ui');
-	return {
-		...actual,
-		fileToDataURI: jest.fn(async (file: File) => `data-uri-for-${file.name}`),
-	};
-});
+jest.mock('@atlaskit/media-ui/fileToDataURI', () => ({
+	...jest.requireActual('@atlaskit/media-ui/fileToDataURI'),
+	fileToDataURI: jest.fn(async (file: File) => `data-uri-for-${file.name}`),
+}));
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { smallImage } from '@atlaskit/media-test-helpers';

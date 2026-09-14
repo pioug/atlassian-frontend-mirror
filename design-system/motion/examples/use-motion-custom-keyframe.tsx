@@ -6,17 +6,17 @@ import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
 import { keyframes } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { Reanimate } from '@atlaskit/motion/motion';
+import { Reanimate } from '@atlaskit/motion/reanimate';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
-import { useMotion } from '@atlaskit/motion/use-motion';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { RetryContainer } from './utils';
+import { RetryContainer } from './utils/containers';
 
 const rotateIn = keyframes({
 	'0%': { transform: 'rotate(0deg)' },
@@ -51,6 +51,9 @@ const styles = cssMap({
 		animationName: `${rotateIn}, ${token('motion.keyframe.fade.in')}`,
 		animationFillMode: 'backwards',
 		animationPlayState: 'running',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 	exiting: {
 		animationDuration: token('motion.duration.medium'),
@@ -58,6 +61,9 @@ const styles = cssMap({
 		animationName: `${rotateOut}, ${token('motion.keyframe.fade.out')}`,
 		animationFillMode: 'forwards',
 		animationPlayState: 'running',
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+		},
 	},
 });
 

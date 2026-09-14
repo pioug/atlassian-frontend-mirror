@@ -837,7 +837,6 @@ export const Box = forwardRef(
 
 		return node;
 	},
-	// @ts-ignore This typescript error has been surpessed while locally enrolling `@atlaskit/primitives` into Jira
 	// The return type of `BoxComponent` does not match the return type of `forwardRef` in React 18
 ) as BoxComponent;
 

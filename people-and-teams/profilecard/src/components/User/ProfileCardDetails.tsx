@@ -3,11 +3,11 @@ import React, { useRef } from 'react';
 import { cssMap, cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import relativeDate from '../../internal/relative-date';
 import messages from '../../messages';
@@ -24,12 +24,17 @@ import {
 	type LozengeProps,
 	type ProfilecardProps,
 } from '../../types';
-import { IconLabel } from '../Icon';
+import { default as IconLabel } from '../Icon/IconLabel';
 
 import ReportingLinesDetails from './ReportingLinesDetails';
 
 const styles = cssMap({
 	detailedListWrapperNext: {
+		display: 'grid',
+		gridTemplateColumns: 'auto minmax(0, 1fr)',
+		alignItems: 'center',
+		columnGap: token('space.100'),
+		rowGap: token('space.150'),
 		marginTop: token('space.400'),
 		marginRight: token('space.0'),
 		marginBottom: token('space.0'),
@@ -300,13 +305,19 @@ export const ProfileCardDetails = (
 			) : (
 				lozenges
 			)}
-			<Box xcss={styles.detailedListWrapperNext}>
-				<IconLabel icon="email" extraTopSpace={true}>
+			<Box as="dl" xcss={styles.detailedListWrapperNext}>
+				<IconLabel icon="email" extraTopSpace={true} isDescriptionListItem>
 					{props.email}
 				</IconLabel>
-				<IconLabel icon="time">{props.timestring}</IconLabel>
-				<IconLabel icon="companyName">{props.companyName}</IconLabel>
-				<IconLabel icon="location">{props.location}</IconLabel>
+				<IconLabel icon="time" isDescriptionListItem>
+					{props.timestring}
+				</IconLabel>
+				<IconLabel icon="companyName" isDescriptionListItem>
+					{props.companyName}
+				</IconLabel>
+				<IconLabel icon="location" isDescriptionListItem>
+					{props.location}
+				</IconLabel>
 			</Box>
 			<ReportingLinesDetails
 				reportingLines={props.reportingLines}

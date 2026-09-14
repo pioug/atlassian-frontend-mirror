@@ -1,7 +1,7 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { IconType, SmartLinkStatus } from '../../../../constants';
-import { extractErrorIcon } from '../index';
+import { extractErrorIcon } from '../extract-error-icon';
 
 describe('extractErrorIcon', () => {
 	it('returns provider icon', () => {

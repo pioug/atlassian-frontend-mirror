@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/no-node-access */
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@atlassian/testing-library';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 

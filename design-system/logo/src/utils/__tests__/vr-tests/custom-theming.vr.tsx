@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import CustomThemeExample from '../../../../examples/internal-logo-component/03-showcase-custom-theme';
+import CustomThemeExample from '../../../../examples/internal-logo-component/03-showcase-custom-theme.vr.ap';
 
 snapshot(CustomThemeExample, {
 	variants: [
@@ -13,6 +13,6 @@ snapshot(CustomThemeExample, {
 	],
 	featureFlags: {
 		'assets-platform-branding': true,
-		'assets-platform-branding-with-confluence': true,
+		'assets-platform-branding-v2': true,
 	},
 });

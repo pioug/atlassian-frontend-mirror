@@ -92,20 +92,6 @@ for entry and
 [`allow-discrete`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) on
 `display`/`overlay` for exit — no JavaScript animation coordination required.
 
-Presets are available from `@atlaskit/top-layer/animations`:
-
-```tsx
-import {
-	// Popover presets
-	slideAndFade,
-	fade,
-	scaleAndFade,
-	// Dialog presets
-	dialogSlideUpAndFade,
-	dialogFade,
-} from '@atlaskit/top-layer/animations';
-```
-
 ### Popover animation
 
 Pass `shouldAnimate` to enable the default popover entry and exit animation:

@@ -1,5 +1,5 @@
 import { type GasPurePayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { render, screen, fireEvent } from '@testing-library/react';
 import cases from 'jest-in-case';
 import React from 'react';

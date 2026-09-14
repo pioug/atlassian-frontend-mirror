@@ -1,9 +1,9 @@
 import React, { type CSSProperties, useCallback } from 'react';
 
-import { LoadingButton } from '@atlaskit/button';
-import { IconButton } from '@atlaskit/button/new';
+import LoadingButton from '@atlaskit/button/loading-button';
+import IconButton from '@atlaskit/button/icon/button';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 

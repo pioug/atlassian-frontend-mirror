@@ -158,7 +158,7 @@ describe('LegacyAnalyticsContext', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(callback).toBeCalledWith([{ ticket: 'AFP-123' }]);
+				expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-123' }]);
 				expect(getByText('Button').dataset.renderCount).toBe('1');
 			});
 
@@ -176,7 +176,7 @@ describe('LegacyAnalyticsContext', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(callback).toBeCalledWith([{ board: 'AFP' }, { ticket: 'AFP-123' }]);
+				expect(callback).toHaveBeenCalledWith([{ board: 'AFP' }, { ticket: 'AFP-123' }]);
 				expect(getByText('Button').dataset.renderCount).toBe('1');
 			});
 
@@ -196,7 +196,7 @@ describe('LegacyAnalyticsContext', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(callback).toBeCalledWith([{ ticket: 'AFP-123' }]);
+				expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-123' }]);
 				callback.mockReset();
 
 				rerender(
@@ -211,7 +211,7 @@ describe('LegacyAnalyticsContext', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(callback).toBeCalledWith([{ ticket: 'AFP-123' }]);
+				expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-123' }]);
 				callback.mockReset();
 
 				rerender(
@@ -226,7 +226,7 @@ describe('LegacyAnalyticsContext', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(callback).toBeCalledWith([{ ticket: 'AFP-234' }]);
+				expect(callback).toHaveBeenCalledWith([{ ticket: 'AFP-234' }]);
 			});
 		});
 	});

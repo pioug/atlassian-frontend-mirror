@@ -1,4 +1,6 @@
-import { getAttrsFromUrl, addFileAttrsToUrl, objectToQueryString } from '../../url';
+import { addFileAttrsToUrl } from '../../addFileAttrsToUrl';
+import { getAttrsFromUrl } from '../../getAttrsFromUrl';
+import { objectToQueryString } from '../../objectToQueryString';
 
 describe('url utils', () => {
 	describe('getAttrsFromUrl()', () => {

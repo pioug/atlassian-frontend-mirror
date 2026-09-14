@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import Loadable from 'react-loadable';
+import { hydrateRoot } from 'react-dom/client';
 import ReactDOMServer from 'react-dom/server';
+
+import Loadable from 'react-loadable';
+
+import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';
+import { ResourcedEmoji } from '../src';
 import { renderEmoji } from './00-simple-emoji';
 import EmojiPickerWithUpload from './05-standard-emoji-picker-with-upload';
-import { getRealEmojiProvider } from '../example-helpers/demo-resource-control';
-import { ResourcedEmoji } from '../src';
 
 const Page = ({ title, children }: React.PropsWithChildren<{ title: string }>) => {
 	return (
@@ -38,7 +40,7 @@ export default (): React.JSX.Element => {
 
 			if (elem) {
 				elem.innerHTML = txt;
-				hydrate && ReactDOM.hydrate(<Page title={'SSR + Hydration'}>{node}</Page>, elem);
+				hydrate && hydrateRoot(elem, <Page title={'SSR + Hydration'}>{node}</Page>);
 			}
 		} catch (e) {
 			console.error(containerId, e);

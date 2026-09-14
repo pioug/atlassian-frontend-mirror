@@ -1,5 +1,63 @@
 # @atlassian/give-kudos
 
+## 6.15.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.14.0
+
+### Minor Changes
+
+- [`fcdae83cc7c2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcdae83cc7c2b) -
+  Update i18n NPM package versions for townsquare,team-central (Group 10)
+
+## 6.13.0
+
+### Minor Changes
+
+- [`1490ef523b50d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1490ef523b50d) -
+  Update i18n NPM package versions for townsquare,team-central (Group 10)
+
+## 6.12.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.12.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.12.3
+
+### Patch Changes
+
+- [`2a615d4e92a7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a615d4e92a7b) -
+  Removed the fully-rolled-out `teams-a11y-35569-35538-35421` feature gate. The keyboard-focus-guard
+  behaviour in `GiveKudosLauncher` is now always enabled. No behaviour change for users.
+- Updated dependencies
+
+## 6.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.12.1
 
 ### Patch Changes

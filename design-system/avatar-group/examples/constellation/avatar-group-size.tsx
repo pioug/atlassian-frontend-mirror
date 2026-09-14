@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AvatarGroup from '@atlaskit/avatar-group';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import { appearances } from '../../examples-util/appearances';

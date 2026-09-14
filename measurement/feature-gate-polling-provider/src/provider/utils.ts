@@ -2,7 +2,7 @@ import { type FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher
 import {
 	FeatureGateEnvironment,
 	type FrontendExperimentsResult,
-} from '@atlaskit/feature-gate-js-client';
+} from '@atlaskit/feature-gate-js-client/types';
 
 export const getFrontendExperimentsResult = (
 	frontendExperimentsResponse: FrontendExperimentsResponse,

@@ -6,7 +6,7 @@ import { snapshotInformational } from '@af/visual-regression';
 import {
 	VRIssueLikeTablePriorities,
 	VRIssueLikeTablePrioritiesLoading,
-} from '../../examples/vr/issue-like-table-priorities';
+} from '../../examples/vr/issue-like-table-priorities.vr.ap';
 
 snapshotInformational(VRIssueLikeTablePrioritiesLoading, {
 	description: 'Priority column - inline edit - loading',

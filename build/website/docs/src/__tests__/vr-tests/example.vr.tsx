@@ -5,7 +5,7 @@ import {
 	DefaultOpenExample,
 	SourceOnlyExample,
 	SourceOnlyOpenExample,
-} from '../../../examples/example';
+} from '../../../examples/example.vr.ap';
 
 snapshot(DefaultExample, {
 	description: 'showcase-and-source - default',

@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import { messages } from './messages';
@@ -195,11 +195,8 @@ export function getNodeRenderer<T extends Parameters>(
 				// Only product implemented preloading will return sync result
 				// However the out-of-box won't handle this. Confluence uses a custom implementation
 				return preloaded
-					? fg('platform_editor_extension_renderer_promise_fix')
-						? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-							Promise.resolve(resolveImportSync(preloaded) as any)
-						: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-							(resolveImportSync(preloaded) as any)
+					? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+						(resolveImportSync(preloaded) as any)
 					: resolveImport(maybePromise.render());
 			}
 		},

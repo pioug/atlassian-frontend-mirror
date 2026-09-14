@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, waitFor } from '@atlassian/testing-library';
 
 import AppProvider from '../../src/app-provider';
@@ -7,6 +8,7 @@ import AppProvider from '../../src/app-provider';
 afterEach(() => {
 	document.documentElement.removeAttribute('data-theme');
 	document.documentElement.removeAttribute('data-color-mode');
+	document.documentElement.removeAttribute('data-scrollbar-harmonisation');
 	jest.resetAllMocks();
 });
 
@@ -39,8 +41,31 @@ describe('AppProvider', () => {
 		});
 	});
 
+	it('should not enable the harmonised scrollbar appearance when the gate is off', () => {
+		failGate('platform_dst_scrollbar_harmonisation');
+
+		render(<AppProvider>Hello</AppProvider>);
+
+		expect(document.documentElement).not.toHaveAttribute('data-scrollbar-harmonisation');
+	});
+
+	it('should enable and clean up the harmonised scrollbar appearance when the gate is on', async () => {
+		passGate('platform_dst_scrollbar_harmonisation');
+
+		const { unmount } = render(<AppProvider>Hello</AppProvider>);
+
+		await waitFor(() => {
+			expect(document.documentElement).toHaveAttribute('data-scrollbar-harmonisation');
+		});
+
+		unmount();
+
+		await waitFor(() => {
+			expect(document.documentElement).not.toHaveAttribute('data-scrollbar-harmonisation');
+		});
+	});
+
 	it('should throw when there are nested AppProviders', async () => {
-		// @ts-ignore
 		jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 		const app = (

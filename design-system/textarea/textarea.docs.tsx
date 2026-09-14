@@ -45,7 +45,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/textarea.tsx'),
 				},
 			],
-			keywords: ['textarea', 'input', 'form', 'text', 'multiline', 'input', 'field'],
+			keywords: ['textarea', 'input', 'form', 'text', 'multiline', 'field'],
 			categories: ['forms-and-input'],
 		},
 	],

@@ -4,11 +4,11 @@ import React, { type SyntheticEvent, useCallback, useEffect } from 'react';
 
 import { canUseDOM } from 'exenv';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import { Layering } from '@atlaskit/layering/layering';
 import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Portal from '@atlaskit/portal';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Portal from '@atlaskit/portal/portal';
 
 import Blanket from './blanket';
 import { DrawerPanel } from './drawer-panel/drawer-panel';
@@ -155,3 +155,6 @@ export const Drawer = (props: DrawerProps): React.JSX.Element | null => {
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props -- internal implementation component takes the same DrawerProps
 	return <DrawerBase {...props} />;
 };
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { Drawer as default };

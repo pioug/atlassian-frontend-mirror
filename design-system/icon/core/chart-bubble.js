@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::379d27dc2254a712c7e5f662436ba8d1>>
+ * @codegen <<SignedSource::8ca7b63fc5f8c69e7a15e0f06bda4f8e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "ChartBubble".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ChartBubbleIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const ChartBubbleIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "ChartBubbleIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M1 13V1h1.5v12a.5.5 0 0 0 .5.5h12V15H3a2 2 0 0 1-2-2"/><path fill="currentcolor" d="M11.27 9.01a1.38 1.38 0 1 1-1.51 1.51l-.01-.14.01-.14A1.38 1.38 0 0 1 11.13 9zM5.75 6.5a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5m4.75-5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

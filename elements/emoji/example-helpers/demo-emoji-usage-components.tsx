@@ -2,7 +2,7 @@ import React from 'react';
 import { PureComponent } from 'react';
 
 import { Text, Pressable } from '@atlaskit/primitives/compiled';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 
 import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';

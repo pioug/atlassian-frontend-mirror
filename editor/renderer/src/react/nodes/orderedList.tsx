@@ -1,9 +1,10 @@
 import React from 'react';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import { orderedListSelector } from '@atlaskit/adf-schema';
+import { orderedListSelector } from '@atlaskit/adf-schema/ordered-list';
 import { getOrderedListInlineStyles } from '@atlaskit/editor-common/styles';
 
 import { getItemCounterDigitsSize, resolveOrder } from '@atlaskit/editor-common/utils';
+import type { NodeContent } from '../types';
 import { getListIndentLevel } from '../utils/lists';
 
 type ExtraProps = {
@@ -16,7 +17,7 @@ type ExtraProps = {
 
 export default function OrderedList(props: {
 	children: React.ReactNode;
-	content?: Node[];
+	getContent?: () => NodeContent | undefined;
 	localId?: string;
 	order?: number;
 	path?: Node[];
@@ -24,9 +25,12 @@ export default function OrderedList(props: {
 }): React.JSX.Element {
 	const extraProps: ExtraProps = {};
 
+	// Item count drives the marker column width, so losing it narrows the gutter by a digit.
+	const itemsCount = props.getContent?.()?.length;
+
 	const itemCounterDigitsSize = getItemCounterDigitsSize({
 		order: props.order,
-		itemsCount: props?.content?.length,
+		itemsCount,
 	});
 	if (itemCounterDigitsSize && itemCounterDigitsSize > 1) {
 		extraProps.style = getOrderedListInlineStyles(itemCounterDigitsSize, 'object');

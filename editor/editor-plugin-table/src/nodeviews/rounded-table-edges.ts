@@ -1,5 +1,66 @@
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+type RoundedTableCellEdgeState = {
+	reachesBottom: boolean;
+	reachesLeft: boolean;
+	reachesRight: boolean;
+	reachesTop: boolean;
+};
+
+const roundedTableCellEdgeStateCache = new WeakMap<
+	PmNode,
+	Map<number, RoundedTableCellEdgeState>
+>();
+
+const addEdgeState = (
+	edgeStates: Map<number, RoundedTableCellEdgeState>,
+	offset: number,
+	edge: keyof RoundedTableCellEdgeState,
+): void => {
+	let edgeState = edgeStates.get(offset);
+	if (!edgeState) {
+		edgeState = {
+			reachesTop: false,
+			reachesBottom: false,
+			reachesLeft: false,
+			reachesRight: false,
+		};
+		edgeStates.set(offset, edgeState);
+	}
+	edgeState[edge] = true;
+};
+
+/**
+ * Returns the rounded-edge membership for a cell offset.
+ *
+ * The first lookup for a table scans only the TableMap's four borders and caches edge cells.
+ * Interior cells have no cache entry and require no DOM attributes. Subsequent cell nodeview
+ * constructors perform an O(1) lookup. The cache is keyed by the immutable table node, so
+ * structural document changes naturally create a fresh entry.
+ */
+export const getRoundedTableCellEdgeState = (
+	tableNode: PmNode,
+	cellOffset: number,
+): RoundedTableCellEdgeState | undefined => {
+	let edgeStates = roundedTableCellEdgeStateCache.get(tableNode);
+	if (!edgeStates) {
+		const { width, height, map } = TableMap.get(tableNode);
+		edgeStates = new Map();
+
+		for (let column = 0; column < width; column++) {
+			addEdgeState(edgeStates, map[column], 'reachesTop');
+			addEdgeState(edgeStates, map[(height - 1) * width + column], 'reachesBottom');
+		}
+		for (let row = 0; row < height; row++) {
+			addEdgeState(edgeStates, map[row * width], 'reachesLeft');
+			addEdgeState(edgeStates, map[row * width + width - 1], 'reachesRight');
+		}
+
+		roundedTableCellEdgeStateCache.set(tableNode, edgeStates);
+	}
+
+	return edgeStates.get(cellOffset);
+};
 
 const setDataAttr = (cell: HTMLTableCellElement, attr: string, value: boolean): void => {
 	const hasAttr = cell.hasAttribute(attr);
@@ -59,25 +120,27 @@ const refreshRoundedTableEdgeAttrs = (table: HTMLTableElement, tableNode: PmNode
 
 /**
  * Builds a lightweight signature of the cells sitting on the table's four borders, using
- * their (immutable) ProseMirror node references. The signature changes whenever a border
- * cell is added, removed, merged, or moved (row/column reorder via drag-and-drop) but stays
- * stable across pure text edits in non-edge cells. This lets the controller decide cheaply
- * (O(rows + cols)) whether the rounded-edge attrs need a full refresh, instead of only
- * reacting to width/height changes.
+ * their immutable ProseMirror node references. Top and bottom rows are visited in full;
+ * interior rows contribute only their first and last cells, making this O(rows + columns).
  */
-const getTableEdgeSignature = (tableNode: PmNode): PmNode[] => {
+const getPerimeterTableEdgeSignature = (tableNode: PmNode): PmNode[] => {
 	const edgeCells: PmNode[] = [];
 	const lastRowIndex = tableNode.childCount - 1;
 
 	tableNode.forEach((row, _rowOffset, rowIndex) => {
-		const isEdgeRow = rowIndex === 0 || rowIndex === lastRowIndex;
-		const lastCellIndex = row.childCount - 1;
-
-		row.forEach((cell, _cellOffset, cellIndex) => {
-			if (isEdgeRow || cellIndex === 0 || cellIndex === lastCellIndex) {
+		if (rowIndex === 0 || rowIndex === lastRowIndex) {
+			row.forEach((cell) => {
 				edgeCells.push(cell);
-			}
-		});
+			});
+			return;
+		}
+
+		if (row.firstChild) {
+			edgeCells.push(row.firstChild);
+		}
+		if (row.childCount > 1 && row.lastChild) {
+			edgeCells.push(row.lastChild);
+		}
 	});
 
 	return edgeCells;
@@ -117,7 +180,7 @@ export class RoundedTableEdges {
 
 		// Baseline the edge signature so the first content edit doesn't trigger a spurious
 		// refresh — the cells set their own edge attrs on construction.
-		this.prevSignature = getTableEdgeSignature(node);
+		this.prevSignature = getPerimeterTableEdgeSignature(node);
 	}
 
 	/**
@@ -125,7 +188,7 @@ export class RoundedTableEdges {
 	 * changes it schedules a refresh of the edge attrs on the next animation frame.
 	 */
 	handleUpdate(node: PmNode): void {
-		const nextSignature = getTableEdgeSignature(node);
+		const nextSignature = getPerimeterTableEdgeSignature(node);
 		const edgesChanged = tableEdgeSignaturesDiffer(this.prevSignature, nextSignature);
 		this.prevSignature = nextSignature;
 

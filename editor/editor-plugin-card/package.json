@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "18.3.0",
+	"version": "24.0.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,7 @@
 		"@atlaskit/custom-steps": "workspace:^",
 		"@atlaskit/editor-card-provider": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-base": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
@@ -42,6 +43,7 @@
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-plugin-floating-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-grid": "workspace:^",
+		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
@@ -49,6 +51,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-smart-link-draggable": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/frontend-utilities": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
@@ -60,6 +63,7 @@
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -80,47 +84,15 @@
 		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			]
-		}
-	},
 	"platform-feature-flags": {
+		"cc-mui-slides-opted-out": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"confluence_editor_paste_3p_link_actions_menu": {
 			"type": "boolean"
 		},
 		"platform_native_embeds_rollout_non_maui_experience": {
-			"type": "boolean"
-		},
-		"cc_drag_and_drop_smart_link_from_content_to_tree": {
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {
@@ -129,17 +101,11 @@
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
-		"platform_smartlink_xpc_url_wrapping": {
-			"type": "boolean",
-			"referenceOnly": true
+		"platform_lp_sllv_table_settings_menu": {
+			"type": "boolean"
 		},
 		"jim-lower-ranking-in-jira-macro-search": {
 			"type": "boolean"
-		}
-	},
-	"stricter": {
-		"no-unused-dependencies": {
-			"checkDevDependencies": true
 		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/e6f3220b-0ca2-445a-a4c5-78cff6ca2a34",

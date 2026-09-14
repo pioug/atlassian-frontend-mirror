@@ -65,7 +65,7 @@ const SelectionExtensionDropdownMenuComponent = React.memo(
 	},
 );
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const SelectionExtensionDropdownMenu: React.FC<
 	WithIntlProps<
 		{

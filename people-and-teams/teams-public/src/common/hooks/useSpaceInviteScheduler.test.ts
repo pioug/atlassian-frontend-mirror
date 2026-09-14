@@ -1,12 +1,13 @@
 import { renderHook } from '@testing-library/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { spaceInviteScheduler } from '../utils/spaceInviteScheduler';
 
 import { useSpaceInviteScheduler } from './useSpaceInviteScheduler';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

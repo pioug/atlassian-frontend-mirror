@@ -6,7 +6,7 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { ADNode } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { Transformer } from '@atlaskit/editor-common/types';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

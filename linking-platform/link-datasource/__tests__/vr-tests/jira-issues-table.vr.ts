@@ -1,6 +1,8 @@
 import { snapshot } from '@af/visual-regression';
 
-import JiraIssuesTable, { JiraIssuesTableDaterange } from '../../examples/vr/jira-issues-table-vr';
+import JiraIssuesTable, {
+	JiraIssuesTableDaterange,
+} from '../../examples/vr/jira-issues-table-vr.vr.ap';
 
 snapshot(JiraIssuesTable, {
 	description: 'Jira Issues Table',
@@ -11,6 +13,9 @@ snapshot(JiraIssuesTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		electric_issue_like_table_xpc_url_wrapping: [true, false],
+	},
 });
 
 snapshot(JiraIssuesTableDaterange, {

@@ -1,5 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge/lozenge';
 
 import { type InvokeActions } from '../../../state/hooks/use-invoke/types';
 

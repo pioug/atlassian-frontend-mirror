@@ -52,7 +52,7 @@ interface CheckboxProps {
  * - [Code] https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#checkboxfield-reference
  * - [Usage] https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#checkboxfield-reference
  */
-const CheckboxField = ({
+export const CheckboxField = ({
 	children,
 	defaultIsChecked = false,
 	isDisabled,
@@ -118,5 +118,3 @@ const CheckboxField = ({
 		</Field>
 	);
 };
-
-export default CheckboxField;

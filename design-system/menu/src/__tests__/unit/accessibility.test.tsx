@@ -4,11 +4,11 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import ComposedMenuGroupExample from '../../../examples/05-menu-group';
-import ButtonItemExample from '../../../examples/button-item';
-import CustomItemExample from '../../../examples/custom-item';
+import ComposedMenuGroupExample from '../../../examples/05-menu-group.vr.ap';
+import ButtonItemExample from '../../../examples/button-item.vr.ap';
+import CustomItemExample from '../../../examples/custom-item.vr.ap';
 import HeadingItemExample from '../../../examples/heading-item';
-import LinkItemExample from '../../../examples/link-item';
+import LinkItemExample from '../../../examples/link-item.vr.ap';
 import LoadingSkeletonMenuExample from '../../../examples/loading-skeleton';
 import ScrollableSectionMenuExample from '../../../examples/scrollable-sections';
 

@@ -5,15 +5,15 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import noop from '@atlaskit/ds-lib/noop';
 import { Box } from '@atlaskit/primitives/compiled';
 
-import { type CreateFlagArgs, type DismissFn, FlagsProvider, useFlags } from '../../index';
+import { type CreateFlagArgs, type DismissFn } from '../../flag-provider';
+import { FlagsProvider } from '../../flags-provider';
+import { useFlags } from '../../use-flags';
 
-jest.mock('@atlaskit/motion', () => {
-	const actualMotion = jest.requireActual('@atlaskit/motion');
-	return {
-		...actualMotion,
-		ExitingPersistence: ({ children }: any) => children,
-	};
-});
+jest.mock('@atlaskit/motion/exiting-persistence', () => ({
+	...jest.requireActual('@atlaskit/motion/exiting-persistence'),
+	__esModule: true,
+	default: ({ children }: any) => children,
+}));
 
 const getUniqueId = (() => {
 	let count: number = 0;

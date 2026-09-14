@@ -108,10 +108,12 @@ function getHeadingId(value: React.ReactNode): string | null {
  * ```
  */
 export function HeadingWithSectionLink({
+	id,
 	level,
 	children,
 	spacing = 'default',
 }: {
+	id?: string;
 	level: HeadingLevel;
 	children: React.ReactNode;
 	/**
@@ -120,7 +122,7 @@ export function HeadingWithSectionLink({
 	 */
 	spacing?: 'default' | 'none';
 }): JSX.Element {
-	const headingId = getHeadingId(children);
+	const headingId = id ?? getHeadingId(children);
 
 	return (
 		<div

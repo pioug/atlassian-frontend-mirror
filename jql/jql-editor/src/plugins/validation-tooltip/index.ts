@@ -11,7 +11,6 @@ const validationTooltipPlugin = (mainId: string): Plugin<boolean> => {
 			init() {
 				return false;
 			},
-			// @ts-ignore
 			apply(tr, value) {
 				if (tr.getMeta(plugin) !== undefined) {
 					return tr.getMeta(plugin);

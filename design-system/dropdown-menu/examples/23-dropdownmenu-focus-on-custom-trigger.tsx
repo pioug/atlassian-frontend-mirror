@@ -1,6 +1,8 @@
 import React, { forwardRef, useCallback, useRef } from 'react';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
 const CustomComponent: React.ForwardRefExoticComponent<

@@ -3,7 +3,7 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { DocBuilder, Refs } from '@atlaskit/editor-common/types';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, table, tdEmpty, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 

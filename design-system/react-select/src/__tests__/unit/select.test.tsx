@@ -4,13 +4,19 @@
 // @ts-nocheck
 import React, { type KeyboardEvent } from 'react';
 
-import { type EventType, fireEvent, render, screen, within } from '@testing-library/react';
+import { type EventType, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
+import { act } from '@atlassian/testing-library/testing-library/react';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { FilterOptionOption } from '../../filters';
 import Select, { type FormatOptionLabelMeta } from '../../select';
@@ -60,6 +66,36 @@ const noop = __noop;
 
 beforeEach(() => {
 	skipA11yAudit();
+});
+
+test('hovered option has no indicator bar when Finesse is enabled', () => {
+	passGate('platform-dst-tokens-finesse');
+	render(<Select {...BASIC_PROPS} menuIsOpen />);
+
+	const option = screen.getByRole('option', { name: '1' });
+	fireEvent.mouseMove(option);
+
+	expect(option).toHaveCompiledCss('box-shadow', 'none');
+});
+
+test('keyboard-active option has no indicator bar when Finesse is enabled', () => {
+	passGate('platform-dst-tokens-finesse');
+	const { container } = render(<Select {...BASIC_PROPS} menuIsOpen />);
+
+	fireEvent.keyDown(screen.getByRole('combobox'), { key: 'ArrowDown' });
+
+	const option = container.querySelector('.react-select__option--is-focused')!;
+	expect(option).toHaveCompiledCss('box-shadow', 'none');
+});
+
+test('focused option retains the selected border color when Finesse is disabled', () => {
+	failGate('platform-dst-tokens-finesse');
+	render(<Select {...BASIC_PROPS} menuIsOpen />);
+
+	const option = screen.getByRole('option', { name: '1' });
+	fireEvent.mouseMove(option);
+
+	expect(option).toHaveCompiledCss('box-shadow', 'inset 2px 0 0 var(--ds-border-selected,#1868db)');
 });
 
 test('instanceId prop > to have instanceId as id prefix for the select components', () => {
@@ -1782,6 +1818,195 @@ test('multi select > clicking on X next to option will call onChange with all op
 	);
 });
 
+test('multi select > does not consume a surrounding modal exit when tag motion is disabled', async () => {
+	failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	failGate('platform-dst-motion-uplift-labels');
+	failGate('platform-dst-top-layer');
+	const onCloseComplete = jest.fn();
+
+	const SelectModal = ({ isOpen }: { isOpen: boolean }) => (
+		<ModalTransition>
+			{isOpen && (
+				<Modal onClose={noop} onCloseComplete={onCloseComplete}>
+					<ModalHeader hasCloseButton={true}>
+						<ModalTitle>React Select motion test</ModalTitle>
+					</ModalHeader>
+					<Select {...BASIC_PROPS} isMulti onChange={noop} value={[OPTIONS[0]]} />
+				</Modal>
+			)}
+		</ModalTransition>
+	);
+
+	const { rerender } = render(<SelectModal isOpen />);
+	rerender(<SelectModal isOpen={false} />);
+
+	await waitFor(() => expect(onCloseComplete).toHaveBeenCalledTimes(1));
+});
+
+test('multi select > applies tag motion when the visual uplift and tag motion gates are on', () => {
+	jest.useFakeTimers();
+	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	passGate('platform-dst-motion-uplift-labels');
+	const onChange = jest.fn();
+
+	let addValue = noop;
+	const MotionSelect = () => {
+		const [value, setValue] = React.useState<Option[]>([]);
+		addValue = () => setValue([OPTIONS[0]]);
+
+		return (
+			<Select
+				{...BASIC_PROPS}
+				isMulti
+				onChange={(nextValue) => {
+					onChange(nextValue);
+					setValue([...nextValue]);
+				}}
+				value={value}
+			/>
+		);
+	};
+
+	const { container } = render(<MotionSelect />);
+	act(() => {
+		addValue();
+	});
+
+	// Tag owns enter motion when the value is added.
+	// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+	const animatedTag = container.querySelector<HTMLElement>('[data-tag-text]')?.parentElement;
+	expect(animatedTag).toBeInTheDocument();
+	const enteringClassName = animatedTag?.className;
+	act(() => {
+		jest.advanceTimersByTime(100);
+	});
+	// Compiled style tags can be deduplicated away during rerenders in jsdom. The class change
+	// verifies that Tag completed its entering motion and returned to its visible styles.
+	expect(animatedTag?.className).not.toBe(enteringClassName);
+
+	const valueBeforeExit = container.querySelector<HTMLElement>('.react-select__multi-value');
+	const classNameBeforeExit = valueBeforeExit?.className;
+
+	act(() => {
+		animatedTag?.querySelector('button')?.click();
+	});
+	expect(onChange).toHaveBeenCalledTimes(1);
+
+	// Select owns exit persistence, including when the last value is replaced by the placeholder.
+	// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+	const exitingValue = container.querySelector<HTMLElement>('.react-select__multi-value');
+	expect(exitingValue).toBeInTheDocument();
+	// Compiled's deduplicated style tags are not reliable after rerender in jsdom. The atomic
+	// class change deterministically verifies that Select applied its exiting motion variant.
+	expect(exitingValue?.className).not.toBe(classNameBeforeExit);
+	expect(screen.getByText(OPTIONS[0].label)).toBeInTheDocument();
+	expect(screen.queryByTestId(`${testId}-select--placeholder`)).not.toBeInTheDocument();
+
+	act(() => {
+		jest.advanceTimersByTime(100);
+	});
+	expect(screen.queryByText(OPTIONS[0].label)).not.toBeInTheDocument();
+	expect(screen.getByTestId(`${testId}-select--placeholder`)).toBeInTheDocument();
+	jest.useRealTimers();
+});
+
+test('multi select > applies motion to the tag-like custom content path', () => {
+	jest.useFakeTimers();
+	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	passGate('platform-dst-motion-uplift-labels');
+
+	let addValue = noop;
+	const MotionSelect = () => {
+		const [value, setValue] = React.useState<Option[]>([]);
+		addValue = () => setValue([OPTIONS[0]]);
+
+		return (
+			<Select
+				{...BASIC_PROPS}
+				formatOptionLabel={(option, meta) =>
+					meta.context === 'value' ? <span>{option.label}</span> : option.label
+				}
+				isMulti
+				onChange={(nextValue) => setValue([...nextValue])}
+				value={value}
+			/>
+		);
+	};
+
+	const { container } = render(<MotionSelect />);
+	act(() => {
+		addValue();
+	});
+
+	const tagLikeValue = container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]');
+
+	expect(tagLikeValue).toBeInTheDocument();
+	expect(tagLikeValue).toHaveCompiledCss(
+		'animation',
+		'var(--ds-label-enter,.15s cubic-bezier(.4,1,.6,1) ScaleXIn80to100,.15s cubic-bezier(.4,1,.6,1) FadeIn0to100)',
+	);
+	expect(tagLikeValue).toHaveCompiledCss('transform-origin', 'left');
+	expect(tagLikeValue).toHaveCompiledCss('animation', 'none', {
+		media: '(prefers-reduced-motion: reduce)',
+	});
+	const enteringClassName = tagLikeValue?.className;
+
+	act(() => {
+		tagLikeValue?.querySelector<HTMLElement>('[role="button"]')?.click();
+	});
+
+	const exitingValue = container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]');
+	expect(exitingValue).toBeInTheDocument();
+	expect(exitingValue?.className).not.toBe(enteringClassName);
+	expect(screen.queryByTestId(`${testId}-select--placeholder`)).not.toBeInTheDocument();
+
+	act(() => {
+		jest.advanceTimersByTime(100);
+	});
+
+	expect(
+		container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]'),
+	).not.toBeInTheDocument();
+	expect(screen.getByTestId(`${testId}-select--placeholder`)).toBeInTheDocument();
+	jest.useRealTimers();
+});
+test('multi select > does not animate tag-like custom content when reduced motion is preferred', () => {
+	passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+	passGate('platform-dst-motion-uplift-labels');
+	const matchMediaSpy = jest.spyOn(window, 'matchMedia').mockReturnValue({
+		matches: true,
+	} as MediaQueryList);
+
+	let addValue = noop;
+	const MotionSelect = () => {
+		const [value, setValue] = React.useState<Option[]>([]);
+		addValue = () => setValue([OPTIONS[0]]);
+
+		return (
+			<Select
+				{...BASIC_PROPS}
+				formatOptionLabel={(option, meta) =>
+					meta.context === 'value' ? <span>{option.label}</span> : option.label
+				}
+				isMulti
+				onChange={(nextValue) => setValue([...nextValue])}
+				value={value}
+			/>
+		);
+	};
+
+	const { container } = render(<MotionSelect />);
+	act(() => {
+		addValue();
+	});
+
+	const tagLikeValue = container.querySelector<HTMLElement>('[data-multi-value-tag-like="true"]');
+
+	expect(tagLikeValue).toBeInTheDocument();
+	expect(tagLikeValue?.style.animation).toBe('');
+	matchMediaSpy.mockRestore();
+});
+
 cases(
 	'accessibility > aria-activedescendant for basic options',
 	async (props: BasicProps) => {
@@ -2489,12 +2714,12 @@ test('onMenuClose() function prop to be called on blur', async () => {
 
 cases(
 	'placeholder',
-	({ props, expectPlaceholder = 'Select...' }) => {
+	({ props, expectPlaceholder = '' }) => {
 		render(<Select {...props} />);
 		expect(screen.getByTestId(`${testId}-select--control`)!).toHaveTextContent(expectPlaceholder);
 	},
 	{
-		'single select > should display default placeholder "Select..."': {
+		'single select > should have no default placeholder': {
 			props: BASIC_PROPS,
 		},
 		'single select > should display provided string placeholder': {
@@ -2511,7 +2736,7 @@ cases(
 			},
 			expectPlaceholder: 'single Select...',
 		},
-		'multi select > should display default placeholder "Select..."': {
+		'multi select > should have no default placeholder': {
 			props: {
 				...BASIC_PROPS,
 				isMulti: true,
@@ -2720,7 +2945,7 @@ test('clear select by clicking on clear button > should not call onMenuOpen', as
 	expect(container.querySelectorAll('.react-select__multi-value').length).toBe(1);
 	const user = userEvent.setup();
 	await user.click(screen.getByTestId(`${testId}-select--clear-indicator`)!);
-	expect(onChangeSpy).toBeCalledWith([], {
+	expect(onChangeSpy).toHaveBeenCalledWith([], {
 		action: 'clear',
 		name: BASIC_PROPS.name,
 		removedValues: [{ label: '0', value: 'zero' }],

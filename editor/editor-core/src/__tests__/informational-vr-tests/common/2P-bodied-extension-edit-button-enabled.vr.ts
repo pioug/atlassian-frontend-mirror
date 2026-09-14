@@ -10,7 +10,7 @@ import {
 	EmptyBodiedExtension,
 	BodiedExtensionWithSmartLink,
 	InlineExtensionWithSmartLink,
-} from '../../vr-tests/2P-bodied-extension-edit-button-enabled.fixtures';
+} from '../../vr-tests/2P-bodied-extension-edit-button-enabled.fixtures.vr.ap';
 
 const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 

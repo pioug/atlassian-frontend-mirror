@@ -18,7 +18,7 @@ import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
-import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
+import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common/constants';
 import { token } from '@atlaskit/tokens';
 
 import type { cardPlugin } from '../../cardPlugin';

@@ -1,4 +1,4 @@
-import { border } from '@atlaskit/adf-schema';
+import { border } from '@atlaskit/adf-schema/border';
 
 import type { BorderPlugin } from './borderPluginType';
 

@@ -1,17 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { DecisionList as AkDecisionList } from '@atlaskit/task-decision';
+import { render, screen } from '@testing-library/react';
 import DecisionList from '../../../../react/nodes/decisionList';
 
 describe('Renderer - React/Nodes/DecisionList', () => {
+	const renderDecisionList = () =>
+		render(
+			<DecisionList>
+				<span>This is a list item</span>
+			</DecisionList>,
+		);
+
 	it('should match rendered AkDecisionList', () => {
-		const text: any = 'This is a list item';
-		const decisionList = shallow(<DecisionList>{text}</DecisionList>);
-		expect(decisionList.is(AkDecisionList)).toEqual(true);
+		renderDecisionList();
+
+		const decisionList = screen.getByRole('list');
+
+		expect(decisionList.tagName).toBe('OL');
+		expect(decisionList).toHaveAttribute('data-node-type', 'decisionList');
+		expect(decisionList).toHaveTextContent('This is a list item');
 	});
 
 	it('should not render if no children', () => {
-		const decisionList = shallow(<DecisionList />);
-		expect(decisionList.isEmptyRender()).toEqual(true);
+		const { container } = render(<DecisionList />);
+
+		expect(container).toBeEmptyDOMElement();
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderDecisionList();
+
+		await expect(container).toBeAccessible();
 	});
 });

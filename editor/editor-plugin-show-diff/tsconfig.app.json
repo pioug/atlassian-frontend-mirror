@@ -37,6 +37,9 @@
 			"path": "../adf-schema/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/avatar/tsconfig.app.json"
+		},
+		{
 			"path": "../custom-steps/tsconfig.app.json"
 		},
 		{
@@ -46,10 +49,10 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-analytics/tsconfig.app.json"
+			"path": "../editor-plugin-accessibility-utils/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-expand/tsconfig.app.json"
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-user-intent/tsconfig.app.json"
@@ -58,7 +61,13 @@
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-tables/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

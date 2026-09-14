@@ -2,11 +2,12 @@ import React from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import Button, { LinkButton } from '@atlaskit/button/new';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import Button from '@atlaskit/button/default/button';
+import LinkButton from '@atlaskit/button/link';
 
 import type { ManualRule } from '../../../manual-triggers-container/common/types';
-import { useAutomationMenu } from '../../menu-context';
+import { useAutomationMenu } from '../../menu-context/useAutomationMenu';
 
 type AutomationModalFooterProps = {
 	onClose: () => void;

@@ -1,6 +1,7 @@
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import React from 'react';
-import { screen, fireEvent } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { IntlProvider } from 'react-intl';
+import { screen, fireEvent, render } from '@testing-library/react';
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { Trigger } from './Trigger';
 
@@ -9,36 +10,23 @@ const mockIcon = <div>CoolIcon</div>;
 describe('@atlaskit/reactions/components/Trigger', () => {
 	mockReactDomWarningGlobal();
 
-	ffTest.on('platform_a11y_fixes_reaction_emoji', 'with gate ON', () => {
-		it('should render a button', async () => {
-			renderWithIntl(<Trigger tooltipContent="" />);
-			const btn = await screen.findByTestId('render-trigger-button');
-			expect(btn).toBeInTheDocument();
-		});
-
-		it('should render "Add a reaction" text when showAddReactionText is true', async () => {
-			renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
-			await screen.findByTestId('render-trigger-button');
-			const addReactionText = screen.getByText('Add a reaction');
-			expect(addReactionText).toBeInTheDocument();
-			expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
-		});
+	it('should not have accessibility violations', async () => {
+		const { container } = renderWithIntl(<Trigger tooltipContent="" />);
+		await expect(container).toBeAccessible();
 	});
 
-	ffTest.off('platform_a11y_fixes_reaction_emoji', 'with gate OFF', () => {
-		it('should render a button', async () => {
-			renderWithIntl(<Trigger tooltipContent="" />);
-			const btn = await screen.findByLabelText('Add reaction');
-			expect(btn).toBeInTheDocument();
-		});
+	it('should render a button', async () => {
+		renderWithIntl(<Trigger tooltipContent="" />);
+		const btn = await screen.findByTestId('render-trigger-button');
+		expect(btn).toBeInTheDocument();
+	});
 
-		it('should render "Add a reaction" text when showAddReactionText is true', async () => {
-			renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
-			await screen.findByLabelText('Add reaction');
-			const addReactionText = screen.getByText('Add a reaction');
-			expect(addReactionText).toBeInTheDocument();
-			expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
-		});
+	it('should render "Add a reaction" text when showAddReactionText is true', async () => {
+		renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
+		await screen.findByTestId('render-trigger-button');
+		const addReactionText = screen.getByText('Add a reaction');
+		expect(addReactionText).toBeInTheDocument();
+		expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
 	});
 
 	it('should not render tooltip when showAddReactionText is true', async () => {
@@ -143,5 +131,30 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 			minWidth: '24px',
 			borderStyle: 'none',
 		});
+	});
+
+	it('should use the localized accessible label when tef_fix_a11y_add_reaction_button_language_support is enabled', async () => {
+		passGate('tef_fix_a11y_add_reaction_button_language_support');
+
+		render(
+			<IntlProvider
+				locale="ja"
+				messages={{ 'reaction-picker-trigger.add.reaction.message': 'リアクションを追加' }}
+			>
+				<Trigger tooltipContent="" />
+			</IntlProvider>,
+		);
+
+		const icon = await screen.findByTestId('emoji-add-icon');
+		expect(icon).toHaveAttribute('aria-label', 'リアクションを追加');
+		expect(icon).not.toHaveAttribute('lang');
+	});
+
+	it('should retain the existing accessible label when tef_fix_a11y_add_reaction_button_language_support is disabled', async () => {
+		failGate('tef_fix_a11y_add_reaction_button_language_support');
+
+		renderWithIntl(<Trigger tooltipContent="" />);
+		const icon = await screen.findByTestId('emoji-add-icon');
+		expect(icon).toHaveAttribute('aria-label', 'Add reaction');
 	});
 });

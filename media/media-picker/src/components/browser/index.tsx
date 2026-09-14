@@ -1,6 +1,6 @@
 import React from 'react';
 import { type BrowserProps } from './browser';
-import { type WithMediaClientConfigProps } from '@atlaskit/media-client-react';
+import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react/with-media-client';
 import { type BrowserConfig } from '../../types';
 
 type BrowserWithMediaClientConfigProps = WithMediaClientConfigProps<

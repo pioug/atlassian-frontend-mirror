@@ -257,7 +257,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/constellation/form-default-complex.tsx'),
 				},
 			],
-			keywords: ['form', 'helper', 'message', 'hint'],
+			keywords: ['form', 'helper', 'message', 'help', 'hint'],
 			categories: ['form'],
 		},
 		{
@@ -337,7 +337,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Message wrapper',
 					description: 'MessageWrapper grouping helper, error, and valid messages',
-					source: path.resolve(__dirname, './examples/21-messages.tsx'),
+					source: path.resolve(__dirname, './examples/21-messages.vr.ap.tsx'),
 				},
 			],
 			keywords: ['form', 'message', 'wrapper'],

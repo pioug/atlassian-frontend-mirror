@@ -7,7 +7,7 @@ import { useContext } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { prefersReducedMotion } from '@atlaskit/motion/accessibility';
+import { prefersReducedMotion } from '@atlaskit/motion/utils/accessibility';
 import { easeOut } from '@atlaskit/motion/curves';
 
 import {

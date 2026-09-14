@@ -1,18 +1,11 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 declare var global: any;
 declare var window: any;
 import React from 'react';
 import { render, screen, act, fireEvent } from '@atlassian/testing-library';
 import { FilmstripView } from '../../filmstripView';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 
@@ -351,7 +344,7 @@ describe('FilmstripView', () => {
 			const leftArrowBtn = screen.getByLabelText('left');
 			fireEvent.click(leftArrowBtn);
 
-			expect(onScroll).toBeCalledWith({
+			expect(onScroll).toHaveBeenCalledWith({
 				direction: 'left',
 				offset: 0,
 				animate: true,
@@ -391,7 +384,7 @@ describe('FilmstripView', () => {
 			const rightArrowBtn = screen.getByLabelText('right');
 			fireEvent.click(rightArrowBtn);
 
-			expect(onScroll).toBeCalledWith({
+			expect(onScroll).toHaveBeenCalledWith({
 				direction: 'right',
 				offset: 14,
 				animate: true,
@@ -448,7 +441,7 @@ describe('FilmstripView', () => {
 			onScroll.mockClear();
 			fireEvent.touchMove(listWrapper, { touches: [{ clientX: NEW_TOUCH_START_POSITION }] });
 
-			expect(onScroll).toBeCalledWith({
+			expect(onScroll).toHaveBeenCalledWith({
 				direction: 'right',
 				offset: INITIAL_OFFSET - (NEW_TOUCH_START_POSITION - INITIAL_TOUCH_START_POSITION),
 				animate: false,
@@ -469,7 +462,7 @@ describe('FilmstripView', () => {
 			onScroll.mockClear();
 			fireEvent.touchMove(listWrapper, { touches: [{ clientX: NEW_TOUCH_START_POSITION }] });
 
-			expect(onScroll).toBeCalledWith({
+			expect(onScroll).toHaveBeenCalledWith({
 				direction: 'left',
 				offset: INITIAL_OFFSET - (NEW_TOUCH_START_POSITION - INITIAL_TOUCH_START_POSITION),
 				animate: false,
@@ -486,7 +479,7 @@ describe('FilmstripView', () => {
 			onScroll.mockClear();
 			fireEvent.touchMove(listWrapper, { touches: [{ clientX: 200 }] });
 
-			expect(onScroll).not.toBeCalled();
+			expect(onScroll).not.toHaveBeenCalled();
 		});
 	});
 
@@ -502,7 +495,7 @@ describe('FilmstripView', () => {
 			onScroll.mockClear();
 			fireEvent.touchMove(listWrapper, { touches: [{ clientX: 200 }] });
 
-			expect(onScroll).not.toBeCalled();
+			expect(onScroll).not.toHaveBeenCalled();
 		});
 	});
 
@@ -525,7 +518,7 @@ describe('FilmstripView', () => {
 
 			const listWrapper = screen.getByTestId('filmstrip-list-wrapper');
 			fireEvent.wheel(listWrapper, createWheelEvent({ deltaY: 10 }));
-			expect(onScroll).not.toBeCalled();
+			expect(onScroll).not.toHaveBeenCalled();
 		});
 
 		it('should call onScroll() with an updated offset when scrolling left', () => {
@@ -539,7 +532,7 @@ describe('FilmstripView', () => {
 
 			const listWrapper = screen.getByTestId('filmstrip-list-wrapper');
 			fireEvent.wheel(listWrapper, createWheelEvent({ deltaX: -10 }));
-			expect(onScroll).toBeCalledWith({
+			expect(onScroll).toHaveBeenCalledWith({
 				direction: 'left',
 				offset: 4,
 				animate: false,
@@ -557,7 +550,7 @@ describe('FilmstripView', () => {
 
 			const listWrapper = screen.getByTestId('filmstrip-list-wrapper');
 			fireEvent.wheel(listWrapper, createWheelEvent({ deltaX: 10 }));
-			expect(onScroll).toBeCalledWith({
+			expect(onScroll).toHaveBeenCalledWith({
 				direction: 'right',
 				offset: 14,
 				animate: false,
@@ -582,11 +575,6 @@ describe('FilmstripView', () => {
 		it('should capture and report a11y violations', async () => {
 			const { container } = render(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
 			await expect(container).toBeAccessible();
-		});
-
-		it('styles', () => {
-			const { container } = render(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
-			expect(container).toMatchSnapshot();
 		});
 
 		it('should not render the left arrow when offset is equal to minOffset', () => {

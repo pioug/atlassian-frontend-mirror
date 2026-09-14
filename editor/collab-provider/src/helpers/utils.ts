@@ -1,6 +1,6 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { ProductInformation } from '../types';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { scrubAdf } from '@atlaskit/adf-utils/scrub';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { sendableSteps } from '@atlaskit/prosemirror-collab';
@@ -16,7 +16,7 @@ import type {
 	StepJson,
 	StepMetadata,
 } from '@atlaskit/editor-common/collab';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { CustomError } from '../errors/custom-errors';
 
@@ -266,7 +266,7 @@ export const getStepPositions = (
 
 /**
  * Returns the metadata for Step
- * @description metadata is applied by transform overrides [here](https://bitbucket.org/atlassian/adf-schema/src/e13bbece84ede8f245067dc53dd7ce694f427eda/packages/editor-prosemirror/src/transform-override.ts#lines-12)
+ * @description metadata is applied by transform overrides [here](https://bitbucket.org/atlassian/adf-schema/src/e13bbece84ede8f245067dc53dd7ce694f427eda/packages/editor-prosemirror/transform-override.ts#lines-12)
  */
 const getStepMetadata = (stepJson: StepJson): StepMetadata['metadata'] | undefined => {
 	return stepJson.metadata;

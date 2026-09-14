@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-client",
-	"version": "5.1.1",
+	"version": "5.4.0",
 	"description": "A client to retrieve team related data",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,47 +26,94 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./actual-graph-ql-error": "./src/services/use-query-light/ActualGraphQLError.ts",
+		"./add-breadcrumb": "./src/services/sentry/addBreadcrumb.ts",
 		"./agg-client/types": "./src/services/agg-client/types.ts",
 		"./agg-client": "./src/services/agg-client/index.ts",
 		"./ari": "./src/common/utils/ari.ts",
 		"./association": "./src/types/association.ts",
-		"./client": "./src/services/index.ts",
+		"./client": "./src/services/main.ts",
 		"./config": "./src/types/config.ts",
+		"./create-error-handler": "./src/services/sentry/createErrorHandler.ts",
+		"./create-error-handler-with-package-context": "./src/services/sentry/createErrorHandlerWithPackageContext.ts",
+		"./default-error": "./src/common/utils/error/DefaultError.ts",
+		"./does-error-contain-status": "./src/common/utils/error/doesErrorContainStatus.ts",
 		"./endpoints": "./src/mocks/endpoints.ts",
 		"./error": "./src/common/utils/error/index.ts",
+		"./fixed-team-memberships": "./src/mocks/fixed-team-memberships.ts",
 		"./generate-data": "./src/mocks/generate-data.ts",
+		"./graph-ql-error": "./src/common/utils/error/GraphQLError.ts",
 		"./has-permission": "./src/common/utils/permissions/has-permission.ts",
+		"./has-permission-for-action": "./src/common/utils/permissions/has-permission-for-action.ts",
+		"./http-error": "./src/common/utils/error/HttpError.ts",
 		"./initialise-sentry": "./src/services/sentry/utils/initialise-sentry.ts",
+		"./is-auth-error": "./src/common/utils/error/isAuthError.ts",
+		"./is-error-status-code": "./src/common/utils/error/isErrorStatusCode.ts",
+		"./is-invited": "./src/common/utils/is-invited.ts",
+		"./is-member": "./src/common/utils/is-member.ts",
+		"./is-network-error": "./src/common/utils/error/isNetworkError.ts",
+		"./is-non-member": "./src/common/utils/is-non-member.ts",
+		"./is-requesting-join": "./src/common/utils/is-requesting-join.ts",
+		"./is-team-ari": "./src/common/utils/is-team-ari.ts",
+		"./is-user-ari": "./src/common/utils/is-user-ari.ts",
 		"./legion-client": "./src/services/legion-client/index.ts",
 		"./links": "./src/types/links.ts",
+		"./log-error-message": "./src/services/sentry/logErrorMessage.ts",
+		"./log-error-message-with-package-context": "./src/services/sentry/logErrorMessageWithPackageContext.ts",
+		"./log-exception": "./src/services/sentry/logException.ts",
+		"./log-exception-with-package-context": "./src/services/sentry/logExceptionWithPackageContext.ts",
+		"./log-info-message": "./src/services/sentry/logInfoMessage.ts",
+		"./log-info-message-with-package-context": "./src/services/sentry/logInfoMessageWithPackageContext.ts",
 		"./main": "./src/services/main.ts",
 		"./media": "./src/types/media.ts",
 		"./membership": "./src/types/membership.ts",
+		"./mock-team-membership-response-with-n-edges": "./src/mocks/mock-team-membership-response-with-n-edges.ts",
+		"./mock-teams-client-admin-endpoints": "./src/mocks/mock-teams-client-admin-endpoints.ts",
+		"./mock-teams-client-endpoints": "./src/mocks/mock-teams-client-endpoints.ts",
+		"./mock-teams-client-invite-only-member-endpoints": "./src/mocks/mock-teams-client-invite-only-member-endpoints.ts",
+		"./mock-teams-client-not-member-endpoints": "./src/mocks/mock-teams-client-not-member-endpoints.ts",
+		"./mock-teams-client-requesting-to-join-endpoints": "./src/mocks/mock-teams-client-requesting-to-join-endpoints.ts",
 		"./mocks": "./src/mocks/index.ts",
 		"./permissions/types": "./src/common/utils/permissions/types.ts",
 		"./permissions": "./src/common/utils/permissions/index.ts",
 		"./public": "./src/services/public-api-client/index.ts",
+		"./public-api-client": "./src/services/public-api-client/PublicApiClient.ts",
+		"./random-returned-new-team-data": "./src/mocks/random-returned-new-team-data.ts",
+		"./random-team-membership": "./src/mocks/random-team-membership.ts",
+		"./random-team-memberships": "./src/mocks/random-team-memberships.ts",
 		"./reporting-lines-client/utils/types": "./src/services/reporting-lines-client/utils/types.ts",
 		"./sentry/main": "./src/services/sentry/main.ts",
 		"./sentry/types": "./src/services/sentry/types.ts",
 		"./sentry": "./src/services/sentry/index.ts",
 		"./slack": "./src/types/slack.ts",
+		"./slo-ignore-error": "./src/common/utils/error/SLOIgnoreError.ts",
+		"./slo-ignore-http-error": "./src/common/utils/error/SLOIgnoreHttpError.ts",
 		"./sort-teams": "./src/common/utils/sort-teams.ts",
 		"./team": "./src/common/utils/team.ts",
 		"./team-container": "./src/types/team-container.ts",
+		"./team-containers": "./src/services/agg-client/TeamContainers.ts",
 		"./tenure": "./src/types/tenure.ts",
+		"./to-team-ari": "./src/common/utils/to-team-ari.ts",
+		"./to-team-id": "./src/common/utils/to-team-id.ts",
+		"./to-user-ari": "./src/common/utils/to-user-ari.ts",
+		"./to-user-id": "./src/common/utils/to-user-id.ts",
 		"./types/team": "./src/types/team.ts",
 		"./types": "./src/types/index.ts",
 		"./ufo": "./src/common/utils/ufo/index.ts",
 		"./unlink-container-mutation": "./src/services/agg-client/utils/mutations/unlink-container-mutation.ts",
+		"./use-query-light-error": "./src/services/use-query-light/UseQueryLightError.ts",
 		"./use-query-light/main": "./src/services/use-query-light/main.ts",
 		"./use-query-light/types": "./src/services/use-query-light/types.ts",
+		"./use-query-light/use-lazy-query-light": "./src/services/use-query-light/useLazyQueryLight.ts",
+		"./use-query-light/use-query-light": "./src/services/use-query-light/useQueryLight.ts",
 		"./use-query-light": "./src/services/use-query-light/index.ts",
 		"./use-teams-client-setup": "./src/services/hooks/use-teams-client-setup.ts",
+		"./use-teams-client-setup-next": "./src/services/hooks/use-teams-client-setup-next.ts",
 		"./use-teams-sentry-client-setup": "./src/services/sentry/utils/use-teams-sentry-client-setup.ts",
 		"./user": "./src/types/user.ts",
+		"./user-can": "./src/common/utils/permissions/user-can.ts",
 		"./user-info-provider/main": "./src/services/user-info-provider/main.ts",
-		"./user-info-provider": "./src/services/user-info-provider/index.ts",
+		"./user-info-provider": "./src/services/user-info-provider/main.ts",
 		"./utils": "./src/common/utils/index.ts"
 	},
 	"scripts": {
@@ -88,7 +135,7 @@
 		"lodash": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/feature-gate-js-client": "workspace:^",
@@ -96,45 +143,12 @@
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/faker": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"swagger-typescript-api": "root:*",
 		"ts-morph": "root:*",
 		"ts-node": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"enable_edit_team_name_external_type_teams": {

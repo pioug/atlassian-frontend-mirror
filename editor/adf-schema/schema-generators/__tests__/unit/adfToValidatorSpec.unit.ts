@@ -77,6 +77,8 @@ const panel = {
 					'codeBlock',
 					'taskList',
 					'rule',
+					'rule_with_attrs',
+					'bodiedRule',
 					'decisionList',
 					'extension_with_marks',
 				],

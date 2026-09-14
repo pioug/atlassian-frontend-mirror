@@ -1,11 +1,12 @@
 import React from 'react';
 
-import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-color-modes';
 
 import { AppProviderThemingEnabledContext } from './app-provider-theming-enabled-context';
 import { InsideAppProviderContext } from './inside-app-provider-context';
 import RouterLinkProvider, { type RouterLinkComponent } from './router-link-provider';
-import ThemeProvider from './theme-provider';
+import { useScrollbarHarmonisation } from './scrollbar-harmonisation/use-scrollbar-harmonisation';
+import { ThemeProvider } from './theme-provider';
 import { type Theme } from './theme-provider/context/theme';
 import { useIsInsideAppProvider } from './use-is-inside-app-provider';
 
@@ -48,7 +49,7 @@ interface AppProviderProps {
  *
  * Place it at the root of your application.
  */
-function AppProvider({
+export function AppProvider({
 	children,
 	defaultColorMode = 'light',
 	defaultTheme,
@@ -56,6 +57,7 @@ function AppProvider({
 	UNSAFE_isThemingDisabled,
 }: AppProviderProps): React.JSX.Element {
 	const isInsideAppProvider = useIsInsideAppProvider();
+	useScrollbarHarmonisation();
 
 	if (isInsideAppProvider) {
 		throw new Error('App provider should not be nested within another app provider.');
@@ -80,4 +82,9 @@ function AppProvider({
 	);
 }
 
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { AppProvider } from '@atlaskit/app-provider/app-provider'` instead.
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports -- VOLTC-139 tracks removal of this deprecated default export shim.
 export default AppProvider;

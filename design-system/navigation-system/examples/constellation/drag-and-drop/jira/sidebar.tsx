@@ -16,7 +16,7 @@ import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import {
 	dropTargetForElements,
 	monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { GroupDropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/group-drop-indicator';
 import {
 	extractInstruction,
@@ -233,7 +233,9 @@ export function Sidebar(): JSX.Element {
 
 			// TODO: screen reader announce
 			liveRegion.announce(
-				`The top level menu item ${action.value} has moved from position ${getPosition(action.startIndex)} to ${getPosition(action.finishIndex)}`,
+				`The top level menu item ${action.value} has moved from position ${getPosition(
+					action.startIndex,
+				)} to ${getPosition(action.finishIndex)}`,
 			);
 
 			return;
@@ -257,7 +259,9 @@ export function Sidebar(): JSX.Element {
 			invariant(project);
 
 			liveRegion.announce(
-				`The project ${project.name} has moved from position ${getPosition(action.startIndex)} to ${getPosition(action.finishIndex)}`,
+				`The project ${project.name} has moved from position ${getPosition(
+					action.startIndex,
+				)} to ${getPosition(action.finishIndex)}`,
 			);
 
 			return;

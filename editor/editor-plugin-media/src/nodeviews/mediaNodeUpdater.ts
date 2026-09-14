@@ -1,8 +1,9 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
-import type { MediaAttributes, MediaInlineAttributes } from '@atlaskit/adf-schema';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import type { MediaAttributes } from '@atlaskit/adf-schema/media';
+import type { MediaInlineAttributes } from '@atlaskit/adf-schema/media-inline';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
@@ -24,9 +25,9 @@ import {
 	isImageRepresentationReady,
 	isMediaBlobUrl,
 } from '@atlaskit/media-client';
-import { getMediaClient } from '@atlaskit/media-client-react';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import { getClientIdForFile, type MediaTraceContext } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	replaceExternalMedia,

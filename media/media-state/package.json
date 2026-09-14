@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-state",
-	"version": "3.1.0",
+	"version": "3.2.0",
 	"description": "Contains the central state of Media frontend",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,15 +32,5 @@
 	},
 	"devDependencies": {
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		}
 	}
 }

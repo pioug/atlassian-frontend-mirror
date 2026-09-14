@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import BoardIcon from '@atlaskit/icon/core/board';
 import ClockIcon from '@atlaskit/icon/core/clock';
@@ -22,7 +22,7 @@ import {
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { MenuSection, MenuSectionHeading } from '@atlaskit/side-nav-items/menu-section';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import CDProjectIcon from '../images/cd.svg';
 import MoneyIcon from '../images/money.svg';
@@ -116,9 +116,7 @@ export const FlyoutMenuItemExample = (): React.JSX.Element => (
 				</FlyoutMenuItem>
 
 				<FlyoutMenuItem>
-					<FlyoutMenuItemTrigger
-						elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
-					>
+					<FlyoutMenuItemTrigger elemBefore={<JiraIcon label="" size="xsmall" />}>
 						Flyout menu item (app tile)
 					</FlyoutMenuItemTrigger>
 					<MyFlyoutMenuItemContent />

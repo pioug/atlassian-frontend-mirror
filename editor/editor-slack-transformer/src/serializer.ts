@@ -214,6 +214,7 @@ export const nodes: {
 	nestedExpand(state: MarkdownSerializerState, node: PMNode): void;
 	orderedList(state: MarkdownSerializerState, node: PMNode): void;
 	panel(state: MarkdownSerializerState, node: PMNode): void;
+	panel_c1(state: MarkdownSerializerState, node: PMNode): void;
 	paragraph(state: MarkdownSerializerState, node: PMNode): void;
 	placeholder(state: MarkdownSerializerState, node: PMNode): void;
 	rule(state: MarkdownSerializerState, node: PMNode): void;
@@ -433,6 +434,9 @@ export const nodes: {
 		state.write(`*${node.attrs.text}*`);
 	},
 	panel(state: MarkdownSerializerState, node: PMNode): void {
+		state.renderInline(node);
+	},
+	panel_c1(state: MarkdownSerializerState, node: PMNode): void {
 		state.renderInline(node);
 	},
 	placeholder(state: MarkdownSerializerState, node: PMNode): void {

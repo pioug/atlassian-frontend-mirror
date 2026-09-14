@@ -40,9 +40,6 @@
 			"path": "../../design-system/avatar/tsconfig.app.json"
 		},
 		{
-			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -53,6 +50,9 @@
 		},
 		{
 			"path": "../../people-and-teams/people-teams-ui-public/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

@@ -5,12 +5,12 @@
  */
 {
 	"testExamples": [
-		"01-drawer-menu.tsx",
-		"05-drawer-widths.tsx",
+		"01-drawer-menu.vr.ap.tsx",
+		"05-drawer-widths.vr.ap.tsx",
 		"11-scroll.tsx",
-		"42-drawer-stacking-contexts.tsx",
+		"42-drawer-stacking-contexts.vr.ap.tsx",
 		"92-blanket-testing.tsx",
-		"94-surface-detection.tsx",
+		"94-surface-detection.vr.ap.tsx",
 		"97-ssr-initial-open.tsx",
 		"98-testing-initial-focus-matrix.tsx",
 	],

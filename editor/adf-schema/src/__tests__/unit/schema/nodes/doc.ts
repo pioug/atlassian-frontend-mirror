@@ -13,7 +13,7 @@ describe(`${packageName}/schema doc node`, () => {
 		expect(normalizeNodeSpec(doc)).toStrictEqual(
 			normalizeNodeSpec({
 				content:
-					'(block | codeBlock | panel | rule | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
+					'(block | panel_c1 | codeBlock | panel | panel_c1_root_only | rule | bodiedRule | extension | bodiedExtension | multiBodiedExtension | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
 				marks:
 					'alignment fontSize breakout dataConsumer fragment indentation unsupportedMark unsupportedNodeAttribute',
 			}),

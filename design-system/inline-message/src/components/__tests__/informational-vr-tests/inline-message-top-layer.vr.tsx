@@ -1,8 +1,8 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import Basic from '../../../../examples/01-basic';
-import FallbackPlacements from '../../../../examples/11-fallback-placements';
-import Testing from '../../../../examples/99-testing';
+import Basic from '../../../../examples/01-basic.vr.ap';
+import FallbackPlacements from '../../../../examples/11-fallback-placements.vr.ap';
+import Testing from '../../../../examples/99-testing.vr.ap';
 
 const topLayerFlag = {
 	'platform-dst-top-layer': [true, false],

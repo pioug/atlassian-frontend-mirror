@@ -6,6 +6,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('UFO Blindspot Watchdog', () => {
 	test.use({
 		examplePage: 'basic-with-blindspot', // 10 sections, but last 2 sections are missing a UFO Hold
+	} satisfies {
+		examplePage: 'basic-with-blindspot';
+		__exampleDependency?: typeof import('../../examples/20-basic-with-blindspot.tsx');
 	});
 
 	for (const viewport of viewports) {

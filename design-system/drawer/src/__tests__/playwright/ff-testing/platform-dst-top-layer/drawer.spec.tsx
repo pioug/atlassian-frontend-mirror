@@ -4,11 +4,11 @@ const featureFlag = 'platform-dst-top-layer';
 
 test.describe('Drawer top-layer: open / close', () => {
 	test('opens on trigger click as a native dialog', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const dialog = page.getByRole('dialog');
@@ -20,11 +20,11 @@ test.describe('Drawer top-layer: open / close', () => {
 	});
 
 	test('opens via Enter key on the trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const dialog = page.getByRole('dialog');
@@ -37,11 +37,11 @@ test.describe('Drawer top-layer: open / close', () => {
 	});
 
 	test('opens via Space key on the trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const dialog = page.getByRole('dialog');
@@ -54,11 +54,11 @@ test.describe('Drawer top-layer: open / close', () => {
 	});
 
 	test('closes when Escape is pressed', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const dialog = page.getByRole('dialog');
@@ -71,11 +71,11 @@ test.describe('Drawer top-layer: open / close', () => {
 	});
 
 	test('closes when the backdrop is clicked', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const dialog = page.getByRole('dialog');
@@ -90,11 +90,11 @@ test.describe('Drawer top-layer: open / close', () => {
 	});
 
 	test('closes via the close button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const dialog = page.getByRole('dialog');
@@ -107,11 +107,11 @@ test.describe('Drawer top-layer: open / close', () => {
 	});
 
 	test('locks background scroll while open and restores it on close', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const dialog = page.getByRole('dialog');
@@ -132,11 +132,11 @@ test.describe('Drawer top-layer: open / close', () => {
 
 test.describe('Drawer top-layer: focus management', () => {
 	test('moves initial focus to the close button on open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		await page.getByTestId('drawer-trigger').click();
@@ -145,11 +145,11 @@ test.describe('Drawer top-layer: focus management', () => {
 	});
 
 	test('traps Tab focus within the dialog', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		await page.getByTestId('drawer-trigger').click();
@@ -163,11 +163,11 @@ test.describe('Drawer top-layer: focus management', () => {
 	});
 
 	test('keeps focus inside, the trigger is inert while open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('drawer-trigger');
@@ -178,11 +178,11 @@ test.describe('Drawer top-layer: focus management', () => {
 	});
 
 	test('returns focus to the trigger on close (default)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'drawer-default',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('drawer-trigger');
@@ -195,7 +195,10 @@ test.describe('Drawer top-layer: focus management', () => {
 	test('returns focus to a custom ref on close (shouldReturnFocus={ref})', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/12-drawer-focus-to-ref-on-close.tsx')
-		>('design-system', 'drawer', 'drawer-focus-to-ref-on-close', { featureFlag });
+		>('design-system', 'drawer', 'drawer-focus-to-ref-on-close', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
 
 		await page.getByRole('button', { name: 'Open drawer' }).click();
 		await page.getByTestId('DrawerCloseButton').click();
@@ -206,11 +209,11 @@ test.describe('Drawer top-layer: focus management', () => {
 
 test.describe('Drawer top-layer: stacked drawers', () => {
 	test('supports nested stacked drawers', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/40-stacked-drawers.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/40-stacked-drawers.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'stacked-drawers',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		await page.getByRole('button', { name: 'Open drawer' }).click();
@@ -223,11 +226,11 @@ test.describe('Drawer top-layer: stacked drawers', () => {
 	});
 
 	test('Escape closes the topmost drawer first', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/40-stacked-drawers.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/40-stacked-drawers.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'stacked-drawers',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		await page.getByRole('button', { name: 'Open drawer' }).click();
@@ -243,11 +246,11 @@ test.describe('Drawer top-layer: stacked drawers', () => {
 	});
 
 	test('returns focus to the correct trigger as each stacked drawer closes', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/40-stacked-drawers.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/40-stacked-drawers.vr.ap.tsx')>(
 			'design-system',
 			'drawer',
 			'stacked-drawers',
-			{ featureFlag },
+			{ featureFlag, 'react-18-mode': 'modern' },
 		);
 
 		const outerTrigger = page.getByRole('button', { name: 'Open drawer' });

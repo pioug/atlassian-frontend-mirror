@@ -3,13 +3,13 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { ActionName, SmartLinkDirection, SmartLinkSize } from '../../../../../../constants';
-import { Title } from '../../../elements';
+import { default as Title } from '../../../elements/title-element';
 import ActionGroup from '../../action-group';
 import ElementGroup from '../../element-group';
 import Block from '../index';

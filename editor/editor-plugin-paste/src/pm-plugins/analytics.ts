@@ -15,6 +15,7 @@ import {
 	PasteContents,
 	PasteTypes,
 } from '@atlaskit/editor-common/analytics';
+import { getHadMarkAttributes } from '@atlaskit/editor-common/mark';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getLinkDomain, mapSlice } from '@atlaskit/editor-common/utils';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
@@ -23,7 +24,6 @@ import type { Fragment, Node, Schema, Slice } from '@atlaskit/editor-prosemirror
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { PastePlugin } from '../index';
@@ -63,6 +63,7 @@ type PasteContext = {
 
 type PastePayloadAttributes = {
 	content: PasteContent;
+	hadBackgroundColor?: boolean;
 	/** Has the hyperlink been pasted while text is selected, making the text into a link? */
 	hyperlinkPasteOnText: boolean;
 	/** How many links are in our pasted content? */
@@ -80,12 +81,6 @@ type PastePayloadAttributes = {
 	 */
 	mentionIds: string[];
 	mentionLocalIds: string[];
-	/**
-	 * Sorted, deduplicated, comma-joined string of node types present in the paste fragment.
-	 * e.g. "heading,image,text" or "codeBlock,table,text"
-	 * Only populated when platform_editor_paste_renderer_analytics is enabled.
-	 */
-	pastedNodeTypes?: string;
 	pasteSize: number;
 	/** Did this paste action split a list in half? */
 	pasteSplitList?: boolean;
@@ -268,7 +263,7 @@ function createPasteAnalyticsPayloadBySelection(
 	pasteContext: PasteContext,
 	pluginInjectionApi?: ExtractInjectionAPI<PastePlugin>,
 ) {
-	return (selection: Selection): AnalyticsEventPayload => {
+	return (selection: Selection, tr?: Transaction): AnalyticsEventPayload => {
 		const text = event.clipboardData
 			? event.clipboardData.getData('text/plain') || event.clipboardData.getData('text/uri-list')
 			: '';
@@ -355,10 +350,6 @@ function createPasteAnalyticsPayloadBySelection(
 			pluginInjectionApi?.mention?.actions?.announceMentionsInsertion(mentionsInserted);
 		}
 
-		const pastedNodeTypes = fg('platform_editor_paste_renderer_analytics')
-			? [...getContentNodeTypes(slice.content)].sort().join(',')
-			: undefined;
-
 		if (pasteContext.type === PasteTypes.plain) {
 			return createPastePayload(actionSubjectId, {
 				pasteSize: text.length,
@@ -370,11 +361,14 @@ function createPasteAnalyticsPayloadBySelection(
 				mentionIds,
 				mentionLocalIds,
 				pasteSplitList: pasteContext.pasteSplitList,
-				pastedNodeTypes,
 			});
 		}
 
 		const linkDomains = linkUrls.map(getLinkDomain);
+		const backgroundColor = selection.$from.doc.type.schema.marks.backgroundColor;
+		const hadMarkAttributes =
+			pasteContext.hyperlinkPasteOnText && tr ? getHadMarkAttributes(tr, [backgroundColor]) : {};
+
 		return createPastePayload(
 			actionSubjectId,
 			{
@@ -388,7 +382,7 @@ function createPasteAnalyticsPayloadBySelection(
 				mentionIds,
 				mentionLocalIds,
 				pasteSplitList: pasteContext.pasteSplitList,
-				pastedNodeTypes,
+				...hadMarkAttributes,
 			},
 			linkDomains,
 		);
@@ -523,7 +517,9 @@ export const handleRichTextWithAnalytics = (
 
 const injectAnalyticsPayloadBeforeCommand =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(createPayloadByTransaction: (selection: Selection) => AnalyticsEventPayload) => {
+	(
+		createPayloadByTransaction: (selection: Selection, tr: Transaction) => AnalyticsEventPayload,
+	) => {
 		return (mainCommand: Command): Command => {
 			return (state, dispatch, view) => {
 				let originalTransaction: Transaction = state.tr;
@@ -538,7 +534,7 @@ const injectAnalyticsPayloadBeforeCommand =
 				}
 				if (dispatch && originalTransaction.docChanged) {
 					// it needs to know the selection before the changes
-					const payload = createPayloadByTransaction(state.selection);
+					const payload = createPayloadByTransaction(state.selection, state.tr);
 					editorAnalyticsAPI?.attachAnalyticsEvent(payload)(originalTransaction);
 
 					dispatch(originalTransaction);

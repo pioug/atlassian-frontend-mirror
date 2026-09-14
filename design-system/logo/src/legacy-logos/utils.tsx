@@ -29,6 +29,3 @@ export const getColorsForLoom = (
 		textColor,
 	};
 };
-
-export { getColorsFromAppearanceOldLogos } from './get-colors-from-appearance-old-logos';
-export { getColorsFromAppearance } from './get-colors-from-appearance';

@@ -6,8 +6,9 @@ import type { JSX } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { cssMap } from '@atlaskit/css';
-import { Box, type BoxProps, Grid } from '@atlaskit/primitives/compiled';
+import { cssMap, cx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -30,13 +31,16 @@ const styles = cssMap({
 			"footer footer"
 		`,
 	},
+	navigation: { gridArea: 'navigation' },
+	sidenav: { gridArea: 'sidenav' },
+	content: { gridArea: 'content' },
+	footer: { gridArea: 'footer' },
 });
+type GridArea = 'navigation' | 'sidenav' | 'content' | 'footer';
 
-// NOTE: We just cheat with `style`, do not copy this pattern into your code…
-const Block = ({ style }: { style?: BoxProps<'div'>['style'] }) => (
+const Block = ({ gridArea }: { gridArea?: GridArea }) => (
 	<Box
-		xcss={styles.customBorder}
-		style={style}
+		xcss={cx(styles.customBorder, gridArea && styles[gridArea])}
 		backgroundColor="color.background.neutral"
 		padding="space.600"
 	/>
@@ -61,14 +65,10 @@ export default function Basic(): JSX.Element {
 			</Grid>
 
 			<Grid testId="grid-basic" gap="space.200" xcss={styles.areas}>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'navigation' }} />
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'sidenav' }} />
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'content' }} />
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'footer' }} />
+				<Block gridArea="navigation" />
+				<Block gridArea="sidenav" />
+				<Block gridArea="content" />
+				<Block gridArea="footer" />
 			</Grid>
 		</Grid>
 	);

@@ -1,9 +1,9 @@
-import {
-	type BaseClientOptions,
-	type CustomAttributes,
-	type Identifiers,
-	type OptionsWithDefaults,
-} from '@atlaskit/feature-gate-js-client';
+import type {
+	BaseClientOptions,
+	CustomAttributes,
+	Identifiers,
+	OptionsWithDefaults,
+} from '@atlaskit/feature-gate-js-client/types';
 
 export interface FrontendExperimentsRequest {
 	identifiers: Identifiers;

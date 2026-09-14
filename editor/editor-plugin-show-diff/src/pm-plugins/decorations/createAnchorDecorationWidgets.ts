@@ -1,12 +1,14 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	buildAnchorDecorationKey,
 	buildAnchorDecorationSpec,
 	AnchorDocMarginKey,
 	AnchorTypeKey,
+	type InlineAnchorType,
 } from './decorationKeys';
 
 /**
@@ -46,7 +48,7 @@ const resolveDocLevelNode = (
 const edgeCases = (
 	doc: PMNode,
 	from: number,
-): { leftOffset?: number; measurePos?: number } | undefined => {
+): { beforePos: number; leftOffset?: number; measurePos?: number } | undefined => {
 	const resolved = resolveDocLevelNode(doc, from);
 	if (!resolved) {
 		return undefined;
@@ -61,7 +63,7 @@ const edgeCases = (
 		/**
 		 * Layouts and Expands have extra padding around the container
 		 */
-		return { measurePos: beforePos };
+		return { beforePos, measurePos: beforePos };
 	}
 
 	switch (node.type.name) {
@@ -78,12 +80,12 @@ const edgeCases = (
 
 			// Measure the first row (`nodeStart` is just inside the table, i.e. the
 			// position of the first row): its width matches the table's.
-			return { measurePos: nodeStart };
+			return { beforePos, measurePos: nodeStart };
 		}
 		case 'layoutSection':
 		case 'expand':
 			// Measure the block itself (the widget is rendered outside the block).
-			return { leftOffset: 12 };
+			return { beforePos, leftOffset: 12 };
 		default:
 			return undefined;
 	}
@@ -133,11 +135,7 @@ export const createLeftAnchorWidget = ({
 
 	// Render the widget right before the doc-level node so it lives outside the
 	// resizable block container.
-	const resolved = resolveDocLevelNode(doc, from);
-	if (!resolved) {
-		return undefined;
-	}
-	const { beforePos } = resolved;
+	const { beforePos } = edgeCase;
 
 	const leftAnchorKey = buildAnchorDecorationKey({
 		diffId,
@@ -337,13 +335,57 @@ export const createBlockIndicatorAnchorWidgets = ({
 };
 
 /**
- * Creates invisible anchor widgets for a single inline diff range so that the
- * `IndicatorBar` can use CSS anchor positioning to align itself with the diff.
- *
- * - A `from` anchor is placed at the start of the range (top of the bar).
- * - A `to` anchor is placed at the end of the range (bottom of the bar).
- * - An optional `left` anchor is placed before the first textblock when the
- *   diff is inside a resizable block node (table, layout, expand).
+ * A `from`/`to` on a `tableRow` boundary makes the anchor a direct `<tr>` (CSS grid)
+ * child, adding a phantom column that collapses the cells (EDITOR-8442). Clamp it
+ * inward into the neighbouring cell (`direction: 1` forward, `-1` back). Positions
+ * not on a row boundary are returned as-is.
+ */
+export const clampAnchorPosIntoCell = (doc: PMNode, pos: number, direction: 1 | -1): number => {
+	const $pos = doc.resolve(pos);
+	if ($pos.parent.type.name !== 'tableRow') {
+		return pos;
+	}
+	const cell = direction === 1 ? $pos.nodeAfter : $pos.nodeBefore;
+	if (!cell || (cell.type.name !== 'tableHeader' && cell.type.name !== 'tableCell')) {
+		return pos;
+	}
+	// +2 past the cell and its first child boundary = inside the cell's content;
+	// for the backward case, step back the same amount from the cell's end.
+	return direction === 1 ? pos + 2 : pos - 2;
+};
+
+/**
+ * A zero-size inline span carrying nothing but the `anchor-name` an overlay aligns against. A
+ * fragmented inline element reports the union of its line fragments, so aligning against one
+ * horizontally gives the enclosing block's content edge; a zero-size span is always a single
+ * fragment.
+ */
+export const createAnchorNameSpan = (anchorKey: string): HTMLSpanElement => {
+	const span = document.createElement('span');
+	span.style.setProperty('anchor-name', `--${anchorKey}`);
+	return span;
+};
+
+const createAnchorSpanWidget = ({
+	pos,
+	diffId,
+	anchorType,
+	side,
+}: {
+	anchorType: InlineAnchorType;
+	diffId: string;
+	pos: number;
+	side: number;
+}): Decoration =>
+	Decoration.widget(
+		pos,
+		() => createAnchorNameSpan(buildAnchorDecorationKey({ diffId, anchorType })),
+		buildAnchorDecorationSpec({ diffId, anchorType, side }),
+	);
+
+/**
+ * Invisible `from`/`to` (and optional `left`) anchor widgets for one inline diff
+ * range, so the `IndicatorBar` can align itself via CSS anchor positioning.
  */
 export const createInlineIndicatorAnchorWidgets = ({
 	doc,
@@ -359,18 +401,43 @@ export const createInlineIndicatorAnchorWidgets = ({
 	const leftAnchor = createLeftAnchorWidget({ doc, from, diffId });
 	const maybeLeftAnchor = leftAnchor ? [leftAnchor] : [];
 
+	// Keep the start/end anchors out of the table row's grid (see helper above).
+	const fromPos = clampAnchorPosIntoCell(doc, from, 1);
+	const toPos = clampAnchorPosIntoCell(doc, to, -1);
+
 	/**
 	 * Two widgets mark the start and end of the inline range so the
 	 * IndicatorBar can determine top/bottom even if
 	 * the inline decoration is broken up by marks / between blocks.
 	 */
+	// Gated purely so the `createAnchorSpanWidget` rewrite can be rolled back independently of the
+	// contributor-tag anchors it was extracted for: both branches build the same two widgets at the
+	// same positions. Drop the fallback with the gate.
+	if (fg('confluence_ncs_step_diffing_version_history')) {
+		return [
+			createAnchorSpanWidget({
+				pos: fromPos,
+				diffId,
+				anchorType: AnchorTypeKey.from,
+				side: 1,
+			}),
+			createAnchorSpanWidget({
+				pos: toPos,
+				diffId,
+				anchorType: AnchorTypeKey.to,
+				side: -1,
+			}),
+			...maybeLeftAnchor,
+		];
+	}
+
 	const fromAnchorKey = buildAnchorDecorationKey({
 		diffId,
 		anchorType: AnchorTypeKey.from,
 	});
 
 	const fromWidget = Decoration.widget(
-		from,
+		fromPos,
 		() => {
 			const span = document.createElement('span');
 			span.style.setProperty('anchor-name', `--${fromAnchorKey}`);
@@ -388,7 +455,7 @@ export const createInlineIndicatorAnchorWidgets = ({
 		anchorType: AnchorTypeKey.to,
 	});
 	const toWidget = Decoration.widget(
-		to,
+		toPos,
 		() => {
 			const span = document.createElement('span');
 			span.style.setProperty('anchor-name', `--${toAnchorKey}`);

@@ -9,7 +9,7 @@ import { cssMap as unboundedCssMap } from '@compiled/react';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -71,7 +71,7 @@ const styles = cssMap({
 		display: 'inline-flex',
 		alignItems: 'center',
 		gap: token('space.050'),
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.xsmall'),
 		textDecoration: 'none',
 
 		'&:hover': {
@@ -93,9 +93,6 @@ const styles = cssMap({
 	rootRefresh: {
 		boxSizing: 'border-box',
 		height: '1.5rem',
-	},
-	rootT26Shape: {
-		borderRadius: token('radius.xsmall'),
 	},
 	interactiveMotion: {
 		textDecorationLine: 'underline',
@@ -269,20 +266,16 @@ const Step: React.ForwardRefExoticComponent<
 						target={target}
 						testId={testId}
 						title={title}
-						xcss={
-							// @ts-ignore -- Expression produces a union type that is too complex to represent. This matches existing `@atlaskit/primitives` handling for complex `xcss={cx(...)}` composition.
-							cx(
-								styles.root,
-								isSmall && styles.rootSmall,
-								fg('platform_dst_breadcrumbs-refresh') && styles.rootRefresh,
-								truncationWidth != null &&
-									fg('platform_dst_breadcrumbs-refresh') &&
-									styles.withTruncation,
-								truncationWidth == null && styles.withoutTruncation,
-								fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
-								fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
-							)
-						}
+						xcss={cx(
+							styles.root,
+							isSmall && styles.rootSmall,
+							fg('platform_dst_breadcrumbs-refresh') && styles.rootRefresh,
+							truncationWidth != null &&
+								fg('platform_dst_breadcrumbs-refresh') &&
+								styles.withTruncation,
+							truncationWidth == null && styles.withoutTruncation,
+							fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
+						)}
 						style={{
 							maxWidth: truncationWidth,
 						}}
@@ -313,20 +306,16 @@ const Step: React.ForwardRefExoticComponent<
 					aria-describedby={triggerProps?.['aria-describedby'] ?? ariaDescribedBy}
 					testId={testId}
 					title={title}
-					xcss={
-						// @ts-ignore -- Expression produces a union type that is too complex to represent. This matches existing `@atlaskit/primitives` handling for complex `xcss={cx(...)}` composition.
-						cx(
-							styles.root,
-							isSmall && styles.rootSmall,
-							fg('platform_dst_breadcrumbs-refresh') && styles.rootRefresh,
-							truncationWidth != null &&
-								fg('platform_dst_breadcrumbs-refresh') &&
-								styles.withTruncation,
-							truncationWidth == null && styles.withoutTruncation,
-							fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
-							fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
-						)
-					}
+					xcss={cx(
+						styles.root,
+						isSmall && styles.rootSmall,
+						fg('platform_dst_breadcrumbs-refresh') && styles.rootRefresh,
+						truncationWidth != null &&
+							fg('platform_dst_breadcrumbs-refresh') &&
+							styles.withTruncation,
+						truncationWidth == null && styles.withoutTruncation,
+						fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
+					)}
 					style={{
 						maxWidth: truncationWidth,
 					}}

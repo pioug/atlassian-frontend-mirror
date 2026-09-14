@@ -1,20 +1,15 @@
 import { expect, test } from '@af/integration-testing';
 
-const modalZIndex = 510;
-
-const modalDialogPortalSelector = `div.atlaskit-portal[style="z-index: ${modalZIndex};"]`;
-
-test('portal should be created when modal is opened and pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/1-complex-layering.tsx')>(
+test('modal should be created and pass basic aXe audit', async ({ page }) => {
+	await page.visitExample<typeof import('../../../examples/1-complex-layering.vr.ap.tsx')>(
 		'design-system',
 		'portal',
 		'complex-layering',
 	);
 	await page.getByTestId('dialog-trigger').click();
 
-	const isModalPortalCreated =
-		await page.webdriverCompatUtils.isAttached(modalDialogPortalSelector);
-	expect(isModalPortalCreated).toBe(true);
-
-	await expect(page.getByTestId('modal')).toBeVisible();
+	const modal = page.getByTestId('modal');
+	await expect(modal).toBeVisible();
+	await expect(modal).toContainText('Modal dialog');
+	await expect(modal).toContainText('This dialog has three great features:');
 });

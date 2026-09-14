@@ -12,7 +12,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';

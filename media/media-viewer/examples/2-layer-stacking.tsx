@@ -1,11 +1,10 @@
 import React from 'react';
-import Button from '@atlaskit/button/new';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import {
 	createStorybookMediaClientConfig,
 	defaultCollectionName,

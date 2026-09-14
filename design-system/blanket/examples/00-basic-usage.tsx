@@ -6,18 +6,18 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import Blanket from '@atlaskit/blanket';
-import Button from '@atlaskit/button/new';
+import Blanket from '@atlaskit/blanket/blanket';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const eventResultStyles = cssMap({
 	root: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		borderColor: token('color.border'),
 		borderStyle: 'dashed',
 		borderWidth: token('border.width'),

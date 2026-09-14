@@ -4,7 +4,7 @@ import {
 	CreateFormFooterDefault,
 	CreateFormFooterWithErrorMessage,
 	CreateFormFooterWithoutEdit,
-} from '../../examples/vr/vr-form-footer';
+} from '../../examples/vr/vr-form-footer.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

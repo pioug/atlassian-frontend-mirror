@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled';
 
+import { buildNavigationInput } from '../common/utils/buildNavigationInput';
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';
 import { getNavigationProps } from '../common/utils/getNavigationProps';
-import { buildNavigationInput } from '../common/utils/utils';
 
-import { useTeamsNavigationContext } from './TeamsNavigationProvider';
+import { useTeamsNavigationContext } from './useTeamsNavigationContext';
 
 type BaseAnchorProps = Omit<AnchorProps, 'target' | 'rel'>;
 

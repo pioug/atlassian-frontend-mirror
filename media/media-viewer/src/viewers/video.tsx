@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
 	getArtifactUrl,
 	type MediaClient,
@@ -7,15 +8,19 @@ import {
 	type Identifier,
 	isFileIdentifier,
 } from '@atlaskit/media-client';
-import { CustomMediaPlayer, MediaPlayer, type WithShowControlMethodProp } from '@atlaskit/media-ui';
-import { Outcome } from '../domain';
-import { buildVideoErrorDiagnostics, MediaViewerError } from '../errors';
+import { type MediaTraceContext } from '@atlaskit/media-common';
+import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
+import { MediaPlayer } from '@atlaskit/media-ui/mediaPlayer';
+import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { MediaViewerError } from '../MediaViewerError';
+import { buildVideoErrorDiagnostics } from '../buildVideoErrorDiagnostics';
+import { Outcome } from '../domain/outcome';
 import { Video, CustomVideoPlayerWrapper } from '../styleWrappers';
+import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 import { isIE } from '../utils/isIE';
 import { type BaseState, BaseViewer } from './base-viewer';
-import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type Props = Readonly<
 	{
@@ -35,6 +40,7 @@ export type State = BaseState<string> & {
 };
 
 const hdArtifact = 'video_1280.mp4';
+const sdArtifact = 'video_640.mp4';
 
 export class VideoViewer extends BaseViewer<string, Props, State> {
 	protected get initialState(): {
@@ -135,11 +141,29 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		try {
 			let contentUrl: string | undefined;
 			if (item.status === 'processed') {
-				contentUrl = await mediaClient.file.getArtifactURL(
-					item.artifacts,
-					hdArtifact,
-					collectionName,
-				);
+				if (fg('platform_media_video_sd_fallback')) {
+					// Prefer the HD artifact, but fall back to the SD artifact when the media
+					// processing pipeline did not produce an HD (video_1280.mp4) rendition — this
+					// commonly happens for small / low-resolution sources that only get an SD
+					// (video_640.mp4) rendition. Previously the viewer required the HD artifact and
+					// threw `videoviewer-missing-artefact` synchronously, surfacing a generic
+					// "Something went wrong" screen with no playback attempt for SD-only videos.
+					const preferredArtifact = getArtifactUrl(item.artifacts, hdArtifact)
+						? hdArtifact
+						: sdArtifact;
+
+					contentUrl = await mediaClient.file.getArtifactURL(
+						item.artifacts,
+						preferredArtifact,
+						collectionName,
+					);
+				} else {
+					contentUrl = await mediaClient.file.getArtifactURL(
+						item.artifacts,
+						hdArtifact,
+						collectionName,
+					);
+				}
 
 				if (!contentUrl) {
 					throw new MediaViewerError(`videoviewer-missing-artefact`);

@@ -18,6 +18,7 @@ import {
 	MODE,
 	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorAnalyticsAPI, RequestToEditAEP } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
@@ -30,8 +31,9 @@ import {
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -112,6 +114,24 @@ const pressableStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:active': {
 			color: token('color.link.pressed'),
+			transition: token('motion.button.pressed'),
+		},
+	},
+	pressableMotion: {
+		paddingTop: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		paddingRight: token('space.0'),
+		// @ts-expect-error - TODO should use token here, https://product-fabric.atlassian.net/browse/EDF-2517
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		fontSize: '14px',
+		color: token('color.text.brand'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		transition: token('motion.button.hovered'),
+		'&:hover': { textDecoration: 'underline' },
+		'&:active': {
+			color: token('color.link.pressed'),
+			transition: token('motion.button.pressed'),
 		},
 	},
 });
@@ -151,7 +171,11 @@ const RequestToEditButton = ({
 		<Box>
 			<Pressable
 				onClick={onClick}
-				xcss={pressableStyles.pressable}
+				xcss={
+					fg('platform-dst-motion-uplift-custom-button')
+						? pressableStyles.pressableMotion
+						: pressableStyles.pressable
+				}
 				testId="request-to-edit-popup-request-btn"
 			>
 				{formatMessage(tasksAndDecisionsMessages.requestToEdit)}
@@ -277,7 +301,11 @@ export const RequestToEditPopup = ({
 										<Pressable
 											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 											onClick={() => onHandleDismiss(api?.analytics?.actions)}
-											xcss={pressableStyles.pressable}
+											xcss={
+												fg('platform-dst-motion-uplift-custom-button')
+													? pressableStyles.pressableMotion
+													: pressableStyles.pressable
+											}
 											testId="request-to-edit-popup-cancel-btn"
 										>
 											{formatMessage(tasksAndDecisionsMessages.dismiss)}

@@ -2,21 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import {
-	type DatasourceDataResponseItem,
-	type DatasourceResponseSchemaProperty,
-	type DatasourceTableStatusType,
-} from '@atlaskit/linking-types';
+import type {
+	DatasourceDataResponseItem,
+	DatasourceResponseSchemaProperty,
+	DatasourceTableStatusType,
+} from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { AccessRequired } from '../../../common/error-state/access-required';
 import { ModalLoadingError } from '../../../common/error-state/modal-loading-error';
 import { NoResults } from '../../../common/error-state/no-results';
-import { EmptyState, IssueLikeDataTableView } from '../../../issue-like-table';
+import { EmptyState } from '../../../issue-like-table';
+import { IssueLikeDataTableView } from '../../../issue-like-table/issue-like-data-table-view';
 
 import { InitialStateView } from './initial-state-view';
 
@@ -54,7 +57,9 @@ const tableBordersStyles = css({
 	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderTopLeftRadius: token('radius.large', '8px'),
 	borderTopRightRadius: token('radius.large', '8px'),
-	borderBottom: `${token('border.width.selected')} solid ${token('color.background.accent.gray.subtler')}`,
+	borderBottom: `${token('border.width.selected')} solid ${token(
+		'color.background.accent.gray.subtler',
+	)}`,
 	backgroundImage: `
 		linear-gradient(90deg, ${token('utility.elevation.surface.current')} 30%, rgba(255, 255, 255, 0)),
 		linear-gradient(90deg, ${token('elevation.shadow.overflow.perimeter')}, rgba(0, 0, 0, 0)),
@@ -124,6 +129,10 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps): JSX.Elemen
 	} = props;
 
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
+	// With columns available the table can keep its headers and show the empty state in place of
+	// the rows, instead of replacing the whole table with it.
+	const shouldRenderTableWithNoResults =
+		resolvedWithNoResults && !!columns.length && fg('platform_lp_sllv_ux_improvements');
 
 	const issueLikeDataTableView = useMemo(
 		() => (
@@ -166,7 +175,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps): JSX.Elemen
 			return <UnauthorizedView />;
 		} else if (status === 'empty') {
 			return <EmptyView />;
-		} else if (resolvedWithNoResults) {
+		} else if (resolvedWithNoResults && !shouldRenderTableWithNoResults) {
 			return <NoResultsView />;
 		} else if (status === 'loading' && !columns.length) {
 			return <LoadingView />;
@@ -178,6 +187,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps): JSX.Elemen
 		isFetchingInitialData,
 		issueLikeDataTableView,
 		resolvedWithNoResults,
+		shouldRenderTableWithNoResults,
 		status,
 	]);
 

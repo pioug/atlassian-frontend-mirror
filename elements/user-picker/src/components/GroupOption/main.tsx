@@ -2,19 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/core/people-group';
-import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
 
 import { type Group } from '../../types';
-import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
-import { messages } from '../i18n';
+import { AvatarItemOption } from '../AvatarItemOption';
 import { HighlightText } from '../HighlightText';
+import { messages } from '../i18n';
+import { textWrapper } from '../textWrapper';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const groupOptionIconWrapper: SerializedStyles = css({

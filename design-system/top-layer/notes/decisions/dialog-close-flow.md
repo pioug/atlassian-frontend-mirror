@@ -8,15 +8,16 @@ How closing works for `@atlaskit/top-layer` Dialog: who triggers it, who actuall
 
 ## Summary
 
+This document covers Dialog-specific close triggers and consumer gating. The shared terminology,
+state machine, native event ordering, and host mounting behavior are defined by the
+[canonical visibility lifecycle contract](../architecture/animations.md#canonical-visibility-lifecycle-contract).
+
 The dialog **does not close itself**. The browser does not close it on Escape (we call
 `preventDefault()`), and there is no native "close on backdrop click" for `<dialog>`. The dialog
-closes when the **consumer sets `isOpen={false}`**, which causes `Dialog` to call `dialog.close()`
-internally. The consumer does not unmount the `Dialog` to close it. The `<dialog>` host element
-itself is, however, lifecycle-managed by the primitive: it is rendered only while open or
-exit-animating, and unmounts after exit completes (see `host-element-unmount-when-hidden.md`). What
-stays mounted is the consumer's `<Dialog>` React component; the underlying DOM node comes and goes
-with the open cycle. Children unmount after the exit animation completes (or immediately for
-non-animated closes).
+closes when the consumer changes controlled intent by setting **`isOpen={false}`**, which causes
+`Dialog` to call `dialog.close()` internally. The consumer does not unmount the `Dialog` to close
+it. The primitive owns lifecycle phase and host mounting; see `host-element-unmount-when-hidden.md`
+for the mounting decision.
 
 Top-layer **always** calls `onClose({ reason })` when Escape or backdrop click happens. The consumer
 decides whether to set `isOpen={false}` in response. So "closing" is: **trigger → top-layer calls
@@ -88,8 +89,7 @@ the order is:
 1. **Trigger** (escape / backdrop click / programmatic) → `onClose({ reason })` runs
 2. **Consumer updates state** → sets `isOpen={false}` (or ignores, keeping the dialog open)
 3. **`Dialog` reacts to `isOpen={false}`** → calls `dialog.close()`
-4. **Exit animation plays** (if `animate` is provided) → `transitionend` fires (with fallback
-   timeout)
+4. **Native closed `toggle` fires** → if animation is enabled, all captured host animations settle
 5. **`onExitFinish` fires** → consumer can coordinate external lifecycle (e.g. `onCloseComplete`)
 6. **Children unmount and then the `<dialog>` host element unmounts** — see
    `host-element-unmount-when-hidden.md`. Non-animated closes defer the host unmount via the

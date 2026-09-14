@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import AvatarGroup from '@atlaskit/avatar-group';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

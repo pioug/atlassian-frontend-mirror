@@ -1,5 +1,589 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- [`962e8dc0188bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/962e8dc0188bf) -
+  Clean up `platform_editor_offline_editing_web` with `isEnabled: true` for Confluence, keeping
+  offline editing and recovery behavior enabled. Remove the retired experiment from the editor
+  Statsig configuration; consumers must stop querying or overriding this experiment.
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- [`df59babd59961`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df59babd59961) -
+  Use registered Quick Insert items in both primary toolbar implementations when
+  `platform_editor_slash_command` is enabled, independently of the controls and AIFC experiments.
+  Share the registered menu model through an explicit editor-common subpath and use compact
+  presentation for typeahead and toolbar items.
+
+  Virtualize the toolbar menu, keep keyboard-selected items visible, and restore the bounded popup's
+  themed background and scrolling. Dismiss the popup on outside clicks and inset the search field
+  from its edges. When the experiment is enabled, ignore absent legacy Quick Insert handlers to
+  prevent suggestion crashes.
+
+  Provide persisted toolbar docking preferences in editor examples to support testing the primary
+  toolbar Insert menu.
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.1
+
+### Patch Changes
+
+- [`e29faa16e0c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e29faa16e0c66) -
+  Migrate selected editor experiment reads and tooling from tmp-editor-statsig to
+  platform-feature-experiments, including static CSS, floating ToC, insert-menu AI, table overflow
+  shadows, and collapsible headings.
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`c263d4de33054`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c263d4de33054) -
+  Render retryable agent mention load errors in the typeahead menu behind
+  `platform_editor_agent_mentions_rovo_query_timeout`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.9
+
+### Patch Changes
+
+- [`f4992ab3be7d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4992ab3be7d5) -
+  Focus attached typeahead queries before the next animation frame behind the
+  `platform_editor_typeahead_early_focus` experiment.
+- Updated dependencies
+
+## 17.1.8
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 17.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- [`4cc06eff6f3d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cc06eff6f3d1) -
+  [ux] Behind platform_editor_mention_search_order, allow mention item subscription when sectioning
+  is enabled and keep loading rows non-interactive
+
+## 17.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- [`c5ff0c329170a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5ff0c329170a) -
+  Add a dedicated createSurfaceContext entrypoint and use it in editor runtime packages.
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- [`b15691abab5dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b15691abab5dc) -
+  Clean up feature gate `platform_editor_quick_insert_placeholder`
+- [`82fd62dcd2841`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82fd62dcd2841) -
+  Add the experiment-gated registry-native Element Browser treatment for
+  `platform_editor_slash_command`.
+
+  `QuickInsertProvider` values must now provide a `surface` of either `typeahead` or
+  `element-browser`.
+
+  Prepare surface-specific Quick Insert item renderers for the `platform_editor_slash_command`
+  experiment.
+
+  Fix the registry Element Browser opening from View more and localize its accessibility labels.
+
+- Updated dependencies
+
+## 16.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.15
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.12
+
+### Patch Changes
+
+- [`edcef04b6350e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edcef04b6350e) -
+  Add the Quick Insert recommendation resolver API and typed surface context support for the gated
+  `platform_editor_slash_command` Recommended menu. TypeAhead uses immutable surface context for
+  visibility and React context for registered Quick Insert rendering, while Quick Insert keeps one
+  recommendation snapshot per menu open. Fix Quick Insert declaration generation.
+- Updated dependencies
+
+## 16.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.3
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 16.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`6997a74055219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6997a74055219) -
+  Add profile card on hover in the mentions typeahead for agent mentions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.1
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`c0cf420333ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0cf420333ef1) -
+  Add public registration APIs for provider-backed Quick Insert components.
+
+  Providers can expose registered items directly:
+
+  ```tsx
+  const getComponents = async () => [
+  	{
+  		key: 'insert-table',
+  		component: TableItem,
+  		parents: [{ type: 'menu-section', key: 'quick-insert', rank: 1 }],
+  	},
+  ];
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.2
+
+### Patch Changes
+
+- [`4bc741a70d678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc741a70d678) -
+  Add the first registry-backed Quick Insert slice with Table
+- Updated dependencies
+
+## 13.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

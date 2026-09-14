@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
+import { tableBackgroundBorderColor } from '@atlaskit/adf-schema/tableNodes';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';

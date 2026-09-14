@@ -4,8 +4,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
 	EditorAppearance,
@@ -20,8 +18,7 @@ import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugi
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';
 import { getToolbarActionExperiencesPlugin } from './pm-plugins/experiences/toolbar-action-experiences';
@@ -141,61 +138,26 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 	}) => {
 		refs.popupsMountPoint = popupsMountPoint || undefined;
 
-		const renderNode = (providers: Providers) => {
-			if (!editorView) {
-				return null;
-			}
-
-			return (
-				<ToolbarInsertBlockWithInjectionApi
-					pluginInjectionApi={api}
-					editorView={editorView}
-					editorActions={editorActions}
-					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-					providerFactory={providerFactory}
-					popupsMountPoint={popupsMountPoint}
-					popupsBoundariesElement={popupsBoundariesElement}
-					popupsScrollableElement={popupsScrollableElement}
-					toolbarSize={toolbarSize}
-					disabled={disabled}
-					isToolbarReducedSpacing={isToolbarReducedSpacing}
-					isLastItem={isLastItem}
-					providers={providers}
-					options={options}
-					appearance={options.appearance}
-				/>
-			);
-		};
-		if (editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true)) {
-			if (!editorView) {
-				return null;
-			}
-
-			return (
-				<ToolbarInsertBlockWithInjectionApi
-					pluginInjectionApi={api}
-					editorView={editorView}
-					editorActions={editorActions}
-					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-					providerFactory={providerFactory}
-					popupsMountPoint={popupsMountPoint}
-					popupsBoundariesElement={popupsBoundariesElement}
-					popupsScrollableElement={popupsScrollableElement}
-					toolbarSize={toolbarSize}
-					disabled={disabled}
-					isToolbarReducedSpacing={isToolbarReducedSpacing}
-					isLastItem={isLastItem}
-					options={options}
-					appearance={options.appearance}
-				/>
-			);
+		if (!editorView) {
+			return null;
 		}
+
 		return (
-			<WithProviders
+			<ToolbarInsertBlockWithInjectionApi
+				pluginInjectionApi={api}
+				editorView={editorView}
+				editorActions={editorActions}
+				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 				providerFactory={providerFactory}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				providers={['emojiProvider']}
-				renderNode={renderNode}
+				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsScrollableElement={popupsScrollableElement}
+				toolbarSize={toolbarSize}
+				disabled={disabled}
+				isToolbarReducedSpacing={isToolbarReducedSpacing}
+				isLastItem={isLastItem}
+				options={options}
+				appearance={options.appearance}
 			/>
 		);
 	};
@@ -265,16 +227,14 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				plugin: () => toggleInsertBlockPmPlugin(),
 			});
 
-			if (fg('platform_editor_experience_tracking_toolbar_button')) {
-				plugins.push({
-					name: 'toolbarActionExperiences',
-					plugin: () =>
-						getToolbarActionExperiencesPlugin({
-							dispatchAnalyticsEvent: (payload) =>
-								api?.analytics?.actions?.fireAnalyticsEvent(payload),
-						}),
-				});
-			}
+			plugins.push({
+				name: 'toolbarActionExperiences',
+				plugin: () =>
+					getToolbarActionExperiencesPlugin({
+						dispatchAnalyticsEvent: (payload) =>
+							api?.analytics?.actions?.fireAnalyticsEvent(payload),
+					}),
+			});
 
 			return plugins;
 		},
@@ -292,7 +252,6 @@ interface ToolbarInsertBlockWithInjectionApiProps extends Omit<
 	appearance: EditorAppearance | undefined;
 	options: InsertBlockOptions;
 	pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
-	providers?: Providers;
 }
 
 const selector = (
@@ -312,7 +271,6 @@ const selector = (
 	>,
 ) => {
 	return {
-		emojiProviderSelector: states.emojiState?.emojiProvider,
 		showMediaPicker: states.mediaState?.showMediaPicker,
 		mediaAllowsUploads: states.mediaState?.allowsUploads,
 		showElementBrowser: states.insertBlockState?.showElementBrowser,
@@ -346,7 +304,6 @@ function ToolbarInsertBlockWithInjectionApi({
 }: ToolbarInsertBlockWithInjectionApiProps & { editorView: EditorView }) {
 	const buttons = toolbarSizeToButtons(toolbarSize, appearance);
 	const {
-		emojiProviderSelector,
 		showMediaPicker,
 		mediaAllowsUploads,
 		showElementBrowser,
@@ -377,25 +334,10 @@ function ToolbarInsertBlockWithInjectionApi({
 		],
 		selector,
 	);
-	const emojiProviderPromise = useSharedPluginStateSelector(
+	const emojiProvider = useSharedPluginStateSelector(
 		pluginInjectionApi,
 		'emoji.emojiProviderPromise',
-		{
-			disabled: !editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true),
-		},
 	);
-
-	const getEmojiProvider = () => {
-		if (emojiProviderSelector) {
-			return Promise.resolve(emojiProviderSelector);
-		}
-	};
-
-	const emojiProvider = editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true, {
-		exposure: true,
-	})
-		? emojiProviderPromise
-		: getEmojiProvider();
 
 	const onShowMediaPicker = (mountInfo?: { mountPoint: HTMLElement; ref: HTMLElement }) => {
 		if (!showMediaPicker) {

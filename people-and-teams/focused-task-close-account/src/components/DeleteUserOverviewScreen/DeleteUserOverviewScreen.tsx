@@ -1,9 +1,9 @@
 import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
-import Button from '@atlaskit/button';
-import SectionMessage from '@atlaskit/section-message';
+import Button from '@atlaskit/button/button';
+import SectionMessage from '@atlaskit/section-message/message';
 import InfoIcon from '@atlaskit/icon/core/status-information';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { commonMessages, overviewMessages } from '../../messages';

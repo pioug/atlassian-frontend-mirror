@@ -1,6 +1,6 @@
 import React, { type ErrorInfo, type ReactNode, useCallback } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { failUfoExperience, ufoExperience } from '../../common/analytics/experiences';
 import { ANALYTICS_CHANNEL } from '../../common/constants';

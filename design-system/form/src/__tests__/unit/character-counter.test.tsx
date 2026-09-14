@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 
-import { render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+import TextField from '@atlaskit/textfield/text-field';
 
-import TextField from '@atlaskit/textfield';
-
-import CharacterCounter from '../../character-counter';
+import { CharacterCounter } from '../../character-counter';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CharacterCounter', () => {

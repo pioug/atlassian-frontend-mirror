@@ -24,17 +24,30 @@ if (isDev) {
 	require('@atlassian/ts-loader');
 }
 
+// The AFM repo-root shell shim sets this display-only value because it delegates to this same
+// package entrypoint. A direct source invocation advertises the exact runnable command; published
+// package runs retain the stable npx form.
+const { resolveInvocation } = require('@atlaskit/cli-output/invocation');
+const invocation = resolveInvocation({
+	argv1: process.argv[1],
+	isDev,
+	environmentVariable: 'ADS_CLI_DISPLAY_INVOCATION',
+	publishedInvocation: 'npx @atlaskit/ads-cli',
+});
+
 require(path.join('..', isDev ? 'src/cli' : 'dist/cjs/cli'))
-	.run(process.argv.slice(2))
+	.run(process.argv.slice(2), undefined, { invocation })
 	.then((exitCode) => {
-		// A resolved numeric value is treated as an explicit exit code.
-		process.exit(typeof exitCode === 'number' ? exitCode : 0);
+		// Set the eventual exit code without forcing the process to stop. A forced `process.exit()` can
+		// truncate output that is still draining to a pipe (for example, `icon --all --json`).
+		process.exitCode = typeof exitCode === 'number' ? exitCode : 0;
 	})
 	.catch((error) => {
 		// A thrown number is treated as an explicit exit code (e.g. usage errors).
 		if (typeof error === 'number') {
-			process.exit(error);
+			process.exitCode = error;
+			return;
 		}
 		console.error(error);
-		process.exit(1);
+		process.exitCode = 1;
 	});

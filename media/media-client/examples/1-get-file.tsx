@@ -1,15 +1,17 @@
 import React from 'react';
 import { Component, type SyntheticEvent } from 'react';
+
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+
+import { FileWrapper } from '../example-helpers/FileWrapper';
+import { type FileState, MediaClient } from '../src';
 import {
 	videoProcessingFailedId,
 	imageFileId,
 	defaultCollectionName,
 	defaultMediaPickerAuthProvider,
 } from '../src/test-helpers';
-import { type MediaClientConfig } from '@atlaskit/media-core';
-import { type MediaSubscribable } from '../src/utils/mediaSubscribable';
-import { type FileState, MediaClient } from '../src';
-import { FileWrapper } from '../example-helpers/stylesWrapper';
+import type { MediaSubscribable } from '../src/utils/mediaSubscribable/types';
 
 export interface ComponentProps {}
 export interface ComponentState {
@@ -71,6 +73,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 			content: file,
 			name: file.name,
 			collection: defaultCollectionName,
+			size: file.size,
 		});
 		this.addStream(stream);
 	};

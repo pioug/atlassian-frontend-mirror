@@ -74,6 +74,13 @@ When `mode="manual"` is used, the browser's automatic return-of-focus-to-trigger
 disabled. Adopters that relied on the legacy code path for Esc → trigger restoration need to extend
 that handler to the FF-on path explicitly.
 
+**Tooltip is the deliberate exception.** It has an outside-the-popover trigger like the adopters
+above, but it keeps `mode="hint"` and lets the browser own pointer dismissal, because there is no
+interaction where a press on a tooltip trigger should leave the tooltip up. Adopting native
+dismissal required suppressing tooltip's own re-show first. See
+[tooltip-pointer-dismissal.md](../decisions/tooltip-pointer-dismissal.md) before citing the
+`mode="manual"` precedent for a hover-driven surface.
+
 ## `role="presentation"` over `eslint-disable` for layout-only wrappers
 
 When a top-layer adopter wraps the popover/dialog content in a layout `<div>` that carries non-user

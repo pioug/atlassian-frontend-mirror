@@ -1,12 +1,16 @@
 import React from 'react';
+
 import { IntlProvider } from 'react-intl';
-import { assignToMe, exampleOptions, filterUsers, unassigned, withLocalResource } from '.';
+
 import {
 	type LoadOptions,
 	type OnOption,
 	type OptionData,
 	type UserPickerProps,
 } from '../src/types';
+import { assignToMe, exampleOptions, unassigned } from '.';
+import { filterUsers } from './filterUsers';
+import { withLocalResource } from './withLocalResource';
 
 const mockOptions = withLocalResource(exampleOptions);
 

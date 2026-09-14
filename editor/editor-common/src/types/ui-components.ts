@@ -33,6 +33,8 @@ export type ReactHookFactory = (
 	params: Pick<UiComponentFactoryParams, 'editorView' | 'containerElement'> & {
 		editorView: EditorView;
 		pluginName?: string;
+		/** The outermost element the editor renders itself into, when the caller has one. */
+		wrapperElement?: HTMLElement | null;
 	},
 ) => void;
 

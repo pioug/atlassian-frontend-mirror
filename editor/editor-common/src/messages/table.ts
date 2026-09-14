@@ -41,6 +41,26 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	canNotMoveColumnLeftWithMergedCells: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	canNotMoveColumnRightWithMergedCells: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	canNotMoveRowDownWithMergedCells: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	canNotMoveRowUpWithMergedCells: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	canNotSortTable: {
 		defaultMessage: string;
 		description: string;
@@ -749,6 +769,26 @@ export const messages: {
 		id: 'fabric.editor.canNotSortTableNoIcon',
 		defaultMessage: `You can't sort a table with merged cells`,
 		description: `Split your cells to enable this feature`,
+	},
+	canNotMoveColumnLeftWithMergedCells: {
+		id: 'editor-common.messages.table.canNotMoveColumnLeftWithMergedCells',
+		defaultMessage: `You can't move a column left with merged cells`,
+		description: `Explains why the move column left option is unavailable`,
+	},
+	canNotMoveColumnRightWithMergedCells: {
+		id: 'editor-common.messages.table.canNotMoveColumnRightWithMergedCells',
+		defaultMessage: `You can't move a column right with merged cells`,
+		description: `Explains why the move column right option is unavailable`,
+	},
+	canNotMoveRowDownWithMergedCells: {
+		id: 'editor-common.messages.table.canNotMoveRowDownWithMergedCells',
+		defaultMessage: `You can't move a row down with merged cells`,
+		description: `Explains why the move row down option is unavailable`,
+	},
+	canNotMoveRowUpWithMergedCells: {
+		id: 'editor-common.messages.table.canNotMoveRowUpWithMergedCells',
+		defaultMessage: `You can't move a row up with merged cells`,
+		description: `Explains why the move row up option is unavailable`,
 	},
 	distributeColumns: {
 		id: 'fabric.editor.distributeColumns',

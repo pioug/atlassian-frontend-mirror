@@ -1,4 +1,4 @@
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 export const SHARED_FIRST_PARTY_URL = 'https://example.atlassian.net/browse/JIRA-1';
 export const SHARED_THIRD_PARTY_URL = 'https://example.com/some/external/page';

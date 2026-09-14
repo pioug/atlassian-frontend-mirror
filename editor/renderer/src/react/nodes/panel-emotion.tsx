@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 /**
- * Emotion branch of the `platform_editor_static_css` experiment.
+ * Emotion branch of the `platform_editor_renderer_static_css` experiment.
  * Used via `componentWithCondition` in `panel.tsx`.
  *
  * Cleanup: delete this file once the experiment has shipped.
@@ -13,11 +13,12 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- intentional: emotion fallback for compiled migration; `jsx` is used as the JSX pragma (see @jsx jsx above) so must be a value import
 import { css, jsx } from '@emotion/react';
 
-import { PanelType } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 interface PanelStyledProps {
 	backgroundColor?: string;
@@ -138,6 +139,33 @@ const panelBaseStyles = css({
 	},
 });
 
+const panelBackgroundColorVariableStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&.ak-editor-panel': {
+		'--ak-renderer-panel-bg-color': token('color.background.accent.blue.subtlest'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-panel-type="note"]': {
+			'--ak-renderer-panel-bg-color': token('color.background.accent.purple.subtlest'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-panel-type="tip"], &[data-panel-type="success"]': {
+			'--ak-renderer-panel-bg-color': token('color.background.accent.green.subtlest'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-panel-type="warning"]': {
+			'--ak-renderer-panel-bg-color': token('color.background.accent.yellow.subtlest'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-panel-type="error"]': {
+			'--ak-renderer-panel-bg-color': token('color.background.accent.red.subtlest'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-panel-type="custom"]': {
+			'--ak-renderer-panel-bg-color': 'var(--ak-renderer-panel-custom-bg-color)',
+		},
+	},
+});
+
 const panelHasNoIconStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&.ak-editor-panel': {
@@ -146,6 +174,14 @@ const panelHasNoIconStyles = css({
 			paddingLeft: token('space.150'),
 			paddingRight: token('space.150'),
 		},
+	},
+});
+
+const panelInfoIconStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&.ak-editor-panel[data-panel-type="info"]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-panel__icon': { color: token('color.icon.information') },
 	},
 });
 
@@ -201,9 +237,15 @@ export const PanelStyledEmotion: {
 			}
 			css={[
 				panelBaseStyles,
+				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
+					fg('platform_editor_nest_table_in_panel_patch_3') &&
+					panelBackgroundColorVariableStyles,
+				expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) &&
+					fg('platform_editor_nest_table_in_panel_patch_2') &&
+					panelInfoIconStyles,
 				!hasIcon && panelHasNoIconStyles,
 				props['data-panel-type'] === PanelType.CUSTOM && backgroundColor && panelCustomBackground,
-				fg('platform_editor_nested_dnd_styles_changes') && panelNestedIconStyles,
+				panelNestedIconStyles,
 				nestedPanelStyles,
 			]}
 			// Ignored via go/ees005

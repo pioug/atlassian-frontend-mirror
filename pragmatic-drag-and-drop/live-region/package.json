@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-live-region",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "An optional package for Pragmatic drag and drop that enables screen reader messaging for alternative flows",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,35 +28,13 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@emotion/react": "root:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
 	},
 	"exports": {
 		".": "./src/index.tsx"

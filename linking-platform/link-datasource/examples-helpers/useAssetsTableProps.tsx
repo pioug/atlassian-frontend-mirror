@@ -14,6 +14,7 @@ export const useAssetsTableProps = (
 		| 'onVisibleColumnKeysChange'
 		| 'wrappedColumnKeys'
 		| 'onWrappedColumnChange'
+		| 'onWrappedColumnsChange'
 		| 'onColumnResize'
 	>
 > &
@@ -46,6 +47,10 @@ export const useAssetsTableProps = (
 		[wrappedColumnKeys],
 	);
 
+	const onWrappedColumnsChange = useCallback((nextWrappedColumnKeys: string[]) => {
+		setWrappedColumnKeys(nextWrappedColumnKeys);
+	}, []);
+
 	return {
 		visibleColumnKeys,
 		onVisibleColumnKeysChange,
@@ -53,5 +58,6 @@ export const useAssetsTableProps = (
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 	};
 };

@@ -47,7 +47,7 @@ type SharedProps = {
  */
 export type AppIconProps = SharedProps & {
 	/**
-	 * The size of the icon tile, in pixels. Defaults to "20".
+	 * The size of the icon tile. Defaults to "medium".
 	 */
 	size?: IconSize;
 };
@@ -64,7 +64,7 @@ export type UtilityIconProps = AppIconProps & {
 
 export type AppLogoProps = SharedProps & {
 	/**
-	 * The size of the icon tile, in pixels. Defaults to "20".
+	 * The size of the logo. Defaults to "medium".
 	 */
 	size?: LogoSize;
 };

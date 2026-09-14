@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 
-import InternalModalWrapper, { type ModalDialogProps } from './internal/components/modal-wrapper';
+import InternalModalWrapper from './internal/components/modal-wrapper';
+import { type ModalDialogProps } from './types';
 
 export type { ModalDialogProps };
 

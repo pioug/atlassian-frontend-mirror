@@ -1,6 +1,6 @@
 import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import SkeletonItems, { SkeletonItemLoaded } from '../../../examples/06-skeleton-items';
+import SkeletonItems, { SkeletonItemLoaded } from '../../../examples/06-skeleton-items.vr.ap';
 
 const variants: SnapshotTestOptions<Hooks>['variants'] = [
 	{

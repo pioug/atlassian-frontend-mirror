@@ -4,7 +4,7 @@ import {
 	TEST_PERSON,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractPersonOwnedBy } from '../index';
+import { extractPersonOwnedBy } from '../extract-person-owned-by';
 
 describe('extractors.person.ownedBy', () => {
 	it('returns undefined when ownedBy not present', () => {

@@ -45,7 +45,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Nested side navigation',
 					description: 'Example of SideNavigation with nested items.',
-					source: path.resolve(packagePath, './examples/00-nested-side-navigation.tsx'),
+					source: path.resolve(packagePath, './examples/00-nested-side-navigation.vr.ap.tsx'),
 				},
 			],
 		},

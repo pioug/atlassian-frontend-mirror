@@ -1,10 +1,12 @@
 import React, { type SyntheticEvent, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import Form, { Field, type FieldProps, FormFooter } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Form from '@atlaskit/form/form';
+import Field, { type FieldProps } from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
 import { Box } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 
 const options: OptionsPropType = [

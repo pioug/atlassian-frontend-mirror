@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4336045c58b7f87272423624aa92387b>>
+ * @codegen <<SignedSource::c25b6178d5189344dbd5e08e2e13619b>>
  * @codegenCommand yarn build tokens
  */
 
@@ -5133,9 +5133,31 @@ var tokens = [{
     },
     "value": "Neutral500"
   },
-  "name": "color.border.input",
-  "path": ["color", "border", "input"],
+  "name": "color.border.input.[default]",
+  "path": ["color", "border", "input", "[default]"],
   "cleanName": "color.border.input"
+}, {
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.12.0",
+    "description": "Use for the border of search inputs."
+  },
+  "value": "#0B120E24",
+  "filePath": "schema/themes/atlassian-light/color/border.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.12.0",
+      "description": "Use for the border of search inputs."
+    },
+    "value": "Neutral300A"
+  },
+  "name": "color.border.input.search",
+  "path": ["color", "border", "input", "search"],
+  "cleanName": "color.border.input.search"
 }, {
   "attributes": {
     "group": "paint",

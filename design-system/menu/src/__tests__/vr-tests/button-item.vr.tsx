@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import ButtonItem from '../../../examples/button-item';
+import ButtonItem from '../../../examples/button-item.vr.ap';
 
 snapshot(ButtonItem, {
 	variants: [

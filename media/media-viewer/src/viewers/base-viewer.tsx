@@ -1,14 +1,17 @@
 import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
+
 import deepEqual from 'deep-equal';
+import { FormattedMessage } from 'react-intl';
+
 import { type MediaClient, type FileState, globalMediaEventEmitter } from '@atlaskit/media-client';
-import { type Outcome } from '../domain';
-import ErrorMessage from '../errorMessage';
-import { Spinner } from '../loading';
-import { ErrorViewDownloadButton } from '../download';
-import { type MediaViewerError } from '../errors';
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import { messages } from '@atlaskit/media-ui/messages';
+
+import { ErrorViewDownloadButton } from '../ErrorViewDownloadButton';
+import type { MediaViewerError } from '../MediaViewerError';
+import type { Outcome } from '../domain/outcome';
+import ErrorMessage from '../errorMessageWithAnalytics';
+import { Spinner } from '../loading';
 
 export type BaseProps = {
 	mediaClient: MediaClient;

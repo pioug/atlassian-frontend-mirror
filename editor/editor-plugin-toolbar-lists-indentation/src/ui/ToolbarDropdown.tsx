@@ -31,7 +31,7 @@ import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 import TextIndentLeftIcon from '@atlaskit/icon/core/text-indent-left';
 import TextIndentRightIcon from '@atlaskit/icon/core/text-indent-right';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { type ButtonName, type ToolbarProps, ToolbarType } from '../types';
 

@@ -4,13 +4,13 @@
  */
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { cssMap, jsx } from '@atlaskit/css';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { useAutomationMenu } from '../../menu-context';
+import { useAutomationMenu } from '../../menu-context/useAutomationMenu';
 
 import EmptyIcon from './empty-icon';
 

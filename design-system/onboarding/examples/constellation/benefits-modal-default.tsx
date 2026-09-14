@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Modal, ModalTransition } from '@atlaskit/onboarding';
 
 import welcomeImage from '../assets/this-is-new-jira.png';

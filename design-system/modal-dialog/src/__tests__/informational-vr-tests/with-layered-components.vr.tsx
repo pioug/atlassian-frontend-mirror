@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import { WithLayeredComponentsExample } from '../../../examples/90-with-layered-components';
+import { WithLayeredComponentsExample } from '../../../examples/90-with-layered-components.vr.ap';
 
 snapshotInformational(WithLayeredComponentsExample, {
 	description: 'modal with open popup',

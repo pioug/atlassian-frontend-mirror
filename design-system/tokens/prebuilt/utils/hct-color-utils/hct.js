@@ -1,17 +1,10 @@
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Hct = void 0;
-Object.defineProperty(exports, "ViewingConditions", {
-  enumerable: true,
-  get: function get() {
-    return _viewingConditions.ViewingConditions;
-  }
-});
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
@@ -21,10 +14,11 @@ var _argbFromXyz = require("./argb-from-xyz");
 var _linearized = require("./linearized");
 var _lstarFromArgb = require("./lstar-from-argb");
 var _lstarFromY = require("./lstar-from-y");
-var math = _interopRequireWildcard(require("./math-utils"));
+var _matrixMultiply = require("./matrix-multiply");
+var _sanitizeDegreesDouble = require("./sanitize-degrees-double");
+var _signum = require("./signum");
 var _viewingConditions = require("./viewing-conditions");
 var _yFromLstar = require("./y-from-lstar");
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
 /**
  * Below lines are copied from @material/material-color-utilities.
  * Do not modify it.
@@ -306,11 +300,11 @@ var Cam16 = /*#__PURE__*/function () {
       var gA = (460.0 * p2 - 891.0 * a - 261.0 * b) / 1403.0;
       var bA = (460.0 * p2 - 220.0 * a - 6300.0 * b) / 1403.0;
       var rCBase = Math.max(0, 27.13 * Math.abs(rA) / (400.0 - Math.abs(rA)));
-      var rC = math.signum(rA) * (100.0 / viewingConditions.fl) * Math.pow(rCBase, 1.0 / 0.42);
+      var rC = (0, _signum.signum)(rA) * (100.0 / viewingConditions.fl) * Math.pow(rCBase, 1.0 / 0.42);
       var gCBase = Math.max(0, 27.13 * Math.abs(gA) / (400.0 - Math.abs(gA)));
-      var gC = math.signum(gA) * (100.0 / viewingConditions.fl) * Math.pow(gCBase, 1.0 / 0.42);
+      var gC = (0, _signum.signum)(gA) * (100.0 / viewingConditions.fl) * Math.pow(gCBase, 1.0 / 0.42);
       var bCBase = Math.max(0, 27.13 * Math.abs(bA) / (400.0 - Math.abs(bA)));
-      var bC = math.signum(bA) * (100.0 / viewingConditions.fl) * Math.pow(bCBase, 1.0 / 0.42);
+      var bC = (0, _signum.signum)(bA) * (100.0 / viewingConditions.fl) * Math.pow(bCBase, 1.0 / 0.42);
       var rF = rC / viewingConditions.rgbD[0];
       var gF = gC / viewingConditions.rgbD[1];
       var bF = bC / viewingConditions.rgbD[2];
@@ -344,11 +338,11 @@ var Cam16 = /*#__PURE__*/function () {
       var gA = (460.0 * p2 - 891.0 * a - 261.0 * b) / 1403.0;
       var bA = (460.0 * p2 - 220.0 * a - 6300.0 * b) / 1403.0;
       var rCBase = Math.max(0, 27.13 * Math.abs(rA) / (400.0 - Math.abs(rA)));
-      var rC = math.signum(rA) * (100.0 / viewingConditions.fl) * Math.pow(rCBase, 1.0 / 0.42);
+      var rC = (0, _signum.signum)(rA) * (100.0 / viewingConditions.fl) * Math.pow(rCBase, 1.0 / 0.42);
       var gCBase = Math.max(0, 27.13 * Math.abs(gA) / (400.0 - Math.abs(gA)));
-      var gC = math.signum(gA) * (100.0 / viewingConditions.fl) * Math.pow(gCBase, 1.0 / 0.42);
+      var gC = (0, _signum.signum)(gA) * (100.0 / viewingConditions.fl) * Math.pow(gCBase, 1.0 / 0.42);
       var bCBase = Math.max(0, 27.13 * Math.abs(bA) / (400.0 - Math.abs(bA)));
-      var bC = math.signum(bA) * (100.0 / viewingConditions.fl) * Math.pow(bCBase, 1.0 / 0.42);
+      var bC = (0, _signum.signum)(bA) * (100.0 / viewingConditions.fl) * Math.pow(bCBase, 1.0 / 0.42);
       var rF = rC / viewingConditions.rgbD[0];
       var gF = gC / viewingConditions.rgbD[1];
       var bF = bC / viewingConditions.rgbD[2];
@@ -390,9 +384,9 @@ var Cam16 = /*#__PURE__*/function () {
       var rAF = Math.pow(viewingConditions.fl * Math.abs(rD) / 100.0, 0.42);
       var gAF = Math.pow(viewingConditions.fl * Math.abs(gD) / 100.0, 0.42);
       var bAF = Math.pow(viewingConditions.fl * Math.abs(bD) / 100.0, 0.42);
-      var rA = math.signum(rD) * 400.0 * rAF / (rAF + 27.13);
-      var gA = math.signum(gD) * 400.0 * gAF / (gAF + 27.13);
-      var bA = math.signum(bD) * 400.0 * bAF / (bAF + 27.13);
+      var rA = (0, _signum.signum)(rD) * 400.0 * rAF / (rAF + 27.13);
+      var gA = (0, _signum.signum)(gD) * 400.0 * gAF / (gAF + 27.13);
+      var bA = (0, _signum.signum)(bD) * 400.0 * bAF / (bAF + 27.13);
       var a = (11.0 * rA + -12.0 * gA + bA) / 11.0;
       var b = (rA + gA - 2.0 * bA) / 9.0;
       var u = (20.0 * rA + 20.0 * gA + 21.0 * bA) / 20.0;
@@ -507,9 +501,9 @@ var Cam16 = /*#__PURE__*/function () {
       var rAF = Math.pow(viewingConditions.fl * Math.abs(rD) / 100.0, 0.42);
       var gAF = Math.pow(viewingConditions.fl * Math.abs(gD) / 100.0, 0.42);
       var bAF = Math.pow(viewingConditions.fl * Math.abs(bD) / 100.0, 0.42);
-      var rA = math.signum(rD) * 400.0 * rAF / (rAF + 27.13);
-      var gA = math.signum(gD) * 400.0 * gAF / (gAF + 27.13);
-      var bA = math.signum(bD) * 400.0 * bAF / (bAF + 27.13);
+      var rA = (0, _signum.signum)(rD) * 400.0 * rAF / (rAF + 27.13);
+      var gA = (0, _signum.signum)(gD) * 400.0 * gAF / (gAF + 27.13);
+      var bA = (0, _signum.signum)(bD) * 400.0 * bAF / (bAF + 27.13);
 
       // redness-greenness
       var a = (11.0 * rA + -12.0 * gA + bA) / 11.0;
@@ -602,7 +596,7 @@ var HctSolver = /*#__PURE__*/function () {
     key: "chromaticAdaptation",
     value: function chromaticAdaptation(component) {
       var af = Math.pow(Math.abs(component), 0.42);
-      return math.signum(component) * 400.0 * af / (af + 27.13);
+      return (0, _signum.signum)(component) * 400.0 * af / (af + 27.13);
     }
 
     /**
@@ -614,7 +608,7 @@ var HctSolver = /*#__PURE__*/function () {
   }, {
     key: "hueOf",
     value: function hueOf(linrgb) {
-      var scaledDiscount = math.matrixMultiply(linrgb, HctSolver.SCALED_DISCOUNT_FROM_LINRGB);
+      var scaledDiscount = (0, _matrixMultiply.matrixMultiply)(linrgb, HctSolver.SCALED_DISCOUNT_FROM_LINRGB);
       var rA = HctSolver.chromaticAdaptation(scaledDiscount[0]);
       var gA = HctSolver.chromaticAdaptation(scaledDiscount[1]);
       var bA = HctSolver.chromaticAdaptation(scaledDiscount[2]);
@@ -836,7 +830,7 @@ var HctSolver = /*#__PURE__*/function () {
     value: function inverseChromaticAdaptation(adapted) {
       var adaptedAbs = Math.abs(adapted);
       var base = Math.max(0, 27.13 * adaptedAbs / (400.0 - adaptedAbs));
-      return math.signum(adapted) * Math.pow(base, 1.0 / 0.42);
+      return (0, _signum.signum)(adapted) * Math.pow(base, 1.0 / 0.42);
     }
 
     /**
@@ -880,7 +874,7 @@ var HctSolver = /*#__PURE__*/function () {
         var rCScaled = HctSolver.inverseChromaticAdaptation(rA);
         var gCScaled = HctSolver.inverseChromaticAdaptation(gA);
         var bCScaled = HctSolver.inverseChromaticAdaptation(bA);
-        var linrgb = math.matrixMultiply([rCScaled, gCScaled, bCScaled], HctSolver.LINRGB_FROM_SCALED_DISCOUNT);
+        var linrgb = (0, _matrixMultiply.matrixMultiply)([rCScaled, gCScaled, bCScaled], HctSolver.LINRGB_FROM_SCALED_DISCOUNT);
         // ===========================================================
         // Operations inlined from Cam16 to avoid repeated calculation
         // ===========================================================
@@ -925,7 +919,7 @@ var HctSolver = /*#__PURE__*/function () {
       if (chroma < 0.0001 || lstar < 0.0001 || lstar > 99.9999) {
         return (0, _argbFromLstar.argbFromLstar)(lstar);
       }
-      hueDegrees = math.sanitizeDegreesDouble(hueDegrees);
+      hueDegrees = (0, _sanitizeDegreesDouble.sanitizeDegreesDouble)(hueDegrees);
       var hueRadians = hueDegrees / 180 * Math.PI;
       var y = (0, _yFromLstar.yFromLstar)(lstar);
       var exactAnswer = HctSolver.findResultByJ(hueRadians, chroma, y);

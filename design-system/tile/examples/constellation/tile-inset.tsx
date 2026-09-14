@@ -2,7 +2,7 @@ import React from 'react';
 
 import Image from '@atlaskit/image';
 import { Inline } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 
 import FigmaLogo from '../images/figma.png';
 

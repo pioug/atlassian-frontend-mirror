@@ -2,16 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx, css } from '@compiled/react';
+
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { calculateDimensions, calculateInitialDimensions } from './helpers';
-import type { ImageRendererProps } from './types';
-import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
-import { ImageRendererWrapper } from './wrapper';
+
+import { jsx, css } from '@compiled/react';
+
 import { isFileIdentifier } from '@atlaskit/media-client';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
+
+import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
+import { calculateDimensions } from './calculateDimensions';
+import { calculateInitialDimensions } from './calculateInitialDimensions';
+import type { ImageRendererProps } from './types';
+import { ImageRendererWrapper } from './wrapper';
 const baseStyles = css({
 	objectFit: 'contain',
 });

@@ -9,7 +9,8 @@ import { useExternalMessages, useHydratedDeprecations, useIntl } from '../../../
 import { type ExternalMessagesNormalized } from '../../../../state/types';
 import { type HydratedDeprecatedField } from '../../../jql-editor/types';
 
-import { useFormattedWarningMessage, WarningMessages } from './index';
+import { WarningMessages } from './WarningMessages';
+import { useFormattedWarningMessage } from './useFormattedWarningMessage';
 
 const useFormattedWarningMessageMock = jest.fn<ReactNode, []>(() => null);
 

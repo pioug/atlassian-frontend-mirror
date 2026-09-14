@@ -1,7 +1,7 @@
 import { type AllHTMLAttributes, type ComponentType, type ElementType } from 'react';
 
-import { type CustomThemeButtonProps } from '@atlaskit/button/types';
-import type { TooltipProps } from '@atlaskit/tooltip';
+import type { CustomThemeButtonProps } from '@atlaskit/button/custom-theme-button-types';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 export type PrimaryButtonProps = Omit<CustomThemeButtonProps, 'appearance' | 'onClick'> & {
 	/**

@@ -1,9 +1,9 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { CellSelection } from '../cell-selection';
+import type { Rect } from '../rect';
 import { TableMap } from '../table-map';
-import type { Rect, TableContext } from '../table-map';
-
+import type { TableContext } from '../table-map';
 import { selectionCell } from './selection-cell';
 
 export type SelectionRect = Rect & TableContext;

@@ -22,13 +22,16 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 import {
+	ACTIVE_DRAG_HANDLE_ATTR,
 	ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
+	ACTIVE_QUICK_INSERT_ATTR,
 	ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME,
 	DRAG_HANDLE_MAX_WIDTH_PLUS_GAP,
 } from './consts';
@@ -374,27 +377,6 @@ const globalStyles = () =>
 				marginTop: '0 !important',
 			},
 	});
-
-const topLevelNodeMarginStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> .ProseMirror-widget:first-child + .ProseMirror-gapcursor + *:not([data-layout-section="true"], [data-prosemirror-node-name="bodiedSyncBlock"]), > .ProseMirror-widget:first-child + *:not([data-layout-section="true"], [data-prosemirror-node-name="bodiedSyncBlock"])':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				marginTop: '0 !important',
-			},
-		// Reach through a font-size wrapper to zero the inner content margin (e.g. during drag when a
-		// drop target widget is inserted before the wrapper).
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> .ProseMirror-widget:first-child + .ProseMirror-widget + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child, > .ProseMirror-widget:first-child + .ProseMirror-gapcursor + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-				marginTop: '0 !important',
-			},
-	},
-});
-
 const withDividerInPanelStyleFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`${dividerBodiedInCustomPanelWithNoIconSelector}`]: {
@@ -571,6 +553,22 @@ const staticControlsAnchorStyles = css({
 	},
 });
 
+/**
+ * Names the CSS anchor on top-level nodes, so the block controls surfaces can anchor to the blocks
+ * they render against. Only top-level at the moment as we don't have use cases yet for persistent controls that are nested.
+ */
+const surfaceAnchorStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[`[${NODE_ANCHOR_ATTR_NAME}]:not([${NODE_ANCHOR_ATTR_NAME}] [${NODE_ANCHOR_ATTR_NAME}]):not([${ACTIVE_DRAG_HANDLE_ATTR}], [${ACTIVE_QUICK_INSERT_ATTR}])`]:
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				anchorName: `var(${ANCHOR_VARIABLE_NAME}, attr(data-node-anchor type(<custom-ident>)))`,
+			},
+	},
+});
+
 // Styles applied to nodes with anchors when dragging
 const dragAnchorStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -628,6 +626,17 @@ export const GlobalStylesWrapper = ({
 		isCSSAnchorSupported() &&
 		expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true);
 
+	// The surfaces anchor to blocks they render against rather than only to the hovered one, so they
+	// need a name on every node. Added alongside whichever conditional rule applies rather than
+	// replacing it: this one matches only non-active nodes, so the two sets are disjoint.
+	//
+	// The migration check is what scopes this. Unlike the surfaces, this component renders for every
+	// editor, so without it the rule would name anchors on documents that have no surface to anchor.
+	const shouldRenderSurfaceAnchors =
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning -- browser capability, not a flag: an anchor name is meaningless where `anchor()` cannot resolve
+		Boolean(isCSSAnchorSupported()) &&
+		isExperimentEnabled('platform_editor_block_control_migration');
+
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	return (
@@ -662,11 +671,6 @@ export const GlobalStylesWrapper = ({
 				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? withRelativePosStyleNext
 					: withRelativePosStyle,
-				// When `platform_editor_first_node_fix` is enabled, EditorContentContainer applies the
-				// equivalent rules (`firstNodeWidgetFixStyles`), so skip them here to avoid duplication.
-				expValEquals('platform_editor_first_node_fix', 'isEnabled', true)
-					? undefined
-					: topLevelNodeMarginStyles,
 				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? withAnchorNameZindexStyleNext
 					: withAnchorNameZindexStyle,
@@ -684,6 +688,9 @@ export const GlobalStylesWrapper = ({
 							: staticControlsAnchorStyles
 						: false
 					: shouldRenderAnchors && (isDragging ? dragAnchorStyles : dragHandlerAnchorStyles),
+				// Last so that, at equal specificity, the surfaces' own anchor names are the ones that
+				// stand. It cannot overlap the active-node rules above, which this selector excludes.
+				shouldRenderSurfaceAnchors && surfaceAnchorStyles,
 			]}
 		/>
 	);

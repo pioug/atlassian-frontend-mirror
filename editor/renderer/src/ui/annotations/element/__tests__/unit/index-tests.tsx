@@ -1,10 +1,10 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import { render } from '@atlassian/testing-library/render';
 import { MarkElement } from '../../';
-import TestRenderer from 'react-test-renderer';
-import { MarkComponent } from '../../mark';
+import { InlineCommentsStateContext } from '../../../context';
 import * as HooksMock from '../../../hooks/use-inline-comment-subscriber';
 jest.mock('../../../hooks/use-inline-comment-subscriber');
 
@@ -21,37 +21,37 @@ describe('Annotations/Mark', () => {
 			const annotationParentIds: string[] = [];
 			const updateSubscriberFake = {
 				on: jest.fn(),
+				off: jest.fn(),
 				emit: jest.fn(),
 			};
 			// @ts-ignore
 			HooksMock.useInlineCommentSubscriberContext.mockReturnValue(updateSubscriberFake);
 
-			const testRenderer = TestRenderer.create(
+			const { container } = render(
 				<IntlProvider locale="en">
-					<MarkElement
-						id={fakeId}
-						dataAttributes={fakeDataAttributes}
-						annotationType={AnnotationTypes.INLINE_COMMENT}
-						annotationParentIds={annotationParentIds}
-					>
-						<small>some</small>
-					</MarkElement>
-					,
+					<InlineCommentsStateContext.Provider value={{ [fakeId]: AnnotationMarkStates.ACTIVE }}>
+						<MarkElement
+							id={fakeId}
+							dataAttributes={fakeDataAttributes}
+							annotationType={AnnotationTypes.INLINE_COMMENT}
+							annotationParentIds={annotationParentIds}
+						>
+							<small>some</small>
+						</MarkElement>
+					</InlineCommentsStateContext.Provider>
 				</IntlProvider>,
 			);
-			const testInstance = testRenderer.root;
-			const markComponent = testInstance.findByType(MarkComponent);
-			const onClick = markComponent.props.onClick;
 
-			expect(onClick).toBeDefined();
+			const mark = container.querySelector('mark');
+			expect(mark).not.toBeNull();
 
-			const annotationIds = ['lol'];
-			onClick({ annotationIds, eventTarget: testRenderer });
+			mark!.click();
+
 			expect(updateSubscriberFake.emit).toHaveBeenCalledWith(
 				AnnotationUpdateEvent.ON_ANNOTATION_CLICK,
 				{
-					annotationIds,
-					eventTarget: testRenderer,
+					annotationIds: [fakeId],
+					eventTarget: mark,
 				},
 			);
 		});

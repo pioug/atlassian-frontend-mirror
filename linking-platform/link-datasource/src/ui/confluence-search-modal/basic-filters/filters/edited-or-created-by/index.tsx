@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { type ValueType } from '@atlaskit/select';
+import type { ValueType } from '@atlaskit/select/types';
 
 import { FilterPopupSelect } from '../../../../common/modal/popup-select';
 import { SEARCH_DEBOUNCE_MS } from '../../../../common/modal/popup-select/constants';

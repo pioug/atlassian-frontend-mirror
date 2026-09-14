@@ -11,7 +11,7 @@ afterEach(() => {
 });
 
 test('Object should ssr then hydrate example component correctly', async () => {
-	const examplePath = require.resolve('../../../../../examples/object');
+	const examplePath = require.resolve('../../../../../examples/object.vr.ap');
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;
@@ -23,7 +23,7 @@ test('Object should ssr then hydrate example component correctly', async () => {
 
 	// Assert there's no hydration errors
 	const mockCalls = (console.error as jest.Mock).mock.calls;
-	expect(mockCalls.length).toBe(0);
+	expect(mockCalls).toHaveLength(0);
 
 	cleanup();
 });

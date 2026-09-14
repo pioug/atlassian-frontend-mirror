@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "7.4.1",
+	"version": "7.8.0",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/icon-build-process": "workspace:^",
@@ -57,11 +57,12 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",
 		"pkg-dir": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"react-dom": "root:*",
 		"tsx": "root:*"
 	},
@@ -69,23 +70,6 @@
 		"atlaskit",
 		"ui"
 	],
-	"techstack": {
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"exports": {
 		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",

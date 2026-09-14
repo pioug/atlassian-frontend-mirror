@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Calendar component should pass base aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.vr.ap.tsx')>(
 		'design-system',
 		'calendar',
 		'testing',

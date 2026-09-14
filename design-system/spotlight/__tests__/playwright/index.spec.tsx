@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 const exampleComponent = "[data-testid='spotlight']";
 
 test('Spotlight should be able to be identified by data-testid', async ({ page }) => {
-	await page.visitExample<typeof import('../../examples/card.tsx')>(
+	await page.visitExample<typeof import('../../examples/card.vr.ap.tsx')>(
 		'design-system',
 		'spotlight',
 		'card',

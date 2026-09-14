@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "5.8.0",
+	"version": "5.9.20",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,9 +30,9 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
-		"enzyme": "root:*",
 		"react": "root:*",
 		"react-intl": "root:*"
 	},
@@ -66,16 +66,6 @@
 		"fabric",
 		"editor"
 	],
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"compiled"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./element": "./src/element.ts",

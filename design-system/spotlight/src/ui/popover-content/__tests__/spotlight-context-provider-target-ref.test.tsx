@@ -1,17 +1,17 @@
 import React, { useRef } from 'react';
 
 import { Text } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import { SpotlightBody } from '../../../entry-points/body';
-import { SpotlightCard } from '../../../entry-points/card';
-import { SpotlightControls } from '../../../entry-points/controls';
-import { SpotlightDismissControl } from '../../../entry-points/dismiss-control';
-import { SpotlightHeader } from '../../../entry-points/header';
-import { SpotlightHeadline } from '../../../entry-points/headline';
-import { PopoverContent } from '../../../entry-points/popover-content';
-import { SpotlightContextProvider } from '../../../entry-points/spotlight-context-provider';
+import { SpotlightContextProvider } from '../../../controllers/context';
+import { SpotlightBody } from '../../body';
+import { SpotlightCard } from '../../card';
+import { SpotlightControls } from '../../controls';
+import { SpotlightDismissControl } from '../../dismiss-control';
+import { SpotlightHeader } from '../../header';
+import { SpotlightHeadline } from '../../headline';
+import { PopoverContent } from '../index';
 
 // `var` (rather than `let`) so the mock factory below — which Jest hoists
 // above this declaration — can still resolve the binding.
@@ -27,12 +27,10 @@ jest.mock('@atlaskit/top-layer/use-anchor-position', () => {
 	};
 });
 
-jest.mock('@atlaskit/top-layer/popover', () => {
+jest.mock('@atlaskit/top-layer/popover/popover', () => {
 	const React = require('react');
-	const actual = jest.requireActual('@atlaskit/top-layer/popover');
-
 	return {
-		...actual,
+		...jest.requireActual('@atlaskit/top-layer/popover/popover'),
 		Popover: React.forwardRef(
 			(
 				{

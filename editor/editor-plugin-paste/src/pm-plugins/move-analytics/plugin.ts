@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { resetContentMoved, resetContentMovedTransform, updateContentMoved } from './commands';
 import { createPluginState, getPluginState } from './plugin-factory';
@@ -96,22 +95,17 @@ export const createPlugin = (
 				const { content, size } = slice;
 				const { selection } = state;
 
-				const isMultiSelectTrackingEnabled = fg('platform_editor_track_node_types');
 				const nodeName = content.firstChild?.type.name || '';
 				let nodeTypes,
 					hasSelectedMultipleNodes = false;
 
 				if (content.childCount > 1) {
-					if (isMultiSelectTrackingEnabled) {
-						if (containsExcludedNode(content)) {
-							resetState = true;
-						} else {
-							const attributes = getMultipleSelectionAttributes(content);
-							nodeTypes = attributes.nodeTypes;
-							hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
-						}
-					} else {
+					if (containsExcludedNode(content)) {
 						resetState = true;
+					} else {
+						const attributes = getMultipleSelectionAttributes(content);
+						nodeTypes = attributes.nodeTypes;
+						hasSelectedMultipleNodes = attributes.hasSelectedMultipleNodes;
 					}
 				} else if (content.childCount === 1) {
 					// Some nodes are not relevant as they are parts of nodes, not whole nodes (like tableCell, tableHeader instead of table node)
@@ -139,15 +133,12 @@ export const createPlugin = (
 				if (resetState) {
 					resetContentMoved()(state, dispatch);
 				} else {
-					let newState: Omit<ContentMoved, 'currentActions'> = {
-						size: size,
-						nodeTypes: nodeTypes,
+					const newState: Omit<ContentMoved, 'currentActions'> = {
+						size,
+						nodeTypes: nodeTypes ?? nodeName,
 						nodeDepth: getParentNodeDepth(selection),
+						hasSelectedMultipleNodes,
 					};
-
-					if (isMultiSelectTrackingEnabled) {
-						newState = { ...newState, nodeTypes: nodeTypes ?? nodeName, hasSelectedMultipleNodes };
-					}
 
 					updateContentMoved(newState, 'contentCut')(state, dispatch);
 				}

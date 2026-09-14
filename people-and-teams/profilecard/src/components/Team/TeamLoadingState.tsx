@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { CardContent, CardHeader, CardWrapper, LoadingWrapper } from '../../styled/TeamTrigger';
 import { type AnalyticsFunction } from '../../types';

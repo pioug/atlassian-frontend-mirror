@@ -48,6 +48,9 @@
 			"path": "../icon-lab/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../spinner/tsconfig.app.json"
 		},
 		{

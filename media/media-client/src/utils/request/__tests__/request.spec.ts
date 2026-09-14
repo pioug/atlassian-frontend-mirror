@@ -1,23 +1,26 @@
-import { nextTick } from '@atlaskit/media-common/test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { request } from '..';
-import { isRequestError, RequestError } from '../errors';
-import { fetchRetry } from '../helpers';
+import { nextTick } from '@atlaskit/media-common/test-helpers';
+
+import { RequestError } from '../RequestError';
+import { fetchRetry } from '../fetchRetry';
+import { isRequestError } from '../isRequestError';
 import { type RequestMetadata } from '../types';
+import { request } from '..';
 
 // Mock dependencies for Edge retry functionality
+jest.mock('../../isPathBasedEnabled');
+jest.mock('../../mapRetryUrlToPathBasedUrl');
+jest.mock('../../mapToPathBasedUrl');
 jest.mock('../../pathBasedUrl');
 jest.mock('../../getNavigator');
-jest.mock('../helpers', () => ({
-	...jest.requireActual('../helpers'),
-	isFetchNetworkError: jest.fn(),
-	defaultShouldRetryError: jest.fn(),
-}));
+jest.mock('../isFetchNetworkError');
+jest.mock('../defaultShouldRetryError');
 
-import { mapRetryUrlToPathBasedUrl } from '../../pathBasedUrl';
 import getNavigator from '../../getNavigator';
-import { isFetchNetworkError, defaultShouldRetryError } from '../helpers';
+import { mapRetryUrlToPathBasedUrl } from '../../mapRetryUrlToPathBasedUrl';
+import { defaultShouldRetryError } from '../defaultShouldRetryError';
+import { isFetchNetworkError } from '../isFetchNetworkError';
 
 // Type the mocked functions
 const mockMapRetryUrlToPathBasedUrl = mapRetryUrlToPathBasedUrl as jest.MockedFunction<
@@ -42,8 +45,16 @@ describe('request', () => {
 				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 		} as Navigator);
 		mockMapRetryUrlToPathBasedUrl.mockImplementation((url) => new URL(url));
-		mockIsFetchNetworkError.mockReturnValue(false);
-		mockDefaultShouldRetryError.mockReturnValue(true);
+		// `isFetchNetworkError` / `defaultShouldRetryError` are mocked so the Edge retry tests below
+		// can force their return values, but `fetchRetry` also consumes `defaultShouldRetryError` as
+		// its default `shouldRetryError`. Default both back to the real implementations so the
+		// non-Edge tests keep exercising the genuine retry predicates.
+		mockIsFetchNetworkError.mockImplementation(
+			jest.requireActual('../isFetchNetworkError').isFetchNetworkError,
+		);
+		mockDefaultShouldRetryError.mockImplementation(
+			jest.requireActual('../defaultShouldRetryError').defaultShouldRetryError,
+		);
 	});
 
 	describe('fetchRetry', () => {

@@ -5,9 +5,9 @@
 import React, { Fragment } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import type { NewIconProps } from '@atlaskit/icon';
+import type { NewIconProps } from '@atlaskit/icon/types';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable, Show, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -20,7 +20,7 @@ const styles = cssMap({
 		gridTemplateColumns: 'auto 1fr auto',
 		alignItems: 'center',
 		backgroundColor: token('color.background.input'),
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.medium'),
 		boxSizing: 'border-box',
 		cursor: 'text',
 		display: 'none',
@@ -38,10 +38,6 @@ const styles = cssMap({
 		'@media (min-width: 30rem)': {
 			display: 'grid',
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	rootT26Shape: {
-		borderRadius: token('radius.medium'),
 	},
 	buttonText: {
 		gridColumn: '1 / -1',
@@ -110,14 +106,14 @@ export const Search: (props: SearchProps) => JSX.Element = ({
 					// When Emotion has been stripped from the Design System move this to Compiled.
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					cursor: 'text',
-					border: `${token('border.width')} solid ${token('color.border.input')}`,
+					border: `${token('border.width')} solid ${
+						fg('platform-dst-tokens-finesse')
+							? token('color.border.input.search')
+							: token('color.border.input')
+					}`,
 				}}
 				onClick={onClick}
-				xcss={cx(
-					styles.root,
-					fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
-					isFhsEnabled && styles.fullHeightSidebar,
-				)}
+				xcss={cx(styles.root, isFhsEnabled && styles.fullHeightSidebar)}
 				interactionName={interactionName}
 				aria-haspopup={ariaHaspopup}
 			>

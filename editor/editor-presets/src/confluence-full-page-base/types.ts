@@ -31,7 +31,6 @@ import type { CaptionPlugin } from '@atlaskit/editor-plugin-caption';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
 import type { ClearMarksOnEmptyDocPlugin } from '@atlaskit/editor-plugin-clear-marks-on-empty-doc';
 import type { ClipboardPlugin } from '@atlaskit/editor-plugin-clipboard';
-import type { CodeBidiWarningPlugin } from '@atlaskit/editor-plugin-code-bidi-warning';
 import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import type { CodeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import type { CodeBlockFormatProvider } from '@atlaskit/editor-plugin-code-block/types';
@@ -121,7 +120,6 @@ import type { blockMenuPluginOptions } from './pluginOptions/blockMenuPluginOpti
 import type { blockTypePluginOptions } from './pluginOptions/blockTypePluginOptions';
 import type { breakoutPluginOptions } from './pluginOptions/breakoutPluginOptions';
 import type { cardPluginOptions } from './pluginOptions/cardPluginOptions';
-import type { codeBidiWarningPluginOptions } from './pluginOptions/codeBidiWarningPluginOptions';
 import type { codeBlockAdvancedPluginOptions } from './pluginOptions/codeBlockAdvancedPluginOptions';
 import type { codeBlockPluginOptions } from './pluginOptions/codeBlockPluginOptions';
 import type { collabEditPluginOptions } from './pluginOptions/collabEditPluginOptions';
@@ -247,7 +245,6 @@ export type ConfluenceFullPageBasePluginsReversed = [
 	EditorViewModeEffectsPlugin,
 	EditorViewModePlugin,
 	LoomPlugin | undefined,
-	CodeBidiWarningPlugin | undefined,
 	UiControlRegistryPlugin | undefined,
 	PasteOptionsToolbarPlugin,
 	FragmentPlugin,
@@ -360,7 +357,6 @@ export interface AllPublicPluginOptions {
 	card: OptionsFromPluginOptionsBuilder<typeof cardPluginOptions>;
 	clearMarksOnEmptyDoc: never;
 	clipboard: never;
-	codeBidiWarning: OptionsFromPluginOptionsBuilder<typeof codeBidiWarningPluginOptions>;
 	codeBlock: OptionsFromPluginOptionsBuilder<typeof codeBlockPluginOptions>;
 	codeBlockAdvanced: OptionsFromPluginOptionsBuilder<typeof codeBlockAdvancedPluginOptions>;
 	collabEdit: OptionsFromPluginOptionsBuilder<typeof collabEditPluginOptions>;

@@ -13,11 +13,11 @@ import { useFragment } from 'react-relay';
 
 import { Card } from '@atlaskit/media-card';
 import { MediaInlineCard } from '@atlaskit/media-card';
+import { mapSsrMediaItemToFileState } from '@atlaskit/media-client/ssr-media-item';
 import { render } from '@atlassian/testing-library';
 
 import { MediaCardRelay } from '../../mediaCardRelay';
 import { MediaInlineCardRelay } from '../../mediaInlineCardRelay';
-import { mapGQLItemsToFileState } from '../../utils/mapGQLItemsToFileState';
 
 // ─── Mock react-relay ────────────────────────────────────────────────────────
 // We mock useFragment so tests don't need a real Relay environment.
@@ -35,18 +35,18 @@ jest.mock('@atlaskit/media-card', () => ({
 	)),
 }));
 
-// ─── Mock the GQL → FileState mapper ─────────────────────────────────────────
+// ─── Mock the SSR media item → FileState mapper ──────────────────────────────
 // The card components delegate the fragment → FileState transformation to this
-// util; mocking it keeps these tests focused on the relay-wiring behaviour and
-// leaves the mapping logic to its own dedicated unit tests.
-jest.mock('../../utils/mapGQLItemsToFileState', () => ({
-	mapGQLItemsToFileState: jest.fn(),
+// shared mapper; mocking it keeps these tests focused on the relay-wiring
+// behaviour and leaves the mapping logic to its own dedicated unit tests.
+jest.mock('@atlaskit/media-client/ssr-media-item', () => ({
+	mapSsrMediaItemToFileState: jest.fn(),
 }));
 
 // ─────────────────────────────────────────────────────────────────────────────
 
 const mockUseFragment = useFragment as jest.Mock;
-const mockMapGQLItemsToFileState = mapGQLItemsToFileState as jest.Mock;
+const mockMapSsrMediaItemToFileState = mapSsrMediaItemToFileState as jest.Mock;
 const mockCard = Card as unknown as jest.Mock;
 const mockMediaInlineCard = MediaInlineCard as unknown as jest.Mock;
 
@@ -94,7 +94,7 @@ const MOCK_MEDIA_CLIENT_CONFIG = {
 
 beforeEach(() => {
 	jest.clearAllMocks();
-	mockMapGQLItemsToFileState.mockReturnValue(MOCK_FILE_STATE);
+	mockMapSsrMediaItemToFileState.mockReturnValue(MOCK_FILE_STATE);
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -119,7 +119,7 @@ describe('MediaCardRelay', () => {
 			mockUseFragment.mockReturnValue(MOCK_MEDIA_ITEM);
 		});
 
-		it('calls mapGQLItemsToFileState with the fragment data', () => {
+		it('calls mapSsrMediaItemToFileState with the fragment data', () => {
 			const fakeRef = { __id: MOCK_FILE_ID } as any;
 
 			render(
@@ -131,7 +131,7 @@ describe('MediaCardRelay', () => {
 				/>,
 			);
 
-			expect(mockMapGQLItemsToFileState).toHaveBeenCalledWith(MOCK_MEDIA_ITEM);
+			expect(mockMapSsrMediaItemToFileState).toHaveBeenCalledWith(MOCK_MEDIA_ITEM);
 		});
 
 		it('passes ssrFileState derived from fragment to Card', () => {
@@ -180,7 +180,7 @@ describe('MediaCardRelay', () => {
 	describe('when mediaItemRef is null', () => {
 		beforeEach(() => {
 			mockUseFragment.mockReturnValue(null);
-			mockMapGQLItemsToFileState.mockReturnValue(undefined);
+			mockMapSsrMediaItemToFileState.mockReturnValue(undefined);
 		});
 
 		it('passes undefined ssrFileState to Card', () => {
@@ -202,7 +202,7 @@ describe('MediaCardRelay', () => {
 	describe('when mediaItemRef is undefined', () => {
 		beforeEach(() => {
 			mockUseFragment.mockReturnValue(null);
-			mockMapGQLItemsToFileState.mockReturnValue(undefined);
+			mockMapSsrMediaItemToFileState.mockReturnValue(undefined);
 		});
 
 		it('passes undefined ssrFileState to Card', () => {
@@ -220,10 +220,10 @@ describe('MediaCardRelay', () => {
 		});
 	});
 
-	describe('when mapGQLItemsToFileState returns undefined (e.g. partial fragment data)', () => {
+	describe('when mapSsrMediaItemToFileState returns undefined (e.g. partial fragment data)', () => {
 		beforeEach(() => {
 			mockUseFragment.mockReturnValue({ ...MOCK_MEDIA_ITEM, id: undefined });
-			mockMapGQLItemsToFileState.mockReturnValue(undefined);
+			mockMapSsrMediaItemToFileState.mockReturnValue(undefined);
 		});
 
 		it('passes undefined ssrFileState to Card', () => {
@@ -247,7 +247,7 @@ describe('MediaCardRelay', () => {
 	describe('ssr prop derivation', () => {
 		it('derives ssr="server" when ssrFileState is present and caller did not pass ssr', () => {
 			mockUseFragment.mockReturnValue(MOCK_MEDIA_ITEM);
-			mockMapGQLItemsToFileState.mockReturnValue(MOCK_FILE_STATE);
+			mockMapSsrMediaItemToFileState.mockReturnValue(MOCK_FILE_STATE);
 
 			render(
 				<MediaCardRelay
@@ -265,7 +265,7 @@ describe('MediaCardRelay', () => {
 
 		it('leaves ssr undefined when ssrFileState is undefined and caller did not pass ssr', () => {
 			mockUseFragment.mockReturnValue(null);
-			mockMapGQLItemsToFileState.mockReturnValue(undefined);
+			mockMapSsrMediaItemToFileState.mockReturnValue(undefined);
 
 			render(
 				<MediaCardRelay
@@ -283,7 +283,7 @@ describe('MediaCardRelay', () => {
 
 		it('preserves caller-provided ssr even when ssrFileState is present', () => {
 			mockUseFragment.mockReturnValue(MOCK_MEDIA_ITEM);
-			mockMapGQLItemsToFileState.mockReturnValue(MOCK_FILE_STATE);
+			mockMapSsrMediaItemToFileState.mockReturnValue(MOCK_FILE_STATE);
 
 			render(
 				<MediaCardRelay
@@ -302,7 +302,7 @@ describe('MediaCardRelay', () => {
 
 		it('preserves caller-provided ssr even when ssrFileState is undefined', () => {
 			mockUseFragment.mockReturnValue(null);
-			mockMapGQLItemsToFileState.mockReturnValue(undefined);
+			mockMapSsrMediaItemToFileState.mockReturnValue(undefined);
 
 			render(
 				<MediaCardRelay
@@ -330,7 +330,7 @@ describe('MediaInlineCardRelay', () => {
 			mockUseFragment.mockReturnValue(MOCK_MEDIA_ITEM);
 		});
 
-		it('calls mapGQLItemsToFileState with the fragment data', () => {
+		it('calls mapSsrMediaItemToFileState with the fragment data', () => {
 			const fakeRef = { __id: MOCK_FILE_ID } as any;
 
 			render(
@@ -341,7 +341,7 @@ describe('MediaInlineCardRelay', () => {
 				/>,
 			);
 
-			expect(mockMapGQLItemsToFileState).toHaveBeenCalledWith(MOCK_MEDIA_ITEM);
+			expect(mockMapSsrMediaItemToFileState).toHaveBeenCalledWith(MOCK_MEDIA_ITEM);
 		});
 
 		it('passes ssrFileState derived from fragment to MediaInlineCard', () => {
@@ -387,7 +387,7 @@ describe('MediaInlineCardRelay', () => {
 	describe('when mediaItemRef is null', () => {
 		beforeEach(() => {
 			mockUseFragment.mockReturnValue(null);
-			mockMapGQLItemsToFileState.mockReturnValue(undefined);
+			mockMapSsrMediaItemToFileState.mockReturnValue(undefined);
 		});
 
 		it('passes undefined ssrFileState to MediaInlineCard', () => {

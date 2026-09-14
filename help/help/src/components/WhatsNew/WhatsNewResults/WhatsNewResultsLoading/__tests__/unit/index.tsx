@@ -1,13 +1,5 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
 import { createIntl, createIntlCache } from 'react-intl';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
@@ -46,13 +38,13 @@ describe('WhatsNewResultsLoading', () => {
 		});
 	});
 
-	it('Should match snapshot', () => {
-		const { asFragment } = render(
+	it('renders the loading state', () => {
+		const { getByRole } = render(
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<WhatsNewResultsLoading intl={intl} />
 			</AnalyticsListener>,
 		);
 
-		expect(asFragment()).toMatchSnapshot();
+		expect(getByRole('img', { name: /loading/i })).toBeInTheDocument();
 	});
 });

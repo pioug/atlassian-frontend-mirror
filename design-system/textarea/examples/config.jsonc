@@ -5,8 +5,8 @@
  */
 {
   "testExamples": [
-    "0-basic.tsx",
-    "1-appearance.tsx",
-    "2-resize.tsx"
+    "0-basic.vr.ap.tsx",
+    "1-appearance.vr.ap.tsx",
+    "2-resize.vr.ap.tsx"
   ]
 }

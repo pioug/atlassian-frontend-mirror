@@ -1,6 +1,16 @@
 import { Device, type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import CompanyHubMockExample from '../../../../../examples/company-hub-mock';
+import CompanyHubMockExample from '../../../../../examples/company-hub-mock.vr.ap';
+import AsideBorderExample from '../../../../../examples/page-layout-aside-border.vr.ap';
+import PageLayoutImplicitRows from '../../../../../examples/page-layout-implicit-rows.vr.ap';
+import {
+	PanelAsideDefaultWidthsVR,
+	PanelAsideZeroWidthsVR,
+} from '../../../../../examples/page-layout-panel-aside-default-widths.vr.ap';
+import { SideNavContentScrollWithStickyVR } from '../../../../../examples/page-layout-side-nav-content-scroll-with-sticky.vr.ap';
+import SideNavSlotsExample from '../../../../../examples/page-layout-side-nav-slots.vr.ap';
+import PageLayoutTopLayerDialogAsDirectChild from '../../../../../examples/page-layout-top-layer-dialog-as-direct-child.vr.ap';
+import PageLayoutTopLayerPopoverAsDirectChild from '../../../../../examples/page-layout-top-layer-popover-as-direct-child.vr.ap';
 import {
 	AllSlots,
 	AllSlotsBannerHeightZero,
@@ -26,19 +36,9 @@ import {
 	TopBarSideNavMainAside,
 	TopBarSideNavMainAsideScrollable,
 	TopBarSideNavMainScrollable,
-} from '../../../../../examples/page-layout';
-import AsideBorderExample from '../../../../../examples/page-layout-aside-border';
-import PageLayoutImplicitRows from '../../../../../examples/page-layout-implicit-rows';
-import {
-	PanelAsideDefaultWidthsVR,
-	PanelAsideZeroWidthsVR,
-} from '../../../../../examples/page-layout-panel-aside-default-widths';
-import { SideNavContentScrollWithStickyVR } from '../../../../../examples/page-layout-side-nav-content-scroll-with-sticky';
-import SideNavSlotsExample from '../../../../../examples/page-layout-side-nav-slots';
-import PageLayoutTopLayerDialogAsDirectChild from '../../../../../examples/page-layout-top-layer-dialog-as-direct-child';
-import PageLayoutTopLayerPopoverAsDirectChild from '../../../../../examples/page-layout-top-layer-popover-as-direct-child';
-import RibbonExample from '../../../../../examples/ribbon';
-import RibbonWithoutSideNavExample from '../../../../../examples/ribbon-without-side-nav';
+} from '../../../../../examples/page-layout.vr.ap';
+import RibbonWithoutSideNavExample from '../../../../../examples/ribbon-without-side-nav.vr.ap';
+import RibbonExample from '../../../../../examples/ribbon.vr.ap';
 
 const defaultOptions: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,

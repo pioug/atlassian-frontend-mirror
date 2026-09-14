@@ -18,7 +18,7 @@ test.describe('JiraIssuesModal', () => {
 		exampleIdSelection: string = 'with-issues-modal',
 		featureFlag: string | boolean = false,
 	) {
-		await page.visitExample<typeof import('../../examples/with-issues-modal.tsx')>(
+		await page.visitExample<typeof import('../../examples/with-issues-modal.vr.ap.tsx')>(
 			groupIdSelection,
 			packageIdSelection,
 			exampleIdSelection,
@@ -45,7 +45,12 @@ test.describe('JiraIssuesModal', () => {
 	});
 
 	test('should provide autocomplete for JQL fields', async ({ page }) => {
-		await setup(page, 'linking-platform', 'link-datasource', 'jira-issues-config-modal-no-results');
+		await page.visitExample<
+			typeof import('../../examples/jira-issues-config-modal-no-results.vr.ap.tsx')
+		>('linking-platform', 'link-datasource', 'jira-issues-config-modal-no-results', {
+			'react-18-mode': 'legacy',
+			featureFlag: false,
+		});
 
 		await page.getByTestId('mode-toggle-jql').click();
 

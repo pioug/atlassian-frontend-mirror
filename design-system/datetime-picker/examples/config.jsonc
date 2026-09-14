@@ -5,10 +5,10 @@
  */
 {
   "testExamples": [
-    "00-basic.tsx",
+    "00-basic.vr.ap.tsx",
     "01-i18n.tsx",
     "10-date-picker-states.tsx",
-    "130-date-time-label-examples.tsx",
+    "130-date-time-label-examples.vr.ap.tsx",
     "20-datetime-picker-states.tsx",
     "30-time-picker-states.tsx"
   ],

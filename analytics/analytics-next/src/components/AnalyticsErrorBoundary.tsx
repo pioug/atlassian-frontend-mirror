@@ -1,6 +1,6 @@
 import React, { Component, type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import isModernContextEnabledEnv from '../utils/isModernContextEnabledEnv';
 
@@ -15,7 +15,7 @@ export interface AnalyticsErrorBoundaryProps {
 	channel: string;
 	/** React component to be wrapped */
 	children: ReactNode;
-	// eslint-disable-next-line @typescript-eslint/ban-types
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 	data: {};
 	ErrorComponent?: React.ComponentType;
 	onError?: (error: Error, info?: AnalyticsErrorBoundaryErrorInfo) => void;
@@ -34,9 +34,12 @@ export default class AnalyticsErrorBoundary extends Component<
 	AnalyticsErrorBoundaryProps,
 	AnalyticsErrorBoundaryState
 > {
-	// Gated by analytics-next-lock-context-type: keep the value captured at construction so a late gate flip can't swap the context type and remount the subtree.
-	private readonly lockedIsModernContext =
-		isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
+	// Resolved once at construction, never re-read: Modern and Legacy are different component types,
+	// so switching on a later render would unmount the whole subtree beneath this boundary.
+	private readonly isModernContext =
+		isModernContextEnabledEnv ||
+		fg('analytics-next-use-legacy-context') === false ||
+		fg('adminhub-analytics-next-use-modern-context');
 
 	constructor(props: AnalyticsErrorBoundaryProps) {
 		super(props);
@@ -53,9 +56,7 @@ export default class AnalyticsErrorBoundary extends Component<
 	render(): React.JSX.Element | null {
 		const { data, children, ErrorComponent } = this.props;
 		const { hasError } = this.state;
-		const isModernContext = fg('analytics-next-lock-context-type')
-			? this.lockedIsModernContext
-			: isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
+		const { isModernContext } = this;
 
 		if (hasError) {
 			if (ErrorComponent) {

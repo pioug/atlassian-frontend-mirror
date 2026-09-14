@@ -16,7 +16,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { EmojiPicker } from '@atlaskit/emoji';
 import type { EmojiId } from '@atlaskit/emoji';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EmojiPlugin } from '../emojiPluginType';
 import { setInlineEmojiPopupOpen } from '../pm-plugins/actions';
@@ -36,6 +36,7 @@ type InlineEmojiPopupProps = Pick<
 	'popupsBoundariesElement' | 'popupsMountPoint' | 'popupsScrollableElement'
 > & {
 	api: ExtractInjectionAPI<EmojiPlugin>;
+	contentId?: string;
 	editorView: EditorView;
 };
 
@@ -45,6 +46,7 @@ export const InlineEmojiPopupOld = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	editorView,
+	contentId,
 	onClose,
 }: InlineEmojiPopupProps & { onClose: () => void }): React.JSX.Element | null => {
 	const { emojiProvider, inlineEmojiPopupOpen: isOpen } =
@@ -113,6 +115,7 @@ export const InlineEmojiPopupOld = ({
 			<OutsideClickTargetRefContext.Consumer>
 				{(setOutsideClickTargetRef) => (
 					<EmojiPicker
+						contentId={contentId}
 						emojiProvider={Promise.resolve(emojiProvider)}
 						onPickerRef={setOutsideClickTargetRef}
 						onSelection={handleSelection}
@@ -129,6 +132,7 @@ const InlineEmojiPopupContent = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	editorView,
+	contentId,
 }: InlineEmojiPopupProps) => {
 	const emojiProvider = useSharedPluginStateSelector(api, 'emoji.emojiProvider');
 	const intl = useIntl();
@@ -197,6 +201,7 @@ const InlineEmojiPopupContent = ({
 			<OutsideClickTargetRefContext.Consumer>
 				{(setOutsideClickTargetRef) => (
 					<EmojiPicker
+						contentId={contentId}
 						emojiProvider={Promise.resolve(emojiProvider)}
 						onPickerRef={setOutsideClickTargetRef}
 						onSelection={handleSelection}
@@ -222,6 +227,7 @@ export const InlineEmojiPopup: React.MemoExoticComponent<
 		popupsBoundariesElement,
 		popupsScrollableElement,
 		editorView,
+		contentId,
 	}: InlineEmojiPopupProps): React.JSX.Element | null => {
 		const isOpen = useSharedPluginStateSelector(api, 'emoji.inlineEmojiPopupOpen');
 
@@ -236,6 +242,7 @@ export const InlineEmojiPopup: React.MemoExoticComponent<
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsMountPoint={popupsMountPoint}
 				popupsScrollableElement={popupsScrollableElement}
+				contentId={contentId}
 			/>
 		);
 	},

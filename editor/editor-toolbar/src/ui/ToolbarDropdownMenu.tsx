@@ -7,8 +7,8 @@ import type { ReactNode } from 'react';
 
 import { jsx, cssMap, cx } from '@compiled/react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu';
-import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -51,6 +51,13 @@ type ToolbarDropdownMenuProps = {
 	isDisabled?: boolean;
 	label?: string;
 	onClick?: (event: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
+	/**
+	 * Renders the dropdown menu inline (into its parent) rather than into a portal. This opts the
+	 * menu out of the popup focus-trap's return-focus-to-trigger behaviour on close, which lets
+	 * focus return to the editor after selecting an item. Opt-in per menu to avoid changing the
+	 * rendering of every toolbar dropdown.
+	 */
+	shouldRenderToParent?: boolean;
 	testId?: string;
 	tooltipComponent?: React.ReactNode;
 };
@@ -64,6 +71,7 @@ const ToolbarDropdownMenuContent = ({
 	testId,
 	label,
 	onClick,
+	shouldRenderToParent,
 }: ToolbarDropdownMenuProps) => {
 	const { onDropdownOpenChanged } = useToolbarUI();
 	const menuContext = useToolbarDropdownMenu();
@@ -130,6 +138,7 @@ const ToolbarDropdownMenuContent = ({
 			}}
 			onOpenChange={handleOpenChange}
 			isOpen={menuContext?.isOpen}
+			shouldRenderToParent={shouldRenderToParent ? true : undefined}
 		>
 			{children}
 		</DropdownMenu>
@@ -147,6 +156,7 @@ export const ToolbarDropdownMenu = ({
 	enableMaxHeight = false,
 	onClick,
 	tooltipComponent,
+	shouldRenderToParent,
 }: ToolbarDropdownMenuProps): JSX.Element => {
 	return (
 		<ToolbarDropdownMenuContent
@@ -159,6 +169,7 @@ export const ToolbarDropdownMenu = ({
 			label={label}
 			onClick={onClick}
 			tooltipComponent={tooltipComponent}
+			shouldRenderToParent={shouldRenderToParent}
 		>
 			<Box
 				xcss={cx(

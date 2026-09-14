@@ -1,10 +1,11 @@
-import type { Property } from 'estree';
+import type { Rule, SourceCode } from 'eslint';
+import type * as ESTree from 'eslint-codemod-utils';
 
-import { getScope } from '@atlaskit/eslint-utils/context-compat';
-import { hasStyleObjectArguments } from '@atlaskit/eslint-utils/is-supported-import';
+import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 import { importSources } from '@atlaskit/eslint-utils/schema';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
+import { getStyleCalls } from '../utils/style-calls';
 
 const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
@@ -27,22 +28,30 @@ const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 		},
 	},
 	create(context, { importSources }) {
+		const sourceCode = getSourceCode(context);
+		if (!sourceCode.text.includes('important')) {
+			return {};
+		}
+
 		return {
-			CallExpression(node) {
-				const { references } = getScope(context, node);
+			Program() {
+				const { text } = sourceCode;
+				const reportedValues = new Set<ESTree.Node>();
+				let importantIndex = text.indexOf('important');
 
-				if (!hasStyleObjectArguments(node.callee, references, importSources)) {
-					return;
-				}
-
-				walkProperties(node, (propertyNode) => {
-					if (isImportant(propertyNode.value)) {
-						context.report({
-							node: propertyNode.value,
-							messageId: 'no-important-styles',
-						});
+				while (importantIndex !== -1) {
+					const value = findStyleValue(sourceCode, importantIndex);
+					if (
+						value &&
+						!reportedValues.has(value) &&
+						isImportant(value) &&
+						isInSupportedStyleCall(context, value, importSources)
+					) {
+						reportedValues.add(value);
+						context.report({ node: value, messageId: 'no-important-styles' });
 					}
-				});
+					importantIndex = text.indexOf('important', importantIndex + 9);
+				}
 			},
 		};
 	},
@@ -50,70 +59,105 @@ const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 
 export default rule;
 
-const IMPORTANT_SUFFIX_REGEX = /!\s*important\s*$/;
-
-/**
- * Walk through all Property nodes in the AST tree recursively.
- * This is faster than esquery for this specific use case as it avoids
- * selector compilation and executes a simple depth-first traversal.
- */
-function walkProperties(node: any, callback: (prop: Property) => void): void {
-	if (node.type === 'Property' && node.value) {
-		callback(node);
-	}
-
-	// Iterate through object properties
-	if (node.arguments?.length) {
-		for (const arg of node.arguments) {
-			if (arg.type === 'ObjectExpression' && arg.properties) {
-				for (const prop of arg.properties) {
-					walkObjectProperty(prop, callback);
-				}
-			}
-		}
-	}
-}
-
-/**
- * Recursively walk object properties to find nested Property nodes.
- */
-function walkObjectProperty(node: any, callback: (prop: Property) => void): void {
-	if (node.type === 'Property') {
-		callback(node);
-		// Recursively check nested objects
-		if (node.value?.type === 'ObjectExpression' && node.value.properties) {
-			for (const prop of node.value.properties) {
-				walkObjectProperty(prop, callback);
-			}
-		}
-	}
-}
-
-/**
- * Check if a value contains !important flag.
- * Uses fast string checks before regex to avoid regex overhead for common cases.
- */
-function isImportant(node: Property['value']): boolean {
+function isImportant(node: ESTree.Node): boolean {
 	if (node.type === 'Literal') {
-		if (typeof node.value !== 'string') {
-			return false;
-		}
-		// Fast check: string must end with 'important' (after optional whitespace)
-		const len = node.value.length;
-		if (len < 10) {
-			return false;
-		} // "!important" is 10 chars minimum
-		return IMPORTANT_SUFFIX_REGEX.test(node.value);
+		return typeof node.value === 'string' && hasImportantSuffix(node.value);
 	}
 
 	if (node.type === 'TemplateLiteral') {
-		if (!node.quasis?.length) {
-			return false;
-		}
-		// Only check the last quasi's raw value (most likely to contain the !important)
 		const lastQuasi = node.quasis[node.quasis.length - 1];
-		return IMPORTANT_SUFFIX_REGEX.test(lastQuasi.value.raw);
+		return Boolean(lastQuasi && hasImportantSuffix(lastQuasi.value.raw));
 	}
 
 	return false;
+}
+
+type NodeWithParent = ESTree.Node & Rule.NodeParentExtension;
+
+function findStyleValue(sourceCode: SourceCode, index: number): NodeWithParent | null {
+	let node = sourceCode.getNodeByRangeIndex(index) as NodeWithParent | null;
+
+	while (node && node.type !== 'Literal' && node.type !== 'TemplateLiteral') {
+		node = node.parent as (ESTree.Node & Rule.NodeParentExtension) | null;
+	}
+
+	return node;
+}
+
+function isInSupportedStyleCall(
+	context: Rule.RuleContext,
+	value: NodeWithParent,
+	importSources: readonly string[],
+): boolean {
+	const call = findContainingCall(value);
+	return Boolean(
+		call &&
+		getStyleCalls(context).some(
+			(styleCall) => styleCall.node === call && importSources.includes(styleCall.importSource),
+		),
+	);
+}
+
+function findContainingCall(value: NodeWithParent): ESTree.CallExpression | null {
+	let property = value.parent as NodeWithParent | null;
+	if (property?.type !== 'Property' || property.value !== value) {
+		return null;
+	}
+
+	let object = property.parent as NodeWithParent | null;
+	if (object?.type !== 'ObjectExpression') {
+		return null;
+	}
+
+	while (object) {
+		const parent = object.parent as NodeWithParent | null;
+		if (parent?.type === 'Property' && parent.value === object) {
+			property = parent;
+			object = property.parent as NodeWithParent | null;
+			if (object?.type !== 'ObjectExpression') {
+				return null;
+			}
+			continue;
+		}
+
+		if (parent?.type === 'CallExpression' && parent.arguments.includes(object)) {
+			return parent;
+		}
+
+		if (
+			parent?.type === 'ArrowFunctionExpression' &&
+			parent.body === object &&
+			parent.parent?.type === 'CallExpression' &&
+			parent.parent.arguments.includes(parent)
+		) {
+			return parent.parent;
+		}
+
+		return null;
+	}
+
+	return null;
+}
+
+function hasImportantSuffix(value: string): boolean {
+	let index = value.length - 1;
+	while (index >= 0 && isWhitespace(value.charCodeAt(index))) {
+		index--;
+	}
+
+	const importantStart = index - 8;
+	if (importantStart < 0 || value.slice(importantStart, index + 1) !== 'important') {
+		return false;
+	}
+
+	index = importantStart - 1;
+	while (index >= 0 && isWhitespace(value.charCodeAt(index))) {
+		index--;
+	}
+
+	return value.charCodeAt(index) === 33;
+}
+
+function isWhitespace(character: number): boolean {
+	return character === 32 || (character >= 9 && character <= 13);
 }

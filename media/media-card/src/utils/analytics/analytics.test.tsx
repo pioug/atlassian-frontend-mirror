@@ -1,43 +1,46 @@
 import React from 'react';
+
 import { render, screen, userEvent } from '@atlassian/testing-library';
-import {
-	AnalyticsListener,
-	withAnalyticsEvents,
-	type CreateUIAnalyticsEvent,
-	type UIAnalyticsEvent,
-	createAndFireEvent,
-} from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import {
-	createAndFireMediaCardEvent,
-	fireMediaCardEvent,
-	type MediaCardAnalyticsEventPayload,
-	getRenderErrorFailReason,
-	getRenderErrorErrorReason,
-	getRenderErrorErrorDetail,
-	getRenderErrorRequestMetadata,
-	getRenderErrorEventPayload,
-	extractErrorInfo,
-	type SSRStatus,
-	getAuthProviderSucceededPayload,
-	getAuthProviderFailedPayload,
-} from './analytics';
+
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { getMediaClientErrorReason } from '@atlaskit/media-client';
+import { createMediaStoreError, createRateLimitedError } from '@atlaskit/media-client/test-helpers';
 import {
 	type FileAttributes,
 	type MediaTraceContext,
 	type PerformanceAttributes,
 } from '@atlaskit/media-common';
-import { createMediaStoreError, createRateLimitedError } from '@atlaskit/media-client/test-helpers';
-import { getMediaClientErrorReason } from '@atlaskit/media-client';
-import { getRenderFailedFileStatusPayload } from './analytics';
-import { MediaCardError } from '../../errors';
 
-jest.mock('@atlaskit/analytics-next', () => {
-	const actualModule = jest.requireActual('@atlaskit/analytics-next');
+import { MediaCardError } from '../../MediaCardError';
+import type { MediaCardAnalyticsEventPayload, SSRStatus } from './analytics';
+import { createAndFireMediaCardEvent } from './createAndFireMediaCardEvent';
+import { extractErrorInfo } from './extractErrorInfo';
+import { fireMediaCardEvent } from './fireMediaCardEvent';
+import { getAuthProviderFailedPayload } from './getAuthProviderFailedPayload';
+import { getAuthProviderSucceededPayload } from './getAuthProviderSucceededPayload';
+import { getRenderErrorErrorDetail } from './getRenderErrorErrorDetail';
+import { getRenderErrorErrorReason } from './getRenderErrorErrorReason';
+import { getRenderErrorEventPayload } from './getRenderErrorEventPayload';
+import { getRenderErrorFailReason } from './getRenderErrorFailReason';
+import { getRenderErrorRequestMetadata } from './getRenderErrorRequestMetadata';
+import { getRenderFailedFileStatusPayload } from './getRenderFailedFileStatusPayload';
+
+jest.mock('@atlaskit/analytics-next/createAndFireEvents', () => {
+	// The source imports the DEFAULT export of this subpath, so base the mock
+	// implementation on that default (the barrel does not re-export it as a named
+	// `createAndFireEvent`, so the previous `actualModule.createAndFireEvent` was
+	// undefined and produced "is not a function").
+	const actualModule = jest.requireActual('@atlaskit/analytics-next/createAndFireEvents');
+	const mockCreateAndFireEvent = jest.fn(actualModule.default);
+	(global as any).__mockCreateAndFireEvent = mockCreateAndFireEvent;
 	return {
-		__esModule: true,
 		...actualModule,
-		createAndFireEvent: jest.fn(actualModule.createAndFireEvent),
+		__esModule: true,
+		default: mockCreateAndFireEvent,
 	};
 });
 
@@ -321,7 +324,11 @@ describe('Media Analytics', () => {
 	describe('Sanitisation', () => {
 		describe('fireMediaCardEvent', () => {
 			it('should sanitise the file id', () => {
-				const createAnalyticsEvent = jest.fn(() => ({ fire: jest.fn() }));
+				const createAnalyticsEvent = jest.fn(() => ({
+					fire: jest.fn(),
+					context: [] as unknown[],
+					clone: jest.fn(() => ({ fire: jest.fn(), context: [] as unknown[] })),
+				}));
 				const payload = {
 					attributes: {
 						fileAttributes: { fileId: 'this is an invalid file id' },
@@ -336,7 +343,11 @@ describe('Media Analytics', () => {
 			});
 
 			it('should preserve a valid file id', () => {
-				const createAnalyticsEvent = jest.fn(() => ({ fire: jest.fn() }));
+				const createAnalyticsEvent = jest.fn(() => ({
+					fire: jest.fn(),
+					context: [] as unknown[],
+					clone: jest.fn(() => ({ fire: jest.fn(), context: [] as unknown[] })),
+				}));
 				const validFileId = 'c2c581e3-8fb7-44ef-b3ed-7c9c9a29c3ef';
 				const payload = {
 					attributes: { fileAttributes: { fileId: validFileId } },
@@ -353,7 +364,7 @@ describe('Media Analytics', () => {
 		describe('createAndFireMediaCardEvent', () => {
 			it('should sanitise the file id', () => {
 				const createdEvent = jest.fn();
-				(createAndFireEvent as jest.Mock).mockReturnValueOnce(createdEvent);
+				((global as any).__mockCreateAndFireEvent as jest.Mock).mockReturnValueOnce(createdEvent);
 				const payload = {
 					attributes: {
 						fileAttributes: { fileId: 'this is an invalid file id' },
@@ -369,7 +380,7 @@ describe('Media Analytics', () => {
 
 			it('should preserve a valid file id', () => {
 				const createdEvent = jest.fn();
-				(createAndFireEvent as jest.Mock).mockReturnValueOnce(createdEvent);
+				((global as any).__mockCreateAndFireEvent as jest.Mock).mockReturnValueOnce(createdEvent);
 				const validFileId = 'c2c581e3-8fb7-44ef-b3ed-7c9c9a29c3ef';
 				const payload = {
 					attributes: { fileAttributes: { fileId: validFileId } },

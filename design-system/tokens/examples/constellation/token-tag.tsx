@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 
 export const TokenTagCodeBlock = `
 import { N800, P100, P500, P75 } from '@atlaskit/theme/colors';

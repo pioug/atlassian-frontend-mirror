@@ -23,7 +23,7 @@ import {
 	renderWithIntl,
 	asMock,
 } from '@atlaskit/media-test-helpers';
-import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
 import { type MediaTableProps, type MediaTableItem } from '../types';
 import { MediaTable } from '../component/mediaTable';
 import { NameCell } from '../component/nameCell';
@@ -33,7 +33,7 @@ import userEvent from '@testing-library/user-event';
 let mockMediaClient: MediaClient;
 
 jest.mock('@atlaskit/media-client', () => ({
-	...jest.requireActual<Object>('@atlaskit/media-client'),
+	...jest.requireActual<object>('@atlaskit/media-client'),
 	getMediaClient: jest.fn(() => mockMediaClient),
 }));
 
@@ -324,7 +324,7 @@ describe('MediaTable', () => {
 		const downloadButtons = screen.getAllByTestId('download-button');
 		await user.click(downloadButtons[0]);
 
-		expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
+		expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(1);
 		expectFunctionToHaveBeenCalledWith(mediaClient.file.downloadBinary, [
 			audioFileId.id,
 			'audio_file_name',
@@ -353,7 +353,7 @@ describe('MediaTable', () => {
 		const downloadButtons = screen.getAllByTestId('download-button');
 		await user.click(downloadButtons[0]);
 
-		expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
+		expect(mediaClient.file.downloadBinary).toHaveBeenCalledTimes(1);
 	});
 
 	it('should render right file size', async () => {

@@ -2,15 +2,16 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { IconTile, type IconTileProps } from '@atlaskit/icon';
+import IconTile from '@atlaskit/icon/icon-tile';
+import type { IconTileProps } from '@atlaskit/icon/types';
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-import { transformSmartLinkSizeToIconTileSize } from '../../../../../common/ui/icons/utils';
+import { transformSmartLinkSizeToIconTileSize } from '../../../../../common/ui/icons/transform-smart-link-size-to-icon-tile-size';
 import { IconType, SmartLinkSize } from '../../../../../constants';
-import { getLazyIcons, isIconSizeLarge } from '../../../../../utils';
-
+import { getLazyIcons } from '../../../../../utils/get-lazy-icons';
+import { isIconSizeLarge } from '../../../../../utils/is-icon-size-large';
 import { type AtlaskitIconProps } from './types';
 
 const getIconImportFn = (icon: IconType, size: SmartLinkSize): (() => Promise<any>) | undefined => {

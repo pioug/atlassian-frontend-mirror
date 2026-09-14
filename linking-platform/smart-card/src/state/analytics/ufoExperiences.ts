@@ -1,9 +1,5 @@
-import {
-	ConcurrentExperience,
-	type CustomData,
-	ExperiencePerformanceTypes,
-	ExperienceTypes,
-} from '@atlaskit/ufo';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
 type UfoExperienceName =
 	| 'smart-link-rendered'
@@ -29,7 +25,7 @@ const aiExperience = {
 	performanceType: ExperiencePerformanceTypes.InlineResult,
 };
 
-const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {
+export const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {
 	'smart-link-rendered': new ConcurrentExperience('smart-link-rendered', renderExperience),
 	'smart-link-authenticated': new ConcurrentExperience(
 		'smart-link-authenticated',
@@ -40,42 +36,4 @@ const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {
 		inlineExperience,
 	),
 	'smart-link-ai-summary': new ConcurrentExperience('smart-link-ai-summary', aiExperience),
-};
-
-export const startUfoExperience = (
-	experienceName: UfoExperienceName,
-	id: string,
-	properties?: CustomData,
-): void => {
-	const experience = ufoExperiences[experienceName].getInstance(id);
-	experience.start();
-	if (properties) {
-		experience.addMetadata(properties);
-	}
-};
-
-export const succeedUfoExperience = (
-	experienceName: UfoExperienceName,
-	id: string,
-	properties?: CustomData,
-): void => {
-	const experience = ufoExperiences[experienceName].getInstance(id);
-	experience.success({ metadata: properties });
-};
-
-export const failUfoExperience = (
-	experienceName: UfoExperienceName,
-	id: string,
-	properties?: CustomData,
-): void => {
-	const experience = ufoExperiences[experienceName].getInstance(id);
-	experience.failure({ metadata: properties });
-};
-
-export const addMetadataToExperience = (
-	experienceName: UfoExperienceName,
-	id: string,
-	properties: CustomData,
-): void => {
-	ufoExperiences[experienceName].getInstance(id).addMetadata(properties);
 };

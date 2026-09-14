@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 

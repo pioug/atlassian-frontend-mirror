@@ -1,13 +1,12 @@
-export { convertToError } from './error-handling/convert-to-error';
-export { FailedFetchError, retryOnException } from './network/retry-operation';
-export { STORAGE_MOCK, mockWindowStorage } from './storage/local-storage';
-export { StorageClient } from './storage/storage-client';
-export {
-	useInterval,
-	usePrevious,
-	useLocalStorage,
-	useLocalStorageRecord,
-	useWhyDidUpdate,
-	useWhyDidUpdateShallow,
-} from './hooks';
+export { convertToError } from './error-handling/convert-to-error/convertToError';
+export { FailedFetchError } from './network/retry-operation/errors/FailedFetchError';
+export { retryOnException } from './network/retry-operation/retry-on-exception';
+export { STORAGE_MOCK, mockWindowStorage } from './storage/local-storage/main';
+export { StorageClient } from './storage/storage-client/StorageClient';
+export { useInterval } from './hooks/use-interval/useInterval';
+export { usePrevious } from './hooks/use-previous/usePrevious';
+export { useLocalStorage } from './hooks/use-local-storage/useLocalStorage';
+export { useLocalStorageRecord } from './hooks/use-local-storage/useLocalStorageRecord';
+export { useWhyDidUpdate } from './hooks/use-why-did-update/useWhyDidUpdate';
+export { useWhyDidUpdateShallow } from './hooks/use-why-did-update/useWhyDidUpdateShallow';
 export { simpleHash } from './utils/simple-hash';

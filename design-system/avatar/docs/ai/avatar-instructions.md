@@ -1,8 +1,10 @@
 # Prop guidance
 
 - **name** - Always provide for accessibility (use full names when possible)
-- **size** - xsmall (inline), small (compact), medium (standard), large (prominent), xlarge (hero),
-  xxlarge (marketing)
+- **size** - xxsmall (16px, preferred), xsmall (legacy 16px in the current major), small (compact),
+  medium (standard), large (prominent), xlarge (hero), xxlarge (marketing)
+- **migration** - `xsmall` will become 20px in a future major; use `UNSAFE_xsmall` only as the
+  temporary 20px migration value until then
 - **presence** - Use sparingly for real-time status (online, busy, focus, offline)
 - **status** - For approval states (approved, declined, locked, warning)
 - **appearance** - Use "square" for non-circular avatars

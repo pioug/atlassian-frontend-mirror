@@ -1,13 +1,6 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 import { createIntl, createIntlCache } from 'react-intl';
 
 import { messages } from '../../../../../../messages';
@@ -32,16 +25,16 @@ describe('ArticleContent', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('Should match snapshot', () => {
-		const { asFragment } = render(<Loading intl={intl} />);
+	it('Should render the loading state', () => {
+		render(<Loading intl={intl} />);
 
-		expect(asFragment()).toMatchSnapshot();
+		expect(screen.getByLabelText(messageLoading)).toBeInTheDocument();
 	});
 
 	it('Should display Loading component', () => {
-		const { queryByLabelText } = render(<Loading intl={intl} />);
+		render(<Loading intl={intl} />);
 
-		const loadingImg = queryByLabelText(messageLoading);
+		const loadingImg = screen.queryByLabelText(messageLoading);
 
 		expect(loadingImg).not.toBeNull();
 	});

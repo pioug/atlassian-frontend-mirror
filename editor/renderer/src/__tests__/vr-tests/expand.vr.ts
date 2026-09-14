@@ -9,7 +9,7 @@ import {
 	ExpandFullWidthModeRenderer,
 	ExpandWideModeRenderer,
 	ExpandRendererWithReactLooselyLazy,
-} from './expand.fixture';
+} from './expand.fixture.vr.ap';
 
 snapshot(ExpandRenderer);
 

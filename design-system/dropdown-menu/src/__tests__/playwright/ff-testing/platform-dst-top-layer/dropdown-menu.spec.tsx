@@ -1,4 +1,4 @@
-import { expect, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 
 const featureFlag = 'platform-dst-top-layer';
 
@@ -173,6 +173,67 @@ test.describe('DropdownMenu top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	});
 });
 
+test.describe('DropdownMenu top-layer: nested menu Tab exit', () => {
+	const getTriggerTestId = (level: number) => `nested-${level}--trigger`;
+	const getContentTestId = (level: number) => `nested-${level}--content`;
+
+	async function openNestedMenuStack({ page }: { page: Page }) {
+		await page.visitExample<
+			typeof import('../../../../../examples/93-testing-nested-keyboard-navigation-top-layer.tsx')
+		>('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation-top-layer', {
+			featureFlag,
+		});
+
+		const rootTrigger = page.getByTestId(getTriggerTestId(0));
+		await rootTrigger.evaluate((trigger) => {
+			const before = document.createElement('button');
+			before.type = 'button';
+			before.dataset.testid = 'before-root-trigger';
+			trigger.insertAdjacentElement('beforebegin', before);
+
+			const after = document.createElement('button');
+			after.type = 'button';
+			after.dataset.testid = 'after-root-trigger';
+			trigger.insertAdjacentElement('afterend', after);
+		});
+
+		await rootTrigger.focus();
+		await page.keyboard.press('Enter');
+		await page.keyboard.press('ArrowRight');
+		await page.keyboard.press('ArrowRight');
+
+		await expect(page.getByTestId(getContentTestId(0))).toBeVisible();
+		await expect(page.getByTestId(getContentTestId(1))).toBeVisible();
+		await expect(page.getByTestId(getContentTestId(2))).toBeVisible();
+	}
+
+	test('Tab closes the complete menu stack and moves focus after the root trigger', async ({
+		page,
+	}) => {
+		await openNestedMenuStack({ page });
+
+		await page.keyboard.press('Tab');
+
+		await expect(page.getByTestId(getContentTestId(0))).toBeHidden();
+		await expect(page.getByTestId(getContentTestId(1))).toBeHidden();
+		await expect(page.getByTestId(getContentTestId(2))).toBeHidden();
+		await expect(page.getByTestId('after-root-trigger')).toBeFocused();
+	});
+
+	test('Shift+Tab closes the complete menu stack and moves focus before the root trigger', async ({
+		page,
+	}) => {
+		await openNestedMenuStack({ page });
+
+		await page.keyboard.press('Shift+Tab');
+
+		await expect(page.getByTestId(getContentTestId(0))).toBeHidden();
+		await expect(page.getByTestId(getContentTestId(1))).toBeHidden();
+		await expect(page.getByTestId(getContentTestId(2))).toBeHidden();
+		await expect(page.getByTestId('before-root-trigger')).toBeFocused();
+	});
+});
+
 test.describe('DropdownMenu top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('focus moves to first menu item when menu opens via keyboard', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/98-testing-ddm-default.tsx')>(
@@ -192,7 +253,7 @@ test.describe('DropdownMenu top-layer — WCAG 2.4.3 Focus Order', () => {
 		// assertion. `not.toBeFocused()` waits up to 5s for the element to
 		// exist before checking focus, which deadlocks here since the menu
 		// has not been opened yet and the menu item is not in the DOM.
-		await expect(moveItem).not.toBeVisible();
+		await expect(moveItem).toBeHidden();
 
 		await page.keyboard.press('Enter');
 

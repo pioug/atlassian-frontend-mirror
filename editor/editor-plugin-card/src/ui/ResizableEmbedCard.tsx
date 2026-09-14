@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { EnabledHandles, ResizerProps } from '@atlaskit/editor-common/ui';
 import {
 	calcColumnsFromPx,
@@ -35,9 +35,9 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 type State = {
@@ -289,12 +289,13 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		// Hide resizing guideline when embed is nested
 		if (
 			this.$pos &&
-			!!findParentNodeOfTypeClosestToPos(
-				this.$pos,
-				editorExperiment('platform_synced_block', true)
-					? [layoutColumn, table, expand, nestedExpand, bodiedSyncBlock]
-					: [layoutColumn, table, expand, nestedExpand],
-			)
+			!!findParentNodeOfTypeClosestToPos(this.$pos, [
+				layoutColumn,
+				table,
+				expand,
+				nestedExpand,
+				bodiedSyncBlock,
+			])
 		) {
 			return [];
 		}
@@ -391,11 +392,9 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 			innerPadding: akEditorMediaResizeHandlerPadding,
 		};
 
-		const isLeftResizeHandleDisabled = expValEquals(
-			'platform_editor_lovability_resize_dividers_panels',
-			'isEnabled',
-			true,
-		);
+		const isLeftResizeHandleDisabled =
+			expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
+			isExperimentEnabled('platform_editor_remove_left_resize_handle');
 
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
@@ -427,7 +426,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 			}
 		});
 
-		const nestedInTableHandleStyles = (isNestedInTable: Boolean) => {
+		const nestedInTableHandleStyles = (isNestedInTable: boolean) => {
 			if (!isNestedInTable) {
 				return;
 			}
@@ -466,9 +465,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 						scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
 						highlights={this.highlights}
 						nodeType="embed"
-						onResizeStart={
-							editorExperiment('platform_synced_block', true) ? this.handleResizeStart : undefined
-						}
+						onResizeStart={this.handleResizeStart}
 						handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading

@@ -1,7 +1,7 @@
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';

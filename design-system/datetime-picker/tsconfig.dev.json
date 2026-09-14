@@ -98,6 +98,9 @@
 			"path": "../range/tsconfig.app.json"
 		},
 		{
+			"path": "../react-select/tsconfig.app.json"
+		},
+		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
@@ -113,7 +116,13 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

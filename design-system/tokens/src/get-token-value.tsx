@@ -1,8 +1,7 @@
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
 import tokens from './artifacts/token-names';
-
-type Tokens = typeof tokens;
+import type { Tokens } from './tokens';
 
 /**
  * Takes a dot-separated token name and and an optional fallback, and returns the current computed CSS value for the
@@ -25,7 +24,7 @@ type Tokens = typeof tokens;
  * ```
  *
  */
-function getTokenValue<T extends keyof Tokens>(tokenId: T, fallback: string = ''): string {
+export function getTokenValue<T extends keyof Tokens>(tokenId: T, fallback: string = ''): string {
 	let token: Tokens[keyof Tokens] | '' = tokens[tokenId];
 	let tokenValue = fallback;
 

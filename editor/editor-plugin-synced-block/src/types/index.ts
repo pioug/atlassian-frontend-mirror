@@ -5,6 +5,8 @@ import type {
 	SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
 
+import type { SyncedBlockFeedbackContext } from '../syncedBlockPluginType';
+
 export enum FLAG_ID {
 	CANNOT_DELETE_WHEN_OFFLINE = 'cannot-delete-when-offline',
 	CANNOT_EDIT_WHEN_OFFLINE = 'cannot-edit-when-offline',
@@ -16,9 +18,13 @@ export enum FLAG_ID {
 	INLINE_EXTENSION_IN_SYNC_BLOCK = 'inline-extension-in-sync-block',
 	EXTENSION_IN_SYNC_BLOCK = 'extension-in-sync-block',
 	DUPLICATE_SOURCE_SYNC_BLOCK = 'duplicate-source-sync-block',
+	SYNC_BLOCK_FEEDBACK_PROMPT = 'synced-block-feedback-prompt',
 }
 
 type FlagConfig = {
+	feedbackContext?: Omit<SyncedBlockFeedbackContext, 'entryPoint'> & {
+		entryPoint: Exclude<SyncedBlockFeedbackContext['entryPoint'], 'overflow-menu'>;
+	};
 	id: FLAG_ID;
 	/** Whether the copied synced block confirmation originated from a live page. */
 	isLivePage?: boolean;
@@ -57,8 +63,7 @@ export type SyncedBlockSharedState = {
 	/**
 	 * Whether the document currently contains any synced block (source or
 	 * reference). Sticky once flipped to `true` for the lifetime of the
-	 * editor session. When `editor_synced_block_perf` is OFF this is
-	 * always `true`.
+	 * editor session.
 	 */
 	hasSyncedBlocks: boolean;
 	/**

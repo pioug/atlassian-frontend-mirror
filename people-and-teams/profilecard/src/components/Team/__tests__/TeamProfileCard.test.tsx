@@ -3,14 +3,12 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import {
-	type AnalyticsEventAttributes,
-	useAnalyticsEvents,
-} from '@atlaskit/teams-app-internal-analytics';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 
 import { flexiTime } from '../../../__tests__/unit/helper/_mock-analytics';
-import { profileCardRendered } from '../../../util/analytics';
+import { profileCardRendered } from '../../../util/profileCardRendered';
 import TeamProfileCard from '../TeamProfileCard';
 
 const createMembers = (count: number) => {
@@ -40,11 +38,12 @@ const actions = [
 	},
 ];
 
-jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
+jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon/main', () => ({
+	...jest.requireActual('@atlaskit/people-teams-ui-public/verified-team-icon/main'),
 	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
 }));
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp'),

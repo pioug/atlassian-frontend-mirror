@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/checkbox",
-	"version": "18.2.1",
+	"version": "19.2.0",
 	"description": "A checkbox is an input control that allows a user to select one or more options from a number of choices.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,8 +32,8 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./checkbox": "./src/entry-points/checkbox.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./checkbox": "./src/checkbox.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -45,7 +45,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -60,10 +60,11 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0",
 		"storybook-addon-performance": "root:*"
 	},
 	"keywords": [
@@ -71,25 +72,5 @@
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
-	},
 	"homepage": "https://atlassian.design/components/checkbox/"
 }

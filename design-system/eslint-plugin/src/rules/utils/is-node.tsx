@@ -40,7 +40,6 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 			}
 		}
 
-		// @ts-ignore Name is not defined in types
 		const varName = node.id.name.toLowerCase();
 
 		return ['style', 'css', 'theme'].some((el) => varName.includes(el));

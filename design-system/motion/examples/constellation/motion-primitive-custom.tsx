@@ -4,12 +4,14 @@
  */
 import { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import Motion from '@atlaskit/motion/entering/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered, RetryContainer } from '../utils';
+import { Block } from '../utils/blocks';
+import { Centered, RetryContainer } from '../utils/containers';
 
 const styles = cssMap({
 	container: {

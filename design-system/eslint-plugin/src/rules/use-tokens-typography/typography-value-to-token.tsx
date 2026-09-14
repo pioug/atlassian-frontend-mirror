@@ -1,5 +1,5 @@
-import { typographyPalette } from '@atlaskit/tokens/palettes-raw';
-import { typography as typographyTokens } from '@atlaskit/tokens/tokens-raw';
+import typographyPalette from '@atlaskit/tokens/typography-palette';
+import typographyTokens from '@atlaskit/tokens/atlassian-typography';
 
 import type { TokenValueMap } from './types';
 

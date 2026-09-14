@@ -1,12 +1,13 @@
 import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
 import { adfNode } from '@atlaskit/adf-schema-generator';
+import { breakout } from '../marks/breakout';
 import { dataConsumer } from '../marks/dataConsumer';
 import { fragment } from '../marks/fragment';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 
 export const extension: ADFNode<
-	[string, 'with_marks'],
+	[string, 'with_marks', 'root_only'],
 	ADFCommonNodeSpec & {
 		ignore: never[];
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,4 +38,9 @@ export const extension: ADFNode<
 	.variant('with_marks', {
 		marks: [dataConsumer, fragment, unsupportedMark, unsupportedNodeAttribute],
 		ignore: [],
+	})
+	// this variant is used to support breakout resizing for extension nodes at the document root
+	.variant('root_only', {
+		stage0: true,
+		marks: [breakout, dataConsumer, fragment, unsupportedMark, unsupportedNodeAttribute],
 	});

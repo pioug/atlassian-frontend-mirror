@@ -1,7 +1,9 @@
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../../constants';
-import { getIconWidth, getPrimitivesInlineSpaceBySize, hasWhiteSpace } from '../utils';
+import { getIconWidth } from '../getIconWidth';
+import { getPrimitivesInlineSpaceBySize } from '../getPrimitivesInlineSpaceBySize';
+import { hasWhiteSpace } from '../hasWhiteSpace';
 
 describe('getPrimitivesInlineSpaceBySize', () => {
 	it.each([
@@ -32,7 +34,6 @@ describe('getIconWidth', () => {
 	});
 
 	it('returns the small icon width by default', () => {
-		// @ts-ignore For testing purpose
 		expect(getIconWidth()).toBe(token('space.200', '16px'));
 	});
 });

@@ -8,9 +8,9 @@ export { useSetTheme } from './theme-provider/hooks/use-set-theme';
 export { useTheme } from './theme-provider/hooks/use-theme';
 
 export type { Theme } from './theme-provider/context/theme';
-export { default as ThemeProvider, type ThemeProviderProps } from './theme-provider';
+export { ThemeProvider, type ThemeProviderProps } from './theme-provider';
 
 // Router link provider
 export { type RouterLinkComponent, type RouterLinkComponentProps } from './router-link-provider';
-import useRouterLink from './router-link-provider/hooks/use-router-link';
+import { useRouterLink } from './router-link-provider/hooks/use-router-link';
 export { useRouterLink };

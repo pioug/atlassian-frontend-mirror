@@ -103,11 +103,7 @@ export default class NumberColumn extends Component<Props, any> {
 						data-index={index}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={this.getCellStyles(index, rowHeight)}
-						onFocus={
-							expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-								? () => updateCellHoverLocation(index)
-								: undefined
-						}
+						onFocus={() => updateCellHoverLocation(index)}
 						onMouseOver={() => updateCellHoverLocation(index)}
 					>
 						{hasHeaderRow ? (index > 0 ? index : null) : index + 1}

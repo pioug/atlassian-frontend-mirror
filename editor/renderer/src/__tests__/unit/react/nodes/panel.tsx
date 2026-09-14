@@ -1,49 +1,28 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Panel from '../../../../react/nodes/panel';
-import { PanelType } from '@atlaskit/adf-schema';
+import { render, screen } from '@testing-library/react';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import EmojiItem from '../../../../react/nodes/emoji';
+import Panel from '../../../../react/nodes/panel';
 
 describe('Renderer - React/Nodes/Panel', () => {
-	describe('info', () => {
-		const infoPanel = shallow(<Panel panelType={PanelType.INFO}>This is a info panel</Panel>);
+	it.each([PanelType.INFO, PanelType.NOTE, PanelType.TIP, PanelType.WARNING])(
+		'should render an icon and the content for a %s panel',
+		(panelType) => {
+			render(<Panel panelType={panelType}>{`This is a ${panelType} panel`}</Panel>);
 
-		it('should have two children', () => {
-			expect(infoPanel.children()).toHaveLength(2);
-		});
-	});
-
-	describe('note', () => {
-		const notePanel = shallow(<Panel panelType={PanelType.NOTE}>This is a note panel</Panel>);
-
-		it('should have two children', () => {
-			expect(notePanel.children()).toHaveLength(2);
-		});
-	});
-
-	describe('tip', () => {
-		const tipPanel = shallow(<Panel panelType={PanelType.TIP}>This is a tip panel</Panel>);
-
-		it('should have two children', () => {
-			expect(tipPanel.children()).toHaveLength(2);
-		});
-	});
-
-	describe('warning', () => {
-		const warningPanel = shallow(
-			<Panel panelType={PanelType.WARNING}>This is a warning panel</Panel>,
-		);
-		it('should have two children', () => {
-			expect(warningPanel.children()).toHaveLength(2);
-		});
-	});
+			expect(screen.getByLabelText(`${panelType} panel`)).toBeInTheDocument();
+			expect(screen.getByText(`This is a ${panelType} panel`)).toBeInTheDocument();
+		},
+	);
 
 	describe('custom panel', () => {
 		const providerFactory = ProviderFactory.create({});
 
+		const getCustomPanel = (container: HTMLElement) =>
+			container.querySelector('[data-panel-type="custom"]');
+
 		it('should wrap content with <div>-tag and have given emoji and background', () => {
-			const customPanel = shallow(
+			const { container } = render(
 				<Panel
 					panelType={PanelType.CUSTOM}
 					panelColor={'#b5f71ca14'}
@@ -54,12 +33,14 @@ describe('Renderer - React/Nodes/Panel', () => {
 					This is a custom panel with custom emoji and background
 				</Panel>,
 			);
-			expect(customPanel.props().backgroundColor).toEqual('#b5f71ca14');
-			expect(customPanel.find(EmojiItem).props().shortName).toEqual(':smiley:');
+
+			expect(getCustomPanel(container)?.tagName).toBe('DIV');
+			expect(getCustomPanel(container)).toHaveAttribute('data-panel-color', '#b5f71ca14');
+			expect(container.querySelector('[data-emoji-short-name=":smiley:"]')).toBeInTheDocument();
 		});
 
 		it('custom panel should return div with data-panel-type attribute', () => {
-			const customPanel = shallow(
+			const { container } = render(
 				<Panel
 					panelType={PanelType.CUSTOM}
 					panelColor={'#34eb6e'}
@@ -71,11 +52,11 @@ describe('Renderer - React/Nodes/Panel', () => {
 				</Panel>,
 			);
 
-			expect(customPanel.props()['data-panel-type']).toEqual('custom');
+			expect(getCustomPanel(container)).toBeInTheDocument();
 		});
 
 		it('custom panel should return div with data-panel-color attribute', () => {
-			const customPanel = shallow(
+			const { container } = render(
 				<Panel
 					panelType={PanelType.CUSTOM}
 					panelColor={'#34eb6e'}
@@ -87,11 +68,11 @@ describe('Renderer - React/Nodes/Panel', () => {
 				</Panel>,
 			);
 
-			expect(customPanel.props()['data-panel-color']).toEqual('#34eb6e');
+			expect(getCustomPanel(container)).toHaveAttribute('data-panel-color', '#34eb6e');
 		});
 
 		it('custom panel should return div with data-panel-icon attribute', () => {
-			const customPanel = shallow(
+			const { container } = render(
 				<Panel
 					panelType={PanelType.CUSTOM}
 					panelColor={'#34eb6e'}
@@ -103,7 +84,29 @@ describe('Renderer - React/Nodes/Panel', () => {
 				</Panel>,
 			);
 
-			expect(customPanel.props()['data-panel-icon']).toEqual(':smiley:');
+			expect(getCustomPanel(container)).toHaveAttribute('data-panel-icon', ':smiley:');
 		});
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<Panel
+					panelType={PanelType.CUSTOM}
+					panelColor={'#34eb6e'}
+					panelIcon={':smiley:'}
+					allowCustomPanels={true}
+					providers={providerFactory}
+				>
+					This is a custom panel with custom emoji and background
+				</Panel>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Panel panelType={PanelType.INFO}>This is an info panel</Panel>);
+
+		await expect(container).toBeAccessible();
 	});
 });

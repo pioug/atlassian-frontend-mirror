@@ -4,15 +4,18 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider, type MessageDescriptor } from 'react-intl';
 
-import { useTeamContainers } from '@atlaskit/teams-public';
+import { useTeamContainers } from '@atlaskit/teams-public/use-team-containers/use-team-containers';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { TeamProfileCard, type TeamProfileCardProps } from './main';
 import { mockProfileData } from './mocks';
 
-jest.mock('@atlaskit/teams-public', () => ({
-	...jest.requireActual('@atlaskit/teams-public'),
+jest.mock('@atlaskit/teams-public/use-team-containers/use-team-containers', () => ({
+	...jest.requireActual('@atlaskit/teams-public/use-team-containers/use-team-containers'),
 	useTeamContainers: jest.fn(),
+}));
+jest.mock('@atlaskit/teams-public/main', () => ({
+	...jest.requireActual('@atlaskit/teams-public/main'),
 	TeamContainers: () => <div data-testid="mocked-div">Mocked Team Containers</div>,
 }));
 

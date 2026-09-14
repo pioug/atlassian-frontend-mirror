@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { Popper } from '@atlaskit/popper';
+import { Popper } from '@atlaskit/popper/main';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -14,6 +14,7 @@ import { DefaultReactions } from '../shared/constants';
 import { RENDER_BUTTON_TESTID } from './EmojiButton';
 import { RENDER_TRIGGER_BUTTON_TESTID, RENDER_LIST_ITEM_WRAPPER_TESTID } from './Trigger';
 import {
+	RENDER_REACTIONPICKER_TESTID,
 	RENDER_REACTIONPICKERPANEL_TESTID,
 	PopperWrapper,
 	type PopperWrapperProps,
@@ -182,7 +183,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		const triggerPickerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 		expect(triggerPickerButton).toBeInTheDocument();
 		await user.click(triggerPickerButton);
-		//@ts-ignore
 		requestAnimationFrame.step();
 		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
 		expect(selectorButtons).toBeDefined();
@@ -191,7 +191,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 		// esc to close the popup
 		await user.keyboard('{Esc}');
-		//@ts-ignore
 		requestAnimationFrame.step();
 		expect(mockOnCancel).toHaveBeenCalled();
 		expect(screen.queryByTestId(RENDER_REACTIONPICKERPANEL_TESTID)).not.toBeInTheDocument();
@@ -205,9 +204,14 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		const triggerPickerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 		expect(triggerPickerButton).toBeInTheDocument();
 		await user.click(triggerPickerButton);
-		//@ts-ignore
 		requestAnimationFrame.step();
-		expect(triggerPickerButton).not.toHaveFocus();
+
+		// `focus-trap` >= 2.4.6 applies the trap's initial focus in a `setTimeout(…, 0)` rather
+		// than synchronously within `activate()`, so stepping the animation frame that activates
+		// the trap is no longer enough for focus to have left the trigger.
+		await waitFor(() => {
+			expect(triggerPickerButton).not.toHaveFocus();
+		});
 
 		// should show default reaction emojis
 		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
@@ -233,6 +237,34 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 
 		const listWrapper = await screen.getByTestId(RENDER_LIST_ITEM_WRAPPER_TESTID);
 		expect(listWrapper).toBeInTheDocument();
+	});
+
+	describe('reading order (a11y_reactions_reading_order gate)', () => {
+		it('renders the picker panel in a portal outside the picker wrapper when the gate is OFF', async () => {
+			failGate('a11y_reactions_reading_order');
+			renderWithIntl(renderPicker());
+			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+
+			await user.click(triggerButton);
+			await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+
+			const wrapper = screen.getByTestId(RENDER_REACTIONPICKER_TESTID);
+			const panel = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(wrapper).not.toContainElement(panel);
+		});
+
+		it('renders the picker panel inline after the trigger inside the picker wrapper when the gate is ON', async () => {
+			passGate('a11y_reactions_reading_order');
+			renderWithIntl(renderPicker());
+			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+
+			await user.click(triggerButton);
+			await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+
+			const wrapper = screen.getByTestId(RENDER_REACTIONPICKER_TESTID);
+			const panel = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(wrapper).toContainElement(panel);
+		});
 	});
 
 	describe('aria-owns (a11y-fixes-week3-may-2026 experiment)', () => {
@@ -294,8 +326,8 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 });
 
 // Only want to mock this for the PopperWrapper test
-jest.mock('@atlaskit/popper', () => ({
-	...jest.requireActual('@atlaskit/popper'),
+jest.mock('@atlaskit/popper/main', () => ({
+	...jest.requireActual('@atlaskit/popper/main'),
 	Popper: jest.fn(({ children }) => children({ ref: jest.fn(), style: {}, update: jest.fn() })),
 }));
 
@@ -321,23 +353,34 @@ describe('PopperWrapper', () => {
 		);
 	});
 
-	describe('dialog role (platform_ceps-5921-a11y-fix-reactions gate)', () => {
-		it('should expose the panel as role="group" without aria-modal when feature gate is OFF', async () => {
-			failGate('platform_ceps-5921-a11y-fix-reactions');
+	describe('dialog role', () => {
+		it('should expose the panel with the legacy aria label when platform_a11y_fixes_reading_order is off', async () => {
+			failGate('platform_a11y_fixes_reading_order');
 			mockRenderPopperWrapper(popperWrapperProps, true);
-			const panel = await screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
-			expect(panel).toHaveAttribute('role', 'group');
-			expect(panel).not.toHaveAttribute('aria-modal');
+			const panel = await screen.findByRole('dialog', { name: 'Add reactions' });
+
+			expect(panel).toHaveAttribute('data-testid', RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(panel).toHaveAttribute('role', 'dialog');
 			expect(panel).toHaveAttribute('aria-label', 'Add reactions');
+			expect(panel).not.toHaveAttribute('aria-modal');
+			expect(panel).not.toHaveAttribute('aria-labelledby');
+			expect(
+				screen.queryByRole('heading', { level: 2, name: 'Add reactions' }),
+			).not.toBeInTheDocument();
 		});
 
-		it('should expose the panel as a non-modal dialog when feature gate is ON', async () => {
-			passGate('platform_ceps-5921-a11y-fix-reactions');
+		it('should expose the panel as a labelled non-modal dialog when platform_a11y_fixes_reading_order is on', async () => {
+			passGate('platform_a11y_fixes_reading_order');
 			mockRenderPopperWrapper(popperWrapperProps, true);
-			const panel = await screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			const panel = await screen.findByRole('dialog', { name: 'Add reactions' });
+			const heading = screen.getByRole('heading', { level: 2, name: 'Add reactions' });
+
+			expect(panel).toHaveAttribute('data-testid', RENDER_REACTIONPICKERPANEL_TESTID);
 			expect(panel).toHaveAttribute('role', 'dialog');
+			expect(panel).not.toHaveAttribute('aria-label');
 			expect(panel).toHaveAttribute('aria-modal', 'false');
-			expect(panel).toHaveAttribute('aria-label', 'Add reactions');
+			expect(panel).toHaveAttribute('aria-labelledby', heading.id);
+			expect(heading).toHaveAttribute('id', 'emoji-picker-label');
 		});
 	});
 });

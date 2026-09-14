@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common';
-import { type DatasourceParameters } from '@atlaskit/linking-types';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import { type ConfigModalProps } from '../../../../common/types';
-import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
-import { UserInteractionsProvider } from '../../../../contexts/user-interactions';
-import { DatasourceContextProvider } from '../datasource-context';
-import { DatasourceViewModeProvider } from '../mode-switcher/useViewModeContext';
+import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
+import { UserInteractionsProvider } from '../../../../contexts/user-interactions/user-interactions-provider';
+import { DatasourceContextProvider } from '../datasource-context/DatasourceContextProvider';
+import { DatasourceViewModeProvider } from '../mode-switcher/DatasourceViewModeProvider';
 
 const DEFAULT_VIEW_MODE = 'table';
 

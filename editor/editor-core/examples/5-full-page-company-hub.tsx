@@ -6,7 +6,7 @@ import {
 	getExampleExtensionProviders,
 	getXProductExtensionProvider,
 } from '@atlaskit/editor-test-helpers/example-helpers';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 
 import { exampleHubDoc } from '../example-helpers/hub-document';
 import type { EditorActions } from '../src';

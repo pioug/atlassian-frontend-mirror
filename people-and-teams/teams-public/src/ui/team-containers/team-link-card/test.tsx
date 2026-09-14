@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Text } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 
 import { type ContainerTypes } from '../../../common/types';
@@ -22,7 +21,7 @@ jest.mock('../../../common/utils/get-container-properties', () => ({
 	})),
 }));
 
-jest.mock('../../../common/utils/get-link-domain', () => ({
+jest.mock('../../../common/utils/get-domain-from-link-uri', () => ({
 	getDomainFromLinkUri: jest.fn((url: string) => {
 		if (url === 'https://www.loom.com/share/123') {
 			return 'loom.com';
@@ -123,119 +122,56 @@ describe('TeamLinkCard', () => {
 		}
 	});
 
-	ffTest.on('fix_team_link_card_a11y', 'A11Y friendly HTML structure', () => {
-		it('should show/hide disconnect button on hover/unhover for non-WebLink containers', async () => {
-			renderWithIntl(<TeamLinkCard {...defaultProps} />);
+	it('should show/hide disconnect button on hover/unhover for non-WebLink containers', async () => {
+		renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
-			const container = screen.getByTestId('team-link-card-inner');
-			await userEvent.hover(container);
-			const disconnectButton = screen.getByRole('button', {
+		const container = screen.getByTestId('team-link-card-inner');
+		await userEvent.hover(container);
+		const disconnectButton = screen.getByRole('button', {
+			name: /disconnect the container Test Container/i,
+		});
+		expect(disconnectButton).toBeInTheDocument();
+
+		await userEvent.unhover(container);
+		expect(
+			screen.queryByRole('button', {
 				name: /disconnect the container Test Container/i,
-			});
-			expect(disconnectButton).toBeInTheDocument();
-
-			await userEvent.unhover(container);
-			expect(
-				screen.queryByRole('button', {
-					name: /disconnect the container Test Container/i,
-				}),
-			).not.toBeInTheDocument();
-		});
-
-		it('should show/hide more options button based on hover and dropdown state for WebLink containers', async () => {
-			const webLinkProps = {
-				...defaultProps,
-				containerType: 'WebLink' as ContainerTypes,
-			};
-
-			renderWithIntl(<TeamLinkCard {...webLinkProps} />);
-
-			const container = screen.getByTestId('team-link-card-inner');
-			await userEvent.hover(container);
-			const moreOptionsButton = screen.getByRole('button', {
-				name: /more options for Test Container/i,
-			});
-			expect(moreOptionsButton).toBeInTheDocument();
-
-			await userEvent.unhover(container);
-			expect(
-				screen.queryByRole('button', {
-					name: /more options for Test Container/i,
-				}),
-			).not.toBeInTheDocument();
-
-			await userEvent.hover(container);
-			await userEvent.click(moreOptionsButton);
-
-			// Unhover should keep button visible when dropdown is open
-			await userEvent.unhover(container);
-			expect(
-				screen.queryByRole('button', {
-					name: /more options for Test Container/i,
-				}),
-			).toBeInTheDocument();
-		});
+			}),
+		).not.toBeInTheDocument();
 	});
 
-	ffTest.off('fix_team_link_card_a11y', 'A11Y non-friendly HTML structure', () => {
-		it('should show/hide disconnect button on hover/unhover for non-WebLink containers', async () => {
-			renderWithIntl(<TeamLinkCard {...defaultProps} />);
+	it('should show/hide more options button based on hover and dropdown state for WebLink containers', async () => {
+		const webLinkProps = {
+			...defaultProps,
+			containerType: 'WebLink' as ContainerTypes,
+		};
 
-			const container = screen.getByTestId('team-link-card-inner');
+		renderWithIntl(<TeamLinkCard {...webLinkProps} />);
 
-			expect(
-				screen.queryByRole('button', { name: /disconnect the container Test Container/i }),
-			).not.toBeInTheDocument();
-
-			await userEvent.hover(container);
-			expect(
-				screen.getByRole('button', { name: /disconnect the container Test Container/i }),
-			).toBeVisible();
-
-			await userEvent.unhover(container);
-			expect(
-				screen.queryByRole('button', { name: /disconnect the container Test Container/i }),
-			).not.toBeInTheDocument();
+		const container = screen.getByTestId('team-link-card-inner');
+		await userEvent.hover(container);
+		const moreOptionsButton = screen.getByRole('button', {
+			name: /more options for Test Container/i,
 		});
+		expect(moreOptionsButton).toBeInTheDocument();
 
-		it('should show/hide more options button based on hover and dropdown state for WebLink containers', async () => {
-			renderWithIntl(<TeamLinkCard {...defaultProps} containerType="WebLink" />);
-
-			const container = screen.getByTestId('team-link-card-inner');
-
-			expect(
-				screen.queryByRole('button', { name: /more options for Test Container/i }),
-			).not.toBeInTheDocument();
-
-			await userEvent.hover(container);
-			expect(
-				screen.getByRole('button', { name: /more options for Test Container/i }),
-			).toBeVisible();
-
-			await userEvent.unhover(container);
-			expect(
-				screen.queryByRole('button', { name: /more options for Test Container/i }),
-			).not.toBeInTheDocument();
-
-			await userEvent.hover(container);
-			const moreOptionsButton = screen.getByRole('button', {
+		await userEvent.unhover(container);
+		expect(
+			screen.queryByRole('button', {
 				name: /more options for Test Container/i,
-			});
+			}),
+		).not.toBeInTheDocument();
 
-			await userEvent.click(moreOptionsButton);
+		await userEvent.hover(container);
+		await userEvent.click(moreOptionsButton);
 
-			// Wait for dropdown to open and then unhover
-			await screen.findByText('Edit link');
-			await userEvent.unhover(container);
-			expect(
-				screen.getByRole('button', { name: /more options for Test Container/i }),
-			).toBeVisible();
-
-			await userEvent.keyboard('{Escape}');
-			expect(
-				screen.queryByRole('button', { name: /more options for Test Container/i }),
-			).not.toBeInTheDocument();
-		});
+		// Unhover should keep button visible when dropdown is open
+		await userEvent.unhover(container);
+		expect(
+			screen.queryByRole('button', {
+				name: /more options for Test Container/i,
+			}),
+		).toBeInTheDocument();
 	});
 
 	it('should trigger onDisconnectButtonClick when disconnect button is clicked', async () => {

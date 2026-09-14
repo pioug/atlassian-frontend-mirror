@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -11,11 +11,11 @@ import { FlexibleCardContext, type FlexibleCardContextType } from '../../state/f
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
 import useResolve from '../../state/hooks/use-resolve';
 import useRovoConfig from '../../state/hooks/use-rovo-config';
-import { useSmartLinkCrossProductUrlWrapperGated } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
+import { useSmartLinkCrossProductUrlWrapper } from '../../state/hooks/use-smart-link-cross-product-url-wrapper';
 
 import Container from './components/container';
+import { getContextByStatus } from './getContextByStatus';
 import { type FlexibleCardProps } from './types';
-import { getContextByStatus } from './utils';
 
 const PENDING_LINK_STATUSES = [SmartLinkStatus.Pending, SmartLinkStatus.Resolving];
 
@@ -59,12 +59,11 @@ const FlexibleCard = ({
 	const { status: cardType, details } = cardState;
 	const status = cardType as SmartLinkStatus;
 
-	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({ details });
-	const transformUrlCallback = useCallback(
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapper({ details });
+	const transformUrl = useCallback(
 		(destinationUrl = url) => appendCrossProductAnalyticsParams(destinationUrl),
 		[appendCrossProductAnalyticsParams, url],
 	);
-	const transformUrl = fg('platform_smartlink_xpc_url_wrapping') ? transformUrlCallback : undefined;
 
 	// if we have placeholder state it means we can internally use it
 	// as temporary resolved data until the actual data comes back as one of the final statuses

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import Heading from '@atlaskit/heading/heading';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 

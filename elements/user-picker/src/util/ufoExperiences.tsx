@@ -1,11 +1,8 @@
 import React from 'react';
 
-import {
-	ExperiencePerformanceTypes,
-	ExperienceTypes,
-	ConcurrentExperience,
-	UFOExperienceState,
-} from '@atlaskit/ufo';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
 
 export const userPickerRenderedUfoExperience: ConcurrentExperience = new ConcurrentExperience(
 	'user-picker-rendered',

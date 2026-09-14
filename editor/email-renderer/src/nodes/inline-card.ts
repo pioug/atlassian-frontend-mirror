@@ -5,7 +5,7 @@ import type {
 } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
-import { B400 } from '@atlaskit/adf-schema';
+import { B400 } from '@atlaskit/adf-schema/colors';
 
 const className = createClassName('inlineCard');
 

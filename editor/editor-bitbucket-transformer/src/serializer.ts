@@ -6,6 +6,7 @@ import {
 	type MarkSerializerSpec,
 } from '@atlaskit/editor-prosemirror/markdown';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { escapeMarkdown, stringRepeat, escapeHtmlAttribute } from './util';
 import tableNodes from './tableSerializer';
 
@@ -501,7 +502,17 @@ const editorNodes = {
 		state.write(`@${node.attrs.id}${delimiter}`);
 	},
 	emoji(state: MarkdownSerializerState, node: PMNode): void {
-		state.write(node.attrs.shortName);
+		const { shortName, id, text } = node.attrs;
+
+		if (fg('platform_bitbucket_fix_shortname_and_ordering') && id) {
+			const idAttributeMarkdown = ` data-emoji-id='${escapeHtmlAttribute(id)}'`;
+			const textAttributeMarkdown = text ? ` data-emoji-text='${escapeHtmlAttribute(text)}'` : '';
+
+			state.write(`${shortName}{:${idAttributeMarkdown}${textAttributeMarkdown} }`);
+			return;
+		}
+
+		state.write(shortName);
 	},
 	inlineCard(state: MarkdownSerializerState, node: PMNode): void {
 		state.write(`[${node.attrs.url}](${node.attrs.url}){: data-inline-card='' }`);

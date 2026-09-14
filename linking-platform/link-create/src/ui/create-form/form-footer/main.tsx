@@ -5,7 +5,7 @@
 import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
 

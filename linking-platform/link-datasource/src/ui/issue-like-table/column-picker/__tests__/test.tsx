@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { type ConcurrentExperience } from '@atlaskit/ufo';
+import type { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types/datasource';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
 import { ColumnPicker } from '../index';
 
@@ -20,9 +21,9 @@ const mockOnChange = jest.fn();
 const mockUfoStart = jest.fn();
 const mockUfoSuccess = jest.fn();
 
-jest.mock('@atlaskit/ufo', () => ({
+jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	...jest.requireActual<object>('@atlaskit/ufo'),
 	ConcurrentExperience: jest.fn().mockImplementation(
 		(): Partial<ConcurrentExperience> => ({
 			getInstance: jest.fn().mockImplementation(() => ({
@@ -56,6 +57,24 @@ const renderColumnPicker = (
 };
 
 describe('Column picker', () => {
+	it('should render the customize icon with a chevron when the settings menu gate is off', () => {
+		failGate('platform_lp_sllv_table_settings_menu');
+		renderColumnPicker([], []);
+
+		expect(screen.getByTestId('column-picker-trigger-button')).toBeInTheDocument();
+		expect(screen.getByLabelText('down')).toBeInTheDocument();
+		expect(screen.getByLabelText('customize')).toBeInTheDocument();
+	});
+
+	it('should render the distribute columns icon without a chevron when the settings menu gate is on', () => {
+		passGate('platform_lp_sllv_table_settings_menu');
+		renderColumnPicker([], []);
+
+		expect(screen.getByRole('button', { name: 'Configure columns' })).toBeInTheDocument();
+		expect(screen.queryByLabelText('down')).not.toBeInTheDocument();
+		expect(screen.queryByLabelText('customize')).not.toBeInTheDocument();
+	});
+
 	it('should have specific html element id', async () => {
 		const { openPopUpMenu } = renderColumnPicker([], []);
 
@@ -268,9 +287,7 @@ describe('Column picker', () => {
 		...Array(numOfItems - 2)
 			.fill(null)
 			.map<DatasourceResponseSchemaProperty>((_, i) => ({
-				key: `option_${
-					i + 2 /* Default ones at the front */ + 1 /* To make counting start with 1 instead of 0 */
-				}`,
+				key: `option_${i + 2 /* Default ones at the front */ + 1 /* To make counting start with 1 instead of 0 */}`,
 				type: 'string',
 				title: `Option ${i + 2 + 1}`,
 			})),

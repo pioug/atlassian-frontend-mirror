@@ -3,9 +3,15 @@ export type {
 	AsyncHiddenContext,
 	ButtonType,
 	CommonComponentProps,
+	ComponentIdentifier,
 	ComponentType,
 	ComponentTypes,
+	ContextToken,
 	GroupType,
+	IsComponentHidden,
+	IsHiddenOptions,
+	MenuItemMatchContext,
+	MenuItemMatchResult,
 	MenuItemType,
 	MenuSectionType,
 	MenuType,
@@ -16,11 +22,17 @@ export type {
 	RegisterGroup,
 	RegisterMenu,
 	RegisterMenuItem,
+	RegisterMenuItemMatch,
 	RegisterMenuSection,
 	RegisterMenuSurface,
 	RegisterNestedMenu,
 	RegisterSection,
 	RegisterToolbar,
+	RegisteredComponent,
 	SectionType,
+	SurfaceContext,
 	ToolbarType,
 } from '../types';
+
+export { createSurfaceContext } from '../createSurfaceContext';
+export { createContextToken } from '../types';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-mcp",
-	"version": "1.7.1",
+	"version": "1.10.3",
 	"description": "The official Atlassian Design System MCP server to develop apps and user interfaces matching the Atlassian style.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -13,7 +13,7 @@
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"scripts": {
-		"ak-postbuild": "yarn workspace @atlassian/structured-docs build",
+		"ak-postbuild": "afm workspace @atlassian/structured-docs build",
 		"prepare": "yarn ak-postbuild"
 	},
 	"bin": "index.js",

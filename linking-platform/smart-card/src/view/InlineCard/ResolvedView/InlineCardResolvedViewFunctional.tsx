@@ -1,17 +1,14 @@
 import React from 'react';
 
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-
-import useInlineTailoredActionExperiment from '../../../state/hooks/use-inline-tailored-action-experiment';
-import { HoverCard } from '../../HoverCard';
-import { InlineRovoActionButton } from '../common/rovo-actions-cta';
+import useInlineTailoredAction from '../../../state/hooks/use-inline-tailored-actions';
+import { HoverCard } from '../../HoverCard/HoverCard';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-
+import { InlineRovoActionButton } from '../common/rovo-actions-cta';
 import { renderLozenge } from './renderLozenge';
 import { type InlineCardResolvedViewFunctionalProps } from './types';
 
-export function InlineCardResolvedViewBase({
+export function InlineCardResolvedViewFunctional({
 	id,
 	title = '',
 	isSelected,
@@ -32,67 +29,7 @@ export function InlineCardResolvedViewBase({
 	hideIconLoadingSkeleton,
 	lozenge,
 }: InlineCardResolvedViewFunctionalProps): React.JSX.Element {
-	const frame = (
-		<Frame
-			testId={testId}
-			link={link}
-			isSelected={isSelected}
-			isHovered={isHovered}
-			onClick={onClick}
-			onAuxClick={onAuxClick}
-			onContextMenu={onContextMenu}
-			truncateInline={truncateInline}
-		>
-			<IconAndTitleLayout
-				emoji={titlePrefix}
-				icon={icon}
-				title={title}
-				titleTextColor={titleTextColor}
-				type={type}
-				hideIconLoadingSkeleton={hideIconLoadingSkeleton}
-			/>
-			{renderLozenge(lozenge)}
-		</Frame>
-	);
-
-	if (!showHoverPreview || !link) {
-		return frame;
-	}
-
-	return (
-		<HoverCard
-			id={id}
-			url={link}
-			actionOptions={actionOptions}
-			hoverPreviewOptions={hoverPreviewOptions}
-		>
-			{frame}
-		</HoverCard>
-	);
-}
-
-export function InlineCardResolvedViewFunctionalWithRovoActions({
-	id,
-	title = '',
-	isSelected,
-	isHovered,
-	onClick,
-	onAuxClick,
-	onContextMenu,
-	icon,
-	link,
-	testId = 'inline-card-resolved-view',
-	titleTextColor,
-	titlePrefix,
-	showHoverPreview = false,
-	hoverPreviewOptions,
-	actionOptions,
-	truncateInline,
-	type,
-	hideIconLoadingSkeleton,
-	lozenge,
-}: InlineCardResolvedViewFunctionalProps): React.JSX.Element {
-	const { isEnabled: isInlineTailoredRovoActionEnabled } = useInlineTailoredActionExperiment(
+	const { isEnabled: isInlineTailoredRovoActionEnabled } = useInlineTailoredAction(
 		link,
 		showHoverPreview,
 		actionOptions,
@@ -144,10 +81,3 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 		</HoverCard>
 	);
 }
-
-export const InlineCardResolvedViewFunctional: React.FC<InlineCardResolvedViewFunctionalProps> =
-	componentWithFG(
-		'platform_sl_3p_auth_inline_tailored_cta_killswitch',
-		InlineCardResolvedViewFunctionalWithRovoActions,
-		InlineCardResolvedViewBase,
-	);

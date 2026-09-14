@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
 
@@ -51,6 +50,7 @@ type AnnotationPlugin = NextEditorPlugin<
     dependencies: AnnotationPluginDependencies;
     actions: {
       hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
+      requestCloseInlineComment: () => Promise<boolean>;
       setInlineCommentDraftState: SetInlineCommentDraftState;
       showCommentForBlockNode: ReturnType<typeof showInlineCommentForBlockNode>;
       stripNonExistingAnnotations: StripNonExistingAnnotations;

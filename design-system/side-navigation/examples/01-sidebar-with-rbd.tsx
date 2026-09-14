@@ -20,28 +20,28 @@ import {
 import invariant from 'tiny-invariant';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import RBDIcon from '@atlaskit/icon/core/content-width-wide';
 import ItemIcon from '@atlaskit/icon/core/list-bulleted';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import {
 	draggable,
 	dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { Box, Flex, Grid } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	ButtonItem,
-	NavigationHeader,
-	NestableNavigationContent,
-	NestingItem,
-	Section,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';

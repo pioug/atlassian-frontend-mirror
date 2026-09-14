@@ -1,21 +1,8 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
-import { shallow } from 'enzyme';
+import { IntlProvider } from 'react-intl';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import {
-	FocusedTaskCloseAccount,
-	type Props,
-	type State,
-} from '../../components/FocusedTaskCloseAccount';
-
-import Footer from '../../components/Footer';
+import { FocusedTaskCloseAccount, type Props } from '../../components/FocusedTaskCloseAccount';
 
 const defaultProps = {
 	isOpen: false,
@@ -25,75 +12,53 @@ const defaultProps = {
 	learnMoreLink: 'https://hello.atlassian.net',
 };
 
-const render = (props = {}) =>
-	shallow<Props, State>(<FocusedTaskCloseAccount {...defaultProps} {...props} />);
+const renderTask = (props: Partial<Props> = {}) =>
+	render(
+		<IntlProvider locale="en">
+			<FocusedTaskCloseAccount {...defaultProps} {...props} isOpen />
+		</IntlProvider>,
+	);
 
-test('isOpen snapshot', () => {
-	expect(render()).toMatchSnapshot();
+test('capture and report a11y violations', async () => {
+	const { container } = renderTask();
+	await expect(container).toBeAccessible();
 });
 
 describe('nextScreen()', () => {
-	test('Goes to next screen', () => {
-		const wrapper = render();
-
-		expect(wrapper.state().currentScreenIdx).toBe(0);
-
-		(wrapper.instance() as FocusedTaskCloseAccount).nextScreen();
-		wrapper.update();
-
-		expect(wrapper.state().currentScreenIdx).toBe(1);
+	test('Goes to next screen', async () => {
+		renderTask({ screens: [<div key="a">Screen A</div>, <div key="b">Screen B</div>] });
+		expect(screen.getByText('Screen A')).toBeInTheDocument();
+		await userEvent.click(screen.getByRole('button', { name: 'Next' }));
+		expect(screen.getByText('Screen B')).toBeInTheDocument();
 	});
 
 	test('No-op if on last screen', () => {
-		const wrapper = render();
-		const { screens } = defaultProps;
-		const lastScreenIdx = screens.length - 1;
-
-		wrapper.setState({ currentScreenIdx: lastScreenIdx });
-		(wrapper.instance() as FocusedTaskCloseAccount).nextScreen();
-		wrapper.update();
-
-		expect(wrapper.state().currentScreenIdx).toBe(lastScreenIdx);
+		renderTask({ screens: [<div key="a">Screen A</div>] });
+		expect(screen.getByText('Screen A')).toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Next' })).not.toBeInTheDocument();
 	});
 });
 
 describe('previousScreen()', () => {
-	test('Goes to previous screen', () => {
-		const wrapper = render();
-		const { screens } = defaultProps;
-		const lastScreenIdx = screens.length - 1;
-
-		wrapper.setState({ currentScreenIdx: lastScreenIdx });
-		(wrapper.instance() as FocusedTaskCloseAccount).previousScreen();
-		wrapper.update();
-
-		expect(wrapper.state().currentScreenIdx).toBe(lastScreenIdx - 1);
+	test('Goes to previous screen', async () => {
+		renderTask({ screens: [<div key="a">Screen A</div>, <div key="b">Screen B</div>] });
+		await userEvent.click(screen.getByRole('button', { name: 'Next' }));
+		await userEvent.click(screen.getByRole('button', { name: 'Previous' }));
+		expect(screen.getByText('Screen A')).toBeInTheDocument();
 	});
 
-	test('Goes to next screen', () => {
-		const wrapper = render();
-		(wrapper.instance() as FocusedTaskCloseAccount).previousScreen();
-		wrapper.update();
-		expect(wrapper.state().currentScreenIdx).toBe(0);
+	test('No-op on first screen', () => {
+		renderTask({ screens: [<div key="a">Screen A</div>, <div key="b">Screen B</div>] });
+		expect(screen.queryByRole('button', { name: 'Previous' })).not.toBeInTheDocument();
+		expect(screen.getByText('Screen A')).toBeInTheDocument();
 	});
 });
 
 describe('learnMoreLink display', () => {
-	test('Learn more link is displayed when the link is passed in the props', () => {
-		const wrapper = render();
-		const footerSecondaryActions = wrapper.find(Footer).prop('secondaryActions');
-
-		const learnMoreWrapper = shallow(<div>{footerSecondaryActions}</div>).childAt(0);
-
-		expect(learnMoreWrapper).toMatchSnapshot();
-	});
-
 	test('Learn more link is not displayed when the link is not passed in the props', () => {
-		const wrapper = render({
+		renderTask({
 			learnMoreLink: '',
 		});
-		const footerSecondaryActions = wrapper.find(Footer).prop('secondaryActions');
-
-		expect(footerSecondaryActions).toEqual('');
+		expect(screen.queryByRole('link', { name: 'Learn more' })).not.toBeInTheDocument();
 	});
 });

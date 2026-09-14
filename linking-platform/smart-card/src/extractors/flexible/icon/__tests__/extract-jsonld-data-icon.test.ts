@@ -1,6 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractTitle } from '@atlaskit/link-extractors';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractTitle } from '@atlaskit/link-extractors/extract-title';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { IconType } from '../../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../constants';

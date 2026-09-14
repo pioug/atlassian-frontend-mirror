@@ -37,47 +37,13 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "1.2.0",
+	"version": "1.2.53",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

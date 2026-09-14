@@ -1,6 +1,7 @@
-import { type WithFileAttributes } from '@atlaskit/media-common';
 import { type FileStatus, type FileState } from '@atlaskit/media-client';
-import { getFileAttributes } from '../..';
+import { type WithFileAttributes } from '@atlaskit/media-common';
+
+import { getFileAttributes } from '../../getFileAttributes';
 import { type ButtonClickEventPayload } from './_clickedButton';
 
 export type DownloadButtonClickedAttributes = WithFileAttributes & {

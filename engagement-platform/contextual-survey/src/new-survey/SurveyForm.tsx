@@ -6,11 +6,13 @@ import { useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
-import Heading from '@atlaskit/heading';
-import { useResizingHeight } from '@atlaskit/motion';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import type { OnSubmitHandler } from '@atlaskit/form/types';
+import Heading from '@atlaskit/heading/heading';
+import { useResizingHeight } from '@atlaskit/motion/use-resizing-height';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

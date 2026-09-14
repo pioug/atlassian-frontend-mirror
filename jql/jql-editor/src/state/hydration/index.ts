@@ -1,13 +1,14 @@
 import { type Action } from 'react-sweet-state';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
-import { getJastFromState } from '../../plugins/jql-ast';
+import { getJastFromState } from '../../plugins/jql-ast/getJastFromState';
 import { replaceRichInlineNodes } from '../../plugins/rich-inline-nodes/util/replace-nodes-transaction';
 import { actions } from '../index';
 import { type HydratedValuesMap, type Props, type State } from '../types';
 
-import { normaliseHydrationKey, ValidQueryVisitor } from './util';
+import { ValidQueryVisitor } from './ValidQueryVisitor';
+import { normaliseHydrationKey } from './normaliseHydrationKey';
 
 export const hydrateQuery =
 	(): Action<State, Props, Promise<void>> =>

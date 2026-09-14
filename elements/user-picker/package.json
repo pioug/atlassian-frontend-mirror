@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "13.8.1",
+	"version": "13.12.4",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -16,20 +16,20 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/search-test-utils": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@emotion/styled": "root:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
-		"@types/uuid": "root:*",
-		"enzyme": "root:*",
 		"mock-apollo-client": "root:*",
 		"react": "root:*",
-		"react-beautiful-dnd": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"react-select-event": "root:*"
@@ -41,27 +41,67 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./analytics": "./src/analytics.ts",
-		"./components/custom-option": "./src/components/CustomOption/index.ts",
+		"./call-callback": "./src/components/callCallback.ts",
+		"./cancel-event": "./src/cancelEvent.ts",
+		"./check-valid-id": "./src/checkValidId.ts",
+		"./clear-event": "./src/clearEvent.ts",
 		"./components/custom-option/main": "./src/components/CustomOption/main.tsx",
-		"./components/email-option": "./src/components/EmailOption/index.ts",
+		"./components/custom-option": "./src/components/CustomOption/index.ts",
 		"./components/email-option/main": "./src/components/EmailOption/main.tsx",
+		"./components/email-option": "./src/components/EmailOption/index.ts",
 		"./components/email-validation": "./src/components/emailValidation.ts",
-		"./components/group-option": "./src/components/GroupOption/index.ts",
 		"./components/group-option/main": "./src/components/GroupOption/main.tsx",
+		"./components/group-option": "./src/components/GroupOption/index.ts",
 		"./components/option": "./src/components/Option.tsx",
 		"./components/popup-user-picker": "./src/components/PopupUserPicker.tsx",
 		"./components/single-value": "./src/components/SingleValue.tsx",
-		"./components/team-option": "./src/components/TeamOption/index.ts",
 		"./components/team-option/main": "./src/components/TeamOption/main.tsx",
+		"./components/team-option": "./src/components/TeamOption/index.ts",
 		"./components/user-option": "./src/components/UserOption.tsx",
 		"./components/user-picker": "./src/components/UserPicker.tsx",
+		"./create-default-picker-attributes": "./src/createDefaultPickerAttributes.ts",
+		"./create-event": "./src/createEvent.ts",
+		"./delete-event": "./src/deleteEvent.ts",
+		"./down-key-count": "./src/downKeyCount.ts",
+		"./extract-option-value": "./src/components/extractOptionValue.ts",
+		"./failed-event": "./src/failedEvent.ts",
+		"./focus-event": "./src/focusEvent.ts",
+		"./get-avatar-size": "./src/components/getAvatarSize.ts",
+		"./get-avatar-url": "./src/components/getAvatarUrl.ts",
+		"./has-value": "./src/components/hasValue.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
+		"./is-child-input": "./src/components/isChildInput.ts",
+		"./is-custom": "./src/components/isCustom.ts",
+		"./is-default-value-populated": "./src/components/isDefaultValuePopulated.ts",
+		"./is-email": "./src/components/isEmail.ts",
+		"./is-external-user": "./src/components/isExternalUser.ts",
+		"./is-group": "./src/components/isGroup.ts",
+		"./is-iterable": "./src/components/isIterable.ts",
+		"./is-lozenge-text": "./src/components/isLozengeText.ts",
+		"./is-popup-user-picker-by-component": "./src/components/isPopupUserPickerByComponent.ts",
+		"./is-popup-user-picker-by-props": "./src/components/isPopupUserPickerByProps.ts",
+		"./is-single-value": "./src/components/isSingleValue.ts",
+		"./is-team": "./src/components/isTeam.ts",
+		"./is-user": "./src/components/isUser.ts",
+		"./number-of-results": "./src/numberOfResults.ts",
 		"./option": "./src/option.ts",
+		"./option-data2-analytics": "./src/optionData2Analytics.ts",
+		"./optionToSelectableOption": "./src/components/optionToSelectableOption.ts",
+		"./query-length": "./src/queryLength.ts",
+		"./searched-event": "./src/searchedEvent.ts",
+		"./select-event": "./src/selectEvent.ts",
+		"./session-duration": "./src/sessionDuration.ts",
+		"./session-id": "./src/sessionId.ts",
+		"./space-in-query": "./src/spaceInQuery.ts",
+		"./start-session": "./src/startSession.ts",
 		"./types": "./src/types.ts",
-		"./utils": "./src/components/utils.ts"
+		"./up-key-count": "./src/upKeyCount.ts",
+		"./user-info-event": "./src/userInfoEvent.ts",
+		"./utils": "./src/components/utils.ts",
+		"./values": "./src/values.ts"
 	},
 	"atlassian": {
 		"react-compiler": {
@@ -96,10 +136,12 @@
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/people-teams-ui-public": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-select": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tag": "workspace:^",
@@ -119,13 +161,6 @@
 		"react-dom": "^18.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			]
-		}
-	},
 	"keywords": [
 		"fabric",
 		"ui"
@@ -134,22 +169,13 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"twcg-444-invite-usd-improvements-m2-gate": {
-			"type": "boolean"
-		},
-		"product-terminology-refresh": {
-			"type": "boolean"
-		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		},
+		"platform-dst-motion-uplift-labels": {
+			"type": "boolean"
+		},
 		"jsm_routing_recommended_agent_minor_fix": {
-			"type": "boolean"
-		},
-		"jsm-wfo-assignee-recommendation-on-queues": {
-			"type": "boolean"
-		},
-		"platform_user_picker_fix_redundant_labelledby": {
 			"type": "boolean"
 		}
 	}

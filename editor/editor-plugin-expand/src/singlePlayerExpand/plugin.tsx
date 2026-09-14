@@ -1,11 +1,7 @@
 import React from 'react';
 
-import {
-	expandWithNestedExpand,
-	expandWithNestedExpandLocalId,
-	nestedExpand,
-	nestedExpandWithLocalId,
-} from '@atlaskit/adf-schema';
+import { expandWithNestedExpand, expandWithNestedExpandLocalId } from '@atlaskit/adf-schema/expand';
+import { nestedExpand, nestedExpandWithLocalId } from '@atlaskit/adf-schema/nested-expand';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -19,15 +15,16 @@ import {
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { IconExpand } from '@atlaskit/editor-common/quick-insert';
+import { IconExpand } from '@atlaskit/editor-common/assets';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { toggleExpandRange } from '../editor-commands/toggleExpandRange';
 import type { ExpandPlugin } from '../types';
 import { createExpandBlockMenuItem } from '../ui/ExpandBlockMenuItem';
+import { getExpandQuickInsertComponents } from '../ui/quick-insert/getExpandQuickInsertComponents';
 
 const EXPAND_NODE_NAME = 'expand';
 
@@ -45,6 +42,7 @@ import { getToolbarConfig } from './toolbar';
 // Ignored via go/ees005
 // eslint-disable-next-line prefer-const
 export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	if (editorExperiment('platform_editor_block_menu', true)) {
 		api?.blockMenu?.actions.registerBlockMenuComponents([
 			{
@@ -62,6 +60,12 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(EXPAND_NODE_NAME)),
 			},
 		]);
+	}
+
+	if (isRegisteredSlashCommandEnabled && options.allowInsertion === true) {
+		api?.uiControlRegistry?.actions.register(
+			getExpandQuickInsertComponents({ api, isLegacy: false }),
+		);
 	}
 
 	return {
@@ -89,11 +93,9 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 			toggleExpandRange,
 		},
 		getSharedState() {
-			return expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)
-				? {
-						allowInsertion: options?.allowInsertion ?? true,
-					}
-				: undefined;
+			return {
+				allowInsertion: options?.allowInsertion ?? true,
+			};
 		},
 		pmPlugins() {
 			return [
@@ -121,49 +123,51 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 		pluginsOptions: {
 			floatingToolbar: getToolbarConfig(api),
 
-			quickInsert: ({ formatMessage }) => {
-				if (options && options.allowInsertion !== true) {
-					return [];
-				}
-				return [
-					{
-						id: 'expand',
-						title: formatMessage(messages.expand),
-						description: formatMessage(messages.expandDescription),
-						keywords: ['accordion', 'collapse'],
-						priority: 600,
-						icon: () => <IconExpand />,
-						action(insert, state, source) {
-							const node = createExpandNode(state, undefined, !!api?.localId);
-							if (!node) {
-								return false;
-							}
+			...(!isRegisteredSlashCommandEnabled && {
+				quickInsert: ({ formatMessage }) => {
+					if (options && options.allowInsertion !== true) {
+						return [];
+					}
+					return [
+						{
+							id: 'expand',
+							title: formatMessage(messages.expand),
+							description: formatMessage(messages.expandDescription),
+							keywords: ['accordion', 'collapse'],
+							priority: 600,
+							icon: () => <IconExpand />,
+							action(insert, state, source) {
+								const node = createExpandNode(state, undefined, !!api?.localId);
+								if (!node) {
+									return false;
+								}
 
-							const tr = state.selection.empty
-								? insert(node)
-								: fg('platform_editor_adf_with_localid')
-									? wrapSelectionAndSetExpandedState(state, node)
-									: createWrapSelectionTransaction({
-											state,
-											type: node.type,
-										});
+								const tr = state.selection.empty
+									? insert(node)
+									: fg('platform_editor_adf_with_localid')
+										? wrapSelectionAndSetExpandedState(state, node)
+										: createWrapSelectionTransaction({
+												state,
+												type: node.type,
+											});
 
-							api?.analytics?.actions.attachAnalyticsEvent({
-								action: ACTION.INSERTED,
-								actionSubject: ACTION_SUBJECT.DOCUMENT,
-								actionSubjectId:
-									node.type === state.schema.nodes.nestedExpand
-										? ACTION_SUBJECT_ID.NESTED_EXPAND
-										: ACTION_SUBJECT_ID.EXPAND,
-								attributes: { inputMethod: source ?? INPUT_METHOD.QUICK_INSERT },
-								eventType: EVENT_TYPE.TRACK,
-							})(tr);
+								api?.analytics?.actions.attachAnalyticsEvent({
+									action: ACTION.INSERTED,
+									actionSubject: ACTION_SUBJECT.DOCUMENT,
+									actionSubjectId:
+										node.type === state.schema.nodes.nestedExpand
+											? ACTION_SUBJECT_ID.NESTED_EXPAND
+											: ACTION_SUBJECT_ID.EXPAND,
+									attributes: { inputMethod: source ?? INPUT_METHOD.QUICK_INSERT },
+									eventType: EVENT_TYPE.TRACK,
+								})(tr);
 
-							return tr;
+								return tr;
+							},
 						},
-					},
-				];
-			},
+					];
+				},
+			}),
 		},
 	};
 };

@@ -5,14 +5,14 @@
  */
 import { useMemo, Fragment } from 'react';
 import { jsx, css } from '@compiled/react';
-import { withMediaClient } from '@atlaskit/media-client-react';
-import { useFilePreview } from '@atlaskit/media-file-preview';
+import { withMediaClient } from '@atlaskit/media-client-react/with-media-client';
+import { useFilePreview } from '@atlaskit/media-file-preview/use-file-preview';
 import type {
 	MediaImageInternalProps,
 	MediaImageStatus,
 	MediaImageWithMediaClientConfigProps,
 } from './types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const copyDivStyles = css({
 	display: 'none',

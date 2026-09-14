@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
 	GapCursorSelection,
 	Side as GapCursorSide,
-	hideCaretModifier,
 	JSON_ID,
 	setGapCursorAtPos,
 	Side,
@@ -14,7 +13,6 @@ import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { selectionPluginKey } from '../types';
 
@@ -70,27 +68,7 @@ const plugin: SafePlugin<GapCursorPluginState> = new SafePlugin({
 				);
 			});
 		}
-		return {
-			update(view) {
-				if (editorExperiment('platform_synced_block', true)) {
-					// Caret visibility now handled directly via CSS selector in gapCursorStyles.ts
-					return;
-				}
-				const { selectionIsGapCursor } = gapCursorPluginKey.getState(view.state);
-				/**
-				 * Starting with prosemirror-view 1.19.4, cursor wrapper that previously was hiding cursor doesn't exist:
-				 * https://github.com/ProseMirror/prosemirror-view/commit/4a56bc7b7e61e96ef879d1dae1014ede0fc09e43
-				 *
-				 * Because it was causing issues with RTL: https://github.com/ProseMirror/prosemirror/issues/948
-				 *
-				 * This is the work around which uses `caret-color: transparent` in order to hide regular caret,
-				 * when gap cursor is visible.
-				 *
-				 * Browser support is pretty good: https://caniuse.com/#feat=css-caret-color
-				 */
-				view.dom.classList.toggle(hideCaretModifier, selectionIsGapCursor);
-			},
-		};
+		return {};
 	},
 
 	props: {

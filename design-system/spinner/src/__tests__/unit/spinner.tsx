@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import Spinner from '../../index';
+import Spinner from '../../spinner';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Spinner />', () => {

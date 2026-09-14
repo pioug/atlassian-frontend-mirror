@@ -2,14 +2,13 @@ import React, { lazy, useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../messages';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { useSmartLinkModal } from '../../../../../state/modal';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { useSmartLinkModal } from '../../../../../state/modal/useSmartLinkModal';
 import Action from '../action';
-
 import RelatedLinksActionIcon from './related-links-action-icon';
 import { type ViewRelatedLinksActionProps } from './types';
 

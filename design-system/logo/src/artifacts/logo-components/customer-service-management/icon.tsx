@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::adde776e49635255fd9de5c803442f95>>
+ * @codegen <<SignedSource::9e976fa012f5625b3322a33fc4f7b35a>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -28,7 +28,7 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  */
 export function CustomerServiceManagementIcon({
 	iconColor,
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Customer Service Management',
 	testId,

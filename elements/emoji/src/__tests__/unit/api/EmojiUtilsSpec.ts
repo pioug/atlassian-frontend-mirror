@@ -1,11 +1,7 @@
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
-import {
-	denormaliseEmojiServiceResponse,
-	shouldUseAltRepresentation,
-} from '../../../api/EmojiUtils';
-import { customCategory } from '../../../util/constants';
-import { isEmojiVariationDescription } from '../../../util/type-helpers';
+import { denormaliseEmojiServiceResponse } from '../../../api/denormaliseEmojiServiceResponse';
+import { shouldUseAltRepresentation } from '../../../api/shouldUseAltRepresentation';
 import type {
 	EmojiDescription,
 	EmojiServiceDescription,
@@ -14,6 +10,8 @@ import type {
 	ImageRepresentation,
 	SpriteRepresentation,
 } from '../../../types';
+import { customCategory } from '../../../util/constants';
+import { isEmojiVariationDescription } from '../../../util/is-emoji-variation-description';
 import { defaultMediaApiToken, mediaEmoji, mediaServiceEmoji } from '../_test-data';
 
 describe('EmojiUtils', () => {

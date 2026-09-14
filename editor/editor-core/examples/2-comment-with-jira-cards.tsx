@@ -4,7 +4,8 @@ import React from 'react';
 
 import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';

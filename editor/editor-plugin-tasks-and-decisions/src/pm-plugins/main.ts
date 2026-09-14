@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import { uuid } from '@atlaskit/adf-schema';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { uuid } from '@atlaskit/adf-schema/uuid';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -129,13 +129,7 @@ export function createPlugin(
 				const { selection, schema } = state;
 				const { $from, $to } = selection;
 				const parentOffset = $from.parentOffset;
-				const isInTaskItem = expValEquals(
-					'platform_editor_blocktaskitem_patch_1',
-					'isEnabled',
-					true,
-				)
-					? isInsideTask(state)
-					: $from.node().type === schema.nodes.taskItem;
+				const isInTaskItem = isInsideTask(state);
 
 				const focusedTaskItemLocalId = stateKey.getState(state).focusedTaskItemLocalId;
 

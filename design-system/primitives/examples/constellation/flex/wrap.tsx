@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 import ExampleBox from '../shared/example-box';
 

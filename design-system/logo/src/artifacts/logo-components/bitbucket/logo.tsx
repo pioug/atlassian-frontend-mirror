@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5cef7cd15b993acbd62bdd24b600aafa>>
+ * @codegen <<SignedSource::caee5cfa2c92222734b1fad5fde108df>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -31,7 +31,7 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 95 24">
 export function BitbucketLogo({
 	iconColor,
 	textColor,
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Bitbucket',
 	testId,

@@ -44,6 +44,9 @@
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-annotation/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-base/afm-products/tsconfig.json"
 		},
 		{
@@ -68,6 +71,9 @@
 			"path": "../../editor-plugin-grid/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
 		},
 		{
@@ -87,6 +93,9 @@
 		},
 		{
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../helpers/frontend-utilities/afm-products/tsconfig.json"
@@ -120,6 +129,9 @@
 		},
 		{
 			"path": "../../../design-system/menu/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

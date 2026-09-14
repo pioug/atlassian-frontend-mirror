@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
-
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { setMediaQuery } from '@atlassian/test-utils';
 
 import { SideNavPanelSplitter } from '../../panel-splitter/side-nav-panel-splitter';

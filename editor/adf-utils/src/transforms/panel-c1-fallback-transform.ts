@@ -84,6 +84,14 @@ const isTableInPanelSupported = (schema: Schema): boolean => {
  * - Supported schema: leave `panel_c1` untouched and restore wrapped tables.
  *   Restoration only fires inside a panel parent so tables wrapped elsewhere are
  *   left untouched.
+ *
+ * @private
+ * @deprecated Handles `table` children only. Use `panelC1FallbackTransformV2`, which
+ * generalises this to all `panel_c1` extended children (`table`, `expand`, nested `panel`,
+ * `blockquote`, `bodiedExtension`), when the `platform_editor_nest_container_in_panel`
+ * experiment is enabled. This function is kept unchanged for the already-in-production
+ * table-in-panel path and should be removed once `platform_editor_nest_container_in_panel`
+ * is fully rolled out (V2 then covers `table` too).
  */
 export const panelC1FallbackTransform = (
 	schema: Schema,

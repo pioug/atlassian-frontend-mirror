@@ -2,7 +2,8 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { GlobalStyleSimulator } from './utils/global-style-simulator';

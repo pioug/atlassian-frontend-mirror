@@ -1,5 +1,383 @@
 # @atlaskit/prosemirror-collab
 
+## 1.1.21
+
+### Patch Changes
+
+- [`962e8dc0188bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/962e8dc0188bf) -
+  Clean up `platform_editor_offline_editing_web` with `isEnabled: true` for Confluence, keeping
+  offline editing and recovery behavior enabled. Remove the retired experiment from the editor
+  Statsig configuration; consumers must stop querying or overriding this experiment.
+- Updated dependencies
+
+## 1.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+## 1.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 1.0.67
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.66
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.65
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.64
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.63
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.62
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.61
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.60
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.59
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.58
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 1.0.57
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.56
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.55
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.54
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.53
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.52
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.51
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.50
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.33
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.32
 
 ### Patch Changes

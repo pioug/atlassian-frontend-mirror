@@ -2,18 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useEffect, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
-import TableSearchCount, { AssetsItemCount } from '../common/modal/search-count';
+import TableSearchCount from '../common/modal/search-count';
+import { AssetsItemCount } from '../common/modal/search-count/AssetsItemCount';
 
 import { footerMessages } from './messages';
 import { ProviderLink } from './provider-link';

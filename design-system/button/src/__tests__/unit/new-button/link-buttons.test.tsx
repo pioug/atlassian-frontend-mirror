@@ -2,7 +2,8 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
+import AppProvider from '@atlaskit/app-provider/app-provider';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
 import LinkIconButton from '../../../new-button/variants/icon/link';

@@ -1,50 +1,5 @@
-import { type Auth, isClientBasedAuth } from '@atlaskit/media-core';
-import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
-import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
-import { RequestError, isRequestError } from './errors';
-
-import {
-	type CreateUrlOptions,
-	type RequestErrorReason,
-	type RequestErrorMetadata,
-	type RequestHeaders,
-	type RequestMetadata,
-	type RetryOptions,
-} from './types';
-
-const getStatusCode = (error: Error) =>
-	isRequestError(error) && error.metadata?.statusCode && error.metadata.statusCode;
-
-export function waitPromise(timeout: number): Promise<void> {
-	return new Promise<void>((resolve) => setTimeout(resolve, timeout));
-}
-
-export function isAbortedRequestError(err: any): boolean {
-	return (
-		(err instanceof Error && err.message === 'request_cancelled') ||
-		(!!err && err.name === 'AbortError')
-	);
-}
-
-// fetch throws TypeError for network errors
-export function isFetchNetworkError(err: any): err is TypeError {
-	return err instanceof TypeError;
-}
-
-export function isRateLimitedError(error: Error | undefined): boolean {
-	const statusCode = error && getStatusCode(error);
-	return statusCode === 429 || (!!error && !!error.message && error.message.includes('429'));
-}
-
-export const extendTraceContext = (
-	traceContext?: MediaTraceContext,
-): Required<MediaTraceContext> | undefined =>
-	traceContext
-		? {
-				...traceContext,
-				spanId: traceContext?.spanId || getRandomTelemetryId(),
-			}
-		: undefined;
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { type RetryOptions } from './types';
 
 export const ZipkinHeaderKeys = {
 	traceId: 'x-b3-traceid',
@@ -54,252 +9,81 @@ export const ZipkinHeaderKeys = {
 	flags: 'x-b3-flags',
 };
 
-const mapTraceIdToRequestHeaders = (traceContext?: Required<MediaTraceContext>) => {
-	return traceContext
-		? {
-				[ZipkinHeaderKeys.traceId]: traceContext.traceId,
-				[ZipkinHeaderKeys.spanId]: traceContext.spanId,
-			}
-		: {};
-};
-
-export function mapAuthToRequestHeaders(auth?: Auth): RequestHeaders {
-	if (!auth) {
-		return {};
-	}
-	if (isClientBasedAuth(auth)) {
-		return {
-			'X-Client-Id': auth.clientId,
-			Authorization: `Bearer ${auth.token}`,
-		};
-	}
-
-	return {
-		'X-Issuer': auth.asapIssuer,
-		Authorization: `Bearer ${auth.token}`,
-	};
-}
-
-export function createUrl(url: string, { params, auth }: CreateUrlOptions): string {
-	const parsedUrl = new URL(url, auth?.baseUrl);
-	const authParams = (auth && mapAuthToQueryParameters(auth)) || {};
-	const paramsToAppend: { [key: string]: any } = {
-		...params,
-		...authParams,
-	};
-	Object.entries(paramsToAppend)
-		.filter(([_, value]) => value != null)
-		.forEach((pair) => {
-			parsedUrl.searchParams.set(...pair);
-		});
-	parsedUrl.searchParams.sort();
-	return parsedUrl.toString();
-}
-
-export function extendHeaders(
-	headers?: RequestHeaders,
-	auth?: Auth,
-	traceContext?: Required<MediaTraceContext>,
-): RequestHeaders | undefined {
-	if (!auth && !traceContext && !headers) {
-		return undefined;
-	}
-
-	return {
-		...(headers ?? {}),
-		...mapAuthToRequestHeaders(auth),
-		...mapTraceIdToRequestHeaders(traceContext),
-	};
-}
-
-export function createMapResponseToJson(
-	metadata: RequestMetadata,
-): (response: Response) => Promise<any> {
-	return async (response: Response) => {
-		try {
-			return await response.json();
-		} catch (err) {
-			throw new RequestError(
-				'serverInvalidBody',
-				{
-					...metadata,
-					...extractMediaHeaders(response),
-					statusCode: response.status,
-				},
-				err instanceof Error ? err : undefined,
-			);
-		}
-	};
-}
-
-export function createMapResponseToBlob(
-	metadata: RequestMetadata,
-): (response: Response) => Promise<Blob> {
-	return async (response: Response) => {
-		try {
-			return await response.blob();
-		} catch (err) {
-			throw new RequestError(
-				'serverInvalidBody',
-				{
-					...metadata,
-					...extractMediaHeaders(response),
-					statusCode: response.status,
-				},
-				err instanceof Error ? err : undefined,
-			);
-		}
-	};
-}
-
-export const defaultShouldRetryError = (err: any): boolean => {
-	const statusCode = getStatusCode(err);
-	return isFetchNetworkError(err) || (statusCode ? statusCode >= 500 : false);
-};
-
 export const DEFAULT_RETRY_OPTIONS: RetryOptions = {
 	startTimeoutInMs: 1000, // 1 second is generally a good timeout to start
 	maxAttempts: 5, // Current test delay is 60s, so retries should finish before if a promise takes < 1s
 	factor: 2, // Good for polling, which is out main use case
 };
 
-export function cloneRequestError(
-	error: RequestError,
-	extraMetadata: Partial<RequestErrorMetadata>,
-): RequestError {
-	const { reason, metadata, innerError } = error;
-
-	return new RequestError(
-		reason,
-		{
-			...metadata,
-			...extraMetadata,
-		},
-		innerError,
-	);
-}
-
-export async function fetchRetry(
-	functionToRetry: () => Promise<Response>,
-	metadata: RequestMetadata,
-	overwriteOptions: Partial<RetryOptions> = {},
-): Promise<Response> {
-	const options = {
-		...DEFAULT_RETRY_OPTIONS,
-		...overwriteOptions,
-	};
-	const {
-		startTimeoutInMs,
-		maxAttempts,
-		factor,
-		shouldRetryError = defaultShouldRetryError,
-	} = options;
-
-	let attempts = 0;
-	let timeoutInMs = startTimeoutInMs;
-	let lastError: any;
-
-	const waitAndBumpTimeout = async () => {
-		await waitPromise(timeoutInMs);
-		timeoutInMs *= factor;
-		attempts += 1;
-	};
-
-	while (attempts < maxAttempts) {
-		try {
-			return await functionToRetry();
-		} catch (err: any) {
-			lastError = err;
-
-			// don't retry if request was aborted by user
-			if (isAbortedRequestError(err)) {
-				throw new RequestError('clientAbortedRequest', metadata, err);
-			}
-
-			if (!shouldRetryError(err)) {
-				throw err;
-			}
-
-			await waitAndBumpTimeout();
-		}
-	}
-
-	if (isRequestError(lastError)) {
-		throw cloneRequestError(lastError, {
-			attempts,
-			clientExhaustedRetries: true,
-		});
-	}
-
-	throw new RequestError(
-		'serverUnexpectedError',
-		{
-			...metadata,
-			attempts,
-			clientExhaustedRetries: true,
-		},
-		lastError,
-	);
-}
-
-export function createRequestErrorReason(statusCode: number): RequestErrorReason {
-	switch (statusCode) {
-		case 400:
-			return 'serverBadRequest';
-		case 401:
-			return 'serverUnauthorized';
-		case 403:
-			return 'serverForbidden';
-		case 404:
-			return 'serverNotFound';
-		case 422:
-			return 'serverUnprocessableEntity';
-		case 423:
-			return 'serverEntityLocked';
-		case 429:
-			return 'serverRateLimited';
-		case 500:
-			return 'serverInternalError';
-		case 502:
-			return 'serverBadGateway';
-		default:
-			return 'serverUnexpectedError';
-	}
-}
-
-export function createRequestErrorFromResponse(
-	metadata: RequestErrorMetadata,
-	response: Response,
-): RequestError {
-	const { status: statusCode } = response;
-	const reason = createRequestErrorReason(statusCode);
-	return new RequestError(reason, {
-		...metadata,
-		...extractMediaHeaders(response),
-		statusCode,
-	});
-}
-
-export function createProcessFetchResponse(
-	metadata: RequestMetadata,
-): (response: Response) => Response {
-	return (response: Response) => {
-		if (response.ok || response.status < 400) {
-			return response;
-		}
-
-		const requestError = createRequestErrorFromResponse(metadata, response);
-		throw requestError;
-	};
-}
-
-export function extractMediaHeaders(response: Response): {
-	mediaRegion: string;
-	mediaEnv: string;
-} {
-	const { headers } = response;
-	const mediaRegion = headers.get('x-media-region') || 'unknown';
-	const mediaEnv = headers.get('x-media-env') || 'unknown';
-
-	return { mediaRegion, mediaEnv };
-}
+/**
+ * @deprecated Use `import { waitPromise } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { waitPromise } from './waitPromise';
+/**
+ * @deprecated Use `import { isAbortedRequestError } from '@atlaskit/media-client'` instead.
+ */
+export { isAbortedRequestError } from './isAbortedRequestError';
+/**
+ * @deprecated Use `import { isFetchNetworkError } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { isFetchNetworkError } from './isFetchNetworkError';
+/**
+ * @deprecated Use `import { isRateLimitedError } from '@atlaskit/media-client/request'` instead.
+ */
+export { isRateLimitedError } from './isRateLimitedError';
+/**
+ * @deprecated Use `import { extendTraceContext } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { extendTraceContext } from './extendTraceContext';
+/**
+ * @deprecated Use `import { mapAuthToRequestHeaders } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { mapAuthToRequestHeaders } from './mapAuthToRequestHeaders';
+/**
+ * @deprecated Use `import { createUrl } from '@atlaskit/media-client'` instead.
+ */
+export { createUrl } from './createUrl';
+/**
+ * @deprecated Use `import { extendHeaders } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { extendHeaders } from './extendHeaders';
+/**
+ * @deprecated Use `import { createMapResponseToJson } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { createMapResponseToJson } from './createMapResponseToJson';
+/**
+ * @deprecated Use `import { createMapResponseToBlob } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { createMapResponseToBlob } from './createMapResponseToBlob';
+/**
+ * @deprecated Use `import { defaultShouldRetryError } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { defaultShouldRetryError } from './defaultShouldRetryError';
+/**
+ * @deprecated Use `import { cloneRequestError } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { cloneRequestError } from './cloneRequestError';
+/**
+ * @deprecated Use `import { fetchRetry } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { fetchRetry } from './fetchRetry';
+/**
+ * @deprecated Use `import { createRequestErrorReason } from '@atlaskit/media-client/request'` instead.
+ */
+export { createRequestErrorReason } from './createRequestErrorReason';
+/**
+ * @deprecated Use `import { createRequestErrorFromResponse } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { createRequestErrorFromResponse } from './createRequestErrorFromResponse';
+/**
+ * @deprecated Use `import { createProcessFetchResponse } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { createProcessFetchResponse } from './createProcessFetchResponse';
+/**
+ * @deprecated Use `import { extractMediaHeaders } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { extractMediaHeaders } from './extractMediaHeaders';
+/**
+ * @deprecated Use `import { getStatusCode } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { getStatusCode } from './getStatusCode';

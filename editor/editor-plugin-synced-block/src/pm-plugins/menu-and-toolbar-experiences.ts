@@ -15,7 +15,6 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
@@ -45,11 +44,6 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 	refs,
 	dispatchAnalyticsEvent,
 }: ExperienceOptions): SafePlugin => {
-	// Cache the experiment value once at plugin creation time.
-	// This fires the exposure event exactly once (correct per Exposure Events 101)
-	// and avoids redundant Statsig SDK evaluations in the view() and update() hooks.
-	const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
-
 	let popupsTargetEl: HTMLElement | undefined;
 	const editorViewRef: EditorViewRef = { current: undefined };
 
@@ -238,7 +232,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 				unbindKeydownListener = unbinders.unbindKeydownListener;
 			};
 
-			if (syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks || !isPerfExperimentOn) {
+			if (syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks) {
 				ensureListenersBound();
 			}
 
@@ -247,8 +241,7 @@ export const getMenuAndToolbarExperiencesPlugin = ({
 					if (
 						!listenersBound &&
 						view.state.doc !== prevState.doc &&
-						syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks &&
-						isPerfExperimentOn
+						syncedBlockPluginKey.getState(view.state)?.hasSyncedBlocks
 					) {
 						// Bind listeners now that synced blocks are present.
 						ensureListenersBound();

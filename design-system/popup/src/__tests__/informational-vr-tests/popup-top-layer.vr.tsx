@@ -1,9 +1,9 @@
 import { type Hooks, snapshotInformational, type SnapshotTestOptions } from '@af/visual-regression';
 
-import Popup from '../../../examples/10-popup';
-import PopupWithSelect from '../../../examples/15-popup-with-select';
-import PopupRoleDialog from '../../../examples/19-popup-role-dialog';
-import PopupCompositionTopLayer from '../../../examples/23-popup-composition-top-layer';
+import Popup from '../../../examples/10-popup.vr.ap';
+import PopupWithSelect from '../../../examples/15-popup-with-select.vr.ap';
+import PopupRoleDialog from '../../../examples/19-popup-role-dialog.vr.ap';
+import PopupCompositionTopLayer from '../../../examples/23-popup-composition-top-layer.vr.ap';
 
 const topLayerFlag = {
 	'platform-dst-top-layer': [true, false],

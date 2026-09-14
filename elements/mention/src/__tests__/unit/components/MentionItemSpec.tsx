@@ -1,30 +1,11 @@
-import React, { type ReactChildren } from 'react';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import React from 'react';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import MentionItem from '../../../components/MentionItem';
 import { type Props } from '../../../components/MentionList';
 import { type MentionDescription, type LozengeProps } from '../../../types';
 import { screen, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-
-// Helper to make <React.Suspense> and React.lazy() work with Enzyme
-jest.mock('react', () => {
-	const React = jest.requireActual('react');
-	return {
-		...React,
-		Suspense: ({ children }: { children: ReactChildren }) => children,
-		lazy: jest.fn().mockImplementation((fn) => {
-			const Component = (props: any) => {
-				const [C, setC] = React.useState();
-				React.useEffect(() => {
-					fn().then((v: any) => {
-						setC(v);
-					});
-				}, []);
-				return C ? <C.default {...props} /> : null;
-			};
-			return Component;
-		}),
-	};
-});
 
 const mentionWithNickname = {
 	id: '0',
@@ -84,6 +65,101 @@ describe('MentionItem', () => {
 		expect(nicknameAt).toBeNull();
 
 		await expect(document.body).toBeAccessible();
+	});
+
+	describe('agent marker', () => {
+		it('should mark agent mention items', async () => {
+			setupEditorExperiments('test', { platform_editor_agent_mentions: true });
+			passGate('platform_editor_agent_mentions_drop_one_fixes');
+			setupMentionItem({
+				id: 'agent-1',
+				name: 'Agent Smith',
+				mentionName: 'Agent Smith',
+				userType: 'AGENT',
+			});
+
+			expect(screen.getByTestId('mention-item-agent-1')).toHaveAttribute(
+				'data-mention-is-agent',
+				'true',
+			);
+		});
+
+		it('should mark APP mentions with an agent app type', async () => {
+			setupEditorExperiments('test', { platform_editor_agent_mentions: true });
+			passGate('platform_editor_agent_mentions_drop_one_fixes');
+			setupMentionItem({
+				id: 'agent-2',
+				name: 'Agent Smith',
+				mentionName: 'Agent Smith',
+				userType: 'APP',
+				appType: 'agent',
+			});
+
+			expect(screen.getByTestId('mention-item-agent-2')).toHaveAttribute(
+				'data-mention-is-agent',
+				'true',
+			);
+		});
+
+		it('should not mark people mention items as agents', async () => {
+			setupEditorExperiments('test', { platform_editor_agent_mentions: true });
+			passGate('platform_editor_agent_mentions_drop_one_fixes');
+			setupMentionItem({
+				id: 'person-1',
+				name: 'Person Smith',
+				mentionName: 'Person Smith',
+				userType: 'DEFAULT',
+			});
+
+			expect(screen.getByTestId('mention-item-person-1')).not.toHaveAttribute(
+				'data-mention-is-agent',
+			);
+		});
+
+		it('should mark bare APP mention items as agents', async () => {
+			setupEditorExperiments('test', { platform_editor_agent_mentions: true });
+			passGate('platform_editor_agent_mentions_drop_one_fixes');
+			setupMentionItem({
+				id: 'app-1',
+				name: 'App Smith',
+				mentionName: 'App Smith',
+				userType: 'APP',
+			});
+
+			expect(screen.getByTestId('mention-item-app-1')).toHaveAttribute(
+				'data-mention-is-agent',
+				'true',
+			);
+		});
+
+		it('should not mark agent mention items when the refreshed row is disabled', async () => {
+			setupEditorExperiments('test', { platform_editor_agent_mentions: false });
+			setupMentionItem({
+				id: 'agent-1',
+				name: 'Agent Smith',
+				mentionName: 'Agent Smith',
+				userType: 'AGENT',
+			});
+
+			expect(screen.getByTestId('mention-item-agent-1')).not.toHaveAttribute(
+				'data-mention-is-agent',
+			);
+		});
+
+		it('should not mark agent mention items when the refreshed row gate is disabled', async () => {
+			setupEditorExperiments('test', { platform_editor_agent_mentions: true });
+			failGate('platform_editor_agent_mentions_drop_one_fixes');
+			setupMentionItem({
+				id: 'agent-1',
+				name: 'Agent Smith',
+				mentionName: 'Agent Smith',
+				userType: 'AGENT',
+			});
+
+			expect(screen.getByTestId('mention-item-agent-1')).not.toHaveAttribute(
+				'data-mention-is-agent',
+			);
+		});
 	});
 
 	it('should display access restriction if accessLevel is NONE', async () => {
@@ -157,6 +233,7 @@ describe('MentionItem', () => {
 		const placeholder: MentionDescription = {
 			id: '__rovo-agents-loading__',
 			isPlaceholder: true,
+			placeholderType: 'loading',
 		};
 
 		afterEach(() => {
@@ -187,8 +264,12 @@ describe('MentionItem', () => {
 		it('renders multiple placeholders (with distinct ids) as separate loading rows', async () => {
 			render(
 				<IntlProvider locale="en">
-					<MentionItem mention={{ id: '__loading-0__', isPlaceholder: true }} />
-					<MentionItem mention={{ id: '__loading-1__', isPlaceholder: true }} />
+					<MentionItem
+						mention={{ id: '__loading-0__', isPlaceholder: true, placeholderType: 'loading' }}
+					/>
+					<MentionItem
+						mention={{ id: '__loading-1__', isPlaceholder: true, placeholderType: 'loading' }}
+					/>
 				</IntlProvider>,
 			);
 

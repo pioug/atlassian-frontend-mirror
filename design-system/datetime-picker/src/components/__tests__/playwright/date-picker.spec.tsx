@@ -31,10 +31,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator(datePicker).first().click();
@@ -59,10 +59,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator(datePicker).first().click();
@@ -87,10 +87,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 
@@ -117,10 +117,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator('input#text1').first().click();
@@ -143,10 +143,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator('button#popup-trigger').first().click();
@@ -182,10 +182,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator('input#text1').first().click();
@@ -210,10 +210,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator('input#text1').first().click();
@@ -238,10 +238,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator(datePicker).first().click();
@@ -260,10 +260,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator(datePicker).first().click();
@@ -280,10 +280,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator(datePicker).first().click();
@@ -301,10 +301,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator(tabcheckOuterDatePicker).first().click();
@@ -321,13 +321,13 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
-		await page.keyboard.press('Tab');
+		await page.locator('input#text1').focus();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
 		await expect(page.locator(calendar)).toBeHidden();
@@ -343,10 +343,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator(tabcheckOuterCalendarButton).click();
@@ -364,10 +364,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator('input#text1').first().click();
@@ -393,10 +393,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					}
 				: {
-						'react-18-mode': 'legacy',
+						'react-18-mode': 'modern',
 					},
 		);
 		await page.locator('input#text1').first().click();

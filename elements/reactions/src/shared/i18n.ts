@@ -1,6 +1,11 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
+	addedReaction: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	addNewReaction: {
 		defaultMessage: string;
 		description: string;
@@ -93,6 +98,12 @@ export const messages: {
 		defaultMessage: 'Add reaction',
 		description:
 			'Label for the add reaction button that opens the emoji picker for users to choose a reaction.',
+	},
+	addedReaction: {
+		id: 'reactions.shared.i18n.addedReaction',
+		defaultMessage: 'Added reaction',
+		description:
+			'Accessible label for the group of added reaction toggle buttons displayed with a comment or content item.',
 	},
 	addNewReaction: {
 		id: 'fabric.reactions.add.new',

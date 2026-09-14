@@ -17,7 +17,7 @@
  */
 
 // oxlint-disable-next-line @atlassian/no-restricted-imports
-import { type LocalizationProvider } from '@atlaskit/locale';
+import type { LocalizationProvider } from '@atlaskit/locale/localization-provider';
 
 import { placeholderDatetime } from './placeholder-date-time';
 

@@ -2,14 +2,14 @@ import type { VCAbortReason } from '../../../common/vc/types';
 import type { VCObserverEntry, VCObserverEntryType } from '../types';
 
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
-import * as calculateTTVCPercentiles from './percentile-calc';
+import * as calculateTTVCPercentiles from './percentile-calc/canvas-heatmap';
 import * as getViewportHeight from './utils/get-viewport-height';
 import * as getViewportWidth from './utils/get-viewport-width';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 // Mock canvas functionality for tests
-jest.mock('./percentile-calc/canvas-heatmap/canvas-pixel', () => ({
+jest.mock('./percentile-calc/canvas-heatmap/viewport-canvas', () => ({
 	ViewportCanvas: jest.fn().mockImplementation(() => ({
 		drawRect: jest.fn(),
 		getPixelCounts: jest.fn().mockResolvedValue(new Map()),

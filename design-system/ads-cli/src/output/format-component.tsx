@@ -22,6 +22,10 @@ type ComponentProp = {
 type ComponentPayload = {
 	name?: string;
 	package?: string;
+	status?: string;
+	category?: string;
+	description?: string;
+	usageGuidelines?: string[];
 	props?: ComponentProp[];
 	examples?: unknown[];
 	// Matches `@atlaskit/ads-mcp`'s component shape: `designSource` is an object holding the Figma
@@ -29,33 +33,20 @@ type ComponentPayload = {
 	designSource?: { figmaUrl?: string };
 };
 
-/**
- * Collapse whitespace/newlines in a prop description so each prop stays on one readable line.
- */
-const oneLine = (text: string): string => text.replace(/\s+/g, ' ').trim();
+import { humanFormat } from '@atlaskit/cli-output/human-format';
 
 /**
- * Render the props section as an aligned two-column list: `name  type`, with the description on
- * a wrapped continuation line. Returns an empty array when there are no props.
+ * Render props through the shared terminal table used by Platform CLI. The shared formatter keeps
+ * names visually distinct, aligns columns, and bounds long generated type expressions.
  */
-const formatProps = (props: ComponentProp[]): string[] => {
-	if (props.length === 0) {
-		return ['Props: none'];
-	}
-
-	// Align the type column to the longest prop name for readability.
-	const longestName = props.reduce((max, prop) => Math.max(max, (prop.name ?? '').length), 0);
-
-	const rows = props.flatMap((prop) => {
-		const name = (prop.name ?? '(unknown)').padEnd(longestName);
-		const type = prop.type ? oneLine(prop.type) : '';
-		const header = `  ${name}  ${type}`.trimEnd();
-		const description = prop.description ? `      ${oneLine(prop.description)}` : null;
-		return description ? [header, description] : [header];
-	});
-
-	return [`Props (${props.length}):`, ...rows];
-};
+const formatProps = (props: ComponentProp[]): string[] =>
+	humanFormat.propertyTable(
+		props.map((prop) => ({
+			name: prop.name ?? '(unknown)',
+			type: prop.type,
+			description: prop.description,
+		})),
+	);
 
 /**
  * Render the examples section. Each example is a code snippet string; they are printed verbatim
@@ -68,7 +59,7 @@ const formatExamples = (examples: unknown[]): string[] => {
 
 	const blocks = examples.map((example, index) => {
 		const code = typeof example === 'string' ? example : JSON.stringify(example, null, 2);
-		return [`Example ${index + 1}:`, '```tsx', code, '```'].join('\n');
+		return [humanFormat.section(`Example ${index + 1}`), humanFormat.codeBlock(code)].join('\n');
 	});
 
 	return [`Examples (${examples.length}):`, '', ...blocks];
@@ -88,14 +79,21 @@ export const formatComponent = (data: unknown): string | null => {
 		return null;
 	}
 
-	const header = component.package ? `${component.name}  (${component.package})` : component.name;
+	const header = humanFormat.heading(component.name);
 
-	const sections: string[] = [
-		header,
-		'='.repeat(header.length),
-		'',
-		...formatProps(component.props ?? []),
-	];
+	const metadata = humanFormat.metadata([component.status, component.category, component.package]);
+	const sections: string[] = [header, ...(metadata ? [metadata] : [])];
+	if (component.description) sections.push('', component.description);
+	if (component.usageGuidelines?.length) {
+		sections.push(
+			'',
+			humanFormat.section('Use it well'),
+			...component.usageGuidelines
+				.slice(0, 4)
+				.map((item) => `  ${humanFormat.success('•')} ${item}`),
+		);
+	}
+	sections.push('', ...formatProps(component.props ?? []));
 
 	const examples = formatExamples(component.examples ?? []);
 	if (examples.length > 0) {
@@ -106,7 +104,10 @@ export const formatComponent = (data: unknown): string | null => {
 	// URL is actually present, so a `designSource` object without a `figmaUrl` doesn't print
 	// `Design: undefined`.
 	if (component.designSource?.figmaUrl) {
-		sections.push('', `Design: ${component.designSource.figmaUrl}`);
+		sections.push(
+			'',
+			`${humanFormat.section('Design:')} ${humanFormat.action(component.designSource.figmaUrl)}`,
+		);
 	}
 
 	return sections.join('\n');

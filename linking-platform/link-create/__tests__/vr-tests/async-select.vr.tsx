@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { AsyncSelectorAllProps, DefaultAsyncSelect } from '../../examples/vr/vr-async-select';
+import { AsyncSelectorAllProps, DefaultAsyncSelect } from '../../examples/vr/vr-async-select.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::032f8fa95ed51413adb506dd076fd343>>
+ * @codegen <<SignedSource::fac2f1319621c5425500d95f711485f1>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 164 32">
  *
  */
 export function OpsgenieLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Opsgenie',
 	testId,

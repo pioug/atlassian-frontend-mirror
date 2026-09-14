@@ -4,7 +4,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 
 import { getOfflineStepsLength, getOfflineReplaceStepsLength } from '../get-offline-steps-length';
 

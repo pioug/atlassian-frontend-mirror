@@ -8,8 +8,8 @@ import React, { useState } from 'react';
 import dateFnsFormat from 'date-fns/format';
 import { type MediaType } from '@atlaskit/media-client';
 import { exampleWrapperStyles, ROW_HIGHLIGHT_CLASSNAME } from './styles';
-import Range from '@atlaskit/range';
-import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
+import Range from '@atlaskit/range/range';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
 import {
 	largeImageFileId,
 	smallImageFileId,

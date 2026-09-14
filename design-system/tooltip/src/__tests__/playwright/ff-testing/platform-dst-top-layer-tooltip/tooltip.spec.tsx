@@ -21,7 +21,7 @@ const hiddenTestId = 'default-tooltip-hidden';
 
 test.describe('Tooltip top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('tooltip is rendered near trigger in DOM (no portal)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -50,7 +50,7 @@ test.describe('Tooltip top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 
 test.describe('Tooltip top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('tooltip appears on keyboard focus of trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -70,7 +70,7 @@ test.describe('Tooltip top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('tooltip disappears on blur of trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -91,7 +91,7 @@ test.describe('Tooltip top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('Escape key dismisses tooltip while keeping trigger focused', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -115,7 +115,7 @@ test.describe('Tooltip top-layer — WCAG 2.1.1 Keyboard', () => {
 
 test.describe('Tooltip top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Tab exits tooltip without trapping focus', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -138,7 +138,7 @@ test.describe('Tooltip top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 
 test.describe('Tooltip top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('focus remains on trigger after tooltip closes', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -162,7 +162,7 @@ test.describe('Tooltip top-layer — WCAG 2.4.3 Focus Order', () => {
 
 test.describe('Tooltip top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('trigger shows focus-visible ring when keyboard-focused', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -196,7 +196,7 @@ test.describe('Tooltip top-layer — WCAG 2.4.7 Focus Visible', () => {
 
 test.describe('Tooltip top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 	test('tooltip is visible and not obscured when displayed', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -216,7 +216,7 @@ test.describe('Tooltip top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 
 test.describe('Tooltip top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('tooltip has role="tooltip" (sanity check)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -235,7 +235,7 @@ test.describe('Tooltip top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('trigger has aria-describedby referencing tooltip', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -262,7 +262,7 @@ test.describe('Tooltip top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 
 test.describe('Tooltip top-layer — Mouse Interactions', () => {
 	test('tooltip appears on mouse hover and hides on mouse leave', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -293,7 +293,7 @@ test.describe('Tooltip top-layer — Mouse Interactions', () => {
 
 test.describe('Tooltip top-layer — Interaction Patterns', () => {
 	test('multiple rapid hover/unhover cycles do not leave ghost tooltips', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',
@@ -320,7 +320,7 @@ test.describe('Tooltip top-layer — Interaction Patterns', () => {
 	});
 
 	test('tooltip content text is accessible', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../examples/default-tooltip.tsx')>(
+		await page.visitExample<typeof import('../../../../../examples/default-tooltip.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'default-tooltip',

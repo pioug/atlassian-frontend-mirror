@@ -15,16 +15,15 @@ import {
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import {
-	createPopoverCloseEvent,
-	Popover,
-	type TPopoverCloseReason,
-} from '@atlaskit/top-layer/popover';
+import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
+import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 

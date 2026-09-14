@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Box } from '@atlaskit/primitives/compiled';
 import TableTree, {
 	Cell,

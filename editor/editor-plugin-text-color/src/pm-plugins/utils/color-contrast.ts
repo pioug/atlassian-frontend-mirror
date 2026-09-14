@@ -1,6 +1,6 @@
 // from platform/packages/design-system/tokens/src/utils/get-contrast-ratio.tsx
 
-import { isHex } from '@atlaskit/adf-schema';
+import { isHex } from '@atlaskit/adf-schema/is-hex';
 
 function hexToRgb(hex: string): [number, number, number] {
 	if (!isHex(hex)) {

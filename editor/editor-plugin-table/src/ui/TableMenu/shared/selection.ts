@@ -5,7 +5,7 @@ import {
 	getSelectionRect,
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Resolve the table `Rect` for the current selection. Falls back to the closest cell's rect

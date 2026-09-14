@@ -2,10 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
 
-import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
-
+import { useMouseDownEvent } from '../../../../../state/analytics/useMouseDownEvent';
 import { type LayeredLinkProps } from './types';
 
 const styles = css({

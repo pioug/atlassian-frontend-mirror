@@ -6,8 +6,10 @@ import type { ComponentType, CSSProperties, JSX, MouseEvent, ReactNode } from 'r
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import Tag, { type NewTagColor } from '@atlaskit/tag';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Tag from '@atlaskit/tag/removable-tag';
+import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -40,7 +42,15 @@ export interface MultiValueProps<
 	isDisabled: boolean;
 	removeProps: JSX.IntrinsicElements['div'];
 	index: number;
+	isMotionEnabled?: boolean;
+	onMotionFinish?: () => void;
 }
+
+type MultiValueContentProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> = {
+	multiValueProps: MultiValueProps<Option, IsMulti, Group>;
+	motionRef?: (node: HTMLDivElement | null) => void;
+	motionState?: ReturnType<typeof useMotion>['state'];
+};
 
 const multiValueTagWrapperStyles = cssMap({
 	root: {
@@ -56,6 +66,25 @@ const multiValueTagWrapperStyles = cssMap({
 			display: 'flex',
 			flex: '1 1 0',
 			minWidth: token('space.0'),
+		},
+	},
+});
+
+const multiValueMotionStyles = cssMap({
+	active: {
+		overflow: 'hidden',
+		transformOrigin: 'left',
+	},
+	entering: {
+		animation: token('motion.label.enter'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
+		},
+	},
+	exiting: {
+		animation: token('motion.label.exit'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
 		},
 	},
 });
@@ -129,7 +158,9 @@ const multiValueTagLikeStyles = cssMap({
 	focused: {
 		color: token('color.text.selected'),
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
-		boxShadow: `0 0 0 2px ${token('elevation.surface')}, 0 0 0 4px ${token('color.border.focused')}`,
+		boxShadow: `0 0 0 2px ${token('elevation.surface')}, 0 0 0 4px ${token(
+			'color.border.focused',
+		)}`,
 		'@media screen and (-ms-high-contrast: active)': {
 			borderWidth: token('border.width'),
 			borderColor: 'transparent',
@@ -146,11 +177,12 @@ const getMultiValueLabelText = (children: ReactNode, data: unknown): string => {
 	return typeof label === 'string' ? label : '';
 };
 
-const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	props: MultiValueProps<Option, IsMulti, Group>,
+const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	contentProps: MultiValueContentProps<Option, IsMulti, Group>,
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	props: MultiValueProps<Option, IsMulti, Group>,
+	contentProps: MultiValueContentProps<Option, IsMulti, Group>,
 ) => {
+	const { multiValueProps: props, motionRef, motionState } = contentProps;
 	const {
 		children,
 		components,
@@ -167,6 +199,8 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	const labelText = getMultiValueLabelText(children, data);
 	const isPlainLabel = typeof children === 'string';
 	const ffTagUplifts = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
+	const isEnteringWithMotion = motionState === 'entering';
+	const isExitingWithMotion = motionState === 'exiting';
 
 	const { css: containerCss, className: containerClassName } = getStyleProps(props, 'multiValue', {
 		'multi-value': true,
@@ -217,8 +251,13 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 
 		return (
 			<div
-				css={multiValueTagWrapperStyles.root}
+				css={[
+					multiValueTagWrapperStyles.root,
+					isExitingWithMotion && multiValueMotionStyles.active,
+					isExitingWithMotion && multiValueMotionStyles.exiting,
+				]}
 				{...innerProps}
+				ref={motionRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 				className={cx(props.className as any, containerClassName, props.xcss, '-multiValue')}
 			>
@@ -260,8 +299,12 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 					tagLikeBorderFilterStyles,
 					isDisabled && multiValueTagLikeStyles.disabled,
 					isFocused && multiValueTagLikeStyles.focused,
+					(isEnteringWithMotion || isExitingWithMotion) && multiValueMotionStyles.active,
+					isEnteringWithMotion && multiValueMotionStyles.entering,
+					isExitingWithMotion && multiValueMotionStyles.exiting,
 				]}
 				{...innerProps}
+				ref={motionRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- custom styles.multiValue overrides (e.g. colored borders) must be preserved
 				style={containerCss as CSSProperties}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
@@ -346,6 +389,40 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 			/>
 		</Container>
 	);
+};
+type MotionMultiValueProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> = {
+	multiValueProps: MultiValueProps<Option, IsMulti, Group>;
+};
+
+const MotionMultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MotionMultiValueProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MotionMultiValueProps<Option, IsMulti, Group>,
+) => {
+	const { multiValueProps } = props;
+	const { ref, state } = useMotion<HTMLDivElement>({
+		onFinish: (motionState) => {
+			if (motionState === 'exiting') {
+				multiValueProps.onMotionFinish?.();
+			}
+		},
+	});
+
+	return (
+		<MultiValueContent multiValueProps={multiValueProps} motionRef={ref} motionState={state} />
+	);
+};
+
+const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MultiValueProps<Option, IsMulti, Group>,
+) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MultiValueProps<Option, IsMulti, Group>,
+) => {
+	if (props.isMotionEnabled) {
+		return <MotionMultiValue multiValueProps={props} />;
+	}
+
+	return <MultiValueContent multiValueProps={props} />;
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

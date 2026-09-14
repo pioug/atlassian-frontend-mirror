@@ -4,20 +4,20 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { messages } from '../../common/utils/get-container-properties';
 import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
-import { useTeamContainers } from '../../controllers/hooks/use-team-containers';
+import { useTeamContainers } from '../../controllers/hooks/use-team-containers/use-team-containers';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 
 import { TeamContainers } from './main';
 import type { TeamContainersComponent } from './types';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 jest.mock('../../common/utils/spaceInviteScheduler', () => ({
 	spaceInviteScheduler: {
@@ -26,11 +26,12 @@ jest.mock('../../common/utils/spaceInviteScheduler', () => ({
 	},
 }));
 
-jest.mock('../../controllers/hooks/use-team-containers', () => ({
-	...jest.requireActual('../../controllers/hooks/use-team-containers'),
-	initializeCalled: jest.fn().mockReturnValue(true),
-	useTeamContainers: jest.fn(),
+jest.mock('../../controllers/hooks/use-team-containers/use-team-containers-hook', () => ({
 	useTeamContainersHook: jest.fn().mockReturnValue([]),
+}));
+
+jest.mock('../../controllers/hooks/use-team-containers/use-team-containers', () => ({
+	useTeamContainers: jest.fn(),
 }));
 
 jest.mock('../../controllers/hooks/use-product-permission', () => ({
@@ -261,9 +262,6 @@ describe('TeamContainers', () => {
 	});
 
 	it('should only render three containers if maxNumberOfContainersToShow is 3', () => {
-		mockFg.mockImplementation((flag: string) =>
-			flag === 'fix_team_link_card_a11y' ? true : false,
-		);
 		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
 			id: index.toString(),
 			type: 'ConfluenceSpace',
@@ -666,11 +664,7 @@ describe('TeamLinks', () => {
 		expect(screen.getByText(messages.linkContainerDescription.defaultMessage)).toBeInTheDocument();
 	});
 
-	it('should render list semantics when teams-a11y-34974-34752-34709 gate is enabled', () => {
-		mockFg.mockImplementation((gateName: string) => {
-			return gateName === 'teams-a11y-34974-34752-34709';
-		});
-
+	it('should render list semantics', () => {
 		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
 			teamLinks: [JiraProject, ConfluenceSpace],
 		});
@@ -681,22 +675,5 @@ describe('TeamLinks', () => {
 
 		const listItems = container.querySelectorAll('[role="listitem"]');
 		expect(listItems.length).toBeGreaterThan(0);
-	});
-
-	it('should not render list semantics when teams-a11y-34974-34752-34709 gate is disabled', () => {
-		mockFg.mockImplementation(() => {
-			return false;
-		});
-
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [JiraProject, ConfluenceSpace],
-		});
-
-		const { container } = renderTeamContainers(teamId);
-		const gridContainer = container.querySelector('[role="list"]');
-		expect(gridContainer).not.toBeInTheDocument();
-
-		const listItems = container.querySelectorAll('[role="listitem"]');
-		expect(listItems.length).toBe(0);
 	});
 });

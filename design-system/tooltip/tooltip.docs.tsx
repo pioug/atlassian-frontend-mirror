@@ -46,10 +46,10 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Default Tooltip',
 					description: 'Default Tooltip example',
-					source: path.resolve(__dirname, './examples/default-tooltip.tsx'),
+					source: path.resolve(__dirname, './examples/default-tooltip.vr.ap.tsx'),
 				},
 			],
-			keywords: ['tooltip', 'hint', 'help', 'floating', 'label', 'explanation'],
+			keywords: ['tooltip', 'hint', 'hover', 'help', 'floating', 'label', 'explanation'],
 			categories: ['overlays-and-layering'],
 		},
 	],

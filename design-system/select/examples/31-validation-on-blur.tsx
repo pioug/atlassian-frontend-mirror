@@ -1,8 +1,13 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
-import Select, { type ValueType } from '@atlaskit/select';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
 
 interface Option {
 	label: string;

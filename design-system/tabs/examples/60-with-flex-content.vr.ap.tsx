@@ -1,0 +1,45 @@
+import React from 'react';
+
+import Spinner from '@atlaskit/spinner/spinner';
+import Tabs from '@atlaskit/tabs/tabs';
+import Tab from '@atlaskit/tabs/tab';
+import TabList from '@atlaskit/tabs/tab-list';
+import TabPanel from '@atlaskit/tabs/tab-panel';
+import { token } from '@atlaskit/tokens';
+
+export default function withFlexContent(): React.JSX.Element {
+	return (
+		<div
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				height: 200,
+				margin: `${token('space.200')} auto`,
+				border: `${token('border.width')} dashed ${token('color.border')}`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				display: 'flex',
+			}}
+		>
+			<Tabs id="with-flex">
+				<TabList>
+					<Tab>Spinner should be centered</Tab>
+				</TabList>
+				<TabPanel>
+					<div
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							alignItems: 'center',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							display: 'flex',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							flex: '1 0 auto',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							justifyContent: 'center',
+						}}
+					>
+						<Spinner size="medium" />
+					</div>
+				</TabPanel>
+			</Tabs>
+		</div>
+	);
+}

@@ -41,5 +41,5 @@ describe('calculateChunkSize', () => {
 	);
 
 	it('should throw an error when the size exceeds 2TB', () =>
-		expect(() => calculateChunkSize(2199023255552 + 1)).toThrowError(fileSizeError));
+		expect(() => calculateChunkSize(2199023255552 + 1)).toThrow(fileSizeError));
 });

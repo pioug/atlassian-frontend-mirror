@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LozengeDropdownTrigger } from '@atlaskit/lozenge';
+import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
 import { Inline } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => (

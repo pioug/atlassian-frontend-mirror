@@ -87,7 +87,7 @@ export const layoutColumnDividerStyles: SerializedStyles = css({
 	},
 });
 /**
- * Override divider marginInline when platform_editor_nested_dnd_styles_changes is on,
+ * Override divider marginInline for nested drag-and-drop,
  * since the layout section/column spacing changes.
  */
 /**
@@ -167,7 +167,7 @@ export const layoutColumnStylesAdvanced: SerializedStyles = css({
 });
 
 /**
- * Layout column resize styles for the platform_editor_layout_column_resize_handle experiment
+ * Layout column resize styles.
  */
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
@@ -822,7 +822,7 @@ export const layoutBaseStylesAdvanced: SerializedStyles = css({
 });
 
 /**
- * Spacing overrides when platform_editor_nested_dnd_styles_changes is on
+ * Spacing overrides for nested drag-and-drop
  */
 // TODO: EDF-123 - Migrate away from gridSize
 // Recommendation: Replace directly with 7px
@@ -833,7 +833,7 @@ export const layoutBaseStylesAdvanced: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
-export const layoutBaseStylesFixesUnderNestedDnDFG: SerializedStyles = css({
+export const layoutBaseStylesNestedDnd: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
 		margin: `${token('space.100')} -20px 0`,
@@ -846,7 +846,7 @@ export const layoutBaseStylesFixesUnderNestedDnDFG: SerializedStyles = css({
 });
 
 /**
- * Spacing overrides when platform_editor_nested_dnd_styles_changes is on,
+ * Spacing overrides for nested drag-and-drop,
  * excluding layouts inside bodied sync blocks
  */
 /**
@@ -855,7 +855,7 @@ export const layoutBaseStylesFixesUnderNestedDnDFG: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
-export const layoutBaseStylesFixesUnderNestedDnDFGExcludingBodiedSync: SerializedStyles = css({
+export const layoutBaseStylesNestedDndExcludingBodiedSync: SerializedStyles = css({
 	// Apply -20px margin to all sections
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section]': {
@@ -956,7 +956,7 @@ export const layoutStylesForView: SerializedStyles = css({
 });
 
 /*
- * marginTop fixes when platform_editor_nested_dnd_styles_changes is on
+ * marginTop fixes for nested drag-and-drop
  */
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
@@ -964,40 +964,11 @@ export const layoutStylesForView: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
-export const layoutColumnMartinTopFixesNew: SerializedStyles = css({
+export const layoutColumnMartinTopFixes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-layout-section] [data-layout-column] > div': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
-			marginTop: 0,
-		},
-	},
-});
-
-/*
- * marginTop fixes when platform_editor_nested_dnd_styles_changes is off
- */
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-export const layoutColumnMartinTopFixesOld: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror [data-layout-section] [data-layout-column] > div': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> :not(style):first-child, > style:first-child + *': {
-			marginTop: 0,
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *': {
-			marginTop: 0,
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> .ProseMirror-gapcursor:first-child + span + *': {
 			marginTop: 0,
 		},
 	},

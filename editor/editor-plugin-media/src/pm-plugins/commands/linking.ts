@@ -1,4 +1,4 @@
-import type { LinkAttributes } from '@atlaskit/adf-schema';
+import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 import {
 	ACTION,
 	ACTION_SUBJECT,

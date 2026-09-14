@@ -1,5 +1,68 @@
 # @atlaskit/editor-ssr-renderer
 
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`da5eaf0bc37da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5eaf0bc37da) -
+  Clean up the platform_editor_editor_ssr_streaming experiment. The SSR streaming code paths are now
+  permanent and the isSSRStreaming() utility has been removed from
+  @atlaskit/editor-common/core-utils.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.1
+
+### Patch Changes
+
+- [`9df0d15ebfb51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9df0d15ebfb51) -
+  Add aria-readonly during SSR only for editor view mode, and use the configured mode when plugin
+  state is unavailable.
+
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

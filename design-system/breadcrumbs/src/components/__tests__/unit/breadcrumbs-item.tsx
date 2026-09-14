@@ -1,8 +1,8 @@
 import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { AtlassianIcon } from '@atlaskit/logo';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
 
 import BreadcrumbsItem from '../../breadcrumbs-item';

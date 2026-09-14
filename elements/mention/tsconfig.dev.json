@@ -74,7 +74,7 @@
 			"path": "../../editor/editor-plugins/tsconfig.app.json"
 		},
 		{
-			"path": "../../editor/editor-test-helpers/tsconfig.app.json"
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/focus-ring/tsconfig.app.json"
@@ -92,6 +92,9 @@
 			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{
+			"path": "../../editor/tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
@@ -107,6 +110,9 @@
 			"path": "../../accessibility/axe-integration/a11y-playwright-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
@@ -114,6 +120,9 @@
 		},
 		{
 			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

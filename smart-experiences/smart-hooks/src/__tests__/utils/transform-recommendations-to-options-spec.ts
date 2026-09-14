@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { type IntlShape } from 'react-intl';
 
 import { EntityType } from '@atlaskit/smart-common';
@@ -77,25 +69,59 @@ describe('transform recommendations to UserPicker options', () => {
 			mockIntl,
 		);
 
-		expect(options).toMatchSnapshot('URS users workspace member');
+		expect(options).toEqual([
+			{
+				avatarUrl: 'https://avatarurl.com',
+				email: 'user@atlassian.com',
+				id: 'id-user',
+				lozenge: 'MEMBER',
+				name: 'user1',
+				type: 'user',
+			},
+		]);
 	});
 
 	it('should correctly transform user option workspace member', async () => {
 		const options = await transformRecommendationsToOptions([mockServerUserCollaborator], mockIntl);
 
-		expect(options).toMatchSnapshot('URS users collaborator');
+		expect(options).toEqual([
+			{
+				avatarUrl: 'https://avatarurl.com',
+				email: 'user@atlassian.com',
+				id: 'id-user',
+				lozenge: {
+					appearance: 'default',
+					text: 'GUEST',
+					tooltip: 'Guests can only access certain spaces and have limited access to user info.',
+				},
+				name: 'user1',
+				type: 'user',
+			},
+		]);
 	});
 
 	it('should correctly transform team option', async () => {
 		const options = await transformRecommendationsToOptions([mockServerTeam], mockIntl);
 
-		expect(options).toMatchSnapshot('URS teams');
+		expect(options).toEqual([
+			{
+				avatarUrl: 'https://large-avatarurl.com',
+				description: 'does things',
+				id: 'id-team',
+				includesYou: true,
+				memberCount: 5,
+				name: 'team1',
+				type: 'team',
+			},
+		]);
 	});
 
 	it('should correctly transform group option', async () => {
 		const options = await transformRecommendationsToOptions([mockServerGroup], mockIntl);
 
-		expect(options).toMatchSnapshot('URS groups');
+		expect(options).toEqual([
+			{ id: 'id-group', lozenge: undefined, name: 'group1', type: 'group' },
+		]);
 	});
 
 	// it('should correctly transform user option', async () => {});

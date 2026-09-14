@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8791ca9f5be9c0b2f03894d1de240223>>
+ * @codegen <<SignedSource::8c766b55a0a7ab186c94ea90b2f678b5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "AlignContentCenterVertical".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const AlignContentCenterVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const AlignContentCenterVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "AlignContentCenterVerticalIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M16 8.75h-3.75v-1.5H16zm-6.75 0h-2.5v-1.5h2.5zm-5.5 0H0v-1.5h3.75z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M11.63 1c.76 0 1.37.62 1.37 1.38v11.25c0 .76-.62 1.38-1.37 1.38h-1.5c-.76 0-1.37-.62-1.37-1.37V2.38c0-.76.62-1.37 1.38-1.37zm-.13 1.5h-1.25v11h1.25zM5.88 3c.76 0 1.38.62 1.38 1.38v7.25c0 .76-.62 1.38-1.37 1.38h-1.5C3.62 13 3 12.38 3 11.63V4.38C3 3.62 3.62 3 4.38 3zm-.13 1.5H4.5v7h1.25z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -4,9 +4,10 @@
  */
 import React, { lazy, Suspense, useEffect } from 'react';
 
-import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
+import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
+import type { SizeType } from '@atlaskit/avatar/types';
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -79,6 +80,12 @@ const DecisionDirectorAvatar = lazy(
 	() =>
 		import(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-DecisionDirectorAvatar"*/ './assets/decision-director'
+		),
+);
+const DocumentWriterAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-DocumentWriterAvatar"*/ './assets/document-writer'
 		),
 );
 const FeatureFlagAvatar = lazy(
@@ -171,6 +178,13 @@ const JsmRovoServiceAgentAvatar = lazy(
 		),
 );
 
+const JsmRequestResolverAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JsmRequestResolverAgentAvatar"*/ './assets/jsm-request-resolver-agent'
+		),
+);
+
 /**
  * OOTB Agents avatars - start
  */
@@ -238,6 +252,12 @@ const JiraWorkAgentAvatar = lazy(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraWorkAgentAvatar"*/ './assets/jira-work-agent'
 		),
 );
+const JiraTaskPlannerAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraTaskPlannerAgentAvatar"*/ './assets/jira-task-planner-agent'
+		),
+);
 
 const JiraCodingAgentAvatar = lazy(
 	() =>
@@ -252,6 +272,13 @@ const JiraIntelligentTriageAgentAvatar = lazy(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraIntelligentTriageAgentAvatar"*/ './assets/jira-intelligent-triage-agent'
 		),
 );
+
+const JsmServiceTriageAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JsmServiceTriageAgentAvatar"*/ './assets/jsm-service-triage-agent'
+		),
+);
 /**
  * OOTB Agents avatars - end
  */
@@ -259,12 +286,13 @@ const JiraIntelligentTriageAgentAvatar = lazy(
 export type AgentAvatarColor = {
 	primary: string;
 	secondary: string;
+	cover: string;
 };
 
-export const yellowColor = { primary: '#FCA700', secondary: '#FFC716' };
-export const purpleColor = { primary: '#BF63F3', secondary: '#D8A0F7' };
-export const greenColor = { primary: '#82B536', secondary: '#B3DF72' };
-export const blueColor = { primary: '#357DE8', secondary: '#669DF1' };
+export const yellowColor = { primary: '#FCA700', secondary: '#FFC716', cover: '#FEF7C8' };
+export const purpleColor = { primary: '#BF63F3', secondary: '#D8A0F7', cover: '#F8EEFE' };
+export const greenColor = { primary: '#82B536', secondary: '#B3DF72', cover: '#EFFFD6' };
+export const blueColor = { primary: '#357DE8', secondary: '#669DF1', cover: '#E9F2FE' };
 
 const colorList: AgentAvatarColor[] = [yellowColor, purpleColor, greenColor, blueColor];
 
@@ -409,6 +437,16 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: purpleColor,
 	},
+	tech_writer_agent: {
+		getRender: (size: SizeType) => (
+			<SocialMediaScribeAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={blueColor.primary}
+				secondaryColor={blueColor.secondary}
+			/>
+		),
+		color: blueColor,
+	},
 	user_manual_writer_agent: {
 		getRender: (size: SizeType) => (
 			<MyUserManualAvatar
@@ -428,6 +466,16 @@ const outOfTheBoxAgentAvatar: {
 			/>
 		),
 		color: yellowColor,
+	},
+	document_writer: {
+		getRender: (size: SizeType) => (
+			<DocumentWriterAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={blueColor.primary}
+				secondaryColor={blueColor.secondary}
+			/>
+		),
+		color: blueColor,
 	},
 	issue_organizer_agent: {
 		getRender: (size: SizeType) => (
@@ -501,7 +549,7 @@ const outOfTheBoxAgentAvatar: {
 	},
 	jira_admin_agent: {
 		getRender: (size: SizeType) => (
-			<AutoDevAvatar
+			<JiraCodingAgentAvatar
 				size={AVATAR_SIZES[size]}
 				primaryColor={blueColor.primary}
 				secondaryColor={blueColor.secondary}
@@ -510,9 +558,16 @@ const outOfTheBoxAgentAvatar: {
 		color: blueColor,
 	},
 	jsm_rovo_service_agent: {
-		getRender: (size: SizeType) => (
-			<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-		),
+		getRender: (size: SizeType) =>
+			fg('rename-rovo-service-to-request-resolver') ? (
+				<JsmRequestResolverAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor=""
+					secondaryColor=""
+				/>
+			) : (
+				<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+			),
 		color: yellowColor,
 	},
 	mcp_amplitude_agent: {
@@ -581,6 +636,12 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: blueColor,
 	},
+	jira_task_planner_agent: {
+		getRender: (size: SizeType) => (
+			<JiraTaskPlannerAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
 	jira_intelligent_triage_agent: {
 		getRender: (size: SizeType) => (
 			<JiraIntelligentTriageAgentAvatar
@@ -590,6 +651,14 @@ const outOfTheBoxAgentAvatar: {
 			/>
 		),
 		color: blueColor,
+	},
+	// The "Request router" agent (previously named "Service triage"). The key is the agent's
+	// external_config_reference, which stays as `jsm_service_triage_agent` after the rename.
+	jsm_service_triage_agent: {
+		getRender: (size: SizeType) => (
+			<JsmServiceTriageAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: yellowColor,
 	},
 	jira_coding_agent: {
 		getRender: (size: SizeType) => (

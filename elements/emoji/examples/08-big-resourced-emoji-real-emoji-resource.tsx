@@ -1,16 +1,16 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import {
-	ResourcedEmojiControl,
-	getEmojiConfig,
-	getRealEmojiProvider,
-} from '../example-helpers/demo-resource-control';
-import type { EmojiProvider, OnEmojiProviderChange } from '../src/resource';
-import { ResourcedEmoji } from '../src/element';
-import { customCategory } from '../src/util/constants';
-import { toEmojiId } from '../src/util/type-helpers';
-import type { EmojiDescription, EmojiSearchResult } from '../src/types';
+
 import { IntlProvider } from 'react-intl';
+
+import { getEmojiConfig } from '../example-helpers/get-emoji-config';
+import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';
+import { ResourcedEmojiControl } from '../example-helpers/resourced-emoji-control';
+import { ResourcedEmoji } from '../src/element';
+import type { EmojiProvider, OnEmojiProviderChange } from '../src/resource';
+import type { EmojiDescription, EmojiSearchResult } from '../src/types';
+import { customCategory } from '../src/util/constants';
+import { toEmojiId } from '../src/util/to-emoji-id';
 
 const customFilter = (emoji: EmojiDescription) => emoji.category === customCategory;
 

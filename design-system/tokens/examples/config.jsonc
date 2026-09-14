@@ -6,11 +6,11 @@
 {
   "exampleDependencies": [],
   "testExamples": [
-    "0-color-roles.tsx",
-    "10-current-surface-vr.tsx",
-    "4-spacing-vr.tsx",
-    "5-typography-vr.tsx",
-    "8-shape-vr.tsx",
-    "9-custom-theme.tsx"
+    "0-color-roles.vr.ap.tsx",
+    "10-current-surface-vr.vr.ap.tsx",
+    "4-spacing-vr.vr.ap.tsx",
+    "5-typography-vr.vr.ap.tsx",
+    "8-shape-vr.vr.ap.tsx",
+    "9-custom-theme.vr.ap.tsx"
   ]
 }

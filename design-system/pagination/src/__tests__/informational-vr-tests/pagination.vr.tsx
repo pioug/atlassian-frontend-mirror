@@ -1,7 +1,7 @@
 import { snapshotInformational, type SnapshotTestOptions } from '@af/visual-regression';
 
-import BasicExample from '../../../examples/01-basic';
-import CustomEllipsisExample from '../../../examples/04-with-custom-ellipsis';
+import BasicExample from '../../../examples/01-basic.vr.ap';
+import CustomEllipsisExample from '../../../examples/04-with-custom-ellipsis.vr.ap';
 
 const variants: SnapshotTestOptions<any>['variants'] = [
 	{

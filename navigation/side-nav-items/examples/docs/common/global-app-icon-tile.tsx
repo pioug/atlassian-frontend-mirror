@@ -5,7 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type { LogoProps } from '@atlaskit/logo';
+import type { LogoProps } from '@atlaskit/logo/types';
 import { token } from '@atlaskit/tokens';
 
 type GlobalAppIconTileProps = {

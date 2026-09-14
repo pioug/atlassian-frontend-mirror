@@ -1,7 +1,7 @@
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 import type { NodeSerializerOpts } from '../interfaces';
-import { N500 } from '@atlaskit/adf-schema';
+import { N500 } from '@atlaskit/adf-schema/colors';
 
 export const styles: string = `
 .${createClassName('mention')} {

@@ -1,5 +1,432 @@
 # @atlaskit/editor-plugin-status
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- [`0e51b73b6062b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e51b73b6062b) -
+  Fire a `document inserted` track event with `status` actionSubjectId and `blockMenu` inputMethod
+  when a block is turned into a status from the block menu Change format flow, behind the
+  `platform_editor_turn_into_status` experiment. Widens the existing status insert payload type to
+  accept the `blockMenu` inputMethod.
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.0
+
+### Minor Changes
+
+- [`c7130b14cc4b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7130b14cc4b2) -
+  [ux] Add Status to the block menu Turn into list behind platform_editor_turn_into_status.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.6
+
+### Patch Changes
+
+- [`a6c26b16402ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6c26b16402ca) -
+  Migrate nine dogfooding editor experiments from `@atlaskit/tmp-editor-statsig` to the Platform
+  experiment API and move their tests to Platform experiment mocks.
+- Updated dependencies
+
+## 17.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.2
+
+### Patch Changes
+
+- [`501b7257aaa6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/501b7257aaa6d) -
+  Add a capped, scrollable status suggestion list with parent-constrained labels behind
+  platform_editor_status_popup_suggestions_patch_1.
+- Updated dependencies
+
+## 17.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

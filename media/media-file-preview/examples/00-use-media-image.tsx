@@ -7,14 +7,14 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { MediaClientProvider } from '@atlaskit/media-client-react';
+import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import {
 	createStorybookMediaClientConfig,
 	errorFileId,
 	genericFileId,
 	imageFileId,
 } from '@atlaskit/media-test-helpers';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { TerminalTextDisplay } from '../example-helpers/TerminalTextDisplay';
 import type { MediaFilePreviewStatus } from '../src/types';

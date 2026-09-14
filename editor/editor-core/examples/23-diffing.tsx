@@ -10,8 +10,8 @@ import { css, jsx } from '@emotion/react';
 import type { Change } from 'diff';
 import { diffLines } from 'diff';
 
-import Button from '@atlaskit/button/new';
-import TextArea from '@atlaskit/textarea';
+import Button from '@atlaskit/button/default/button';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 const container = css({
@@ -93,12 +93,12 @@ type State = {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class DiffingExample extends React.Component<null, State> {
+export default class DiffingExample extends React.Component<{}, State> {
 	state: {
-		editMode: boolean;
 		diffs: never[];
 		documentOne: string;
 		documentTwo: string;
+		editMode: boolean;
 	} = {
 		editMode: true,
 		diffs: [],

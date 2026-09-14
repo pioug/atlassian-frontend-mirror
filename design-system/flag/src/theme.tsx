@@ -49,9 +49,33 @@ export const actionBackgroundColor: ActionBackgroundColor = {
 	},
 };
 
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { flagBackgroundColor } from '@atlaskit/flag/flag-background-color'` instead.
+ */
 export { flagBackgroundColor } from './flag-background-color';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { flagIconColor } from '@atlaskit/flag/flag-icon-color'` instead.
+ */
 export { flagIconColor } from './flag-icon-color';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { flagIconGlyph } from '@atlaskit/flag/flag-icon-glyph'` instead.
+ */
 export { flagIconGlyph } from './flag-icon-glyph';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { flagTextColor } from '@atlaskit/flag/flag-text-color'` instead.
+ */
 export { flagTextColor } from './flag-text-color';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { flagTextColorToken } from '@atlaskit/flag/flag-text-color-token'` instead.
+ */
 export { flagTextColorToken } from './flag-text-color-token';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { actionTextColor } from '@atlaskit/flag/action-text-color'` instead.
+ */
 export { actionTextColor } from './action-text-color';

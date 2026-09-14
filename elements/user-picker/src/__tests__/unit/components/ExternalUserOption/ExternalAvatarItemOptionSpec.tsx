@@ -1,54 +1,42 @@
-import { mount } from 'enzyme';
-import React, { type ReactNode } from 'react';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 import { ExternalAvatarItemOption } from '../../../../components/ExternalUserOption/ExternalAvatarItemOption';
 
-jest.mock('@atlaskit/tooltip', () => ({
-	...jest.requireActual<any>('@atlaskit/tooltip'),
-	__esModule: true,
-	default: ({ children, content }: { children: ReactNode; content: string }) => (
-		<div>
-			<div>{children}</div>
-			<div>{content}</div>
-		</div>
-	),
-}));
-
 describe('ExternalAvatarItemOption', () => {
-	describe('should render AvatarItem with', () => {
-		const avatar = 'Avatar';
-		const primaryText = 'PrimaryText';
-		const secondaryText = 'SecondaryText';
-		const sourcesInfoTooltip = 'Sources Info Tooltip';
+	const avatar = 'Avatar';
+	const primaryText = 'PrimaryText';
+	const secondaryText = 'SecondaryText';
+	const sourcesInfoTooltip = 'Sources Info Tooltip';
 
-		it('primary as well as secondary texts', () => {
-			const component = mount(
-				<ExternalAvatarItemOption
-					primaryText={primaryText}
-					secondaryText={secondaryText}
-					avatar="Avatar"
-				/>,
-			);
+	it('renders the avatar and primary and secondary text', async () => {
+		render(
+			<ExternalAvatarItemOption
+				primaryText={primaryText}
+				secondaryText={secondaryText}
+				avatar={avatar}
+			/>,
+		);
 
-			expect(component.text()).toContain(avatar);
-			expect(component.text()).toContain(primaryText);
-			expect(component.text()).toContain(secondaryText);
-			expect(component.text()).not.toContain(sourcesInfoTooltip);
-		});
+		expect(screen.getByText(avatar)).toBeInTheDocument();
+		expect(screen.getByText(primaryText)).toBeInTheDocument();
+		expect(screen.getByText(secondaryText)).toBeInTheDocument();
+		expect(screen.queryByText(sourcesInfoTooltip)).not.toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
+	});
 
-		it('sources info tooltip', () => {
-			const component = mount(
-				<ExternalAvatarItemOption
-					primaryText={primaryText}
-					secondaryText={secondaryText}
-					avatar="Avatar"
-					sourcesInfoTooltip={sourcesInfoTooltip}
-				/>,
-			);
+	it('renders the sources information when supplied', () => {
+		render(
+			<ExternalAvatarItemOption
+				primaryText={primaryText}
+				secondaryText={secondaryText}
+				avatar={avatar}
+				sourcesInfoTooltip={sourcesInfoTooltip}
+			/>,
+		);
 
-			expect(component.text()).toContain(avatar);
-			expect(component.text()).toContain(primaryText);
-			expect(component.text()).toContain(secondaryText);
-			expect(component.text()).toContain(sourcesInfoTooltip);
-		});
+		expect(screen.getByText(avatar)).toBeInTheDocument();
+		expect(screen.getByText(primaryText)).toBeInTheDocument();
+		expect(screen.getByText(secondaryText)).toBeInTheDocument();
+		expect(screen.getByText(sourcesInfoTooltip)).toBeInTheDocument();
 	});
 });

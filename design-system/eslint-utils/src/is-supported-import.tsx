@@ -55,36 +55,6 @@ const isSupportedImportWrapper = (
 	functionName: string,
 	defaultFromImportSources: ImportSource[] = [],
 ): SupportedNameChecker => {
-	const checkDefinitionHasImport = (def: Definition, importSources: ImportSource[]) => {
-		if (def.type !== 'ImportBinding') {
-			return false;
-		}
-
-		if (!def.parent || !importSources.includes(def.parent.source.value as ImportSource)) {
-			return false;
-		}
-
-		// Matches the imported name from a named import
-		// import { functionName, functioName as otherName } from 'import-source';
-		const isNamedImport =
-			def.node.type === 'ImportSpecifier' &&
-			def.node.imported.type === 'Identifier' &&
-			def.node.imported.name === functionName;
-
-		// Must explicitly match the local name from a default import
-		// import functionName from 'import-source';
-		const isDefaultImportMatchingLocal =
-			def.node.type === 'ImportDefaultSpecifier' && def.node.local.name === functionName;
-
-		// Can match any local name from a default import
-		// import anything from 'import-source'
-		const isKnownDefaultImport =
-			def.node.type === 'ImportDefaultSpecifier' &&
-			defaultFromImportSources.includes(def.parent.source.value as ImportSource);
-
-		return isNamedImport || isDefaultImportMatchingLocal || isKnownDefaultImport;
-	};
-
 	/**
 	 * Checks whether:
 	 *
@@ -106,15 +76,11 @@ const isSupportedImportWrapper = (
 		referencesInScope: Reference[],
 		importSources: ImportSource[],
 	): boolean => {
-		const identifierNode = findIdentifierNode(nodeToCheck);
-
-		return (
-			identifierNode?.type === 'Identifier' &&
-			referencesInScope.some(
-				(reference) =>
-					reference.identifier === identifierNode &&
-					reference.resolved?.defs.some((def) => checkDefinitionHasImport(def, importSources)),
-			)
+		return hasImportDefinition(
+			getImportDefinitions(nodeToCheck, referencesInScope),
+			functionName,
+			importSources,
+			defaultFromImportSources,
 		);
 	};
 
@@ -141,31 +107,97 @@ export const isStyled: SupportedNameChecker = isSupportedImportWrapper('styled',
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isXcss: SupportedNameChecker = isSupportedImportWrapper('xcss');
 
+export type StyleFunctionName = 'css' | 'cssMap' | 'keyframes' | 'styled' | 'xcss';
+
+const styleFunctionNames: StyleFunctionName[] = ['css', 'cssMap', 'keyframes', 'styled', 'xcss'];
+
+/**
+ * Resolve a style call once and return the matching API. This avoids repeatedly finding the
+ * callee identifier and scanning every reference in the current scope for each supported API.
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export function getStyleFunction(
+	node: Callee,
+	references: Reference[],
+	importSources: ImportSource[],
+	ignoreStyledInnerCall = false,
+): StyleFunctionName | null {
+	if (
+		ignoreStyledInnerCall &&
+		isNodeOfType(node, 'Identifier') &&
+		(node.parent?.parent?.type === 'CallExpression' ||
+			node.parent?.parent?.type === 'TaggedTemplateExpression')
+	) {
+		return null;
+	}
+
+	const definitions = getImportDefinitions(node, references);
+	return (
+		styleFunctionNames.find((functionName) =>
+			hasImportDefinition(
+				definitions,
+				functionName,
+				importSources,
+				functionName === 'styled'
+					? [CSS_IN_JS_IMPORTS.emotionStyled, CSS_IN_JS_IMPORTS.styledComponents]
+					: [],
+			),
+		) ?? null
+	);
+}
+
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const hasStyleObjectArguments: SupportedNameChecker = (node, references, importSources) =>
-	[isCss, isCssMap, isKeyframes, isStyled, isXcss].some((checker) => {
-		if (checker === isStyled) {
-			/**
-			 * If this is a `styled` call of either form:
-			 *
-			 * - styled(BaseComponent)({})
-			 * - styled(BaseComponent)``
-			 *
-			 * Then we want to ignore the inner `CallExpression`,
-			 * as it does not have style object arguments.
-			 */
-			const shouldIgnore =
-				isNodeOfType(node, 'Identifier') &&
-				(node.parent?.parent?.type === 'CallExpression' ||
-					node.parent?.parent?.type === 'TaggedTemplateExpression');
+	getStyleFunction(node, references, importSources, true) !== null;
 
-			if (shouldIgnore) {
+const importDefinitionsCache = new WeakMap<object, readonly Definition[] | null>();
+
+function getImportDefinitions(node: Callee, references: Reference[]): readonly Definition[] | null {
+	const identifierNode = findIdentifierNode(node);
+	if (!identifierNode) {
+		return null;
+	}
+
+	if (importDefinitionsCache.has(identifierNode)) {
+		return importDefinitionsCache.get(identifierNode) ?? null;
+	}
+
+	const definitions =
+		references.find((reference) => reference.identifier === identifierNode)?.resolved?.defs ?? null;
+	importDefinitionsCache.set(identifierNode, definitions);
+	return definitions;
+}
+
+function hasImportDefinition(
+	definitions: readonly Definition[] | null,
+	functionName: string,
+	importSources: ImportSource[],
+	defaultFromImportSources: ImportSource[] = [],
+): boolean {
+	return (
+		definitions?.some((def) => {
+			if (
+				def.type !== 'ImportBinding' ||
+				!def.parent ||
+				!importSources.includes(def.parent.source.value as ImportSource)
+			) {
 				return false;
 			}
-		}
 
-		return checker(node, references, importSources);
-	});
+			const isNamedImport =
+				def.node.type === 'ImportSpecifier' &&
+				def.node.imported.type === 'Identifier' &&
+				def.node.imported.name === functionName;
+			const isDefaultImportMatchingLocal =
+				def.node.type === 'ImportDefaultSpecifier' && def.node.local.name === functionName;
+			const isKnownDefaultImport =
+				def.node.type === 'ImportDefaultSpecifier' &&
+				defaultFromImportSources.includes(def.parent.source.value as ImportSource);
+
+			return isNamedImport || isDefaultImportMatchingLocal || isKnownDefaultImport;
+		}) ?? false
+	);
+}
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isImportedFrom: (

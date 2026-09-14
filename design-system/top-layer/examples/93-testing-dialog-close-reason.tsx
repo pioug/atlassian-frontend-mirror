@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
-import { Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
+import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
 
 export default function TestingDialogCloseReason(): React.ReactNode {
 	const [isOpen, setIsOpen] = useState(false);

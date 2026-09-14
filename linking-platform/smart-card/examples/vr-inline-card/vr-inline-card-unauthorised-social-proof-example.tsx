@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 import { DiProvider, injectable } from 'react-magnetic-di';
@@ -10,7 +11,7 @@ import { jsx } from '@atlaskit/css';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { getCachedProviderPctMapAndRefresh } from '../../src/state/services/personalization';
+import { getCachedProviderPctMapAndRefresh } from '../../src/state/services/personalization/getCachedProviderPctMapAndRefresh';
 import { InlineCardUnauthorizedView } from '../../src/view/InlineCard/UnauthorisedView';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

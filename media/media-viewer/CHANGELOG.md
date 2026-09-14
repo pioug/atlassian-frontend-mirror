@@ -1,5 +1,496 @@
 # @atlaskit/media-viewer
 
+## 54.8.23
+
+### Patch Changes
+
+- [`bffd2c37b0e17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bffd2c37b0e17) -
+  Apply the Volt one-export-per-file standard via `volt-migrate-package` to
+  `@atlaskit/media-viewer`. The bump is **patch** because the public API is unchanged: the package
+  `exports` map is **unchanged** — all 5 public subpaths (`.`, `./classnames`,
+  `./media-viewer-loader`, `./types`, `./viewer-options`) keep their existing targets and expose
+  exactly the same symbols as before. The split moved internal multi-export modules into one module
+  per export; because none of the affected symbols were reachable through the `exports` map, no new
+  re-export shims were needed.
+
+  ### No public API was removed
+
+  Every existing import keeps working:
+
+  ```ts
+  import { MediaViewer } from '@atlaskit/media-viewer';
+  import AsyncMediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+  import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
+  ```
+
+  ### The root barrel is now marked `@deprecated`
+
+  Everything the root entry point (`@atlaskit/media-viewer`) re-exports is also available from a
+  dedicated subpath, so each of its three re-exports now carries a `@deprecated` marker pointing at
+  that subpath. Nothing is removed and no behaviour changes — you will just see a deprecation hint
+  in your editor. VOLTC-139 tracks removing the shims. Prefer:
+
+  ```ts
+  // instead of `import { MediaViewer } from '@atlaskit/media-viewer'`
+  import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+  // instead of `import type { MediaViewerProps } from '@atlaskit/media-viewer'`
+  import type { MediaViewerProps } from '@atlaskit/media-viewer/types';
+  // instead of `import type { ViewerOptionsProps } from '@atlaskit/media-viewer'`
+  import type { ViewerOptionsProps } from '@atlaskit/media-viewer/viewer-options';
+  ```
+
+  ### Note for consumers that mock these modules
+
+  The split deleted three private barrels and hollowed out several internal modules, so a
+  `jest.mock()` or `jest.spyOn()` aimed at one of them will silently stop intercepting. None of
+  these paths are reachable through the `exports` map, but deep-path mocks in downstream tests do
+  reach them. Mock the module that now owns the export instead:
+  - `src/domain/index.tsx` (deleted) — `Outcome` → `domain/outcome`.
+  - `src/utils/index.ts` (deleted) — each helper now owns a module under `utils/`:
+    `isSameIdentifier`, `getSelectedIndex`, `getMediaTypeFromFilename`, `getMimeTypeFromFilename`,
+    `getFolderParent`, `extractArchiveFolderName`, `getFormattedFolderName`, `isMacPrivateFile`,
+    `rejectAfter`.
+  - `src/viewers/svg/utils.ts` (deleted) — `clientRectangle` → `viewers/svg/clientRectangle`,
+    `naturalSizeRectangle` → `viewers/svg/naturalSizeRectangle`, `zoomLevelAfterResize` →
+    `viewers/svg/zoomLevelAfterResize`.
+  - `src/errors.ts` is now types-only (`PrimaryErrorReason`, `SecondaryErrorReason`). Its runtime
+    exports moved out: `MediaViewerError` → `MediaViewerError`, `ArchiveViewerError` →
+    `ArchiveViewerError`, `isMediaViewerError` / `isArchiveViewerError` / `getPrimaryErrorReason` /
+    `getSecondaryErrorReason` / `getErrorDetail` / `getRequestMetadata` / `classifyFailedSrc` /
+    `buildImgErrorDiagnostics` / `buildVideoErrorDiagnostics` → one module each.
+  - `src/analytics/index.ts` is now types-only (`MediaViewerFailureAttributes`) — `fireAnalytics` →
+    `analytics/fireAnalytics`, `getFileAttributes` → `analytics/getFileAttributes`.
+  - `src/download.tsx` now only holds `DisabledToolbarDownloadButton` — `ToolbarDownloadButton` →
+    `ToolbarDownloadButton`, `ErrorViewDownloadButton` → `ErrorViewDownloadButton`. The previously
+    module-private `DownloadItem` and `DownloadButton` also each own a module now.
+  - `src/components/media-viewer.tsx` (renamed, see below) — `MediaViewerWithMediaClient` →
+    `components/media-viewer-with-media-client`, `MediaViewerBase` → `components/media-viewer-base`.
+
+  ### Internal-only renames
+  - `src/components/media-viewer.tsx` → `src/components/media-viewer-base.tsx`
+  - `src/viewers/codeViewer/msg-parser.ts` → `src/viewers/codeViewer/msgToText.ts`
+
+  None of these paths are reachable through the `exports` map. No behaviour change.
+
+## 54.8.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.5
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+
+## 54.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.8.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.7.0
+
+### Minor Changes
+
+- [`143ebd1ce2710`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/143ebd1ce2710) -
+  Show a dedicated "File is too large to preview" heading instead of the generic "Something went
+  wrong" copy when a file exceeds the size limit supported by the browser-based viewer (currently:
+  code/text files over the 10MB CodeViewer limit, both in the main viewer and inside ZIP archives).
+  These failures are reported via the `previewTooLarge` analytics event rather than `loadFailed`,
+  since they aren't load failures. Behind the `platform_media_too_large_preview_state` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.6.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.50
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.48
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.47
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.46
+
+### Patch Changes
+
+- [`6098ef66f20ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6098ef66f20ae) -
+  [BMPT-8184] Fix video viewer showing "Something went wrong" for videos that only have an SD
+  (`video_640.mp4`) artifact. The viewer now prefers the HD (`video_1280.mp4`) artifact and falls
+  back to the SD artifact when HD is unavailable, instead of failing when no HD rendition exists.
+  Behind the `platform_media_video_sd_fallback` feature gate.
+
+## 54.5.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.44
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.43
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.42
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.41
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.33
+
+### Patch Changes
+
+- [`be5f53435795e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be5f53435795e) -
+  Cleanup feature gate `platform_media_a11y_suppression_fixes`. The accessible wrapper behavior is
+  now permanent in media card, viewer, and filmstrip.
+
+## 54.5.32
+
+### Patch Changes
+
+- [`aa2113836d418`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa2113836d418) -
+  [BMPT-8156] Image viewer now decides unsupported-MIME routing based on the MIME type of the actual
+  fetched bytes (`Blob.type`) rather than the declared `mimeType` from the items call. This handles
+  just-in-time (JIT) transformation correctly (e.g. a TIFF that is transcoded to JPEG on the fly, or
+  left as TIFF when the transform fails). Behaviour is unchanged when the
+  `platform_media_unsupported_mime_routing` feature gate is off.
+- Updated dependencies
+
+## 54.5.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.5.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.5.23
 
 ### Patch Changes

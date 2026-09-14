@@ -6,8 +6,8 @@ import { type FC, Fragment, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import Popup from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
 
 const spacerStyles = css({
@@ -56,7 +56,6 @@ const PopupContent: FC = () => {
 					<Button
 						id="popup-trigger"
 						{...triggerProps}
-						// @ts-ignore
 						ref={triggerProps.ref}
 						onClick={() => setIsOpen(!isOpen)}
 					>

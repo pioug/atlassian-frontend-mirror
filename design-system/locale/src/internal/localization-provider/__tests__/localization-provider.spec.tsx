@@ -41,8 +41,8 @@ describe('LocalizationProvider', () => {
 		const provider = createLocalizationProvider('en');
 		const result = provider.formatDate(date);
 
-		expect(Intl.DateTimeFormat).toBeCalledWith('en');
-		expect(mockedIntl.format).toBeCalledWith(date);
+		expect(Intl.DateTimeFormat).toHaveBeenCalledWith('en');
+		expect(mockedIntl.format).toHaveBeenCalledWith(date);
 		expect(result).toBe(expectedResult);
 	});
 
@@ -61,8 +61,11 @@ describe('LocalizationProvider', () => {
 		const provider = createLocalizationProvider('en');
 		const result = provider.formatTime(date);
 
-		expect(Intl.DateTimeFormat).toBeCalledWith('en', expect.objectContaining(formatterOptions));
-		expect(mockedIntl.format).toBeCalledWith(date);
+		expect(Intl.DateTimeFormat).toHaveBeenCalledWith(
+			'en',
+			expect.objectContaining(formatterOptions),
+		);
+		expect(mockedIntl.format).toHaveBeenCalledWith(date);
 		expect(result).toBe(expectedResult);
 	});
 
@@ -108,8 +111,8 @@ describe('LocalizationProvider', () => {
 		const provider = createLocalizationProvider('en');
 		const result = provider.parseDate(input);
 
-		expect(createDateParser).toBeCalledWith('en');
-		expect(mockedDateParser).toBeCalledWith(input, {});
+		expect(createDateParser).toHaveBeenCalledWith('en');
+		expect(mockedDateParser).toHaveBeenCalledWith(input, {});
 		expect(result).toBe(expectedResult);
 	});
 
@@ -124,9 +127,9 @@ describe('LocalizationProvider', () => {
 		const provider = createLocalizationProvider('en', formatterOptions);
 		const result = provider.formatToParts(date);
 
-		expect(Intl.DateTimeFormat).toBeCalledWith('en', formatterOptions);
-		expect(mockedIntl.formatToParts).toBeCalled();
-		expect(toFormattedParts).toBeCalled();
+		expect(Intl.DateTimeFormat).toHaveBeenCalledWith('en', formatterOptions);
+		expect(mockedIntl.formatToParts).toHaveBeenCalled();
+		expect(toFormattedParts).toHaveBeenCalled();
 		expect(result).toBe(expectedResult);
 	});
 
@@ -142,6 +145,6 @@ describe('LocalizationProvider', () => {
 		const provider = createLocalizationProvider('en', formatterOptions);
 		provider.formatToParts(date);
 
-		expect(mockedIntl.formatToParts).toBeCalledWith(expect.toBeDateWithYear(2020));
+		expect(mockedIntl.formatToParts).toHaveBeenCalledWith(expect.toBeDateWithYear(2020));
 	});
 });

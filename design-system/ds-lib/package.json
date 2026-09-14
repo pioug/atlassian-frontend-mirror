@@ -66,37 +66,5 @@
 		"jest-in-case": "root:*",
 		"react": "^19.0.0"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": [
-				"lite-mode"
-			],
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
-	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib"
 }

@@ -1,11 +1,11 @@
 import { type Hooks, type SnapshotTestOptions, snapshot } from '@af/visual-regression';
 
-import TooltipCustom from '../../../examples/component-prop';
-import TooltipBasic from '../../../examples/default-tooltip';
-import KeyboardShortcutsExample from '../../../examples/keyboard-shortcut';
-import KeyboardShortcutGlobalStylesExample from '../../../examples/keyboard-shortcut-global-styles';
-import TooltipTruncateExample from '../../../examples/truncate';
-import VrPositionAllExample from '../../../examples/vr-position-all';
+import TooltipCustom from '../../../examples/component-prop.vr.ap';
+import TooltipBasic from '../../../examples/default-tooltip.vr.ap';
+import KeyboardShortcutGlobalStylesExample from '../../../examples/keyboard-shortcut-global-styles.vr.ap';
+import KeyboardShortcutsExample from '../../../examples/keyboard-shortcut.vr.ap';
+import TooltipTruncateExample from '../../../examples/truncate.vr.ap';
+import VrPositionAllExample from '../../../examples/vr-position-all.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

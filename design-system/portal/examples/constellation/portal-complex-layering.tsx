@@ -4,18 +4,18 @@
  */
 import { Fragment, type ReactNode, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Flag, { FlagGroup } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
-import InlineDialog from '@atlaskit/inline-dialog';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,
@@ -24,7 +24,7 @@ import {
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const styles = cssMap({
 	tooltipContainer: { backgroundColor: token('color.background.neutral') },

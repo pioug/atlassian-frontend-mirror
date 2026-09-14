@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { NCS_ERROR_CODE } from './ncs-errors';
 import type { InternalError } from './internal-errors';
 import { INTERNAL_ERROR_CODE } from './internal-errors';
@@ -54,6 +56,19 @@ export const errorCodeMapper = (error: InternalError): ProviderError | undefined
 				message: 'The document is currently not available, please try again later',
 				recoverable: true,
 			};
+		case NCS_ERROR_CODE.ARI_BLACKLISTED:
+			// The document ARI has been blocked (e.g. via the documentari kill switch). This is not
+			// recoverable, so emit a distinct error the product can use to disable editing and tell
+			// the user the document is blocked, rather than swallowing it as an unmapped error.
+			if (fg('platform_editor_blocked_document_ux')) {
+				return {
+					code: PROVIDER_ERROR_CODE.DOCUMENT_BLOCKED,
+					message: 'The document is blocked and cannot be edited',
+					recoverable: false,
+					status: 423,
+				};
+			}
+			return;
 		case NCS_ERROR_CODE.DYNAMO_ERROR:
 			return {
 				code: PROVIDER_ERROR_CODE.FAIL_TO_SAVE,

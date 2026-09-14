@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import PressableDefault from '../../../../../examples/41-pressable-default-compiled';
-import PressableStyled from '../../../../../examples/42-pressable-styled-compiled';
+import PressableDefault from '../../../../../examples/41-pressable-default-compiled.vr.ap';
+import PressableStyled from '../../../../../examples/42-pressable-styled-compiled.vr.ap';
 
 snapshot(PressableDefault, {
 	variants: [

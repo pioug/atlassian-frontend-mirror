@@ -2,8 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import DropdownMenu from '@atlaskit/dropdown-menu';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { render, screen } from '@atlassian/testing-library';
 

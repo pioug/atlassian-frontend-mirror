@@ -2,7 +2,7 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('full height sidebar', () => {
 	test('side nav should be layered above top nav', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/side-nav-layering.tsx')>(
+		await page.visitExample<typeof import('../../../examples/side-nav-layering.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'side-nav-layering',

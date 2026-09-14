@@ -5,7 +5,7 @@
 import { type JSX, useCallback } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

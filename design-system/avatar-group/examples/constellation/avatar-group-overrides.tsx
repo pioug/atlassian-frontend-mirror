@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
-import AvatarGroup from '@atlaskit/avatar-group';
-import Button from '@atlaskit/button/new';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

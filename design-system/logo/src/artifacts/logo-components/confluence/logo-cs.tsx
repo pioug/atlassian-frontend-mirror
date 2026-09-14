@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::90f8012e577da50adfff14718da1e4b3>>
+ * @codegen <<SignedSource::f9aa600135449f52b9be29566099bd36>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 188 32">
  *
  */
 export function ConfluenceLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Confluence',
 	testId,

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d3b681d043f2f2d3ce11a00745e52151>>
+ * @codegen <<SignedSource::a5d12b4845cc2f8b6fdb6b64f74f3f83>>
  * @codegenCommand yarn build tokens
  */
 
@@ -536,6 +536,74 @@ const tokens: Token[] = [
       "motion",
       "keyframe",
       "ScaleOut100to95"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "scaleX(0.8)"
+      },
+      "100%": {
+        "transform": "scaleX(1)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "scaleX(0.8)"
+        },
+        "100%": {
+          "transform": "scaleX(1)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.ScaleXIn80to100",
+    "path": [
+      "motion",
+      "keyframe",
+      "ScaleXIn80to100"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "scaleX(1)"
+      },
+      "100%": {
+        "transform": "scaleX(0)"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "scaleX(1)"
+        },
+        "100%": {
+          "transform": "scaleX(0)"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.ScaleXOut100to0",
+    "path": [
+      "motion",
+      "keyframe",
+      "ScaleXOut100to0"
     ]
   },
   {

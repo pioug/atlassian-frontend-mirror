@@ -1,8 +1,8 @@
 import { type Hooks, type SnapshotTestOptions, snapshot } from '@af/visual-regression';
 
-import TooltipPosition from '../../../examples/position';
-import TooltipPositionMouseExample from '../../../examples/position-mouse';
-import VrPositionMouseAllExample from '../../../examples/vr-position-mouse-all';
+import TooltipPositionMouseExample from '../../../examples/position-mouse.vr.ap';
+import TooltipPosition from '../../../examples/position.vr.ap';
+import VrPositionMouseAllExample from '../../../examples/vr-position-mouse-all.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

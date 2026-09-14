@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fb1d82600042acd24b3549127e361e25>>
+ * @codegen <<SignedSource::a67989124c85f4557b473fdc5689d866>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "ArrowCurvedRightDown".
@@ -19,7 +19,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ArrowCurvedRightDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const ArrowCurvedRightDownIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "ArrowCurvedRightDownIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M6 2.5a3 3 0 0 1 3 3v6.94L5.78 9.22l-1.06 1.06 4.5 4.5a.75.75 0 0 0 1.06 0l4.5-4.5-1.06-1.06-3.22 3.22V5.5A4.5 4.5 0 0 0 6 1H1v1.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

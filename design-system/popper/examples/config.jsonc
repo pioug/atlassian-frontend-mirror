@@ -5,7 +5,8 @@
  */
 {
   "testExamples": [
-    "02-advanced-behaviors.tsx"
+    "02-advanced-behaviors.vr.ap.tsx",
+    "12-flag-imperative-create-popper.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

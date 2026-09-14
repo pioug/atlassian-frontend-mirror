@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useColorMode } from '@atlaskit/app-provider';
+import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { getTokenValue } from '@atlaskit/tokens/get-token-value';
 
 import { parseHex } from './color-utils/formats/hex';

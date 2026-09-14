@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import {
 	ACTION_PENDING,
@@ -7,13 +7,11 @@ import {
 	ACTION_ERROR,
 	ACTION_ERROR_FALLBACK,
 	ACTION_UPDATE_METADATA_STATUS,
-	type CardStore,
-	type CardState,
-	type CardActionType,
 	ACTION_RELOADING,
-	type CardAction,
-	getStatus,
-} from '@atlaskit/linking-common';
+} from '@atlaskit/linking-common/actions';
+import type { CardStore, CardState } from '@atlaskit/linking-common/store';
+import type { CardActionType, CardAction } from '@atlaskit/linking-common/types';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
 import { type CardReducer } from '../types';
 import { type AnyAction } from 'redux';
 

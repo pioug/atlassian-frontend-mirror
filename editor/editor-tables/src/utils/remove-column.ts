@@ -1,18 +1,16 @@
-import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
-import { TableMap } from '../table-map';
 import type { TableContext } from '../table-map';
+import { removeColSpan } from './remove-col-span';
 
-import { cloneTr } from './clone-tr';
-import { removeColSpan } from './colspan';
-import { findCellRectClosestToPos, findTable } from './find';
-import { isTableSelected } from './is-selected';
-import { isSelectionType } from './is-selection-type';
-import { removeTable } from './remove-table';
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { removeColumnAt } from './remove-column-at';
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { removeSelectedColumns } from './remove-selected-columns';
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Preserve the existing public entry-point API.
+export { removeColumnClosestToPos } from './remove-column-closest-to-pos';
 
-function removeColumn(
+export function removeColumn(
 	tr: Transaction,
 	{ map, table, tableStart }: TableContext,
 	columnIndex: number,
@@ -47,83 +45,3 @@ function removeColumn(
 
 	return tr;
 }
-
-// Returns a new transaction that removes a column at index `columnIndex`. If there is only one column left, it will remove the entire table.
-export const removeColumnAt =
-	(columnIndex: number) =>
-	(tr: Transaction): Transaction => {
-		const table = findTable(tr.selection);
-		if (table) {
-			const map = TableMap.get(table.node);
-			if (columnIndex === 0 && map.width === 1) {
-				return removeTable(tr);
-			} else if (columnIndex >= 0 && columnIndex <= map.width) {
-				removeColumn(
-					tr,
-					{
-						map,
-						tableStart: table.start,
-						table: table.node,
-					},
-					columnIndex,
-				);
-				return cloneTr(tr);
-			}
-		}
-
-		return tr;
-	};
-
-// Returns a new transaction that removes selected columns.
-export const removeSelectedColumns = (tr: Transaction): Transaction => {
-	const { selection } = tr;
-	if (isTableSelected(selection)) {
-		return removeTable(tr);
-	}
-	if (isSelectionType(selection, 'cell')) {
-		const table = findTable(selection);
-		if (table) {
-			const map = TableMap.get(table.node);
-			const rect = map.rectBetween(
-				selection.$anchorCell.pos - table.start,
-				selection.$headCell.pos - table.start,
-			);
-
-			if (rect.left === 0 && rect.right === map.width) {
-				return tr;
-			}
-
-			const pmTableRect = {
-				...rect,
-				map,
-				table: table.node,
-				tableStart: table.start,
-			};
-
-			for (let i = pmTableRect.right - 1; ; i--) {
-				removeColumn(tr, pmTableRect, i);
-				if (i === pmTableRect.left) {
-					break;
-				}
-				pmTableRect.table = pmTableRect.tableStart
-					? (tr.doc.nodeAt(pmTableRect.tableStart - 1) as PMNode)
-					: tr.doc;
-				pmTableRect.map = TableMap.get(pmTableRect.table);
-			}
-			return cloneTr(tr);
-		}
-	}
-
-	return tr;
-};
-
-// Returns a new transaction that removes a column closest to a given `$pos`.
-export const removeColumnClosestToPos =
-	($pos: ResolvedPos) =>
-	(tr: Transaction): Transaction => {
-		const rect = findCellRectClosestToPos($pos);
-		if (rect) {
-			return removeColumnAt(rect.left)(setTextSelection($pos.pos)(tr));
-		}
-		return tr;
-	};

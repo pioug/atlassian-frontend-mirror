@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { ThemeProvider, useColorMode, useSetColorMode } from '@atlaskit/app-provider';
-import Button from '@atlaskit/button/new';
+import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
+import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
+import { useSetColorMode } from '@atlaskit/app-provider/use-set-color-mode';
+import Button from '@atlaskit/button/default/button';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-color-modes';
 
 const code = `import React, { useEffect } from 'react';
 import AppProvider, { ThemeProvider, useColorMode, useSetColorMode } from '@atlaskit/app-provider';

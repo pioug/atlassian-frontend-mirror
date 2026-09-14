@@ -3,12 +3,12 @@ import { TableSortStep } from '@atlaskit/custom-steps';
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { isTextInput } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TablePluginState } from '../types';
@@ -79,19 +79,28 @@ const updateTargetCellPosition: BuilderTablePluginState =
 			const hasTargetCellChanged = pluginState.targetCellPosition !== targetCellPosition;
 			const hasActiveTableMenu =
 				pluginState.activeTableMenu != null && pluginState.activeTableMenu.type !== 'none';
+			const isActiveDragMenu =
+				pluginState.activeTableMenu?.type === 'row' ||
+				pluginState.activeTableMenu?.type === 'column';
+			const shouldPreserveActiveDragMenu =
+				isExperimentEnabled('platform_editor_table_menu_updates_patch_4') &&
+				isActiveDragMenu &&
+				tr.selection instanceof CellSelection;
 
 			const shouldCloseMenu =
 				hasActiveTableMenu &&
 				tr.selectionSet &&
-				(!tableNode || hasTargetCellChanged || !(tr.selection instanceof CellSelection));
+				(!tableNode ||
+					!(tr.selection instanceof CellSelection) ||
+					(hasTargetCellChanged && !shouldPreserveActiveDragMenu));
 
 			if (!hasTargetCellChanged && !shouldCloseMenu) {
 				return pluginState;
 			}
 
-			// The updated table menu is anchored to a table selection. When selection moves
-			// to another cell, leaves the table, or changes from a CellSelection to a text cursor,
-			// close the active menu so render state cannot point at a stale anchor.
+			// Cell menus are anchored to a specific cell and close when that target changes. Row and
+			// column menus are anchored to the selected-range drag handle, so keep them open while a
+			// CellSelection expands and let the handle re-render at the updated range.
 			return {
 				...pluginState,
 				targetCellPosition,

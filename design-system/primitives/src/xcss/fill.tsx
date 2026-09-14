@@ -1,8 +1,8 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3e928649c2fc736793a6af44ed39e44f>>
+ * @codegen <<SignedSource::4c9911c43e1a0be25e51a3aabc6084ad>>
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
 import { token } from '@atlaskit/tokens';
 

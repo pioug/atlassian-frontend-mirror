@@ -1,10 +1,10 @@
 const mockMediaEnvironment = 'test-local';
 const mockMediaRegion = 'test-local-region';
 
-jest.mock('@atlaskit/ufo', () => {
-	const actualUfo = jest.requireActual('@atlaskit/ufo');
+jest.mock('@atlaskit/ufo/concurrent-experience', () => {
+	const actual = jest.requireActual('@atlaskit/ufo/concurrent-experience');
 	return {
-		...actualUfo,
+		...actual,
 		ConcurrentExperience: jest.fn(),
 	};
 });
@@ -18,12 +18,10 @@ jest.mock('@atlaskit/media-client', () => {
 		getMediaRegion: () => mockMediaRegion,
 	};
 });
-import { ConcurrentExperience } from '@atlaskit/ufo';
-import {
-	startMediaUploadUfoExperience,
-	succeedMediaUploadUfoExperience,
-	failMediaUploadUfoExperience,
-} from '../ufoExperiences';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { startMediaUploadUfoExperience } from '../startMediaUploadUfoExperience';
+import { succeedMediaUploadUfoExperience } from '../succeedMediaUploadUfoExperience';
+import { failMediaUploadUfoExperience } from '../failMediaUploadUfoExperience';
 
 jest.mock('@atlaskit/media-common/mediaFeatureFlags', () => {
 	const actualUfo = jest.requireActual('@atlaskit/media-common/mediaFeatureFlags');
@@ -74,8 +72,8 @@ describe('ufoExperience', () => {
 		it('should retrieve the correct UFO experience and start it with properties', () => {
 			startMediaUploadUfoExperience('file-test-id', 'browser');
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('file-test-id');
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('file-test-id');
 			expect(mockStart).toHaveBeenCalledTimes(1);
 			expect(concurrentExperienceConstructor).toHaveBeenCalledWith(
 				'media-upload',
@@ -96,10 +94,10 @@ describe('ufoExperience', () => {
 		it('should be able to succeed an experience with provided metadata', () => {
 			succeedMediaUploadUfoExperience('a-test-id', fileAttributes);
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('a-test-id');
-			expect(mockSuccess).toBeCalledTimes(1);
-			expect(mockSuccess).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('a-test-id');
+			expect(mockSuccess).toHaveBeenCalledTimes(1);
+			expect(mockSuccess).toHaveBeenCalledWith({
 				metadata: {
 					fileAttributes: fileAttributes,
 					packageName: expect.any(String),
@@ -113,9 +111,9 @@ describe('ufoExperience', () => {
 		it('should be able to succeed an experience without provided metadata', () => {
 			succeedMediaUploadUfoExperience('b-test-id', fileAttributes);
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('b-test-id');
-			expect(mockSuccess).toBeCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('b-test-id');
+			expect(mockSuccess).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -131,10 +129,10 @@ describe('ufoExperience', () => {
 				uploadDurationMsec: -1,
 			});
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('a-test-id');
-			expect(mockFailure).toBeCalledTimes(1);
-			expect(mockFailure).toBeCalledWith({
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('a-test-id');
+			expect(mockFailure).toHaveBeenCalledTimes(1);
+			expect(mockFailure).toHaveBeenCalledWith({
 				metadata: {
 					failReason: 'upload_fail',
 					error: 'serverBadGateway',
@@ -154,9 +152,9 @@ describe('ufoExperience', () => {
 		it('should be able to fail an experience without provided metadata', () => {
 			failMediaUploadUfoExperience('b-test-id');
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('b-test-id');
-			expect(mockFailure).toBeCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('b-test-id');
+			expect(mockFailure).toHaveBeenCalledTimes(1);
 		});
 	});
 });

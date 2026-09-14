@@ -1,8 +1,12 @@
 import type FakerType from 'faker';
 
-import type { Team, TeamWithImageUrls, TeamWithMemberships, TeamLink } from '../types';
+import type { Team, TeamWithImageUrls } from '../types/team';
+import type { TeamWithMemberships } from '../types/membership';
+import type { TeamLink } from '../types/links';
 
-import { randomBasicTeam, randomFullTeam, randomTeamWithMemberships } from './team';
+import { randomBasicTeam } from './random-basic-team';
+import { randomFullTeam } from './random-full-team';
+import { randomTeamWithMemberships } from './random-team-with-memberships';
 import { randomTeamLinks } from './team-link';
 
 type MockConfig = {

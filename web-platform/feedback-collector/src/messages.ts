@@ -11,12 +11,12 @@ export const messages: {
 		defaultMessage: string;
 		description: string;
 	};
-	canBeContactedLabel: {
+	canBeContactedLabelWithResponse: {
 		id: string;
 		defaultMessage: string;
 		description: string;
 	};
-	canBeContactedLabelWithoutLink: {
+	canBeContactedLabelWithResponseWithoutLink: {
 		id: string;
 		defaultMessage: string;
 		description: string;
@@ -161,12 +161,12 @@ export const messages: {
 		defaultMessage: string;
 		description: string;
 	};
-	canBeContactedLabelAppify: {
+	canBeContactedLabelAppifyWithResponse: {
 		id: string;
 		defaultMessage: string;
 		description: string;
 	};
-	canBeContactedLabelAppifyWithoutLink: {
+	canBeContactedLabelAppifyWithResponseWithoutLink: {
 		id: string;
 		defaultMessage: string;
 		description: string;
@@ -204,17 +204,19 @@ export const messages: {
 		description:
 			'The checkbox label letting users enrol themselves in future product research interviews',
 	},
-	canBeContactedLabel: {
-		id: 'feedback-collector.can-be-contacted.label',
+	canBeContactedLabelWithResponse: {
+		id: 'feedback-collector.can-be-contacted.label-with-response',
 		defaultMessage:
-			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
-		description: 'The checkbox label to give consent to be contacted about their feedback',
+			"Yes, Atlassian teams can reply to my feedback and ask for more details about my experience to improve Atlassian products and services. Without this, I won't get a response. I acknowledge the <a>Atlassian Privacy Policy</a>.",
+		description:
+			'The checkbox label to give consent to be contacted about their feedback, explaining that consent is needed to receive a reply',
 	},
-	canBeContactedLabelWithoutLink: {
-		id: 'feedback-collector.can-be-contacted.label-without-link',
+	canBeContactedLabelWithResponseWithoutLink: {
+		id: 'feedback-collector.can-be-contacted.label-with-response-without-link',
 		defaultMessage:
-			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the Atlassian Privacy Policy.',
-		description: 'The checkbox label to give consent to be contacted about their feedback',
+			"Yes, Atlassian teams can reply to my feedback and ask for more details about my experience to improve Atlassian products and services. Without this, I won't get a response. I acknowledge the Atlassian Privacy Policy.",
+		description:
+			'The checkbox label to give consent to be contacted about their feedback, explaining that consent is needed to receive a reply',
 	},
 	privacyPolicy: {
 		id: 'feedback-collector.privacy-policy',
@@ -364,17 +366,19 @@ export const messages: {
 		description:
 			'The textarea label where users can write their suggestion for custom feedback collector',
 	},
-	canBeContactedLabelAppify: {
-		id: 'feedback-collector.can-be-contacted.label-appify',
+	canBeContactedLabelAppifyWithResponse: {
+		id: 'feedback-collector.can-be-contacted.label-appify-with-response',
 		defaultMessage:
-			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian apps and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
-		description: 'The checkbox label to give consent to be contacted about their feedback',
+			"Yes, Atlassian teams can reply to my feedback and ask for more details about my experience to improve Atlassian apps and services. Without this, I won't get a response. I acknowledge the <a>Atlassian Privacy Policy</a>.",
+		description:
+			'The checkbox label to give consent to be contacted about their feedback, explaining that consent is needed to receive a reply',
 	},
-	canBeContactedLabelAppifyWithoutLink: {
-		id: 'feedback-collector.can-be-contacted.label-appify-without-link',
+	canBeContactedLabelAppifyWithResponseWithoutLink: {
+		id: 'feedback-collector.can-be-contacted.label-appify-with-response-without-link',
 		defaultMessage:
-			'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian apps and services. I acknowledge the Atlassian Privacy Policy.',
-		description: 'The checkbox label to give consent to be contacted about their feedback',
+			"Yes, Atlassian teams can reply to my feedback and ask for more details about my experience to improve Atlassian apps and services. Without this, I won't get a response. I acknowledge the Atlassian Privacy Policy.",
+		description:
+			'The checkbox label to give consent to be contacted about their feedback, explaining that consent is needed to receive a reply',
 	},
 	feedbackSuccessFlagDescriptionAppify: {
 		id: 'feedback-collector.success-flag.description-appify',

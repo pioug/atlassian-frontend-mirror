@@ -3,7 +3,13 @@ import type { MemoizedFn } from 'memoize-one';
 
 import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { NodeType, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
+	Mark,
+	NodeType,
+	Node as PMNode,
+	Schema,
+	Slice,
+} from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
@@ -51,6 +57,7 @@ export const isBodiedSyncBlockNode = (node: PMNode, bodiedSyncBlock: NodeType): 
 	node.type === bodiedSyncBlock;
 
 export interface SyncBlockConversionInfo {
+	breakoutMark?: Mark;
 	contentToInclude: Fragment;
 	from: number;
 	to: number;
@@ -103,9 +110,16 @@ export const canBeConvertedToSyncBlock = (
 		return false;
 	}
 
-	const contentToInclude = removeBreakoutMarks($from.doc.slice(from, to).content);
+	const selectedContent = $from.doc.slice(from, to).content;
+	// A single wrapper cannot preserve independent breakout widths for a multi-node selection.
+	const breakoutMark =
+		selectedContent.childCount === 1
+			? selectedContent.firstChild?.marks.find((mark) => mark.type.name === 'breakout')
+			: undefined;
+	const contentToInclude = removeBreakoutMarks(selectedContent);
 
 	return {
+		breakoutMark,
 		contentToInclude,
 		from,
 		to,

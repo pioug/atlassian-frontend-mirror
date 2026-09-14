@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import Page from '@atlaskit/page';
 import { atlassianLogoUrl } from '../src/test-helpers/atlassianLogoUrl';
 
-import { MediaImage } from '../src';
+import { MediaImage } from '../src/mediaImage';
 
 const paddingBoxStyle: CSSProperties = {
 	height: '110vh',

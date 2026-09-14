@@ -1,4 +1,4 @@
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -19,6 +19,7 @@ import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
 import type { MediaEditingPlugin } from '@atlaskit/editor-plugin-media-editing';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
@@ -54,6 +55,7 @@ export type MediaPluginDependencies = [
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
 	OptionalPlugin<MediaEditingPlugin>,
+	OptionalPlugin<LimitedModePlugin>,
 ];
 
 export type MediaNextEditorPluginType = NextEditorPlugin<

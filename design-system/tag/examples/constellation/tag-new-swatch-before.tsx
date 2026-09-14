@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 import { token } from '@atlaskit/tokens';
 
 export default (): React.JSX.Element => (

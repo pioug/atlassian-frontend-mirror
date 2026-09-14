@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
-import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { UfoErrorBoundary, type ReactionsProps, type ReactionPickerProps } from '../../components';
 import { Reactions } from '../../components/Reactions';
@@ -15,7 +15,11 @@ import {
 	type OnChangeCallback,
 	type Store,
 } from '../../types';
-import { type ReactionSummary, type ReactionUpdateSuccess } from '../../types/reaction';
+import {
+	type ReactionSummary,
+	type ReactionUpdateSuccess,
+	type ReactionUpdateFailure,
+} from '../../types/reaction';
 
 export interface ConnectedReactionsViewProps
 	extends
@@ -27,6 +31,7 @@ export interface ConnectedReactionsViewProps
 			| 'onDialogSelectReactionCallback'
 			| 'allowUserDialog'
 			| 'allowAllEmojis'
+			| 'contentId'
 			| 'emojiProvider'
 			| 'emojiPickerSize'
 			| 'miniMode'
@@ -46,6 +51,10 @@ export interface ConnectedReactionsViewProps
 	 * Wrapper id for reactions list
 	 */
 	containerAri: string;
+	/**
+	 * Callback function when adding/removing a reaction fails
+	 */
+	onReactionFailure?: ReactionUpdateFailure;
 	/**
 	 * Callback function when a reaction is successfully added
 	 */
@@ -85,20 +94,20 @@ export const mapStateToPropsHelper = (
 	state?: State,
 ):
 	| {
-			status: ReactionStatus;
-			reactions: never[];
 			flash?: undefined;
 			particleEffectByEmoji?: undefined;
+			reactions: never[];
+			status: ReactionStatus;
 	  }
 	| {
-			reactions: ReactionSummary[];
-			status: ReactionStatus.ready;
 			flash: {
 				[emojiId: string]: boolean;
 			};
 			particleEffectByEmoji: {
 				[emojiId: string]: boolean;
 			};
+			reactions: ReactionSummary[];
+			status: ReactionStatus.ready;
 	  } => {
 	const reactionsState = state && state.reactions[`${containerAri}|${ari}`];
 
@@ -133,14 +142,23 @@ export const mapDispatchToPropsHelper = (
 	containerAri: string,
 	ari: string,
 	successCallBack?: ReactionUpdateSuccess,
+	failureCallBack?: ReactionUpdateFailure,
 ) => {
 	return {
 		loadReaction: (): void => {
 			actions.getReactions(containerAri, ari);
 		},
 		onReactionClick: (emojiId: string): void => {
+			if (successCallBack && failureCallBack) {
+				actions.toggleReaction(containerAri, ari, emojiId, successCallBack, failureCallBack);
+				return;
+			}
 			if (successCallBack) {
 				actions.toggleReaction(containerAri, ari, emojiId, successCallBack);
+				return;
+			}
+			if (failureCallBack) {
+				actions.toggleReaction(containerAri, ari, emojiId, undefined, failureCallBack);
 				return;
 			}
 			actions.toggleReaction(containerAri, ari, emojiId);
@@ -149,8 +167,16 @@ export const mapDispatchToPropsHelper = (
 			actions.getDetailedReaction(containerAri, ari, emojiId);
 		},
 		onSelection: (emojiId: string): void => {
+			if (successCallBack && failureCallBack) {
+				actions.addReaction(containerAri, ari, emojiId, successCallBack, failureCallBack);
+				return;
+			}
 			if (successCallBack) {
 				actions.addReaction(containerAri, ari, emojiId, successCallBack);
+				return;
+			}
+			if (failureCallBack) {
+				actions.addReaction(containerAri, ari, emojiId, undefined, failureCallBack);
 				return;
 			}
 			actions.addReaction(containerAri, ari, emojiId);
@@ -161,8 +187,15 @@ export const mapDispatchToPropsHelper = (
 export const ConnectedReactionsView = (
 	props: React.PropsWithChildren<ConnectedReactionsViewProps>,
 ): React.JSX.Element => {
-	const { ari, containerAri, store, particleEffectByEmojiEnabled, onReactionSuccess, ...rest } =
-		props;
+	const {
+		ari,
+		containerAri,
+		store,
+		particleEffectByEmojiEnabled,
+		onReactionSuccess,
+		onReactionFailure,
+		...rest
+	} = props;
 	/**
 	 * Reference to the <Reactions /> component instance mandatory props
 	 */
@@ -207,9 +240,15 @@ export const ConnectedReactionsView = (
 	 */
 	const mapDispatchToProps: (actions: Actions) => DispatchProps = useCallback(
 		(actions) => {
-			return mapDispatchToPropsHelper(actions, containerAri, ari, onReactionSuccess);
+			return mapDispatchToPropsHelper(
+				actions,
+				containerAri,
+				ari,
+				onReactionSuccess,
+				onReactionFailure,
+			);
 		},
-		[ari, containerAri, onReactionSuccess],
+		[ari, containerAri, onReactionSuccess, onReactionFailure],
 	);
 
 	const resolveStore = useCallback(

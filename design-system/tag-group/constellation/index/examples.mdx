@@ -2,9 +2,16 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import TagGroupDefault from '../../examples/constellation/tag-group-default';
 import TagGroupAlignmentStart from '../../examples/constellation/tag-group-alignment-start';
 import TagGroupAlignmentEnd from '../../examples/constellation/tag-group-alignment-end';
+import AddTagsToGroupExample from '../../examples/5-add-tags';
+
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Tag group and is in Early Access. The motion updates are currently
+	behind the feature flag: platform-dst-motion-uplift-labels.
+</SectionMessage>
 
 ## Default
 
@@ -16,7 +23,17 @@ Tags inside of a tag group should be of the same type to provide a consistent us
 <Example
 	Component={TagGroupDefault}
 	packageName="@atlaskit/tag-group"
-	featureFlagSwitchers={['labelling']}
+	featureFlagSwitchers={['labelling', 'motionLabels']}
+/>
+
+## Add tags
+
+Add and remove tags to see their enter and exit motion in a tag group.
+
+<Example
+	Component={AddTagsToGroupExample}
+	packageName="@atlaskit/tag-group"
+	featureFlagSwitchers={['motionLabels']}
 />
 
 ## Alignment
@@ -33,7 +50,7 @@ Tags will animate out to the left when removed.
 <Example
 	Component={TagGroupAlignmentStart}
 	packageName="@atlaskit/tag-group"
-	featureFlagSwitchers={['labelling']}
+	featureFlagSwitchers={['labelling', 'motionLabels']}
 />
 
 ### End
@@ -44,7 +61,7 @@ to the right when removed.
 <Example
 	Component={TagGroupAlignmentEnd}
 	packageName="@atlaskit/tag-group"
-	featureFlagSwitchers={['labelling']}
+	featureFlagSwitchers={['labelling', 'motionLabels']}
 />
 
 ## Focus

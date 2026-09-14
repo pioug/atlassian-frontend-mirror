@@ -10,14 +10,11 @@ const AVATAR_GROUP_TESTID = 'stack--avatar-group';
 
 test.describe('AvatarGroup top-layer — Core functionality', () => {
 	test('opens and closes overflow menu when more indicator is clicked', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -32,14 +29,11 @@ test.describe('AvatarGroup top-layer — Core functionality', () => {
 	});
 
 	test('shows avatars in overflow menu', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -74,14 +68,11 @@ test.describe('AvatarGroup top-layer — Core functionality', () => {
 
 test.describe('AvatarGroup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('overflow menu content follows trigger in document order', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -122,14 +113,11 @@ test.describe('AvatarGroup top-layer — WCAG 1.3.2 Meaningful Sequence', () => 
 
 test.describe('AvatarGroup top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('opens via Enter key on trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -145,14 +133,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('opens via Space key on trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -168,14 +153,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('Escape closes the overflow menu', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -191,14 +173,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Keyboard', () => {
 	});
 
 	test('click outside closes the overflow menu', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -215,14 +194,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Keyboard', () => {
 
 test.describe('AvatarGroup top-layer — WCAG 2.1.1 Arrow key navigation', () => {
 	test('ArrowDown opens menu and focuses first item', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -240,14 +216,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Arrow key navigation', () =>
 	});
 
 	test('ArrowDown navigates to next item in overflow menu', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -266,14 +239,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Arrow key navigation', () =>
 	});
 
 	test('ArrowUp navigates to previous item in overflow menu', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -295,14 +265,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Arrow key navigation', () =>
 	});
 
 	test('Home key moves focus to first item', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -322,14 +289,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Arrow key navigation', () =>
 	});
 
 	test('End key moves focus to last item', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -349,14 +313,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.1 Arrow key navigation', () =>
 
 test.describe('AvatarGroup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Tab closes the overflow menu and exits without trapping focus', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -374,14 +335,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 
 test.describe('AvatarGroup top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('focus moves into menu content on Enter key open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -400,14 +358,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus moves to first menu item on ArrowDown open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -425,14 +380,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus returns to trigger on close via Escape', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -449,14 +401,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus returns to trigger on light-dismiss close', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);
@@ -473,14 +422,11 @@ test.describe('AvatarGroup top-layer — WCAG 2.4.3 Focus Order', () => {
 
 test.describe('AvatarGroup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('trigger has aria-expanded attribute that reflects state', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 
@@ -491,42 +437,33 @@ test.describe('AvatarGroup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	});
 
 	test('trigger has aria-haspopup attribute', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		await expect(trigger).toHaveAttribute('aria-haspopup');
 	});
 
 	test('avatar group has accessible label', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const group = page.getByTestId(AVATAR_GROUP_TESTID);
 		await expect(group).toHaveAttribute('aria-label', 'avatar group');
 	});
 
 	test('overflow menu content has role="menu" (sanity check)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/02-basic-avatar-group.tsx')>(
-			'design-system',
-			'avatar-group',
-			'basic-avatar-group',
-			{
-				featureFlag,
-			},
-		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/02-basic-avatar-group.vr.ap.tsx')
+		>('design-system', 'avatar-group', 'basic-avatar-group', {
+			featureFlag,
+		});
 
 		const trigger = page.getByTestId(OVERFLOW_MENU_TRIGGER_TESTID);
 		const content = page.getByTestId(OVERFLOW_MENU_CONTENT_TESTID);

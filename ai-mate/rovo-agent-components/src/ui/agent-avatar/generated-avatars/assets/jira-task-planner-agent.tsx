@@ -1,0 +1,24 @@
+/* eslint-disable @atlaskit/ui-styling-standard/enforce-style-prop */
+import React from 'react';
+
+type AvatarIconProps = {
+	size: number;
+	primaryColor: string;
+	secondaryColor: string;
+};
+
+export default ({ size }: AvatarIconProps): React.JSX.Element => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width={size}
+		height={size}
+		viewBox="0 0 32 32"
+		fill="none"
+	>
+		<rect width={size} height={size} fill="#1868DB" />
+		<g transform="translate(8 8)" fill="white">
+			<path d="M5.59082 9.96875L2.59082 13.7188C2.44022 13.907 2.20758 14.0111 1.9668 13.999C1.75629 13.9883 1.56181 13.8895 1.42871 13.7295L1.375 13.6572L0 11.5322L1.25977 10.7178L2.06836 11.9678L4.41895 9.03125L5.59082 9.96875ZM5.59082 2.46875L2.59082 6.21875C2.44022 6.407 2.20758 6.51112 1.9668 6.49902C1.75629 6.48832 1.56181 6.38946 1.42871 6.22949L1.375 6.15723L3.31228e-07 4.03223L1.25977 3.21777L2.06836 4.46777L4.41895 1.53125L5.59082 2.46875Z" />
+			<path d="M16.0049 11V12.5L7.00488 12.5V11L16.0049 11ZM16.0049 3.5V5L7.00488 5V3.5L16.0049 3.5Z" />
+		</g>
+	</svg>
+);

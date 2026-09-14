@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { type ProviderProps, useSmartLinkContext } from '@atlaskit/link-provider';
+import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 
 export type RovoConfig = {
 	product?: ProviderProps['product'];

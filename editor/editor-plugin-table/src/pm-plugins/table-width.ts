@@ -4,7 +4,7 @@
  * Also holds resizing state to hide / show table controls
  */
 
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';

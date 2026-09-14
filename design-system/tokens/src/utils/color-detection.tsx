@@ -14,5 +14,3 @@ export const getBoxShadow = (rawShadow: ShadowToken<string>['value']): string =>
 			return `${offset.x}px ${offset.y}px ${radius}px rgba(${r}, ${g}, ${b}, ${opacity})`;
 		})
 		.join(',');
-
-export { hexToRGBAValues } from './hex-to-rgba-values';

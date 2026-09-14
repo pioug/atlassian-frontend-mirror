@@ -1,4 +1,5 @@
-import { deepAssign, toStatsigUser } from '../utils';
+import { deepAssign } from '../deepAssign';
+import { toStatsigUser } from '../toStatsigUser';
 
 describe('deepAssign', () => {
 	test('should return target when no sources provided', () => {

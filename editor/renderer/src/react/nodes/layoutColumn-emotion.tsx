@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 /**
- * Emotion branch of the `platform_editor_static_css` experiment.
+ * Emotion branch of the `platform_editor_renderer_static_css` experiment.
  * Used via `componentWithCondition` in `layoutColumn.tsx`.
  *
  * Cleanup: delete this file once the experiment has shipped.
@@ -13,9 +13,8 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- intentional: emotion fallback for compiled migration
 import { css, jsx } from '@emotion/react';
 
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
@@ -94,7 +93,7 @@ export const LayoutSectionEmotion = (
 				(isLayoutColumnValignRenderingEnabled || isLayoutColumnMenuEnabled) &&
 					props.valign === 'bottom' &&
 					verticalAlignBottomStyles,
-				fg('platform_editor_fix_media_in_renderer') && multipleWrappedImagesStyle,
+				multipleWrappedImagesStyle,
 			]}
 		>
 			<WidthProvider>

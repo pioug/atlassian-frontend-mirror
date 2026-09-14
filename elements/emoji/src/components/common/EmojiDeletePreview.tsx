@@ -5,15 +5,14 @@
 import { Component, type ComponentType, type FC, type MouseEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	FormattedMessage,
 	injectIntl,
 	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl';
-import AkButton from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
+import AkButton from '@atlaskit/button/default/button';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';
 import type { EmojiDescription } from '../../types';
@@ -22,21 +21,7 @@ import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMessage';
 import RetryableButton from './RetryableButton';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 const deleteFooter = css({
 	display: 'flex',
@@ -289,7 +274,7 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(EmojiDeletePreview);

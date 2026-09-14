@@ -1,4 +1,4 @@
-import { figmaFormatter as formatter } from '../../figma';
+import { figmaFormatter as formatter } from '../../figma-formatter';
 
 describe('formatter', () => {
 	it('should parse token', () => {

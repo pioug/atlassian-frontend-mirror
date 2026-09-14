@@ -8,7 +8,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate example component correctly', async () => {
-	const examplePath = require.resolve('../../../examples/0-basic');
+	const examplePath = require.resolve('../../../examples/0-basic.vr.ap');
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;
@@ -23,7 +23,7 @@ test('should ssr then hydrate example component correctly', async () => {
 });
 
 test('should ssr then hydrate dropdown trigger example correctly', async () => {
-	const examplePath = require.resolve('../../../examples/4-dropdown-trigger');
+	const examplePath = require.resolve('../../../examples/4-dropdown-trigger.vr.ap');
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;

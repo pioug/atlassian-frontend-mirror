@@ -1,6 +1,6 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import PopupSelectExample from '../../../../examples/18-popup-select';
+import PopupSelectExample from '../../../../examples/18-popup-select.vr.ap';
 
 const topLayerFlag = {
 	'platform-dst-top-layer': [true, false],

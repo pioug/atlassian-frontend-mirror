@@ -1,5 +1,6 @@
-import { extractSmartLinkTitle, extractSmartLinkUrl } from '@atlaskit/link-extractors';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import { extractSmartLinkTitle } from '@atlaskit/link-extractors/extract-smart-link-title';
+import { extractSmartLinkUrl } from '@atlaskit/link-extractors/extract-smart-link-url';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import { SmartLinkStatus } from '../../constants';
 import type { LinkTitle } from '../../state/flexible-ui-context/types';

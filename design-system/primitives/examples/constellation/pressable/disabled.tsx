@@ -5,7 +5,9 @@
 import { type JSX, useCallback, useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 

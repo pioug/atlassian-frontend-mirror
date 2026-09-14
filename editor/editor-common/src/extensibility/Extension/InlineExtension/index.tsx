@@ -14,8 +14,9 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { useSharedPluginStateWithSelector } from '../../../hooks';
@@ -28,6 +29,7 @@ import { wrapperStyle } from './styles';
 
 export interface Props {
 	children?: React.ReactNode;
+	hideConfigureLabel?: boolean;
 	isLivePageViewMode?: boolean;
 	isNodeHovered?: boolean;
 	isNodeSelected?: boolean;
@@ -46,6 +48,26 @@ const inlineWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.rich-media-item': {
 		maxWidth: '100%',
+	},
+});
+
+const flowingInlineWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- The child marker lets an inline extension opt into text-flow layout without coupling editor-common to the skill feature gate.
+	'&:has([data-inline-extension-layout="flow"])': {
+		background: 'transparent',
+		boxShadow: 'none',
+		display: 'inline',
+		margin: 0,
+		verticalAlign: 'baseline',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- The legacy wrapper decorations must be removed only when its child opts into text-flow layout.
+	'&:has([data-inline-extension-layout="flow"])::after, &:has([data-inline-extension-layout="flow"])::before':
+		{
+			display: 'none',
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- The legacy overlay must be hidden only when its child opts into text-flow layout.
+	'&:has([data-inline-extension-layout="flow"]) > .extension-overlay': {
+		display: 'none',
 	},
 });
 
@@ -93,8 +115,10 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 		isNodeHovered,
 		setIsNodeHovered,
 		isLivePageViewMode,
+		hideConfigureLabel,
 	} = props;
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
+	const shouldUseFlowingInlineWrapper = fg('rovo_skill_tag_label_wrapping');
 
 	const { width } = useSharedPluginStateWithSelector(pluginInjectionApi, ['width'], (states) => {
 		return {
@@ -143,6 +167,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 					setIsNodeHovered={setIsNodeHovered}
 					pluginInjectionApi={pluginInjectionApi}
+					hideConfigureLabel={hideConfigureLabel}
 				/>
 			)}
 			<div
@@ -152,6 +177,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 					wrapperStyle,
 					inlineWrapperStyles,
 					showMacroInteractionDesignUpdates && !isLivePageViewMode && hoverStyles,
+					shouldUseFlowingInlineWrapper && flowingInlineWrapperStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
@@ -179,6 +205,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 						node={node}
 						showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 						pluginInjectionApi={pluginInjectionApi}
+						hideConfigureLabel={hideConfigureLabel}
 					/>
 				)}
 			</div>

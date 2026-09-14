@@ -1,32 +1,28 @@
 export { default as JQLEditor } from './ui';
 export { JQLEditorAsync, preloadJQLEditor } from './async';
-export { JQLEditorReadOnly } from './ui/jql-editor-layout';
-export {
-	JQLEditorAnalyticsListener,
-	ANALYTICS_CHANNEL,
-	useJqlPackageAnalytics,
-	EventType,
-} from './analytics';
+export { JQLEditorReadOnly } from './ui/jql-editor-layout/JQLEditorReadOnly';
 
 export type {
-	ListenerProps,
-	JqlAnalyticsEvent,
 	JQLEditorUIProps,
-	JQLEditorProps,
 	HydratedValue,
 	HydratedValues,
 	HydratedUser,
 	HydratedTeam,
 	HydratedProject,
 	HydratedGoal,
+} from './ui/jql-editor/types';
+export type { JQLEditorProps } from './ui/types';
+export type {
 	AutocompleteOption,
 	AutocompleteValueType,
 	AutocompleteOptions,
 	AutocompleteProvider,
-	JQLClause,
+} from '@atlaskit/jql-editor-common/autocomplete/types';
+export type { JQLClause } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
+export type {
 	ExternalMessage,
 	ExternalError,
 	ExternalWarning,
 	ExternalInfo,
 	CustomComponents,
-} from './types';
+} from './state/types';

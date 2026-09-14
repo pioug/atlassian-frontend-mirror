@@ -20,7 +20,7 @@ import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
 import type { CatchupEventReason } from './helpers/const';
 import type { Socket } from 'socket.io-client';
 import ReconnectHelper from './connectivity/reconnect-helper';
-import type { UFOExperience } from '@atlaskit/ufo';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
 import { createDocInitExp } from './analytics/ufo';
 import { socketIOReasons } from './disconnected-reason-mapper';
 import Network from './connectivity/network';

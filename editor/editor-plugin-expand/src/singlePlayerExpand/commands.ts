@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -16,6 +16,7 @@ import { expandedState } from '@atlaskit/editor-common/expand';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { findExpand } from '@atlaskit/editor-common/transforms';
+// oxlint-disable-next-line import/no-duplicates
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
@@ -24,8 +25,8 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExpandPlugin, InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -293,7 +294,7 @@ export const focusIcon =
 
 		// TODO: ED-29205 - During platform_editor_vc90_transition_expand_icon cleanup, rename `iconContainer` to `iconButton`.
 		const iconContainer = (
-			expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)
+			isExperimentEnabled('platform_editor_vc90_transition_expand_icon')
 				? expand.querySelector(`.${expandClassNames.iconButton}`)
 				: expand.querySelector(`.${expandClassNames.iconContainer}`)
 		) as HTMLElement | null;

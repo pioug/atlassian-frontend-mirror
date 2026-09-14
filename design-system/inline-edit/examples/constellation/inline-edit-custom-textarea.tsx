@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import InlineEdit from '@atlaskit/inline-edit';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({
@@ -21,10 +21,10 @@ const readViewContainerStyles = cssMap({
 		font: token('font.body'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		minHeight: '4em' as any,
-		paddingTop: token('space.075'),
-		paddingRight: token('space.075'),
-		paddingBottom: token('space.075'),
-		paddingLeft: token('space.075'),
+		paddingBlockStart: token('space.075'),
+		paddingInlineEnd: token('space.075'),
+		paddingBlockEnd: token('space.075'),
+		paddingInlineStart: token('space.075'),
 		wordBreak: 'break-word',
 	},
 });

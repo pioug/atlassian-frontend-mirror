@@ -1,9 +1,9 @@
 // Copied drag and drop test utilities from `@atlaskit/pragmatic-drag-and-drop`
 // We _really_ need to expose these in a package!
 
-import { fireEvent } from '@testing-library/react';
 import invariant from 'tiny-invariant';
 
+import { fireEvent } from '@atlassian/testing-library';
 import { type NativeMediaType } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import {
 	type CleanupFn,

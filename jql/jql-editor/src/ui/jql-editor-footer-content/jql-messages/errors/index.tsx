@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import { ErrorMessage } from '@atlaskit/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
 import { JQLSyntaxError } from '@atlaskit/jql-ast';
 
 import { JQL_EDITOR_INPUT_ID, JQL_EDITOR_VALIDATION_ID } from '../../../../common/constants';
 import { commonMessages } from '../../../../common/messages';
-import { useEditorThemeContext } from '../../../../hooks/use-editor-theme';
+import { useEditorThemeContext } from '../../../../hooks/use-editor-theme/useEditorThemeContext';
 import { useEditorViewIsInvalid } from '../../../../hooks/use-editor-view-is-invalid';
 import {
 	useCustomErrorComponent,
@@ -18,7 +18,9 @@ import {
 	useStoreActions,
 } from '../../../../state';
 import type { CustomErrorMessageProps, ExternalMessage } from '../../../../state/types';
-import { extractMessageNodes, FormatMessages, MessageContainer } from '../format';
+import { FormatMessages } from '../format/FormatMessages';
+import { MessageContainer } from '../format/MessageContainer';
+import { extractMessageNodes } from '../format/extractMessageNodes';
 
 import { messages } from './messages';
 

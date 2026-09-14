@@ -6,8 +6,9 @@ import { act } from 'react-dom/test-utils';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import { from } from 'rxjs/observable/from';
 
-import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	accountJqlField,
@@ -23,12 +24,13 @@ import {
 	singleQuotedJqlField,
 	statusJqlField,
 } from '../../common/mocks';
+import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics/types';
 import {
 	type AutocompleteSuggestionsResponse,
 	type JQLFieldResponse,
 	type JQLFieldValueResponse,
 } from '../../common/types';
-import { getAutocompleteSuggestionsUrl } from '../use-fetch-field-values';
+import { getAutocompleteSuggestionsUrl } from '../use-fetch-field-values/getAutocompleteSuggestionsUrl';
 
 import useOnValues, { type FieldValuesReducer } from './index';
 
@@ -53,6 +55,24 @@ const mockJqlSearchableFields: JQLFieldResponse[] = [
 	collapsedCustomField,
 ];
 
+const assetsJqlField: JQLFieldResponse = {
+	value: 'Assets',
+	displayName: 'Assets - cf[10049]',
+	cfid: 'cf[10049]',
+	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
+	types: ['com.atlassian.servicedesk.cmdb.model.CmdbObjectReference'],
+	searchable: 'true',
+	orderable: 'true',
+	auto: 'true',
+};
+
+const assetsFieldValuesMock: JQLFieldValueResponse[] = [
+	{
+		value: '"ari:cloud:cmdb::object/ac72f855-c692-441a-8557-bb958b38f698/10"',
+		displayName: 'Object 1 - DT-10',
+	},
+];
+
 const mockGetSuggestions = jest.fn<Promise<AutocompleteSuggestionsResponse>, [string]>();
 
 const mapToAutocompleteOptions = (data: JQLFieldValueResponse[]): AutocompleteOptions =>
@@ -72,8 +92,10 @@ describe('onValues', () => {
 	const onNext = jest.fn();
 
 	type OnValuesConsumerProps = {
+		createAndFireAnalyticsEvent?: (payload: JqlEditorAutocompleteAnalyticsEvent) => void;
 		done: jest.DoneCallback;
 		field?: string;
+		functionName?: string;
 		jqlFieldValues: JQLFieldValueResponse[];
 		jqlSearchableFields: JQLFieldResponse[];
 		onAssert: (fields: AutocompleteOptions) => void;
@@ -86,14 +108,20 @@ describe('onValues', () => {
 		onAssert,
 		field,
 		query,
+		functionName,
+		createAndFireAnalyticsEvent = noop,
 		done,
 	}: OnValuesConsumerProps) => {
 		mockGetSuggestions.mockResolvedValue({ results: jqlFieldValues });
 
-		const onValues = useOnValues(from(jqlSearchableFields), mockGetSuggestions, noop);
+		const onValues = useOnValues(
+			from(jqlSearchableFields),
+			mockGetSuggestions,
+			createAndFireAnalyticsEvent,
+		);
 		const values = useRef<AutocompleteOptions>([]);
 
-		onValues(query, field).subscribe({
+		onValues(query, field, functionName).subscribe({
 			next: (data) => {
 				onNext();
 				values.current = data;
@@ -264,6 +292,122 @@ describe('onValues', () => {
 					wrapper: (p) => <DiProvider use={deps} {...p} />,
 				},
 			);
+		});
+	});
+
+	it('emits the enclosing functionName on the autocompleteSuggestions event when values back a function argument', (done) => {
+		const createAndFireAnalyticsEvent = jest.fn();
+		const field = 'account';
+		const query = '';
+
+		const assertFunctionNameEmitted = () => {
+			expect(createAndFireAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'success',
+					actionSubject: 'autocompleteSuggestions',
+					attributes: { functionName: 'descendantsofteam' },
+				}),
+			);
+		};
+
+		act(() => {
+			render(
+				<OnValuesConsumer
+					jqlSearchableFields={mockJqlSearchableFields}
+					jqlFieldValues={fieldValuesMock}
+					field={field}
+					query={query}
+					functionName="descendantsofteam"
+					createAndFireAnalyticsEvent={createAndFireAnalyticsEvent}
+					onAssert={assertFunctionNameEmitted}
+					done={done}
+				/>,
+			);
+		});
+	});
+
+	it('omits functionName from the autocompleteSuggestions event for ordinary field-value autocomplete', (done) => {
+		const createAndFireAnalyticsEvent = jest.fn();
+		const field = 'account';
+		const query = '';
+
+		const assertNoFunctionName = () => {
+			expect(createAndFireAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'success',
+					actionSubject: 'autocompleteSuggestions',
+				}),
+			);
+			expect(createAndFireAnalyticsEvent).not.toHaveBeenCalledWith(
+				expect.objectContaining({ attributes: expect.anything() }),
+			);
+		};
+
+		act(() => {
+			render(
+				<OnValuesConsumer
+					jqlSearchableFields={mockJqlSearchableFields}
+					jqlFieldValues={fieldValuesMock}
+					field={field}
+					query={query}
+					createAndFireAnalyticsEvent={createAndFireAnalyticsEvent}
+					onAssert={assertNoFunctionName}
+					done={done}
+				/>,
+			);
+		});
+	});
+
+	describe('Assets object values', () => {
+		it('are marked as assets so they render as a rich inline node when the gate is on', (done) => {
+			passGate('orion-8274-cmdb-object-jql-values-resolver');
+
+			const assertValues = (values: AutocompleteOptions) => {
+				expect(values).toEqual([
+					{
+						name: 'Object 1 - DT-10',
+						value: '"ari:cloud:cmdb::object/ac72f855-c692-441a-8557-bb958b38f698/10"',
+						valueType: 'assets',
+					},
+				]);
+			};
+
+			act(() => {
+				render(
+					<OnValuesConsumer
+						jqlSearchableFields={[...mockJqlSearchableFields, assetsJqlField]}
+						jqlFieldValues={assetsFieldValuesMock}
+						field="Assets"
+						onAssert={assertValues}
+						done={done}
+					/>,
+				);
+			});
+		});
+
+		it('are left as plain text when the gate is off', (done) => {
+			failGate('orion-8274-cmdb-object-jql-values-resolver');
+
+			const assertValues = (values: AutocompleteOptions) => {
+				expect(values).toEqual([
+					{
+						name: 'Object 1 - DT-10',
+						value: '"ari:cloud:cmdb::object/ac72f855-c692-441a-8557-bb958b38f698/10"',
+					},
+				]);
+			};
+
+			act(() => {
+				render(
+					<OnValuesConsumer
+						jqlSearchableFields={[...mockJqlSearchableFields, assetsJqlField]}
+						jqlFieldValues={assetsFieldValuesMock}
+						field="Assets"
+						onAssert={assertValues}
+						done={done}
+					/>,
+				);
+			});
 		});
 	});
 });

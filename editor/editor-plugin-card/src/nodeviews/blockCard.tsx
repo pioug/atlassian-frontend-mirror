@@ -3,10 +3,9 @@ import React from 'react';
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
@@ -25,8 +24,7 @@ import {
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
-import type { CardContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { CardContext } from '@atlaskit/link-provider/types';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
@@ -273,11 +271,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	stopEvent(event: Event): boolean {
 		if (event.type === 'dragstart') {
 			const target = event.target;
-			if (
-				target instanceof HTMLElement &&
-				target.closest('[data-smart-element-link]') &&
-				fg('cc_drag_and_drop_smart_link_from_content_to_tree')
-			) {
+			if (target instanceof HTMLElement && target.closest('[data-smart-element-link]')) {
 				return true;
 			}
 		}
@@ -332,8 +326,8 @@ export const blockCardNodeView =
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
-			intl: isSSRStreaming() ? intl : undefined,
-			smartCardContext: isSSRStreaming() ? smartCardContext : undefined,
+			intl,
+			smartCardContext,
 		};
 		const isDatasource = isDatasourceNode(node);
 

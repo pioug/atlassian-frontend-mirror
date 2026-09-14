@@ -83,6 +83,25 @@ It is the only public-API addition that ships with the initial adoption. Reasoni
 - The fix is consumer-visible (anything spreading `triggerProps` onto `Button`/`Pressable` starts
   getting `data-testid` again), but additive: no existing prop changes shape.
 
+### Tooltip pointer dismissal (decided)
+
+`@atlaskit/tooltip` keeps `mode="hint"` and lets the browser own pointer dismissal, rather than
+following the `mode="manual"` precedent. A press dismisses the tooltip, and it stays dismissed until
+the trigger is re-entered. Full reasoning and mechanism:
+[tooltip-pointer-dismissal.md](./tooltip-pointer-dismissal.md).
+
+The `hint` to `auto` fallback in `popover.tsx` is **not** a rollout concern. Platform ships to
+`last 1 chrome / firefox / safari / ios_saf versions` plus `edge >= 18` (root `package.json`
+`browserslist`), and current releases of those engines support `hint`, so the fallback does not
+engage for supported users. The measurements showing fallback behaviour came from pinned Playwright
+WebKit 26 and Firefox 144 builds, which lag shipping browsers and are not the support matrix.
+
+One follow-up remains: **retiring `hideTooltipOnMouseDown` (119 call sites)**. It is the only way to
+hide before a press completes, which native dismissal cannot reproduce because it fires on release.
+Needs an audit of the call sites that use it, to avoid a tooltip sitting over content the press
+removed. `hideTooltipOnClick` (311 call sites) has no observable effect on the top-layer path and
+can be deprecated independently.
+
 ## Related docs
 
 - Per-package write-ups: [`notes/migrations/`](../migrations/) — full list in

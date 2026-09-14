@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const generateUniqueNodeKey = (): any => {

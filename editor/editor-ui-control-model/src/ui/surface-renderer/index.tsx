@@ -2,7 +2,9 @@ import React, { useMemo } from 'react';
 
 import { SurfaceComponents } from './SurfaceComponents';
 import type { SurfaceRendererProps } from './types';
-import { buildChildrenMap, findSurface, PassThrough } from './utils';
+import { PassThrough, resolveSurface, willComponentRender } from './utils';
+
+const ROOT_PARENTS: [] = [];
 
 /**
  * Unified renderer for all editor surfaces (toolbars, menus, etc.).
@@ -24,13 +26,10 @@ export const SurfaceRenderer = ({
 	surface,
 	components,
 	fallbacks,
+	surfaceContext,
 }: SurfaceRendererProps): React.JSX.Element | null => {
 	const { root, childrenMap, topLevelChildren } = useMemo(() => {
-		const root = findSurface(components, surface);
-		const childrenMap = buildChildrenMap(components);
-		const topLevelChildren = root ? childrenMap.get(root.key) : undefined;
-
-		return { root, childrenMap, topLevelChildren };
+		return resolveSurface(components, surface);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [components, surface.key, surface.type]);
 
@@ -38,16 +37,21 @@ export const SurfaceRenderer = ({
 		return null;
 	}
 
+	if (!willComponentRender(root, childrenMap, surfaceContext)) {
+		return null;
+	}
+
 	const RootComponent = root.component ?? PassThrough;
 
 	return (
-		<RootComponent>
+		<RootComponent parents={ROOT_PARENTS} surfaceContext={surfaceContext}>
 			<SurfaceComponents
 				components={topLevelChildren}
 				childrenMap={childrenMap}
 				fallbacks={fallbacks}
 				/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */
 				parents={[{ key: root.key, type: root.type }]}
+				surfaceContext={surfaceContext}
 			/>
 		</RootComponent>
 	);

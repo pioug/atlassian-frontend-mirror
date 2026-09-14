@@ -1,5 +1,8 @@
 import { Device, snapshot } from '@af/visual-regression';
-import { MediaWrappedLeftFullWidth, MediaWrappedLeftFullPage } from './media-pixel-width.fixtures';
+import {
+	MediaWrappedLeftFullWidth,
+	MediaWrappedLeftFullPage,
+} from './media-pixel-width.fixtures.vr.ap';
 
 snapshot(MediaWrappedLeftFullWidth, {
 	variants: [

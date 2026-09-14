@@ -1,4 +1,4 @@
-import { type VideoTextTrack } from '../../react-video-renderer';
+import type { VideoTextTrack } from '../../react-video-renderer/text';
 
 const toLocale = (locale: string) => {
 	try {

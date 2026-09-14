@@ -1,11 +1,9 @@
 import React from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
-import {
-	useAnalyticsEvents,
-	type UIAnalyticsEvent,
-	AnalyticsContext,
-} from '@atlaskit/analytics-next';
-import Tooltip from '@atlaskit/tooltip';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import Button from '@atlaskit/button/standard-button';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
 
@@ -50,13 +48,8 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 				<Button
 					onClick={handleOnClick}
 					appearance="subtle"
-					aria-label={formatMessage(messages.help_panel_header_close_button)}
-					iconBefore={
-						<EditorCloseIcon
-							color="currentColor"
-							label={formatMessage(messages.help_panel_header_close)}
-						/>
-					}
+					aria-label={formatMessage(messages.help_panel_header_close)}
+					iconBefore={<EditorCloseIcon color="currentColor" label="" />}
 				/>
 			</Tooltip>
 		</CloseButtonContainer>

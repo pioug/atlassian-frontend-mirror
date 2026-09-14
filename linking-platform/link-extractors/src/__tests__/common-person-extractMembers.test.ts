@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import {
 	TEST_BASE_DATA,
@@ -7,7 +7,7 @@ import {
 	TEST_PERSON,
 	TEST_URL,
 } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractMembers } from '../index';
+import { extractMembers } from '../extract-members';
 
 const BASE_DATA = TEST_BASE_DATA as JsonLd.Data.Project;
 

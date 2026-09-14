@@ -1,5 +1,464 @@
 # @atlaskit/media-card
 
+## 81.10.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.10.0
+
+### Minor Changes
+
+- [`be8a71519cbc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be8a71519cbc2) -
+  Add support for seeding media card file state from SSR media node metadata, behind the
+  `platform_media_ssr_data_seed` feature gate.
+
+  `@atlaskit/media-client` gains a Relay-free `mapSsrMediaItemToFileState`. Malformed, partial, or
+  non-array input yields `undefined` rather than throwing.
+
+  `@atlaskit/media-card` accepts an optional `ssrMediaItem` prop. When `ssrFileState` is absent and
+  the gate is on, the card converts `ssrMediaItem` to FileState via `mapSsrMediaItemToFileState` and
+  seeds `useFileState`. `ssrFileState` still wins when both are provided (Relay / media-card-relay).
+
+  `@atlaskit/renderer` extends `MediaSSR` with `ssrMediaItems` — the host's SSR media payload,
+  passed through untouched. The renderer finds the matching item by id and forwards it as
+  `ssrMediaItem` to Card. Hosts need no knowledge of `FileState` or of media internals. The field is
+  optional and additive: hosts that do not supply it, and media ids without an entry, keep the
+  current fetch behaviour.
+
+  `@atlaskit/media-card-relay`'s `MediaCardRelay` / `MediaInlineCardRelay` now call the shared
+  `mapSsrMediaItemToFileState` mapper directly (the Relay fragment data is structurally assignable
+  to `SsrMediaItem`, so no cast or wrapper is needed). Its public API and behaviour are unchanged.
+
+  `@atlaskit/media-file-preview` now forwards an SSR-seeded pre-signed `previewCdnUrl` to the new
+  optional `MediaClient.getImageUrlSync(id, params, seededCdnUrl)` argument when
+  `platform_media_ssr_data_seed` is enabled and CDN delivery is in use. `@atlaskit/media-client`
+  preserves the signed CDN asset URL and inserts supported image parameters before the `wm-ari` /
+  `wm-v` watermark anchor, avoiding query-string rebuilding or re-encoding that can invalidate
+  CloudFront signatures. Path-based routing, isolated cloud, GCP, and callers without a seeded URL
+  retain the existing URL-generation behaviour.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.9.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.5
+
+### Patch Changes
+
+- [`0643729dd349b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0643729dd349b) -
+  Make DownloadIcon decorative when parent button already has aria-label (WCAG 1.1.1). Gated behind
+  feature flag `platform-a11y-media-card-download-icon-decorative`.
+- Updated dependencies
+
+## 81.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.8.0
+
+### Minor Changes
+
+- [`8808c4948a2a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8808c4948a2a1) -
+  [BMPT-8191] Add an `onFocus` callback to media Card. The prop is threaded through `CardView` and
+  the `Wrapper` component so consumers can react to focus moving onto a media card. The callback
+  receives a `CardFocusEvent` (`{ event, mediaItemDetails? }`), mirroring the existing
+  `onMouseEnter` behaviour.
+
+  `onFocus` fires only for keyboard focus entering the card from outside. Focus caused by a pointer
+  interaction is ignored, so mouse users keep exactly the existing `onMouseEnter`/`onClick`
+  behaviour. Because focus events bubble, focus moving between elements within the same card is also
+  ignored, so the callback fires once per card entry rather than once per focusable descendant.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.7.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.6.1
+
+### Patch Changes
+
+- [`be5f53435795e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be5f53435795e) -
+  Cleanup feature gate `platform_media_a11y_suppression_fixes`. The accessible wrapper behavior is
+  now permanent in media card, viewer, and filmstrip.
+- Updated dependencies
+
+## 81.6.0
+
+### Minor Changes
+
+- [`8043a37357f34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8043a37357f34) -
+  Added an `isCWR` prop to the media `Card`/`FileCard`. When set, the AI-generating loading state
+  renders an opaque `elevation.surface.sunken` overlay (instead of the translucent blanket) so the
+  generic media type icon isn't shown while a create-with-Rovo infographic streams in. Behaviour is
+  gated by the `aifc_page_create_with_rovo_include_infographics` experiment.
+
+  ```tsx
+  <FileCard identifier={identifier} isAIGenerating isCWR />
+  ```
+
+## 81.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.5.0
+
+### Minor Changes
+
+- [`8a3600f3f196b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a3600f3f196b) -
+  [ux] Fixed unsafe styles that distorted the inline (top-layer) tooltip popover by excluding
+  top-layer elements from the offending selectors via `:not(:where([popover], dialog, ...))`. The
+  `:where()` wrapper keeps the guard at zero specificity, so matching is otherwise unchanged, and
+  the guards are no-ops for the legacy portalled tooltip.
+
+## 81.4.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.4.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.4.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.4.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.4.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.4.17
 
 ### Patch Changes

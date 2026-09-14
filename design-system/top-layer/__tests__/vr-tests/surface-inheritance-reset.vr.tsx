@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import SurfaceInheritanceReset from '../../examples/81-vr-surface-inheritance-reset';
+import SurfaceInheritanceReset from '../../examples/81-vr-surface-inheritance-reset.vr.ap';
 
 // Guards the top-layer "surface reset": a popover rendered inline under a
 // `white-space: nowrap` ancestor must still wrap its own content (the reset

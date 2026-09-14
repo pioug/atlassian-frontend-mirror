@@ -54,11 +54,11 @@ import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	clearHoverSelection,
@@ -90,7 +90,7 @@ import type { PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import {
 	colorPaletteColumns,
-	colorPaletteColumnsOld,
+	colorPalletteColumns,
 	contextualMenuDropdownWidthDnD,
 } from '../consts';
 
@@ -285,7 +285,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			const activePalette = isMoreColorsEnabled
 				? cellBackgroundColorPaletteNew
 				: cellBackgroundColorPalette;
-			const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld;
+			const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPalletteColumns;
 
 			const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
 				activePalette,
@@ -903,7 +903,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ContextualMenu);

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -12,25 +12,33 @@ import {
 	mentionMessages,
 } from '@atlaskit/editor-common/messages';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import { IconMention } from '@atlaskit/editor-common/quick-insert';
+import { IconMention } from '@atlaskit/editor-common/assets';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { MentionNameDetails, MentionProvider } from '@atlaskit/mention/resource';
 import { MentionNameStatus, isPromise } from '@atlaskit/mention/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { insertMention } from './editor-commands';
 import type { MentionsPlugin } from './mentionsPluginType';
 import { mentionNodeSpec } from './nodeviews/mentionNodeSpec';
+import { agentMentionPluginKey, createAgentMentionPlugin } from './pm-plugins/agent';
 import { mentionPluginKey } from './pm-plugins/key';
 import { ACTIONS, createMentionPlugin } from './pm-plugins/main';
-import { createMentionPlaceholderPlugin } from './pm-plugins/mentionPlaceholder';
-import type { FireElementsChannelEvent, MentionChange, MentionSharedState } from './types';
-import { InlineInviteRecaptchaContainer } from './ui/InlineInviteRecaptchaContainer';
+import type {
+	AgentRunStateByLocalId,
+	FireElementsChannelEvent,
+	MentionChange,
+	MentionSharedState,
+} from './types';
+import { InlineInvitePopupContainer } from './ui/InlineInvitePopupContainer';
 import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 import { createTypeAheadConfig } from './ui/type-ahead';
+import { getMentionQuickInsertComponents } from './ui/quick-insert/getMentionQuickInsertComponents';
 
 const processName = (name: MentionNameDetails, intl: IntlShape): string => {
 	const unknownLabel = intl.formatMessage(mentionMessages.unknownLabel);
@@ -116,9 +124,15 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 		handleMentionsChanged: options?.handleMentionsChanged,
 		enableAgentSectioning: options?.enableAgentSectioning,
 		showAgentMentionsLabsLozenge: options?.showAgentMentionsLabsLozenge,
+		profilecardProvider: options?.profilecardProvider,
 		fireEvent,
 		api,
 	});
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(getMentionQuickInsertComponents({ api, typeAhead }));
+	}
 
 	return {
 		name: 'mention',
@@ -136,10 +150,11 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				},
 			];
 
-			if (fg('jira_invites_auto_tag_new_user_in_mentions_fg')) {
+			if (editorExperiment('platform_editor_agent_mentions', true)) {
 				plugins.push({
-					name: 'mentionPlaceholder',
-					plugin: () => createMentionPlaceholderPlugin(),
+					name: 'agentMention',
+					plugin: (pmPluginFactoryParams: PMPluginFactoryParams) =>
+						createAgentMentionPlugin({ pmPluginFactoryParams, options }),
 				});
 			}
 
@@ -161,8 +176,12 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 						return (
 							<>
 								<Component mentionProvider={mentionProvider} api={api} />
-								{fg('jira_invites_auto_tag_new_user_in_mentions_fg') && (
-									<InlineInviteRecaptchaContainer mentionProvider={mentionProvider} api={api} />
+								{fg('inline_invite_from_mentions_kill_switch') && (
+									<InlineInvitePopupContainer
+										mentionProvider={mentionProvider}
+										api={api}
+										editorView={editorView}
+									/>
 								)}
 							</>
 						);
@@ -208,6 +227,24 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 					options.handleMentionsChanged(mentionChanges);
 				}
 			},
+			setAgentMentionRunStates: (runStateByLocalId: AgentRunStateByLocalId) => {
+				if (
+					!(
+						editorExperiment('platform_editor_agent_mentions', true) &&
+						isExperimentEnabled('platform_editor_agent_mention_state_anim')
+					)
+				) {
+					return false;
+				}
+				return (
+					api?.core.actions.execute(({ tr }) =>
+						tr.setMeta(mentionPluginKey, {
+							action: ACTIONS.SET_AGENT_RUN_STATES,
+							params: { runStateByLocalId },
+						}),
+					) ?? false
+				);
+			},
 			updateSectionTitle: (props) => {
 				if (!options?.enableAgentSectioning) {
 					return false;
@@ -243,43 +280,66 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 			}
 
 			const mentionPluginState = mentionPluginKey.getState(editorState);
+			const agentMentionPluginState = agentMentionPluginKey.getState(editorState);
 			// Exclude pendingPastedAgentMention — it is an @internal transient field and
 			// should not be part of the public shared state API. Exposing it would cause
 			// unnecessary re-renders in subscribers and leak implementation details.
-			const { pendingPastedAgentMention: _excluded, ...publicPluginState } =
-				mentionPluginState ?? {};
+			const {
+				pendingPastedAgentMention: _excluded,
+				// Internal decoration-only state, kept out of the public shared state.
+				runStateDecorations: _excludedRunState,
+				...publicPluginState
+			} = mentionPluginState ?? {};
 			return {
 				...publicPluginState,
+				...(agentMentionPluginState
+					? {
+							lastAgentMentionInsertionCount:
+								agentMentionPluginState.lastAgentMentionInsertionCount,
+							lastInsertedAgentMentionContext:
+								agentMentionPluginState.lastInsertedAgentMentionContext,
+							lastInsertedAgentMentionId: agentMentionPluginState.lastInsertedAgentMentionId,
+							lastInsertedAgentMentionLocalId:
+								agentMentionPluginState.lastInsertedAgentMentionLocalId,
+							lastInsertedAgentMentionName: agentMentionPluginState.lastInsertedAgentMentionName,
+							lastInsertedAgentMentionParentNodeType:
+								agentMentionPluginState.lastInsertedAgentMentionParentNodeType,
+							lastInsertedAgentMentionPrompt:
+								agentMentionPluginState.lastInsertedAgentMentionPrompt,
+						}
+					: {}),
 				typeAheadHandler: typeAhead,
 			};
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'mention',
-					title: formatMessage(messages.mention),
-					description: formatMessage(messages.mentionDescription),
-					keywords: ['team', 'user'],
-					priority: 400,
-					keyshortcut: '@',
-					icon: () => <IconMention />,
-					action(insert, state) {
-						const tr = insert(undefined);
-						const pluginState = mentionPluginKey.getState(state);
-						if (pluginState && pluginState.canInsertMention === false) {
-							return false;
-						}
+			quickInsert: isRegisteredSlashCommandEnabled
+				? undefined
+				: ({ formatMessage }) => [
+						{
+							id: 'mention',
+							title: formatMessage(messages.mention),
+							description: formatMessage(messages.mentionDescription),
+							keywords: ['team', 'user'],
+							priority: 400,
+							keyshortcut: '@',
+							icon: () => <IconMention />,
+							action(insert, state) {
+								const tr = insert(undefined);
+								const pluginState = mentionPluginKey.getState(state);
+								if (pluginState && pluginState.canInsertMention === false) {
+									return false;
+								}
 
-						api?.typeAhead?.actions.openAtTransaction({
-							triggerHandler: typeAhead,
-							inputMethod: INPUT_METHOD.QUICK_INSERT,
-						})(tr);
+								api?.typeAhead?.actions.openAtTransaction({
+									triggerHandler: typeAhead,
+									inputMethod: INPUT_METHOD.QUICK_INSERT,
+								})(tr);
 
-						return tr;
-					},
-				},
-			],
+								return tr;
+							},
+						},
+					],
 			typeAhead,
 		},
 	};

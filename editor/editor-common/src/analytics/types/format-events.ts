@@ -122,6 +122,7 @@ type FormatClearAEP = FormatAEP<
 type FormatColorAEP = FormatAEP<
 	ACTION_SUBJECT_ID.FORMAT_COLOR,
 	{
+		hadBackgroundColor?: boolean;
 		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 		newColor: string;
 		previousColor: string;

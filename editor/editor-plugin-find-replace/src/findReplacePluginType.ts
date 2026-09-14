@@ -1,6 +1,7 @@
 import type { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockCollapsePlugin } from '@atlaskit/editor-plugin-block-collapse/blockCollapsePluginType';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
 import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
@@ -20,6 +21,7 @@ export type FindReplacePluginDependencies = [
 	OptionalPlugin<MentionsPlugin>,
 	OptionalPlugin<CardPlugin>,
 	OptionalPlugin<ExpandPlugin>,
+	OptionalPlugin<BlockCollapsePlugin>,
 	OptionalPlugin<SyncedBlockPlugin>,
 ];
 

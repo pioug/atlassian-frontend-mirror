@@ -1,4 +1,4 @@
-import { getAutocompleteSuggestionsUrl } from './index';
+import { getAutocompleteSuggestionsUrl } from './getAutocompleteSuggestionsUrl';
 
 describe('getAutocompleteSuggestionsUrl', () => {
 	it('should return the correct url', () => {

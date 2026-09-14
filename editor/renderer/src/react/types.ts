@@ -11,7 +11,7 @@ import type {
 	RendererContentMode,
 	NestedRendererType,
 } from '../ui/Renderer/types';
-import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 
 export interface RendererContext {
 	// Ignored via go/ees005
@@ -22,6 +22,17 @@ export interface RendererContext {
 	objectAri?: string;
 	schema?: Schema;
 }
+
+/**
+ * `Fragment.toJSON()`: the node's children as plain ADF JSON objects, or `null` for an empty
+ * fragment. Not ProseMirror `Node` instances, so model APIs such as `nodeSize` or `childCount`
+ * are unavailable.
+ */
+export type NodeContent = Array<{
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
+}> | null;
 
 export interface NodeMeta {
 	// Ignored via go/ees005
@@ -34,17 +45,17 @@ export interface NodeMeta {
 	allowPlaceholderText?: boolean;
 	allowWrapCodeBlock?: boolean;
 	asInline?: 'on' | undefined;
-	content?: {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		[key: string]: any;
-	} | null;
 	dataAttributes: {
 		'data-renderer-start-pos': number;
 	};
 	eventHandlers?: EventHandlers | undefined;
 	extensionHandlers?: ExtensionHandlers | undefined;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	/**
+	 * Serialized JSON (`Fragment.toJSON()`) of the node's subtree, computed on first call and
+	 * memoized, so a node whose content nothing reads costs nothing.
+	 */
+	getContent?: () => NodeContent | undefined;
 	hideExtensionKeysWhilePending?: string[];
 	marks: PMNode['marks'];
 	nodeType: NodeType['name'];
@@ -83,8 +94,8 @@ export interface AnnotationMarkMeta extends MarkMeta {
 	useBlockLevel?: boolean;
 }
 
-export type NodeProps<NodeAttrs = Object> = NodeAttrs & PropsWithChildren<NodeMeta>;
-export type MarkProps<MarkAttrs = Object> = MarkAttrs & PropsWithChildren<MarkMeta>;
+export type NodeProps<NodeAttrs = object> = NodeAttrs & PropsWithChildren<NodeMeta>;
+export type MarkProps<MarkAttrs = object> = MarkAttrs & PropsWithChildren<MarkMeta>;
 
 export type TextHighlighter = {
 	component: React.ComponentType<{

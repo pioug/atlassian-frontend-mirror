@@ -2,7 +2,9 @@ import { renderHook } from '@atlassian/testing-library';
 
 import { getFlexibleCardTestWrapper } from '../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkSize, SmartLinkStatus } from '../../../constants';
-import { useFlexibleCardContext, useFlexibleUiContext, useFlexibleUiOptionContext } from '../index';
+import { useFlexibleCardContext } from '../useFlexibleCardContext';
+import { useFlexibleUiContext } from '../useFlexibleUiContext';
+import { useFlexibleUiOptionContext } from '../useFlexibleUiOptionContext';
 
 describe('useFlexibleCardContext', () => {
 	it('provides correct context to consumer', () => {

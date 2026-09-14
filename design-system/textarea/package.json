@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/textarea",
-	"version": "9.1.3",
+	"version": "10.2.2",
 	"description": "A text area lets users enter long form text which spans over multiple lines.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,8 +33,8 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./text-area": "./src/entry-points/text-area.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./text-area": "./src/text-area.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -47,7 +47,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -62,39 +62,20 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jest-in-case": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
+		"platform-dst-tokens-finesse": {
 			"type": "boolean"
 		}
 	}

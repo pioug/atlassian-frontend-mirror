@@ -16,13 +16,15 @@
 import { ChangeSet, simplifyChanges, type Change } from 'prosemirror-changeset';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
 
 import type { DiffType, SmartDiffThresholds } from '../../showDiffPluginType';
 
 import { diffBySteps } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
 import { optimizeChanges } from './optimizeChanges';
+import { selectTokenEncoder } from './selectTokenEncoder';
 import { simplifySteps } from './simplifySteps';
 import { classifySmartChanges } from './smart/classifySmartChanges';
 
@@ -83,7 +85,14 @@ export const computeDiffChanges = ({
 		return { changes: [], newDoc: originalDoc };
 	}
 
-	const changeset = ChangeSet.create(originalDoc).addSteps(steppedDoc, stepMaps, steppedDoc);
+	// This utility does not apply the smart-diff gate (see the file docstring); a caller
+	// requesting `smart` is already behind it.
+	const { tokenEncoder } = selectTokenEncoder(diffType === 'smart');
+	const changeset = ChangeSet.create(originalDoc, undefined, tokenEncoder).addSteps(
+		steppedDoc,
+		stepMaps,
+		steppedDoc,
+	);
 
 	if (diffType === 'smart') {
 		return {

@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useState } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
@@ -146,7 +146,7 @@ export function ExpandableMenuItemLinkVariantExample(): JSX.Element {
 						<ExpandableMenuItem>
 							<ExpandableMenuItemTrigger
 								href={exampleHref}
-								elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
+								elemBefore={<JiraIcon label="" size="xsmall" />}
 								isSelected={selectedId === 'app-tile'}
 								onClick={createClickHandler('app-tile')}
 							>

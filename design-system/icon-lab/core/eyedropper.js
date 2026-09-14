@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a171620881b1c48add1bbc552097398>>
+ * @codegen <<SignedSource::8bfbd0efeb6b8e9a67eac289104c1f84>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Eyedropper".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const EyedropperIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const EyedropperIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "EyedropperIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M10.345 1.845a2.694 2.694 0 1 1 3.81 3.81l-2.47 2.47L13.03 9.47l-1.06 1.06-1.345-1.344-5.173 5.173A2.2 2.2 0 0 1 3.904 15H1.75a.75.75 0 0 1-.75-.75v-2.154c0-.58.23-1.137.641-1.548l5.173-5.173L5.47 4.03l1.06-1.06 1.345 1.344zm-2.47 4.59L2.702 11.61a.7.7 0 0 0-.202.487V13.5h1.404a.7.7 0 0 0 .487-.202l5.173-5.173zm2.75.63-1.69-1.69 2.47-2.47a1.195 1.195 0 0 1 1.69 1.69z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

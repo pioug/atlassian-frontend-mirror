@@ -8,17 +8,20 @@ import React, { useCallback, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
-import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
-import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
-import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import Button from '@atlaskit/button/new';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import Button from '@atlaskit/button/default/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss, Inline } from '@atlaskit/primitives';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { ColorPickerAEP } from '../../analytics';
 import {
@@ -113,7 +116,7 @@ const ColorPickerButton = (props: Props) => {
 	const { formatMessage } = useIntl();
 
 	const memoizedHandleClose = useCallback(() => setIsPopupOpen(false), [setIsPopupOpen]);
-	const handleClose = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const handleClose = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedHandleClose
 		: () => setIsPopupOpen(false);
 
@@ -126,7 +129,7 @@ const ColorPickerButton = (props: Props) => {
 			return !prevIsOpen;
 		});
 	}, []);
-	const togglePopup = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const togglePopup = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedTogglePopup
 		: () => {
 				setIsPopupOpen(!isPopupOpen);
@@ -146,7 +149,7 @@ const ColorPickerButton = (props: Props) => {
 		},
 		[memoizedTogglePopup],
 	);
-	const onKeyDown = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const onKeyDown = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedOnKeyDown
 		: (event: React.KeyboardEvent) => {
 				if (event.key === 'Enter' || event.key === ' ') {
@@ -164,7 +167,7 @@ const ColorPickerButton = (props: Props) => {
 		}),
 		[props.colorPalette, props.hexToPaletteColor, props.paletteColorTooltipMessages],
 	);
-	const paletteOptions = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const paletteOptions = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedPaletteOptions
 		: {
 				palette: props.colorPalette,
@@ -248,7 +251,7 @@ const ColorPickerButton = (props: Props) => {
 				fitHeight={350}
 				fitWidth={350}
 				offset={
-					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+					isExperimentEnabled('platform_editor_perf_lint_cleanup')
 						? COLOR_PICKER_POPUP_OFFSET
 						: [0, 10]
 				}

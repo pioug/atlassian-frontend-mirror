@@ -13,13 +13,14 @@ type GetSyncedBlockRendererProps = {
 // For rendering reference synced block nodes in Editor
 export const getSyncedBlockRenderer =
 	({ syncBlockRendererOptions, getAccountId }: GetSyncedBlockRendererProps) =>
-	({ syncBlockFetchResult, api }: SyncedBlockRendererProps): React.JSX.Element => {
+	({ syncBlockFetchResult, api, localId }: SyncedBlockRendererProps): React.JSX.Element => {
 		return (
 			<SyncedBlockRenderer
 				syncBlockRendererOptions={syncBlockRendererOptions}
 				syncBlockFetchResult={syncBlockFetchResult}
 				api={api}
 				getAccountId={getAccountId}
+				localId={localId}
 			/>
 		);
 	};

@@ -2,14 +2,14 @@ import React from 'react';
 
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { ActionName, IconType } from '../src/constants';
-import { StopPropagation } from '../src/view/common/stop-propagation';
 import EmbedModal from '../src/view/EmbedModal';
-import { PreviewAction } from '../src/view/FlexibleCard/components/actions';
+import { default as PreviewAction } from '../src/view/FlexibleCard/components/actions/preview-action';
+import { StopPropagation } from '../src/view/common/stop-propagation';
 
 import ExampleContainer from './content/example-container';
 import { overrideEmbedContent } from './utils/common';

@@ -1,8 +1,6 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
+import type { JSONSchema } from '@typescript-eslint/utils';
 
-import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
-
-export const ruleSchema: JSONSchema4 = {
+export const ruleSchema: JSONSchema.JSONSchema4 = {
 	type: 'array',
 	items: {
 		type: 'object',

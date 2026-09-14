@@ -6,11 +6,11 @@ import { useCallback } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Avatar from '@atlaskit/avatar';
-import { IconButton } from '@atlaskit/button/new';
+import Avatar from '@atlaskit/avatar/avatar';
+import IconButton from '@atlaskit/button/icon/button';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import CollapseIcon from '@atlaskit/icon/core/chevron-up';
-import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
+import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge/lozenge';
 import { token } from '@atlaskit/tokens';
 
 import { ProviderCardExampleList } from './ProviderCardExampleList';

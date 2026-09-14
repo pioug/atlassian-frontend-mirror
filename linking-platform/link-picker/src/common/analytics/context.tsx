@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
 import { ANALYTICS_CHANNEL } from '../constants';

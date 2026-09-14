@@ -39,6 +39,25 @@ describe('StatusPicker', () => {
 		expect(textField).toHaveAttribute('spellCheck', 'false');
 	});
 
+	it('should keep the text field outside the scrollable content', () => {
+		renderWithIntl(
+			<StatusPicker
+				selectedColor="red"
+				text="In progress"
+				onColorClick={() => {}}
+				onTextChanged={() => {}}
+				onEnter={() => {}}
+				scrollableContent={<div>Suggestion</div>}
+			/>,
+		);
+
+		const suggestion = screen.getByText('Suggestion');
+		const scrollContainer = suggestion.closest('[data-status-picker-scroll-container]');
+		expect(scrollContainer).not.toContainElement(screen.getByRole('textbox'));
+		expect(scrollContainer).toContainElement(screen.getByRole('button', { name: 'Red' }));
+		expect(scrollContainer).toContainElement(suggestion);
+	});
+
 	describe('autofocus', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();

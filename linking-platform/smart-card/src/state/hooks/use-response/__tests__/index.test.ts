@@ -1,8 +1,10 @@
 // eslint-disable-next-line import/order
 import * as testMocks from '../../use-resolve/__tests__/index.test.mock';
 
-import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
-import { APIError, type CardState } from '@atlaskit/linking-common';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { CardState } from '@atlaskit/linking-common/store';
+import { APIError } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';

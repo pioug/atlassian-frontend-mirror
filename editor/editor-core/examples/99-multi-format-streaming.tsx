@@ -9,7 +9,9 @@ import { css, jsx } from '@emotion/react';
 
 import { FullPageBase } from '@af/editor-examples-helpers/example-presets';
 import type { EditorAPI } from '@af/editor-examples-helpers/example-presets';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line no-restricted-imports -- This standalone development example must enable the experiment before the editor initializes.
+import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { token } from '@atlaskit/tokens';
 import {
@@ -34,7 +36,9 @@ setBooleanFeatureFlagResolver((flag) => {
 });
 setupEditorExperiments('test', {
 	platform_editor_ai_xstate_migration: true,
-	platform_editor_ai_multi_format_streaming: true,
+});
+UNSAFE_overrideExperiment('platform_editor_ai_multi_format_streaming', {
+	isEnabled: true,
 });
 
 // ---------------------------------------------------------------------------

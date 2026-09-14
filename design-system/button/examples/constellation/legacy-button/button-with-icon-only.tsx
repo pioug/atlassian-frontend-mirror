@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { cssMap } from '@atlaskit/css';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { Flex } from '@atlaskit/primitives/compiled';

@@ -16,9 +16,10 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import PageObject from '@atlaskit/object/page';
@@ -26,7 +27,7 @@ import PageObject from '@atlaskit/object/page';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { CreateLinkInlineDialogEventPayload, FireAnalyticsCallback } from '../../../analytics';
 import {
@@ -930,7 +931,7 @@ function limit<T>(items: Array<T>) {
 	return items.slice(0, RECENT_SEARCH_LIST_SIZE);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types, @atlaskit/volt-strict-mode/no-multiple-exports
+// eslint-disable-next-line @typescript-eslint/no-restricted-types, @atlaskit/volt-strict-mode/no-multiple-exports
 export const HyperlinkLinkAddToolbarWithIntl: React.FC<
 	WithIntlProps<HyperlinkLinkAddToolbarProps>
 > & {

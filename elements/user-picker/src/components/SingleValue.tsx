@@ -2,20 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { cssMap, jsx } from '@compiled/react';
+import { FormattedMessage } from 'react-intl';
+
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { components } from '@atlaskit/react-select/components';
+import type { SingleValueProps } from '@atlaskit/select/types';
+import { token } from '@atlaskit/tokens';
+
 import { type Option, type OptionData } from '../types';
-import { components, type SingleValueProps } from '@atlaskit/select';
-import Lozenge from '@atlaskit/lozenge';
 import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
-import { getAvatarUrl, isTeam, isGroup } from './utils';
-import { getAppearanceForAppType } from '@atlaskit/avatar';
-import { token } from '@atlaskit/tokens';
-import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { FormattedMessage } from 'react-intl';
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
-
+import { getAvatarUrl } from './getAvatarUrl';
 import { messages } from './i18n';
+import { isGroup } from './isGroup';
+import { isTeam } from './isTeam';
 
 const styles = cssMap({
 	avatarItem: {
@@ -67,7 +72,6 @@ const ElementAfter = (props: Props) => {
 export const SingleValue = (props: Props): JSX.Element | null => {
 	const {
 		data: { label, data },
-		//@ts-ignore react-select unsupported props
 		selectProps: { appearance, isFocused },
 	} = props;
 	const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED';

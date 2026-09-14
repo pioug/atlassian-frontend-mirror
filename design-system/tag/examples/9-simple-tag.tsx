@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives/compiled/box';
-import Tag from '@atlaskit/tag/simple-tag';
+import Tag from '@atlaskit/tag/tag/simple';
 
 export default (): React.JSX.Element => (
 	<Box id="simpleTags" role="group" aria-label="Simple tag examples">

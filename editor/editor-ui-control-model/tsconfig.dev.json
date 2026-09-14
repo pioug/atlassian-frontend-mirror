@@ -42,6 +42,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]

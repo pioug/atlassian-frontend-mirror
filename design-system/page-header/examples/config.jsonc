@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "01-default.tsx",
-    "06-responsive-wrapping.tsx"
+    "01-default.vr.ap.tsx",
+    "06-responsive-wrapping.vr.ap.tsx"
   ]
 }

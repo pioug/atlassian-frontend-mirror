@@ -1,13 +1,13 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import {
-	fetchObjectSchema,
-	fetchObjectSchemas,
-	getWorkspaceId,
-	resolvePrimaryWorkspace,
-	validateAql,
-} from '../cmdbService';
-import { FetchError, getStatusCodeGroup, PermissionError } from '../cmdbService.utils';
+import { FetchError } from '../FetchError';
+import { PermissionError } from '../PermissionError';
+import { fetchObjectSchema } from '../fetchObjectSchema';
+import { fetchObjectSchemas } from '../fetchObjectSchemas';
+import { getStatusCodeGroup } from '../getStatusCodeGroup';
+import { getWorkspaceId } from '../getWorkspaceId';
+import { resolvePrimaryWorkspace } from '../resolvePrimaryWorkspace';
+import { validateAql } from '../validateAql';
 
 describe('cmdbService', () => {
 	beforeEach(() => {

@@ -6,9 +6,9 @@
 {
   "exampleDependencies": [],
   "testExamples": [
-    "00-simple-mention-item.tsx",
-    "01-mention-item.tsx",
-    "03-error-mention-list.tsx",
-    "07-simple-mention.tsx"
+    "00-simple-mention-item.vr.ap.tsx",
+    "01-mention-item.vr.ap.tsx",
+    "03-error-mention-list.vr.ap.tsx",
+    "07-simple-mention.vr.ap.tsx"
   ]
 }

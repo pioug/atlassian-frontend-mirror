@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "13.1.0",
+	"version": "19.0.0",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,6 +28,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-type": "workspace:^",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
@@ -54,14 +55,19 @@
 		"@atlaskit/editor-plugin-tasks-and-decisions": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -84,50 +90,11 @@
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
 		},
 		"platform_editor_ease_of_use_metrics": {
-			"type": "boolean"
-		},
-		"platform_editor_experience_tracking_toolbar_button": {
 			"type": "boolean"
 		}
 	}

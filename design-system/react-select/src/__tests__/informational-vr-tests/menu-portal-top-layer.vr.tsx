@@ -1,10 +1,10 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import MenuPortalTopLayerExample from '../../../examples/30-menu-portal-top-layer';
-import MenuPortalClippedAncestorExample from '../../../examples/31-menu-portal-clipped-ancestor';
-import MenuPortalCustomTargetExample from '../../../examples/32-menu-portal-custom-target';
-import MenuPositionFixedExample from '../../../examples/33-menu-position-fixed';
-import MenuNoPortalConfigExample from '../../../examples/34-menu-no-portal-config';
+import MenuPortalTopLayerExample from '../../../examples/30-menu-portal-top-layer.vr.ap';
+import MenuPortalClippedAncestorExample from '../../../examples/31-menu-portal-clipped-ancestor.vr.ap';
+import MenuPortalCustomTargetExample from '../../../examples/32-menu-portal-custom-target.vr.ap';
+import MenuPositionFixedExample from '../../../examples/33-menu-position-fixed.vr.ap';
+import MenuNoPortalConfigExample from '../../../examples/34-menu-no-portal-config.vr.ap';
 
 /**
  * Informational VR matrix for the `platform-dst-top-layer` rollout in

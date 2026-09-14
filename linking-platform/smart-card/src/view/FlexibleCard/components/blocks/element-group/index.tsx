@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
@@ -14,8 +15,7 @@ import {
 	SmartLinkSize,
 	SmartLinkWidth,
 } from '../../../../../constants';
-import { renderChildren } from '../utils';
-
+import { renderChildren } from '../renderChildren';
 import { type ElementGroupProps } from './types';
 
 const alignmentStyleMap = cssMap({

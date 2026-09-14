@@ -1,14 +1,12 @@
-import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
-
 import fetchMock from 'fetch-mock/cjs/client';
-// @ts-ignore
 import * as sinon from 'sinon';
+import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import ProfileClient from '../../client/ProfileCardClient';
-import TeamCentralCardClient from '../../client/TeamCentralCardClient';
-import { modifyResponse } from '../../client/UserProfileCardClient';
+import { default as TeamCentralCardClient } from '../../client/TeamCentralCardClient';
+import { modifyResponse } from '../../client/modifyResponse';
 import { type ApiClientResponse } from '../../types';
 
 const clientUrl = 'https://foo/';

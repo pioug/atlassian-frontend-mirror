@@ -1,17 +1,17 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import * as configModule from '../config';
 
+import { VCObserverWrapper } from './VCObserverWrapper';
 import { VCObserver } from './vc-observer';
-import VCObserverNew from './vc-observer-new';
-
-import { VCObserverWrapper } from './index';
+import { default as VCObserverNew } from './vc-observer-new/index';
 
 // Mock dependencies
 jest.mock('./vc-observer');
-jest.mock('./vc-observer-new');
+jest.mock('./vc-observer-new/get-has-aborting-event-during-ssr');
+jest.mock('./vc-observer-new/index');
 jest.mock('../config');
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 describe('VCObserverWrapper', () => {
 	let originalSsrAbortListeners: any;

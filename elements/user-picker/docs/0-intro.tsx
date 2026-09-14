@@ -31,9 +31,9 @@ const _default_1: any = md`
   ${(
 		<Example
 			packageName="@atlaskit/user-picker"
-			Component={require('../examples/01-multi').default}
+			Component={require('../examples/01-multi.vr.ap').default}
 			title="Multi User Picker"
-			source={require('!!raw-loader!../examples/01-multi')}
+			source={require('!!raw-loader!../examples/01-multi.vr.ap')}
 		/>
 	)}
 

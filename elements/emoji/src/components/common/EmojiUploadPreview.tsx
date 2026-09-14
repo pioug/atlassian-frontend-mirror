@@ -6,7 +6,7 @@ import { PureComponent, type ComponentType, type FC } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import AkButton from '@atlaskit/button/standard-button';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
 import {
 	FormattedMessage,
@@ -151,7 +151,7 @@ class EmojiUploadPreview extends PureComponent<
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: FC<WithIntlProps<EmojiUploadPreviewProps & WrappedComponentProps>> & {
 	WrappedComponent: ComponentType<EmojiUploadPreviewProps & WrappedComponentProps>;
 } = injectIntl(EmojiUploadPreview);

@@ -12,12 +12,13 @@ import {
 	useState,
 } from 'react';
 
-import { cssMap, cx, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { useMotion, Reanimate } from '@atlaskit/motion/use-motion';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { useMotion } from '@atlaskit/motion/entering/use-motion';
+import { Reanimate } from '@atlaskit/motion/reanimate';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
@@ -129,10 +130,36 @@ const styles = cssMap({
 		display: 'none',
 	},
 	entering: {
-		animation: token('motion.panel.enter'),
+		'@media (prefers-reduced-motion: no-preference)': {
+			animation: token('motion.panel.enter.right'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			"[dir='rtl'] &": {
+				animation: token('motion.panel.enter.left'),
+			},
+			transitionProperty: 'position',
+			transitionDuration: token('motion.duration.instant'),
+			transitionDelay: token('motion.duration.short'),
+			transitionBehavior: 'allow-discrete',
+			'@starting-style': {
+				position: 'fixed',
+			},
+		},
 	},
 	exiting: {
-		animation: token('motion.panel.exit'),
+		'@media (prefers-reduced-motion: no-preference)': {
+			animation: token('motion.panel.exit.right'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			"[dir='rtl'] &": {
+				animation: token('motion.panel.exit.left'),
+			},
+			position: 'fixed',
+		},
+	},
+	contentEntering: {
+		animation: token('motion.panel.content.enter'),
+	},
+	contentExiting: {
+		animation: token('motion.panel.content.exit'),
 	},
 });
 
@@ -334,19 +361,12 @@ export function Panel({
 			data-layout-slot
 			aria-label={label}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={
-				isMotionUpliftEnabled
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-						cx(
-							xcss,
-							state === 'hidden' && styles.hidden,
-							state === 'entering' && styles.entering,
-							state === 'exiting' && styles.exiting,
-						)
-					: xcss
-			}
+			className={xcss}
 			css={[
 				styles.root,
+				isMotionUpliftEnabled && state === 'hidden' && styles.hidden,
+				isMotionUpliftEnabled && state === 'entering' && styles.entering,
+				isMotionUpliftEnabled && state === 'exiting' && styles.exiting,
 				!isMotionUpliftEnabled && defaultWidth === 0 && styles.hidden,
 				hasBorder && styles.border,
 			]}
@@ -385,7 +405,15 @@ export function Panel({
 				 * Overflow scroll styles are added here rather than on the `section` container element, so that the panel splitter
 				 * component can overflow out of the `Panel` container, to increase the interactive grab area
 				 */}
-				<div css={styles.scrollContainer}>{children}</div>
+				<div
+					css={[
+						styles.scrollContainer,
+						isMotionUpliftEnabled && state === 'entering' && styles.contentEntering,
+						isMotionUpliftEnabled && state === 'exiting' && styles.contentExiting,
+					]}
+				>
+					{children}
+				</div>
 			</PanelSplitterProvider>
 		</section>
 	);

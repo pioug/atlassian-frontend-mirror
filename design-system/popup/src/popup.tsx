@@ -12,9 +12,10 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import { Layering } from '@atlaskit/layering/layering';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Manager, Reference } from '@atlaskit/popper';
-import Portal from '@atlaskit/portal';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Manager } from '@atlaskit/popper/manager';
+import { Reference } from '@atlaskit/popper/reference';
+import Portal from '@atlaskit/portal/portal';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import PopperWrapper from './popper-wrapper';

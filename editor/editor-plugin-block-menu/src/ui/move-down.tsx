@@ -13,12 +13,16 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 
 import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
-import { fixBlockMenuPositionAndScroll } from './utils/fixBlockMenuPositionAndScroll';
+import {
+	getBlockMenuPositionSnapshot,
+	scheduleBlockMenuPositionFix,
+} from './utils/fixBlockMenuPositionAndScroll';
 
 type Props = {
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined;
@@ -26,7 +30,14 @@ type Props = {
 
 const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => {
 	const { formatMessage } = useIntl();
-	const { moveUpRef, moveDownRef, getFirstSelectedDomNode } = useBlockMenu();
+	const {
+		moveUpRef,
+		moveDownRef,
+		getFirstSelectedDomNode,
+		getMovedBlockDomNode,
+		getSelectedBlockDomNode,
+		anchorMetricsRef,
+	} = useBlockMenu();
 
 	const { canMoveDown } = useSharedPluginStateWithSelector(
 		api,
@@ -53,6 +64,10 @@ const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => 
 	}, [canMoveDown, moveUpRef, moveDownRef]);
 
 	const handleClick = () => {
+		const positionSnapshot = fg('platform_editor_blocks_patch_8')
+			? getBlockMenuPositionSnapshot(getSelectedBlockDomNode(), anchorMetricsRef.current)
+			: undefined;
+
 		api?.core.actions.execute(({ tr }) => {
 			const payload: BlockMenuEventPayload = {
 				action: ACTION.CLICKED,
@@ -67,10 +82,7 @@ const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => 
 			return tr;
 		});
 
-		requestAnimationFrame(() => {
-			const newFirstNode = getFirstSelectedDomNode();
-			fixBlockMenuPositionAndScroll(newFirstNode);
-		});
+		scheduleBlockMenuPositionFix(positionSnapshot, getMovedBlockDomNode, getFirstSelectedDomNode);
 	};
 
 	return (
@@ -86,7 +98,7 @@ const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => 
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const MoveDownDropdownItem: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(MoveDownDropdownItemContent);

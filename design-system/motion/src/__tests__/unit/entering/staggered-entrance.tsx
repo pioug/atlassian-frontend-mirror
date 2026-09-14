@@ -4,10 +4,11 @@
  */
 
 import { jsx } from '@compiled/react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
-import { useStaggeredEntrance } from '../../../entering/staggered-entrance';
-import { StaggeredEntrance } from '../../../index';
+import { useStaggeredEntrance } from '../../../entering/use-staggered-entrance';
+import StaggeredEntrance from '../../../entering/staggered-entrance';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<StaggeredEntrance />', () => {

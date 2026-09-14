@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@atlassian/testing-library';
-import * as analyticsModule from '../../../utils/analytics/analytics';
+import * as analyticsModule from '../../../utils/analytics/fireMediaCardEvent';
 import MediaInlineAnalyticsErrorBoundary from '../../mediaInlineAnalyticsErrorBoundary';
 
 const fireOperationalEvent = jest.spyOn(analyticsModule, 'fireMediaCardEvent');
@@ -78,8 +78,8 @@ describe('MediaInlineAnalyticsErrorBoundary', () => {
 				<MockComponent callFn={rejectWithError} />
 			</MediaInlineAnalyticsErrorBoundary>,
 		);
-		expect(fireOperationalEvent).toBeCalledTimes(1);
-		expect(fireOperationalEvent).toBeCalledWith(
+		expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
+		expect(fireOperationalEvent).toHaveBeenCalledWith(
 			{
 				action: 'failed',
 				actionSubject: 'mediaInlineRender',

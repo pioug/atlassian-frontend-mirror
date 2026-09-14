@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { Hide } from '@atlaskit/primitives/responsive';
+import { Hide } from '@atlaskit/primitives/responsive/hide';
 
 export default function Example(): React.JSX.Element {
 	return (

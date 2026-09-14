@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	defaultInitialVisibleJiraColumnKeys,
 	mockBasicFilterAGGFetchRequests,
@@ -13,7 +13,8 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID, JiraIssuesConfigModal } from '../../src';
+import { JiraIssuesConfigModalWithWrappers as JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/JiraIssuesConfigModalWithWrappers';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../../src/ui/jira-issues-modal';
 
 mockDatasourceFetchRequests({
 	delayedResponse: false,

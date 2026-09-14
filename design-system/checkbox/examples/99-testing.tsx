@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { Checkbox } from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 
 const BasicUsageExample: {
 	new (props: {}): {

@@ -1,14 +1,16 @@
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ResourceId } from '../common/types';
 import type {
 	SyncBlockInstance,
 	SyncBlockDataProviderInterface,
 	SyncBlockRendererProviderCreator,
+	SyncedBlockRendererProviderOptions,
 } from '../providers/types';
 import { buildFetchErrorAttribution, fetchErrorPayload } from '../utils/errorHandling';
 import { parseResourceId } from '../utils/resourceId';
@@ -41,62 +43,96 @@ export class SyncBlockProviderFactoryManager {
 					error.message,
 					resourceId,
 					getSourceProductFromResourceIdSafe(resourceId),
-					buildFetchErrorAttribution(fg('platform_editor_blocks_patch_3'), error.message),
+					buildFetchErrorAttribution(error.message),
 				),
 			);
 			return undefined;
 		}
 
-		const { parentDataProviders, providerCreator } =
-			dataProvider.getSyncedBlockRendererProviderOptions();
-
 		let providerFactory: ProviderFactory | undefined = this.providerFactories.get(resourceId);
 		if (!providerFactory) {
+			const { parentDataProviders } = dataProvider.getSyncedBlockRendererProviderOptions();
 			providerFactory = ProviderFactory.create({
 				mentionProvider: parentDataProviders?.mentionProvider,
 				profilecardProvider: parentDataProviders?.profilecardProvider,
 				taskDecisionProvider: parentDataProviders?.taskDecisionProvider,
 			});
 			this.providerFactories.set(resourceId, providerFactory);
-		} else {
-			if (parentDataProviders?.mentionProvider) {
-				providerFactory.setProvider('mentionProvider', parentDataProviders?.mentionProvider);
-			}
-			if (parentDataProviders?.profilecardProvider) {
-				providerFactory.setProvider(
-					'profilecardProvider',
-					parentDataProviders?.profilecardProvider,
-				);
-			}
-			if (parentDataProviders?.taskDecisionProvider) {
-				providerFactory.setProvider(
-					'taskDecisionProvider',
-					parentDataProviders?.taskDecisionProvider,
-				);
-			}
 		}
 
-		if (providerCreator) {
-			try {
-				this.retrieveDynamicProviders(resourceId, providerFactory, providerCreator);
-			} catch (error) {
-				logException(error as Error, {
-					location: 'editor-synced-block-provider/syncBlockProviderFactoryManager',
-				});
-				this.deps.getFireAnalyticsEvent()?.(
-					fetchErrorPayload(
-						(error as Error).message,
-						resourceId,
-						getSourceProductFromResourceIdSafe(resourceId),
-						buildFetchErrorAttribution(
-							fg('platform_editor_blocks_patch_3'),
-							(error as Error).message,
-						),
-					),
-				);
-			}
+		// Syncing providers notifies subscribers synchronously, so on the client it
+		// cannot run during render - callers invoke `syncProviders` from an effect
+		// instead. Effects never run while server rendering, and there are no mounted
+		// subscribers to notify, so the server keeps applying them inline.
+		const deferProviderSync = fg('platform_editor_blocks_patch_7');
+		if (deferProviderSync && !isSSR()) {
+			return providerFactory;
 		}
+
+		this.syncProviders(resourceId, providerFactory);
+
 		return providerFactory;
+	}
+
+	/**
+	 * The provider options currently supplied by the host. A pure read that does
+	 * not notify subscribers, so it is safe to call during render - callers use it
+	 * to detect when the host swaps a provider and the factory needs re-syncing.
+	 */
+	public getProviderOptions(): SyncedBlockRendererProviderOptions | undefined {
+		return this.deps.getDataProvider()?.getSyncedBlockRendererProviderOptions();
+	}
+
+	/**
+	 * Applies the latest parent and dynamic providers to the cached factory.
+	 * Notifies subscribers, so must be called from an effect, never during render.
+	 */
+	public syncProviders(resourceId: ResourceId, factory?: ProviderFactory): void {
+		const dataProvider = this.deps.getDataProvider();
+		if (!dataProvider) {
+			return;
+		}
+
+		const providerFactory = factory ?? this.providerFactories.get(resourceId);
+		if (!providerFactory) {
+			return;
+		}
+
+		const { parentDataProviders, providerCreator } =
+			dataProvider.getSyncedBlockRendererProviderOptions();
+
+		if (parentDataProviders?.mentionProvider) {
+			providerFactory.setProvider('mentionProvider', parentDataProviders?.mentionProvider);
+		}
+		if (parentDataProviders?.profilecardProvider) {
+			providerFactory.setProvider('profilecardProvider', parentDataProviders?.profilecardProvider);
+		}
+		if (parentDataProviders?.taskDecisionProvider) {
+			providerFactory.setProvider(
+				'taskDecisionProvider',
+				parentDataProviders?.taskDecisionProvider,
+			);
+		}
+
+		if (!providerCreator) {
+			return;
+		}
+
+		try {
+			this.retrieveDynamicProviders(resourceId, providerFactory, providerCreator);
+		} catch (error) {
+			logException(error as Error, {
+				location: 'editor-synced-block-provider/syncBlockProviderFactoryManager',
+			});
+			this.deps.getFireAnalyticsEvent()?.(
+				fetchErrorPayload(
+					(error as Error).message,
+					resourceId,
+					getSourceProductFromResourceIdSafe(resourceId),
+					buildFetchErrorAttribution((error as Error).message),
+				),
+			);
+		}
 	}
 
 	public getSSRProviders(resourceId: ResourceId): {
@@ -191,10 +227,7 @@ export class SyncBlockProviderFactoryManager {
 					resourceId,
 					// Prefer cached product when available; fall back to parsing resourceId.
 					syncBlock.data.product ?? getSourceProductFromResourceIdSafe(resourceId),
-					buildFetchErrorAttribution(
-						fg('platform_editor_blocks_patch_3'),
-						'Sync block source ari or product not found',
-					),
+					buildFetchErrorAttribution('Sync block source ari or product not found'),
 				),
 			);
 			return;

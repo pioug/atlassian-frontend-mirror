@@ -28,6 +28,7 @@ const styles = cssMap({
 			cursor: 'default',
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
+		transition: token('motion.button.hovered'),
 	},
 });
 

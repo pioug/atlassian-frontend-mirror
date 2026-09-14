@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import { TimeRangeWrapper as CompiledTimeRangeWrapper } from './styled-compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 
 export type VolumeRangeProps = {
 	currentVolume: number;

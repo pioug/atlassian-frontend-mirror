@@ -1,5 +1,6 @@
 import type { ActiveTokens } from '@atlaskit/tokens/artifacts/types';
-import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens/tokens-raw';
+import rawTokensDark from '@atlaskit/tokens/atlassian-dark';
+import rawTokensLight from '@atlaskit/tokens/atlassian-light';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import generatedPairs from '../../src/artifacts/generated-pairs';

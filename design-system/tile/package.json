@@ -27,6 +27,7 @@
 		".": "./src/index.tsx",
 		"./skeleton": "./src/entry-points/skeleton.tsx",
 		"./tile": "./src/tile.tsx",
+		"./tile-skeleton": "./src/skeleton.tsx",
 		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
@@ -38,7 +39,7 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -46,49 +47,13 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"name": "@atlaskit/tile",
-	"version": "3.0.0",
+	"version": "4.1.0",
 	"description": "A tile is a rounded square that takes an asset and represents a noun.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

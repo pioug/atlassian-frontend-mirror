@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { getMediaFeatureFlags, clearAllLocalFeatureFlags, setLocalFeatureFlag } from './helpers';
 import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
@@ -8,12 +8,12 @@ import Button from '@atlaskit/button/standard-button';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import Popup from '@atlaskit/popup';
-import { Checkbox } from '@atlaskit/checkbox';
+import { Popup } from '@atlaskit/popup/popup';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { debounce } from '@atlaskit/media-common';
 
 const camelCaseToSentenceCase = (text: string) => {

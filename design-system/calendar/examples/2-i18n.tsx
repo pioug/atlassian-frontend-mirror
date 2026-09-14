@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
-import Calendar from '@atlaskit/calendar';
+import Calendar from '@atlaskit/calendar/calendar';
 import type { WeekDay } from '@atlaskit/calendar/types';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Stack } from '@atlaskit/primitives/compiled';
-import Select, { type ValueType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
 

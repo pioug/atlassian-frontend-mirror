@@ -1,12 +1,10 @@
 import { type EventType, TRACK_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import {
-	type AnalyticsEventPayload,
-	createAndFireEvent,
-	type CreateUIAnalyticsEvent,
-	UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type UserSearchItem } from '@atlaskit/smart-common';
 
 import { type UseUserRecommendationsProps } from '../../types';

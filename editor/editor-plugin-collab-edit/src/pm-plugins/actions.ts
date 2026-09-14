@@ -13,17 +13,25 @@ import type {
 	CollabSendableSelection,
 	CollabTelepointerPayload,
 } from '@atlaskit/editor-common/collab';
+import {
+	AGENT_EDIT_CHROME_DATA,
+	getAgentEditChromeDynamicConfig,
+} from '@atlaskit/editor-common/collab-agent-edit-chrome';
+import { AGENT_REMOTE_EDIT_REVIEW_DATA } from '@atlaskit/editor-common/collab-agent-remote-edit-review';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { receiveTransaction } from '@atlaskit/prosemirror-collab';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { receiveTransaction, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { PrivateCollabEditOptions } from '../types';
 
 import { getAgentEditShimmerNotShownPayload } from './analytics';
+import { getAgentEditSegments } from './main/agent-review-segments';
 import {
 	ADD_AGENT_SHIMMER_META,
 	AGENT_EDIT_HIGHLIGHT_DEFAULT_DURATION_MS,
@@ -32,7 +40,8 @@ import {
 	HIGHLIGHT_AGENT_SHIMMER_META,
 	REMOVE_AGENT_SHIMMER_META,
 } from './main/agent-shimmer-decorations';
-import { getAgentShimmerRanges } from './main/agent-shimmer-ranges';
+import { getAgentEditRequester } from './main/agent-edit-requester';
+import { getAgentEditChromeRanges, getAgentShimmerRanges } from './main/agent-shimmer-ranges';
 import { replaceDocument } from './utils';
 
 /*
@@ -121,7 +130,11 @@ export const applyRemoteSteps = (
 	}
 
 	if (tr) {
-		tr.setMeta('addToHistory', false);
+		const agentEditRequester = fg('platform_editor_agent_be_review_undo')
+			? getAgentEditRequester(json, view)
+			: null;
+		const shouldRecordAgentEditInHistory = agentEditRequester?.isLocalUserRequester === true;
+		tr.setMeta('addToHistory', shouldRecordAgentEditInHistory);
 		tr.setMeta('isRemote', true);
 
 		// Agent edit shimmer: mark the ranges agent steps just wrote so the plugin reveals them with the
@@ -131,7 +144,64 @@ export const applyRemoteSteps = (
 		let shimmerDurationMs = 0;
 		let highlightDurationMs = 0;
 		let agentShimmers: AgentShimmerRange[] = [];
-		if (expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)) {
+		let visualJson = json;
+		let visualSteps = steps;
+		if (
+			options?.useNativePlugin &&
+			userIds &&
+			isExperimentEnabled('platform_editor_agent_be_streaming')
+		) {
+			// Read the client ID before applying the acknowledgement, while the local steps
+			// are still unconfirmed. receiveTransaction removes this same local prefix.
+			// Exclude it from visuals too: the originating FE stream already owns its UI.
+			const localClientId = sendableSteps(state)?.clientID;
+			let acknowledgedSteps = 0;
+			if (localClientId != null) {
+				while (
+					userIds[acknowledgedSteps] != null &&
+					String(userIds[acknowledgedSteps]) === String(localClientId)
+				) {
+					acknowledgedSteps++;
+				}
+			}
+			// Slice both visual inputs so remote steps stay aligned with tr.docs. The
+			// full batch still participates in collaboration, presence and attribution.
+			visualJson = json.slice(acknowledgedSteps);
+			visualSteps = steps.slice(acknowledgedSteps);
+		}
+		const isUnifiedPostApplyChromeEnabled = isExperimentEnabled(
+			'platform_editor_ai_unified_post_apply_chrome',
+		);
+		if (
+			isUnifiedPostApplyChromeEnabled &&
+			isExperimentEnabled('platform_editor_agent_be_streaming')
+		) {
+			const ranges = getAgentEditChromeRanges(
+				visualJson,
+				visualSteps,
+				tr,
+				view,
+				(reason, agentType, error) =>
+					editorAnalyticsApi?.attachAnalyticsEvent(
+						getAgentEditShimmerNotShownPayload(reason, agentType, error),
+					)(tr),
+			);
+			const requester = getAgentEditRequester(visualJson, view);
+			if (ranges.length && requester) {
+				// Collab supplies a machine agent type, not a display name; preserve the legacy
+				// uppercase telepointer label.
+				const telepointerLabel = requester.agentType.trim().toUpperCase();
+				tr.setMeta(AGENT_EDIT_CHROME_DATA, {
+					...getAgentEditChromeDynamicConfig(),
+					...(telepointerLabel ? { telepointerLabel } : {}),
+					ranges,
+				});
+			}
+		}
+		if (
+			!isUnifiedPostApplyChromeEnabled &&
+			expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)
+		) {
 			// The skeleton and purple-highlight phases toggle independently. `shimmerDurationMs` is the
 			// skeleton lifetime; `0` skips the skeleton (an edit can still get the purple highlight).
 			shimmerDurationMs = expVal(
@@ -154,8 +224,8 @@ export const applyRemoteSteps = (
 				false,
 			);
 			agentShimmers = getAgentShimmerRanges(
-				json,
-				steps,
+				visualJson,
+				visualSteps,
 				tr,
 				view,
 				shimmerDurationMs,
@@ -170,6 +240,21 @@ export const applyRemoteSteps = (
 			);
 			if (agentShimmers.length) {
 				tr.setMeta(ADD_AGENT_SHIMMER_META, agentShimmers);
+			}
+		}
+
+		// Record the agent's edit (original + new slice per change) onto this
+		// transaction; `editor-plugin-ai` consumes the meta to open the BE Review moment.
+		// Same eligibility as FE Review moment: xstate AND the M1 streaming UX
+		// experiment. `getAgentEditSegments` self-gates (returns null for non-agent
+		// edits, never throws), so this is a no-op for ordinary collaborator edits.
+		if (
+			expValEquals('platform_editor_ai_xstate_migration', 'isEnabled', true) &&
+			isExperimentEnabled('platform_editor_ai_streaming_ux_experience_m1')
+		) {
+			const reviewData = getAgentEditSegments(json, steps, tr, view);
+			if (reviewData) {
+				tr.setMeta(AGENT_REMOTE_EDIT_REVIEW_DATA, reviewData);
 			}
 		}
 

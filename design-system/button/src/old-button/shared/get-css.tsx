@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type Appearance, type Spacing } from '../types';
@@ -298,13 +298,46 @@ export function getCss({
 	shouldFitContainer,
 	isOnlySingleIcon,
 }: GetCssArgs): CSSObject {
+	const baseAppearanceStyles = fg('platform-dst-legacy-button-anchor-text-color')
+		? {
+				...(appearance === 'default' && defaultWithAnchorTextColorStyles),
+				...(appearance === 'primary' && primaryWithAnchorTextColorStyles),
+				...(appearance === 'link' && linkWithAnchorTextColorStyles),
+				...(appearance === 'subtle' && subtleWithAnchorTextColorStyles),
+				...(appearance === 'subtle-link' && subtleLinkWithAnchorTextColorStyles),
+				...(appearance === 'warning' && warningWithAnchorTextColorStyles),
+				...(appearance === 'danger' && dangerWithAnchorTextColorStyles),
+			}
+		: {
+				...(appearance === 'default' && defaultStyles),
+				...(appearance === 'primary' && primaryStyles),
+				...(appearance === 'link' && linkStyles),
+				...(appearance === 'subtle' && subtleStyles),
+				...(appearance === 'subtle-link' && subtleLinkStyles),
+				...(appearance === 'warning' && warningStyles),
+				...(appearance === 'danger' && dangerStyles),
+			};
+	const appearanceStyles =
+		appearance === 'default' && fg('platform-dst-tokens-finesse')
+			? {
+					...baseAppearanceStyles,
+					'&:hover': {
+						...(baseAppearanceStyles['&:hover'] as CSSObject),
+						background: token('color.background.neutral.subtle.hovered'),
+					},
+					'&:active': {
+						...(baseAppearanceStyles['&:active'] as CSSObject),
+						background: token('color.background.neutral.subtle.pressed'),
+					},
+				}
+			: baseAppearanceStyles;
+	const activeStyles = appearanceStyles['&:active'] as CSSObject | undefined;
+
 	return {
 		// 0px margin added to css-reset
 		alignItems: 'baseline',
 		borderWidth: 0,
-		borderRadius: fg('platform-dst-shape-theme-default')
-			? token('radius.medium', '6px')
-			: token('radius.small', '3px'),
+		borderRadius: token('radius.medium'),
 		boxSizing: 'border-box',
 		display: 'inline-flex',
 		fontSize: 'inherit',
@@ -333,25 +366,14 @@ export function getCss({
 		...(isSelected
 			? selectedStyles
 			: {
-					...(fg('platform-dst-legacy-button-anchor-text-color')
-						? {
-								...(appearance === 'default' && defaultWithAnchorTextColorStyles),
-								...(appearance === 'primary' && primaryWithAnchorTextColorStyles),
-								...(appearance === 'link' && linkWithAnchorTextColorStyles),
-								...(appearance === 'subtle' && subtleWithAnchorTextColorStyles),
-								...(appearance === 'subtle-link' && subtleLinkWithAnchorTextColorStyles),
-								...(appearance === 'warning' && warningWithAnchorTextColorStyles),
-								...(appearance === 'danger' && dangerWithAnchorTextColorStyles),
-							}
-						: {
-								...(appearance === 'default' && defaultStyles),
-								...(appearance === 'primary' && primaryStyles),
-								...(appearance === 'link' && linkStyles),
-								...(appearance === 'subtle' && subtleStyles),
-								...(appearance === 'subtle-link' && subtleLinkStyles),
-								...(appearance === 'warning' && warningStyles),
-								...(appearance === 'danger' && dangerStyles),
-							}),
+					...appearanceStyles,
+					...(activeStyles &&
+						fg('platform-dst-motion-uplift-button') && {
+							'&:active': {
+								...activeStyles,
+								transition: token('motion.button.pressed'),
+							},
+						}),
 
 					'&[disabled]': {
 						color: token('color.text.disabled'),

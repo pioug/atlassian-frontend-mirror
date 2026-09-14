@@ -4,13 +4,25 @@ import {
 	TYPEWRITER_PAUSE_BEFORE_ERASE,
 	TYPEWRITER_TYPE_DELAY,
 } from './constants';
+import type { PlaceholderPromptAnimationOptions } from './types';
 
 export const cycleThroughPlaceholderPrompts = (
 	placeholderPrompts: string[],
 	activeTypewriterTimeouts: (() => void)[] | undefined,
 	placeholderNodeWithText: HTMLElement,
 	initialDelayWhenUserTypedAndDeleted: number = 0,
+	options?: PlaceholderPromptAnimationOptions,
 ): void => {
+	const prefersReducedMotion =
+		typeof window !== 'undefined' &&
+		typeof window.matchMedia === 'function' &&
+		window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (prefersReducedMotion) {
+		placeholderNodeWithText.textContent = placeholderPrompts[0] ?? '';
+		return;
+	}
+
 	let currentPromptIndex = 0;
 	let displayedText = '';
 	let animationTimeouts: (number | NodeJS.Timeout)[] = [];
@@ -28,6 +40,8 @@ export const cycleThroughPlaceholderPrompts = (
 
 	const startAnimationCycle = () => {
 		const currentPrompt = placeholderPrompts[currentPromptIndex];
+		const eraseDelay = options?.eraseDelay ?? TYPEWRITER_ERASE_DELAY;
+		const pauseBeforeErase = options?.pauseBeforeErase ?? TYPEWRITER_PAUSE_BEFORE_ERASE;
 
 		let characterIndex = 0;
 		const typeNextCharacter = () => {
@@ -37,7 +51,7 @@ export const cycleThroughPlaceholderPrompts = (
 				characterIndex++;
 				scheduleTimeout(typeNextCharacter, TYPEWRITER_TYPE_DELAY);
 			} else {
-				scheduleTimeout(eraseLastCharacter, TYPEWRITER_PAUSE_BEFORE_ERASE);
+				scheduleTimeout(eraseLastCharacter, pauseBeforeErase);
 			}
 		};
 
@@ -45,7 +59,7 @@ export const cycleThroughPlaceholderPrompts = (
 			if (displayedText.length > 1) {
 				displayedText = displayedText.substring(0, displayedText.length - 1);
 				placeholderNodeWithText.textContent = displayedText;
-				scheduleTimeout(eraseLastCharacter, TYPEWRITER_ERASE_DELAY);
+				scheduleTimeout(eraseLastCharacter, eraseDelay);
 			} else {
 				displayedText = ' ';
 				placeholderNodeWithText.textContent = displayedText;

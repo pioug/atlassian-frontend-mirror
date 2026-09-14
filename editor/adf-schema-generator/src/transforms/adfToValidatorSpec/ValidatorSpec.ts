@@ -9,6 +9,9 @@ export type ValidatorSpec =
 export type ValidatorSpecGroup = Array<string>;
 
 export type ValidatorSpecNode = {
+	meta?: {
+		stage0?: boolean;
+	};
 	props: {
 		attrs?: ValidatorSpecAttributes;
 		content?: ValidatorSpecContent;
@@ -42,6 +45,9 @@ export type ValidatorSpecNodeMarks = {
 export type ValidatorSpecNodeExtends = [string, ValidatorSpecNode];
 
 export type ValidatorSpecMark = {
+	meta?: {
+		stage0?: boolean;
+	};
 	props: {
 		attrs?: ValidatorSpecAttributes;
 		type?: { type: 'enum'; values: Array<string> };

@@ -3,24 +3,25 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import AKInlineEdit from '@atlaskit/inline-edit';
-import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';
+import AKInlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { type DatasourceDataResponseItem, type Link } from '@atlaskit/linking-types/datasource';
+import type { AtomicActionExecuteResponse } from '@atlaskit/linking-types/datasource-actions';
 import { Box } from '@atlaskit/primitives/compiled';
 import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
-import { startUfoExperience } from '../../../analytics/ufoExperiences';
-import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
+import { startUfoExperience } from '../../../analytics/ufoExperiences/startUfoExperience';
+import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
 import { type DatasourceItem, useDatasourceActions, useDatasourceItem } from '../../../state';
-import { editType } from '../edit-type';
+import { editType } from '../edit-type/editType';
+import { getFieldLabelById } from '../get-field-label-by-id';
 import { EmptyAvatar } from '../shared-components/avatar';
 import type { DatasourceTypeWithOnlyValues } from '../types';
-import { getFieldLabelById } from '../utils';
 
 import { tableCellMessages } from './messages';
+import { newGetBackendUpdateValue } from './new-get-backend-update-value';
 
 export const InlineEditUFOExperience = 'inline-edit-rendered';
 
@@ -39,47 +40,6 @@ interface InlineEditProps {
 	executeFetch?: <E>(inputs: any) => Promise<E>;
 	readView: React.ReactNode;
 }
-
-/**
- * @returns String of the new field value, or ID of status transition / atlassian user ID / priority ID.
- * @throws Error if the value is not supplied.
- */
-export const newGetBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): string => {
-	if (typedNewValue.values.length === 0) {
-		throw new Error(
-			`Datasource 2 way sync: Backend update value or value ID not supplied for type ${typedNewValue.type}`,
-		);
-	}
-	switch (typedNewValue.type) {
-		case 'string':
-			return typedNewValue.values[0];
-		case 'status':
-			const { transitionId } = typedNewValue.values[0];
-			if (transitionId === undefined || transitionId === '') {
-				throw new Error(
-					`Datasource 2 way sync: Backend status transition ID not supplied for type transition`,
-				);
-			}
-			return transitionId;
-		case 'user':
-			const { atlassianUserId } = typedNewValue.values[0];
-			if (atlassianUserId === undefined || atlassianUserId === '') {
-				throw new Error(
-					`Datasource 2 way sync: Backend atlasian user ID not supplied for type user`,
-				);
-			}
-			return atlassianUserId;
-		case 'icon':
-			const { id } = typedNewValue.values[0];
-			if (id === undefined || id === '') {
-				throw new Error(`Datasource 2 way sync: Backend update ID not supplied for type icon`);
-			}
-			return id;
-	}
-	throw new Error(
-		`Datasource 2 way sync Backend update value not implemented for type ${typedNewValue.type}`,
-	);
-};
 
 const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): string | number => {
 	switch (typedNewValue.type) {

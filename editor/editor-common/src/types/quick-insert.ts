@@ -2,6 +2,7 @@ import type Fuse from 'fuse.js';
 import type { IntlShape } from 'react-intl';
 
 import type { QuickInsertItem, QuickInsertProvider } from '../provider-factory';
+import type { IsRecommendedItem } from '../quick-insert/is-recommended-item';
 
 import type { EmptyStateHandler } from './empty-state-handler';
 
@@ -45,7 +46,9 @@ export type QuickInsertSearchOptions = {
 
 export type QuickInsertPluginState = {
 	emptyStateHandler?: EmptyStateHandler;
+	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-62138 Internal documentation for deprecation (no external access)} Tracked by EDITOR-8422. Use `isElementBrowserOpen` instead. */
 	isElementBrowserModalOpen: boolean;
+	isElementBrowserOpen: boolean;
 	lazyDefaultItems: () => QuickInsertItem[];
 	providedItems?: QuickInsertItem[];
 	provider?: QuickInsertProvider;
@@ -71,6 +74,7 @@ export interface QuickInsertPluginOptions {
 	 * `/` menu. Used by Markdown Mode to allowlist only items whose
 	 * underlying node/mark has a clean GFM round-trip.
 	 */
+	isRecommendedItem?: IsRecommendedItem;
 	itemFilter?: (item: QuickInsertItem) => boolean;
 	onInsert?: (item: QuickInsertItem) => void;
 	prioritySortingFn?: (items: QuickInsertItem[]) => Fuse.FuseSortFunction | undefined;
@@ -78,7 +82,9 @@ export interface QuickInsertPluginOptions {
 
 export type QuickInsertSharedState = {
 	emptyStateHandler?: EmptyStateHandler;
+	/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-62138 Internal documentation for deprecation (no external access)} Tracked by EDITOR-8422. Use `isElementBrowserOpen` instead. */
 	isElementBrowserModalOpen: boolean;
+	isElementBrowserOpen: boolean;
 	lazyDefaultItems: () => QuickInsertItem[];
 	providedItems?: QuickInsertItem[];
 };

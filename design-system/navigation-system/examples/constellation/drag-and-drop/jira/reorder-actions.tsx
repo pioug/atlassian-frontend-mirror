@@ -1,6 +1,8 @@
 import React, { type ReactNode } from 'react';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import GrowVerticalIcon from '@atlaskit/icon/core/grow-vertical';
 import type { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';

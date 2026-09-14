@@ -1,11 +1,8 @@
-jest.mock('@atlaskit/analytics-next', () => {
-	const actualModule = jest.requireActual('@atlaskit/analytics-next');
-	return {
-		__esModule: true,
-		...actualModule,
-		useAnalyticsEvents: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/analytics-next/useAnalyticsEvents', () => ({
+	...jest.requireActual('@atlaskit/analytics-next/useAnalyticsEvents'),
+	__esModule: true,
+	useAnalyticsEvents: jest.fn(),
+}));
 
 // UFO mock functions - exposed for test assertions
 // We use a getter pattern to access the mocked module's internals
@@ -13,9 +10,7 @@ let mockUfoSuccess: jest.Mock;
 let mockUfoFailure: jest.Mock;
 let mockUfoAbort: jest.Mock;
 
-jest.mock('@atlaskit/ufo', () => {
-	const actualModule = jest.requireActual('@atlaskit/ufo');
-	// Create mock functions inside the factory to avoid hoisting issues
+jest.mock('@atlaskit/ufo/experience', () => {
 	const start = jest.fn();
 	const success = jest.fn();
 	const failure = jest.fn();
@@ -23,13 +18,10 @@ jest.mock('@atlaskit/ufo', () => {
 	const mark = jest.fn();
 	const addMetadata = jest.fn();
 	const transition = jest.fn();
-
-	// Store references for test assertions (assigned after factory runs)
 	(global as any).__ufoMocks = { start, success, failure, abort, mark, addMetadata, transition };
-
 	return {
+		...jest.requireActual('@atlaskit/ufo/experience'),
 		__esModule: true,
-		...actualModule,
 		UFOExperience: jest.fn().mockImplementation(() => ({
 			start,
 			success,
@@ -69,15 +61,16 @@ jest.mock('@atlaskit/react-ufo/experience-trace-id-context', () => ({
 	}),
 }));
 
-import { useAnalyticsEvents, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import * as svgHelpersModule from './svgView/helpers';
-import * as imageRendererHelpersModule from './ui/imageRenderer/helpers';
+import * as imageRendererHelpersModule from './ui/imageRenderer/calculateDimensions';
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CardLoader from './cardLoader';
 import React from 'react';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaClientProvider } from '../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
@@ -106,11 +99,16 @@ import { shouldPerformanceBeSampled } from '../utils/ufoExperiences';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { failDataURIConversionOnce } from '@atlaskit/media-svg/test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
 import { LOCAL_HEIGHT_VARIABLE, LOCAL_WIDTH_VARIABLE } from './ui/wrapper/wrapper-compiled';
 
-const event = { fire: jest.fn() };
+const event = {
+	fire: jest.fn(),
+	clone: jest.fn().mockReturnThis(),
+	update: jest.fn().mockReturnThis(),
+	context: [],
+};
 const mockCreateAnalyticsEvent = jest.fn(() => event) as unknown as CreateUIAnalyticsEvent;
 
 asMockFunction(useAnalyticsEvents).mockReturnValue({
@@ -419,6 +417,144 @@ describe('Card ', () => {
 			const card = screen.getByTestId(cardTestId);
 			await user.hover(card);
 			expect(onMouseEnter).toHaveBeenCalledTimes(1);
+		});
+
+		it('for onFocus when keyboard focus enters the card from outside', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const onFocus = jest.fn();
+			const user = userEvent.setup();
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						onFocus={onFocus}
+						actions={[{ label: 'Download', handler: jest.fn() }]}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			// simulate that the file has been fully loaded by the browser
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+			await simulateImageLoadDelay();
+			fireEvent.load(img);
+
+			// card should completely process the file
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
+			);
+
+			// The card exposes a focusable action button, so tabbing moves real keyboard focus into the
+			// card and the resulting focus event bubbles up to the wrapper.
+			await screen.findByTestId('media-card-primary-action');
+			await user.tab();
+
+			expect(onFocus).toHaveBeenCalledTimes(1);
+			expect(onFocus).toHaveBeenCalledWith(
+				expect.objectContaining({
+					event: expect.anything(),
+					mediaItemDetails: expect.objectContaining({ id: identifier.id }),
+				}),
+			);
+		});
+
+		it('not for onFocus when focus moves between elements inside the card', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const onFocus = jest.fn();
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						onFocus={onFocus}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			// simulate that the file has been fully loaded by the browser
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+			await simulateImageLoadDelay();
+			fireEvent.load(img);
+
+			// card should completely process the file
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
+			);
+
+			const card = screen.getByTestId(cardTestId);
+			// Focus events bubble, so a descendant gaining focus re-fires onFocus on the card. When the
+			// element losing focus is also inside the card, focus never left and should be ignored.
+			fireEvent.focusIn(card, { relatedTarget: img });
+
+			expect(onFocus).not.toHaveBeenCalled();
+		});
+
+		it('not for onFocus when focus is caused by a pointer interaction', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const onFocus = jest.fn();
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						onFocus={onFocus}
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			// simulate that the file has been fully loaded by the browser
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+			await simulateImageLoadDelay();
+			fireEvent.load(img);
+
+			// card should completely process the file
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
+			);
+
+			const card = screen.getByTestId(cardTestId);
+
+			// Clicking an interactive element inside the card focuses it, which bubbles up as a focus
+			// event. jsdom resolves `:focus-visible` for any focused element, so stub it to report what
+			// a browser reports for pointer-initiated focus.
+			const originalMatches = Element.prototype.matches;
+			const matchesSpy = jest.spyOn(Element.prototype, 'matches').mockImplementation(function (
+				this: Element,
+				selector: string,
+			) {
+				return selector === ':focus-visible' ? false : originalMatches.call(this, selector);
+			});
+
+			try {
+				fireEvent.focusIn(card, { relatedTarget: null });
+				expect(onFocus).not.toHaveBeenCalled();
+			} finally {
+				matchesSpy.mockRestore();
+			}
 		});
 
 		// TODO - missing onFullscreenChange callback
@@ -5882,32 +6018,30 @@ describe('Card ', () => {
 		});
 	});
 
-	ffTest.on('platform-filecard-ufo-trace', 'trace context', () => {
-		it('UFO trace context should be used', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.failedPdf();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-			const binaryUrl = 'binary-url';
-			jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
-			const testUrl = jest.spyOn(mediaApi, 'testUrl');
+	it('UFO trace context should be used', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.failedPdf();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const binaryUrl = 'binary-url';
+		jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+		const testUrl = jest.spyOn(mediaApi, 'testUrl');
 
-			const user = userEvent.setup();
-			render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-					/>
-				</MockedMediaClientProvider>,
-			);
+		const user = userEvent.setup();
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<CardLoader
+					mediaClientConfig={dummyMediaClientConfig}
+					identifier={identifier}
+					isLazy={false}
+				/>
+			</MockedMediaClientProvider>,
+		);
 
-			const btn = await screen.findByLabelText('Download');
-			await user.click(btn);
+		const btn = await screen.findByLabelText('Download');
+		await user.click(btn);
 
-			// expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection, undefined, fileItem.details.name);
-			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
-				traceContext: { traceId: 'traceid', spanId: 'spanid' },
-			});
+		// expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection, undefined, fileItem.details.name);
+		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+			traceContext: { traceId: 'traceid', spanId: 'spanid' },
 		});
 	});
 

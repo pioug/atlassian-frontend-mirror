@@ -1,7 +1,7 @@
-# Animations
+# Animations and visibility lifecycle
 
-> How `@atlaskit/top-layer` achieves entry and exit animations for popovers and dialogs, the
-> critical constraint for exit animations, and why animation stays on the `Popover` primitive.
+> How `@atlaskit/top-layer` coordinates controlled intent, native visibility, lifecycle phase, host
+> mounting, and entry and exit animations for popovers and dialogs.
 
 ---
 
@@ -187,7 +187,7 @@ Always render the element. Control visibility via `isOpen`:
 - The element stays mounted while open or exit-animating; it unmounts after exit completes so it
   does not leave an empty role-bearing element in the accessibility tree (see
   `notes/decisions/host-element-unmount-when-hidden.md`)
-- No mount/unmount lifecycle — the consumer never conditionally renders the primitive
+- The consumer never conditionally renders the primitive; the primitive owns host mount/unmount
 
 ### `Popup.Content` (thin context wrapper)
 
@@ -213,19 +213,91 @@ For standalone usage (e.g. tooltip, spotlight), use `Popover` directly instead o
 </Popover>
 ```
 
-### Children lifecycle (`showChildren` pattern)
+### Canonical visibility lifecycle contract
 
-By default, `Popover` and `Dialog` conditionally render their children based on `isOpen`:
+This section is the canonical lifecycle contract for `Popover`, `Dialog`, and
+`useAnimatedVisibility`. Other architecture and decision documents should link here instead of
+restating the transition rules.
 
-- **`isOpen: true`** → children mount, `showPopover()` / `showModal()` called, entry animation plays
-- **`isOpen: false`** with animation → `hidePopover()` / `close()` called, exit animation plays,
-  children unmount after `transitionend` (with a shared safety-net timeout fallback)
-- **`isOpen: false`** without animation → `hidePopover()` / `close()` called, children unmount
-  immediately
+Use these terms consistently:
 
-This means consumers get **conditional rendering for performance** (children unmount when closed)
-while still getting **exit animations** (children stay mounted long enough for the CSS transition to
-complete). The primitive handles the lifecycle automatically.
+- **Controlled intent:** the latest processed `isOpen` prop, stored as `controlledIntent` with the
+  value `open` or `closed`.
+- **Native visibility:** the browser-managed open or closed state of the popover or dialog.
+- **Lifecycle phase:** `closed | entering | open | exiting`, stored as `phase`. The phase controls
+  host mounting and phase-specific styles.
+- **Host mounting:** the host and its children are mounted whenever `phase !== 'closed'`. They are
+  unmounted only in the `closed` phase.
+- **Animation enabled:** `willAnimate` is true when `shouldAnimate` is enabled and the user does not
+  prefer reduced motion.
+
+Controlled intent and native visibility can temporarily differ. For example, a browser-initiated
+popover dismissal begins a native close while controlled intent can still be open. The lifecycle
+phase coordinates that disagreement without treating it as a new controlled open request.
+
+State cells use `phase/controlledIntent` notation. For example, `exiting/open` means the native
+close is settling while controlled intent remains open.
+
+| Current phase/intent           | Input                                   | Next state                                           | Important work                                                                                                              |
+| ------------------------------ | --------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `closed/closed`                | `isOpen=true`                           | `entering/open` when animated, otherwise `open/open` | Mount the host in the same React commit; the component then calls `showPopover()` or `showModal()` in a layout effect.      |
+| `entering/open`                | Captured entry animations settle        | `open/open`                                          | Remove entering styles. A following effect calls the latest `onEnterFinish` after the `open` commit.                        |
+| `entering/open` or `open/open` | `isOpen=false`                          | Same phase with `controlledIntent=closed`            | Record controlled intent. The component calls `hidePopover()` or `close()`.                                                 |
+| `entering/*` or `open/*`       | Native `beforetoggle(closed)`           | `exiting/*`                                          | Apply exit styles synchronously while keeping the host mounted. Cancel any previous exit settlement snapshot.               |
+| `exiting/*`                    | Native `toggle(closed)`, animated       | `exiting/*`, then `closed/*`                         | Snapshot `host.getAnimations()`, wait for every `finished` promise to fulfill or reject, call `onExitFinish`, then unmount. |
+| `exiting/*`                    | Native `toggle(closed)`, not animated   | `closed/*`                                           | Call `onExitFinish` immediately before the state transition. The host is still mounted during the callback.                 |
+| `exiting/closed`               | `isOpen=true`                           | `entering/open` when animated, otherwise `open/open` | Cancel stale exit settlement and reopen. The component issues the matching native show command.                             |
+| `closed/open`                  | No prop change                          | `closed/open`                                        | Remain natively closed. The consumer must update `isOpen` before a later open request can be observed.                      |
+| Any phase                      | Event that does not apply to that phase | No change                                            | Ignore stale entry, exit, and native close events from an interrupted lifecycle.                                            |
+
+The native event ordering is significant:
+
+1. A component issues its native hide or close command after controlled intent becomes closed, or
+   the browser initiates dismissal for an open popover.
+2. `beforetoggle(closed)` is synchronous. It enters `exiting` before the browser queues `toggle`.
+3. `toggle(closed)` is task-queued. This gives close-reason handling and native focus restoration a
+   mounted host. Animated exits snapshot the host animations only at this point, after exit styles
+   have been applied.
+4. `onExitFinish` runs before the `closed` state update, so callback code can still read the host.
+5. The `closed` commit unmounts the host and its children.
+
+#### Interruptions and edge cases
+
+- **Close during entry:** `beforetoggle(closed)` changes `entering` to `exiting`. Cleanup cancels
+  the entry snapshot, so it cannot call `onEnterFinish` or move the lifecycle back to `open`.
+- **Reopen during exit:** an open request from `exiting/closed` starts a fresh entry, or moves
+  directly to `open` without animation. The pending exit snapshot is cancelled, so it cannot call
+  `onExitFinish` or unmount the reopened host.
+- **Reopen before the closed `toggle`:** the host stays mounted. The later native events are either
+  cancelled by the new `beforetoggle` or ignored because their action is stale for the new phase.
+- **Browser dismissal while `isOpen` is still true:** entering `exiting/open` is not mistaken for a
+  new open request. This allows the consumer's `onClose` update to set `isOpen=false`. If the
+  consumer leaves it true through exit completion, the lifecycle remains `closed/open`; the Popover
+  does not reopen until the prop changes to `false` and then back to `true`.
+- **Animation cancellation:** `Promise.allSettled` treats fulfilled, cancelled, and rejected
+  animation promises as settled. One cancelled animation cannot strand the lifecycle.
+- **No active animations or no `getAnimations` support:** the captured list is empty and settles in
+  a microtask. The native closed `toggle` is still required before exit settlement begins.
+- **Animation preference changes:** reduced motion is treated as animation disabled. If animation
+  becomes disabled before the closed `toggle`, that toggle settles the exit without creating an
+  animation snapshot.
+- **Callback changes:** refs hold the latest `onEnterFinish` and `onExitFinish`, so an in-flight
+  lifecycle does not call obsolete callback props.
+- **External unmount:** effect cleanup cancels settlement and removes native listeners. No pending
+  animation promise can call a lifecycle callback after unmount.
+
+### Children lifecycle
+
+Children follow the lifecycle phase rather than controlled intent directly:
+
+- **`entering` or `open`:** the host and children are mounted.
+- **`exiting`:** the host and children remain mounted while the native close handshake and any exit
+  animations settle.
+- **`closed`:** the host and children are unmounted.
+
+This gives consumers conditional rendering while preserving the DOM persistence required for exit
+animations and native focus restoration. Consumers always render the React primitive and update
+`isOpen`; the primitive owns host and child mounting.
 
 ### `onExitFinish` callback
 
@@ -237,12 +309,11 @@ This signals to consumers that the close lifecycle is fully done. Used by:
 
 ### Behavior summary
 
-- **`isOpen: true`** → children mount, `showPopover()` / `showModal()`, entry animation plays
-- **`isOpen: false`** → `hidePopover()` / `close()`, exit animation plays (if animated), children
-  unmount after animation completes (or immediately if no animation). `onExitFinish` fires.
-- **`Popup.Content`** → `isOpen` is provided via context from the `<Popup>` compound (the browser
-  manages state through `togglePopover()`). For standalone usage, use `Popover` directly with
-  `isOpen`.
+- **Controlled intent becomes open:** the host and children mount, the primitive issues its native
+  show command, and the entry animation plays when enabled.
+- **Controlled intent becomes closed:** the primitive issues its native hide or close command. The
+  closed `toggle` and animation settlement complete before `onExitFinish` fires and the host and
+  children unmount.
 
 > **Note:** There is no "uncontrolled" mount-to-show mode. `Popup.Content` only calls
 > `showPopover()` when `isOpen` is `true` (from context). For standalone popover usage (e.g.
@@ -258,10 +329,10 @@ context. For standalone usage (e.g. tooltip, spotlight), use `Popover` directly,
 
 ### Zero cost for non-animation users
 
-When `isOpen` is provided without `shouldAnimate`, the show/hide is instant: no `transitionend`
-listeners are bound, no fallback timeouts are scheduled, and no animation styles are applied. Only
-consumers who use both `isOpen` and `shouldAnimate` pay the cost of the animation lifecycle (the
-`transitionend` listener and its shared safety-net timeout fallback).
+When `isOpen` is provided without `shouldAnimate`, no animation styles are applied. The native
+show/close handshake and host-mounting lifecycle still run, but the closed `toggle` settles the exit
+without capturing an animation snapshot. Consumers who enable `shouldAnimate` additionally pay the
+cost of snapshotting `getAnimations()` and awaiting every animation's `finished` promise.
 
 ### Why `isOpen` is required on `Popover` / `Dialog`
 

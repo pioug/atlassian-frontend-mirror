@@ -81,26 +81,13 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			tableRef,
 			mountPoint,
 			boundariesElement,
-			isHeaderColumnEnabled,
 			isHeaderRowEnabled,
 			dispatchAnalyticsEvent,
 			isChromelessEditor,
 		} = this.props;
 
-		// EDITOR-6790 - when platform_editor_table_col_insert is enabled, allow the first column
-		// (index 0) insert button so a column can be inserted to the left of the first column.
-		const isFirstColumnInsertEnabled = expValEquals(
-			'platform_editor_table_col_insert',
-			'isEnabled',
-			true,
-		);
-
-		// ED-26961 - disable insert button for first row, and keep first-column behavior
-		// disabled until platform_editor_table_col_insert is enabled.
-		if (
-			(insertColumnButtonIndex === 0 && !isFirstColumnInsertEnabled) ||
-			insertRowButtonIndex === 0
-		) {
+		// ED-26961 - disable insert button for first row.
+		if (insertRowButtonIndex === 0) {
 			return null;
 		}
 
@@ -115,17 +102,9 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			return null;
 		}
 
-		// We can’t display the insert button for row|colum index 0
-		// when the header row|colum is enabled, this feature will be change on the future.
-		// EDITOR-6790 - when platform_editor_table_col_insert is enabled, still allow the first
-		// column (index 0) insert button even when the header column is enabled.
-		if (
-			(type === 'column' &&
-				isHeaderColumnEnabled &&
-				insertColumnButtonIndex === 0 &&
-				!isFirstColumnInsertEnabled) ||
-			(type === 'row' && isHeaderRowEnabled && insertRowButtonIndex === 0)
-		) {
+		// We can't display the insert button for row index 0
+		// when the header row is enabled.
+		if (type === 'row' && isHeaderRowEnabled && insertRowButtonIndex === 0) {
 			return null;
 		}
 
@@ -367,7 +346,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(FloatingInsertButton);

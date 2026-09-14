@@ -1,9 +1,8 @@
 import React from 'react';
 
-import DropdownMenu, {
-	DropdownItemCheckbox,
-	DropdownItemCheckboxGroup,
-} from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
+import DropdownItemCheckboxGroup from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';
 
 const DropdownItemCheckboxExample = (): React.JSX.Element => {
 	return (

@@ -1,4 +1,4 @@
-import convertToError from './main';
+import { convertToError } from './convertToError';
 
 describe('convert-to-error', () => {
 	it('Error instance is not converted and returned', () => {

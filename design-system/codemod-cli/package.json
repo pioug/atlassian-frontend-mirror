@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/codemod-cli",
-	"version": "2.0.3",
+	"version": "2.1.0",
 	"description": "A cli for distributing codemods for atlassian-frontend components and services",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,13 +52,13 @@
 		"read-pkg-up": "root:*",
 		"semver": "root:*",
 		"simple-git": "root:*",
+		"tsx": "root:*",
 		"uuid": "root:*"
 	},
 	"devDependencies": {
 		"@af/formatting": "workspace:^",
 		"@types/color-diff": "root:*",
-		"prettier": "root:*",
-		"ts-node": "root:*"
+		"prettier": "root:*"
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/monorepo-tooling/codemod-cli"
 }

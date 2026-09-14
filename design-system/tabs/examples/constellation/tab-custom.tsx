@@ -8,7 +8,10 @@ import { css } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import Tabs, { TabList, TabPanel, useTab } from '@atlaskit/tabs';
+import Tabs from '@atlaskit/tabs/tabs';
+import TabList from '@atlaskit/tabs/tab-list';
+import TabPanel from '@atlaskit/tabs/tab-panel';
+import useTab from '@atlaskit/tabs/use-tab';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

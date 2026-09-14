@@ -32,7 +32,7 @@ import TextHeadingSixIcon from '@atlaskit/icon-lab/core/text-heading-six';
 import TextHeadingThreeIcon from '@atlaskit/icon-lab/core/text-heading-three';
 import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
 import TextIcon from '@atlaskit/icon/core/text';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockType, BlockTypeWithRank } from './types';

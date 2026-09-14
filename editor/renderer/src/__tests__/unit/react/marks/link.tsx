@@ -1,7 +1,8 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Link from '../../../../react/marks/link';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import '@atlaskit/link-test-helpers/jest';
 
 describe('Renderer - React/Marks/Link', () => {
@@ -9,8 +10,8 @@ describe('Renderer - React/Marks/Link', () => {
 		jest.clearAllMocks();
 	});
 
-	const createLink = () =>
-		mount(
+	const renderLink = () =>
+		render(
 			<Link
 				dataAttributes={{ 'data-renderer-mark': true }}
 				href="https://www.atlassian.com"
@@ -20,36 +21,42 @@ describe('Renderer - React/Marks/Link', () => {
 			</Link>,
 		);
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderLink();
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should wrap content with <a>-tag', () => {
-		const mark = createLink();
-		expect(mark.find('a').length).toEqual(1);
-		mark.unmount();
+		renderLink();
+
+		expect(screen.getByRole('link')).toBeInTheDocument();
 	});
 
 	it('should set href to attrs.href', () => {
-		const mark = createLink();
-		expect(mark.find('a').props()).toHaveProperty('href', 'https://www.atlassian.com');
-		mark.unmount();
+		renderLink();
+
+		expect(screen.getByRole('link')).toHaveAttribute('href', 'https://www.atlassian.com');
 	});
 
 	it('should set target to _blank', () => {
-		const mark = createLink();
-		expect(mark.find('a').props()).toHaveProperty('target', '_blank');
-		mark.unmount();
+		renderLink();
+
+		expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
 	});
 
 	it('should not set target by default', () => {
-		const mark = mount(
+		render(
 			<Link dataAttributes={{ 'data-renderer-mark': true }} href="https://www.atlassian.com">
 				This is a link
 			</Link>,
 		);
-		expect(mark.find('a').props()).toHaveProperty('target', undefined);
-		mark.unmount();
+
+		expect(screen.getByRole('link')).not.toHaveAttribute('target');
 	});
 
 	it('should set target to whatever props.target was', () => {
-		const mark = mount(
+		render(
 			<Link
 				dataAttributes={{ 'data-renderer-mark': true }}
 				href="https://www.atlassian.com"
@@ -58,18 +65,18 @@ describe('Renderer - React/Marks/Link', () => {
 				This is a link
 			</Link>,
 		);
-		expect(mark.find('a').props()).toHaveProperty('target', '_top');
-		mark.unmount();
+
+		expect(screen.getByRole('link')).toHaveAttribute('target', '_top');
 	});
 
 	it('should set safety rel on links with target _blank', () => {
-		const mark = createLink();
-		expect(mark.find('a').props()).toHaveProperty('rel', 'noreferrer noopener');
-		mark.unmount();
+		renderLink();
+
+		expect(screen.getByRole('link')).toHaveAttribute('rel', 'noreferrer noopener');
 	});
 
 	it('should not set safety rel on links with target _blank', () => {
-		const mark = mount(
+		render(
 			<Link
 				dataAttributes={{ 'data-renderer-mark': true }}
 				href="https://www.atlassian.com"
@@ -78,18 +85,31 @@ describe('Renderer - React/Marks/Link', () => {
 				This is a link
 			</Link>,
 		);
-		expect(mark.find('a').props()).not.toHaveProperty('rel');
-		mark.unmount();
+
+		expect(screen.getByRole('link')).not.toHaveAttribute('rel');
 	});
 
-	it('should set onClick handler when isMediaLink is false', () => {
-		const mark = createLink();
-		expect(mark.find('a').props()).toHaveProperty('onClick');
-		mark.unmount();
+	it('should set onClick handler when isMediaLink is false', async () => {
+		// the handler is not visible in the DOM, so it is exercised through a click
+		const onClick = jest.fn();
+		render(
+			<Link
+				dataAttributes={{ 'data-renderer-mark': true }}
+				href="https://www.atlassian.com"
+				target="_blank"
+				eventHandlers={{ link: { onClick } }}
+			>
+				This is a link
+			</Link>,
+		);
+
+		await userEvent.click(screen.getByRole('link'));
+
+		expect(onClick).toHaveBeenCalledWith(expect.anything(), 'https://www.atlassian.com');
 	});
 
 	it('should only render children without wrapping <a> when isMediaLink is true', () => {
-		const mark = mount(
+		const { container } = render(
 			<Link
 				dataAttributes={{ 'data-renderer-mark': true }}
 				href="https://www.atlassian.com"
@@ -100,13 +120,13 @@ describe('Renderer - React/Marks/Link', () => {
 			</Link>,
 		);
 
-		expect(mark.getDOMNode().tagName).toEqual('DIV');
-		mark.unmount();
+		expect(container.firstElementChild?.tagName).toEqual('DIV');
+		expect(container.querySelector('a')).not.toBeInTheDocument();
 	});
 
 	describe('onSetLinkTarget functionality', () => {
 		it('should use original target when no onSetLinkTarget callback is provided', () => {
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="https://www.atlassian.com?deepLinkTarget=confluence"
@@ -115,13 +135,13 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
-			expect(mark.find('a').props()).toHaveProperty('target', '_self');
-			mark.unmount();
+
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_self');
 		});
 
 		it('should use original target when callback returns undefined', () => {
 			const mockCallback = jest.fn().mockReturnValue(undefined);
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="https://www.atlassian.com"
@@ -131,14 +151,14 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
+
 			expect(mockCallback).toHaveBeenCalledWith('https://www.atlassian.com');
-			expect(mark.find('a').props()).toHaveProperty('target', '_self');
-			mark.unmount();
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_self');
 		});
 
 		it('should use callback return value when callback returns _blank', () => {
 			const mockCallback = jest.fn().mockReturnValue('_blank');
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="https://www.atlassian.com?deepLinkTarget=jira"
@@ -148,14 +168,14 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
+
 			expect(mockCallback).toHaveBeenCalledWith('https://www.atlassian.com?deepLinkTarget=jira');
-			expect(mark.find('a').props()).toHaveProperty('target', '_blank');
-			mark.unmount();
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
 		});
 
 		it('should override target to _blank when callback returns _blank', () => {
 			const mockCallback = jest.fn().mockReturnValue('_blank');
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="https://www.atlassian.com?deepLinkTarget=confluence"
@@ -165,13 +185,13 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
-			expect(mark.find('a').props()).toHaveProperty('target', '_blank');
-			mark.unmount();
+
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
 		});
 
 		it('should override target to _blank even when no original target is set', () => {
 			const mockCallback = jest.fn().mockReturnValue('_blank');
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="https://www.atlassian.com?deepLinkTarget=admin"
@@ -180,14 +200,14 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
-			expect(mark.find('a').props()).toHaveProperty('target', '_blank');
-			mark.unmount();
+
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
 		});
 
 		it('should pass the correct URL to callback with multiple query parameters', () => {
 			const mockCallback = jest.fn().mockReturnValue('_blank');
 			const testUrl = 'https://www.atlassian.com?foo=bar&deepLinkTarget=confluence&baz=qux';
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href={testUrl}
@@ -196,14 +216,14 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
+
 			expect(mockCallback).toHaveBeenCalledWith(testUrl);
-			expect(mark.find('a').props()).toHaveProperty('target', '_blank');
-			mark.unmount();
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
 		});
 
 		it('should set safety rel when callback returns _blank', () => {
 			const mockCallback = jest.fn().mockReturnValue('_blank');
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="https://www.atlassian.com?deepLinkTarget=confluence"
@@ -213,16 +233,18 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
-			expect(mark.find('a').props()).toHaveProperty('target', '_blank');
-			expect(mark.find('a').props()).toHaveProperty('rel', 'noreferrer noopener');
-			mark.unmount();
+
+			const link = screen.getByRole('link');
+
+			expect(link).toHaveAttribute('target', '_blank');
+			expect(link).toHaveAttribute('rel', 'noreferrer noopener');
 		});
 
 		it('should handle callback errors gracefully and use original target', () => {
 			const mockCallback = jest.fn().mockImplementation(() => {
 				throw new Error('Callback error');
 			});
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="not-a-valid-url"
@@ -232,15 +254,15 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
+
 			expect(mockCallback).toHaveBeenCalledWith('not-a-valid-url');
-			expect(mark.find('a').props()).toHaveProperty('target', '_self');
-			mark.unmount();
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_self');
 		});
 
 		it('should call callback with relative URLs', () => {
 			const mockCallback = jest.fn().mockReturnValue(undefined);
 			const testUrl = '/relative/path?deepLinkTarget=confluence';
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href={testUrl}
@@ -250,9 +272,9 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
+
 			expect(mockCallback).toHaveBeenCalledWith(testUrl);
-			expect(mark.find('a').props()).toHaveProperty('target', '_self');
-			mark.unmount();
+			expect(screen.getByRole('link')).toHaveAttribute('target', '_self');
 		});
 
 		it('should work with different callback return scenarios', () => {
@@ -265,7 +287,8 @@ describe('Renderer - React/Marks/Link', () => {
 
 			testCases.forEach(({ returnValue, expectedTarget, originalTarget }) => {
 				const mockCallback = jest.fn().mockReturnValue(returnValue);
-				const mark = mount(
+				// each case is unmounted so only one link is in the document at a time
+				const { container, unmount } = render(
 					<Link
 						dataAttributes={{ 'data-renderer-mark': true }}
 						href={`https://example.com?test=value`}
@@ -276,14 +299,21 @@ describe('Renderer - React/Marks/Link', () => {
 					</Link>,
 				);
 
-				expect(mark.find('a').props()).toHaveProperty('target', expectedTarget);
-				mark.unmount();
+				const link = container.querySelector('a');
+
+				if (expectedTarget === undefined) {
+					expect(link).not.toHaveAttribute('target');
+				} else {
+					expect(link).toHaveAttribute('target', expectedTarget);
+				}
+
+				unmount();
 			});
 		});
 
 		it('should call callback only once per render', () => {
 			const mockCallback = jest.fn().mockReturnValue('_blank');
-			const mark = mount(
+			render(
 				<Link
 					dataAttributes={{ 'data-renderer-mark': true }}
 					href="https://www.atlassian.com?deepLinkTarget=JIRA"
@@ -292,13 +322,13 @@ describe('Renderer - React/Marks/Link', () => {
 					This is a link
 				</Link>,
 			);
+
 			expect(mockCallback).toHaveBeenCalledTimes(1);
-			mark.unmount();
 		});
 	});
 
 	describe('analytics', () => {
-		it('fires on click', () => {
+		it('fires on click', async () => {
 			const fireAnalyticsEvent = jest.fn();
 			const analyticsSpy = jest.fn();
 			const expectedContext = [
@@ -309,7 +339,7 @@ describe('Renderer - React/Marks/Link', () => {
 					location: 'renderer',
 				},
 			];
-			const linkAroundText = mount(
+			render(
 				<AnalyticsListener onEvent={analyticsSpy} channel={'media'}>
 					<Link
 						dataAttributes={{ 'data-renderer-mark': true }}
@@ -324,7 +354,8 @@ describe('Renderer - React/Marks/Link', () => {
 			);
 
 			fireAnalyticsEvent.mockClear();
-			linkAroundText.find('a').simulate('click');
+
+			await userEvent.click(screen.getByRole('link'));
 
 			expect(fireAnalyticsEvent).toHaveBeenCalledWith({
 				action: 'visited',

@@ -6,12 +6,13 @@ import React, { forwardRef, useCallback, useEffect, useReducer, useRef, useState
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, isValid, parseISO } from 'date-fns';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { IconButton } from '@atlaskit/button/new';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap } from '@atlaskit/css';
 import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
-import { mergeStyles, type StylesConfig } from '@atlaskit/select';
+import { mergeStyles } from '@atlaskit/react-select/styles';
+import type { StylesConfig } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { DateTimePickerContainer } from '../internal/date-time-picker-container';

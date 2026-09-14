@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { css, jsx, keyframes } from '@compiled/react';
+import { css, cssMap, jsx, keyframes } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -13,6 +13,8 @@ export type AIGeneratingOverlayProps = {
 	label: string;
 	/** Optional test id for the overlay root element. Defaults to `'ai-generating-overlay'`. */
 	testId?: string;
+	/** Renders an opaque sunken surface instead of the translucent blanket. */
+	isOpaque?: boolean;
 };
 
 const overlayStyles = css({
@@ -23,8 +25,16 @@ const overlayStyles = css({
 	justifyContent: 'center',
 	paddingBlockEnd: token('space.150', '12px'),
 	pointerEvents: 'auto',
-	backgroundColor: token('color.blanket', 'rgba(9, 30, 66, 0.36)'),
 	zIndex: 5,
+});
+
+const backgroundStyles = cssMap({
+	blanket: {
+		backgroundColor: token('color.blanket', 'rgba(9, 30, 66, 0.36)'),
+	},
+	sunken: {
+		backgroundColor: token('elevation.surface.sunken'),
+	},
 });
 
 const progressBarTrackStyles = css({
@@ -62,9 +72,17 @@ const trainBlockStyles = css({
 	flex: '1 0 25%',
 });
 
-export function AIGeneratingOverlay({ label, testId }: AIGeneratingOverlayProps): JSX.Element {
+export function AIGeneratingOverlay({
+	label,
+	testId,
+	isOpaque,
+}: AIGeneratingOverlayProps): JSX.Element {
 	return (
-		<div css={overlayStyles} data-testid={testId ?? 'ai-generating-overlay'} role="presentation">
+		<div
+			css={[overlayStyles, backgroundStyles[isOpaque ? 'sunken' : 'blanket']]}
+			data-testid={testId ?? 'ai-generating-overlay'}
+			role="presentation"
+		>
 			<div
 				css={progressBarTrackStyles}
 				role="progressbar"

@@ -1,4 +1,4 @@
-import type { CellAttributes } from '@atlaskit/adf-schema/schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { StepMap, Transform } from '@atlaskit/editor-prosemirror/transform';
 

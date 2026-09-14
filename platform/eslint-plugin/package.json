@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "3.4.2",
+	"version": "4.2.0",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "Loop Experiences",
@@ -35,6 +35,8 @@
 	"dependencies": {
 		"@atlaskit/eslint-utils": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/volt-components-entry-point-config": "workspace:^",
+		"@atlassian/native-embeds-core": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/eslint-plugin": "root:*",
 		"@manypkg/find-root": "root:*",

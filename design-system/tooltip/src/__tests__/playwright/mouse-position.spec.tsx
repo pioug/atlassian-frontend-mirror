@@ -16,7 +16,7 @@ test.describe('Tooltip mouse positioning', () => {
 	test('should position tooltip at mouse coordinates with position="mouse" (old)', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/position-mouse.tsx')>(
+		await page.visitExample<typeof import('../../../examples/position-mouse.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'position-mouse',
@@ -60,7 +60,7 @@ test.describe('Tooltip mouse positioning', () => {
 	});
 
 	test('should position tooltip at mouse coordinates with position="mouse"', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/position-mouse.tsx')>(
+		await page.visitExample<typeof import('../../../examples/position-mouse.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'position-mouse',
@@ -106,7 +106,7 @@ test.describe('Tooltip mouse positioning', () => {
 	test('should position tooltip using mouse Y and target X with position="mouse-y"', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/position-mouse.tsx')>(
+		await page.visitExample<typeof import('../../../examples/position-mouse.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'position-mouse',
@@ -154,7 +154,7 @@ test.describe('Tooltip mouse positioning', () => {
 	test('should position tooltip using mouse X and target Y with position="mouse-x"', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/position-mouse.tsx')>(
+		await page.visitExample<typeof import('../../../examples/position-mouse.vr.ap.tsx')>(
 			'design-system',
 			'tooltip',
 			'position-mouse',

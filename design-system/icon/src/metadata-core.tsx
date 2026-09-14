@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::a4eb86ec22225f9a913ef8f15c767f6f>>
+ * @codegen <<SignedSource::18a579e5504b16797251723310feb232>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -54,7 +54,7 @@ interface metadata {
 	 */
 	replacement?: {
 		name: string;
-		location: '@atlaskit/icon' | '@atlaskit/icon-lab' | '@atlassian/icon-private';
+		location: '@atlaskit/icon' | '@atlaskit/icon-lab';
 	};
 
 	/**
@@ -1184,7 +1184,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'CrossCircleIcon',
 		package: '@atlaskit/icon/core/cross-circle',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose - Known uses: clear text field, error status.',
+		usage: 'Known uses: clear text field, error status.',
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -1218,7 +1218,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'CustomizeIcon',
 		package: '@atlaskit/icon/core/customize',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose - Known uses: customize sidebar, customize view, settings.',
+		usage: 'Known uses: customize sidebar, customize view, settings.',
 		team: 'Design System Team',
 		status: 'published',
 	},
@@ -1236,7 +1236,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'DataFlowIcon',
 		package: '@atlaskit/icon/core/data-flow',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose - Known usages: Database schema in Jira.',
+		usage: 'Known usages: Database schema in Jira.',
 		team: 'Design System Team',
 		status: 'published',
 	},

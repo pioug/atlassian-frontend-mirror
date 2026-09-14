@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
@@ -14,11 +14,10 @@ import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import { AssistiveText } from '@atlaskit/editor-common/ui';
-import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -27,25 +26,6 @@ import {
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../pm-plugins/constants';
 import { getPluginState } from '../pm-plugins/utils';
-
-const placeholderStyles = css({
-	'&::after': {
-		content: 'attr(data-place-holder)',
-		color: token('color.text.subtlest'),
-		position: 'relative',
-		padding: token('space.025'),
-		left: token('space.negative.050'),
-		backgroundColor: token('color.background.neutral'),
-		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.small', '3px'),
-	},
-});
-
-const queryWithoutPlaceholderStyles = css({
-	'&::after': {
-		content: `''`,
-	},
-});
 
 const querySpanStyles = css({
 	outline: 'none',
@@ -102,7 +82,43 @@ const getAriaLabel = (triggerPrefix: string, _intl: IntlShape) => {
 	}
 };
 
+export const scheduleFocusAfterAttachment = (
+	queryRef: React.RefObject<HTMLElement>,
+	focusQuery: () => void,
+): (() => void) => {
+	let animationFrameId: number | undefined;
+	let cancelled = false;
+	const focus = () => {
+		if (!cancelled) {
+			focusQuery();
+		}
+	};
+
+	// React can render the decoration before ProseMirror attaches it. The microtask runs after that
+	// synchronous attachment, while the animation frame remains a fallback for asynchronous mounts.
+	window.queueMicrotask(() => {
+		if (cancelled) {
+			return;
+		}
+
+		if (queryRef.current?.isConnected) {
+			focus();
+			return;
+		}
+
+		animationFrameId = requestAnimationFrame(focus);
+	});
+
+	return () => {
+		cancelled = true;
+		if (animationFrameId !== undefined) {
+			cancelAnimationFrame(animationFrameId);
+		}
+	};
+};
+
 type InputQueryProps = {
+	activeDescendantId?: string;
 	cancel: (props: {
 		addPrefixTrigger: boolean;
 		forceFocusOnEditor: boolean;
@@ -111,19 +127,27 @@ type InputQueryProps = {
 	}) => void;
 	editorView: EditorView;
 	forceFocus: boolean;
-	items: TypeAheadItem[];
+	/**
+	 * @private
+	 * @deprecated Pass `optionCount` instead.
+	 */
+	items?: TypeAheadItem[];
+	listId?: string;
 	onItemSelect: (mode: SelectItemMode) => void;
 	onQueryChange: (query: string) => void;
 	onQueryFocus: () => void;
 	onUndoRedo?: (inputType: 'historyUndo' | 'historyRedo') => boolean;
+	optionCount?: number;
 	reopenQuery?: string;
 	selectNextItem: () => void;
 	selectPreviousItem: () => void;
+	shouldKeepOpenOnRegisteredMenu?: boolean;
 	triggerQueryPrefix: string;
 };
 
 export const InputQuery: React.MemoExoticComponent<
 	({
+		activeDescendantId,
 		triggerQueryPrefix,
 		cancel,
 		onQueryChange,
@@ -136,9 +160,13 @@ export const InputQuery: React.MemoExoticComponent<
 		onUndoRedo,
 		editorView,
 		items,
+		listId,
+		optionCount,
+		shouldKeepOpenOnRegisteredMenu,
 	}: InputQueryProps) => jsx.JSX.Element
 > = React.memo(
 	({
+		activeDescendantId,
 		triggerQueryPrefix,
 		cancel,
 		onQueryChange,
@@ -151,24 +179,15 @@ export const InputQuery: React.MemoExoticComponent<
 		onUndoRedo,
 		editorView,
 		items,
+		listId,
+		optionCount,
+		shouldKeepOpenOnRegisteredMenu,
 	}: InputQueryProps): jsx.JSX.Element => {
+		const resolvedOptionCount = optionCount ?? items?.length ?? 0;
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
 		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
-		const isSearchPlaceholderEnabled =
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_quick_insert_placeholder');
-		const selection = editorView.state.selection;
-		const { table } = editorView.state.schema.nodes;
-		const [showPlaceholder, setShowPlaceholder] = useState(
-			isSearchPlaceholderEnabled &&
-				triggerQueryPrefix === '/' &&
-				// When triggered in very narrow table column, placeholder becomes ellipsis only
-				// hence we disable it for now and revisit this scenario in ED-27480
-				!findParentNodeOfType(table)(selection),
-		);
-
 		const cleanedInputContent = useCallback(() => {
 			const raw = ref.current?.textContent || '';
 			return raw;
@@ -182,12 +201,6 @@ export const InputQuery: React.MemoExoticComponent<
 			},
 			[onQueryChange, cleanedInputContent],
 		);
-
-		const onInput = useCallback(() => {
-			if (cleanedInputContent()) {
-				setShowPlaceholder(false);
-			}
-		}, [cleanedInputContent]);
 
 		const [isInFocus, setInFocus] = useState(false);
 
@@ -370,7 +383,9 @@ export const InputQuery: React.MemoExoticComponent<
 				if (
 					relatedTarget instanceof HTMLElement &&
 					relatedTarget.closest &&
-					relatedTarget.closest(`.${TYPE_AHEAD_POPUP_CONTENT_CLASS}`)
+					(relatedTarget.closest(`.${TYPE_AHEAD_POPUP_CONTENT_CLASS}`) ||
+						(shouldKeepOpenOnRegisteredMenu &&
+							relatedTarget.closest('[data-registered-type-ahead-menu]')))
 				) {
 					return;
 				}
@@ -509,6 +524,7 @@ export const InputQuery: React.MemoExoticComponent<
 			checkKeyEvent,
 			editorView.state,
 			isEditorControlsEnabled,
+			shouldKeepOpenOnRegisteredMenu,
 		]);
 
 		useLayoutEffect(() => {
@@ -518,7 +534,7 @@ export const InputQuery: React.MemoExoticComponent<
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				setQuery(hasReopenQuery ? reopenQuery! : null);
 
-				requestAnimationFrame(() => {
+				const focusQuery = () => {
 					if (!ref?.current) {
 						return;
 					}
@@ -535,26 +551,15 @@ export const InputQuery: React.MemoExoticComponent<
 
 					ref.current.focus();
 					setInFocus(true);
-				});
+				};
+
+				if (isExperimentEnabled('platform_editor_typeahead_early_focus')) {
+					return scheduleFocusAfterAttachment(ref, focusQuery);
+				}
+
+				requestAnimationFrame(focusQuery);
 			}
 		}, [forceFocus, reopenQuery]);
-
-		const classNames = useMemo(() => {
-			const classes = [];
-			if (showPlaceholder) {
-				// to avoid the placeholder wrapped to next line when triggered at the end of the line
-				// see placeholderWrapStyles in editor-core/src/ui/ContentStyles/index.tsx
-				classes.push('placeholder-decoration-wrap');
-
-				if (selection.$from.depth > 1) {
-					// to hide placeholder overflow as ellipsis
-					// see placeholderWrapStyles in editor-core/src/ui/ContentStyles/index.tsx
-					classes.push('placeholder-decoration-hide-overflow');
-				}
-			}
-
-			return classes.join(' ');
-		}, [showPlaceholder, selection]);
 
 		const assistiveHintID = TYPE_AHEAD_DECORATION_ELEMENT_ID + '__assistiveHint';
 		const intl = useIntl();
@@ -563,25 +568,19 @@ export const InputQuery: React.MemoExoticComponent<
 			<Fragment>
 				{triggerQueryPrefix}
 				<span
-					css={[
-						querySpanStyles,
-						isSearchPlaceholderEnabled && queryWithoutPlaceholderStyles,
-						showPlaceholder && placeholderStyles,
-					]}
+					css={[querySpanStyles]}
 					contentEditable={true}
 					ref={ref}
 					onKeyUp={onKeyUp}
 					tabIndex={-1}
-					onInput={isSearchPlaceholderEnabled ? onInput : undefined}
 					role="combobox"
-					aria-controls={TYPE_AHEAD_DECORATION_ELEMENT_ID}
+					aria-activedescendant={activeDescendantId}
+					aria-controls={listId ?? TYPE_AHEAD_DECORATION_ELEMENT_ID}
 					aria-autocomplete="list"
-					aria-expanded={items.length !== 0}
+					aria-expanded={resolvedOptionCount !== 0}
 					aria-labelledby={assistiveHintID}
 					suppressContentEditableWarning
 					data-query-prefix={triggerQueryPrefix}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					className={classNames}
 					data-place-holder={intl.formatMessage(
 						typeAheadListMessages.quickInsertInputPlaceholderLabel,
 					)}
@@ -603,13 +602,13 @@ export const InputQuery: React.MemoExoticComponent<
 
 				<AssistiveText
 					assistiveText={
-						items.length === 0
+						resolvedOptionCount === 0
 							? intl.formatMessage(typeAheadListMessages.noSearchResultsLabel, {
-									itemsLength: items.length,
+									itemsLength: resolvedOptionCount,
 								})
 							: ''
 					}
-					isInFocus={items.length === 0 || isInFocus}
+					isInFocus={resolvedOptionCount === 0 || isInFocus}
 					id={TYPE_AHEAD_DECORATION_ELEMENT_ID}
 				/>
 			</Fragment>

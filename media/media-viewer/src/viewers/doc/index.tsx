@@ -1,12 +1,14 @@
 import React from 'react';
+
 import { type MediaClient, type FileState } from '@atlaskit/media-client';
-import { Outcome } from '../../domain';
-import { type MediaViewerError } from '../../errors';
-import { BaseViewer } from '../base-viewer';
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import type { MediaViewerError } from '../../MediaViewerError';
+import { Outcome } from '../../domain/outcome';
 import { ZoomLevel } from '../../domain/zoomLevel';
-import { DocViewer as DocViewerComponent } from './doc-viewer';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { BaseViewer } from '../base-viewer';
+import { DocViewer as DocViewerComponent } from './DocViewer';
 
 export type Props = {
 	mediaClient: MediaClient;

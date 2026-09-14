@@ -18,7 +18,16 @@
 	],
 	"references": [
 		{
+			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

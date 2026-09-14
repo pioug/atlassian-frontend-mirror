@@ -1,5 +1,5 @@
 import { snapshotInformational } from '@af/visual-regression';
-import { CodeBlockRendererLayout, CodeBlockRendererQuote } from './code-block.fixture';
+import { CodeBlockRendererLayout, CodeBlockRendererQuote } from './code-block.fixture.vr.ap';
 
 snapshotInformational(CodeBlockRendererLayout, {
 	selector: { byTestId: 'renderer-code-block' },

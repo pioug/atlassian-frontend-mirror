@@ -19,5 +19,3 @@ export const resolveLozengeColor: (appearance?: string) => LozengeColor = (
 
 	return legacyAppearanceMap[appearance] ?? (appearance as SemanticColor);
 };
-
-export { getThemeStyles } from './get-theme-styles';

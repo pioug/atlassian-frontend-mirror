@@ -3,7 +3,7 @@ import type { Page } from '@playwright/test';
 import { EditorPageModel } from '@af/editor-libra/page-models';
 import { snapshotInformational } from '@af/visual-regression';
 
-import { Editor } from './editor-disabled.fixtures';
+import { Editor } from './editor-disabled.fixtures.vr.ap';
 
 snapshotInformational(Editor, {
 	description: 'Selection disabled',

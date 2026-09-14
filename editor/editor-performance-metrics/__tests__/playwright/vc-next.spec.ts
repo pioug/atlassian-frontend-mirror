@@ -4,6 +4,13 @@ import { expect } from '@af/integration-testing';
 
 import { test } from './fixtures';
 
+test.use({
+	examplePage: 'vc-observer-next',
+} satisfies {
+	__exampleDependency?: typeof import('../../examples/01-vc-observer-next.tsx');
+	examplePage: 'vc-observer-next';
+});
+
 test.describe('Editor Metrics - TTVC: basic operations', () => {
 	test('it should setup and render the example page', async ({ page }) => {
 		await expect(page.getByText('My content go here')).toBeVisible();

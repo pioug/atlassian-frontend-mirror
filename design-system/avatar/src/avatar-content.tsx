@@ -8,7 +8,7 @@ import { type CSSProperties, forwardRef, type ReactNode, useContext } from 'reac
 import { cssMap as unboundCssMap } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { AvatarContentContext } from './internal/content-context';

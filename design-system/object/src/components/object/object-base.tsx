@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { NewIconProps } from '@atlaskit/icon';
+import type { NewIconProps } from '@atlaskit/icon/types';
 
 import { type ObjectProps } from './types';
 

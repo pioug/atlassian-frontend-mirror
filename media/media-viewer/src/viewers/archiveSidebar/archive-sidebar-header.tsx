@@ -3,9 +3,11 @@ import React from 'react';
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import HomeIcon from '@atlaskit/icon/core/home';
 
-import { getFormattedFolderName } from '../../utils';
-import { SidebarHeaderEntry, SidebarHeaderIcon, SidebarHeaderWrapper } from './styleWrappers';
+import { getFormattedFolderName } from '../../utils/getFormattedFolderName';
 import { CustomButtonItem } from './custom-button-item';
+import { SidebarHeaderEntry } from './sidebar-header-entry';
+import { SidebarHeaderIcon } from './sidebar-header-icon';
+import { SidebarHeaderWrapper } from './sidebar-header-wrapper';
 
 export type HeaderProps = {
 	folderName: string;

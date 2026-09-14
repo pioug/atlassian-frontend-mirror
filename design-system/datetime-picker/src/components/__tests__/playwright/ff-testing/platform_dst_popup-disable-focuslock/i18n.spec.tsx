@@ -19,6 +19,7 @@ test('[i18n] When entering a new time in Timepicker Editable, the time should be
 		'i18n',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
+			'react-18-mode': 'modern',
 		},
 	);
 	await page.locator(timePicker).first().click();
@@ -47,6 +48,7 @@ test.fixme('[i18n] When a user types a year into the date input in DatetimePicke
 		'i18n',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
+			'react-18-mode': 'modern',
 		},
 	);
 	await page.locator(dateTimePicker).first().click();

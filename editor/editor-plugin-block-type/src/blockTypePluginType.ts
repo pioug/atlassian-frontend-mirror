@@ -14,6 +14,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 
 import type { TextBlockTypes } from './pm-plugins/block-types';
 import type { ClearFormattingInputMethod, InputMethod } from './pm-plugins/commands/block-type';
@@ -46,6 +47,7 @@ export type BlockTypePlugin = NextEditorPlugin<
 			OptionalPlugin<SelectionPlugin>,
 			OptionalPlugin<InteractionPlugin>,
 			OptionalPlugin<_MarkdownModePluginStub>,
+			OptionalPlugin<UiControlRegistryPlugin>,
 		];
 		pluginConfiguration: BlockTypePluginOptions | undefined;
 		sharedState: BlockTypeState | undefined;

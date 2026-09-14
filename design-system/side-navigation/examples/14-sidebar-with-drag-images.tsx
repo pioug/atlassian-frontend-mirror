@@ -16,28 +16,28 @@ import {
 import { cssMap, jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Image from '@atlaskit/image';
 import { easeInOut } from '@atlaskit/motion/curves';
-import { durations } from '@atlaskit/motion/durations';
+import { durations } from '@atlaskit/motion/utils/durations';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import {
 	draggable,
 	dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { Box, Grid } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	HeadingItem,
-	NavigationHeader,
-	NestableNavigationContent,
-	NestingItem,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
@@ -228,7 +228,9 @@ const ADragDropView = ({ items }: { items: any[] }) => {
 
 	const announceMovement = (itemLabel: string, previousIndex: number, currentIndex: number) => {
 		liveRegion.announce(
-			`You've moved ${itemLabel} from position ${previousIndex + 1} to position ${currentIndex + 1}.`,
+			`You've moved ${itemLabel} from position ${previousIndex + 1} to position ${
+				currentIndex + 1
+			}.`,
 		);
 	};
 

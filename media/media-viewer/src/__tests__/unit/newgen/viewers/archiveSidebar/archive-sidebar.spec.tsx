@@ -7,7 +7,6 @@ jest.mock('unzipit', () => ({
 	},
 	HTTPRangeReader: () => 'reader',
 }));
-jest.unmock('../../../../../utils');
 import { IntlProvider } from 'react-intl';
 
 import React from 'react';

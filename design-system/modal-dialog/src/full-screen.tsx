@@ -59,8 +59,28 @@ export const FullScreenModalDialog: React.ForwardRefExoticComponent<
 
 FullScreenModalDialog.displayName = 'FullScreenModalDialog';
 
+/**
+ * @deprecated Volt migration shim. Import from the explicit subpath instead.
+ * Retained only while consumers migrate off this re-export.
+ */
 export { default as ModalTransition } from './modal-transition';
+/**
+ * @deprecated Volt migration shim. Import from the explicit subpath instead.
+ * Retained only while consumers migrate off this re-export.
+ */
 export { default as ModalHeader } from './modal-header';
+/**
+ * @deprecated Volt migration shim. Import from the explicit subpath instead.
+ * Retained only while consumers migrate off this re-export.
+ */
 export { default as ModalTitle } from './modal-title';
+/**
+ * @deprecated Volt migration shim. Import from the explicit subpath instead.
+ * Retained only while consumers migrate off this re-export.
+ */
 export { default as ModalBody } from './modal-body';
+/**
+ * @deprecated Volt migration shim. Import from the explicit subpath instead.
+ * Retained only while consumers migrate off this re-export.
+ */
 export { default as ModalFooter } from './modal-footer';

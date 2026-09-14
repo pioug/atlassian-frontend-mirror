@@ -7,9 +7,9 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
-import Link from '@atlaskit/link';
+import Button from '@atlaskit/button/default/button';
+import Heading from '@atlaskit/heading/heading';
+import Link from '@atlaskit/link/link';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

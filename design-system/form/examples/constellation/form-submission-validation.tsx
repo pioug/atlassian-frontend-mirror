@@ -1,11 +1,15 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import Form, { Field, FormFooter, FormHeader, RequiredAsterisk } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
-import TextField from '@atlaskit/textfield';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import TextField from '@atlaskit/textfield/text-field';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

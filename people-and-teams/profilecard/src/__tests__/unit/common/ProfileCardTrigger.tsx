@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 
 import { Text } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import ProfileCardTrigger from '../../../components/common/ProfileCardTrigger';
@@ -21,7 +20,6 @@ describe('ProfileCardTrigger', () => {
 	const mockFetchProfile = jest.fn();
 	const renderProfileCard = jest.fn();
 	const fireAnalytics = jest.fn();
-	const fixAriaAttributeViolationGate = 'fix_aria_attribute_violation_on_agent_card_trigger';
 
 	const renderWithIntl = ({
 		trigger,
@@ -172,8 +170,7 @@ describe('ProfileCardTrigger', () => {
 			expect(triggerEl).toHaveAttribute('aria-controls');
 		});
 
-		it('removes aria-expanded, aria-haspopup and aria-controls from the trigger when disabledAriaAttributes is set and the gate is enabled', async () => {
-			passGate(fixAriaAttributeViolationGate);
+		it('removes aria-expanded, aria-haspopup and aria-controls from the trigger when disabledAriaAttributes is set', async () => {
 			const { container } = renderWithIntl({ trigger: 'click', disabledAriaAttributes: true });
 
 			const triggerEl = await openPopupAndGetTrigger();
@@ -181,16 +178,6 @@ describe('ProfileCardTrigger', () => {
 			expect(triggerEl).not.toHaveAttribute('aria-haspopup');
 			expect(triggerEl).not.toHaveAttribute('aria-controls');
 			await expect(container).toBeAccessible();
-		});
-
-		it('removes aria-expanded and aria-haspopup but keeps aria-controls on the trigger when disabledAriaAttributes is set and the gate is disabled', async () => {
-			failGate(fixAriaAttributeViolationGate);
-			renderWithIntl({ trigger: 'click', disabledAriaAttributes: true });
-
-			const triggerEl = await openPopupAndGetTrigger();
-			expect(triggerEl).not.toHaveAttribute('aria-expanded');
-			expect(triggerEl).not.toHaveAttribute('aria-haspopup');
-			expect(triggerEl).toHaveAttribute('aria-controls');
 		});
 	});
 });

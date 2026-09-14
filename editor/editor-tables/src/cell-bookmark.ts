@@ -7,7 +7,7 @@ import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
 
 import type { SerializedCellSelection } from './types';
-import { inSameTable } from './utils/tables';
+import { inSameTable } from './utils/in-same-table';
 
 export class CellBookmark implements SelectionBookmark {
 	constructor(

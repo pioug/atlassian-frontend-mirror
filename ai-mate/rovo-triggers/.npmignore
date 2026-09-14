@@ -3,6 +3,7 @@ examples-utils/
 examples/
 index.ts
 docs/
+*.docs.tsx
 build/
 __tests__/
 tsconfig.json

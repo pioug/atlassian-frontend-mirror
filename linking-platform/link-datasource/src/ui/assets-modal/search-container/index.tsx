@@ -4,8 +4,9 @@
  */
 import { cssMap, jsx, styled } from '@compiled/react';
 
-import Form, { type OnSubmitHandler } from '@atlaskit/form';
-import { CloseButton } from '@atlaskit/modal-dialog';
+import Form from '@atlaskit/form/form';
+import type { OnSubmitHandler } from '@atlaskit/form/types';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

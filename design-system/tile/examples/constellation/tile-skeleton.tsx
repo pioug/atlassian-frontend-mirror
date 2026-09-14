@@ -1,24 +1,15 @@
 import React, { useState } from 'react';
 
-import { Emoji } from '@atlaskit/emoji/element';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
-import Tile from '@atlaskit/tile';
-import TileSkeleton from '@atlaskit/tile/skeleton';
+import Tile from '@atlaskit/tile/tile';
+import TileSkeleton from '@atlaskit/tile/tile-skeleton';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
-import { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repository';
-
-const emojiService = getEmojiRepository();
-const blush = emojiService.findByShortName(':blush:');
 
 export default function TileSkeletonExample(): React.JSX.Element {
 	const [isLoading, setIsLoading] = useState(true);
-
-	if (!blush) {
-		return <span>Blush emoji not found</span>;
-	}
 
 	return (
 		<Stack space="space.200">
@@ -40,7 +31,7 @@ export default function TileSkeletonExample(): React.JSX.Element {
 					) : (
 						<>
 							<Tile label="" size="large">
-								<Emoji emoji={blush} />
+								😊
 							</Tile>
 							<Heading size="small">Standard skeleton</Heading>
 						</>
@@ -55,7 +46,7 @@ export default function TileSkeletonExample(): React.JSX.Element {
 					) : (
 						<>
 							<Tile size="large" label="">
-								<Emoji emoji={blush} />
+								😊
 							</Tile>
 							<Heading size="small">Shimmering skeleton</Heading>
 						</>
@@ -75,7 +66,7 @@ export default function TileSkeletonExample(): React.JSX.Element {
 					) : (
 						<>
 							<Tile size="large" label="" backgroundColor="color.background.accent.blue.subtle">
-								<Emoji emoji={blush} />
+								😊
 							</Tile>
 							<Heading size="small">Custom color skeleton</Heading>
 						</>

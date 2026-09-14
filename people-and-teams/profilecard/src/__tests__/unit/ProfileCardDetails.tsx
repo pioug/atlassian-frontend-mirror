@@ -43,6 +43,30 @@ const renderComponent = (props: Partial<Props> = {}) =>
 		</IntlProvider>,
 	);
 
+const profileDetails = {
+	email: 'profilecard@atlassian.com',
+	timestring: '10:00 AM',
+	companyName: 'Atlassian',
+	location: 'Sydney',
+};
+
+test('groups profile details in one description list', async () => {
+	renderComponent(profileDetails);
+	const descriptionLists = [
+		...new Set(
+			Object.values(profileDetails).map((profileDetail) =>
+				screen.getByText(profileDetail).closest('dl'),
+			),
+		),
+	];
+	const descriptionList = screen.getByText(profileDetails.email).closest('dl');
+
+	expect(descriptionLists).toHaveLength(1);
+	expect(descriptionList?.querySelectorAll('dt')).toHaveLength(4);
+	expect(descriptionList?.querySelectorAll('dd')).toHaveLength(4);
+	await expect(document.body).toBeAccessible();
+});
+
 describe('ProfileCardDetails', () => {
 	describe('name', () => {
 		describe.each([
@@ -54,7 +78,7 @@ describe('ProfileCardDetails', () => {
 					isBot,
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"full name test (jscrazy) "`);
+				expect(component.textContent).toBe('full name test (jscrazy) ');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -65,7 +89,7 @@ describe('ProfileCardDetails', () => {
 					nickname: undefined,
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"full name test"`);
+				expect(component.textContent).toBe('full name test');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -77,7 +101,7 @@ describe('ProfileCardDetails', () => {
 					nickname: 'Same name',
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"Same name"`);
+				expect(component.textContent).toBe('Same name');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -114,7 +138,7 @@ describe('ProfileCardDetails', () => {
 					status: 'inactive',
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"full name test"`);
+				expect(component.textContent).toBe('full name test');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -125,7 +149,7 @@ describe('ProfileCardDetails', () => {
 					fullName: undefined,
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"jscrazy"`);
+				expect(component.textContent).toBe('jscrazy');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -137,7 +161,7 @@ describe('ProfileCardDetails', () => {
 					status: 'closed',
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"jscrazy"`);
+				expect(component.textContent).toBe('jscrazy');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -148,7 +172,7 @@ describe('ProfileCardDetails', () => {
 					nickname: undefined,
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"Former user"`);
+				expect(component.textContent).toBe('Former user');
 
 				await expect(document.body).toBeAccessible();
 			});
@@ -162,7 +186,7 @@ describe('ProfileCardDetails', () => {
 					isServiceAccount: true,
 				});
 				const component = getByTestId('profilecard-name');
-				expect(component.textContent).toMatchInlineSnapshot(`"Service account name (sa) "`);
+				expect(component.textContent).toBe('Service account name (sa) ');
 				expect(getByText('SERVICE ACCOUNT')).toBeDefined();
 
 				await expect(document.body).toBeAccessible();

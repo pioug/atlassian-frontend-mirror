@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type {
 	AnalyticsEventPayload,
 	AnnotationAEP,
@@ -29,7 +29,6 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { annotationPlugin } from '../annotationPlugin';
 import type { AnnotationPlugin } from '../annotationPluginType';
@@ -146,9 +145,7 @@ export function InlineCommentView({
 	}
 
 	// Network Status
-	const networkStatusSelector = useSharedPluginStateSelector(editorAPI, 'connectivity.mode', {
-		disabled: editorExperiment('platform_editor_offline_editing_web', false),
-	});
+	const networkStatusSelector = useSharedPluginStateSelector(editorAPI, 'connectivity.mode');
 
 	if (!dom) {
 		return null;

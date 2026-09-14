@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "16.1.5",
+	"version": "17.2.0",
 	"description": "A form allows people to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
 		"lodash": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -58,6 +58,7 @@
 		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/datetime-picker": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
@@ -66,6 +67,7 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/range": "workspace:^",
+		"@atlaskit/react-select": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
@@ -75,12 +77,11 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"@types/final-form-focus": "root:*",
 		"jest-in-case": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"react-dom": "root:*"
 	},
 	"keywords": [
@@ -88,55 +89,39 @@
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"design-system": "v1",
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./character-counter": "./src/entry-points/character-counter.tsx",
-		"./character-counter-field": "./src/entry-points/character-counter-field.tsx",
-		"./checkbox-field": "./src/entry-points/checkbox-field.tsx",
-		"./CheckboxField": "./src/entry-points/checkbox-field.tsx",
-		"./field": "./src/entry-points/field.tsx",
-		"./Field": "./src/entry-points/field.tsx",
-		"./fieldset": "./src/entry-points/fieldset.tsx",
-		"./Fieldset": "./src/entry-points/fieldset.tsx",
-		"./form": "./src/entry-points/form.tsx",
-		"./Form": "./src/entry-points/form.tsx",
-		"./form-footer": "./src/entry-points/form-footer.tsx",
-		"./form-header": "./src/entry-points/form-header.tsx",
-		"./form-section": "./src/entry-points/form-section.tsx",
-		"./FormFooter": "./src/entry-points/form-footer.tsx",
-		"./FormHeader": "./src/entry-points/form-header.tsx",
-		"./FormSection": "./src/entry-points/form-section.tsx",
+		"./character-counter": "./src/character-counter.tsx",
+		"./character-counter-field": "./src/character-counter-field.tsx",
+		"./checkbox-field": "./src/checkbox-field.tsx",
+		"./CheckboxField": "./src/checkbox-field.tsx",
+		"./error-message": "./src/error-message.tsx",
+		"./field": "./src/field.tsx",
+		"./Field": "./src/field.tsx",
+		"./fieldset": "./src/fieldset.tsx",
+		"./Fieldset": "./src/fieldset.tsx",
+		"./form": "./src/form.tsx",
+		"./Form": "./src/form.tsx",
+		"./form-footer": "./src/form-footer.tsx",
+		"./form-header": "./src/form-header.tsx",
+		"./form-section": "./src/form-section.tsx",
+		"./FormFooter": "./src/form-footer.tsx",
+		"./FormHeader": "./src/form-header.tsx",
+		"./FormSection": "./src/form-section.tsx",
+		"./helper-message": "./src/helper-message.tsx",
+		"./label/default": "./src/label.tsx",
 		"./label": "./src/entry-points/label.tsx",
 		"./Label": "./src/entry-points/label.tsx",
+		"./legend": "./src/legend.tsx",
+		"./message-wrapper": "./src/message-wrapper.tsx",
 		"./messages": "./src/entry-points/messages.tsx",
 		"./Messages": "./src/entry-points/messages.tsx",
-		"./range-field": "./src/entry-points/range-field.tsx",
-		"./RangeField": "./src/entry-points/range-field.tsx",
-		"./required-asterisk": "./src/entry-points/required-asterisk.tsx",
+		"./range-field": "./src/range-field.tsx",
+		"./RangeField": "./src/range-field.tsx",
+		"./required-asterisk": "./src/required-asterisk.tsx",
 		"./types": "./src/types.tsx",
-		"./use-form-state": "./src/entry-points/use-form-state.tsx"
+		"./use-form-state": "./src/use-form-state.tsx",
+		"./valid-message": "./src/valid-message.tsx"
 	},
 	"homepage": "https://atlassian.design/components/form/"
 }

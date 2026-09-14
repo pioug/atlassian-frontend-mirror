@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Manager } from '@atlaskit/popper';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Manager } from '@atlaskit/popper/manager';
 
 import { IdContext } from './id-context';
 import { EnsureIsInsidePopupContext } from './is-inside-popup-context';

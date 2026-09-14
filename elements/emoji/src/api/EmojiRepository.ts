@@ -1,22 +1,24 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type ITokenizer, Search, UnorderedSearchIndex } from 'js-search';
+
 import type { CategoryId } from '../components/picker/categories';
-import { defaultCategories, frequentCategory } from '../util/constants';
-import { getCategoryId, isEmojiDescriptionWithVariations } from '../util/type-helpers';
 import {
 	type EmojiDescription,
+	type EmojiProviderLookupOrder,
 	type EmojiSearchResult,
 	type OptionalEmojiDescription,
 	type SearchOptions,
 	SearchSort,
 } from '../types';
+import { defaultCategories, frequentCategory } from '../util/constants';
+import { getCategoryId } from '../util/get-category-id';
+import { isEmojiDescriptionWithVariations } from '../util/is-emoji-description-with-variations';
 import { tokenizerRegex } from './EmojiRepositoryRegex';
-import {
-	createSearchEmojiComparator,
-	createUsageOnlyEmojiComparator,
-} from './internal/Comparators';
+import { getEmojiVariation } from './getEmojiVariation';
 import { UsageFrequencyTracker } from './internal/UsageFrequencyTracker';
-import { fg } from '@atlaskit/platform-feature-flags';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { createSearchEmojiComparator } from './internal/createSearchEmojiComparator';
+import { createUsageOnlyEmojiComparator } from './internal/createUsageOnlyEmojiComparator';
+import { isTeamoji26RefreshEmojiPickerEnabled } from '../util/teamoji26RefreshEmojiPicker';
 
 type Token = {
 	start: number;
@@ -46,8 +48,6 @@ class Tokenizer implements ITokenizer {
 	}
 }
 
-declare type EmojiByKey = Map<any, EmojiDescription[]>;
-
 interface EmojiToKey {
 	(emoji: EmojiDescription): any;
 }
@@ -72,9 +72,22 @@ const addAllVariants = (emoji: EmojiDescription, fnKey: EmojiToKey, map: EmojiBy
 	}
 };
 
-const findByKey = (map: EmojiByKey, key: any): OptionalEmojiDescription => {
+const findByKey = (
+	map: EmojiByKey,
+	key: any,
+	emojiProviderLookupOrder?: EmojiProviderLookupOrder,
+): OptionalEmojiDescription => {
 	const emojis = map.get(key);
 	if (emojis && emojis.length) {
+		if (emojiProviderLookupOrder?.length) {
+			for (const emojiType of emojiProviderLookupOrder) {
+				const matchingEmoji = emojis.find((emoji) => emoji.type === emojiType);
+				if (matchingEmoji) {
+					return matchingEmoji;
+				}
+			}
+		}
+
 		// Priority is always to source from the last emoji set (last overrides first)
 		return emojis[emojis.length - 1];
 	}
@@ -101,22 +114,6 @@ const splitQuery = (query = ''): SplitQuery => {
 	};
 };
 
-export const getEmojiVariation = (
-	emoji: EmojiDescription,
-	options?: SearchOptions,
-): EmojiDescription => {
-	if (isEmojiDescriptionWithVariations(emoji) && options) {
-		const skinTone = options.skinTone;
-		if (skinTone && emoji.skinVariations && emoji.skinVariations.length) {
-			const skinToneEmoji = emoji.skinVariations[skinTone - 1]; // skinTone start at 1
-			if (skinToneEmoji) {
-				return skinToneEmoji;
-			}
-		}
-	}
-	return emoji;
-};
-
 const findEmojiIndex = (emojis: EmojiDescription[], toFind: EmojiDescription): number => {
 	const findId = toFind.id;
 	let match = -1;
@@ -134,21 +131,8 @@ const findEmojiIndex = (emojis: EmojiDescription[], toFind: EmojiDescription): n
 	return match;
 };
 
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
-
 const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		teamojiRefreshExperimentName,
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
+	return isTeamoji26RefreshEmojiPickerEnabled();
 };
 
 export default class EmojiRepository {
@@ -222,8 +206,11 @@ export default class EmojiRepository {
 	/**
 	 * Returns the first matching emoji matching the shortName, or null if none found.
 	 */
-	findByShortName(shortName: string): OptionalEmojiDescription {
-		return findByKey(this.shortNameMap, shortName);
+	findByShortName(
+		shortName: string,
+		emojiProviderLookupOrder?: EmojiProviderLookupOrder,
+	): OptionalEmojiDescription {
+		return findByKey(this.shortNameMap, shortName, emojiProviderLookupOrder);
 	}
 
 	/**
@@ -370,9 +357,10 @@ export default class EmojiRepository {
 	private initMembers(usageTracker?: UsageFrequencyTracker): void {
 		this.usageTracker = usageTracker || new UsageFrequencyTracker();
 		this.initRepositoryMetadata();
-		if (!fg('platform_index_emoji_just_in_time')) {
-			this.initSearchIndex();
-		}
+
+		// When emojis are deleted - the repository is re-initialised.
+		// This invalidates the full search index that's lazily loaded later
+		this.fullSearchReady = false;
 	}
 
 	/**
@@ -456,3 +444,9 @@ export default class EmojiRepository {
 		return category;
 	}
 }
+
+declare type EmojiByKey = Map<any, EmojiDescription[]>;
+/**
+ * @deprecated Use `import { getEmojiVariation } from '@atlaskit/emoji/emoji-repository'` instead.
+ */
+export { getEmojiVariation } from './getEmojiVariation';

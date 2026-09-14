@@ -1,21 +1,20 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, type SerializedStyles } from '@emotion/react';
 
-import { borderRadius } from '@atlaskit/media-ui';
-import { token } from '@atlaskit/tokens';
+import { css, type SerializedStyles } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
+import { borderRadius } from '@atlaskit/media-ui/mixins';
+import { token } from '@atlaskit/tokens';
 
-import { transition } from '../styles';
-import { fixedBlanketStyles, blanketClassName } from '../blanket/styles';
 import { fixedActionBarStyles, actionsBarClassName } from '../actionsBar/styles';
-import {
-	generateResponsiveStyles,
-	getClickablePlayButtonStyles,
-	getCursorStyle,
-	getSelectableTickBoxStyles,
-	getWrapperDimensions,
-	getWrapperShadow,
-} from '../styles';
+import { fixedBlanketStyles, blanketClassName } from '../blanket/styles';
+import { generateResponsiveStyles } from '../generateResponsiveStyles';
+import { getClickablePlayButtonStyles } from '../getClickablePlayButtonStyles';
+import { getCursorStyle } from '../getCursorStyle';
+import { getSelectableTickBoxStyles } from '../getSelectableTickBoxStyles';
+import { getWrapperDimensions } from '../getWrapperDimensions';
+import { getWrapperShadow } from '../getWrapperShadow';
+import { transition } from '../transition';
 import { type WrapperProps } from './types';
 
 export const wrapperStyles: {
@@ -70,8 +69,9 @@ WrapperProps): SerializedStyles => css`
 		${fixedActionBarStyles}
 	}
 
-	/* Tooltip does not support percentage dimensions. We enforce them here */
-	${shouldDisplayTooltip && `> div { width: 100%; height: 100%; }`}
+	/* Tooltip does not support percentage dimensions. We enforce them here.
+	   Guard skips top-layer elements (eg tooltip, modal); ':where()' keeps specificity unchanged. */
+	${shouldDisplayTooltip && `> div:not(:where([popover], dialog)) { width: 100%; height: 100%; }`}
 
 	button:focus + & {
 		outline: solid 2px ${token('color.border.focused')};

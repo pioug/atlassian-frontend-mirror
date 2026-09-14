@@ -4,8 +4,9 @@ import { cx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import { components, type MenuListComponentProps } from '@atlaskit/select';
-import Spinner from '@atlaskit/spinner';
+import { components } from '@atlaskit/react-select/components';
+import type { MenuListComponentProps } from '@atlaskit/select/types';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from '../types';
@@ -53,9 +54,7 @@ const CustomMenuList = ({
 		showMore,
 		handleShowMore,
 		filterLabel,
-	}: CustomMenuListProps =
-		// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
-		props.selectProps.menuListProps;
+	}: CustomMenuListProps = props.selectProps.menuListProps;
 
 	const shouldDisplayShowMore = showMore && !isLoadingMore;
 	const isLoadingMoreData = !shouldDisplayShowMore && isLoadingMore;

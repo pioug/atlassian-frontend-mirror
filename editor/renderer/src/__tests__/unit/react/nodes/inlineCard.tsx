@@ -1,22 +1,19 @@
 import React from 'react';
-import { mount, type ReactWrapper } from 'enzyme';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import InlineCard from '../../../../react/nodes/inlineCard';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { MockCardComponent } from './card.mock';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
@@ -25,6 +22,13 @@ jest.mock('@atlaskit/smart-card', () => {
 	return {
 		...originalModule,
 		Card: jest.fn((props) => <originalModule.Card {...props} />),
+	};
+});
+
+jest.mock('../../../../react/nodes/fallback', () => {
+	const actual = jest.requireActual('../../../../react/nodes/fallback');
+	return {
+		CardErrorBoundary: jest.fn((props) => <actual.CardErrorBoundary {...props} />),
 	};
 });
 
@@ -62,34 +66,36 @@ const data = {
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/InlineCard', () => {
-	let node: ReactWrapper;
-
-	afterEach(() => {
-		node.unmount();
+	beforeEach(() => {
+		jest.clearAllMocks();
 	});
 
 	it('should render a <span>-tag', () => {
-		node = mount(
+		const { container } = render(
 			<Provider client={new Client('staging')}>
 				<InlineCard url={url} />
 			</Provider>,
 		);
-		expect(node.getDOMNode()['tagName']).toEqual('SPAN');
+
+		expect(container.querySelector('[data-inline-card]')?.tagName).toEqual('SPAN');
 	});
 
 	it('should render with url if prop exists', () => {
-		node = mount(
+		render(
 			<Provider client={new Client('staging')}>
 				<InlineCard url={url} />
 			</Provider>,
 		);
-		expect(node.find(InlineCard).prop('url')).toEqual(url);
+
+		expect((Card as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
+			expect.objectContaining({ url }),
+		);
 	});
 
 	it('should render with onClick if eventHandlers has correct event key', () => {
 		const mockedOnClick = jest.fn();
 		const mockedEvent = { target: {} };
-		node = mount(
+		render(
 			<Provider client={new Client('staging')}>
 				<InlineCard
 					url={url}
@@ -102,7 +108,7 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 			</Provider>,
 		);
 
-		const onClick = node.find(Card).prop('onClick');
+		const { onClick } = asMock(Card).mock.lastCall![0];
 
 		onClick(mockedEvent);
 
@@ -112,7 +118,7 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 	it('should pass consumer onClick (not Card onClick) to CardErrorBoundary', () => {
 		const mockedOnClick = jest.fn();
 		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
-		node = mount(
+		render(
 			<Provider client={new Client('staging')}>
 				<InlineCard
 					url={url}
@@ -129,29 +135,31 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 		// not the Card/CardSSR shape (e, { destinationUrl? }).
 		// When CardErrorBoundary's fallback link is clicked, it calls onClick(e, url)
 		// using the ADF url from props.
-		const boundaryOnClick = node.find(CardErrorBoundary).prop('onClick');
-		boundaryOnClick!(mockedEvent);
+		asMock(CardErrorBoundary).mock.lastCall![0].onClick(mockedEvent, url);
 
 		expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
 	});
 
 	it('should render with onClick as undefined if eventHandlers is not present', () => {
-		node = mount(
+		render(
 			<Provider client={new Client('staging')}>
 				<InlineCard url={url} />{' '}
 			</Provider>,
 		);
 
-		expect(node.find(Card).prop('onClick')).toBeUndefined();
+		expect(asMock(Card).mock.lastCall![0].onClick).toBeUndefined();
 	});
 
 	it('should render with showHoverPreview if hideHoverPreview is false', () => {
-		node = mount(
+		render(
 			<Provider client={new Client('staging')}>
 				<InlineCard url={url} smartLinks={{ hideHoverPreview: false }} />
 			</Provider>,
 		);
-		expect(node.find(Card).prop('showHoverPreview')).toEqual(true);
+
+		expect((Card as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
+			expect.objectContaining({ showHoverPreview: true }),
+		);
 	});
 });
 
@@ -179,11 +187,10 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 			</Provider>,
 		);
 
-		expect(Card).toHaveBeenLastCalledWith(
+		expect((Card as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
 			expect.objectContaining({
 				showHoverPreview: true,
 			}),
-			expect.anything(),
 		);
 	});
 
@@ -194,11 +201,10 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 			</Provider>,
 		);
 
-		expect(Card).toHaveBeenLastCalledWith(
+		expect((Card as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
 			expect.objectContaining({
 				showHoverPreview: false,
 			}),
-			expect.anything(),
 		);
 	});
 
@@ -236,14 +242,13 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 			</Provider>,
 		);
 
-		expect(CardSSR).toHaveBeenLastCalledWith(
+		expect((CardSSR as unknown as jest.Mock).mock.lastCall?.[0]).toEqual(
 			expect.objectContaining({
 				url,
 				appearance: 'inline',
 				showHoverPreview: true,
 				onClick: expect.any(Function),
 			}),
-			expect.anything(),
 		);
 
 		const card = await findByTestId('inline-card-resolved-view');
@@ -324,7 +329,7 @@ describe('Renderer - React/Nodes/InlineCard - CompetitorPrompt', () => {
 	});
 });
 
-describe('Renderer - React/Nodes/InlineCard - platform_editor_smartlink_local_cache useEffect', () => {
+describe('Renderer - React/Nodes/InlineCard - local cache useEffect', () => {
 	const mockRefreshCache = jest.fn();
 	const { useProvider } = require('@atlaskit/editor-common/provider-factory');
 
@@ -333,60 +338,39 @@ describe('Renderer - React/Nodes/InlineCard - platform_editor_smartlink_local_ca
 		(useProvider as jest.Mock).mockReturnValue(Promise.resolve({ refreshCache: mockRefreshCache }));
 	});
 
-	eeTest
-		.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled')
-		.variant(true, () => {
-			it('should call refreshCache with the inlineCard type and url', async () => {
-				render(
-					<Provider client={new Client('staging')}>
-						<InlineCard url={url} />
-					</Provider>,
-				);
+	it('should call refreshCache with the inlineCard type and url', async () => {
+		render(
+			<Provider client={new Client('staging')}>
+				<InlineCard url={url} />
+			</Provider>,
+		);
 
-				// Flush the provider.then() microtask inside the useEffect
-				await new Promise((resolve) => setTimeout(resolve, 0));
+		// Flush the provider.then() microtask inside the useEffect
+		await new Promise((resolve) => setTimeout(resolve, 0));
 
-				expect(mockRefreshCache).toHaveBeenCalledWith({
-					type: 'inlineCard',
-					attrs: { url },
-				});
-			});
-
-			it('should not call refreshCache when url is not provided', async () => {
-				render(
-					<Provider client={new Client('staging')}>
-						<InlineCard />
-					</Provider>,
-				);
-
-				await new Promise((resolve) => setTimeout(resolve, 0));
-
-				expect(mockRefreshCache).not.toHaveBeenCalled();
-			});
+		expect(mockRefreshCache).toHaveBeenCalledWith({
+			type: 'inlineCard',
+			attrs: { url },
 		});
+	});
 
-	eeTest
-		.describe('platform_editor_smartlink_local_cache', 'when experiment isEnabled')
-		.variant(false, () => {
-			it('should not call refreshCache', async () => {
-				render(
-					<Provider client={new Client('staging')}>
-						<InlineCard url={url} />
-					</Provider>,
-				);
+	it('should not call refreshCache when url is not provided', async () => {
+		render(
+			<Provider client={new Client('staging')}>
+				<InlineCard />
+			</Provider>,
+		);
 
-				await new Promise((resolve) => setTimeout(resolve, 0));
+		await new Promise((resolve) => setTimeout(resolve, 0));
 
-				expect(mockRefreshCache).not.toHaveBeenCalled();
-			});
-		});
+		expect(mockRefreshCache).not.toHaveBeenCalled();
+	});
 });
 
-describe('Renderer - React/Nodes/InlineCard - getCardClickHandler with platform_smartlink_xpc_url_wrapping', () => {
+describe('Renderer - React/Nodes/InlineCard - getCardClickHandler with XPC URL wrapping', () => {
 	const url = 'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
 
 	it('should call consumer onClick with destinationUrl from Card when provided', () => {
-		passGate('platform_smartlink_xpc_url_wrapping');
 		const mockedOnClick = jest.fn();
 		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
 
@@ -406,14 +390,12 @@ describe('Renderer - React/Nodes/InlineCard - getCardClickHandler with platform_
 	});
 
 	it('should fall back to ADF url when Card onClick fires with no destinationUrl', () => {
-		passGate('platform_smartlink_xpc_url_wrapping');
 		const mockedOnClick = jest.fn();
 		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
 
 		const onCardClick = getCardClickHandler({ smartCard: { onClick: mockedOnClick } }, url);
 
 		// Card fires onClick with empty meta (no destinationUrl)
-		// @ts-ignore Ignore for testing purpose
 		onCardClick!(mockedEvent, {});
 
 		// Falls back to the ADF node's url when destinationUrl is absent

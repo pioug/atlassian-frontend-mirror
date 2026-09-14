@@ -1,7 +1,7 @@
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getSliceFromSelection } from './context-helpers';
 

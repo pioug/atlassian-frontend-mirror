@@ -1,3 +1,3 @@
-import { MainAsideScrollable } from './page-layout';
+import { MainAsideScrollable } from './page-layout.vr.ap';
 
 export default MainAsideScrollable;

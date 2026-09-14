@@ -1,5 +1,131 @@
 # @atlaskit/link-create
 
+## 6.8.1
+
+### Patch Changes
+
+- [`0e4dfa5a575e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e4dfa5a575e5) -
+  Cleanup platform_link_create_event_tracking feature gate and permanently record controlled failure
+  diagnostics.
+
+## 6.8.0
+
+### Minor Changes
+
+- [`942e8a15cbdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/942e8a15cbdf1) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.7.0
+
+### Minor Changes
+
+- [`0a39ae0f69a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a39ae0f69a25) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.5.1
+
+### Patch Changes
+
+- [`df73ee5ebb31c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df73ee5ebb31c) -
+  Removed the `traceId` attribute from the `object createFailed (linkCreate)` analytics event.
+
+  The event continues to record `operation` and `status` behind the
+  `platform_link_create_event_tracking` feature gate, which together identify which request failed
+  and how. `traceId` was unique per event and therefore could not be aggregated, making it
+  unsuitable for a product analytics event.
+
+  The `linkCreateExperience failed` operational event is unchanged and still records `traceId`.
+
+## 6.5.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.4.0
+
+### Minor Changes
+
+- [`db8537fc93efc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db8537fc93efc) -
+  Adds diagnostic fields to the `object createFailed (linkCreate)` analytics event so that failures
+  can be attributed to the specific operation that failed. `onFailure` now accepts an optional
+  second argument describing the failed operation.
+
+  Behind the `platform_link_create_event_tracking` feature gate the event additionally records:
+  - `operation` — a controlled value identifying the failed operation (for example `fetch-space`,
+    `fetch-page`, `create-page`)
+  - `status` — the HTTP status code, when the failure was an HTTP response
+  - `traceId` — the request trace ID, when available
+
+  No URLs, paths or user-generated content are recorded.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.1
 
 ### Patch Changes

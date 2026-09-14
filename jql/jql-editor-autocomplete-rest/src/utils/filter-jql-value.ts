@@ -1,4 +1,6 @@
-import { areStringsEquivalent, isQuoted, normalize } from './strings';
+import { areStringsEquivalent } from './are-strings-equivalent';
+import { isQuoted } from './is-quoted';
+import { normalize } from './normalize';
 
 type JqlValue = {
 	displayName: string;

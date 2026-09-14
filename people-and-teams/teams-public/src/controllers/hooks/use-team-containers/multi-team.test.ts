@@ -1,13 +1,15 @@
-import { teamsClient } from '@atlaskit/teams-client';
 import { renderHook, waitFor } from '@atlassian/testing-library';
+import { teamsClient } from '@atlaskit/teams-client/client';
 
 import { MOCK_CONNECTED_TEAMS_RESULT } from './mocks';
-import { useConnectedTeams, useTeamContainers } from './multi-team';
+import { useConnectedTeams } from './use-connected-teams-2';
+import { useTeamContainers } from './use-team-containers-2';
 
 const fireEventNext = jest.fn();
 const fireOperationalEvent = jest.fn();
 
-jest.mock('@atlaskit/teams-client', () => ({
+jest.mock('@atlaskit/teams-client/client', () => ({
+	...jest.requireActual('@atlaskit/teams-client/client'),
 	teamsClient: {
 		getTeamContainers: jest.fn(),
 		unlinkTeamContainer: jest.fn(),
@@ -16,7 +18,8 @@ jest.mock('@atlaskit/teams-client', () => ({
 	},
 }));
 
-jest.mock('@atlaskit/teams-app-internal-analytics', () => ({
+jest.mock('@atlaskit/teams-app-internal-analytics/use-analytics-events', () => ({
+	...jest.requireActual('@atlaskit/teams-app-internal-analytics/use-analytics-events'),
 	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
 		fireEvent: fireEventNext,
 	})),

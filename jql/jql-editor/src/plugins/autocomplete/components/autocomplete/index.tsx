@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
-import { EventType } from '@atlaskit/jql-editor-common';
+import { EventType } from '@atlaskit/jql-editor-common/constants';
 
-import { Action, ActionSubject } from '../../../../analytics';
+import { Action, ActionSubject } from '../../../../analytics/constants';
 import { useAutocompleteLoading, useAutocompleteOptions, useStoreActions } from '../../../../state';
 import AutocompleteDropdown from '../autocomplete-dropdown';
 import {

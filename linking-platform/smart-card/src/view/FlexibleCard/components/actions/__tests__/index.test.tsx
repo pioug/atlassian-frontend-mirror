@@ -7,7 +7,8 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { type ActionProps } from '../action/types';
-import { DeleteAction, EditAction } from '../index';
+import { default as DeleteAction } from '../delete-action';
+import { default as EditAction } from '../edit-action';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

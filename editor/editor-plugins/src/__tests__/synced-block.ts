@@ -25,4 +25,12 @@ describe('synced-block wrapper', () => {
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
 	});
+
+	it('check ./synced-block/types exports all the same variables as the original', () => {
+		const original = require('@atlaskit/editor-plugin-synced-block/types');
+		const wrapper = require('../synced-block/types/index');
+		const originalKeys = Object.keys(original).sort();
+		const wrapperKeys = Object.keys(wrapper).sort();
+		expect(originalKeys).toEqual(wrapperKeys);
+	});
 });

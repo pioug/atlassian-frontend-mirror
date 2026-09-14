@@ -1,4 +1,4 @@
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -19,8 +19,8 @@ import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -284,7 +284,7 @@ export const focusIcon =
 
 		// TODO: ED-29205 - During platform_editor_vc90_transition_expand_icon cleanup, rename `iconContainer` to `iconButton`.
 		const iconContainer = (
-			expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)
+			isExperimentEnabled('platform_editor_vc90_transition_expand_icon')
 				? expand.querySelector(`.${expandClassNames.iconButton}`)
 				: expand.querySelector(`.${expandClassNames.iconContainer}`)
 		) as HTMLElement | null;

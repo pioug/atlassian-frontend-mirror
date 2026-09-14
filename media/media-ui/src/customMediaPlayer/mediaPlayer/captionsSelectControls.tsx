@@ -1,20 +1,19 @@
 import React, { memo, useMemo } from 'react';
-import { type VideoTextTracks } from '../react-video-renderer';
+
 import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
-import Tooltip from '@atlaskit/tooltip';
-import { SplitButton } from '@atlaskit/button/new';
+
+import { SplitButton } from '@atlaskit/button/split-button/split-button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { messages } from '../../messages';
-import { formatLocale } from './captions';
-import { PopupSelect, type OptionType, type ValueType } from '@atlaskit/select';
+import { PopupSelect } from '@atlaskit/select/popup-select';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import MediaButton from '../../MediaButton';
-import {
-	popperProps,
-	popupCustomStyles,
-	popupSelectComponents,
-	getPopperPropsForFullscreen,
-} from '../dropdownControlCommon';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { messages } from '../../messages';
+import { popupCustomStyles, popupSelectComponents } from '../dropdownControlCommon';
+import { getPopperPropsForFullscreen } from '../getPopperPropsForFullscreen';
+import type { VideoTextTracks } from '../react-video-renderer/text';
+import { formatLocale } from './captions/formatLocale';
 
 export interface CaptionsSelectControlsProps {
 	textTracks: VideoTextTracks;
@@ -105,11 +104,7 @@ const CaptionsSelectControlsWithIntl = memo(
 						</Tooltip>
 					)}
 					styles={popupCustomStyles}
-					popperProps={
-						fg('platform_editor_video_caption_commit')
-							? getPopperPropsForFullscreen(isFullScreen)
-							: popperProps
-					}
+					popperProps={getPopperPropsForFullscreen(isFullScreen)}
 				/>
 			</SplitButton>
 		);

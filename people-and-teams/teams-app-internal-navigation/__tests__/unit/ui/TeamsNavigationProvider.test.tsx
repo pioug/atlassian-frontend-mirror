@@ -3,10 +3,8 @@ import React from 'react';
 import { render, screen } from '@atlassian/testing-library';
 
 import { TeamsAnchor } from '../../../src/ui/TeamsAnchor';
-import {
-	TeamsNavigationProvider,
-	useTeamsNavigationContext,
-} from '../../../src/ui/TeamsNavigationProvider';
+import { TeamsNavigationProvider } from '../../../src/ui/TeamsNavigationProvider';
+import { useTeamsNavigationContext } from '../../../src/ui/useTeamsNavigationContext';
 import { createMockContext } from '../test-utils';
 
 function ContextEntryPointDisplay() {

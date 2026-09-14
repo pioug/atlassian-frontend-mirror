@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { code, text } from '@atlaskit/adf-utils/builders';
 import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 

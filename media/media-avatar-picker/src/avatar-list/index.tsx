@@ -6,9 +6,9 @@ import { jsx, css } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
+import { messages } from '@atlaskit/media-ui/messages';
 import { useState } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export interface Avatar {
 	dataURI: string;
@@ -50,11 +50,15 @@ const inputStyles = css({
 });
 
 const imageCheckedStyles = css({
-	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token('color.border.selected')}`,
+	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token(
+		'color.border.selected',
+	)}`,
 });
 
 const imageFocusedStyles = css({
-	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token('color.border.focused')}`,
+	boxShadow: `0px 0px 0px 1px ${token('color.border.inverse')}, 0px 0px 0px 3px ${token(
+		'color.border.focused',
+	)}`,
 });
 
 export const AvatarList = ({

@@ -8,9 +8,9 @@ import type {
 	AnnotationUpdateEmitter,
 } from '@atlaskit/editor-common/types';
 
-import type { AnnotationMarkStates, AnnotationId } from '@atlaskit/adf-schema';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { AnnotationMarkStates, AnnotationId } from '@atlaskit/adf-schema/annotation';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
 	ACTION,
 	ACTION_SUBJECT,

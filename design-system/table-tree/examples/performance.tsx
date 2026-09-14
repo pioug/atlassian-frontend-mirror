@@ -6,8 +6,8 @@ import { PureComponent } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { Label } from '@atlaskit/form';
-import Select from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/select/default';
 import TableTree, {
 	Cell,
 	Header,

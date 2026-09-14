@@ -6,20 +6,18 @@ import { type ChangeEvent, useCallback, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { token } from '@atlaskit/tokens';
-import { IconButton } from '@atlaskit/button/new';
-import TextField from '@atlaskit/textfield';
+import IconButton from '@atlaskit/button/icon/button';
+import TextField from '@atlaskit/textfield/text-field';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 import { RovoIcon } from '@atlaskit/logo';
 import { Text } from '@atlaskit/primitives/compiled';
 
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { generateEmojiImage } from '../../api/ai/generateEmojiImage';
 import { slugifyPrompt } from '../../util/ai-emoji';
-import {
-	aiGenerationStartedEvent,
-	aiGenerationCompletedEvent,
-	aiGenerationFailedEvent,
-} from '../../util/analytics';
+import { aiGenerationCompletedEvent } from '../../util/analytics/aiGenerationCompletedEvent';
+import { aiGenerationFailedEvent } from '../../util/analytics/aiGenerationFailedEvent';
+import { aiGenerationStartedEvent } from '../../util/analytics/aiGenerationStartedEvent';
 import { messages } from '../i18n';
 import EmojiErrorMessage from './EmojiErrorMessage';
 

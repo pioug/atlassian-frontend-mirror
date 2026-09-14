@@ -1,5 +1,21 @@
 # @atlaskit/feature-gate-js-client
 
+## 6.0.2
+
+### Patch Changes
+
+- [`f7959cbd02630`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7959cbd02630) -
+  Apply Volt Standards (One Export Per File) to `@atlaskit/feature-gate-js-client`.
+
+  Internal refactor only — the package's public API (`package.json#exports` and `src/index.ts`) is
+  unchanged:
+  - Split the multi-export `src/client/utils.ts` into one file per export (`deepAssign`,
+    `getOptionsWithDefaults`, `migrateInitializationOptions`, `migrateEvaluationDetails`,
+    `migrateSecondaryExposures`, `shallowEquals`, `toStatsigUser`).
+  - Flatten the internal re-export barrels `src/client/fetcher/index.ts` and
+    `src/subscriptions/index.ts`; consumers now import from the concrete modules.
+  - Remove now-unused imports surfaced by the above.
+
 ## 6.0.1
 
 ### Patch Changes

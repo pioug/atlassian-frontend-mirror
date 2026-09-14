@@ -1,4 +1,4 @@
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -18,8 +18,9 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { AddMarkStep, type Step } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import {

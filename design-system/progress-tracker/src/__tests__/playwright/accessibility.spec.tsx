@@ -1,6 +1,6 @@
 import { expect, test } from '@af/integration-testing';
 test('progress-tracker should pass base aXe audit', async ({ page, skipAxeCheck }) => {
-	await page.visitExample<typeof import('../../../examples/progress-tracker-default.tsx')>(
+	await page.visitExample<typeof import('../../../examples/progress-tracker-default.vr.ap.tsx')>(
 		'design-system',
 		'progress-tracker',
 		'progress-tracker-default',

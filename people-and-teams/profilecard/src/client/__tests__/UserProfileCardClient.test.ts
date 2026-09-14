@@ -1,22 +1,24 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 
-import { AGGErrors } from '../../util/errors';
-import { AGGQuery } from '../graphqlUtils';
-import UserProfileCardClient, { buildAggUserQuery } from '../UserProfileCardClient';
+import { AGGErrors } from '../../util/AGGErrors';
+import { AGGQuery } from '../AGGQuery';
+import UserProfileCardClient from '../UserProfileCardClient';
+import { buildAggUserQuery } from '../buildAggUserQuery';
 
 jest.mock('../../util/performance', () => ({
 	getPageTime: jest.fn(() => 1000),
 }));
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags'),
-	fg: jest.fn(),
-}));
-
+jest.mock('../AGGQuery');
+jest.mock('../HeaderProcessor');
+jest.mock('../Query');
+jest.mock('../buildHeaders');
+jest.mock('../directoryGraphqlQuery');
+jest.mock('../graphQLQuery');
 jest.mock('../graphqlUtils');
+jest.mock('../id');
 (AGGQuery as jest.Mock).mockImplementation(() =>
 	Promise.resolve({
 		user: {
@@ -26,7 +28,6 @@ jest.mock('../graphqlUtils');
 );
 
 const mockAnalytics = jest.fn();
-const mockFg = fg as jest.MockedFunction<typeof fg>;
 
 const mockAggError = new AGGErrors([{ message: 'Test error', extensions: {} }], 'test-id');
 
@@ -93,7 +94,6 @@ describe('UserProfileCardClient', () => {
 	beforeEach(() => {
 		client = new UserProfileCardClient(options);
 		jest.clearAllMocks();
-		mockFg.mockReturnValue(false);
 		(AGGQuery as jest.Mock).mockResolvedValue({
 			user: {
 				zoneinfo: 'test-zoneinfo',
@@ -145,11 +145,7 @@ describe('UserProfileCardClient', () => {
 			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
 		});
 
-		it('should add scoped profiles atl-attribution header when feature gated', async () => {
-			mockFg.mockImplementation(
-				(flagKey) => flagKey === 'profilecard_scoped_profile_atl_attribution',
-			);
-
+		it('should add scoped profiles atl-attribution header', async () => {
 			await client.getProfile(cloudId, userId, mockAnalytics);
 
 			const processHeaders = (AGGQuery as jest.Mock).mock.calls[0][2];
@@ -164,19 +160,7 @@ describe('UserProfileCardClient', () => {
 			);
 		});
 
-		it('should not add scoped profiles atl-attribution header when feature gate is off', async () => {
-			mockFg.mockReturnValue(false);
-
-			await client.getProfile(cloudId, userId, mockAnalytics);
-
-			expect((AGGQuery as jest.Mock).mock.calls[0][2]).toBeUndefined();
-		});
-
 		it('should not add scoped profiles atl-attribution header when cloudId is empty', async () => {
-			mockFg.mockImplementation(
-				(flagKey) => flagKey === 'profilecard_scoped_profile_atl_attribution',
-			);
-
 			await client.getProfile('', userId, mockAnalytics);
 
 			expect((AGGQuery as jest.Mock).mock.calls[0][2]).toBeUndefined();

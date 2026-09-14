@@ -3,11 +3,9 @@ import { expect, test } from '@af/integration-testing';
 test('ProgressIndicator, progress-indicator-appearances should pass basic aXe audit', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../../examples/progress-indicator-appearances.tsx')>(
-		'design-system',
-		'progress-indicator',
-		'progress-indicator-appearances',
-	);
+	await page.visitExample<
+		typeof import('../../../../examples/progress-indicator-appearances.vr.ap.tsx')
+	>('design-system', 'progress-indicator', 'progress-indicator-appearances');
 
 	await expect(page.locator('[data-testid="progress-indicator"]')).toBeVisible();
 });

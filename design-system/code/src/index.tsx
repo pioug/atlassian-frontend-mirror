@@ -1,12 +1,13 @@
 export { default as Code } from './code';
+
 export { default as CodeBlock } from './code-block';
 
-export type {
-	CodeBlockProps,
-	CodeProps,
-	SupportedLanguages,
-	LanguageAlias,
-	Language,
-} from './types';
+export type { CodeBlockProps } from './internal/types';
+export type { CodeProps } from './types';
 
-export { SUPPORTED_LANGUAGES } from './constants';
+export {
+	SUPPORTED_LANGUAGES,
+	type SupportedLanguages,
+	type LanguageAlias,
+	type Language,
+} from './constants';

@@ -7,22 +7,20 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
-import { succeedUfoExperience } from '../../../../../state/analytics';
+import { succeedUfoExperience } from '../../../../../state/analytics/succeedUfoExperience';
 import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 import FlexibleCard from '../../../../FlexibleCard';
-import {
-	ActionBlock,
-	AIFooterBlock,
-	AISummaryBlock,
-	MetadataBlock,
-	SnippetBlock,
-	TitleBlock,
-} from '../../../../FlexibleCard/components/blocks';
+import { default as ActionBlock } from '../../../../FlexibleCard/components/blocks/action-block';
+import { default as AIFooterBlock } from '../../../../FlexibleCard/components/blocks/ai-footer-block';
+import { default as AISummaryBlock } from '../../../../FlexibleCard/components/blocks/ai-summary-block';
+import { default as MetadataBlock } from '../../../../FlexibleCard/components/blocks/metadata-block';
+import { default as SnippetBlock } from '../../../../FlexibleCard/components/blocks/snippet-block';
+import { default as TitleBlock } from '../../../../FlexibleCard/components/blocks/title-block';
 import { getMetadata } from '../../../utils';
 import ImagePreview from '../../ImagePreview';
 

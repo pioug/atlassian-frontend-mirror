@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { createIntl, createIntlCache } from 'react-intl';
@@ -49,24 +41,6 @@ describe('ShowMoreButton', () => {
 		const { container } = render(component);
 
 		await expect(container).toBeAccessible();
-	});
-
-	it.skip('Should match snapshot', async () => {
-		const component = (
-			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
-				<ShowMoreButton
-					intl={intl}
-					itemsType="articles"
-					minItemsToDisplay={9}
-					maxItemsToDisplay={18}
-					showMoreToggeled
-					onToggle={mockOnClick}
-				/>
-			</AnalyticsListener>
-		);
-		const { container } = render(component);
-
-		expect(container.firstChild).toMatchSnapshot();
 	});
 
 	it(`Should show display the message ${buttonLabelShowMore} if the showMoreToggeled prop is true`, async () => {

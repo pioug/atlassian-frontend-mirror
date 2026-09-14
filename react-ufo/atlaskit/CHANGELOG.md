@@ -1,5 +1,253 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.10.0
+
+### Minor Changes
+
+- [`b0e3825b30eb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0e3825b30eb6) -
+  Add RRR prefetch observation and adopt resource and entry-point preloads as React UFO interaction
+  holds.
+
+## 7.9.1
+
+### Patch Changes
+
+- [`d8079b163f0b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8079b163f0b4) -
+  Cleanup `feature_gate` `platform_ufo_exclude_3p_extensions_from_ttvc`. Third-party browser
+  extension attributes are permanently included in the FY25.03 TTVC calculation, matching the gate's
+  disabled behaviour.
+
+## 7.9.0
+
+### Minor Changes
+
+- [`8f77dadf06bcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f77dadf06bcd) -
+  Add public direct-import entrypoints for React UFO APIs that were previously available only
+  through internal source paths.
+  - **Timing, marks, and metrics:** `add-bm3-timings-to-ufo`, `add-timing-from-performance-mark`,
+    `add-ufo-custom-mark`, `get-bm3-timings`, `get-bm3-tracker-timings`, `get-bundle-eval-timings`,
+    `get-earliest-legacy-stop-time`, `get-timings`, `get-resource-timings`,
+    `get-react-profiler-timings-by-metric-window`, `get-react-profiler-timings-for-window`,
+    `get-stylesheet-metrics`, `get-vc-observer`, `new-vc-observer`, `vc-observer-wrapper`,
+    `ufo-custom-marks`, and `ufobm3-timings-to-ufo`.
+  - **Interaction, trace, span, and segment state:** `clear-active-trace`, `default-interaction-id`,
+    `experience-type-key`, `generate-span-id`, `get-active-trace`,
+    `get-active-trace-as-query-params`, `get-active-trace-http-request-headers`,
+    `get-interaction-id`, `get-tracing-context-data`, `set-active-trace`,
+    `set-interaction-active-trace`, `span-id-key`, `state`, `subscribe-to-interaction-id-changes`,
+    `third-party-segment`, `trace-id-key`, `trace-ufo-interaction`, `use-interaction-context`,
+    `use-interaction-id`, and `use-ufo-transition-completer`.
+  - **Payload, custom-data, and analytics helpers:** `add-ufo-custom-cohort-data`,
+    `add-ufo-custom-data`, `create-extra-search-page-interaction-payload`,
+    `create-interaction-metrics-payload`, `create-payloads`, `get-assets-metrics`,
+    `get-error-counts`, `get-metric-variant-hold-info`, `get-payload-size-and-annotate`,
+    `get-pps-metrics`, `get-resource-timings-payload`, `object-to-array`, `optimize-custom-data`,
+    `optimize-redirects`, and `redact-value`.
+  - **Rendering, SSR, visibility, and AI helpers:** `gen-ai-segment`,
+    `get-more-accurate-page-visibility-up-to-tti`, `get-page-visibility-up-to-tti`,
+    `get-segment3p-timing-abort-markers`, `get-ssr-properties`, `is-environment-supported`,
+    `ssr-render-profiler`, `startLighthouseObserver`, `timings`, `types`, and
+    `update-pageload-name`.
+  - **Lighthouse metrics:** `getLighthouseMetrics`.
+
+  Use the public subpath form, for example `@atlaskit/react-ufo/get-active-trace`, instead of
+  importing from React UFO internal source paths.
+
+## 7.8.3
+
+### Patch Changes
+
+- [`7a58648da8989`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a58648da8989) -
+  Behind `platform_ufo_exclude_anchor_name_from_ttvc`, `style` mutations that only add or remove
+  `anchor-name` declarations are excluded from TTVC for every anchor name, not just the editor drag
+  and drop `--node-anchor` names. `anchor-name` never changes the rendering of the element it is set
+  on. `@atlaskit/top-layer` writes it to a popover's trigger when the popover opens, and that write
+  was being counted as a repaint of the trigger at hover time (COPPER-1736).
+
+## 7.8.2
+
+### Patch Changes
+
+- [`3b625cd7fecf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b625cd7fecf2) -
+  Cleanup feature gate `platform_ufo_exclude_dark_reader_extension`. Dark Reader browser extension
+  attribute mutations are now always excluded from TTVC calculations.
+
+## 7.8.1
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+## 7.8.0
+
+### Minor Changes
+
+- [`d7c2318ff1726`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7c2318ff1726) -
+  Cleanup experiment `reuse_ssr_placeholder_dimension_collect`. `SSRPlaceholderHandlers` no longer
+  deletes `window.__SSR_PLACEHOLDERS_DIMENSIONS__` after collecting, so the SSR-measured geometry is
+  now reused by every handler built during a page load instead of only the first one. The
+  `window.__REUSE_SSR_PLACEHOLDER_DIMENSIONS__` opt-in that scoped this to Confluence is removed.
+
+  Note for consumers other than Confluence: this was previously off for you, so later VC handlers
+  will now compare against SSR geometry rather than geometry measured mid-hydration. That removes a
+  synchronous style recalc and full-document layout during hydration, but it can also shift VC/TTVC
+  numbers slightly.
+
+## 7.7.2
+
+### Patch Changes
+
+- [`b9e0d6c03a4e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9e0d6c03a4e4) -
+  Change how Forge background-script third-party holds are handled so they are excluded from
+  `ttai_include_third_party` without altering the standard metric bucket. Previously these holds
+  were dropped at creation; they are now retained and excluded only from third-party accounting.
+
+  Background-script holds (labels carrying both `type: 'third-party'` and
+  `excludeFromMetrics: true`) are kept in the extended (`hold3pActive`) bucket exactly like any
+  other third-party hold, so they continue to gate interaction completion and keep the standard
+  bucket (e.g. `vc90`, `ttai`) identical to when the hold is not excluded. They are excluded only
+  from third-party accounting: they never contribute a third-party category end, and the `end3p` /
+  `include-third-party` window end is never dragged past the real interaction end by a still-active
+  background-script hold. This is driven by the existing `excludeFromMetrics` annotation with no new
+  feature flag.
+
+  Rollout / gating: this change adds no new feature flag. It builds directly on top of the earlier
+  background-script exclusion change (which introduced the drop-at-creation behaviour), and it is
+  gated by that same existing implementing Forge feature gate,
+  `platform_forge_ufo_exclude_bg_scripts_from_3p` (platform/forge). That gate is what stamps the
+  `excludeFromMetrics` label annotation onto background-script holds; this change reacts purely to
+  that annotation, so when the gate is off the code path is inert and behaviour is unchanged.
+
+## 7.7.1
+
+### Patch Changes
+
+- [`8e8330fd91a12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e8330fd91a12) -
+  Fixed a circular dependency between interaction ID helpers and their public entry point that could
+  cause runtime initialization errors in bundled applications.
+
+## 7.7.0
+
+### Minor Changes
+
+- [`ec57a50c9cc90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec57a50c9cc90) -
+  Added dedicated entry points for additional-payload metrics, resource timing, SSR scripts, and VC
+  media. These imports let consumers depend on the APIs they use directly:
+  - `import { getCacheHitRatio } from '@atlaskit/react-ufo/additional-payload/cache-hit-ratio'`
+  - `import { getResourceTimings } from '@atlaskit/react-ufo/resource-timing/main'`
+  - `import type { ResourceTiming } from '@atlaskit/react-ufo/resource-timing/types'`
+  - `import { bindAbortListeners } from '@atlaskit/react-ufo/ssr-scripts/bindAbortListeners'`
+
+## 7.6.1
+
+### Patch Changes
+
+- [`6c2d9c3b686ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c2d9c3b686ff) -
+  Reuse the SSR-measured placeholder dimensions across VC observer instances.
+
+  Several `VCObserverWrapper` instances are built per page load (the lazily created global one, the
+  per-interaction one and the post-interaction one) and each constructed its own
+  `SSRPlaceholderHandlers`. The first one deleted `window.__SSR_PLACEHOLDERS_DIMENSIONS__` after
+  collecting, so every later one fell back to `getBoundingClientRect()` for every placeholder,
+  forcing a synchronous style recalc and a full-document layout during hydration. The dimensions are
+  now kept until the page is unloaded, which also means later handlers compare against SSR geometry
+  as intended instead of geometry measured mid-hydration.
+
+  Gated on `window.__REUSE_SSR_PLACEHOLDER_DIMENSIONS__`, which Confluence's Bifrost SSR resolves
+  from the `reuse_ssr_placeholder_dimension_collect` experiment. Behaviour is unchanged when the
+  global is absent or false.
+
+## 7.6.0
+
+### Minor Changes
+
+- [`7b7dae9d27b68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b7dae9d27b68) -
+  Add a way to exclude a third-party segment subtree from all UFO metric windows, and use it for
+  Forge background modules so they no longer inflate `ttai_include_third_party`.
+
+  `@atlaskit/react-ufo`: `UFOSegment`/`UFOThirdPartySegment` now accept an `excludeFromMetrics`
+  prop. When set on a `type: 'third-party'` segment, every hold registered under that segment is
+  dropped entirely: it is not tracked in the standard or include-third-party buckets, does not gate
+  interaction completion. The flag is only honoured alongside a third-party segment, so it can never
+  remove first-party work from `ttai`/`vc90`.
+
+  `@atlassian/forge-ui`: `ForgeUIRenderer` accepts an optional `isBackgroundModule` prop. Behind the
+  `platform_forge_ufo_exclude_bg_scripts_from_3p` feature gate, background modules (flagged via
+  `isBackgroundModule` by the product, or matching the generic `*:backgroundScript` fallback) render
+  their third-party segment with `excludeFromMetrics`, so their never-releasing hold no longer
+  inflates `ttai_include_third_party` and they contribute to no metric bucket. Products own their
+  module taxonomy and opt in by passing `isBackgroundModule`.
+
+  Excluded background modules still record a small, static breadcrumb in a dedicated
+  `excluded3pSegments` payload. The breadcrumb is keyed `forgeBackgroundModule:*` and carries the
+  module identity (module type, app version, installation id, etc.) plus
+  `excludedFromMetrics: true`. It is emitted independently of iframe timings so the module identity
+  survives even when `segment3pData` is dropped. It is a pure side-channel: never read by any metric
+  window and creates no hold, so the module remains observable (and a gate revert is not an
+  unrecoverable data loss) without affecting `ttai`/`vc90`/`ttai_include_third_party`.
+
+  `@atlaskit/react-ufo`: `UFOThirdPartySegment` accepts an optional `excludedData` prop that records
+  a diagnostic breadcrumb for an excluded segment into a new `excluded3pSegments` payload field
+  (keyed internally by `segmentId` so re-renders upsert rather than duplicate). No effect on any
+  metric window.
+
+## 7.5.0
+
+### Minor Changes
+
+- [`4e87fa7c9e65f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e87fa7c9e65f) -
+  Export `scheduleOnPaint` (default) and its `OnPaintCallback` type from a new `./schedule-on-paint`
+  entry point. It already handles SSR, the hidden-tab case (`setTimeout` fallback), and a
+  `scheduler.postTask` fast path ahead of a double-`requestAnimationFrame` fallback, so consumers
+  that need to defer work until after the next paint can use this shared primitive instead of
+  hand-rolling their own scheduling logic.
+
+## 7.4.0
+
+### Minor Changes
+
+- [`505af56cf057b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/505af56cf057b) -
+  Emit metric-variant hold attribution behind `platform_ufo_emit_metric_variant_holds` for GenAI UFO
+  segments so downstream page segment metrics can process GenAI segments like normal UFO segments
+  without changing root standard TTAI semantics.
+
+## 7.3.27
+
+### Patch Changes
+
+- [`428c5ef681458`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/428c5ef681458) -
+  Add optional `isSandbox` config field to react-ufo. When a product sets `isSandbox` on its UFO
+  config, it is emitted on the ufo metrics payload as `event:isSandbox`. The property is only
+  emitted when a product explicitly provides the signal, so events from products that have not wired
+  up a sandbox source omit the field entirely rather than reporting `false`.
+
 ## 7.3.26
 
 ### Patch Changes

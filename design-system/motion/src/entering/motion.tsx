@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, {
 	forwardRef,
 	type Ref,
@@ -16,19 +17,19 @@ import type { XCSSProp } from '@compiled/react';
 
 import { cssMap, cx, jsx, type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 
-import { convertToMs } from '../utils/convert-to-ms';
+import { getComputedAnimationDurationMs } from '../utils/get-computed-animation-duration-ms';
 import { getDurationMs } from '../utils/get-duration-ms';
 import { isReducedMotion } from '../utils/is-reduced-motion';
 import { resolveMotionToken } from '../utils/resolve-motion-token';
 
-import { useExitingPersistence } from './exiting-persistence';
 import { Reanimate } from './reanimate';
-import { useStaggeredEntrance } from './staggered-entrance';
 import { type Transition } from './types';
+import { useExitingPersistence } from './use-exiting-persistence';
 import { type CustomMotionXCSS, useMotion } from './use-motion';
+import { useStaggeredEntrance } from './use-staggered-entrance';
 
 export type { CustomMotionXCSS } from './use-motion';
 
@@ -230,7 +231,6 @@ const MotionLegacy: React.ForwardRefExoticComponent<
 			}
 
 			let animationDuration = 0;
-			let animationDelay = 0;
 			if (state === 'entering' || state === 'exiting') {
 				if (elementRef.current) {
 					if (elementRef.current.style.animation) {
@@ -239,16 +239,15 @@ const MotionLegacy: React.ForwardRefExoticComponent<
 							resolveMotionToken(elementRef.current.style.animation),
 						);
 						animationDuration = animationTimings.duration;
-						animationDelay = animationTimings.delay;
+						animationDuration += animationTimings.delay;
 					} else {
 						// Custom motion
 						const styles = window.getComputedStyle(elementRef.current);
-						if (styles.animationDuration) {
-							animationDuration = convertToMs(styles.animationDuration);
-						}
-						if (styles.animationDelay) {
-							animationDelay = convertToMs(styles.animationDelay);
-						}
+						animationDuration = getComputedAnimationDurationMs(
+							styles.animationName,
+							styles.animationDuration,
+							styles.animationDelay,
+						);
 					}
 				}
 			}
@@ -257,12 +256,12 @@ const MotionLegacy: React.ForwardRefExoticComponent<
 			if (state === 'exiting' && (exitingAnimation || exitingAnimationXcss)) {
 				animationRef.current = setTimeout(
 					() => onAnimationEnd(state, isCancelled),
-					animationDuration + animationDelay,
+					animationDuration,
 				);
 			} else if (state === 'entering' && (enteringAnimation || enteringAnimationXcss)) {
 				animationRef.current = setTimeout(
 					() => onAnimationEnd(state, isCancelled),
-					animationDuration + animationDelay,
+					animationDuration,
 				);
 			}
 
@@ -411,4 +410,7 @@ const Motion: React.ForwardRefExoticComponent<
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Motion;
+/**
+ * @deprecated Import from the generated per-export subpath instead.
+ */
 export { Reanimate } from './reanimate';

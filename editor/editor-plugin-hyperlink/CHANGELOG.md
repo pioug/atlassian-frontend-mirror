@@ -1,5 +1,450 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- [`fb891566dfac2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb891566dfac2) -
+  Add anyMarksActiveFromTr and getHadMarkAttributes so mark-active checks can run from a
+  transaction. Color, highlight, toolbar/Cmd+K link apply, and paste events include had-mark
+  attributes behind kill switch platform_editor_add_text_color_tracking.
+- [`a075f90fa2e35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a075f90fa2e35) -
+  Behind `platform_editor_middle_click_no_link_toolbar`: middle-clicking a link no longer opens the
+  link toolbar, and links in editable text now open in a new tab (browsers do not follow link clicks
+  inside `contenteditable`, so previously they did not open at all). Applies to plain hyperlinks and
+  to inline, block, embed and datasource smart links. Behaviour is unchanged when the gate is off.
+- Updated dependencies
+
+## 18.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.11
+
+### Patch Changes
+
+- [`789d7f32d0d43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/789d7f32d0d43) -
+  Remove the orphaned `ButtonWrapper` configure-link overlay wrapper
+  (`src/pm-plugins/decorations.tsx`). It had no importers and was not reachable through the
+  package's entry points — the plugin's ProseMirror `decorations` prop returns an empty
+  `DecorationSet` — so this is an internal dead-code removal with no behaviour or API change.
+
+## 18.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 18.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- [`6304662fbdf4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6304662fbdf4a) -
+  Use the supported `createRoot` API when `platform_editor_react19_migration` is enabled.
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- [`02f23e888be02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02f23e888be02) -
+  Use core icons for slash-menu items when platform_editor_slash_command is enabled.
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.14
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 17.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

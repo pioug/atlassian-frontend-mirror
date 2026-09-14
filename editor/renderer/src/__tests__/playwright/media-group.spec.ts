@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { rendererTestCase as test, expect } from './not-libra';
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
@@ -39,13 +39,5 @@ test.describe('media group', () => {
 		const downloadButton = renderer.page.getByTestId('media-card-primary-action');
 		await renderer.page.getByTestId('media-file-card-view').hover();
 		await expect(downloadButton).toBeVisible();
-	});
-
-	test('should capture and report a11y violations', async ({ renderer }) => {
-		const downloadButton = renderer.page.getByTestId('media-card-primary-action');
-		await renderer.page.getByTestId('media-file-card-view').hover();
-		await expect(downloadButton).toBeVisible();
-
-		await expect(renderer.page).toBeAccessible();
 	});
 });

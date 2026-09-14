@@ -4,7 +4,9 @@
  */
 import { useEffect, useMemo, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
-import { SlideIn, ExitingPersistence, type Durations } from '@atlaskit/motion';
+import SlideIn from '@atlaskit/motion/slide-in';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import type { Durations } from '@atlaskit/motion/utils/durations';
 import { formatLargeNumber } from '../shared/utils';
 
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,6 @@
 import { DEFAULT_CONFIG } from '../constants';
 
-import { TeamCentralClient } from './index';
+import { TeamCentralClient } from './TeamCentralClient';
 
 describe('TeamCentralClient', () => {
 	let teamCentralClient: TeamCentralClient;

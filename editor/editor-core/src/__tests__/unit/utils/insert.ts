@@ -1,4 +1,5 @@
-import type { CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { safeInsert } from '@atlaskit/editor-common/insert';
 import type { DocBuilder, PublicPluginAPI } from '@atlaskit/editor-common/types';

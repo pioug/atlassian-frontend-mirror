@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import ShowMoreButton from '../../../ShowMoreButton';
 import { useNavigationContext } from '../../../contexts/navigationContext';

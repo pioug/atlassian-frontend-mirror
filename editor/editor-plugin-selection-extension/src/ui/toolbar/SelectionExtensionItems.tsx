@@ -90,7 +90,7 @@ export const SelectionExtensionItemsComponent = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const SelectionExtensionItems: React.FC<WithIntlProps<SelectionExtensionItemsProps>> & {
 	WrappedComponent: React.ComponentType<SelectionExtensionItemsProps>;
 } = injectIntl(SelectionExtensionItemsComponent);

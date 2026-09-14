@@ -10,3 +10,4 @@ jql-editor-initialisation.plantuml
 jql-editor-update.plantuml
 tsconfig.app.json
 tsconfig.dev.json
+*.docs.tsx

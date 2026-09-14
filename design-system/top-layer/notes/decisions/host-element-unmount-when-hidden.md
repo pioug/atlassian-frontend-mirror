@@ -23,20 +23,13 @@ encounter dialogs that do nothing.
 
 ## Decision
 
-Drive host-element mount/unmount off the `phase` state machine returned by `useAnimatedVisibility`
-(`closed | entering | open | exiting`). The host element is rendered while `phase !== 'closed'`.
+Drive host mounting from the lifecycle phase returned by `useAnimatedVisibility`. The host and its
+children are mounted whenever `phase !== 'closed'` and unmounted only in the `closed` phase.
 
-- `isOpen=true` → phase transitions `closed → entering` (animated) or `closed → open` (non-animated)
-  in the same commit the host mounts. `showPopover()` / `showModal()` runs from a layout effect.
-- `isOpen=false` with an `animate` preset → phase moves to `exiting` and the host stays mounted
-  while the CSS exit transition plays. When the `transitionend` fires (or the per-transition
-  safety-net timeout of `exitDurationMs + 50ms` elapses), phase flips to `closed` and the host
-  unmounts.
-- `isOpen=false` without an `animate` preset → phase moves to `exiting` and a `useEffect` binds
-  `toggle` / `close` listeners on the still- attached host. When the browser dispatches
-  `toggle(closed)` (popover) or `close` (dialog), phase flips to `closed` and the host unmounts.
-  This guarantees the toggle listener (which drives close-reason capture, nested focus restoration,
-  and the `onClose` notification) runs against an attached element.
+The canonical transition rules, native event ordering, and terminology are documented in
+[`animations.md#canonical-visibility-lifecycle-contract`](../architecture/animations.md#canonical-visibility-lifecycle-contract).
+This decision records why host mounting follows lifecycle phase instead of controlled intent; it
+does not define a separate lifecycle contract.
 
 ### Implementation notes
 

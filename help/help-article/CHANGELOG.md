@@ -1,5 +1,71 @@
 # @atlaskit/help-article
 
+## 7.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.2.1
+
+### Patch Changes
+
+- [`6ad39ad1df472`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ad39ad1df472) -
+  [ux] Fix html help articles failing to render (and their links failing to open in a new tab) when
+  the `nike_r19_render_unmount_help_article` feature gate is enabled. The `createRoot` migration
+  relied on `flushSync` to emulate the legacy `ReactDOM.render` completion callback, but `flushSync`
+  is a no-op when called from inside an effect, so the article content was written before the iframe
+  existed. The article iframe now notifies via a layout effect once React has committed it to the
+  DOM.
+- Updated dependencies
+
+## 7.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.1
 
 ### Patch Changes
@@ -11,9 +77,9 @@
 ### Minor Changes
 
 - [`68397ac94492a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68397ac94492a) -
-  Gate the ArticleBody iframe render (ReactDOM.render callback path) behind nike_r19_render_unmount,
-  mounting via the React 18/19 createRoot API when enabled. The legacy react-dom render path is
-  preserved on the gate-off branch for rollback.
+  Gate the ArticleBody iframe render (ReactDOM.render callback path) behind
+  nike_r19_render_unmount_help_article, mounting via the React 18/19 createRoot API when enabled.
+  The legacy react-dom render path is preserved on the gate-off branch for rollback.
 
 ## 7.0.5
 
@@ -676,7 +742,7 @@
 
 - [#26424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26424)
   [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) -
-  Consolidate In Product Help & Self-Help Experiences ownership
+  Consolidate In Product Help & PACE PS2 ownership
 
 ## 4.0.32
 

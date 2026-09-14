@@ -18,6 +18,25 @@ describe('parseArgs', () => {
 		expect(result.flags.limit).toBe('5');
 	});
 
+	// `batch` deliberately does not model `--command` in the parser: each group is variadic
+	// (`--command component Button`), so no flat `flags` value can represent it faithfully.
+	// `resolveBatch` re-splits the raw argv instead. This test pins that contract so nobody
+	// "fixes" the parser and leaves `resolveBatch` reading a stale, half-parsed shape.
+	it('leaves repeated --command groups for the batch resolver to split', () => {
+		const result = parseArgs([
+			'batch',
+			'--command',
+			'search',
+			'button',
+			'--command',
+			'token',
+			'space.200',
+		]);
+		expect(result.command).toBe('batch');
+		expect(result.flags.command).toBe(true);
+		expect(result.positionals).toEqual(['search', 'button', 'token', 'space.200']);
+	});
+
 	it('supports the --flag=value form', () => {
 		const result = parseArgs(['search', 'avatar', '--limit=3']);
 		expect(result.flags.limit).toBe('3');

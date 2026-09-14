@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type MediaTraceContext, type MediaType } from '@atlaskit/media-common';
 import type { MediaFileArtifacts, ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
@@ -6,11 +7,6 @@ import type { MediaFileArtifacts, ProcessingFailReason } from '@atlaskit/media-s
 export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 
 export type { MediaType } from '@atlaskit/media-common';
-
-export const isPreviewableType = (type: MediaType): boolean => {
-	const defaultPreviewableTypes = ['audio', 'video', 'image', 'doc'];
-	return defaultPreviewableTypes.indexOf(type) > -1;
-};
 
 export type AbuseClassification = {
 	classification: 'ABHORRENT' | 'MALICIOUS' | 'ILLICIT' | 'COPYRIGHT';
@@ -63,12 +59,6 @@ export type NotFoundMediaItemDetails = {
 	readonly metadataTraceContext?: MediaTraceContext;
 };
 
-export const isNotFoundMediaItemDetails = (
-	itemDetails: any,
-): itemDetails is NotFoundMediaItemDetails => {
-	return 'type' in itemDetails && itemDetails.type === 'not-found';
-};
-
 export type MediaRepresentations = {
 	image?: object;
 };
@@ -84,3 +74,12 @@ export enum DATA_UNIT {
 	GB = 1024 * MB,
 	TB = 1024 * GB,
 }
+
+/**
+ * @deprecated Use `import { isPreviewableType } from '@atlaskit/media-client'` instead.
+ */
+export { isPreviewableType } from './is-previewable-type';
+/**
+ * @deprecated Use `import { isNotFoundMediaItemDetails } from '@atlaskit/media-client/media'` instead.
+ */
+export { isNotFoundMediaItemDetails } from './is-not-found-media-item-details';

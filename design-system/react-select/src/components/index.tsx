@@ -17,6 +17,7 @@ import { DropdownIndicator, type DropdownIndicatorProps } from './indicators/dro
 import { LoadingIndicator, type LoadingIndicatorProps } from './indicators/loading-indicator';
 import Input, { type InputProps } from './input';
 import Menu from './menu';
+// oxlint-disable-next-line no-duplicate-imports
 import type { MenuProps } from './menu';
 import { MenuList, type MenuListProps } from './menu-list';
 import { LoadingMessage } from './menu-loading-message';

@@ -1,7 +1,7 @@
 import { type ReactElement, type Ref, useContext, useLayoutEffect, useRef, useState } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { PortalPlacementContext } from '../internal/portal-placement-context';
 import type {

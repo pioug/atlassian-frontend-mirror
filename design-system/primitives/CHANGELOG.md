@@ -1,5 +1,108 @@
 # @atlaskit/primitives
 
+## 22.5.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.4.1
+
+### Patch Changes
+
+- [`fdedfb06aa229`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdedfb06aa229) -
+  Allow canonical typed media queries and typed container-query exceptions in styling lint rules.
+- Updated dependencies
+
+## 22.4.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.3.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+## 22.2.2
+
+### Patch Changes
+
+- [`af176c56bda07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af176c56bda07) -
+  Document list-item motion guidance for Pressable consumers.
+- Updated dependencies
+
+## 22.2.1
+
+### Patch Changes
+
+- [`fe3a9586700ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe3a9586700ef) - ##
+
+  Add named exports for primitives subpath components while preserving default exports.
+
+  This update expands API availability for several component subpaths without breaking existing
+  imports. Default imports continue to work, and named imports are now supported in the same
+  entry-points.
+
+  ### What changed
+
+  The following public subpaths now support both default and named imports:
+  - `@atlaskit/primitives/anchor`
+  - `@atlaskit/primitives/flex`
+  - `@atlaskit/primitives/inline`
+  - `@atlaskit/primitives/metric-text`
+  - `@atlaskit/primitives/pressable`
+  - `@atlaskit/primitives/stack`
+  - `@atlaskit/primitives/text`
+
+  ### Compatibility
+
+  Existing default imports remain valid:
+
+  ```ts
+  import Text from '@atlaskit/primitives/text';
+  import Pressable from '@atlaskit/primitives/pressable';
+  import Anchor from '@atlaskit/primitives/anchor';
+  ```
+
+  Named imports are also supported:
+
+  ```ts
+  import { Text } from '@atlaskit/primitives/text';
+  import { Pressable } from '@atlaskit/primitives/pressable';
+  import { Anchor } from '@atlaskit/primitives/anchor';
+  ```
+
+  ### Notes
+  - Package root named imports remain valid.
+  - `@atlaskit/primitives/box` continues to support a default import via its dedicated entry-point.
+
+  ```ts
+  import { Text, Pressable, Anchor } from '@atlaskit/primitives';
+  ```
+
 ## 22.2.0
 
 ### Minor Changes

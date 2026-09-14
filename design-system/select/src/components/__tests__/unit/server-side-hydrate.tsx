@@ -2,7 +2,7 @@ import React from 'react';
 
 import { doesRenderWithSsr, hydrateWithSsr } from '@atlassian/ssr-tests';
 
-import Example from '../../../../examples/00-single-select';
+import Example from '../../../../examples/00-single-select.vr.ap';
 
 test('should ssr then hydrate correctly', async () => {
 	expect(await doesRenderWithSsr(<Example />)).toBe(true);

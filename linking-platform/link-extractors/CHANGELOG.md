@@ -1,5 +1,83 @@
 # @atlaskit/link-extractors
 
+## 4.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.1
+
+### Patch Changes
+
+- [`8d869cadd115d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d869cadd115d) -
+  Restore generator icons for Smart Link provider badges when entity-specific icons are available.
+  Resolved embeds keep the entity icon next to the resource title. Unresolved embeds show the
+  provider icon next to the provider name. Gate OFF preserves current entity icons in provider
+  badges; gate ON uses generator icons for provider branding. All changes behind feature gate:
+  `platform_lp_use_generator_icon_for_provider`.
+
+## 4.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.1
+
+### Patch Changes
+
+- [`74df17a1cfabf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74df17a1cfabf) -
+  Cleanup feature gate `platform_sl_google_rebrand`. Smart Link providers named "Google" are now
+  always rebranded to "Google Drive", and provider extraction for unresolved link states always uses
+  `extractProvider`.
+
+## 4.1.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- [`41b55f01fb4e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41b55f01fb4e1) -
+  Cleanup feature gate platform_lp_use_entity_icon_url_for_icon and use entity icon URLs by default.
+- Updated dependencies
+
+## 4.0.0
+
+### Major Changes
+
+- [`96fd2559b70c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96fd2559b70c5) -
+  Apply Volt entry-point and barrel-removal standards across these packages. Public `exports` now
+  resolve **directly** to `./src/*` implementations instead of intermediate `./src/entry-points/*`
+  re-exports.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.4
 
 ### Patch Changes

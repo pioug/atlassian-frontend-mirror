@@ -1,5 +1,420 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- [`c3b80cb940e98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3b80cb940e98) -
+  Clean up feature gate `platform_editor_experience_tracking_toolbar_button` and permanently enable
+  the toolbar action experiences plugin it gated
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`df59babd59961`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df59babd59961) -
+  Use registered Quick Insert items in both primary toolbar implementations when
+  `platform_editor_slash_command` is enabled, independently of the controls and AIFC experiments.
+  Share the registered menu model through an explicit editor-common subpath and use compact
+  presentation for typeahead and toolbar items.
+
+  Virtualize the toolbar menu, keep keyboard-selected items visible, and restore the bounded popup's
+  themed background and scrolling. Dismiss the popup on outside clicks and inset the search field
+  from its edges. When the experiment is enabled, ignore absent legacy Quick Insert handlers to
+  prevent suggestion crashes.
+
+  Provide persisted toolbar docking preferences in editor examples to support testing the primary
+  toolbar Insert menu.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.15
+
+### Patch Changes
+
+- [`b4c4cd8f205e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4c4cd8f205e4) -
+  Clean up experiment `platform_editor_prevent_toolbar_layout_shifts` and keep the enabled toolbar
+  layout behavior.
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [`8e67cc3c24a39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e67cc3c24a39) -
+  Remove the concluded Create with Rovo quick-insert experiment and retain its control behavior.
+
+  This is a breaking API change for `@atlaskit/tmp-editor-statsig` consumers because
+  `editorExperimentsConfig.cc_fd_cwr_quick_insert` and the corresponding typed experiment key no
+  longer exist.
+
+  Remove references to `editorExperimentsConfig.cc_fd_cwr_quick_insert` and experiment lookups such
+  as:
+
+  ```ts
+  if (expValNoExposure('cc_fd_cwr_quick_insert', 'cohort', 'control') === 'control') {
+  	return useControlBehavior();
+  }
+  return useTreatmentBehavior();
+  ```
+
+  There is no replacement experiment. Delete the conditional and use the former control behavior
+  directly:
+
+  ```ts
+  return useControlBehavior();
+  ```
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

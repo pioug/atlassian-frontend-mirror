@@ -2,17 +2,19 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { render, screen } from '@atlassian/testing-library';
 
 import CommentCountElement from './index';
 
 const testId = 'smart-element-badge';
 
-jest.mock('../../../../../state/flexible-ui-context', () => ({
+jest.mock('../../../../../state/flexible-ui-context/useFlexibleUiContext', () => ({
 	useFlexibleUiContext: jest.fn(() => ({
 		commentCount: 2,
 	})),
+}));
+jest.mock('../../../../../state/flexible-ui-context/useFlexibleUiOptionContext', () => ({
 	useFlexibleUiOptionContext: jest.fn(() => undefined),
 }));
 

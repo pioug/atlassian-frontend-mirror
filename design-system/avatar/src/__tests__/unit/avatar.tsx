@@ -3,17 +3,18 @@ import React, { type FC } from 'react';
 import cases from 'jest-in-case';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import {
-	type AnalyticsEventPayload,
-	AnalyticsListener,
-	UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
-import Avatar, { AvatarContent, AvatarContext, type SizeType } from '../../index';
+import Avatar from '../../avatar';
+import { AvatarContent } from '../../avatar-content';
+import { AvatarContext } from '../../avatar-context';
+import { type SizeType } from '../../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -721,17 +722,10 @@ describe('Avatar', () => {
 			);
 		});
 	});
-	it('should render avatar with aria-labelledby when isDecorative is false', () => {
+	it('should render avatar with aria-labelledby when name is provided', () => {
 		render(<Avatar name="Alexander Nevermind" testId={testId} presence="presence" />);
 		const avatar = screen.getByTestId(testId);
 		expect(avatar).toHaveAttribute('aria-labelledby');
-	});
-	it('should render avatar without aria-labelledby when isDecorative is true', () => {
-		render(
-			<Avatar name="Alexander Nevermind" testId={testId} presence="presence" isDecorative={true} />,
-		);
-		const avatar = screen.getByTestId(testId);
-		expect(avatar).not.toHaveAttribute('aria-labelledby');
 	});
 
 	describe('ARIA trigger props', () => {

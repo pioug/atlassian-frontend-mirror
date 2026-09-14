@@ -5,7 +5,7 @@
 import React, { useRef } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -55,17 +55,13 @@ const readViewWrapperStyles = css({
 	width: 'auto',
 	maxWidth: '100%',
 	borderColor: 'transparent',
-	borderRadius: token('radius.small', '3px'),
+	borderRadius: token('radius.medium'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
 	transition: 'background 0.2s',
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
-});
-
-const readViewWrapperStylesT26Shape = css({
-	borderRadius: token('radius.medium', '6px'),
 });
 
 const readViewWrapperMotionStyles = css({
@@ -110,13 +106,9 @@ const ReadView: ({
 	const startX = useRef(0);
 	const startY = useRef(0);
 
-	const mouseHasMovedAfterMouseDown = (event: { clientX: number; clientY: number }) => {
-		return (
-			Math.abs(startX.current - event.clientX) >= DRAG_THRESHOLD ||
-			Math.abs(startY.current - event.clientY) >= DRAG_THRESHOLD
-		);
-	};
-
+	const mouseHasMovedAfterMouseDown = (event: { clientX: number; clientY: number }) =>
+		Math.abs(startX.current - event.clientX) >= DRAG_THRESHOLD ||
+		Math.abs(startY.current - event.clientY) >= DRAG_THRESHOLD;
 	const onReadViewClick = (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
 		const element = event.target as HTMLElement;
 		/**
@@ -143,7 +135,6 @@ const ReadView: ({
 				css={[
 					readViewWrapperStyles,
 					readViewFitContainerWidth && readViewFitContainerWidthStyles,
-					fg('platform-dst-shape-theme-default') && readViewWrapperStylesT26Shape,
 					fg('platform-dst-motion-uplift-button') && readViewWrapperMotionStyles,
 				]}
 				/**

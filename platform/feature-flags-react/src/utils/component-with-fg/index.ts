@@ -1,6 +1,6 @@
 import type { ComponentType, FC, PropsWithoutRef, PropsWithRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { componentWithCondition, type GetRefAttributes } from '../component-with-condition';
 

@@ -1,7 +1,7 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
-import Tooltip from '@atlaskit/tooltip';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { useTheme } from '../../theme';
 

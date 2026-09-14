@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ExperiencePerformanceTypes, ExperienceTypes, ConcurrentExperience } from '@atlaskit/ufo';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 export const mentionRenderedUfoExperience: ConcurrentExperience = new ConcurrentExperience(
 	'mention-rendered',

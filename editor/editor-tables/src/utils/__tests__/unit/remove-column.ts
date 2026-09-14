@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -6,11 +7,9 @@ import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-
 
 import { cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
 import { selectionFor } from '../../../__tests__/__helpers/selection-for';
-import {
-	removeColumnAt,
-	removeColumnClosestToPos,
-	removeSelectedColumns,
-} from '../../remove-column';
+import { removeColumnAt } from '../../remove-column-at';
+import { removeColumnClosestToPos } from '../../remove-column-closest-to-pos';
+import { removeSelectedColumns } from '../../remove-selected-columns';
 
 // createEditorState() doesn't set up Selection the same way the tests expect
 const fixSelection = (tr: Transaction): Transaction => {

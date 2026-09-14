@@ -1,4 +1,4 @@
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { token } from '@atlaskit/tokens';
 import { Text } from '@atlaskit/primitives/compiled';
 import React from 'react';

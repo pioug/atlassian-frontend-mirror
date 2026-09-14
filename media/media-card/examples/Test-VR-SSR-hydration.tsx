@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import Loadable from 'react-loadable';
-import { type MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { type SSR } from '@atlaskit/media-common';
 import {
 	createStorybookMediaClientConfig,
@@ -9,7 +9,7 @@ import {
 	videoFileId,
 } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
-import { Card } from '../src/card';
+import { default as Card } from '../src/card/cardLoader';
 import ReactDOMServer from 'react-dom/server';
 
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';

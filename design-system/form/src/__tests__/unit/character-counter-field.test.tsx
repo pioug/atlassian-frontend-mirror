@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import Button from '@atlaskit/button/default/button';
+import TextArea from '@atlaskit/textarea/text-area';
+import TextField from '@atlaskit/textfield/text-field';
 
-import Button from '@atlaskit/button/new';
-import TextArea from '@atlaskit/textarea';
-import TextField from '@atlaskit/textfield';
-
-import Form, { CharacterCounterField } from '../../index';
+import Form from '../../form';
+import { CharacterCounterField } from '../../character-counter-field';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CharacterCounterField', () => {

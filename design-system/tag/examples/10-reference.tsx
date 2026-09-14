@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 
 export default (): React.JSX.Element => {
 	const ref = React.createRef();

@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import createEventPayload, {
 	type LinkPickerAnalyticsContextType,

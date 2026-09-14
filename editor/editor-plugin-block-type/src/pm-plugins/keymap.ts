@@ -26,7 +26,8 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { redo, undo } from '@atlaskit/prosemirror-history';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // Ignored via go/ees005

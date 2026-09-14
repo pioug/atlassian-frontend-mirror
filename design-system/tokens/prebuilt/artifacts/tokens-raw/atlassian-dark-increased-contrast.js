@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::10a5981b88ab9d586c02ff046af21df5>>
+ * @codegen <<SignedSource::7b71b4b8bf64a61ab95fefa090fbe209>>
  * @codegenCommand yarn build tokens
  */
 
@@ -5133,9 +5133,31 @@ var tokens = [{
       "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
     }
   },
-  "name": "color.border.input",
-  "path": ["color", "border", "input"],
+  "name": "color.border.input.[default]",
+  "path": ["color", "border", "input", "[default]"],
   "cleanName": "color.border.input"
+}, {
+  "value": "#E3E4F21F",
+  "filePath": "schema/themes/atlassian-dark-increased-contrast/color/border.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.12.0",
+    "description": "Use for the border of search inputs."
+  },
+  "original": {
+    "value": "DarkNeutral300A",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.12.0",
+      "description": "Use for the border of search inputs."
+    }
+  },
+  "name": "color.border.input.search",
+  "path": ["color", "border", "input", "search"],
+  "cleanName": "color.border.input.search"
 }, {
   "value": "#18191A",
   "filePath": "schema/themes/atlassian-dark/color/border.tsx",

@@ -7,8 +7,8 @@ import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, cssMap, cx } from '@compiled/react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu';
-import { fg } from '@atlaskit/platform-feature-flags';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';

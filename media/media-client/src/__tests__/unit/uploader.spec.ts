@@ -1,15 +1,16 @@
-jest.mock('@atlaskit/chunkinator');
+jest.mock('@atlaskit/chunkinator/chunkinator');
 
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { mapTo } from 'rxjs/operators/mapTo';
-import { chunkinator, type HashedBlob } from '@atlaskit/chunkinator';
-import { type AuthProvider, type MediaApiConfig } from '@atlaskit/media-core';
+import { chunkinator } from '@atlaskit/chunkinator/chunkinator';
+import type { HashedBlob } from '@atlaskit/chunkinator/domain';
+import type { AuthProvider, MediaApiConfig } from '@atlaskit/media-core/auth';
 import { uploadFile, type UploadableFileUpfrontIds, type MediaStore } from '../..';
 import { asMockFunction, nextTick } from '@atlaskit/media-common/test-helpers';
 import * as calculateChunkSize from '../../uploader/calculateChunkSize';
 import * as getMediaFeatureFlag from '@atlaskit/media-common';
-import { UploaderError } from '../../uploader/error';
+import { UploaderError } from '../../uploader/UploaderError';
 
 jest.mock('@atlaskit/media-common');
 
@@ -31,6 +32,7 @@ describe('Uploader', () => {
 		name: 'file-name',
 		collection: 'file-collection',
 		mimeType: 'file-mime-type',
+		size: 100,
 	};
 
 	const blob: HashedBlob = {
@@ -116,11 +118,12 @@ describe('Uploader', () => {
 				onProgress: jest.fn(),
 				onUploadFinish: () => {
 					expect(createFileFromUpload).toHaveBeenCalledTimes(1);
-					expect(createFileFromUpload).toBeCalledWith(
+					expect(createFileFromUpload).toHaveBeenCalledWith(
 						{
 							uploadId: 'some-upload-id',
 							name: 'file-name',
 							mimeType: 'file-mime-type',
+							conditions: { size: 100 },
 						},
 						{
 							occurrenceKey: 'some-occurrence-key',
@@ -128,7 +131,7 @@ describe('Uploader', () => {
 							replaceFileId: 'some-file-id',
 						},
 						{ traceId: 'some-trace-id', spanId: 'some-span-id' },
-						{ expectedFileSize: undefined },
+						{ expectedFileSize: 100 },
 					);
 					done();
 				},
@@ -185,7 +188,7 @@ describe('Uploader', () => {
 		const onProgress = jest.fn();
 
 		await new Promise<void>((resolve, reject) => {
-			uploadFile({ content: '' }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
+			uploadFile({ content: '', size: 100 }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
 				onProgress,
 				onUploadFinish: (err) => (err ? reject(err) : resolve()),
 			});
@@ -202,7 +205,7 @@ describe('Uploader', () => {
 		ChunkinatorMock.mockImplementation(() => from(Promise.reject('some upload error')));
 
 		const error = await new Promise((resolve, reject) => {
-			uploadFile({ content: '' }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
+			uploadFile({ content: '', size: 100 }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
 				onProgress: jest.fn(),
 				onUploadFinish: (err) => (err ? resolve(err) : reject()),
 			});
@@ -224,7 +227,7 @@ describe('Uploader', () => {
 		};
 
 		const err = await new Promise((resolve, reject) => {
-			uploadFile({ content: '' }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
+			uploadFile({ content: '', size: 100 }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
 				onProgress: jest.fn(),
 				onUploadFinish: (err) => (err ? resolve(err) : reject()),
 			});
@@ -247,7 +250,7 @@ describe('Uploader', () => {
 		expect.assertions(3);
 
 		await new Promise<void>((resolve, reject) => {
-			uploadFile({ content: '' }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
+			uploadFile({ content: '', size: 100 }, mediaStore as MediaStore, uploadableFileUpfrontIds, {
 				onProgress: jest.fn(),
 				onUploadFinish: (err) => (err ? reject(err) : resolve()),
 			});

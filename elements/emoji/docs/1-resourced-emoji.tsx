@@ -51,14 +51,14 @@ const _default_1: any = md`
   const emojiProvider = new EmojiResource(config);
   const emojiId = { shortName: ':grimacing:', id: '1f603' };
 
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <ResourcedEmoji
       emojiId={emojiId}
       emojiProvider={emojiProvider}
       optimistic
       optimisticImageURL={emojiProvider.getOptimisticImageURL(emojiId)}
     />,
-    container,
   );`}
 
   ${(

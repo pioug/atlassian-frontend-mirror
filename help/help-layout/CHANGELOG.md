@@ -1,5 +1,43 @@
 # @atlaskit/help-layout
 
+## 8.1.1
+
+### Patch Changes
+
+- [`b64b6603d26e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b64b6603d26e3) -
+  Migrate internal imports off deprecated root-barrel / re-export shims of Volt-compliant packages
+  to their non-deprecated subpath entrypoints (Volt Stage-2). No public API or runtime behaviour
+  change:
+  - `@atlaskit/help`, `@atlaskit/help-layout`, `@atlassian/help-widget`: split the
+    `import * as x from '@atlaskit/analytics-next'` namespace import into per-symbol subpath imports
+    (`/withAnalyticsEvents`, `/withAnalyticsContext`, `/createAndFireEvents`, `/UIAnalyticsEvent`,
+    `/types`), using type-only imports where applicable.
+
+## 8.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.8
+
+### Patch Changes
+
+- [`219b3f4ddad8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/219b3f4ddad8a) -
+  Use published Help translations for the panel title, close button, and additional article button.
+  The Help patch publishes its updated i18n bundle dependency.
+
+## 8.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.6
 
 ### Patch Changes
@@ -866,7 +904,7 @@
 
 - [#26424](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26424)
   [`0c19f354255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c19f354255) -
-  Consolidate In Product Help & Self-Help Experiences ownership
+  Consolidate In Product Help & PACE PS2 ownership
 
 ## 4.1.7
 

@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import AgentAvatarGeneratedExample from '../../examples/03-agent-avatar-generated';
+import AgentAvatarGeneratedExample from '../../examples/03-agent-avatar-generated.vr.ap';
 
 import { snapshotOptions } from './utils';
 

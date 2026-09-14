@@ -9,7 +9,7 @@ import { useContext, useState, useRef } from 'react';
 import type { ComponentProps, FC } from 'react';
 import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { SmartCardContext } from '@atlaskit/link-provider';
+import { SmartCardContext } from '@atlaskit/link-provider/context';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 
 import {
@@ -27,11 +27,10 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { CardErrorBoundary } from './fallback';
 import {
@@ -45,7 +44,7 @@ import type { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { getEventHandler } from '../../utils';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import BlockCard from './blockCard';
 
@@ -67,14 +66,6 @@ const embedCardCenterWrapperStyles = css({
 	// Match MediaSingle calcMargin(layout) default for wide/full-width: 24px top/bottom (so wrapper participates in collapse)
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- Matches editor-common MediaSingle calcMargin
 	margin: '24px 0',
-});
-
-// Legacy centering when platform_editor_flex_based_centering is off.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-const uIMediaSingleLayoutStylesLegacy = css({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	marginLeft: '50%',
-	transform: 'translateX(-50%)',
 });
 
 type EmbedCardInternalProps = {
@@ -112,9 +103,7 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 	const onClick = getCardClickHandler(eventHandlers, url);
 	// SmartCardEventClickHandler — (e, url?) => void — for CardErrorBoundary.
 	// When the gate is off, fall back to the old behaviour (pass the same onClick as Card).
-	const onConsumerClick = fg('platform_smartlink_xpc_url_wrapping')
-		? getEventHandler(eventHandlers, 'smartCard')
-		: onClick;
+	const onConsumerClick = getEventHandler(eventHandlers, 'smartCard');
 	const { actionOptions } = smartLinks || {};
 
 	const platform = 'web';
@@ -212,18 +201,6 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 						? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
 						: nonFullWidthSize;
 
-					const useStickySafeCentering = expValEquals(
-						'platform_editor_flex_based_centering',
-						'isEnabled',
-						true,
-					);
-					const uiMediaSingleStyles =
-						layout === 'full-width' || layout === 'wide'
-							? useStickySafeCentering
-								? undefined
-								: uIMediaSingleLayoutStylesLegacy
-							: '';
-
 					const onError = ({ err }: { err?: Error }) => {
 						if (err) {
 							throw err;
@@ -291,12 +268,9 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 									onHeightUpdate={setLiveHeight}
 								>
 									{(() => {
-										const useCenterWrapper =
-											(layout === 'full-width' || layout === 'wide') &&
-											expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+										const useCenterWrapper = layout === 'full-width' || layout === 'wide';
 										const mediaSingle = (
 											<UIMediaSingle
-												css={uiMediaSingleStyles}
 												layout={layout}
 												width={originalWidth}
 												containerWidth={containerWidth}

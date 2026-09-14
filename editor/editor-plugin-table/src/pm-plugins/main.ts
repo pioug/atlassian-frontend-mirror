@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { insideTable, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -28,9 +28,6 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import {
 	tableCellView,
 	tableHeaderView,
@@ -142,7 +139,7 @@ export const createPlugin = (
 		return editorView.state;
 	};
 
-	const intl = isSSRStreaming() ? getIntl() : undefined;
+	const intl = getIntl();
 
 	const getNodeView = () => {
 		return {
@@ -221,7 +218,6 @@ export const createPlugin = (
 		view: (editorView: EditorView) => {
 			const domAtPos = editorView.domAtPos.bind(editorView);
 			editorViewRef = editorView;
-			let contentModeSizeTableId: number | null = null;
 			let hasMeasuredContentModeTables = false;
 			let focusListenerBinding: UnbindFn | null = null;
 
@@ -232,31 +228,17 @@ export const createPlugin = (
 					allowColumnResizing: !!pluginConfig.allowColumnResizing,
 					allowTableResizing: !!pluginConfig.allowTableResizing,
 					isFullPageEditor: !isChromelessEditor && !isCommentEditor,
-				}) &&
-				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true)
+				})
 			) {
 				focusListenerBinding = bind(editorView.dom, {
 					type: 'focus',
 					listener: () => {
-						if (fg('platform_editor_table_nested_renderer_fix')) {
-							if (hasMeasuredContentModeTables || contentModeSizeTableId) {
-								return;
-							}
-
-							hasMeasuredContentModeTables = true;
-							applyMeasuredWidthToAllTables(editorView, pluginInjectionApi);
-							return;
-						}
-						if (contentModeSizeTableId) {
+						if (hasMeasuredContentModeTables) {
 							return;
 						}
 
-						contentModeSizeTableId = requestAnimationFrame(() => {
-							if (!editorViewRef) {
-								return;
-							}
-							applyMeasuredWidthToAllTables(editorViewRef, pluginInjectionApi);
-						});
+						hasMeasuredContentModeTables = true;
+						applyMeasuredWidthToAllTables(editorView, pluginInjectionApi);
 					},
 					options: {
 						once: true,
@@ -335,7 +317,6 @@ export const createPlugin = (
 					}
 				},
 				destroy: () => {
-					contentModeSizeTableId && cancelAnimationFrame(contentModeSizeTableId);
 					focusListenerBinding && focusListenerBinding();
 				},
 			};

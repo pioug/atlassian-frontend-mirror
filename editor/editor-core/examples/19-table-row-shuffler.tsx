@@ -14,8 +14,10 @@ import Toggle from '@atlaskit/toggle';
 
 import { default as FullPageExample } from './5-full-page';
 
+const loadTableDocument = () => import('../example-helpers/templates/table.adf.json');
+
 export default function Example(): React.JSX.Element {
-	const defaultValue = useExampleDocument('./adf/table.json');
+	const defaultValue = useExampleDocument(loadTableDocument);
 
 	const editorView = useRef<EditorView>();
 

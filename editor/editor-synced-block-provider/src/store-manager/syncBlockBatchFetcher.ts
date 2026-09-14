@@ -2,7 +2,6 @@ import rafSchedule from 'raf-schd';
 
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isProviderNotReadyError } from '../common/types';
 import type { ResourceId, BlockInstanceId, SyncBlockNode } from '../common/types';
@@ -44,14 +43,9 @@ export class SyncBlockBatchFetcher {
 			}
 
 			// EDITOR-7860: not ready — skip and leave resourceIds queued for the
-			// next batch once the provider resolves. Gate-off is unchanged (the
-			// readiness check is nested under the gate so it is not consulted when
-			// the gate is off, and `fg()` stays a standalone condition so gate
-			// exposure is still tracked — satisfies @atlaskit/platform/no-preconditioning).
-			if (fg('platform_editor_blocks_patch_3')) {
-				if (this.deps.isProviderReady && !this.deps.isProviderReady()) {
-					return;
-				}
+			// next batch once the provider resolves.
+			if (this.deps.isProviderReady && !this.deps.isProviderReady()) {
+				return;
 			}
 
 			const resourceIds = Array.from(this.pendingFetchRequests);
@@ -74,8 +68,8 @@ export class SyncBlockBatchFetcher {
 					// nothing (no analytics, no exception-tracker noise). Checked before
 					// `logException` so the benign case stays silent. Re-schedule so the
 					// re-queued IDs are retried on the next frame even if no further
-					// `queueFetch()` arrives. Gate-off behaviour is unchanged.
-					if (isProviderNotReadyError(error) && fg('platform_editor_blocks_patch_3')) {
+					// `queueFetch()` arrives.
+					if (isProviderNotReadyError(error)) {
 						resourceIds.forEach((resId) => this.pendingFetchRequests.add(resId));
 						if (!this.isDestroyed) {
 							this.scheduledBatchFetch();
@@ -85,10 +79,7 @@ export class SyncBlockBatchFetcher {
 					logException(error, {
 						location: 'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
 					});
-					const attribution = buildFetchErrorAttribution(
-						fg('platform_editor_blocks_patch_3'),
-						error.message,
-					);
+					const attribution = buildFetchErrorAttribution(error.message);
 					resourceIds.forEach((resId) => {
 						this.deps.getFireAnalyticsEvent()?.(
 							fetchErrorPayload(

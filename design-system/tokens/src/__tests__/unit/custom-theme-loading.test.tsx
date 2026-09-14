@@ -1,7 +1,7 @@
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../../constants';
 import * as customThemeUtils from '../../custom-theme';
-import UNSAFE_loadCustomThemeStyles from '../../load-custom-theme-styles';
-import { type ThemeOptionsSchema } from '../../theme-config';
+import { UNSAFE_loadCustomThemeStyles } from '../../unsafe-load-custom-theme-styles';
+import { type ThemeOptionsSchema } from '../../theme-options-schema';
 import { findMissingCustomStyleElements } from '../../utils/custom-theme-loading-utils';
 import { hash } from '../../utils/hash';
 

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::9b1c6bc8ada2a48be056e663628d9c8e>>
+ * @codegen <<SignedSource::f684429b80698bea74a05df27864a509>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -54,7 +54,7 @@ interface metadata {
 	 */
 	replacement?: {
 		name: string;
-		location: '@atlaskit/icon' | '@atlaskit/icon-lab' | '@atlassian/icon-private';
+		location: '@atlaskit/icon' | '@atlaskit/icon-lab';
 	};
 
 	/**
@@ -896,6 +896,24 @@ const metadata: Record<string, metadata> = {
 		team: 'JSM',
 		status: 'published',
 	},
+	'block-quote': {
+		keywords: [
+			'block-quote',
+			'blockquote',
+			'icon',
+			'icon-lab',
+			'quote',
+			'block',
+			'blockquote',
+			'quotation',
+		],
+		componentName: 'BlockQuoteIcon',
+		package: '@atlaskit/icon-lab/core/block-quote',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing block quotes.',
+		team: 'Editor',
+		status: 'published',
+	},
 	'block-synced': {
 		keywords: [
 			'block-synced',
@@ -1379,6 +1397,62 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Hide collaborator cursors in the Whiteboard',
 		team: 'Whiteboards',
+		status: 'published',
+	},
+	'curve-ease-in': {
+		keywords: [
+			'curve-ease-in',
+			'curveeasein',
+			'icon',
+			'icon-lab',
+			'ease in',
+			'ease in curve',
+			'motion',
+			'curve',
+			'slow start',
+		],
+		componentName: 'CurveEaseInIcon',
+		package: '@atlaskit/icon-lab/core/curve-ease-in',
+		categorization: 'multi-purpose',
+		usage: 'Representing ease in curve patterns and motion',
+		team: 'Goals and Projects',
+		status: 'published',
+	},
+	'curve-ease-out': {
+		keywords: [
+			'curve-ease-out',
+			'curveeaseout',
+			'icon',
+			'icon-lab',
+			'ease out',
+			'ease out curve',
+			'motion',
+			'curve',
+			'fast start',
+		],
+		componentName: 'CurveEaseOutIcon',
+		package: '@atlaskit/icon-lab/core/curve-ease-out',
+		categorization: 'multi-purpose',
+		usage: 'Representing ease out curve patterns and motion',
+		team: 'Goals and Projects',
+		status: 'published',
+	},
+	'curve-linear': {
+		keywords: [
+			'curve-linear',
+			'curvelinear',
+			'icon',
+			'icon-lab',
+			'linear curve',
+			'motion',
+			'easing',
+			'curve',
+		],
+		componentName: 'CurveLinearIcon',
+		package: '@atlaskit/icon-lab/core/curve-linear',
+		categorization: 'multi-purpose',
+		usage: 'Representing linear curve patterns and motion',
+		team: 'Goals and Projects',
 		status: 'published',
 	},
 	'dash-double': {
@@ -4347,6 +4421,25 @@ const metadata: Record<string, metadata> = {
 		team: 'Whiteboards',
 		status: 'published',
 	},
+	'hardware-assignment': {
+		keywords: [
+			'hardware-assignment',
+			'hardwareassignment',
+			'icon',
+			'icon-lab',
+			'assignment',
+			'assigned',
+			'hardware',
+			'assign',
+			'display',
+		],
+		componentName: 'HardwareAssignmentIcon',
+		package: '@atlaskit/icon-lab/core/hardware-assignment',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing hardware assignment.',
+		team: 'JSM',
+		status: 'published',
+	},
 	'hardware-audit': {
 		keywords: [
 			'hardware-audit',
@@ -4364,6 +4457,26 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/hardware-audit',
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing audited hardware.',
+		team: 'JSM',
+		status: 'published',
+	},
+	'hardware-cleanse': {
+		keywords: [
+			'hardware-cleanse',
+			'hardwarecleanse',
+			'icon',
+			'icon-lab',
+			'cleanse',
+			'cleanup',
+			'clean',
+			'hardware',
+			'display',
+			'tidy up',
+		],
+		componentName: 'HardwareCleanseIcon',
+		package: '@atlaskit/icon-lab/core/hardware-cleanse',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing hardware cleansing or clean up.',
 		team: 'JSM',
 		status: 'published',
 	},
@@ -4449,6 +4562,25 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for representing hardware fulfilment',
 		team: 'JSM',
 		status: 'published',
+	},
+	'hardware-insights': {
+		keywords: [
+			'hardware-insights',
+			'hardwareinsights',
+			'icon',
+			'icon-lab',
+			'device',
+			'insights',
+			'HAM',
+			'ITAM',
+		],
+		componentName: 'HardwareInsightsIcon',
+		package: '@atlaskit/icon-lab/core/hardware-insights',
+		categorization: 'single-purpose',
+		usage: 'Reserved for Hardware asset management AI insights.',
+		team: 'JSM',
+		status: 'published',
+		slackChannel: '@Justin Huang',
 	},
 	'hardware-new': {
 		keywords: [
@@ -5504,6 +5636,24 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 		status: 'published',
 	},
+	'pull-quote': {
+		keywords: [
+			'pull-quote',
+			'pullquote',
+			'icon',
+			'icon-lab',
+			'quote',
+			'pull',
+			'quotation',
+			'pullquote',
+		],
+		componentName: 'PullQuoteIcon',
+		package: '@atlaskit/icon-lab/core/pull-quote',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing pull quotes.',
+		team: 'Editor',
+		status: 'published',
+	},
 	'qr-code': {
 		keywords: ['qr-code', 'qrcode', 'icon', 'icon-lab', 'QR code', 'barcode'],
 		componentName: 'QrCodeIcon',
@@ -5511,6 +5661,24 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for QR code experiences.',
 		team: 'Assets',
+		status: 'published',
+	},
+	'question-circle-filled': {
+		keywords: [
+			'question-circle-filled',
+			'questioncirclefilled',
+			'icon',
+			'icon-lab',
+			'help',
+			'question mark',
+			'input required',
+			'waiting input',
+		],
+		componentName: 'QuestionCircleFilledIcon',
+		package: '@atlaskit/icon-lab/core/question-circle-filled',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: waiting for user input in agent sessions.',
+		team: 'Jira Core Experiences',
 		status: 'published',
 	},
 	'queue-pop-in': {
@@ -6352,6 +6520,24 @@ const metadata: Record<string, metadata> = {
 		usage:
 			'Reserved for representing statuses that signal potential issues requiring awareness or intervention',
 		team: 'Design System Team',
+		status: 'published',
+	},
+	'step-through': {
+		keywords: [
+			'step-through',
+			'stepthrough',
+			'icon',
+			'icon-lab',
+			'Step through',
+			'Step',
+			'Line',
+			'AI changes',
+		],
+		componentName: 'StepThroughIcon',
+		package: '@atlaskit/icon-lab/core/step-through',
+		categorization: 'single-purpose',
+		usage: 'Reserved for stepping through AI changes',
+		team: 'Editor',
 		status: 'published',
 	},
 	sticker: {

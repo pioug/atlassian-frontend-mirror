@@ -6,7 +6,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { css, jsx } from '@compiled/react';
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
@@ -172,21 +172,33 @@ type CollapsibleHeadingState = NonNullable<ReturnType<typeof useCollapsibleHeadi
 
 function CollapsibleHeadingButton({
 	collapsibleHeading,
+	headingLevel,
 	isHeadingHovered,
 }: {
 	collapsibleHeading: CollapsibleHeadingState;
+	headingLevel: HeadingLevels;
 	isHeadingHovered: boolean;
 }) {
 	const intl = useIntl();
+	const { fireAnalyticsEvent } = React.useContext(AnalyticsContext);
 	const [isFocused, setIsFocused] = React.useState(false);
 	const { isCollapsed, toggle } = collapsibleHeading;
 	const isVisible = isCollapsed || isFocused || isHeadingHovered;
 	const handleClick = React.useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>) => {
 			event.stopPropagation();
+			fireAnalyticsEvent({
+				action: ACTION.TOGGLED,
+				actionSubject: ACTION_SUBJECT.HEADING,
+				attributes: {
+					expanded: isCollapsed,
+					headingLevel,
+				},
+				eventType: EVENT_TYPE.TRACK,
+			});
 			toggle();
 		},
-		[toggle],
+		[fireAnalyticsEvent, headingLevel, isCollapsed, toggle],
 	);
 	const handleFocus = React.useCallback((event: React.FocusEvent<HTMLElement>) => {
 		setIsFocused(hasFocusVisible(event.target));
@@ -258,6 +270,7 @@ function CollapsibleHeadingContainer({
 		>
 			<CollapsibleHeadingButton
 				collapsibleHeading={collapsibleHeading}
+				headingLevel={headingLevel}
 				isHeadingHovered={isHovered || isFocused}
 			/>
 			{children}
@@ -412,6 +425,7 @@ function HeadingWithWrapper(
 			{collapsibleHeading && (
 				<CollapsibleHeadingButton
 					collapsibleHeading={collapsibleHeading}
+					headingLevel={props.level}
 					isHeadingHovered={isHovered || isFocused}
 				/>
 			)}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 import { MediaImage, type MediaImageProps } from '../../mediaImage';
-import { type isRotated } from '../../imageMetaData';
+import { type isRotated } from '../../imageMetaData/isRotated';
 
 interface SetupParams {
 	isCoverStrategy: boolean;
@@ -15,8 +15,8 @@ interface SetupParams {
 
 let mockIsRotated: jest.Mock | typeof isRotated = jest.fn();
 
-jest.mock('../../imageMetaData/imageOrientationUtil', () => ({
-	...jest.requireActual<Object>('../../imageMetaData/imageOrientationUtil'),
+jest.mock('../../imageMetaData/isRotated', () => ({
+	...jest.requireActual('../../imageMetaData/isRotated'),
 	isRotated: jest.fn<ReturnType<typeof isRotated>, Parameters<typeof isRotated>>((orientation) =>
 		mockIsRotated(orientation),
 	),
@@ -137,7 +137,7 @@ describe('MediaImage', () => {
 	beforeEach(() => {
 		onImageLoad = jest.fn();
 		onImageError = jest.fn();
-		mockIsRotated = jest.requireActual('../../imageMetaData/imageOrientationUtil').isRotated;
+		mockIsRotated = jest.requireActual('../../imageMetaData/isRotated').isRotated;
 	});
 
 	afterAll(() => {

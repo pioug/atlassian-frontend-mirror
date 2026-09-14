@@ -8,10 +8,9 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import Action from '../action';
-
 import type { PreviewActionProps } from './types';
 
 const PreviewAction = ({

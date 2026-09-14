@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
 import type { EnumSelectField, Option } from '@atlaskit/editor-common/extensions';
-import { Field } from '@atlaskit/form';
-import type { ValueType } from '@atlaskit/select';
-import Select from '@atlaskit/select';
+import Field from '@atlaskit/form/field';
+import type { ValueType } from '@atlaskit/select/types';
+import Select from '@atlaskit/select/default';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';

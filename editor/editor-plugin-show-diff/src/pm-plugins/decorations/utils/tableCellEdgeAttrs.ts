@@ -8,30 +8,57 @@ export type CellEdgeAttrs = {
 	reachesTop: boolean;
 };
 
+export const getTableTopAndBottomCellEdgeAttrs = (
+	tableMap: TableMap,
+): Map<number, CellEdgeAttrs> => {
+	const edgeAttrsByOffset = new Map<number, CellEdgeAttrs>();
+	const addLogicalRow = (offsets: number[], edge: 'bottom' | 'top'): void => {
+		offsets.forEach((offset, columnIndex) => {
+			const edgeAttrs = edgeAttrsByOffset.get(offset) ?? {
+				reachesBottom: false,
+				reachesLeft: false,
+				reachesRight: false,
+				reachesTop: false,
+			};
+
+			edgeAttrs.reachesBottom ||= edge === 'bottom';
+			edgeAttrs.reachesLeft ||= columnIndex === 0;
+			edgeAttrs.reachesRight ||= columnIndex === tableMap.width - 1;
+			edgeAttrs.reachesTop ||= edge === 'top';
+			edgeAttrsByOffset.set(offset, edgeAttrs);
+		});
+	};
+
+	const topRow = tableMap.mapByRow[0];
+	const bottomRow = tableMap.mapByRow[tableMap.height - 1];
+
+	if (topRow) {
+		addLogicalRow(topRow, 'top');
+	}
+	if (bottomRow) {
+		addLogicalRow(bottomRow, 'bottom');
+	}
+
+	return edgeAttrsByOffset;
+};
+
 export const getRowCellEdgeAttrs = ({
+	edgeAttrsByOffset,
 	rowNode,
 	rowStart,
-	tableMap,
 }: {
+	edgeAttrsByOffset: ReadonlyMap<number, CellEdgeAttrs>;
 	rowNode: PMNode;
 	rowStart: number;
-	tableMap: TableMap;
-}): CellEdgeAttrs[] => {
-	const cellEdgeAttrs: CellEdgeAttrs[] = [];
+}): Array<CellEdgeAttrs | undefined> => {
+	const cellEdgeAttrs: Array<CellEdgeAttrs | undefined> = [];
 
 	rowNode.content.forEach((cellNode, cellOffset) => {
 		if (cellNode.type.name !== 'tableCell' && cellNode.type.name !== 'tableHeader') {
 			return;
 		}
 
-		const cellRect = tableMap.findCell(rowStart + 1 + cellOffset);
-
-		cellEdgeAttrs.push({
-			reachesBottom: cellRect.bottom >= tableMap.height,
-			reachesLeft: cellRect.left === 0,
-			reachesRight: cellRect.right >= tableMap.width,
-			reachesTop: cellRect.top === 0,
-		});
+		cellEdgeAttrs.push(edgeAttrsByOffset.get(rowStart + 1 + cellOffset));
 	});
 
 	return cellEdgeAttrs;
@@ -72,17 +99,28 @@ export const applyTableCellEdgeAttrs = ({
 
 		const tableMap = TableMap.get(tableNode);
 		const cells = Array.from(table.rows).flatMap((row) => Array.from(row.cells));
+		const cellsByOffset = new Map<number, HTMLTableCellElement>();
 		let cellIndex = 0;
 
 		tableNode.content.forEach((rowNode, rowStart) => {
-			getRowCellEdgeAttrs({ rowNode, rowStart, tableMap }).forEach((edgeAttrs) => {
-				const cell = cells[cellIndex];
-				cellIndex++;
+			rowNode.content.forEach((cellNode, cellOffset) => {
+				if (cellNode.type.name === 'tableCell' || cellNode.type.name === 'tableHeader') {
+					const cell = cells[cellIndex];
+					cellIndex++;
 
-				if (cell) {
-					applyCellEdgeAttrs(cell, edgeAttrs);
+					if (cell) {
+						cellsByOffset.set(rowStart + 1 + cellOffset, cell);
+					}
 				}
 			});
+		});
+
+		getTableTopAndBottomCellEdgeAttrs(tableMap).forEach((edgeAttrs, offset) => {
+			const cell = cellsByOffset.get(offset);
+
+			if (cell) {
+				applyCellEdgeAttrs(cell, edgeAttrs);
+			}
 		});
 	} catch {
 		// Table structure can be transient while widget DOM is being assembled.

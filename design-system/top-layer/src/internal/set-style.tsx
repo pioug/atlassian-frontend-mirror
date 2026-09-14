@@ -1,4 +1,17 @@
 /**
+ * A single inline style declaration.
+ *
+ * `TProperty` narrows the property name for callers that write a known, closed
+ * set of properties. Narrowing it lets a record keyed on those same names be
+ * checked for exhaustiveness at compile time, rather than silently resolving to
+ * `undefined` for a name that was never mapped.
+ */
+export type TStyleDeclaration<TProperty extends string = string> = {
+	property: TProperty;
+	value: string;
+};
+
+/**
  * Sets inline styles on an element and returns a cleanup function that
  * restores the prior inline values (so we do not stomp consumer styles).
  */
@@ -7,7 +20,7 @@ export function setStyle({
 	styles,
 }: {
 	element: HTMLElement;
-	styles: Array<{ property: string; value: string }>;
+	styles: TStyleDeclaration[];
 }): () => void {
 	// Snapshot the prior inline value (NOT the computed style - we only want
 	// to restore values that the consumer/our previous run inlined). An empty

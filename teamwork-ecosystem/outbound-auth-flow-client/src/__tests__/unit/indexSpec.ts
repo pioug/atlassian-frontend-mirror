@@ -1,4 +1,4 @@
-import { auth } from '../..';
+import { auth } from '../../auth';
 import { AuthError } from '../../error';
 
 let authWindow: Window;

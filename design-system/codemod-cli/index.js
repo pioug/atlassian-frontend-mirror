@@ -12,9 +12,8 @@ const dev = fs.existsSync(project);
 let entrypoint = path.join(__dirname, 'dist', 'cjs', 'index');
 if (dev) {
 	if (!require.extensions['.ts']) {
-		// ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
-		// eslint-disable-next-line import/no-extraneous-dependencies
-		require('ts-node').register({ project });
+		// tsx registers the TypeScript loader
+		require('tsx/cjs');
 	}
 	entrypoint = path.join(__dirname, 'src', 'index');
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { act, render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@atlassian/testing-library';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';

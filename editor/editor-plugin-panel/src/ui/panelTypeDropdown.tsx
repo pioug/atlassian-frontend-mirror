@@ -2,7 +2,7 @@ import type React from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
-import { PanelType } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { panelMessages as messages } from '@atlaskit/editor-common/messages';
 import type {

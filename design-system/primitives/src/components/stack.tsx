@@ -19,7 +19,7 @@ import { jsx } from '@emotion/react';
 import { type Space } from '../xcss/positive-space';
 import { type XCSS, xcss } from '../xcss/xcss';
 
-import Flex from './flex';
+import { Flex } from './flex';
 import type { AlignBlock, AlignInline, BasePrimitiveProps, Grow, Spread } from './types';
 
 export type StackProps<T extends ElementType = 'div'> = {
@@ -90,7 +90,7 @@ const flexGrowMap = {
  * ```
  *
  */
-const Stack: MemoExoticComponent<
+export const Stack: MemoExoticComponent<
 	ForwardRefExoticComponent<Omit<StackProps<ElementType>, 'ref'> & RefAttributes<any>>
 > = memo(
 	forwardRef(
@@ -142,4 +142,5 @@ const Stack: MemoExoticComponent<
 
 Stack.displayName = 'Stack';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Stack;

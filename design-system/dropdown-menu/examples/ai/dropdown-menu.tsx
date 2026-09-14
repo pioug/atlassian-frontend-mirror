@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
-import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import IconButton from '@atlaskit/button/icon/button';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 

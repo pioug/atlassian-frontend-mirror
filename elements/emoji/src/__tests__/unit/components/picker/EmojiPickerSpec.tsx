@@ -1,9 +1,13 @@
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import React from 'react';
+
 import { matchers } from '@emotion/jest';
 import { act, fireEvent, type RenderResult, screen, waitFor, within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
-import React from 'react';
+
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../../_testing-library';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -16,32 +20,30 @@ import { EmojiResource, type EmojiResourceConfig } from '../../../../api/EmojiRe
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
-import { sortCategories } from '../../../../components/picker/CategorySelector';
-import * as utils from '../../../../components/picker/utils';
+import { sortCategories } from '../../../../components/picker/sortCategories';
+import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
 import EmojiPicker, {
 	type Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
-import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
 import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
+import { emojiPickerHeightOffset } from '../../../../components/picker/emojiPickerHeightOffset';
 import {
 	SearchSourceTypes,
 	type EmojiDescription,
 	type EmojiProvider,
 	type OptionalEmojiDescription,
 } from '../../../../types';
-import {
-	categoryClickedEvent,
-	closedPickerEvent,
-	openedPickerEvent,
-	pickerClickedEvent,
-	pickerSearchedEvent,
-	recordFailedEmoji,
-	recordSucceededEmoji,
-	toneSelectedEvent,
-	toneSelectorClosedEvent,
-	toneSelectorOpenedEvent,
-	ufoExperiences,
-} from '../../../../util/analytics';
+import { categoryClickedEvent } from '../../../../util/analytics/categoryClickedEvent';
+import { closedPickerEvent } from '../../../../util/analytics/closedPickerEvent';
+import { openedPickerEvent } from '../../../../util/analytics/openedPickerEvent';
+import { pickerClickedEvent } from '../../../../util/analytics/pickerClickedEvent';
+import { pickerSearchedEvent } from '../../../../util/analytics/pickerSearchedEvent';
+import { recordFailedEmoji } from '../../../../util/analytics/recordFailedEmoji';
+import { recordSucceededEmoji } from '../../../../util/analytics/recordSucceededEmoji';
+import { toneSelectedEvent } from '../../../../util/analytics/toneSelectedEvent';
+import { toneSelectorClosedEvent } from '../../../../util/analytics/toneSelectorClosedEvent';
+import { toneSelectorOpenedEvent } from '../../../../util/analytics/toneSelectorOpenedEvent';
+import { ufoExperiences } from '../../../../util/analytics/ufoExperiences';
 import * as constants from '../../../../util/constants';
 import {
 	customCategory,
@@ -54,7 +56,7 @@ import {
 	frequentCategory,
 	selectedToneStorageKey,
 } from '../../../../util/constants';
-import { isMessagesKey } from '../../../../util/type-helpers';
+import { isMessagesKey } from '../../../../util/is-messages-key';
 import {
 	getEmojiResourcePromiseFromRepository,
 	getEmojiResourcePromise,
@@ -91,6 +93,7 @@ const emojiCategoryIds = {
 	ATLASSIAN: 'ATLASSIAN',
 	FLAGS: 'FLAGS',
 };
+const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 const changeEmojiLabel = (emoji: EmojiDescription) =>
 	`Change emoji, currently ${emoji.name ?? emoji.shortName}`;
 const raisedHandEmoji = helper.allEmojis.find(
@@ -136,7 +139,7 @@ describe('<EmojiPicker />', () => {
 		// scrolling of the virtual list doesn't work out of the box for the tests
 		// mocking `scrollToRow` for all tests
 		jest
-			.spyOn(utils, 'scrollToRow')
+			.spyOn(scrollToRowModule, 'scrollToRow')
 			.mockImplementation((listRef?: any, index?: number) =>
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
@@ -157,21 +160,8 @@ describe('<EmojiPicker />', () => {
 
 	const getUpdatedList = () => screen.getByTestId(virtualListScrollContainerTestId);
 	const withRefreshEmojiPicker = async (test: () => Promise<void>) => {
-		const initializeCompletedSpy = jest
-			.spyOn(FeatureGates, 'initializeCompleted')
-			.mockReturnValue(true);
-		const getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((experimentName, _parameterName, defaultValue) =>
-				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-			);
-
-		try {
-			await test();
-		} finally {
-			getExperimentValueSpy.mockRestore();
-			initializeCompletedSpy.mockRestore();
-		}
+		mockExpEnabled(teamojiRefreshExperimentName);
+		await test();
 	};
 	const withInitialFocusFix = async (test: () => Promise<void>) => {
 		const initializeCompletedSpy = jest
@@ -182,10 +172,12 @@ describe('<EmojiPicker />', () => {
 			.mockImplementation((experimentName, _parameterName, defaultValue) =>
 				experimentName === 'tef_fix_a11y_keyboard_control_emoji_picker' ? true : defaultValue,
 			);
+		const checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 
 		try {
 			await test();
 		} finally {
+			checkGateSpy.mockRestore();
 			getExperimentValueSpy.mockRestore();
 			initializeCompletedSpy.mockRestore();
 		}
@@ -318,33 +310,21 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('should use footer space for the list when upload is unsupported and no emoji is selected', async () => {
-			const initializeCompletedSpy = jest
-				.spyOn(FeatureGates, 'initializeCompleted')
-				.mockReturnValue(true);
-			const getExperimentValueSpy = jest
-				.spyOn(FeatureGates, 'getExperimentValue')
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			mockExpEnabled(teamojiRefreshExperimentName);
 
-			try {
-				await helper.setupPicker({
-					emojiProvider: mockNonUploadingEmojiResourceFactory(new EmojiRepository(standardEmojis)),
-				});
+			await helper.setupPicker({
+				emojiProvider: mockNonUploadingEmojiResourceFactory(new EmojiRepository(standardEmojis)),
+			});
 
-				const picker = screen.getByRole('dialog', { name: 'Emoji picker' });
-				expect(picker).toHaveCompiledCss(
-					'height',
-					emojiPickerHeightWithPreview + emojiPickerHeightOffset(defaultEmojiPickerSize) + 'px',
-				);
-				expect(screen.queryByTestId('emoji-picker-footer')).not.toBeInTheDocument();
-				expect(screen.getByTestId(virtualListScrollContainerTestId)).toHaveStyle({
-					height: `${emojiPickerListHeightNew + emojiPickerHeightOffset(defaultEmojiPickerSize) + emojiPickerPreviewHeight}px`,
-				});
-			} finally {
-				getExperimentValueSpy.mockRestore();
-				initializeCompletedSpy.mockRestore();
-			}
+			const picker = screen.getByRole('dialog', { name: 'Emoji picker' });
+			expect(picker).toHaveCompiledCss(
+				'height',
+				emojiPickerHeightWithPreview + emojiPickerHeightOffset(defaultEmojiPickerSize) + 'px',
+			);
+			expect(screen.queryByTestId('emoji-picker-footer')).not.toBeInTheDocument();
+			expect(screen.getByTestId(virtualListScrollContainerTestId)).toHaveStyle({
+				height: `${emojiPickerListHeightNew + emojiPickerHeightOffset(defaultEmojiPickerSize) + emojiPickerPreviewHeight}px`,
+			});
 		});
 
 		it('media emoji should render placeholder while loading', async () => {
@@ -417,7 +397,7 @@ describe('<EmojiPicker />', () => {
 			});
 		});
 
-		it('should clear preview after emoji blur when upload is supported', async () => {
+		it('should show add emoji footer after emoji leave when upload is supported', async () => {
 			await withRefreshEmojiPicker(async () => {
 				await helper.setupPicker({
 					emojiProvider: getEmojiResourcePromise({
@@ -439,15 +419,12 @@ describe('<EmojiPicker />', () => {
 					hoveredEmojiLabel,
 				);
 
-				fireEvent.blur(hoverButton.parentElement as HTMLElement);
+				await userEvent.unhover(hoverButton);
 
-				await waitFor(() => {
-					expect(
-						within(footer).queryAllByRole('img', {
-							name: hoveredEmojiLabel,
-						}),
-					).toHaveLength(0);
-				});
+				expect(
+					within(footer).queryByRole('img', { name: hoveredEmojiLabel }),
+				).not.toBeInTheDocument();
+				expect(within(footer).getByRole('button', { name: 'Add emoji' })).toBeInTheDocument();
 			});
 		});
 	});
@@ -503,11 +480,7 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('selecting custom category scrolls to your uploads when current user has uploads', async () => {
-			const getExperimentValueSpy = jest
-				.spyOn(FeatureGates, 'getExperimentValue')
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			mockExpEnabled(teamojiRefreshExperimentName);
 			const emojiProvider = getEmojiResourcePromiseFromRepository(
 				new EmojiRepository(
 					JSON.parse(JSON.stringify([...standardEmojis, mediaEmoji, siteEmojiFoo])),
@@ -517,29 +490,25 @@ describe('<EmojiPicker />', () => {
 				},
 			);
 
-			try {
-				await helper.setupPicker({
-					emojiProvider,
-				});
+			await helper.setupPicker({
+				emojiProvider,
+			});
 
-				await waitFor(() => {
-					expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
-				});
+			await waitFor(() => {
+				expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+			});
 
+			expect(
+				helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.USER_UPLOADS),
+			).not.toBeInTheDocument();
+
+			await helperTestingLibrary.selectCategory(customCategory);
+
+			await waitFor(() => {
 				expect(
 					helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.USER_UPLOADS),
-				).not.toBeInTheDocument();
-
-				await helperTestingLibrary.selectCategory(customCategory);
-
-				await waitFor(() => {
-					expect(
-						helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.USER_UPLOADS),
-					).toBeInTheDocument();
-				});
-			} finally {
-				getExperimentValueSpy.mockRestore();
-			}
+				).toBeInTheDocument();
+			});
 		});
 
 		it('does not add non-standard categories to the selector if there are no emojis in those categories', async () => {
@@ -689,9 +658,9 @@ describe('<EmojiPicker />', () => {
 				'fabric-elements',
 			);
 
-			expect(ufoEmojiRecordedStartSpy).toBeCalled();
-			expect(ufoEmojiRecordedSuccessSpy).toBeCalled();
-			expect(ufoEmojiRecordedFailureSpy).not.toBeCalled();
+			expect(ufoEmojiRecordedStartSpy).toHaveBeenCalled();
+			expect(ufoEmojiRecordedSuccessSpy).toHaveBeenCalled();
+			expect(ufoEmojiRecordedFailureSpy).not.toHaveBeenCalled();
 		});
 
 		it('should fire insertion failed event if provider recordSelection fails', async () => {
@@ -732,9 +701,9 @@ describe('<EmojiPicker />', () => {
 				}),
 				'fabric-elements',
 			);
-			expect(ufoEmojiRecordedStartSpy).toBeCalled();
-			expect(ufoEmojiRecordedSuccessSpy).not.toBeCalled();
-			expect(ufoEmojiRecordedFailureSpy).toBeCalled();
+			expect(ufoEmojiRecordedStartSpy).toHaveBeenCalled();
+			expect(ufoEmojiRecordedSuccessSpy).not.toHaveBeenCalled();
+			expect(ufoEmojiRecordedFailureSpy).toHaveBeenCalled();
 		});
 
 		it('selecting emoji should call recordSelection on EmojiProvider', async () => {
@@ -760,9 +729,9 @@ describe('<EmojiPicker />', () => {
 				helper.allEmojis[clickOffset].shortName,
 			);
 
-			expect(ufoEmojiRecordedStartSpy).toBeCalled();
-			expect(ufoEmojiRecordedSuccessSpy).toBeCalled();
-			expect(ufoEmojiRecordedFailureSpy).not.toBeCalled();
+			expect(ufoEmojiRecordedStartSpy).toHaveBeenCalled();
+			expect(ufoEmojiRecordedSuccessSpy).toHaveBeenCalled();
+			expect(ufoEmojiRecordedFailureSpy).not.toHaveBeenCalled();
 		});
 	});
 
@@ -911,10 +880,10 @@ describe('<EmojiPicker />', () => {
 				expect(screen.queryByTestId('sprite-emoji-:grinning:')).toBeInTheDocument();
 			});
 
-			expect(ufoSearchedStartSpy).toBeCalled();
-			expect(ufoSearchedSuccessSpy).toBeCalled();
-			expect(ufoSearchedAbortSpy).not.toBeCalled();
-			expect(ufoSearchedFailureSpy).not.toBeCalled();
+			expect(ufoSearchedStartSpy).toHaveBeenCalled();
+			expect(ufoSearchedSuccessSpy).toHaveBeenCalled();
+			expect(ufoSearchedAbortSpy).not.toHaveBeenCalled();
+			expect(ufoSearchedFailureSpy).not.toHaveBeenCalled();
 		});
 	});
 
@@ -1080,10 +1049,10 @@ describe('<EmojiPicker />', () => {
 		it('should track picker opened UFO experience when picker rendered and unmounted', async () => {
 			const { unmount } = await helper.setupPicker();
 			unmount();
-			expect(ufoPickerStartSpy).toBeCalled();
-			expect(ufoPickerMarkFMPSpy).toBeCalled();
-			expect(ufoPickerSuccessSpy).toBeCalled();
-			expect(ufoPickerAbortSpy).toBeCalled();
+			expect(ufoPickerStartSpy).toHaveBeenCalled();
+			expect(ufoPickerMarkFMPSpy).toHaveBeenCalled();
+			expect(ufoPickerSuccessSpy).toHaveBeenCalled();
+			expect(ufoPickerAbortSpy).toHaveBeenCalled();
 		});
 
 		it('should fail picker opened UFO experience when picker throw errors', async () => {
@@ -1101,8 +1070,8 @@ describe('<EmojiPicker />', () => {
 				// There's an assertion in setupPicker we don't care about
 			}
 
-			expect(ufoPickerStartSpy).toBeCalled();
-			expect(ufoPickerFailureSpy).toBeCalled();
+			expect(ufoPickerStartSpy).toHaveBeenCalled();
+			expect(ufoPickerFailureSpy).toHaveBeenCalled();
 		});
 	});
 
@@ -1128,6 +1097,7 @@ describe('<EmojiPicker />', () => {
 			const getExperimentValueSpy = jest
 				.spyOn(FeatureGates, 'getExperimentValue')
 				.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
+			const checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 			const requestAnimationFrameSpy = jest
 				.spyOn(window, 'requestAnimationFrame')
 				.mockImplementation((callback) => {
@@ -1141,6 +1111,7 @@ describe('<EmojiPicker />', () => {
 				expect(helperTestingLibrary.getEmojiSearchInput()).toHaveFocus();
 			} finally {
 				requestAnimationFrameSpy.mockRestore();
+				checkGateSpy.mockRestore();
 				getExperimentValueSpy.mockRestore();
 				initializeCompletedSpy.mockRestore();
 			}

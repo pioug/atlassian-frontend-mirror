@@ -6,7 +6,7 @@ import React, { forwardRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -22,7 +22,7 @@ const styles = cssMap({
 		font: token('font.body'),
 		height: '2.2857142857142856em',
 		paddingBlock: token('space.0'),
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.medium'),
 		transition: 'background 0.1s ease-out',
 		position: 'relative',
 		// Remove the default underline for link buttons
@@ -30,10 +30,6 @@ const styles = cssMap({
 		'&:hover, &:active, &:focus': {
 			textDecoration: 'none',
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	rootT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	// platform-dst-motion-uplift-button TODO: Merge into base after rollout
 	interactiveMotion: {
@@ -172,33 +168,31 @@ interface ThemedPressableProps
 
 export const ThemedPressable: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ThemedPressableProps> & React.RefAttributes<HTMLButtonElement>
-> = forwardRef<HTMLButtonElement, ThemedPressableProps>(function ThemedPressable(
-	{ appearance = 'default', shape = 'default', isSelected, isDisabled, ...props },
-	ref,
-) {
-	const hasBorder = appearance === 'default' || isSelected;
-	return (
-		<Pressable
-			{...getPrimitiveSpreadProps(props)}
-			ref={ref}
-			type="button"
-			/**
-			 * We are using some style values that are outside of the strict
-			 * `@atlaskit/css` types.
-			 */
-			// @ts-expect-error
-			// eslint-disable-next-line @compiled/no-suppress-xcss
-			xcss={cx(
-				styles.root,
-				fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
-				shapeStyles[shape],
-				hasBorder && styles.border,
-				appearanceStyles[appearance],
-				isSelected && styles.selected,
-				isDisabled && styles.disabled,
-				fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
-			)}
-			isDisabled={isDisabled}
-		/>
-	);
-});
+> = forwardRef<HTMLButtonElement, ThemedPressableProps>(
+	({ appearance = 'default', shape = 'default', isSelected, isDisabled, ...props }, ref) => {
+		const hasBorder = appearance === 'default' || isSelected;
+		return (
+			<Pressable
+				{...getPrimitiveSpreadProps(props)}
+				ref={ref}
+				type="button"
+				/**
+				 * We are using some style values that are outside of the strict
+				 * `@atlaskit/css` types.
+				 */
+				// @ts-expect-error
+				// eslint-disable-next-line @compiled/no-suppress-xcss
+				xcss={cx(
+					styles.root,
+					shapeStyles[shape],
+					hasBorder && styles.border,
+					appearanceStyles[appearance],
+					isSelected && styles.selected,
+					isDisabled && styles.disabled,
+					fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
+				)}
+				isDisabled={isDisabled}
+			/>
+		);
+	},
+);

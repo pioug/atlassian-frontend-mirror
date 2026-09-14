@@ -4,12 +4,11 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
 import type { CloneOptions } from '../types';
-
 import { determineTableHeaderStateFromTableNode } from './analyse-table';
 import { cloneTr } from './clone-tr';
-import { findTable } from './find';
+import { findTable } from './find-table';
 import { getSelectionRangeInRow } from './get-selection-range-in-row';
-import { isValidReorder } from './reorder-utils';
+import { isValidReorder } from './is-valid-reorder';
 import type { TableNodeCache } from './table-node-types';
 import { tableNodeTypes } from './table-node-types';
 

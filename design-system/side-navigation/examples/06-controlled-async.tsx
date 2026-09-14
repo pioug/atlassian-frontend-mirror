@@ -6,20 +6,18 @@ import { type PropsWithChildren, useEffect, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import AsyncIcon from '@atlaskit/icon/core/clock';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	HeadingItem,
-	NavigationHeader,
-	NestableNavigationContent,
-	NestingItem,
-	Section,
-	SideNavigation,
-	SkeletonItem,
-} from '@atlaskit/side-navigation';
+import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
+import { SkeletonItem } from '@atlaskit/side-navigation/skeleton-item';
 import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-
+import { render, screen } from '@atlassian/testing-library';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { useModal } from '../../hooks';

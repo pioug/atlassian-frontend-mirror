@@ -13,7 +13,7 @@ import { render } from '@testing-library/react';
 import { NodeNestingTransformError } from '@atlaskit/adf-utils/transforms';
 import type { MacroAttributes, MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

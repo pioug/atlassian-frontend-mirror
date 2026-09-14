@@ -10,7 +10,8 @@ import {
 	SliNames,
 	Actions,
 } from '../types';
-import MentionResource, {
+import {
+	MentionResource,
 	type MentionContextIdentifier,
 	type MentionResourceConfig,
 	type TeamMentionResourceConfig,

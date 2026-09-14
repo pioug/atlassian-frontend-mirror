@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "8.0.0",
+	"version": "8.6.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,21 +18,36 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./accessibility": "./src/entry-points/accessibility.tsx",
-		"./animate-in": "./src/entry-points/animate-in.tsx",
-		"./curves": "./src/entry-points/curves.tsx",
+		"./animate-in": "./src/entering/animate-in.tsx",
+		"./curves": "./src/utils/curves.tsx",
 		"./durations": "./src/entry-points/durations.tsx",
-		"./entering/types": "./src/entry-points/entering-types.tsx",
-		"./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
-		"./fade-in": "./src/entry-points/fade-in.tsx",
+		"./entering/motion": "./src/entering/motion.tsx",
+		"./entering/types": "./src/entering/types.tsx",
+		"./entering/use-motion": "./src/entering/use-motion.tsx",
+		"./exiting-durations": "./src/utils/exiting-durations.tsx",
+		"./exiting-persistence/use-exiting-persistence": "./src/entering/use-exiting-persistence.tsx",
+		"./exiting-persistence/use-staggered-entrance": "./src/entering/use-staggered-entrance.tsx",
+		"./exiting-persistence": "./src/entering/exiting-persistence.tsx",
+		"./fade-in": "./src/entering/fade-in.tsx",
 		"./height": "./src/entry-points/height.tsx",
+		"./is-reduced-motion": "./src/utils/is-reduced-motion.tsx",
 		"./motion": "./src/entry-points/motion.tsx",
+		"./reanimate": "./src/entering/reanimate.tsx",
+		"./reduce-motion-as-per-user-preference": "./src/utils/reduce-motion-as-per-user-preference.tsx",
+		"./resizing/height": "./src/resizing/height.tsx",
+		"./resizing/resizing": "./src/resizing/resizing.tsx",
 		"./resizing": "./src/entry-points/resizing.tsx",
-		"./shrink-out": "./src/entry-points/shrink-out.tsx",
-		"./slide-in": "./src/entry-points/slide-in.tsx",
-		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx",
+		"./shrink-out": "./src/entering/shrink-out.tsx",
+		"./slide-in": "./src/entering/slide-in.tsx",
+		"./staggered-entrance": "./src/entering/staggered-entrance.tsx",
 		"./types": "./src/entry-points/types.tsx",
+		"./use-is-reduced-motion": "./src/utils/use-is-reduced-motion.tsx",
 		"./use-motion": "./src/entry-points/use-motion.tsx",
-		"./zoom-in": "./src/entry-points/zoom-in.tsx"
+		"./use-resizing": "./src/resizing/use-resizing.tsx",
+		"./use-resizing-height": "./src/resizing/use-resizing-height.tsx",
+		"./utils/accessibility": "./src/utils/accessibility.tsx",
+		"./utils/durations": "./src/utils/durations.tsx",
+		"./zoom-in": "./src/entering/zoom-in.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
@@ -58,29 +73,38 @@
 					}
 				},
 				{
+					"title": "useMotion",
+					"id": "use-motion",
+					"sortKey": 2,
+					"status": {
+						"type": "alpha",
+						"description": "The useMotion hook is currently in early access. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+					}
+				},
+				{
 					"title": "Resizing motion",
 					"id": "resizing-motion",
-					"sortKey": 2
+					"sortKey": 3
 				},
 				{
 					"title": "Exiting persistence",
 					"id": "exiting-persistence",
-					"sortKey": 3
+					"sortKey": 4
 				},
 				{
 					"title": "Staggered entrance",
 					"id": "staggered-entrance",
-					"sortKey": 4
+					"sortKey": 5
 				},
 				{
 					"title": "Accessibility",
 					"id": "accessibility",
-					"sortKey": 5
+					"sortKey": 6
 				},
 				{
 					"title": "Entering motion",
 					"id": "entering-motion",
-					"sortKey": 6,
+					"sortKey": 7,
 					"status": {
 						"type": "intent-to-deprecate",
 						"description": "The `FadeIn`, `SlideIn`, `ZoomIn` and `ShrinkOut` entering motions will soon be deprecated. Please use the new [Motion](/components/motion/motion-primitive) component instead."
@@ -89,7 +113,7 @@
 				{
 					"title": "Variables",
 					"id": "variables",
-					"sortKey": 7,
+					"sortKey": 8,
 					"status": {
 						"type": "intent-to-deprecate",
 						"description": "The duration and curve variables will soon be deprecated. Please use the new [motion design tokens](/components/tokens/all-tokens#motion) instead."
@@ -110,24 +134,29 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/form": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
+		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"raf-stub": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"keywords": [
 		"atlaskit",
@@ -137,26 +166,6 @@
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"homepage": "https://atlassian.design/components/motion/",
 	"platform-feature-flags": {
 		"platform-dst-motion-uplift": {

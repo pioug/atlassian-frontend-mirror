@@ -7,11 +7,11 @@ import React, { useCallback, memo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { ColorProps } from './types';
 

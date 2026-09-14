@@ -1,4 +1,4 @@
-import type { VirtualElement } from '@popperjs/core';
+import type { VirtualElement } from '@atlaskit/popper/main';
 
 import { type PositionMouseOptions } from '../types';
 

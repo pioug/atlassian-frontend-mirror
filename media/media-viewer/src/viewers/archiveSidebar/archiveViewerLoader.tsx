@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { MediaViewerError } from '../../MediaViewerError';
+import ErrorMessage from '../../errorMessageWithAnalytics';
 import ModalSpinner from '../modalSpinner';
-
 import { type ArchiveViewerProps } from './types';
-import ErrorMessage from '../../errorMessage';
-import { MediaViewerError } from '../../errors';
 
 export type archiveViewerState = {
 	ArchiveViewer?: React.ComponentType<ArchiveViewerProps>;

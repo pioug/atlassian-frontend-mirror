@@ -1,5 +1,473 @@
 # @atlaskit/reactions
 
+## 36.2.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.10
+
+### Patch Changes
+
+- [`ab8b090b9c640`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab8b090b9c640) -
+  Cleanup experiment `platform_a11y_reactions_hover_selector_list`. Hoverable reaction selectors and
+  summary reactions now always render with list markup.
+- Updated dependencies
+
+## 36.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.5
+
+### Patch Changes
+
+- [`5598b12df2212`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5598b12df2212) -
+  Add feature gate platform_teamoji_26_refresh_emoji_picker_user_id for teamoji changes - by
+  atlassianAccountId, for evaluation from non-tenanted products
+- Updated dependencies
+
+## 36.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.2
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+
+## 36.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.2.0
+
+### Minor Changes
+
+- [`9a225a6cfe56f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a225a6cfe56f) -
+  Add an optional content context to reaction emoji pickers so Confluence page reactions can expose
+  AI emoji generation under the `confluence_ai_generated_emojis` experiment.
+
+## 36.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.1.1
+
+### Patch Changes
+
+- [`08bf773f7599a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08bf773f7599a) -
+  Migrate experiments to use the new platform experiment API. This major release removes the
+  migrated experiment entries from `@atlaskit/tmp-editor-statsig`'s `editorExperimentsConfig` and
+  test overrides. Consumers must replace legacy `expVal`/`expValEquals` calls with
+  `@atlaskit/platform-feature-experiments` APIs, using `isExperimentEnabled` for boolean `isEnabled`
+  experiments and `expVal` for parameterized experiments; use `mockExpEnabled`/`mockExpDisabled` in
+  tests.
+- Updated dependencies
+
+## 36.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.5
+
+### Patch Changes
+
+- [`44a80d90ea61d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44a80d90ea61d) -
+  Migrate Pressable hover and pressed colour transitions to semantic motion tokens behind
+  platform-dst-motion-uplift-custom-button.
+- Updated dependencies
+
+## 36.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.3
+
+### Patch Changes
+
+- [`e14a534a5823b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e14a534a5823b) -
+  Add aria-modal="false" and "aria-labelledby" to quick reactions
+- Updated dependencies
+
+## 36.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.1
+
+### Patch Changes
+
+- [`9cfe1cf91a89f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cfe1cf91a89f) -
+  Render the reaction popup next to the parent
+- Updated dependencies
+
+## 36.0.0
+
+### Major Changes
+
+- [`1b02e7b19fed0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b02e7b19fed0) -
+  [ux] This is for adding a reaction failure callback and reverting optimistic add/remove updates
+  when the request fails. https://customerfeedback.atlassian.net/browse/MWIV-1073
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.4
+
+### Patch Changes
+
+- [`2fe4e7cff5cb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fe4e7cff5cb8) -
+  Localize the "Add reaction" icon's accessible label so assistive technologies use the selected
+  language. Gated behind the `tef_fix_a11y_add_reaction_button_language_support` feature gate.
+- Updated dependencies
+
+## 35.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.13.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.11
+
+### Patch Changes
+
+- [`c93de6bde10fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c93de6bde10fd) -
+  Cleanup feature gate `platform_ceps-5921-a11y-fix-reactions`. The reaction picker panel now always
+  uses non-modal dialog semantics for assistive technology.
+- Updated dependencies
+
+## 35.12.10
+
+### Patch Changes
+
+- [`26d8af3468aee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26d8af3468aee) -
+  Group added reaction controls with an accessible name behind
+  platform_reactions_a11y_group_added_reactions
+
+## 35.12.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.3
+
+### Patch Changes
+
+- [`cfed5271c3f51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfed5271c3f51) -
+  Cleanup feature gate `platform_reactions_view_more_styling_fix`
+- Updated dependencies
+
+## 35.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.12.1
+
+### Patch Changes
+
+- [`d95e6444df894`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d95e6444df894) -
+  Cleanup feature gate `platform_a11y_fixes_reaction_emoji`
+- Updated dependencies
+
+## 35.12.0
+
+### Minor Changes
+
+- [`499c637d02e3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/499c637d02e3b) -
+  [ux] Add semantic list markup to the reaction summary when the
+  `platform_a11y_reactions_hover_selector_list` experiment is enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.11.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.11.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.11.8
+
+### Patch Changes
+
+- [`603c0eaa6238b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/603c0eaa6238b) -
+  Fix reading order of the reaction picker for assistive technologies. When the
+  `a11y_reactions_reading_order` gate is enabled, the expanded picker panel is rendered inline as a
+  DOM sibling directly after the trigger button instead of in a portal at the end of the document,
+  so screen readers encounter the expanded content in the correct order. Visual placement is
+  unchanged as the popper continues to position with `position: fixed`.
+- Updated dependencies
+
+## 35.11.7
+
+### Patch Changes
+
+- [`bc98a973e0455`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc98a973e0455) -
+  [ux] A11Y-31804: Add semantic list markup to the hoverable reaction selector gated by experiment
+  `platform_a11y_reactions_hover_selector_list`
+- Updated dependencies
+
+## 35.11.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.11.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.11.2
 
 ### Patch Changes

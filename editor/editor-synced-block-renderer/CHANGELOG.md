@@ -1,5 +1,140 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`5dd6cdd8c1d11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd6cdd8c1d11) -
+  Allow a surface to opt out of real-time synced block subscriptions.
+
+  `SyncBlockStoreManager` and `useMemoizedSyncBlockStoreManager` accept a new
+  `SyncBlockStoreManagerOptions` argument, and `useMemoizedSyncedBlockNodeComponent` accepts a
+  matching `enableRealTimeSubscriptions` prop. Both default to `true`, so existing behaviour is
+  unchanged.
+
+  When set to `false`, real-time updates are turned off at construction, so no
+  `blockService_onBlockUpdated` subscription is ever opened for that store's reference blocks. This
+  is deliberately independent of `viewMode`: a live doc in read mode is the editor in view mode and
+  must stay live. Consumed by the Confluence classic renderer behind the
+  `platform_editor_sync_block_renderer_no_realtime` experiment, so a page being read no longer
+  changes under the reader.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Minor Changes
+
+- [`149408be91016`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/149408be91016) -
+  Thread the reference node's `localId` through the editor synced-block rendering path so products
+  can namespace heading ids inside synced block content.
+
+  `SyncedBlockRendererProps` gains an optional `localId`, which `SyncBlockRendererWrapper` now
+  forwards to the product-supplied `syncedBlockRenderer`. `SyncedBlockRenderer` accepts a matching
+  `localId` prop and passes it to `renderSyncedBlockContent` as `headingIdPrefix`.
+
+  This mirrors the existing view-page node component behaviour. Heading ids are still only emitted
+  when a prefix is supplied alongside `allowHeadingAnchorLinks`, so there is no change for consumers
+  that do not pass `localId`.
+
+  Confluence enables the new Table of Contents and heading-anchor behavior behind the
+  `confluence_toc_synced_block_exp` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.0
+
+### Minor Changes
+
+- [`70beff9491f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70beff9491f9d) -
+  Forward `mentionNodeDataProvider` into the synced block renderer so mention avatars resolve inside
+  a synced block replica location, matching the behaviour already gated by
+  `platform_editor_mention_node_avatar` elsewhere. The forwarding itself is gated behind a new
+  `platform_editor_mention_avatar_synced_block` experiment so this integration can be rolled out
+  independently.
+
+## 14.1.0
+
+### Minor Changes
+
+- [`90712d67e0e35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90712d67e0e35) -
+  Add APIs and renderer support for unpublished same-page synced block references behind
+  editor-synced-block-same-page-sync.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- [`0b4753c0a8c07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b4753c0a8c07) -
+  Clean up feature gates from completed rollout
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.0
 
 ### Minor Changes

@@ -7,16 +7,17 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import Heading from '@atlaskit/heading';
-import Link from '@atlaskit/link';
-import { AtlassianIcon, RovoIcon } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import Heading from '@atlaskit/heading/heading';
+import Link from '@atlaskit/link/link';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { RovoIcon } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { AgentCreatorType } from '../../common/types';
 import { HiddenIcon } from '../../common/ui/hidden-icon';
@@ -135,6 +136,7 @@ export const AgentProfileCreator = ({
 	creator,
 	onCreatorLinkClick,
 	isLoading,
+	showCreatorNameWithoutLink = false,
 }: {
 	/**
 	 * Get this value from `getAgentCreator`
@@ -142,6 +144,10 @@ export const AgentProfileCreator = ({
 	creator?: AgentCreator;
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;
+	/**
+	 * Render the creator as plain text instead of a link.
+	 */
+	showCreatorNameWithoutLink?: boolean;
 }): JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
@@ -170,11 +176,15 @@ export const AgentProfileCreator = ({
 		}
 
 		if (creator.type === 'CUSTOMER') {
+			const creatorName = `${creator.name} ${
+				creator.status === 'inactive' ? formatMessage(messages.agentDeactivated) : ''
+			}`;
 			return formatMessage(messages.agentCreatedBy, {
-				creatorNameWithLink: (
+				creatorNameWithLink: showCreatorNameWithoutLink ? (
+					creatorName
+				) : (
 					<Link href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
-						{creator.name}{' '}
-						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
+						{creatorName}
 					</Link>
 				),
 			});
@@ -204,8 +214,9 @@ export const AgentProfileCreator = ({
 	const creatorRender = getCreatorRender();
 
 	const hideCreatorIcon =
-		expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-		fg('platform_editor_agent_mentions_drop_one_fixes');
+		(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+			fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+		fg('platform_editor_agent_card_fixes');
 
 	if (fg('jira_improve_agent_profile_for_a2a')) {
 		const showRovoIcon = !hideCreatorIcon && creator?.type !== 'REMOTE_A2A';

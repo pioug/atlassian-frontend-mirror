@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/extract-closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 

@@ -80,7 +80,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/constellation/tag-new-removable.tsx'),
 				},
 			],
-			keywords: ['tag', 'removable', 'label', 'category', 'close'],
+			keywords: ['tag', 'removable', 'chip', 'label', 'category', 'close'],
 			categories: ['data-display'],
 		},
 		{

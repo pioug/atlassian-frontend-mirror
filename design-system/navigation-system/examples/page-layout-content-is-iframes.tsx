@@ -1,3 +1,3 @@
-import { ResizableWithIframeContent } from './page-layout';
+import { ResizableWithIframeContent } from './page-layout.vr.ap';
 
 export default ResizableWithIframeContent;

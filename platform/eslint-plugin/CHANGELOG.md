@@ -1,5 +1,51 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.2.0
+
+### Minor Changes
+
+- [`8b652a46c3ead`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b652a46c3ead) -
+  Add `ensure-static-structured-content`, an optionless rule requiring `*.docs.tsx` default exports
+  to be composed from statically declared const objects and arrays. Enable it with
+  `'@atlaskit/platform/ensure-static-structured-content': 'error'`.
+
+## 4.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.0
+
+### Major Changes
+
+- [`6836f34d90b0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6836f34d90b0e) -
+  Default `preferImportedPackageSubpath` to `true` on `@atlaskit/platform/no-barrel-entry-imports`
+  and `@atlaskit/platform/no-barrel-entry-jest-mock`.
+
+  Configs that omit the option now keep consumers on the imported package's bridge subpath (or leave
+  the import/mock unchanged when no bridge exists) instead of rewriting to the dependency package.
+
+  **Migration:** pass `{ preferImportedPackageSubpath: false }` to restore the previous
+  rewrite-to-dependency behaviour.
+
+## 3.5.0
+
+### Minor Changes
+
+- [`74954113d3c2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74954113d3c2d) -
+  Add a Native Embeds-owned lint rule preventing new packages from copying its private bridge query
+  parameter protocol, and enable it through the Platform ESLint configuration.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.2
 
 ### Patch Changes

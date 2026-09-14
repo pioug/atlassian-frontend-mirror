@@ -5,11 +5,20 @@
 /* eslint-disable @atlaskit/platform/no-invalid-feature-flag-usage */
 
 import { type FeatureFlagResolverBoolean, PFF_GLOBAL_KEY } from '../resolvers';
+var mockCheckGate = jest.fn();
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client/feature-gates'),
+	__esModule: true,
+	default: {
+		checkGate: (...args: [string]) => mockCheckGate(...args),
+	},
+}));
 
 beforeEach(() => {
 	jest.resetModules();
+	mockCheckGate.mockReset();
+	mockCheckGate.mockReturnValue(false);
 });
 
 type Api = typeof import('../index');
@@ -115,12 +124,10 @@ describe('platform feature flags', () => {
 		});
 
 		it('should fallback on FeatureGates.checkGate when booleanResovler is undefined or null', () => {
-			const mockedCheckGate = jest
-				.spyOn(FeatureGates, 'checkGate')
-				.mockImplementation((flagKey: string) => {
-					console.log('mock flagKey 2', flagKey);
-					return flagKey === 'gate-is-valid';
-				});
+			mockCheckGate.mockImplementation((flagKey: string) => {
+				console.log('mock flagKey 2', flagKey);
+				return flagKey === 'gate-is-valid';
+			});
 			const { fg, setBooleanFeatureFlagResolver } = loadApi();
 
 			setBooleanFeatureFlagResolver(undefined as any);
@@ -128,12 +135,12 @@ describe('platform feature flags', () => {
 			expect(fg('gate-is-valid')).toBeTruthy();
 
 			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-			expect(mockedCheckGate).toHaveBeenCalledWith('gate-is-valid');
+			expect(mockCheckGate).toHaveBeenCalledWith('gate-is-valid');
 
 			setBooleanFeatureFlagResolver(null as any);
 			expect(fg('gate-is-invalid')).toBeFalsy();
 			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-			expect(mockedCheckGate).toHaveBeenCalledWith('gate-is-invalid');
+			expect(mockCheckGate).toHaveBeenCalledWith('gate-is-invalid');
 		});
 	});
 
@@ -156,7 +163,7 @@ describe('platform feature flags', () => {
 
 		it('should always return true when getting a FF value while running tests with "STORYBOOK_ENABLE_PLATFORM_FF" environment flag', () => {
 			// given
-			process.env.STORYBOOK_ENABLE_PLATFORM_FF = 'true';
+			globalThis.process.env.STORYBOOK_ENABLE_PLATFORM_FF = 'true';
 
 			// when
 			const { getBooleanFF } = loadApi();
@@ -176,34 +183,44 @@ describe('platform feature flags', () => {
 			console.assert(globalThis.process.env);
 		});
 
+		// NOTE: These tests simulate a browser bundle where `process` / `process.env`
+		// are unavailable to the platform-feature-flags resolver. We can't simply
+		// `delete globalThis.process` because reloading the module graph (via
+		// `loadApi()`) re-evaluates transitive deps (e.g. `prop-types`) that read
+		// `process.env.NODE_ENV` unguarded at eval time and would throw
+		// "process is not defined". Instead we force `hasProcessEnv` — the single
+		// place the resolver reads `process` — to `false` via a module mock, which
+		// exercises the exact code path without breaking unrelated module loads.
 		it(`should work when "process" variable doesn't exist`, function () {
 			// given
-			// @ts-expect-error Yep, we are running dangerous operation here
-			delete globalThis.process;
-
-			expect(globalThis.process).toBe(undefined);
+			jest.doMock('../resolvers', () => ({
+				...jest.requireActual('../resolvers'),
+				hasProcessEnv: false,
+			}));
 
 			// when
 			const { getBooleanFF } = loadApi();
 
 			// then
 			expect(getBooleanFF('browser.my-platform-feature-flag')).toBe(false);
+
+			jest.dontMock('../resolvers');
 		});
 
 		it(`should work when "process" variable exists by "process.env" does not`, function () {
 			// given
-			// @ts-expect-error Yep, we are running dangerous operation here
-			delete globalThis.process.env;
-
-			expect(globalThis.process).toBeDefined();
-			// We don't want to expose environment variables in case of failure
-			expect(Boolean(process.env)).toBe(false);
+			jest.doMock('../resolvers', () => ({
+				...jest.requireActual('../resolvers'),
+				hasProcessEnv: false,
+			}));
 
 			// when
 			const { getBooleanFF } = loadApi();
 
 			// then
 			expect(getBooleanFF('browser.my-platform-feature-flag')).toBe(false);
+
+			jest.dontMock('../resolvers');
 		});
 	});
 });

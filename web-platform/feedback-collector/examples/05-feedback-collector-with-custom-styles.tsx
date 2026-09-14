@@ -1,16 +1,18 @@
 import React, { Component, Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import { FlagGroup } from '@atlaskit/flag';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import { CheckboxField } from '@atlaskit/form/CheckboxField';
 import Field from '@atlaskit/form/Field';
-import { ErrorMessage, HelperMessage } from '@atlaskit/form/Messages';
-import Link from '@atlaskit/link';
-import SectionMessage from '@atlaskit/section-message/section-message';
-import Select from '@atlaskit/select';
-import TextArea from '@atlaskit/textarea';
-import Textfield from '@atlaskit/textfield';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import Link from '@atlaskit/link/link';
+import SectionMessage from '@atlaskit/section-message/message';
+import Select from '@atlaskit/select/default';
+import TextArea from '@atlaskit/textarea/text-area';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';
 
@@ -45,7 +47,9 @@ const FormContent = (
 			{({ fieldProps, error }) => (
 				<Fragment>
 					<Textfield autoComplete="off" {...fieldProps} />
-					{error === 'SUMMARY_EMPTY' && <ErrorMessage>Summary is invalid.</ErrorMessage>}
+					<MessageWrapper>
+						{error === 'SUMMARY_EMPTY' && <ErrorMessage>Summary is invalid.</ErrorMessage>}
+					</MessageWrapper>
 				</Fragment>
 			)}
 		</Field>
@@ -53,12 +57,14 @@ const FormContent = (
 			{({ fieldProps, error }) => (
 				<Fragment>
 					<Select {...fieldProps} />
-					<HelperMessage>
-						Start typing to get a list of possible matches or press down to select.
-					</HelperMessage>
-					{error === 'SELECT_COMPONENT_EMPTY' && (
-						<ErrorMessage>Please select a component.</ErrorMessage>
-					)}
+					<MessageWrapper>
+						<HelperMessage>
+							Start typing to get a list of possible matches or press down to select.
+						</HelperMessage>
+						{error === 'SELECT_COMPONENT_EMPTY' && (
+							<ErrorMessage>Please select a component.</ErrorMessage>
+						)}
+					</MessageWrapper>
 				</Fragment>
 			)}
 		</Field>
@@ -66,10 +72,12 @@ const FormContent = (
 			{({ fieldProps }) => (
 				<Fragment>
 					<TextArea minimumRows={4} resize="auto" />
-					<HelperMessage>
-						Please include a full description of how to replicate the problem you are experiencing.
-						This may be the steps to replicate, or the data that caused the problem.
-					</HelperMessage>
+					<MessageWrapper>
+						<HelperMessage>
+							Please include a full description of how to replicate the problem you are
+							experiencing. This may be the steps to replicate, or the data that caused the problem.
+						</HelperMessage>
+					</MessageWrapper>
 				</Fragment>
 			)}
 		</Field>

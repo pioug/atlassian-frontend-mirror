@@ -46,4 +46,11 @@ export interface RovoAgentSelectorProps {
 	 * Whether the selector is in a loading state
 	 */
 	isLoading?: boolean;
+
+	/**
+	 * Whether the selector is disabled. The current selection stays visible but
+	 * cannot be changed, and the control is removed from the tab order. Use this
+	 * when another setting temporarily takes precedence over the selected agent.
+	 */
+	isDisabled?: boolean;
 }

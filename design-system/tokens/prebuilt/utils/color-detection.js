@@ -4,12 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getBoxShadow = void 0;
-Object.defineProperty(exports, "hexToRGBAValues", {
-  enumerable: true,
-  get: function get() {
-    return _hexToRgbaValues.hexToRGBAValues;
-  }
-});
 var _hexToRgbaValues = require("./hex-to-rgba-values");
 /**
  * Returns a box shadow formatted for CSS from a ShadowToken raw value.

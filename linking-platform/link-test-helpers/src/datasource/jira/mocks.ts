@@ -1,12 +1,13 @@
-import { defaults, type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	type DatasourceDataResponseItem,
-	type DatasourceDetailsResponse,
-	type DatasourceResponseSchemaProperty,
-	type RichText,
-	type StatusType,
-	type User,
-} from '@atlaskit/linking-types';
+import { defaults } from '@atlaskit/json-ld-types/default-states';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type {
+	DatasourceDataResponseItem,
+	DatasourceDetailsResponse,
+	DatasourceResponseSchemaProperty,
+	RichText,
+	StatusType,
+	User,
+} from '@atlaskit/linking-types/datasource';
 
 import { YouTubeVideoUrl } from '../../index';
 import { type GenerateDataResponse } from '../types';

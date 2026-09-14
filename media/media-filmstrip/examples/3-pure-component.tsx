@@ -1,4 +1,4 @@
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import React from 'react';
 import { FilmstripView } from '../src/filmstripView';
 import { type FilmstripState } from '../src';

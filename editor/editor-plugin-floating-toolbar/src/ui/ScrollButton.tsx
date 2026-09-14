@@ -5,7 +5,7 @@ import type { UnbindFn } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';

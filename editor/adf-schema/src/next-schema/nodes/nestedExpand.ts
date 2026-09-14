@@ -3,6 +3,7 @@ import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { blockquote } from './blockquote';
+import { bodiedRule } from './bodiedRule';
 import { codeBlock } from './codeBlock';
 import { decisionList } from './decisionList';
 import { extension } from './extension';
@@ -29,6 +30,8 @@ const nestedExpandContent = [
 	taskList,
 	decisionList,
 	rule,
+	rule.use('with_attrs'),
+	bodiedRule,
 	panel,
 	blockquote,
 	unsupportedBlock,

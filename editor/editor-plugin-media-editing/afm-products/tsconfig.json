@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{
@@ -39,6 +42,9 @@
 		},
 		{
 			"path": "../../../media/media-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-core/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"

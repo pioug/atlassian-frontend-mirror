@@ -4,9 +4,9 @@ import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { InternalActionName, SmartLinkAlignment } from '../../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import { UnresolvedAction } from '../../../actions';
-import { LinkIcon } from '../../../elements';
+import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { default as UnresolvedAction } from '../../../actions/unresolved-action';
+import { default as LinkIcon } from '../../../elements/link-icon-element';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
 import { type TitleBlockViewProps } from '../types';

@@ -6,20 +6,23 @@ import React, { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import Heading from '@atlaskit/heading/heading';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
 	JiraServiceManagementIcon,
-	JiraSoftwareIcon,
 	OpsgenieIcon,
 	StatuspageIcon,
 } from '@atlaskit/logo';
-import { ExitingPersistence, FadeIn, StaggeredEntrance } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { RetryContainer } from './utils/containers';
 
 const buttonContainerStyles = css({
 	textAlign: 'center',

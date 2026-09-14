@@ -4,8 +4,10 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { type CardAuthFlowOpts, type EnvironmentsKeys } from '@atlaskit/link-provider';
-import Select, { type OptionsType } from '@atlaskit/select';
+import type { CardAuthFlowOpts } from '@atlaskit/link-provider/types';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
+import Select from '@atlaskit/select/default';
+import type { OptionsType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { type CardAppearance } from '../../src';

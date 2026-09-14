@@ -8,7 +8,7 @@ import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
@@ -90,7 +90,7 @@ export function UnknownMacroPlaceholder({
 				.join(' | '),
 		[macroParams],
 	);
-	const visibleParams = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const visibleParams = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedVisibleParams
 		: // eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- intentional fallback for experiment off path
 			Object.entries(macroParamsOld)

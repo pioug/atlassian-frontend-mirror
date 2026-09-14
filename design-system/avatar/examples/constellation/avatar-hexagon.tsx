@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 
 const AvatarHexagonExample = (): React.JSX.Element => (
 	<Avatar name="Rovo" appearance="hexagon" size="large" presence="online" />

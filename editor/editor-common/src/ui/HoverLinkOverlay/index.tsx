@@ -19,11 +19,10 @@ import {
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { buildVisitedNonHyperLinkPayload, INPUT_METHOD } from '../../analytics';
@@ -156,7 +155,7 @@ const HoverLinkOverlay = ({
 		}),
 		[compactPadding, regularPadding],
 	);
-	const hoverLinkStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const hoverLinkStyles = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedHoverLinkStyles
 		: {
 				paddingBlock: compactPadding ? '1px' : DYNAMIC_PADDING_BLOCK,
@@ -232,10 +231,7 @@ const HoverLinkOverlay = ({
 			sendVisitLinkAnalytics(INPUT_METHOD.DOUBLE_CLICK);
 
 			// Double click opens the link in a new tab
-			window.open(
-				fg('platform_smartlink_xpc_url_wrapping') ? (destinationUrl ?? url) : url,
-				'_blank',
-			);
+			window.open(destinationUrl ?? url, '_blank');
 		}
 	};
 
@@ -247,16 +243,14 @@ const HoverLinkOverlay = ({
 		}
 	};
 
-	const isPreviewButton =
-		showPanelButton && editorExperiment('platform_editor_preview_panel_linking_exp', true);
-	const label = isPreviewButton
+	const label = showPanelButton
 		? formatMessage(cardMessages.previewButtonTitle)
 		: formatMessage(cardMessages.openButtonTitle);
 
 	let icon: React.ReactElement | null = null;
-	if (isPreviewButton && showPanelButtonIcon === 'panel') {
+	if (showPanelButton && showPanelButtonIcon === 'panel') {
 		icon = <PanelRightIcon label="" />;
-	} else if (isPreviewButton && showPanelButtonIcon === 'modal') {
+	} else if (showPanelButton && showPanelButtonIcon === 'modal') {
 		icon = <GrowDiagonalIcon label="" />;
 	} else {
 		icon = <LinkExternalIcon label="" />;
@@ -289,7 +283,7 @@ const HoverLinkOverlay = ({
 				<Anchor
 					ref={hoverLinkButtonRef}
 					xcss={linkStylesCommon}
-					href={fg('platform_smartlink_xpc_url_wrapping') ? (destinationUrl ?? url) : url}
+					href={destinationUrl ?? url}
 					target="_blank"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic paddingBlock value based on experiment flags
 					style={hoverLinkStyles}

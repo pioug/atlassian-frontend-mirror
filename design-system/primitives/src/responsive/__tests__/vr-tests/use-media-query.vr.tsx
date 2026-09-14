@@ -1,6 +1,6 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import UseMediaQueryExample from '../../../../examples/50-use-media-query';
+import UseMediaQueryExample from '../../../../examples/50-use-media-query.vr.ap';
 
 snapshot(UseMediaQueryExample, {
 	variants: [

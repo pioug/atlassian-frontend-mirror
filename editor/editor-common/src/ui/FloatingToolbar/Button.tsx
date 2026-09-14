@@ -1,13 +1,11 @@
 import React, { forwardRef, useCallback, useEffect } from 'react';
 import type { Ref } from 'react';
 
-import Button from '@atlaskit/button/custom-theme-button';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
-import type { TooltipProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import type { ButtonAppearance } from '../../types';
 
@@ -150,7 +148,7 @@ const FloatingToolbarButton = (
 						className={className}
 						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						ref={(buttonElement) => {
-							if (forwardedRef && editorExperiment('platform_synced_block', true)) {
+							if (forwardedRef) {
 								if (typeof forwardedRef === 'function') {
 									forwardedRef(buttonElement);
 								} else if (typeof forwardedRef === 'object') {
@@ -222,12 +220,8 @@ const FloatingToolbarButton = (
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-const _default_1: React.FC<
-	Omit<Props & React.RefAttributes<HTMLElement>, 'ref'> & Props & React.RefAttributes<HTMLElement>
-> = componentWithCondition(
-	() => editorExperiment('platform_synced_block', true),
-	forwardRef<HTMLElement, Props>(FloatingToolbarButton),
-	FloatingToolbarButton,
-);
-export default _default_1;
+const FloatingToolbarButtonWithRef: React.ForwardRefExoticComponent<
+	Props & React.RefAttributes<HTMLElement>
+> = forwardRef<HTMLElement, Props>(FloatingToolbarButton);
+
+export default FloatingToolbarButtonWithRef;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-slack-transformer",
-	"version": "5.1.0",
+	"version": "5.2.0",
 	"description": "Editor Slack transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,6 +37,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@emotion/react": "root:*",
 		"react": "^19.2.0"
 	},

@@ -1,17 +1,16 @@
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { DEFAULT_SOURCE, type GasPayload } from '@atlaskit/analytics-gas-types';
-import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
-import merge from 'lodash/merge';
 import last from 'lodash/last';
+import merge from 'lodash/merge';
 
-import {
-	getPackageHierarchy,
-	getSources,
-	getPackageInfo,
-	getComponents,
-	extractFromEventContext,
-	getExtraAttributes,
-} from '../atlaskit/extract-data-from-event';
+import { DEFAULT_SOURCE, type GasPayload } from '@atlaskit/analytics-gas-types';
+import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
+import { extractFromEventContext } from '../atlaskit/extract-from-event-context';
+import { getComponents } from '../atlaskit/get-components';
+import { getExtraAttributes } from '../atlaskit/get-extra-attributes';
+import { getPackageHierarchy } from '../atlaskit/get-package-hierarchy';
+import { getPackageInfo } from '../atlaskit/get-package-info';
+import { getSources } from '../atlaskit/get-sources';
 
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 

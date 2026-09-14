@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-layout",
-	"version": "8.0.6",
+	"version": "8.1.1",
 	"description": "Layout for the atlaskit/help component.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,7 +17,10 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Self-Help Experiences",
+		"team": "PACE PS2",
+		"slack": {
+			"channel": "#pace-ps2"
+		},
 		"website": {
 			"name": "Help Layout"
 		}
@@ -41,9 +44,9 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/testing-library": "workspace:^",
 		"@types/react-transition-group": "root:*",
 		"algoliasearch": "root:*",
-		"enzyme": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-intl": "root:*",
@@ -55,17 +58,6 @@
 		"ui",
 		"help"
 	],
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"compiled"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.ts",
 		"./analytics": "./src/analytics.ts",

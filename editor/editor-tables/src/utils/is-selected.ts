@@ -1,79 +1,22 @@
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { TableMap } from '../table-map';
-import type { Rect } from '../table-map';
-
-import { isSelectionType } from './is-selection-type';
-
-// Checks if a given CellSelection rect is selected
-export const isRectSelected =
-	(rect: Rect) =>
-	(selection: Selection): boolean => {
-		if (!isSelectionType(selection, 'cell')) {
-			return false;
-		}
-
-		const map = TableMap.get(selection.$anchorCell.node(-1));
-		const start = selection.$anchorCell.start(-1);
-		const cells = map.cellsInRect(rect);
-		const selectedCells = map.cellsInRect(
-			map.rectBetween(selection.$anchorCell.pos - start, selection.$headCell.pos - start),
-		);
-
-		for (let i = 0, count = cells.length; i < count; i++) {
-			if (selectedCells.indexOf(cells[i]) === -1) {
-				return false;
-			}
-		}
-
-		return true;
-	};
-
-// Checks if entire column at index `columnIndex` is selected.
-export const isColumnSelected =
-	(columnIndex: number) =>
-	(selection: Selection): boolean => {
-		if (isSelectionType(selection, 'cell')) {
-			const map = TableMap.get(selection.$anchorCell.node(-1));
-			return isRectSelected({
-				left: columnIndex,
-				right: columnIndex + 1,
-				top: 0,
-				bottom: map.height,
-			})(selection);
-		}
-
-		return false;
-	};
-
-// Checks if entire row at index `rowIndex` is selected.
-export const isRowSelected =
-	(rowIndex: number) =>
-	(selection: Selection): boolean => {
-		if (isSelectionType(selection, 'cell')) {
-			const map = TableMap.get(selection.$anchorCell.node(-1));
-			return isRectSelected({
-				left: 0,
-				right: map.width,
-				top: rowIndex,
-				bottom: rowIndex + 1,
-			})(selection);
-		}
-
-		return false;
-	};
-
-// Checks if entire table is selected
-export const isTableSelected = (selection: Selection): boolean => {
-	if (isSelectionType(selection, 'cell')) {
-		const map = TableMap.get(selection.$anchorCell.node(-1));
-		return isRectSelected({
-			left: 0,
-			right: map.width,
-			top: 0,
-			bottom: map.height,
-		})(selection);
-	}
-
-	return false;
-};
+/**
+ * @deprecated Use `import { isRectSelected } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { isRectSelected } from './is-rect-selected';
+/**
+ * @deprecated Use `import { isColumnSelected } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { isColumnSelected } from './is-column-selected';
+/**
+ * @deprecated Use `import { isRowSelected } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { isRowSelected } from './is-row-selected';
+/**
+ * @deprecated Use `import { isTableSelected } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { isTableSelected } from './is-table-selected';

@@ -1,15 +1,12 @@
 import type React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import {
-	isModified,
-	getRoutePathFromUrl,
-	isTeamsAppRoute,
-	prefixWithContextEntryPoint,
-} from '../utils/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { classifyNavigationIntent } from './classifyNavigationIntent';
+import { getRoutePathFromUrl } from './getRoutePathFromUrl';
+import { isModified } from './isModified';
+import { isTeamsAppRoute } from './isTeamsAppRoute';
+import { prefixWithContextEntryPoint } from './prefixWithContextEntryPoint';
 
 /**
  * Describes the type of link being created [(mapping reference)](https://hello.atlassian.net/wiki/spaces/PTC/pages/6618450101/LDR+Link+Intent+Mapping).

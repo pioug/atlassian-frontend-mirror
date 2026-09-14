@@ -1,9 +1,7 @@
 import React from 'react';
-import {
-	useAnalyticsEvents,
-	type UIAnalyticsEvent,
-	AnalyticsContext,
-} from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import { type WhatsNewArticleItem, WHATS_NEW_ITEM_TYPES } from '../../../../../model/WhatsNew';

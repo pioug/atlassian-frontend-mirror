@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { cssMap, cx, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { Pressable } from '@atlaskit/primitives/compiled';

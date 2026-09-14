@@ -1,3 +1,4 @@
+// oxlint-disable-next-line typescript/consistent-type-imports
 import { Component } from 'react';
 
 export type EventMap = {

@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -9,10 +9,11 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { LayoutPlugin } from '../layoutPluginType';
 import { LayoutSectionView } from '../nodeviews';
+import { LayoutSectionView as LayoutSectionViewVanilla } from '../nodeviews/layoutSectionView';
 import type { LayoutPluginOptions } from '../types';
 
 export const pluginKey: PluginKey = new PluginKey('layoutResizingPlugin');
@@ -27,7 +28,7 @@ export const pluginKey: PluginKey = new PluginKey('layoutResizingPlugin');
  * PM transactions) are not "corrected" back by ProseMirror's DOM reconciliation.
  */
 const isLayoutElementLike = (element: unknown): element is HTMLElement => {
-	if (isSSR() && isSSRStreaming()) {
+	if (isSSR()) {
 		// In SSR environments, `HTMLElement` is undefined globally so a plain
 		// `instanceof HTMLElement` check is always `false`. That makes the
 		// `DOMSerializer.renderSpec(...)` result get rejected by the guard below and
@@ -36,9 +37,8 @@ const isLayoutElementLike = (element: unknown): element is HTMLElement => {
 		// `data-column-width`, plus the inner `<div data-layout-content="true">`
 		// wrapper) and breaking the layout's flex sizing in SSR output.
 		//
-		// To unblock SSR streaming without changing CSR semantics, we gate the check:
-		// - In SSR (and only when `platform_editor_editor_ssr_streaming` is enabled),
-		//   use a duck-typed check that mirrors `safe-plugin`'s `isHTMLElement`.
+		// To unblock SSR without changing CSR semantics, we gate the check:
+		// - In SSR, use a duck-typed check that mirrors `safe-plugin`'s `isHTMLElement`.
 		// - Everywhere else, keep the original `instanceof HTMLElement` check exactly
 		//   as it was so we don't accidentally widen acceptance in CSR.
 		if (element === null || element === undefined) {
@@ -112,7 +112,20 @@ export default (
 		key: pluginKey,
 		props: {
 			nodeViews: {
-				layoutSection: (node, view, getPos) => {
+				layoutSection: (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+					// Both experiments are required: the vanilla view renders no React, so it
+					// cannot mount the <LayoutBreakoutResizer> that LayoutSectionView.render()
+					// returns. That resizer is only redundant once
+					// `platform_editor_breakout_resizing` is on (render() returns null and
+					// breakout resizing is handled by the pragmatic resizer in
+					// editor-plugin-breakout). Taking the vanilla path while that experiment is
+					// off would silently remove the breakout drag handles.
+					if (
+						expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+						isExperimentEnabled('platform_editor_vanilla_node_views_phase1')
+					) {
+						return new LayoutSectionViewVanilla(node);
+					}
 					return new LayoutSectionView({
 						node,
 						view,
@@ -124,22 +137,8 @@ export default (
 						intl,
 					}).init();
 				},
-				// Register the column node view when EITHER:
-				// 1. The resize handle experiment is on (its original purpose:
-				//    suppress style-attribute MutationObserver callbacks during
-				//    drag, allowing direct flex-basis writes without PM
-				//    interference).
-				// 2. SSR streaming is enabled — the column node view stamps
-				//    `container-type: inline-size` inline on each column dom so
-				//    that the SSR-rendered table inside the column constrains
-				//    its width to the column (see comment in the constructor).
-				...(editorExperiment('platform_editor_layout_column_resize_handle', true) ||
-				(isSSR() && isSSRStreaming())
-					? {
-							layoutColumn: (node: PMNode, view: EditorView, getPos: () => number | undefined) =>
-								new LayoutColumnView(node, view, getPos),
-						}
-					: {}),
+				layoutColumn: (node: PMNode, view: EditorView, getPos: () => number | undefined) =>
+					new LayoutColumnView(node, view, getPos),
 			},
 		},
 	});

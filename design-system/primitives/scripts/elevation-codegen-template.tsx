@@ -1,6 +1,6 @@
 import format from '@af/formatting/sync';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
-import { light as tokens } from '@atlaskit/tokens/tokens-raw';
+import tokens from '@atlaskit/tokens/atlassian-light';
 
 import { capitalize } from './capitalize';
 import { generateTypeDefs } from './generate-type-defs';

@@ -1,6 +1,6 @@
 import type { MessageDescriptor } from 'react-intl';
 
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { PasteSource } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -84,8 +84,8 @@ const showWarningFlag = ({
 
 // Check if rawHtml contains a synced block
 // example: "<meta charset='utf-8'><html><head></head><body><div data-sync-block=\"\" data-local-id=\"\" data-resource-id=\"d64883c8-1270-431d-a1d3-51d36a1ed5f4\" data-prosemirror-content-type=\"node\" data-prosemirror-node-name=\"syncBlock\" data-prosemirror-node-block=\"true\" data-pm-slice=\"0 0 []\"></div></body></html>"
-const hasSyncedBlockInRawHtml = (rawHtml: string): boolean => {
-	return rawHtml.includes('data-sync-block="');
+const hasSyncedBlockInRawHtml = (rawHtml: string | undefined): boolean => {
+	return Boolean(rawHtml?.includes('data-sync-block="'));
 };
 
 /**

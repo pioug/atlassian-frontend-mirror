@@ -1,0 +1,28 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../tsDist/@atlaskit__pubsub/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"references": [
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../util-service-support/afm-products/tsconfig.json"
+		}
+	]
+}

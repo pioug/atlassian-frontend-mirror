@@ -6,8 +6,9 @@ import React, { useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import LinkGlyph from '@atlaskit/icon/core/link';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -53,22 +54,32 @@ const UnresolvedView = ({
 	inheritDimensions,
 	isSelected,
 	onClick,
+	providerIcon,
+	providerIconLabel,
 	testId,
 	text,
 	title,
 	url,
 }: UnresolvedViewProps): JSX.Element => {
+	// Unresolved embeds have no entity title. The frame shows the provider name, so
+	// pair it with the provider/generator icon rather than the entity-type icon.
+	const shouldUseProviderIcon =
+		providerIcon != null && fg('platform_lp_use_generator_icon_for_provider');
+	const frameIconUrlOrElement = shouldUseProviderIcon ? providerIcon : iconUrlOrElement;
+	const frameIconLabel = shouldUseProviderIcon ? providerIconLabel : undefined;
+
 	const icon = useMemo(() => {
-		if (React.isValidElement(iconUrlOrElement)) {
-			return iconUrlOrElement;
+		if (React.isValidElement(frameIconUrlOrElement)) {
+			return frameIconUrlOrElement;
 		}
 		return (
 			<ImageIcon
-				src={typeof iconUrlOrElement === 'string' ? iconUrlOrElement : undefined}
+				src={typeof frameIconUrlOrElement === 'string' ? frameIconUrlOrElement : undefined}
+				alt={frameIconLabel}
 				default={<LinkGlyph label="icon" testId="embed-card-fallback-icon" color="currentColor" />}
 			/>
 		);
-	}, [iconUrlOrElement]);
+	}, [frameIconLabel, frameIconUrlOrElement]);
 
 	const image = useMemo(() => {
 		if (!imageUrlOrElement) {

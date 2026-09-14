@@ -1,15 +1,15 @@
+import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
+
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { panel, panelC1Stage0 } from '../../../../next-schema';
 import type { SchemaConfig } from '../../../../schema/create-schema';
 import { createSchema } from '../../../../schema/create-schema';
-import { toHTML, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import {
-	extendedPanel,
-	extendedPanelC1,
-	extendedPanelC1WithLocalId,
-	extendedPanelC1RootOnlyStage0,
-	extendedPanelRootOnlyStage0,
-} from '../../../../schema/nodes/panel';
-import { panel, panelC1 } from '../../../../next-schema';
+import { extendedPanel } from '../../../../schema/nodes/extended-panel';
+import { extendedPanelC1 } from '../../../../schema/nodes/extended-panel-c1';
+import { extendedPanelC1RootOnlyStage0 } from '../../../../schema/nodes/extended-panel-c1-root-only-stage0';
+import { extendedPanelC1WithLocalId } from '../../../../schema/nodes/extended-panel-c1-with-local-id';
+import { extendedPanelRootOnlyStage0 } from '../../../../schema/nodes/extended-panel-root-only-stage0';
 
 const schema = makeSchema();
 const schemaWithAllowCustomPanel = makeSchema({
@@ -56,7 +56,7 @@ describe(`${packageName}/schema panel node `, () => {
 				},
 			},
 			content:
-				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
 			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
@@ -95,7 +95,7 @@ describe(`${packageName}/schema panel node `, () => {
 				},
 			},
 			content:
-				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
 			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
@@ -132,7 +132,7 @@ describe(`${packageName}/schema panel node `, () => {
 				},
 			},
 			content:
-				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
 			marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
@@ -169,7 +169,7 @@ describe(`${packageName}/schema panel node `, () => {
 				},
 			},
 			content:
-				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
+				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension | table)+',
 			group: 'block',
 			marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
@@ -380,7 +380,7 @@ describe(`${packageName}/schema panel node `, () => {
 
 describe('panel_c1 variant (next-schema)', () => {
 	// PMNodeSpecFactoryInstance is a curried function — call it with {} to get the NodeSpec
-	const panelC1Spec = panelC1({});
+	const panelC1Spec = panelC1Stage0({});
 	const panelSpec = panel({});
 
 	it('should include table in content string but not in base panel', () => {
@@ -392,7 +392,7 @@ describe('panel_c1 variant (next-schema)', () => {
 
 	it('should have the correct content expression including table', () => {
 		expect(panelC1Spec.content).toBe(
-			'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
+			'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | bodiedRule | decisionList | unsupportedBlock | extension | table)+',
 		);
 	});
 

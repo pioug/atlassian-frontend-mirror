@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LoadingButton } from '@atlaskit/button';
+import LoadingButton from '@atlaskit/button/loading-button';
 
 const ButtonLoadingExample = (): React.JSX.Element => {
 	return (

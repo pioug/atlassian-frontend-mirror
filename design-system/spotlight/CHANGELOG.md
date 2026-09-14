@@ -1,5 +1,192 @@
 # @atlaskit/spotlight
 
+## 4.2.4
+
+### Patch Changes
+
+- [`724fabad010d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/724fabad010d6) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+- Updated dependencies
+
+## 4.2.3
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+
+## 4.2.2
+
+### Patch Changes
+
+- [`44a80d90ea61d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44a80d90ea61d) -
+  Migrate Pressable hover and pressed colour transitions to semantic motion tokens behind
+  platform-dst-motion-uplift-custom-button.
+
+## 4.2.1
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 4.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+- [`005037db2dcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/005037db2dcaa) -
+  Autofix: update cross-package imports away from barrel entries
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.0
+
+### Major Changes
+
+- [`f6328151ae86c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6328151ae86c) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/spotlight`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. No public subpaths were removed.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import { SpotlightCard } from '@atlaskit/spotlight/card';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import { SpotlightCard } from '@atlaskit/spotlight/entry-points/card';
+  +import { SpotlightCard } from '@atlaskit/spotlight/card';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+  -   "./actions": "./src/entry-points/actions.tsx",
+  +   "./actions": "./src/ui/actions/index.tsx",
+  -   "./body": "./src/entry-points/body.tsx",
+  +   "./body": "./src/ui/body/index.tsx",
+  -   "./card": "./src/entry-points/card.tsx",
+  +   "./card": "./src/ui/card/index.tsx",
+  -   "./controls": "./src/entry-points/controls.tsx",
+  +   "./controls": "./src/ui/controls/index.tsx",
+  -   "./dismiss-control": "./src/entry-points/dismiss-control.tsx",
+  +   "./dismiss-control": "./src/ui/dismiss-control/index.tsx",
+  -   "./footer": "./src/entry-points/footer.tsx",
+  +   "./footer": "./src/ui/footer/index.tsx",
+  -   "./header": "./src/entry-points/header.tsx",
+  +   "./header": "./src/ui/header/index.tsx",
+  -   "./headline": "./src/entry-points/headline.tsx",
+  +   "./headline": "./src/ui/headline/index.tsx",
+  -   "./media": "./src/entry-points/media.tsx",
+  +   "./media": "./src/ui/media/index.tsx",
+  -   "./popover-content": "./src/entry-points/popover-content.tsx",
+  +   "./popover-content": "./src/ui/popover-content/index.tsx",
+  -   "./popover-provider": "./src/entry-points/popover-provider.tsx",
+  +   "./popover-provider": "./src/ui/popover-provider/index.tsx",
+  -   "./popover-target": "./src/entry-points/popover-target.tsx",
+  +   "./popover-target": "./src/ui/popover-target/index.tsx",
+  -   "./primary-action": "./src/entry-points/primary-action.tsx",
+  +   "./primary-action": "./src/ui/primary-action/index.tsx",
+  -   "./primary-link": "./src/entry-points/primary-link.tsx",
+  +   "./primary-link": "./src/ui/primary-link/index.tsx",
+  -   "./secondary-action": "./src/entry-points/secondary-action.tsx",
+  +   "./secondary-action": "./src/ui/secondary-action/index.tsx",
+  -   "./secondary-link": "./src/entry-points/secondary-link.tsx",
+  +   "./secondary-link": "./src/ui/secondary-link/index.tsx",
+  -   "./show-more-control": "./src/entry-points/show-more-control.tsx",
+  +   "./show-more-control": "./src/ui/show-more-control/index.tsx",
+  -   "./spotlight-context-provider": "./src/entry-points/spotlight-context-provider.tsx",
+  +   "./spotlight-context-provider": "./src/controllers/context.tsx",
+  -   "./step-count": "./src/entry-points/step-count.tsx",
+  +   "./step-count": "./src/ui/step-count/index.tsx",
+  -   "./types": "./src/entry-points/types.tsx",
+  +   "./types": "./src/types.tsx",
+  -   "./update-on-change": "./src/entry-points/update-on-change.tsx",
+  +   "./update-on-change": "./src/ui/UNSAFE_update-on-change/index.tsx",
+  -   "./use-preload-media": "./src/entry-points/use-preload-media.tsx",
+  +   "./use-preload-media": "./src/utils/use-preload-media/index.tsx",
+    }
+  ```
+
+  Because each subpath now exposes its whole implementation module, some subpaths expose additional
+  symbols that the old shims filtered out — for example `SpotlightContext` from
+  `./spotlight-context-provider`, and `PositionArea` from `./types`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.11
+
+### Patch Changes
+
+- [`d2e8200fe66f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2e8200fe66f3) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+
+## 3.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.7
 
 ### Patch Changes

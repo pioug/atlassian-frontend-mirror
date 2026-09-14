@@ -1,5 +1,468 @@
 # @atlaskit/editor-plugin-list
 
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- [`728f80b4dc5d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/728f80b4dc5d2) -
+  Reduce the per-transaction cost of list indentation decorations, behind the
+  `platform_editor_list_performance_improv` experiment.
+
+  `editor-core` gains a set of `:is(ul, ol)` list marker rules that derive the marker from a list's
+  ancestors in CSS, which is what the `data-indent-level` decoration was previously needed for.
+  These rules are scoped with `:not([data-indent-level])` so they are inert for the control cohort,
+  which still receives the decoration.
+
+  With those rules in place, the experiment cohort in `editor-plugin-list` no longer decorates list
+  indentation at all. The only decoration left is the ordered-list counter gutter, which depends on
+  the item count and start number and so cannot be expressed as a selector. The decoration set is
+  also maintained incrementally — mapped through each transaction with only the touched top-level
+  blocks recomputed, instead of rebuilding from a full document scan — and the remaining scan skips
+  textblock subtrees, which can never contain a list. Rendered output is unchanged.
+
+- [`728f80b4dc5d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/728f80b4dc5d2) -
+  Replace the toolbar's dependency on `listState.decorationSet` identity with an explicit
+  `listStructureToken` on the list plugin state.
+
+  The lists and indentation toolbar re-rendered by watching `decorationSet` for a new object, which
+  only worked while a fresh `DecorationSet` was allocated on every list edit. Indenting to the
+  maximum nesting depth changes whether indent is available without moving any of the active or
+  disabled flags, so that identity change was the only thing prompting the toolbar to re-evaluate.
+  The token is incremented when the document changes while the selection is inside a list, which
+  makes the dependency explicit and keeps documents with no list involvement from re-rendering the
+  toolbar on every keystroke.
+
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- [`ea8de35330d10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea8de35330d10) -
+  Register the gated Small text action in the block menu and hide it when the schema lacks font-size
+  support.
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- [`352bac5c0a9ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/352bac5c0a9ed) -
+  Reduce the per-transaction cost of recomputing list indentation decorations, behind the
+  `platform_editor_list_performance_improv` experiment. The decoration set is now maintained
+  incrementally: it is mapped through each transaction and only the top-level blocks that the
+  transaction touched are recomputed, instead of rebuilding the whole set from a full document scan.
+  The remaining scan also skips textblock subtrees, which can never contain a list, and each list
+  emits a single decoration carrying both the indentation level and the ordered-list item counter
+  padding instead of two decorations over the same range. Rendered output is unchanged.
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.7
+
+### Patch Changes
+
+- [`68342e8a23fec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68342e8a23fec) -
+  Group text transforms under the renamed Text formatting section in the block menu behind the
+  `platform_editor_block_menu_small_text` experiment.
+- Updated dependencies
+
+## 18.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- [`9f8027e06f6f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f8027e06f6f6) -
+  Use updated slash-command menu icons when platform_editor_slash_command is enabled.
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.15
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 17.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- [`86f1891483b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86f1891483b7f) -
+  Prevent list deletion commands from skipping synced blocks behind platform_editor_blocks_patch_7.
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [`72f7cec91a1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f7cec91a1d4) -
+  Remove stale `platform-feature-flags` registrations for shipped block menu and blocks feature
+  gates. No behaviour change.
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

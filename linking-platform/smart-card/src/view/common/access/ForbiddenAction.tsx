@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
-import { type Appearance } from '@atlaskit/button/types';
+import type { Appearance } from '@atlaskit/button/old-button/types';
 
 import { messages } from '../../../messages';
 import { type ActionProps } from '../../types';

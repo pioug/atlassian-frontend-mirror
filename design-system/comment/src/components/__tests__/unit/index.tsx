@@ -4,7 +4,7 @@ import React from 'react';
 
 import { render, screen, within } from '@testing-library/react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import Comment, { CommentAction, CommentAuthor, CommentEdited, CommentTime } from '../../../index';

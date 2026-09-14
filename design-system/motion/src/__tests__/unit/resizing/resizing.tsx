@@ -3,7 +3,8 @@ import React, { forwardRef } from 'react';
 import replaceRaf from 'raf-stub';
 
 import { token } from '@atlaskit/tokens';
-import { render, screen } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { useResizing } from '../../../resizing/use-resizing';
 import { isReducedMotion } from '../../../utils/is-reduced-motion';

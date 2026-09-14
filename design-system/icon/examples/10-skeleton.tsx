@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from '@atlaskit/icon';
+import Skeleton from '@atlaskit/icon/skeleton';
 
 export default (): React.JSX.Element => (
 	<div>

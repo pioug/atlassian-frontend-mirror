@@ -1,4 +1,4 @@
-import { mediaGroup } from '@atlaskit/adf-schema';
+import { mediaGroup } from '@atlaskit/adf-schema/media-group';
 import type {
 	AttributeSpec,
 	DOMOutputSpec,
@@ -64,37 +64,37 @@ export const getDefaultCardDimensions = (
 
 // @nodeSpecException:toDOM patch
 export const mediaGroupSpecWithFixedToDOM = (): {
-	toDOM: () => DOMOutputSpec;
-	content?: string;
-	marks?: string;
-	group?: string;
-	inline?: boolean;
 	atom?: boolean;
 	attrs?: {
 		[name: string]: AttributeSpec;
 	};
-	selectable?: boolean;
-	draggable?: boolean;
 	code?: boolean;
-	whitespace?: 'pre' | 'normal';
+	content?: string;
+	defining?: boolean;
 	definingAsContext?: boolean;
 	definingForContent?: boolean;
-	defining?: boolean;
-	isolating?: boolean;
-	parseDOM?: readonly TagParseRule[];
-	toDebugString?: (node: Node) => string;
-	leafText?: (node: Node) => string;
-	linebreakReplacement?: boolean;
 	disableDropCursor?:
 		| boolean
 		| ((
 				view: EditorView,
 				pos: {
-					pos: number;
 					inside: number;
+					pos: number;
 				},
 				event: DragEvent,
 		  ) => boolean);
+	draggable?: boolean;
+	group?: string;
+	inline?: boolean;
+	isolating?: boolean;
+	leafText?: (node: Node) => string;
+	linebreakReplacement?: boolean;
+	marks?: string;
+	parseDOM?: readonly TagParseRule[];
+	selectable?: boolean;
+	toDebugString?: (node: Node) => string;
+	toDOM: () => DOMOutputSpec;
+	whitespace?: 'pre' | 'normal';
 } => {
 	return {
 		...mediaGroup,

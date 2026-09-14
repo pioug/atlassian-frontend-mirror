@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { useSmartCardActions as useLinkActions } from '../actions';
 

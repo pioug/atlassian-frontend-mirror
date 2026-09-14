@@ -4,11 +4,11 @@
  */
 import { useCallback, useState } from 'react';
 
-import { type Placement } from '@atlaskit/popper';
-import Popup from '@atlaskit/popup';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { Placement } from '@atlaskit/popper/main';
+import { Popup } from '@atlaskit/popup/popup';
 import { type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	type ReactionClick,
@@ -30,12 +30,17 @@ import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	summaryPopup: {
+	summaryList: {
 		paddingTop: token('space.050'),
 		paddingRight: token('space.100'),
 		paddingBottom: token('space.100'),
 		paddingLeft: token('space.100'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
 		maxWidth: '325px',
+		listStyleType: 'none',
 	},
 });
 
@@ -54,6 +59,7 @@ interface ReactionSummaryViewProps
 			| 'particleEffectByEmoji'
 			| 'allowUserDialog'
 			| 'allowSelectFromSummaryView'
+			| 'contentId'
 			| 'emojiPickerSize'
 			| 'useButtonAlignmentStyling'
 			| 'reactionPickerTriggerText'
@@ -142,6 +148,7 @@ export const ReactionSummaryView = ({
 	handleOpenReactionsDialog,
 	isViewOnly = false,
 	allowSelectFromSummaryView,
+	contentId,
 	disabled,
 	emojiPickerSize,
 	onSelection,
@@ -299,13 +306,13 @@ export const ReactionSummaryView = ({
 		setSummaryPopupOpen,
 		isSummaryViewButtonClicked,
 	]);
-
 	return (
 		<Popup
 			placement={placement}
 			content={({ update: recalculatePopupPosition }) =>
 				isEmojiPickerOpen ? (
 					<EmojiPicker
+						contentId={contentId}
 						emojiProvider={emojiProvider}
 						onSelection={onEmojiSelected}
 						size={emojiPickerSize}
@@ -332,29 +339,39 @@ export const ReactionSummaryView = ({
 								/>
 							</Flex>
 						)}
-						<Inline xcss={styles.summaryPopup} space="space.025" shouldWrap alignBlock="center">
-							{reactions.map((reaction) => (
-								<Reaction
-									key={reaction.emojiId}
-									reaction={reaction}
-									emojiProvider={emojiProvider}
-									onClick={onReactionClick}
-									onFocused={onReactionFocused}
-									onMouseEnter={onReactionMouseEnter}
-									flash={flash[reaction.emojiId]}
-									showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
-									allowUserDialog={allowUserDialog}
-									handleOpenReactionsDialog={handleOpenReactionsDialog}
-									isViewOnly={isViewOnly}
-								/>
-							))}
+						<Inline
+							as="ul"
+							xcss={styles.summaryList}
+							space="space.025"
+							shouldWrap
+							alignBlock="center"
+						>
+							{reactions.map((reaction) => {
+								return (
+									<Reaction
+										key={reaction.emojiId}
+										rootElement="li"
+										reaction={reaction}
+										emojiProvider={emojiProvider}
+										onClick={onReactionClick}
+										onFocused={onReactionFocused}
+										onMouseEnter={onReactionMouseEnter}
+										flash={flash[reaction.emojiId]}
+										showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+										allowUserDialog={allowUserDialog}
+										handleOpenReactionsDialog={handleOpenReactionsDialog}
+										isViewOnly={isViewOnly}
+									/>
+								);
+							})}
 						</Inline>
 					</Box>
 				)
 			}
 			isOpen={isSummaryPopupOpen || isEmojiPickerOpen}
 			onClose={handlePopupClose}
-			shouldRenderToParent={expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true)}
+			shouldRenderToParent={fg('platform_a11y_fixes_reading_order')}
+			strategy={fg('platform_a11y_fixes_reading_order') ? 'absolute' : undefined}
 			trigger={(triggerProps) => (
 				<ReactionSummaryButton
 					{...triggerProps}

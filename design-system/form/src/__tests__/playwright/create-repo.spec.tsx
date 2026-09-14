@@ -9,7 +9,7 @@ const createRepoBtn = 'button[type="submit"]#create-repo-button';
 const cancelBtn = 'button[type="button"]#create-repo-cancel';
 
 test('Create repository form should render without errors', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/06-create-repository.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-create-repository.vr.ap.tsx')>(
 		'design-system',
 		'form',
 		'create-repository',

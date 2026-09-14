@@ -1,4 +1,5 @@
-import { type CreateUIAnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 export const ELEMENTS_CHANNEL = 'fabric-elements';
 

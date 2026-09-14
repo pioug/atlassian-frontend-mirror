@@ -6,12 +6,14 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 
 import { css, jsx } from '@compiled/react';
 
-import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/new';
-import { Label } from '@atlaskit/form';
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
-import Select, { type ValueType } from '@atlaskit/select';
-import Spinner from '@atlaskit/spinner';
+import Avatar from '@atlaskit/avatar/avatar';
+import Button from '@atlaskit/button/default/button';
+import { Label } from '@atlaskit/form/label/default';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 type Delays = {

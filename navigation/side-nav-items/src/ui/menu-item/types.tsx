@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 /** `aria-haspopup` values used by popup triggers and menu item buttons (see ARIA spec). */
 export type MenuItemAriaHasPopup = boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';

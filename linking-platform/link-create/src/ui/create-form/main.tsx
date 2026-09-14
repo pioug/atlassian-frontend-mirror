@@ -9,7 +9,7 @@ import { FORM_ERROR, type MutableState, type Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl';
 
-import { RequiredAsterisk } from '@atlaskit/form';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

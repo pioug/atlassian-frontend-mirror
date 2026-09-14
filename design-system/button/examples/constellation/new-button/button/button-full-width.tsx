@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 const ButtonFullWidthExample = (): React.JSX.Element => {
 	return (

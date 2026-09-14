@@ -12,8 +12,8 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import MinusIcon from '@atlaskit/icon/core/minus';
-import { HeadingItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 

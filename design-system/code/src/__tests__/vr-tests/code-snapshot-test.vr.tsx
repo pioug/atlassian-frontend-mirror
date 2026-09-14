@@ -1,30 +1,30 @@
 import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import InlineCodeBasic from '../../../examples/01-inline-code-basic';
-import CodeBlockBasic from '../../../examples/10-code-block-basic';
-import CodeBlockBasicWithTabs from '../../../examples/11-code-block-basic-with-tabs';
-import CodeBlockHighlightingLongLines from '../../../examples/14-code-block-highlighting-long-lines';
-import CodeBlockEmpty from '../../../examples/21-code-block-empty';
-import CodeBidiCharacters from '../../../examples/22-code-bidi-characters';
-import CodeOverrideBackground from '../../../examples/23-code-override-background';
-import ExampleABAP from '../../../examples/abap';
-import Applescript from '../../../examples/applescript';
-import CascadingStyleSheets from '../../../examples/cascading-style-sheets';
-import Clojure from '../../../examples/clojure';
-import Delphi from '../../../examples/delphi';
-import Diff from '../../../examples/diff';
-import Foxpro from '../../../examples/foxpro';
-import Gherkin from '../../../examples/gherkin';
-import Handlebars from '../../../examples/handlebars';
-import Jsx from '../../../examples/jsx';
-import MarkdownFencedCodeJsx from '../../../examples/markdown-fenced-code-jsx';
-import ObjectPascal from '../../../examples/object-pascal';
-import Qml from '../../../examples/qml';
-import ExampleSQL from '../../../examples/sql';
-import StandardMl from '../../../examples/standard-ml';
-import Toml from '../../../examples/toml';
-import VisualBasic from '../../../examples/visual-basic';
-import VrPythonTestIdAndWrapping from '../../../examples/vr-python-test-id-and-wrapping';
+import InlineCodeBasic from '../../../examples/01-inline-code-basic.vr.ap';
+import CodeBlockBasic from '../../../examples/10-code-block-basic.vr.ap';
+import CodeBlockBasicWithTabs from '../../../examples/11-code-block-basic-with-tabs.vr.ap';
+import CodeBlockHighlightingLongLines from '../../../examples/14-code-block-highlighting-long-lines.vr.ap';
+import CodeBlockEmpty from '../../../examples/21-code-block-empty.vr.ap';
+import CodeBidiCharacters from '../../../examples/22-code-bidi-characters.vr.ap';
+import CodeOverrideBackground from '../../../examples/23-code-override-background.vr.ap';
+import ExampleABAP from '../../../examples/abap.vr.ap';
+import Applescript from '../../../examples/applescript.vr.ap';
+import CascadingStyleSheets from '../../../examples/cascading-style-sheets.vr.ap';
+import Clojure from '../../../examples/clojure.vr.ap';
+import Delphi from '../../../examples/delphi.vr.ap';
+import Diff from '../../../examples/diff.vr.ap';
+import Foxpro from '../../../examples/foxpro.vr.ap';
+import Gherkin from '../../../examples/gherkin.vr.ap';
+import Handlebars from '../../../examples/handlebars.vr.ap';
+import Jsx from '../../../examples/jsx.vr.ap';
+import MarkdownFencedCodeJsx from '../../../examples/markdown-fenced-code-jsx.vr.ap';
+import ObjectPascal from '../../../examples/object-pascal.vr.ap';
+import Qml from '../../../examples/qml.vr.ap';
+import ExampleSQL from '../../../examples/sql.vr.ap';
+import StandardMl from '../../../examples/standard-ml.vr.ap';
+import Toml from '../../../examples/toml.vr.ap';
+import VisualBasic from '../../../examples/visual-basic.vr.ap';
+import VrPythonTestIdAndWrapping from '../../../examples/vr-python-test-id-and-wrapping.vr.ap';
 
 const defaultColourThemeVariant: SnapshotTestOptions<Hooks> = {
 	variants: [

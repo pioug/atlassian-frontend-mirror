@@ -6,16 +6,18 @@
 
 import { useState } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge';
-import { ButtonItem } from '@atlaskit/menu';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import ButtonItem from '@atlaskit/menu/button-item';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
-import { Popup } from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 

@@ -2,7 +2,7 @@ import React, { type ReactNode, useEffect, useRef } from 'react';
 
 import { fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 
-import setGlobalTheme from '../../set-global-theme';
+import { setGlobalTheme } from '../../set-global-theme';
 import useThemeObserver from '../../use-theme-observer';
 
 const LIGHT_THEME_OUTPUT = 'light-theme-output';

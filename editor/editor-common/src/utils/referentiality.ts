@@ -1,4 +1,4 @@
-import type { FragmentAttributes } from '@atlaskit/adf-schema/schema';
+import type { FragmentAttributes } from '@atlaskit/adf-schema/fragment';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 

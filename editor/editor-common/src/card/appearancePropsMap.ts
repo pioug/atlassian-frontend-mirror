@@ -1,4 +1,4 @@
-import type { NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import MinusIcon from '@atlaskit/icon/core/minus';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';

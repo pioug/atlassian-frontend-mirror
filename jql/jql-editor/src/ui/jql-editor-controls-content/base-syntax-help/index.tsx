@@ -1,9 +1,9 @@
 import React, { type MouseEvent } from 'react';
 
-import Button from '@atlaskit/button';
-import { LinkIconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/button';
+import LinkIconButton from '@atlaskit/button/icon/link';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';

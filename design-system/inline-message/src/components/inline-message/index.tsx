@@ -7,7 +7,8 @@ import { type FC, type ReactNode, useCallback, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
-import Popup, { type PopupProps } from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
+import type { PopupProps } from '@atlaskit/popup/types';
 import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

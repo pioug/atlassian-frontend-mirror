@@ -2,11 +2,16 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
-import { fetchObjectSchemas } from '../../services/cmdbService';
+import { fetchObjectSchemas } from '../../services/fetchObjectSchemas';
 import { type FetchObjectSchemasResponse } from '../../types/assets/types';
 import { type FetchObjectSchemasDetails, useObjectSchemas } from '../useObjectSchemas';
 
 jest.mock('../../services/cmdbService');
+jest.mock('../../services/fetchObjectSchema');
+jest.mock('../../services/fetchObjectSchemas');
+jest.mock('../../services/getWorkspaceId');
+jest.mock('../../services/resolvePrimaryWorkspace');
+jest.mock('../../services/validateAql');
 
 describe('useObjectSchemas', () => {
 	const workspaceId = 'workspaceId';

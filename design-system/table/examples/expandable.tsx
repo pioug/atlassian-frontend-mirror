@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Date as AKDate } from '@atlaskit/date';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import Table, {
 	Cell,
 	ExpandableCell,

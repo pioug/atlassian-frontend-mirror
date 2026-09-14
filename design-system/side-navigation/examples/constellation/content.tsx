@@ -1,14 +1,12 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	ButtonItem,
-	Header,
-	NavigationContent,
-	NavigationHeader,
-	Section,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+import { Header } from '@atlaskit/side-navigation/header';
+import { NavigationContent } from '@atlaskit/side-navigation/navigation-content';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 
 import AppFrame from '../common/app-frame';
 

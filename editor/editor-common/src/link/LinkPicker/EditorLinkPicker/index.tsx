@@ -5,6 +5,7 @@ import FocusLock from 'react-focus-lock';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { LazyLinkPicker } from '@atlaskit/link-picker/lazy';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Command, EditorAppearance } from '../../../types';
@@ -90,11 +91,11 @@ export const EditorLinkPicker = ({
 		[invokeMethod, analyticsEditorAppearance],
 	);
 
-	const returnFocus = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const returnFocus = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? PREVENT_SCROLL
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 			{ preventScroll: true };
-	const focusOptions = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const focusOptions = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? PREVENT_SCROLL
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 			{ preventScroll: true };

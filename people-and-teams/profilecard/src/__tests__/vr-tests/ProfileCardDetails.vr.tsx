@@ -4,7 +4,7 @@ import {
 	ProfileCardExampleWithMetaAndLozenges,
 	ProfileCardExampleWithoutReportingLines,
 	ProfileCardExampleWithReportingLines,
-} from './ProfileCardDetails.fixtures';
+} from './ProfileCardDetails.fixtures.vr.ap';
 
 const defaultSettings: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,

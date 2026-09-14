@@ -1,5 +1,26 @@
 # @atlaskit/editor-prosemirror
 
+## 8.0.3
+
+### Patch Changes
+
+- [`b2351ddc1f913`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2351ddc1f913) -
+  Update repository metadata to point to the Atlassian Frontend Monorepo.
+
+## 8.0.2
+
+### Patch Changes
+
+- [`96ff624afbccb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96ff624afbccb) -
+  Remove incorrect deprecation notices
+
+## 8.0.1
+
+### Patch Changes
+
+- [`b062d51a475e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b062d51a475e5) -
+  VOLTC-55 - run volt-migrate-package on @atlaskit/editor-prosemirror
+
 ## 8.0.0
 
 ### Major Changes

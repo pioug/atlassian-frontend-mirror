@@ -193,6 +193,26 @@ describe('useAnchorPosition', () => {
 			expect(popover.style.getPropertyValue('margin')).toBe('');
 			expect(popover.style.getPropertyValue('inset')).toBe('');
 		});
+
+		it("restores a consumer's own inline top / left / opacity rather than removing them", () => {
+			const { unmount } = render(<OnePopoverOnAnchor />);
+
+			const popover = screen.getByTestId('popover');
+
+			// The popover element is not always ours: `@atlaskit/popper`'s
+			// imperative `createPopper` adapter positions an element that the
+			// caller created and that the caller hides itself. Cleanup must restore
+			// whatever the consumer had inline, not remove the property outright.
+			popover.style.setProperty('opacity', '0');
+			popover.style.setProperty('top', '11px');
+			popover.style.setProperty('left', '22px');
+
+			unmount();
+
+			expect(popover.style.getPropertyValue('opacity')).toBe('0');
+			expect(popover.style.getPropertyValue('top')).toBe('11px');
+			expect(popover.style.getPropertyValue('left')).toBe('22px');
+		});
 	});
 
 	describe('multiple popovers on same anchor', () => {

@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import Popup from '@atlaskit/popup';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Popup } from '@atlaskit/popup/popup';
 
 import { ActionName, CardDisplay } from '../../../constants';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
-import { noop } from '../../../utils';
+import { noop } from '../../../utils/noop';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
-import { createCustomPopupContainer } from '../components/CustomPopupContainer';
 import HoverCardContent from '../components/HoverCardContent';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
+import { createCustomPopupContainer } from './createCustomPopupContainer';
 
 export const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 const HOVER_CARD_TRIGGER_WRAPPER = 'hover-card-trigger-wrapper';
@@ -299,9 +298,8 @@ export const HoverCardComponent = ({
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
 					data-testid={HOVER_CARD_TRIGGER_WRAPPER}
-					{...(editorExperiment('platform_editor_preview_panel_linking_exp', true)
-						? { className: HOVER_CARD_TRIGGER_WRAPPER }
-						: {})}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={HOVER_CARD_TRIGGER_WRAPPER}
 					onFocus={noop}
 					onBlur={noop}
 					role="none"
@@ -343,7 +341,6 @@ export const HoverCardComponent = ({
 			titleId={titleId}
 			label={label}
 			shouldRenderToParent={shouldRenderToParent}
-			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={popupComponent}
 		/>
 	);

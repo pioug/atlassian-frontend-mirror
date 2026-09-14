@@ -5,12 +5,13 @@ import {
 	type DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES,
 } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useMediaClient } from '../useMediaClient';
 
-import { getCopyIntentErrorPayload, getCopyIntentSuccessPayload } from './copyIntentAnalytics';
+import { getCopyIntentErrorPayload } from './getCopyIntentErrorPayload';
+import { getCopyIntentSuccessPayload } from './getCopyIntentSuccessPayload';
 import { getDocument } from './getDocument';
 export type UseCopyIntentOptions = {
 	collectionName?: string;

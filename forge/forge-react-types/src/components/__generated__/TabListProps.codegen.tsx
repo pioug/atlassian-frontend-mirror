@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { TabList as PlatformTabList } from '@atlaskit/tabs';
+import PlatformTabList from '@atlaskit/tabs/tab-list';
 
 type PlatformTabListProps = React.ComponentProps<typeof PlatformTabList>;
 

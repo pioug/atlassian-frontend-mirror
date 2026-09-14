@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { render } from '@testing-library/react';
 import ColorCard, { type Props } from '../../components/ColorCard';
 import React from 'react';
@@ -11,7 +11,7 @@ const defaultProps: Props = {
 	selected: false,
 };
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
 
 describe('ColorCard', () => {

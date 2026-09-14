@@ -1,10 +1,13 @@
 import React from 'react';
-import { Frame } from '../Frame';
-import Spinner from '@atlaskit/spinner';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { SpinnerWrapper } from './styled';
-import { IconTitleWrapper, RightIconPositionWrapper } from '../IconAndTitleLayout/styled';
+
+import Spinner from '@atlaskit/spinner/spinner';
+
 import { type InlinePreloaderStyle } from '../../types';
+import { Frame } from '../Frame';
+import { IconAndTitleLayout } from '../IconAndTitleLayout';
+import { IconTitleWrapper } from '../IconAndTitleLayout/icon-title-wrapper';
+import { RightIconPositionWrapper } from '../IconAndTitleLayout/right-icon-position-wrapper';
+import { SpinnerWrapper } from './styled';
 
 export interface MediaInlineCardLoadingViewProps {
 	/** The file name to display */

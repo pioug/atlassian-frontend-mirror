@@ -1,4 +1,4 @@
-import type { AnalyticsPayload } from '@atlaskit/adf-schema/steps';
+import type { AnalyticsPayload } from '@atlaskit/adf-schema/steps/analytics';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 const getUndoRedoInputSource = (tr: Readonly<Transaction>): string | null => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "13.5.0",
+	"version": "19.0.0",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -47,6 +47,7 @@
 		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -59,47 +60,6 @@
 		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"stricter": {
-		"no-unused-dependencies": {
-			"checkDevDependencies": true
-		}
-	},
 	"platform-feature-flags": {
 		"platform_editor_element_browser_analytic": {
 			"type": "boolean"
@@ -110,13 +70,10 @@
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
-		"platform_editor_block_menu_v2_patch_3": {
-			"type": "boolean"
-		},
-		"platform_editor_layout_resize_analytics": {
-			"type": "boolean"
-		},
 		"platform_editor_layout_column_menu_kill_switch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_vanilla_node_views_patch_1": {
 			"type": "boolean"
 		}
 	},

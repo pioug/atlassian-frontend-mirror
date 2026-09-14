@@ -5,8 +5,8 @@
  */
 {
   "testExamples": [
-    "basic-dark.tsx",
-    "basic-light.tsx"
+    "basic-dark.vr.ap.tsx",
+    "basic-light.vr.ap.tsx"
   ],
   "exampleDependencies": [
     "react-router-dom"

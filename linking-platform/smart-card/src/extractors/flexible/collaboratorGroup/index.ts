@@ -1,9 +1,7 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	extractMembers,
-	extractPersonFromJsonLd,
-	type LinkPerson,
-} from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractMembers } from '@atlaskit/link-extractors/extract-members';
+import { extractPersonFromJsonLd } from '@atlaskit/link-extractors/extract-person-from-json-ld';
+import type { LinkPerson } from '@atlaskit/link-extractors/types';
 
 export type LinkTypeUpdatedBy =
 	| JsonLd.Data.Document

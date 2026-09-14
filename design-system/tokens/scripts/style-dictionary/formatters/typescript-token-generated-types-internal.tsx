@@ -8,4 +8,3 @@ const fileFormatter: Format['formatter'] = (args) =>
 	createSignedArtifact(typescriptFormatter(args), `yarn build tokens`);
 
 export default fileFormatter;
-export { typescriptFormatter } from './typescript-formatter';

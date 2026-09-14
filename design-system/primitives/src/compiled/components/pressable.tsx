@@ -13,7 +13,8 @@ import {
 
 import { cx, jsx, cssMap as unboundedCssMap } from '@compiled/react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import { isSafari } from '@atlaskit/ds-lib/is-safari';
 import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';

@@ -1,6 +1,6 @@
 // This file is mostly a copy paste of the testing helpers from the Pragmatic drag and drop hitbox package
 
-import type { Input } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { Input } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 
 export function getDefaultInput(overrides: Partial<Input> = {}): Input {
 	const defaults: Input = {

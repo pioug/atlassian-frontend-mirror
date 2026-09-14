@@ -8,7 +8,7 @@ import {
 	FeatureGateEnvironment,
 	type Identifiers,
 	PerimeterType,
-} from '@atlaskit/feature-gate-js-client';
+} from '@atlaskit/feature-gate-js-client/types';
 
 import Refresh, { NO_CACHE_RETRY_OPTIONS_DEFAULT, SCHEDULER_OPTIONS_DEFAULT } from '../Refresh';
 import { type ProviderOptions } from '../types';

@@ -1,5 +1,59 @@
 # @atlaskit/spinner
 
+## 20.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.3.1
+
+### Patch Changes
+
+- [`a898abf54b1bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a898abf54b1bd) -
+  Experimental React 19 support: widen the peer dependency range, use React 19 in development, and
+  fix the spinner visual examples' React 19 warnings. Test coverage remains partial.
+
+## 20.3.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.2.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+## 20.1.2
+
+### Patch Changes
+
+- [`e2628936f7249`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2628936f7249) -
+  Fixed the `delay` prop so a delayed `Spinner` renders nothing until the delay elapses. It
+  previously painted a static, complete circle for the whole delay window.
+
 ## 20.1.1
 
 ### Patch Changes

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import Checkbox from '@atlaskit/checkbox';
-import { CheckboxField } from '@atlaskit/form';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
 
 import type { UserInputBooleanPrompt } from '../../common/types';
 

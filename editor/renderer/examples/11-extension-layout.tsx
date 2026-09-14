@@ -5,7 +5,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 
 import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/extension-layout.adf.json';
-import type { DocNode } from '@atlaskit/adf-schema/schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });

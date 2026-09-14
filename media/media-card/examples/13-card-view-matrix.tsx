@@ -21,8 +21,8 @@ const applyMauiLoadingBarOverride = (enabled: boolean) => {
 applyMauiLoadingBarOverride(true);
 import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
-import { Checkbox } from '@atlaskit/checkbox';
-import Select from '@atlaskit/select';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Select from '@atlaskit/select/default';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import TrashIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
@@ -88,7 +88,7 @@ interface State {
 	error: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 class Example extends React.Component<{}, State> {
 	state: State = {
 		disableOverlay: false,
@@ -397,6 +397,7 @@ class Example extends React.Component<{}, State> {
 						console.log('mouse click!');
 					}}
 					onMouseEnter={(_e: React.MouseEvent) => console.log('mouse enter!')}
+					onFocus={(_e: React.FocusEvent) => console.log('focus!')}
 					resizeMode="crop"
 					progress={0.5}
 					disableOverlay={disableOverlay}

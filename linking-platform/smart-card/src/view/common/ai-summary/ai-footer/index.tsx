@@ -6,7 +6,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -4,9 +4,9 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import NestedSideNav from '../../../examples/00-nested-side-navigation';
+import NestedSideNav from '../../../examples/00-nested-side-navigation.vr.ap';
 import RBDSideNav from '../../../examples/01-sidebar-with-rbd';
-import { SideNavigation } from '../../index';
+import { SideNavigation } from '../../components/SideNavigation';
 
 it('SideNavigation should pass basic aXe audit', async () => {
 	const { container } = render(

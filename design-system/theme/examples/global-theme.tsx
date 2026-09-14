@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Theme from '@atlaskit/theme';
+import Theme from '@atlaskit/theme/theme';
 
 export default (): React.JSX.Element => (
 	<Theme.Consumer>

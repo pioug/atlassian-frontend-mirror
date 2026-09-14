@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "6.4.1",
+	"version": "6.13.2",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -31,12 +31,13 @@
 		}
 	},
 	"scripts": {
-		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated",
+		"analytics:codegen": "afm workspace @atlassian/analytics-tooling analytics:codegen link-datasource --output ./src/analytics/generated",
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.{svg,png}"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/afm-i18n-platform-linking-platform-link-datasource": "root:*",
+		"@atlaskit/analytics-cross-product": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
@@ -70,7 +71,9 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/object": "workspace:^",
 		"@atlaskit/outbound-auth-flow-client": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
@@ -86,9 +89,11 @@
 		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
+		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
+		"@atlaskit/user-picker": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -100,6 +105,7 @@
 		"lodash": "root:*",
 		"react-sweet-state": "root:*",
 		"tiny-invariant": "root:*",
+		"use-callback-ref": "root:*",
 		"use-debounce": "root:*",
 		"uuid": "root:*"
 	},
@@ -111,13 +117,18 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
+		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlaskit/textarea": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@faker-js/faker": "root:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/react": "root:*",
@@ -130,57 +141,30 @@
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"theming": [
-				"react-context",
-				"tokens"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.ts",
-		"./analytics/render-failed": "./src/entry-points/analytics-render-failed.ts",
-		"./assets-modal": "./src/entry-points/assets-modal.ts",
-		"./assets-modal/types": "./src/entry-points/assets-modal-types.ts",
-		"./confluence-search-modal": "./src/entry-points/confluence-search-modal.ts",
-		"./confluence-search-modal/types": "./src/entry-points/confluence-search-modal-types.ts",
-		"./datasource-table-view": "./src/entry-points/datasource-table-view.ts",
-		"./elements/render-type": "./src/entry-points/elements-render-type.ts",
-		"./elements": "./src/elements.ts",
+		"./analytics/render-failed": "./src/analytics/wrappers/render-failed/index.tsx",
+		"./assets-config-modal-with-wrappers": "./src/ui/assets-modal/AssetsConfigModalWithWrappers.tsx",
+		"./assets-modal/types": "./src/ui/assets-modal/types.ts",
+		"./assets-modal": "./src/ui/assets-modal/index.tsx",
+		"./confluence-search-config-modal-with-wrappers": "./src/ui/confluence-search-modal/ConfluenceSearchConfigModalWithWrappers.tsx",
+		"./confluence-search-modal/types": "./src/ui/confluence-search-modal/types.ts",
+		"./confluence-search-modal": "./src/ui/confluence-search-modal/index.tsx",
+		"./datasource-table-view": "./src/ui/datasource-table-view/index.tsx",
+		"./datasource-table-view-with-wrappers": "./src/ui/datasource-table-view/DatasourceTableViewWithWrappers.tsx",
+		"./elements/render-type": "./src/ui/issue-like-table/render-type/index.tsx",
+		"./elements": "./src/ui/issue-like-table/render-type/index.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./jira-issues-modal": "./src/entry-points/jira-issues-modal.ts",
-		"./jira-issues-modal/types": "./src/entry-points/jira-issues-modal-types.ts",
-		"./types": "./src/entry-points/types.ts",
-		"./utils/schema": "./src/entry-points/utils-schema.ts"
+		"./jira-issues-config-modal-with-wrappers": "./src/ui/jira-issues-modal/JiraIssuesConfigModalWithWrappers.tsx",
+		"./jira-issues-modal/types": "./src/ui/jira-issues-modal/types.ts",
+		"./jira-issues-modal": "./src/ui/jira-issues-modal/index.tsx",
+		"./types": "./src/common/types.ts",
+		"./ui/issue-like-table/render-type/render-type": "./src/ui/issue-like-table/render-type/renderType.tsx",
+		"./ui/issue-like-table/render-type/stringify-type": "./src/ui/issue-like-table/render-type/stringifyType.tsx",
+		"./utils/schema": "./src/common/utils/schema-utils.ts"
 	},
 	"platform-feature-flags": {
 		"platform_navx_3298_message_wrapper": {
@@ -195,23 +179,37 @@
 		"lp_enable_datasource-table-view_height_override": {
 			"type": "boolean"
 		},
-		"platform_lp_sllv_jira_type_as_link": {
-			"type": "boolean"
-		},
 		"platform_lp_jira_sllv_renderer_column_sorting": {
 			"type": "boolean"
 		},
+		"cc-units-ga": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"linking_platform_link_datasource_unit_compliant": {
+			"type": "boolean"
+		},
+		"linking_platform_link_datasource_unit_compliant_cloud_id": {
 			"type": "boolean"
 		},
 		"platform_lp_sllv_richtext_margin_reset": {
 			"type": "boolean"
 		},
-		"navx-5290-sllv-modal-a11y-updates": {
+		"platform_lp_sllv_ux_improvements": {
+			"type": "boolean"
+		},
+		"platform_lp_sllv_table_settings_menu": {
 			"type": "boolean"
 		},
 		"astral_units_workspace_host_resolver": {
 			"type": "boolean"
+		},
+		"electric_issue_like_table_xpc_url_wrapping": {
+			"type": "boolean"
+		},
+		"platform-dst-top-layer-tooltip": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/9c893299-a527-4457-9b46-f3bc4c828766"

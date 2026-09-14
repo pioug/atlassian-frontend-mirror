@@ -1,84 +1,8 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
-import { type ReactChild, type ReactElement, type ReactNode } from 'react';
-import {
-	type AtlaskitSelectValue,
-	type ExternalUser,
-	type Custom,
-	CustomType,
-	type Email,
-	EmailType,
-	type Option,
-	type OptionData,
-	type Promisable,
-	type Team,
-	TeamType,
-	type Group,
-	GroupType,
-	type User,
-	UserType,
-	type Value,
-	type OptionIdentifier,
-	type DefaultValue,
-	type LozengeProps,
-	ExternalUserType,
-} from '../types';
-import { PopupSelect } from '@atlaskit/select';
 
-export const isExternalUser = (option: OptionData): option is ExternalUser =>
-	option.type === ExternalUserType || Boolean((option as ExternalUser).isExternal);
-
-export const isUser = (option: OptionData): option is User =>
-	option.type === undefined || option.type === UserType;
-
-export const isTeam = (option: OptionData): option is Team => option?.type === TeamType;
-
-export const isGroup = (option: OptionData): option is Group => option.type === GroupType;
-
-export const isEmail = (option: OptionData): option is Email => option.type === EmailType;
-
-export const isCustom = (option: OptionData): option is Custom => option.type === CustomType;
-
-export const isDefaultValuePopulated = (value?: DefaultValue): boolean =>
-	(value && !Array.isArray(value)) || (Array.isArray(value) && value.length > 0);
-
-const isOptionData = (option: any): option is OptionData =>
-	(option as OptionData).name !== undefined;
-
-export const optionToSelectableOption = (option: OptionData | OptionIdentifier): Option => {
-	if (isOptionData(option)) {
-		return {
-			data: option,
-			isDisabled: option.isDisabled,
-			label: option.name,
-			value: option.id,
-		};
-	} else {
-		return {
-			data: {
-				...option,
-				name: option.id,
-			},
-			isDisabled: option.isDisabled,
-			label: option.id,
-			value: option.id,
-		};
-	}
-};
-
-export const extractOptionValue = (
-	value: AtlaskitSelectValue,
-): OptionData | OptionData[] | undefined => {
-	if (!value) {
-		return undefined;
-	}
-	if (Array.isArray(value)) {
-		return value.map(({ data: option }) => option);
-	}
-	return value.data;
-};
-
-export const isIterable = (a: any): a is Iterable<Promisable<OptionData | OptionData[]>> =>
-	typeof a?.[Symbol.iterator] === 'function';
+import { type Option, type OptionData, type Value, type DefaultValue } from '../types';
+import { optionToSelectableOption } from './optionToSelectableOption';
 
 export const getOptions: MemoizedFn<(options: OptionData[]) => Option[]> = memoizeOne(
 	(options: OptionData[]): Option[] => options.map(optionToSelectableOption),
@@ -101,54 +25,79 @@ export const optionToSelectableOptions = memoizeOne((defaultValue: Value) => {
 	return optionToSelectableOption(defaultValue);
 }) as OptionToSelectableOptions;
 
-export const getAvatarSize = (appearance: string): 'xsmall' | 'small' | 'medium' =>
-	appearance === 'big' ? 'medium' : appearance === 'multi' ? 'xsmall' : 'small';
-
-export const isChildInput = (child: ReactChild): child is ReactElement<any> =>
-	child && typeof child === 'object' && child.props && child.props.type === 'text';
-
-export const isSingleValue = (value?: AtlaskitSelectValue): value is Option =>
-	!!value && !Array.isArray(value);
-
-export const hasValue = (value?: string): value is string => !!value && value.trim().length > 0;
-
-export const callCallback = <U extends any[], R>(
-	callback: ((...U: U) => R) | undefined,
-	...args: U
-): R | undefined => {
-	if (typeof callback === 'function') {
-		try {
-			//  there is mystery error in IE 11, so we need this try-catch
-			return callback(...args);
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error('@atlassian/user-select: an error happening in `callCallback`: ', error);
-		}
-	}
-
-	return undefined;
-};
-
-export const getAvatarUrl = (optionData: OptionData): string | undefined => {
-	if (
-		isUser(optionData) ||
-		isTeam(optionData) ||
-		isCustom(optionData) ||
-		isExternalUser(optionData)
-	) {
-		return optionData.avatarUrl;
-	}
-	return undefined;
-};
-
-export const isPopupUserPickerByComponent = (SelectComponent: React.ComponentType<any>): boolean =>
-	SelectComponent === PopupSelect;
-
-export const isPopupUserPickerByProps = (selectProps: any): boolean =>
-	selectProps.searchThreshold === -1;
-
-export const isLozengeText = (
-	lozengeProp: ReactNode | LozengeProps,
-): lozengeProp is LozengeProps => {
-	return lozengeProp?.hasOwnProperty('text') || false;
-};
+/**
+ * @deprecated Use `import { isExternalUser } from '@atlaskit/user-picker/is-external-user'` instead.
+ */
+export { isExternalUser } from './isExternalUser';
+/**
+ * @deprecated Use `import { isUser } from '@atlaskit/user-picker/is-user'` instead.
+ */
+export { isUser } from './isUser';
+/**
+ * @deprecated Use `import { isTeam } from '@atlaskit/user-picker/is-team'` instead.
+ */
+export { isTeam } from './isTeam';
+/**
+ * @deprecated Use `import { isGroup } from '@atlaskit/user-picker/is-group'` instead.
+ */
+export { isGroup } from './isGroup';
+/**
+ * @deprecated Use `import { isEmail } from '@atlaskit/user-picker/is-email'` instead.
+ */
+export { isEmail } from './isEmail';
+/**
+ * @deprecated Use `import { isCustom } from '@atlaskit/user-picker/is-custom'` instead.
+ */
+export { isCustom } from './isCustom';
+/**
+ * @deprecated Use `import { isDefaultValuePopulated } from '@atlaskit/user-picker/is-default-value-populated'` instead.
+ */
+export { isDefaultValuePopulated } from './isDefaultValuePopulated';
+/**
+ * @deprecated Use `import { optionToSelectableOption } from '@atlaskit/user-picker/option-to-selectable-option'` instead.
+ */
+export { optionToSelectableOption } from './optionToSelectableOption';
+/**
+ * @deprecated Use `import { extractOptionValue } from '@atlaskit/user-picker/extract-option-value'` instead.
+ */
+export { extractOptionValue } from './extractOptionValue';
+/**
+ * @deprecated Use `import { isIterable } from '@atlaskit/user-picker/is-iterable'` instead.
+ */
+export { isIterable } from './isIterable';
+/**
+ * @deprecated Use `import { getAvatarSize } from '@atlaskit/user-picker/get-avatar-size'` instead.
+ */
+export { getAvatarSize } from './getAvatarSize';
+/**
+ * @deprecated Use `import { isChildInput } from '@atlaskit/user-picker/is-child-input'` instead.
+ */
+export { isChildInput } from './isChildInput';
+/**
+ * @deprecated Use `import { isSingleValue } from '@atlaskit/user-picker/is-single-value'` instead.
+ */
+export { isSingleValue } from './isSingleValue';
+/**
+ * @deprecated Use `import { hasValue } from '@atlaskit/user-picker/has-value'` instead.
+ */
+export { hasValue } from './hasValue';
+/**
+ * @deprecated Use `import { callCallback } from '@atlaskit/user-picker/call-callback'` instead.
+ */
+export { callCallback } from './callCallback';
+/**
+ * @deprecated Use `import { getAvatarUrl } from '@atlaskit/user-picker/get-avatar-url'` instead.
+ */
+export { getAvatarUrl } from './getAvatarUrl';
+/**
+ * @deprecated Use `import { isPopupUserPickerByComponent } from '@atlaskit/user-picker/is-popup-user-picker-by-component'` instead.
+ */
+export { isPopupUserPickerByComponent } from './isPopupUserPickerByComponent';
+/**
+ * @deprecated Use `import { isPopupUserPickerByProps } from '@atlaskit/user-picker/is-popup-user-picker-by-props'` instead.
+ */
+export { isPopupUserPickerByProps } from './isPopupUserPickerByProps';
+/**
+ * @deprecated Use `import { isLozengeText } from '@atlaskit/user-picker/is-lozenge-text'` instead.
+ */
+export { isLozengeText } from './isLozengeText';

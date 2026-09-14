@@ -1,4 +1,4 @@
-import { shapeResourceTimingData } from './shape-resource-timing';
+import { shapeResourceTimingData } from './shape-resource-timing-data';
 
 function makeResourceTimingEvent({
 	name = 'https://example.com/static/app.js',

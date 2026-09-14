@@ -9,8 +9,7 @@ import {
 	APP_LOGO_DOCS_ORDER,
 	logoDocsSchema,
 	PROGRAM_LOGO_DOCS_ORDER,
-	SHARED_LOGOS,
-} from '../src/logo-config';
+} from '../src/logo-docs-schema';
 
 const RELATIVE_GENERATED_EXAMPLES_DIR = '../examples/constellation/generated';
 const GENERATED_EXAMPLES_DIR = path.join(__dirname, RELATIVE_GENERATED_EXAMPLES_DIR);
@@ -30,11 +29,7 @@ const MANUAL_EXAMPLES = ['loom', 'loom-blurple'];
 const MANUAL_EXAMPLE_FILES = MANUAL_EXAMPLES.map((name) => `logo-${name}.tsx`);
 
 // Template for individual logo examples
-const generateLogoExampleTemplate = (
-	name: string,
-	shouldUseNewLogoDesign: boolean,
-	skipLogo: boolean = false,
-) => `
+const generateLogoExampleTemplate = (name: string, skipLogo: boolean = false) => `
 import React from 'react';
 
 
@@ -44,8 +39,8 @@ import LogoTable from '../utils/logo-table';
 
 export default (): React.JSX.Element =>
 		<LogoTable
-			${skipLogo ? '' : `logo={<${name}Logo appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}`}
-			icon={<${name}Icon appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
+			${skipLogo ? '' : `logo={<${name}Logo appearance="brand" />}`}
+			icon={<${name}Icon appearance="brand" />}
 		/>
 `;
 
@@ -85,7 +80,6 @@ const generateLogoExamples = () => {
 		const fileName = `logo-${name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.tsx`;
 		const content = generateLogoExampleTemplate(
 			componentName,
-			SHARED_LOGOS.find((logo) => logo.name === name)?.type === 'migration',
 			logoDocsSchema.find((logo) => logo.name === name)?.skipLogo,
 		);
 		fs.ensureFileSync(path.join(GENERATED_EXAMPLES_DIR, fileName));
@@ -120,11 +114,6 @@ ${LOGOS_ORDER.map((logo) => {
 
 import { Code } from '@atlaskit/code';
 import SectionMessage from '@atlaskit/section-message';
-
-<SectionMessage appearance="discovery">
-	We are in the process of rolling out updated Logo designs to apps behind a feature flag. <br/>
-	To display the new designs early, set the <Code>shouldUseNewLogoDesign</Code> prop to <Code>true</Code>.
-</SectionMessage>
 
 ## Types
 

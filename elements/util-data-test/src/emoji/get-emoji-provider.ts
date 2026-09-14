@@ -14,14 +14,15 @@ export const currentUser: {
 	id: loggedUser,
 };
 
+/**
+ * Loads the mock emoji dataset.
+ *
+ * The `import()` keeps the payload in a lazily-loaded chunk, so it is only downloaded when an
+ * emoji provider is actually created.
+ */
 export const defaultFetch = async (): Promise<any> => {
-	const response = await fetch('./emoji/emoji-all.json');
-
-	if (!response.ok) {
-		throw new Error(`Could not fetch emoji data: ${response.status} ${response.statusText}`);
-	}
-
-	return response.json();
+	const emojiData = await import('../json-data/emoji-all.json');
+	return emojiData?.default ?? emojiData;
 };
 
 export const getEmojiProvider = async function getEmojiProvider(

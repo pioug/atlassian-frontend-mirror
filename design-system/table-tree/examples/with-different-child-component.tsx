@@ -1,6 +1,6 @@
 import React, { Component, type ComponentType } from 'react';
 
-import EmptyState from '@atlaskit/empty-state';
+import EmptyState from '@atlaskit/empty-state/empty-state';
 import TableTree, {
 	Cell,
 	Header,

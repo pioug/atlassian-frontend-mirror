@@ -5,7 +5,7 @@
 import { forwardRef } from 'react';
 
 import { jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SpotlightCard as Legacy, type SpotlightCardProps } from './legacy';
 import { SpotlightCard as TopLayer } from './top-layer';

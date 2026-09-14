@@ -9,10 +9,10 @@ import {
 } from '@atlaskit/media-client/test-helpers';
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { render, screen, waitFor } from '@testing-library/react';
-import * as analyticsModule from '../../../utils/analytics/analytics';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import * as analyticsModule from '../../../utils/analytics/fireMediaCardEvent';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import userEvent from '@testing-library/user-event';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
@@ -114,7 +114,6 @@ describe('<MediaInlineCard />', () => {
 	it('should render MediaViewer when the file has no name', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
 		// Remove the name from the file item to simulate a file with no name
-		// @ts-ignore
 		delete fileItem.details.name;
 		const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -376,7 +375,7 @@ describe('<MediaInlineCard />', () => {
 			await screen.findByText(fileItem.details.name);
 
 			await waitFor(() => {
-				expect(fireOperationalEvent).toBeCalledTimes(1);
+				expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
 			});
 
 			const {
@@ -384,7 +383,7 @@ describe('<MediaInlineCard />', () => {
 				details: { size, mediaType, mimeType },
 			} = fileItem;
 
-			expect(fireOperationalEvent).toBeCalledWith(
+			expect(fireOperationalEvent).toHaveBeenCalledWith(
 				{
 					eventType: 'operational',
 					action: 'succeeded',
@@ -437,7 +436,7 @@ describe('<MediaInlineCard />', () => {
 				{ timeout: 5000 },
 			);
 
-			expect(fireOperationalEvent).toBeCalledWith(
+			expect(fireOperationalEvent).toHaveBeenCalledWith(
 				{
 					eventType: 'operational',
 					action: 'failed',
@@ -504,7 +503,7 @@ describe('<MediaInlineCard />', () => {
 					<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
 				</MockedMediaClientProvider>,
 			);
-			expect(fireOperationalEvent).toBeCalledTimes(0);
+			expect(fireOperationalEvent).toHaveBeenCalledTimes(0);
 
 			act(() =>
 				observable.next({
@@ -515,10 +514,10 @@ describe('<MediaInlineCard />', () => {
 			);
 
 			await waitFor(() => {
-				expect(fireOperationalEvent).toBeCalledTimes(1);
+				expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
 			});
 
-			expect(fireOperationalEvent).toBeCalledWith(
+			expect(fireOperationalEvent).toHaveBeenCalledWith(
 				{
 					eventType: 'operational',
 					action: 'failed',
@@ -540,7 +539,6 @@ describe('<MediaInlineCard />', () => {
 
 		it('should send failed event once if file state has no filename', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
-			// @ts-ignore
 			delete fileItem.details.name;
 			const { mediaApi } = createMockedMediaApi(fileItem);
 

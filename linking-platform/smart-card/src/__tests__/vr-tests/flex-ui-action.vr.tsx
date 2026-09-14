@@ -7,13 +7,13 @@ import {
 	FlexibleUiBlockActionPrimary,
 	FlexibleUiBlockActionSubtle,
 	FlexibleUiBlockActionWarning,
-} from '../../../examples/vr-flexible-card/vr-flexible-ui-action';
-import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action';
-import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action-group';
+} from '../../../examples/vr-flexible-card/vr-flexible-ui-action.vr.ap';
+import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action-group.vr.ap';
+import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action.vr.ap';
 import {
 	FlexibleUiCustomUnresolvedAction,
 	FlexibleUiCustomUnresolvedActionOnlyShowIfAction,
-} from '../../../examples/vr-flexible-card/vr-flexible-ui-custom-unresolved-action';
+} from '../../../examples/vr-flexible-card/vr-flexible-ui-custom-unresolved-action.vr.ap';
 
 snapshot(FlexibleUiBlockActionDanger, {
 	featureFlags: {

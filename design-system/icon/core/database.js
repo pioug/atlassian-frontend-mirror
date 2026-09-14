@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::03a78db56667d91426ba6b99862fb3a6>>
+ * @codegen <<SignedSource::cca66f9580cbdb1ea9e1ac073a10cf1c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Database".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const DatabaseIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const DatabaseIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DatabaseIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v3.5h11V3a.5.5 0 0 0-.5-.5zM13.5 8H8.75v2h4.75zm0 3.5H8.75v2H13a.5.5 0 0 0 .5-.5zm-6.25 2v-2H2.5V13a.5.5 0 0 0 .5.5zM2.5 10h4.75V8H2.5z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {
 	Spotlight,

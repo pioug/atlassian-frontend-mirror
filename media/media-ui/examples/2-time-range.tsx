@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { TimeRange } from '../src';
+import { TimeRange } from '../src/customMediaPlayer/timeRange';
 import { Container, Group, TimeRangeWrapper } from '../example-helpers/styled';
 
 export interface ExampleState {

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+
 import {
 	type SyntheticEvent,
 	type MutableRefObject,
@@ -15,31 +15,27 @@ import {
 	memo,
 	type MemoExoticComponent,
 } from 'react';
-import { css, cssMap, jsx } from '@compiled/react';
-import { getDocument } from '@atlaskit/browser-apis';
-import {
-	dropTargetForExternal,
-	monitorForExternal,
-} from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
-import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
-import { token } from '@atlaskit/tokens';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
+
+import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
-import { getEmojiVariation } from '../../api/EmojiRepository';
-import { type OnEmojiProviderChange, supportsUploadFeature } from '../../api/EmojiResource';
-import {
-	KeyboardKeys,
-	customCategory,
-	defaultEmojiPickerSize,
-	frequentCategory,
-} from '../../util/constants';
-import {
-	containsEmojiId,
-	isPromise /*, isEmojiIdEqual, isEmojiLoaded*/,
-	isEmojiDescription,
-} from '../../util/type-helpers';
+
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { getDocument } from '@atlaskit/browser-apis';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
+import { monitorForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/monitor-for-external';
+import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/contains-files';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { token } from '@atlaskit/tokens';
+
+import type { OnEmojiProviderChange } from '../../api/EmojiResource';
+import { getEmojiVariation } from '../../api/getEmojiVariation';
+import { supportsUploadFeature } from '../../api/supportsUploadFeature';
+import { useEmoji } from '../../hooks/useEmoji';
+import { useIsMounted } from '../../hooks/useIsMounted';
 import {
 	type EmojiDescription,
 	type EmojiId,
@@ -54,60 +50,49 @@ import {
 	SearchSourceTypes,
 	type ToneSelection,
 } from '../../types';
-import { getToneEmoji } from '../../util/filters';
-import { uploadEmoji } from '../common/UploadEmoji';
-import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
-import type { CategoryId } from './categories';
-import CategorySelector from './CategorySelector';
-import EmojiPickerFooter from './EmojiPickerFooter';
+import { createAndFireEventInElementsChannel } from '../../util/analytics/analytics';
+import { categoryClickedEvent } from '../../util/analytics/categoryClickedEvent';
+import { closedPickerEvent } from '../../util/analytics/closedPickerEvent';
+import { deleteBeginEvent } from '../../util/analytics/deleteBeginEvent';
+import { deleteCancelEvent } from '../../util/analytics/deleteCancelEvent';
+import { deleteConfirmEvent } from '../../util/analytics/deleteConfirmEvent';
+import { openedPickerEvent } from '../../util/analytics/openedPickerEvent';
+import { pickerClickedEvent } from '../../util/analytics/pickerClickedEvent';
+import { pickerSearchedEvent } from '../../util/analytics/pickerSearchedEvent';
+import { selectedFileEvent } from '../../util/analytics/selectedFileEvent';
+import { toneSelectorClosedEvent } from '../../util/analytics/toneSelectorClosedEvent';
+import { ufoExperiences } from '../../util/analytics/ufoExperiences';
+import { uploadBeginButton } from '../../util/analytics/uploadBeginButton';
+import { uploadCancelButton } from '../../util/analytics/uploadCancelButton';
+import { uploadConfirmButton } from '../../util/analytics/uploadConfirmButton';
 import {
-	EmojiPickerVirtualListInternal as EmojiPickerList,
-	type PickerListRef,
-} from './EmojiPickerList';
-import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import {
-	createAndFireEventInElementsChannel,
-	categoryClickedEvent,
-	closedPickerEvent,
-	deleteBeginEvent,
-	deleteCancelEvent,
-	deleteConfirmEvent,
-	openedPickerEvent,
-	pickerClickedEvent,
-	pickerSearchedEvent,
-	selectedFileEvent,
-	uploadBeginButton,
-	uploadCancelButton,
-	uploadConfirmButton,
-	toneSelectorClosedEvent,
-	ufoExperiences,
-} from '../../util/analytics';
-import { useEmoji } from '../../hooks/useEmoji';
-import { useIsMounted } from '../../hooks/useIsMounted';
-import { messages } from '../i18n';
+	KeyboardKeys,
+	customCategory,
+	defaultEmojiPickerSize,
+	frequentCategory,
+} from '../../util/constants';
+import { containsEmojiId } from '../../util/contains-emoji-id';
+import { filterHiddenEmojis } from '../../util/filter-hidden-emojis';
+import { getToneEmoji } from '../../util/get-tone-emoji';
+import { isEmojiDescription } from '../../util/is-emoji-description';
+import { isPromise } from '../../util/is-promise';
 import {
 	defaultProductivityColor,
 	getStoredProductivityColor,
 	storeProductivityColor,
 	type ProductivityColor,
 } from '../../util/productivity-colors';
-import { filterHiddenEmojis } from '../../util/hidden-emojis';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
+import { uploadEmoji } from '../common/UploadEmoji';
+import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
+import { messages } from '../i18n';
+import CategorySelector from './CategorySelector';
+import EmojiPickerFooter from './EmojiPickerFooter';
+import type { CategoryId } from './categories';
+import {
+	EmojiPickerVirtualListInternal as EmojiPickerList,
+	type PickerListRef,
+} from './EmojiPickerList';
 
 const emojiPickerBoxShadow = token('elevation.shadow.overlay');
 const emojiPickerHeight = 295;
@@ -273,13 +258,13 @@ export interface PickerRefHandler {
 }
 
 export interface Props {
-	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
 	 * The current Confluence page content id. When provided (and the
 	 * `confluence_ai_generated_emojis` experiment is on), enables the
 	 * "Create an emoji with Rovo" AI generation section in the upload flow.
 	 */
 	contentId?: string;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
 	 * Flag to disable tone selector.
 	 */
@@ -946,7 +931,7 @@ const EmojiPickerComponent = ({
 	// When the AI emoji section is shown in the upload panel, grow the picker so
 	// the section isn't clipped by the fixed upload height.
 	const showAiUpload =
-		uploading && !!contentId && expValEquals('confluence_ai_generated_emojis', 'isEnabled', true);
+		uploading && !!contentId && isExperimentEnabled('confluence_ai_generated_emojis');
 
 	return (
 		<div

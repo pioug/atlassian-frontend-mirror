@@ -1,14 +1,14 @@
 import React from 'react';
 
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { Valign } from '@atlaskit/adf-schema/valign';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 
 import { LayoutSectionCompiled } from './layoutColumn-compiled';
 import { LayoutSectionEmotion } from './layoutColumn-emotion';
 
 const LayoutSectionMigration = componentWithCondition(
-	() => expValEquals('platform_editor_renderer_static_css', 'isEnabled', true),
+	() => isExperimentEnabled('platform_editor_renderer_static_css'),
 	LayoutSectionCompiled,
 	LayoutSectionEmotion,
 );

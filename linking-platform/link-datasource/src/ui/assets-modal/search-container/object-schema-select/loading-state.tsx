@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from '@atlaskit/linking-common';
+import { Skeleton } from '@atlaskit/linking-common/skeleton';
 
 export const AssetsObjectSchemaSelectSkeleton = (): React.JSX.Element => (
 	<Skeleton

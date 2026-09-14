@@ -1,8 +1,9 @@
 import React, { useContext, useRef, useState } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
+import { fireEvent } from '@atlassian/testing-library/fire-event';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 

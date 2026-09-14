@@ -16,6 +16,21 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 ### Media Queries
 
-Media queries can be applied through the `media` object.
+The primitives `media` object is deprecated for styling. Use the canonical typed media-query
+entrypoints from `@atlaskit/css` instead. The [CSS overview](/components/css/overview) contains the
+canonical styling guidance.
+
+```tsx
+import { css } from '@atlaskit/css';
+import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
+import { token } from '@atlaskit/tokens';
+
+const styles = css({
+	padding: token('space.100'),
+	['@media (min-width: 30rem)' satisfies MediaAboveXs]: {
+		padding: token('space.200'),
+	},
+});
+```
 
 <MediaQueriesTable />

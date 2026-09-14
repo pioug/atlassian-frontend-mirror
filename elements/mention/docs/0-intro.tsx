@@ -1,8 +1,8 @@
 import React from 'react';
 import { md, Props, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
-import SimpleMentionExample from '../examples/00-simple-mention-item';
-const SimpleMentionSource = require('!!raw-loader!../examples/00-simple-mention-item');
+import SimpleMentionExample from '../examples/00-simple-mention-item.vr.ap';
+const SimpleMentionSource = require('!!raw-loader!../examples/00-simple-mention-item.vr.ap');
 
 const MentionProps = require('!!extract-react-types-loader!../src/components/Mention');
 
@@ -18,7 +18,7 @@ const _default_1: any = md`
   Import the component in your React app as follows:
 
   ${code`
-  import { MentionTypeAhead } from '@atlaskit/mention/typeahead';
+  import { MentionPickerWithAnalytics } from '@atlaskit/mention/mention-picker';
   import { MentionResource } from '@atlaskit/mention/resource';
 
   const mentionProvider = new MentionResource({
@@ -43,12 +43,13 @@ const _default_1: any = md`
     },
   });
 
-  ReactDOM.render(
-    <MentionTypeAhead
+  const root = createRoot(container);
+  root.render(
+    <MentionPickerWithAnalytics
       resourceProvider={mentionProvider}
       query="John"
       onSelection={(mention) => { /* do something */ }}
-    />, container);`}
+    />);`}
 
   ### Note:
 

@@ -1,10 +1,10 @@
 import React, { type Dispatch, type SetStateAction } from 'react';
 
-import { MenuGroup } from '@atlaskit/menu';
+import MenuGroup from '@atlaskit/menu/menu-group';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import type { ManualRule } from '../../../manual-triggers-container/common/types';
-import { useAutomationMenu } from '../../menu-context';
+import { useAutomationMenu } from '../../menu-context/useAutomationMenu';
 import { AutomationModalEmptyState } from '../empty-state';
 import { AutomationModalRule } from '../rule';
 

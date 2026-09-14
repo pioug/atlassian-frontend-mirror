@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "13.3.0",
+	"version": "19.0.0",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/browser-apis": "workspace:^",
+		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-base": "workspace:^",
@@ -30,11 +31,14 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-plugin-metrics": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/node-data-provider": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -57,42 +61,6 @@
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			],
-			"code-structure": [
-				"editor-plugin"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"exports": {
 		".": "./src/index.ts",

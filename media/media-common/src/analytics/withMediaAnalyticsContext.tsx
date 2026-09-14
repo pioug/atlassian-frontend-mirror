@@ -1,5 +1,5 @@
 import React, { forwardRef, useMemo } from 'react';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 
 import {
@@ -56,7 +56,6 @@ export const withMediaAnalyticsContext =
 		});
 
 		WithMediaAnalyticsContext.displayName = `WithMediaAnalyticsContext(${
-			// @ts-ignore displayName doesn't exist on type
 			WrappedComponent.displayName || WrappedComponent.name
 		})`;
 

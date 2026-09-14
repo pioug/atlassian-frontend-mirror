@@ -3,7 +3,7 @@ import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 import deburr from 'lodash/deburr';
 import noop from 'lodash/noop';
 
-import { type NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import DataFormulaIcon from '@atlaskit/icon-lab/core/data-formula';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
@@ -16,9 +16,9 @@ import TagIcon from '@atlaskit/icon/core/tag';
 import CheckboxIcon from '@atlaskit/icon/core/task';
 import TextIcon from '@atlaskit/icon/core/text';
 import { normaliseJqlString } from '@atlaskit/jql-ast';
-import { type Position } from '@atlaskit/jql-autocomplete';
+import type { Position } from '@atlaskit/jql-autocomplete/types';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { useIntl } from '../../../../state';
 import { type SelectableAutocompleteOption } from '../types';

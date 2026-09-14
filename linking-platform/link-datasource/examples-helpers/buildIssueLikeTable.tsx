@@ -2,19 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useEffect, useMemo } from 'react';
 
 import { jsx, styled } from '@compiled/react';
 
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
-import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id/datasource-experience-id-provider';
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
-import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
+import { IssueLikeDataTableView } from '../src/ui/issue-like-table/issue-like-data-table-view';
 import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
@@ -83,6 +84,7 @@ const ExampleBody = ({
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
+		onWrappedColumnsChange,
 	} = useCommonTableProps({
 		defaultColumnCustomSizes: {
 			summary: 180,
@@ -121,6 +123,7 @@ const ExampleBody = ({
 					onColumnResize={isReadonly || !canResizeColumns ? undefined : onColumnResize}
 					columnCustomSizes={columnCustomSizes}
 					onWrappedColumnChange={canControlWrapping ? onWrappedColumnChange : undefined}
+					onWrappedColumnsChange={canControlWrapping ? onWrappedColumnsChange : undefined}
 					wrappedColumnKeys={wrappedColumnKeys}
 				/>
 			) : (

@@ -1,14 +1,7 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./docs/**/*.ts",
-    "./docs/**/*.tsx",
-    "./examples/**/*.ts",
-    "./examples/**/*.tsx",
-    "./codemods/**/*.ts",
-    "./codemods/**/*.tsx",
-    "./table-tree.docs.tsx",
-  ]
+	"extends": "./tsconfig.dev.json",
+	"compilerOptions": {
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true
+	}
 }

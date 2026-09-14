@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::30564fabc7aedeca696b2dcedebc7a93>>
+ * @codegen <<SignedSource::13cc5daa5cafab74943c5caebe564a53>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 73 24">
  *
  */
 export function TalentLogo({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Talent',
 	testId,

@@ -3,14 +3,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import Link from '@atlaskit/link';
-import {
-	CardClient as Client,
-	type EnvironmentsKeys,
-	SmartCardProvider as Provider,
-} from '@atlaskit/link-provider';
+import Link from '@atlaskit/link/link';
+import Client from '@atlaskit/link-provider/client';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { exampleUrlsJsonPath, getConfig } from './config';
 import { ShowcaseMenu } from './Menu';

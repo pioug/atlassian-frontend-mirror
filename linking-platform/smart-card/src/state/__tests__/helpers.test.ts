@@ -1,6 +1,6 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { getFirstPartyIdentifier } from '../helpers';
+import { getFirstPartyIdentifier } from '../getFirstPartyIdentifier';
 
 // Spy on window.location.href getter
 let locationSpy: jest.SpyInstance;

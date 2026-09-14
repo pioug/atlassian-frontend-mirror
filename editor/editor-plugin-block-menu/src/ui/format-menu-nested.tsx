@@ -9,7 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 

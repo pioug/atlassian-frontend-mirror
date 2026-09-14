@@ -1,8 +1,15 @@
 import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { rule, ruleRootOnlyStage0 } from '../../../../schema/nodes/rule';
+import {
+	rule,
+	ruleRootOnlyStage0,
+	ruleWithAttrs,
+	ruleWithAttrsRootOnlyStage0,
+	ruleWithLocalId,
+} from '../../../../schema/nodes/rule';
 
 const schema = makeSchema();
+const ruleWithAttrsSchema = makeSchema({ rule: ruleWithAttrs });
 const packageName = process.env.npm_package_name as string;
 
 describe(`${packageName}/schema rule node`, () => {
@@ -44,6 +51,28 @@ describe(`${packageName}/schema rule node`, () => {
 		});
 	});
 
+	it('should extend the local-id rule with the Stage-0 attributes', () => {
+		expect(ruleWithAttrs).toStrictEqual({
+			...ruleWithLocalId,
+			group: 'block',
+			attrs: {
+				color: { default: null },
+				localId: { default: null },
+				style: { default: null },
+				weight: { default: null },
+			},
+			parseDOM: [{ tag: 'hr', getAttrs: expect.any(Function) }],
+			toDOM: expect.any(Function),
+		});
+	});
+
+	it('should support breakout on the attribute-bearing root-only Stage-0 spec', () => {
+		expect(ruleWithAttrsRootOnlyStage0).toStrictEqual({
+			...ruleWithAttrs,
+			marks: 'breakout unsupportedMark unsupportedNodeAttribute',
+		});
+	});
+
 	it('serializes to <hr/>', () => {
 		const html = toHTML(schema.nodes.rule.create(), schema);
 		expect(html).toContain('<hr>');
@@ -54,10 +83,18 @@ describe(`${packageName}/schema rule node`, () => {
 		const p = doc.firstChild!;
 		expect(p.type.name).toEqual('rule');
 	});
+
+	it('preserves missing optional attributes when parsing HTML', () => {
+		const parsedNode = fromHTML('<hr data-weight=""/>', ruleWithAttrsSchema).firstChild!;
+
+		expect(parsedNode.attrs.localId).toBeNull();
+		expect(parsedNode.attrs.weight).toBeNull();
+	});
 });
 
-function makeSchema() {
+function makeSchema(customNodeSpecs?: Parameters<typeof createSchema>[0]['customNodeSpecs']) {
 	return createSchema({
 		nodes: ['doc', 'rule', 'text'],
+		customNodeSpecs,
 	});
 }

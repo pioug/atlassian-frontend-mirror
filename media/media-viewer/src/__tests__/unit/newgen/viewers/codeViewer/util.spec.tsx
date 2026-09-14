@@ -1,5 +1,8 @@
-import { isCodeViewerItem, getLanguageType } from '@atlaskit/media-ui/codeViewer';
-import { lineCount, normaliseLineBreaks } from '../../../../../viewers/codeViewer/util';
+import { getLanguageType } from '@atlaskit/media-ui/getLanguageType';
+import { isCodeViewerItem } from '@atlaskit/media-ui/isCodeViewerItem';
+
+import { lineCount } from '../../../../../viewers/codeViewer/lineCount';
+import { normaliseLineBreaks } from '../../../../../viewers/codeViewer/normaliseLineBreaks';
 
 describe('CodeViewer Utility Function', () => {
 	const isCodeItemCasesDirectMapping = [

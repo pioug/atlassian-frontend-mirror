@@ -2,15 +2,15 @@ import React from 'react';
 
 import { FormattedMessage, IntlProvider } from 'react-intl';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { messages } from '../../../../../../messages';
 import FollowAction from '../index';
 import type { FollowActionProps } from '../types';
 
-jest.mock('../../../../../../state/flexible-ui-context', () => ({
-	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+jest.mock('../../../../../../state/flexible-ui-context/useFlexibleUiContext', () => ({
+	...jest.requireActual('../../../../../../state/flexible-ui-context/useFlexibleUiContext'),
 	useFlexibleUiContext: jest.fn().mockReturnValue({
 		actions: {
 			FollowAction: {

@@ -1,14 +1,18 @@
 import React from 'react';
 
-import { type ProcessedFileState } from '@atlaskit/media-client';
-import { awaitError, fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
-import { IntlProvider } from 'react-intl';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
+
+import { type ProcessedFileState } from '@atlaskit/media-client';
+import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
+import { awaitError, fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
+
+import { MediaViewerError } from '../../../../../MediaViewerError';
+import * as buildImgErrorDiagnosticsModule from '../../../../../buildImgErrorDiagnostics';
+import { getErrorDetail } from '../../../../../getErrorDetail';
+import { getSecondaryErrorReason } from '../../../../../getSecondaryErrorReason';
 import { ImageViewer, type ImageViewerProps } from '../../../../../viewers/image';
-import { MediaViewerError, getErrorDetail, getSecondaryErrorReason } from '../../../../../errors';
-import * as errorsModule from '../../../../../errors';
 
 const collectionName = 'some-collection';
 const imageItem: ProcessedFileState = {
@@ -62,8 +66,9 @@ describe('ImageViewer', () => {
 			'platform_media_unsupported_mime_routing',
 			'when unsupported MIME routing is enabled',
 			() => {
-				it('fails fast with `imageviewer-unsupported-mime` for a non-decodable image type', async () => {
-					const response = Promise.resolve(new Blob());
+				it('fails fast with `imageviewer-unsupported-mime` when the fetched blob is a non-decodable image type', async () => {
+					// Declared unsupported and JIT transformation did not change it.
+					const response = Promise.resolve(new Blob([], { type: 'image/heic' }));
 					const { mediaClient, onError } = setup(response, {
 						item: {
 							...imageItem,
@@ -81,8 +86,43 @@ describe('ImageViewer', () => {
 					expect(mediaClient.file.getFileBinaryURL).not.toHaveBeenCalled();
 				});
 
+				it('routes to unsupported when the declared type is supported but the fetched blob is not', async () => {
+					// JIT transformation produced (or left) an undecodable type even though
+					// the declared mimeType from /items looked fine.
+					const response = Promise.resolve(new Blob([], { type: 'image/tiff' }));
+					const { mediaClient, onError } = setup(response, {
+						item: {
+							...imageItem,
+							mimeType: 'image/jpeg',
+						},
+					});
+
+					await waitFor(() => expect(onError).toHaveBeenCalled());
+					const error = onError.mock.calls[0][0] as MediaViewerError;
+					expect(error.primaryReason).toBe('imageviewer-unsupported-mime');
+					expect(screen.queryByTestId('media-viewer-image')).not.toBeInTheDocument();
+					expect(mediaClient.file.getFileBinaryURL).not.toHaveBeenCalled();
+				});
+
+				it('renders the <img> when JIT transformation produced a decodable type despite an unsupported declared type', async () => {
+					// Declared unsupported (e.g. TIFF) but JIT transformed it to a decodable JPEG.
+					const response = Promise.resolve(new Blob([], { type: 'image/jpeg' }));
+					const { onError } = setup(response, {
+						item: {
+							...imageItem,
+							mimeType: 'image/tiff',
+						},
+					});
+
+					await waitFor(() =>
+						expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+					);
+					expect(screen.getByTestId('media-viewer-image')).toBeInTheDocument();
+					expect(onError).not.toHaveBeenCalled();
+				});
+
 				it('still renders the <img> for decodable image types', async () => {
-					const response = Promise.resolve(new Blob());
+					const response = Promise.resolve(new Blob([], { type: 'image/png' }));
 					const { onError } = setup(response, {
 						item: {
 							...imageItem,
@@ -96,6 +136,21 @@ describe('ImageViewer', () => {
 					expect(screen.getByTestId('media-viewer-image')).toBeInTheDocument();
 					expect(onError).not.toHaveBeenCalled();
 				});
+
+				it('falls back to the declared mimeType when the fetched blob has no type', async () => {
+					// e.g. a preview provided as a plain URL string, or a blob with an empty type.
+					const response = Promise.resolve(new Blob());
+					const { onError } = setup(response, {
+						item: {
+							...imageItem,
+							mimeType: 'image/heic',
+						},
+					});
+
+					await waitFor(() => expect(onError).toHaveBeenCalled());
+					const error = onError.mock.calls[0][0] as MediaViewerError;
+					expect(error.primaryReason).toBe('imageviewer-unsupported-mime');
+				});
 			},
 		);
 
@@ -104,7 +159,7 @@ describe('ImageViewer', () => {
 			'when unsupported MIME routing is disabled',
 			() => {
 				it('does not route non-decodable image types (legacy behaviour)', async () => {
-					const response = Promise.resolve(new Blob());
+					const response = Promise.resolve(new Blob([], { type: 'image/heic' }));
 					const { onError } = setup(response, {
 						item: {
 							...imageItem,
@@ -345,9 +400,11 @@ describe('ImageViewer', () => {
 			// Diagnostics are best-effort: if buildImgErrorDiagnostics throws, onImgError
 			// must fall back to no secondaryError rather than turn a handled image error
 			// into an unhandled exception.
-			const spy = jest.spyOn(errorsModule, 'buildImgErrorDiagnostics').mockImplementation(() => {
-				throw new Error('boom');
-			});
+			const spy = jest
+				.spyOn(buildImgErrorDiagnosticsModule, 'buildImgErrorDiagnostics')
+				.mockImplementation(() => {
+					throw new Error('boom');
+				});
 
 			try {
 				const response = Promise.resolve(new Blob());

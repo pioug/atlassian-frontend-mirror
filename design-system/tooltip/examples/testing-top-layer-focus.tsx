@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 /**
  * Test fixture for the `Tooltip` top-layer focus contract.

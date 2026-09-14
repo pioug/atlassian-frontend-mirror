@@ -11,7 +11,7 @@ export type Option = {
 	value: string;
 };
 
-import type { Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker';
+import type { Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker/types';
 
 export type UserFieldContext = Pick<
 	SmartUserPickerProps,

@@ -1,10 +1,19 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import type { MentionAttributes } from '@atlaskit/adf-schema';
+import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import { transformContainerNodes } from '@atlaskit/adf-utils/transforms';
-import type { EditorAnalyticsAPI, InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload,
+	EditorAnalyticsAPI,
+	InputMethodInsertMedia,
+} from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import type { CardOptions, QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
@@ -61,9 +70,10 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
-import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { closeHistory } from '@atlaskit/prosemirror-history';
+import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 // TODO: ED-20519 - Needs Macro extraction
 
@@ -225,7 +235,10 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 				node.type === bulletList ||
 				node.type === orderedList ||
 				node.type === expand ||
-				node.type === heading ||
+				(node.type === heading &&
+					!(
+						selectionIsPanel && isExperimentEnabled('platform_editor_fix_header_paste_in_panel')
+					)) ||
 				node.type === listItem
 			) {
 				sliceIsInvalid = true;
@@ -886,7 +899,7 @@ async function getSmartLinkAdf(
 	return await provider.resolve(text, type);
 }
 
-function insertAutoMacro(
+function insertAutoMacroOld(
 	slice: Slice,
 	macro: PMNode,
 	view?: EditorView,
@@ -922,6 +935,215 @@ function insertAutoMacro(
 	return false;
 }
 
+/**
+ * Replacement for `insertAutoMacroOld` behind
+ * `platform_editor_paste_autoconvert_robustness`.
+ *
+ * Identical in shape, except that the range the macro replaces is derived from the steps
+ * that were actually applied rather than from `slice.size`. `slice.size` is the slice's
+ * own measure and does not account for ProseMirror's fitting behaviour in
+ * `replaceRange`/`replaceSelection`, so the two can disagree — and when they do the macro
+ * is inserted without removing the text it should replace, leaving both the pasted text
+ * and the macro in the document.
+ */
+function insertAutoMacroNew(
+	slice: Slice,
+	macro: PMNode,
+	view?: EditorView,
+	from?: number,
+	to?: number,
+): boolean {
+	if (!view) {
+		return false;
+	}
+
+	const { selection } = view.state;
+	const hasExplicitRange = typeof from === 'number' && typeof to === 'number';
+	const replaceFrom = hasExplicitRange ? from : selection.from;
+	const replaceTo = hasExplicitRange ? to : selection.to;
+
+	// insert the text or linkified/md-converted clipboard data
+	const tr = hasExplicitRange
+		? view.state.tr.replaceRange(replaceFrom, replaceTo, slice)
+		: view.state.tr.replaceSelection(slice);
+
+	const insertedFrom = tr.mapping.map(replaceFrom, -1);
+	const insertedTo = tr.mapping.map(replaceTo, 1);
+
+	view.dispatch(tr);
+
+	// Leave the document alone rather than replacing an implausible range.
+	if (insertedFrom >= insertedTo || insertedTo > view.state.doc.content.size) {
+		return true;
+	}
+
+	// replace the text with the macro as a separate transaction
+	// so the autoconversion generates 2 undo steps
+	const macroTr = closeHistory(view.state.tr)
+		.replaceRangeWith(insertedFrom, insertedTo, macro)
+		.scrollIntoView();
+	addLinkMetadata(view.state.selection, macroTr, {
+		inputMethod: INPUT_METHOD.CLIPBOARD,
+		cardAction: 'AUTO_CONVERT',
+	});
+	view.dispatch(macroTr);
+	return true;
+}
+
+function insertAutoMacro(
+	slice: Slice,
+	macro: PMNode,
+	view?: EditorView,
+	from?: number,
+	to?: number,
+): boolean {
+	return isExperimentEnabled('platform_editor_paste_autoconvert_robustness')
+		? insertAutoMacroNew(slice, macro, view, from, to)
+		: insertAutoMacroOld(slice, macro, view, from, to);
+}
+
+/**
+ * Locates the range currently occupied by a link that we pasted earlier.
+ *
+ * Positions recorded before an async gap can drift or be invalidated entirely by
+ * concurrent edits, collaborative changes and `appendTransaction` hooks, so the
+ * recorded range is verified against the document before it is used. If it no longer
+ * holds the pasted link the link is re-located by href, preferring the occurrence
+ * closest to where it was last seen.
+ *
+ * Returns `undefined` when the link cannot be found, so callers can leave the
+ * document alone rather than replacing whatever happens to sit at a stale position.
+ */
+/**
+ * Whether every text node spanning [from, to) carries a `link` mark pointing at `url`,
+ * with no gaps or uncovered portions.
+ */
+function rangeIsExactLinkMark(
+	doc: EditorState['doc'],
+	from: number,
+	to: number,
+	url: string,
+	linkMarkType: NonNullable<EditorState['schema']['marks']['link']>,
+): boolean {
+	let matches = true;
+	let coveredTo = from;
+	doc.nodesBetween(from, to, (node, pos) => {
+		if (!matches || pos >= to) {
+			return false;
+		}
+		if (!node.isLeaf) {
+			// A container node — e.g. the paragraph the link sits in. `nodesBetween` visits
+			// these on the way down to the text node(s) we actually care about; keep
+			// descending into it rather than treating it as a mismatch.
+			return true;
+		}
+		if (!node.isText) {
+			// A non-text leaf (e.g. an inline card) cannot carry the link mark.
+			matches = false;
+			return false;
+		}
+		const linkMark = linkMarkType.isInSet(node.marks);
+		if (!linkMark || linkMark.attrs.href !== url) {
+			matches = false;
+			return false;
+		}
+		coveredTo = Math.min(pos + node.nodeSize, to);
+		return true;
+	});
+	return matches && coveredTo === to;
+}
+
+/**
+ * `from`/`to` are not a one-off snapshot: they come from `pastedMacroPositions`, which the
+ * paste plugin's `mapping` hook (`plugin-factory.ts`) maps through every transaction
+ * applied while the smart link request is in flight, via `tr.mapping.map(position)`. So
+ * this covers every edit ProseMirror can express as a position mapping — typing,
+ * deleting, or moving content elsewhere in the same edit all keep `from`/`to` pointing at
+ * the same logical span.
+ *
+ * It stops covering that span only when the span itself no longer represents our pasted
+ * link — the link was unlinked, or its content was replaced outright. Deliberately no
+ * fallback search for "the nearest link with the same href" is done: with multiple links
+ * to the same URL in the document, a proximity search cannot tell which one we pasted, so
+ * it risks silently replacing an occurrence we were never asked to touch, and it requires
+ * an O(doc size) scan on every fallback to do it. Leaving the tracked link as a link is
+ * the safe outcome here, and it's what happens when this function returns `undefined`.
+ */
+function findPastedLinkRange(
+	state: EditorState,
+	url: string,
+	from?: number,
+	to?: number,
+): { from: number; to: number } | undefined {
+	const { doc, schema } = state;
+	const linkMarkType = schema.marks.link;
+	const docSize = doc.content.size;
+
+	if (
+		!linkMarkType ||
+		typeof from !== 'number' ||
+		typeof to !== 'number' ||
+		from < 0 ||
+		from >= to ||
+		to > docSize
+	) {
+		return undefined;
+	}
+
+	// Text equality alone is not enough: if the link was unlinked (mark removed) while
+	// the smart link request was in flight, the text can still read as the URL even
+	// though it is no longer a link, and replacing it would destroy content that is no
+	// longer ours to replace.
+	if (doc.textBetween(from, to) === url && rangeIsExactLinkMark(doc, from, to, url, linkMarkType)) {
+		return { from, to };
+	}
+
+	return undefined;
+}
+
+/**
+ * Swaps a link that was already pasted into the document for its macro equivalent.
+ *
+ * Used when smart links could not resolve the URL, so the macro autoconversion is the
+ * fallback. Does nothing if the link can no longer be found — for example because a
+ * smart card has already replaced it — which is preferable to replacing unrelated
+ * content at a stale position.
+ */
+function replacePastedLinkWithMacro(
+	view: EditorView,
+	macro: PMNode,
+	url: string,
+	from?: number,
+	to?: number,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
+): boolean {
+	const range = findPastedLinkRange(view.state, url, from, to);
+	if (!range) {
+		// Metric for how often the tracked pasted link could no longer be found once the
+		// smart link request settled, so the assumption that this is rare is measurable
+		// rather than assumed.
+		editorAnalyticsAPI?.fireAnalyticsEvent({
+			action: ACTION.ERRORED,
+			actionSubject: ACTION_SUBJECT.SMART_LINK,
+			eventType: EVENT_TYPE.OPERATIONAL,
+			attributes: {
+				error: 'macro-auto-convert-pasted-link-not-found',
+			},
+		} as AnalyticsEventPayload);
+		return false;
+	}
+
+	const macroTr = closeHistory(view.state.tr)
+		.replaceRangeWith(range.from, range.to, macro)
+		.scrollIntoView();
+	addLinkMetadata(view.state.selection, macroTr, {
+		inputMethod: INPUT_METHOD.CLIPBOARD,
+		cardAction: 'AUTO_CONVERT',
+	});
+	view.dispatch(macroTr);
+	return true;
+}
+
 export function handleMacroAutoConvert(
 	text: string,
 	slice: Slice,
@@ -929,6 +1151,7 @@ export function handleMacroAutoConvert(
 	runMacroAutoConvert: RunMacroAutoConvert | undefined,
 	cardsOptions?: CardOptions,
 	extensionAutoConverter?: ExtensionAutoConvertHandler,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
 ): Command {
 	return (state: EditorState, dispatch?: CommandDispatch, view?: EditorView) => {
 		let macro: PMNode | null = null;
@@ -963,10 +1186,53 @@ export function handleMacroAutoConvert(
 					throw new Error('View is missing');
 				}
 
+				const autoConvertMacro = macro;
+
 				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const trackingId = uuid();
 				const trackingFrom = `handleMacroAutoConvert-from-${trackingId}`;
 				const trackingTo = `handleMacroAutoConvert-to-${trackingId}`;
+
+				if (isExperimentEnabled('platform_editor_paste_autoconvert_robustness')) {
+					// Insert the pasted content straight away. The smart link provider is only
+					// consulted to decide whether the inserted link should later be swapped for
+					// a macro, so it does not need to gate the insert — otherwise every
+					// autoconvertible paste appears to do nothing until a network round trip
+					// completes.
+					let insertedRange: { from: number; to: number } | undefined;
+					handleMarkdownWithInsertedRange(slice, queueCardsFromChangedTr, (range) => {
+						insertedRange = range;
+					})(state, dispatch);
+
+					if (!insertedRange) {
+						return true;
+					}
+
+					startTrackingPastedMacroPositions({
+						[trackingFrom]: insertedRange.from,
+						[trackingTo]: insertedRange.to,
+					})(view.state, dispatch);
+
+					getSmartLinkAdf(text, 'inline', cardsOptions)
+						.catch(() => {
+							// Smart links could not resolve the URL, so fall back to the macro.
+							// we use view.state rather than state because state becomes a stale
+							// state reference after getSmartLinkAdf's async work
+							const { pastedMacroPositions } = getPastePluginState(view.state);
+							replacePastedLinkWithMacro(
+								view,
+								autoConvertMacro,
+								text,
+								pastedMacroPositions[trackingFrom],
+								pastedMacroPositions[trackingTo],
+								editorAnalyticsAPI,
+							);
+						})
+						.finally(() => {
+							stopTrackingPastedMacroPositions([trackingFrom, trackingTo])(view.state, dispatch);
+						});
+					return true;
+				}
 
 				startTrackingPastedMacroPositions({
 					[trackingFrom]: state.selection.from,
@@ -1359,6 +1625,43 @@ function resolveParagraphMarks(
 		return marks.filter((m) => m.type !== fontSize);
 	}
 	return marks;
+}
+
+/**
+ * Variant of `handleMarkdown` used by macro auto-conversion behind
+ * `platform_editor_paste_autoconvert_robustness`.
+ *
+ * Differs in two ways: the inserted range is derived from the steps that were applied
+ * rather than from `markdownSlice.size`, which does not account for ProseMirror's fitting
+ * behaviour; and that range is reported back through `onInsert` so the caller can track
+ * the inserted link across the async gap before deciding whether to swap it for a macro.
+ */
+function handleMarkdownWithInsertedRange(
+	markdownSlice: Slice,
+	queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
+	onInsert: (insertedRange: { from: number; to: number }) => void,
+): Command {
+	return (state, dispatch) => {
+		const tr = closeHistory(state.tr);
+		const replaceFrom = tr.selection.from;
+		const replaceTo = tr.selection.to;
+
+		tr.replaceSelection(markdownSlice);
+
+		const insertedFrom = tr.mapping.map(replaceFrom, -1);
+		const insertedTo = tr.mapping.map(replaceTo, 1);
+
+		tr.setSelection(
+			TextSelection.near(tr.doc.resolve(Math.min(insertedTo, tr.doc.content.size)), -1),
+		);
+
+		queueCardsFromChangedTr?.(state, tr, INPUT_METHOD.CLIPBOARD);
+		if (dispatch) {
+			dispatch(tr.scrollIntoView());
+			onInsert({ from: insertedFrom, to: insertedTo });
+		}
+		return true;
+	};
 }
 
 export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Slice {
@@ -1940,9 +2243,17 @@ export function splitTablesOutOfPanelHtml(html: string): string {
 	const panelDivs = Array.from(doc.querySelectorAll('div[data-panel-type]'));
 	let changed = false;
 	for (const panelDiv of panelDivs) {
-		const tableWrappers = Array.from(
+		const editorTableWrappers = Array.from(
 			panelDiv.querySelectorAll('[data-prosemirror-node-name="table"]'),
 		);
+		const rendererTableWrappers = isExperimentEnabled(
+			'platform_editor_nest_in_table_renderer_paste',
+		)
+			? Array.from(panelDiv.querySelectorAll('.pm-table-container')).filter(
+					(wrapper) => wrapper.querySelector('table') !== null,
+				)
+			: [];
+		const tableWrappers = [...editorTableWrappers, ...rendererTableWrappers];
 		if (tableWrappers.length === 0) {
 			continue;
 		}

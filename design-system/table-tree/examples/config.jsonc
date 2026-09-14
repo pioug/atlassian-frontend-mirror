@@ -5,9 +5,9 @@
  */
 {
   "testExamples": [
-    "controlled-expanded-state.tsx",
-    "vr-loading-nested.tsx",
-    "vr-loading.tsx"
+    "controlled-expanded-state.vr.ap.tsx",
+    "vr-loading-nested.vr.ap.tsx",
+    "vr-loading.vr.ap.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/visually-hidden"

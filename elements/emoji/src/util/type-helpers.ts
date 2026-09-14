@@ -1,150 +1,89 @@
-import { messages } from '../components/i18n';
-import type { CategoryId } from '../components/picker/categories';
-import { customCategory, dataURLPrefix } from './constants';
-import type {
-	EmojiDescription,
-	EmojiDescriptionWithVariations,
-	EmojiId,
-	EmojiImageRepresentation,
-	EmojiRepresentation,
-	EmojiServiceRepresentation,
-	EmojiVariationDescription,
-	ImageRepresentation,
-	MediaApiRepresentation,
-	OptionalEmojiDescription,
-	SpriteRepresentation,
-	SpriteServiceRepresentation,
-	UnicodeRepresentation,
-} from '../types';
-
-export const isSpriteServiceRepresentation = (
-	rep: EmojiServiceRepresentation,
-): rep is SpriteServiceRepresentation => !!(rep && (rep as SpriteServiceRepresentation).spriteRef);
-export const isSpriteRepresentation = (rep: EmojiRepresentation): rep is SpriteRepresentation =>
-	!!(rep && (rep as SpriteRepresentation).sprite);
-export const isImageRepresentation = (
-	rep: EmojiRepresentation | EmojiServiceRepresentation | EmojiImageRepresentation,
-): rep is ImageRepresentation => !!(rep && (rep as ImageRepresentation).imagePath);
-export const isMediaRepresentation = (
-	rep: EmojiRepresentation | EmojiImageRepresentation,
-): rep is MediaApiRepresentation => !!(rep && (rep as MediaApiRepresentation).mediaPath);
-export const isUnicodeRepresentation = (rep: EmojiRepresentation): rep is UnicodeRepresentation =>
-	!!(rep && (rep as UnicodeRepresentation).unicodeEmoji);
-export const isPromise = <T>(p: any): p is Promise<T> => !!(p && (p as Promise<T>).then);
-export const isEmojiDescription = (
-	possibleEmojiDescription: any,
-): possibleEmojiDescription is EmojiDescription =>
-	possibleEmojiDescription && possibleEmojiDescription.shortName && possibleEmojiDescription.type;
-
-export const isMediaEmoji = (emoji: EmojiDescription): boolean =>
-	isMediaRepresentation(emoji.representation);
-
-export const hasDataURLImage = (rep: EmojiRepresentation): boolean =>
-	isImageRepresentation(rep) && rep.imagePath.indexOf(dataURLPrefix) === 0;
-
-export const isLoadedMediaEmoji = (emoji: EmojiDescription): boolean =>
-	emoji.category === customCategory && hasDataURLImage(emoji.representation);
-
-export const isEmojiDescriptionWithVariations = (
-	emoji: OptionalEmojiDescription,
-): emoji is EmojiDescriptionWithVariations =>
-	!!(emoji && (emoji as EmojiDescriptionWithVariations).skinVariations);
-
-export const isEmojiVariationDescription = (object: any): object is EmojiVariationDescription => {
-	return 'baseId' in object;
-};
-
-export const isMessagesKey = (key: string): key is keyof typeof messages => key in messages;
-
-export const toEmojiId = (emoji: EmojiDescription): EmojiId => ({
-	shortName: emoji.shortName,
-	id: emoji.id,
-	fallback: emoji.fallback,
-});
-
-export const toOptionalEmojiId = (emoji: OptionalEmojiDescription): EmojiId | undefined => {
-	if (!emoji) {
-		return undefined;
-	}
-	return toEmojiId(emoji);
-};
-
-export const isEmojiIdEqual = (l?: EmojiId, r?: EmojiId): boolean | undefined =>
-	l === r || (l && r && l.id === r.id && l.shortName === r.shortName);
-
-export const containsEmojiId = (
-	emojis: EmojiDescription[],
-	emojiId: EmojiId | undefined,
-): boolean => {
-	if (!emojiId) {
-		return false;
-	}
-	for (let i = 0; i < emojis.length; i++) {
-		if (isEmojiIdEqual(emojis[i], emojiId)) {
-			return true;
-		}
-	}
-	return false;
-};
-
-export const convertImageToMediaRepresentation = (
-	rep: ImageRepresentation,
-): MediaApiRepresentation => ({
-	mediaPath: rep.imagePath,
-	height: rep.height,
-	width: rep.width,
-});
-
-export const convertMediaToImageRepresentation = (
-	rep: MediaApiRepresentation,
-	newImagePath?: string,
-): ImageRepresentation => ({
-	imagePath: newImagePath || rep.mediaPath,
-	height: rep.height,
-	width: rep.width,
-});
-
-export const convertMediaToImageEmoji = (
-	emoji: EmojiDescription,
-	newImagePath?: string,
-	useAlt?: boolean,
-): EmojiDescription => {
-	const mediaRepresentation = emoji.representation;
-	const mediaAltRepresentation = emoji.altRepresentation;
-	const imgPath = !useAlt ? newImagePath : undefined;
-	const altImgPath = useAlt ? newImagePath : undefined;
-
-	if (
-		!isMediaRepresentation(mediaRepresentation) &&
-		!isMediaRepresentation(mediaAltRepresentation)
-	) {
-		return emoji;
-	}
-	const representation = isMediaRepresentation(mediaRepresentation)
-		? convertMediaToImageRepresentation(mediaRepresentation, imgPath)
-		: mediaRepresentation;
-	const altRepresentation = isMediaRepresentation(mediaAltRepresentation)
-		? convertMediaToImageRepresentation(mediaAltRepresentation, altImgPath)
-		: mediaAltRepresentation;
-	const baseEmoji = {
-		...emoji,
-		representation,
-	};
-	return buildEmojiDescriptionWithAltRepresentation(baseEmoji, altRepresentation);
-};
-
-// Prevent altRepresentation: undefined from being returned in EmojiDescription
-export const buildEmojiDescriptionWithAltRepresentation = (
-	emoji: EmojiDescriptionWithVariations,
-	altRepresentation?: EmojiRepresentation,
-): EmojiDescriptionWithVariations => {
-	if (!altRepresentation) {
-		return emoji;
-	}
-	return {
-		...emoji,
-		altRepresentation,
-	};
-};
-
-export const getCategoryId = (emoji: EmojiDescription): CategoryId => emoji.category as CategoryId;
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { isSpriteServiceRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isSpriteServiceRepresentation } from './is-sprite-service-representation';
+/**
+ * @deprecated Use `import { isSpriteRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isSpriteRepresentation } from './is-sprite-representation';
+/**
+ * @deprecated Use `import { isImageRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isImageRepresentation } from './is-image-representation';
+/**
+ * @deprecated Use `import { isMediaRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isMediaRepresentation } from './is-media-representation';
+/**
+ * @deprecated Use `import { isUnicodeRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isUnicodeRepresentation } from './is-unicode-representation';
+/**
+ * @deprecated Use `import { isPromise } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isPromise } from './is-promise';
+/**
+ * @deprecated Use `import { isEmojiDescription } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isEmojiDescription } from './is-emoji-description';
+/**
+ * @deprecated Use `import { isMediaEmoji } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isMediaEmoji } from './is-media-emoji';
+/**
+ * @deprecated Use `import { hasDataURLImage } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { hasDataURLImage } from './has-data-url-image';
+/**
+ * @deprecated Use `import { isLoadedMediaEmoji } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isLoadedMediaEmoji } from './is-loaded-media-emoji';
+/**
+ * @deprecated Use `import { isEmojiDescriptionWithVariations } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isEmojiDescriptionWithVariations } from './is-emoji-description-with-variations';
+/**
+ * @deprecated Use `import { isEmojiVariationDescription } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isEmojiVariationDescription } from './is-emoji-variation-description';
+/**
+ * @deprecated Use `import { isMessagesKey } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isMessagesKey } from './is-messages-key';
+/**
+ * @deprecated Use `import { toEmojiId } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { toEmojiId } from './to-emoji-id';
+/**
+ * @deprecated Use `import { toOptionalEmojiId } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { toOptionalEmojiId } from './to-optional-emoji-id';
+/**
+ * @deprecated Use `import { isEmojiIdEqual } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { isEmojiIdEqual } from './is-emoji-id-equal';
+/**
+ * @deprecated Use `import { containsEmojiId } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { containsEmojiId } from './contains-emoji-id';
+/**
+ * @deprecated Use `import { convertImageToMediaRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { convertImageToMediaRepresentation } from './convert-image-to-media-representation';
+/**
+ * @deprecated Use `import { convertMediaToImageRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { convertMediaToImageRepresentation } from './convert-media-to-image-representation';
+/**
+ * @deprecated Use `import { convertMediaToImageEmoji } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { convertMediaToImageEmoji } from './convert-media-to-image-emoji';
+/**
+ * @deprecated Use `import { buildEmojiDescriptionWithAltRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { buildEmojiDescriptionWithAltRepresentation } from './build-emoji-description-with-alt-representation';
+/**
+ * @deprecated Use `import { getCategoryId } from '@atlaskit/emoji/type-helpers'` instead.
+ */
+export { getCategoryId } from './get-category-id';

@@ -1,4 +1,4 @@
-import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema';
+import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema/font-size';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
 import { getFirstParagraphBlockMarkAttrs } from '@atlaskit/editor-common/lists';
 import { isTaskList } from '@atlaskit/editor-common/transforms';

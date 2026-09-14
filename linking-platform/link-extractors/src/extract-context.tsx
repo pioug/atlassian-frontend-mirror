@@ -1,0 +1,39 @@
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+
+import { extractType } from './extract-type';
+import { extractUrlFromIconJsonLd } from './extract-url-from-icon-json-ld';
+
+/*
+ * ###########################################################################
+ * Provider and context extraction
+ * ###########################################################################
+ *
+ * Extractors for JSON-LD context and generator/provider metadata.
+ */
+interface LinkContext {
+	icon?: string;
+	name: string;
+	type?: JsonLd.Primitives.ObjectType[];
+}
+
+export const extractContext = (jsonLd: JsonLd.Data.BaseData): LinkContext | undefined => {
+	const context = jsonLd.context;
+	if (context) {
+		if (typeof context === 'string') {
+			return { name: context };
+		} else if (context['@type'] === 'Link') {
+			if (context.name) {
+				return { name: context.name };
+			}
+		} else {
+			if (context.name) {
+				return {
+					name: context.name,
+					icon: context.icon && extractUrlFromIconJsonLd(context.icon),
+					type: extractType(context),
+				};
+			}
+		}
+	}
+	return undefined;
+};

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/email-renderer",
-	"version": "10.1.0",
+	"version": "10.2.0",
 	"description": "Email renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,8 +36,7 @@
 		}
 	},
 	"scripts": {
-		"ak-postbuild": "ts-node --project ./tsconfig.ts-node.json ./build/ts-to-css.ts",
-		"build:images": "ts-node --files --project ./tsconfig.ts-node.json ./src/static/generator/generate.ts"
+		"ak-postbuild": "yarn run -T run-ts ./build/ts-to-css.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
@@ -50,11 +49,9 @@
 	},
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"mkdirp": "root:*",
 		"mockdate": "root:*",
-		"react": "^19.2.0",
-		"rimraf": "root:*",
-		"svgexport": "root:*",
-		"ts-node": "root:*"
+		"react": "^19.2.0"
 	}
 }

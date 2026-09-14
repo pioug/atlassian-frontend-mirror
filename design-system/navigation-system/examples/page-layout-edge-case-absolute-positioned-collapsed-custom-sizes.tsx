@@ -1,3 +1,3 @@
-import { EdgeCaseSiblingAbsolutePositionedCustomSizes } from './page-layout';
+import { EdgeCaseSiblingAbsolutePositionedCustomSizes } from './page-layout.vr.ap';
 
 export default EdgeCaseSiblingAbsolutePositionedCustomSizes;

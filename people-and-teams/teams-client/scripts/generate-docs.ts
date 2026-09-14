@@ -3,7 +3,8 @@ import { join } from 'path';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { parseFile, toMarkdown } from './utils';
+import { parseFile } from './parse-file';
+import { toMarkdown } from './to-markdown';
 
 const path = `${process.cwd()}/src/services/main.ts`;
 

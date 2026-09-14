@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ThemeProvider } from '@atlaskit/app-provider';
-import Button from '@atlaskit/button/new';
+import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
+import Button from '@atlaskit/button/default/button';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 
 const code = `import React from 'react';

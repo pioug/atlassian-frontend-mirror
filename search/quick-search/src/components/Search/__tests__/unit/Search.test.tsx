@@ -1,40 +1,39 @@
-import { mount, shallow, type ReactWrapper } from 'enzyme';
 import React from 'react';
-import Spinner from '@atlaskit/spinner';
+import { fireEvent, render } from '@testing-library/react';
 import Search from '../../Search';
 
 describe('Search', () => {
-	const isInputFocused = (wrapper: ReactWrapper) =>
-		wrapper.find('input').getDOMNode() === document.activeElement;
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Search onInput={() => {}} onKeyDown={() => {}} />);
+		await expect(container).toBeAccessible();
+	});
 
 	it('should auto focus on mount', () => {
-		let rootElement: HTMLDivElement | undefined = document.createElement('div');
-		document.body.appendChild(rootElement);
-		const wrapper = mount(<Search onInput={() => {}} onKeyDown={() => {}} />, {
-			attachTo: rootElement,
-		});
-		expect(isInputFocused(wrapper)).toBe(true);
-		wrapper.unmount();
-		document.body.removeChild(rootElement);
-		rootElement = undefined;
+		const { getByRole } = render(<Search onInput={() => {}} onKeyDown={() => {}} />);
+		expect(getByRole('textbox')).toHaveFocus();
 	});
 
 	it('should show spinner when loading', () => {
-		expect(
-			mount(<Search onInput={() => {}} onKeyDown={() => {}} isLoading />).find(Spinner).length,
-		).toBe(1);
-		expect(
-			mount(<Search onInput={() => {}} onKeyDown={() => {}} isLoading={false} />).find(Spinner)
-				.length,
-		).toBe(0);
+		const { container, rerender } = render(
+			<Search onInput={() => {}} onKeyDown={() => {}} isLoading />,
+		);
+		expect(container.querySelectorAll('svg').length).toBeGreaterThan(0);
+		rerender(<Search onInput={() => {}} onKeyDown={() => {}} isLoading={false} />);
+		expect(container.querySelectorAll('svg')).toHaveLength(0);
 	});
 
 	it('should render input controls if provided', () => {
-		const wrapper = shallow(<Search inputControls={<button key="testKey">Test Btn</button>} />);
-		const inputControlsContainer = wrapper.find('SearchInputControlsContainer');
+		const { getByRole } = render(
+			<Search inputControls={<button type="button">Test Btn</button>} />,
+		);
+		expect(getByRole('button', { name: 'Test Btn' })).toBeInTheDocument();
+	});
 
-		expect(inputControlsContainer.length).toBe(1);
-		expect(inputControlsContainer.children().length).toBe(1);
-		expect(inputControlsContainer.childAt(0).key()).toBe('testKey');
+	it('forwards supported keyboard controls to onKeyDown', () => {
+		const onKeyDown = jest.fn();
+		const { getByRole } = render(<Search onKeyDown={onKeyDown} />);
+		fireEvent.keyDown(getByRole('textbox'), { key: 'ArrowDown' });
+		fireEvent.keyDown(getByRole('textbox'), { key: 'a' });
+		expect(onKeyDown).toHaveBeenCalledTimes(1);
 	});
 });

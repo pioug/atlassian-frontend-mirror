@@ -1,5 +1,40 @@
 # @af/frontend-utilities
 
+## 4.4.0
+
+### Minor Changes
+
+- [`def96dade1de7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/def96dade1de7) -
+  Add dedicated entry-point imports for `convertToError`
+  (`@atlaskit/frontend-utilities/convert-to-error/main`), `StorageClient`
+  (`@atlaskit/frontend-utilities/storage-client/main`), `useLocalStorage`
+  (`@atlaskit/frontend-utilities/useLocalStorage`), `useLocalStorageRecord`
+  (`@atlaskit/frontend-utilities/useLocalStorageRecord`), `useWhyDidUpdate`
+  (`@atlaskit/frontend-utilities/useWhyDidUpdate`), and `useWhyDidUpdateShallow`
+  (`@atlaskit/frontend-utilities/useWhyDidUpdateShallow`). Root and deprecated compatibility imports
+  remain supported for existing consumers.
+
+## 4.3.0
+
+### Minor Changes
+
+- [`12a1556e03975`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12a1556e03975) -
+  Add dedicated hook entrypoints while preserving existing package entrypoint imports.
+
+## 4.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 4.1.1
+
+### Patch Changes
+
+- [`6d704062ca749`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d704062ca749) -
+  Internal refactor to support tree shaking. No consumer changes.
+
 ## 4.1.0
 
 ### Minor Changes

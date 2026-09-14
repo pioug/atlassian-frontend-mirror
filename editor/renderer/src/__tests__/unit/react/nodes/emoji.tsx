@@ -1,21 +1,23 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import RendererEmoji from '../../../../react/nodes/emoji';
 
+const emojiSpan = (container: HTMLElement, id: string) =>
+	container.querySelector(`span[data-emoji-id="${id}"]`);
+
 describe('Emoji', () => {
 	it('should render Emoji UI component', () => {
-		const component = mount(<RendererEmoji shortName="shortname" id="id" text="fallback" />);
-		expect(component.find(RendererEmoji)).toHaveLength(1);
-		component.unmount();
+		const { container } = render(<RendererEmoji shortName="shortname" id="id" text="fallback" />);
+
+		expect(emojiSpan(container, 'id')).toBeInTheDocument();
 	});
 
-	it('should convert text to fallback attribute', () => {
-		const component = mount(<RendererEmoji shortName="shortname" id="id" text="fallback" />);
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<RendererEmoji shortName="shortname" id="id" text="fallback" />);
 
-		expect(component.find(RendererEmoji).prop('text')).toEqual('fallback');
-		component.unmount();
+		await expect(container).toBeAccessible();
 	});
 
 	describe('renderWithProvider with platform_editor_custom_emoji_unicode_fallback', () => {
@@ -28,29 +30,41 @@ describe('Emoji', () => {
 				failGate('platform_editor_custom_emoji_unicode_fallback');
 			});
 
+			it('should convert text to the fallback attribute', () => {
+				const { container } = render(
+					<RendererEmoji shortName="shortname" id="id" text="fallback" />,
+				);
+
+				expect(emojiSpan(container, 'id')).toHaveAttribute('data-emoji-text', 'fallback');
+			});
+
 			it('should render the fallback text for a custom emoji without fallback accessibility attributes', () => {
-				const component = mount(
+				const { container } = render(
 					<RendererEmoji
 						id="atlassian-disapproval"
 						shortName=":atlassian-disapproval:"
 						text=":atlassian-disapproval:"
 					/>,
 				);
-				const span = component.find('span[data-emoji-id="atlassian-disapproval"]');
-				expect(span.prop('data-emoji-text')).toBe(':atlassian-disapproval:');
-				expect(span.prop('title')).toBeUndefined();
-				expect(span.prop('aria-label')).toBeUndefined();
-				expect(span.prop('role')).toBeUndefined();
-				expect(span.text()).toBe(':atlassian-disapproval:');
-				component.unmount();
+
+				const span = emojiSpan(container, 'atlassian-disapproval');
+
+				expect(span).toHaveAttribute('data-emoji-text', ':atlassian-disapproval:');
+				expect(span).not.toHaveAttribute('title');
+				expect(span).not.toHaveAttribute('aria-label');
+				expect(span).not.toHaveAttribute('role');
+				expect(span).toHaveTextContent(':atlassian-disapproval:');
 			});
 
 			it('should render the fallback text for a standard emoji', () => {
-				const component = mount(<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />);
-				const span = component.find('span[data-emoji-id="1f605"]');
-				expect(span.prop('data-emoji-text')).toBe('😅');
-				expect(span.text()).toBe('😅');
-				component.unmount();
+				const { container } = render(
+					<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />,
+				);
+
+				const span = emojiSpan(container, '1f605');
+
+				expect(span).toHaveAttribute('data-emoji-text', '😅');
+				expect(span).toHaveTextContent('😅');
 			});
 		});
 
@@ -60,67 +74,77 @@ describe('Emoji', () => {
 			});
 
 			it('should render U+FFFD for a custom emoji', () => {
-				const component = mount(
+				const { container } = render(
 					<RendererEmoji
 						id="atlassian-disapproval"
 						shortName=":atlassian-disapproval:"
 						text=":atlassian-disapproval:"
 					/>,
 				);
-				const span = component.find('span[data-emoji-id="atlassian-disapproval"]');
-				expect(span.prop('data-emoji-text')).toBe('\uFFFD');
-				expect(span.prop('title')).toBe(':atlassian-disapproval:');
-				expect(span.prop('aria-label')).toBe('Emoji :atlassian-disapproval:');
-				expect(span.prop('role')).toBe('img');
-				expect(span.text()).toBe('\uFFFD');
-				component.unmount();
+
+				const span = emojiSpan(container, 'atlassian-disapproval');
+
+				expect(span).toHaveAttribute('data-emoji-text', '�');
+				expect(span).toHaveAttribute('title', ':atlassian-disapproval:');
+				expect(span).toHaveAttribute('aria-label', 'Emoji :atlassian-disapproval:');
+				expect(span).toHaveAttribute('role', 'img');
+				expect(span?.textContent).toBe('�');
 			});
 
 			it('should render U+FFFD when the text attribute is empty for a custom emoji', () => {
-				const component = mount(
+				const { container } = render(
 					<RendererEmoji id="atlassian-disapproval" shortName=":atlassian-disapproval:" text="" />,
 				);
-				const span = component.find('span[data-emoji-id="atlassian-disapproval"]');
-				expect(span.prop('data-emoji-text')).toBe('\uFFFD');
-				expect(span.text()).toBe('\uFFFD');
-				component.unmount();
+
+				const span = emojiSpan(container, 'atlassian-disapproval');
+
+				expect(span).toHaveAttribute('data-emoji-text', '�');
+				expect(span?.textContent).toBe('�');
 			});
 
 			it('should use shortName as a standard emoji fallback when text is empty', () => {
-				const component = mount(<RendererEmoji id="1f605" shortName="😅" text="" />);
-				const span = component.find('span[data-emoji-id="1f605"]');
-				expect(span.prop('data-emoji-text')).toBe('😅');
-				expect(span.text()).toBe('😅');
-				component.unmount();
+				const { container } = render(<RendererEmoji id="1f605" shortName="😅" text="" />);
+
+				const span = emojiSpan(container, '1f605');
+
+				expect(span).toHaveAttribute('data-emoji-text', '😅');
+				expect(span).toHaveTextContent('😅');
 			});
 
 			it('should still render the Unicode text for a standard emoji without fallback accessibility attributes', () => {
-				const component = mount(<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />);
-				const span = component.find('span[data-emoji-id="1f605"]');
-				expect(span.prop('data-emoji-text')).toBe('😅');
-				expect(span.prop('title')).toBeUndefined();
-				expect(span.prop('aria-label')).toBeUndefined();
-				expect(span.prop('role')).toBeUndefined();
-				expect(span.text()).toBe('😅');
-				component.unmount();
+				const { container } = render(
+					<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />,
+				);
+
+				const span = emojiSpan(container, '1f605');
+
+				expect(span).toHaveAttribute('data-emoji-text', '😅');
+				expect(span).not.toHaveAttribute('title');
+				expect(span).not.toHaveAttribute('aria-label');
+				expect(span).not.toHaveAttribute('role');
+				expect(span).toHaveTextContent('😅');
 			});
 
 			it('should still render standalone VS-16 Extended_Pictographic emoji as Unicode text', () => {
-				const component = mount(<RendererEmoji id="2764-fe0f" shortName=":heart:" text="❤️" />);
-				const span = component.find('span[data-emoji-id="2764-fe0f"]');
-				expect(span.prop('data-emoji-text')).toBe('❤️');
-				expect(span.text()).toBe('❤️');
-				component.unmount();
+				const { container } = render(
+					<RendererEmoji id="2764-fe0f" shortName=":heart:" text="❤️" />,
+				);
+
+				const span = emojiSpan(container, '2764-fe0f');
+
+				expect(span).toHaveAttribute('data-emoji-text', '❤️');
+				expect(span).toHaveTextContent('❤️');
 			});
 
 			it('should still render skin-tone modifier emoji as Unicode text', () => {
-				const component = mount(
+				const { container } = render(
 					<RendererEmoji id="1f44b-1f3fd" shortName=":wave::skin-tone-4:" text="👋🏽" />,
 				);
-				const span = component.find('span[data-emoji-id="1f44b-1f3fd"]');
-				expect(span.prop('data-emoji-text')).toBe('👋🏽');
-				expect(span.text()).toBe('👋🏽');
-				component.unmount();
+
+				const span = emojiSpan(container, '1f44b-1f3fd');
+
+				expect(span).toHaveAttribute('data-emoji-text', '👋🏽');
+				expect(span).toHaveTextContent('👋🏽');
 			});
 		});
 	});

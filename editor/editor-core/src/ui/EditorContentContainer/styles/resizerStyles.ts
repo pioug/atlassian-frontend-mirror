@@ -129,8 +129,9 @@ export const resizerStyles: SerializedStyles = css({
 
 		// NOTE: The below style is targeted at the div element added by the tooltip. We don't have any means of injecting styles
 		// into the tooltip
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		"& div[role='presentation']": {
+		// Guard skips top-layer elements (eg tooltip, modal); `:where()` keeps specificity unchanged.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		"& div[role='presentation']:not(:where([popover], dialog, [popover] *, dialog *))": {
 			width: '100%',
 			height: '100%',
 			display: 'flex',
@@ -399,9 +400,10 @@ export const pragmaticResizerStylesForTooltip: SerializedStyles = css({
 		borderRadius: token('radius.small'),
 		zIndex: 2,
 
-		// Tootip element
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[role="presentation"]': {
+		// Tooltip element. Guard skips top-layer elements (eg tooltip, modal); `:where()` keeps
+		// specificity unchanged.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[role="presentation"]:not(:where([popover], dialog, [popover] *, dialog *))': {
 			height: '100%',
 			width: '100%',
 		},
@@ -594,6 +596,17 @@ export const pragmaticResizerStyles: SerializedStyles = css({
 			},
 		},
 	},
+	// Positions the vanilla resize tooltip at the pointer's Y, set by `pragmatic-resizer.tsx`.
+	// Inert until `platform_editor_use_vanilla_components` — nothing carries this class on control.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.pm-breakout-resize-tooltip-anchor': {
+		position: 'absolute',
+		left: 0,
+		right: 0,
+		height: 0,
+		pointerEvents: 'none',
+		top: 'var(--pm-breakout-resize-tooltip-anchor-top, 0)',
+	},
 	// same as 'hover' styles above
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle-container--active': {
@@ -743,6 +756,25 @@ export const pragmaticResizerStylesPanelAndRule: SerializedStyles = css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'> .pm-breakout-resize-handle-container': {
 					transform: 'translateY(-12px)',
+				},
+			},
+	},
+});
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+export const pragmaticResizerStylesExtensions: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-breakout-mark': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="extension"]), &:has([data-prosemirror-node-name="bodiedExtension"]), &:has([data-prosemirror-node-name="multiBodiedExtension"])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-25px',
 				},
 			},
 	},

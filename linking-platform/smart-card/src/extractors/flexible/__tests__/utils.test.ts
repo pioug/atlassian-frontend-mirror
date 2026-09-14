@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import {
 	TEST_BASE_DATA,
@@ -8,31 +8,29 @@ import {
 	TEST_PULL_REQUEST,
 	TEST_URL,
 } from '../../common/__mocks__/jsonld';
-import {
-	extractAppliedToComponentsCount,
-	extractAssignedTo,
-	extractAttachmentCount,
-	extractChecklistProgress,
-	extractCommentCount,
-	extractCreatedBy,
-	extractDueOn,
-	extractLocation,
-	extractMetaObjectId,
-	extractMetaResourceType,
-	extractMetaTenantId,
-	extractModifiedBy,
-	extractOwnedBy,
-	extractPersonAssignedToAsArray,
-	extractProgrammingLanguage,
-	extractReadTime,
-	extractSentOn,
-	extractSourceBranch,
-	extractStoryPoints,
-	extractSubscriberCount,
-	extractSubTasksProgress,
-	extractTargetBranch,
-	extractUserAttributes,
-} from '../utils';
+import { extractAppliedToComponentsCount } from '../extract-applied-to-components-count';
+import { extractAssignedTo } from '../extract-assigned-to';
+import { extractAttachmentCount } from '../extract-attachment-count';
+import { extractChecklistProgress } from '../extract-checklist-progress';
+import { extractCommentCount } from '../extract-comment-count';
+import { extractCreatedBy } from '../extract-created-by';
+import { extractDueOn } from '../extract-due-on';
+import { extractLocation } from '../extract-location';
+import { extractMetaObjectId } from '../extract-meta-object-id';
+import { extractMetaResourceType } from '../extract-meta-resource-type';
+import { extractMetaTenantId } from '../extract-meta-tenant-id';
+import { extractModifiedBy } from '../extract-modified-by';
+import { extractOwnedBy } from '../extract-owned-by';
+import { extractPersonAssignedToAsArray } from '../extract-person-assigned-to-as-array';
+import { extractProgrammingLanguage } from '../extract-programming-language';
+import { extractReadTime } from '../extract-read-time';
+import { extractSentOn } from '../extract-sent-on';
+import { extractSourceBranch } from '../extract-source-branch';
+import { extractStoryPoints } from '../extract-story-points';
+import { extractSubTasksProgress } from '../extract-sub-tasks-progress';
+import { extractSubscriberCount } from '../extract-subscriber-count';
+import { extractTargetBranch } from '../extract-target-branch';
+import { extractUserAttributes } from '../extract-user-attributes';
 
 describe('extractAppliedToComponentsCount', () => {
 	it('returns undefined when no applied components count is present', () => {

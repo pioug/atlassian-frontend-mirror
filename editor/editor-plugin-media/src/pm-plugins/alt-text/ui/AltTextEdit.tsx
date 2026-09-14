@@ -10,8 +10,8 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type {
 	FireAnalyticsCallback,
 	MediaAltTextActionType,

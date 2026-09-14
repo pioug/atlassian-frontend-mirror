@@ -1,7 +1,7 @@
-import { type MouseEvent } from 'react';
+import { type FocusEvent, type MouseEvent } from 'react';
 import type React from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { type CardDimensions, type CardAppearance } from '../../../types';
 import { type Breakpoint } from '../common';
@@ -15,6 +15,7 @@ export interface WrapperProps {
 	appearance?: CardAppearance;
 	onClick?: (event: React.MouseEvent<HTMLDivElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 	onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
+	onFocus?: (event: FocusEvent<HTMLDivElement>) => void;
 	mediaType?: string;
 	disableOverlay: boolean;
 	displayBackground: boolean;

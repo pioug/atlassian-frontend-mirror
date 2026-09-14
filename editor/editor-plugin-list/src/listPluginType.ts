@@ -3,6 +3,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 import type {
 	FindRootParentListNode,
@@ -19,6 +20,7 @@ export type ListPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<BlockMenuPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type ListPluginActions = {

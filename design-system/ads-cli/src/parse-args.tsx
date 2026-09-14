@@ -39,7 +39,7 @@ export type ParsedArgs = {
 	 */
 	positionals: string[];
 	/**
-	 * Parsed flags. Values may be string, number-like string, boolean, or string[].
+	 * Parsed flags. Values may be a string (including number-like strings) or a boolean.
 	 */
 	flags: Record<string, unknown>;
 };

@@ -1,4 +1,4 @@
-import { modifyResponse } from '@atlaskit/profilecard';
+import { modifyResponse } from '@atlaskit/profilecard/modify-response';
 import { type AgentIdType, type ProfileClient } from '@atlaskit/profilecard/types';
 import {
 	type ProfileCardClientData,

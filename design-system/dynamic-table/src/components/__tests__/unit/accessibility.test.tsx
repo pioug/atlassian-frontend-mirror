@@ -3,8 +3,8 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import Button from '@atlaskit/button/new';
-import Link from '@atlaskit/link';
+import Button from '@atlaskit/button/default/button';
+import Link from '@atlaskit/link/link';
 
 import DynamicTable, { DynamicTableStateless as StatelessDynamicTable } from '../../../index';
 import { type RowCellType, type StatelessProps } from '../../../types';

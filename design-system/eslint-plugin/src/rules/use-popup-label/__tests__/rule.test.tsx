@@ -63,6 +63,59 @@ tester.run('use-popup-label', rule, {
     Children
   </Popup>
 `,
+		`
+  import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+  <PopupTrigger>
+    Children
+  </PopupTrigger>
+  `,
+		`
+  import { PopupTrigger as AkPopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+  <AkPopupTrigger>
+    Children
+  </AkPopupTrigger>
+  `,
+		`
+  import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+  <PopupTrigger role="dialog" label="PopupTrigger accessible name">
+    Children
+  </PopupTrigger>
+  `,
+		`
+  import { PopupTrigger as AkPopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+  <AkPopupTrigger role="dialog" label="AkPopupTrigger accessible name">
+    Children
+  </AkPopupTrigger>
+  `,
+		`
+  import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+  const label = "PopupTrigger accessible label";
+
+  <PopupTrigger role="dialog" label={label}>
+    Children
+  </PopupTrigger>
+  `,
+		`
+  import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+  <PopupTrigger role="dialog" titleId="testId">
+    Children
+  </PopupTrigger>
+  `,
+		`
+  import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+  const titleId = "popup-label-test-id";
+
+  <PopupTrigger role="dialog" titleId={titleId}>
+    Children
+  </PopupTrigger>
+  `,
 	],
 	invalid: [
 		{
@@ -184,6 +237,76 @@ tester.run('use-popup-label', rule, {
       <AkPopup role="dialog" titleId="testId" label="AkPopup accessible name">
         Children
       </AkPopup>
+      `,
+			errors: [
+				{
+					messageId: 'noBothPropsUsage',
+				},
+			],
+		},
+		{
+			code: `
+      import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+      <PopupTrigger role="dialog">
+        Children
+      </PopupTrigger>
+      `,
+			errors: [
+				{
+					messageId: 'missingLabelProp',
+				},
+			],
+		},
+		{
+			code: `
+      import { PopupTrigger as AkPopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+      <AkPopupTrigger role="dialog">
+        Children
+      </AkPopupTrigger>
+      `,
+			errors: [
+				{
+					messageId: 'missingLabelProp',
+				},
+			],
+		},
+		{
+			code: `
+      import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+      <PopupTrigger role="dialog" label="">
+        Children
+      </PopupTrigger>
+      `,
+			errors: [
+				{
+					messageId: 'labelPropShouldHaveContents',
+				},
+			],
+		},
+		{
+			code: `
+      import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+      <PopupTrigger role="dialog" titleId="">
+        Children
+      </PopupTrigger>
+      `,
+			errors: [
+				{
+					messageId: 'titleIdShouldHaveValue',
+				},
+			],
+		},
+		{
+			code: `
+      import { PopupTrigger } from '@atlassian/entry-points/popup-trigger';
+
+      <PopupTrigger role="dialog" titleId="testId" label="PopupTrigger accessible name">
+        Children
+      </PopupTrigger>
       `,
 			errors: [
 				{

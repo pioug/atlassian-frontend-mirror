@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 type SerializedAdfNode = {

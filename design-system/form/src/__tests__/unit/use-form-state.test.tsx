@@ -1,8 +1,8 @@
 import React, { type ReactNode } from 'react';
 
-import { act, renderHook } from '@testing-library/react';
 import { type FormSubscription } from 'final-form';
 
+import { act, renderHook } from '@atlassian/testing-library';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import { FormContext } from '../../form-context';
@@ -25,28 +25,28 @@ describe('use-form-state hook', () => {
 	});
 
 	it('without a context, will return undefined safely', () => {
-		const { result } = renderHook(() => useFormState({ values: true }));
+		const utils = renderHook(() => useFormState({ values: true }));
 
-		expect(result.current).toEqual(undefined);
+		expect(utils.current).toEqual(undefined);
 	});
 
 	describe('with a context provider', () => {
 		it('without subscribe called, will return undefined safely', () => {
-			const { result } = renderHook(() => useFormState({ values: true }), {
+			const utils = renderHook(() => useFormState({ values: true }), {
 				wrapper: ContextWrapper,
 			});
 
-			expect(result.current).toEqual(undefined);
+			expect(utils.current).toEqual(undefined);
 			expect(subscribe).toHaveBeenCalledTimes(1);
 			expect(unsubscribe).not.toHaveBeenCalled();
 		});
 
 		it('mimicking `final-form` updating the subscription returns state from our `useFormState`', () => {
-			const { result } = renderHook(() => useFormState({ values: true }), {
+			const utils = renderHook(() => useFormState({ values: true }), {
 				wrapper: ContextWrapper,
 			});
 
-			expect(result.current).toEqual(undefined);
+			expect(utils.current).toEqual(undefined);
 			expect(subscribe).toHaveBeenCalledTimes(1);
 			expect(unsubscribe).not.toHaveBeenCalled();
 
@@ -58,64 +58,58 @@ describe('use-form-state hook', () => {
 			});
 
 			// Now our result is updated with exact referential equality and subscribe is never updated
-			expect(result.current).toBe(newFormState);
+			expect(utils.current).toBe(newFormState);
 			expect(subscribe).toHaveBeenCalledTimes(1);
 			expect(unsubscribe).not.toHaveBeenCalled();
 		});
 
 		it('calling the hook with a new object reference, but same shallow equality as the default value, does not trigger a re-subscription', () => {
-			const { result, rerender } = renderHook(
-				(subscription?: FormSubscription) => useFormState(subscription),
-				{
-					initialProps: undefined,
-					wrapper: ContextWrapper,
-				},
-			);
+			const utils = renderHook((subscription?: FormSubscription) => useFormState(subscription), {
+				args: [undefined],
+				wrapper: ContextWrapper,
+			});
 
-			expect(result.current).toEqual(undefined);
+			expect(utils.current).toEqual(undefined);
 			expect(subscribe).toHaveBeenCalledTimes(1);
 			expect(unsubscribe).not.toHaveBeenCalled();
 
 			// NOTE: This is the same as the first render effectively doing `useFormState()`
 			// Then the second render effectively doing `useFormState({ values: true })`
 			// Because this matches the default, nothing happens
-			rerender({ values: true });
+			utils.update({ values: true });
 
-			expect(result.current).toEqual(undefined);
+			expect(utils.current).toEqual(undefined);
 			expect(subscribe).toHaveBeenCalledTimes(1);
 			expect(unsubscribe).not.toHaveBeenCalled();
 		});
 
 		it('calling the hook with a value that does not match shallow equality results in a re-subscription', () => {
-			const { result, rerender } = renderHook(
-				(subscription?: FormSubscription) => useFormState(subscription),
-				{
-					initialProps: { values: true },
-					wrapper: ContextWrapper,
-				},
-			);
+			const utils = renderHook((subscription?: FormSubscription) => useFormState(subscription), {
+				args: [{ values: true }],
+				wrapper: ContextWrapper,
+			});
 
 			// Rendered with the initial value, won't be re-subscribed as it's the same shallow equality
-			rerender({ values: true });
-			expect(result.current).toEqual(undefined);
+			utils.update({ values: true });
+			expect(utils.current).toEqual(undefined);
 			expect(subscribe).toHaveBeenCalledTimes(1);
 			expect(unsubscribe).not.toHaveBeenCalled();
 
 			// Rendered again with a different shallow value, will re-subscribe
-			rerender({ values: false });
-			expect(result.current).toEqual(undefined);
+			utils.update({ values: false });
+			expect(utils.current).toEqual(undefined);
 			expect(subscribe).toHaveBeenCalledTimes(2);
 			expect(unsubscribe).toHaveBeenCalledTimes(1);
 
 			// Rendered again with a different shallow value, will re-subscribe
 			// @ts-ignore - TS2353 TypeScript 5.9.2 upgrade
-			rerender({ dirty: true });
+			utils.update({ dirty: true });
 			expect(subscribe).toHaveBeenCalledTimes(3);
 			expect(unsubscribe).toHaveBeenCalledTimes(2);
 
 			// Rendered again, won't be re-subscribed as it's the same shallow equality
 			// @ts-ignore - TS2353 TypeScript 5.9.2 upgrade
-			rerender({ dirty: true });
+			utils.update({ dirty: true });
 			expect(subscribe).toHaveBeenCalledTimes(3);
 			expect(unsubscribe).toHaveBeenCalledTimes(2);
 		});

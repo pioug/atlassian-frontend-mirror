@@ -26,8 +26,10 @@ for (const [path, value] of Object.entries(deprecatedImports)) {
 	}
 }
 
-jest.mock('@atlaskit/icon/metadata', () => ({
-	coreIconMetadata: {
+jest.mock('@atlaskit/icon/metadata-core', () => ({
+	...jest.requireActual('@atlaskit/icon/metadata-core'),
+	__esModule: true,
+	default: {
 		activity: {
 			keywords: ['dashboard', 'window', 'grid', 'icon', 'core', 'activity', 'view'],
 			componentName: 'ActivityIcon',
@@ -99,6 +101,9 @@ jest.mock('@atlaskit/icon/metadata', () => ({
 			status: 'deprecated',
 		},
 	},
+}));
+jest.mock('@atlaskit/icon/metadata', () => ({
+	...jest.requireActual('@atlaskit/icon/metadata'),
 	utilityIconMetadata: {
 		'chevron-up-circle': {
 			keywords: [

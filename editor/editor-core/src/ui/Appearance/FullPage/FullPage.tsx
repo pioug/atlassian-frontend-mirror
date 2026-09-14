@@ -12,10 +12,11 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-tool
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
 import type { PrimaryToolbarComponents } from '../../../types/editor-props';
@@ -233,7 +234,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 											: !!props.disabled
 										: !!props.disabled ||
 											(!hasHadInteraction &&
-												expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true))
+												isExperimentEnabled('platform_editor_default_toolbar_state'))
 								}
 								disabledWithoutInteractionLogic={!!props.disabled}
 								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}
@@ -300,6 +301,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 						viewMode={state.editorViewMode}
 						hasHadInteraction={hasHadInteraction}
 						contentMode={props.contentMode}
+						UNSAFE_containLayout={props.UNSAFE_containLayout}
 					/>
 				</FullPageEditorWrapperMigration>
 			</ContextPanelWidthProvider>

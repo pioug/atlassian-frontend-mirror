@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('InlineMessage should pass base aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'inline-message',
 		'basic',

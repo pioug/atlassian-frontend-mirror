@@ -1,19 +1,20 @@
 /* eslint-disable no-console */
+
 import { hasImportDeclaration, isDecendantOfType } from '@hypermod/utils';
 import type { API, Collection, FileInfo, JSCodeshift, TemplateElement } from 'jscodeshift';
 
 import CSSTransformer from '../css-to-design-tokens/transform';
 import { activeTokens } from '../utils/active-tokens';
-
 import { cleanMeta } from './utils/clean-meta';
-import { includesHardCodedColor, isHardCodedColor } from './utils/color';
 import { containsReplaceableCSSDeclarations } from './utils/contains-replaceable-css-declarations';
 import { findEndIndexOfCSSExpression } from './utils/find-end-index-of-css-expression';
 import { findFirstNonspaceIndexAfter } from './utils/find-first-nonspace-index-after';
 import Search from './utils/fuzzy-search';
 import { getMetaFromAncestors } from './utils/get-meta-from-ancestors';
+import { includesHardCodedColor } from './utils/includes-hard-coded-color';
 import { isBoldColor } from './utils/is-bold-color';
 import { isDecendantOfToken } from './utils/is-decendant-of-token';
+import { isHardCodedColor } from './utils/is-hard-coded-color';
 import { isLegacyColor } from './utils/is-legacy-color';
 import { isLegacyNamedColor } from './utils/is-legacy-named-color';
 import { isParentOfToken } from './utils/is-parent-of-token';

@@ -6,18 +6,17 @@ import {
 	defaultMediaPickerCollectionName,
 	mediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import {
-	MainWrapper,
-	UploadPreviews,
-	type AuthEnvironment,
-	PopupHeader,
-	PopupContainer,
-} from '../example-helpers';
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { PopupContainer } from '../example-helpers/PopupContainer';
+import { PopupHeader } from '../example-helpers/PopupHeader';
+import { MainWrapper } from '../example-helpers/mainWrapper';
+import type { AuthEnvironment } from '../example-helpers/types';
+import { UploadPreviews } from '../example-helpers/upload-previews';
+import { BrowserLoader as Browser } from '../src/components/browser';
 import { type UploadParams, type BrowserConfig } from '../src/types';
-import { Browser } from '../src/';
-import { type MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 export interface BrowserWrapperState {
 	collectionName: string;

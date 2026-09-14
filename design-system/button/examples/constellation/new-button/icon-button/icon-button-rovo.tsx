@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 
 const IconButtonRovoExample = (): React.JSX.Element => {

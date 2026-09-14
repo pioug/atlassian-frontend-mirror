@@ -125,6 +125,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

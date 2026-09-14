@@ -1,9 +1,9 @@
 import React from 'react';
 
 import ProjectIcon from '@atlaskit/icon/core/project';
-import { type CustomItemComponentProps } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { Header } from '@atlaskit/side-navigation';
+import { Header } from '@atlaskit/side-navigation/header';
 
 const Container = ({ children, ...props }: CustomItemComponentProps) => {
 	return (

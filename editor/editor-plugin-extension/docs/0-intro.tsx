@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

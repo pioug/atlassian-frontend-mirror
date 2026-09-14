@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::37c59c3ee979ff8acaf7525e576da094>>
+ * @codegen <<SignedSource::ebd0dcf9d533bfcc361884c277969ae7>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,12 +20,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * A temporary component to represent the icon for Statuspage.
  * @deprecated This component has been replaced by the component `StatuspageIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * Please migrate any usages of this temporary component.
  *
  */
 export function StatuspageIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Statuspage',
 	testId,

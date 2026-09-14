@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ccd6dbc1042b97a1a2235e2885445688>>
+ * @codegen <<SignedSource::d3768e4858184cbcb54bc48c2161e64c>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 76 24">
  *
  */
 export function TeamsLogo({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Teams',
 	testId,

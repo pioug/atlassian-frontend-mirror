@@ -1,22 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import InlineDialog from '@atlaskit/inline-dialog';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import StatefulInlineDialog from '../../components/StatefulInlineDialog';
 
-const render = (props = {}) =>
-	shallow(
+const renderDialog = (props = {}) =>
+	render(
 		<StatefulInlineDialog content={<div id="content" />} label="More information" {...props}>
 			<div id="trigger" />
 		</StatefulInlineDialog>,
 	);
 
 test('dialog should render closed by default', () => {
-	const wrapper = render();
-	expect(wrapper.find(InlineDialog).props()).toMatchObject({ isOpen: false });
+	renderDialog();
+	expect(screen.queryByText('Dialog content')).not.toBeInTheDocument();
 });
 
-test('dialog should render on hover', () => {
-	const wrapper = render();
-	wrapper.find('div#trigger').parent().simulate('mouseover');
-	expect(wrapper.find(InlineDialog).props()).toMatchObject({ isOpen: true });
+test('dialog should render on hover', async () => {
+	renderDialog({ content: <div>Dialog content</div> });
+	await userEvent.hover(screen.getByRole('button', { name: 'More information' }));
+	expect(screen.getByText('Dialog content')).toBeInTheDocument();
 });

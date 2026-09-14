@@ -5,13 +5,9 @@ import { expect, test } from '@af/integration-testing';
  * top-layer path.
  *
  * Both components render a `role="combobox"` input as the trigger, but they
- * differ in the role of the popup they open:
+ * differ in the content of the popup they open:
  *
- * - `DatePicker`: opens a `role="dialog"` calendar. The combobox carve-out
- *   in `top-layer/useInitialFocus` is intentionally scoped to `menu` and
- *   `listbox` popups (see `getInitialFocusTarget`), so a `dialog` popup
- *   still receives initial focus on its first focusable element (the
- *   calendar grid).
+ * - `DatePicker`: renders its calendar grid in the Select menu.
  *
  * - `TimePicker`: opens a `role="listbox"` of times. The WAI-ARIA APG
  *   Combobox Pattern carve-out applies, so DOM focus stays on the
@@ -29,37 +25,25 @@ test.beforeEach(async ({ skipAxeCheck }) => {
 });
 
 test.describe('DatePicker top-layer — initial focus matrix', () => {
-	test('opening the calendar (role="dialog") focuses the first focusable inside the dialog, not the combobox input', async ({
-		page,
-	}) => {
+	test('opening the calendar from the input keeps focus on the combobox', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../../examples/10-date-picker-states.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 
 		const container = page.getByTestId('datepicker-1--container');
-		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
+		const combobox = container.getByRole('combobox');
+		const calendar = page.getByRole('grid');
 
 		await expect(calendar).toBeHidden();
-		await container.click();
+		await combobox.click();
 		await expect(calendar).toBeVisible();
-
-		// DatePicker calendar is role="dialog"; combobox carve-out does not
-		// apply. Focus moves into the first focusable element of the dialog
-		// (the calendar grid).
-		const focused = page.locator(':focus');
-		await expect(focused).toBeVisible();
-		// The focused element must live inside the dialog rather than the
-		// combobox input outside it.
-		const focusedIsInsideDialog = await focused.evaluate((node) => {
-			const dialog = document.querySelector('[role="dialog"][aria-label="calendar"]');
-			return Boolean(dialog && dialog.contains(node));
-		});
-		expect(focusedIsInsideDialog).toBe(true);
+		await expect(combobox).toBeFocused();
 	});
 });
 
@@ -73,6 +57,7 @@ test.describe('TimePicker top-layer — initial focus matrix', () => {
 			'time-picker-states',
 			{
 				featureFlag,
+				'react-18-mode': 'modern',
 			},
 		);
 

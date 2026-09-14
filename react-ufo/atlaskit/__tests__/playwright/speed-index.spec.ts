@@ -7,6 +7,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('speed index', () => {
 	test.use({
 		examplePage: 'basic',
+	} satisfies {
+		examplePage: 'basic';
+		__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 	});
 
 	test('the page reports speed index', async ({ page, waitForReactUFOPayload }) => {
@@ -37,6 +40,9 @@ test.describe('speed index', () => {
 test.describe('speed index - fy26.04 revision', () => {
 	test.use({
 		examplePage: 'basic',
+	} satisfies {
+		examplePage: 'basic';
+		__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 	});
 
 	for (const viewport of viewports) {

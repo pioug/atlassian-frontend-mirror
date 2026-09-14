@@ -5,10 +5,10 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
 import * as svgRendererModule from '../media-svg/svgRenderer-compiled';
-import { failDataURIConversionOnce } from '../test-helpers';
+import { failDataURIConversionOnce } from '../test-helpers/mockFileReader';
 
 import { createMockedMediaClientProvider } from './__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
-import { MediaSVGError } from './errors';
+import { MediaSVGError } from './MediaSVGError';
 
 import MediaSvg from './index';
 
@@ -93,12 +93,12 @@ describe('MediaSvg', () => {
 		expect(elem.style.backgroundColor).toBe(style.backgroundColor);
 
 		fireEvent.load(elem);
-		expect(onLoad).toBeCalledTimes(1);
+		expect(onLoad).toHaveBeenCalledTimes(1);
 
 		fireEvent.mouseDown(elem);
-		expect(onMouseDown).toBeCalledTimes(1);
+		expect(onMouseDown).toHaveBeenCalledTimes(1);
 
-		expect(mediaApi.getFileBinary).toBeCalledTimes(1);
+		expect(mediaApi.getFileBinary).toHaveBeenCalledTimes(1);
 	});
 
 	it('should refetch the file when the identifier changes', async () => {
@@ -147,7 +147,7 @@ describe('MediaSvg', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		await waitFor(() => expect(onError).toBeCalledTimes(1));
+		await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
 		expect(onError).toHaveBeenCalledWith(error);
 	});
 
@@ -170,7 +170,7 @@ describe('MediaSvg', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		await waitFor(() => expect(onError).toBeCalledTimes(1));
+		await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
 		expect(onError).toHaveBeenCalledWith(error);
 	});
 
@@ -194,7 +194,7 @@ describe('MediaSvg', () => {
 		const img = (await screen.findByTestId(testId)) as unknown as HTMLImageElement;
 		fireEvent.error(img);
 
-		await waitFor(() => expect(onError).toBeCalledTimes(1));
+		await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
 		expect(onError).toHaveBeenCalledWith(error);
 	});
 
@@ -217,7 +217,7 @@ describe('MediaSvg', () => {
 
 		const elem = (await screen.findByTestId(testId)) as unknown as HTMLImageElement;
 		expect(elem.getAttribute('data-source')).toBe('local');
-		expect(mediaApi.getFileBinary).toBeCalledTimes(0);
+		expect(mediaApi.getFileBinary).toHaveBeenCalledTimes(0);
 	});
 
 	// Cannot spy on the `SvgRenderer` property because it is not a function; object given instead.
@@ -241,6 +241,6 @@ describe('MediaSvg', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		await waitFor(() => expect(onError).toBeCalledTimes(1));
+		await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
 	});
 });

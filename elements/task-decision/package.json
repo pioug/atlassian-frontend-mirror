@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "21.8.0",
+	"version": "21.9.21",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,11 +18,11 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/url-search-params": "root:*",
 		"date-fns": "root:*",
-		"enzyme": "root:*",
 		"fetch-mock": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
@@ -81,18 +81,5 @@
 		"react-dom": "^18.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0",
 		"url-search-params": "^0.10.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"tree-shaking": []
-		},
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"compiled"
-			]
-		}
 	}
 }

@@ -35,7 +35,16 @@ const findSegment = (node: SegmentItem, targetName: string): SegmentItem | null 
 test.describe('ReactUFO: GenAI Segment', () => {
 	test.use({
 		examplePage: 'gen-ai-segment',
+		featureFlags: ['platform_ufo_emit_metric_variant_holds'],
 		viewport: { width: 1920, height: 1080 },
+	} satisfies {
+		examplePage: 'gen-ai-segment';
+		featureFlags: string[];
+		viewport: {
+			width: number;
+			height: number;
+		};
+		__exampleDependency?: typeof import('../../examples/41-gen-ai-segment.tsx');
 	});
 
 	test('GenAI segment should be present in the UFO payload and emit include-gen-ai metric window', async ({
@@ -54,6 +63,9 @@ test.describe('ReactUFO: GenAI Segment', () => {
 			};
 
 		const { segments, holdInfo } = interactionMetrics;
+		const metricVariantHoldInfo = interactionMetrics.metricVariantHoldInfo as
+			| Record<string, Array<{ labelStack: string; startTime: number; endTime: number }>>
+			| undefined;
 		const metricWindows = interactionMetrics.metricWindows;
 		expect(segments).toBeDefined();
 		expect(typeof segments).toBe('object');
@@ -78,6 +90,16 @@ test.describe('ReactUFO: GenAI Segment', () => {
 		expect(holdInfo).toBeDefined();
 		expect(holdInfo.some((hold) => hold.labelStack.indexOf('section-two') > -1)).toBe(true);
 		expect(holdInfo.some((hold) => hold.labelStack.indexOf('section-three') > -1)).toBe(false);
+		expect(metricVariantHoldInfo?.['gen-ai']).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					labelStack: expect.stringContaining('section-three'),
+				}),
+			]),
+		);
+		expect(
+			metricVariantHoldInfo?.['gen-ai']?.some((hold) => hold.endTime > interactionMetrics.end),
+		).toBe(true);
 
 		expect(metricWindows?.standard).toEqual({
 			start: interactionMetrics.start,

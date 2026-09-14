@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/frontend-utilities",
-	"version": "4.1.0",
+	"version": "4.4.0",
 	"description": "Collecton of small useful frontend utilities",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,25 +37,38 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./convert-to-error": "./src/error-handling/convert-to-error/index.ts",
+		"./convert-to-error/main": "./src/error-handling/convert-to-error/main.ts",
+		"./convert-to-error": "./src/error-handling/convert-to-error/main.ts",
+		"./convertToError": "./src/error-handling/convert-to-error/convertToError.ts",
+		"./hooks/use-interval": "./src/hooks/use-interval/index.ts",
+		"./hooks/use-local-storage": "./src/hooks/use-local-storage/index.ts",
+		"./hooks/use-previous": "./src/hooks/use-previous/index.ts",
+		"./hooks/use-why-did-update": "./src/hooks/use-why-did-update/index.tsx",
 		"./hooks": "./src/hooks/index.ts",
+		"./local-storage/main": "./src/storage/local-storage/main.ts",
+		"./local-storage": "./src/storage/local-storage/main.ts",
+		"./retry-operation/constants": "./src/network/retry-operation/constants.ts",
+		"./retry-operation/FailedFetchError": "./src/network/retry-operation/errors/FailedFetchError.ts",
+		"./retry-operation/main": "./src/network/retry-operation/main.ts",
+		"./retry-operation/retry-on-exception": "./src/network/retry-operation/retry-on-exception.ts",
+		"./retry-operation/types": "./src/network/retry-operation/types.ts",
+		"./retry-operation/wait": "./src/network/retry-operation/wait.ts",
+		"./retry-operation": "./src/network/retry-operation/index.ts",
+		"./simple-hash": "./src/utils/simple-hash/index.ts",
+		"./storage-client/constants": "./src/storage/storage-client/constants.ts",
+		"./storage-client/main": "./src/storage/storage-client/main.ts",
+		"./storage-client/types": "./src/storage/storage-client/types.ts",
+		"./storage-client": "./src/storage/storage-client/main.ts",
+		"./StorageClient": "./src/storage/storage-client/StorageClient.ts",
 		"./use-interval": "./src/hooks/use-interval/index.ts",
 		"./use-previous": "./src/hooks/use-previous/index.ts",
 		"./use-why-did-update": "./src/hooks/use-why-did-update/index.tsx",
-		"./retry-operation": "./src/network/retry-operation/index.ts",
-		"./local-storage": "./src/storage/local-storage/index.ts",
-		"./storage-client": "./src/storage/storage-client/index.ts",
-		"./simple-hash": "./src/utils/simple-hash/index.ts",
-		"./convert-to-error/main": "./src/entry-points/convert-to-error-main.ts",
-		"./hooks/use-interval": "./src/entry-points/hooks-use-interval.ts",
-		"./hooks/use-local-storage": "./src/entry-points/hooks-use-local-storage.ts",
-		"./hooks/use-previous": "./src/entry-points/hooks-use-previous.ts",
-		"./hooks/use-why-did-update": "./src/entry-points/hooks-use-why-did-update.tsx",
-		"./local-storage/main": "./src/entry-points/local-storage-main.ts",
-		"./retry-operation/constants": "./src/entry-points/retry-operation-constants.ts",
-		"./retry-operation/FailedFetchError": "./src/entry-points/retry-operation-FailedFetchError.ts",
-		"./retry-operation/main": "./src/entry-points/retry-operation-main.ts",
-		"./storage-client/main": "./src/entry-points/storage-client-main.ts"
+		"./useInterval": "./src/hooks/use-interval/useInterval.ts",
+		"./useLocalStorage": "./src/hooks/use-local-storage/useLocalStorage.ts",
+		"./useLocalStorageRecord": "./src/hooks/use-local-storage/useLocalStorageRecord.ts",
+		"./usePrevious": "./src/hooks/use-previous/usePrevious.ts",
+		"./useWhyDidUpdate": "./src/hooks/use-why-did-update/useWhyDidUpdate.tsx",
+		"./useWhyDidUpdateShallow": "./src/hooks/use-why-did-update/useWhyDidUpdateShallow.tsx"
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit"
@@ -67,37 +80,5 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
 	}
 }

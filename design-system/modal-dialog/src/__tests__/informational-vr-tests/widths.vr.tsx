@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import Width from '../../../examples/50-width';
+import Width from '../../../examples/50-width.vr.ap';
 
 snapshotInformational(Width, {
 	description: 'Width - size small',

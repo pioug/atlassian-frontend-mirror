@@ -1,8 +1,8 @@
 import { useEffect, type ForwardRefExoticComponent, type RefAttributes } from 'react';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 
-import { logToSentry } from '../../../hooks/useErrorLogger';
+import { logToSentry } from '../../../hooks/logToSentry';
 import { componentMetadata } from '../../constants';
 import { useDatasourceAnalyticsEvents } from '../../index';
 

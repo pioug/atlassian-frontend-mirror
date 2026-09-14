@@ -2,10 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { Fragment } from 'react';
+
 import { css, jsx } from '@compiled/react';
+
 import { token } from '@atlaskit/tokens';
-import { formatShortcut, type Keymap } from '../../util/keymaps';
+
+import { formatShortcut } from '../../util/format-shortcut';
+import type { Keymap } from '../../util/keymaps';
 
 const tooltipShortcutStyle = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage

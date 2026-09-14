@@ -74,16 +74,16 @@ top-layer path.
 
 #### B. Keyboard navigation gaps (8 gaps across 5 packages)
 
-| Package           | Gap                                                                             |
-| ----------------- | ------------------------------------------------------------------------------- |
-| `dropdown-menu`   | Auto-focus skipping disabled first items untested in top-layer                  |
-| `avatar-group`    | Arrow key wrap-around behavior not explicitly tested (intentional new behavior) |
-| `tooltip`         | Escape key dismissal only in browser tests, not unit tests                      |
-| `tooltip`         | hideTooltipOnClick / hideTooltipOnMouseDown untested in top-layer               |
-| `datetime-picker` | ArrowDown/ArrowUp focusing current date untested                                |
-| `datetime-picker` | Tab navigation through calendar elements untested                               |
-| `datetime-picker` | Calendar button keyboard activation untested                                    |
-| `menu`            | Arrow-key navigation / roving focus untested in top-layer context               |
+| Package           | Gap                                                                                                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `dropdown-menu`   | Auto-focus skipping disabled first items untested in top-layer                                                                                                                 |
+| `avatar-group`    | Arrow key wrap-around behavior not explicitly tested (intentional new behavior)                                                                                                |
+| `tooltip`         | Escape key dismissal only in browser tests, not unit tests                                                                                                                     |
+| `tooltip`         | hideTooltipOnClick / hideTooltipOnMouseDown untested in top-layer _[resolved 2026-08-12: `tooltip-pointer-dismissal.test.tsx` covers both props plus native `hint` dismissal]_ |
+| `datetime-picker` | ArrowDown/ArrowUp focusing current date untested                                                                                                                               |
+| `datetime-picker` | Tab navigation through calendar elements untested                                                                                                                              |
+| `datetime-picker` | Calendar button keyboard activation untested                                                                                                                                   |
+| `menu`            | Arrow-key navigation / roving focus untested in top-layer context                                                                                                              |
 
 #### C. Nesting behavior gaps (4 gaps)
 
@@ -165,7 +165,10 @@ These are documented, intentional improvements or accepted trade-offs:
 ### Dismiss behavior
 
 - **tooltip**: Now closes on click-outside via `popover="auto"` light dismiss (in addition to
-  mouse-leave/blur)
+  mouse-leave/blur) _[superseded 2026-08-12: tooltip uses `popover="hint"`, which keeps it out of
+  the `auto` dismissal stack. Dismissal lands on pointerup for a press anywhere outside the popover,
+  including the trigger, and the tooltip stays dismissed until the trigger is re-entered. See
+  [tooltip-pointer-dismissal.md](./tooltip-pointer-dismissal.md)]_
 - **flag**: No light dismiss (uses `popover="manual"` intentionally)
 - **popup**: `shouldUseCaptureOnOutsideClick` replaced by native light dismiss
 
@@ -178,7 +181,7 @@ These are documented, intentional improvements or accepted trade-offs:
 - **spotlight**: Along-axis offset silently dropped _[superseded 2026-04-21: cross-axis shift now
   forwarded via `fromLegacyPlacement` on the CSS path; see `placement-offset.md` and
   `spotlight-migration.md`]_
-- **tooltip**: `aria-controls` not wired in standalone `Popup.Content` mode
+- **tooltip**: `aria-controls` not wired in the standalone `Popover` composition
 - **modal-dialog**: Exit animation via CSS `@starting-style` instead of `@atlaskit/motion`
 
 ---
@@ -292,7 +295,8 @@ hideTooltipOnMouseDown, custom component prop, analytics events, drag awareness,
 behavior, aria-describedby wiring, multiple tooltip transitions, keyboard shortcut rendering,
 configurable hide delay, canAppear gating, isScreenReaderAnnouncementDisabled, tag prop.
 
-**Known gap:** `aria-controls` not wired from trigger to tooltip in standalone `Popup.Content` mode.
+**Known gap:** `aria-controls` not wired from trigger to tooltip in the standalone `Popover`
+composition.
 
 ---
 
@@ -462,7 +466,7 @@ i18n/locale. New VR tests added for disabled state and overflow positioning with
 
 9. **Screen reader testing matrix** — no package has been tested with JAWS/NVDA/VoiceOver. This is a
    known gap across all migrations.
-10. **`aria-controls` in standalone `Popup.Content` mode** — tooltip and spotlight don't wire
+10. **`aria-controls` in the standalone `Popover` composition** — tooltip and spotlight do not wire
     `aria-controls` from trigger to popover. Consider adding this to the top-layer primitives.
 11. **Mixed-stack testing** — verify behavior when legacy-path components interact with
     top-layer-path components (e.g., legacy tooltip inside top-layer modal).

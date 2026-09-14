@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "16.3.0",
+	"version": "16.12.0",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,9 +32,9 @@
 	},
 	"scripts": {
 		"prebuilt": "yes | cp -R $(npx repo-root)/packages/design-system/tokens/dist/cjs/* $(npx repo-root)/packages/design-system/tokens/prebuilt/",
-		"ak-postbuild": "yarn prebuilt && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
+		"ak-postbuild": "yarn prebuilt && afm workspace @atlaskit/tokens codegen-tokens && afm workspace @atlaskit/tokens check-clean-git",
 		"check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-		"codegen-tokens": "run-ts ./scripts/style-dictionary/build.tsx && run-ts ./scripts/style-dictionary/build-plugin-token-map.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles"
+		"codegen-tokens": "yarn run -T run-ts ./scripts/style-dictionary/build.tsx && yarn run -T run-ts ./scripts/style-dictionary/build-plugin-token-map.tsx && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles && cd $(npx repo-root)/packages/design-system/ds-explorations && yarn codegen-styles"
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
@@ -79,7 +79,7 @@
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
-		"@atlassian/ts-loader": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@babel/core": "root:*",
 		"@compiled/react": "root:*",
 		"@hypermod/utils": "root:*",
@@ -96,21 +96,6 @@
 		"react-window": "root:*",
 		"style-dictionary": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions",
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled"
-			]
-		}
-	},
 	"hypermod": {
 		"dependencies": [
 			"@hypermod/utils",
@@ -120,41 +105,64 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./artifacts/theme-import-map": "./src/entry-points/artifacts-theme-import-map.tsx",
-		"./artifacts/types": "./src/entry-points/artifacts-types.tsx",
+		"./artifacts/theme-import-map": "./src/artifacts/theme-import-map.tsx",
+		"./artifacts/types": "./src/artifacts/types.tsx",
+		"./atlassian-dark": "./src/artifacts/tokens-raw/atlassian-dark.tsx",
+		"./atlassian-light": "./src/artifacts/tokens-raw/atlassian-light.tsx",
+		"./atlassian-motion": "./src/artifacts/tokens-raw/atlassian-motion.tsx",
+		"./atlassian-shape": "./src/artifacts/tokens-raw/atlassian-shape.tsx",
+		"./atlassian-spacing": "./src/artifacts/tokens-raw/atlassian-spacing.tsx",
+		"./atlassian-typography": "./src/artifacts/tokens-raw/atlassian-typography.tsx",
 		"./babel-plugin": {
-			"types": "./src/entry-points/babel-plugin.tsx",
-			"publish": "./src/entry-points/babel-plugin.tsx",
+			"types": "./src/babel-plugin/plugin.tsx",
+			"publish": "./src/babel-plugin/plugin.tsx",
 			"default": "./babel-plugin.js"
 		},
-		"./constants": "./src/entry-points/constants.tsx",
+		"./constants": "./src/constants.tsx",
 		"./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx",
-		"./custom-themes": "./src/entry-points/custom-themes.tsx",
-		"./enable-global-theme": "./src/entry-points/enable-global-theme.tsx",
+		"./custom-themes": "./src/load-custom-theme-styles.tsx",
+		"./enable-global-theme": "./src/enable-global-theme.tsx",
 		"./figma/atlassian-dark.json": "./figma/atlassian-dark.json",
 		"./figma/atlassian-light.json": "./figma/atlassian-light.json",
-		"./get-global-theme": "./src/entry-points/get-global-theme.tsx",
-		"./get-ssr-auto-script": "./src/entry-points/get-ssr-auto-script.tsx",
-		"./get-theme-html-attrs": "./src/entry-points/get-theme-html-attrs.tsx",
-		"./get-theme-styles": "./src/entry-points/get-theme-styles.tsx",
-		"./get-token-value": "./src/entry-points/get-token-value.tsx",
-		"./get-token": "./src/entry-points/get-token.tsx",
+		"./get-global-theme": "./src/get-global-theme.tsx",
+		"./get-ssr-auto-script": "./src/get-ssr-auto-script.tsx",
+		"./get-theme-html-attrs": "./src/get-theme-html-attrs.tsx",
+		"./get-theme-styles": "./src/get-theme-styles.tsx",
+		"./get-token": "./src/get-token.tsx",
+		"./get-token-value": "./src/get-token-value.tsx",
+		"./palette": "./src/artifacts/palettes-raw/palette.tsx",
 		"./palettes-raw": "./src/entry-points/palettes-raw.tsx",
-		"./rename-mapping": "./src/entry-points/rename-mapping.tsx",
-		"./set-global-theme": "./src/entry-points/set-global-theme.tsx",
-		"./theme-config": "./src/entry-points/theme-config.tsx",
-		"./theme-mutation-observer": "./src/entry-points/theme-mutation-observer.tsx",
+		"./rename-mapping": "./src/artifacts/replacement-mapping.tsx",
+		"./set-global-theme": "./src/set-global-theme.tsx",
+		"./theme-color-modes": "./src/theme-color-modes.tsx",
+		"./theme-config": "./src/theme-config.tsx",
+		"./theme-ids": "./src/theme-ids.tsx",
+		"./theme-mutation-observer": "./src/theme-mutation-observer.tsx",
+		"./theme-object-to-string": "./src/theme-object-to-string.tsx",
+		"./theme-options-schema": "./src/theme-options-schema.tsx",
+		"./theme-state": "./src/theme-state.tsx",
+		"./theme-state-defaults": "./src/theme-state-defaults.tsx",
 		"./theme-state-transformer": "./src/entry-points/theme-state-transformer.tsx",
-		"./token-default-values": "./src/entry-points/token-default-values.tsx",
-		"./token-ids": "./src/entry-points/token-ids.tsx",
+		"./theme-string-to-object": "./src/theme-string-to-object.tsx",
+		"./token": "./src/index.tsx",
+		"./token-default-values": "./src/artifacts/token-default-values.tsx",
+		"./token-ids": "./src/utils/token-ids.tsx",
 		"./token-metadata": "./src/entry-points/token-metadata.codegen.tsx",
-		"./token-names": "./src/entry-points/token-names.tsx",
-		"./token-order": "./src/entry-points/token-order.tsx",
+		"./token-names": "./src/artifacts/token-names.tsx",
+		"./token-order": "./src/utils/token-order.tsx",
 		"./tokens-raw": "./src/entry-points/tokens-raw.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		"./use-theme-observer": "./src/entry-points/use-theme-observer.tsx"
+		"./types": "./src/types.tsx",
+		"./typography-palette": "./src/artifacts/palettes-raw/typography-palette.tsx",
+		"./unsafe-load-custom-theme-styles": "./src/unsafe-load-custom-theme-styles.tsx",
+		"./use-theme-observer": "./src/use-theme-observer.tsx",
+		"./utils/get-css-custom-property": "./src/utils/get-css-custom-property.tsx",
+		"./utils/get-fully-qualified-token-id": "./src/utils/get-fully-qualified-token-id.tsx",
+		"./utils/get-token-id": "./src/utils/get-token-id.tsx"
 	},
 	"platform-feature-flags": {
+		"platform-dst-tokens-finesse": {
+			"type": "boolean"
+		},
 		"platform_increased-contrast-themes": {
 			"type": "boolean"
 		},

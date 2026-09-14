@@ -1,5 +1,3 @@
-import { useIntl } from 'react-intl';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import React, {
 	useCallback,
 	useEffect,
@@ -8,16 +6,13 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
-import {
-	customCategory,
-	defaultEmojiPickerSize,
-	emojiPickerPreviewHeight,
-	frequentCategory,
-	searchCategory,
-	userCustomTitle,
-	yourUploadsCategory,
-} from '../../util/constants';
+import { useIntl } from 'react-intl';
+
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+
+import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,
@@ -31,39 +26,46 @@ import type {
 	User,
 } from '../../types';
 import {
+	customCategory,
+	defaultEmojiPickerSize,
+	emojiPickerPreviewHeight,
+	frequentCategory,
+	searchCategory,
+	userCustomTitle,
+	yourUploadsCategory,
+} from '../../util/constants';
+import { filterHiddenEmojis } from '../../util/filter-hidden-emojis';
+import {
 	filterProductivityEmojisByColor,
 	getProductivityColorPreviewEmojis,
 	type ProductivityColor,
 } from '../../util/productivity-colors';
-import { filterHiddenEmojis } from '../../util/hidden-emojis';
+import EmojiActions from '../common/EmojiActions';
+import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
+import type { OnUploadEmoji } from '../common/EmojiUploadPicker';
+import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
+import { messages } from '../i18n';
 import {
 	CategoryDescriptionMap,
 	CategoryDescriptionMapNew,
 	type CategoryGroupKey,
 	type CategoryId,
 } from './categories';
+import { CategoryHeadingItem } from './CategoryHeadingItem';
 import CategoryTracker from './CategoryTracker';
-import { sizes } from './EmojiPickerSizes';
-import type * as Items from './EmojiPickerVirtualItems';
-import {
-	CategoryHeadingItem,
-	EmojisRowItem,
-	LoadingItem,
-	NoResultsItem,
-	type VirtualItem,
-	virtualItemRenderer,
-} from './EmojiPickerVirtualItems';
-import EmojiActions from '../common/EmojiActions';
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import type { OnUploadEmoji } from '../common/EmojiUploadPicker';
-import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
-import { emojiPickerHeightOffset, scrollToRow } from './utils';
 import type { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
 import type { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
-import { type ListRef, VirtualList } from './VirtualList';
-import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
+import { sizes } from './EmojiPickerSizes';
 import EmojiPickerTabPanel from './EmojiPickerTabPanel';
-import { messages } from '../i18n';
+import type * as Items from './EmojiPickerVirtualItems';
+import type { VirtualItem } from './EmojiPickerVirtualItems';
+import { EmojisRowItem } from './EmojisRowItem';
+import { LoadingItem } from './LoadingItem';
+import { NoResultsItem } from './NoResultsItem';
+import { type ListRef, VirtualList } from './VirtualList';
+import { emojiPickerHeightOffset } from './emojiPickerHeightOffset';
+import { scrollToRow } from './scrollToRow';
+import { virtualItemRenderer } from './virtualItemRenderer';
 
 /**
  * Test id for wrapper Emoji Picker List div
@@ -71,22 +73,6 @@ import { messages } from '../i18n';
 export const RENDER_EMOJI_PICKER_LIST_TESTID = 'render-emoji-picker-list';
 
 const categoryClassname = 'emoji-category';
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		teamojiRefreshExperimentName,
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
 
 const atlassianCategory = 'ATLASSIAN' as CategoryGroupKey;
 const productivityAtlassianSubcategory = 'Productivity';
@@ -109,11 +95,11 @@ export interface Props {
 	activeCategoryId?: CategoryId | null;
 	/** Current Confluence page content id, enables AI emoji generation. */
 	contentId?: string;
-	/** Fires analytics events (used by AI emoji generation). */
-	fireAnalytics?: (event: AnalyticsEventPayload) => void;
 	currentUser?: User;
 	emojis: EmojiDescription[];
 	emojiToDelete?: EmojiDescription;
+	/** Fires analytics events (used by AI emoji generation). */
+	fireAnalytics?: (event: AnalyticsEventPayload) => void;
 	initialUploadName?: string;
 	loading?: boolean;
 	onCategoryActivated?: OnCategory;

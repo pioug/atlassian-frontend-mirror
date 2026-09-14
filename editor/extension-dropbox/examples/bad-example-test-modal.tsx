@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Button from '@atlaskit/button/new';
-import SectionMessage from '@atlaskit/section-message';
+import Button from '@atlaskit/button/default/button';
+import SectionMessage from '@atlaskit/section-message/message';
 import Modal from '../src/modal';
 
 export default (): React.JSX.Element => {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5bd026d27282a90cddcd834d02167bda>>
+ * @codegen <<SignedSource::f4b182d9d48a549553d350cc8a211d36>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 121 32">
  *
  */
 export function HomeLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Home',
 	testId,

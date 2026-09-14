@@ -1,8 +1,11 @@
 import React, { type SyntheticEvent, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Code } from '@atlaskit/code';
-import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import Button from '@atlaskit/button/default/button';
+import Code from '@atlaskit/code/code';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import InlineMessage from '@atlaskit/inline-message';
 
 const DrawersExample = (): React.JSX.Element => {

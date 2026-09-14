@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { PopupSelect } from '@atlaskit/select';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 
 const options = [
 	{ label: 'accessibility', value: 'accessibility' },

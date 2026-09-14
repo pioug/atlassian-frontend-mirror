@@ -1,10 +1,10 @@
 import React, { useRef, useLayoutEffect, useEffect, Suspense } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Popper as ReactPopper } from '@atlaskit/popper';
-import type { PopperChildrenProps } from '@atlaskit/popper';
-import Portal from '@atlaskit/portal';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Popper as ReactPopper } from '@atlaskit/popper/main';
+import type { PopperChildrenProps, Placement } from '@atlaskit/popper/main';
+import Portal from '@atlaskit/portal/portal';
 import { layers } from '@atlaskit/theme/constants';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
@@ -15,6 +15,19 @@ interface Props {
 	 * Returns the element to be positioned.
 	 */
 	children: React.ReactNode;
+	/**
+	 * When true, the popup does not trap focus.
+	 */
+	disableFocusTrap?: boolean;
+	/**
+	 * Popper offset. Defaults to `[0, 8]`.
+	 */
+	offset?: [number, number];
+	/**
+	 * Where to place the popup relative to the reference element.
+	 * Defaults to `bottom-end`.
+	 */
+	placement?: Placement;
 	/**
 	 * Replacement reference element to position popper relative to.
 	 */
@@ -96,22 +109,28 @@ function useResizeAwarePopper({
  * @param children React.ReactNode - Returns the element to be positioned.
  * @returns React popper component
  */
-export function Popup({ referenceElement, children }: Props): React.JSX.Element {
+export function Popup({
+	referenceElement,
+	children,
+	placement = 'bottom-end',
+	offset = [0, 8],
+	disableFocusTrap = false,
+}: Props): React.JSX.Element {
 	const [targetRef, setPopupRef] = React.useState<HTMLDivElement | null>(null);
 
-	useFocusTrap({ targetRef: targetRef });
+	useFocusTrap({ targetRef: targetRef, enabled: !disableFocusTrap });
 	return (
 		<Suspense>
 			<Portal zIndex={layers.modal()}>
 				<ReactPopper
 					referenceElement={referenceElement}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					offset={[0, 8]}
-					placement="bottom-end"
+					offset={offset}
+					placement={placement}
 					strategy="fixed"
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					modifiers={
-						expVal('platform_editor_agent_mentions', 'isEnabled', false)
+						expVal('platform_editor_agent_mentions', 'isEnabled', false) ||
+						fg('platform_editor_agent_card_fixes')
 							? [
 									{ name: 'flip', options: { rootBoundary: 'viewport', padding: 5 } },
 									{ name: 'preventOverflow', options: { rootBoundary: 'viewport', padding: 5 } },
@@ -125,7 +144,8 @@ export function Popup({ referenceElement, children }: Props): React.JSX.Element 
 							style={style}
 							update={update}
 							forceUpdate={
-								expVal('platform_editor_agent_mentions', 'isEnabled', false)
+								expVal('platform_editor_agent_mentions', 'isEnabled', false) ||
+								fg('platform_editor_agent_card_fixes')
 									? forceUpdate
 									: undefined
 							}

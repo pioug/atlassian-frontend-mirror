@@ -5,34 +5,37 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ColorScheme, DiffType } from '../../showDiffPluginType';
+import type { DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
 import {
-	addedCellOverlayStyle,
-	addedCellOverlayRoundedStyle,
-	deletedRowStyle,
-	deletedCellOverlayStyle,
-} from './colorSchemes/standard';
+	buildAddedCellOverlayRoundedStyle,
+	buildAddedCellOverlayStyle,
+	buildDeletedCellOverlayRoundedStyle,
+	buildDeletedCellOverlayStyle,
+	buildDeletedRowStyle,
+} from './colorSchemes/factory';
+import { colorSchemeRegistry, getLegacyColorScheme } from './colorSchemes/schemes';
+import type { ColorScheme } from './colorSchemes/types';
 import {
-	deletedTraditionalRowStyle,
-	deletedTraditionalCellOverlayStyle,
-	traditionalAddedCellOverlayStyle,
-	traditionalAddedCellOverlayRoundedStyle,
-} from './colorSchemes/traditional';
+	resolveCellOverlayStyleLegacy,
+	resolveDeletedRowStyleLegacy,
+} from './createChangedRowDecorationWidgets.styles.legacy';
 import { buildDiffDecorationSpec } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import {
 	applyCellEdgeAttrs,
 	getRowCellEdgeAttrs,
+	getTableTopAndBottomCellEdgeAttrs,
 	type CellEdgeAttrs,
 } from './utils/tableCellEdgeAttrs';
 
 interface RowInfo {
-	cellEdgeAttrs?: CellEdgeAttrs[];
+	cellEdgeAttrs?: Array<CellEdgeAttrs | undefined>;
 	fromA: number;
 	fromB: number;
 	rowIndex: number;
@@ -89,6 +92,12 @@ const extractChangedRows = ({
 	// Find which rows were changed by analyzing the change range
 	const changeStartInTable = change.fromA - tableOld.pos - 1;
 	const changeEndInTable = change.toA - tableOld.pos - 1;
+	const edgeAttrsByOffset =
+		isExtendedEnabled(diffType) &&
+		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+		isExperimentEnabled('platform_editor_table_diff_rounded_corners')
+			? getTableTopAndBottomCellEdgeAttrs(oldTableMap)
+			: undefined;
 
 	let currentOffset = 0;
 	let rowIndex = 0;
@@ -108,12 +117,9 @@ const extractChangedRows = ({
 			rowNode.type.name === 'tableRow' &&
 			(isExtendedEnabled(diffType) || !isEmptyRow(rowNode))
 		) {
-			const cellEdgeAttrs =
-				isExtendedEnabled(diffType) &&
-				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-				expValEquals('platform_editor_table_diff_rounded_corners', 'isEnabled', true)
-					? getRowCellEdgeAttrs({ rowNode, rowStart, tableMap: oldTableMap })
-					: undefined;
+			const cellEdgeAttrs = edgeAttrsByOffset
+				? getRowCellEdgeAttrs({ edgeAttrsByOffset, rowNode, rowStart })
+				: undefined;
 
 			const startOfRow = newTableMap.mapByRow
 				.slice()
@@ -181,25 +187,22 @@ const isEmptyRow = (rowNode: PMNode): boolean => {
  */
 const createChangedRowDOM = (
 	rowNode: PMNode,
-	cellEdgeAttrs: CellEdgeAttrs[] | undefined,
+	cellEdgeAttrs: Array<CellEdgeAttrs | undefined> | undefined,
 	nodeViewSerializer: NodeViewSerializer,
 	colorScheme?: ColorScheme,
 	isInserted?: boolean,
 	diffType?: DiffType,
 ): HTMLTableRowElement => {
 	const tr = document.createElement('tr');
+	const colors = colorSchemeRegistry[colorScheme ?? 'standard'];
 
-	if (isExtendedEnabled(diffType)) {
-		if (!isInserted) {
-			tr.setAttribute(
-				'style',
-				colorScheme === 'traditional' ? deletedTraditionalRowStyle : deletedRowStyle,
-			);
-		}
-	} else {
+	// Inserted rows keep their natural styling; the row strikethrough is deletions only.
+	if (!isExtendedEnabled(diffType) || !isInserted) {
 		tr.setAttribute(
 			'style',
-			colorScheme === 'traditional' ? deletedTraditionalRowStyle : deletedRowStyle,
+			isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
+				? buildDeletedRowStyle(colors)
+				: resolveDeletedRowStyleLegacy(getLegacyColorScheme(colorScheme)),
 		);
 	}
 	tr.setAttribute('data-testid', 'show-diff-deleted-row');
@@ -215,25 +218,25 @@ const createChangedRowDOM = (
 
 					if (isExtendedEnabled(diffType)) {
 						const overlay = document.createElement('span');
-						const isRoundedTable = expValEquals(
+						const isRoundedTable = isExperimentEnabled(
 							'platform_editor_table_diff_rounded_corners',
-							'isEnabled',
-							true,
 						);
-						const isTraditional = colorScheme === 'traditional';
-						const deletedCellStyle = isTraditional
-							? deletedTraditionalCellOverlayStyle
-							: deletedCellOverlayStyle;
 
-						const addedCellStyle = isTraditional
-							? isRoundedTable
-								? traditionalAddedCellOverlayRoundedStyle
-								: traditionalAddedCellOverlayStyle
-							: isRoundedTable
-								? addedCellOverlayRoundedStyle
-								: addedCellOverlayStyle;
-
-						const overlayStyle = isInserted ? addedCellStyle : deletedCellStyle;
+						const overlayStyle = isExperimentEnabled(
+							'platform_editor_show_diff_color_scheme_refactor',
+						)
+							? isInserted
+								? isRoundedTable
+									? buildAddedCellOverlayRoundedStyle(colors)
+									: buildAddedCellOverlayStyle(colors)
+								: isRoundedTable
+									? buildDeletedCellOverlayRoundedStyle(colors)
+									: buildDeletedCellOverlayStyle(colors)
+							: resolveCellOverlayStyleLegacy({
+									colorScheme: getLegacyColorScheme(colorScheme),
+									isInserted,
+									isRoundedTable,
+								});
 
 						overlay.setAttribute('style', overlayStyle);
 						nodeView.appendChild(overlay);

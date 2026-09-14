@@ -6,8 +6,8 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Label } from '@atlaskit/form';
-import Select from '@atlaskit/react-select';
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/react-select/state-manager';
 
 const options = [
 	{ label: 'Adelaide', value: 'adelaide' },

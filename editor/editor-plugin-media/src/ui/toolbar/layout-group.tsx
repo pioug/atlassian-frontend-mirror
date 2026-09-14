@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 import type { Command, FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import {
 	FloatingToolbarButton as Button,

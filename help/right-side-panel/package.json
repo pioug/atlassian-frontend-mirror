@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/right-side-panel",
-	"version": "5.0.2",
+	"version": "5.1.0",
 	"description": "A cross-product right-side-panel component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,7 +22,10 @@
 		"./styled": "./src/entry-points/styled.tsx"
 	},
 	"atlassian": {
-		"team": "Self-Help Experiences",
+		"team": "PACE PS2",
+		"slack": {
+			"channel": "#pace-ps2"
+		},
 		"website": {
 			"name": "Right Side Panel"
 		}
@@ -41,10 +44,9 @@
 	},
 	"devDependencies": {
 		"@atlaskit/page": "workspace:^",
-		"@testing-library/react": "root:*",
+		"@atlassian/testing-library": "workspace:^",
 		"@types/exenv": "root:*",
 		"@types/react-transition-group": "root:*",
-		"enzyme": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-intl": "root:*",
@@ -56,16 +58,5 @@
 		"ui",
 		"core",
 		"panel"
-	],
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"compiled"
-			]
-		}
-	}
+	]
 }

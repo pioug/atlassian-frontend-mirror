@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { InternalActionName } from '../../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import { Provider } from '../../../elements';
+import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { default as Provider } from '../../../elements/provider-element';
 import Block from '../../block';
 import type { AIFooterBlockProps } from '../types';
-
 import { AIFooterMetadata } from './ai-footer-metadata';
 
 const AIFooterBlockResolvedView = (props: AIFooterBlockProps): React.JSX.Element => {

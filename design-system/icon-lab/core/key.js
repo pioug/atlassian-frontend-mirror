@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6cb46f9e15855177ad60f079cff0ab8b>>
+ * @codegen <<SignedSource::6ff8a0cfcc868e2d4ec54c8b697ee883>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Key".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const KeyIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const KeyIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "KeyIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 5.5a4 4 0 1 0-7.74 1.424.75.75 0 0 1-.17.797L1.5 12.81v1.69h2.25v-1.25a.75.75 0 0 1 .75-.75h1.25v-1a.75.75 0 0 1 .309-.606l2.203-1.602.08-.052a.75.75 0 0 1 .644-.036A4 4 0 0 0 14.5 5.5m1.5 0a5.5 5.5 0 0 1-7.177 5.237L7.25 11.882v1.368a.75.75 0 0 1-.75.75H5.25v.938c0 .586-.476 1.062-1.062 1.062H1.063A1.063 1.063 0 0 1 0 14.938v-2.31c0-.276.107-.545.31-.748l4.893-4.895A5.5 5.5 0 1 1 16 5.5"/><path fill="currentcolor" d="M11.125 3.75a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

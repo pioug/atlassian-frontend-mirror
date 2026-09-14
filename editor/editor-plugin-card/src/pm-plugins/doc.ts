@@ -1,7 +1,8 @@
 import isEqual from 'lodash/isEqual';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import type { CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type {
 	AnalyticsEventPayload,
 	EditorAnalyticsAPI,
@@ -49,10 +50,10 @@ import type {
 	DatasourceAdf,
 	DatasourceAdfView,
 	InlineCardAdf,
-} from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { closeHistory } from '@atlaskit/prosemirror-history';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+} from '@atlaskit/linking-common/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { CardPluginState, Request } from '../types';
 
@@ -704,13 +705,11 @@ export const setSelectedCardAppearance: (
 		return false;
 	}
 
-	const attrs = editorExperiment('platform_synced_block', true)
-		? getAttrsForAppearance(
-				appearance,
-				selectedNode,
-				state.selection.$from.parent.type.name === 'bodiedSyncBlock',
-			)
-		: getAttrsForAppearance(appearance, selectedNode);
+	const attrs = getAttrsForAppearance(
+		appearance,
+		selectedNode,
+		state.selection.$from.parent.type.name === 'bodiedSyncBlock',
+	);
 
 	const { from, to } = state.selection;
 	const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);

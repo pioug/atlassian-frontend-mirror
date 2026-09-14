@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "6.3.1",
+	"version": "6.8.1",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -70,6 +70,7 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-select": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/smart-user-picker": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -91,6 +92,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/drawer": "workspace:^",
+		"@atlaskit/link-picker": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
@@ -106,44 +108,7 @@
 		"wait-for-expect": "root:*"
 	},
 	"scripts": {
-		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-create run codegen-analytics'"
+		"codegen-analytics": "yarn run ts-analytics-codegen --command='afm workspace @atlaskit/link-create codegen-analytics'"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"theming": [
-				"react-context",
-				"tokens"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"platform-feature-flags": {},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/5ebc0bfb-9b6d-4ec0-adbe-e4d5e88ace44"
 }

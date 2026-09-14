@@ -5,7 +5,7 @@
 import { type ReactNode } from 'react';
 
 import { jsx } from '@atlaskit/css';
-import { Manager } from '@atlaskit/popper';
+import { Manager } from '@atlaskit/popper/manager';
 
 import { SpotlightContextProvider } from '../../controllers/context';
 

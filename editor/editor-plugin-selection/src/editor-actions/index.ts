@@ -3,7 +3,7 @@ import {
 	getLocalIdsFromSelection,
 } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { SelectionPlugin } from '../selectionPluginType';

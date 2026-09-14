@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import TableTree from '@atlaskit/table-tree';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

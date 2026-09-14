@@ -3,7 +3,7 @@ import {
 	NestedTableWithOverflowRenderer,
 	StickyHeaderNestedTableRenderer,
 	NestedTableNumberedColumnRenderer,
-} from './nested-table.fixture';
+} from './nested-table.fixture.vr.ap';
 import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';

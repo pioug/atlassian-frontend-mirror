@@ -1,15 +1,15 @@
 import { type RuleNode } from 'antlr4ts/tree';
 
-import {
-	type JqlChangedOperatorContext,
-	type JqlComparisonOperatorContext,
-	type JqlEqualsOperatorContext,
-	type JqlInOperatorContext,
-	type JqlIsOperatorContext,
-	type JqlLikeOperatorContext,
-	type JqlWasInOperatorContext,
-	type JqlWasOperatorContext,
-} from '@atlaskit/jql-parser';
+import type {
+	JqlChangedOperatorContext,
+	JqlComparisonOperatorContext,
+	JqlEqualsOperatorContext,
+	JqlInOperatorContext,
+	JqlIsOperatorContext,
+	JqlLikeOperatorContext,
+	JqlWasInOperatorContext,
+	JqlWasOperatorContext,
+} from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import {

@@ -1,7 +1,7 @@
 import { Server, type Router, type Database } from 'kakapo';
 import * as exenv from 'exenv';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import { type MediaFile } from '@atlaskit/media-client';
 
@@ -9,7 +9,7 @@ import { createApiRouter, createMediaPlaygroundRouter } from './routers';
 import { createDatabase, type MediaDatabaseSchema } from './database';
 import { RemoteUploadActivityServer, type WebSocketServer } from './websockets';
 import { mapDataUriToBlob } from '../utils';
-import { dataURItoFile } from '@atlaskit/media-ui/util';
+import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
 import { smallImage } from '../dataURIs/smallImageURI';
 import { createDropEventWithFiles, createFileSystemFileEntry } from './fileAndDirectoriesUtils';
 

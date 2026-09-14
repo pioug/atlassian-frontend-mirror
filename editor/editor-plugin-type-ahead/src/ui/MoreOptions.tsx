@@ -8,7 +8,8 @@ import React, { useEffect, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { ButtonItem, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import Section from '@atlaskit/menu/section';
 import { token } from '@atlaskit/tokens';
 
 const buttonStyles = css({

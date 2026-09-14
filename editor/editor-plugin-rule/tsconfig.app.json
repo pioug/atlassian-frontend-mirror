@@ -37,19 +37,52 @@
 			"path": "../adf-schema/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-decorations/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../input-rules/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

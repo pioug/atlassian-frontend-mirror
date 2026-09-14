@@ -1,9 +1,7 @@
-import {
-	light as lightTheme,
-	shape as shapeTheme,
-	spacing as spacingTheme,
-	typography as typographyTheme,
-} from '@atlaskit/tokens/tokens-raw';
+import lightTheme from '@atlaskit/tokens/atlassian-light';
+import shapeTheme from '@atlaskit/tokens/atlassian-shape';
+import spacingTheme from '@atlaskit/tokens/atlassian-spacing';
+import typographyTheme from '@atlaskit/tokens/atlassian-typography';
 
 const typographyGroups = ['typography', 'fontWeight', 'fontFamily'];
 

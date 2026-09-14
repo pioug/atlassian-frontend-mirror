@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import Example from '../../../examples/nesting-item';
+import Example from '../../../examples/nesting-item.vr.ap';
 
 snapshot(Example, {
 	variants: [

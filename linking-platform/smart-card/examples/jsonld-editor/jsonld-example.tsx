@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import Button from '@atlaskit/button/default/button';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import {
 	AsanaTask,
 	AtlasGoal,

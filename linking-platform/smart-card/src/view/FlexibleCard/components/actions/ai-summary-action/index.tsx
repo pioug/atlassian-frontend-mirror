@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { InternalActionName } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { AISummaryActionComponent } from './ai-summary-action-component';
 import type { AISummaryActionProps } from './types';
 

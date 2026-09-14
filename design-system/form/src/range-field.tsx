@@ -39,7 +39,7 @@ export interface RangeFieldProps {
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
  */
-const RangeField = ({
+export const RangeField = ({
 	children,
 	defaultValue,
 	id,
@@ -61,5 +61,3 @@ const RangeField = ({
 		}
 	</Field>
 );
-
-export default RangeField;

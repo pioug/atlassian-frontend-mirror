@@ -8,14 +8,15 @@ import { useCallback, useMemo, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import debounce from 'lodash/debounce';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import Select from '@atlaskit/select';
-import TextField from '@atlaskit/textfield';
+import Select from '@atlaskit/select/default';
+import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
-import palettesRaw from '@atlaskit/tokens/palettes-raw';
+import palettesRaw from '@atlaskit/tokens/palette';
 import tokenNames from '@atlaskit/tokens/token-names';
 
 import { isHex } from '../utils/search-params';

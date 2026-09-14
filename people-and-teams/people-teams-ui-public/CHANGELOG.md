@@ -1,5 +1,16 @@
 # @atlaskit/people-teams-ui-public
 
+## 5.2.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.3
 
 ### Patch Changes

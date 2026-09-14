@@ -8,13 +8,10 @@ jest.mock('@atlaskit/media-common/mediaFeatureFlags', () => {
 const mockMediaEnvironment = 'test-local';
 const mockMediaRegion = 'test-local-region';
 
-jest.mock('@atlaskit/ufo', () => {
-	const actualUfo = jest.requireActual('@atlaskit/ufo');
-	return {
-		...actualUfo,
-		ConcurrentExperience: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
+	ConcurrentExperience: jest.fn(),
+}));
 
 jest.mock('@atlaskit/media-client', () => {
 	const mediaClient = jest.requireActual('@atlaskit/media-client');
@@ -29,31 +26,28 @@ jest.mock('@atlaskit/react-ufo/interaction-metrics', () => ({
 	getActiveInteraction: jest.fn().mockReturnValue({ start: 0 }),
 }));
 
-jest.mock('../../../utils/analytics', () => {
-	const actualAnalytics = jest.requireActual('../../../utils/analytics');
-	return {
-		...actualAnalytics,
-		getRenderErrorRequestMetadata: jest.fn().mockImplementation(() => undefined),
-		extractErrorInfo: jest.fn().mockImplementation(() => {
-			return {
-				failReason: 'some-reason',
-				error: 'some-error',
-				errorDetail: 'some-description',
-			};
-		}),
-	};
-});
+jest.mock('../../../utils/analytics/getRenderErrorRequestMetadata', () => ({
+	getRenderErrorRequestMetadata: jest.fn().mockImplementation(() => undefined),
+}));
 
-import { ConcurrentExperience } from '@atlaskit/ufo';
+jest.mock('../../../utils/analytics/extractErrorInfo', () => ({
+	extractErrorInfo: jest.fn().mockImplementation(() => ({
+		failReason: 'some-reason',
+		error: 'some-error',
+		errorDetail: 'some-description',
+	})),
+}));
+
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 import {
 	startUfoExperience,
 	completeUfoExperience,
 	abortUfoExperience,
 } from '../../../utils/ufoExperiences';
-import { extractErrorInfo } from '../../../utils/analytics';
-import { MediaCardError } from '../../../errors';
-import { type SSRStatus } from '../../../utils/analytics';
+import { MediaCardError } from '../../../MediaCardError';
+import { extractErrorInfo } from '../../../utils/analytics/extractErrorInfo';
+import type { SSRStatus } from '../../../utils/analytics/analytics';
 
 describe('ufoExperience', () => {
 	const mockStart = jest.fn();
@@ -107,10 +101,10 @@ describe('ufoExperience', () => {
 		it('should start UFO experience with an id', () => {
 			startUfoExperience(id);
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('some-id');
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('some-id');
 			expect(mockStart).toHaveBeenCalledTimes(1);
-			expect(mockConcurrentExperienceConstructor).toBeCalledWith('media-card-render', {
+			expect(mockConcurrentExperienceConstructor).toHaveBeenCalledWith('media-card-render', {
 				featureFlags: ['feature-flag-1', 'feature-flag-2'],
 				platform: { component: 'media-card' },
 				type: 'experience',
@@ -123,8 +117,8 @@ describe('ufoExperience', () => {
 		it('should abort UFO experience with an id', () => {
 			abortUfoExperience(id);
 
-			expect(mockGetInstance).toBeCalledTimes(1);
-			expect(mockGetInstance).toBeCalledWith('some-id');
+			expect(mockGetInstance).toHaveBeenCalledTimes(1);
+			expect(mockGetInstance).toHaveBeenCalledWith('some-id');
 			expect(mockAbort).toHaveBeenCalledTimes(1);
 		});
 
@@ -136,7 +130,7 @@ describe('ufoExperience', () => {
 			};
 			abortUfoExperience(id, { fileAttributes: fileAttributesWithUGC });
 
-			expect(mockAbort).toBeCalledWith({
+			expect(mockAbort).toHaveBeenCalledWith({
 				metadata: expect.objectContaining({ fileAttributes: { fileId: 'INVALID_FILE_ID' } }),
 			});
 		});
@@ -153,7 +147,7 @@ describe('ufoExperience', () => {
 				undefined,
 			);
 
-			expect(mockSuccess).toBeCalledWith({
+			expect(mockSuccess).toHaveBeenCalledWith({
 				metadata: {
 					fileAttributes,
 					ssrReliability,
@@ -179,7 +173,7 @@ describe('ufoExperience', () => {
 				undefined,
 			);
 
-			expect(mockFailure).toBeCalledWith({
+			expect(mockFailure).toHaveBeenCalledWith({
 				metadata: {
 					fileAttributes,
 					ssrReliability,
@@ -205,8 +199,8 @@ describe('ufoExperience', () => {
 				ssrReliability,
 			);
 
-			expect(extractErrorInfo).toBeCalledWith(expect.any(Error));
-			expect(mockFailure).toBeCalledWith({
+			expect(extractErrorInfo).toHaveBeenCalledWith(expect.any(Error));
+			expect(mockFailure).toHaveBeenCalledWith({
 				metadata: {
 					fileAttributes,
 					ssrReliability,
@@ -237,8 +231,8 @@ describe('ufoExperience', () => {
 				error,
 			);
 
-			expect(extractErrorInfo).toBeCalledWith(error);
-			expect(mockFailure).toBeCalledWith({
+			expect(extractErrorInfo).toHaveBeenCalledWith(error);
+			expect(mockFailure).toHaveBeenCalledWith({
 				metadata: {
 					fileAttributes,
 					ssrReliability,
@@ -273,7 +267,7 @@ describe('ufoExperience', () => {
 				undefined,
 			);
 
-			expect(mockSuccess).toBeCalledWith({
+			expect(mockSuccess).toHaveBeenCalledWith({
 				metadata: expect.objectContaining({ fileAttributes: { fileId: 'INVALID_FILE_ID' } }),
 			});
 		});

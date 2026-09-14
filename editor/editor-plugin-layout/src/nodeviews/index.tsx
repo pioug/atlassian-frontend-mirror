@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -15,14 +15,16 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Schema, DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { LayoutPlugin } from '../layoutPluginType';
 import { selectIntoLayout } from '../pm-plugins/utils';
 import type { LayoutPluginOptions } from '../types';
 import { LayoutSSRReactContextsProvider } from '../ui/LayoutSSRReactContextsProvider';
+
+import { isEmptyLayout } from './utils';
 
 type LayoutSectionViewProps = {
 	eventDispatcher: EventDispatcher;
@@ -37,38 +39,8 @@ type LayoutSectionViewProps = {
 
 const layoutDynamicFullWidthGuidelineOffset = 16;
 
-const isEmptyParagraph = (node?: PMNode | null): boolean => {
-	return !!node && node.type.name === 'paragraph' && !node.childCount;
-};
-
 const isBreakoutAvailable = (schema: Schema) => {
 	return Boolean(schema.marks.breakout);
-};
-
-const isEmptyLayout = (node?: PMNode) => {
-	if (!node) {
-		return false;
-	}
-	// fast check
-	// each column should have size 2 from layoutcolumn and 2 from empty paragraph
-	if (node.content.size / node.childCount !== 4) {
-		return false;
-	}
-
-	let isEmpty = true;
-
-	node.content.forEach((maybelayoutColumn) => {
-		if (
-			maybelayoutColumn.type.name !== 'layoutColumn' ||
-			maybelayoutColumn.childCount > 1 ||
-			!isEmptyParagraph(maybelayoutColumn.firstChild)
-		) {
-			isEmpty = false;
-			return;
-		}
-	});
-
-	return isEmpty;
 };
 
 const selector = (
@@ -322,7 +294,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		// LayoutSSRReactContextsProvider wraps the placeholder to inject the
 		// editor's IntlShape, defending against any descendants that call
 		// `useIntl()` during renderToStaticMarkup.
-		if (isSSR() && isSSRStreaming()) {
+		if (isSSR()) {
 			return (
 				<LayoutSSRReactContextsProvider intl={this.intl}>
 					<NodeViewContentHole ref={forwardRef} />

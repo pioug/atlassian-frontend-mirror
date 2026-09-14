@@ -2,7 +2,7 @@ import React from 'react';
 
 import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
 
-import Example from '../../../../examples/44-anchor-default';
+import Example from '../../../../examples/44-anchor-default.vr.ap';
 
 test('should ssr then hydrate correctly', async () => {
 	expect(await doesHydrateWithSsr(<Example />)).toBe(true);

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { bind } from 'bind-event-listener';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { KEY_DOWN, KEY_ENTER, KEY_LEFT, KEY_SPACE, KEY_TAB } from '@atlaskit/ds-lib/keycodes';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
@@ -10,8 +10,9 @@ import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import { useLayering } from '@atlaskit/layering/use-layering';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Popup, { type TriggerProps } from '@atlaskit/popup';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Popup } from '@atlaskit/popup/popup';
+import type { TriggerProps } from '@atlaskit/popup/types';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { layers } from '@atlaskit/theme/constants';
 

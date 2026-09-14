@@ -1,8 +1,7 @@
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
+import type { Rect } from '../rect';
 import { TableMap } from '../table-map';
-import type { Rect } from '../table-map';
-
 import { isSelectionType } from './is-selection-type';
 
 // Get the selection rectangle. Returns `undefined` if selection is not a CellSelection.

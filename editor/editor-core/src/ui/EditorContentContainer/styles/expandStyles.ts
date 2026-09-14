@@ -78,8 +78,6 @@ export const expandStylesBase: SerializedStyles = css({
 
 			// SelectionStyle.Border (common case)
 			border: `${token('border.width')} solid ${token('color.border.selected')}`,
-			// If fg('platform_editor_nested_dnd_styles_changes') is true,
-			// then we'll also need the rest of the selection styles for blanket
 
 			// hideNativeBrowserTextSelectionStyles
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -225,7 +223,6 @@ export const expandStylesBase: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ak-editor-expand__content': {
 			paddingTop: token('space.100', '8px'),
-			// If fg('platform_editor_nested_dnd_styles_changes') then this needs to be extended
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -343,32 +340,30 @@ export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyle
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css(
-	{
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-content-area.appearance-full-page .ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
-			{
-				marginLeft: token('space.negative.250'),
-				marginRight: token('space.negative.250'),
-			},
+export const expandStylesMixinNestedDnd: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ak-editor-content-area.appearance-full-page .ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
+		{
+			marginLeft: token('space.negative.250'),
+			marginRight: token('space.negative.250'),
+		},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ak-editor-expand__expanded': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-expand__expanded': {
+		'.ak-editor-expand__content': {
+			// firstNodeWithNotMarginTop
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+				marginTop: 0,
+			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'.ak-editor-expand__content': {
-				// firstNodeWithNotMarginTop
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
-					marginTop: 0,
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> div.ak-editor-expand[data-node-type="nestedExpand"]': {
-					marginTop: token('space.050'),
-				},
+			'> div.ak-editor-expand[data-node-type="nestedExpand"]': {
+				marginTop: token('space.050'),
 			},
 		},
 	},
-);
+});
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in
@@ -383,33 +378,3 @@ export const expandStylesMixin_chromeless_expand_fix: SerializedStyles = css({
 		marginRight: 0,
 	},
 });
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles =
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-expand': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'&.ak-editor-selected-node:not(.danger)': {
-				// SelectionStyle.Border (with fg('platform_editor_nested_dnd_styles_changes'))
-				// Fixes ED-15246: Trello card is visible through a border of a table border
-				'&::after': {
-					height: '100%',
-					content: "'\\00a0'",
-					background: token('color.border.selected'),
-					position: 'absolute',
-					right: '-1px',
-					top: 0,
-					bottom: 0,
-					width: '1px',
-					border: 'none',
-					display: 'inline-block',
-				},
-			},
-		},
-	});

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type PositionType } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
 
 import { Target } from './styled';
 

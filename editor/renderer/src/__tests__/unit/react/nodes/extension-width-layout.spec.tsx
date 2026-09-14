@@ -1,6 +1,8 @@
 /* eslint-disable @atlaskit/editor/no-as-casting, react/jsx-props-no-spreading */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
@@ -13,6 +15,7 @@ import type { RendererContext } from '../../../../react/types';
 import ReactSerializer from '../../../../react';
 import { calcBreakoutWidthCss } from '../../../../react/utils/breakout';
 import { RendererCssClassName } from '../../../../consts';
+import { RendererStyleContainer } from '../../../../ui/Renderer/RendererStyleContainer';
 
 const providerFactory = ProviderFactory.create({});
 const extensionHandlers: ExtensionHandlers = {
@@ -135,6 +138,67 @@ describe('Extension - canUseCustomLayout behavior with rendererAppearance', () =
 					expect(wrapper.className).toContain(RendererCssClassName.EXTENSION_CENTER_ALIGN);
 				});
 			});
+
+		describe('table fit-to-content containment patches', () => {
+			const tablePath = [rendererContext.schema!.nodes.table.create()];
+
+			it('does not apply inline-size containment inside a table when patch 2 is disabled', () => {
+				mockExpDisabled('platform_editor_table_fit_to_content_patch_2');
+				render(<Extension {...baseProps} path={tablePath} />);
+
+				const innerWrapper = screen.getByText('Extension content');
+
+				expect(getComputedStyle(innerWrapper).containerType).toBe('');
+			});
+
+			it('does not affect containment inside a regular table when patch 2 is enabled', () => {
+				mockExpEnabled('platform_editor_table_fit_to_content_patch_2');
+				render(<Extension {...baseProps} path={tablePath} />);
+
+				const innerWrapper = screen.getByText('Extension content');
+
+				expect(getComputedStyle(innerWrapper).containerType).toBe('inline-size');
+			});
+
+			it('removes inline-size containment only inside a content-mode table with patch 2', () => {
+				mockExpEnabled('platform_editor_table_fit_to_content_patch_2');
+				render(
+					<RendererStyleContainer
+						appearance="full-page"
+						allowNestedHeaderLinks={false}
+						useBlockRenderForCodeBlock={false}
+					>
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- The fixture must match the renderer's scoped table selector.
+							className={RendererCssClassName.DOCUMENT}
+						>
+							<table data-initial-width-mode="content">
+								<tbody>
+									<tr>
+										<td>
+											<Extension {...baseProps} path={tablePath} />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</RendererStyleContainer>,
+				);
+
+				const innerWrapper = screen.getByText('Extension content');
+
+				expect(getComputedStyle(innerWrapper).containerType).toBe('normal');
+			});
+
+			it('does not affect containment outside tables when patch 2 is enabled', () => {
+				mockExpEnabled('platform_editor_table_fit_to_content_patch_2');
+				render(<Extension {...baseProps} />);
+
+				const innerWrapper = screen.getByText('Extension content');
+
+				expect(getComputedStyle(innerWrapper).containerType).toBe('inline-size');
+			});
+		});
 	});
 });
 

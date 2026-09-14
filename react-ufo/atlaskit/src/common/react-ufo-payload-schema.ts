@@ -1,5 +1,5 @@
-import { type createPayloads } from '../create-payload';
 import type { LabelStackTrieLookupTable } from '../create-payload/common/utils/label-stack-registry';
+import type { createPayloads } from '../create-payload/createPayloads';
 import type { HiddenTimingItem } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
 import type { SsrSuccessBreakdown } from '../ssr';
@@ -8,9 +8,12 @@ import { type VCObserver } from '../vc/vc-observer';
 import type {
 	AbortReasonType,
 	ApdexType,
+	CustomData,
 	HoldActive,
 	InteractionError,
 	InteractionType,
+	MetricVariantCategory,
+	MetricWindow,
 	MinorInteraction,
 	Segment3pDataPayload,
 	SegmentInfo,
@@ -101,8 +104,27 @@ export type HoldInfo = {
 
 export type OptimizedHoldInfo = {
 	labelStack: string;
+	/** Readable name for adopted preload holds. */
+	name?: string;
 	startTime: number;
 	endTime: number;
+};
+
+export type MetricVariantOptimizedHoldInfo = Omit<OptimizedHoldInfo, 'labelStack'> & {
+	labelStack: string | number;
+};
+
+export type MetricVariantHoldInfo = Partial<
+	Record<MetricVariantCategory, MetricVariantOptimizedHoldInfo[]>
+>;
+
+export type MetricWindowsPayload = Partial<Record<string, MetricWindow>>;
+
+export type OptimizedPreloadInfo = {
+	source: string;
+	preloadStartedAt: number;
+	adoptedAt: number;
+	settledAt?: number;
 };
 
 export type VCParts = (typeof VCObserver.VCParts)[number];
@@ -140,6 +162,7 @@ export type ReactUFOPayload = {
 			'event:sizeInKb': number;
 			'event:source': { name: 'react-ufo/web'; version: '1.0.1' | '2.0.0' };
 			'event:region': string;
+			'event:isSandbox'?: boolean;
 			'experience:key': 'custom.interaction-metrics' | 'custom.experimental-interaction-metrics';
 			'experience:name': string;
 			'event:localHour': number;
@@ -218,9 +241,15 @@ export type ReactUFOPayload = {
 				resourceTimings: ResourceTiming[] | CompactResourceTimings;
 				/** Third-party segment timing and metadata. */
 				segment3pData?: Segment3pDataPayload;
+				/** Diagnostic breadcrumbs for third-party segments excluded from all metric windows */
+				excluded3pSegments?: Array<CustomData>;
 				segments: SegmentInfo[] | RootSegment;
 				reactProfilerTimings: ReactProfilerTiming[];
 				holdInfo: OptimizedHoldInfo[];
+				/** Holds that are excluded from root standard metrics but retained for metric-variant segment attribution. */
+				metricVariantHoldInfo?: MetricVariantHoldInfo;
+				metricWindows?: MetricWindowsPayload;
+				preloadInfo?: OptimizedPreloadInfo[];
 				errors: InteractionError[];
 				responsiveness?: {
 					inputDelay?: number;

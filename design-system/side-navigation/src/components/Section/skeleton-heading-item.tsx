@@ -1,10 +1,8 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import {
-	SkeletonHeadingItem as MenuSkeletonHeadingItem,
-	type SkeletonHeadingItemProps as MenuSkeletonHeadingItemProps,
-} from '@atlaskit/menu';
+import MenuSkeletonHeadingItem from '@atlaskit/menu/skeleton-heading-item';
+import type { SkeletonHeadingItemProps as MenuSkeletonHeadingItemProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -28,7 +26,7 @@ export interface SkeletonHeadingItemProps extends MenuSkeletonHeadingItemProps {
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const SkeletonHeadingItem = (props: SkeletonHeadingItemProps): React.JSX.Element | null => {
+export const SkeletonHeadingItem = (props: SkeletonHeadingItemProps): React.JSX.Element | null => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;
@@ -42,5 +40,3 @@ const SkeletonHeadingItem = (props: SkeletonHeadingItemProps): React.JSX.Element
 		/>
 	);
 };
-
-export default SkeletonHeadingItem;

@@ -6,9 +6,10 @@ import { forwardRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Popup, { type PopupComponentProps } from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
+import type { PopupComponentProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({

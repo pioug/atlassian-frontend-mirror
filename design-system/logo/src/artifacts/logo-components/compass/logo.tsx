@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b7bcea9847a81cebf559d8d94dc976ca>>
+ * @codegen <<SignedSource::112ee239fed903c341966bb421eaa1d3>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const svg = `<svg height="100%" viewBox="0 0 95 24">
  *
  */
 export function CompassLogo({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Compass',
 	testId,

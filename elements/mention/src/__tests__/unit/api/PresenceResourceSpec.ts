@@ -1,12 +1,10 @@
+import fetchMock from 'fetch-mock/cjs/client';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
-import fetchMock from 'fetch-mock/cjs/client';
-
-import PresenceResource, {
-	DefaultPresenceCache,
-	DefaultPresenceParser,
-	type PresenceMap,
-} from '../../../api/PresenceResource';
+import { DefaultPresenceCache } from '../../../api/DefaultPresenceCache';
+import { DefaultPresenceParser } from '../../../api/DefaultPresenceParser';
+import type { PresenceMap } from '../../../api/PresenceResource';
+import { PresenceResource } from '../../../api/PresenceResource';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { validPresenceData, invalidPresenceData } from '@atlaskit/util-data-test/presence-data';

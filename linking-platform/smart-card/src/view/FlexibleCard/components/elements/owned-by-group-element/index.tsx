@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { ElementName } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import {
 	BaseAvatarGroupElement,
 	type BaseAvatarGroupElementProps,

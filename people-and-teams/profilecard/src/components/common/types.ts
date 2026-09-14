@@ -1,5 +1,5 @@
-import { type PopupProps } from '@atlaskit/popup';
-import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
+import type { PopupProps } from '@atlaskit/popup/types';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
 
 import { type ProfileCardErrorType, type ProfileType } from '../../types';
 

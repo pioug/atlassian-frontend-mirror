@@ -7,8 +7,8 @@ import { LoadingError } from './loading-error';
 import { loadingErrorMessages } from './messages';
 
 const fireEventMock = jest.fn();
-jest.mock('../../../analytics', () => ({
-	...jest.requireActual('../../../analytics'),
+jest.mock('../../../analytics/index', () => ({
+	...jest.requireActual('../../../analytics/index'),
 	useDatasourceAnalyticsEvents: jest.fn(() => ({
 		fireEvent: fireEventMock,
 	})),

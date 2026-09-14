@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
-import Button from '@atlaskit/button/new';
+import { render, screen, userEvent } from '@atlassian/testing-library';
+import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 
 import Field from '../../field';
 import Form from '../../form';

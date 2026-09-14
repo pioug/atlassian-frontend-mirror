@@ -1,13 +1,13 @@
 import type { IntlShape } from 'react-intl';
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { EMPTY_PARAGRAPH_TIMEOUT_DELAY, pluginKey } from '../placeholderPlugin';
-import type { PlaceholderPlugin } from '../placeholderPluginType';
+import type { PlaceholderPlugin, PlaceholderPluginOptions } from '../placeholderPluginType';
 
 import { TYPEWRITER_TYPED_AND_DELETED_DELAY } from './constants';
 import { createPlaceholderDecoration } from './decorations';
@@ -27,6 +27,7 @@ export default function createPlugin(
 	withEmptyParagraph?: boolean,
 	initialIsPlaceholderHidden?: boolean,
 	placeholderADF?: DocNode,
+	placeholderPromptAnimationOptions?: PlaceholderPluginOptions['placeholderPromptAnimationOptions'],
 	isRovoLLMEnabled?: boolean,
 	api?: ExtractInjectionAPI<PlaceholderPlugin>,
 ): SafePlugin | undefined {
@@ -176,6 +177,7 @@ export default function createPlugin(
 						initialDelayWhenUserTypedAndDeleted,
 						placeholderAdfToUse,
 						showOnEmptyParagraph,
+						placeholderPromptAnimationOptions,
 					);
 				}
 				return;

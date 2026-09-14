@@ -1,11 +1,12 @@
 import memoizeOne from 'memoize-one';
+
 import { EmailType, type Option } from '../types';
 import {
 	type EmailValidationResponse,
 	type EmailValidator,
 	isValidEmail as defaultIsValidEmail,
 } from './emailValidation';
-import { isEmail } from './utils';
+import { isEmail } from './isEmail';
 
 const validOption: EmailValidationResponse[] = ['VALID', 'POTENTIAL'];
 

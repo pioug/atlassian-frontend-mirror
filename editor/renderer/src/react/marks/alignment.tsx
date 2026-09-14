@@ -5,8 +5,8 @@
 import React from 'react';
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
-import type { AlignmentAttributes } from '@atlaskit/adf-schema';
-import { alignmentPositionMap } from '@atlaskit/adf-schema';
+import type { AlignmentAttributes } from '@atlaskit/adf-schema/alignment';
+import { alignmentPositionMap } from '@atlaskit/adf-schema/alignment';
 import type { MarkProps } from '../types';
 
 type MarkWrapperProps = {

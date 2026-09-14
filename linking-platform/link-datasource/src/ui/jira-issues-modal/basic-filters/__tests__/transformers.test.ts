@@ -18,12 +18,10 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 
 import { type HydrateResponse } from '../types';
-import {
-	mapFieldValuesToFilterOptions,
-	mapFieldValuesToPageCursor,
-	mapFieldValuesToTotalCount,
-	mapHydrateResponseData,
-} from '../utils/transformers';
+import { mapFieldValuesToFilterOptions } from '../utils/mapFieldValuesToFilterOptions';
+import { mapFieldValuesToPageCursor } from '../utils/mapFieldValuesToPageCursor';
+import { mapFieldValuesToTotalCount } from '../utils/mapFieldValuesToTotalCount';
+import { mapHydrateResponseData } from '../utils/mapHydrateResponseData';
 
 describe('mapHydrateResponseData', () => {
 	it('should correctly map response that includes each option type to SelectOption array', () => {

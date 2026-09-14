@@ -14,6 +14,15 @@ type AILocalIdNotFoundErrorAEP = OperationalAEP<
 	}
 >;
 
+type AILocalIdsRepairedAEP = OperationalAEP<
+	ACTION.LOCAL_IDS_REPAIRED,
+	ACTION_SUBJECT.AI_STREAMING,
+	ACTION_SUBJECT_ID.EXPERIENCE_APPLICATION,
+	{
+		repairedNodeCount: number;
+	}
+>;
+
 type AIStreamingNoDocChangeAEP = OperationalAEP<
 	ACTION.NO_DOC_CHANGE_FOUND,
 	ACTION_SUBJECT.AI_STREAMING,
@@ -97,6 +106,7 @@ type AIChangesRejectButtonClickedAEP = UIAEP<
 
 export type AIStreamingEventPayload =
 	| AILocalIdNotFoundErrorAEP
+	| AILocalIdsRepairedAEP
 	| AIStreamingNoDocChangeAEP
 	| AIStreamingInvalidCommandAEP
 	| AIStreamingUpdateStreamError

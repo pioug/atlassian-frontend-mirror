@@ -1,25 +1,35 @@
-import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import '@atlaskit/link-test-helpers/jest';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
+import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) => data.children);
 jest.mock('../../../utils/analytics/analytics');
-jest.mock('@atlaskit/outbound-auth-flow-client', () => {
-	const { AuthError } = jest.requireActual('@atlaskit/outbound-auth-flow-client');
+jest.mock('@atlaskit/outbound-auth-flow-client/auth', () => {
 	return {
+		...jest.requireActual('@atlaskit/outbound-auth-flow-client/auth'),
 		auth: jest.fn(),
+	};
+});
+jest.mock('@atlaskit/outbound-auth-flow-client/error', () => {
+	const { AuthError } = jest.requireActual('@atlaskit/outbound-auth-flow-client/error');
+	return {
+		...jest.requireActual('@atlaskit/outbound-auth-flow-client/error'),
 		AuthError,
 	};
 });
@@ -41,7 +51,6 @@ describe('smart-card: forbidden analytics', () => {
 		mockFetch = jest.fn(async () => mocks.forbidden);
 		mockClient = new (fakeFactory(mockFetch))();
 		mockWindowOpen = jest.fn();
-		/// @ts-ignore
 		global.open = mockWindowOpen;
 	});
 

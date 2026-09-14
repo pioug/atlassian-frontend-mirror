@@ -1,5 +1,41 @@
 # @atlaskit/editor-smart-link-draggable
 
+## 1.2.5
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+
+## 1.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.1
+
+### Patch Changes
+
+- [`1f436e4732b98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f436e4732b98) -
+  Clean up the shipped smart link drag-and-drop feature gate and make the drag-and-drop path
+  permanent.
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

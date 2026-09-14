@@ -1,137 +1,185 @@
-import { shallow, type ShallowWrapper } from 'enzyme';
+import { act, render, screen } from '@testing-library/react';
+import noop from 'lodash/noop';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 import { MultiValueContainer } from '../../../components/MultiValueContainer';
-import { renderProp } from '../_testUtils';
 
 describe('MultiValueContainer', () => {
-	beforeEach(() => {
-		jest.useFakeTimers();
-	});
-	afterEach(() => {
-		jest.useRealTimers();
-	});
-
-	const selectProps = {
+	const defaultSelectProps = {
 		value: [1],
 		options: [1, 2, 3],
 		isDisabled: false,
 		isFocused: true,
 	};
 
-	const findInput = (component: ShallowWrapper<any>) =>
-		(component.find(FormattedMessage).exists()
-			? renderProp(component.find(FormattedMessage), 'children', 'add more people...')
-			: component
-		).find('input');
+	const children = [
+		<div key="placeholder">Placeholder</div>,
+		<input key="input" aria-label="People" type="text" />,
+	];
 
-	const shallowValueContainer = (props: any) =>
-		shallow(<MultiValueContainer selectProps={selectProps} {...props} />);
+	const selectComponentProps = {
+		getStyles: noop,
+		cx: noop,
+		getClassNames: noop,
+		innerProps: {},
+		isDisabled: false,
+		isFocused: false,
+		isMulti: true,
+	};
 
-	test.each<[string | undefined, number[], boolean]>([
-		['add more people...', selectProps.value, false],
-		['Enter more...', selectProps.value, true],
-		['add more people...', selectProps.options, false],
-		[undefined, [], false],
-	])('should set placeholder to "%s" when (value: %p)', (placeholder, value, override) => {
-		const component = shallowValueContainer({
-			children: [<div key="placeholder">Placeholder</div>, <input key="input" type="text" />],
-			selectProps: {
-				...selectProps,
-				value,
-				addMoreMessage: override ? placeholder : undefined,
-			},
+	const renderValueContainer = (
+		selectProps: Record<string, unknown> = {},
+		getValue: () => unknown[] = () => [],
+	) =>
+		render(
+			<IntlProvider locale="en" messages={{}}>
+				<MultiValueContainer
+					{...(selectComponentProps as any)}
+					children={children}
+					hasValue={
+						Array.isArray(selectProps.value ?? defaultSelectProps.value) &&
+						((selectProps.value ?? defaultSelectProps.value) as unknown[]).length > 0
+					}
+					getValue={getValue as any}
+					selectProps={{ ...defaultSelectProps, ...selectProps } as any}
+					options={[] as any}
+				/>
+			</IntlProvider>,
+		);
+
+	const expectPlaceholder = (selectProps: Record<string, unknown>, expected?: string) => {
+		renderValueContainer(selectProps);
+
+		const input = screen.getByRole('textbox', { name: 'People' });
+		if (expected === undefined) {
+			expect(input).not.toHaveAttribute('placeholder');
+		} else {
+			expect(input).toHaveAttribute('placeholder', expected);
+		}
+	};
+
+	describe('placeholder', () => {
+		it.each<[string | undefined, number[], boolean]>([
+			['add more people...', defaultSelectProps.value, false],
+			['Enter more...', defaultSelectProps.value, true],
+			['add more people...', defaultSelectProps.options, false],
+			[undefined, [], false],
+		])('sets the placeholder to "%s" for the selected values', (placeholder, value, override) => {
+			expectPlaceholder(
+				{
+					value,
+					addMoreMessage: override ? placeholder : undefined,
+				},
+				placeholder,
+			);
 		});
 
-		const input = findInput(component);
-
-		expect(input.prop('placeholder')).toEqual(placeholder);
-	});
-
-	it('should not display add more placeholder if disabled', () => {
-		const component = shallowValueContainer({
-			children: [<div key="placeholder">Placeholder</div>, <input key="input" type="text" />],
-			selectProps: {
-				...selectProps,
-				isDisabled: true,
-			},
+		it('does not display the add-more placeholder when disabled', async () => {
+			expectPlaceholder({ isDisabled: true }, undefined);
+			await expect(document.body).toBeAccessible();
 		});
-		const input = findInput(component);
-
-		expect(input.prop('placeholder')).toBeUndefined();
 	});
 
-	it('should scroll to bottom when adding new items and focused', () => {
-		const component = shallowValueContainer({
-			children: 'some text',
-			getValue: jest.fn(() => []),
+	describe('scrolling after selection changes', () => {
+		beforeEach(() => {
+			jest.useFakeTimers();
 		});
 
-		const scroll = jest.spyOn(component.instance() as MultiValueContainer, 'scrollToBottom');
+		afterEach(() => {
+			jest.useRealTimers();
+		});
 
-		expect(component.state()).toHaveProperty('valueSize', 0);
-		component.setProps({ getValue: jest.fn(() => [1]) });
-		jest.runAllTimers();
-		expect(component.state()).toHaveProperty('valueSize', 1);
-		expect(component.state()).toHaveProperty('previousValueSize', 0);
-
-		expect(scroll).toHaveBeenCalledTimes(1);
-	});
-
-	it('should not scroll if not in focus', () => {
-		const unfocusedSelectProps = {
-			...selectProps,
-			isFocused: false,
+		const getScrollContainer = (): HTMLElement => {
+			const input = screen.getByRole('textbox', { name: 'People' });
+			const valueContainer = input.parentElement;
+			if (!valueContainer) {
+				throw new Error('Could not find the select value container');
+			}
+			return valueContainer as HTMLElement;
 		};
-		const component = shallowValueContainer({
-			children: 'some text',
-			getValue: jest.fn(() => []),
-			selectProps: unfocusedSelectProps,
-		});
-		const scroll = jest.spyOn(component.instance() as MultiValueContainer, 'scrollToBottom');
 
-		expect(component.state()).toHaveProperty('valueSize', 0);
-		component.setProps({ getValue: jest.fn(() => [1]) });
-		jest.runAllTimers();
-		expect(component.state()).toHaveProperty('valueSize', 1);
-		expect(component.state()).toHaveProperty('previousValueSize', 0);
+		it('scrolls to the bottom when a new item is added while focused', () => {
+			const getValue = jest.fn<unknown[], []>(() => []);
+			const { rerender } = renderValueContainer({}, getValue);
+			const scrollContainer = getScrollContainer();
+			Object.defineProperty(scrollContainer, 'scrollHeight', {
+				configurable: true,
+				value: 100,
+			});
 
-		expect(scroll).not.toHaveBeenCalled();
-	});
+			getValue.mockReturnValue([1]);
+			rerender(
+				<IntlProvider locale="en" messages={{}}>
+					<MultiValueContainer
+						{...(selectComponentProps as any)}
+						children={children}
+						hasValue
+						getValue={getValue as any}
+						selectProps={defaultSelectProps as any}
+						options={[] as any}
+					/>
+				</IntlProvider>,
+			);
 
-	it('should not scroll when removing an item', () => {
-		const component = shallowValueContainer({
-			children: 'some text',
-			getValue: jest.fn(() => [1]),
-		});
-		const scroll = jest.spyOn(component.instance() as MultiValueContainer, 'scrollToBottom');
+			act(() => jest.runAllTimers());
 
-		expect(component.state()).toHaveProperty('valueSize', 1);
-		component.setProps({ getValue: jest.fn(() => []) });
-		jest.runAllTimers();
-		expect(component.state()).toHaveProperty('valueSize', 0);
-		expect(component.state()).toHaveProperty('previousValueSize', 1);
-
-		expect(scroll).not.toHaveBeenCalled();
-	});
-
-	it('should set scrollTop via ref', () => {
-		const mockDiv = { scrollTop: 0, scrollHeight: 100 };
-		const component = shallowValueContainer({
-			children: 'some text',
-			getValue: jest.fn(() => []),
+			expect(scrollContainer).toHaveProperty('scrollTop', 100);
 		});
 
-		// Mock the ref. This is not the cleanest way, but valueContainerInnerProps is private.
-		Object.defineProperty((component.instance() as any).valueContainerInnerProps.ref, 'current', {
-			value: mockDiv,
-			writable: true,
+		it('does not scroll when the select is not focused', () => {
+			const getValue = jest.fn<unknown[], []>(() => []);
+			const { rerender } = renderValueContainer({ isFocused: false }, getValue);
+			const scrollContainer = getScrollContainer();
+			Object.defineProperty(scrollContainer, 'scrollHeight', {
+				configurable: true,
+				value: 100,
+			});
+
+			getValue.mockReturnValue([1]);
+			rerender(
+				<IntlProvider locale="en" messages={{}}>
+					<MultiValueContainer
+						{...(selectComponentProps as any)}
+						children={children}
+						hasValue
+						getValue={getValue as any}
+						selectProps={{ ...defaultSelectProps, isFocused: false } as any}
+						options={[] as any}
+					/>
+				</IntlProvider>,
+			);
+
+			act(() => jest.runAllTimers());
+
+			expect(scrollContainer).toHaveProperty('scrollTop', 0);
 		});
 
-		// Simulate adding a new value and focus
-		component.setProps({ getValue: jest.fn(() => [1]) });
-		jest.runAllTimers();
+		it('does not scroll when an item is removed', () => {
+			const getValue = jest.fn<unknown[], []>(() => [1]);
+			const { rerender } = renderValueContainer({}, getValue);
+			const scrollContainer = getScrollContainer();
+			Object.defineProperty(scrollContainer, 'scrollHeight', {
+				configurable: true,
+				value: 100,
+			});
 
-		expect(mockDiv.scrollTop).toBe(100);
+			getValue.mockReturnValue([]);
+			rerender(
+				<IntlProvider locale="en" messages={{}}>
+					<MultiValueContainer
+						{...(selectComponentProps as any)}
+						children={children}
+						hasValue
+						getValue={getValue as any}
+						selectProps={defaultSelectProps as any}
+						options={[] as any}
+					/>
+				</IntlProvider>,
+			);
+
+			act(() => jest.runAllTimers());
+
+			expect(scrollContainer).toHaveProperty('scrollTop', 0);
+		});
 	});
 });

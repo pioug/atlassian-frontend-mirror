@@ -28,6 +28,12 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../volt/volt-components-entry-point-config/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../native-embeds/native-embeds-core/afm-products/tsconfig.json"
 		}
 	]
 }

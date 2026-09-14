@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
 import { ScreenViewedEvent } from '../../..//common/utils/analytics/components';
 import type { AnalyticsEventAttributes } from '../../../common/utils/analytics/analytics.codegen';

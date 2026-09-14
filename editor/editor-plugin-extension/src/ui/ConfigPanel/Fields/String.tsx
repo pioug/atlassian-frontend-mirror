@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
 import type { StringField } from '@atlaskit/editor-common/extensions';
-import { Field } from '@atlaskit/form';
-import TextArea from '@atlaskit/textarea';
-import TextField from '@atlaskit/textfield';
+import Field from '@atlaskit/form/field';
+import TextArea from '@atlaskit/textarea/text-area';
+import TextField from '@atlaskit/textfield/text-field';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';

@@ -17,37 +17,45 @@ import {
 	type MediaStoreGetFileImageParams,
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
-import { useCopyIntent, useFileState, useMediaClient } from '@atlaskit/media-client-react';
+import { isCDNEnabled } from '@atlaskit/media-client/media-cdn';
+import { useCopyIntent } from '@atlaskit/media-client-react/use-copy-intent';
+import { useFileState } from '@atlaskit/media-client-react/use-file-state';
+import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import {
 	isMimeTypeSupportedByBrowser,
 	type MediaTraceContext,
 	type SSR,
 } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useInteractionContext } from '@atlaskit/react-ufo/interaction-context';
 
-import { createFailedSSRObject, extractErrorInfo, type SSRStatus } from './analytics';
-import { ensureMediaFilePreviewError, ImageLoadError, MediaFilePreviewError } from './errors';
-import {
-	extractCdnSigningParams,
-	getAndCacheLocalPreview,
-	getAndCacheRemotePreview,
-	getSSRPreview,
-	isLocalPreview,
-	isRemotePreview,
-	isSSRClientPreview,
-	isSSRDataPreview,
-	isSSRPreview,
-	isSupportedLocalPreview,
-	mediaFilePreviewCache,
-} from './getPreview';
-import { generateScriptProps, getSSRData } from './globalScope';
-import { createRequestDimensions, isBigger, isWider, useCurrentValueRef } from './helpers';
+import { ImageLoadError } from './ImageLoadError';
+import { MediaFilePreviewError } from './MediaFilePreviewError';
+import type { SSRStatus } from './analytics';
+import { createFailedSSRObject } from './createFailedSSRObject';
+import { createRequestDimensions } from './createRequestDimensions';
+import { ensureMediaFilePreviewError } from './ensureMediaFilePreviewError';
+import { extractErrorInfo } from './extractErrorInfo';
+import { mediaFilePreviewCache } from './getPreview/cache';
+import { getAndCacheLocalPreview } from './getPreview/getAndCacheLocalPreview';
+import { getAndCacheRemotePreview } from './getPreview/getAndCacheRemotePreview';
+import { getSSRPreview } from './getPreview/getSSRPreview';
+import { isLocalPreview } from './getPreview/isLocalPreview';
+import { isRemotePreview } from './getPreview/isRemotePreview';
+import { isSSRClientPreview } from './getPreview/isSSRClientPreview';
+import { isSSRDataPreview } from './getPreview/isSSRDataPreview';
+import { isSSRPreview } from './getPreview/isSSRPreview';
+import { isSupportedLocalPreview } from './getPreview/isSupportedLocalPreview';
+import { generateScriptProps } from './globalScope/generateScriptProps';
+import { getSSRData } from './globalScope/getSSRData';
+import { isBigger } from './isBigger';
+import { isWider } from './isWider';
 import {
 	type MediaFilePreview,
 	type MediaFilePreviewDimensions,
 	type MediaFilePreviewStatus,
 } from './types';
+import { useCurrentValueRef } from './useCurrentValueRef';
 
 // invisible gif for SSR preview to show the underlying spinner until the src is replaced by
 // the actual image src in the inline script
@@ -181,19 +189,23 @@ export const useFilePreview = ({
 				// where no SSR occurred, so we should skip SSR preview generation entirely.
 				if (ssr === 'server' || ssrData) {
 					try {
-						// When the relay/SSR-seed path provided a pre-signed CDN URL,
-						// overlay its CDN-signing query params on the URL produced by
-						// getImageUrlSync. This makes the SSR-rendered HTML use the
-						// cdn-signed URL directly (no auth-token -> cdn-signed swap on
-						// hydration) and the 'ssr-data' rehydration path inherits it
-						// automatically via globalScope.
+						// When the relay/SSR-seed path provided a full pre-signed CDN asset
+						// URL, pass it through to getImageUrlSync as the base. That inserts
+						// the client's image-transform params before &wm-ari and preserves
+						// the backend's v2 CDN path, CloudFront signature and watermark
+						// anchors that a rebuilt /file/{id}/image/cdn URL cannot reproduce.
 						const seededCdnUrl =
 							initialFileState && initialFileState.status !== 'error'
 								? initialFileState.previewCdnUrl
 								: undefined;
-						const cdnSigningParams =
-							seededCdnUrl && fg('platform_media_ssr_data_seed')
-								? extractCdnSigningParams(seededCdnUrl)
+						// Only use the seeded CDN URL when CDN delivery is actually in use.
+						// isCDNEnabled() is false for path-based routing (and for isolated
+						// cloud / GCP), where the signed media-cdn URL is not served — there
+						// getImageUrlSync must build the URL on the product's own /media-api
+						// host instead.
+						const ssrSeededCdnUrl =
+							seededCdnUrl && isCDNEnabled() && fg('platform_media_ssr_data_seed')
+								? seededCdnUrl
 								: undefined;
 						return getSSRPreview(
 							ssr,
@@ -201,7 +213,7 @@ export const useFilePreview = ({
 							identifier.id,
 							imageURLParams,
 							mediaBlobUrlAttrs,
-							cdnSigningParams,
+							ssrSeededCdnUrl,
 						);
 					} catch (e: any) {
 						ssrReliabilityRef.current = {

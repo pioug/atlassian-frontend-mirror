@@ -11,7 +11,6 @@ import {
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { stateKey } from './plugin-key';
 import type { TaskItemData } from './types';
@@ -317,28 +316,15 @@ export function getTaskItemDataAtPos(view: EditorView):
 	const { selection, schema } = state;
 	const { $from } = selection;
 
-	if (expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true)) {
-		const { taskItem, blockTaskItem } = schema.nodes;
-		const maybeTask = findParentNodeOfTypeClosestToPos($from, [taskItem, blockTaskItem]);
+	const { taskItem, blockTaskItem } = schema.nodes;
+	const maybeTask = findParentNodeOfTypeClosestToPos($from, [taskItem, blockTaskItem]);
 
-		// current selection has to be inside taskitem
-		if (maybeTask) {
-			return {
-				pos: maybeTask?.pos,
-				localId: maybeTask?.node.attrs.localId,
-			};
-		}
-	} else {
-		const isInTaskItem = $from.node().type === schema.nodes.taskItem;
-
-		// current selection has to be inside taskitem
-		if (isInTaskItem) {
-			const taskItemPos = $from.before();
-			return {
-				pos: taskItemPos,
-				localId: $from.node().attrs.localId,
-			};
-		}
+	// current selection has to be inside taskitem
+	if (maybeTask) {
+		return {
+			pos: maybeTask?.pos,
+			localId: maybeTask?.node.attrs.localId,
+		};
 	}
 }
 
@@ -353,11 +339,8 @@ export function getAllTaskItemsDataInRootTaskList(view: EditorView):
 	const { schema } = state;
 	const $fromPos = state.selection.$from;
 
-	const isInTaskItem = expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true)
-		? isInsideTask(state)
-		: $fromPos.node().type === schema.nodes.taskItem;
 	// if not inside task item then return undefined;
-	if (!isInTaskItem) {
+	if (!isInsideTask(state)) {
 		return;
 	}
 
@@ -368,12 +351,7 @@ export function getAllTaskItemsDataInRootTaskList(view: EditorView):
 		const rootTaskListStartPos = rootTaskListData.start;
 		const allTaskItems: Array<{ index: number; node: Node; pos: number }> = [];
 		rootTaskList.descendants((node, pos, parent, index) => {
-			if (
-				node.type === taskItem ||
-				(expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true) &&
-					blockTaskItem &&
-					node.type === blockTaskItem)
-			) {
+			if (node.type === taskItem || (blockTaskItem && node.type === blockTaskItem)) {
 				allTaskItems.push({
 					node,
 					pos: pos + rootTaskListStartPos,
@@ -395,9 +373,10 @@ export function getCurrentTaskItemIndex(
 
 	const $fromPos = state.selection.$from;
 	const allTaskItemNodes = allTaskItems.map((nodeData) => nodeData.node);
-	const currentTaskItem = expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true)
-		? findParentNodeOfTypeClosestToPos($fromPos, [taskItem, blockTaskItem])?.node
-		: $fromPos.node($fromPos.depth);
+	const currentTaskItem = findParentNodeOfTypeClosestToPos($fromPos, [
+		taskItem,
+		blockTaskItem,
+	])?.node;
 
 	if (currentTaskItem) {
 		const currentTaskItemIndex = allTaskItemNodes.indexOf(currentTaskItem);
@@ -470,17 +449,10 @@ export function focusCheckboxAndUpdateSelection(
 	const tr = state.tr;
 
 	// if there's an extension at this position, we're in a blockTaskItem, set a gapCursor
-	if (
-		expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true) &&
-		extension &&
-		doc.resolve(pos + 1).nodeAfter?.type === extension
-	) {
+	if (extension && doc.resolve(pos + 1).nodeAfter?.type === extension) {
 		tr.setSelection(new GapCursorSelection(doc.resolve(pos + 1)));
 		// if there's a textblock at this position, we're in a blockTaskItem, add an extra hop into the content
-	} else if (
-		expValEquals('platform_editor_blocktaskitem_patch_1', 'isEnabled', true) &&
-		doc.resolve(pos + 1).nodeAfter?.isTextblock
-	) {
+	} else if (doc.resolve(pos + 1).nodeAfter?.isTextblock) {
 		tr.setSelection(new TextSelection(doc.resolve(pos + 2)));
 		// else, this is an ordinary task item with inline content
 	} else {

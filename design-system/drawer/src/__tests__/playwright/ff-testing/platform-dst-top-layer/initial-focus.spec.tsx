@@ -23,7 +23,10 @@ test.describe('Drawer top-layer — initial focus matrix', () => {
 	}) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/98-testing-initial-focus-matrix.tsx')
-		>('design-system', 'drawer', 'testing-initial-focus-matrix', { featureFlag });
+		>('design-system', 'drawer', 'testing-initial-focus-matrix', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
 
 		await page.getByTestId('default-drawer-trigger').click();
 
@@ -39,7 +42,10 @@ test.describe('Drawer top-layer — initial focus matrix', () => {
 	}) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/98-testing-initial-focus-matrix.tsx')
-		>('design-system', 'drawer', 'testing-initial-focus-matrix', { featureFlag });
+		>('design-system', 'drawer', 'testing-initial-focus-matrix', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
 
 		await page.getByTestId('native-autofocus-drawer-trigger').click();
 

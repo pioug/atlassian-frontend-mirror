@@ -20,7 +20,7 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import TextIcon from '@atlaskit/icon/core/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import type { ThemeState } from '@atlaskit/tokens/theme-config';
 import { ThemeMutationObserver } from '@atlaskit/tokens/theme-mutation-observer';
 
@@ -164,11 +164,8 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			return (
 				<span
 					css={
-						editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true)
-							? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								[wrapperStyle, floatingToolbarWrapperStyle]
-							: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								wrapperStyle
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						[wrapperStyle, floatingToolbarWrapperStyle]
 					}
 				>
 					<DropdownMenu
@@ -363,7 +360,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(ToolbarBlockType);

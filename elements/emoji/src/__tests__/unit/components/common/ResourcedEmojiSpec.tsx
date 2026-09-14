@@ -6,19 +6,19 @@ import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 
-import { type EmojiDescription, UfoEmojiTimings } from '../../../../types';
-import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
+import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
+import { type EmojiDescription, UfoEmojiTimings } from '../../../../types';
 
 import { evilburnsEmoji, grinEmoji, getEmojiResourcePromise, mediaEmoji } from '../../_test-data';
 
-import { ufoExperiences } from '../../../../util/analytics';
-import * as constants from '../../../../util/constants';
-import * as samplingUfo from '../../../../util/analytics/samplingUfo';
-import browserSupport from '../../../../util/browser-support';
 import type { EmojiId } from '../../../..';
+import * as samplingUfo from '../../../../util/analytics/samplingUfo';
+import { ufoExperiences } from '../../../../util/analytics/ufoExperiences';
+import browserSupport from '../../../../util/browser-support';
+import * as constants from '../../../../util/constants';
 import { renderWithIntl } from '../../_testing-library';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 jest.mock('../../../../util/constants', () => {
@@ -415,6 +415,7 @@ describe('<ResourcedEmoji />', () => {
 						fallback: shortName,
 					},
 					expectedOptimisticFetch,
+					undefined,
 				);
 			},
 		);

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { NestedDropdownRightIcon, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
 import AlignPositionBottomIcon from '@atlaskit/icon-lab/core/align-position-bottom';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { Label } from '@atlaskit/form/label/default';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	ForbiddenClient,
 	ForbiddenWithObjectRequestAccessClient,
@@ -18,7 +18,7 @@ import {
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid } from '@atlaskit/primitives';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 
 import {
 	AssignedToElement,

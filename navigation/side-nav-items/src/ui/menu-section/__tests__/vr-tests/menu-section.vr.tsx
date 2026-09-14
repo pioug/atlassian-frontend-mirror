@@ -1,6 +1,6 @@
 import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import { MenuSectionExample } from '../../../../../examples/menu-section';
+import { MenuSectionExample } from '../../../../../examples/menu-section.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

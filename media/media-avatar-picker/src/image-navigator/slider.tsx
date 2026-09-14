@@ -5,8 +5,8 @@
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { Component, type ComponentType, type FC } from 'react';
-import FieldRange from '@atlaskit/range';
-import { messages } from '@atlaskit/media-ui';
+import FieldRange from '@atlaskit/range/range';
+import { messages } from '@atlaskit/media-ui/messages';
 import ScaleLargeIcon from '@atlaskit/icon/core/image';
 import ScaleSmallIcon from '@atlaskit/icon/core/image';
 import Button from '@atlaskit/button/standard-button';

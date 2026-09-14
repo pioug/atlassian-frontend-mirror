@@ -1,8 +1,6 @@
 import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Provider } from './provider';
 import type { Config, ProductInformation, InitAndAuthData, AuthCallback } from './types';
 import { getProduct, getSubProduct, isGCPtenant } from './helpers/utils';
@@ -20,30 +18,45 @@ export function createSocketIOSocket(
 ): Socket {
 	const { pathname, hostname } = new URL(url);
 	let socketIOOptions = SOCKET_IO_OPTIONS;
-	// Polling first
-	let transports = ['polling', 'websocket'];
-	let usePMR = false;
+	// Default: polling first, with WebSocket upgrade fallback
+	let transports: string[] = ['polling', 'websocket'];
 
-	if (isPresenceOnly) {
-		// Presence-specific configuration
-		if (fg('platform-editor-presence-websocket-only')) {
-			// https://socket.io/docs/v4/client-options/#transports
-			// WebSocket first, if fails, try polling
-			transports = ['websocket'];
-		}
-		socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
-		usePMR = true;
-	} else {
-		// PMR routing for edit traffic
-		if (
-			expValEquals('platform_editor_to_use_pmr_for_collab_edit_none_ic', 'isEnabled', true, false)
-		) {
-			usePMR = true;
-		}
+	// Determine transport strategy based on connection type and tenant.
+	// https://socket.io/docs/v4/client-options/#transports
+	type ConnectionCase = 'presence' | 'gcp-collab' | 'default';
 
-		if (isGCPtenant(hostname) && fg('collab_edit_via_websocket_only_for_gcp')) {
-			transports = ['websocket'];
+	const getConnectionCase = (): ConnectionCase => {
+		if (isPresenceOnly) {
+			// Presence connections: all tenants (commercial, GCP, IC, etc.)
+			return 'presence';
+		} else if (isGCPtenant(hostname)) {
+			// Collab editing: GCP tenant
+			return 'gcp-collab';
+		} else {
+			// Collab editing: commercial and all other tenants — polling first, with WebSocket upgrade fallback
+			return 'default';
 		}
+	};
+
+	switch (getConnectionCase()) {
+		case 'presence':
+			// Presence for all tenants (commercial, GCP, IC, …): WebSocket only when flag is enabled
+			socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
+			if (fg('platform-editor-presence-websocket-only')) {
+				transports = ['websocket'];
+			}
+			break;
+
+		case 'gcp-collab':
+			// GCP: use WebSocket for all collab editing as well
+			if (fg('collab_edit_via_websocket_only_for_gcp')) {
+				transports = ['websocket'];
+			}
+			break;
+
+		default:
+			// Default: polling first, with WebSocket upgrade fallback
+			break;
 	}
 
 	const extraHeaders: Record<string, string> = {
@@ -59,7 +72,7 @@ export function createSocketIOSocket(
 		closeOnBeforeunload: false,
 		withCredentials: true,
 		transports,
-		path: usePMR && path ? `${path}/socket.io` : `/${pathname.split('/')[1]}/socket.io`,
+		path: path ? `${path}/socket.io` : `/${pathname.split('/')[1]}/socket.io`,
 		auth,
 		extraHeaders,
 		query: {

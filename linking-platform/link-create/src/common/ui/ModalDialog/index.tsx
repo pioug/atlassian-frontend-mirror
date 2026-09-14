@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
-import { AnalyticsContext, useAnalyticsEvents } from '@atlaskit/analytics-next';
-import ModalDialog from '@atlaskit/modal-dialog';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 
 import { ANALYTICS_CHANNEL } from '../../constants';
 import createEventPayload, {

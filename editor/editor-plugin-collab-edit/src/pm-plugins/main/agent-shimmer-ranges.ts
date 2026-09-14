@@ -1,7 +1,11 @@
+import { slicesEqualIgnoringLocalId } from '@atlaskit/editor-common/collab-agent-review-slice-compare';
 import type { AgentEditShimmerNotShownReason } from '@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events';
+import type { AgentEditChromeRange } from '@atlaskit/editor-common/collab-agent-edit-chrome';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getCollabState } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -27,6 +31,17 @@ export const isPositionNeutralStep = (step: Step): boolean => {
 		}
 	});
 	return neutral;
+};
+
+// Mark-only steps (AddMarkStep / RemoveMarkStep) change no positions, so their StepMap is empty and
+// `getMap().forEach` never yields a range. Their affected span is carried directly on `step.from` /
+// `step.to` (valid in the step's input-doc coordinates). Returning it lets the range builders below
+// treat a formatting-only agent edit (e.g. bold) as a real change rather than silently dropping it.
+export const getMarkStepRange = (step: Step): { from: number; to: number } | null => {
+	if (step instanceof AddMarkStep || step instanceof RemoveMarkStep) {
+		return { from: step.from, to: step.to };
+	}
+	return null;
 };
 
 // Top-level block/position helpers over a doc. Kept at module scope (rather than re-created as
@@ -63,7 +78,7 @@ const topLevelBlockContentEnd = (doc: PMNode, pos: number): number => {
  * rebased local step changed sizes (a rare, safe degrade). Any unexpected error also degrades to no
  * shimmer, so this never throws into the shared remote-step handler.
  */
-export const getAgentShimmerRanges = (
+const deriveAgentShimmerRanges = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	json: any[],
 	steps: Step[],
@@ -77,9 +92,6 @@ export const getAgentShimmerRanges = (
 	// off (config) or the batch has no agent steps; those aren't "not shown" cases.
 	onNotShown?: (reason: AgentEditShimmerNotShownReason, agentType?: string, error?: Error) => void,
 ): AgentShimmerRange[] => {
-	if (!expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)) {
-		return [];
-	}
 	// The two phases toggle independently: `shimmerDurationMs` sizes the skeleton, `highlightDurationMs`
 	// sizes the purple highlight, and `0` on either skips just that phase. Nothing to reveal only when
 	// both are off.
@@ -138,16 +150,57 @@ export const getAgentShimmerRanges = (
 			if (typeof pmStep?.getMap !== 'function') {
 				return;
 			}
+			// Mark-only steps have an empty StepMap, so the getMap().forEach below never fires for them.
+			// Derive their range from step.from/.to instead so formatting-only agent edits still shimmer.
+			const markRange = getMarkStepRange(steps[index]);
+			if (markRange) {
+				const beforeDocForMark = tr.docs[index] ?? tr.before;
+				const from = mapToFinalDoc(markRange.from, index, -1);
+				const to = mapToFinalDoc(markRange.to, index, 1);
+				if (to > from) {
+					try {
+						const before = beforeDocForMark.slice(markRange.from, markRange.to);
+						const after = tr.doc.slice(from, to);
+						if (!slicesEqualIgnoringLocalId(before, after)) {
+							infos.push({ from, to });
+						}
+					} catch (error) {
+						// Degrade gracefully (no shimmer for this step) but track the error so a silent
+						// fall-through does not hide a systemic slicing problem.
+						logException(error as Error, {
+							location: 'editor-plugin-collab-edit/agent-shimmer-ranges/markStepSlice',
+						});
+					}
+				}
+				return;
+			}
+			// The doc this step was applied to (its `old` coords resolve here). `tr.docs[index]` is the
+			// document state before step `index`; fall back to the batch's before-doc for the first step.
+			const beforeDoc = tr.docs[index] ?? tr.before;
 			pmStep
 				.getMap()
-				.forEach((_oldStart: number, _oldEnd: number, newStart: number, newEnd: number) => {
+				.forEach((oldStart: number, oldEnd: number, newStart: number, newEnd: number) => {
 					if (newEnd <= newStart) {
 						return; // pure deletion / attribute-only — no new content to highlight
 					}
-					infos.push({
-						from: mapToFinalDoc(newStart, index, -1),
-						to: mapToFinalDoc(newEnd, index, 1),
-					});
+					const from = mapToFinalDoc(newStart, index, -1);
+					const to = mapToFinalDoc(newEnd, index, 1);
+					// Skip phantom same-size re-writes (e.g. a `localId`/breakout re-stamp on an untouched
+					// panel): their StepMap reports new content but nothing visibly changed. Drop only when
+					// before/after are equal ignoring `localId` and layout marks, so real same-size edits
+					// still shimmer. Mirrors the Review-moment segment producer's guard.
+					if (oldEnd - oldStart === newEnd - newStart) {
+						try {
+							const before = beforeDoc.slice(oldStart, oldEnd);
+							const after = tr.doc.slice(from, to);
+							if (slicesEqualIgnoringLocalId(before, after)) {
+								return;
+							}
+						} catch {
+							// Comparison unsafe: keep the range; whole-block expansion still renders it.
+						}
+					}
+					infos.push({ from, to });
 				});
 		});
 
@@ -193,4 +246,54 @@ export const getAgentShimmerRanges = (
 		onNotShown?.('captureThrew', agentType, err as Error);
 		return [];
 	}
+};
+
+export const getAgentShimmerRanges = (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	json: any[],
+	steps: Step[],
+	tr: Transaction,
+	view: EditorView,
+	shimmerDurationMs: number,
+	highlightDurationMs: number,
+	telepointerEnabled: boolean,
+	onNotShown?: (reason: AgentEditShimmerNotShownReason, agentType?: string, error?: Error) => void,
+): AgentShimmerRange[] => {
+	if (!expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)) {
+		return [];
+	}
+
+	return deriveAgentShimmerRanges(
+		json,
+		steps,
+		tr,
+		view,
+		shimmerDurationMs,
+		highlightDurationMs,
+		telepointerEnabled,
+		onNotShown,
+	);
+};
+
+/**
+ * Produces only the neutral changed ranges needed by the shared AI chrome.
+ * The caller supplies lifetime configuration and any presentation override separately,
+ * together with these ranges, in `AgentEditChromeData`.
+ */
+export const getAgentEditChromeRanges = (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	json: any[],
+	steps: Step[],
+	tr: Transaction,
+	view: EditorView,
+	onNotShown?: (reason: AgentEditShimmerNotShownReason, agentType?: string, error?: Error) => void,
+): AgentEditChromeRange[] => {
+	// Reuse legacy range derivation with skeleton and telepointer output disabled. A non-zero
+	// highlight duration keeps capture enabled; the returned legacy phase and duration are discarded.
+	return deriveAgentShimmerRanges(json, steps, tr, view, 0, 1, false, onNotShown).map(
+		({ from, to }) => ({
+			from,
+			to,
+		}),
+	);
 };

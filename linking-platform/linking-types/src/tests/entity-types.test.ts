@@ -1,16 +1,14 @@
-import {
-	type BaseEntity,
-	isBaseEntity,
-	isConversationEntity,
-	isDesignEntity,
-	isDocumentEntity,
-	isEntityType,
-	isMessageEntity,
-	isProjectEntity,
-	isRemoteLinkEntity,
-	isUnsupportedEntity,
-	isWorkItemEntity,
-} from '../entry-points/entity-types';
+import type { BaseEntity } from '../entry-points/entity-types';
+import { isBaseEntity } from '../entry-points/is-base-entity';
+import { isConversationEntity } from '../entry-points/is-conversation-entity';
+import { isDesignEntity } from '../entry-points/is-design-entity';
+import { isDocumentEntity } from '../entry-points/is-document-entity';
+import { isEntityType } from '../entry-points/is-entity-type';
+import { isMessageEntity } from '../entry-points/is-message-entity';
+import { isProjectEntity } from '../entry-points/is-project-entity';
+import { isRemoteLinkEntity } from '../entry-points/is-remote-link-entity';
+import { isUnsupportedEntity } from '../entry-points/is-unsupported-entity';
+import { isWorkItemEntity } from '../entry-points/is-work-item-entity';
 
 const baseEntity: BaseEntity = {
 	displayName: 'Entity',

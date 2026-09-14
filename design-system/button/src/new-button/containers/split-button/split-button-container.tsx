@@ -6,7 +6,6 @@ import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { SplitButtonAppearance } from './types';
@@ -19,16 +18,12 @@ const buttonStyles = cssMap({
 		whiteSpace: 'nowrap',
 	},
 	defaultAppearanceContainer: {
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.medium'),
 		outlineColor: token('color.border'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		outlineOffset: -1,
 		outlineStyle: 'solid',
 		outlineWidth: 1,
-	},
-	// platform-dst-shape-theme-default TODO: Merge into defaultAppearanceContainer after rollout
-	defaultAppearanceContainerT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	defaultAppearanceDisabledContainer: {
 		outlineColor: token('color.border.disabled'),
@@ -62,19 +57,14 @@ export const SplitButtonContainer: ({
 	appearance: SplitButtonAppearance;
 	children: ReactNode;
 	isDisabled?: boolean;
-}) => {
-	return (
-		<div
-			css={[
-				appearance === 'default' && buttonStyles.defaultAppearanceContainer,
-				appearance === 'default' &&
-					fg('platform-dst-shape-theme-default') &&
-					buttonStyles.defaultAppearanceContainerT26Shape,
-				appearance === 'default' && isDisabled && buttonStyles.defaultAppearanceDisabledContainer,
-				buttonStyles.splitButton,
-			]}
-		>
-			{children}
-		</div>
-	);
-};
+}) => (
+	<div
+		css={[
+			appearance === 'default' && buttonStyles.defaultAppearanceContainer,
+			appearance === 'default' && isDisabled && buttonStyles.defaultAppearanceDisabledContainer,
+			buttonStyles.splitButton,
+		]}
+	>
+		{children}
+	</div>
+);

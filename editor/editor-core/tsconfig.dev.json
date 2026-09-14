@@ -109,9 +109,6 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-performance-metrics/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-alignment/tsconfig.app.json"
 		},
 		{
@@ -301,6 +298,9 @@
 			"path": "../../design-system/navigation-system/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
@@ -373,6 +373,9 @@
 			"path": "../editor-rovo-bridge/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
 		},
 		{
@@ -389,6 +392,9 @@
 		},
 		{
 			"path": "../../people-and-teams/user-profile-card/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

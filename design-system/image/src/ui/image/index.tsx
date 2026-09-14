@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { UNSAFE_useColorModeForMigration } from '@atlaskit/app-provider';
+import { UNSAFE_useColorModeForMigration } from '@atlaskit/app-provider/use-color-mode-for-migration';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {

@@ -1,8 +1,9 @@
 import React from 'react';
 
-import OldButton from '@atlaskit/button';
-import Button, { IconButton } from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
+import OldButton from '@atlaskit/button/button';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
+import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
 

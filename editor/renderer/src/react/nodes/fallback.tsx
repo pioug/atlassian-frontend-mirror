@@ -1,6 +1,6 @@
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import Link from '@atlaskit/link';
-import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import Link from '@atlaskit/link/link';
+import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource/analytics/render-failed';
 import React from 'react';
 import { InlineCard } from './';
 
@@ -36,8 +36,8 @@ export class CardErrorBoundary extends React.PureComponent<
 	};
 
 	static getDerivedStateFromError(error: Error): {
-		isError: boolean;
 		error: Error;
+		isError: boolean;
 	} {
 		return { isError: true, error };
 	}

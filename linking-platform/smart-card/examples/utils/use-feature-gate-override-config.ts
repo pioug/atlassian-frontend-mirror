@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import FeatureGates, { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client/types';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 
 type FeatureGateConfig = Parameters<(typeof FeatureGates)['overrideConfig']>[1];
 
@@ -15,10 +16,10 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	social_proof_3p_unauth_block_exp: {
 		isEnabled: true,
 	},
-	platform_sl_3p_auth_inline_tailored_cta: {
+	platform_sl_embed_preauth_teaser_exp: {
 		isEnabled: true,
 	},
-	platform_sl_embed_preauth_teaser_exp: {
+	'rovogrowth-635-pre-auth-cta-preview-exp': {
 		isEnabled: true,
 	},
 };
@@ -28,7 +29,7 @@ const enabledGates = [
 	'smart-card-inline-resolved-view-refactor',
 	'platform_sl_3p_preauth_soc_proof_inline_killswitch',
 	'social-proof-3p-unauth-block-fg',
-	'platform_sl_3p_auth_inline_tailored_cta_killswitch',
+	'rovogrowth-635-pre-auth-cta-preview-fg',
 ];
 
 const emptyConfig = {};

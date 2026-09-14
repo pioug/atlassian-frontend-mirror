@@ -6,8 +6,8 @@ export const syncBlockFallbackTransform = (
 	schema: Schema,
 	adf: ADFEntity,
 ): {
-	transformedAdf: false | ADFEntity;
 	isTransformed: boolean;
+	transformedAdf: false | ADFEntity;
 } => {
 	let isTransformed: boolean = false;
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 

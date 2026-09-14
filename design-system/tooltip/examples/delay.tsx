@@ -1,8 +1,8 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import Tooltip from '@atlaskit/tooltip';
+import Button from '@atlaskit/button/default/button';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 export default function DelayExample(): React.JSX.Element {
 	return (

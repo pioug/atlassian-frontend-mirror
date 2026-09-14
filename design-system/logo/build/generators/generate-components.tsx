@@ -9,7 +9,7 @@ import { createSignedArtifact } from '@atlassian/codegen';
 import { logoDocsSchema } from '../../src/logo-docs-schema';
 import { type Assets, dataCenterApps, svgoConfig, transformSVG } from '../utils';
 
-// Logos that have a legacy counterpart and support the shouldUseNewLogoDesign migration prop
+// Logos that have a legacy counterpart
 const migrationLogos = new Set(
 	logoDocsSchema.filter((l) => l.type === 'migration').map((l) => l.name),
 );
@@ -159,8 +159,7 @@ const getLogoJSX = (
 		type === 'icon' && isMigrationLogo
 			? `
  * @deprecated This component has been replaced by the component \`${componentName}\` in \`@atlaskit/logo\`.
- * Please migrate any usages of this temporary component, using the prop \`shouldUseNewLogoDesign\` where necessary
- * to enable the new design by default.`
+ * Please migrate any usages of this temporary component.`
 			: type === 'icon'
 				? `
  * Do not use this internal component directly — use \`${componentName}\` from \`@atlaskit/logo\` instead.`
@@ -181,7 +180,7 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
  */
 export function ${componentName}({
 		${customThemeSvg ? 'iconColor, ' : ''}
-		${customThemeSvg && (type === 'logo' || type === 'logo-cs') ? 'textColor,' : ''} size, appearance = "brand", label = "${productLabel}", testId
+		${customThemeSvg && (type === 'logo' || type === 'logo-cs') ? 'textColor,' : ''} size = 'medium', appearance = "brand", label = "${productLabel}", testId
 	}: ${propType}): React.JSX.Element {
 	return <${WrapperName}
 			svg={svg} ${customThemeSvg ? 'customThemeSvg={customThemeSvg}' : ''}
@@ -190,7 +189,7 @@ export function ${componentName}({
 			label={label}
 			${name === 'assets' ? 'isAssets={true}' : ''}
 			${dataCenterApps.includes(name) ? 'type="data-center"' : ''}
-			${name === 'rovo-hex' ? 'type="rovo"' : ''}
+			${name === 'rovo-hex' || name === 'rovo' ? 'type="rovo"' : ''}
 			appearance={appearance}
 			size={size}
 			testId={testId}

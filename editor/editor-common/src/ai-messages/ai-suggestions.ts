@@ -11,6 +11,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardAuthorsTooltipLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardBadSuggestionLabel: {
 		defaultMessage: string;
 		description: string;
@@ -27,6 +32,11 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 	cardCompareWithOriginalOptionLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardDetailsButtonLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -66,7 +76,17 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardNextSuggestionButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardOnlyShowSuggestionOptionLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardPreviousSuggestionButtonLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -81,6 +101,30 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardRegeneratingBannerLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardRestrictedLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardRestrictedTooltipLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardRovoAuthorLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	/**
+	 * @private
+	 * @deprecated The suggestion card no longer displays a Rovo text label.
+	 */
 	cardRovoTitle: {
 		defaultMessage: string;
 		description: string;
@@ -101,6 +145,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardSourceAppsLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardSourcesButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -116,12 +165,42 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardStaleBannerLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardUpdatedBannerLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	contentReviewAgentPrompt: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	fetchSuggestionsButtonLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
 	fetchSuggestionsButtonLoadingLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	followUpCardDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	followUpCardReviewButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	followUpCardTitle: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -147,11 +226,6 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 	reviewNote: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	sourceLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -196,6 +270,21 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	teamworkGraphLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingAnalyzingStructure: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCheckingConsistency: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingCheckingRelatedSources: {
 		defaultMessage: string;
 		description: string;
@@ -211,7 +300,17 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingCompleteNoSuggestionsUpdated: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingCompleteReviewComplete: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingCompleteReviewCompleteUpdated: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -221,7 +320,27 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingErrorTokenLimitExceeded: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingEscHint: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingEvaluatingOptions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingFinalizingSuggestionsForReview: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingGatheringContext: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -231,12 +350,27 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingMayTakeAFewMinutes: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingPreparingSuggestions: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
+	thinkingRefiningSuggestions: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingReviewingContent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	thinkingReviewingContentWithAgent: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -267,6 +401,12 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Review my content with ',
 		description:
 			'Localised text that precedes the suggest-edits skill tag in the prompt sent to the AI service. The trailing space is intentional — it separates this text from the skill tag that follows. Localise it in a way where the prompt ends with the skill tag. (With the skill tag it will look like e.g. "Review my content with /suggest-edits")',
+	},
+	contentReviewAgentPrompt: {
+		id: 'fabric.editor.ai.suggestions.contentReviewAgentPrompt.non-final',
+		defaultMessage: 'Review my content and suggest improvements',
+		description:
+			'The whole prompt sent to the AI service when the review is handled by the Content Reviewer agent. The agent already knows how to produce suggestions, so unlike suggestEditsPromptPrefix this is plain text with no skill tag appended.',
 	},
 	suggestionsToolbarButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.toolbarButton.label.non-final',
@@ -325,6 +465,24 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Loading…',
 		description: 'Label for the fetch suggestions button when loading',
 	},
+	followUpCardTitle: {
+		id: 'fabric.editor.ai.suggestions.followUpCard.title.non-final',
+		defaultMessage: 'Review the rest?',
+		description:
+			'Title of the card shown in place of the AI suggestion card once the last suggestion has been actioned, offering to review the rest of the page',
+	},
+	followUpCardDescription: {
+		id: 'fabric.editor.ai.suggestions.followUpCard.description.non-final',
+		defaultMessage: 'Generate suggestions to improve the rest of your content.',
+		description:
+			'Body text of the card shown in place of the AI suggestion card once the last suggestion has been actioned',
+	},
+	followUpCardReviewButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.followUpCard.reviewButtonLabel.non-final',
+		defaultMessage: 'Review',
+		description:
+			'Label for the review button on the card shown once the last AI suggestion has been actioned, which generates suggestions for the rest of the page',
+	},
 	iconButtonSuggestionsCountLabel: {
 		id: 'fabric.editor.ai.suggestions.iconButton.suggestionsCountLabel.non-final',
 		defaultMessage: '{count} suggestions',
@@ -353,13 +511,26 @@ export const aiSuggestionsMessages: {
 	},
 	cardCloseButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.closeButtonLabel.non-final',
-		defaultMessage: 'Close',
-		description: 'Label for the close button on the AI suggestions card',
+		defaultMessage: 'Close suggestion',
+		description: 'Label and tooltip for the close button on the AI suggestions card',
 	},
 	cardShowSidebarButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.showSidebarButtonLabel.non-final',
-		defaultMessage: 'Show sidebar',
-		description: 'Label for the show sidebar button on the AI suggestions card',
+		defaultMessage: 'Show all suggestions',
+		description:
+			'Label and tooltip for the button on the AI suggestions card that opens the suggestions sidebar',
+	},
+	cardPreviousSuggestionButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.previousSuggestionButtonLabel.non-final',
+		defaultMessage: 'Previous suggestion',
+		description:
+			'Label and tooltip for the up chevron button on the AI suggestions card, which moves to the previous suggestion',
+	},
+	cardNextSuggestionButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.nextSuggestionButtonLabel.non-final',
+		defaultMessage: 'Next suggestion',
+		description:
+			'Label and tooltip for the down chevron button on the AI suggestions card, which moves to the next suggestion',
 	},
 	cardExpandButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.expandButtonLabel.non-final',
@@ -374,7 +545,17 @@ export const aiSuggestionsMessages: {
 	cardRovoTitle: {
 		id: 'fabric.editor.ai.suggestions.card.rovoTitle.non-final',
 		defaultMessage: 'Rovo',
-		description: 'Title for Rovo branding on the AI suggestions card',
+		description: 'Deprecated title for Rovo branding on the AI suggestions card',
+	},
+	cardRovoAuthorLabel: {
+		id: 'editor-common.ai-messages.ai-suggestions.cardRovoAuthorLabel',
+		defaultMessage: 'Rovo',
+		description: 'Accessible name and tooltip identity for suggestions without a named agent',
+	},
+	cardAuthorsTooltipLabel: {
+		id: 'fabric.editor.ai.suggestions.card.authorsTooltipLabel.non-final',
+		defaultMessage: '{agentName} with {userName}',
+		description: 'Tooltip identifying the agent and user who authored an AI suggestion together',
 	},
 	cardPrivateLabel: {
 		id: 'fabric.editor.ai.suggestions.card.privateLabel.non-final',
@@ -385,6 +566,27 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.privateTooltipLabelShort.non-final',
 		defaultMessage: 'Visible only to you',
 		description: 'Tooltip shown on the private indicator icon in the AI suggestions card',
+	},
+	cardRestrictedLabel: {
+		id: 'fabric.editor.ai.suggestions.card.restrictedLabel.non-final',
+		defaultMessage: 'Restricted',
+		description: 'Label for the restricted suggestion lozenge',
+	},
+	cardRestrictedTooltipLabel: {
+		id: 'fabric.editor.ai.suggestions.card.restrictedTooltip.non-final',
+		defaultMessage: 'Only editors with access to the source can see this suggestion',
+		description: 'Tooltip for the restricted suggestion lozenge',
+	},
+	cardDetailsButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.detailsButtonLabel.non-final',
+		defaultMessage: 'Details',
+		description: 'Label for the details toggle button on the AI suggestions card',
+	},
+	cardSourceAppsLabel: {
+		id: 'fabric.editor.ai.suggestions.card.sourceAppsLabel.non-final',
+		defaultMessage: 'Source apps',
+		description:
+			'Accessible name for the stack of app logos showing which apps an AI suggestion drew on',
 	},
 	cardSourcesButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.sourcesButtonLabel.non-final',
@@ -406,6 +608,24 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Accept',
 		description: 'Label for the accept button on the AI suggestions card',
 	},
+	cardStaleBannerLabel: {
+		id: 'fabric.editor.ai.suggestions.card.staleBannerLabel.non-final',
+		defaultMessage: 'This suggestion is outdated.',
+		description:
+			'Banner shown at the top of the AI suggestions card when the suggestion is out of date (stale)',
+	},
+	cardRegeneratingBannerLabel: {
+		id: 'fabric.editor.ai.suggestions.card.regeneratingBannerLabel.non-final',
+		defaultMessage: 'Updating suggestion...',
+		description:
+			'Banner shown at the top of the AI suggestions card while the suggestion is being updated (regenerated)',
+	},
+	cardUpdatedBannerLabel: {
+		id: 'fabric.editor.ai.suggestions.card.updatedBannerLabel.non-final',
+		defaultMessage: 'Suggestion updated.',
+		description:
+			'Banner shown briefly at the top of the AI suggestions card after the suggestion has been successfully updated (regenerated)',
+	},
 	cardDiscardButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.discardButtonLabel.non-final',
 		defaultMessage: 'Discard',
@@ -423,8 +643,8 @@ export const aiSuggestionsMessages: {
 	},
 	cardMoreOptionsButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.moreOptionsButtonLabel.non-final',
-		defaultMessage: 'More options',
-		description: 'Label for the overflow actions button on the AI suggestions card',
+		defaultMessage: 'More actions',
+		description: 'Label and tooltip for the overflow actions button on the AI suggestions card',
 	},
 	cardGoodSuggestionLabel: {
 		id: 'fabric.editor.ai.suggestions.card.goodSuggestionLabel.non-final',
@@ -481,31 +701,83 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Reviewing content',
 		description: 'Loading message shown while the AI is reviewing the content',
 	},
+	thinkingReviewingContentWithAgent: {
+		id: 'fabric.editor.ai.suggestions.thinking.reviewingContentWithAgent.non-final',
+		defaultMessage: 'Reviewing content with {agentName}',
+		description:
+			'First loading message on the AI suggestions thinking bar. The {agentName} placeholder is replaced with the reviewing agent name (for example "Content Reviewer"). Shown for a few seconds before the remaining rotating statuses.',
+	},
+	thinkingMayTakeAFewMinutes: {
+		id: 'fabric.editor.ai.suggestions.thinking.mayTakeAFewMinutes.non-final',
+		defaultMessage: 'This may take a few minutes',
+		description: 'Loading message setting expectations that the AI review may take a few minutes',
+	},
+	thinkingAnalyzingStructure: {
+		id: 'fabric.editor.ai.suggestions.thinking.analyzingStructure.non-final',
+		defaultMessage: 'Analyzing structure',
+		description: 'Loading message shown while the AI is analyzing the content structure',
+	},
 	thinkingCheckingRelatedSources: {
 		id: 'fabric.editor.ai.suggestions.thinking.checkingRelatedSources.non-final',
 		defaultMessage: 'Checking related sources',
 		description: 'Loading message shown while the AI is checking related sources',
+	},
+	thinkingGatheringContext: {
+		id: 'fabric.editor.ai.suggestions.thinking.gatheringContext.non-final',
+		defaultMessage: 'Gathering context',
+		description: 'Loading message shown while the AI is gathering context',
 	},
 	thinkingIdentifyingImprovements: {
 		id: 'fabric.editor.ai.suggestions.thinking.identifyingImprovements.non-final',
 		defaultMessage: 'Identifying improvements',
 		description: 'Loading message shown while the AI is identifying improvements',
 	},
+	thinkingEvaluatingOptions: {
+		id: 'fabric.editor.ai.suggestions.thinking.evaluatingOptions.non-final',
+		defaultMessage: 'Evaluating options',
+		description: 'Loading message shown while the AI is evaluating possible suggestions',
+	},
+	thinkingCheckingConsistency: {
+		id: 'fabric.editor.ai.suggestions.thinking.checkingConsistency.non-final',
+		defaultMessage: 'Checking consistency',
+		description: 'Loading message shown while the AI is checking content consistency',
+	},
 	thinkingPreparingSuggestions: {
 		id: 'fabric.editor.ai.suggestions.thinking.preparingSuggestions.non-final',
 		defaultMessage: 'Preparing suggestions',
 		description: 'Loading message shown while the AI is preparing suggestions',
+	},
+	thinkingRefiningSuggestions: {
+		id: 'fabric.editor.ai.suggestions.thinking.refiningSuggestions.non-final',
+		defaultMessage: 'Refining suggestions',
+		description: 'Loading message shown while the AI is refining suggestions',
+	},
+	thinkingFinalizingSuggestionsForReview: {
+		id: 'fabric.editor.ai.suggestions.thinking.finalizingSuggestionsForReview.non-final',
+		defaultMessage: 'Finalizing suggestions for review',
+		description: 'Loading message shown while the AI is finalizing suggestions for review',
 	},
 	thinkingCompleteReviewComplete: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.reviewComplete.non-final',
 		defaultMessage: 'Suggestions ready',
 		description: 'Text shown when the AI has finished reviewing the content',
 	},
+	thinkingCompleteReviewCompleteUpdated: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.reviewCompleteUpdated.non-final',
+		defaultMessage: 'Review complete, view your suggestions.',
+		description: 'Updated text shown when the AI has finished reviewing the content',
+	},
 	thinkingCompleteNoSuggestions: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.noSuggestions.non-final',
 		defaultMessage: 'No suggestions found',
 		description:
 			'Text shown when the AI has finished reviewing the content and no suggestions were found',
+	},
+	thinkingCompleteNoSuggestionsUpdated: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.noSuggestionsUpdated.non-final',
+		defaultMessage: 'Review complete. No suggestions found.',
+		description:
+			'Updated text shown when the AI has finished reviewing the content and no suggestions were found',
 	},
 	thinkingCompleteViewSuggestions: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.viewSuggestions.non-final',
@@ -517,9 +789,15 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Close',
 		description: 'Accessible label for the close button on the thinking complete bar',
 	},
-	sourceLabel: {
-		id: 'fabric.editor.ai.suggestions.sourceLabel.non-final',
-		defaultMessage: 'Source',
-		description: 'Label for the sources section on the AI suggestions card',
+	thinkingErrorTokenLimitExceeded: {
+		id: 'fabric.editor.ai.suggestions.thinkingError.tokenLimitExceeded.non-final',
+		defaultMessage: 'There’s too much content to process.',
+		description:
+			'Error shown on the suggested-edits thinking bar when the request exceeds the maximum content limit.',
+	},
+	teamworkGraphLabel: {
+		id: 'fabric.editor.ai.suggestions.teamworkGraphLabel.non-final',
+		defaultMessage: 'Teamwork Graph',
+		description: 'Label for the Teamwork Graph sources section on the AI suggestions card',
 	},
 });

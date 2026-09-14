@@ -6,20 +6,21 @@ import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 import {
 	DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
 	useDatasourceClientExtension,
-} from '@atlaskit/link-client-extension';
-import {
-	type DatasourceDataRequest,
-	type DatasourceDataResponseItem,
-	type DatasourceDataSchema,
-	type DatasourceMeta,
-	type DatasourceParameters,
-	type DatasourceResponseSchemaProperty,
-	type DatasourceTableStatusType,
-} from '@atlaskit/linking-types';
+} from '@atlaskit/link-client-extension/use-data-source-client-extension';
+import type {
+	DatasourceDataRequest,
+	DatasourceDataResponseItem,
+	DatasourceDataSchema,
+	DatasourceMeta,
+	DatasourceParameters,
+	DatasourceResponseSchemaProperty,
+	DatasourceTableStatusType,
+} from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
-import { useDiscoverActions } from '../state/actions';
+import { useDiscoverActions } from '../state/actions/useDiscoverActions';
 
 import useErrorLogger from './useErrorLogger';
 import { useIsInPDFRender } from './useIsInPDFRender';
@@ -321,9 +322,14 @@ export const useDatasourceTableState = ({
 					setLastRequestedFieldKeys(fieldKeys);
 				}
 
+				// A response with no items still describes its columns, so the schema is worth applying
+				// to let the table keep its headers while showing the empty state.
+				const shouldApplySchemaWithoutItems =
+					items.length === 0 && fg('platform_lp_sllv_ux_improvements');
+
 				if (
 					((isSchemaFromData && schema) || fullSchema.properties.length > 0) &&
-					items.length > 0
+					(items.length > 0 || shouldApplySchemaWithoutItems)
 				) {
 					applySchemaProperties(schema || fullSchema, fieldKeys);
 				}

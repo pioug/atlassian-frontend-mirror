@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cd8729ac552b1de4bf8738d1da9f5bfd>>
+ * @codegen <<SignedSource::67d6008973675a130c93a9485ef50c5b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "NodeParallelTopLeft".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const NodeParallelTopLeftIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const NodeParallelTopLeftIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "NodeParallelTopLeftIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3.25 3.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5M1 4.25a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0M3.25 11a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5M1 11.75a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M4 11h11v1.5H4z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M8.75 5H4V3.5h4.75a2 2 0 0 1 2 2v6.25h-1.5V5.5a.5.5 0 0 0-.5-.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

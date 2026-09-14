@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e5ce5248a23a237688e2341559569305>>
+ * @codegen <<SignedSource::7f17ae18b0761298b937db5cf6db13fd>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -21,12 +21,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * A temporary component to represent the icon for Compass.
  * @deprecated This component has been replaced by the component `CompassIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * Please migrate any usages of this temporary component.
  *
  */
 export function CompassIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Compass',
 	testId,

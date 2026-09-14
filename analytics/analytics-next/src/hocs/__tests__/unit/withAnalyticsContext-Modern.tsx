@@ -123,7 +123,7 @@ describe('withAnalyticsContext ModernContext', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(callback).toBeCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
+		expect(callback).toHaveBeenCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
 	});
 
 	it('should provide analytics context via the anayticsContext prop to children', () => {
@@ -141,7 +141,7 @@ describe('withAnalyticsContext ModernContext', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(callback).toBeCalledWith(
+		expect(callback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[{ board: 'AFPAI', ticket: 'AFP-123' }],
 			'atlaskit',
@@ -159,7 +159,7 @@ describe('withAnalyticsContext ModernContext', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(callback).toBeCalledWith(
+		expect(callback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[{ board: 'AFPAI' }, { ticket: 'AFP-123' }],
 			'atlaskit',
@@ -176,7 +176,7 @@ describe('withAnalyticsContext ModernContext', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(callback).toBeCalledWith(
+		expect(callback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[
 				{ board: 'AFPAI', outer: 'outerValue' },
@@ -231,7 +231,7 @@ describe('withAnalyticsContext ModernContext', () => {
 
 		const { getByTestId } = render(<UnderTest callback={callback} />);
 
-		expect(callback).toBeCalledWith(getByTestId('container'));
+		expect(callback).toHaveBeenCalledWith(getByTestId('container'));
 	});
 
 	it("should include the wrapped component's name in the wrapped name", () => {

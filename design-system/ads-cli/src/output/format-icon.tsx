@@ -14,6 +14,7 @@ type IconPayload = {
 	componentName?: string;
 	package?: string;
 	usage?: string;
+	import?: string;
 };
 
 /**
@@ -40,7 +41,11 @@ export const formatIcon = (data: unknown): string | null => {
 	if (icon.package) {
 		sections.push('', `Package: ${icon.package}`);
 		// The actionable bit: the barrel-correct import for this icon.
-		sections.push('', 'Import:', `  import ${icon.componentName} from '${icon.package}';`);
+		sections.push(
+			'',
+			'Import:',
+			`  ${icon.import ?? `import ${icon.componentName} from '${icon.package}';`}`,
+		);
 	}
 
 	if (icon.usage) {

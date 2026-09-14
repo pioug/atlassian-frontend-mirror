@@ -1,5 +1,83 @@
 # @atlaskit/feedback-collector
 
+## 16.11.0
+
+### Minor Changes
+
+- [`243f107ca4fc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/243f107ca4fc8) -
+  Update i18n NPM package versions for discovery,navigation,web-platform,bitbucket,policy-platform
+  (Group 14)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.10.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.9.2
+
+### Patch Changes
+
+- [`6f66af09bd361`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f66af09bd361) -
+  Cleanup feature gate `ak_feedback_collector_select_escape`. The feedback type select now always
+  prevents Escape key propagation when its menu is open.
+
+## 16.9.1
+
+### Patch Changes
+
+- [`2543c8b0416d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2543c8b0416d7) -
+  Cleanup feature gate `fun-2435_improve_feedback_collector_copy`. The contact opt-in checkbox
+  always uses the copy explaining that consent is required to receive a reply.
+
+## 16.9.0
+
+### Minor Changes
+
+- [`d6496db5d242e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6496db5d242e) -
+  [ux] Behind the `fun-2435_improve_feedback_collector_copy` feature gate, the contact opt-in
+  checkbox copy now explains that consent is required to receive a reply, and that Atlassian teams
+  may ask for more details about the reported experience.
+
+## 16.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.8.0
+
+### Minor Changes
+
+- [`d82e5d7f2fe7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e5d7f2fe7c) -
+  Update i18n NPM package versions for discovery,navigation,web-platform,bitbucket,policy-platform
+  (Group 14)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.7.1
 
 ### Patch Changes

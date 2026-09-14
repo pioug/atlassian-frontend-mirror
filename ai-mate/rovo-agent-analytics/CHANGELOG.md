@@ -1,5 +1,59 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.3.0
+
+### Minor Changes
+
+- [`c4ee31ae1d342`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4ee31ae1d342) -
+  Track close-button clicks, viewing agent details, and debounced search requests (including
+  immediate clearing) in Browse Kit, with optional generic consumer analytics attributes. Add an
+  optional category runtime notification for search requests so analytics follows the actual refetch
+  without a separate timer. Track modal dismissal consistently after selection and creation,
+  independently of analytics metadata.
+
+## 6.2.2
+
+### Patch Changes
+
+- [`b709c3bbbd03e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b709c3bbbd03e) -
+  Add typed agent import and export analytics events.
+
+## 6.2.1
+
+### Patch Changes
+
+- [`321a559f40e21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/321a559f40e21) -
+  Exclude structured Rovo offering documentation from published package artifacts.
+
+## 6.2.0
+
+### Minor Changes
+
+- [`35d441857e3f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35d441857e3f4) -
+  Add typed Agent Insights value calculator events for `trackAgentEvent()`.
+
+## 6.1.2
+
+### Patch Changes
+
+- [`bcdd60ca05ef6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcdd60ca05ef6) -
+  Add analytics payload support for bulk agent deletion.
+
+## 6.1.1
+
+### Patch Changes
+
+- [`e7042f38bf2c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7042f38bf2c6) -
+  Add analytics payload support for bulk agent ownership transfers.
+
+## 6.1.0
+
+### Minor Changes
+
+- [`26d0116cedca1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26d0116cedca1) -
+  Keep card metadata aligned to the bottom and instrument Browse Agents interactions and
+  reliability.
+
 ## 6.0.0
 
 ### Major Changes

@@ -1,6 +1,5 @@
 import type { TablePluginOptions } from '@atlaskit/editor-plugin-table';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { FullPageEditorAppearance } from '../types';
 
@@ -39,19 +38,12 @@ export function tablePluginOptions({ options }: Props): TablePluginOptions {
 		wasFullWidthEnabled:
 			options.prevEditorAppearance && options.prevEditorAppearance === 'full-width',
 		getEditorFeatureFlags: () => ({
-			// SECTION: From confluence/next/packages/editor-features/src/hooks/useEditorFeatureFlags.ts
-			tableWithFixedColumnWidthsOption: fg('platform_editor_table_fixed_column_width_prop')
-				? undefined
-				: true,
-			// END SECTION
 			// SECTION: From confluence/next/packages/full-page-editor/src/hooks/useEditorFullPageExperiments.ts
 			tableSelector: editorExperiment('platform_editor_tables_table_selector', true),
 			// END SECTION
 		}),
 		isCommentEditor: false,
 		isChromelessEditor: false,
-		allowFixedColumnWidthOption: fg('platform_editor_table_fixed_column_width_prop')
-			? true
-			: undefined,
+		allowFixedColumnWidthOption: true,
 	};
 }

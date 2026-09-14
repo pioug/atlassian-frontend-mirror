@@ -1,4 +1,4 @@
-import { mediaInline } from '@atlaskit/adf-schema';
+import { mediaInline } from '@atlaskit/adf-schema/media-inline';
 import type {
 	AttributeSpec,
 	DOMOutputSpec,

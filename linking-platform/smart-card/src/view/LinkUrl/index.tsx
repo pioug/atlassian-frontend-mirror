@@ -2,7 +2,9 @@ import React from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import { withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
+import withAnalyticsContext, {
+	type WithContextProps,
+} from '@atlaskit/analytics-next/withAnalyticsContext';
 
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
 
@@ -61,7 +63,10 @@ const LinkUrl = ({
 	);
 };
 
-const _default_1: React.ForwardRefExoticComponent<
+export const _default_1: React.ForwardRefExoticComponent<
 	LinkUrlProps & WithContextProps & React.RefAttributes<any>
 > = withAnalyticsContext(PACKAGE_DATA)(LinkUrl);
 export default _default_1;
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { _default_1 as LinkUrl };

@@ -18,13 +18,17 @@ import { css, jsx } from '@compiled/react';
 import { useMergeRefs } from 'use-callback-ref';
 
 import { cssMap } from '@atlaskit/css';
-import { ErrorMessage, Field, HelperMessage, MessageWrapper } from '@atlaskit/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
-import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
+import type { TextfieldProps as TextFieldProps } from '@atlaskit/textfield/types';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import {
 	ConditionalSpotlightTargetWrapper,

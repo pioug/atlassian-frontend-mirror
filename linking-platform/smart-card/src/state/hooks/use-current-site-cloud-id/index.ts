@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getCurrentSiteCloudId } from '../../services/current-site-cloud-id';
+import { getCurrentSiteCloudId } from '../../services/current-site-cloud-id/getCurrentSiteCloudId';
 
 const useCurrentSiteCloudId = (): { cloudId: string | undefined; isLoading: boolean } => {
 	const [cloudId, setCloudId] = useState<string | undefined>(undefined);

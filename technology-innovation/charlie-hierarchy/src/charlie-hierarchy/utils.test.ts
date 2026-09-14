@@ -1,4 +1,5 @@
 import {
+	buildRoundedVerticalStepPath,
 	calculateLinkTargetPosition,
 	calculateNodePosition,
 	calculateStackingShift,
@@ -252,6 +253,48 @@ describe('Charlie Hierarchy Utils', () => {
 			// Both should produce the same result
 			expect(nodeResult).toBe(linkResult);
 			expect(nodeResult).toBe(350); // 250 + ((5-3) * 100) / 2 = 250 + 100
+		});
+	});
+
+	describe('buildRoundedVerticalStepPath', () => {
+		const roundedPath = buildRoundedVerticalStepPath({ percent: 0.5, cornerRadius: 8 });
+
+		it('should preserve the square-cornered geometry when the radius is zero', () => {
+			const squarePath = buildRoundedVerticalStepPath({ percent: 0.5, cornerRadius: 0 });
+
+			expect(squarePath({ source: { x: 0, y: 0 }, target: { x: 200, y: 200 } })).toBe(
+				'M0,0V100H200V200',
+			);
+		});
+
+		it('should draw a straight path when the child sits directly below the parent', () => {
+			expect(roundedPath({ source: { x: 100, y: 0 }, target: { x: 100, y: 200 } })).toBe(
+				'M100,0V100H100V200',
+			);
+		});
+
+		it('should round both corners when the child sits to the right', () => {
+			expect(roundedPath({ source: { x: 0, y: 0 }, target: { x: 200, y: 200 } })).toBe(
+				'M0,0V92Q0,100 8,100H192Q200,100 200,108V200',
+			);
+		});
+
+		it('should mirror rounded corners when the child sits to the left', () => {
+			expect(roundedPath({ source: { x: 200, y: 0 }, target: { x: 0, y: 200 } })).toBe(
+				'M200,0V92Q200,100 192,100H8Q0,100 0,108V200',
+			);
+		});
+
+		it('should clamp the radius for tightly packed nodes', () => {
+			expect(roundedPath({ source: { x: 0, y: 0 }, target: { x: 6, y: 200 } })).toBe(
+				'M0,0V97Q0,100 3,100H3Q6,100 6,103V200',
+			);
+		});
+
+		it('should clamp the radius for shallow vertical gaps', () => {
+			expect(roundedPath({ source: { x: 0, y: 0 }, target: { x: 200, y: 4 } })).toBe(
+				'M0,0V0Q0,2 2,2H198Q200,2 200,4V4',
+			);
 		});
 	});
 });

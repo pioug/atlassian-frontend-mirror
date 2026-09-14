@@ -1,5 +1,5 @@
-import type { AnnotationId } from '@atlaskit/adf-schema';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type {
 	AnnotationActionResult,
 	AnnotationByMatches,
@@ -11,11 +11,11 @@ import {
 	getAnnotationInlineNodeTypes,
 	isEmptyTextSelectionRenderer,
 } from '@atlaskit/editor-common/utils';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Mark, Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import {
 	ACTION,
@@ -28,7 +28,7 @@ import {
 	RemoveMarkStep,
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { AnalyticsEventPayload, AnnotationDeleteAEP } from '../analytics/events';
 import { createAnnotationStep, getPosFromRange } from '../steps';
 import {

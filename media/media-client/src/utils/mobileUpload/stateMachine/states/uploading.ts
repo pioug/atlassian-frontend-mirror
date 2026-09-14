@@ -1,6 +1,6 @@
 import { assign, type StateNodeConfig } from 'xstate';
 
-import { isUploadingFileState } from '../../../../models/file-state';
+import { isUploadingFileState } from '../../../../models/is-uploading-file-state';
 import {
 	type StateMachineContext,
 	type StateMachineSchema,

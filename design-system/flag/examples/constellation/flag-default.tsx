@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Flag from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
 
 const FlagDefaultExample = (): React.JSX.Element => {
 	return (

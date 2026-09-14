@@ -6,21 +6,18 @@ import { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { Label } from '@atlaskit/form';
-import Heading from '@atlaskit/heading';
-import {
-	BitbucketIcon,
-	ConfluenceIcon,
-	JiraSoftwareIcon,
-	OpsgenieIcon,
-	StatuspageIcon,
-} from '@atlaskit/logo';
-import { FadeIn, StaggeredEntrance, useResizingHeight } from '@atlaskit/motion';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import { Label } from '@atlaskit/form/label/default';
+import Heading from '@atlaskit/heading/heading';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { BitbucketIcon, ConfluenceIcon, OpsgenieIcon, StatuspageIcon } from '@atlaskit/logo';
+import FadeIn from '@atlaskit/motion/fade-in';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
+import { useResizingHeight } from '@atlaskit/motion/use-resizing-height';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
-import { Centered } from './utils';
+import { Centered } from './utils/containers';
 
 const buttonContainerStyles = css({
 	textAlign: 'center',

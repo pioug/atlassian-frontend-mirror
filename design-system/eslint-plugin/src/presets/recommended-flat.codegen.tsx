@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::18036b75ac0ed3ab3d992a1830294b1e>>
+ * @codegen <<SignedSource::ef800c6a6191b5fe97065a13660579f1>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Linter } from 'eslint';
@@ -37,7 +37,7 @@ const rules: Linter.FlatConfig = {
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
 			},
 		],
-		'@atlaskit/design-system/no-modal-label': 'warn',
+		'@atlaskit/design-system/no-modal-label': 'error',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-placeholder': 'warn',
 		'@atlaskit/design-system/no-readonly-or-disabled-inputs': 'warn',
@@ -61,7 +61,7 @@ const rules: Linter.FlatConfig = {
 		'@atlaskit/design-system/use-latest-xcss-syntax-typography': 'warn',
 		'@atlaskit/design-system/use-menu-section-title': 'warn',
 		'@atlaskit/design-system/use-modal-dialog-close-button': 'warn',
-		'@atlaskit/design-system/use-modal-title': 'warn',
+		'@atlaskit/design-system/use-modal-title': 'error',
 		'@atlaskit/design-system/use-onboarding-spotlight-label': 'warn',
 		'@atlaskit/design-system/use-popup-label': 'warn',
 		'@atlaskit/design-system/use-primitives-text': 'warn',

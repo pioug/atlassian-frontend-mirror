@@ -2,10 +2,11 @@ import React, { useMemo } from 'react';
 
 import { type MessageDescriptor, useIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx } from '@atlaskit/css';
 import RetryIcon from '@atlaskit/icon/core/retry';
 import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { AgentChatIcon } from '../../common/ui/agent-chat-icon';
@@ -55,6 +56,29 @@ const styles = cssMap({
 		},
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
+			transition: token('motion.button.pressed'),
+		},
+		transition: token('motion.button.hovered'),
+	},
+	button_motion: {
+		color: token('color.text.subtle'),
+		paddingTop: token('space.075'),
+		paddingRight: token('space.075'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.075'),
+		font: token('font.body'),
+		fontWeight: token('font.weight.medium'),
+		borderRadius: token('radius.small'),
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		flexShrink: 1,
+		width: '100%',
+		backgroundColor: token('color.background.neutral.subtle'),
+		transition: token('motion.button.hovered'),
+		'&:hover': { backgroundColor: token('color.background.neutral.subtle.hovered') },
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+			transition: token('motion.button.pressed'),
 		},
 	},
 });
@@ -183,7 +207,11 @@ export const ConversationStarters = ({
 						xcss={refreshDesignEnabled && styles.conversationStaterItem}
 					>
 						<Pressable
-							xcss={styles.button}
+							xcss={
+								fg('platform-dst-motion-uplift-custom-button')
+									? styles.button_motion
+									: styles.button
+							}
 							onClick={() => onConversationStarterClick(starter)}
 							testId="conversation-starter"
 						>

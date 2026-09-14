@@ -1,11 +1,12 @@
 // @ts-nocheck
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import Utils from '../../src/common/util';
 import AP from '../../src/plugin/ap';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

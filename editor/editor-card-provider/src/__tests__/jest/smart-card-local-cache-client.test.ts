@@ -1,5 +1,5 @@
 import { SmartCardLocalCacheClient } from '../../smart-card-local-cache-client';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 const mockStorageClientGetItem = jest.fn();
 const mockStorageClientSetItemWithExpiry = jest.fn();

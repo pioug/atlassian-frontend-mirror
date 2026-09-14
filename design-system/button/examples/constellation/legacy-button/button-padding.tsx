@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 
 const ButtonPaddingExample = (): React.JSX.Element => {
 	return (

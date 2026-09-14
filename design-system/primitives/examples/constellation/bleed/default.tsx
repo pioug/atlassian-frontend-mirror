@@ -6,7 +6,11 @@ import type { JSX } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import PersonIcon from '@atlaskit/icon/core/person';
-import { Bleed, Flex, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { Bleed } from '@atlaskit/primitives/compiled/bleed';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

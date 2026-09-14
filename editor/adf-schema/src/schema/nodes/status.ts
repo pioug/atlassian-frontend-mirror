@@ -3,7 +3,6 @@ import type { AnnotationMarkDefinition } from '../marks/annotation';
 import { status as statusFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const NEWLINE_REGEX = /\n/u;
 
 /**
@@ -11,7 +10,7 @@ const NEWLINE_REGEX = /\n/u;
  */
 export interface StatusDefinition {
 	attrs: {
-		color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
+		color: string;
 		localId?: string;
 		/**
 		 * Supported values are bold, subtle, and mixedCase

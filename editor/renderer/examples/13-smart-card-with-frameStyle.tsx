@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import CardClient from '@atlaskit/link-provider/client';
 
 import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/smart-card-embed.adf.json';
-import type { DocNode } from '@atlaskit/adf-schema/schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export default function Example(): React.JSX.Element {
 	return (

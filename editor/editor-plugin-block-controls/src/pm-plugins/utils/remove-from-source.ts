@@ -2,7 +2,7 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { isFragmentOfType } from './check-fragment';
 import { MIN_LAYOUT_COLUMN } from './consts';

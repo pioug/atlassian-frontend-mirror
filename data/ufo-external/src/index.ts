@@ -1,11 +1,11 @@
+export { UFOExperienceState } from './platform-client/core/experience/experience-state';
+export { UFOExperience } from './platform-client/core/experience/experience';
+export { ConcurrentExperience } from './platform-client/core/experience/concurrent-experience';
 export {
-	UFOExperienceState,
-	UFOExperience,
-	ConcurrentExperience,
 	ExperienceTypes,
 	ExperiencePerformanceTypes,
-	GlobalPageLoadExperience,
-} from './platform-client';
+} from './platform-client/core/experience/experience-types';
+export { GlobalPageLoadExperience } from './platform-client/core/experience/global-page-load-experience';
 
 export { ufologger } from './logger';
 export { ufolog } from './logger/ufolog';

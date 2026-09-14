@@ -7,14 +7,14 @@ import React, { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/new';
-import { Code } from '@atlaskit/code';
+import Button from '@atlaskit/button/default/button';
+import Code from '@atlaskit/code/code';
 import { UNSAFE_InteractionSurface as InteractionSurface } from '@atlaskit/ds-explorations';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const fieldsetStyles = xcss({

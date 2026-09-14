@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 import type { BUILTIN_TOOLBAR_KEYS, EDITOR_TOOLBAR_HANDLER_KEYS } from './constants';
 
@@ -29,6 +29,13 @@ export type NativeEmbedParameterValues = {
 	 * Omitted for existing embeds; parameter resolution treats an omitted value as `false`.
 	 */
 	isMaxWidth?: boolean;
+	/**
+	 * MAUI (remix) app/version identifier carried as a `data-remix-app-id` attribute on the
+	 * managed iframe rather than in the iframe URL path. Storing it as a node parameter (instead
+	 * of encoding it in `url`) keeps the iframe `src` stable, so undo/redo of a version change is
+	 * an ordinary ProseMirror node-attribute transaction that never reloads the iframe.
+	 */
+	remixAppId?: string;
 	url?: string;
 	width?: number;
 };
@@ -47,6 +54,7 @@ export type NativeEmbedParameters = {
 		displayText?: NativeEmbedParameterValue;
 		height?: NativeEmbedParameterValue; // Deprecated: height is only used when aspectRatio is not available, but it remains a supported parameter for backwards compatibility. New code should use aspectRatio and optionally width instead of height.
 		isMaxWidth?: NativeEmbedParameterValue;
+		remixAppId?: NativeEmbedParameterValue;
 		url?: NativeEmbedParameterValue;
 		width?: NativeEmbedParameterValue;
 	};

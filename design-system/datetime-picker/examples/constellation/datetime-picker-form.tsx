@@ -1,8 +1,10 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
-import Form, { Field, FormFooter } from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
 
 const DateTimePickerFormExample = (): React.JSX.Element => (
 	<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>

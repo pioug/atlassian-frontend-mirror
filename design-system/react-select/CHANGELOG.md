@@ -1,5 +1,153 @@
 # @atlaskit/react-select
 
+## 4.9.4
+
+### Patch Changes
+
+- [`13fcd5b800ea9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13fcd5b800ea9) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 4.9.3
+
+### Patch Changes
+
+- [`261fd53b131ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/261fd53b131ba) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 4.9.2
+
+### Patch Changes
+
+- [`34127bf96b9db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34127bf96b9db) -
+  Improved the contrast of placeholder text and input indicator icons, gated behind
+  `platform-dst-tokens-finesse`.
+
+## 4.9.1
+
+### Patch Changes
+
+- [`fae4f6a53e4be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae4f6a53e4be) -
+  Render label enter and exit animations through `cssMap` in Tag, React Select, Select, and User
+  Picker. Motion now measures concurrent CSS animation lists correctly so the label scale and fade
+  animations complete together.
+- Updated dependencies
+
+## 4.9.0
+
+### Minor Changes
+
+- [`ef98af289c49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef98af289c49b) -
+  Add motion to Tag, AvatarTag, TagDropdownTrigger, Tag Group, Select, React Select, and User Picker
+  tag values. Tags use `motion.label.enter` and `motion.label.exit` for entry and exit, while
+  interactive tags and dropdown triggers use the button hover and pressed motion tokens; Tag
+  Dropdown Trigger also fades between its content and loading spinner. The remove control is removed
+  when exit begins so it cannot linger while the tag collapses.
+
+  Motion is gated by `platform-dst-motion-uplift-labels`. Compatibility and adoption paths for the
+  visually uplifted Tag, Tag Group, Select, React Select, and User Picker additionally remain behind
+  `platform-dst-lozenge-tag-badge-visual-uplifts`.
+
+  `@atlaskit/react-select` also adds an optional `onMotionFinish` callback to the exported
+  `MultiValueProps` interface so the Select can restore its placeholder after the final multi-value
+  exit completes.
+
+  ```tsx
+  import Tag from '@atlaskit/tag/new';
+
+  <Tag text="Status" />;
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.8.1
+
+### Patch Changes
+
+- [`a7e63cfd84876`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7e63cfd84876) -
+  [ux] When `platform-dst-top-layer` is enabled, Select menus now use the native Popover API to
+  handle Escape and light-dismiss before synchronizing `menuIsOpen` through `onMenuClose`. This
+  ensures Escape dismisses a nested Select menu without also dismissing its containing popup.
+
+  Existing public props keep their behavior. The top-layer `Popover` implementation gains an
+  internal `source` prop for imperative native popover invokers. The public runtime differences
+  behind the feature gate are:
+  - Select no longer calls `preventDefault()` or `stopPropagation()` for Escape on the top-layer
+    path, whether its menu is open or closed. Successive Escape presses can therefore dismiss the
+    Select menu and then its containing native popover.
+  - `onMenuClose` is called from the native popover close lifecycle rather than synchronously during
+    Select's Escape `keydown` handler.
+  - `shouldPreventEscapePropagation` no longer stops Escape propagation while a top-layer menu is
+    open; its legacy-path behavior is unchanged.
+  - Top-layer Escape invokes `onInputChange` with the `menu-close` action once, after native
+    dismissal, instead of the legacy path's two calls.
+  - Controlled Selects must continue updating `menuIsOpen` to `false` in response to `onMenuClose`.
+  - `PopupSelect` delegates Escape dismissal and focus restoration to its native popover. A consumer
+    `onKeyDown` handler can therefore prevent the native dismissal with `preventDefault()`;
+    previously, `PopupSelect` closed before forwarding the event.
+  - DatePicker's top-layer calendar now uses the Select menu portal's native popover instead of
+    creating a nested manual popover.
+  - The internal Popover forwarding API accepts a native `source` element so imperative Select
+    popovers retain their trigger relationship for light-dismiss behavior.
+
+- Updated dependencies
+
+## 4.8.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.7.2
+
+### Patch Changes
+
+- [`9356675edac18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9356675edac18) -
+  Replace generated `./src/*` subpath export keys with lint-safe equivalents. The de-barreling
+  migration produced export keys containing a `src` segment (e.g. `@atlaskit/select`
+  `"./src/select"`), which are forbidden by `no-restricted-imports` (`@atlaskit/*/src/*`) in
+  downstream products.
+
+  Renamed keys:
+  - `@atlaskit/select`: `./src/select` → `./default`
+  - `@atlaskit/icon`: `./src/constants` → `./constants/default`
+  - `@atlaskit/react-select`: `./src/async` → `./async/default`, `./src/creatable` →
+    `./creatable/default`
+  - `@atlaskit/heading`: `./src/heading-context` → `./heading-context/default`
+  - `@atlaskit/flag`: removed the redundant `./src/flag-group` key (duplicate of the existing
+    `./flag-group` export)
+
+  The underlying source targets are unchanged.
+
+- Updated dependencies
+
+## 4.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.7.0
 
 ### Minor Changes

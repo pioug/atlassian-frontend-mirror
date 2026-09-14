@@ -29,6 +29,9 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
@@ -47,6 +50,9 @@
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
@@ -62,10 +68,19 @@
 			"path": "../../../elements/mention/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../node-data-provider/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/popper/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/portal/afm-products/tsconfig.json"
@@ -75,6 +90,9 @@
 		},
 		{
 			"path": "../../../people-and-teams/profilecard/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../people-and-teams/teams-app-config/afm-products/tsconfig.json"

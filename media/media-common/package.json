@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-common",
-	"version": "14.3.1",
+	"version": "14.6.0",
 	"description": "Includes common utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,6 +35,7 @@
 		"./media-use-only": "./src/docs/media-use-only.tsx",
 		"./mediaEnvUtils": "./src/utils/mediaEnvUtils.ts",
 		"./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
+		"./mediaNodesRecorder": "./src/ssr/mediaNodesRecorder.ts",
 		"./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
 		"./nextTick": "./src/test-helpers/nextTick.ts",
 		"./rxjs-notice": "./src/docs/rxjs-notice.tsx",

@@ -1,14 +1,15 @@
 import React, { useCallback } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
-import Form, { Field } from '@atlaskit/form';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import Lozenge from '@atlaskit/lozenge';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
-import Textfield from '@atlaskit/textfield';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import CollapsibleSection from './collapsible-section';
 import CustomFieldset from './custom-fieldset';

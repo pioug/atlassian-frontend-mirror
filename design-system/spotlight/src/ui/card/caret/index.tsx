@@ -5,7 +5,7 @@
 import { forwardRef } from 'react';
 
 import { jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { Placement } from '../../../types';
 

@@ -4,7 +4,7 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {

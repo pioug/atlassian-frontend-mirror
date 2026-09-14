@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import ConfluenceSearchConfigModalDisableSiteSelector from '../../examples/vr/confluence-search-config-modal-disable-site-selector-vr';
+import ConfluenceSearchConfigModalDisableSiteSelector from '../../examples/vr/confluence-search-config-modal-disable-site-selector-vr.vr.ap';
 
 snapshot(ConfluenceSearchConfigModalDisableSiteSelector, {
 	description: 'Confluence search config modal with disabled site selector',

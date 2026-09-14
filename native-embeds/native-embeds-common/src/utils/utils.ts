@@ -45,6 +45,7 @@ const PARAMETER_TYPES: Record<NativeEmbedParameterKey, 'string' | 'number' | 'bo
 	displayText: 'string',
 	height: 'number',
 	isMaxWidth: 'boolean',
+	remixAppId: 'string',
 	url: 'string',
 	width: 'number',
 };
@@ -128,6 +129,27 @@ export const getParameter = <TKey extends NativeEmbedParameterKey>(
 		parsedValue === undefined ? NATIVE_EMBED_PARAMETER_DEFAULTS[key] : parsedValue
 	) as NativeEmbedParameterValues[TKey];
 };
+
+/** Matches the version id embedded in a legacy `/remix/ui/{id}` embed URL. */
+const REMIX_UI_ID_RE = /\/remix\/ui\/([\w-]+)/;
+
+/**
+ * Resolve the MAUI (remix) version pointer for an embed: the stored `remixAppId`
+ * parameter, falling back to the id embedded in a legacy `/remix/ui/{id}` URL.
+ *
+ * Every read *and* write of the pointer must go through this. A fresh embed carries no
+ * `remixAppId` parameter, so a caller that reads the parameter alone sees `undefined`
+ * while a caller that applies the fallback sees the URL id — and the pre-edit slot
+ * snapshot then gets recorded under a different key than undo later looks up.
+ */
+export const resolveRemixVersionId = ({
+	storedRemixAppId,
+	url,
+}: {
+	storedRemixAppId: string | undefined;
+	url: string | undefined;
+}): string | undefined =>
+	storedRemixAppId || (url ? (url.match(REMIX_UI_ID_RE)?.[1] ?? undefined) : undefined);
 
 /**
  * Gets native-embed parameters as resolved values.

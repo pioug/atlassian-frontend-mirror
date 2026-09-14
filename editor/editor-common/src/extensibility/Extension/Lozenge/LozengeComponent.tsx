@@ -26,6 +26,9 @@ const capitalizeFirstLetter = (str: string): string => {
 type LozengeComponentProps = {
 	customContainerStyles?: CSSProperties;
 	extensionName: string;
+	// When true, the node exposes no configuration affordance, so the "Configure {name}"
+	// lozenge label is omitted (e.g. redaction nodes).
+	hideConfigureLabel?: boolean;
 	isBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
@@ -62,6 +65,7 @@ export const LozengeComponent = ({
 	showBodiedExtensionRendererView,
 	setShowBodiedExtensionRendererView,
 	pluginInjectionApi,
+	hideConfigureLabel,
 }: LozengeComponentProps): jsx.JSX.Element => {
 	const capitalizedTitle = capitalizeFirstLetter(title);
 
@@ -71,6 +75,7 @@ export const LozengeComponent = ({
 				<ExtensionLabel
 					text={capitalizedTitle}
 					extensionName={extensionName}
+					hideConfigureLabel={hideConfigureLabel}
 					isNodeHovered={isNodeHovered}
 					isNodeNested={isNodeNested}
 					customContainerStyles={customContainerStyles}

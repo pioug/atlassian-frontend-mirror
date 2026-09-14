@@ -3,6 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
@@ -13,12 +14,12 @@ import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
-import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
+import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
 import useRovoConfig from '../../../../../../state/hooks/use-rovo-config';
 import ImageIcon from '../../../../../common/image-icon';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import { withOverrideCss } from '../../../common/with-override-css';
-import { getFormattedMessage } from '../../../utils';
+import { getFormattedMessage } from '../../../getFormattedMessage';
 import type { ElementProps } from '../../index';
 
 const styles = cssMap({
@@ -236,9 +237,5 @@ const _default_1: (
 			className?: string;
 		},
 ) => React.JSX.Element = withOverrideCss(BaseBadgeRefreshNew);
-export default _default_1;
 
-export const toBadgeProps = (label?: string): Partial<BaseBadgeElementProps> | undefined => {
-	// Don't render the element if its 0
-	return label !== '0' && label ? { label } : undefined;
-};
+export default _default_1;

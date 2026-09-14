@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-autocomplete",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "JQL autocomplete engine",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -23,11 +23,11 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./base-autocomplete/types": "./src/entry-points/base-autocomplete-types.ts",
-		"./constants": "./src/entry-points/constants.ts",
-		"./jql-autocomplete/types": "./src/entry-points/jql-autocomplete-types.ts",
-		"./jql-autocomplete": "./src/entry-points/jql-autocomplete.ts",
-		"./types": "./src/entry-points/types.ts"
+		"./base-autocomplete/types": "./src/base-autocomplete/types.ts",
+		"./constants": "./src/jql-autocomplete/constants.ts",
+		"./jql-autocomplete/types": "./src/jql-autocomplete/types.ts",
+		"./jql-autocomplete": "./src/jql-autocomplete/index.ts",
+		"./types": "./src/common/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/jql-parser": "workspace:^",
@@ -41,47 +41,6 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
-	},
-	"stricter": {
-		"no-unused-dependencies": {
-			"exclude": [
-				"assert",
-				"util"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"enable-jql-membersof-autocomplete": {

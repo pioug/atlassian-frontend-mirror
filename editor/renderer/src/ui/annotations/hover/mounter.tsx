@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type {
 	AnnotationByMatches,
 	InlineCommentHoverComponentProps,
@@ -8,7 +8,7 @@ import type {
 import type { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft/dom';
 import type { Position } from '../types';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import {
 	ACTION,

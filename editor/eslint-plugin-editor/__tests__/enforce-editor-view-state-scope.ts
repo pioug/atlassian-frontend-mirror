@@ -1,3 +1,4 @@
+/** @jest-environment node */
 import { tsRuleTester } from './utils/_tester';
 import { rule } from '../rules/enforce-editor-view-state-scope';
 

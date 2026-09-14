@@ -1,4 +1,4 @@
-import { MEDIA_WRAPPER_TAG } from './index';
+import { MEDIA_WRAPPER_TAG } from './MediaWrapper';
 
 export function isContainedWithinMediaWrapper(node: Node | null): boolean {
 	while (node) {

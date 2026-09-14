@@ -1,4 +1,4 @@
-import type { Match } from '@atlaskit/adf-schema';
+import type { Match } from '@atlaskit/adf-schema/url';
 
 /** Created by scanning the Wikipedia page for all TLDs and selecting those that are common filenames, along
  * with customer complaints */

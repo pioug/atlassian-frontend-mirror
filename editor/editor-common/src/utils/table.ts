@@ -1,4 +1,4 @@
-import type { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 /**

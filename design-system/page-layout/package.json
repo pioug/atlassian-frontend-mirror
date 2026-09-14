@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "5.2.6",
+	"version": "5.5.0",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -67,8 +67,8 @@
 		"raf-schd": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -83,11 +83,12 @@
 		"@atlaskit/side-navigation": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@types/raf-schd": "root:*",
 		"raf-stub": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"platform-feature-flags": {
 		"platform_dst_popup-disable-focuslock": {
@@ -103,32 +104,5 @@
 		"atlaskit",
 		"react",
 		"ui"
-	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": [
-				"lite-mode"
-			],
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
-	}
+	]
 }

@@ -1,7 +1,8 @@
 import React, { type PropsWithChildren, useCallback, useMemo } from 'react';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type EnvironmentsKeys, SmartCardProvider } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 
 import JsonldEditorClient from './jsonld-editor-client';
 

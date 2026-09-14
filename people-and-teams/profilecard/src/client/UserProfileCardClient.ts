@@ -1,132 +1,16 @@
-import { print } from 'graphql';
-import gql from 'graphql-tag';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
-import type {
-	ApiClientResponse,
-	ProfileCardClientData,
-	ProfileClientOptions,
-	TeamsUserQueryResponse,
-} from '../types';
+import type { ProfileCardClientData, ProfileClientOptions, TeamsUserQueryResponse } from '../types';
 import { PACKAGE_META_DATA } from '../util/analytics';
 import { localTime } from '../util/date';
 import { getPageTime } from '../util/performance';
 
+import { AGGQuery } from './AGGQuery';
 import CachingClient from './CachingClient';
-import { getErrorAttributes } from './errorUtils';
-import { AGGQuery } from './graphqlUtils';
-
-/**
- * Transform response from GraphQL
- * - Prefix `timestring` with `remoteWeekdayString` depending on `remoteWeekdayIndex`
- * - Remove properties which will be not used later
- * @ignore
- * @param  {object} response
- * @return {object}
- */
-export const modifyResponse = (response: ApiClientResponse): ProfileCardClientData => {
-	const data = {
-		...response.User,
-	};
-
-	const localWeekdayIndex = new Date().getDay().toString();
-
-	if (data.remoteWeekdayIndex && data.remoteWeekdayIndex !== localWeekdayIndex) {
-		data.remoteTimeString = `${data.remoteWeekdayString} ${data.remoteTimeString}`;
-	}
-
-	return {
-		isBot: data.isBot,
-		isCurrentUser: data.isCurrentUser,
-		status: data.status,
-		statusModifiedDate: data.statusModifiedDate || undefined,
-		avatarUrl: data.avatarUrl || undefined,
-		email: data.email || undefined,
-		fullName: data.fullName || undefined,
-		location: data.location || undefined,
-		meta: data.meta || undefined,
-		nickname: data.nickname || undefined,
-		companyName: data.companyName || undefined,
-		timestring: data.remoteTimeString || undefined,
-		accountType: data.accountType || undefined,
-	};
-};
-
-const aggUserQuery = gql`
-	query user($userId: ID!) {
-		user(accountId: $userId) {
-			id
-			name
-			picture
-			accountStatus
-			__typename
-			... on AtlassianAccountUser {
-				email
-				nickname
-				zoneinfo
-				extendedProfile {
-					jobTitle
-					organization
-					location
-					closedDate
-					inactiveDate
-				}
-			}
-			... on CustomerUser {
-				email
-				zoneinfo
-			}
-			... on AppUser {
-				appType
-			}
-		}
-	}
-`;
-
-const aggUserQueryString = `query user($userId: ID!) {
-		user(accountId: $userId) {
-			id
-			name
-			picture
-			accountStatus
-			__typename
-			... on AtlassianAccountUser {
-				email
-				nickname
-				zoneinfo
-				extendedProfile {
-					jobTitle
-					organization
-					location
-					closedDate
-					inactiveDate
-				}
-			}
-			... on CustomerUser {
-				email
-				zoneinfo
-			}
-			... on AppUser {
-      			appType
-    		}
-		}
-	}`;
-
-export const buildAggUserQuery = (
-	userId: string,
-): {
-	query: string;
-	variables: {
-		userId: string;
-	};
-} => ({
-	query: fg('platform_agg_user_query_doc_change') ? print(aggUserQuery) : aggUserQueryString,
-	variables: {
-		userId,
-	},
-});
+import { buildAggUserQuery } from './buildAggUserQuery';
+import { getErrorAttributes } from './getErrorAttributes';
 
 const buildScopedProfileAtlAttributionHeader = (cloudId: string) =>
 	JSON.stringify({
@@ -141,11 +25,10 @@ const queryAGGUser = async (
 	cloudId: string,
 ): Promise<TeamsUserQueryResponse> => {
 	const query = buildAggUserQuery(userId);
-	const shouldAddScopedProfileAtlAttribution = fg('profilecard_scoped_profile_atl_attribution');
 	const { user } = await AGGQuery<{ user: TeamsUserQueryResponse }>(
 		url,
 		query,
-		cloudId && shouldAddScopedProfileAtlAttribution
+		cloudId
 			? (headers) => {
 					// Temporary atl-attribution for scoped profiles until AGG attribution is handled upstream.
 					headers.append('atl-attribution', buildScopedProfileAtlAttributionHeader(cloudId));
@@ -251,3 +134,12 @@ export default class UserProfileCardClient extends CachingClient<any> {
 		});
 	}
 }
+
+/**
+ * @deprecated Use `import { modifyResponse } from '@atlaskit/profilecard/modify-response'` instead.
+ */
+export { modifyResponse } from './modifyResponse';
+/**
+ * @deprecated Use `import { buildAggUserQuery } from '@atlaskit/profilecard/build-agg-user-query'` instead.
+ */
+export { buildAggUserQuery } from './buildAggUserQuery';

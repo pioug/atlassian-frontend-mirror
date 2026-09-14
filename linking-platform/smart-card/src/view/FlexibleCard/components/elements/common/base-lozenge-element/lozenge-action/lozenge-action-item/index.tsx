@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { DropdownItem } from '@atlaskit/dropdown-menu';
-import Lozenge from '@atlaskit/lozenge';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 
 import type { LozengeActionItemProps } from './types';
 

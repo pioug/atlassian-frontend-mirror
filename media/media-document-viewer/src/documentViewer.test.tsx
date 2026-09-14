@@ -31,6 +31,9 @@ global.fetch = jest.fn(() =>
 // Mock getDocument utility
 jest.mock('./utils/getDocumentRoot', () => ({
 	getDocumentRoot: jest.fn(() => null),
+}));
+
+jest.mock('./utils/getScrollElement', () => ({
 	getScrollElement: jest.fn(() => null),
 }));
 
@@ -288,7 +291,7 @@ describe('DocumentViewer', () => {
 				clientHeight: 600,
 			};
 
-			const { getScrollElement } = require('./utils/getDocumentRoot');
+			const { getScrollElement } = require('./utils/getScrollElement');
 			getScrollElement.mockReturnValue(mockScrollElement);
 
 			const { rerender } = render(<DocumentViewer {...createMockProps({ zoom: 1 })} />);
@@ -312,7 +315,7 @@ describe('DocumentViewer', () => {
 		});
 
 		it('should not adjust scroll position when no custom scroll element exists', async () => {
-			const { getScrollElement } = require('./utils/getDocumentRoot');
+			const { getScrollElement } = require('./utils/getScrollElement');
 			getScrollElement.mockReturnValue(null);
 
 			const { rerender } = render(<DocumentViewer {...createMockProps({ zoom: 1 })} />);

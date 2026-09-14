@@ -1,4 +1,4 @@
-import { findVendorSpecificProp } from '../../customMediaPlayer/fullscreen';
+import { findVendorSpecificProp } from '../../customMediaPlayer/findVendorSpecificProp';
 
 describe('Fullscreen', () => {
 	describe('findVendorSpecificProp', () => {

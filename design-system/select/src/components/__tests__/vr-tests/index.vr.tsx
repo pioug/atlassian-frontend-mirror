@@ -1,12 +1,12 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import Basic from '../../../../examples/00-single-select';
-import CheckboxSelect from '../../../../examples/03-checkbox-select';
-import Invalid from '../../../../examples/05-validation';
-import Disabled from '../../../../examples/24-disabled';
-import Appearance from '../../../../examples/26-appearance';
-import ControlledGroup from '../../../../examples/32-controlled-group';
-import ConstrainedWidth from '../../../../examples/35-dropdown-indicator-constrained-width';
+import Basic from '../../../../examples/00-single-select.vr.ap';
+import CheckboxSelect from '../../../../examples/03-checkbox-select.vr.ap';
+import Invalid from '../../../../examples/05-validation.vr.ap';
+import Disabled from '../../../../examples/24-disabled.vr.ap';
+import Appearance from '../../../../examples/26-appearance.vr.ap';
+import ControlledGroup from '../../../../examples/32-controlled-group.vr.ap';
+import ConstrainedWidth from '../../../../examples/35-dropdown-indicator-constrained-width.vr.ap';
 
 snapshot(Basic, {
 	variants: [

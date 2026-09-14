@@ -1,9 +1,10 @@
-import { type MembershipState, type ResultWithPageInfo, type TeamMembership } from '../../types';
+import { type MembershipState, type TeamMembership } from '../../types/membership';
+import { type ResultWithPageInfo } from './types';
 import { DEFAULT_CONFIG } from '../constants';
-import { logException } from '../sentry/main';
+import { logException } from '../sentry/logException';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags'),
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

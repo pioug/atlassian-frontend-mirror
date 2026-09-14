@@ -7,7 +7,7 @@ import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { InternalActionName, SmartLinkSize, SmartLinkStatus } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { TitleBlock } from '../../blocks';
+import { default as TitleBlock } from '../../blocks/title-block';
 import Container from '../index';
 
 jest.mock('../../../../../state/renderers', () => ({

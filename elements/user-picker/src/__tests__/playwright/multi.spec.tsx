@@ -10,7 +10,7 @@ const EXAMPLE = 'multi';
 
 test.describe('Multi User Picker', () => {
 	test('should load multi user picker with placeholder text', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+		await page.visitExample<typeof import('../../../examples/01-multi.vr.ap.tsx')>(
 			'elements',
 			'user-picker',
 			EXAMPLE,
@@ -19,7 +19,7 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should display options when clicking on input', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+		await page.visitExample<typeof import('../../../examples/01-multi.vr.ap.tsx')>(
 			'elements',
 			'user-picker',
 			EXAMPLE,
@@ -43,7 +43,7 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should filter options when typing in input', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+		await page.visitExample<typeof import('../../../examples/01-multi.vr.ap.tsx')>(
 			'elements',
 			'user-picker',
 			EXAMPLE,
@@ -64,7 +64,7 @@ test.describe('Multi User Picker', () => {
 		userPicker,
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+		await page.visitExample<typeof import('../../../examples/01-multi.vr.ap.tsx')>(
 			'elements',
 			'user-picker',
 			EXAMPLE,
@@ -90,7 +90,7 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should clear input after selecting an option', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+		await page.visitExample<typeof import('../../../examples/01-multi.vr.ap.tsx')>(
 			'elements',
 			'user-picker',
 			EXAMPLE,
@@ -107,7 +107,7 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should maintain focus on input after making selections', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+		await page.visitExample<typeof import('../../../examples/01-multi.vr.ap.tsx')>(
 			'elements',
 			'user-picker',
 			EXAMPLE,
@@ -128,7 +128,7 @@ test.describe('Multi User Picker', () => {
 	});
 
 	test('should handle keyboard navigation in options menu', async ({ userPicker, page }) => {
-		await page.visitExample<typeof import('../../../examples/01-multi.tsx')>(
+		await page.visitExample<typeof import('../../../examples/01-multi.vr.ap.tsx')>(
 			'elements',
 			'user-picker',
 			EXAMPLE,

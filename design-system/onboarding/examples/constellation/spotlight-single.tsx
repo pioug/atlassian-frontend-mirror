@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import {

@@ -7,10 +7,10 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { Checkbox } from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { RadioGroup as AtlaskitRadioGroup } from '@atlaskit/radio';
-import Range from '@atlaskit/range';
+import AtlaskitRadioGroup from '@atlaskit/radio/radio-group';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../src/constants';

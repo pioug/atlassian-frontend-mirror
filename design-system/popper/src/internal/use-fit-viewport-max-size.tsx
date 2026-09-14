@@ -105,6 +105,11 @@ export function useFitViewportMaxSize({
 				// Neutralise `useWidthFromAnchor`'s `min-inline-size: max-content`
 				// floor so the caps below win and content reflows. `setStyle`
 				// restores the floor on cleanup.
+				//
+				// This package only uses `mode: 'none'`. Note that `mode: 'min-anchor'`
+				// puts its ANCHOR floor on the same property, so pairing this hook with
+				// that mode would drop the anchor floor rather than a content floor. See
+				// `@atlaskit/top-layer` `notes/decisions/width-from-anchor-floors.md`.
 				{ property: 'min-inline-size', value: '0' },
 				isBlockAxis
 					? { property: 'max-block-size', value: primaryAxisCap }

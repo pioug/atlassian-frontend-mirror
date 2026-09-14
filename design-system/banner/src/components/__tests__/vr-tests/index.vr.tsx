@@ -1,10 +1,10 @@
 import { snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import BannerBasic from '../../../../examples/00-basic-usage';
-import BannerAnnouncement from '../../../../examples/announcement-banner';
-import BannerLongText from '../../../../examples/announcement-banner-with-long-text';
-import BannerWithLink from '../../../../examples/banner-with-link';
-import BannerError from '../../../../examples/error-banner';
+import BannerBasic from '../../../../examples/00-basic-usage.vr.ap';
+import BannerLongText from '../../../../examples/announcement-banner-with-long-text.vr.ap';
+import BannerAnnouncement from '../../../../examples/announcement-banner.vr.ap';
+import BannerWithLink from '../../../../examples/banner-with-link.vr.ap';
+import BannerError from '../../../../examples/error-banner.vr.ap';
 
 const colorVariants: SnapshotTestOptions<{}>['variants'] = [
 	{

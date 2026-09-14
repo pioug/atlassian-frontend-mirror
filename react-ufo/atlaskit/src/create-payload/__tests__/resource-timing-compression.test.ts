@@ -1,8 +1,8 @@
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
-import { unpackResourceTimings } from '../../resource-timing/common/utils/compact-resource-timing';
 import { configure } from '../../resource-timing/common/utils/config';
-import { createPayloads } from '../index';
+import { unpackResourceTimings } from '../../resource-timing/common/utils/unpack-resource-timings';
+import { createPayloads } from '../createPayloads';
 
 Object.defineProperty(global, 'window', {
 	value: {
@@ -30,6 +30,7 @@ const interaction: InteractionMetrics = {
 	reactProfilerTimings: [],
 	holdInfo: [],
 	holdActive: new Map(),
+	preloadInfo: [],
 	hold3pActive: new Map(),
 	hold3pInfo: [],
 	measureStart: 1000,

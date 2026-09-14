@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Calendar from '../../index';
+import Calendar from '../../calendar';
 
 const testId = 'testing';
 const testIdMonth = `${testId}--month`;

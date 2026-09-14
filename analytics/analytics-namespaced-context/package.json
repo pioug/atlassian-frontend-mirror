@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-namespaced-context",
-	"version": "8.1.0",
+	"version": "8.2.0",
 	"description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -15,22 +15,22 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./AIMateAnalyticsContext": "./src/AIMateAnalyticsContext.tsx",
+		"./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
+		"./AVPAnalyticsContext": "./src/AVPAnalyticsContext.tsx",
+		"./FabricEditorAnalyticsContext": "./src/FabricEditorAnalyticsContext.tsx",
+		"./FabricElementsAnalyticsContext": "./src/FabricElementsAnalyticsContext.tsx",
+		"./GrowthAnalyticsContext": "./src/GrowthAnalyticsContext.tsx",
+		"./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
 		"./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
 		"./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
+		"./NotificationsAnalyticsContext": "./src/NotificationsAnalyticsContext.tsx",
+		"./OmniChannelAnalyticsContext": "./src/OmniChannelAnalyticsContext.tsx",
 		"./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
-		"./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
-		"./FabricEditorAnalyticsContext": "./src/FabricEditorAnalyticsContext.tsx",
-		"./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
-		"./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
 		"./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
-		"./AIMateAnalyticsContext": "./src/entry-points/AIMateAnalyticsContext.tsx",
-		"./AVPAnalyticsContext": "./src/entry-points/AVPAnalyticsContext.tsx",
-		"./FabricElementsAnalyticsContext": "./src/entry-points/FabricElementsAnalyticsContext.tsx",
-		"./GrowthAnalyticsContext": "./src/entry-points/GrowthAnalyticsContext.tsx",
-		"./NotificationsAnalyticsContext": "./src/entry-points/NotificationsAnalyticsContext.tsx",
-		"./OmniChannelAnalyticsContext": "./src/entry-points/OmniChannelAnalyticsContext.tsx",
-		"./RovoExtensionAnalyticsContext": "./src/entry-points/RovoExtensionAnalyticsContext.tsx",
-		"./TownsquareHomeAnalyticsContext": "./src/entry-points/TownsquareHomeAnalyticsContext.tsx"
+		"./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
+		"./RovoExtensionAnalyticsContext": "./src/RovoExtensionAnalyticsContext.tsx",
+		"./TownsquareHomeAnalyticsContext": "./src/TownsquareHomeAnalyticsContext.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {
@@ -54,6 +54,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/analytics-listeners": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*"
 	},

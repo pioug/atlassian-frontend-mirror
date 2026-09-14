@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkIconButton, type LinkIconButtonProps } from '@atlaskit/button/new';
+import LinkIconButton, { type LinkIconButtonProps } from '@atlaskit/button/icon/link';
 import PersonAvatarIcon from '@atlaskit/icon/core/person-avatar';
 
 const tooltipOptions: LinkIconButtonProps['tooltip'] = {

@@ -4,7 +4,7 @@
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 /**
  * @deprecated The icon "success" is deprecated in favour of "status-success" from “@atlaskit/icon/core”

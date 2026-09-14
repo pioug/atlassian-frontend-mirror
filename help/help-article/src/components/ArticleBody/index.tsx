@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import debounce from 'lodash/debounce';
-import ReactDOM, { flushSync } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { createRoot, type Root } from 'react-dom/client';
+import { captureMessage } from '@sentry/browser';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { ReactRenderer } from '@atlaskit/renderer';
 
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
@@ -11,16 +12,46 @@ import type { AdfDoc } from '../../model/HelpArticle';
 
 import resetCSS from './resetCss';
 import { ArticleFrame } from './styled';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const reactRoots = new WeakMap<Element, Root>();
 
 /**
- * Mounts `element` into `mountPoint` using the React 18/19 `createRoot` API, reusing the root for a
- * given mount point across renders. Only invoked on the `nike_r19_render_unmount` gate-on path; the
- * gate-off path keeps calling the legacy render API directly.
+ * Renders `children` and invokes `onRendered` once React has committed them to the DOM.
+ *
+ * `createRoot().render()` does not accept the completion callback that the legacy
+ * `ReactDOM.render()` API supported, and `flushSync()` cannot be used to emulate it from here:
+ * this code runs inside a `useEffect`, and React ignores (and warns about) `flushSync` while it is
+ * already rendering/committing. A layout effect always runs after React has applied its DOM
+ * mutations, so it faithfully reproduces the legacy callback contract.
  */
-const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) => {
+const RenderCallback = ({
+	children,
+	onRendered,
+}: {
+	children: React.ReactNode;
+	onRendered: () => void;
+}): React.JSX.Element => {
+	// No dependency array on purpose: the callback must fire after every commit of this root, the
+	// same way the legacy `ReactDOM.render()` callback did.
+	useLayoutEffect(() => {
+		onRendered();
+	});
+
+	return <>{children}</>;
+};
+
+/**
+ * Mounts `element` into `mountPoint` using the React 18/19 `createRoot` API, reusing the root for a
+ * given mount point across renders, and calls `onRendered` after the commit. Only invoked on the
+ * `nike_r19_render_unmount_help_article` gate-on path; the gate-off path keeps calling the legacy render API
+ * directly.
+ */
+const renderToMountPoint = (
+	element: React.ReactElement,
+	mountPoint: Element,
+	onRendered: () => void,
+) => {
 	let root = reactRoots.get(mountPoint);
 
 	if (!root) {
@@ -28,7 +59,7 @@ const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) =>
 		reactRoots.set(mountPoint, root);
 	}
 
-	root.render(element);
+	root.render(<RenderCallback onRendered={onRendered}>{element}</RenderCallback>);
 };
 
 export interface Props {
@@ -155,9 +186,14 @@ export const ArticleBody = (props: Props): React.JSX.Element | null => {
 				const iframeContainer: HTMLElement | null = document.getElementById(IFRAME_CONTAINER_ID);
 
 				if (iframeContainer) {
-					const newIframe: Window = (frames as { [key: string]: any })[IFRAME_ID] as Window;
+					const newIframe: Window | undefined = (frames as { [key: string]: any })[IFRAME_ID] as
+						| Window
+						| undefined;
 
-					if (newIframe !== null) {
+					// Defensive: if the iframe is not in the DOM yet the lookup returns `undefined`,
+					// which used to slip through a `!== null` check and throw, surfacing an error in
+					// the help panel instead of the article.
+					if (newIframe) {
 						const iframeDocument = newIframe.document;
 						iframeDocument.open();
 						// Process the HTML to ensure all links open in new tabs
@@ -199,6 +235,11 @@ export const ArticleBody = (props: Props): React.JSX.Element | null => {
 						if (onArticleRenderBegin) {
 							onArticleRenderBegin();
 						}
+					} else {
+						captureMessage(
+							'[@atlaskit/help-article] Help article iframe was not available after render',
+							'warning' as Parameters<typeof captureMessage>[1],
+						);
 					}
 				}
 			};
@@ -220,13 +261,8 @@ export const ArticleBody = (props: Props): React.JSX.Element | null => {
 				if (!iframeContainer) {
 					return;
 				}
-				if (fg('nike_r19_render_unmount')) {
-					// flushSync commits the createRoot render synchronously so the callback runs
-					// after commit, matching the legacy render callback contract.
-					flushSync(() => {
-						renderToMountPoint(articleFrame, iframeContainer);
-					});
-					onArticleFrameRendered();
+				if (fg('nike_r19_render_unmount_help_article')) {
+					renderToMountPoint(articleFrame, iframeContainer, onArticleFrameRendered);
 				} else {
 					ReactDOM.render(articleFrame, iframeContainer, onArticleFrameRendered);
 				}
@@ -234,11 +270,8 @@ export const ArticleBody = (props: Props): React.JSX.Element | null => {
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			const placeholder = <div style={divSyle} />;
-			if (fg('nike_r19_render_unmount')) {
-				flushSync(() => {
-					renderToMountPoint(placeholder, iframeContainer);
-				});
-				renderArticleFrame();
+			if (fg('nike_r19_render_unmount_help_article')) {
+				renderToMountPoint(placeholder, iframeContainer, renderArticleFrame);
 			} else {
 				ReactDOM.render(placeholder, iframeContainer, renderArticleFrame);
 			}

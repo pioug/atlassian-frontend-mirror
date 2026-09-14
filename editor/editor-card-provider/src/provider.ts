@@ -1,12 +1,13 @@
 /* eslint-disable require-unicode-regexp,prefer-regex-literals */
-import type { JSONNode } from '@atlaskit/editor-json-transformer';
-import { extractSmartLinkEmbed, extractSmartLinkUrl } from '@atlaskit/link-extractors';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
+import { extractSmartLinkUrl } from '@atlaskit/link-extractors/extract-smart-link-url';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import type { CallbackPayload } from '@atlaskit/node-data-provider';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { getStatus, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
+import { getStatus } from '@atlaskit/linking-common/utils/get-status';
+import { getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
 import type {
 	BlockCardAdf,
 	EmbedCardAdf,
@@ -16,7 +17,7 @@ import type {
 	DatasourceAdf,
 	ProductType,
 	EnvironmentsKeys,
-} from '@atlaskit/linking-common';
+} from '@atlaskit/linking-common/types';
 import DataLoader from 'dataloader';
 import { Transformer } from './transformer';
 import { isConfluenceSlideUrl } from './url-checkers';
@@ -27,10 +28,10 @@ import type {
 	ProviderPattern,
 	ProvidersData,
 } from './types';
-import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
-import { CardClient } from '@atlaskit/link-provider';
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
+import CardClient from '@atlaskit/link-provider/client';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { request } from './api';
 import { SmartCardLocalCacheClient } from './smart-card-local-cache-client';
 
@@ -50,26 +51,22 @@ const GIPHY_MEDIA_REGEX = /^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//;
 const PROFORMA_VIEW_REGEX =
 	/^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/;
 // prettier-ignore
-// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const CONFLUENCE_WHITEBOARD_DECIMAL_REGEX = /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/;
 // prettier-ignore
-// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const CONFLUENCE_WHITEBOARD_UUID_REGEX = /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/;
 const CONFLUENCE_DATABASE_REGEX = /\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/;
 const YOUTUBE_VIDEO_REGEX = /^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/;
 // prettier-ignore
-// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const LOOM_VIDEO_URL_REGEX = /^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/;
-// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+// prettier-ignore
+const LOOM_PLAYLIST_URL_REGEX = /^https:\/\/(.*?\.)?loom\..*?\/(?:playlists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:\/view)?|embed\/playlists\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\?|$)/i;
 const LOOM_SCREENSHOT_URL_REGEX = /^https:\/\/(.*?\.)?loom\..*?\/i\/(?<id>[a-f0-9]{32})/;
 const JIRA_DASHBOARD_REGEX = /^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/;
 const JIRA_BACKLOG_REGEX =
 	/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\/backlog\??.*/;
 const JIRA_BOARD_REGEX = /https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\??.*/;
-// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const JIRA_PLAN_REGEX = /https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/;
 // prettier-ignore
-// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const JIRA_PLAN_WITH_SCENARIO_REGEX = /https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/;
 const JIRA_VERSION_REGEX =
 	/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/;
@@ -78,11 +75,11 @@ const JIRA_SUMMARY_REGEX = /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/
 const ROVO_AGENT_PROFILE_PAGE_REGEX = /^https:\/\/.*?\/people\/agent\/.+$/;
 const CUSTOMER_360_LANDING_PAGE_REGEX = /^https:\/\/customer\.atlassian\.com\/.*$/;
 // prettier-ignore
-// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const CONFLUENCE_TEAM_CALENDARS_REGEX = /\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/;
 const JIRA_ISSUE_NAVIGATOR_REGEX =
 	/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/;
 const AVP_VISUALIZATION_VIEW_REGEX = /^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/;
+const DASHBOARDS_CHART_VIEW_REGEX = /^https:\/\/.*?\/dashboards\/c\/[^\/]+.*/;
 const JIRA_WORK_ITEM_REGEX = /\/browse\/((?:\w+)-(?:\d+))/i;
 const DOES_URL_MATCH_PATH_START_REGEX = /^[a-zA-Z0-9]/;
 const DOES_URL_MATCH_PATH_END_REGEX = /[a-zA-Z0-9]$/;
@@ -112,6 +109,10 @@ const isYoutubeVideo: UrlChecker = (url) => url.match(YOUTUBE_VIDEO_REGEX);
 
 const isLoomVideoUrl: UrlChecker = (url) => {
 	return url.match(LOOM_VIDEO_URL_REGEX);
+};
+
+const isLoomPlaylistUrl: UrlChecker = (url) => {
+	return url.match(LOOM_PLAYLIST_URL_REGEX);
 };
 
 const isLoomScreenshotUrl: UrlChecker = (url) => {
@@ -156,7 +157,9 @@ const isConfluenceTeamCalendars: UrlChecker = (url) => url.match(CONFLUENCE_TEAM
 
 const isJiraIssueNavigator: UrlChecker = (url) => url.match(JIRA_ISSUE_NAVIGATOR_REGEX);
 
-const isAvpVisualizationView: UrlChecker = (url) => url.match(AVP_VISUALIZATION_VIEW_REGEX);
+const isAvpVisualizationView: UrlChecker = (url) =>
+	url.match(AVP_VISUALIZATION_VIEW_REGEX) ||
+	(fg('platform_avp_viz_dashboard_link_embed') ? url.match(DASHBOARDS_CHART_VIEW_REGEX) : null);
 
 export const isJiraWorkItem = (url: string): boolean => JIRA_WORK_ITEM_REGEX.test(url);
 
@@ -277,11 +280,6 @@ export class EditorCardProvider
 		node: CardNode | PMNode,
 		callback: (payload: CallbackPayload<JsonLd.Response>) => void,
 	): void {
-		if (expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true) === false) {
-			// if local cache feature flag is disabled, fall back to the base implementation
-			return super.getData(node, callback);
-		}
-
 		const jsonNode: JSONNode = 'toJSON' in node ? node.toJSON() : node;
 		if (!this.isNodeSupported(jsonNode)) {
 			return;
@@ -507,6 +505,7 @@ export class EditorCardProvider
 			isConfluenceSlideUrl(url) ||
 			isYoutubeVideo(url) ||
 			isLoomVideoUrl(url) ||
+			(isLoomPlaylistUrl(url) && fg('loom-playlist-smartlink-embed-default')) ||
 			(isLoomScreenshotUrl(url) && fg('loom-support-screenshot-sl-resolution')) ||
 			isJiraDashboard(url) ||
 			isJiraBacklog(url) ||
@@ -519,7 +518,7 @@ export class EditorCardProvider
 			isCustomer360LandingPage(url) ||
 			isConfluenceTeamCalendarsEvaluated ||
 			isJiraIssueNavigator(url) ||
-			(isAvpVisualizationView(url) && fg('avp_unfurl_shared_charts_embed_by_default_2'))
+			isAvpVisualizationView(url)
 		) {
 			return 'embed';
 		}

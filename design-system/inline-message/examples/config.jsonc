@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "01-basic.tsx",
-    "02-different-types.tsx"
+    "01-basic.vr.ap.tsx",
+    "02-different-types.vr.ap.tsx"
   ]
 }

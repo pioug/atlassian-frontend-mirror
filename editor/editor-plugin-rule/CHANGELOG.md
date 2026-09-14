@@ -1,5 +1,117 @@
 # @atlaskit/editor-plugin-rule
 
+## 18.1.0
+
+### Minor Changes
+
+- [`27b897435a350`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27b897435a350) -
+  [ux] [EDITOR-8345] This change adds a menu to the feature-gated floating toolbar with options to
+  toggle Divider weights and styles, behind platform_editor_lovability_dividers.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- [`0e5685af71a8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e5685af71a8f) -
+  [ux] [EDITOR-8350] This change adds a feature-gated floating toolbar for divider nodes behind
+  platform_editor_lovability_dividers, with Copy and Delete buttons.
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.0
+
+### Minor Changes
+
+- [`ec66928dbdbeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec66928dbdbeb) -
+  For the platform_editor_slash_command experiment, reorder Structure items, update slash-command
+  icons, move Jira work items to Data & Charts, and move Create Jira work item and Mention to
+  Structure. Use BlockSyncedIcon for the Synced block command.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`9f8027e06f6f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f8027e06f6f6) -
+  Use updated slash-command menu icons when platform_editor_slash_command is enabled.
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- [`4273da2e1a648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4273da2e1a648) -
+  Register native Quick Insert items behind `platform_editor_slash_command`.
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

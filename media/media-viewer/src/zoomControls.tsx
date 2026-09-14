@@ -1,8 +1,20 @@
 import React from 'react';
 import { Component } from 'react';
-import { hideControlsClassName, MediaButton } from '@atlaskit/media-ui';
-import ZoomOutIcon from '@atlaskit/icon/core/zoom-out';
+
+import { injectIntl, type WrappedComponentProps } from 'react-intl';
+
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import ZoomInIcon from '@atlaskit/icon/core/zoom-in';
+import ZoomOutIcon from '@atlaskit/icon/core/zoom-out';
+import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
+import MediaButton from '@atlaskit/media-ui/MediaButton';
+import { messages } from '@atlaskit/media-ui/messages';
+
+import { createZoomInButtonClickEvent } from './analytics/events/ui/zoomInButtonClicked';
+import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutButtonClicked';
+import { fireAnalytics } from './analytics/fireAnalytics';
 import { type ZoomLevel } from './domain/zoomLevel';
 import {
 	ZoomWrapper,
@@ -10,12 +22,6 @@ import {
 	ZoomRightControls,
 	ZoomLevelIndicator,
 } from './styleWrappers';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { fireAnalytics } from './analytics/';
-import { createZoomInButtonClickEvent } from './analytics/events/ui/zoomInButtonClicked';
-import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutButtonClicked';
-import { injectIntl, type WrappedComponentProps } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
 
 export type ZoomControlsProps = React.PropsWithChildren<
 	Readonly<{

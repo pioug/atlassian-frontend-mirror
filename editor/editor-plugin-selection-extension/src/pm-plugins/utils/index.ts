@@ -1,7 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	NodeSelection,
@@ -13,14 +13,15 @@ import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullPageToolbarHeight } from '@atlaskit/editor-shared-styles';
 import { CellSelection, TableMap, type Rect } from '@atlaskit/editor-tables';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
+// oxlint-disable-next-line import/no-duplicates
 import type { SelectionExtensionSelectionInfo } from '../../types';
 import type { SelectionRange } from '../../types';
 import { getBoundingBoxFromSelection } from '../../ui/getBoundingBoxFromSelection';
 
-import { getSelectionInfo, getSelectionInfoFromSameNode } from './selection-helpers';
+import { getSelectionInfo } from './selection-helpers';
 
 const getSelectedRect = (selection: CellSelection): Rect => {
 	const { $anchorCell, $headCell } = selection;
@@ -171,15 +172,7 @@ export function getSelectionAdfInfo(state: EditorState): SelectionInfo {
 	};
 
 	if (selection instanceof TextSelection) {
-		if (fg('platform_editor_selection_extension_improvement')) {
-			// New implementation: unified handler for all text selections
-			selectionInfo = getSelectionInfo(selection, state.schema);
-		} else {
-			const { $from, $to } = selection;
-			if ($from.parent === $to.parent) {
-				selectionInfo = getSelectionInfoFromSameNode(selection);
-			}
-		}
+		selectionInfo = getSelectionInfo(selection, state.schema);
 	} else if (selection instanceof CellSelection) {
 		selectionInfo = getSelectionInfoFromCellSelection(selection);
 	}
@@ -201,14 +194,7 @@ export function getSelectionAdfInfoNew(selection: Selection): SelectionInfo {
 	};
 
 	if (selection instanceof TextSelection) {
-		if (fg('platform_editor_selection_extension_improvement')) {
-			selectionInfo = getSelectionInfo(selection, schema);
-		} else {
-			const { $from, $to } = selection;
-			if ($from.parent === $to.parent && $from.depth > 0) {
-				selectionInfo = getSelectionInfoFromSameNode(selection);
-			}
-		}
+		selectionInfo = getSelectionInfo(selection, schema);
 	} else if (selection instanceof CellSelection) {
 		selectionInfo = getSelectionInfoFromCellSelection(selection);
 	} else if (selection instanceof NodeSelection) {

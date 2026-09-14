@@ -1,4 +1,4 @@
-import { transformIconData } from './utils';
+import { transformIconData } from './transformIconData';
 
 describe('transformIconData', () => {
 	it('should transform the response', () => {

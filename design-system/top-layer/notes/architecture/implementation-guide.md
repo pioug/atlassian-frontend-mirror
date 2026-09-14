@@ -1,8 +1,9 @@
 # @atlaskit/top-layer — Complete Rebuild Guide
 
-> **⚠️ Historical snapshot:** This document captures the package as it stood before two structural
-> cleanups. It is preserved verbatim because the lower-level mechanics it describes (anchor
-> positioning, animation, focus, ARIA) are still accurate. Two top-level concerns have since moved:
+> **⚠️ Historical snapshot:** This document captures the package as it stood before three structural
+> cleanups. It is preserved verbatim because most lower-level mechanics it describes (anchor
+> positioning, animation lifecycle, focus, ARIA) are still accurate. Three top-level concerns have
+> since moved:
 >
 > 1. **`Popup` compound removed.** Sections 3 (`./popup`, `./popup-surface` entry points), 6 (Popup
 >    compound component), and 11 (the `Popup.Trigger` ARIA wiring discussion) no longer reflect the
@@ -15,9 +16,15 @@
 >    variables described in section 12 are tightly coupled to Spotlight's visual semantics).
 >    Co-locating it with its only adopter removes a public surface from `top-layer` that no other
 >    package needed and lets Spotlight evolve the arrow without coordinating a cross-package change.
+> 3. **Animation presets removed.** The `./animations` entry point and preset-specific API details
+>    in sections 3, 4, 5, 9, and 19 no longer reflect the public API. `Popover` and `Dialog` now
+>    provide built-in CSS animations through `shouldAnimate`, with phase-specific xcss props for
+>    custom animation styles. The visibility lifecycle, reduced-motion behavior, and default motion
+>    details remain accurate.
 >
-> Treat sections covering still-shipping primitives (Popover, Dialog, animation, focus, anchor
-> positioning, light dismiss, scroll lock, placement) as authoritative.
+> Treat sections covering still-shipping primitives (Popover, Dialog, built-in animation lifecycle,
+> focus, anchor positioning, light dismiss, scroll lock, placement) as authoritative, except for the
+> preset-specific details called out above.
 
 > **Purpose:** This document contains every detail needed to recreate the `@atlaskit/top-layer`
 > package from scratch. It covers architecture, APIs, props, event flows, animation timings,
@@ -166,7 +173,7 @@ src/
 │   ├── anchor-positioning-fallback.tsx # JS fallback: computeFallbackPosition()
 │   ├── combine.tsx                    # combine() — merge cleanup functions
 │   ├── reduced-motion.tsx             # prefersReducedMotion() — SSR-safe check
-│   ├── resolve-placement.tsx          # TPlacement type, getPlacement()
+│   ├── resolve-placement.tsx          # TPlacement type, resolvePlacement()
 │   ├── role-types.tsx                 # ARIA role types with compile-time enforcement
 │   ├── set-style.tsx                  # setStyle() — apply inline styles, return cleanup
 │   ├── use-anchor-position.tsx        # useAnchorPosition() hook
@@ -266,21 +273,20 @@ background: transparent;
 
 ### Props (`TPopoverProps`)
 
-| Prop           | Type                                                           | Default        | Description                                                                                                                          |
-| -------------- | -------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `isOpen`       | `boolean`                                                      | _required_     | Controls visibility. `true` → `showPopover()`, `false` → `hidePopover()`.                                                            |
-| `children`     | `ReactNode`                                                    | _required_     | Content rendered inside the popover while the host is mounted (`phase !== 'closed'`, including exit animation).                      |
-| `mode`         | `'auto' \| 'hint' \| 'manual'`                                 | `'auto'`       | Native popover attribute value. `'hint'` falls back to `'auto'` if browser doesn't support it.                                       |
-| `onClose`      | `(args: { reason: TPopoverCloseReason }) => void`              | `noop`         | Called on browser-initiated dismiss. Not called for programmatic close (consumer already knows). Not available when `mode='manual'`. |
-| `onOpenChange` | `(args: { isOpen: boolean; element: HTMLDivElement }) => void` | —              | Fires on toggle events. Provides a ref to the DOM element.                                                                           |
-| `onExitFinish` | `() => void`                                                   | —              | Fires after exit animation completes (or immediately if no animation).                                                               |
-| `animate`      | `boolean \| TAnimationConfig`                                  | —              | Enables the default top-layer animation. Entry via `@starting-style`, exit via `allow-discrete`.                                     |
-| `placement`    | `TPlacementOptions`                                            | —              | Hint for directional popover motion. Does NOT control positioning.                                                                   |
-| `role`         | `TRoleRequiringAccessibleName \| TRoleWithImplicitName`        | —              | ARIA role. Determines focus behavior.                                                                                                |
-| `label`        | `string`                                                       | —              | `aria-label`. Required for roles like `dialog`, `menu` (enforced by types).                                                          |
-| `labelledBy`   | `string`                                                       | —              | `aria-labelledby`. Alternative to `label`.                                                                                           |
-| `id`           | `string`                                                       | auto-generated | HTML id. Used for `aria-controls` on triggers.                                                                                       |
-| `testId`       | `string`                                                       | —              | `data-testid` attribute.                                                                                                             |
+| Prop           | Type                                                    | Default        | Description                                                                                                                          |
+| -------------- | ------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `isOpen`       | `boolean`                                               | _required_     | Controls visibility. `true` → `showPopover()`, `false` → `hidePopover()`.                                                            |
+| `children`     | `ReactNode`                                             | _required_     | Content rendered inside the popover while the host is mounted (`phase !== 'closed'`, including exit animation).                      |
+| `mode`         | `'auto' \| 'hint' \| 'manual'`                          | `'auto'`       | Native popover attribute value. `'hint'` falls back to `'auto'` if browser doesn't support it.                                       |
+| `onClose`      | `(args: { reason: TPopoverCloseReason }) => void`       | `noop`         | Called on browser-initiated dismiss. Not called for programmatic close (consumer already knows). Not available when `mode='manual'`. |
+| `onExitFinish` | `() => void`                                            | —              | Fires after exit animation completes (or immediately if no animation).                                                               |
+| `animate`      | `boolean \| TAnimationConfig`                           | —              | Enables the default top-layer animation. Entry via `@starting-style`, exit via `allow-discrete`.                                     |
+| `placement`    | `TPlacementOptions`                                     | —              | Hint for directional popover motion. Does NOT control positioning.                                                                   |
+| `role`         | `TRoleRequiringAccessibleName \| TRoleWithImplicitName` | —              | ARIA role. Determines focus behavior.                                                                                                |
+| `label`        | `string`                                                | —              | `aria-label`. Required for roles like `dialog`, `menu` (enforced by types).                                                          |
+| `labelledBy`   | `string`                                                | —              | `aria-labelledby`. Alternative to `label`.                                                                                           |
+| `id`           | `string`                                                | auto-generated | HTML id. Used for `aria-controls` on triggers.                                                                                       |
+| `testId`       | `string`                                                | —              | `data-testid` attribute.                                                                                                             |
 
 ### Close Reasons (`TPopoverCloseReason`)
 
@@ -299,11 +305,11 @@ isOpen=true  → phase='entering'/'open'
                showPopover() called in useLayoutEffect
                @starting-style plays entry animation
 
-isOpen=false → phase='exiting'
+isOpen=false → controlled intent becomes 'closed'
                hidePopover() called in useLayoutEffect
-               programmaticCloseRef set to prevent redundant onClose
+               native beforetoggle(closed) moves phase to 'exiting'
                Exit animation plays via CSS allow-discrete
-               transitionend fires (or fallback timeout)
+               native toggle(closed) snapshots and awaits host animations
                onExitFinish fires
                phase='closed' → host and children unmounted
 ```
@@ -312,6 +318,21 @@ isOpen=false → phase='exiting'
 
 The `'hint'` mode is for ephemeral UI like tooltips. Unlike `'auto'`, opening a hint popover does
 NOT close other `auto` popovers. Browser support detection uses DOM reflection:
+
+Two consequences worth knowing before you pick `'hint'`:
+
+- **A press on the trigger dismisses the popover on pointerup.** `hint` still participates in light
+  dismiss. If the trigger is not inside the popover's ancestor chain (which it is not, unless you
+  wire `popovertarget`), the topmost clicked popover for a trigger press is `null` and the whole
+  hint stack is hidden. Any surface that re-opens itself on pointer movement will flicker unless it
+  suppresses that. `@atlaskit/tooltip` leans into this rather than opting out; see
+  [tooltip-pointer-dismissal.md](../decisions/tooltip-pointer-dismissal.md).
+- **The `auto` fallback changes behaviour where it engages.** In an engine without `hint`, the
+  popover becomes `auto` and therefore closes unrelated open `auto` popovers when it opens. For a
+  hover-triggered surface that means merely hovering can close a popup. Current Chrome, Safari and
+  Firefox all support `hint`, and platform's `browserslist` is `last 1 ... versions`, so the
+  fallback is a safety net rather than a live path. Note that Playwright's pinned WebKit and Firefox
+  builds lag shipping browsers, so specs will exercise the fallback even though users do not.
 
 ```typescript
 const supportsPopoverHint = once((): boolean => {
@@ -438,15 +459,14 @@ Manages state and context. Does not render any DOM — just provides `PopupConte
 
 **Props (`TPopupProps`):**
 
-| Prop                       | Type                                                           | Default    | Description                                       |
-| -------------------------- | -------------------------------------------------------------- | ---------- | ------------------------------------------------- |
-| `placement`                | `TPlacementOptions`                                            | _required_ | Where to position content relative to trigger.    |
-| `children`                 | `ReactNode`                                                    | _required_ | Must contain `Popup.Trigger` and `Popup.Content`. |
-| `onClose`                  | `(args: { reason: TPopoverCloseReason }) => void`              | _required_ | Called on light dismiss.                          |
-| `onOpenChange`             | `(args: { isOpen: boolean; element: HTMLDivElement }) => void` | —          | Called when popup opens/closes.                   |
-| `mode`                     | `'auto' \| 'hint' \| 'manual'`                                 | `'auto'`   | Native popover mode.                              |
-| `testId`                   | `string`                                                       | —          | Forwarded to content element.                     |
-| `forceFallbackPositioning` | `boolean`                                                      | —          | Forces JS positioning fallback.                   |
+| Prop                       | Type                                              | Default    | Description                                       |
+| -------------------------- | ------------------------------------------------- | ---------- | ------------------------------------------------- |
+| `placement`                | `TPlacementOptions`                               | _required_ | Where to position content relative to trigger.    |
+| `children`                 | `ReactNode`                                       | _required_ | Must contain `Popup.Trigger` and `Popup.Content`. |
+| `onClose`                  | `(args: { reason: TPopoverCloseReason }) => void` | _required_ | Called on light dismiss.                          |
+| `mode`                     | `'auto' \| 'hint' \| 'manual'`                    | `'auto'`   | Native popover mode.                              |
+| `testId`                   | `string`                                          | —          | Forwarded to content element.                     |
+| `forceFallbackPositioning` | `boolean`                                         | —          | Forces JS positioning fallback.                   |
 
 **Context provided (`TPopupContextValue`):**
 
@@ -459,7 +479,6 @@ type TPopupContextValue = {
   popoverRef: RefObject<HTMLDivElement | null>;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  onOpenChange?: (args: { isOpen: boolean; element: HTMLDivElement }) => void;
   mode: 'auto' | 'hint' | 'manual';
   ariaHasPopup: 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | 'true';
   setAriaHasPopup: (value: ...) => void;
@@ -798,49 +817,41 @@ preset module, is not supported by the Compiled transform.
 
 ### `useAnimatedVisibility` Hook
 
-The core hook shared by both `Popover` and `Dialog`. Manages children mount/unmount around CSS exit
-transitions.
+The core hook shared by both `Popover` and `Dialog`. It coordinates controlled intent, native
+visibility, lifecycle phase, and host mounting.
+
+The canonical state machine, native event ordering, interruption behavior, callback timing, and
+terminology are documented in
+[`animations.md#canonical-visibility-lifecycle-contract`](./animations.md#canonical-visibility-lifecycle-contract).
+This rebuild guide intentionally does not duplicate those transition rules.
 
 **Parameters:**
 
-| Param           | Type                             | Description                              |
-| --------------- | -------------------------------- | ---------------------------------------- |
-| `isOpen`        | `boolean`                        | Whether logically open.                  |
-| `animationKind` | `'dialog' \| 'popover'`          | Selects default safety-net timings.      |
-| `animate`       | `boolean \| TAnimationConfig`    | Enables the default animation when true. |
-| `elementRef`    | `RefObject<HTMLElement \| null>` | Element playing exit transition.         |
-| `onExitFinish`  | `() => void`                     | Called after exit completes.             |
+| Param           | Type                             | Description                                               |
+| --------------- | -------------------------------- | --------------------------------------------------------- |
+| `isOpen`        | `boolean`                        | Controlled visibility intent.                             |
+| `shouldAnimate` | `boolean`                        | Enables the default animation when reduced motion is off. |
+| `elementRef`    | `RefObject<HTMLElement \| null>` | Host element playing entry and exit animations.           |
+| `onEnterFinish` | `() => void`                     | Called after the `open` phase commits.                    |
+| `onExitFinish`  | `() => void`                     | Called before the settled host transitions to `closed`.   |
 
 **Returns:**
 
-| Field    | Type                                  | Description                                                           |
-| -------- | ------------------------------------- | --------------------------------------------------------------------- |
-| `phase`  | `TPhase`                              | Current visibility phase: `closed`, `entering`, `open`, or `exiting`. |
-| `preset` | `boolean \| TAnimationConfig \| null` | Resolved animation config/truthy flag, or `null`.                     |
+| Field       | Type      | Description                                                          |
+| ----------- | --------- | -------------------------------------------------------------------- |
+| `phase`     | `TPhase`  | Current lifecycle phase: `closed`, `entering`, `open`, or `exiting`. |
+| `isMounted` | `boolean` | Whether the host is mounted, equivalent to `phase !== 'closed'`.     |
 
-**Lifecycle:**
+At the implementation boundary:
 
-```
-isOpen: true ─────────────────── false
-phase:  entering/open ─────────── exiting ─── (exit animation or close event) ─── closed
-```
+- `isOpen` supplies controlled intent.
+- `phase` is the lifecycle phase.
+- `isMounted` is equivalent to `phase !== 'closed'`.
+- `Popover` and `Dialog` own native event binding and show or hide commands.
+- `useAnimatedVisibility` owns phase transitions and animation settlement.
 
-The host component renders while `phase !== 'closed'`, which keeps the host element mounted during
-exit animations and then unmounts it after the hook settles the phase.
-
-**Two close paths:**
-
-1. **Animated close** (`willAnimate === true`): `isOpen` → `false`, `phase` becomes `exiting`, CSS
-   exit transition plays, `transitionend` fires (with a shared safety-net timeout fallback),
-   `onExitFinish` fires, then `phase` becomes `closed`.
-
-2. **Non-animated close** (`willAnimate === false`): `isOpen` → `false`, `phase` becomes `exiting`,
-   `onExitFinish` fires in a follow-up effect, and unmount is gated on the browser's `toggle` or
-   `close` event so native close handling and focus restoration can finish against the still-mounted
-   host element.
-
-**Reduced motion:** When `prefersReducedMotion()` returns `true`, `willAnimate` is `false`
-regardless of `animate` — animations are completely skipped.
+When reduced motion is active, animation is disabled while the native close handshake and host
+mounting contract remain unchanged.
 
 ### `prefersReducedMotion()`
 
@@ -902,7 +913,8 @@ of the native behavior (A → B → C → body → A).
 - On `Tab`: `event.preventDefault()`, calls `getNextFocusable({ container, direction: 'forwards' })`
 - On `Shift+Tab`: `event.preventDefault()`, calls
   `getNextFocusable({ container, direction: 'backwards' })`
-- Falls back to first/last focusable if current focus is not in the focusable list
+- Uses the current element's DOM position to find the next or previous destination when focus is not
+  in the tabbable list
 - Only active for `role="dialog"` (we intentionally do not support `alertdialog`) for focus
   wrapping.
 
@@ -950,7 +962,9 @@ const focusableSelector = [
 ].join(',');
 ```
 
-**Exclusions:** `disabled`, `aria-disabled="true"`, `tabindex="-1"`, `aria-hidden="true"`.
+**Exclusions:** `disabled`, `aria-disabled="true"`, `tabindex="-1"`, `aria-hidden="true"`. An
+excluded `tabindex="-1"` element can still be the current navigation origin, allowing focus to move
+away from it, but it is never included as a destination.
 
 **Functions:**
 
@@ -1140,7 +1154,9 @@ the native `toggle` event.
 ### `popover="hint"` (Ephemeral)
 
 For tooltips and ephemeral UI. Does NOT close other `auto` popovers when opened. Falls back to
-`auto` when unsupported.
+`auto` when unsupported, which is a behaviour change and not just a cosmetic one. Light dismiss
+still applies: a press on a trigger outside the popover hides the whole hint stack on pointerup. See
+[Popover Mode: `'hint'`](#popover-mode-hint).
 
 ### `popover="manual"` (No Native Dismiss)
 
@@ -1288,15 +1304,15 @@ const cleanup = setStyle({
 // Later: cleanup() removes both properties
 ```
 
-### `getPlacement({ placement })`
+### `resolvePlacement({ placement })`
 
 Resolves partial `TPlacementOptions` to fully-specified `TPlacement`:
 
 ```typescript
-getPlacement({ placement: {} });
+resolvePlacement({ placement: {} });
 // → { axis: 'block', edge: 'end', align: 'center' }
 
-getPlacement({ placement: { align: 'start' } });
+resolvePlacement({ placement: { align: 'start' } });
 // → { axis: 'block', edge: 'end', align: 'start' }
 ```
 

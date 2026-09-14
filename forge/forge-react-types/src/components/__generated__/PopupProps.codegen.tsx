@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { default as PlatformPopup } from '@atlaskit/popup';
+import { Popup as PlatformPopup } from '@atlaskit/popup/popup';
 
 /**
  * Design decisions made:

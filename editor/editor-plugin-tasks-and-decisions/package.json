@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "15.3.0",
+	"version": "21.0.0",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,6 +43,7 @@
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
@@ -61,48 +62,18 @@
 	},
 	"devDependencies": {
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
+		"platform-dst-motion-uplift-custom-button": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_element_browser_analytic": {
 			"type": "boolean"
 		},

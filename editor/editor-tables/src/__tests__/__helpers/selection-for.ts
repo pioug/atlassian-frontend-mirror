@@ -1,10 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { CellSelection } from '../../cell-selection';
-import { cellAround } from '../../utils/cells';
+import { cellAround } from '../../utils/cell-around';
 
 export const selectionFor = (doc: RefsNode): Selection | undefined => {
 	const { cursor, anchor, head, node } = doc.refs;

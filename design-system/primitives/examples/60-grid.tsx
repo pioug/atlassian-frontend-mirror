@@ -1,7 +1,11 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, type BoxProps, Grid, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Grid } from '@atlaskit/primitives/grid';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss';
 
 const customBorderStyles = xcss({
 	borderColor: 'color.border',
@@ -9,12 +13,17 @@ const customBorderStyles = xcss({
 	borderWidth: 'border.width.selected',
 	borderRadius: 'radius.small',
 });
+const gridAreaStyles = {
+	navigation: xcss({ gridArea: 'navigation' }),
+	sidenav: xcss({ gridArea: 'sidenav' }),
+	content: xcss({ gridArea: 'content' }),
+	footer: xcss({ gridArea: 'footer' }),
+};
+type GridArea = keyof typeof gridAreaStyles;
 
-// NOTE: We just cheat with `style`, do not copy this pattern into your code…
-const Block = ({ style }: { style?: BoxProps<'div'>['style'] }) => (
+const Block = ({ gridArea }: { gridArea?: GridArea }) => (
 	<Box
-		xcss={customBorderStyles}
-		style={style}
+		xcss={[customBorderStyles, gridArea && gridAreaStyles[gridArea]]}
 		backgroundColor="color.background.neutral"
 		padding="space.600"
 	/>
@@ -51,14 +60,10 @@ export default function Basic(): React.JSX.Element {
 				gap="space.200"
 				templateAreas={['navigation navigation', 'sidenav content', 'footer footer']}
 			>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'navigation' }} />
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'sidenav' }} />
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'content' }} />
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<Block style={{ gridArea: 'footer' }} />
+				<Block gridArea="navigation" />
+				<Block gridArea="sidenav" />
+				<Block gridArea="content" />
+				<Block gridArea="footer" />
 			</Grid>
 		</Grid>
 	);

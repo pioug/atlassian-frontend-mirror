@@ -1,13 +1,12 @@
-import {
-	media,
-	camelCaseToKebabCase,
-	defaultAttrs,
-	toJSON,
-	createMediaSpec,
-} from '../../../../schema/nodes/media';
-import { image as ImageNodeSpec } from '../../../../schema/nodes/image';
 import { fromHTML, toDOM, schema } from '@af/adf-test-helpers/src/adf-schema';
+
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+
+import { camelCaseToKebabCase } from '../../../../schema/nodes/camel-case-to-kebab-case';
+import { createMediaSpec } from '../../../../schema/nodes/create-media-spec';
+import { image as ImageNodeSpec } from '../../../../schema/nodes/image';
+import { media, defaultAttrs } from '../../../../schema/nodes/media';
+import { toJSON } from '../../../../schema/nodes/to-json-2';
 
 // Note: We can't use dom.dataset in jest until it's upgraded to use latest version
 //       of jsdom. In the meantime we can use this helper-method.

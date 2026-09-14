@@ -1,5 +1,48 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 10.2.2
+
+### Patch Changes
+
+- [`60c176d408119`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60c176d408119) -
+  Serialize Bitbucket emoji metadata into markdown attr-list suffixes when the
+  platform_bitbucket_fix_shortname_and_ordering feature gate is enabled.
+
+## 10.2.1
+
+### Patch Changes
+
+- [`473d013d188b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/473d013d188b3) -
+  Fix emoji markdown serialization under platform_bitbucket_fix_shortname_and_ordering so emoji
+  metadata remains in ADF without being emitted into Bitbucket markdown.
+
+## 10.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.2
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+
+## 10.1.1
+
+### Patch Changes
+
+- [`67cb56528e699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67cb56528e699) -
+  Preserve emoji `id` and `text` attrs in the Bitbucket transformer
+
 ## 10.1.0
 
 ### Minor Changes

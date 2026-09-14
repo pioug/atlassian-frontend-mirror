@@ -21,7 +21,7 @@ import {
 	PaintBucketIcon,
 	ToolbarNestedDropdownMenu,
 } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -29,7 +29,7 @@ import { token } from '@atlaskit/tokens';
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { setColorWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';
-import { colorPaletteColumns, colorPaletteColumnsOld } from '../../../../ui/consts';
+import { colorPaletteColumns, colorPalletteColumns } from '../../../../ui/consts';
 import { useTableMenuContext } from '../TableMenuContext';
 import type { TableMenuComponentsParams } from '../types';
 
@@ -56,15 +56,21 @@ const colorPaletteStyles = cssMap({
 export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.JSX.Element => {
 	const { editorView } = useTableMenuContext() ?? {};
 	const { formatMessage } = useIntl();
-	const selectedColor = useMemo(() => {
+	const { selectedColor, selectedColorRaw } = useMemo(() => {
 		if (!editorView) {
-			return '#ffffff';
+			return {
+				selectedColor: '#ffffff',
+				selectedColorRaw: '#ffffff',
+			};
 		}
 
 		const { targetCellPosition } = getPluginState(editorView.state);
 		const node = targetCellPosition ? editorView.state.doc.nodeAt(targetCellPosition) : null;
 
-		return hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff');
+		return {
+			selectedColor: hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff'),
+			selectedColorRaw: node?.attrs?.background || '#ffffff',
+		};
 	}, [editorView]);
 
 	const onClick = useCallback(
@@ -93,7 +99,7 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 	const activePalette = isMoreColorsEnabled
 		? cellBackgroundColorPaletteNew
 		: cellBackgroundColorPalette;
-	const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld;
+	const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPalletteColumns;
 
 	const paletteOptions = useMemo(() => {
 		return {
@@ -119,7 +125,7 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 				<ColorPalette
 					cols={activeCols}
 					onClick={onClick}
-					selectedColor={colorPreviewStyle.backgroundColor}
+					selectedColor={selectedColorRaw}
 					paletteOptions={paletteOptions}
 				/>
 			</Box>

@@ -15,7 +15,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { token } from '@atlaskit/tokens';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { JSONTransformer } from '../src';
+import { JSONTransformer } from '../src/JSONTransformer-2';
 
 const container = css({
 	display: 'grid',

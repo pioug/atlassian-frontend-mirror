@@ -2,8 +2,9 @@ import React from 'react';
 
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	GoogleDoc,
 	GoogleDocUrl,

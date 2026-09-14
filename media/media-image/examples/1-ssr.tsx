@@ -11,12 +11,13 @@ import {
 	type MediaStoreGetFileImageParams,
 } from '@atlaskit/media-client';
 import { tallImage } from '@atlaskit/media-test-helpers';
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import React, { type PropsWithChildren, useEffect, useMemo } from 'react';
 import { type SSR } from '@atlaskit/media-common';
 import { MediaImage } from '../src';
-import Spinner from '@atlaskit/spinner';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import Spinner from '@atlaskit/spinner/spinner';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import ReactDOMServer from 'react-dom/server';
 import { hydrateRoot } from 'react-dom/client';

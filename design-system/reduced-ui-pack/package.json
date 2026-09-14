@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reduced-ui-pack",
-	"version": "20.0.0",
+	"version": "20.1.1",
 	"description": "CSS classes which provide styling for a reduced number of Atlaskit components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,14 +29,14 @@
 	],
 	"peerDependencies": {
 		"@atlaskit/css-reset": "workspace:^",
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"css-loader": "root:*",
 		"mkdirp": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"style-loader": "root:*",
 		"ts-node": "root:*"
 	},

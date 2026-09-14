@@ -10,3 +10,4 @@ tsconfig.json
 analytics.spec.yaml
 tsconfig.app.json
 tsconfig.dev.json
+*.docs.tsx

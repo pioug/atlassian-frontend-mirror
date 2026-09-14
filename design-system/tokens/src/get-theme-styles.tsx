@@ -1,11 +1,12 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	type ThemeIdsWithOverrides,
 	themeIdsWithOverrides,
-	type ThemeState,
-	themeStateDefaults,
+	themeOverrideIds,
 } from './theme-config';
+import { type ThemeState } from './theme-state';
+import { themeStateDefaults } from './theme-state-defaults';
 import { getThemeOverridePreferences } from './utils/get-theme-override-preferences';
 import { getThemePreferences } from './utils/get-theme-preferences';
 import { isValidBrandHex } from './utils/is-valid-brand-hex';
@@ -34,7 +35,7 @@ export interface ThemeStyles {
  * @returns A Promise of an object array, containing theme IDs, data-attributes to attach to the theme, and the theme CSS.
  * If an error is encountered while loading themes, the themes array will be empty.
  */
-const getThemeStyles = async (
+export const getThemeStyles = async (
 	preferences?: Partial<ThemeState> | 'all',
 ): Promise<ThemeStyles[]> => {
 	let themePreferences: ThemeIdsWithOverrides[] | typeof themeIdsWithOverrides;
@@ -43,10 +44,20 @@ const getThemeStyles = async (
 	if (preferences === 'all') {
 		themePreferences = themeIdsWithOverrides;
 
+		if (!fg('platform-dst-tokens-finesse')) {
+			themePreferences = themePreferences.filter(
+				(themeId) => !themeOverrideIds.includes(themeId as (typeof themeOverrideIds)[number]),
+			);
+		}
+
 		// CLEANUP: Remove
 		if (!fg('platform_increased-contrast-themes')) {
 			themePreferences = themePreferences.filter(
-				(n) => n !== 'light-increased-contrast' && n !== 'dark-increased-contrast',
+				(n) =>
+					n !== 'light-increased-contrast' &&
+					n !== 'dark-increased-contrast' &&
+					n !== 'light-increased-contrast-finesse' &&
+					n !== 'dark-increased-contrast-finesse',
 			);
 		}
 	} else {
@@ -91,7 +102,7 @@ const getThemeStyles = async (
 				try {
 					const { getCustomThemeStyles } = await import(
 						/* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
-						'./custom-theme'
+						'./get-custom-theme-styles'
 					);
 
 					const customThemeStyles = await getCustomThemeStyles({

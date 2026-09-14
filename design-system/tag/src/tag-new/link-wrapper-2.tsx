@@ -11,7 +11,7 @@ import { type ComponentType, Fragment, type ReactNode } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 // Props for the link wrapper
 interface LinkWrapperProps {

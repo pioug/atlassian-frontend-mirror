@@ -43,9 +43,6 @@
 		},
 		{
 			"path": "../media-client/tsconfig.app.json"
-		},
-		{
-			"path": "../media-state/tsconfig.app.json"
 		}
 	],
 	"files": []

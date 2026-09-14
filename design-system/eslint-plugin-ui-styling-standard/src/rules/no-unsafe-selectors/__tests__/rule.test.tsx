@@ -3,8 +3,20 @@ import outdent from 'outdent';
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
+const restrictedFirstChildSelector = '&:first' + '-child';
+
 tester.run('no-unsafe-selectors', rule, {
 	valid: [
+		{
+			name: 'ignores a shadowed style function',
+			code: `
+        import { css } from '@compiled/react';
+
+        function makeStyles(css) {
+          return css({ ':hover': {} });
+        }
+      `,
+		},
 		{
 			name: 'css API valid usage',
 			code: `
@@ -68,6 +80,47 @@ tester.run('no-unsafe-selectors', rule, {
 		},
 	],
 	invalid: [
+		{
+			name: 'object value after a comment',
+			code: `
+        import { css } from '@compiled/react';
+
+        css({ ':hover': /* selector styles */ {} });
+      `,
+			output: `
+        import { css } from '@compiled/react';
+
+        css({ '&:hover': /* selector styles */ {} });
+      `,
+			errors: [{ messageId: 'no-ambiguous-pseudos' }],
+		},
+		{
+			name: 'aliased import with repeated selector',
+			code: `
+        import { css as compiledCss } from '@compiled/react';
+
+        compiledCss({ '${restrictedFirstChildSelector}': {} });
+        compiledCss({ '${restrictedFirstChildSelector}': {} });
+      `,
+			errors: [{ messageId: 'no-restricted-pseudos' }, { messageId: 'no-restricted-pseudos' }],
+		},
+		{
+			name: 'cssMap in a later import declaration',
+			code: `
+        import { css } from '@emotion/react';
+        import { cssMap } from '@compiled/react';
+
+        css({ color: 'red' });
+        cssMap({
+          variant: {
+            '@media': {
+              '(min-width: 900px)': {},
+            },
+          },
+        });
+      `,
+			errors: [{ messageId: 'no-grouped-at-rules' }],
+		},
 		{
 			name: 'css API invalid usage',
 			code: outdent`

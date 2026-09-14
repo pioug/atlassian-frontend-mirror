@@ -1,7 +1,7 @@
 import { snapshotInformational } from '@af/visual-regression';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
-import { EmojiPickerWithUpload } from './picker.fixture';
+import { EmojiPickerWithUpload } from './picker.fixture.vr.ap';
 
 setupEditorExperiments('test', {
 	platform_teamoji_26_refresh_emoji_picker: false,

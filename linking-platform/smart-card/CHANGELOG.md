@@ -1,5 +1,620 @@
 # @atlaskit/smart-card
 
+## 45.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.22.0
+
+### Minor Changes
+
+- [`790c4f8c5dee0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/790c4f8c5dee0) -
+  Add opt-in `/confluence-renderer` and `/local-model` entry points, lazy-load embedded-confluence
+  in smart-card, and register chat autocomplete in the initial editor preset. Trello does not
+  download embedded-confluence or web-llm with the default chat bundle. Confluence users keep focus
+  when `platform_editor_ai_autocomplete_rovo_chat_editor` is on because the plugin is no longer
+  added after mount.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.21.1
+
+### Patch Changes
+
+- [`b94131fcee276`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b94131fcee276) -
+  Removes the `platform_smartlink_xpc_url_wrapping` feature gate and makes cross-product URL
+  wrapping for Smart Links permanent, on for all consumers.
+
+  What this behavior does: when a resolved Smart Link points to a first-party Atlassian destination
+  (e.g. a Jira issue, Confluence page), the URL used for navigation — via click, "Open link", or any
+  other destination-URL usage — now has a short-lived interaction-session query parameter (`xpis`)
+  appended automatically. This lets the destination product attribute the visit back to the product
+  and surface the link was opened from, powering cross-product usage analytics. It has no effect on:
+  - third-party (non-Atlassian) links,
+  - links that are not yet resolved,
+  - URLs that already contain the parameter.
+
+  No API shape changes: this only affects the resolved value returned by existing Smart Link
+  URL/navigation behavior (e.g. `Card`, `useSmartLinkDestinationUrl`, inline/block/embed card
+  click-through, and datasource table link cells). No new props, exports, or configuration are
+  introduced, and no action is required from consumers.
+
+- Updated dependencies
+
+## 45.21.0
+
+### Minor Changes
+
+- [`942e8a15cbdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/942e8a15cbdf1) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+## 45.20.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.20.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.20.5
+
+### Patch Changes
+
+- [`8d869cadd115d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d869cadd115d) -
+  Restore generator icons for Smart Link provider badges when entity-specific icons are available.
+  Resolved embeds keep the entity icon next to the resource title. Unresolved embeds show the
+  provider icon next to the provider name. Gate OFF preserves current entity icons in provider
+  badges; gate ON uses generator icons for provider branding. All changes behind feature gate:
+  `platform_lp_use_generator_icon_for_provider`.
+- Updated dependencies
+
+## 45.20.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.20.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.20.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.20.1
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 45.20.0
+
+### Minor Changes
+
+- [`0a39ae0f69a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a39ae0f69a25) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.19.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.19.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.19.6
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+- [`fcd19110d28f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcd19110d28f7) -
+  Ensure block Smart Links bypass optimized inline cache responses when
+  platform_smartlink_inline_resolve_optimization is enabled.
+- Updated dependencies
+
+## 45.19.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.19.4
+
+### Patch Changes
+
+- [`f86cb2d5def61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f86cb2d5def61) -
+  Cleaning up inline cta experiment
+
+## 45.19.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.19.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.19.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.12
+
+### Patch Changes
+
+- [`74df17a1cfabf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74df17a1cfabf) -
+  Cleanup feature gate `platform_sl_google_rebrand`. Smart Link providers named "Google" are now
+  always rebranded to "Google Drive", and provider extraction for unresolved link states always uses
+  `extractProvider`.
+- Updated dependencies
+
+## 45.18.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.10
+
+### Patch Changes
+
+- [`32691846bec6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32691846bec6d) -
+  NAVX-5582 updating message translation keys to ship for rovo block card and inline card action
+  experiments
+- Updated dependencies
+
+## 45.18.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.6
+
+### Patch Changes
+
+- [`b000b69f907fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b000b69f907fc) -
+  [ux] Migrate major experiments in implementing to new experiments API.
+- Updated dependencies
+
+## 45.18.5
+
+### Patch Changes
+
+- [`bb5139e954845`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb5139e954845) -
+  Coalesce lazy priority icon loading behind `platform_sl_priority_icon` to avoid cold-cache request
+  fan-out.
+- Updated dependencies
+
+## 45.18.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.18.2
+
+### Patch Changes
+
+- [`9e4a665de419a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e4a665de419a) -
+  Clean up of expriment flag `platform_editor_preview_panel_linking_exp_conf` and
+  `platform_editor_preview_panel_linking_exp_jira`.
+- Updated dependencies
+
+## 45.18.1
+
+### Patch Changes
+
+- [`f42598f4b4985`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f42598f4b4985) -
+  Cleanup feature gate `platform_navx_block_card_footer_spacing`. Block card footers now permanently
+  use the larger spacing introduced by NAVX-4858.
+
+## 45.18.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- [`41b55f01fb4e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41b55f01fb4e1) -
+  Cleanup feature gate platform_lp_use_entity_icon_url_for_icon and use entity icon URLs by default.
+- [`41b55f01fb4e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41b55f01fb4e1) -
+  Cleanup feature gate platform_lp_social_proof_inline_overflow_bug and keep inline social proof
+  content wrapping correctly.
+- Updated dependencies
+
+## 45.17.29
+
+### Patch Changes
+
+- [`f64646d5da775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f64646d5da775) -
+  Force block metadata requests to bypass reduced inline Smart Link responses when
+  platform_smartlink_inline_resolve_optimization is enabled.
+
+## 45.17.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.20
+
+### Patch Changes
+
+- [`8f0d2c1dd28a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f0d2c1dd28a3) -
+  NAVX-5363 cleaning up navx-5343-sl-action-block-styling-fixes
+
+## 45.17.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.18
+
+### Patch Changes
+
+- [`cdf5c70f1c4ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdf5c70f1c4ca) -
+  NAVX-5345 Cleaning up navx-4719-a11y-embed-modal-focus-states
+- Updated dependencies
+
+## 45.17.17
+
+### Patch Changes
+
+- [`e95d9c522563d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e95d9c522563d) -
+  Use Jira issue subtype labels such as Bug, Task, Epic, or Question for inline, block, and hover
+  Smart Link icon accessible names instead of generic or empty labels.
+
+  All changes behind feature gate: `platform_navx_jira_issue_type_icon_label_a11y`.
+
+## 45.17.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.9
+
+### Patch Changes
+
+- [`ae8892755718c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae8892755718c) -
+  Revert 45.17.2 - platform_smartlink_xpc_url_wrapping_context_menu
+- Updated dependencies
+
+## 45.17.8
+
+### Patch Changes
+
+- [`685d726605112`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/685d726605112) -
+  Enable the Connect-to-Preview treatment by default in Smart Card examples for easier QA.
+- Updated dependencies
+
+## 45.17.7
+
+### Patch Changes
+
+- [`0f457c5b136c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f457c5b136c7) -
+  Add regression coverage for the pre-auth inline Smart Link Preview CTA click behavior.
+
+## 45.17.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.2
+
+### Patch Changes
+
+- [`0b157907f6684`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b157907f6684) -
+  Remove xpc url wrapper from context menu click from platform_smartlink_xpc_url_wrapping and apply
+  new fg platform_smartlink_xpc_url_wrapping_context_menu
+- Updated dependencies
+
+## 45.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.17.0
+
+### Minor Changes
+
+- [`2b3a50789456f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b3a50789456f) -
+  Clean up linking_platform_track_non_primary_3p_clicks experiment. Non-primary (middle/right-click)
+  3P click tracking is now permanent.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.16.4
+
+### Patch Changes
+
+- [`f9ba56885ba46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9ba56885ba46) -
+  Update images used in embed card pre-auth teaser carousel view behind experiment gate
+  `platform_sl_embed_preauth_teaser_exp`.
+- Updated dependencies
+
+## 45.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.16.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.16.1
 
 ### Patch Changes

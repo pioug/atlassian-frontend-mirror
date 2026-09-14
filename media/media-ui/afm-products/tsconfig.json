@@ -71,6 +71,9 @@
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/popper/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
@@ -78,6 +81,9 @@
 		},
 		{
 			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/react-select/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"

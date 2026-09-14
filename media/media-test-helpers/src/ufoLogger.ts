@@ -1,4 +1,4 @@
-import { type CustomData } from '@atlaskit/ufo';
+import type { CustomData } from '@atlaskit/ufo/types';
 
 export interface UfoPayloadPublisher {
 	setup: (properties: any) => void;

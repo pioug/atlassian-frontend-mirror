@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/prs-locale-mapper",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "Maps locales to the PRS locale format",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,43 +25,5 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

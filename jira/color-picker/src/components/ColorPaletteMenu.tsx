@@ -15,14 +15,14 @@ import {
 	type RefAttributes,
 } from 'react';
 import { Mode, type Palette, type ColorCardVariant } from '../types';
-import {
-	type UIAnalyticsEvent,
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import withAnalyticsContext, {
 	type WithContextProps,
-	createAndFireEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import ColorCard, { type ColorCardRef } from './ColorCard';
 import { getOptions, getWidth } from '../utils';
 import { css, jsx } from '@atlaskit/css';

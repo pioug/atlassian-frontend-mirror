@@ -1,5 +1,182 @@
 # @atlaskit/popup
 
+## 6.3.4
+
+### Patch Changes
+
+- [`345efa8128cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/345efa8128cb2) -
+  Behind platform_dst_popup_media_query_perf_fix Popups with the default appearance no longer cause
+  state changes across the below.sm viewport media query Popups with the UNSAFE_modal-below-sm
+  appearance (modal) still cause the state change This was done to fix popup heavy pages stuttering
+  on resizing, as the state change was causing unnecessary re-renders
+- Updated dependencies
+
+## 6.3.3
+
+### Patch Changes
+
+- [`13fcd5b800ea9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13fcd5b800ea9) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 6.3.2
+
+### Patch Changes
+
+- [`261fd53b131ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/261fd53b131ba) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 6.3.1
+
+### Patch Changes
+
+- [`1c9e0caa93d4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c9e0caa93d4c) -
+  Behind platform_dst-popup-trigger-initial-focus-ref: when the popup's focus trap deactivates and
+  shouldReturnFocus is true, an animation-frame callback now rescues focus back to the trigger
+  element if the browser silently dropped focus to document.body instead of returning it to the
+  trigger.
+- Updated dependencies
+
+## 6.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.2
+
+### Patch Changes
+
+- [`a933165c3c788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a933165c3c788) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 6.2.1
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+- [`005037db2dcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/005037db2dcaa) -
+  Autofix: update cross-package imports away from barrel entries
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.4
+
+### Patch Changes
+
+- [`836061d9becda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/836061d9becda) -
+  Only set `aria-controls` while popup content is mounted and clarify the top-layer trigger helper
+  documentation.
+- Updated dependencies
+
+## 6.0.3
+
+### Patch Changes
+
+- [`c3cae446aea72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3cae446aea72) -
+  Only set `aria-controls` while popup content is mounted and clarify the top-layer trigger helper
+  documentation.
+- Updated dependencies
+
+## 6.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.1
+
+### Patch Changes
+
+- [`796aaf7f8a526`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/796aaf7f8a526) -
+  Cleanup feature gate
+- Updated dependencies
+
+## 6.0.0
+
+### Major Changes
+
+- [`48e7d03469b80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48e7d03469b80) -
+  Apply Volt entry-point and barrel-removal standards across these design-system packages. Public
+  `exports` now resolve **directly** to `./src/*` implementations instead of intermediate
+  `./src/entry-points/*` re-exports, root barrels and remaining entry-point shims are marked
+  deprecated in favour of per-export subpaths, and a few new subpaths are added
+  (`@atlaskit/badge/badge-new`, `@atlaskit/tile/tile-skeleton`, `@atlaskit/popper/main`,
+  `@atlaskit/section-message/message`, `@atlaskit/section-message/message-action`).
+
+  ### Why this is breaking
+
+  Subpaths and the package root can now resolve to the **same module instance**. Consumers that
+  deep-imported `entry-points/*`, or `jest.mock()`'d a specific subpath may need updates.
+  `@atlaskit/image`'s root export now points at `./src/ui/image/index.tsx`.
+  `@atlaskit/checkbox/checkbox` now exports a named `Checkbox` from the implementation module
+  (default export retained for backwards compatibility).
+
+  ### Migration
+
+  Prefer published subpaths over the package root:
+
+  ```ts
+  import { Checkbox } from '@atlaskit/checkbox/checkbox';
+  import TextField from '@atlaskit/textfield/text-field';
+  import Popup from '@atlaskit/popup/popup';
+  import SectionMessage from '@atlaskit/section-message/message';
+  import EmptyState from '@atlaskit/empty-state/empty-state';
+  ```
+
+  If you imported through internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Checkbox from '@atlaskit/checkbox/entry-points/checkbox';
+  +import { Checkbox } from '@atlaskit/checkbox/checkbox';
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.2
 
 ### Patch Changes

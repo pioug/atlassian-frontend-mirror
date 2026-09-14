@@ -1,5 +1,5 @@
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 
 import { disableDraggingToCrossOriginIFramesForElement } from '../../../internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
 

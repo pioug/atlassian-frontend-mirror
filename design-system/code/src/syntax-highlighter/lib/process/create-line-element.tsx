@@ -1,4 +1,6 @@
-import { type AST, type RefractorNode, type SyntaxHighlighterLineProps } from '../../types';
+import type { AST, RefractorNode } from 'refractor';
+
+import type { SyntaxHighlighterLineProps } from '../../types';
 
 import getInlineLineNumber from './get-inline-line-number';
 

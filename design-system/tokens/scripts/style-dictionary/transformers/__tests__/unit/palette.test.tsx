@@ -104,12 +104,11 @@ describe('palette transformer', () => {
 			path: ['color', 'background'],
 			original: {
 				attributes: { group: 'paint', description: '', state: 'active' },
-				// @ts-ignore
 				value: 'rgb(0,0,0)',
 			},
 		};
 
-		expect(() => palette.transformer(token as any, {})).toThrowError(
+		expect(() => palette.transformer(token as any, {})).toThrow(
 			'Invalid color format "rgb(0,0,0)" provided to token: "color.background". Please use either a base token, hexadecimal or "transparent"',
 		);
 	});

@@ -35,10 +35,7 @@ export function ElemBeforeExample(): React.JSX.Element {
 						<LinkMenuItem href={exampleHref} elemBefore={<ContainerAvatar src={MoneyIcon} />}>
 							Link menu item (ContainerAvatar)
 						</LinkMenuItem>
-						<LinkMenuItem
-							href={exampleHref}
-							elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}
-						>
+						<LinkMenuItem href={exampleHref} elemBefore={<JiraIcon label="" size="xsmall" />}>
 							Link menu item (app tile)
 						</LinkMenuItem>
 						<LinkMenuItem href={exampleHref}>Link menu item (spacer)</LinkMenuItem>
@@ -71,9 +68,7 @@ export function ElemBeforeExample(): React.JSX.Element {
 						</ExpandableMenuItem>
 
 						<ExpandableMenuItem>
-							<ExpandableMenuItemTrigger
-								elemBefore={<JiraIcon shouldUseNewLogoDesign label="" size="xsmall" />}
-							>
+							<ExpandableMenuItemTrigger elemBefore={<JiraIcon label="" size="xsmall" />}>
 								Exp default menu item (app tile)
 							</ExpandableMenuItemTrigger>
 						</ExpandableMenuItem>
@@ -91,9 +86,7 @@ export function ElemBeforeExample(): React.JSX.Element {
 						</FlyoutMenuItem>
 
 						<FlyoutMenuItem>
-							<FlyoutMenuItemTrigger
-								elemBefore={<JiraIcon shouldUseNewLogoDesign label="" size="xsmall" />}
-							>
+							<FlyoutMenuItemTrigger elemBefore={<JiraIcon label="" size="xsmall" />}>
 								Flyout menu item (app tile)
 							</FlyoutMenuItemTrigger>
 						</FlyoutMenuItem>

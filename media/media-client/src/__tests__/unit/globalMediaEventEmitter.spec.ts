@@ -18,8 +18,8 @@ describe('globalMediaEventEmitter', () => {
 		globalMediaEventEmitter.on('file-added', onFileUploaded);
 		globalMediaEventEmitter.emit('file-added', fileState);
 
-		expect(onFileUploaded).toBeCalledTimes(1);
-		expect(onFileUploaded).toBeCalledWith(fileState);
+		expect(onFileUploaded).toHaveBeenCalledTimes(1);
+		expect(onFileUploaded).toHaveBeenCalledWith(fileState);
 	});
 
 	it('should not call event listener if we unsubscribe', () => {
@@ -30,6 +30,6 @@ describe('globalMediaEventEmitter', () => {
 		globalMediaEventEmitter.off('file-added', onFileUploaded);
 		globalMediaEventEmitter.emit('file-added', fileState);
 
-		expect(onFileUploaded).toBeCalledTimes(1);
+		expect(onFileUploaded).toHaveBeenCalledTimes(1);
 	});
 });

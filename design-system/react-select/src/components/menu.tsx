@@ -6,7 +6,6 @@ import { type CSSProperties, type JSX, type ReactNode, type Ref } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -38,14 +37,11 @@ const menuStyles = cssMap({
 		position: 'absolute',
 		width: '100%',
 		zIndex: 1,
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.large'),
 		marginBlockEnd: token('space.100'),
 		marginBlockStart: token('space.100'),
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
-	},
-	rootT26Shape: {
-		borderRadius: token('radius.large'),
 	},
 	bottom: {
 		insetBlockStart: '100%',
@@ -65,11 +61,7 @@ const Menu: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 
 	return (
 		<div
-			css={[
-				menuStyles.root,
-				menuStyles[placement],
-				fg('platform-dst-shape-theme-default') && menuStyles.rootT26Shape,
-			]}
+			css={[menuStyles.root, menuStyles[placement]]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(xcss, className as any, '-menu')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

@@ -1,8 +1,17 @@
-import React from 'react';
-import { Ellipsify as CompiledEllipsify } from './ellipsify-compiled';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { Ellipsify } from './Ellipsify-2';
 
-export const Ellipsify: typeof CompiledEllipsify = (props) => <CompiledEllipsify {...props} />;
+/**
+ * @deprecated Use `import type { EllipsifyProps } from '@atlaskit/media-ui/ellipsify/compiled/ellipsify'` instead.
+ */
+export type { EllipsifyProps } from './Ellipsify-3';
 
-export type { EllipsifyProps } from './ellipsify-compiled';
-
+/**
+ * @deprecated Use `import { Ellipsify } from '@atlaskit/media-ui/ellipsify/ellipsify'` instead.
+ */
 export default Ellipsify;
+
+/**
+ * @deprecated Use `import { Ellipsify } from '@atlaskit/media-ui/ellipsify/ellipsify'` instead.
+ */
+export { Ellipsify };

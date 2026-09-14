@@ -15,15 +15,24 @@
  * If component _only_ has injected variables, it is fully internal and was
  * broken out to be it's own function.
  */
-import { type LocalizationProvider } from '@atlaskit/locale';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { isValid, parse } from 'date-fns';
+
+import type { LocalizationProvider } from '@atlaskit/locale/localization-provider';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { defaultDateFormat } from './default-date-format';
+import { convertTokens } from './parse-tokens';
 
 /**
- * There are two props that can change how the date is parsed.
+ * There are props that can change how the date is parsed.
  * The priority of props used is:
  *   1. `parseInputValue`
- *   2. `locale`
+ *   2. `dateFormat` (when `platform-dst-dp-parse-date-format` is on)
+ *   3. `locale`
+ *
+ * `dateFormat` only wins when the input actually parses against it, otherwise
+ * `locale` parsing is used.
  */
 export const parseDate: (
 	date: string,
@@ -43,6 +52,16 @@ export const parseDate: (
 	const { parseInputValue, dateFormat, l10n } = di;
 	if (parseInputValue) {
 		return parseInputValue(date, dateFormat || defaultDateFormat);
+	}
+
+	if (dateFormat && fg('platform-dst-dp-parse-date-format')) {
+		// new Date(0) to make reference date deterministic
+		const parsed = parse(date, convertTokens(dateFormat), new Date(0));
+		// `dateFormat` is a display format, so typed input does not always match
+		// it. Locale parsing stays as the fallback so those entries still work.
+		if (isValid(parsed)) {
+			return parsed;
+		}
 	}
 
 	return l10n.parseDate(date);

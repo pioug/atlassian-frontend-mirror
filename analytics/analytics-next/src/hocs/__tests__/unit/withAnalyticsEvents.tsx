@@ -55,7 +55,7 @@ describe('withAnalyticsEvents', () => {
 
 		const { getByText } = render(<UnderTest callback={callback} />);
 
-		expect(callback).toBeCalledWith(getByText('Button'));
+		expect(callback).toHaveBeenCalledWith(getByText('Button'));
 	});
 
 	it("should include the wrapped component's name in the wrapped name", () => {
@@ -129,7 +129,7 @@ describe('withAnalyticsEvents', () => {
 
 			fireEvent.click(getByText('Button'));
 
-			expect(callback).toBeCalledWith(
+			expect(callback).toHaveBeenCalledWith(
 				{ action: 'clicked', component: 'Button' },
 				[{ ticket: 'AFP-123' }],
 				'atlaskit',
@@ -200,7 +200,7 @@ describe('withAnalyticsEvents', () => {
 
 			fireEvent.click(getByText('Button'));
 
-			expect(callback).toBeCalledWith(
+			expect(callback).toHaveBeenCalledWith(
 				{ action: 'clicked', component: 'Button' },
 				[{ ticket: 'AFP-123' }],
 				'atlaskit',
@@ -233,7 +233,7 @@ describe('withAnalyticsEvents', () => {
 
 			fireEvent.click(getByText('Button'));
 
-			expect(initialCallback).toBeCalledWith(
+			expect(initialCallback).toHaveBeenCalledWith(
 				{ action: 'clicked', component: 'Button' },
 				[{ ticket: 'AFP-123' }],
 				'atlaskit',
@@ -256,7 +256,7 @@ describe('withAnalyticsEvents', () => {
 
 			fireEvent.click(getByText('Button'));
 
-			expect(initialCallback).toBeCalledWith(
+			expect(initialCallback).toHaveBeenCalledWith(
 				{ action: 'clicked', component: 'Button' },
 				[{ ticket: 'AFP-234' }],
 				'atlaskit',
@@ -280,7 +280,7 @@ describe('withAnalyticsEvents', () => {
 
 			fireEvent.click(getByText('Button'));
 
-			expect(updatedCallback).toBeCalledWith(
+			expect(updatedCallback).toHaveBeenCalledWith(
 				{ action: 'clicked', component: 'Button' },
 				[{ ticket: 'AFP-234' }],
 				'atlaskit',
@@ -305,7 +305,7 @@ describe('withAnalyticsEvents', () => {
 
 			fireEvent.click(getByText('Button'));
 
-			expect(updatedCallback).toBeCalledWith(
+			expect(updatedCallback).toHaveBeenCalledWith(
 				{ action: 'clicked', component: 'Button', magic: 'yes' },
 				[{ ticket: 'AFP-234' }],
 				'atlaskit',

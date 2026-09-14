@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import ChangesObjectTile from '@atlaskit/object/tile/changes';
 import IncidentObjectTile from '@atlaskit/object/tile/incident';
 import PageLiveDocObjectTile from '@atlaskit/object/tile/page-live-doc';

@@ -1,6 +1,6 @@
 import { ChangeSet } from 'prosemirror-changeset';
 
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ConflictChange, ConflictChanges } from '@atlaskit/editor-common/collab';

@@ -1,12 +1,11 @@
 import { type Action } from 'react-sweet-state';
 import { Subscription } from 'rxjs/Subscription';
 
-import {
-	ActionSubject,
-	Action as AnalyticsAction,
-	type AnalyticsAttributes,
-	EventType,
-} from '../../analytics';
+import { EventType } from '@atlaskit/jql-editor-common/constants';
+import { type AnalyticsAttributes } from '@atlaskit/jql-editor-common/analytics/types';
+
+import { ActionSubject, Action as AnalyticsAction } from '../../analytics/constants';
+import { bucketJqlFunctionName } from '../../utils/team-jql-functions/bucketJqlFunctionName';
 import { type OptionsKey, type Props, type State } from '../types';
 
 export const ANALYTICS_DEBOUNCE_MS = 2000;
@@ -18,6 +17,7 @@ export type AutocompleteEvent = {
 		isSuccess: boolean,
 		optionTypes: OptionsKey[],
 		hasOptions: boolean,
+		functionName?: string,
 	) => void;
 };
 
@@ -45,6 +45,7 @@ export const onStartAutocompleteEvent =
 			isSuccess: boolean,
 			optionTypes: OptionsKey[],
 			hasOptions: boolean,
+			functionName?: string,
 		): Promise<void> => {
 			performance.measure(
 				AUTOCOMPLETE_ANALYTICS_MEASURE,
@@ -62,6 +63,10 @@ export const onStartAutocompleteEvent =
 
 				if (duration !== undefined) {
 					attributes.duration = duration;
+				}
+
+				if (functionName !== undefined && functionName.trim() !== '') {
+					attributes.functionName = bucketJqlFunctionName(functionName);
 				}
 
 				createAndFireAnalyticsEvent({

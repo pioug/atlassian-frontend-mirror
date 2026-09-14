@@ -2,19 +2,20 @@ import React from 'react';
 
 import { bind } from 'bind-event-listener';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
-import type { DocNode } from '@atlaskit/adf-schema/schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByAttr } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
@@ -95,16 +96,24 @@ export const profileCardRenderer = ({
 
 		const activeMention = isReducedProfileCards
 			? (() => {
-					// Read the display name from the DOM element at click time — this is
-					// always up-to-date even when node.attrs.text is absent
-					const primitiveText =
-						dom instanceof HTMLElement
-							? dom.querySelector('.editor-mention-primitive')?.textContent?.trim()
-							: undefined;
+					// Avatar mentions keep their resolved display name in the nested text span.
+					// Control mentions preserve the legacy attrs-first fallback.
+					const mentionTextElement =
+						dom instanceof HTMLElement ? dom.querySelector('.editor-mention-text') : undefined;
+					const primitiveText = (
+						mentionTextElement ??
+						(dom instanceof HTMLElement
+							? dom.querySelector('.editor-mention-primitive')
+							: undefined)
+					)?.textContent?.trim();
+					const resolvedText =
+						primitiveText && !primitiveText.startsWith('@') ? `@${primitiveText}` : primitiveText;
 					return {
 						attrs: {
 							...currentNode?.attrs,
-							text: currentNode?.attrs?.text || primitiveText || undefined,
+							text: mentionTextElement
+								? resolvedText || currentNode?.attrs?.text || undefined
+								: currentNode?.attrs?.text || primitiveText || undefined,
 						} as MentionAttributes,
 					};
 				})()
@@ -137,7 +146,18 @@ export const profileCardRenderer = ({
 				profilecardProvider={options?.profilecardProvider}
 				onAgentMentionChatClick={
 					options?.onAgentMentionChatClick && fg('platform_editor_agent_mentions_drop_one_fixes')
-						? (agentId: string) => options.onAgentMentionChatClick?.(agentId, agentMentionContext)
+						? (agentId: string) => {
+								options.onAgentMentionChatClick?.(agentId, agentMentionContext);
+								// The mention stays node-selected after the chat opens; collapse the
+								// selection to a cursor just after it so it is no longer left selected.
+								// Selection-only change, so it does not move focus (EDITOR-8257).
+								if (editorView && fg('platform_editor_agent_card_close_on_chat')) {
+									const { state } = editorView;
+									editorView.dispatch(
+										state.tr.setSelection(TextSelection.create(state.doc, state.selection.to)),
+									);
+								}
+							}
 						: undefined
 				}
 				dom={referenceElement}
@@ -195,7 +215,10 @@ export const profileCardRenderer = ({
 	const listenerCleanup = bind(dom, {
 		type: 'click',
 		listener: () => {
-			if (fg('people-teams_migrate-user-profile-card')) {
+			if (
+				fg('people-teams_migrate-user-profile-card') ||
+				isExperimentEnabled('pt_user_profile_card_migration_exp')
+			) {
 				const userId = expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
 					? currentNode.attrs?.id
 					: node.attrs?.id;

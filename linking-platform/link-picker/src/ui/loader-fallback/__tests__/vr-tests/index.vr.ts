@@ -8,7 +8,7 @@ import {
 	LazyLoadingWithoutDisplayTextExample,
 	LazyLoadingWithoutDisplayTextWithOnePluginExample,
 	LazyLoadingWithoutDisplayTextWithPluginsExample,
-} from '../../examples';
+} from '../../examples.vr.ap';
 
 snapshot(LazyLoadingWithDisplayTextExample);
 snapshot(LazyLoadingWithDisplayTextWithOnePluginExample, {

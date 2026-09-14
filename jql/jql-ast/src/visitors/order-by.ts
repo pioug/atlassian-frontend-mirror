@@ -1,4 +1,4 @@
-import { type JqlOrderByContext, type JqlSearchSortContext } from '@atlaskit/jql-parser';
+import type { JqlOrderByContext, JqlSearchSortContext } from '@atlaskit/jql-parser/JQLParser';
 
 import { ORDER_BY_DIRECTION_ASC, ORDER_BY_DIRECTION_DESC } from '../constants';
 import { internalCreators } from '../creators';

@@ -1,8 +1,8 @@
 import { snapshot } from '@af/visual-regression';
 
-import Basic from '../../../../examples/70-text';
-import Color from '../../../../examples/71-text-color';
-import Truncation from '../../../../examples/72-text-truncation';
+import Basic from '../../../../examples/70-text.vr.ap';
+import Color from '../../../../examples/71-text-color.vr.ap';
+import Truncation from '../../../../examples/72-text-truncation.vr.ap';
 
 snapshot(Basic, {
 	variants: [

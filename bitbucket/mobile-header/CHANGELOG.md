@@ -1,5 +1,34 @@
 # @atlaskit/mobile-header
 
+## 8.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.3
 
 ### Patch Changes

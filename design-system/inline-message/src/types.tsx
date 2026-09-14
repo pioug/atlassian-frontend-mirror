@@ -1,6 +1,6 @@
 import { type ComponentType } from 'react';
 
-import type { NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 export interface Icon {
 	defaultLabel: string;

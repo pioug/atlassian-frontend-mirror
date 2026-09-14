@@ -2,7 +2,8 @@ import React from 'react';
 import { render, screen } from '@atlassian/testing-library';
 import { NameCell } from '../component/nameCell';
 
-jest.mock('@atlaskit/tooltip', () => ({
+jest.mock('@atlaskit/tooltip/Tooltip', () => ({
+	...jest.requireActual('@atlaskit/tooltip/Tooltip'),
 	__esModule: true,
 	default: ({ content, children }: { content: React.ReactNode; children: React.ReactNode }) => (
 		<div data-testid="tooltip-mock" data-content={typeof content === 'string' ? content : ''}>

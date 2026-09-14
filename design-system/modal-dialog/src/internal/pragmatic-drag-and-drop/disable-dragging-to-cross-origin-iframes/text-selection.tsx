@@ -1,7 +1,7 @@
 import { bind, bindAll } from 'bind-event-listener';
 
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { monitorForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/text-selection/adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { monitorForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/adapter/monitor-for-text-selection';
 import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { makeFixForAdapter } from './make-fix-for-adapter';

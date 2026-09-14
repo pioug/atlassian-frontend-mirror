@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
@@ -8,10 +8,10 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	container: {
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 		backgroundColor: token('color.background.neutral.bold'),
 	},
 });

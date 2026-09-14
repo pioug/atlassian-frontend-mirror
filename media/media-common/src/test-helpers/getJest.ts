@@ -4,7 +4,7 @@
 interface MockedJest<F, S> {
 	fn: (value?: F) => MockStub<F, F>;
 	spyOn: () => MockStub<S, S>;
-	genMockFromModule: undefined;
+	createMockFromModule: undefined;
 	requireActual: () => void;
 	doMock: () => void;
 }
@@ -33,7 +33,7 @@ const mockJest = <F, S>(): MockedJest<F, S> => {
 	return {
 		fn: (value?: F) => mockStub<F>() as MockStub<F, F>,
 		spyOn: () => mockStub<S>() as MockStub<S, S>,
-		genMockFromModule: undefined,
+		createMockFromModule: undefined,
 		requireActual: () => {},
 		doMock: () => {},
 	};

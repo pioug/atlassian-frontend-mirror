@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Code, CodeBlock } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
+import CodeBlock from '@atlaskit/code/code-block';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 const exampleCodeBlock = `// src/packages/routes/[my-route]/resources/my-relay-resource/index.js - resource definition can be found here

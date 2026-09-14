@@ -23,9 +23,9 @@ describe('Simultaneous Play Manager', () => {
 
 		videoOne.play();
 
-		expect(videoOne.pause).not.toBeCalled();
-		expect(videoTwo.pause).toBeCalledTimes(1);
-		expect(videoThree.pause).toBeCalledTimes(1);
+		expect(videoOne.pause).not.toHaveBeenCalled();
+		expect(videoTwo.pause).toHaveBeenCalledTimes(1);
+		expect(videoThree.pause).toHaveBeenCalledTimes(1);
 	});
 
 	it('should not pause unsubscribed players', () => {
@@ -36,9 +36,9 @@ describe('Simultaneous Play Manager', () => {
 		videoTwo.unsubscribe();
 		videoOne.play();
 
-		expect(videoOne.pause).not.toBeCalled();
-		expect(videoTwo.pause).not.toBeCalled();
-		expect(videoThree.pause).toBeCalledTimes(1);
+		expect(videoOne.pause).not.toHaveBeenCalled();
+		expect(videoTwo.pause).not.toHaveBeenCalled();
+		expect(videoThree.pause).toHaveBeenCalledTimes(1);
 	});
 
 	it('should subscribe players only once', () => {
@@ -46,6 +46,6 @@ describe('Simultaneous Play Manager', () => {
 		simultaneousPlayManager.subscribe(videoOne); // tries to subscribe again
 
 		simultaneousPlayManager.pauseOthers({ pause: () => {} });
-		expect(videoOne.pause).toBeCalledTimes(1);
+		expect(videoOne.pause).toHaveBeenCalledTimes(1);
 	});
 });

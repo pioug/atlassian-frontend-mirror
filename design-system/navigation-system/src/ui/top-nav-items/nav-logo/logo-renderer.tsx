@@ -5,7 +5,7 @@
 
 import { jsx } from '@compiled/react';
 
-import type { LogoProps } from '@atlaskit/logo';
+import type { LogoProps } from '@atlaskit/logo/types';
 
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 
@@ -14,10 +14,8 @@ export const themedLogoText = '--ds-top-bar-logo-text';
 
 export function LogoRenderer({
 	logoOrIcon: LogoOrIcon,
-	shouldUseNewLogoDesign,
 }: {
 	logoOrIcon: (props: LogoProps) => JSX.Element;
-	shouldUseNewLogoDesign?: boolean;
 }): JSX.Element {
 	const hasCustomTheme = useHasCustomTheme();
 
@@ -26,19 +24,11 @@ export function LogoRenderer({
 			<LogoOrIcon
 				label=""
 				size="small"
-				shouldUseNewLogoDesign={shouldUseNewLogoDesign}
 				iconColor={`var(${themedLogoIcon})`}
 				textColor={`var(${themedLogoText})`}
 			/>
 		);
 	}
 
-	return (
-		<LogoOrIcon
-			size="small"
-			shouldUseNewLogoDesign={shouldUseNewLogoDesign}
-			label=""
-			appearance="brand"
-		/>
-	);
+	return <LogoOrIcon size="small" label="" appearance="brand" />;
 }

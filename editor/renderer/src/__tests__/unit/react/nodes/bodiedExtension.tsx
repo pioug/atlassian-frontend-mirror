@@ -1,8 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import BodiedExtension from '../../../../react/nodes/bodiedExtension';
-import { ReactRenderer } from '../../../../index';
+import { Renderer } from '../../../../entry-points/renderer-default';
 
 import type { RendererContext } from '../../../../react/types';
 import ReactSerializer from '../../../../react';
@@ -14,8 +13,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import { IntlProvider } from 'react-intl';
 import Loadable from 'react-loadable';
-import { act } from 'react-dom/test-utils';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { adfNestedTableData } from '../../../__fixtures__/nested-tables';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -88,7 +86,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 	const serializer = new ReactSerializer({});
 
 	it('should be able to fall back to default content', () => {
-		const extension = mount(
+		const { container } = render(
 			<BodiedExtension
 				providers={providerFactory}
 				serializer={serializer}
@@ -103,14 +101,13 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			</BodiedExtension>,
 		);
 
-		expect(extension.find('div').first().text()).toEqual(
+		expect(container.querySelector('div')?.textContent).toEqual(
 			'This is the default content of the extension',
 		);
-		extension.unmount();
 	});
 
 	it('should be able to render React.Element from extensionHandler', () => {
-		const extension = mount(
+		const { container } = render(
 			<BodiedExtension
 				providers={providerFactory}
 				serializer={serializer}
@@ -123,12 +120,11 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			/>,
 		);
 
-		expect(extension.find('div').first().text()).toEqual('This is a react element');
-		extension.unmount();
+		expect(container.querySelector('div')?.textContent).toEqual('This is a react element');
 	});
 
 	it('should render the default content if extensionHandler throws an exception', () => {
-		const extension = mount(
+		const { container } = render(
 			<BodiedExtension
 				providers={providerFactory}
 				serializer={serializer}
@@ -143,10 +139,9 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			</BodiedExtension>,
 		);
 
-		expect(extension.find('div').first().text()).toEqual(
+		expect(container.querySelector('div')?.textContent).toEqual(
 			'This is the default content of the extension',
 		);
-		extension.unmount();
 	});
 
 	it('extension handler should receive type = bodiedExtension', () => {
@@ -160,7 +155,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			localId: fragmentLocalId,
 		});
 
-		const extension = mount(
+		render(
 			<BodiedExtension
 				providers={providerFactory}
 				serializer={serializer}
@@ -183,8 +178,6 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			localId: 'c145e554-f571-4208-a0f1-2170e1987722',
 			fragmentLocalId,
 		});
-
-		extension.unmount();
 	});
 
 	describe('extension providers', () => {
@@ -205,7 +198,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 		});
 
 		it('should be able to render extensions with the extension provider', async () => {
-			const extension = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<BodiedExtension
 						providers={providers}
@@ -214,7 +207,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 						rendererContext={rendererContext}
 						extensionType="fake.confluence"
 						extensionKey="expand"
-						content="body"
+						getContent={() => 'body'}
 						localId="c145e554-f571-4208-a0f1-2170e1987722"
 						startPos={1}
 					/>
@@ -225,11 +218,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				await Loadable.preloadAll();
 			});
 
-			extension.update();
-
-			expect(extension.text()).toEqual('Extension provider: body');
-
-			extension.unmount();
+			expect(container.textContent).toEqual('Extension provider: body');
 		});
 
 		it('should prioritize extension handlers (sync) over extension provider', async () => {
@@ -237,7 +226,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				'fake.confluence': (node: any) => <div>Extension handler: {node.content}</div>,
 			};
 
-			const extension = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<BodiedExtension
 						providers={providers}
@@ -246,16 +235,14 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 						rendererContext={rendererContext}
 						extensionType="fake.confluence"
 						extensionKey="expand"
-						content="body"
+						getContent={() => 'body'}
 						localId="c145e554-f571-4208-a0f1-2170e1987722"
 						startPos={1}
 					/>
 				</IntlProvider>,
 			);
 
-			expect(extension.text()).toEqual('Extension handler: body');
-
-			extension.unmount();
+			expect(container.textContent).toEqual('Extension handler: body');
 		});
 
 		it('should fallback to extension provider if not handled by the extension handler', async () => {
@@ -263,7 +250,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				'fake.confluence': () => null,
 			};
 
-			const extension = mount(
+			const { container } = render(
 				<IntlProvider locale="en">
 					<BodiedExtension
 						providers={providers}
@@ -272,7 +259,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 						rendererContext={rendererContext}
 						extensionType="fake.confluence"
 						extensionKey="expand"
-						content="body"
+						getContent={() => 'body'}
 						localId="c145e554-f571-4208-a0f1-2170e1987722"
 						startPos={1}
 					/>
@@ -283,11 +270,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				await Loadable.preloadAll();
 			});
 
-			extension.update();
-
-			expect(extension.text()).toEqual('Extension provider: body');
-
-			extension.unmount();
+			expect(container.textContent).toEqual('Extension provider: body');
 		});
 	});
 
@@ -298,7 +281,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			const extensionHandlers: ExtensionHandlers = {
 				'fake.confluence': (ext) => {
 					return (
-						<ReactRenderer
+						<Renderer
 							adfStage="stage0"
 							document={{ type: 'doc', version: 1, content: ext.content as any }}
 							allowAnnotations={false}
@@ -309,7 +292,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 
 			const startPos = 10;
 
-			const extension = mount(
+			const { container } = render(
 				<BodiedExtension
 					providers={providerFactory}
 					serializer={serializer}
@@ -317,7 +300,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 					rendererContext={rendererContext}
 					extensionType="fake.confluence"
 					extensionKey="expand"
-					content={[
+					getContent={() => [
 						{
 							type: 'paragraph',
 							content: [{ type: 'text', text: 'This is a ADF node' }],
@@ -328,16 +311,10 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				/>,
 			);
 
-			await act(async () => {
-				await Loadable.preloadAll();
-			});
-
-			extension.update();
-
 			// The paragraph inside the extension should have a data-renderer-start-pos attribute with the incremented value
-			expect(extension.html()).toContain(`data-renderer-start-pos="${startPos + 1}"`);
-
-			extension.unmount();
+			expect(
+				container.querySelector(`[data-renderer-start-pos="${startPos + 1}"]`),
+			).toBeInTheDocument();
 		});
 	});
 
@@ -349,7 +326,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			const extensionHandlers: ExtensionHandlers = {
 				'fake.confluence': (ext) => {
 					return (
-						<ReactRenderer
+						<Renderer
 							adfStage="stage0"
 							document={{ type: 'doc', version: 1, content: ext.content as any }}
 							allowAnnotations={false}
@@ -359,17 +336,19 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 				},
 			};
 			render(
-				<BodiedExtension
-					providers={providerFactory}
-					serializer={serializer}
-					extensionHandlers={extensionHandlers}
-					rendererContext={testRendererContext}
-					extensionType="fake.confluence"
-					extensionKey="expand"
-					content={adfNestedTableData.content}
-					localId="c145e554-f571-4208-a0f1-2170e1987722"
-					startPos={1}
-				/>,
+				<IntlProvider locale="en">
+					<BodiedExtension
+						providers={providerFactory}
+						serializer={serializer}
+						extensionHandlers={extensionHandlers}
+						rendererContext={testRendererContext}
+						extensionType="fake.confluence"
+						extensionKey="expand"
+						getContent={() => adfNestedTableData.content}
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+						startPos={1}
+					/>
+				</IntlProvider>,
 			);
 			expect(screen.getAllByRole('table')).toHaveLength(2);
 		});

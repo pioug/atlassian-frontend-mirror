@@ -4,10 +4,12 @@
  */
 import { type JSX, type ReactNode } from 'react';
 
-import { Checkbox } from '@atlaskit/checkbox';
-import { Code } from '@atlaskit/code';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Code from '@atlaskit/code/code';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

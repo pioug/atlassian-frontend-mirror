@@ -1,5 +1,84 @@
 # @atlaskit/editor-cq-transformer
 
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.2
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 22.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- [`b0682afb9fdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0682afb9fdf1) -
+  Add lime, orange and magenta colours to the table cell background colour palette.
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.2
+
+### Patch Changes
+
+- [`7cecf41634d18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cecf41634d18) -
+  Revert the lime, orange, and magenta table cell background color options.
+- Updated dependencies
+
 ## 19.1.1
 
 ### Patch Changes

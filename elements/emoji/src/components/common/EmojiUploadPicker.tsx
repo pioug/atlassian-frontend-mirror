@@ -25,13 +25,13 @@ import {
 	type WithIntlProps,
 	type WrappedComponentProps,
 } from 'react-intl';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import AkButton from '@atlaskit/button/standard-button';
 import { Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';
 
-import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
 import CreateEmojiWithRovo from './CreateEmojiWithRovo';
@@ -41,27 +41,12 @@ import EmojiErrorMessage from './EmojiErrorMessage';
 import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import Button from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import Button from '@atlaskit/button/default/button';
 import { Box } from '@atlaskit/primitives/compiled';
 import { getDocument } from '@atlaskit/browser-apis';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 const closeEmojiUploadButton = css({
 	display: 'flex',
@@ -173,21 +158,21 @@ export const uploadEmojiComponentTestId = 'upload-emoji-component';
 export const cancelEmojiUploadPickerTestId = 'cancel-emoji-upload-picker';
 
 export interface Props {
-	disableFocusLock?: boolean;
-	errorMessage?: Message;
-	initialUploadName?: string;
-	onFileChooserClicked?: () => void;
-	onUploadCancelled: () => void;
-	onUploadEmoji: OnUploadEmoji;
-	onUploadPreviewErrorChange?: (hasPreviewError: boolean) => void;
 	/**
 	 * Current Confluence page content id. When provided (and the
 	 * `confluence_ai_generated_emojis` experiment is on), the "Create an emoji
 	 * with Rovo" AI generation section is shown above the Emoji name field.
 	 */
 	contentId?: string;
+	disableFocusLock?: boolean;
+	errorMessage?: Message;
 	/** Fires an analytics event (used by AI emoji generation). */
 	fireAnalytics?: (event: AnalyticsEventPayload) => void;
+	initialUploadName?: string;
+	onFileChooserClicked?: () => void;
+	onUploadCancelled: () => void;
+	onUploadEmoji: OnUploadEmoji;
+	onUploadPreviewErrorChange?: (hasPreviewError: boolean) => void;
 }
 
 const disallowedReplacementsMap = new Map([
@@ -238,6 +223,8 @@ const isSupportedEmojiUploadFileType = (file: File): boolean => {
 };
 
 interface ChooseEmojiFileProps {
+	/** Optional "Create an emoji with Rovo" section rendered above the name field. */
+	aiSection?: ReactNode;
 	errorMessage?: Message;
 	name?: string;
 	nameErrorMessage?: Message;
@@ -248,8 +235,6 @@ interface ChooseEmojiFileProps {
 	onUploadCancelled: () => void;
 	previewImage?: string;
 	uploadStatus?: UploadStatus;
-	/** Optional "Create an emoji with Rovo" section rendered above the name field. */
-	aiSection?: ReactNode;
 }
 
 type ChooseEmojiFilePropsType = ChooseEmojiFileProps & WrappedComponentProps;
@@ -657,7 +642,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	// drop area and the Emoji name field) so the generated image reuses the
 	// single shared name field and "Add emoji" button.
 	const aiSection =
-		contentId && expValEquals('confluence_ai_generated_emojis', 'isEnabled', true) ? (
+		contentId && isExperimentEnabled('confluence_ai_generated_emojis') ? (
 			<CreateEmojiWithRovo
 				contentId={contentId}
 				fireAnalytics={fireAnalytics}
@@ -699,7 +684,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const EmojiUploadPickerComponent: FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(memo(EmojiUploadPicker));

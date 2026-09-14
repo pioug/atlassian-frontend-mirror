@@ -1,4 +1,5 @@
-import { createObjectURLCache, PREVIEW_CACHE_LRU_SIZE } from './objectURLCache';
+import { createObjectURLCache } from './createObjectURLCache';
+import { PREVIEW_CACHE_LRU_SIZE } from './objectURLCache';
 
 const revokeObjectURLSpy: jest.SpyInstance<
 	void,

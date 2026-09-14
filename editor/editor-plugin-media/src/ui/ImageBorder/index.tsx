@@ -8,7 +8,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
+import type { BorderMarkAttributes } from '@atlaskit/adf-schema/border';
 import { imageBorderMessages as messages } from '@atlaskit/editor-common/media';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { Icon } from '@atlaskit/editor-common/types';
@@ -34,7 +34,7 @@ import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
 import { Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import {
 	buttonStyle,

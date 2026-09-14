@@ -1,7 +1,8 @@
 import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/hooks';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Site } from '../common/types';
+
+import { isUnitsIsolationEnabled } from './isUnitsIsolationEnabled';
 
 export const getAccessibleProducts = async (product: 'jira' | 'confluence'): Promise<Site[]> => {
 	const requestConfig = {
@@ -26,7 +27,7 @@ export const getAccessibleProducts = async (product: 'jira' | 'confluence'): Pro
 		}),
 	};
 
-	const endpoint = fg('linking_platform_link_datasource_unit_compliant')
+	const endpoint = (await isUnitsIsolationEnabled())
 		? '/gateway/api/experimental/v2/accessible-products'
 		: '/gateway/api/v2/accessible-products';
 

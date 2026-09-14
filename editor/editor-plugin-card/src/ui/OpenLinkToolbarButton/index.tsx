@@ -17,7 +17,6 @@ type OpenLinkToolbarButtonProps = {
 /**
  * Toolbar button that opens a Smart Link URL in a new tab, with the XPC-wrapped destination URL.
  *
- * This component is only rendered when `fg('platform_smartlink_xpc_url_wrapping')` is ON.
  * It wraps `FloatingToolbarButton` and replaces `href` with the resolved destination URL
  * (cross-product analytics parameters appended), falling back to the raw `url` when the
  * link is unresolved or not a first-party Atlassian link.

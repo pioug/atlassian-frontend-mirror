@@ -5,7 +5,7 @@
  */
 import React, { useCallback, useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
@@ -494,6 +494,7 @@ export default function Editor(): React.JSX.Element {
 						// Key includes the diff type and a content signature so the read-only diff
 						// editor remounts (and re-diffs) when the scenario is edited/saved or the
 						// diff type changes.
+						// oxlint-disable-next-line react/no-array-index-key
 						key={`scenario-${index}-${diffType}-${scenarioSignature(scenario)}`}
 						scenario={scenario}
 						index={index}

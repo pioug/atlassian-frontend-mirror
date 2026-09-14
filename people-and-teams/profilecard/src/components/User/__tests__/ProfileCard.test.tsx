@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import { type ProfilecardProps } from '../../../types';
-import ProfileCard from '../ProfileCard';
+import { ProfilecardInternal as ProfileCard } from '../ProfilecardInternal';
 
 describe('ProfileCard analytics', () => {
 	const defaultProps: ProfilecardProps = {

@@ -3,7 +3,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { type WidthObserver } from '@atlaskit/width-detector';
+import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import * as Image from '../../../../../examples-helpers/images.json';
 
@@ -16,14 +16,13 @@ const setWidth = (width: number) =>
 
 type WidthObserverType = typeof WidthObserver;
 
-jest.mock('@atlaskit/width-detector', () => {
-	return {
-		WidthObserver: ((props) => {
-			mockInnerSetWidth = props.setWidth;
-			return null;
-		}) as WidthObserverType,
-	};
-});
+jest.mock('@atlaskit/width-detector/width-observer', () => ({
+	...jest.requireActual('@atlaskit/width-detector/width-observer'),
+	WidthObserver: ((props) => {
+		mockInnerSetWidth = props.setWidth;
+		return null;
+	}) as WidthObserverType,
+}));
 
 describe('User Type', () => {
 	const setup = (props: UserProps[] = []) => {

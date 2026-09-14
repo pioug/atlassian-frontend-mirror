@@ -19,14 +19,13 @@ import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { getEventHandler } from '../../utils';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 import InlineCard from './inlineCard';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import type { DatasourceAdfView } from '@atlaskit/link-datasource';
-import { DatasourceTableView } from '@atlaskit/link-datasource';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
+import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
 import { token } from '@atlaskit/tokens';
 import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { usePortal } from '../../ui/Renderer/PortalContext';
@@ -45,22 +44,11 @@ const datasourceContainerStyleWithMarginTop = css({
 	marginBottom: `${token('space.150')}`,
 });
 
-// No vertical margin when inside center wrapper (wrapper has margin so it participates in collapse). Styles from datasourceContainerStyleLegacy
+// No vertical margin when inside center wrapper (wrapper has margin so it participates in collapse).
 const datasourceContainerStyleNoVerticalMargin = css({
 	borderRadius: `${token('radius.large', '8px')}`,
 	border: `${token('border.width')} solid ${token('color.border')}`,
 	overflow: 'hidden',
-});
-
-const datasourceContainerStyleLegacy = css({
-	borderRadius: `${token('radius.large', '8px')}`,
-	border: `${token('border.width')} solid ${token('color.border')}`,
-	overflow: 'hidden',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	marginLeft: '50%',
-	marginBottom: `${token('space.150')}`,
-	transform: 'translateX(-50%)',
-	marginTop: `${token('space.150')}`,
 });
 
 export default function BlockCard(props: {
@@ -84,9 +72,7 @@ export default function BlockCard(props: {
 	const onClick = getCardClickHandler(eventHandlers, url);
 	// SmartCardEventClickHandler — (e, url?) => void — for CardErrorBoundary.
 	// When the gate is off, fall back to the old behaviour (pass the same onClick as Card).
-	const onConsumerClick = fg('platform_smartlink_xpc_url_wrapping')
-		? getEventHandler(eventHandlers, 'smartCard')
-		: onClick;
+	const onConsumerClick = getEventHandler(eventHandlers, 'smartCard');
 
 	const platform = 'web';
 
@@ -150,20 +136,13 @@ export default function BlockCard(props: {
 					>
 						<WidthConsumer>
 							{({ width }) => {
-								const useStickySafeCentering = expValEquals(
-									'platform_editor_flex_based_centering',
-									'isEnabled',
-									true,
-								);
-								const useCenterWrapper = !isNodeNested && useStickySafeCentering;
+								const useCenterWrapper = !isNodeNested;
 								const datasourceDiv = (
 									<div
 										css={
 											useCenterWrapper
 												? datasourceContainerStyleNoVerticalMargin
-												: useStickySafeCentering
-													? datasourceContainerStyleWithMarginTop
-													: datasourceContainerStyleLegacy
+												: datasourceContainerStyleWithMarginTop
 										}
 										data-testid="renderer-datasource-table"
 										data-local-id={localId}

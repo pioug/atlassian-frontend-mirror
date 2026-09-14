@@ -1,0 +1,27 @@
+{
+	"name": "@atlaskit/agent-color",
+	"version": "0.1.0",
+	"description": "Stable colour selection for agents",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "AI Mate"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./get-agent-color": "./src/get-agent-color.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "root:*"
+	}
+}

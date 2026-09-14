@@ -10,7 +10,8 @@ import WarningOutlineIcon from '@atlaskit/icon-lab/core/warning-outline';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ClockIcon from '@atlaskit/icon/core/clock';
-import Spinner from '@atlaskit/spinner';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import type { DateLabelDropdownTriggerAppearance, DateLabelDropdownTriggerProps } from './types';
@@ -79,6 +80,12 @@ const containerStyles = cssMap({
 	selectedWarning: {
 		color: token('color.text.warning.bolder'),
 	},
+	motion: {
+		transition: token('motion.button.hovered'),
+		'&:active': {
+			transition: token('motion.button.pressed'),
+		},
+	},
 });
 
 const textStyles = cssMap({
@@ -133,6 +140,11 @@ const loadingStyles = cssMap({
 		insetInlineEnd: token('space.0'),
 		pointerEvents: 'none',
 	},
+	overlayMotion: {
+		animationName: token('motion.keyframe.fade.in'),
+		animationDuration: token('motion.duration.short'),
+		animationTimingFunction: token('motion.easing.out.practical'),
+	},
 });
 
 const inlineStyles = cssMap({
@@ -145,6 +157,11 @@ const inlineStyles = cssMap({
 	},
 	spacious: {
 		gap: token('space.075'),
+	},
+	loadingMotion: {
+		transitionProperty: 'opacity',
+		transitionDuration: token('motion.duration.short'),
+		transitionTimingFunction: token('motion.easing.out.practical'),
 	},
 	loading: {
 		opacity: 0,
@@ -192,15 +209,18 @@ export default function DateLabelDropdownTrigger({
 	const maxWidthValue = typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
 	const iconSize = isSpacious ? 'medium' : 'small';
 	const resolvedIconLabel = iconLabel !== undefined ? iconLabel : defaultIconLabels[appearance];
+	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 
 	return (
 		<button
+			// eslint-disable-next-line @atlaskit/design-system/use-pressable-motion -- interactive motion remains behind the labels rollout gate
 			css={[
 				containerStyles.base,
 				isSpacious && containerStyles.spacious,
 				containerStyles[isSpacious && appearance === 'neutral' ? 'neutralSpacious' : appearance],
 				isSelected ? containerStyles.selected : containerStyles.hoveredAndPressed,
 				isSelected && appearance === 'warning' && containerStyles.selectedWarning,
+				isMotionEnabled && containerStyles.motion,
 			]}
 			type="button"
 			onClick={isLoading ? undefined : onClick}
@@ -216,9 +236,11 @@ export default function DateLabelDropdownTrigger({
 			style={{ maxWidth: maxWidthValue, cursor: isLoading ? 'progress' : undefined }}
 		>
 			<span
+				data-testid={testId ? `${testId}--content` : undefined}
 				css={[
 					inlineStyles.base,
 					isSpacious && inlineStyles.spacious,
+					isMotionEnabled && inlineStyles.loadingMotion,
 					isLoading && inlineStyles.loading,
 				]}
 			>
@@ -236,17 +258,19 @@ export default function DateLabelDropdownTrigger({
 					</span>
 				)}
 				<span css={[textStyles.base, isSpacious && textStyles.spacious]}>{label}</span>
+				<ChevronDownIcon label="" size={iconSize} color="currentColor" />
 			</span>
-			{isLoading ? (
-				<span css={loadingStyles.overlay}>
+			{isLoading && (
+				<span
+					data-testid={testId ? `${testId}--loading-overlay` : undefined}
+					css={[loadingStyles.overlay, isMotionEnabled && loadingStyles.overlayMotion]}
+				>
 					<Spinner
 						size={isSpacious ? 'small' : 'xsmall'}
 						label=", Loading"
 						testId={testId ? `${testId}--loading-spinner` : undefined}
 					/>
 				</span>
-			) : (
-				<ChevronDownIcon label="" size={iconSize} color="currentColor" />
 			)}
 		</button>
 	);

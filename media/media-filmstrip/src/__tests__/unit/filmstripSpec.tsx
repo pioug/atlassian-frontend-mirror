@@ -3,7 +3,7 @@ import { render, screen } from '@atlassian/testing-library';
 import { Filmstrip, type FilmstripProps, type FilmstripItem } from '../..';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { type Identifier } from '@atlaskit/media-client';
-import { type MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 jest.mock('@atlaskit/media-card', () => {
 	const original = jest.requireActual('@atlaskit/media-card');

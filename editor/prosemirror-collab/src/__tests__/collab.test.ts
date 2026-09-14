@@ -1,15 +1,18 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
-import { closeHistory, history, redo, undo } from '@atlaskit/prosemirror-history';
+import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
+import { history } from '@atlaskit/prosemirror-history/history';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 
 import {
 	collab,

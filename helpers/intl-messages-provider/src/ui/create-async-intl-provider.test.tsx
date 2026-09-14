@@ -5,7 +5,7 @@ import { defineMessages, IntlProvider, useIntl } from 'react-intl';
 import { render, screen } from '@atlassian/testing-library';
 
 import { type AsyncLanguagesMap, createAsyncIntlProvider } from './create-async-intl-provider';
-import { type I18NMessages } from './types';
+import { type I18NMessages } from '../common/types';
 
 describe('createAsyncIntlProvider', () => {
 	const messages = defineMessages({

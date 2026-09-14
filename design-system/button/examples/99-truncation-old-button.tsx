@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import Expand from '@atlaskit/icon/core/arrow-down';
 import Question from '@atlaskit/icon/core/question-circle';
 import { token } from '@atlaskit/tokens';

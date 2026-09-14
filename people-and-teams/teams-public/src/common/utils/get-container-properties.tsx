@@ -6,9 +6,9 @@ import { cssMap, cx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
 
 import ConfluenceIcon from '../assets/ConfluenceIcon.svg';

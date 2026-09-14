@@ -1,68 +1,75 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // Keep media player components used in media-viewer to use static colors from the new color palette to
 // support the hybrid theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
+
 import React from 'react';
 import { Component } from 'react';
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import PlayIcon from '@atlaskit/icon/core/video-play';
-import PauseIcon from '@atlaskit/icon/core/video-pause';
+
+import { type WrappedComponentProps } from 'react-intl';
+
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { cssMap } from '@atlaskit/css';
+import DownloadIcon from '@atlaskit/icon/core/download';
 import FullScreenIconOn from '@atlaskit/icon/core/fullscreen-enter';
 import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
+import PauseIcon from '@atlaskit/icon/core/video-pause';
+import PlayIcon from '@atlaskit/icon/core/video-play';
+import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-ten';
+import VideoSkipForwardTenIcon from '@atlaskit/icon/core/video-skip-forward-ten';
 import SoundIcon from '@atlaskit/icon/core/volume-high';
-import DownloadIcon from '@atlaskit/icon/core/download';
 import { type MediaFeatureFlags, type NumericalCardDimensions } from '@atlaskit/media-common';
-
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import { cssMap } from '@atlaskit/css';
+import Spinner from '@atlaskit/spinner/spinner';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import MediaButton from '../MediaButton';
-import Spinner from '@atlaskit/spinner';
-import { WidthObserver } from '@atlaskit/width-detector';
-import MediaPlayer, { type VideoState, type VideoActions } from './react-video-renderer';
-import { TimeRange } from './timeRange';
-import VolumeRange from './volumeRange';
-import {
-	CurrentTime,
-	VolumeWrapper,
-	LeftControls,
-	RightControls,
-	VolumeToggleWrapper,
-	MutedIndicator,
-	VolumeTimeRangeWrapper,
-} from './styled';
-import { ControlsWrapper } from './styled-compiled';
-import {
-	type CustomMediaPlayerUIEvent,
-	type CustomMediaPlayerAnalyticsEventPayload,
-	fireAnalyticsEvent,
-	createCustomMediaPlayerScreenEvent,
-	createMediaButtonClickedEvent,
-	createMediaShortcutPressedEvent,
-	createPlayPauseBlanketClickedEvent,
-	createTimeRangeNavigatedEvent,
-	createPlaybackSpeedChangedEvent,
-	createFirstPlayedTrackEvent,
-	createPlayedTrackEvent,
-	type PlaybackState,
-	type WithMediaPlayerState,
-	type WithPlaybackProps,
-} from './analytics';
 import { formatDuration } from '../formatDuration';
-import { Shortcut, keyCodes } from '../shortcut';
-import { toggleFullscreen, getFullscreenElement } from './fullscreen';
-import { type WrappedComponentProps } from 'react-intl';
 import { messages } from '../messages';
-import simultaneousPlayManager from './simultaneousPlayManager';
-import { TimeSaver, type TimeSaverConfig } from './timeSaver';
-import PlaybackSpeedControls from './playbackSpeedControls';
-import { PlayPauseBlanket } from './playPauseBlanket';
-import Tooltip from '@atlaskit/tooltip';
-import { fg } from '@atlaskit/platform-feature-flags';
-import VideoSkipForwardTenIcon from '@atlaskit/icon/core/video-skip-forward-ten';
-import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-ten';
-import { token } from '@atlaskit/tokens';
-import { type CustomMediaPlayerType } from './types';
+import { Shortcut, keyCodes } from '../shortcut';
 import { type WithShowControlMethodProp } from '../types';
+import { CurrentTime } from './CurrentTime-2';
+import { LeftControls } from './LeftControls-2';
+import { MutedIndicator } from './MutedIndicator-2';
+import { RightControls } from './RightControls-2';
+import { VolumeTimeRangeWrapper } from './VolumeTimeRangeWrapper-2';
+import { VolumeToggleWrapper } from './VolumeToggleWrapper-2';
+import { VolumeWrapper } from './VolumeWrapper-2';
+import { createCustomMediaPlayerScreenEvent } from './analytics/events/screen/customMediaPlayer';
+import { createFirstPlayedTrackEvent } from './analytics/events/track/playCount';
+import { createPlayedTrackEvent } from './analytics/events/track/played';
+import { createMediaButtonClickedEvent } from './analytics/events/ui/mediaButtonClicked';
+import { createPlayPauseBlanketClickedEvent } from './analytics/events/ui/playPauseBlanketClicked';
+import { createPlaybackSpeedChangedEvent } from './analytics/events/ui/playbackSpeedChanged';
+import { createMediaShortcutPressedEvent } from './analytics/events/ui/shortcutPressed';
+import { createTimeRangeNavigatedEvent } from './analytics/events/ui/timeRangeNavigated';
+import type {
+	CustomMediaPlayerUIEvent,
+	CustomMediaPlayerAnalyticsEventPayload,
+} from './analytics/utils/analytics';
+import { fireAnalyticsEvent } from './analytics/utils/fireAnalyticsEvent';
+import type {
+	PlaybackState,
+	WithMediaPlayerState,
+	WithPlaybackProps,
+} from './analytics/utils/playbackAttributes';
+import { toggleFullscreen } from './toggleFullscreen';
+import { getFullscreenElement } from './getFullscreenElement';
+import { PlayPauseBlanket } from './playPauseBlanket';
+import PlaybackSpeedControls from './playbackSpeedControls';
+import {
+	type VideoState,
+	type VideoActions,
+	Video as MediaPlayer,
+} from './react-video-renderer/video';
+import simultaneousPlayManager from './simultaneousPlayManager';
+import { ControlsWrapper } from './styled-compiled';
+import { TimeRange } from './timeRange';
+import { TimeSaver, type TimeSaverConfig } from './timeSaver';
+import { type CustomMediaPlayerType } from './types';
+import VolumeRange from './volumeRange';
 
 export interface CustomMediaPlayerProps extends WithPlaybackProps, WithShowControlMethodProp {
 	readonly type: CustomMediaPlayerType;

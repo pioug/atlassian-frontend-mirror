@@ -1,5 +1,23 @@
 # @atlaskit/analytics-namespaced-context
 
+## 8.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.1
+
+### Patch Changes
+
+- [`95bec1a77e9b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95bec1a77e9b7) -
+  VOLTC-50 - run volt-migrate-package on @atlaskit/analytics-namespaced-context
+
 ## 8.1.0
 
 ### Minor Changes

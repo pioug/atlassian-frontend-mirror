@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { render, screen } from '@atlassian/testing-library';
 
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MediaImage } from '@atlaskit/media-ui';
+import { MediaImage } from '@atlaskit/media-ui/mediaImage';
 import { resizeModeToMediaImageProps } from './resizeModeToMediaImageProps';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 import type { ImageRendererProps } from './types';

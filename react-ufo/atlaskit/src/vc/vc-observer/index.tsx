@@ -1,6 +1,6 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
 	ComponentsLogType,
@@ -23,8 +23,10 @@ import {
 	type VCRevisionDebugDetails,
 } from './getVCRevisionDebugDetails';
 import { getVCRevisionsData } from './getVCRevisionsData';
-import { getViewportHeight, getViewportWidth } from './getViewport';
-import { type ObservedMutationType, Observers } from './observers';
+import { getViewportHeight } from './getViewportHeight';
+import { getViewportWidth } from './getViewportWidth';
+import { Observers } from './observers/index';
+import type { ObservedMutationType } from './observers/types';
 
 type PixelsToMap = { l: number; t: number; r: number; b: number };
 

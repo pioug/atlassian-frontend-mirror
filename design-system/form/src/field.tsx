@@ -26,7 +26,7 @@ import { HelperMessage } from './helper-message';
 import { IsDisabledContext } from './is-disabled-context';
 import { Label } from './label';
 import { MessageWrapper } from './message-wrapper';
-import RequiredAsterisk from './required-asterisk';
+import { RequiredAsterisk } from './required-asterisk';
 import { ValidMessage } from './valid-message';
 
 const fieldWrapperStyles = css({

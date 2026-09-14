@@ -50,8 +50,8 @@ type SyncedBlockErrorAttributes = {
 	 */
 	sourceProduct?: string;
 	/**
-	 * Categorical failure cause for dashboard grouping. Only emitted when the
-	 * `platform_editor_blocks_patch_3` gate is enabled (EDITOR-7796 / EDITOR-7862).
+	 * Categorical failure cause for dashboard grouping. Populated when error
+	 * attribution data is available (EDITOR-7796 / EDITOR-7862).
 	 */
 	reason?: SyncedBlockErrorReasonAttribute;
 	/** Backend HTTP status code when the failure came from a `BlockError`. */
@@ -60,7 +60,7 @@ type SyncedBlockErrorAttributes = {
 	 * Whether the failure reason is a benign/working-as-designed outcome (e.g. the source
 	 * was intentionally deleted/unpublished, or permission denied) rather than a genuine
 	 * system failure. Lets the dashboard compute a true error rate without free-text regex.
-	 * Only emitted on fetch/subscribe error events when the gate is enabled (EDITOR-7862).
+	 * Only emitted on fetch/subscribe error events (EDITOR-7862).
 	 */
 	benign?: boolean;
 };
@@ -99,7 +99,7 @@ export type SyncedBlockDeletionMechanismAttribute =
 	| 'selectionReplaced'
 	| 'other';
 
-/** Delete-success enrichment, only populated behind `platform_editor_blocks_patch_4`. */
+/** Delete-success enrichment with additional attributes like deletion reason and mechanism. */
 type SyncedBlockDeleteSuccessAttributes = SyncedBlockSuccessAttributes & {
 	deletionReason?: SyncedBlockDeletionReasonAttribute;
 	mechanism?: SyncedBlockDeletionMechanismAttribute;
@@ -120,14 +120,16 @@ type SyncedBlockEditSourceAttributes = SyncedBlockSuccessAttributes & {
 };
 
 /**
- * Source `syncedBlockCreate` success attrs. Both optional so gate-off/legacy
- * payloads are unchanged. `inputMethod`: creating surface (enum, PII-safe).
+ * Source `syncedBlockCreate` success attrs. All optional so legacy payloads
+ * are unchanged. `inputMethod`: creating surface (enum, PII-safe).
  * `createdEmpty`: true when created from an empty selection, false when content
- * was converted into the block.
+ * was converted into the block. `nodeTypes`: sorted types of top-level nodes
+ * converted from a non-empty selection.
  */
 type SyncedBlockCreateSuccessAttributes = SyncedBlockSuccessAttributes & {
 	createdEmpty?: boolean;
 	inputMethod?: INPUT_METHOD;
+	nodeTypes?: string[];
 };
 
 /** First-content-added attrs: join keys only (no user content, PII-safe). */
@@ -303,8 +305,7 @@ type SyncedBlockSourceInfoOrphanedAttributes = {
 /**
  * Operational event fired when `updateCacheWithSourceInfo` runs but the
  * underlying cache entry for the resource has been deleted while the source-info
- * request was in flight. With the hardened cache deletion guards introduced in
- * `platform_synced_block_patch_14` this should be unreachable in practice — if
+ * request was in flight. This should be unreachable in practice — if
  * this event fires in production it indicates an unhandled race condition
  * that needs investigation (e.g. EDITOR-7403).
  */

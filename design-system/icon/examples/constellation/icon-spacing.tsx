@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Code } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

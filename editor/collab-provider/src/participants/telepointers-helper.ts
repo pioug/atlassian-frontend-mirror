@@ -1,6 +1,7 @@
 import { createLogger } from '../helpers/utils';
-import { ExperiencePerformanceTypes, ExperienceTypes, UFOExperience } from '@atlaskit/ufo';
-import type { CustomData } from '@atlaskit/ufo';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+import { UFOExperience } from '@atlaskit/ufo/experience';
+import type { CustomData } from '@atlaskit/ufo/types';
 import type { AcknowledgementErrorPayload, AcknowledgementPayload } from '../types';
 import type {
 	CollabTelepointerPayload,

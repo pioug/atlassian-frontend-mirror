@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { useAnalyticsEvents, createAndFireEvent } from '@atlaskit/analytics-next';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 
 import createEventPayload from './common/utils/analytics/create-event-payload';
 import { EVENT_CHANNEL } from './common/utils/constants';

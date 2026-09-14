@@ -1,7 +1,9 @@
-import { isDuplicateMark, duplicateMarkError } from './is-duplicate-mark';
-import type { WithMark } from '../types';
+import type { TextDefinition } from '@atlaskit/adf-schema/text';
+
 import { text } from '../nodes/text';
-import type { TextDefinition } from '@atlaskit/adf-schema';
+import type { WithMark } from '../types';
+import { duplicateMarkError } from './duplicate-mark-error';
+import { isDuplicateMark } from './is-duplicate-mark';
 
 export function applyMark<T>(
 	mark: T & { type: string },

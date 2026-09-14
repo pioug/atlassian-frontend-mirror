@@ -1,5 +1,6 @@
 export default {
 	zh: 'Chinese',
+	zh_TW: 'Chinese (Traditional)',
 	cs: 'Czech',
 	da: 'Danish',
 	nl: 'Dutch',
@@ -23,4 +24,5 @@ export default {
 	sk: 'Slovak',
 	es: 'Spanish',
 	sv: 'Swedish',
+	tr: 'Turkish',
 };

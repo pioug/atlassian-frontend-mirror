@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import { AtlassianIcon } from '@atlaskit/logo';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Select, { type FormatOptionLabelMeta, type OptionType } from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Select from '@atlaskit/select/default';
+import type { FormatOptionLabelMeta, OptionType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 const icon = <AtlassianIcon size="xxsmall" />;

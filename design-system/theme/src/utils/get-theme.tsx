@@ -2,7 +2,7 @@ import { CHANNEL, DEFAULT_THEME_MODE, THEME_MODES } from '../constants';
 import type { Theme, ThemeProps } from '../types';
 
 // Resolves the different types of theme objects in the current API
-export default function getTheme(props?: ThemeProps): Theme {
+export function getTheme(props?: ThemeProps): Theme {
 	if (props && props.theme) {
 		// Theme is the global Atlaskit theme
 		if (CHANNEL in props.theme) {

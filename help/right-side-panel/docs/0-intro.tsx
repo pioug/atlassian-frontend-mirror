@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { token } from '@atlaskit/tokens';
 
 const intro: React.ReactElement = md`

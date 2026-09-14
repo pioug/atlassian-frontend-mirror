@@ -34,7 +34,7 @@ const fieldSetStyles = css({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields)
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields)
  */
-const Fieldset = ({ children, legend }: FieldsetProps): JSX.Element => {
+export const Fieldset = ({ children, legend }: FieldsetProps): JSX.Element => {
 	return (
 		<fieldset css={fieldSetStyles}>
 			{legend && <Legend>{legend}</Legend>}
@@ -42,5 +42,3 @@ const Fieldset = ({ children, legend }: FieldsetProps): JSX.Element => {
 		</fieldset>
 	);
 };
-
-export default Fieldset;

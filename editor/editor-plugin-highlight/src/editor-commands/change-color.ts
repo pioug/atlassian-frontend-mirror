@@ -9,7 +9,7 @@ import type {
 	EditorAnalyticsAPI,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { removeMark, toggleMark } from '@atlaskit/editor-common/mark';
+import { getHadMarkAttributes, removeMark, toggleMark } from '@atlaskit/editor-common/mark';
 import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import {
@@ -18,6 +18,7 @@ import {
 	highlightColorPaletteNew,
 } from '@atlaskit/editor-common/ui-color';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -53,7 +54,7 @@ export const changeColor =
 			removeMark(backgroundColor)({ tr });
 		} else {
 			if (
-				expValEquals('platform_editor_lovability_color_schema_change', 'isEnabled', true) &&
+				isExperimentEnabled('platform_editor_lovability_color_schema_change') &&
 				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)
 			) {
 				const overrideMarks = ['textColor'];
@@ -99,6 +100,7 @@ const createAnalyticsEvent = (
 	const previousColorLabel = previousColorFromPalette
 		? previousColorFromPalette.label
 		: previousColor;
+	const { textColor, link } = tr.doc.type.schema.marks;
 
 	return {
 		action: ACTION.FORMATTED,
@@ -109,6 +111,7 @@ const createAnalyticsEvent = (
 			newColor: newColorLabel.toLowerCase(),
 			previousColor: previousColorLabel ? previousColorLabel.toLowerCase() : '',
 			inputMethod,
+			...(color === REMOVE_HIGHLIGHT_COLOR ? {} : getHadMarkAttributes(tr, [textColor, link])),
 		},
 	};
 };

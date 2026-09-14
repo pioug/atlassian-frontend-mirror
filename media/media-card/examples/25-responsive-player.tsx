@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../src';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import type { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import type { Identifier } from '@atlaskit/media-client';
@@ -10,7 +10,7 @@ import { MainWrapper } from '../example-helpers';
 import { useCreateMockedMediaProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaProviderWithBinaries';
 import { useCreateMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 import { ToggleBox } from '../example-helpers/svg-helpers';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const flexStyles = xcss({ marginBottom: 'space.300' });
 const dummyMediaClientConfig = {} as MediaClientConfig;

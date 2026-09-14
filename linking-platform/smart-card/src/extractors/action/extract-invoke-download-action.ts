@@ -1,14 +1,14 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { extractSmartLinkDownloadUrl } from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractSmartLinkDownloadUrl } from '@atlaskit/link-extractors/extract-smart-link-download-url';
 
-import { CardAction } from '../../constants';
-import { ActionName } from '../../index';
-import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
+import { ActionName, CardAction } from '../../constants';
+import { getDefinitionId } from '../../state/getDefinitionId';
+import { getExtensionKey } from '../../state/getExtensionKey';
+import { getResourceType } from '../../state/getResourceType';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
-import { downloadUrl as download } from '../../utils';
+import { downloadUrl as download } from '../../utils/download-url';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { getActionsFromJsonLd } from '../common/actions/extractActions';
-
 import { type ExtractClientActionsParam } from './types';
 
 export const extractInvokeDownloadAction = ({

@@ -19,10 +19,11 @@ const tabPanel3 = "[data-testid='tab-panel-3']";
 const tabPanel4 = "[data-testid='tab-panel-4']";
 
 test('Tabs should be able to be identified and navigated by data-testid', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.vr.ap.tsx')>(
 		'design-system',
 		'tabs',
 		'testing',
+		{ 'react-18-mode': 'modern' },
 	);
 	await expect(page.locator(tab1).first()).toBeVisible();
 	await expect(page.locator(tab2).first()).toBeVisible();
@@ -44,10 +45,11 @@ test('Tabs should be able to be identified and navigated by data-testid', async 
 });
 
 test('Content should be visible only on the focused tab', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/99-testing.tsx')>(
+	await page.visitExample<typeof import('../../../examples/99-testing.vr.ap.tsx')>(
 		'design-system',
 		'tabs',
 		'testing',
+		{ 'react-18-mode': 'modern' },
 	);
 
 	// Navigate between tab and check the selection, content and focus.

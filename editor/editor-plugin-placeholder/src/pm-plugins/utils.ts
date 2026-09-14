@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	bracketTyped,
@@ -10,7 +10,7 @@ import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-uti
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { pluginKey } from '../placeholderPlugin';
 
@@ -251,7 +251,6 @@ export function createPlaceHolderStateFrom({
 		if (
 			nodeTypesWithSyncBlockPlaceholderText.includes(parentType) &&
 			isEmptyNode &&
-			editorExperiment('platform_synced_block', true) &&
 			!expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
 		) {
 			return setPlaceHolderState({

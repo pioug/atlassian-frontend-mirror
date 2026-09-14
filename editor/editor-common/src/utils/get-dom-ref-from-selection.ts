@@ -1,6 +1,7 @@
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+// oxlint-disable-next-line import/no-duplicates
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
 import { ACTION, ACTION_SUBJECT, type ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
 

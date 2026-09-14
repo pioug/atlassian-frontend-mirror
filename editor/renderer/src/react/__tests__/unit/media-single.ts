@@ -45,7 +45,7 @@ describe('Renderer - ReactSerializer - MediaSingle', () => {
 				}),
 			);
 			// React Serializer will always pass this through even if allowCaptions is false
-			expect(fragment?.props.children[0].props.content[1]).toEqual(
+			expect(fragment?.props.children[0].props.getContent()[1]).toEqual(
 				expect.objectContaining({
 					type: 'caption',
 					content: expect.arrayContaining([

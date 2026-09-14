@@ -1,5 +1,5 @@
 import { TEST_BASE_DATA } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractSummary } from '../index';
+import { extractSummary } from '../extract-summary';
 
 describe('extractSummary', () => {
 	it('returns undefined if not present', () => {

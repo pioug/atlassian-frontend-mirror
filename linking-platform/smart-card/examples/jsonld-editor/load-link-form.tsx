@@ -1,12 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, HelperMessage, MessageWrapper } from '@atlaskit/form';
-import type { EnvironmentsKeys } from '@atlaskit/linking-common';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Anchor, Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
-import Tooltip from '@atlaskit/tooltip';
+import Textfield from '@atlaskit/textfield/text-field';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const PROD_URLS = ['https://hello.atlassian.net', 'https://product-fabric.atlassian.net'];
 

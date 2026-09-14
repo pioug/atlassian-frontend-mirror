@@ -1,13 +1,16 @@
 import { snapshot } from '@af/visual-regression';
 
-import AdvancedBehaviors from '../../../examples/02-advanced-behaviors';
+import AdvancedBehaviors from '../../../examples/02-advanced-behaviors.vr.ap';
 import {
 	MaxSizeBottomExample,
 	MaxSizeLeftExample,
 	MaxSizeRightExample,
 	MaxSizeTopExample,
-} from '../../../examples/03-max-size';
-import FlagFitViewportRight from '../../../examples/06-flag-fit-viewport-right';
+} from '../../../examples/03-max-size.vr.ap';
+import FlagFitViewportRight from '../../../examples/06-flag-fit-viewport-right.vr.ap';
+import FlagImperativeCreatePopper, {
+	ImperativeCallerOwnedPopover,
+} from '../../../examples/12-flag-imperative-create-popper.vr.ap';
 
 // Each existing fixture is now captured under both states of the
 // platform-dst-top-layer feature gate so any visual regression on the
@@ -28,3 +31,16 @@ snapshot(MaxSizeRightExample, { drawsOutsideBounds: true, featureFlags: flagStat
 // match rather than render a scrollbar. Captured under both flag states so the
 // parity is the contract.
 snapshot(FlagFitViewportRight, { drawsOutsideBounds: true, featureFlags: flagStates });
+
+// Imperative `createPopper` (the `/unsafe-imperative` escape hatch). Unlike the
+// fixtures above, visual parity is NOT the contract here: flag-off the Popper.js
+// engine positions the element inside its `position: relative; overflow: hidden`
+// ancestor and it is clipped, flag-on the adapter promotes it into the top layer
+// and it paints in full. The difference between these two baselines IS the
+// migration.
+snapshot(FlagImperativeCreatePopper, { drawsOutsideBounds: true, featureFlags: flagStates });
+// The `VanillaTooltip` shape: the caller already owns `popover="hint"`, so the
+// element is in the top layer under both flag states and only the positioning
+// engine changes. These two baselines ARE expected to match — that parity is
+// what makes the adapter safe for the one existing imperative caller.
+snapshot(ImperativeCallerOwnedPopover, { drawsOutsideBounds: true, featureFlags: flagStates });

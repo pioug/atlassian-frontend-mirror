@@ -6,7 +6,7 @@ import { type CSSProperties, type InputHTMLAttributes, type JSX } from 'react';
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';

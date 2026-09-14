@@ -1,5 +1,7 @@
 /* eslint-disable @atlaskit/platform/no-set-immediate */
-import getPaintMetrics, { getPaintMetricsToLegacyFormat } from './get-paint-metrics';
+
+import getPaintMetrics from './get-paint-metrics';
+import { getPaintMetricsToLegacyFormat } from './get-paint-metrics-to-legacy-format';
 
 describe('getPaintMetrics', () => {
 	const originalPerformance = global.performance;

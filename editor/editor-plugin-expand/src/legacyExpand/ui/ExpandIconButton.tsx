@@ -8,7 +8,7 @@ import React, { useCallback } from 'react';
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import {
 	expandLayoutWrapperStyle,
@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 interface ExpandIconButtonProps {
 	allowInteractiveExpand: boolean;

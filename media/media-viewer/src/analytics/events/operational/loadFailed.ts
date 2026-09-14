@@ -1,15 +1,15 @@
 import { type FileState } from '@atlaskit/media-client';
-import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
-import { type MediaFileEventPayload } from './_mediaFile';
-import { getFileAttributes, type MediaViewerFailureAttributes } from '../..';
-import {
-	getPrimaryErrorReason,
-	getSecondaryErrorReason,
-	getErrorDetail,
-	getRequestMetadata,
-	type MediaViewerError,
-} from '../../../errors';
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+
+import type { MediaViewerFailureAttributes } from '../..';
+import type { MediaViewerError } from '../../../MediaViewerError';
+import { getErrorDetail } from '../../../getErrorDetail';
+import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';
+import { getRequestMetadata } from '../../../getRequestMetadata';
+import { getSecondaryErrorReason } from '../../../getSecondaryErrorReason';
+import { getFileAttributes } from '../../getFileAttributes';
+import { type MediaFileEventPayload } from './_mediaFile';
 
 export type LoadFailedEventPayload = MediaFileEventPayload<
 	MediaViewerFailureAttributes,

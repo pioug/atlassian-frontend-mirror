@@ -7,7 +7,7 @@ jest.mock('uuid', () => {
 	return {
 		...actualUuid,
 		__esModule: true,
-		default: jest.fn(),
+		v4: jest.fn(),
 	};
 });
 
@@ -15,9 +15,10 @@ import React from 'react';
 
 import * as jestExtendedMatchers from 'jest-extended';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
@@ -25,8 +26,10 @@ import {
 import { type JestFunction } from '@atlaskit/media-test-helpers';
 import { render, screen, waitFor } from '@atlassian/testing-library';
 
-import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
+import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 // ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
 import '../../../utils/shouldSample';
@@ -42,8 +45,8 @@ describe('smart-card: prefetching of content', () => {
 	let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
 
 	const mockUuid = uuid as JestFunction<typeof uuid>;
-	const mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
-	const mockSucceedUfoExperience = jest.spyOn(ufoWrapper, 'succeedUfoExperience');
+	const mockStartUfoExperience = jest.spyOn(startUfoExperienceModule, 'startUfoExperience');
+	const mockSucceedUfoExperience = jest.spyOn(succeedUfoExperienceModule, 'succeedUfoExperience');
 
 	beforeEach(() => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));

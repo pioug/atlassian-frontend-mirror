@@ -1,10 +1,7 @@
-import React from 'react';
-import { type FileItem, type FileDetails } from '@atlaskit/media-client';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type ReactNode } from 'react';
-import DownloadIcon from '@atlaskit/icon/core/download';
-import { messages } from '@atlaskit/media-ui';
-import { type MessageDescriptor } from 'react-intl';
-import { token } from '@atlaskit/tokens';
+
+import { type FileItem } from '@atlaskit/media-client';
 
 export interface CardAction {
 	label?: string;
@@ -16,40 +13,11 @@ export interface CardAction {
 
 export type CardEventHandler = (item?: FileItem, event?: Event) => void;
 
-export function attachDetailsToActions(
-	actions: Array<CardAction>,
-	details: FileDetails,
-): Array<CardAction> {
-	return actions.map((action: CardAction) => ({
-		...action,
-		handler: () => {
-			action.handler({ type: 'file', details });
-		},
-	}));
-}
-
-type FormatMessageFn = (descriptor: MessageDescriptor) => string;
-
-export const createDownloadAction = (
-	baseAction: CardAction,
-	formatMessage: FormatMessageFn,
-): CardAction => {
-	const { isDisabled } = baseAction;
-	const label = isDisabled ? 'Download Disabled' : 'Download';
-	const tooltip = isDisabled
-		? formatMessage(messages.download_disabled_security_policy)
-		: undefined;
-
-	return {
-		...baseAction,
-		label,
-		tooltip,
-		icon: (
-			<DownloadIcon
-				color={isDisabled ? token('color.icon.disabled') : 'currentColor'}
-				spacing="spacious"
-				label="Download"
-			/>
-		),
-	};
-};
+/**
+ * @deprecated Use `import { attachDetailsToActions } from '@atlaskit/media-card/attach-details-to-actions'` instead.
+ */
+export { attachDetailsToActions } from './attachDetailsToActions';
+/**
+ * @deprecated Use `import { createDownloadAction } from '@atlaskit/media-card/create-download-action'` instead.
+ */
+export { createDownloadAction } from './createDownloadAction';

@@ -1,16 +1,17 @@
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
-import cssSelectorParser from 'postcss-selector-parser';
 
-import { getScope } from '@atlaskit/eslint-utils/context-compat';
-import { isXcss } from '@atlaskit/eslint-utils/is-supported-import';
 import { importSources } from '@atlaskit/eslint-utils/schema';
-import { walkStyleProperties } from '@atlaskit/eslint-utils/walk-style-properties';
 
 import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
+import { isSimpleSelector } from '../utils/is-simple-selector';
+import { parseSelector } from '../utils/parse-selector';
+import { getStyleCalls } from '../utils/style-calls';
+import { walkStyleCallProperties } from '../utils/walk-style-call-properties';
 
 import { lintSelector } from './lint-selector';
-import { walkCssMap } from './walk-css-map';
+import { walkCssMapCall } from './walk-css-map';
+import { allowedPseudos } from './constants';
 
 const ignoredAtRules: Set<string> = new Set([
 	'@container', // ignored because it's covered by `no-container-queries`
@@ -19,8 +20,6 @@ const ignoredAtRules: Set<string> = new Set([
 	'@property',
 	'@starting-style',
 ]);
-
-const cssSelectorProcessor = cssSelectorParser();
 
 const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 	meta: {
@@ -83,85 +82,66 @@ const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 	},
 	create(context, config) {
 		return {
-			Program(program) {
-				walkCssMap({
-					context,
-					program,
-					importSources: config.importSources,
-					visitor(property) {
-						const { type, node } = property;
-
-						if (type === 'grouped-at-rules') {
-							context.report({
-								node: node.key,
-								messageId: 'no-grouped-at-rules',
-							});
-							return;
-						}
-
-						if (type === 'selectors') {
-							context.report({
-								node: node.key,
-								messageId: 'no-selectors-object',
-							});
-							return;
-						}
-					},
-				});
-			},
-			CallExpression(node: ESTree.CallExpression) {
-				const { references } = getScope(context, node);
-
-				const isXcssCall = isXcss(node, references, config.importSources);
-
-				walkStyleProperties(node, references, config.importSources, ({ key, value }) => {
-					/**
-					 * If the value isn't an object expression then the key can't be a selector.
-					 *
-					 * This assumes all styles have to be inline, which is enforced by `no-unsafe-values`
-					 */
-					if (value.type !== 'ObjectExpression') {
-						return;
+			Program() {
+				for (const styleCall of getStyleCalls(context)) {
+					if (!config.importSources.includes(styleCall.importSource)) {
+						continue;
 					}
+					if (styleCall.styleFunction === 'cssMap') {
+						walkCssMapCall(styleCall.node, (property) => {
+							const { type, node } = property;
 
-					/**
-					 * Technically the key could be an identifier too, e.g.
-					 *
-					 * ```ts
-					 * css({
-					 *   // This key is an identifier, not a literal
-					 *   selector: {}
-					 * });
-					 * ```
-					 *
-					 * But an identifier couldn't violate anything in this rule,
-					 * because it can't contain '@' or ':' characters.
-					 */
-					if (key.type !== 'Literal' || typeof key.value !== 'string') {
-						return;
-					}
-
-					const selectorText = key.value;
-
-					if (selectorText.includes('@')) {
-						lintAtRule({ context, sourceNode: key, atRule: selectorText });
-						return;
-					}
-
-					try {
-						const selectorList = cssSelectorProcessor.astSync(selectorText);
-
-						selectorList.nodes.forEach((selector) =>
-							lintSelector({ context, sourceNode: key, selector, config, isXcssCall }),
-						);
-					} catch {
-						context.report({
-							node: key,
-							messageId: 'no-unparsable-selectors',
-							data: { selectorText },
+							if (type === 'grouped-at-rules') {
+								context.report({ node: node.key, messageId: 'no-grouped-at-rules' });
+							} else if (type === 'selectors') {
+								context.report({ node: node.key, messageId: 'no-selectors-object' });
+							}
 						});
 					}
-				});
+
+					walkStyleCallProperties(styleCall, ({ key, value }) => {
+						if (
+							value.type !== 'ObjectExpression' ||
+							key.type !== 'Literal' ||
+							typeof key.value !== 'string'
+						) {
+							return;
+						}
+
+						const selectorText = key.value;
+						if (selectorText.includes('@')) {
+							lintAtRule({ context, sourceNode: key, atRule: selectorText });
+							return;
+						}
+						if (
+							isSimpleSelector(selectorText, {
+								allowedPseudos,
+								allowLeadingPseudo: styleCall.styleFunction === 'xcss',
+							})
+						) {
+							return;
+						}
+
+						try {
+							const selectorList = parseSelector(context, selectorText);
+							for (const selector of selectorList.nodes) {
+								lintSelector({
+									context,
+									sourceNode: key,
+									selector,
+									config,
+									isXcssCall: styleCall.styleFunction === 'xcss',
+								});
+							}
+						} catch {
+							context.report({
+								node: key,
+								messageId: 'no-unparsable-selectors',
+								data: { selectorText },
+							});
+						}
+					});
+				}
 			},
 		};
 	},

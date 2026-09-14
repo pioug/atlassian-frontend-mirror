@@ -1,6 +1,6 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import TypographyVr from '../../../examples/5-typography-vr';
+import TypographyVr from '../../../examples/5-typography-vr.vr.ap';
 
 snapshot(TypographyVr, {
 	variants: [

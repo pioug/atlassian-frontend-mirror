@@ -1,5 +1,5 @@
-import type { AnnotationMarkAttributes } from '@atlaskit/adf-schema';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationMarkAttributes } from '@atlaskit/adf-schema/annotation';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -34,7 +34,7 @@ import {
 	TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnnotationInfo, DraftBookmark, InlineCommentInputMethod, TargetType } from '../types';
 import { AnnotationSelectionType } from '../types';

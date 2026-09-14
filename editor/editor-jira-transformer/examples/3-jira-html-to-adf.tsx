@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { token } from '@atlaskit/tokens';
 import { JIRATransformer } from '../src';
 

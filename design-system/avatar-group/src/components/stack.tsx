@@ -6,8 +6,8 @@ import { Children, type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { ExitingPersistence } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type AvatarGroupSize } from './types';
@@ -55,10 +55,7 @@ const Stack: FC<{
 		id={id}
 		data-testid={testId}
 		aria-label={label}
-		css={[
-			listStyles,
-			size === 'small' && fg('platform-avatar-group-spacing-fix') && listSmallStyles,
-		]}
+		css={[listStyles, size === 'small' && listSmallStyles]}
 	>
 		{fg('platform-dst-motion-uplift') ? (
 			<ExitingPersistence exitThenEnter>
@@ -66,16 +63,7 @@ const Stack: FC<{
 					children,
 					(child) =>
 						child && (
-							<li
-								css={[
-									listItemStyles,
-									size === 'small' &&
-										fg('platform-avatar-group-spacing-fix') &&
-										listItemSmallStyles,
-								]}
-							>
-								{child}
-							</li>
+							<li css={[listItemStyles, size === 'small' && listItemSmallStyles]}>{child}</li>
 						),
 				)}
 			</ExitingPersistence>
@@ -83,16 +71,7 @@ const Stack: FC<{
 			Children.map(
 				children,
 				(child) =>
-					child && (
-						<li
-							css={[
-								listItemStyles,
-								size === 'small' && fg('platform-avatar-group-spacing-fix') && listItemSmallStyles,
-							]}
-						>
-							{child}
-						</li>
-					),
+					child && <li css={[listItemStyles, size === 'small' && listItemSmallStyles]}>{child}</li>,
 			)
 		)}
 	</ul>

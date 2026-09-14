@@ -1,7 +1,9 @@
-import { JastBuilder } from '@atlaskit/jql-ast';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { JastBuilder } from '@atlaskit/jql-ast';
 
-import { ValidQueryVisitor, normaliseHydrationKey } from './util';
+import { ValidQueryVisitor } from './ValidQueryVisitor';
+import { normaliseHydrationKey } from './normaliseHydrationKey';
 
 // Base queries that don't involve membersOf
 const baseQueries = [
@@ -154,6 +156,112 @@ describe('ValidQueryVisitor', () => {
 				});
 			},
 		);
+	});
+
+	it('reconstructs agentSessions[agent] for hydration when the experiment is enabled', () => {
+		mockExpEnabled('jira_filter_by_agent_and_agent_state');
+		const ast = new JastBuilder().build(
+			'project = ST and agentSessions[agent] = 712020:112631a1-496c-4253-8260-1d97f7ba8646 order by',
+		);
+		expect(ast.query).toBeDefined();
+		if (ast.query) {
+			expect(ast.query.accept(visitor)).toContain(
+				'agentSessions[agent] = 712020:112631a1-496c-4253-8260-1d97f7ba8646',
+			);
+		}
+	});
+
+	it('preserves quoted collapsed property-like field text during hydration reconstruction', () => {
+		const ast = new JastBuilder().build(
+			'project not in (EM, "MC", currentUser(), EMPTY or reporter and "Custom field[People]" = abc-123-def order by created asc',
+		);
+		expect(ast.query).toBeDefined();
+		if (ast.query) {
+			expect(ast.query.accept(visitor)).toEqual(
+				'project not in (EM, "MC") and "Custom field[People]" = abc-123-def',
+			);
+		}
+	});
+});
+
+// descendantsOfTeam queries when the descendantsOfTeam gate is ON
+const descendantsOfTeamQueriesGateOn = [
+	{
+		// descendantsOfTeam with an id-prefixed team argument
+		original: '"Team[Team]" in descendantsOfTeam(id:5653b0ca-138f-454a-9884-eabe847f18df)',
+		valid: '"Team[Team]" in descendantsOfTeam(id:5653b0ca-138f-454a-9884-eabe847f18df)',
+	},
+	{
+		// descendantsOfTeam preserved when the rest of the query is incomplete
+		original:
+			'"Team[Team]" in descendantsOfTeam(id:5653b0ca-138f-454a-9884-eabe847f18df) and reporter in',
+		valid: '"Team[Team]" in descendantsOfTeam(id:5653b0ca-138f-454a-9884-eabe847f18df)',
+	},
+];
+
+// descendantsOfTeam queries when the descendantsOfTeam gate is OFF - the function is excluded
+const descendantsOfTeamQueriesGateOff = [
+	{
+		original: '"Team[Team]" in descendantsOfTeam(id:5653b0ca-138f-454a-9884-eabe847f18df)',
+		valid: '',
+	},
+	{
+		// Only the direct value part of a combined query is kept
+		original:
+			'"Team[Team]" in descendantsOfTeam(id:5653b0ca-138f-454a-9884-eabe847f18df) and assignee = user-1',
+		valid: 'assignee = user-1',
+	},
+];
+
+describe('ValidQueryVisitor - descendantsOfTeam', () => {
+	describe('with gate ON', () => {
+		ffTest.on(
+			'jira-descendants-of-team-jql-function',
+			'descendantsOfTeam arguments are included in the hydration query',
+			() => {
+				descendantsOfTeamQueriesGateOn.forEach(({ original, valid }) => {
+					it(`generates valid query for ${original}`, () => {
+						const ast = new JastBuilder().build(original);
+						expect(ast.query).toBeDefined();
+						if (ast.query) {
+							expect(ast.query.accept(visitor)).toEqual(valid);
+						}
+					});
+				});
+			},
+		);
+	});
+
+	describe('with gate OFF', () => {
+		ffTest.off(
+			'jira-descendants-of-team-jql-function',
+			'descendantsOfTeam arguments are excluded from the hydration query',
+			() => {
+				descendantsOfTeamQueriesGateOff.forEach(({ original, valid }) => {
+					it(`excludes descendantsOfTeam for ${original}`, () => {
+						const ast = new JastBuilder().build(original);
+						expect(ast.query).toBeDefined();
+						if (ast.query) {
+							expect(ast.query.accept(visitor)).toEqual(valid);
+						}
+					});
+				});
+			},
+		);
+	});
+
+	describe('gates are independent', () => {
+		ffTest.on('jira-descendants-of-team-jql-function', 'descendantsOfTeam gate is enabled', () => {
+			ffTest.off('jira-membersof-team-support', 'membersOf gate is disabled', () => {
+				it('does not include membersOf', () => {
+					const ast = new JastBuilder().build('assignee in membersOf("team-1")');
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual('');
+					}
+				});
+			});
+		});
 	});
 });
 

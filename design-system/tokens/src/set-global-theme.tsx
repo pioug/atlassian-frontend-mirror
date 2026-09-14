@@ -1,14 +1,17 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import getGlobalTheme from './get-global-theme';
-import { type ThemeIdsWithOverrides, type ThemeState, themeStateDefaults } from './theme-config';
+import { getGlobalTheme } from './get-global-theme';
+import { type ThemeIdsWithOverrides } from './theme-config';
+import { type ThemeState } from './theme-state';
+import { themeStateDefaults } from './theme-state-defaults';
 import configurePage from './utils/configure-page';
 import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
 import { getThemeOverridePreferences } from './utils/get-theme-override-preferences';
 import { getThemePreferences } from './utils/get-theme-preferences';
 import { isValidBrandHex } from './utils/is-valid-brand-hex';
+import { loadThemeCss } from './utils/load-theme-css';
 import { loadAndAppendThemeCss } from './utils/theme-loading';
 
 /**
@@ -87,6 +90,12 @@ const setGlobalTheme = async (
 
 	// Load standard themes
 	const loadingTasks = themePreferences.map(async (themeId) => await loadingStrategy(themeId));
+	const themeOverridePreferences = getThemeOverridePreferences(themeState);
+	// Start loading override CSS before the first await. It is appended only after the standard
+	// themes have loaded so that the override cascade order remains deterministic.
+	const overrideThemeCssLoadingTasks = themeLoader
+		? []
+		: themeOverridePreferences.map((themeId) => loadThemeCss(themeId));
 
 	// Load custom themes if needed
 	if (!themeLoader && UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions?.brandColor)) {
@@ -115,13 +124,21 @@ const setGlobalTheme = async (
 	await Promise.all(loadingTasks);
 
 	// Load override themes after standard themes
-	const themeOverridePreferences = getThemeOverridePreferences(themeState);
-	for (const themeId of themeOverridePreferences) {
-		await loadingStrategy(themeId);
+	if (themeLoader) {
+		for (const themeId of themeOverridePreferences) {
+			await loadingStrategy(themeId);
+		}
+	} else {
+		const overrideThemeCss = await Promise.all(overrideThemeCssLoadingTasks);
+		await Promise.all(
+			themeOverridePreferences.map((themeId, index) =>
+				loadAndAppendThemeCss(themeId, overrideThemeCss[index]),
+			),
+		);
 	}
 
 	const autoUnbind = configurePage(themeState);
 	return autoUnbind;
 };
 
-export default setGlobalTheme;
+export { setGlobalTheme };

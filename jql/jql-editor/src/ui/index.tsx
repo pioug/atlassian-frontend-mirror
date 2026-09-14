@@ -4,7 +4,9 @@ import JQLEditorUI from './jql-editor';
 import { type JQLEditorUIProps } from './jql-editor/types';
 import { type JQLEditorProps } from './types';
 
-const _default_1: (props: JQLEditorProps) => React.JSX.Element = withIntlProvider<JQLEditorProps>(
-	withErrorBoundary<JQLEditorUIProps>(JQLEditorUI),
-);
+export const _default_1: (props: JQLEditorProps) => React.JSX.Element =
+	withIntlProvider<JQLEditorProps>(withErrorBoundary<JQLEditorUIProps>(JQLEditorUI));
 export default _default_1;
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { _default_1 as JQLEditor };

@@ -1,12 +1,9 @@
 import { useCallback } from 'react';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import {
-	ACTION_UPDATE_METADATA_STATUS,
-	cardAction,
-	type CardAppearance,
-} from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { ACTION_UPDATE_METADATA_STATUS, cardAction } from '@atlaskit/linking-common/actions';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export function usePrefetch(url: string, appearance?: CardAppearance): () => Promise<void> {
 	const { store, prefetchStore, connections } = useSmartLinkContext();

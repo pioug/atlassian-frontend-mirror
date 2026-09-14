@@ -1,6 +1,6 @@
 import React, { type ReactNode, useMemo } from 'react';
 
-import { PeopleTeamsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { PeopleTeamsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/PeopleTeamsAnalyticsContext';
 
 import type { PackageMetaDataType } from '../../common/utils/generated/analytics.types';
 import type { AnalyticsEventSource } from '../../common/utils/types';

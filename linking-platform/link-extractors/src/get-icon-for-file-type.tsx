@@ -2,7 +2,7 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { IconType } from './constants';
 import extractFileFormatIcon from './extract-file-format-icon';

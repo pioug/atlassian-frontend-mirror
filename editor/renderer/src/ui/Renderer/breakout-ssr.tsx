@@ -2,7 +2,6 @@
 import React from 'react';
 import { breakoutConsts } from '@atlaskit/editor-common/utils';
 import type { BreakoutConstsType } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FullPagePadding } from './style';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -40,7 +39,7 @@ export function BreakoutSSRInlineScript({
 
 	const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
 	const shouldSkipScript = {
-		table: fg('platform-ssr-table-resize'),
+		table: true,
 	};
 
 	return (
@@ -58,7 +57,6 @@ export function BreakoutSSRInlineScript({
 
 export function createBreakoutInlineScript(id: number, shouldSkipScript: { table: boolean }) {
 	const flags = {
-		platform_editor_fix_media_in_renderer: fg('platform_editor_fix_media_in_renderer'),
 		platform_editor_renderer_extension_width_fix: expValEquals(
 			'platform_editor_renderer_extension_width_fix',
 			'isEnabled',
@@ -129,7 +127,6 @@ function applyBreakoutAfterSSR(
 				return;
 			}
 
-			// Remove with feature gate 'platform-ssr-table-resize'
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if ((item.target as HTMLElement).classList.contains('ak-renderer-document')) {
@@ -153,7 +150,7 @@ function applyBreakoutAfterSSR(
 						!mode ||
 						!WIDE_LAYOUT_MODES.includes(mode) ||
 						// skip apply width styling to mediaSingle node with pixel width to avoid image size changing
-						(isMediaSingleWithPixelWidth && flags['platform_editor_fix_media_in_renderer']) ||
+						isMediaSingleWithPixelWidth ||
 						(isExtension && flags['platform_editor_renderer_extension_width_fix'])
 					) {
 						return;

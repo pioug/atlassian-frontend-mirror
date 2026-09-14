@@ -1,7 +1,6 @@
 import React, { forwardRef, type MouseEvent, useCallback } from 'react';
 
-import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
-
+import { useMouseDownEvent } from '../../../state/analytics/useMouseDownEvent';
 import { WrapperAnchor, WrapperSpan } from './styled';
 
 export type ViewType = 'default' | 'unauthorised' | 'errored' | 'action';

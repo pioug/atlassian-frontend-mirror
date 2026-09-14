@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d7431dcc384fff9c6c35ed6e93ee3cd4>>
+ * @codegen <<SignedSource::9c789d79db2d4e9441e0875f3295345a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Rovo".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const RovoIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const RovoIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "RovoIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.687.64a2.63 2.63 0 0 1 2.625 0l4.404 2.544a2.63 2.63 0 0 1 1.313 2.273v5.084c0 .938-.5 1.804-1.313 2.274l-4.404 2.542a2.63 2.63 0 0 1-2.625 0l-4.403-2.542A2.63 2.63 0 0 1 .97 10.54V5.457c0-.938.5-1.804 1.313-2.273zM3.034 4.483a1.13 1.13 0 0 0-.563.975v5.084c0 .402.215.774.563.975l4.403 2.543c.348.2.777.2 1.125 0l.688-.398v-1.997L5.896 9.568a1.38 1.38 0 0 1-.646-1.166V3.203zM8.562 1.94a1.13 1.13 0 0 0-1.125 0l-.687.398v1.996l3.354 2.097c.402.251.646.692.646 1.166v5.199l2.216-1.28c.348-.2.563-.572.563-.974V5.457c0-.402-.215-.774-.563-.975zM6.75 8.333l2.5 1.563V7.663l-2.5-1.561z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

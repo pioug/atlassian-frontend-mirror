@@ -24,7 +24,7 @@ describe('updateItems', () => {
 		const tableTreeDataHelper = new TableTreeDataHelper<(typeof rootData)[number]>();
 		expect(() => {
 			tableTreeDataHelper.updateItems(rootData);
-		}).toThrowError(/Property 'key' not found in rootItem\[0\]/);
+		}).toThrow(/Property 'key' not found in rootItem\[0\]/);
 	});
 	it('should throw exception if parent item does not have key property', () => {
 		const parentItem = { title: 'Chapter One', page: 10, id: 1 };
@@ -34,7 +34,7 @@ describe('updateItems', () => {
 		});
 		expect(() => {
 			tableTreeDataHelper.updateItems(childItems, [], parentItem);
-		}).toThrowError(/Property 'author' not found in parent item/);
+		}).toThrow(/Property 'author' not found in parent item/);
 	});
 	it('should return rootIds and itemsById for root items with custom id', () => {
 		const rootData = [
@@ -113,7 +113,7 @@ describe('appendItems', () => {
 		const tableTreeDataHelper = new TableTreeDataHelper<(typeof rootData)[number]>();
 		expect(() => {
 			tableTreeDataHelper.appendItems(rootData);
-		}).toThrowError(/Property 'key' not found in rootItem\[0\]/);
+		}).toThrow(/Property 'key' not found in rootItem\[0\]/);
 	});
 	it('should throw exception if parent item does not have key property when appending', () => {
 		const parentItem = [{ title: 'Chapter One', page: 10, id: 1 }];
@@ -121,7 +121,7 @@ describe('appendItems', () => {
 		const tableTreeDataHelper = new TableTreeDataHelper<any>({ key: 'author' });
 		expect(() => {
 			tableTreeDataHelper.appendItems(childItem, [], ...parentItem);
-		}).toThrowError(/Property 'author' not found in parent item/);
+		}).toThrow(/Property 'author' not found in parent item/);
 	});
 	it('should return rootIds and itemsById for root items with defaults when appending', () => {
 		const rootData = [

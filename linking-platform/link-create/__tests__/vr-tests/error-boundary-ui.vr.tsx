@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { DefaultErrorBoundary } from '../../examples/vr/vr-error-boundary-ui';
+import { DefaultErrorBoundary } from '../../examples/vr/vr-error-boundary-ui.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

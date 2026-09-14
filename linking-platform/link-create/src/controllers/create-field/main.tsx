@@ -6,7 +6,8 @@
 import { css, jsx } from '@compiled/react';
 import { Field } from 'react-final-form';
 
-import { Label, RequiredAsterisk } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { token } from '@atlaskit/tokens';
 
 import { Message } from '../../common/ui/message';

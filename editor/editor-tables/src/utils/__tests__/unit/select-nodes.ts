@@ -1,9 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+
 import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
 import type { CellSelection } from '../../../cell-selection';
-import { selectColumn, selectRow, selectTable } from '../../select-nodes';
+import { selectColumn, selectRow } from '../../select-nodes';
+import { selectTable } from '../../select-table';
 
 describe('selectColumn', () => {
 	it("should return an original transaction if table doesn't have a column at `columnIndex`", () => {

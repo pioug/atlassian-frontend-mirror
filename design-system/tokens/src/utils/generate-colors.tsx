@@ -1,7 +1,10 @@
-import { type CSSColor } from '../theme-config';
+import { type CSSColor } from '../theme-options-schema';
 
 import { getClosestColorIndex } from './get-closest-color-index';
-import { argbFromRgba, Contrast, Hct, rgbaFromArgb } from './hct-color-utils';
+import { argbFromRgba } from './hct-color-utils/argb-from-rgba';
+import { Contrast } from './hct-color-utils/contrast';
+import { Hct } from './hct-color-utils/hct';
+import { rgbaFromArgb } from './hct-color-utils/rgba-from-argb';
 import { hexToHSL } from './hex-to-hsl';
 import { hexToRgbA } from './hex-to-rgb-a';
 import { HSLToRGB } from './hsl-to-rgb';

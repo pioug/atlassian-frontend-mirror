@@ -108,9 +108,6 @@ interface EditorBaseProps {
 	// React components declared in this prop will be inserted into the editor content area
 	contentComponents?: ContentComponents;
 
-	// Enables modernised comment editor chrome and spacing styles.
-	isEditorModernisationEnabled?: boolean;
-
 	// Note: this comment is replicated in packages/editor/renderer/src/ui/renderer-props.ts
 	// any changes should be made in both locations
 	/**
@@ -125,8 +122,8 @@ interface EditorBaseProps {
 	 * @deprecated this attribute is not supported outside of Confluence Full Page editors
 	 */
 	contentMode?: 'standard' | 'compact' | undefined;
-	contentTransformerProvider?: (schema: Schema) => Transformer<string>;
 
+	contentTransformerProvider?: (schema: Schema) => Transformer<string>;
 	// Content to appear in the context panel. Displays as a right sidebar in the full-page appearance.
 	// You'll want to pass it a `ContextPanel` component from this package, and your content as its children.
 	contextPanel?: ReactComponents;
@@ -182,6 +179,9 @@ interface EditorBaseProps {
 	 * @default 100
 	 */
 	inputSamplingLimit?: number;
+
+	// Enables modernised comment editor chrome and spacing styles.
+	isEditorModernisationEnabled?: boolean;
 
 	// Set to configure the maximum editor height in pixels for `comment` and `chromeless` editor modes.
 	maxHeight?: number;
@@ -254,6 +254,13 @@ interface EditorBaseProps {
 	shouldFocus?: boolean;
 
 	skipValidation?: boolean;
+
+	/**
+	 * Passing this prop enables `contain: strict` mode
+	 * which drastically improves layout performance,
+	 * but it requires that the size of a container is set, otherwise height will be 0.
+	 */
+	UNSAFE_containLayout?: boolean;
 
 	// Experimental support for modern React Context for @atlaskit/analytics-next.
 	// Enables re-providing of AnalyticsContext for all ReactNodeViews.

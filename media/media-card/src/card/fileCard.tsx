@@ -1,4 +1,11 @@
-import { useAnalyticsEvents, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { useContext } from 'react';
+
+import { useIntl } from 'react-intl';
+import { useMergeRefs } from 'use-callback-ref';
+
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import {
 	type FileDetails,
 	type FileIdentifier,
@@ -16,7 +23,12 @@ import {
 	type AuthProviderSucceededEventPayload,
 	type AuthProviderFailedEventPayload,
 } from '@atlaskit/media-client';
-import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
+import { useFileState } from '@atlaskit/media-client-react/use-file-state';
+import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import {
+	mapSsrMediaItemToFileState,
+	type SsrMediaItem,
+} from '@atlaskit/media-client/ssr-media-item';
 import {
 	isMimeTypeSupportedByBrowser,
 	type MediaFeatureFlags,
@@ -26,29 +38,41 @@ import {
 	isVideoMimeTypeSupportedByBrowser,
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
+import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview/media-file-preview-error';
+import type { MediaFilePreview } from '@atlaskit/media-file-preview/types';
+import { useFilePreview } from '@atlaskit/media-file-preview/use-file-preview';
 import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import {
 	MediaViewer,
 	type ViewerOptionsProps,
 	type MediaViewerExtensions,
 } from '@atlaskit/media-viewer';
-import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
+import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { useMergeRefs } from 'use-callback-ref';
-import { MediaCardError, type MediaCardErrorPrimaryReason } from '../errors';
-import {
-	type CardAppearance,
-	type CardDimensions,
-	type CardEventProps,
-	type CardStatus,
-	type FileStateFlags,
-	type TitleBoxIcon,
-	isSSRPreview,
+
+import { MediaCardError, type MediaCardErrorPrimaryReason } from '../MediaCardError';
+import { DateOverrideContext } from '../dateOverrideContext';
+import { isSSRPreview } from '../isSSRPreview';
+import type {
+	CardAppearance,
+	CardDimensions,
+	CardEventProps,
+	CardStatus,
+	FileStateFlags,
+	TitleBoxIcon,
 } from '../types';
+import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
+import { getAuthProviderSucceededPayload } from '../utils/analytics/getAuthProviderSucceededPayload';
+import { getAuthProviderFailedPayload } from '../utils/analytics/getAuthProviderFailedPayload';
+import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { generateUniqueId } from '../utils/generateUniqueId';
-import { resolveCardPreviewDimensions } from '../utils/getDataURIDimension';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
+import { isKeyboardFocusEnteringElement } from '../utils/isKeyboardFocusEnteringElement';
 import { getFileDetails } from '../utils/metadata';
+import { resolveCardPreviewDimensions } from '../utils/resolveCardPreviewDimensions';
 import {
 	shouldPerformanceBeSampled,
 	useMediaCardUfoExperience,
@@ -57,34 +81,15 @@ import {
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { usePrevious } from '../utils/usePrevious';
 import { ViewportDetector } from '../utils/viewportDetector';
-import { getDefaultCardDimensions } from '../utils/cardDimensions';
-import {
-	fireNonCriticalErrorEvent,
-	fireOperationalEvent,
-	fireDownloadSucceededEvent,
-	fireDownloadFailedEvent,
-} from './cardAnalytics';
-import {
-	fireMediaCardEvent,
-	getAuthProviderSucceededPayload,
-	getAuthProviderFailedPayload,
-} from '../utils/analytics';
+import type { CardAction } from './actions';
 import { CardView } from './cardView';
+import { createDownloadAction } from './createDownloadAction';
+import { fireDownloadFailedEvent } from './fireDownloadFailedEvent';
+import { fireDownloadSucceededEvent } from './fireDownloadSucceededEvent';
+import { fireNonCriticalErrorEvent } from './fireNonCriticalErrorEvent';
+import { fireOperationalEvent } from './fireOperationalEvent';
 import { InlinePlayerLazy } from './inlinePlayerLazy';
-import {
-	useFilePreview,
-	type MediaFilePreview,
-	type MediaFilePreviewErrorPrimaryReason,
-} from '@atlaskit/media-file-preview';
-import { type CardAction, createDownloadAction } from './actions';
 import { performanceNow } from './performance';
-import { useContext } from 'react';
-import { DateOverrideContext } from '../dateOverrideContext';
-import { useIntl } from 'react-intl';
-import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
-import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 import type { SsrItemDetails } from './types';
 
 export interface FileCardProps extends CardEventProps {
@@ -118,6 +123,8 @@ export interface FileCardProps extends CardEventProps {
 	readonly backgroundColor?: React.CSSProperties['backgroundColor'];
 	/** Indicates the media card is being generated by AI (e.g. Rovo image-create). */
 	readonly isAIGenerating?: boolean;
+	/** Marks the card as part of the CWR (create-with-Rovo) infographics flow. */
+	readonly isCWR?: boolean;
 	/** Callback fired when the media card's image preview has rendered. */
 	readonly onPreviewRender?: (fileId: string) => void;
 	/** Instance of file identifier. */
@@ -154,6 +161,12 @@ export interface FileCardProps extends CardEventProps {
 	 * @see https://product-fabric.atlassian.net/browse/BMPT-7914
 	 */
 	readonly ssrFileState?: FileState;
+	/**
+	 * Raw SSR media item from a host payload (e.g. Confluence recorded media nodes).
+	 * Used when `ssrFileState` is not provided. Converted to FileState internally
+	 * when `fg('platform_media_ssr_data_seed')` is on.
+	 */
+	readonly ssrMediaItem?: SsrMediaItem;
 	/** General Error handling include status errors and display errors*/
 	readonly onError?: (
 		reason: MediaFilePreviewErrorPrimaryReason | MediaCardErrorPrimaryReason,
@@ -170,8 +183,8 @@ export interface FileCardProps extends CardEventProps {
 
 const traceContextRetriever = () => {
 	const trace = getActiveTrace();
-	if (trace && fg('platform-filecard-ufo-trace')) {
-		return { traceId: trace?.traceId, spanId: trace?.spanId };
+	if (trace) {
+		return { traceId: trace.traceId, spanId: trace.spanId };
 	} else {
 		return {
 			traceId: getRandomTelemetryId(),
@@ -204,16 +217,19 @@ export const FileCard = ({
 	titleBoxIcon,
 	backgroundColor,
 	isAIGenerating,
+	isCWR,
 	onPreviewRender,
 	shouldHideTooltip,
 	mediaViewerItems,
 	onClick,
 	onMouseEnter,
+	onFocus,
 	videoControlsWrapperRef,
 	viewerOptions,
 	includeHashForDuplicateFiles,
 	ssrItemDetails,
 	ssrFileState,
+	ssrMediaItem,
 	onError,
 	mediaViewerExtensions,
 	fallbackMediaNameFetcher,
@@ -253,7 +269,14 @@ export const FileCard = ({
 	// Note: mapMediaItemToFileState maps the fragment's processingStatus faithfully (including
 	// processing/pending). The decision to skip polling is delegated to useFileState —
 	// it skips subscription only when status === 'processed'. Do not add status guards here.
-	const initialFileState = fg('platform_media_ssr_data_seed') ? ssrFileState : undefined;
+	// ssrFileState (Relay / explicit seed) wins over converting ssrMediaItem.
+	const initialFileState = useMemo(
+		() =>
+			fg('platform_media_ssr_data_seed')
+				? (ssrFileState ?? mapSsrMediaItemToFileState(ssrMediaItem))
+				: undefined,
+		[ssrFileState, ssrMediaItem],
+	);
 
 	const { fileState } = useFileState(identifier.id, {
 		skipRemote: !isCardVisible,
@@ -974,6 +997,16 @@ export const FileCard = ({
 		});
 	};
 
+	const onImageFocus = (event: React.FocusEvent<HTMLDivElement>) => {
+		if (!isKeyboardFocusEnteringElement(event)) {
+			return;
+		}
+		onFocus?.({
+			event,
+			mediaItemDetails: metadata,
+		});
+	};
+
 	//----------------------------------------------------------------//
 	//---------------------- Render Card Function --------------------//
 	//----------------------------------------------------------------//
@@ -1021,6 +1054,7 @@ export const FileCard = ({
 				openMediaViewerButtonRef={mediaViewerButtonRef}
 				onClick={withCallbacks ? onCardViewClick : undefined}
 				onMouseEnter={withCallbacks ? onImageMouseEnter : undefined}
+				onFocus={withCallbacks ? onImageFocus : undefined}
 				disableOverlay={disableOverlay}
 				progress={uploadProgressRef.current}
 				onDisplayImage={
@@ -1054,6 +1088,7 @@ export const FileCard = ({
 				shouldHideTooltip={shouldHideTooltip}
 				overriddenCreationDate={overridenDate}
 				isAIGenerating={isAIGenerating}
+				isCWR={isCWR}
 			/>
 		);
 

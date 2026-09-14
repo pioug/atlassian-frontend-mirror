@@ -5,8 +5,9 @@ import userEvent from '@testing-library/user-event';
 import ToneSelector from '../../../../components/common/ToneSelector';
 import type { EmojiDescription, EmojiDescriptionWithVariations } from '../../../../types';
 import { imageEmoji, generateSkinVariation } from '../../_test-data';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { toneSelectedEvent, toneSelectorOpenedEvent } from '../../../../util/analytics';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { toneSelectedEvent } from '../../../../util/analytics/toneSelectedEvent';
+import { toneSelectorOpenedEvent } from '../../../../util/analytics/toneSelectorOpenedEvent';
 import { renderWithIntl } from '../../_testing-library';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

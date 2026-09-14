@@ -5,9 +5,9 @@ jest.mock('@atlaskit/media-client-react', () => {
 
 import React from 'react';
 import { type MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { MediaViewer } from '../../../';
 import { type MediaViewerExtensions } from '../../../components/types';
@@ -16,18 +16,18 @@ import {
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import * as analytics from '../../../analytics';
+import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import * as downloadUrlModule from '@atlaskit/media-common/downloadUrl';
 
-const fireAnalyticsMock = jest.spyOn(analytics, 'fireAnalytics');
+const fireAnalyticsMock = jest.spyOn(fireAnalyticsModule, 'fireAnalytics');
 const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFileUfoExperience');
 const mockfailMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'failMediaFileUfoExperience');
 const mockstartMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'startMediaFileUfoExperience');
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { failDataURIConversionOnce } from '@atlaskit/media-svg/test-helpers';
+import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
 
 const fakeMediaClientConfig = {} as MediaClientConfig;
 
@@ -458,8 +458,8 @@ describe('<MediaViewer />', () => {
 					expect.anything(),
 				);
 
-				expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
-				expect(mocksucceedMediaFileUfoExperience).toBeCalledWith(
+				expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
 					expect.objectContaining({
 						fileAttributes,
 						fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: false },
@@ -533,8 +533,8 @@ describe('<MediaViewer />', () => {
 					expect.anything(),
 				);
 
-				expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
-				expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+				expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				expect(mockfailMediaFileUfoExperience).toHaveBeenCalledWith(
 					expect.objectContaining({
 						error: 'serverUnauthorized',
 						errorDetail: 'inner error message',
@@ -614,8 +614,8 @@ describe('<MediaViewer />', () => {
 					expect.anything(),
 				);
 
-				expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
-				expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+				expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				expect(mockfailMediaFileUfoExperience).toHaveBeenCalledWith(
 					expect.objectContaining({
 						error: 'nativeError',
 						errorDetail: 'failed to convert Blob',
@@ -690,8 +690,8 @@ describe('<MediaViewer />', () => {
 					expect.anything(),
 				);
 
-				expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
-				expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+				expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+				expect(mockfailMediaFileUfoExperience).toHaveBeenCalledWith(
 					expect.objectContaining({
 						error: 'unknown',
 						errorDetail: 'unknown',

@@ -1,22 +1,18 @@
-jest.mock('@atlaskit/ufo', () => {
-	const actualUfo = jest.requireActual('@atlaskit/ufo');
-	return {
-		...actualUfo,
-		ConcurrentExperience: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
+	ConcurrentExperience: jest.fn(),
+}));
 
 import * as jestExtendedMatchers from 'jest-extended';
 
 import { type JestFunction } from '@atlaskit/media-test-helpers';
-import { ConcurrentExperience, ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 
-import type {
-	addMetadataToExperience as AddMetadataToExperienceType,
-	failUfoExperience as FailUfoExperienceType,
-	startUfoExperience as StartUfoExperienceType,
-	succeedUfoExperience as SucceedUfoExperienceType,
-} from '../ufoExperiences';
+import type { addMetadataToExperience as AddMetadataToExperienceType } from '../addMetadataToExperience';
+import type { failUfoExperience as FailUfoExperienceType } from '../failUfoExperience';
+import type { startUfoExperience as StartUfoExperienceType } from '../startUfoExperience';
+import type { succeedUfoExperience as SucceedUfoExperienceType } from '../succeedUfoExperience';
 
 expect.extend(jestExtendedMatchers);
 
@@ -54,12 +50,11 @@ describe('ufoExperience', () => {
 			};
 		});
 
-		// Load the experiences only after defining mockImplementations
-		const ufoExperiencesModule = require('../ufoExperiences');
-		startUfoExperience = ufoExperiencesModule.startUfoExperience;
-		succeedUfoExperience = ufoExperiencesModule.succeedUfoExperience;
-		failUfoExperience = ufoExperiencesModule.failUfoExperience;
-		addMetadataToExperience = ufoExperiencesModule.addMetadataToExperience;
+		// Load the modules only after defining mockImplementations
+		startUfoExperience = require('../startUfoExperience').startUfoExperience;
+		succeedUfoExperience = require('../succeedUfoExperience').succeedUfoExperience;
+		failUfoExperience = require('../failUfoExperience').failUfoExperience;
+		addMetadataToExperience = require('../addMetadataToExperience').addMetadataToExperience;
 	});
 
 	afterEach(() => {

@@ -1,8 +1,5 @@
 import type { ADFEntity, VisitorCollection, EntityParent } from '../types';
-
-export function validateVisitors(_visitors: VisitorCollection) {
-	return true;
-}
+import { validateVisitors } from './validateVisitors';
 
 /**
  * Provides recursive, depth-first search document traversal. Use visitors collection to define nodes of interest.
@@ -56,3 +53,6 @@ function traverseNode(
 
 	return newNode;
 }
+
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export { validateVisitors } from './validateVisitors';

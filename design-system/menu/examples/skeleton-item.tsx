@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { SkeletonItem } from '@atlaskit/menu';
+import SkeletonItem from '@atlaskit/menu/skeleton-item';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

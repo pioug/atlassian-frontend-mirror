@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import InlineDialog from '@atlaskit/inline-dialog';
-import InlineEdit from '@atlaskit/inline-edit';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = cssMap({

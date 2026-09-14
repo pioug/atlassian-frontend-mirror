@@ -1,4 +1,4 @@
-import AkAvatar from '@atlaskit/avatar';
+import AkAvatar from '@atlaskit/avatar/avatar';
 import AkComment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { EditorProps } from '@atlaskit/editor-core';
@@ -16,7 +16,7 @@ import type { Comment as CommentType } from '../model/Comment';
 import type { User } from '../model/User';
 import Editor from './Editor';
 import type { SharedProps, RenderEditorWithComments } from './types';
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import isEqual from 'lodash/isEqual';
 
 export interface Props extends SharedProps {

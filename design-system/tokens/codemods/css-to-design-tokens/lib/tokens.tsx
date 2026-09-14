@@ -1,7 +1,6 @@
 import Search from '../../theme-to-design-tokens/utils/fuzzy-search';
 import { activeTokens } from '../../utils/active-tokens';
-
-import { cleanMeta } from './meta';
+import { cleanMeta } from './clean-meta';
 
 const COLOR_TOKEN_SEARCH_TYPES = [
 	'text',

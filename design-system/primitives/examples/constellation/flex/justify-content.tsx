@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Code } from '@atlaskit/code';
-import Heading from '@atlaskit/heading';
-import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
+import Button from '@atlaskit/button/default/button';
+import Code from '@atlaskit/code/code';
+import Heading from '@atlaskit/heading/heading';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import ExampleBox from '../shared/example-box';
 

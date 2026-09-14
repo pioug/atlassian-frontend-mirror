@@ -1,14 +1,12 @@
-import { shallow } from 'enzyme';
 import { render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { type Props } from '../../../components/SingleValue';
 import { SingleValue } from '../../../components/SingleValue';
-import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { type Team, type Group } from '../../../types';
 import { type Props as SizeableAvatarProps } from '../../../components/SizeableAvatar';
-import { getAppearanceForAppType } from '@atlaskit/avatar';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 
 const data = {
 	label: 'Jace Beleren',
@@ -55,39 +53,41 @@ jest.mock('../../../components/AvatarOrIcon', () => ({
 	AvatarOrIcon: (props: any) => <div>AvatarOrIcon - {JSON.stringify(props)}</div>,
 }));
 
-jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
+jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon/main', () => ({
+	...jest.requireActual('@atlaskit/people-teams-ui-public/verified-team-icon/main'),
 	VerifiedTeamIcon: () => <div>VerifiedTeamIcon</div>,
 }));
 
-jest.mock('@atlaskit/avatar', () => ({
-	...jest.requireActual('@atlaskit/avatar'),
-	getAppearanceForAppType: jest.fn(),
+jest.mock('@atlaskit/avatar/get-appearance', () => ({
+	...jest.requireActual('@atlaskit/avatar/get-appearance'),
+	__esModule: true,
+	default: jest.fn(),
 }));
 
 describe('SingleValue', () => {
-	const shallowSingleValue = (props = {}) =>
-		shallow(<SingleValue {...defaultSingleValueProps} {...props} />);
-
 	it('should render SingleValue', async () => {
-		const component = shallowSingleValue();
-		expect(component.find(SizeableAvatar).props()).toMatchObject({
-			src: 'http://avatars.atlassian.com/jace.png',
-			appearance: 'normal',
-		});
+		render(<SingleValue {...defaultSingleValueProps} />);
+		expect(
+			await screen.findByText(
+				'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"normal","type":"person"}',
+			),
+		).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render SizeableAvatar when the appearance is compact', async () => {
-		const component = shallowSingleValue({
-			selectProps: {
-				appearance: 'compact',
-			},
-		});
-		expect(component.find(SizeableAvatar).props()).toMatchObject({
-			src: 'http://avatars.atlassian.com/jace.png',
-			appearance: 'compact',
-		});
+		render(
+			<SingleValue
+				{...defaultSingleValueProps}
+				selectProps={{ appearance: 'compact' } as unknown as Props['selectProps']}
+			/>,
+		);
+		expect(
+			await screen.findByText(
+				'SizeableAvatar - {"src":"http://avatars.atlassian.com/jace.png","appearance":"compact","type":"person"}',
+			),
+		).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});

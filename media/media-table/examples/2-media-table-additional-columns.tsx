@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { type HeadType } from '@atlaskit/dynamic-table/types';
 import CheckCircleOutlineIcon from '@atlaskit/icon/core/check-circle';
-import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
 import dateFnsFormat from 'date-fns/format';
 
 import { createMockFileData, RenderMediaTableWithFieldRange } from '../example-helpers/helpers';

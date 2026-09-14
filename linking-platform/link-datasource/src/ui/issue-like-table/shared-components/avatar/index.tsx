@@ -3,10 +3,10 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { USER_TYPE_TEST_ID } from '../../render-type/user';
 import { userTypeMessages } from '../../render-type/user/messages';

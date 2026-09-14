@@ -3,7 +3,7 @@ import React from 'react';
 import { useForm, useFormState } from 'react-final-form';
 import { useIntl } from 'react-intl';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import LoadingButton from '@atlaskit/button/loading-button';
 
 import {
@@ -12,7 +12,6 @@ import {
 } from '../../../../common/constants';
 import createEventPayload from '../../../../common/utils/analytics/analytics.codegen';
 import { useFormContext } from '../../../../controllers/form-context/main';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { FormSpy } from '../../form-spy';
 
 import { messages } from './messages';

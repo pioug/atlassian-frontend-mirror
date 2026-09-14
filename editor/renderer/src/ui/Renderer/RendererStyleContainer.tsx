@@ -10,7 +10,8 @@ import { css, jsx, type SerializedStyles } from '@emotion/react'; // oxlint-igno
 import { token } from '@atlaskit/tokens';
 import type { RendererWrapperProps } from './index';
 import { FullPagePadding } from './style';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { RendererCssClassName } from '../../consts';
 import {
 	akEditorCalculatedWideLayoutWidth,
@@ -48,10 +49,11 @@ import {
 	TableSharedCssClassName,
 	TaskDecisionSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
-import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
+import { bulletListSelector } from '@atlaskit/adf-schema/bullet-list';
+import { orderedListSelector } from '@atlaskit/adf-schema/ordered-list';
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
@@ -148,10 +150,17 @@ const baseStyles = css({
 	[`.${RendererCssClassName.DOCUMENT}`]: {
 		[`> [${COLLAPSED_CONTENT_OWNERS_ATTRIBUTE}][hidden='until-found']`]: {
 			display: 'block',
-			minBlockSize: 0,
-			marginBlock: 0,
-			paddingBlock: 0,
-			borderBlockWidth: 0,
+			// `hidden='until-found'` maps to `content-visibility: hidden`, which skips the element's
+			// contents but keeps its own box, sized by its own specified sizes. Everything below
+			// needs `!important` because extension nodes are sized and spaced by declarations that
+			// would otherwise win: an inline `height`/`min-height` reserving macro height (see
+			// `react/nodes/extension.tsx`), and `!important` alignment margins from
+			// `@atlaskit/native-embeds-common`. Without it the collapsed section keeps a visible gap.
+			blockSize: '0 !important',
+			minBlockSize: '0 !important',
+			marginBlock: '0 !important',
+			paddingBlock: '0 !important',
+			borderBlockWidth: '0 !important',
 		},
 
 		// p, h3, and action items
@@ -1163,6 +1172,42 @@ const extensionAsInlineStyle = css({
 		},
 });
 
+const migratedInlineBodiedFlowStyle = css({
+	[[
+		`.${RendererCssClassName.DOCUMENT} [data-migrated-inline] + [data-as-inline="on"]`,
+		`.${RendererCssClassName.DOCUMENT} [data-as-inline="on"]:has(+ [data-migrated-inline])`,
+	].join(', ')]: {
+		display: 'inline',
+	},
+});
+
+const forgeInlineBodiedSpacingStyle = css({
+	[`.${RendererCssClassName.DOCUMENT} .${RendererCssClassName.EXTENSION_AS_INLINE}[data-forge-inline]`]:
+		{
+			marginBottom: 0,
+			verticalAlign: 'baseline',
+			maxWidth: '100%',
+		},
+	[[
+		`.${RendererCssClassName.DOCUMENT} [data-forge-inline] + [data-as-inline="on"]`,
+		`.${RendererCssClassName.DOCUMENT} [data-as-inline="on"]:has(+ [data-forge-inline])`,
+	].join(', ')]: {
+		display: 'inline',
+	},
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE}[data-forge-inline] *`]: {
+		maxWidth: '100%',
+	},
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE}[data-forge-inline] .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`]:
+		{
+			overflowX: 'auto',
+		},
+	[`.${RendererCssClassName.EXTENSION_AS_INLINE}[data-forge-inline] .${RendererCssClassName.DOCUMENT} > p`]:
+		{
+			display: 'inline',
+			margin: 0,
+		},
+});
+
 // Removes the blockNodesVerticalMargin styling for inline extensions, i.e. borderless excerpt-include
 const inlineExtensionRendererMarginFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -1399,7 +1444,7 @@ const headerSmartCardStyles = css({
 	},
 });
 
-// Flex wrapper for centering without transform (platform_editor_flex_based_centering).
+// Flex wrapper for centering without transform.
 // flex: 1 1 0% + minWidth: 0 so the wrapper takes full width when it's a flex item (full-width nodes otherwise render narrow).
 // flexShrink: 0 on child so the node keeps size.
 const centerWrapperStyles = css({
@@ -1415,6 +1460,15 @@ const centerWrapperStyles = css({
 			flexShrink: 0,
 		},
 	},
+});
+
+// Reset only Expands with no preceding content sibling. Streaming SSR style/script siblings
+// are ignored so moving them to the head on the client does not change the top margin.
+const expandSsrMarginStyles = css({
+	[`.${RendererCssClassName.DOCUMENT} .${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > [data-node-type='expand']:not(:not(style, script) ~ *)`]:
+		{
+			marginTop: 0,
+		},
 });
 
 const baseOtherStylesDuplicateAnchor = css({
@@ -1511,7 +1565,7 @@ const baseOtherStylesDuplicateAnchor = css({
 		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION}`]: {
 			marginBottom: 0,
 		},
-		/* platform_editor_flex_based_centering: embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
+		/* Embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
 		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} .mediaSingleView-content-wrap`]: {
 			marginTop: 0,
 			marginBottom: 0,
@@ -1550,16 +1604,6 @@ const baseOtherStylesDuplicateAnchor = css({
 const hideExtensionStyles = css({
 	[`.${RendererCssClassName.EXTENSION}:has([data-extension-key='hide'])`]: {
 		marginTop: 0,
-	},
-});
-
-const extensionCenterAlignLegacyStyles = css({
-	[`.${RendererCssClassName.DOCUMENT}`]: {
-		[`.${RendererCssClassName.EXTENSION_CENTER_ALIGN}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginLeft: '50%',
-			transform: 'translateX(-50%)',
-		},
 	},
 });
 
@@ -1657,7 +1701,7 @@ const baseOtherStyles = css({
 		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION}`]: {
 			marginBottom: 0,
 		},
-		/* platform_editor_flex_based_centering: embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
+		/* Embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
 		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} .mediaSingleView-content-wrap`]: {
 			marginTop: 0,
 			marginBottom: 0,
@@ -1928,6 +1972,70 @@ const tableSharedStyle = css({
 		backgroundColor: `${token('color.background.accent.purple.subtle')} !important`,
 	},
 
+	'td[colorname="subtle lime" i], th[colorname="subtle lime" i]': {
+		backgroundColor: `${token('color.background.accent.lime.subtlest')} !important`,
+	},
+
+	'td[colorname="subtle orange" i], th[colorname="subtle orange" i]': {
+		backgroundColor: `${token('color.background.accent.orange.subtlest')} !important`,
+	},
+
+	'td[colorname="subtle magenta" i], th[colorname="subtle magenta" i]': {
+		backgroundColor: `${token('color.background.accent.magenta.subtlest')} !important`,
+	},
+
+	'td[colorname="lime" i], th[colorname="lime" i]': {
+		backgroundColor: `${token('color.background.accent.lime.subtler')} !important`,
+	},
+
+	'td[colorname="orange" i], th[colorname="orange" i]': {
+		backgroundColor: `${token('color.background.accent.orange.subtler')} !important`,
+	},
+
+	'td[colorname="magenta" i], th[colorname="magenta" i]': {
+		backgroundColor: `${token('color.background.accent.magenta.subtler')} !important`,
+	},
+
+	'td[colorname="bold gray" i], th[colorname="bold gray" i]': {
+		backgroundColor: `${token('color.background.accent.gray.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold blue" i], th[colorname="bold blue" i]': {
+		backgroundColor: `${token('color.background.accent.blue.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold teal" i], th[colorname="bold teal" i]': {
+		backgroundColor: `${token('color.background.accent.teal.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold green" i], th[colorname="bold green" i]': {
+		backgroundColor: `${token('color.background.accent.green.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold lime" i], th[colorname="bold lime" i]': {
+		backgroundColor: `${token('color.background.accent.lime.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold yellow" i], th[colorname="bold yellow" i]': {
+		backgroundColor: `${token('color.background.accent.yellow.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold orange" i], th[colorname="bold orange" i]': {
+		backgroundColor: `${token('color.background.accent.orange.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold red" i], th[colorname="bold red" i]': {
+		backgroundColor: `${token('color.background.accent.red.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold magenta" i], th[colorname="bold magenta" i]': {
+		backgroundColor: `${token('color.background.accent.magenta.subtler.hovered')} !important`,
+	},
+
+	'td[colorname="bold purple" i], th[colorname="bold purple" i]': {
+		backgroundColor: `${token('color.background.accent.purple.subtler.hovered')} !important`,
+	},
+
 	[`.${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		position: 'relative',
 		marginTop: 0,
@@ -2159,28 +2267,24 @@ const roundedTableOuterBorderOverlayStyles = css({
 			{
 				borderTopLeftRadius: token('radius.xlarge'),
 				backgroundClip: 'border-box',
-				clipPath: `inset(0 round ${token('radius.xlarge')} 0 0 0)`,
 			},
 
 		'> tbody > tr > th[data-reaches-top][data-reaches-right], > tbody > tr > td[data-reaches-top][data-reaches-right]':
 			{
 				borderTopRightRadius: token('radius.xlarge'),
 				backgroundClip: 'border-box',
-				clipPath: `inset(0 round 0 ${token('radius.xlarge')} 0 0)`,
 			},
 
 		'> tbody > tr > th[data-reaches-bottom][data-reaches-left], > tbody > tr > td[data-reaches-bottom][data-reaches-left]':
 			{
 				borderBottomLeftRadius: token('radius.xlarge'),
 				backgroundClip: 'border-box',
-				clipPath: `inset(0 round 0 0 0 ${token('radius.xlarge')})`,
 			},
 
 		'> tbody > tr > th[data-reaches-bottom][data-reaches-right], > tbody > tr > td[data-reaches-bottom][data-reaches-right]':
 			{
 				borderBottomRightRadius: token('radius.xlarge'),
 				backgroundClip: 'border-box',
-				clipPath: `inset(0 round 0 0 ${token('radius.xlarge')} 0)`,
 			},
 	},
 
@@ -2213,13 +2317,11 @@ const roundedTableOuterBorderOverlayStyles = css({
 			'> tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]': {
 				borderTopLeftRadius: token('radius.xlarge'),
 				borderBottomLeftRadius: 0,
-				clipPath: `inset(0 round ${token('radius.xlarge')} 0 0 0)`,
 			},
 
 			'> tbody > tr > th[data-reaches-right], > tbody > tr > td[data-reaches-right]': {
 				borderTopRightRadius: token('radius.xlarge'),
 				borderBottomRightRadius: 0,
-				clipPath: `inset(0 round 0 ${token('radius.xlarge')} 0 0)`,
 			},
 
 			'> tbody > tr > th[data-reaches-left][data-reaches-bottom], > tbody > tr > td[data-reaches-left][data-reaches-bottom]':
@@ -2243,25 +2345,6 @@ const roundedTableOuterBorderOverlayStyles = css({
 		},
 });
 
-const tableContentModeStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(table[data-initial-width-mode="content"])`]:
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			width: 'max-content !important',
-			maxWidth: 'var(--renderer-table-max-width)',
-		},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	[`.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > colgroup > col`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-		width: 'unset !important',
-	},
-});
-
-// Gated behind `platform_editor_table_renderer_fix_2`. Scopes `:has()` to the
-// container's OWN table (direct child) so a nested content-mode table (e.g. inside
-// an Excerpt macro) no longer blows out its non-content ancestor container.
 const tableContentModeScopedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(> table[data-initial-width-mode="content"]),
@@ -2278,6 +2361,16 @@ const tableContentModeScopedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		width: 'unset !important',
 	},
+});
+
+const tableContentModeExtensionContainmentStyles = css({
+	// Content-mode tables need extension content to participate in intrinsic width calculation.
+	// Keep containment for extensions in all other table modes so nested renderers stay constrained.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	[`.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] .${RendererCssClassName.EXTENSION_INNER_WRAPPER}`]:
+		{
+			containerType: 'normal',
+		},
 });
 
 const tableContentModeNestedTableStyles = css({
@@ -2340,29 +2433,6 @@ const firstNodeWithNotMarginTopWithNestedDnD = css({
 			'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
 				marginTop: 0,
 			},
-		},
-	},
-});
-
-const firstNodeWithNotMarginTop = css({
-	[`.${TableSharedCssClassName.TABLE_CONTAINER} > table,
-		.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
-		.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
-		'> tbody > tr > th, > tbody > tr > td': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> :first-child:not(style), > style:first-child + *': {
-				marginTop: 0,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> .ProseMirror-gapcursor:first-child + *, > style:first-child + .ProseMirror-gapcursor + *':
-				{
-					marginTop: 0,
-				},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> .ProseMirror-gapcursor:first-child + span + *, > style:first-child + .ProseMirror-gapcursor + span + *':
-				{
-					marginTop: 0,
-				},
 		},
 	},
 });
@@ -3355,8 +3425,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					headingPanelStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
-				editorExperiment('platform_editor_preview_panel_linking_exp', true) &&
-					headerSmartCardStyles,
+				headerSmartCardStyles,
 				smartCardStylesAvatarMarginFix,
 				smartCardStylesAvatarListZeroMarginTop,
 				fg('editor_inline_comments_on_inline_nodes') &&
@@ -3368,44 +3437,40 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? baseOtherStyles
 					: baseOtherStylesDuplicateAnchor,
-				!expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) &&
-					extensionCenterAlignLegacyStyles,
+				fg('platform_renderer_expand_ssr_margin_fix') && expandSsrMarginStyles,
 				// this should be placed after baseOtherStyles
 				expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
 					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
 						? extensionAsInlineStyle
 						: oldExtensionAsInlineStyle),
+				fg('platform_forge_inline_bodied_macro') && [
+					migratedInlineBodiedFlowStyle,
+					forgeInlineBodiedSpacingStyle,
+				],
 				inlineExtensionRendererMarginFix,
 				allowNestedHeaderLinks &&
 					(expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 						? alignedHeadingAnchorStyle
 						: alignedHeadingAnchorStyleDuplicateAnchor),
 				mediaSingleSharedStyle,
-				// merge firstWrappedMediaStyles with mediaSingleSharedStyle when clean up platform_editor_fix_media_in_renderer
-				fg('platform_editor_fix_media_in_renderer') && firstWrappedMediaStyles,
+				firstWrappedMediaStyles,
 				tableSharedStyle,
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 					roundedTableOuterBorderOverlayStyles,
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-					fg('platform_editor_table_q4_patch_1') &&
 					roundedTableRemixBlockHighlightStyles,
-				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
-					(fg('platform_editor_table_renderer_fix_2')
-						? tableContentModeScopedStyles
-						: tableContentModeStyles),
-				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
-					fg('platform_editor_table_nested_renderer_fix') &&
-					tableContentModeNestedTableStyles,
+				tableContentModeScopedStyles,
+				isExperimentEnabled('platform_editor_table_fit_to_content_patch_2') &&
+					tableContentModeExtensionContainmentStyles,
+				tableContentModeNestedTableStyles,
 				tableRendererHeaderStylesForTableCellOnly,
 				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,
 				isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,
-				fg('platform_editor_nested_dnd_styles_changes')
-					? firstNodeWithNotMarginTopWithNestedDnD
-					: firstNodeWithNotMarginTop,
+				firstNodeWithNotMarginTopWithNestedDnD,
 				rendererTableStyles,
 				isStickyScrollbarOn && stickyScrollbarStyles,
 				isStickyScrollbarOn &&
-					expValEquals('platform_editor_table_css_overflow_shadow', 'isEnabled', true) &&
+					isExperimentEnabled('platform_editor_table_css_overflow_shadow') &&
 					stickyScrollbarOverflowShadowFixStyles,
 				rendererTableHeaderEqualHeightStylesForTableCellOnly,
 				allowColumnSorting && rendererTableSortableColumnStyles,
@@ -3443,17 +3508,11 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 						? denseStyles
 						: undefined,
 				contentMode === 'compact' ? scaledDenseUnicodeEmojiStylesNew : scaledUnicodeEmojiStylesNew,
-				editorExperiment('platform_synced_block', true) && syncBlockStyles,
+				syncBlockStyles,
 				centerWrapperStyles,
-				editorExperiment('platform_synced_block', true) && isInsideSyncBlock
-					? syncBlockRendererStyles
-					: null,
-				isInsideSyncBlock &&
-					editorExperiment('platform_synced_block', true) &&
-					tableFakeBorderStyles,
-				isInsideSyncBlock &&
-				editorExperiment('platform_synced_block', true) &&
-				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				isInsideSyncBlock ? syncBlockRendererStyles : null,
+				isInsideSyncBlock && tableFakeBorderStyles,
+				isInsideSyncBlock && expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 					? roundedTableFakeBorderOverlayStyles
 					: null,
 				expValEquals('platform_editor_hide_extension_renderer_support', 'isEnabled', true) &&

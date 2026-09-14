@@ -1,5 +1,552 @@
 # @atlaskit/profilecard
 
+## 26.23.0
+
+### Minor Changes
+
+- [`1a3f7d6aa71c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a3f7d6aa71c6) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.22.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.22.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.22.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.22.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.22.0
+
+### Minor Changes
+
+- [`a75866f802a52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a75866f802a52) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.18
+
+### Patch Changes
+
+- [`58af51ca2cc2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58af51ca2cc2f) -
+  Add agent profile card to mention typeahead in Jira
+- Updated dependencies
+
+## 26.21.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.16
+
+### Patch Changes
+
+- [`766f941b7b2f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/766f941b7b2f1) -
+  Clean up rovo_display_ai_disclaimer_on_agent_profile_card feature gate, removing the gate guard
+  and always rendering the AI disclaimer.
+- Updated dependencies
+
+## 26.21.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.11
+
+### Patch Changes
+
+- [`c374b65f351df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c374b65f351df) -
+  Use valid description-list semantics for profile card details.
+
+## 26.21.10
+
+### Patch Changes
+
+- [`8b220717b7168`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b220717b7168) -
+  Cleanup feature gate `rovo_display_ai_disclaimer_on_agent_profile_card`. The Atlassian
+  Intelligence disclaimer is now always rendered on the agent profile card unless `hideAiDisclaimer`
+  is set.
+- Updated dependencies
+
+## 26.21.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.6
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+- Updated dependencies
+
+## 26.21.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.4
+
+### Patch Changes
+
+- [`fae8a219d2b64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae8a219d2b64) -
+  Cleanup feature gate `profilecard_scoped_profile_atl_attribution`. The scoped profile
+  `atl-attribution` header is now always sent on AGG user queries when a `cloudId` is provided.
+
+## 26.21.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.21.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.20.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.20.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.20.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.20.0
+
+### Minor Changes
+
+- [`896c3709885d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/896c3709885d0) -
+  Apply the Volt one-export-per-file standard via `volt-migrate-package` to `@atlaskit/profilecard`.
+  The package `exports` map grew from 30 to 35 subpaths: no subpath was removed, two were retargeted
+  off the `./src/entry-points/*` indirection onto the modules that own the code, and five are new.
+  Multi-export modules were split one export per file, with the old paths kept as `@deprecated`
+  re-export shims; VOLTC-139 tracks their removal.
+
+  ### No public API was removed
+
+  Every symbol reachable through a subpath before this change is still reachable through the same
+  subpath, including the two that were previously served by `./src/entry-points/*`:
+
+  ```ts
+  import { ProfileClient } from '@atlaskit/profilecard/profile-card-client';
+  import { TeamProfileCardWithContainer } from '@atlaskit/profilecard/main';
+
+  const client = new ProfileClient({ cloudId: 'my-cloud-id' });
+  ```
+
+  `ProfileClient` is now a `@deprecated` alias of `ProfileCardClient`; prefer the new name.
+
+  ### A few subpaths now expose additional symbols
+  - `./profile-card-client` — `ProfileCardClient`, `TeamCentralScopes`, and a default export
+    (previously this subpath exposed only `ProfileClient`)
+  - `./main` — `TeamProfileCard`, `TeamProfileCardProps`
+  - `./team-profile-card/main` — `TeamProfileCardWithContainer`
+
+  And five new subpaths, four of them hoisted internals that exist so two split modules can share
+  one declaration. They are not intended for consumer use:
+  - `./profilecard-internal` — `ProfilecardInternal`
+  - `./loading-view` — `LoadingView`
+  - `./modify-response` — `modifyResponse`
+  - `./build-agg-user-query` — `buildAggUserQuery`
+
+  The fifth closes a pre-existing gap — the package's root default export had no subpath of its own:
+  - `./profile-card-resourced` — `ProfileCardResourcedInternal` and a default export
+
+  ### Note for consumers that mock these modules
+
+  `ProfilecardInternal`, `LoadingView`, `modifyResponse` and `buildAggUserQuery` now live in their
+  own modules and are re-exported from their previous homes (`./profile-card`, `./client`,
+  `./user-profile-card-client`). A `jest.mock()` of the old subpath still intercepts, but a
+  `jest.spyOn(...)` against it no longer does, because the binding is now a re-export rather than a
+  local declaration. Mock or spy on the module that now owns the export instead:
+
+  ```ts
+  jest.mock('@atlaskit/profilecard/modify-response', () => ({
+  	modifyResponse: jest.fn(),
+  }));
+  ```
+
+  ### Internal-only renames
+  - `src/client/errorUtils.ts` → `src/client/getErrorAttributes.ts`
+  - `src/mocks/util.ts` → `src/mocks/get-time-string.ts`
+  - `src/util/errors.ts` split into `src/util/HttpError.ts`, `src/util/AGGError.ts`,
+    `src/util/AGGErrors.ts`, `src/util/DirectoryGraphQLError.ts` and
+    `src/util/DirectoryGraphQLErrors.ts`
+  - the private barrels `src/components/Error/index.ts`, `src/components/Icon/index.ts` and
+    `src/components/team-profile-card/index.ts` were deleted
+
+  None of these paths are reachable through the `exports` map. No behaviour change.
+
+## 26.19.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.6
+
+### Patch Changes
+
+- [`df08d54a9f502`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df08d54a9f502) -
+  Cleanup feature gate `jira_ai_fix_agent_profile_card_flashing`. The Rovo agent AGG query and the
+  reduced hover delay for externally controlled profile cards are now always on.
+- Updated dependencies
+
+## 26.19.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.19.0
+
+### Minor Changes
+
+- [`c595edf05d60e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c595edf05d60e) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.10
+
+### Patch Changes
+
+- [`4cfb0dc4af9ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cfb0dc4af9ac) -
+  Clean up experiment jira_hide_conversations_for_jca
+- Updated dependencies
+
+## 26.18.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.18.0
+
+### Minor Changes
+
+- [`6997a74055219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6997a74055219) -
+  Add profile card on hover in the mentions typeahead for agent mentions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.17.2
+
+### Patch Changes
+
+- [`f89e6f648b1fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f89e6f648b1fc) -
+  Improve profile card accessibility
+- Updated dependencies
+
+## 26.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.17.0
+
+### Minor Changes
+
+- [`68e50c0e75e2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68e50c0e75e2f) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.16.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.16.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.16.0
+
+### Minor Changes
+
+- [`0c654d38d0c39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c654d38d0c39) -
+  Cleanup feature gate fix_aria_attribute_violation_on_agent_card_trigger
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.15.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.15.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+- [`fcad5db87cc77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcad5db87cc77) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.14.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.14.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.14.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.14.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.14.4
+
+### Patch Changes
+
+- [`343e7e73fbeab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/343e7e73fbeab) -
+  `AgentProfileCard`: add fallback bottom padding when `hideAgentActions` is set so the last body
+  element doesn't butt into the card's rounded bottom corner. Gated behind the
+  `jira_agent_recommendations_m1` experiment; behaviour is unchanged for existing consumers.
+- Updated dependencies
+
 ## 26.14.3
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import type {
 	ExtensionFrameDefinition,
 	MultiBodiedExtensionDefinition,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/multi-bodied-extension';
 export const bodiedExtension =
 	(attrs: MultiBodiedExtensionDefinition['attrs']) =>
 	(...content: Array<ExtensionFrameDefinition>): MultiBodiedExtensionDefinition => ({

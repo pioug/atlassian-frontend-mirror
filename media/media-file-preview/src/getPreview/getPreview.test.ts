@@ -1,47 +1,8 @@
 import { type MediaClient, type MediaStoreGetFileImageParams } from '@atlaskit/media-client';
 
-import { extractCdnSigningParams, getSSRPreview } from './getPreview';
+import { getSSRPreview } from './getSSRPreview';
 
-describe('extractCdnSigningParams', () => {
-	const baseUrl = 'https://media-cdn.atlassian.com/file/abc123/preview';
-
-	it('extracts the full set of CDN signing params from a pre-signed CDN URL', () => {
-		const cdnUrl = `${baseUrl}?token=signed-token&Policy=POLICY&Key-Pair-Id=KEY&Signature=SIG&Expires=12345`;
-
-		expect(extractCdnSigningParams(cdnUrl)).toEqual({
-			token: 'signed-token',
-			Policy: 'POLICY',
-			'Key-Pair-Id': 'KEY',
-			Signature: 'SIG',
-			Expires: '12345',
-		});
-	});
-
-	it('only includes signing params present on the URL (missing keys are absent from the result)', () => {
-		const cdnUrl = `${baseUrl}?token=t&Signature=s`;
-
-		expect(extractCdnSigningParams(cdnUrl)).toEqual({
-			token: 't',
-			Signature: 's',
-		});
-	});
-
-	it('ignores non-signing params (width / height / mode / collection / source / etc.)', () => {
-		const cdnUrl = `${baseUrl}?token=t&width=100&height=100&mode=crop&collection=foo&source=bar`;
-
-		expect(extractCdnSigningParams(cdnUrl)).toEqual({ token: 't' });
-	});
-
-	it('returns {} on a malformed URL', () => {
-		expect(extractCdnSigningParams('not-a-url')).toEqual({});
-	});
-
-	it('returns {} when no signing params are present', () => {
-		expect(extractCdnSigningParams(`${baseUrl}?width=100`)).toEqual({});
-	});
-});
-
-describe('getSSRPreview — cdnSigningParams overlay', () => {
+describe('getSSRPreview — seededCdnUrl', () => {
 	const id = 'file-id';
 	const params: MediaStoreGetFileImageParams = {
 		width: 100,
@@ -49,88 +10,57 @@ describe('getSSRPreview — cdnSigningParams overlay', () => {
 		mode: 'crop',
 		collection: 'collection-id',
 	};
-	// `getImageUrlSync` already returns a media-cdn URL when CDN delivery is enabled
-	// upstream; for the unit test we mock it to return a URL with a regular auth
-	// token, then verify the signing params are overlaid on top.
-	const baseUrl =
-		'https://media-cdn.atlassian.com/file/file-id/image?width=100&height=100&token=auth-token';
+	const seededCdnUrl =
+		'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/file-id/image?token=cdn-token&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy&Key-Pair-Id=key&Signature=signature';
 
 	const buildClient = () =>
 		({
-			getImageUrlSync: jest.fn(() => baseUrl),
+			getImageUrlSync: jest.fn(
+				(_id: string, imageParams: MediaStoreGetFileImageParams, seed?: string) =>
+					`${seed ?? 'https://media.example/image'}&width=${imageParams.width}&height=${imageParams.height}`,
+			),
 			getClientIdSync: jest.fn(() => undefined),
 		}) as unknown as MediaClient;
 
-	it('overlays the cdn signing params onto the URL produced by getImageUrlSync', () => {
+	it('forwards the complete seeded CDN URL to getImageUrlSync', () => {
 		const mediaClient = buildClient();
-		const cdnSigningParams = {
-			token: 'cdn-signed-token',
-			Policy: 'P',
-			'Key-Pair-Id': 'KEY',
-			Signature: 'SIG',
-		};
 
-		const preview = getSSRPreview('server', mediaClient, id, params, undefined, cdnSigningParams);
+		getSSRPreview('server', mediaClient, id, params, undefined, seededCdnUrl);
 
-		const url = new URL(preview.dataURI);
-		// Signing params overwrite the auth token (set-on-collision).
-		expect(url.searchParams.get('token')).toBe('cdn-signed-token');
-		expect(url.searchParams.get('Policy')).toBe('P');
-		expect(url.searchParams.get('Key-Pair-Id')).toBe('KEY');
-		expect(url.searchParams.get('Signature')).toBe('SIG');
-		// Image params built by getImageUrlSync are preserved.
-		expect(url.searchParams.get('width')).toBe('100');
-		expect(url.searchParams.get('height')).toBe('100');
+		expect(mediaClient.getImageUrlSync).toHaveBeenCalledWith(id, params, seededCdnUrl);
 	});
 
-	it('overlays cdn signing params onto BOTH the 1x and 2x srcSet entries', () => {
+	it('uses the same seed with doubled dimensions for the 2x srcSet entry', () => {
 		const mediaClient = buildClient();
-		(mediaClient.getImageUrlSync as jest.Mock).mockImplementation(
-			(_id, p: MediaStoreGetFileImageParams) =>
-				`https://media-cdn.atlassian.com/file/file-id/image?width=${p.width}&height=${p.height}&token=auth-token`,
+
+		const preview = getSSRPreview('server', mediaClient, id, params, undefined, seededCdnUrl);
+
+		expect(mediaClient.getImageUrlSync).toHaveBeenNthCalledWith(1, id, params, seededCdnUrl);
+		expect(mediaClient.getImageUrlSync).toHaveBeenNthCalledWith(
+			2,
+			id,
+			{ ...params, width: 200, height: 200 },
+			seededCdnUrl,
 		);
-
-		const preview = getSSRPreview('server', mediaClient, id, params, undefined, {
-			token: 'cdn-signed-token',
-		});
-
-		expect(preview.srcSet).toBeDefined();
-		const [oneX, twoX] = (preview.srcSet as string).split(', ');
-		expect(oneX).toContain('width=100');
-		expect(oneX).toContain('token=cdn-signed-token');
-		expect(oneX).toContain('1x');
-		expect(twoX).toContain('width=200');
-		expect(twoX).toContain('height=200');
-		expect(twoX).toContain('token=cdn-signed-token');
-		expect(twoX).toContain('2x');
+		expect(preview.srcSet).toContain('1x');
+		expect(preview.srcSet).toContain('2x');
 	});
 
-	it('is a no-op when cdnSigningParams is undefined (existing getSSRPreview behaviour preserved)', () => {
+	it('passes undefined when no seeded CDN URL is provided', () => {
 		const mediaClient = buildClient();
 
-		const preview = getSSRPreview('server', mediaClient, id, params);
+		getSSRPreview('server', mediaClient, id, params);
 
-		const url = new URL(preview.dataURI);
-		// auth token from the mocked getImageUrlSync stays untouched.
-		expect(url.searchParams.get('token')).toBe('auth-token');
+		expect(mediaClient.getImageUrlSync).toHaveBeenCalledWith(id, params, undefined);
 	});
 
-	it('is a no-op when cdnSigningParams is an empty object', () => {
+	it("tags source 'ssr-client' when ssr is client and 'ssr-server' otherwise", () => {
 		const mediaClient = buildClient();
 
-		const preview = getSSRPreview('server', mediaClient, id, params, undefined, {});
-
-		const url = new URL(preview.dataURI);
-		expect(url.searchParams.get('token')).toBe('auth-token');
-	});
-
-	it("tags source 'ssr-client' when ssr === 'client', else 'ssr-server' (unchanged)", () => {
-		const mediaClient = buildClient();
-
-		expect(getSSRPreview('client', mediaClient, id, params, undefined, { token: 't' }).source).toBe(
+		expect(getSSRPreview('client', mediaClient, id, params, undefined, seededCdnUrl).source).toBe(
 			'ssr-client',
 		);
-		expect(getSSRPreview('server', mediaClient, id, params, undefined, { token: 't' }).source).toBe(
+		expect(getSSRPreview('server', mediaClient, id, params, undefined, seededCdnUrl).source).toBe(
 			'ssr-server',
 		);
 	});

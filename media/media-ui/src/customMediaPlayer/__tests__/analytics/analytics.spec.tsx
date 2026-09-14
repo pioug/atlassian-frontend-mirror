@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
 import { act } from 'react';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { asMock } from '@atlaskit/media-common/test-helpers';
-import { renderWithIntl } from '../../../test-helpers';
-import { type WidthObserver } from '@atlaskit/width-detector';
-import MediaPlayer, { type VideoProps, type VideoState } from '../../react-video-renderer';
+import { renderWithIntl } from '../../../test-helpers/renderWithIntl';
+import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
+import {
+	type VideoProps,
+	type VideoState,
+	Video as MediaPlayer,
+} from '../../react-video-renderer/video';
 
-import { CustomMediaPlayer, type CustomMediaPlayerProps } from '../..';
+import { CustomMediaPlayer } from '../..';
+import { type CustomMediaPlayerProps } from '../../index-compiled';
 
 type mockWidthObserver = typeof WidthObserver;
 
-jest.mock('@atlaskit/width-detector', () => {
-	return {
-		WidthObserver: ((_props) => {
-			return null;
-		}) as mockWidthObserver,
-	};
-});
+jest.mock('@atlaskit/width-detector/width-observer', () => ({
+	...jest.requireActual('@atlaskit/width-detector/width-observer'),
+	WidthObserver: ((_props) => {
+		return null;
+	}) as mockWidthObserver,
+}));
 
-jest.mock('../../react-video-renderer', () => ({
+jest.mock('../../react-video-renderer/video', () => ({
 	__esModule: true,
-	default: jest.fn(),
+	Video: jest.fn(),
 }));
 
 const MOCK_DURATION = 100;
@@ -101,7 +105,7 @@ describe('CustomMediaPlayer Analytics', () => {
 			fileId: 'some-file-id',
 		});
 
-		expect(onAnalyticsEvent).toBeCalledWith(
+		expect(onAnalyticsEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
 				payload: {
 					eventType: 'screen',

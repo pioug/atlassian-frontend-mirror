@@ -6,14 +6,14 @@ import React, { useCallback, useRef } from 'react';
 
 import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar/avatar-context';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { expandableMenuItemIndentation } from './constants';
 import { DragHandle } from './drag-handle/drag-handle';
@@ -198,6 +198,12 @@ const containerStyles = cssMap({
 			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
 		},
 	},
+	// platform-dst-tokens-finesse cleanup: merge into root after rollout.
+	rootFinesse: {
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+	},
 	rootMotion: {
 		transition: token('motion.listitem.hovered'),
 		'&:hover': {
@@ -275,6 +281,13 @@ const nestedOpenPopupStyles = cssMap({
 			backgroundColor: token('elevation.surface.hovered'),
 		},
 	},
+	// platform-dst-tokens-finesse cleanup: merge into root after rollout.
+	rootFinesse: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[nestedOpenPopupCSSSelector]: {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+	},
 	removeElemAfterOnHoverOrOpenNestedPopup: {
 		// If there is a nested open popup, and both `actionsOnHover` and `elemAfter` exist, we want to hide the `elemAfter`.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -322,6 +335,13 @@ const buttonOrAnchorStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:active:not(:disabled)': {
 			backgroundColor: token('elevation.surface.pressed'),
+		},
+	},
+	// platform-dst-tokens-finesse cleanup: merge into root after rollout.
+	rootFinesse: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:active:not(:disabled)': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 	},
 	rootMotion: {
@@ -604,6 +624,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 	const setFlyoutMenuOpen = useSetFlyoutMenuOpen();
 	const isFlyoutMenuOpen = useFlyoutMenuOpen();
 	const isLink = typeof href !== 'undefined';
+	const isFinesseEnabled = fg('platform-dst-tokens-finesse');
 	const labelRef = useRef<T | null>(null);
 	const descriptionRef = useRef<T | null>(null);
 	const tooltipOnClick = useRef<React.MouseEventHandler<HTMLElement> | null>(null);
@@ -715,6 +736,8 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 					containerStyles.root,
 					fg('platform-dst-motion-uplift-list-item') && containerStyles.rootMotion,
 					nestedOpenPopupStyles.root,
+					isFinesseEnabled && containerStyles.rootFinesse,
+					isFinesseEnabled && nestedOpenPopupStyles.rootFinesse,
 					fg('platform-dst-shape-theme-default') && containerStyles.rootT26Shape,
 					isSelected && containerStyles.selected,
 					isSelected &&
@@ -782,6 +805,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 									buttonOrAnchorStyles.root,
 									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
 									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
+									isFinesseEnabled && buttonOrAnchorStyles.rootFinesse,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
 									isSelected &&
@@ -829,6 +853,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 									buttonOrAnchorStyles.root,
 									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
 									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
+									isFinesseEnabled && buttonOrAnchorStyles.rootFinesse,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
 									isSelected &&

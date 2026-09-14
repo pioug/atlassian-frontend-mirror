@@ -16,10 +16,10 @@ import {
 	SortDescendingIcon,
 	ToolbarDropdownItem,
 } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { sortColumnWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
@@ -27,10 +27,6 @@ import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
 const styles = cssMap({
-	// Mimics the disabled text appearance while keeping the menu item interactive.
-	disabledLabel: {
-		color: token('color.text.disabled'),
-	},
 	// Wrapper around the info icon so it provides a stable tooltip trigger and
 	// a comfortable hover target.
 	infoIconTrigger: {
@@ -84,9 +80,7 @@ export const SortDecreasingItem = ({ api }: TableMenuComponentsParams): React.JS
 					</Tooltip>
 				}
 			>
-				<Box as="span" xcss={styles.disabledLabel}>
-					{formatMessage(messages.sortColumnDecreasing)}
-				</Box>
+				<Text color="color.text.disabled">{formatMessage(messages.sortColumnDecreasing)}</Text>
 			</ToolbarDropdownItem>
 		);
 	}

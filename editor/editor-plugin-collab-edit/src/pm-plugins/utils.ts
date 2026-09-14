@@ -1,4 +1,6 @@
-import { AnalyticsStep, BatchAttrsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
+import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
@@ -12,10 +14,11 @@ import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import { Transaction, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { AttrStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { getParticipantColor } from '@atlaskit/editor-shared-styles';
+import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { preserveNodeIdentity } from './preserve-node-identity';
@@ -34,12 +37,18 @@ function style(options: { color: string }) {
 	return `border-right: ${borderWidth} solid ${color}; margin-right: calc(-1 * ${borderWidth}); z-index: 1`;
 }
 
-export function getAvatarColor(str: string): {
+export function getAvatarColor(
+	str: string,
+	agentType?: string,
+): {
 	backgroundColor: string;
 	index: number;
 	textColor: string;
 } {
-	const participantColor = getParticipantColor(str);
+	const participantColor = getParticipantColor(
+		str,
+		fg('confluence_ncs_step_diffing_version_history') ? agentType : undefined,
+	);
 
 	return {
 		index: participantColor.index,
@@ -57,9 +66,10 @@ export const createTelepointers = (
 	presenceId: string,
 	fullName: string,
 	isNudged: boolean,
+	agentType?: string,
 ): Decoration[] => {
 	const decorations: Decoration[] = [];
-	const avatarColor = getAvatarColor(presenceId);
+	const avatarColor = getAvatarColor(presenceId, agentType);
 	const color = avatarColor.index.toString();
 	if (isSelection) {
 		const className = `telepointer color-${color} telepointer-selection`;

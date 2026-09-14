@@ -1,21 +1,20 @@
 import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	useProviderFactory,
 	useProviderLayout,
 	type MediaProvider as EditorMediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaSSR } from '../../types/mediaOptions';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const getMediaClientConfigForRenderer = (provider: EditorMediaProvider): MediaClientConfig => {
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-	return provider.viewAndUploadMediaClientConfig &&
-		fg('platform_media_video_captions') &&
-		fg('platform_editor_video_caption_commit')
+	return provider.viewAndUploadMediaClientConfig && fg('platform_media_video_captions')
 		? provider.viewAndUploadMediaClientConfig
 		: provider.viewMediaClientConfig;
 };
@@ -25,9 +24,7 @@ export const EditorMediaClientProvider = ({
 	ssr,
 }: React.PropsWithChildren<{ ssr?: MediaSSR }>): React.JSX.Element => {
 	const [mediaClientConfig, setMediaClientConfig] = useState<MediaClientConfig | undefined>(() =>
-		expValEquals('platform_editor_media_reliability_enhancements', 'isEnabled', true)
-			? ssr?.config
-			: undefined,
+		isExperimentEnabled('platform_editor_media_reliability_enhancements') ? ssr?.config : undefined,
 	);
 
 	const providerFactory = useProviderFactory();
@@ -47,11 +44,7 @@ export const EditorMediaClientProvider = ({
 	 *
 	 * hasProvider() is synchronous and correct from render 1, closing that window.
 	 */
-	const shouldSkipContext = expValEquals(
-		'platform_editor_media_reliability_enhancements',
-		'isEnabled',
-		true,
-	)
+	const shouldSkipContext = isExperimentEnabled('platform_editor_media_reliability_enhancements')
 		? Boolean(ssr?.config || providerFactory.hasProvider('mediaProvider') || mediaProvider)
 		: Boolean(ssr?.config || mediaProvider);
 
@@ -81,7 +74,7 @@ export const EditorMediaClientProvider = ({
 	// The two hooks below are mutually exclusive — only one runs per render — so there is no
 	// actual chaining of state updates at runtime. The lint rule cannot statically prove this.
 	useEffect(() => {
-		if (!expValEquals('platform_editor_media_reliability_enhancements', 'isEnabled', true)) {
+		if (!isExperimentEnabled('platform_editor_media_reliability_enhancements')) {
 			return;
 		}
 		if (ssr?.config) {
@@ -107,7 +100,7 @@ export const EditorMediaClientProvider = ({
 	// Legacy path (experiment off): keep useLayoutEffect to preserve existing behaviour.
 	// remove this when clean up platform_editor_media_reliability_enhancements
 	useLayoutEffect(() => {
-		if (expValEquals('platform_editor_media_reliability_enhancements', 'isEnabled', true)) {
+		if (isExperimentEnabled('platform_editor_media_reliability_enhancements')) {
 			return;
 		}
 		if (ssr?.config) {

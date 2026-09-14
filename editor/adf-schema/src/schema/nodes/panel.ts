@@ -1,27 +1,21 @@
+/* eslint-disable @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated compatibility re-export shims. */
+import type { BreakoutMarkDefinition } from '../marks';
+import type { BlockCardDefinition as BlockCard } from './block-card';
+import type { CodeBlockDefinition as CodeBlock } from './code-block';
+import type { DecisionListDefinition as DecisionList } from './decision-list';
+import type { HeadingDefinition as Heading } from './heading';
+import type { MediaGroupDefinition as MediaGroup } from './media-group';
+import type { MediaSingleDefinition as MediaSingle } from './media-single';
 import type { ParagraphDefinition as Paragraph } from './paragraph';
+import type { RuleDefinition as Rule } from './rule';
+import type { BodiedRuleDefinition as BodiedRule } from './bodied-rule';
+import type { TableDefinition as Table } from './tableNodes';
+import type { TaskListDefinition as TaskList } from './task-list';
 import type {
 	OrderedListDefinition as OrderedList,
 	BulletListDefinition as BulletList,
 } from './types/list';
-import type { HeadingDefinition as Heading } from './heading';
-import type { BlockCardDefinition as BlockCard } from './block-card';
-import type { CodeBlockDefinition as CodeBlock } from './code-block';
-import type { MediaGroupDefinition as MediaGroup } from './media-group';
-import type { MediaSingleDefinition as MediaSingle } from './media-single';
-import type { DecisionListDefinition as DecisionList } from './decision-list';
-import type { TaskListDefinition as TaskList } from './task-list';
-import type { RuleDefinition as Rule } from './rule';
-import type { TableDefinition as Table } from './tableNodes';
-import type { NodeSpecOptions } from '../createPMSpecFactory';
-import type { BreakoutMarkDefinition } from '../marks';
 import type { MarksObject } from './types/mark';
-import type { PanelNode, PanelC1Node } from '../../next-schema/generated/nodeTypes';
-import {
-	panel as panelFactory,
-	panelC1 as panelC1Factory,
-} from '../../next-schema/generated/nodeTypes';
-import { uuid } from '../../utils/uuid';
-import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export enum PanelType {
 	INFO = 'info',
@@ -32,6 +26,7 @@ export enum PanelType {
 	SUCCESS = 'success',
 	CUSTOM = 'custom',
 }
+
 export interface PanelAttributes {
 	localId?: string;
 	panelColor?: string;
@@ -64,6 +59,7 @@ export interface PanelDefinition {
 		| DecisionList
 		| TaskList
 		| Rule
+		| BodiedRule
 	>;
 	type: 'panel';
 }
@@ -91,6 +87,7 @@ export interface PanelC1Definition {
 		| DecisionList
 		| TaskList
 		| Rule
+		| BodiedRule
 		| Table
 	>;
 	type: 'panel';
@@ -105,128 +102,28 @@ export interface DOMAttributes {
 	[propName: string]: string;
 }
 
-type ParseDOMAttrs = {
-	localId?: string;
-	panelColor?: string;
-	panelIcon?: string;
-	panelIconId?: string;
-	panelIconText?: string;
-	panelType: string;
-};
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { extendedPanel } from './extended-panel';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getDomAttrs = (nodeAttrs: { [key: string]: any }): DOMAttributes => {
-	const attrs: DOMAttributes = {
-		'data-panel-type': nodeAttrs.panelType,
-		'data-panel-icon': nodeAttrs.panelIcon,
-		'data-panel-icon-id': nodeAttrs.panelIconId,
-		'data-panel-icon-text': nodeAttrs.panelIconText,
-		'data-panel-color': nodeAttrs.panelColor,
-		'data-local-id': nodeAttrs?.localId || undefined,
-	};
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { extendedPanelWithLocalId } from './extended-panel-with-local-id';
 
-	return attrs;
-};
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { extendedPanelC1 } from './extended-panel-c1';
 
-const getParseDOMAttrs = (
-	allowCustomPanel: boolean,
-	dom: string | globalThis.Node,
-	generateLocalId?: boolean,
-): ParseDOMAttrs => {
-	let parseDOMAttrs: ParseDOMAttrs = {
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting, @typescript-eslint/no-non-null-assertion
-		panelType: (dom as HTMLElement).getAttribute('data-panel-type')!,
-	};
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { extendedPanelC1WithLocalId } from './extended-panel-c1-with-local-id';
 
-	if (generateLocalId) {
-		parseDOMAttrs.localId = uuid.generate();
-	}
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { extendedPanelRootOnlyStage0 } from './extended-panel-root-only-stage0';
 
-	if (allowCustomPanel) {
-		parseDOMAttrs = {
-			...parseDOMAttrs,
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting, @typescript-eslint/no-non-null-assertion
-			panelIcon: (dom as HTMLElement).getAttribute('data-panel-icon')!,
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting, @typescript-eslint/no-non-null-assertion
-			panelIconId: (dom as HTMLElement).getAttribute('data-panel-icon-id')!,
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting, @typescript-eslint/no-non-null-assertion
-			panelIconText: (dom as HTMLElement).getAttribute('data-panel-icon-text')!,
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting, @typescript-eslint/no-non-null-assertion
-			panelColor: (dom as HTMLElement).getAttribute('data-panel-color')!,
-		};
-	} else {
-		parseDOMAttrs.panelType =
-			parseDOMAttrs.panelType === PanelType.CUSTOM ? PanelType.INFO : parseDOMAttrs.panelType;
-	}
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { extendedPanelC1RootOnlyStage0 } from './extended-panel-c1-root-only-stage0';
 
-	return parseDOMAttrs;
-};
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { createPanelNodeSpecOptions } from './create-panel-node-spec-options';
 
-const createPanelNodeSpecOptions: (
-	allowCustomPanel: boolean,
-	generateLocalId?: boolean,
-) => NodeSpecOptions<PanelNode | PanelC1Node> = (allowCustomPanel, generateLocalId) => ({
-	parseDOM: [
-		{
-			tag: 'div[data-panel-type]',
-			getAttrs: (dom) => getParseDOMAttrs(allowCustomPanel, dom, generateLocalId),
-		},
-	],
-	toDOM(node) {
-		const attrs: DOMAttributes = getDomAttrs(node.attrs);
-
-		const contentAttrs: Record<string, string> = {
-			'data-panel-content': 'true',
-		};
-
-		return ['div', attrs, ['div', contentAttrs, 0]];
-	},
-});
-
-/**
- * @name extended_panel
- *
- * it allows more content to be nested as compared to panel node.
- * Specifically, it allows Media, action, code-block, rule and decision nodes in
- * addition to content allowed inside panel
- */
-export const extendedPanel = (allowCustomPanel: boolean): NodeSpec =>
-	panelFactory(createPanelNodeSpecOptions(allowCustomPanel));
-
-export const extendedPanelWithLocalId = (allowCustomPanel: boolean): NodeSpec =>
-	panelFactory(createPanelNodeSpecOptions(allowCustomPanel, true));
-
-/**
- * @name extended_panel_c1
- *
- * Depth-level-1 variant of panel. Allows all standard panel content
- * plus table nodes. Derives its parseDOM/toDOM behaviour from the same
- * createPanelNodeSpecOptions helper as extendedPanel so that allowCustomPanel
- * and generateLocalId propagate identically.
- */
-export const extendedPanelC1 = (allowCustomPanel: boolean): NodeSpec =>
-	panelC1Factory(createPanelNodeSpecOptions(allowCustomPanel));
-
-export const extendedPanelC1WithLocalId = (allowCustomPanel: boolean): NodeSpec =>
-	panelC1Factory(createPanelNodeSpecOptions(allowCustomPanel, true));
-
-/**
- * @name extended_panel_root_only
- */
-export const extendedPanelRootOnlyStage0 = (allowCustomPanel: boolean): NodeSpec => {
-	const panelNodeSpec = extendedPanelWithLocalId(allowCustomPanel);
-
-	return {
-		...panelNodeSpec,
-		marks: `breakout ${panelNodeSpec.marks}`,
-	};
-};
-
-export const extendedPanelC1RootOnlyStage0 = (allowCustomPanel: boolean): NodeSpec => {
-	const panelNodeSpec = extendedPanelC1WithLocalId(allowCustomPanel);
-
-	return {
-		...panelNodeSpec,
-		marks: `breakout ${panelNodeSpec.marks}`,
-	};
-};
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { getDomAttrs } from './get-dom-attrs';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { getParseDOMAttrs } from './get-parse-dom-attrs';

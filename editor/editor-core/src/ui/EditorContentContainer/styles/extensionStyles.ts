@@ -5,7 +5,6 @@ import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
 import type { EditorContentMode } from '@atlaskit/editor-common/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -370,6 +369,37 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.bodiedExtensionView-content-wrap': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.bodiedExtension-content-outer-wrapper': {
+				margin: '23px -1px -1px -1px', // Reserve space for lozenge (24px) then subtract 1px to account for the border of the inner wrapper preventing layoutshift
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.bodiedExtension-content-inner-wrapper': {
+				margin: `0 ${token('space.negative.250')}`,
+				padding: `${token('space.200')} ${token('space.250')}`,
+				border: `${token('border.width')} solid ${token('color.border')}`,
+				borderRadius: token('radius.small', '3px'),
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.extension-container': {
+				// Remove styling when Prosemirror moves content inside
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.bodiedExtension-content-outer-wrapper': {
+					margin: '0',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.bodiedExtension-content-inner-wrapper': {
+					margin: 0,
+					padding: 0,
+					border: 'none',
+					borderRadius: 0,
+				},
+			},
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		"[data-mark-type='fragment']": {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
@@ -437,47 +467,8 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 						},
 				})
 			: css({});
-	const bodiedExtensionLayoutShiftFixStyles = expValEquals(
-		'platform_editor_bodiedextension_layoutshift_fix',
-		'isEnabled',
-		true,
-	)
-		? css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.bodiedExtensionView-content-wrap': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'.bodiedExtension-content-outer-wrapper': {
-						margin: '23px -1px -1px -1px', // Reserve space for lozenge (24px) then subtract 1px to account for the border of the inner wrapper preventing layoutshift
-					},
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'.bodiedExtension-content-inner-wrapper': {
-						margin: `0 ${token('space.negative.250')}`,
-						padding: `${token('space.200')} ${token('space.250')}`,
-						border: `${token('border.width')} solid ${token('color.border')}`,
-						borderRadius: token('radius.small', '3px'),
-					},
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'.extension-container': {
-						// Remove styling when Prosemirror moves content inside
-
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-						'.bodiedExtension-content-outer-wrapper': {
-							margin: '0',
-						},
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-						'.bodiedExtension-content-inner-wrapper': {
-							margin: 0,
-							padding: 0,
-							border: 'none',
-							borderRadius: 0,
-						},
-					},
-				},
-			})
-		: css({});
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	return css(baseExtensionStyles, denseExtensionStyles, bodiedExtensionLayoutShiftFixStyles);
+	return css(baseExtensionStyles, denseExtensionStyles);
 };
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css

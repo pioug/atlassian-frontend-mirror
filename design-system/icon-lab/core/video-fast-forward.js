@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2e95c7129036371722fe7e1d41fbe4d7>>
+ * @codegen <<SignedSource::4715cd8f420896d7530373ad1bf37b19>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "VideoFastForward".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const VideoFastForwardIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const VideoFastForwardIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "VideoFastForwardIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M7.999 5.126c0-.982.987-1.622 1.863-1.285l.173.08 5.251 2.876a1.373 1.373 0 0 1 0 2.408l-5.25 2.876a1.376 1.376 0 0 1-2.037-1.205V8.03c-.01.462-.247.92-.713 1.175l-5.25 2.876A1.375 1.375 0 0 1 0 10.876v-5.75c0-.981.986-1.622 1.862-1.285l.174.08 5.25 2.876c.465.254.702.71.713 1.171zM1.5 10.664 6.362 8 1.5 5.337zm7.999 0L14.361 8 9.5 5.337z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

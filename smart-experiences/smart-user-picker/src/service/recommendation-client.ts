@@ -1,4 +1,4 @@
-import { type OptionData } from '@atlaskit/user-picker';
+import type { OptionData } from '@atlaskit/user-picker/types';
 
 import { transformUsers } from './users-transformer';
 import { config } from '../config';

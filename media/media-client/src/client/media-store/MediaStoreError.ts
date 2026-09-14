@@ -1,0 +1,37 @@
+import { BaseMediaClientError } from '../../models/errors/BaseMediaClientError';
+
+export class MediaStoreError extends BaseMediaClientError<
+	MediaStoreErrorReason,
+	undefined,
+	Error | undefined,
+	// TODO: Deprecate this https://product-fabric.atlassian.net/browse/CXP-4665
+	MediaStoreErrorAttributes
+> {
+	constructor(reason: MediaStoreErrorReason, innerError?: Error) {
+		super(reason, undefined, innerError);
+	}
+
+	// TODO: Deprecate this getter https://product-fabric.atlassian.net/browse/CXP-4665
+	/** Will be deprecated. Use the properties `reason` and `metadata` instead */
+	get attributes(): {
+		reason: MediaStoreErrorReason;
+		innerError: Error | undefined;
+	} {
+		const { reason, innerError } = this;
+		return {
+			reason,
+			innerError,
+		};
+	}
+}
+export type MediaStoreErrorReason =
+	| 'failedAuthProvider'
+	| 'tokenExpired'
+	| 'missingInitialAuth'
+	| 'emptyAuth'
+	| 'emptyClientId'
+	| 'authProviderTimedOut';
+export type MediaStoreErrorAttributes = {
+	readonly reason: MediaStoreErrorReason;
+	readonly innerError?: Error;
+};

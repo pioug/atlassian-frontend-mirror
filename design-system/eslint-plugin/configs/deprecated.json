@@ -304,6 +304,57 @@
 		},
 		"@atlaskit/side-navigation": {
 			"message": "Side navigation (Nav 3) is deprecated. Please use `@atlaskit/navigation-system` instead."
+		},
+		"@atlassian/preview-panel": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-action": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-action-group": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-body": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-expand": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-header": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-more-dropdown": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-new-tab-link": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panel/preview-panel-title": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panels-api": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panels-api/preview-panel-context": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panels-api/preview-panel-navigation": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panels-api/types": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panels-api/use-current-preview-panel": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panels-api/use-is-preview-panel-open": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/preview-panels-api/use-preview-panel-actions": {
+			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
 		}
 	}
 }

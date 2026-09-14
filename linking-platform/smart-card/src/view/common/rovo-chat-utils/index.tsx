@@ -6,7 +6,7 @@ import AiSearchIcon from '@atlaskit/icon-lab/core/ai-search';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import AiGenerativeTextSummaryIcon from '@atlaskit/icon/core/ai-generative-text-summary';
 import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
-import type { ProductType } from '@atlaskit/linking-common';
+import type { ProductType } from '@atlaskit/linking-common/types';
 import { RovoIcon } from '@atlaskit/logo';
 
 import { CardDisplay } from '../../../constants';
@@ -159,7 +159,7 @@ export const getPromptAction = ({
 			return {
 				icon:
 					cardAppearance === CardDisplay.Block && !!product && product === 'CONFLUENCE' ? (
-						<RovoIcon label={label_ask_rovo_anything} size={'xxsmall'} shouldUseHexLogo />
+						<RovoIcon label={label_ask_rovo_anything} size={'xxsmall'} />
 					) : (
 						<AISearchIcon />
 					),

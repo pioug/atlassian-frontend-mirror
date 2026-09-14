@@ -19,10 +19,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
 import type { Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaOptions } from '../types';
@@ -210,7 +210,7 @@ type MediaGroupProps = {
 	view: EditorView;
 } & WrappedComponentProps;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const MediaGroupNext: React.FC<
 	WithIntlProps<
 		{

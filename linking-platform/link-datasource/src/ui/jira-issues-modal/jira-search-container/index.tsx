@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
@@ -16,12 +17,15 @@ import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod, Site } from '../../../common/types';
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { basicSearchInputMessages } from '../../common/modal/basic-search-input/messages';
-import { ModeSwitcher, type ModeSwitcherPropsOption } from '../../common/modal/mode-switcher';
+import {
+	ModeSwitcher,
+	type ModeSwitcherPropsOption,
+} from '../../common/modal/mode-switcher/ModeSwitcher';
 import { FILTER_SELECTION_DEBOUNCE_MS } from '../../common/modal/popup-select/constants';
 import { type SelectOption } from '../../common/modal/popup-select/types';
-import { BasicFilters } from '../basic-filters';
 import { useHydrateJqlQuery } from '../basic-filters/hooks/useHydrateJqlQuery';
 import { type BasicFilterFieldType, type SelectedOptionsMap } from '../basic-filters/types';
+import { default as BasicFilters } from '../basic-filters/ui/index';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraJQLEditor } from '../jql-editor';
 import {

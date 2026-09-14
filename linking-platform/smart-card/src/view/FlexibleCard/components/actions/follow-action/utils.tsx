@@ -1,6 +1,6 @@
 import type { MessageDescriptor } from 'react-intl';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 import { messages } from '../../../../../messages';
 

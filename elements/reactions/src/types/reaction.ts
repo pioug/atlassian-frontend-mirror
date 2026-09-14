@@ -97,6 +97,21 @@ export type ReactionUpdateSuccess = (
 ) => void;
 
 /**
+ * Event handler that is invoked when a reaction update (add/remove) fails.
+ *
+ * @param {ReactionUpdateType} action - The action that was attempted on the reaction.
+ * @param ari - The ARI (Atlassian Resource Identifier) of the entity.
+ * @param emojiId - The ID of the emoji used in the reaction.
+ * @param error - The error raised by the underlying reaction service call.
+ */
+export type ReactionUpdateFailure = (
+	action: ReactionUpdateType,
+	ari: string,
+	emojiId: string,
+	error: unknown,
+) => void;
+
+/**
  * Condition of the reaction when gets loaded from the store
  */
 export enum ReactionStatus {

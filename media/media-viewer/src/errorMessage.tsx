@@ -1,35 +1,35 @@
 import React from 'react';
 import { type ReactNode } from 'react';
-import {
-	FormattedMessage,
-	injectIntl,
-	type MessageDescriptor,
-	type WrappedComponentProps,
-} from 'react-intl';
-import { messages as i18nMessages } from '@atlaskit/media-ui';
+
+import { FormattedMessage, type MessageDescriptor, type WrappedComponentProps } from 'react-intl';
+
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { type FileState } from '@atlaskit/media-client';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { ErrorMessageWrapper, ErrorImage } from './styleWrappers';
-import { errorLoadingFile } from './error-images';
-import { fireAnalytics } from './analytics';
-import {
-	type PrimaryErrorReason,
-	type SecondaryErrorReason,
-	type MediaViewerError,
-	getPrimaryErrorReason,
-	getSecondaryErrorReason,
-} from './errors';
+import { type MediaTraceContext } from '@atlaskit/media-common';
+import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import {
 	createLoadFailedEvent,
 	type LoadFailedEventPayload,
 } from './analytics/events/operational/loadFailed';
 import {
+	createPreviewTooLargeEvent,
+	type PreviewTooLargeEventPayload,
+} from './analytics/events/operational/previewTooLarge';
+import {
 	createPreviewUnsupportedEvent,
 	type PreviewUnsupportedEventPayload,
 } from './analytics/events/operational/previewUnsupported';
+import { fireAnalytics } from './analytics/fireAnalytics';
 import { failMediaFileUfoExperience, type UFOFailedEventPayload } from './analytics/ufoExperiences';
 import { type FileStateFlags } from './components/types';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { errorLoadingFile } from './error-images';
+import type { PrimaryErrorReason, SecondaryErrorReason } from './errors';
+import { getErrorMessageFromError } from './getErrorMessageFromError';
+import { getPrimaryErrorReason } from './getPrimaryErrorReason';
+import type { MediaViewerError } from './MediaViewerError';
+import { ErrorMessageWrapper, ErrorImage } from './styleWrappers';
 
 export type Props = Readonly<{
 	error: MediaViewerError;
@@ -66,15 +66,6 @@ export const errorReasonToMessages: Array<
 	['codeviewer-file-size-exceeds', i18nMessages.couldnt_load_file],
 ];
 
-export const getErrorMessageFromError = (
-	error: MediaViewerError,
-): MessageDescriptor | undefined => {
-	const matchingRow = errorReasonToMessages.find(
-		(row) => row[0] === getPrimaryErrorReason(error) || row[0] === getSecondaryErrorReason(error),
-	);
-	return matchingRow ? matchingRow[1] : undefined;
-};
-
 export class ErrorMessage extends React.Component<
 	Props & WrappedComponentProps & WithAnalyticsEventsProps,
 	{}
@@ -96,6 +87,17 @@ export class ErrorMessage extends React.Component<
 			return {
 				icon: errorLoadingFileImage(formatMessage),
 				messages: [i18nMessages.unsupported_file_format, i18nMessages.archive_format_not_supported],
+			};
+		}
+
+		// Code/text files (in the main viewer or inside a ZIP archive) over the
+		// CodeViewer's 10MB limit aren't a load failure - the file is simply too
+		// large for this viewer to preview. Show a dedicated "File is too large to
+		// preview" heading instead of the generic "Something went wrong" copy.
+		if (ErrorMessage.isPreviewTooLarge(error) && fg('platform_media_too_large_preview_state')) {
+			return {
+				icon: errorLoadingFileImage(formatMessage),
+				messages: [i18nMessages.file_too_large_to_preview, i18nMessages.file_too_large_description],
 			};
 		}
 
@@ -148,13 +150,31 @@ export class ErrorMessage extends React.Component<
 		return ErrorMessage.previewUnsupportedReasons.includes(getPrimaryErrorReason(error));
 	}
 
+	// Error reasons that mean the file exceeds the size limit supported by the
+	// browser-based viewer (not a load failure). These are reported as the
+	// informational, non-SLI `previewTooLarge` metric instead of `loadFailed`.
+	private static readonly previewTooLargeReasons: ReadonlyArray<PrimaryErrorReason> = [
+		'codeviewer-file-size-exceeds',
+		'archiveviewer-codeviewer-file-size-exceeds',
+	];
+
+	static isPreviewTooLarge(error: MediaViewerError): boolean {
+		return ErrorMessage.previewTooLargeReasons.includes(getPrimaryErrorReason(error));
+	}
+
 	static getEventPayload(
 		error: MediaViewerError,
 		fileId: string,
 		fileState?: FileState,
 		traceContext?: MediaTraceContext,
-	): PreviewUnsupportedEventPayload | LoadFailedEventPayload {
-		if (fileState && ErrorMessage.isPreviewUnsupported(error)) {
+	): PreviewUnsupportedEventPayload | PreviewTooLargeEventPayload | LoadFailedEventPayload {
+		if (
+			fileState &&
+			ErrorMessage.isPreviewTooLarge(error) &&
+			fg('platform_media_too_large_preview_state')
+		) {
+			return createPreviewTooLargeEvent(error, fileState);
+		} else if (fileState && ErrorMessage.isPreviewUnsupported(error)) {
 			// this is not an SLI (load failure), its just a useful metric for files
 			// whose format the browser-based viewer can't preview.
 			return createPreviewUnsupportedEvent(fileState);
@@ -183,9 +203,3 @@ export class ErrorMessage extends React.Component<
 		);
 	}
 }
-
-// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-const ErroMsg: React.ComponentType<Props & WithAnalyticsEventsProps> = withAnalyticsEvents()(
-	injectIntl(ErrorMessage),
-);
-export default ErroMsg;

@@ -5,32 +5,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useMemo } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/link';
-import type { LinkPerson } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
 
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
-import type { LinkLozenge } from '../../../../../../extractors/common/lozenge/types';
-import {
-	type FlexibleUiActions,
-	type FlexibleUiDataContext,
-	type LinkLocation,
-	type LinkTitle,
-	type Media,
-	type PreviewActionData,
-} from '../../../../../../state/flexible-ui-context/types';
-import { isProfileType } from '../../../../../../utils';
 import ImageIcon from '../../../../../common/image-icon';
 import { type ImageIconProps } from '../../../../../common/image-icon/types';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
-import { getIconWidth } from '../../../utils';
+import { getIconWidth } from '../../../getIconWidth';
 import type { ElementProps } from '../../index';
 
 export type BaseIconElementProps = ElementProps & {
@@ -276,6 +266,7 @@ const renderImageIconNew = (
 		);
 	}
 };
+
 /**
  * A base element that displays an Icon or favicon.
  * @internal
@@ -379,47 +370,3 @@ const IconElement = ({
 };
 
 export default IconElement;
-
-export const toLinkIconProps = (
-	data: FlexibleUiDataContext[keyof FlexibleUiDataContext] | undefined,
-	type: FlexibleUiDataContext['type'],
-):
-	| string[]
-	| FlexibleUiActions
-	| PreviewActionData
-	| LinkPerson[]
-	| LinkTitle
-	| LinkLocation
-	| {
-			accessType?: string;
-			objectId?: string;
-			resourceType?: string;
-			tenantId?: string;
-	  }
-	| Media
-	| LinkLozenge
-	| {
-			department?: string;
-			location?: string;
-			pronouns?: string;
-			role?: string;
-	  }
-	| {
-			appearance: string;
-			icon?: IconType;
-			label?: string;
-			url?: string;
-	  }
-	| undefined => {
-	const isDataLinkIcon = (_data: typeof data): _data is FlexibleUiDataContext['linkIcon'] => {
-		return typeof _data === 'object' && _data !== null && ('icon' in _data || 'url' in _data);
-	};
-
-	if (!isDataLinkIcon(data)) {
-		return typeof data === 'object' ? data : undefined;
-	}
-
-	const isImageRound = isProfileType(type);
-
-	return { ...data, appearance: isImageRound ? 'round' : 'square' };
-};

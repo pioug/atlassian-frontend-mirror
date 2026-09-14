@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import { DatePicker, DateTimePicker, TimePicker } from '@atlaskit/datetime-picker';
-import Heading from '@atlaskit/heading';
-import InlineEdit from '@atlaskit/inline-edit';
+import Heading from '@atlaskit/heading/heading';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 const ReadView = ({ data, placeholder }: { data: string; placeholder: string }) => (

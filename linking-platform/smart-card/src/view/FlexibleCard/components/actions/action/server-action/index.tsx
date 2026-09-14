@@ -2,11 +2,10 @@ import React, { useCallback, useState } from 'react';
 
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
-import { getInvokeFailureReason } from '../../../../../../state/hooks/use-invoke/utils';
+import { getInvokeFailureReason } from '../../../../../../state/hooks/use-invoke/getInvokeFailureReason';
 import useResolve from '../../../../../../state/hooks/use-resolve';
 import createInvokeRequest from '../../../../../../utils/actions/create-invoke-request';
 import Action from '../index';
-
 import type { ServerActionProps } from './types';
 
 const ServerAction = ({

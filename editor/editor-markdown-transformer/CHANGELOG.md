@@ -1,5 +1,40 @@
 # @atlaskit/editor-markdown-transformer
 
+## 6.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 6.2.2
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 6.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [`bafd7711a515b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bafd7711a515b) -
+  Upgrade linkify-it to 5.0.2 and markdown-it to 14.1.1 to resolve a quadratic-complexity
+  denial-of-service vulnerability in link parsing.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

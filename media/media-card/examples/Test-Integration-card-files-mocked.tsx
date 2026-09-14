@@ -12,7 +12,7 @@ import { type FileIdentifier } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
 import { Card } from '../src';
 import { DelayedRender } from '../example-helpers/DelayedRender';
-import { type MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MainWrapper } from '../example-helpers';
 
 const identifiers = [1, 2, 3, 4].map(

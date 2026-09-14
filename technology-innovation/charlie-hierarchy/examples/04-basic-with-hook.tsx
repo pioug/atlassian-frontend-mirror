@@ -3,7 +3,7 @@ import React from 'react';
 import { hierarchy } from '@visx/hierarchy';
 import type { HierarchyNode } from '@visx/hierarchy/lib/types';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

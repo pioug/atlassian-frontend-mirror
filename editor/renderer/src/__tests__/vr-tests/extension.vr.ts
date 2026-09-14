@@ -7,7 +7,7 @@ import {
 	ExtensionInlineEh,
 	ExtensionInlineEhPlainTextMacroLongText,
 	ExtensionInlineEhPlainTextMacro,
-} from './extension.fixture';
+} from './extension.fixture.vr.ap';
 import { snapshot } from '@af/visual-regression';
 
 snapshot(ExtensionAwesomeList);

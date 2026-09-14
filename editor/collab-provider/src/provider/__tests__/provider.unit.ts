@@ -23,6 +23,7 @@ jest.mock('../../channel', () => {
 				return this;
 			}),
 			connect: jest.fn(),
+			getConnected: () => true,
 			broadcast: () => jest.fn(),
 			fetchCatchupv2: () => jest.fn(),
 			sendMetadata: () => jest.fn(),
@@ -47,6 +48,7 @@ import type { UserPermitType } from '@atlaskit/editor-common/collab';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import type { Provider } from '../';
 import { MAX_STEP_REJECTED_ERROR } from '../';
 import AnalyticsHelper from '../../analytics/analytics-helper';
@@ -57,7 +59,6 @@ import * as Utilities from '../../helpers/utils';
 import * as Telepointer from '../../participants/telepointers-helper';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { CommitStepService } from '../commit-step';
-// @ts-ignore only used for mock
 // eslint-disable-next-line import/default
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
 import { ProviderInitialisationError } from '../../errors/custom-errors';
@@ -153,9 +154,7 @@ describe('Provider', () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			expect(() => {
 				provider.setup({ getState: () => editorState });
-			}).toThrowError(
-				'Cookies are not enabled. Please enable cookies to use collaborative editing.',
-			);
+			}).toThrow('Cookies are not enabled. Please enable cookies to use collaborative editing.');
 			expect(sendErrorEventSpy).toHaveBeenCalledWith(
 				new ProviderInitialisationError(
 					'Cookies are not enabled. Please enable cookies to use collaborative editing.',
@@ -250,9 +249,7 @@ describe('Provider', () => {
 			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
 			expect(() => {
 				provider.setupForPresenceOnly(clientId);
-			}).toThrowError(
-				'Cookies are not enabled. Please enable cookies to use collaborative editing.',
-			);
+			}).toThrow('Cookies are not enabled. Please enable cookies to use collaborative editing.');
 			expect(sendErrorEventSpy).toHaveBeenCalledWith(
 				new ProviderInitialisationError(
 					'Cookies are not enabled. Please enable cookies to use collaborative editing.',
@@ -1036,6 +1033,44 @@ describe('Provider', () => {
 		});
 	});
 
+	describe('AI provider change messages', () => {
+		it('sends the AI provider change when platform_move_presence_agents is disabled', () => {
+			failGate('platform_move_presence_agents');
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			const sendAIProviderChangedSpy = jest.spyOn(
+				// @ts-ignore Accessing the service to verify the provider boundary.
+				provider.participantsService,
+				'sendAIProviderChanged',
+			);
+
+			provider.sendMessage({
+				type: 'ai-provider:change',
+				action: 'add',
+				providerId: 'agent:test-agent',
+			});
+
+			expect(sendAIProviderChangedSpy).toHaveBeenCalledTimes(1);
+		});
+
+		it('does not send the AI provider change when platform_move_presence_agents is enabled', () => {
+			passGate('platform_move_presence_agents');
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			const sendAIProviderChangedSpy = jest.spyOn(
+				// @ts-ignore Accessing the service to verify the provider boundary.
+				provider.participantsService,
+				'sendAIProviderChanged',
+			);
+
+			provider.sendMessage({
+				type: 'ai-provider:change',
+				action: 'add',
+				providerId: 'agent:test-agent',
+			});
+
+			expect(sendAIProviderChangedSpy).not.toHaveBeenCalled();
+		});
+	});
+
 	describe('API', () => {
 		let sendActionEventSpy: jest.SpyInstance;
 		let sendErrorEventSpy: jest.SpyInstance;
@@ -1409,7 +1444,7 @@ describe('Provider', () => {
 				'getUnconfirmedSteps',
 			);
 			expect(provider.getUnconfirmedSteps()).toEqual([]);
-			expect(documentServiceGetUnconfirmedStepsSpy).toBeCalledTimes(1);
+			expect(documentServiceGetUnconfirmedStepsSpy).toHaveBeenCalledTimes(1);
 		});
 
 		it('getCurrentPmVersion: Should return current ProseMirror version', () => {
@@ -1434,7 +1469,7 @@ describe('Provider', () => {
 			const sampleMetadata = { title: 'hello', editorWidth: '300' };
 			provider.setMetadata(sampleMetadata);
 			expect(provider.getMetadata()).toEqual(sampleMetadata);
-			expect(setMetadataSpy).toBeCalledWith(sampleMetadata);
+			expect(setMetadataSpy).toHaveBeenCalledWith(sampleMetadata);
 		});
 
 		it('getIsNamespaceLocked: Should get namespace lock status', () => {
@@ -1443,7 +1478,7 @@ describe('Provider', () => {
 				'getIsNamespaceLocked',
 			);
 			provider.getIsNamespaceLocked();
-			expect(getIsNamespaceLockedSpy).toBeCalled();
+			expect(getIsNamespaceLockedSpy).toHaveBeenCalled();
 		});
 
 		it('getDocumentAri: Should return documentAri from config', () => {
@@ -1494,8 +1529,8 @@ describe('Provider', () => {
 			provider.send(null, null, {} as any);
 			provider.setMetadata({});
 			provider.setTitle('title');
-			expect(setMetadataSpy).toBeCalledTimes(0);
-			expect(getIsNamespaceLockedSpy).toBeCalledTimes(0);
+			expect(setMetadataSpy).toHaveBeenCalledTimes(0);
+			expect(getIsNamespaceLockedSpy).toHaveBeenCalledTimes(0);
 		});
 	});
 
@@ -1518,6 +1553,7 @@ describe('Provider', () => {
 						}),
 					},
 					steps: [],
+					stepOrigins: [],
 					emit: jest.fn(),
 					lockSteps: jest.fn(),
 				});

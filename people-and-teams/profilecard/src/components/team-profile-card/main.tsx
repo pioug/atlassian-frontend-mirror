@@ -6,16 +6,19 @@ import { useCallback, useMemo } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
+import type { AvatarProps } from '@atlaskit/avatar-group/types';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import LinkItem from '@atlaskit/menu/link-item';
-import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
-import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit/teams-public';
+import type { TeamContainer } from '@atlaskit/teams-public/types';
+import { TeamContainers } from '@atlaskit/teams-public/main';
+import { useTeamContainers } from '@atlaskit/teams-public/use-team-containers/use-team-containers';
 import { token } from '@atlaskit/tokens';
 
 import TeamAppTile from '../common/assets/TeamAppTile.svg';
@@ -228,3 +231,10 @@ export const TeamProfileCard = ({
 		</Box>
 	);
 };
+
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+/**
+ * @deprecated Use the `TeamProfileCard` export from
+ * `@atlaskit/profilecard/team-profile-card/main` instead.
+ */
+export { TeamProfileCard as TeamProfileCardWithContainer };

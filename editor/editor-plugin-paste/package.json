@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "13.5.0",
+	"version": "19.0.0",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,6 +33,7 @@
 		"@atlaskit/editor-plugin-better-type-history": "workspace:^",
 		"@atlaskit/editor-plugin-card": "workspace:^",
 		"@atlaskit/editor-plugin-expand": "workspace:^",
+		"@atlaskit/editor-plugin-extension": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-plugin-list": "workspace:^",
 		"@atlaskit/editor-plugin-media": "workspace:^",
@@ -42,8 +43,10 @@
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/insm": "workspace:^",
+		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-history": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -65,47 +68,8 @@
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
 		"platform_editor_legacy_content_macro_insert": {
-			"type": "boolean"
-		},
-		"platform_editor_track_node_types": {
 			"type": "boolean"
 		},
 		"platform_editor_sharepoint_url_smart_card_fallback": {
@@ -120,20 +84,14 @@
 		"platform_media_cross_client_copy_with_auth": {
 			"type": "boolean"
 		},
-		"platform_synced_block_unsupported_products": {
-			"type": "boolean"
-		},
-		"platform_editor_agent_mentions": {
-			"type": "experiment"
-		},
-		"platform_editor_paste_renderer_analytics": {
-			"type": "boolean"
-		},
 		"platform_editor_flexible_list_kill_switch_1": {
 			"type": "boolean"
-		},
-		"platform_editor_lovability_resize_patch_2": {
-			"type": "boolean"
+		}
+	},
+	"platform-experiments": {
+		"platform_editor_paste_autoconvert_robustness": {
+			"param": "isEnabled",
+			"defaultValue": false
 		}
 	}
 }

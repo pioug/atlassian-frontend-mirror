@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { type RichText } from '@atlaskit/linking-types';
+import type { RichText } from '@atlaskit/linking-types/datasource';
 
 import RichTextType from './index';
 

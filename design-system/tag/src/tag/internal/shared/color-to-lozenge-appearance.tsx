@@ -1,4 +1,4 @@
-import { type ThemeAppearance } from '@atlaskit/lozenge';
+import type { ThemeAppearance } from '@atlaskit/lozenge/lozenge';
 
 import { type TagColor } from '../../../types';
 

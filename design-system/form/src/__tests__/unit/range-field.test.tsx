@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-
+import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 
-import Form, { RangeField } from '../../index';
+import Form from '../../form';
+import { RangeField } from '../../range-field';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('RangeField', () => {
@@ -36,7 +35,7 @@ describe('RangeField', () => {
 		const errorCalls = (error as jest.Mock).mock.calls.filter((call) => !shouldIgnoreLog(call));
 
 		expect(errorCalls).toHaveLength(0);
-		expect(warn).toHaveBeenCalledTimes(1);
+		expect(warn).toHaveBeenCalledTimes(0);
 
 		warn.mockRestore();
 		error.mockRestore();

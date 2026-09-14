@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import LinkItem from '../../../examples/link-item';
+import LinkItem from '../../../examples/link-item.vr.ap';
 
 snapshot(LinkItem, {
 	variants: [

@@ -17,7 +17,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { autoUpdate } from '@floating-ui/dom';
 import { createPortal } from 'react-dom';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getStyleProps } from '../get-style-props';
 import { PortalPlacementContext } from '../internal/portal-placement-context';

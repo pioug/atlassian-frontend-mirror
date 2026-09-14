@@ -12,7 +12,7 @@ import type {
 import type { Identifier } from '@atlaskit/media-client';
 import type { MediaProps } from './media';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
 export interface MediaGroupProps {

@@ -3,7 +3,7 @@ import React from 'react';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import { selectionExtensionPluginKey } from '../../pm-plugins/main';

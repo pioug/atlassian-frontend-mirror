@@ -1,7 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Button from '@atlaskit/button';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import Button from '@atlaskit/button/button';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import CrossIcon from '@atlaskit/icon/core/cross';
 
 import * as Styled from './styled';

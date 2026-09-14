@@ -2,23 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { useEffect, useMemo, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { DatasourceTableView } from '@atlaskit/link-datasource';
-import { CardClient as SmartCardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
+import SmartCardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
-import { Radio } from '@atlaskit/radio';
+import Radio from '@atlaskit/radio/radio';
 import { Card } from '@atlaskit/smart-card';
-import TextArea from '@atlaskit/textarea';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../src/ui/confluence-search-modal';
-import { ConfluenceSearchConfigModal } from '../src/ui/confluence-search-modal/modal';
+import { ConfluenceSearchConfigModal } from '../src/ui/confluence-search-modal/modal/ConfluenceSearchConfigModal';
 import {
 	type ConfluenceSearchDatasourceAdf,
 	type ConfluenceSearchDatasourceParameters,

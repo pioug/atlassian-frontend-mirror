@@ -1,13 +1,17 @@
 import React, { useCallback } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { CardContext } from '@atlaskit/link-provider';
-import type { DatasourceAdf, DatasourceAdfView, InlineCardAdf } from '@atlaskit/linking-common';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import type {
+	DatasourceAdf,
+	DatasourceAdfView,
+	InlineCardAdf,
+} from '@atlaskit/linking-common/types';
 
 import { hideDatasourceModal } from '../../pm-plugins/actions';
 import { insertDatasource, updateCardViaDatasource } from '../../pm-plugins/doc';

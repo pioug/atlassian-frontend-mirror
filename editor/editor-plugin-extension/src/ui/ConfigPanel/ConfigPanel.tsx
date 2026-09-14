@@ -7,11 +7,13 @@ import memoizeOne from 'memoize-one';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
-import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -34,9 +36,9 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
-import Form, { FormFooter } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import Form from '@atlaskit/form/form';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 
@@ -385,11 +387,7 @@ class ConfigPanel extends React.Component<Props, State> {
 				fields,
 			);
 
-			if (editorExperiment('platform_editor_offline_editing_web', true, { exposure: true })) {
-				await onChange(serializedData);
-			} else {
-				onChange(serializedData);
-			}
+			await onChange(serializedData);
 		} catch (error) {
 			autoSaveReject?.(error);
 			// eslint-disable-next-line no-console
@@ -521,8 +519,7 @@ class ConfigPanel extends React.Component<Props, State> {
 										data-testid="extension-config-panel"
 									>
 										{this.renderHeader(extensionManifest)}
-										{(!fg('platform_editor_conditionally_add_sidebar_summary') ||
-											this.props.usingObjectSidebarPanel) &&
+										{this.props.usingObjectSidebarPanel &&
 											fg('platform_editor_ai_object_sidebar_injection') && (
 												<DescriptionSummary extensionManifest={extensionManifest} />
 											)}

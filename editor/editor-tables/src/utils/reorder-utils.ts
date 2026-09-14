@@ -1,236 +1,42 @@
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { TableMap } from '../table-map';
-
-// array = [
-//   [A1, B1, C1, null],
-//   [A2, B2, null, D1],
-//   [A3. B3, C2, null],
-// ]
-type ArrayOfRows = Array<PMNode | null>[];
-
-// This function transposes an array of array flipping the columns for rows,
-// transposition is a familiar algebra concept;
-// you can get more details here:
-// https://en.wikipedia.org/wiki/Transpose
-//
-// ```javascript
-//
-//  const arr = [
-//    ['a1', 'a2', 'a3'],
-//    ['b1', 'b2', 'b3'],
-//    ['c1', 'c2', 'c3'],
-//    ['d1', 'd2', 'd3'],
-//  ];
-//
-//  const result = transpose(arr);
-//
-//  result === [
-//    ['a1', 'b1', 'c1', 'd1'],
-//    ['a2', 'b2', 'c2', 'd2'],
-//    ['a3', 'b3', 'c3', 'd3'],
-//  ]
-// ```
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const transpose = (array: Array<any>): Array<any> => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	return array[0].map((_: any, i: number) => {
-		return array.map((column) => column[i]);
-	});
-};
-
-// :: (tableNode: Node, tableArray: Array<Node>) -> Node
-// This function will transform a matrix of nodes
-// into table node respecting merged cells and rows configurations,
-// for example this array will be convert to the table below:
-//
-// ```javascript
-// array = [
-//   [A1, B1, C1, null],
-//   [A2, B2, null, D1],
-//   [A3. B3, C2, null],
-// ]
-// ```
-//
-// ```
-//  ____________________________
-// |      |      |             |
-// |  A1  |  B1  |     C1      |
-// |______|______|______ ______|
-// |      |             |      |
-// |  A2  |     B2      |      |
-// |______|______ ______|      |
-// |      |      |      |  D1  |
-// |  A3  |  B3  |  C2  |      |
-// |______|______|______|______|
-// ```
-//
-export const convertArrayOfRowsToTableNode = (
-	tableNode: PMNode,
-	arrayOfNodes: ArrayOfRows,
-): PMNode => {
-	const rowsPM: PMNode[] = [];
-	const map = TableMap.get(tableNode);
-	for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
-		const row = tableNode.child(rowIndex);
-		const rowCells: PMNode[] = [];
-
-		for (let colIndex = 0; colIndex < map.width; colIndex++) {
-			if (!arrayOfNodes[rowIndex][colIndex]) {
-				continue;
-			}
-			const cellPos = map.map[rowIndex * map.width + colIndex];
-
-			const cell = arrayOfNodes[rowIndex][colIndex];
-			const oldCell = tableNode.nodeAt(cellPos);
-			if (!cell || !oldCell) {
-				continue;
-			}
-			const newCell = oldCell.type.createChecked(
-				Object.assign({}, cell.attrs),
-				cell.content,
-				cell.marks,
-			);
-			rowCells.push(newCell);
-		}
-
-		rowsPM.push(row.type.createChecked(row.attrs, rowCells, row.marks));
-	}
-
-	const newTable = tableNode.type.createChecked(tableNode.attrs, rowsPM, tableNode.marks);
-
-	return newTable;
-};
-
-const moveRowInArrayOfRows = (
-	arrayOfNodes: ArrayOfRows,
-	indexesOrigin: number[],
-	indexesTarget: number[],
-	directionOverride: number,
-): ArrayOfRows => {
-	const direction = indexesOrigin[0] > indexesTarget[0] ? -1 : 1;
-
-	const rowsExtracted = arrayOfNodes.splice(indexesOrigin[0], indexesOrigin.length);
-	const positionOffset = rowsExtracted.length % 2 === 0 ? 1 : 0;
-	let target;
-
-	if (directionOverride === -1 && direction === 1) {
-		target = indexesTarget[0] - 1;
-	} else if (directionOverride === 1 && direction === -1) {
-		target = indexesTarget[indexesTarget.length - 1] - positionOffset + 1;
-	} else {
-		target =
-			direction === -1
-				? indexesTarget[0]
-				: indexesTarget[indexesTarget.length - 1] - positionOffset;
-	}
-
-	// @ts-ignore no idea what this line does
-	arrayOfNodes.splice.apply(arrayOfNodes, [target, 0].concat(rowsExtracted));
-
-	return arrayOfNodes;
-};
-
-// :: (tableNode: Node) -> Array<Node>
-// This function will transform the table node
-// into a matrix of rows and columns respecting merged cells,
-// for example this table will be convert to the below:
-//
-// ```
-//  ____________________________
-// |      |      |             |
-// |  A1  |  B1  |     C1      |
-// |______|______|______ ______|
-// |      |             |      |
-// |  A2  |     B2      |      |
-// |______|______ ______|      |
-// |      |      |      |  D1  |
-// |  A3  |  B3  |  C2  |      |
-// |______|______|______|______|
-// ```
-//
-//
-// ```javascript
-// array = [
-//   [A1, B1, C1, null],
-//   [A2, B2, null, D1],
-//   [A3. B3, C2, null],
-// ]
-// ```
-export const convertTableNodeToArrayOfRows = (tableNode: PMNode): ArrayOfRows => {
-	const map = TableMap.get(tableNode);
-	const rows: ArrayOfRows = [];
-	for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
-		const rowCells: Array<PMNode | null> = [];
-		const seen: { [key: number]: boolean } = {};
-
-		for (let colIndex = 0; colIndex < map.width; colIndex++) {
-			const cellPos = map.map[rowIndex * map.width + colIndex];
-			const cell = tableNode.nodeAt(cellPos);
-			const rect = map.findCell(cellPos);
-			if (!cell || seen[cellPos] || rect.top !== rowIndex) {
-				rowCells.push(null);
-				continue;
-			}
-			seen[cellPos] = true;
-
-			rowCells.push(cell);
-		}
-
-		rows.push(rowCells);
-	}
-
-	return rows;
-};
-
-export const moveTableRow = (
-	table: NodeWithPos,
-	indexesOrigin: number[],
-	indexesTarget: number[],
-	direction: number,
-): PMNode => {
-	let rows = convertTableNodeToArrayOfRows(table.node);
-
-	rows = moveRowInArrayOfRows(rows, indexesOrigin, indexesTarget, direction);
-
-	return convertArrayOfRowsToTableNode(table.node, rows);
-};
-
-export const moveTableColumn = (
-	table: NodeWithPos,
-	indexesOrigin: number[],
-	indexesTarget: number[],
-	direction: number,
-): PMNode => {
-	let rows = transpose(convertTableNodeToArrayOfRows(table.node));
-
-	rows = moveRowInArrayOfRows(rows, indexesOrigin, indexesTarget, direction);
-	rows = transpose(rows);
-
-	return convertArrayOfRowsToTableNode(table.node, rows);
-};
-
-export const isValidReorder = (
-	originIndex: number,
-	targetIndex: number,
-	targets: number[],
-	type: 'row' | 'column',
-): boolean => {
-	const direction = originIndex > targetIndex ? -1 : 1;
-	const errorMessage = `Target position is invalid, you can't move the ${type} ${originIndex} to ${targetIndex}, the target can't be split. You could use tryToFit option.`;
-
-	if (direction === 1) {
-		if (targets.slice(0, targets.length - 1).indexOf(targetIndex) !== -1) {
-			throw new Error(errorMessage);
-		}
-	} else {
-		if (targets.slice(1).indexOf(targetIndex) !== -1) {
-			throw new Error(errorMessage);
-		}
-	}
-
-	return true;
-};
+/**
+ * @deprecated Use `import { transpose } from '@atlaskit/editor-tables/utils/reorder-utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { transpose } from './transpose';
+/**
+ * @deprecated Use `import { convertArrayOfRowsToTableNode } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { convertArrayOfRowsToTableNode } from './convert-array-of-rows-to-table-node';
+/**
+ * @deprecated Use `import { convertTableNodeToArrayOfRows } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { convertTableNodeToArrayOfRows } from './convert-table-node-to-array-of-rows';
+/**
+ * @deprecated Use `import { moveTableRow } from '@atlaskit/editor-tables/utils/reorder-utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { moveTableRow } from './move-table-row';
+/**
+ * @deprecated Use `import { moveTableColumn } from '@atlaskit/editor-tables/utils/reorder-utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { moveTableColumn } from './move-table-column';
+/**
+ * @deprecated Use `import { isValidReorder } from '@atlaskit/editor-tables/utils/reorder-utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { isValidReorder } from './is-valid-reorder';
+/**
+ * @deprecated Use `import type { ArrayOfRows } from '@atlaskit/editor-tables/utils/reorder-utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export type { ArrayOfRows } from './array-of-rows';
+/**
+ * @deprecated Use `import { moveRowInArrayOfRows } from '@atlaskit/editor-tables/utils/reorder-utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { moveRowInArrayOfRows } from './move-row-in-array-of-rows';

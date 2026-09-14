@@ -1,8 +1,9 @@
-import type { DatasourceType } from '@atlaskit/linking-types';
+import type { DatasourceType } from '@atlaskit/linking-types/datasource';
 
 import type { DatasourceTypeWithOnlyValues } from '../types';
 
-import { editType, isEditTypeSupported } from './index';
+import { editType } from './editType';
+import { isEditTypeSupported } from './isEditTypeSupported';
 
 describe('editType', () => {
 	describe('string type', () => {

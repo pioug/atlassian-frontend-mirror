@@ -1,5 +1,49 @@
 # @atlaskit/analytics-next
 
+## 12.5.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.1
+
+### Patch Changes
+
+- [`9411db36ce9de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9411db36ce9de) -
+  Clean up the fully rolled out `analytics-next-lock-context-type` and
+  `analytics-next-lock-context-type-all-afm` feature gates. `AnalyticsContext`, `AnalyticsListener`
+  and `AnalyticsErrorBoundary` now always resolve the Modern/Legacy context choice once when they
+  mount, which was the behavior with the gates enabled.
+
+## 12.4.0
+
+### Minor Changes
+
+- [`ee630debbdf71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee630debbdf71) -
+  Add adminhub-analytics-next-use-modern-context fg for migration to modern analytics context
+
+## 12.3.3
+
+### Patch Changes
+
+- [`4e32a26273c5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e32a26273c5a) -
+  Fix analytics-next-lock-context-type-all-afm perf regression (COPPER-1111): revert to
+  short-circuit gate evaluation so the old lock gate is not read on every render once the new gate
+  is on
+
+## 12.3.2
+
+### Patch Changes
+
+- [`06a901a064e4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06a901a064e4d) -
+  Add analytics-next-lock-context-type-all-afm safety gate ahead of all-AFM rollout.
+
 ## 12.3.1
 
 ### Patch Changes

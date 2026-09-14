@@ -12,7 +12,7 @@ import URLSearchParams from 'url-search-params';
 
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type { Provider } from '@atlaskit/collab-provider';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
@@ -185,6 +185,8 @@ export type State = {
 	editorView?: EditorView;
 	hasError?: boolean;
 	isInviteToEditButtonSelected: boolean;
+	path?: string;
+	pathInput?: HTMLInputElement;
 	title?: string;
 };
 
@@ -274,6 +276,8 @@ export default class Example extends React.Component<Props, State> {
 		hasError: boolean;
 		isInviteToEditButtonSelected: boolean;
 		need404: any;
+		path: string;
+		pathInput: HTMLInputElement | undefined;
 		title: string;
 	} = {
 		isInviteToEditButtonSelected: false,
@@ -282,6 +286,8 @@ export default class Example extends React.Component<Props, State> {
 		need404: getQueryParam('need404'),
 		documentIdInput: undefined,
 		collabUrlInput: undefined,
+		path: getQueryParam('path') || undefined,
+		pathInput: undefined,
 		draftDoc: ((draftDocWithDocumentId) => {
 			if (draftDocWithDocumentId?.documentId === getQueryParam('documentId')) {
 				return draftDocWithDocumentId.draftDoc;
@@ -338,6 +344,9 @@ export default class Example extends React.Component<Props, State> {
 					<strong>CollabUrl:</strong> {this.state.collabUrl}
 				</div>
 				<div>
+					<strong>PMR path:</strong> {this.state.path}
+				</div>
+				<div>
 					<strong>Live Page:</strong>{' '}
 					{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 					<input
@@ -372,7 +381,7 @@ export default class Example extends React.Component<Props, State> {
 	}
 
 	renderEditor(): jsx.JSX.Element {
-		const { documentId, collabUrl, need404 } = this.state;
+		const { documentId, collabUrl, need404, path } = this.state;
 		// Enable the debug log
 		(window as any).COLLAB_PROVIDER_LOGGER = true;
 
@@ -385,6 +394,7 @@ export default class Example extends React.Component<Props, State> {
 
 		const collabProvider = createSocketIOCollabProvider({
 			url: collabUrl,
+			path,
 			need404,
 			documentAri: incomingDocAri,
 			productInfo: {
@@ -563,26 +573,44 @@ export default class Example extends React.Component<Props, State> {
 					collabUrlInput: input,
 				});
 			}
+
+			if (input.name === 'path') {
+				this.setState({
+					pathInput: input,
+				});
+			}
 		}
 	};
 
-	private onJoin = () => {
-		const { documentIdInput, collabUrlInput } = this.state;
+	private onJoin = (event: React.FormEvent<HTMLFormElement>) => {
+		const { documentIdInput, collabUrlInput, pathInput } = this.state;
 		if (documentIdInput) {
 			const documentId = (documentIdInput! as HTMLInputElement).value;
 			const collabUrl = (collabUrlInput! as HTMLInputElement).value || defaultCollabUrl;
+			const path = pathInput?.value.trim() || '';
+			if (collabUrl !== defaultCollabUrl && !path) {
+				event.preventDefault();
+				pathInput?.setCustomValidity(
+					'Enter a PMR path when using a non-dev collab URL. Use /ncs/CLOUD_ID/ACTIVATION_ID/confluence.',
+				);
+				pathInput?.reportValidity();
+				return;
+			}
+			pathInput?.setCustomValidity('');
 			if (documentId) {
 				try {
 					const win = window.parent || window;
 					const url = new URL(win.location.href);
 					url.searchParams.set('documentId', documentId);
 					url.searchParams.set('collabUrl', collabUrl);
+					url.searchParams.set('path', path);
 					win.history.pushState({}, '', url.toString());
 					// eslint-disable-next-line no-empty
 				} catch {}
 				this.setState({
 					documentId,
 					collabUrl,
+					path,
 				});
 			}
 		}
@@ -605,6 +633,15 @@ export default class Example extends React.Component<Props, State> {
 					{' '}
 					Default to <b>{defaultCollabUrl}</b>
 				</label>
+				<label htmlFor="pmr-path">PMR path:</label>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
+				<input
+					id="pmr-path"
+					name="path"
+					ref={this.handleRef}
+					defaultValue={this.state.path}
+					onInput={(event) => event.currentTarget.setCustomValidity('')}
+				/>
 				<br />
 				<button type="submit">Join</button>
 			</form>

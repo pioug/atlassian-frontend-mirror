@@ -2,11 +2,13 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { IntlProvider, useIntl } from 'react-intl';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Textfield from '@atlaskit/textfield';
-import { ufologger } from '@atlaskit/ufo';
-import UserPicker, { type ActionTypes, type Value } from '@atlaskit/user-picker';
-import { payloadPublisher } from '@atlassian/ufo';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import Textfield from '@atlaskit/textfield/text-field';
+import { ufologger } from '@atlaskit/ufo/logger';
+import { UserPicker } from '@atlaskit/user-picker/components/user-picker';
+import type { ActionTypes, Value } from '@atlaskit/user-picker/types';
+import { payloadPublisher } from '@atlassian/ufo/publisher';
 
 import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';
 import { transformRecommendationsToOptions, useUserRecommendations } from '../src';

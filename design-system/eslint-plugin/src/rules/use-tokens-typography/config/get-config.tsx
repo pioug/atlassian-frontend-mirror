@@ -1,5 +1,3 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
-
 import type { RuleConfig } from './types';
 
 const defaultConfig: RuleConfig = {

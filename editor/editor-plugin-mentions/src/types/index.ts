@@ -1,7 +1,9 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
 import type { Providers, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { MentionDescription, MentionProvider } from '@atlaskit/mention';
 
 export const MENTION_PROVIDER_REJECTED = 'REJECTED';
@@ -47,6 +49,8 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	 *
 	 * Consumers own the rollout decision for their editor surface; the shared
 	 * mentions plugin only applies the resulting presentation option.
+	 * Search-time ordering of agents above bots/teams is gated by
+	 * `platform_editor_mention_search_order`.
 	 */
 	enableAgentSectioning?: boolean;
 	/**
@@ -56,6 +60,11 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	 */
 	getIsRovoPanelOpen?: () => boolean;
 	handleMentionsChanged?: MentionsChangedHandler;
+	/**
+	 * Resolves avatar data for persisted mention nodes on the client. The renderer
+	 * and editable NodeView reserve the avatar slot before the provider resolves.
+	 */
+	mentionNodeDataProvider?: MentionNodeDataProvider;
 	mentionProvider?: Providers['mentionProvider'];
 	/**
 	 * Optional callback injected by Rovo-aware consumers (e.g. Confluence) to
@@ -175,10 +184,34 @@ export type MentionPluginState = {
 		 */
 		resetCount: number;
 	} | null;
+	/**
+	 * @internal Cached agent run-state node decorations. Rebuilt only when the
+	 * `setAgentMentionRunStates` action changes the run-state map, and mapped through
+	 * doc changes otherwise.
+	 */
+	runStateDecorations?: DecorationSet;
 };
 
 export type FireElementsChannelEvent = (payload: AnalyticsEventPayload, channel?: string) => void;
 
-export type MentionSharedState = Omit<MentionPluginState, 'pendingPastedAgentMention'> & {
+export type MentionSharedState = Omit<
+	MentionPluginState,
+	'pendingPastedAgentMention' | 'runStateDecorations'
+> & {
 	typeAheadHandler: TypeAheadHandler;
 };
+
+/**
+ * Agent run-state for an agent mention, mirrored from the agent-run-state bridge's
+ * `AgentRunState` (@atlassian/conversation-assistant-store/controllers/agent-mention-run-state).
+ */
+export type AgentMentionRunState =
+	| 'thinking'
+	| 'working'
+	| 'editing'
+	| 'needs-input'
+	| 'done'
+	| 'failed'
+	| 'blocked';
+
+export type AgentRunStateByLocalId = Record<string, AgentMentionRunState>;

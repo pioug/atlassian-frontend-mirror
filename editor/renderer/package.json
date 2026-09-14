@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.17.5",
+	"version": "140.0.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/editor-card-provider": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
@@ -59,6 +60,7 @@
 		"@atlaskit/media-filmstrip": "workspace:^",
 		"@atlaskit/media-ui": "workspace:^",
 		"@atlaskit/media-viewer": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
@@ -86,8 +88,8 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
+		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
@@ -95,57 +97,54 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
-		"@atlaskit/editor-card-provider": "workspace:^",
+		"@atlaskit/editor-plugin-media": "workspace:^",
+		"@atlaskit/editor-test-helpers": "workspace:^",
+		"@atlaskit/inline-edit": "workspace:^",
+		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-integration-test-helpers": "workspace:^",
+		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/navigation-system": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
+		"@atlaskit/radio": "workspace:^",
+		"@atlaskit/range": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/side-nav-items": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
+		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/react-loadable": "root:*",
-		"@types/react-test-renderer": "root:*",
 		"ajv": "root:*",
-		"enzyme": "root:*",
 		"jsdom": "root:*",
 		"mockdate": "root:*",
 		"puppeteer": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"react-live-clock": "root:*",
 		"react-magnetic-di": "root:*",
 		"react-moment": "root:*",
-		"react-test-renderer": "root:*",
 		"rxjs": "root:*",
 		"sinon": "root:*",
 		"worker-plugin": "root:*"
 	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled",
-				"emotion"
-			]
-		}
-	},
 	"platform-feature-flags": {
-		"platform_editor_lovability_text_bg_color_patch_2": {
+		"platform_renderer_expand_ssr_margin_fix": {
 			"type": "boolean"
 		},
 		"platform_native_embeds_rollout_non_maui_experience": {
@@ -157,34 +156,16 @@
 		"cc_comments_log_draft_annotation_ancestor_nodes": {
 			"type": "boolean"
 		},
-		"platform-ssr-table-resize": {
-			"type": "boolean"
-		},
-		"platform_fix_nested_num_column_scaling": {
-			"type": "boolean"
-		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
 		},
 		"platform_editor_querySelector_fix_table_renderer": {
 			"type": "boolean"
 		},
-		"platform_editor_fix_media_in_renderer": {
+		"platform_editor_nested_mbe_frames": {
 			"type": "boolean"
 		},
 		"platform_editor_content_mode_button_mvp": {
-			"type": "boolean"
-		},
-		"platform_renderer_sample_high_volume_events": {
-			"type": "boolean"
-		},
-		"platform_editor_nested_dnd_styles_changes": {
-			"type": "boolean"
-		},
-		"platform_editor_table_q4_patch_1": {
-			"type": "boolean"
-		},
-		"platform_editor_table_renderer_fix_2": {
 			"type": "boolean"
 		},
 		"platform_editor_comments_api_manager": {
@@ -203,10 +184,20 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_bitbucket_fix_shortname_and_ordering": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_renderer_rm_usespecbasedvalidator": {
 			"type": "boolean"
 		},
 		"platform_editor_bordered_panel_nested_in_table": {
+			"type": "boolean"
+		},
+		"platform_editor_nest_table_in_panel_patch_2": {
+			"type": "boolean"
+		},
+		"platform_editor_nest_table_in_panel_patch_3": {
 			"type": "boolean"
 		},
 		"confluence_frontend_fix_view_page_slo": {
@@ -218,22 +209,7 @@
 		"jfp-magma-ssr-iv-editor-links": {
 			"type": "boolean"
 		},
-		"hot-121622_lazy_load_expand_content": {
-			"type": "boolean"
-		},
 		"media-perf-uplift-mutation-fix": {
-			"type": "boolean"
-		},
-		"platform_editor_table_height_analytics_event": {
-			"type": "boolean"
-		},
-		"jfp-magma-ssr-iv-editor-codeblock": {
-			"type": "boolean"
-		},
-		"platform_fix_macro_renders_in_layouts": {
-			"type": "boolean"
-		},
-		"platform_editor_table_fixed_column_width_prop": {
 			"type": "boolean"
 		},
 		"confluence_ttvc_inline_extensions": {
@@ -249,18 +225,8 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_video_caption_commit": {
-			"type": "boolean"
-		},
-		"platform_editor_block_menu_v2_patch_4": {
-			"type": "boolean"
-		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
-		},
-		"platform_smartlink_xpc_url_wrapping": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_nested_table_style_override": {
 			"type": "boolean"
@@ -268,14 +234,15 @@
 		"platform_nested_table_style_override_2": {
 			"type": "boolean"
 		},
-		"platform_editor_table_nested_renderer_fix": {
-			"type": "boolean"
-		},
 		"cc-maui-add-mark-for-remix-generated-images": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"platform_editor_embed_height_only_fallback": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_forge_inline_bodied_macro": {
 			"type": "boolean",
 			"referenceOnly": true
 		}
@@ -290,6 +257,7 @@
 		"./consts": "./src/entry-points/consts.ts",
 		"./custom-nodes/loosely-lazy": "./src/entry-points/custom-nodes-loosely-lazy.ts",
 		"./custom-nodes": "./src/custom-nodes.ts",
+		"./default": "./src/entry-points/renderer-default.tsx",
 		"./events": "./src/entry-points/events.ts",
 		"./experimental-sync-custom-nodes/cards": "./src/entry-points/experimental-sync-custom-nodes/cards.ts",
 		"./experimental-sync-custom-nodes/media": "./src/entry-points/experimental-sync-custom-nodes/media.ts",
@@ -303,6 +271,7 @@
 		"./media-options": "./src/entry-points/media-options.ts",
 		"./messages": "./src/entry-points/messages.ts",
 		"./nodes": "./src/entry-points/nodes.ts",
+		"./nodes/default": "./src/entry-points/nodes-default.ts",
 		"./package.json": {
 			"publish": null,
 			"default": "./package.json"

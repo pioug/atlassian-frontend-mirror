@@ -1,6 +1,6 @@
 import { type TPlacementOptions } from '../internal/resolve-placement';
 
-import { getPlacement } from './resolve-placement';
+import { resolvePlacement } from './resolve-placement';
 
 /**
  * Resolves placement options to CSS `position-area` syntax.
@@ -20,7 +20,7 @@ import { getPlacement } from './resolve-placement';
  * placementToPositionArea({ placement: { axis: 'block', edge: 'end', align: 'end' } })   // → 'block-end span-inline-start'
  */
 export function placementToPositionArea({ placement }: { placement: TPlacementOptions }): string {
-	const { axis, edge, align } = getPlacement({ placement });
+	const { axis, edge, align } = resolvePlacement({ placement });
 	const edgeValue = `${axis}-${edge}`;
 
 	if (align === 'center') {

@@ -1,5 +1,5 @@
-import { PanelType } from '@atlaskit/adf-schema';
-import type { DocNode } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export const ssrTableDoc: DocNode = {
 	version: 1,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-common",
-	"version": "4.2.0",
+	"version": "4.4.0",
 	"description": "Common constants, types and utilities used by the JQL editor and its dependant packages.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,11 +30,11 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./autocomplete/types": "./src/entry-points/autocomplete-types.ts",
-		"./constants": "./src/entry-points/constants.ts",
-		"./analytics/types": "./src/entry-points/analytics-types.ts",
+		"./autocomplete/types": "./src/autocomplete/types.ts",
+		"./constants": "./src/analytics/constants.ts",
+		"./analytics/types": "./src/analytics/types.ts",
 		"./types": "./src/entry-points/types.ts",
-		"./util": "./src/entry-points/util.ts"
+		"./util": "./src/analytics/util.ts"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -54,40 +54,5 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

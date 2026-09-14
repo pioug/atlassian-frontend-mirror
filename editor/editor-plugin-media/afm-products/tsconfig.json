@@ -71,6 +71,12 @@
 			"path": "../../editor-plugin-interaction/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media-editing/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-products/tsconfig.json"
 		},
 		{
@@ -120,6 +126,9 @@
 		},
 		{
 			"path": "../../../media/media-viewer/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

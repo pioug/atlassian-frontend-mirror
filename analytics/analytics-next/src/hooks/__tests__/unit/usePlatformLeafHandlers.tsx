@@ -150,9 +150,9 @@ describe('usePlatformLeafEventHandler', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(onClick).toBeCalled(); // called with synthetic mouse event
+		expect(onClick).toHaveBeenCalled(); // called with synthetic mouse event
 
-		expect(onEvent).toBeCalledWith(
+		expect(onEvent).toHaveBeenCalledWith(
 			[
 				{ ticket: 'AFP-123' },
 				{
@@ -207,9 +207,9 @@ describe('usePlatformLeafEventHandler', () => {
 
 		fireEvent.click(getByTestId('button'));
 
-		expect(onClick).toBeCalled(); // called with synthetic mouse event
+		expect(onClick).toHaveBeenCalled(); // called with synthetic mouse event
 
-		expect(onEvent).toBeCalledWith(
+		expect(onEvent).toHaveBeenCalledWith(
 			[
 				{ ticket: 'AFP-123' },
 				{
@@ -265,9 +265,9 @@ describe('usePlatformLeafSyntheticEventHandler', () => {
 
 		fireEvent.focus(getByTestId('button'));
 
-		expect(onActivate).toBeCalled(); // called with synthetic mouse event
+		expect(onActivate).toHaveBeenCalled(); // called with synthetic mouse event
 
-		expect(onEvent).toBeCalledWith(
+		expect(onEvent).toHaveBeenCalledWith(
 			[
 				{ ticket: 'AFP-123' },
 				{

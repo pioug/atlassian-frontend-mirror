@@ -4,18 +4,20 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { jsx, css } from '@compiled/react';
-import Button from '@atlaskit/button/new';
-import TextField from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import TextField from '@atlaskit/textfield/text-field';
 import LockIcon from '@atlaskit/icon/core/lock-locked';
-import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import type { OnSubmitHandler } from '@atlaskit/form/types';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
+import { messages } from '@atlaskit/media-ui/messages';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss, Box, Flex, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 
 interface PDFPasswordInputProps {
 	onSubmit: OnSubmitHandler<{ password: string }>;

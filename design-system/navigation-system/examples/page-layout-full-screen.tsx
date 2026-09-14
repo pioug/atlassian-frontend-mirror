@@ -7,11 +7,13 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Badge from '@atlaskit/badge';
+import Badge from '@atlaskit/badge/badge';
 import AKBanner from '@atlaskit/banner';
-import Button from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import Heading from '@atlaskit/heading';
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import Heading from '@atlaskit/heading/heading';
 import AppsIcon from '@atlaskit/icon/core/apps';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import InboxIcon from '@atlaskit/icon/core/inbox';

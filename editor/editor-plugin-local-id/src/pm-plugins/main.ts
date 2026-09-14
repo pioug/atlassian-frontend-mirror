@@ -1,15 +1,16 @@
-import { BatchAttrsStep, OverrideDocumentStep } from '@atlaskit/adf-schema/steps';
+import { OverrideDocumentStep } from '@atlaskit/adf-schema/steps/override-document-step';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { PluginKey, type Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
+import { addMissingLocalIds } from '../editor-commands';
 import type { LocalIdPlugin } from '../localIdPluginType';
 
+import { batchAddLocalIdToNodes, localIdNotEmpty } from './add-missing-local-ids';
 import { generateShortUUID, generatedShortUUIDs } from './generateShortUUID';
 
 export const localIdPluginKey: PluginKey = new PluginKey('localIdPlugin');
@@ -47,6 +48,11 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			}
 
 			requestIdleCallbackWithFallback(() => {
+				if (isExperimentEnabled('platform_editor_local_id_reliability')) {
+					api?.core.actions.execute(addMissingLocalIds());
+					return;
+				}
+
 				const tr = editorView.state.tr;
 				const nodesToUpdate = new Map<number, string>(); // position -> localId
 
@@ -97,10 +103,8 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			const addedNodes = new Set<PMNode>();
 			// A single PMNode reference can appear at multiple positions in the doc (e.g.
 			// `createTable` from `prosemirror-utils` reuses cell node objects across
-			// non-header rows), so the new code path tracks every position per node identity.
-			// The legacy path retains the single-position-per-node map for compatibility.
+			// non-header rows), so we track every position per node identity.
 			const positionsByNode = new Map<PMNode, Set<number>>();
-			const addedNodePos = new Map<PMNode, number>();
 			const localIds = new Set<string>();
 			const nodesToUpdate = new Map<number, string>(); // position -> localId
 
@@ -110,31 +114,20 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 					return;
 				}
 
-				if (expValEquals('platform_editor_ai_template_localids', 'isEnabled', true)) {
-					if (
-						transaction.getMeta('uiEvent') === 'cut' ||
-						// We skip remote transactions as we don't want to affect transactions
-						// created by other collaborators.
-						//
-						// Exception (platform_editor_ai_template_localids): applying a template to a
-						// blank page arrives as a remote OverrideDocumentStep (a full-document
-						// replacement with no localIds). We still want those template nodes to get
-						// localIds, so we let such transactions through. Ordinary remote edits are
-						// still skipped, and existing localIds are never overwritten.
-						(Boolean(transaction.getMeta('isRemote')) &&
-							!transaction.steps.some((step) => step instanceof OverrideDocumentStep))
-					) {
-						return;
-					}
-				} else {
-					if (
-						transaction.getMeta('uiEvent') === 'cut' ||
-						// We skip remote transactions as we don't want to affect transactions created
-						// by other users
-						Boolean(transaction.getMeta('isRemote'))
-					) {
-						return;
-					}
+				if (
+					transaction.getMeta('uiEvent') === 'cut' ||
+					// We skip remote transactions as we don't want to affect transactions
+					// created by other collaborators.
+					//
+					// Applying a template to a blank page arrives as a remote
+					// OverrideDocumentStep (a full-document replacement with no localIds).
+					// We still want those template nodes to get localIds, so we let such
+					// transactions through. Ordinary remote edits are still skipped, and
+					// existing localIds are never overwritten.
+					(Boolean(transaction.getMeta('isRemote')) &&
+						!transaction.steps.some((step) => step instanceof OverrideDocumentStep))
+				) {
+					return;
 				}
 
 				// Ignore local ID updates for certain transactions
@@ -146,12 +139,9 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 
 				transaction.steps.forEach((step) => {
 					// Steps with a slice are scanned for nodes that need localIds.
-					// OverrideDocumentStep (template replacement) has no `slice`, so when the
-					// experiment is on we also scan it so the inserted template nodes get
-					// localIds.
-					const isTemplateOverrideStep =
-						step instanceof OverrideDocumentStep &&
-						expValEquals('platform_editor_ai_template_localids', 'isEnabled', true);
+					// OverrideDocumentStep (template replacement) has no `slice`, so we also
+					// scan it so the inserted template nodes get localIds.
+					const isTemplateOverrideStep = step instanceof OverrideDocumentStep;
 
 					if (!stepHasSlice(step) && !isTemplateOverrideStep) {
 						return;
@@ -165,21 +155,11 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 
 							modified = true;
 
-							if (fg('platform_editor_use_localid_dedupe')) {
-								// Always add to addedNodes for duplicate prevention
-								addedNodes.add(node);
-								if (expValEquals('platform_editor_ai_tablecell_localids', 'isEnabled', true)) {
-									const positions = positionsByNode.get(node) ?? new Set<number>();
-									positions.add(pos);
-									positionsByNode.set(node, positions);
-								} else {
-									addedNodePos.set(node, pos);
-								}
-							} else {
-								if (!node?.attrs.localId) {
-									nodesToUpdate.set(pos, generateUUID());
-								}
-							}
+							// Always add to addedNodes for duplicate prevention
+							addedNodes.add(node);
+							const positions = positionsByNode.get(node) ?? new Set<number>();
+							positions.add(pos);
+							positionsByNode.set(node, positions);
 
 							return true;
 						});
@@ -187,7 +167,7 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 				});
 			});
 
-			if (addedNodes.size > 0 && fg('platform_editor_use_localid_dedupe')) {
+			if (addedNodes.size > 0) {
 				newState.doc.descendants((node) => {
 					// Also track existing UUIDs in the global Set for short UUID collision detection
 					if (node.attrs?.localId && !hasInitializedExistingUUIDs) {
@@ -205,57 +185,41 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 				// Also ensure the added have no duplicates
 				const seenIds = new Set<string>();
 
-				if (expValEquals('platform_editor_ai_tablecell_localids', 'isEnabled', true)) {
-					for (const node of addedNodes) {
-						const positions = positionsByNode.get(node);
-						if (!positions || positions.size === 0) {
-							continue;
-						}
-
-						const existingId = node.attrs.localId;
-						const needsNewIds = !existingId || localIds.has(existingId) || seenIds.has(existingId);
-
-						if (needsNewIds) {
-							// No usable localId: assign a fresh unique one to every position.
-							for (const pos of positions) {
-								const newId = generateUUID();
-								nodesToUpdate.set(pos, newId);
-								seenIds.add(newId);
-								modified = true;
-							}
-						} else if (positions.size > 1) {
-							// Shared node reference: keep the existing id at the first position,
-							// assign fresh ones to the rest so they don't share the same localId.
-							seenIds.add(existingId);
-							const [_first, ...rest] = Array.from(positions);
-							for (const pos of rest) {
-								const newId = generateUUID();
-								nodesToUpdate.set(pos, newId);
-								seenIds.add(newId);
-								modified = true;
-							}
-						} else if (existingId) {
-							seenIds.add(existingId);
-						}
+				for (const node of addedNodes) {
+					const positions = positionsByNode.get(node);
+					if (!positions || positions.size === 0) {
+						continue;
 					}
-				} else {
-					for (const node of addedNodes) {
-						if (
-							!node.attrs.localId ||
-							localIds.has(node.attrs.localId) ||
-							seenIds.has(node.attrs.localId)
-						) {
-							const pos = addedNodePos.get(node);
-							if (pos !== undefined) {
-								const newId = generateUUID();
-								nodesToUpdate.set(pos, newId);
-								seenIds.add(newId);
-								modified = true;
-							}
+
+					const existingId = node.attrs.localId;
+					const needsNewIds =
+						(isExperimentEnabled('platform_editor_local_id_reliability')
+							? !localIdNotEmpty(existingId)
+							: !existingId) ||
+						localIds.has(existingId) ||
+						seenIds.has(existingId);
+
+					if (needsNewIds) {
+						// No usable localId: assign a fresh unique one to every position.
+						for (const pos of positions) {
+							const newId = generateUUID();
+							nodesToUpdate.set(pos, newId);
+							seenIds.add(newId);
+							modified = true;
 						}
-						if (node.attrs.localId) {
-							seenIds.add(node.attrs.localId);
+					} else if (positions.size > 1) {
+						// Shared node reference: keep the existing id at the first position,
+						// assign fresh ones to the rest so they don't share the same localId.
+						seenIds.add(existingId);
+						const [_first, ...rest] = Array.from(positions);
+						for (const pos of rest) {
+							const newId = generateUUID();
+							nodesToUpdate.set(pos, newId);
+							seenIds.add(newId);
+							modified = true;
 						}
+					} else if (existingId) {
+						seenIds.add(existingId);
 					}
 				}
 			}
@@ -269,28 +233,4 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 			return modified ? tr : undefined;
 		},
 	});
-};
-/**
- * Batch adds local IDs to nodes using a BatchAttrsStep
- * @param nodesToUpdate Map of position -> localId for nodes that need updates
- * @param tr
- */
-export const batchAddLocalIdToNodes = (
-	nodesToUpdate: Map<number, string>,
-	tr: Transaction,
-): void => {
-	const batchData = Array.from(nodesToUpdate.entries()).map(([pos, localId]) => {
-		const node = tr.doc.nodeAt(pos);
-		if (!node) {
-			throw new Error(`Node does not exist at position ${pos}`);
-		}
-		return {
-			position: pos,
-			attrs: { localId },
-			nodeType: node.type.name,
-		};
-	});
-
-	tr.step(new BatchAttrsStep(batchData));
-	tr.setMeta('addToHistory', false);
 };

@@ -1,7 +1,6 @@
+import { getVCObserver } from './getVCObserver';
 import { VCObserverNOOP } from './no-op-vc-observer';
 import { VCObserver } from './vc-observer';
-
-import { getVCObserver } from './index';
 
 describe('getVCObserver', () => {
 	it('is a singleton', () => {

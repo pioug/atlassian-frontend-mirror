@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext, ExtensionViewportSize } from '../types';
 import type { Serializer } from '../../serializer';
-import type { ExtensionLayout } from '@atlaskit/adf-schema';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
@@ -21,14 +21,14 @@ import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { AnalyticsEventPayload } from '../../analytics/events';
 
 interface Props {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	content?: any;
 	extensionHandlers?: ExtensionHandlers;
 	extensionKey: string;
 	extensionType: string;
 	extensionViewportSizes?: ExtensionViewportSize[];
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getContent?: () => any;
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
@@ -68,6 +68,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.map((child) => (React.isValidElement<any>(child) ? child.props.nodeType === 'table' : false))
 		.every(Boolean);
+	const isInsideOfTable = path.some((node) => node.type.name === 'table');
 
 	const validationContextValue = useMemo<{ allowNestedTables: boolean }>(
 		() => ({ allowNestedTables: true }),
@@ -102,6 +103,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 										layout,
 										{
 											isTopLevel: path.length < 1,
+											isInsideOfTable,
 											rendererAppearance: props.rendererAppearance,
 											fireAnalyticsEvent,
 										},
@@ -125,6 +127,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 								layout,
 								{
 									isTopLevel: path.length < 1,
+									isInsideOfTable,
 									rendererAppearance: props.rendererAppearance,
 									fireAnalyticsEvent,
 								},

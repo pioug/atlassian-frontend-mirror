@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren, useCallback, useState } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Grid, Pressable, xcss } from '@atlaskit/primitives';
 

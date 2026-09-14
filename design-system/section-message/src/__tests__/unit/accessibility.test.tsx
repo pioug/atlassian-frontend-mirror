@@ -4,7 +4,8 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import SectionMessage, { SectionMessageAction } from '../../index';
+import SectionMessage from '../../section-message';
+import SectionMessageAction from '../../section-message-action';
 
 it('Default SectionMessage should pass basic aXe audit', async () => {
 	const { container } = render(

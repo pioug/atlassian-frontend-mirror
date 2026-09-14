@@ -8,7 +8,7 @@ import {
 	emojiErrorMessageTestId,
 	emojiErrorMessageTooltipTestId,
 } from '../../../../components/common/EmojiErrorMessage';
-import { emojiPlaceholderTestId } from '../../../../components/common/EmojiPlaceholder';
+import { emojiPlaceholderTestId } from '../../../../components/common/emojiPlaceholderTestId';
 import {
 	cancelUploadButtonTestId,
 	uploadPreviewTestId,
@@ -18,13 +18,11 @@ import {
 	fileUploadInputTestId,
 } from '../../../../components/common/FileChooser';
 import { retryUploadButtonTestId } from '../../../../components/common/RetryableButton';
-import {
-	categorySelectorCategoryTestId,
-	categorySelectorComponentTestId,
-} from '../../../../components/picker/CategorySelector';
+import { categorySelectorComponentTestId } from '../../../../components/picker/CategorySelector';
 import { emojiPickerFooterTestId } from '../../../../components/picker/EmojiPickerFooter';
 import { emojiPickerSearchTestId } from '../../../../components/picker/EmojiPickerListSearch';
 import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
+import { categorySelectorCategoryTestId } from '../../../../components/picker/categorySelectorCategoryTestId';
 
 export function getEmojiActionsSection(): HTMLElement {
 	return screen.getByTestId(emojiActionsTestId);

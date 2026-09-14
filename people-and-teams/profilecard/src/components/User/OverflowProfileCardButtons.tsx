@@ -2,10 +2,12 @@ import React, { useCallback, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import IconButton from '@atlaskit/button/icon/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import messages from '../../messages';
 import { OverflowActionButtonsWrapper } from '../../styled/Card';

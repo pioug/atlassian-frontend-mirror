@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 import type { ReactNode } from 'react';
 
-import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
-import type { AnnotationId } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
 import type {
 	AnnotationManager,
 	GetDraftResult,

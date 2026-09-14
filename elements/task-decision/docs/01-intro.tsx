@@ -17,13 +17,13 @@ const _default_1: any = md`
 
   ${code`
   import { DecisionList, DecisionItem } from '@atlaskit/task-decision';
-  ReactDOM.render(<DecisionItem>A decision</DecisionItem>, container);
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(<DecisionItem>A decision</DecisionItem>);
+  root.render(
     <DecisionList>
       <DecisionItem>A decision</DecisionItem>
       <DecisionItem>Another decision</DecisionItem>
     </DecisionList>,
-    container,
   );
    };`}
 

@@ -1,14 +1,15 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Label } from '@atlaskit/form';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import { Label } from '@atlaskit/form/label/default';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { Stack } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 
-import { SmartLinkModalProvider, useSmartLinkModal } from '../src/state/modal';
+import { SmartLinkModalProvider } from '../src/state/modal/SmartLinkModalProvider';
+import { useSmartLinkModal } from '../src/state/modal/useSmartLinkModal';
 import RelatedLinksModal from '../src/view/RelatedLinksModal';
-
 import ExampleContainer from './utils/example-container';
 import InternalMessage from './utils/internal-message';
 

@@ -15,14 +15,15 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
 import * as useSmartCardActions from '../../../state/actions';
-import { fakeFactory } from '../../../utils/mocks';
+import { fakeFactory } from '../../../utils/fake-factory';
 import { Card } from '../../Card';
 
 import {

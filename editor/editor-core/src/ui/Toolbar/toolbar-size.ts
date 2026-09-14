@@ -6,7 +6,7 @@ import {
 	ToolbarWidthsFullPageNext,
 	ToolbarWidthsNext,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isFullPage } from '../../utils/is-full-page';
 

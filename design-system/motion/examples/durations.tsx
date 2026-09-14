@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { code, md } from '@atlaskit/docs';
-import { durations, easeOut } from '@atlaskit/motion';
+import { durations } from '@atlaskit/motion/utils/durations';
+import { easeOut } from '@atlaskit/motion/curves';
 
 import { MovesRightBlock } from './utils/blocks';
 

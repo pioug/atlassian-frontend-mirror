@@ -5,9 +5,9 @@ import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, MarkType, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import {
@@ -16,6 +16,7 @@ import {
 	getMultiSelectAnalyticsAttributes,
 } from '../pm-plugins/utils/analytics';
 import { containsNodeOfType, isFragmentOfType } from '../pm-plugins/utils/check-fragment';
+import { isCollapsedHeading } from '../pm-plugins/utils/collapsed-heading';
 import { maxLayoutColumnSupported } from '../pm-plugins/utils/consts';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
 import { getMultiSelectionIfPosInside } from '../pm-plugins/utils/selection';
@@ -173,7 +174,7 @@ const canMoveToLayout = (
 
 	const $to = tr.doc.resolve(to);
 	const allowedParentTypes = [doc, layoutSection];
-	if (bodiedSyncBlock && editorExperiment('platform_synced_block', true)) {
+	if (bodiedSyncBlock) {
 		allowedParentTypes.push(bodiedSyncBlock);
 	}
 
@@ -292,6 +293,12 @@ export const moveToLayout =
 		const canMove = canMoveToLayout(api, from, to, tr, options?.moveNodeAtCursorPos);
 		if (!canMove) {
 			return tr;
+		}
+		if (
+			isExperimentEnabled('platform_editor_collapsible_headings') &&
+			isCollapsedHeading(api, from)
+		) {
+			api.blockCollapse?.commands.expandHeading(from)({ tr });
 		}
 
 		const { toNode, $to, sourceContent, $sourceFrom, sourceTo } = canMove;

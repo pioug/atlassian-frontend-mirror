@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import type { ReactNode, Ref } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import type { TriggerProps } from '@atlaskit/popup';
+import type { TriggerProps } from '@atlaskit/popup/types';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

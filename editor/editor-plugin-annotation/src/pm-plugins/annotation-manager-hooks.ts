@@ -1,4 +1,4 @@
-import { type AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import { type AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type {
 	ApplyDraftResult,
 	ClearAnnotationResult,

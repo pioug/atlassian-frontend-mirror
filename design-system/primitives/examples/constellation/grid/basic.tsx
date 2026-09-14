@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 
 import ExampleBox from '../shared/example-box';
 

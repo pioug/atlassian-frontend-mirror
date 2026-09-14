@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { token } from '@atlaskit/tokens';
 
 import LozengeActionItem from '../lozenge-action-item';

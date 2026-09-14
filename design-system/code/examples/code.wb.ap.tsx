@@ -1,0 +1,65 @@
+import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
+import BasicExample from './00-basic';
+import InlineCodeBasicVrExample from './01-inline-code-basic.vr.ap';
+import CodeBlockBasicVrExample from './10-code-block-basic.vr.ap';
+import CodeBlockBasicWithTabsVrExample from './11-code-block-basic-with-tabs.vr.ap';
+import CodeBlockWrapLongLinesExample from './13-code-block-wrap-long-lines';
+import CodeBlockHighlightingLongLinesVrExample from './14-code-block-highlighting-long-lines.vr.ap';
+import CodeBlockInDocsExample from './20-code-block-in-docs';
+import CodeBlockEmptyVrExample from './21-code-block-empty.vr.ap';
+import CodeBidiCharactersVrExample from './22-code-bidi-characters.vr.ap';
+import CodeOverrideBackgroundVrExample from './23-code-override-background.vr.ap';
+import AbapVrExample from './abap.vr.ap';
+import ApplescriptVrExample from './applescript.vr.ap';
+import CascadingStyleSheetsVrExample from './cascading-style-sheets.vr.ap';
+import ClojureVrExample from './clojure.vr.ap';
+import DelphiVrExample from './delphi.vr.ap';
+import DiffVrExample from './diff.vr.ap';
+import FoxproVrExample from './foxpro.vr.ap';
+import GherkinVrExample from './gherkin.vr.ap';
+import HandlebarsVrExample from './handlebars.vr.ap';
+import JsxVrExample from './jsx.vr.ap';
+import MarkdownFencedCodeJsxVrExample from './markdown-fenced-code-jsx.vr.ap';
+import NoLeakingStylesExample from './no-leaking-styles';
+import ObjectPascalVrExample from './object-pascal.vr.ap';
+import QmlVrExample from './qml.vr.ap';
+import SqlVrExample from './sql.vr.ap';
+import StandardMlVrExample from './standard-ml.vr.ap';
+import TomlVrExample from './toml.vr.ap';
+import VisualBasicVrExample from './visual-basic.vr.ap';
+import VrPythonTestIdAndWrappingVrExample from './vr-python-test-id-and-wrapping.vr.ap';
+
+const Basic: WorkbenchExample = wb(BasicExample);
+
+export default Basic;
+export const InlineCodeBasicVr: WorkbenchExample = wb(InlineCodeBasicVrExample);
+export const CodeBlockBasicVr: WorkbenchExample = wb(CodeBlockBasicVrExample);
+export const CodeBlockBasicWithTabsVr: WorkbenchExample = wb(CodeBlockBasicWithTabsVrExample);
+export const CodeBlockWrapLongLines: WorkbenchExample = wb(CodeBlockWrapLongLinesExample);
+export const CodeBlockHighlightingLongLinesVr: WorkbenchExample = wb(
+	CodeBlockHighlightingLongLinesVrExample,
+);
+export const CodeBlockInDocs: WorkbenchExample = wb(CodeBlockInDocsExample);
+export const CodeBlockEmptyVr: WorkbenchExample = wb(CodeBlockEmptyVrExample);
+export const CodeBidiCharactersVr: WorkbenchExample = wb(CodeBidiCharactersVrExample);
+export const CodeOverrideBackgroundVr: WorkbenchExample = wb(CodeOverrideBackgroundVrExample);
+export const AbapVr: WorkbenchExample = wb(AbapVrExample);
+export const ApplescriptVr: WorkbenchExample = wb(ApplescriptVrExample);
+export const CascadingStyleSheetsVr: WorkbenchExample = wb(CascadingStyleSheetsVrExample);
+export const ClojureVr: WorkbenchExample = wb(ClojureVrExample);
+export const DelphiVr: WorkbenchExample = wb(DelphiVrExample);
+export const DiffVr: WorkbenchExample = wb(DiffVrExample);
+export const FoxproVr: WorkbenchExample = wb(FoxproVrExample);
+export const GherkinVr: WorkbenchExample = wb(GherkinVrExample);
+export const HandlebarsVr: WorkbenchExample = wb(HandlebarsVrExample);
+export const JsxVr: WorkbenchExample = wb(JsxVrExample);
+export const MarkdownFencedCodeJsxVr: WorkbenchExample = wb(MarkdownFencedCodeJsxVrExample);
+export const NoLeakingStyles: WorkbenchExample = wb(NoLeakingStylesExample);
+export const ObjectPascalVr: WorkbenchExample = wb(ObjectPascalVrExample);
+export const QmlVr: WorkbenchExample = wb(QmlVrExample);
+export const SqlVr: WorkbenchExample = wb(SqlVrExample);
+export const StandardMlVr: WorkbenchExample = wb(StandardMlVrExample);
+export const TomlVr: WorkbenchExample = wb(TomlVrExample);
+export const VisualBasicVr: WorkbenchExample = wb(VisualBasicVrExample);
+export const VrPythonTestIdAndWrappingVr: WorkbenchExample = wb(VrPythonTestIdAndWrappingVrExample);

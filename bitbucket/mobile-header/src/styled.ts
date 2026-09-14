@@ -40,7 +40,7 @@ type StyledMobileNavSlider = StyledComponent<
 		isOpen: boolean;
 		side: string;
 		topOffset: number | undefined;
-		// eslint-disable-next-line @typescript-eslint/ban-types
+		// eslint-disable-next-line @typescript-eslint/no-restricted-types
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -71,7 +71,7 @@ type StyledMobilePageHeader = StyledComponent<
 	{
 		as?: React.ElementType;
 		theme?: Theme;
-		// eslint-disable-next-line @typescript-eslint/ban-types
+		// eslint-disable-next-line @typescript-eslint/no-restricted-types
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>,
 	{}
@@ -90,7 +90,7 @@ type StyledMobilePageHeaderContent = StyledComponent<
 		theme?: Theme;
 	} & {
 		topOffset: number | undefined;
-		// eslint-disable-next-line @typescript-eslint/ban-types
+		// eslint-disable-next-line @typescript-eslint/no-restricted-types
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -139,7 +139,7 @@ type StyledFakeBlanket = StyledComponent<
 		theme?: Theme;
 	} & {
 		isOpen: boolean;
-		// eslint-disable-next-line @typescript-eslint/ban-types
+		// eslint-disable-next-line @typescript-eslint/no-restricted-types
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
@@ -165,7 +165,7 @@ type StyledPageHeading = StyledComponent<
 	{
 		as?: React.ElementType;
 		theme?: Theme;
-		// eslint-disable-next-line @typescript-eslint/ban-types
+		// eslint-disable-next-line @typescript-eslint/no-restricted-types
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>,
 	{}

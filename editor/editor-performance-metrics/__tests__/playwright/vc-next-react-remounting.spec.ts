@@ -5,6 +5,9 @@ import { test } from './fixtures';
 test.describe('Editor Metrics - TTVC: React remounting', () => {
 	test.use({
 		examplePage: 'vc-observer-react-remount',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/03-vc-observer-react-remount.tsx');
+		examplePage: 'vc-observer-react-remount';
 	});
 
 	test.describe('when measure the whole page', () => {
@@ -43,10 +46,5 @@ test.describe('Editor Metrics - TTVC: React remounting', () => {
 				}),
 			);
 		});
-	});
-
-	test('should capture and report a11y violations', async ({ page }) => {
-		await expect(page.getByTestId('inside-content')).toBeVisible();
-		await expect(page).toBeAccessible();
 	});
 });

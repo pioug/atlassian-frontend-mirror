@@ -1,5 +1,5 @@
 import { snapshot } from '@af/visual-regression';
-import { MediaGroup, MediaGroupWithReactLooselyLazy } from './media-group.fixture';
+import { MediaGroup, MediaGroupWithReactLooselyLazy } from './media-group.fixture.vr.ap';
 
 snapshot(MediaGroup, {
 	description: 'should render the media group',

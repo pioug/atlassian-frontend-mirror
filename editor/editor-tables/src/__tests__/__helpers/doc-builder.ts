@@ -37,8 +37,8 @@ export const createTd = ({
 	content = p('x'),
 }: {
 	colspan?: number | undefined;
-	rowspan?: number | undefined;
 	content?: DocBuilder | undefined;
+	rowspan?: number | undefined;
 }): RefsNode => {
 	return td({ colspan, rowspan })(content)(defaultSchema);
 };

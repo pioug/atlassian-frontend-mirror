@@ -139,6 +139,7 @@ type PasteAEP = PasteBaseAEP<
 	ACTION.PASTED,
 	{
 		content: PasteContent;
+		hadBackgroundColor?: boolean;
 		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 		invokedFrom?: string;
 		pasteSize: number;

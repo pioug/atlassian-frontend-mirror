@@ -1,17 +1,22 @@
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import * as expValEqualsModule from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { fireEvent, render, screen } from '@atlassian/testing-library';
 
-import { getCachedProviderPctMapAndRefresh } from '../../../../state/services/personalization';
+import { getCachedProviderPctMapAndRefresh } from '../../../../state/services/personalization/getCachedProviderPctMapAndRefresh';
 import { InlineCardUnauthorizedView } from '../index';
+
+const mockFireEvent = jest.fn();
+jest.mock('../../../../common/analytics/generated/use-analytics-events', () => ({
+	useAnalyticsEvents: () => ({ fireEvent: mockFireEvent }),
+}));
 
 const mockGetProviderPctMapSyncLoaded = injectable(getCachedProviderPctMapAndRefresh, () => ({
 	'figma-object-provider': 52,
@@ -60,6 +65,7 @@ const renderWithSocialProofDi = (ui: React.ReactElement, socialProofMock: Inject
 describe('Unauthorised View', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
+		mockFireEvent.mockClear();
 	});
 
 	it('should have correct text', () => {
@@ -335,7 +341,7 @@ describe('Unauthorised View', () => {
 			expValEqualsSpy.mockRestore();
 		});
 
-		it('shows "Preview" button label in treatment', () => {
+		it('authorises from the "Preview" button without opening the Smart Link', () => {
 			passGate('rovogrowth-635-pre-auth-cta-preview-fg');
 			expValEqualsSpy.mockImplementation(
 				(experimentName, parameterName, expectedValue) =>
@@ -345,22 +351,31 @@ describe('Unauthorised View', () => {
 			);
 
 			const testUrl = 'http://unauthorised-test/';
+			const onAuthorise = jest.fn();
+			const onClick = jest.fn();
 			const { getByTestId } = renderWithIntl(
 				<InlineCardUnauthorizedView
 					context="Google"
 					url={testUrl}
-					onAuthorise={jest.fn()}
+					onAuthorise={onAuthorise}
+					onClick={onClick}
 					testId="inline-card-unauthorized-view"
 				/>,
 			);
 
-			expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
-			expect(getByTestId('button-connect-account')).not.toHaveTextContent(
-				'Connect your Google account',
-			);
+			const previewButton = getByTestId('button-connect-account');
+			expect(previewButton).toHaveTextContent('Preview');
+			expect(previewButton).not.toHaveTextContent('Connect your Google account');
+
+			fireEvent.click(previewButton);
+
+			expect(onAuthorise).toHaveBeenCalledTimes(1);
+			expect(onClick).not.toHaveBeenCalled();
+			expect(mockFireEvent).toHaveBeenCalledTimes(1);
+			expect(mockFireEvent).toHaveBeenCalledWith('track.applicationAccount.authStarted', {});
 		});
 
-		it('shows "Preview" button label when social proof is shown', () => {
+		it('authorises once from the nested "Preview" button when social proof is shown', () => {
 			passGate('rovogrowth-635-pre-auth-cta-preview-fg');
 			passGate('platform_sl_3p_preauth_soc_proof_inline_killswitch');
 			expValEqualsSpy.mockImplementation(
@@ -372,20 +387,28 @@ describe('Unauthorised View', () => {
 			);
 
 			const testUrl = 'http://unauthorised-test/';
+			const onAuthorise = jest.fn();
 			const { getByTestId } = renderWithSocialProofDi(
 				<InlineCardUnauthorizedView
 					context="Figma"
 					extensionKey="figma-object-provider"
 					url={testUrl}
-					onAuthorise={jest.fn()}
+					onAuthorise={onAuthorise}
 					testId="inline-card-unauthorized-view"
 				/>,
 				mockGetProviderPctMapSyncLoaded,
 			);
 
-			expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
-			expect(getByTestId('button-connect-account')).not.toHaveTextContent('Connect');
+			const previewButton = getByTestId('button-connect-account');
+			expect(previewButton).toHaveTextContent('Preview');
+			expect(previewButton).not.toHaveTextContent('Connect');
 			expect(getByTestId('inline-card-unauthorized-view-social-proof-tag')).toBeInTheDocument();
+
+			fireEvent.click(previewButton);
+
+			expect(onAuthorise).toHaveBeenCalledTimes(1);
+			expect(mockFireEvent).toHaveBeenCalledTimes(1);
+			expect(mockFireEvent).toHaveBeenCalledWith('track.applicationAccount.authStarted', {});
 		});
 
 		it('shows "Connect your Google account" in control', () => {

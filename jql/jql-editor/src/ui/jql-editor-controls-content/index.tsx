@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useEditorThemeContext } from '../../hooks/use-editor-theme';
+import { useEditorThemeContext } from '../../hooks/use-editor-theme/useEditorThemeContext';
 
 import { ExpandToggle } from './expand-toggle';
 import { Search } from './search';

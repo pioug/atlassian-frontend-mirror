@@ -1,12 +1,18 @@
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-js-client'),
-	initialize: jest.fn(Promise.resolve),
-	initializeCompleted: jest.fn(() => true),
-	getExperimentValue: jest.fn(),
-	checkGate: jest.fn(),
-}));
+jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => {
+	const actual = jest.requireActual('@atlaskit/feature-gate-js-client/feature-gates');
+	return {
+		__esModule: true,
+		default: {
+			...actual.default,
+			initialize: jest.fn(Promise.resolve),
+			initializeCompleted: jest.fn(() => true),
+			getExperimentValue: jest.fn(),
+			checkGate: jest.fn(),
+		},
+	};
+});
 
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { collab } from '@atlaskit/prosemirror-collab';
@@ -19,7 +25,7 @@ import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-s
 import SocketIOClient from 'socket.io-client';
 import type { Provider } from '../provider';
 import { mockIo } from './jest_mocks/socket.io-client.mock';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 describe('Collab Provider Integration Tests - Confluence', () => {
 	let provider: Provider;
@@ -195,8 +201,8 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 				};
 				provider.setMetadata(mockMetaData);
 				expect(provider.getMetadata()).toEqual(mockMetaData);
-				expect(socketEmitSpy).toBeCalledTimes(1);
-				expect(socketEmitSpy).toBeCalledWith('metadata', mockMetaData);
+				expect(socketEmitSpy).toHaveBeenCalledTimes(1);
+				expect(socketEmitSpy).toHaveBeenCalledWith('metadata', mockMetaData);
 			});
 		});
 
@@ -320,11 +326,11 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
 		it('should call the permissionTokenRefresh call-back on establishing the connection', () => {
 			provider.initialize(getStateMock);
-			expect(permissionTokenRefreshMock).toBeCalledTimes(1);
+			expect(permissionTokenRefreshMock).toHaveBeenCalledTimes(1);
 			// Socket IO connects automatically but the mock doesn't
 			// @ts-expect-error mocking Socket IO client behaviour
 			provider.channel.getSocket().connect();
-			expect(permissionTokenRefreshMock).toBeCalledTimes(2);
+			expect(permissionTokenRefreshMock).toHaveBeenCalledTimes(2);
 		});
 	});
 
@@ -412,14 +418,14 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 		it('should be unable to use the provider after calling .destroy()', async () => {
 			const unsubscribeSpy = jest.spyOn(provider, 'unsubscribeAll');
 			await provider.destroy();
-			expect(unsubscribeSpy).toBeCalledTimes(1);
+			expect(unsubscribeSpy).toHaveBeenCalledTimes(1);
 			await expect(provider.getCurrentState()).rejects.toThrow('this.getState is not a function');
 		});
 
 		it('should be unable to use the provider after calling .disconnect()', async () => {
 			const unsubscribeSpy = jest.spyOn(provider, 'unsubscribeAll');
 			await provider.disconnect();
-			expect(unsubscribeSpy).toBeCalledTimes(1);
+			expect(unsubscribeSpy).toHaveBeenCalledTimes(1);
 			await expect(provider.getCurrentState()).rejects.toThrow('this.getState is not a function');
 		});
 
@@ -454,7 +460,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			// @ts-ignore accessing private property for testing purposes
 			const broadcastSpy = jest.spyOn(provider.channel, 'broadcast');
 			provider.sendMessage(telepointerData);
-			expect(broadcastSpy).toBeCalledTimes(1);
+			expect(broadcastSpy).toHaveBeenCalledTimes(1);
 		});
 
 		it('should not throw an error when sendMessage fails to broadcast', () => {

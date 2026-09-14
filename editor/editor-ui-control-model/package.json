@@ -22,55 +22,23 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./create-registry": "./src/entry-points/create-registry.ts",
+		"./create-surface-context": "./src/entry-points/create-surface-context.ts",
 		"./surface-renderer/types": "./src/entry-points/surface-renderer-types.ts",
 		"./surface-renderer": "./src/entry-points/surface-renderer.tsx",
 		"./types": "./src/entry-points/types.ts",
 		"./utils": "./src/entry-points/utils.ts"
 	},
 	"dependencies": {
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0 || ^19.2.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
+		"react": "^18.2.0 || ^19.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"name": "@atlaskit/editor-ui-control-model",
-	"version": "2.3.0",
+	"version": "2.9.0",
 	"description": "Rendering logic and model-types for Editor controls registry ( editor-plugin-ui-control-registry)",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -78,6 +46,8 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"devDependencies": {
-		"react": "^19.2.0"
+		"@atlassian/experiment-test-utils": "workspace:^",
+		"react": "^19.2.0",
+		"react-intl": "root:*"
 	}
 }

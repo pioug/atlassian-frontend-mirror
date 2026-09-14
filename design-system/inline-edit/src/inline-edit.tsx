@@ -6,10 +6,11 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

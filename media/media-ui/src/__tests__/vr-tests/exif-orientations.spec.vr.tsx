@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
-import { Example as ExifOrientationsVr } from '../../../examples/exif-orientations-vr';
+import { Example } from '../../../examples/exif-orientations-vr.vr.ap';
 
-snapshot(ExifOrientationsVr, {
+snapshot(Example, {
+	description: 'Exif Orientations VR',
 	drawsOutsideBounds: true,
 });

@@ -1,8 +1,8 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type RevisionPayloadEntry } from '../../common/vc/types';
 import { getSelectorConfig, isVCRevisionEnabled } from '../../config';
-import { sanitizeLabelStackName } from '../../create-payload/common/utils';
+import { sanitizeLabelStackName } from '../../create-payload/common/utils/sanitize-label-stack-name';
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { SearchPageConfig } from '../types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
@@ -53,10 +53,6 @@ const DEFAULT_SELECTOR_CONFIG = {
 	className: false,
 	dataVC: true,
 };
-
-export function getHasAbortingEventDuringSSR(): boolean {
-	return false;
-}
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default class VCObserverNew {

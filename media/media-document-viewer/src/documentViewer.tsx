@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import {
 	type CSSProperties,
 	type TouchEventHandler,
@@ -23,7 +24,7 @@ import { token } from '@atlaskit/tokens';
 import { Page } from './page';
 import { type PageRangeContent } from './types';
 import { usePageContent } from './usePageContent';
-import { getScrollElement } from './utils/getDocumentRoot';
+import { getScrollElement } from './utils/getScrollElement';
 import { useCachedGetImage } from './utils/useCachedGetImage';
 
 export type DocumentViewerProps = {

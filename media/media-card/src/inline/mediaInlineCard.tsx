@@ -1,4 +1,9 @@
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import React, { type FC, useEffect, useMemo, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+
+import { createIntl, injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import {
 	FileFetcherError,
 	toCommonMediaClientError,
@@ -7,31 +12,29 @@ import {
 	type Identifier,
 	type MediaClient,
 } from '@atlaskit/media-client';
+import { useCopyIntent } from '@atlaskit/media-client-react/use-copy-intent';
 import {
-	MediaInlineCardErroredView,
-	MediaInlineCardLoadedView,
-	MediaInlineCardLoadingView,
-	messages,
-} from '@atlaskit/media-ui';
+	mapSsrMediaItemToFileState,
+	type SsrMediaItem,
+} from '@atlaskit/media-client/ssr-media-item';
+import { MediaInlineCardErroredView } from '@atlaskit/media-ui/ErroredView';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
+import { MediaInlineCardLoadedView } from '@atlaskit/media-ui/LoadedView';
+import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
+import { messages } from '@atlaskit/media-ui/messages';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Tooltip from '@atlaskit/tooltip';
-import React, { type FC, useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { createIntl, injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl';
-import { MediaCardError } from '../errors';
-import { type InlineCardEvent, type InlineCardOnClickCallback } from '../types';
-import { fireMediaCardEvent } from '../utils/analytics';
-import {
-	getErrorStatusPayload,
-	getFailedProcessingStatusPayload,
-	getSucceededStatusPayload,
-} from './mediaInlineCardAnalytics';
-import { useCopyIntent } from '@atlaskit/media-client-react';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
+import { MediaCardError } from '../MediaCardError';
+import { type InlineCardEvent, type InlineCardOnClickCallback } from '../types';
+import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
+import { getErrorStatusPayload } from './getErrorStatusPayload';
+import { getFailedProcessingStatusPayload } from './getFailedProcessingStatusPayload';
+import { getSucceededStatusPayload } from './getSucceededStatusPayload';
 
 export interface MediaInlineCardProps {
 	identifier: FileIdentifier;
@@ -56,6 +59,12 @@ export interface MediaInlineCardProps {
 	 * @see https://product-fabric.atlassian.net/browse/BMPT-7914
 	 */
 	readonly ssrFileState?: FileState;
+	/**
+	 * Raw SSR media item from a host payload (e.g. Confluence recorded media nodes).
+	 * Used when `ssrFileState` is not provided. Converted to FileState internally
+	 * when `fg('platform_media_ssr_data_seed')` is on.
+	 */
+	readonly ssrMediaItem?: SsrMediaItem;
 }
 
 // UI component which renders an inline link in the appropiate state based on a media file
@@ -71,8 +80,16 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	viewerOptions,
 	fallbackMediaNameFetcher,
 	ssrFileState,
+	ssrMediaItem,
 }) => {
-	const initialFileState = fg('platform_media_ssr_data_seed') ? ssrFileState : undefined;
+	// ssrFileState (Relay / explicit seed) wins over converting ssrMediaItem.
+	const initialFileState = useMemo(
+		() =>
+			fg('platform_media_ssr_data_seed')
+				? (ssrFileState ?? mapSsrMediaItemToFileState(ssrMediaItem))
+				: undefined,
+		[ssrFileState, ssrMediaItem],
+	);
 	// Capture as a ref so it's a stable one-time SSR seed that doesn't affect
 	// the useEffect dependency array (including it would cause repeated
 	// unsubscribe/resubscribe cycles whenever ssrFileState changes reference).

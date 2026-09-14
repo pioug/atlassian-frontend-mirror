@@ -7,13 +7,14 @@ import {
 } from '@atlaskit/media-client';
 import { Card } from '../src';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import { MediaClientProvider, useFileState } from '@atlaskit/media-client-react';
+import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
+import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { svgFileIds } from '@atlaskit/media-client/test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button';
-import { RadioGroup } from '@atlaskit/radio';
-import Select from '@atlaskit/select';
-import { Label } from '@atlaskit/form';
+import Button from '@atlaskit/button/button';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Select from '@atlaskit/select/default';
+import { Label } from '@atlaskit/form/label/default';
 import { token } from '@atlaskit/tokens';
 import { MainWrapper } from '../example-helpers';
 import {

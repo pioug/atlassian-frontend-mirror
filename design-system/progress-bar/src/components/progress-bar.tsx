@@ -7,7 +7,6 @@ import React from 'react';
 
 import { css, cssMap, jsx, keyframes } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type DefaultProgressBarProps } from '../types';
@@ -30,12 +29,8 @@ const containerStyles = css({
 	height: 6,
 	position: 'relative',
 	backgroundColor: token('color.background.neutral'),
-	borderRadius: token('radius.small', '3px'),
-	overflow: 'hidden',
-});
-
-const containerStylesT26Shape = css({
 	borderRadius: token('radius.full'),
+	overflow: 'hidden',
 });
 
 const containerAppearance = cssMap({
@@ -56,10 +51,6 @@ const barStyles = css({
 	display: 'block',
 	height: 6,
 	position: 'absolute',
-	borderRadius: token('radius.small', '3px'),
-});
-
-const barStylesT26Shape = css({
 	borderRadius: token('radius.full'),
 });
 
@@ -106,11 +97,7 @@ const ProgressBar: ({
 
 	return (
 		<div
-			css={[
-				containerStyles,
-				fg('platform-dst-shape-theme-default') && containerStylesT26Shape,
-				containerAppearance[appearance],
-			]}
+			css={[containerStyles, containerAppearance[appearance]]}
 			role="progressbar"
 			aria-label={ariaLabel}
 			aria-valuemin={MIN_VALUE}
@@ -120,32 +107,13 @@ const ProgressBar: ({
 		>
 			{isIndeterminate ? (
 				<React.Fragment>
-					<span
-						css={[
-							barStyles,
-							barAppearance[appearance],
-							increasingBarStyles,
-							fg('platform-dst-shape-theme-default') && barStylesT26Shape,
-						]}
-					/>
-					<span
-						css={[
-							barStyles,
-							barAppearance[appearance],
-							decreasingBarStyles,
-							fg('platform-dst-shape-theme-default') && barStylesT26Shape,
-						]}
-					/>
+					<span css={[barStyles, barAppearance[appearance], increasingBarStyles]} />
+					<span css={[barStyles, barAppearance[appearance], decreasingBarStyles]} />
 				</React.Fragment>
 			) : (
 				<span
 					style={{ width: `${Number(value) * 100}%` }}
-					css={[
-						barStyles,
-						barAppearance[appearance],
-						determinateBarStyles,
-						fg('platform-dst-shape-theme-default') && barStylesT26Shape,
-					]}
+					css={[barStyles, barAppearance[appearance], determinateBarStyles]}
 				/>
 			)}
 		</div>

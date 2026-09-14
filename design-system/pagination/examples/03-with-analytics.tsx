@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { Code } from '@atlaskit/code';
-import Heading from '@atlaskit/heading';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import Code from '@atlaskit/code/code';
+import Heading from '@atlaskit/heading/heading';
 import Pagination from '@atlaskit/pagination';
 import { Stack } from '@atlaskit/primitives/compiled';
 

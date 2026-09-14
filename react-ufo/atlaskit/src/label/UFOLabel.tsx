@@ -1,6 +1,7 @@
 import React, { type ReactNode, useMemo } from 'react';
 
-import InteractionContext, { useInteractionContext } from '../interaction-context';
+import InteractionContext from '../interaction-context';
+import { useInteractionContext } from '../interaction-context/useInteractionContext';
 
 /**
  * Annotate part of the react tree with a product name

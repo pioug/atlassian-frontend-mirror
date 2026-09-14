@@ -6,7 +6,7 @@ import {
 	MediaWrappedComplexResizeLayout,
 	MediaWrappedLayoutShiftUp,
 	MultipleWrappedMediaInLayout,
-} from './media-layout.fixture';
+} from './media-layout.fixture.vr.ap';
 
 snapshot(MediaWrappedLayout, {
 	description: 'should render 2 media items in 1 line when wrapped with text in between',

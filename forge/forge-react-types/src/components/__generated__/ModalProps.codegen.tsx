@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformModalDialog from '@atlaskit/modal-dialog';
+import PlatformModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 
 type PlatformModalDialogProps = React.ComponentProps<typeof PlatformModalDialog>;
 type ModalNamedSizes =

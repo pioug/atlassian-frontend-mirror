@@ -11,7 +11,7 @@ jest.mock('@atlaskit/atlassian-context/is-fedramp-moderate', () => ({
 
 // Light mock for the underlying Observers class so this test focuses purely
 // on the selectorConfig wiring inside the legacy `VCObserver` constructor.
-jest.mock('./observers', () => ({
+jest.mock('./observers/index', () => ({
 	Observers: jest.fn().mockImplementation((opts) => ({
 		__opts: opts,
 		isBrowserSupported: () => false,

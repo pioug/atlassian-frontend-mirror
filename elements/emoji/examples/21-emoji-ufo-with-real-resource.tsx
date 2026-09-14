@@ -1,15 +1,16 @@
 import React from 'react';
-import { payloadPublisher, ufologger } from '@atlassian/ufo';
+
+import { payloadPublisher } from '@atlassian/ufo/publisher';
+import { ufologger } from '@atlassian/ufo-experimental/logger';
 import { IntlProvider } from 'react-intl';
-import {
-	ResourcedEmojiControl,
-	getEmojiConfig,
-	getRealEmojiProvider,
-} from '../example-helpers/demo-resource-control';
-import { onSelection } from '../example-helpers';
+
+import { getEmojiConfig } from '../example-helpers/get-emoji-config';
+import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';
+import { onSelection } from '../example-helpers/on-selection';
+import { ResourcedEmojiControl } from '../example-helpers/resourced-emoji-control';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../src/util/constants';
-import { RenderRealResourcedEmojis } from './22-resourced-emoji-real-resource-backend';
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
+import { RenderRealResourcedEmojis } from './22-resourced-emoji-real-resource-backend';
 import { RenderSpriteEmojis } from './23-sprite-emoji';
 import { EmojiPickerPopup } from './26-emoji-common-provider-with-real-backend';
 /**

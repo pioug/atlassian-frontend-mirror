@@ -1,9 +1,9 @@
-import {
-	type Auth,
-	type AsapBasedAuth,
-	type AuthContext,
-	type ClientAltBasedAuth,
-} from '@atlaskit/media-core';
+import type {
+	Auth,
+	AsapBasedAuth,
+	AuthContext,
+	ClientAltBasedAuth,
+} from '@atlaskit/media-core/auth';
 import { type SSR, type MediaTraceContext } from '@atlaskit/media-common';
 
 import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
@@ -17,7 +17,7 @@ import {
 	type RequestParams,
 	type RequestMetadata,
 } from '../../utils/request/types';
-import { type ChunkHashAlgorithm } from '@atlaskit/media-core';
+import type { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 import {
 	type DocumentPageRangeContent,
 	type GetDocumentPageImage,
@@ -114,7 +114,7 @@ export type MediaStoreCreateFileFromBinaryParams = {
 
 export type MediaStoreCreateFileFromUploadConditions = {
 	readonly hash?: string;
-	readonly size?: number;
+	readonly size: number;
 };
 
 export type MediaStoreCreateFileFromUploadBody = {
@@ -122,7 +122,7 @@ export type MediaStoreCreateFileFromUploadBody = {
 
 	readonly name?: string;
 	readonly mimeType?: string;
-	readonly conditions?: MediaStoreCreateFileFromUploadConditions;
+	readonly conditions: MediaStoreCreateFileFromUploadConditions;
 };
 
 export type MediaStoreGetFileParams = {
@@ -274,7 +274,11 @@ export interface MediaApi {
 	getFileImageURL: (id: string, params?: MediaStoreGetFileImageParams) => Promise<string>;
 
 	// TODO Create ticket in case Trace Id can be supported through query params
-	getFileImageURLSync: (id: string, params?: MediaStoreGetFileImageParams) => string;
+	getFileImageURLSync: (
+		id: string,
+		params?: MediaStoreGetFileImageParams,
+		seededCdnUrl?: string,
+	) => string;
 
 	getFileBinary: (
 		id: string,

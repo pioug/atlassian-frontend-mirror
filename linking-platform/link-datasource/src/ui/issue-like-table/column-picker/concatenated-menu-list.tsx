@@ -2,16 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import {
-	CheckboxOption,
-	components,
-	type MenuListComponentProps,
-	type OptionProps,
-	type OptionType,
-} from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { MenuListComponentProps, OptionType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { columnPickerMessages } from './messages';
@@ -22,29 +18,6 @@ const messageStyles = css({
 	color: token('color.text.subtle'),
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.regular'),
-});
-
-const listItemStylesFocusedSelected = css({
-	backgroundColor: token('color.background.selected.hovered'),
-});
-
-const listItemStylesSelected = css({
-	backgroundColor: token('color.background.selected'),
-	'&:hover': {
-		backgroundColor: token('color.background.selected.hovered'),
-	},
-	'&:active': {
-		backgroundColor: token('color.background.selected.pressed'),
-	},
-});
-
-const listItemStyles = css({
-	'&:hover': {
-		backgroundColor: token('color.background.neutral.hovered'),
-	},
-	'&:active': {
-		backgroundColor: token('color.background.neutral.pressed'),
-	},
 });
 
 export const ConcatenatedMenuList = ({
@@ -75,19 +48,5 @@ export const ConcatenatedMenuList = ({
 			{children.slice(0, SELECT_ITEMS_MAXIMUM_THRESHOLD)}
 			{maximumLimitReachedMessage}
 		</components.MenuList>
-	);
-};
-
-export const MenuItem = ({ children, ...props }: OptionProps<OptionType, true>): JSX.Element => {
-	return (
-		<CheckboxOption
-			css={[
-				props.isSelected ? listItemStylesSelected : listItemStyles,
-				props.isSelected && props.isFocused && listItemStylesFocusedSelected,
-			]}
-			{...props}
-		>
-			{children}
-		</CheckboxOption>
 	);
 };

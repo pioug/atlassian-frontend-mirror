@@ -6,6 +6,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+import { getHadMarkAttributes } from '@atlaskit/editor-common/mark';
 import type { Command, HigherOrderCommand } from '@atlaskit/editor-common/types';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 
@@ -29,6 +30,7 @@ function createWithColorAnalytics(
 	palette: PaletteColor[],
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	inputMethod?: TextColorInputMethod,
+	hadMarkAttributes: { hadBackgroundColor?: boolean } = {},
 ): HigherOrderCommand {
 	const newColorFromPalette = palette.find(({ value }) => value === newColor);
 	const previousColorFromPalette = palette.find(({ value }) => value === previousColor);
@@ -47,6 +49,7 @@ function createWithColorAnalytics(
 			newColor: newColorLabel.toLowerCase(),
 			previousColor: previousColorLabel.toLowerCase(),
 			inputMethod,
+			...hadMarkAttributes,
 		},
 	});
 }
@@ -58,10 +61,14 @@ export const changeColor =
 		inputMethod?: TextColorInputMethod,
 	): Command =>
 	(state, dispatch) => {
-		const { textColor } = state.schema.marks;
+		const { textColor, backgroundColor } = state.schema.marks;
 		if (textColor) {
 			const pluginState = pluginKey.getState(state);
 			const activeColor = getActiveColor(state);
+			const isRemovingColor = color === pluginState?.defaultColor;
+			const hadMarkAttributes = isRemovingColor
+				? {}
+				: getHadMarkAttributes(state.tr, [backgroundColor]);
 
 			const withColorAnalytics = createWithColorAnalytics(
 				color,
@@ -69,13 +76,14 @@ export const changeColor =
 				pluginState?.palette || [],
 				editorAnalyticsApi,
 				inputMethod,
+				hadMarkAttributes,
 			);
 
 			if (pluginState?.disabled) {
 				return false;
 			}
 
-			if (color === pluginState?.defaultColor) {
+			if (isRemovingColor) {
 				withColorAnalytics(removeColor())(state, dispatch);
 				return true;
 			}

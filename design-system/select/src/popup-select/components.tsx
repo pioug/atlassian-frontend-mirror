@@ -7,7 +7,7 @@ import { type FC, type JSX } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import SearchIcon from '@atlaskit/icon/core/search';
-import { components } from '@atlaskit/react-select';
+import { components } from '@atlaskit/react-select/components';
 import { token } from '@atlaskit/tokens';
 
 import {

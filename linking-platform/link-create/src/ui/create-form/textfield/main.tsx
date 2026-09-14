@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AkTextfield from '@atlaskit/textfield';
+import AkTextfield from '@atlaskit/textfield/text-field';
 
 import { CreateField } from '../../../controllers/create-field/main';
 

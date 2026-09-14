@@ -4,7 +4,7 @@ import type { IntlShape } from 'react-intl';
 import { useIntl } from 'react-intl';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx } from '@atlaskit/css';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { colorAccessibilityMessages as messages } from '@atlaskit/editor-common/messages';
@@ -26,7 +26,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import AccessibilityIcon from '@atlaskit/icon/core/accessibility';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import { getTokenValue } from '@atlaskit/tokens/get-token-value';

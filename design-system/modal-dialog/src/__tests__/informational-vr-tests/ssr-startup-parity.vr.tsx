@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import SsrInitialOpenModal from '../../../examples/103-ssr-initial-open';
+import SsrInitialOpenModal from '../../../examples/103-ssr-initial-open.vr.ap';
 
 snapshotInformational(SsrInitialOpenModal, {
 	description:

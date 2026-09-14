@@ -7,8 +7,10 @@ between the visible text and that shown to users of assistive technology.
 
 ## Examples
 
-This rule warns when `label` is used on the default import from `@atlaskit/modal-dialog` or
-`@atlaskit/modal-dialog/modal-dialog`.
+This rule warns when `label` is used on:
+
+- the default import from `@atlaskit/modal-dialog` or `@atlaskit/modal-dialog/modal-dialog`
+- `modalProps.label` on modal entry-point triggers from `@atlassian/entry-points`
 
 ### Incorrect
 
@@ -22,6 +24,14 @@ import ModalDialog from '@atlaskit/modal-dialog';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 
 <Modal label={modalLabel} />;
+```
+
+```tsx
+import { ModalTrigger } from '@atlassian/entry-points/modal-trigger';
+
+<ModalTrigger entryPoint={entryPoint} modalProps={{ label: 'Create issue' }}>
+	{({ ref }) => <button ref={ref}>Open</button>}
+</ModalTrigger>;
 ```
 
 ### Correct
@@ -53,4 +63,11 @@ const CustomHeader = () => {
 <ModalDialog>
 	<CustomHeader />
 </ModalDialog>;
+```
+
+```tsx
+import { ModalIconButtonTrigger } from '@atlassian/entry-points/modal-icon-button-trigger';
+
+// Top-level `label` on icon button triggers is the trigger button name — allowed.
+<ModalIconButtonTrigger entryPoint={entryPoint} label="Create issue" icon={AddIcon} />;
 ```

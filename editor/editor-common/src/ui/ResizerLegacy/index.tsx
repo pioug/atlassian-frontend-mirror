@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
 
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
 
 import type { DispatchAnalyticsEvent, MediaEventPayload } from '../../analytics';

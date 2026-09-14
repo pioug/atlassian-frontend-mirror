@@ -6,10 +6,10 @@ import { forwardRef, type ReactNode, useCallback, useContext } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { PopupTrigger } from '@atlaskit/popup/experimental';
+import { PopupTrigger } from '@atlaskit/popup/compositional/popup-trigger';
 import { token } from '@atlaskit/tokens';
 
 import { MenuItemBase } from '../menu-item';

@@ -40,12 +40,12 @@ browsers that support anchor positioning but not anchor sizing. **Action:** Code
 
 #### 4. `aria-controls` in standalone `Popup.Content` mode — Consumer responsibility
 
-**Decision:** When tooltip/spotlight use `Popup.Content` directly (without `Popup.Trigger`), they
-own the trigger lifecycle and therefore own the `aria-controls` wiring. This is a consumer-level
-concern, not a top-layer concern. Each standalone consumer should wire `aria-controls` in their own
-migration code. **Rationale:** Each standalone use case has its own trigger lifecycle (hover for
-tooltip, programmatic for spotlight). A generic solution would be either too simple or too
-opinionated.
+**Decision:** When tooltip/spotlight compose the `Popover` primitive directly (without a trigger
+sub-component), they own the trigger lifecycle and therefore own the `aria-controls` wiring. This is
+a consumer-level concern, not a top-layer concern. Each standalone consumer should wire
+`aria-controls` in their own migration code. **Rationale:** Each standalone use case has its own
+trigger lifecycle (hover for tooltip, programmatic for spotlight). A generic solution would be
+either too simple or too opinionated.
 
 #### 5. `popover="hint"` fallback to `"auto"` — Accepted with documentation
 

@@ -5,21 +5,20 @@ import {
 	type WrappedComponentProps,
 	type WithIntlProps,
 } from 'react-intl';
-import Button from '@atlaskit/button/new';
-import Modal, {
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import defaultLocales from '@atlaskit/locale/default-locales';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import FileIcon from '@atlaskit/icon/core/file';
 import { token } from '@atlaskit/tokens';
-import { Label } from '@atlaskit/form';
-import Spinner from '@atlaskit/spinner';
+import { Label } from '@atlaskit/form/label/default';
+import Spinner from '@atlaskit/spinner/spinner';
 import { messages } from '../../../../../messages';
 import { formatLocale } from '../../formatLocale';
 import { detectLanguage } from './languageDetector';

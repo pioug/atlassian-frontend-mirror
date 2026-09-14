@@ -1,5 +1,4 @@
-import type { TSESTree } from '@typescript-eslint/typescript-estree';
-import type { TSESLint } from '@typescript-eslint/utils';
+import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
 
 export const rule: TSESLint.RuleModule<string> = {
 	meta: {
@@ -9,7 +8,6 @@ export const rule: TSESLint.RuleModule<string> = {
 				'Ensure value assignment do not occur when the initialisor is of type HTMLElement and the assignment is in a different function scope. /n' +
 				'This implementation could potentially lead to a memory leak due to detached elements not being able to be garbage collected. /n ' +
 				'To avoid the memory leak, please wrap the assignment in WeakRef, WeakMap or WeakSet',
-			recommended: 'error',
 		},
 		messages: {
 			differentScope:
@@ -102,6 +100,6 @@ export const rule: TSESLint.RuleModule<string> = {
 };
 
 const NoHtmlElementAssignmentRule: {
-	rule: TSESLint.RuleModule<string, [], TSESLint.RuleListener>;
+	rule: TSESLint.RuleModule<string>;
 } = { rule };
 export default NoHtmlElementAssignmentRule;

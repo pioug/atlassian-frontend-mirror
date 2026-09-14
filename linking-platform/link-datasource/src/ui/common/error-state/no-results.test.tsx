@@ -6,8 +6,8 @@ import { IntlProvider } from 'react-intl';
 import { NoResults } from './no-results';
 
 const fireEventMock = jest.fn();
-jest.mock('../../../analytics', () => ({
-	...jest.requireActual('../../../analytics'),
+jest.mock('../../../analytics/index', () => ({
+	...jest.requireActual('../../../analytics/index'),
 	useDatasourceAnalyticsEvents: jest.fn(() => ({
 		fireEvent: fireEventMock,
 	})),

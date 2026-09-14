@@ -1,5 +1,5 @@
 import { TEST_ARI, TEST_BASE_DATA } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractAri } from '../index';
+import { extractAri } from '../extract-ari';
 
 describe('extractors.primitives.ari', () => {
 	it('returns undefined if not present', () => {

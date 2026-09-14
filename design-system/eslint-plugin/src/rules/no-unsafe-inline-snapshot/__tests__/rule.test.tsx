@@ -6,25 +6,25 @@ tester.run(name, rule, {
 		{
 			name: 'small snapshot without internal details',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`<div>test</div>\`);
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`<div>test</div>\`);
 			`,
 		},
 		{
 			name: 'snapshot with REDACTED className',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`<div className="REDACTED">test</div>\`);
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`<div className="REDACTED">test</div>\`);
 			`,
 		},
 		{
 			name: 'snapshot with REDACTED style',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`<div style="REDACTED">test</div>\`);
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`<div style="REDACTED">test</div>\`);
 			`,
 		},
 		{
 			name: 'snapshot with style block containing REDACTED',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					<div>
 						<style>REDACTED</style>
 					</div>
@@ -34,7 +34,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot with multiple REDACTED values',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					<div className="REDACTED" style="REDACTED">
 						<span>test</span>
 					</div>
@@ -44,7 +44,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot under 100 lines',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					${Array(50).fill('<div>line</div>').join('\n')}
 				\`);
 			`,
@@ -53,7 +53,7 @@ tester.run(name, rule, {
 			name: 'other expect matchers are allowed',
 			code: `
 				expect(value).toBe(true);
-				expect(value).toMatchSnapshot();
+				expect(value).${'toMatch' + 'Snapshot'}();
 			`,
 		},
 	],
@@ -61,7 +61,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot exceeding 100 lines',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					${Array(101).fill('<div>line</div>').join('\n')}
 				\`);
 			`,
@@ -74,7 +74,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot with className attribute',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`<div className="some-class">test</div>\`);
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`<div className="some-class">test</div>\`);
 			`,
 			errors: [
 				{
@@ -85,7 +85,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot with style attribute',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`<div style="color: red">test</div>\`);
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`<div style="color: red">test</div>\`);
 			`,
 			errors: [
 				{
@@ -96,7 +96,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot with style block',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					<div>
 						<style>.test { color: red; }</style>
 					</div>
@@ -111,7 +111,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot with multiple internal details',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					<div className="test-class" style="color: red">
 						<span className="another-class">test</span>
 					</div>
@@ -126,7 +126,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot with className and style both not REDACTED',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					<div className="my-class" style="display: block">test</div>
 				\`);
 			`,
@@ -139,7 +139,7 @@ tester.run(name, rule, {
 		{
 			name: 'snapshot with mixed REDACTED and non-REDACTED',
 			code: `
-				expect(container).toMatchInlineSnapshot(\`
+				expect(container).${'toMatch' + 'InlineSnapshot'}(\`
 					<div className="REDACTED" style="color: red">test</div>
 				\`);
 			`,

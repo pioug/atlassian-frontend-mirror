@@ -110,4 +110,6 @@ const [state, setState] = useState<TState>({ type: 'idle' });
 
 ## Versioning
 
-This package is still on `0.x` releases. All changes should be a `minor` (`0.x`) release.
+This package is on stable releases. Follow semantic versioning: use `major` for public API removals
+or incompatible behavior changes, `minor` for public API additions, and `patch` for compatible fixes
+and internal implementation changes.

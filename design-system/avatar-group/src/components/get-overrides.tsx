@@ -13,7 +13,6 @@ export function getOverrides(overrides?: AvatarGroupOverrides): DeepRequired<Ava
 		},
 		Avatar: {
 			render: (Component, props, index) => (
-				//@ts-ignore - TS2604/TS2786: Component type union causing issues for help-center local consumption with TS 5.9.2
 				<Component {...props} key={composeUniqueKey(props, index)} />
 			),
 			...(overrides && overrides.Avatar),

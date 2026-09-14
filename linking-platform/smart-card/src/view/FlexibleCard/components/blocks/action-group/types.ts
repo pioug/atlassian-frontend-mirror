@@ -1,4 +1,4 @@
-import { type Appearance } from '@atlaskit/button';
+import type { Appearance } from '@atlaskit/button/old-button/types';
 
 import { type SmartLinkDirection, type SmartLinkSize } from '../../../../../constants';
 import { type ActionItem } from '../types';

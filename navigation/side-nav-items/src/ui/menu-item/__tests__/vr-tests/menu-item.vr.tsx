@@ -11,17 +11,17 @@ import {
 	ButtonMenuItemWithElemAfter,
 	ButtonMenuItemWithElemAfterAndActionsOnHover,
 	ButtonMenuItemWithPopup,
-} from '../../../../../examples/button-menu-item';
+} from '../../../../../examples/button-menu-item.vr.ap';
 import {
 	LinkMenuItemExample,
 	LinkMenuItemRTLExample,
 	LinkMenuItemWithDropdownActionOpen,
 	LinkMenuItemWithElemAfter,
 	LinkMenuItemWithElemAfterAndActionsOnHover,
-} from '../../../../../examples/link-menu-item';
-import { MenuItemAvatarExample } from '../../../../../examples/menu-item-avatar';
-import { LinkMenuItemBleed } from '../../../../../examples/menu-item-focus-ring-bleed';
-import { MenuItemNarrowVR } from '../../../../../examples/menu-item-narrow';
+} from '../../../../../examples/link-menu-item.vr.ap';
+import { MenuItemAvatarExample } from '../../../../../examples/menu-item-avatar.vr.ap';
+import { LinkMenuItemBleed } from '../../../../../examples/menu-item-focus-ring-bleed.vr.ap';
+import { MenuItemNarrowVR } from '../../../../../examples/menu-item-narrow.vr.ap';
 
 // Adding all browser variants to ensure that the grid is working correctly
 // for all browsers (as we have had some issues relating to browser specific issues).

@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useLayoutEffect as useRealLayoutEffect } 
 import { css, jsx, keyframes } from '@compiled/react';
 
 import InteractionContext from '@atlaskit/interaction-context';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import type { BorderRadius } from '@atlaskit/tokens/css-type-schema';
 

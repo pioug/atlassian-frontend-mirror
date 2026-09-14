@@ -5,20 +5,17 @@ import userEvent, { type UserEvent } from '@testing-library/user-event';
 import cases from 'jest-in-case';
 import moment from 'moment';
 
-import { CreatableSelect, type OptionsType } from '@atlaskit/select';
+import CreatableSelect from '@atlaskit/select/creatable-select';
+import type { OptionsType } from '@atlaskit/select/types';
 
 import { type TimePickerBaseProps } from '../../../types';
 import TimePicker from '../../time-picker';
 
-jest.mock('@atlaskit/select', () => {
-	const actual = jest.requireActual('@atlaskit/select');
-
-	return {
-		__esModule: true,
-		...actual,
-		CreatableSelect: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/select/creatable-select', () => ({
+	...jest.requireActual('@atlaskit/select/creatable-select'),
+	__esModule: true,
+	default: jest.fn(),
+}));
 
 const testId = 'test';
 

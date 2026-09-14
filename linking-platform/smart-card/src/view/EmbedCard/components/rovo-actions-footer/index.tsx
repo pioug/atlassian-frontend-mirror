@@ -7,9 +7,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
-import { WidthObserver } from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import type { RovoChatActionData } from '../../../../state/flexible-ui-context/types';
 import useInvokeClientAction from '../../../../state/hooks/use-invoke-client-action';

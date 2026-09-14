@@ -3,7 +3,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const codeBlockAutoFullStopTransformPluginKey: PluginKey = new PluginKey(
 	'codeBlockAutoFullStopTransformPluginKey',

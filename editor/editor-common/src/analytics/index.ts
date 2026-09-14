@@ -60,6 +60,7 @@ export type {
 export type {
 	InputMethodInsertNativeEmbed,
 	InsertNativeEmbedAEP,
+	NativeEmbedResizeErroredAEP,
 } from './types/native-embed-events';
 
 export {
@@ -261,4 +262,5 @@ export type {
 	AiSuggestionInteractionPoint,
 	AiSuggestionsEntryPoint,
 	AiSuggestionsEventPayload,
+	AiSuggestionsRightRailEntryPoint,
 } from './types/ai-suggestions-events';

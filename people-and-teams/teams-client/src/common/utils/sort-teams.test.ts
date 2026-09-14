@@ -1,11 +1,11 @@
 import faker from 'faker';
 
-import { randomTeamMembership } from '../../mocks';
-import { type MembershipState, type TeamMembership } from '../../types';
+import { randomTeamMembership } from '../../mocks/random-team-membership';
+import { type MembershipState, type TeamMembership } from '../../types/membership';
 import { type UserStatus } from '../../types/user';
 
+import { isMember } from './is-member';
 import { sortMembersByType } from './sort-teams';
-import { isMember } from './team';
 
 const randomTeamMember = ({
 	state = 'FULL_MEMBER',

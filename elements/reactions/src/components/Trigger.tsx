@@ -4,13 +4,14 @@
  */
 import { type AriaAttributes } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type AnalyticsEvent from '@atlaskit/analytics-next/AnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type PickerSize } from '@atlaskit/emoji/types';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { cssMap, jsx, cx, css } from '@compiled/react';
@@ -265,8 +266,12 @@ export const Trigger: React.ForwardRefExoticComponent<
 				<EmojiAddIcon
 					testId="emoji-add-icon"
 					color={disabled ? token('color.icon.disabled') : token('color.icon')}
-					label="Add reaction"
-					{...(fg('platform_a11y_fixes_reaction_emoji') ? { 'aria-hidden': true } : {})}
+					label={
+						fg('tef_fix_a11y_add_reaction_button_language_support')
+							? formatMessage(i18n.addReaction)
+							: 'Add reaction'
+					}
+					aria-hidden
 					size={emojiPickerSize === 'small' ? 'small' : 'medium'}
 				/>
 			)}

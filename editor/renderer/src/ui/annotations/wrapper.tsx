@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ProvidersContext } from './context';
 import { RangeValidator as HoverRangeValidator } from './hover/range-validator';
 import { SelectionRangeValidator } from './selection/range-validator';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 type Props = {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;

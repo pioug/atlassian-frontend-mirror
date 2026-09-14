@@ -8,7 +8,7 @@ import { css, jsx } from '@emotion/react';
 import { InlinePlayer } from '../src/card/inlinePlayer';
 import { createStorybookMediaClient, videoSquareFileId } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 
 import { IntlProvider } from 'react-intl';
 import { MainWrapper } from '../example-helpers';

@@ -17,6 +17,15 @@ jest.mock('../../ModernAnalyticsContext', () => ({
 }));
 
 describe('ExportedAnalyticsListener', () => {
+	it('has no accessibility violations', async () => {
+		const { container } = render(
+			<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
+				<div>SomeComponent</div>
+			</AnalyticsContext>,
+		);
+		await expect(container).toBeAccessible();
+	});
+
 	ffTest(
 		'analytics-next-use-legacy-context',
 		() => {

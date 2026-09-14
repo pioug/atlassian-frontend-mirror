@@ -11,11 +11,7 @@ export default async function transformer(file: FileInfo, api: API): Promise<str
 
 	let fileHasChanges = false;
 	source.find(j.CallExpression, { callee: { name: 'token' } }).forEach((path) => {
-		if (
-			path.node.arguments.length > 1 &&
-			j.StringLiteral.check(path.node.arguments[0]) &&
-			!/^radius\./.test(path.node.arguments[0].value)
-		) {
+		if (path.node.arguments.length > 1 && j.StringLiteral.check(path.node.arguments[0])) {
 			// Remove the second argument
 			path.node.arguments.splice(1, 1);
 			fileHasChanges = true;

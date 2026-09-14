@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
+import { VRIssueLikeTable } from './issue-like-table.vr.ap';
 
 export default (): React.JSX.Element => {
 	return <VRIssueLikeTable canResizeColumns={false} />;

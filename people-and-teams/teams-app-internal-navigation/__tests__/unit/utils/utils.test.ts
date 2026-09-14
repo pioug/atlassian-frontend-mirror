@@ -1,11 +1,10 @@
-import {
-	isFedramp,
-	isIsolatedCloud,
-	isTeamsAppRoute,
-	prefixWithContextEntryPoint,
-} from '../../../src/common/utils/utils';
+import { isFedramp } from '../../../src/common/utils/isFedramp';
+import { isIsolatedCloud } from '../../../src/common/utils/isIsolatedCloud';
+import { isTeamsAppRoute } from '../../../src/common/utils/isTeamsAppRoute';
+import { prefixWithContextEntryPoint } from '../../../src/common/utils/prefixWithContextEntryPoint';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(true),
 }));
 

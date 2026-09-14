@@ -2,9 +2,8 @@ import React, { type ReactNode, useContext, useEffect, useLayoutEffect, useState
 
 import { isUFOEnabled } from '../config';
 import UFOInteractionContext from '../interaction-context';
-import UFOInteractionIDContext, {
-	subscribeToInteractionIdChanges,
-} from '../interaction-id-context';
+import UFOInteractionIDContext from '../interaction-id-context';
+import { subscribeToInteractionIdChanges } from '../interaction-id-context/subscribeToInteractionIdChanges';
 
 const useLayoutEffectSAFE = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 

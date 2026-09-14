@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
-
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { act, fireEvent, render, screen } from '@atlassian/testing-library';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import Tooltip from '../../tooltip';
 

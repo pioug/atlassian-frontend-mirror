@@ -22,12 +22,11 @@ import { cssMap, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import {
-	createPopoverCloseEvent,
-	Popover,
-	type TPopoverCloseReason,
-} from '@atlaskit/top-layer/popover';
+import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
+import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
@@ -66,7 +65,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	testId,
 	trigger,
 	content,
-	onClose,
+	onClose = noop,
 	placement = 'auto',
 	fallbackPlacements: _fallbackPlacements,
 	shouldFlip: _shouldFlip = true,
@@ -117,7 +116,6 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 }: PopupProps) {
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
-	const popupContainerRef = useRef<HTMLDivElement>(null);
 
 	/**
 	 * Escape hatch for consumer-chosen initial focus target.
@@ -214,10 +212,6 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	// No manual triggerRef.current?.focus() is needed.
 	const handleOnClose = useCallback(
 		({ reason }: { reason: TPopoverCloseReason }) => {
-			if (!onClose) {
-				return;
-			}
-
 			onClose(createPopoverCloseEvent({ reason }));
 		},
 		[onClose],
@@ -228,7 +222,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	// update is a no-op because CSS Anchor Positioning self-updates.
 	const contentProps: ContentProps = useMemo(
 		() => ({
-			isOpen: isOpen,
+			isOpen,
 			update: noop as ContentProps['update'],
 			onClose,
 			setInitialFocusRef,
@@ -240,11 +234,12 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	// Build the role/label props for Popover.
 	// Roles requiring accessible names must have label or labelledBy.
 	const roleProps = useRoleProps({ role, label, titleId });
+	const resolvedPopoverId = providedId ?? popoverId;
 
 	const ariaAttributes = getAriaForTrigger({
 		role: (roleProps.role ?? 'dialog') as Parameters<typeof getAriaForTrigger>[0]['role'],
 		isOpen,
-		popoverId,
+		popoverId: resolvedPopoverId,
 	});
 
 	// Narrow to ForwardRefExoticComponent so JSX accepts the ref prop.
@@ -260,7 +255,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 		ref: (node: HTMLElement | null) => {
 			triggerRef.current = node;
 		},
-		'aria-controls': providedId ?? popoverId,
+		'aria-controls': ariaAttributes['aria-controls'],
 		// `aria-expanded` reflects current open state.
 		'aria-expanded': ariaAttributes['aria-expanded'],
 		// FUDGE(top-layer-api): cast to the narrow public TriggerProps['aria-haspopup'] union.
@@ -278,7 +273,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 			{trigger(triggerProps)}
 			<Popover
 				ref={popoverRef}
-				id={providedId ?? popoverId}
+				id={resolvedPopoverId}
 				{...roleProps}
 				isOpen={isOpen}
 				onClose={handleOnClose}
@@ -288,7 +283,6 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 			>
 				{Container ? (
 					<Container
-						ref={popupContainerRef}
 						style={EMPTY_STYLE}
 						id={providedId}
 						data-placement={placement}

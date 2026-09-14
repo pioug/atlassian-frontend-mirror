@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('First pagination item should be focused', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',
@@ -11,7 +11,7 @@ test('First pagination item should be focused', async ({ page }) => {
 });
 
 test('Active pagination item should have aria-current', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',
@@ -26,7 +26,7 @@ test('Active pagination item should have aria-current', async ({ page }) => {
 });
 
 test('Prev pagination button should disabled at first init', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',
@@ -39,7 +39,7 @@ test('Prev pagination button should disabled at first init', async ({ page }) =>
 test('Prev pagination button should not be disabled after activate any pagination item after the first', async ({
 	page,
 }) => {
-	await page.visitExample<typeof import('../../../examples/01-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/01-basic.vr.ap.tsx')>(
 		'design-system',
 		'pagination',
 		'basic',

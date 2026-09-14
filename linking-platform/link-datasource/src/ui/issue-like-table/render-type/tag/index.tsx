@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { type TagType } from '@atlaskit/linking-types';
-import Tag from '@atlaskit/tag';
+import type { TagType } from '@atlaskit/linking-types/datasource';
+import Tag from '@atlaskit/tag/removable-tag';
 
 interface TagProps {
 	tag: TagType['value'];

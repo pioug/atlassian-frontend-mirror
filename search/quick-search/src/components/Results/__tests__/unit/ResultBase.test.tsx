@@ -1,75 +1,69 @@
-import { mount, type ReactWrapper } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import ResultBase from '../../ResultBase';
-import ResultItem from '../../../ResultItem/ResultItem';
 import { type ResultContextType } from '../../../context';
 
-describe('Result Base', () => {
-	let resultWrapper: ReactWrapper;
-	beforeEach(() => {
-		const context: ResultContextType = {
-			registerResult: () => {},
-			unregisterResult: () => {},
-			onMouseEnter: () => {},
-			onMouseLeave: () => {},
-			sendAnalytics: () => {},
-			getIndex: (n) => Number(n),
-		};
+const createContext = (overrides: Partial<ResultContextType> = {}): ResultContextType => ({
+	registerResult: jest.fn(),
+	unregisterResult: jest.fn(),
+	onMouseEnter: jest.fn(),
+	onMouseLeave: jest.fn(),
+	sendAnalytics: jest.fn(),
+	getIndex: jest.fn(() => null),
+	...overrides,
+});
 
-		resultWrapper = mount(
-			<ResultBase
-				text=""
-				resultId="testResult"
-				type="base"
-				isCompact={false}
-				onClick={() => {}}
-				context={context}
-			/>,
+describe('Result Base', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ResultBase text="Result" resultId="testResult" type="base" context={createContext()} />,
 		);
+		await expect(container).toBeAccessible();
 	});
 
 	it('should pass { `resultId`,  `type` } to onClick handler', () => {
 		const spy = jest.fn();
-		resultWrapper.setProps({ onClick: spy });
-		const resultItem = resultWrapper.find(ResultItem);
-		expect(resultItem).toHaveLength(1);
-		const onClick = resultItem.prop('onClick');
-		expect(onClick).toBeInstanceOf(Function);
-		const mockedEvent = { preventDefault() {} } as any;
-		if (onClick) {
-			onClick(mockedEvent);
-		}
-		expect(spy).toBeCalledWith({
-			resultId: 'testResult',
-			type: 'base',
-			event: mockedEvent,
-		});
+		const context = createContext();
+		const { getByText } = render(
+			<ResultBase
+				text="Result"
+				resultId="testResult"
+				type="base"
+				onClick={spy}
+				context={context}
+			/>,
+		);
+		fireEvent.click(getByText('Result'));
+		expect(spy).toHaveBeenCalledWith(
+			expect.objectContaining({ resultId: 'testResult', type: 'base' }),
+		);
 	});
 
 	it('should unregister itself on unmount event', () => {
 		const unregisterResult = jest.fn();
-		resultWrapper.setProps({
-			context: {
-				unregisterResult,
-				registerResult: () => {},
-			},
-		});
-
-		resultWrapper.unmount();
+		const { unmount } = render(
+			<ResultBase
+				text="Result"
+				resultId="testResult"
+				type="base"
+				context={createContext({ unregisterResult })}
+			/>,
+		);
+		unmount();
 
 		expect(unregisterResult).toHaveBeenCalledTimes(1);
-		expect(unregisterResult.mock.calls[0][0].constructor.name).toBe('ResultBase');
 	});
 
 	it('should register itself on mount event', () => {
 		const registerResult = jest.fn();
-		resultWrapper.setProps({
-			context: {
-				registerResult,
-				unregisterResult: () => {},
-			},
-		});
+		render(
+			<ResultBase
+				text="Result"
+				resultId="testResult"
+				type="base"
+				context={createContext({ registerResult })}
+			/>,
+		);
 		expect(registerResult).toHaveBeenCalledTimes(1);
-		expect(registerResult.mock.calls[0][0].constructor.name).toBe('ResultBase');
 	});
 });

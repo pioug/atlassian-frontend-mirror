@@ -4,3 +4,4 @@ examples/shared/
 index.ts
 tsconfig.app.json
 tsconfig.dev.json
+*.docs.tsx

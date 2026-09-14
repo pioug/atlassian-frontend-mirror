@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-
+import { render, screen } from '@atlassian/testing-library';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import noop from '@atlaskit/ds-lib/noop';
 

@@ -1,15 +1,12 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
 
 import {
 	applyAnnotationOnText,
 	TextWithAnnotationDraft,
-	AnnotationDraft,
 	getAnnotationIndex,
 } from '../../component';
-import TestRenderer from 'react-test-renderer';
-import type { ReactTestInstance } from 'react-test-renderer';
 import { InsertDraftPosition } from '../../../types';
 import type { Position } from '../../../types';
 import { AnnotationRangeStateContext } from '../../../contexts/AnnotationRangeContext';
@@ -154,11 +151,10 @@ describe('Annotations: draft/component', () => {
 					draftPosition,
 				});
 
-				const wrapper = TestRenderer.create(<>{result}</>).root;
+				const { container, getByRole } = render(<>{result}</>);
 
-				expect(wrapper.children).toHaveLength(2);
-				expect((wrapper.children[0] as ReactTestInstance).type).toEqual(AnnotationDraft);
-				expect(typeof wrapper.children[1]).toEqual('string');
+				expect(container.textContent).toEqual('umdois');
+				expect(getByRole('mark').textContent).toEqual('um');
 			});
 		});
 
@@ -169,11 +165,10 @@ describe('Annotations: draft/component', () => {
 					shouldApplyAnnotationAt: InsertDraftPosition.END,
 					draftPosition,
 				});
-				const wrapper = TestRenderer.create(<>{result}</>).root;
+				const { container, getByRole } = render(<>{result}</>);
 
-				expect(wrapper.children).toHaveLength(2);
-				expect(typeof wrapper.children[0]).toEqual('string');
-				expect((wrapper.children[1] as ReactTestInstance).type).toEqual(AnnotationDraft);
+				expect(container.textContent).toEqual('umdois');
+				expect(getByRole('mark').textContent).toEqual('dois');
 			});
 		});
 
@@ -184,12 +179,10 @@ describe('Annotations: draft/component', () => {
 					shouldApplyAnnotationAt: InsertDraftPosition.INSIDE,
 					draftPosition,
 				});
-				const wrapper = TestRenderer.create(<>{result}</>).root;
+				const { container, getByRole } = render(<>{result}</>);
 
-				expect(wrapper.children).toHaveLength(3);
-				expect(typeof wrapper.children[0]).toEqual('string');
-				expect((wrapper.children[1] as ReactTestInstance).type).toEqual(AnnotationDraft);
-				expect(typeof wrapper.children[2]).toEqual('string');
+				expect(container.textContent).toEqual('umdoistres');
+				expect(getByRole('mark').textContent).toEqual('dois');
 			});
 		});
 
@@ -201,11 +194,10 @@ describe('Annotations: draft/component', () => {
 					draftPosition,
 				});
 
-				const wrapper = TestRenderer.create(<>{result}</>).root;
+				const { container, queryByRole } = render(<>{result}</>);
 
-				expect(wrapper.children).toHaveLength(2);
-				expect(typeof wrapper.children[0]).toEqual('string');
-				expect(typeof wrapper.children[1]).toEqual('string');
+				expect(container.textContent).toEqual('umdois');
+				expect(queryByRole('mark')).toBeNull();
 			});
 		});
 	});

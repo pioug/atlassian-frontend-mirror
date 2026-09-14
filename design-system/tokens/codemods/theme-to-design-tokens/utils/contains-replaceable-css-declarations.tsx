@@ -1,4 +1,4 @@
-import { isColorRelatedProperty } from '../../css-to-design-tokens/lib/declaration';
+import { isColorRelatedProperty } from '../../css-to-design-tokens/lib/is-color-related-property';
 
 export function containsReplaceableCSSDeclarations(input: string): boolean {
 	const cssPattern = /(\S+)\s*:/g;

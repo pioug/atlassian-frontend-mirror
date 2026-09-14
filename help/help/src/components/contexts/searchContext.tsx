@@ -1,6 +1,6 @@
 import React, { useState, useCallback, type PropsWithChildren } from 'react';
 import debounce from 'lodash/debounce';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { type ArticleItem } from '../../model/Article';
 import { REQUEST_STATE } from '../../model/Requests';

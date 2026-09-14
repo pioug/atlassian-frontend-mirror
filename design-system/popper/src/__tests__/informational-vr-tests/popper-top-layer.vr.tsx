@@ -1,13 +1,14 @@
 import { type Hooks, snapshotInformational, type SnapshotTestOptions } from '@af/visual-regression';
 
-import BasicPositioning from '../../../examples/00-basic-positioning';
-import AdvancedBehaviors from '../../../examples/02-advanced-behaviors';
+import BasicPositioning from '../../../examples/00-basic-positioning.vr.ap';
+import AdvancedBehaviors from '../../../examples/02-advanced-behaviors.vr.ap';
 import {
 	MaxSizeBottomExample,
 	MaxSizeLeftExample,
 	MaxSizeRightExample,
 	MaxSizeTopExample,
-} from '../../../examples/03-max-size';
+} from '../../../examples/03-max-size.vr.ap';
+import FlagImperativeCreatePopper from '../../../examples/12-flag-imperative-create-popper.vr.ap';
 
 /**
  * Informational VR coverage for @atlaskit/popper under the
@@ -66,4 +67,19 @@ snapshotInformational(MaxSizeRightExample, {
 	variants,
 	drawsOutsideBounds: true,
 	featureFlags: topLayerFlag,
+});
+
+// Post-interaction state of the imperative `createPopper` adapter: clicking
+// `place bottom` calls `instance.setOptions({ placement: 'bottom' })` on the
+// live instance. The static (pre-click) state is covered by the regular VR
+// suite; this captures that re-placement actually moves the surface, which
+// only a click can reach.
+snapshotInformational(FlagImperativeCreatePopper, {
+	description: 'imperative createPopper, setOptions re-places to bottom',
+	variants,
+	drawsOutsideBounds: true,
+	featureFlags: topLayerFlag,
+	prepare: async (page) => {
+		await page.getByTestId('set-bottom').click();
+	},
 });

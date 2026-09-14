@@ -156,11 +156,6 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	otherAtlassianSourceAppify: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	otherTypeLabel: {
 		defaultMessage: string;
 		description: string;
@@ -367,12 +362,6 @@ export const messages: {
 		description: 'This external user is sourced from Confluence',
 	},
 	otherAtlassianSource: {
-		id: 'fabric.elements.user-picker.source.other-atlassian',
-		defaultMessage: 'Other Atlassian products',
-		description:
-			'This external user is sourced from Atlassian products other than Jira and Confluence',
-	},
-	otherAtlassianSourceAppify: {
 		id: 'fabric.elements.user-picker.source.other-atlassian-appify',
 		defaultMessage: 'Other Atlassian apps',
 		description:

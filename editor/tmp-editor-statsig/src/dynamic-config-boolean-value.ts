@@ -8,7 +8,7 @@ const BOOLEAN_CONFIG_KEY = 'value';
  * missing, or the value is not a boolean.
  *
  * Use this for a dynamic-config-backed kill switch, e.g.
- * `dynamicConfigBooleanValue('platform_editor_ai_remix_safety_violation')`.
+ * `dynamicConfigBooleanValue('native_embed_resize_observability_killswitch')`.
  */
 export function dynamicConfigBooleanValue(configName: string, defaultValue = false): boolean {
 	if (!FeatureGates.initializeCompleted()) {

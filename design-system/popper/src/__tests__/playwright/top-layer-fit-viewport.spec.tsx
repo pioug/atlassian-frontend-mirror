@@ -18,7 +18,7 @@ test('shouldFitViewport caps a wide right-placed popover to the right viewport e
 	page,
 }) => {
 	await page.setViewportSize({ width: 1024, height: 768 });
-	await page.visitExample<typeof import('../../../examples/06-flag-fit-viewport-right.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-flag-fit-viewport-right.vr.ap.tsx')>(
 		'design-system',
 		'popper',
 		'flag-fit-viewport-right',
@@ -35,7 +35,7 @@ test('shouldFitViewport caps a wide right-placed popover to the right viewport e
 
 test('shouldFitViewport recomputes the cap when the viewport is resized', async ({ page }) => {
 	await page.setViewportSize({ width: 1024, height: 768 });
-	await page.visitExample<typeof import('../../../examples/06-flag-fit-viewport-right.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-flag-fit-viewport-right.vr.ap.tsx')>(
 		'design-system',
 		'popper',
 		'flag-fit-viewport-right',
@@ -58,7 +58,7 @@ test('shouldFitViewport recomputes the cap when the viewport is resized', async 
 
 test('shouldFitViewport does not enter a host-resize feedback loop', async ({ page }) => {
 	await page.setViewportSize({ width: 1024, height: 768 });
-	await page.visitExample<typeof import('../../../examples/06-flag-fit-viewport-right.tsx')>(
+	await page.visitExample<typeof import('../../../examples/06-flag-fit-viewport-right.vr.ap.tsx')>(
 		'design-system',
 		'popper',
 		'flag-fit-viewport-right',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "7.4.4",
+	"version": "7.8.0",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,21 +32,43 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./analytics/constants": "./src/analytics/constants.ts",
+		"./analytics/types": "./src/analytics/types.ts",
+		"./analytics/util": "./src/analytics/util.ts",
+		"./analytics": "./src/analytics/index.ts",
+		"./async": "./src/async.tsx",
+		"./components/types": "./src/plugins/autocomplete/components/types.ts",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		"./analytics": "./src/entry-points/analytics.ts",
-		"./async": "./src/entry-points/async.tsx",
-		"./components/types": "./src/entry-points/components-types.ts",
-		"./jql-editor-analytics-listener": "./src/entry-points/jql-editor-analytics-listener.tsx",
-		"./jql-editor-layout": "./src/entry-points/jql-editor-layout.tsx",
-		"./src/types": "./src/entry-points/src-types.ts",
-		"./state/types": "./src/entry-points/state-types.ts",
-		"./types": "./src/entry-points/types.ts",
-		"./ui/types": "./src/entry-points/ui-types.ts",
-		"./ui": "./src/entry-points/ui.tsx"
+		"./jql-editor-analytics-listener": "./src/analytics/listener/jql-editor-analytics-listener.tsx",
+		"./jql-editor-layout": "./src/ui/jql-editor-layout/index.tsx",
+		"./jql-editor-read-only": "./src/ui/jql-editor-layout/JQLEditorReadOnly.tsx",
+		"./src/i18n/cs": "./src/i18n/cs.ts",
+		"./src/i18n/da": "./src/i18n/da.ts",
+		"./src/i18n/de": "./src/i18n/de.ts",
+		"./src/i18n/en_ZZ": "./src/i18n/en_ZZ.ts",
+		"./src/i18n/es": "./src/i18n/es.ts",
+		"./src/i18n/fi": "./src/i18n/fi.ts",
+		"./src/i18n/fr": "./src/i18n/fr.ts",
+		"./src/i18n/hu": "./src/i18n/hu.ts",
+		"./src/i18n/it": "./src/i18n/it.ts",
+		"./src/i18n/ja": "./src/i18n/ja.ts",
+		"./src/i18n/ko": "./src/i18n/ko.ts",
+		"./src/i18n/nb": "./src/i18n/nb.ts",
+		"./src/i18n/nl": "./src/i18n/nl.ts",
+		"./src/i18n/pl": "./src/i18n/pl.ts",
+		"./src/i18n/pt_BR": "./src/i18n/pt_BR.ts",
+		"./src/i18n/ru": "./src/i18n/ru.ts",
+		"./src/i18n/sv": "./src/i18n/sv.ts",
+		"./src/i18n/zh": "./src/i18n/zh.ts",
+		"./src/types": "./src/types.ts",
+		"./state/types": "./src/state/types.ts",
+		"./types": "./src/ui/jql-editor/types.ts",
+		"./ui/types": "./src/ui/types.ts",
+		"./ui": "./src/ui/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-jql-jql-editor": "root:*",
@@ -102,6 +124,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/jql-editor-autocomplete-rest": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-storybook-utils": "workspace:^",
@@ -113,45 +136,6 @@
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"stricter": {
-		"no-unused-dependencies": {
-			"exclude": [
-				"assert",
-				"util"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
@@ -169,8 +153,20 @@
 		"jql-function-arg-hydration": {
 			"type": "boolean"
 		},
+		"orion-8274-cmdb-object-jql-values-resolver": {
+			"type": "boolean"
+		},
 		"enable-jql-membersof-autocomplete": {
 			"type": "boolean"
+		},
+		"jira-descendants-of-team-jql-function": {
+			"type": "boolean"
+		}
+	},
+	"platform-experiments": {
+		"jira_filter_by_agent_and_agent_state": {
+			"param": "isEnabled",
+			"defaultValue": false
 		}
 	}
 }

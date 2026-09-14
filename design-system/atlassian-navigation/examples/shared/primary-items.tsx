@@ -7,8 +7,10 @@ import {
 	PrimaryDropdownButton,
 	useOverflowStatus,
 } from '@atlaskit/atlassian-navigation';
-import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
+import ButtonItem from '@atlaskit/menu/button-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import { Popup } from '@atlaskit/popup/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 
 const NavigationButton = (props: PrimaryButtonProps) => {
@@ -106,6 +108,7 @@ const PrimaryDropdown = (props: PrimaryDropdownProps) => {
 
 export const bitbucketPrimaryItems: React.JSX.Element[] = [
 	<NavigationButton
+		key="your-work"
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
 		}}
@@ -113,6 +116,7 @@ export const bitbucketPrimaryItems: React.JSX.Element[] = [
 		Your work
 	</NavigationButton>,
 	<NavigationButton
+		key="workspaces"
 		onClick={(...args: any[]) => {
 			console.log('Workspaces click', ...args);
 		}}
@@ -120,6 +124,7 @@ export const bitbucketPrimaryItems: React.JSX.Element[] = [
 		Workspaces
 	</NavigationButton>,
 	<NavigationButton
+		key="repositories"
 		onClick={(...args: any[]) => {
 			console.log('Repositories click', ...args);
 		}}
@@ -127,6 +132,7 @@ export const bitbucketPrimaryItems: React.JSX.Element[] = [
 		Repositories
 	</NavigationButton>,
 	<NavigationButton
+		key="projects"
 		onClick={(...args: any[]) => {
 			console.log('Projects click', ...args);
 		}}
@@ -134,6 +140,7 @@ export const bitbucketPrimaryItems: React.JSX.Element[] = [
 		Projects
 	</NavigationButton>,
 	<NavigationButton
+		key="pull-requests"
 		onClick={(...args: any[]) => {
 			console.log('Pull requests click', ...args);
 		}}
@@ -141,6 +148,7 @@ export const bitbucketPrimaryItems: React.JSX.Element[] = [
 		Pull requests
 	</NavigationButton>,
 	<NavigationButton
+		key="work-items"
 		onClick={(...args: any[]) => {
 			console.log('Work items click', ...args);
 		}}
@@ -151,6 +159,7 @@ export const bitbucketPrimaryItems: React.JSX.Element[] = [
 
 export const confluencePrimaryItems: React.JSX.Element[] = [
 	<NavigationButton
+		key="activity"
 		onClick={(...args: any[]) => {
 			console.log('Activity click', ...args);
 		}}
@@ -158,6 +167,7 @@ export const confluencePrimaryItems: React.JSX.Element[] = [
 		Activity
 	</NavigationButton>,
 	<NavigationButton
+		key="your-work"
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
 		}}
@@ -165,6 +175,7 @@ export const confluencePrimaryItems: React.JSX.Element[] = [
 		Your work
 	</NavigationButton>,
 	<NavigationButton
+		key="spaces"
 		onClick={(...args: any[]) => {
 			console.log('Spaces click', ...args);
 		}}
@@ -172,6 +183,7 @@ export const confluencePrimaryItems: React.JSX.Element[] = [
 		Spaces
 	</NavigationButton>,
 	<NavigationButton
+		key="people"
 		onClick={(...args: any[]) => {
 			console.log('People click', ...args);
 		}}
@@ -179,6 +191,7 @@ export const confluencePrimaryItems: React.JSX.Element[] = [
 		People
 	</NavigationButton>,
 	<NavigationButton
+		key="apps"
 		onClick={(...args: any[]) => {
 			console.log('Apps click', ...args);
 		}}
@@ -189,14 +202,16 @@ export const confluencePrimaryItems: React.JSX.Element[] = [
 
 export const jiraPrimaryItems: React.JSX.Element[] = [
 	<NavigationButton
+		key="your-work"
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
 		}}
 	>
 		Your work
 	</NavigationButton>,
-	<PrimaryDropdown content={ProjectsContent} text="Projects" />,
+	<PrimaryDropdown key="projects" content={ProjectsContent} text="Projects" />,
 	<NavigationButton
+		key="filters"
 		onClick={(...args: any[]) => {
 			console.log('Work items click', ...args);
 		}}
@@ -205,6 +220,7 @@ export const jiraPrimaryItems: React.JSX.Element[] = [
 		Filters
 	</NavigationButton>,
 	<NavigationButton
+		key="dashboards"
 		onClick={(...args: any[]) => {
 			console.log('Dashboards click', ...args);
 		}}
@@ -212,6 +228,7 @@ export const jiraPrimaryItems: React.JSX.Element[] = [
 		Dashboards
 	</NavigationButton>,
 	<NavigationButton
+		key="teams"
 		onClick={(...args: any[]) => {
 			console.log('Teams click', ...args);
 		}}
@@ -219,6 +236,7 @@ export const jiraPrimaryItems: React.JSX.Element[] = [
 		Teams
 	</NavigationButton>,
 	<NavigationButton
+		key="plans"
 		onClick={(...args: any[]) => {
 			console.log('Plans click', ...args);
 		}}
@@ -226,6 +244,7 @@ export const jiraPrimaryItems: React.JSX.Element[] = [
 		Plans
 	</NavigationButton>,
 	<NavigationButton
+		key="assets"
 		onClick={(...args: any[]) => {
 			console.log('Assets click', ...args);
 		}}
@@ -233,6 +252,7 @@ export const jiraPrimaryItems: React.JSX.Element[] = [
 		Assets
 	</NavigationButton>,
 	<NavigationButton
+		key="apps"
 		onClick={(...args: any[]) => {
 			console.log('Apps click', ...args);
 		}}
@@ -243,14 +263,16 @@ export const jiraPrimaryItems: React.JSX.Element[] = [
 
 export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 	<NavigationButton
+		key="your-work"
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
 		}}
 	>
 		Ihre Aufgaben
 	</NavigationButton>,
-	<PrimaryDropdown content={ProjectsContent} text="Projekte" />,
+	<PrimaryDropdown key="projects" content={ProjectsContent} text="Projekte" />,
 	<NavigationButton
+		key="filters"
 		onClick={(...args: any[]) => {
 			console.log('Work items click', ...args);
 		}}
@@ -259,6 +281,7 @@ export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 		Filter
 	</NavigationButton>,
 	<NavigationButton
+		key="dashboards"
 		onClick={(...args: any[]) => {
 			console.log('Dashboards click', ...args);
 		}}
@@ -266,6 +289,7 @@ export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 		Dashboards
 	</NavigationButton>,
 	<NavigationButton
+		key="teams"
 		onClick={(...args: any[]) => {
 			console.log('Teams click', ...args);
 		}}
@@ -273,6 +297,7 @@ export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 		Teams
 	</NavigationButton>,
 	<NavigationButton
+		key="plans"
 		onClick={(...args: any[]) => {
 			console.log('Plans click', ...args);
 		}}
@@ -280,6 +305,7 @@ export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 		Pläne
 	</NavigationButton>,
 	<NavigationButton
+		key="assets"
 		onClick={(...args: any[]) => {
 			console.log('Assets click', ...args);
 		}}
@@ -287,6 +313,7 @@ export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 		Assets
 	</NavigationButton>,
 	<NavigationButton
+		key="apps"
 		onClick={(...args: any[]) => {
 			console.log('Apps click', ...args);
 		}}
@@ -297,14 +324,16 @@ export const jiraPrimaryItemsGerman: React.JSX.Element[] = [
 
 export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 	<NavigationButton
+		key="your-work"
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
 		}}
 	>
 		Tu trabajo
 	</NavigationButton>,
-	<PrimaryDropdown content={ProjectsContent} text="Projects" />,
+	<PrimaryDropdown key="projects" content={ProjectsContent} text="Projects" />,
 	<NavigationButton
+		key="filters"
 		onClick={(...args: any[]) => {
 			console.log('Work items click', ...args);
 		}}
@@ -313,6 +342,7 @@ export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 		Filtros
 	</NavigationButton>,
 	<NavigationButton
+		key="dashboards"
 		onClick={(...args: any[]) => {
 			console.log('Dashboards click', ...args);
 		}}
@@ -320,6 +350,7 @@ export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 		Paneles
 	</NavigationButton>,
 	<NavigationButton
+		key="teams"
 		onClick={(...args: any[]) => {
 			console.log('Teams click', ...args);
 		}}
@@ -327,6 +358,7 @@ export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 		Equipos
 	</NavigationButton>,
 	<NavigationButton
+		key="plans"
 		onClick={(...args: any[]) => {
 			console.log('Plans click', ...args);
 		}}
@@ -334,6 +366,7 @@ export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 		Planes
 	</NavigationButton>,
 	<NavigationButton
+		key="assets"
 		onClick={(...args: any[]) => {
 			console.log('Assets click', ...args);
 		}}
@@ -341,6 +374,7 @@ export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 		Activos
 	</NavigationButton>,
 	<NavigationButton
+		key="apps"
 		onClick={(...args: any[]) => {
 			console.log('Apps click', ...args);
 		}}
@@ -351,14 +385,16 @@ export const jiraPrimaryItemsSpanish: React.JSX.Element[] = [
 
 export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 	<NavigationButton
+		key="your-work"
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
 		}}
 	>
 		Çalışmalarınız
 	</NavigationButton>,
-	<PrimaryDropdown content={ProjectsContent} text="Projeler" />,
+	<PrimaryDropdown key="projects" content={ProjectsContent} text="Projeler" />,
 	<NavigationButton
+		key="filters"
 		onClick={(...args: any[]) => {
 			console.log('Work items click', ...args);
 		}}
@@ -367,6 +403,7 @@ export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 		Filtreler
 	</NavigationButton>,
 	<NavigationButton
+		key="dashboards"
 		onClick={(...args: any[]) => {
 			console.log('Dashboards click', ...args);
 		}}
@@ -374,6 +411,7 @@ export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 		Gösterge Panoları
 	</NavigationButton>,
 	<NavigationButton
+		key="teams"
 		onClick={(...args: any[]) => {
 			console.log('Teams click', ...args);
 		}}
@@ -381,6 +419,7 @@ export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 		Takımlar
 	</NavigationButton>,
 	<NavigationButton
+		key="plans"
 		onClick={(...args: any[]) => {
 			console.log('Plans click', ...args);
 		}}
@@ -388,6 +427,7 @@ export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 		Planlar
 	</NavigationButton>,
 	<NavigationButton
+		key="assets"
 		onClick={(...args: any[]) => {
 			console.log('Assets click', ...args);
 		}}
@@ -395,6 +435,7 @@ export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 		Varlıklar
 	</NavigationButton>,
 	<NavigationButton
+		key="apps"
 		onClick={(...args: any[]) => {
 			console.log('Apps click', ...args);
 		}}
@@ -405,14 +446,16 @@ export const jiraPrimaryItemsTurkish: React.JSX.Element[] = [
 
 export const jiraPrimaryItemsJapanese: React.JSX.Element[] = [
 	<NavigationButton
+		key="your-work"
 		onClick={(...args: any[]) => {
 			console.log('Your work click', ...args);
 		}}
 	>
 		あなたの作業
 	</NavigationButton>,
-	<PrimaryDropdown content={ProjectsContent} text="プロジェクト" />,
+	<PrimaryDropdown key="projects" content={ProjectsContent} text="プロジェクト" />,
 	<NavigationButton
+		key="filters"
 		onClick={(...args: any[]) => {
 			console.log('Work items click', ...args);
 		}}
@@ -421,6 +464,7 @@ export const jiraPrimaryItemsJapanese: React.JSX.Element[] = [
 		フィルター
 	</NavigationButton>,
 	<NavigationButton
+		key="dashboards"
 		onClick={(...args: any[]) => {
 			console.log('Dashboards click', ...args);
 		}}
@@ -428,6 +472,7 @@ export const jiraPrimaryItemsJapanese: React.JSX.Element[] = [
 		ダッシュボード
 	</NavigationButton>,
 	<NavigationButton
+		key="teams"
 		onClick={(...args: any[]) => {
 			console.log('Teams click', ...args);
 		}}
@@ -435,6 +480,7 @@ export const jiraPrimaryItemsJapanese: React.JSX.Element[] = [
 		チーム
 	</NavigationButton>,
 	<NavigationButton
+		key="plans"
 		onClick={(...args: any[]) => {
 			console.log('Plans click', ...args);
 		}}
@@ -442,6 +488,7 @@ export const jiraPrimaryItemsJapanese: React.JSX.Element[] = [
 		プラン
 	</NavigationButton>,
 	<NavigationButton
+		key="assets"
 		onClick={(...args: any[]) => {
 			console.log('Assets click', ...args);
 		}}
@@ -449,6 +496,7 @@ export const jiraPrimaryItemsJapanese: React.JSX.Element[] = [
 		アセット
 	</NavigationButton>,
 	<NavigationButton
+		key="apps"
 		onClick={(...args: any[]) => {
 			console.log('Apps click', ...args);
 		}}

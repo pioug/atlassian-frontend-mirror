@@ -1,18 +1,19 @@
-import type { DocNode } from '@atlaskit/adf-schema';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+import type { EmojiProviderLookupOrder, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 
 import type { ReactSerializerInit, RendererContext, Serializer } from '../';
 import type { TextHighlighter, ExtensionViewportSize } from '../react/types';
@@ -124,6 +125,11 @@ export interface RendererProps {
 	 */
 	disableTableOverflowShadow?: boolean;
 	document: DocNode;
+	/**
+	 * Preferred emoji provider type order when resolving shortName-only emoji.
+	 * The first matching type wins.
+	 */
+	emojiProviderLookupOrder?: EmojiProviderLookupOrder;
 	emojiResourceConfig?: EmojiResourceConfig;
 	// Enables inline scripts to add support for breakout nodes,
 	// before main JavaScript bundle is available.
@@ -182,6 +188,7 @@ export interface RendererProps {
 	isTopLevelRenderer?: boolean;
 	maxHeight?: number;
 	media?: MediaOptions;
+	mentionNodeDataProvider?: MentionNodeDataProvider;
 	nodeComponents?: NodeComponentsProps;
 	// Enables inline scripts from above on client for first render for hydration to prevent mismatch.
 	noOpSSRInlineScript?: boolean;
@@ -203,11 +210,10 @@ export interface RendererProps {
 	 * Called when the renderer completes a render pass — on the animation frame following
 	 * mount (i.e. after paint), exposing basic information about the render.
 	 *
-	 * Unlike the `renderer` `rendered` analytics event, which may be sampled (see the
-	 * `platform_renderer_sample_high_volume_events` feature gate) and therefore only fires
-	 * for a fraction of renders, this callback ALWAYS fires on every render pass regardless
-	 * of analytics sampling. Use it for reliable lifecycle signals — for example releasing a
-	 * UFO load hold — rather than depending on the sampled analytics event.
+	 * Unlike the `renderer` `rendered` analytics event, which is sampled and therefore only
+	 * fires for a fraction of renders, this callback ALWAYS fires on every render pass
+	 * regardless of analytics sampling. Use it for reliable lifecycle signals — for example
+	 * releasing a UFO load hold — rather than depending on the sampled analytics event.
 	 *
 	 * @param info - Basic information about the completed render.
 	 */

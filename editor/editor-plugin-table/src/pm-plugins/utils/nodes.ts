@@ -173,7 +173,7 @@ export const getTableRowIndex = (view: EditorView, getPos: () => number | undefi
 
 /**
  * Check if a given node is a header row with this definition:
- *  - the row is the first row when platform_editor_table_q4_patch_5 is enabled
+ *  - the row is the first row
  *  - all children are tableHeader cells
  *  - no table cells have been merged with other table row cells (rowspan > 1)
  *  - no table cells have been merged with other table column cells (colspan > 1),
@@ -186,7 +186,7 @@ export const getTableRowIndex = (view: EditorView, getPos: () => number | undefi
  * @returns boolean if it meets definition
  */
 export const supportedHeaderRow = (node: PmNode, rowIndex: number = 0): boolean => {
-	if (expValEquals('platform_editor_table_q4_patch_5', 'isEnabled', true) && rowIndex !== 0) {
+	if (rowIndex !== 0) {
 		return false;
 	}
 

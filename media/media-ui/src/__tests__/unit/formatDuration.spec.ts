@@ -1,4 +1,6 @@
-import { formatDuration, secondsToTime, isInvalidInput } from '../../formatDuration';
+import { formatDuration } from '../../formatDuration';
+import { isInvalidInput } from '../../isInvalidInput';
+import { secondsToTime } from '../../secondsToTime';
 
 describe('isInvalidInput', () => {
 	test('should return true for invalid inputs', () => {

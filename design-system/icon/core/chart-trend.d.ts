@@ -4,7 +4,7 @@
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 /**
  * @deprecated The icon "chart-trend" is deprecated in favour of "chart-trend-up" from “@atlaskit/icon/core”

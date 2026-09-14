@@ -67,6 +67,9 @@
 			"path": "../../helpers/frontend-utilities/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

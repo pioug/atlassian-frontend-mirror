@@ -1,5 +1,5 @@
-import { JQLParser } from '@atlaskit/jql-parser';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const WHERE_CLAUSE = 'where';
 export const ORDER_BY_CLAUSE = 'orderBy';

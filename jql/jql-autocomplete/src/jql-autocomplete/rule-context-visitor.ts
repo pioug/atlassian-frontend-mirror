@@ -16,7 +16,6 @@ import {
 	type JqlInOperatorContext,
 	type JqlIsClauseContext,
 	type JqlIsOperatorContext,
-	JQLLexer,
 	type JqlLikeClauseContext,
 	type JqlLikeOperatorContext,
 	type JqlListContext,
@@ -25,7 +24,6 @@ import {
 	type JqlNumberFieldContext,
 	type JqlOrClauseContext,
 	JQLParser,
-	type JQLParserVisitor,
 	type JqlQueryContext,
 	type JqlSubClauseContext,
 	type JqlTerminalClauseContext,
@@ -34,18 +32,22 @@ import {
 	type JqlWasInOperatorContext,
 	type JqlWasOperatorContext,
 	type JqlWhereContext,
-} from '@atlaskit/jql-parser';
-import { fg } from '@atlaskit/platform-feature-flags';
+} from '@atlaskit/jql-parser/JQLParser';
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
+import type { JQLParserVisitor } from '@atlaskit/jql-parser/JQLParserVisitor';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type RuleSuggestion } from '../base-autocomplete/types';
 
 import { ORDER_BY_CLAUSE, WHERE_CLAUSE } from './constants';
+import { getPositionFromParserRule } from './get-position-from-parser-rule';
+import { isOperator } from './is-operator';
+import { normalizeText } from './normalize-text';
 import {
 	type JQLRuleContext,
 	type JQLRuleContextWithErrors,
 	type MaybeParserRuleContext,
 } from './types';
-import { getPositionFromParserRule, isOperator, normalizeText } from './util';
 
 export class RuleContextVisitor implements JQLParserVisitor<JQLRuleContext> {
 	private readonly ruleList: number[];

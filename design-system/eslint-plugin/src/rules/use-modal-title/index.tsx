@@ -17,7 +17,7 @@ const rule: Rule.RuleModule = createLintRule({
 			description:
 				'Encourages makers to include `ModalTitle` within `ModalHeader` when using Atlassian Design System modal dialog.',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			modalHeaderMissingModalTitle: '`ModalHeader` should include `ModalTitle`.',
@@ -35,53 +35,18 @@ const rule: Rule.RuleModule = createLintRule({
 			modalTitle: new Set<string>(),
 		};
 
-		const containsModalTitle = (node: any): boolean => {
-			if (!node) {
-				return false;
-			}
-
-			if (Array.isArray(node)) {
-				return node.some((childNode) => containsModalTitle(childNode));
-			}
-
-			if (isNodeOfType(node, 'JSXElement')) {
-				if (
-					isNodeOfType(node.openingElement.name, 'JSXIdentifier') &&
-					(localImports.modalTitle.has(node.openingElement.name.name) ||
-						defaultImports.modalTitle.has(node.openingElement.name.name))
-				) {
-					return true;
-				}
-
-				return node.children.some((child) => containsModalTitle(child));
-			}
-
-			if (isNodeOfType(node, 'JSXFragment')) {
-				return node.children.some((child) => containsModalTitle(child));
-			}
-
-			if (isNodeOfType(node, 'JSXExpressionContainer')) {
-				return containsModalTitle(node.expression);
-			}
-
-			if (isNodeOfType(node, 'LogicalExpression')) {
-				return containsModalTitle(node.left) || containsModalTitle(node.right);
-			}
-
-			if (isNodeOfType(node, 'ConditionalExpression')) {
-				return containsModalTitle(node.consequent) || containsModalTitle(node.alternate);
-			}
-
-			if (isNodeOfType(node, 'ArrayExpression')) {
-				return containsModalTitle(node.elements as Rule.Node[]);
-			}
-
-			if (isNodeOfType(node, 'ArrowFunctionExpression')) {
-				return containsModalTitle(node.body);
-			}
-
-			return false;
-		};
+		/**
+		 * Stack of open ModalHeader elements awaiting a ModalTitle descendant.
+		 *
+		 * Each frame records whether a ModalTitle has been found anywhere inside
+		 * the corresponding ModalHeader's subtree. We use ESLint's own DFS traversal
+		 * rather than a hand-rolled recursive search, which avoids the O(subtree)
+		 * double-traversal that `containsModalTitle` caused.
+		 *
+		 * Invariant: frames are pushed in DFS enter-order and popped in exit-order,
+		 * so the array is always a valid ancestor chain (outermost frame at index 0).
+		 */
+		const modalHeaderStack: Array<{ satisfied: boolean }> = [];
 
 		return {
 			// Keeping this for barrel imports, though we are moving away from them.
@@ -126,18 +91,54 @@ const rule: Rule.RuleModule = createLintRule({
 				}
 
 				const elementName = node.openingElement.name.name;
+
 				if (
-					!localImports.modalHeader.has(elementName) &&
-					!defaultImports.modalHeader.has(elementName)
+					localImports.modalHeader.has(elementName) ||
+					defaultImports.modalHeader.has(elementName)
 				) {
+					// Push a new frame when entering a ModalHeader. It starts unsatisfied
+					// and will be marked satisfied if a ModalTitle is found in its subtree.
+					modalHeaderStack.push({ satisfied: false });
 					return;
 				}
 
-				if (!containsModalTitle(node.children as Rule.Node[])) {
-					context.report({
-						node: node.openingElement,
-						messageId: 'modalHeaderMissingModalTitle',
-					});
+				if (
+					modalHeaderStack.length > 0 &&
+					(localImports.modalTitle.has(elementName) || defaultImports.modalTitle.has(elementName))
+				) {
+					// A ModalTitle anywhere inside the current ModalHeader's subtree satisfies
+					// the requirement. Mark all enclosing ModalHeaders satisfied so that
+					// ModalTitle inside a nested ModalHeader also satisfies outer ones — matching
+					// the original containsModalTitle full-subtree-search semantics.
+					for (const entry of modalHeaderStack) {
+						entry.satisfied = true;
+					}
+				}
+			},
+
+			'JSXElement:exit'(node: Rule.Node) {
+				if (!isNodeOfType(node, 'JSXElement')) {
+					return;
+				}
+
+				if (!isNodeOfType(node.openingElement.name, 'JSXIdentifier')) {
+					return;
+				}
+
+				const elementName = node.openingElement.name.name;
+
+				if (
+					localImports.modalHeader.has(elementName) ||
+					defaultImports.modalHeader.has(elementName)
+				) {
+					// Pop on exit (handles both regular and self-closing ModalHeader elements).
+					const entry = modalHeaderStack.pop();
+					if (entry && !entry.satisfied) {
+						context.report({
+							node: node.openingElement,
+							messageId: 'modalHeaderMissingModalTitle',
+						});
+					}
 				}
 			},
 		};

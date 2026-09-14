@@ -1,5 +1,38 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.1.6
+
+### Patch Changes
+
+- [`eac2b82a415cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eac2b82a415cd) -
+  Allow statically written style keys annotated with TypeScript `satisfies` expressions.
+  `no-unsafe-values` no longer reports a computed key that unwraps to a string literal, and
+  `no-imported-style-values` no longer reports imported identifiers used in type positions.
+
+## 2.1.5
+
+### Patch Changes
+
+- [`fdedfb06aa229`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdedfb06aa229) -
+  Allow canonical typed media queries and typed container-query exceptions in styling lint rules.
+- Updated dependencies
+
+## 2.1.4
+
+### Patch Changes
+
+- [`4b07551b64b89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b07551b64b89) -
+  Improve the performance of the `no-important-styles`, `no-nested-selectors`, and
+  `no-unsafe-selectors` rules.
+
+## 2.1.3
+
+### Patch Changes
+
+- [`153f1b982bd5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/153f1b982bd5c) -
+  Improve selector parsing and style-import resolution performance
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

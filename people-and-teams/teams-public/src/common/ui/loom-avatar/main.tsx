@@ -4,12 +4,14 @@
  */
 
 import { css, cssMap, cx, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
 
-import { getAvatarText, pickContainerColor, pickTextColor } from './utils';
+import { getAvatarText } from './getAvatarText';
+import { pickContainerColor } from './pickContainerColor';
+import { pickTextColor } from './pickTextColor';
 
 const typographyByAvatarSize = cssMap({
 	small: {

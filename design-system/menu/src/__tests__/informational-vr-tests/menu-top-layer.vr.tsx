@@ -1,6 +1,6 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import MenuGroup from '../../../examples/05-menu-group';
+import MenuGroup from '../../../examples/05-menu-group.vr.ap';
 
 const topLayerFlag = {
 	'platform-dst-top-layer': [true, false],

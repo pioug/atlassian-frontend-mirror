@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required, @atlaskit/volt-strict-mode/no-re-exports, @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -6,18 +7,20 @@ import { forwardRef, memo, useCallback } from 'react';
 
 import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { colorMapping } from './color-mapping';
 import { getTagText } from './get-tag-text';
 import { LinkWrapper } from './link-wrapper';
 import { RemovableWrapper } from './removable-wrapper';
+import { markAsTagMotionCapable } from './tag-motion-capability';
 import SwatchBefore from './swatch-before';
+import { TagMotion } from './tag-motion';
 import { type TagDropdownTriggerProps, type TagNewProps } from './types';
 import { useButtonInteraction } from './use-button-interaction';
 import { useLink } from './use-link';
@@ -82,6 +85,10 @@ const styles = cssMapUnbound({
 		pointerEvents: 'auto',
 		position: 'relative',
 	},
+	afterMotionStyles: {
+		// Preserve the remove button's existing footprint after it is removed from the DOM.
+		minWidth: token('space.150'),
+	},
 	trailingMetric: {
 		display: 'inline-flex',
 		boxSizing: 'border-box',
@@ -107,20 +114,17 @@ const styles = cssMapUnbound({
 		// Only show focus ring when keyboard navigating (not mouse clicks)
 		'&:focus-visible': {
 			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-			// @ts-ignore
 			outlineOffset: token('space.025'),
 		},
 	},
 	// Show focus ring when child link is focused via keyboard (applied conditionally via JS)
 	childFocusRingStyles: {
 		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-		// @ts-ignore
 		outlineOffset: token('space.025'),
 	},
 	// Base interactive styles - always applied when link (cursor, link styling)
 	interactiveBaseStyles: {
 		cursor: 'pointer',
-		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > a': {
 			display: 'inline-flex',
@@ -159,17 +163,40 @@ const styles = cssMapUnbound({
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
-		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > a:hover': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			color: 'inherit !important',
 		},
 		// Only underline the text span, not elemBefore
-		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > a:hover > span[data-tag-text]': {
 			textDecoration: 'underline',
+		},
+	},
+	// Motion hover/pressed transitions - only applied when platform-dst-motion-uplift-labels is on
+	// Matches the button motion pattern: transition at root level, &:active for pressed
+	interactiveMotionStyles: {
+		transition: token('motion.button.hovered'),
+		'&:active': {
+			transition: token('motion.button.pressed'),
+		},
+	},
+	activeMotionStyles: {
+		// Prevent controls from painting outside the tag while it scales in or out.
+		overflow: 'hidden',
+		transformOrigin: 'left',
+	},
+	enteringMotionStyles: {
+		animation: token('motion.label.enter'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
+		},
+	},
+	exitingMotionStyles: {
+		animation: token('motion.label.exit'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
 		},
 	},
 });
@@ -310,6 +337,22 @@ const dropdownStyles = cssMapUnbound({
 		minWidth: 0,
 		overflow: 'hidden',
 	},
+	loadingMotion: {
+		transitionProperty: 'opacity',
+		transitionDuration: token('motion.duration.short'),
+		transitionTimingFunction: token('motion.easing.out.practical'),
+		'@media (prefers-reduced-motion: reduce)': {
+			transition: 'none',
+		},
+	},
+	loadingOverlayMotion: {
+		animationName: token('motion.keyframe.fade.in'),
+		animationDuration: token('motion.duration.short'),
+		animationTimingFunction: token('motion.easing.out.practical'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
+		},
+	},
 	loadingContent: {
 		opacity: 0,
 	},
@@ -385,11 +428,16 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		onKeyPress,
 		buttonHandlers,
 	});
+	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 
-	const tagContent = (
+	const renderTagContent = (
+		tagRef: React.Ref<HTMLSpanElement>,
+		isEntering = false,
+		isExiting = false,
+	) => (
 		<span
 			{...other}
-			ref={ref}
+			ref={tagRef}
 			css={[
 				styles.baseStyles,
 				!hasMargin && styles.noMarginStyles,
@@ -397,6 +445,12 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				borderIconFilterStyles.root,
 				isLink && styles.interactiveBaseStyles,
 				isLink && styles.focusRingStyles,
+				// Apply motion transition unconditionally (when flag is on) so the transition property
+				// is present before hover state changes — required for the browser to animate the change
+				isLink && isMotionEnabled && styles.interactiveMotionStyles,
+				(isEntering || isExiting) && styles.activeMotionStyles,
+				isEntering && styles.enteringMotionStyles,
+				isExiting && styles.exitingMotionStyles,
 				// Only apply hover/active styles when link is hovered but NOT over the button
 				isLink && isLinkHovered && !isOverButton && borderIconInteractiveFilterStyles.root,
 				isLink && isLinkHovered && !isOverButton && styles.interactiveHoverStyles,
@@ -410,7 +464,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 					styles.trailingMetricEndPadding,
 			]}
 			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- maxWidth is a runtime consumer value
 			style={maxWidth !== undefined ? { maxWidth } : undefined}
 		>
 			<LinkWrapper
@@ -428,9 +482,8 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				<SwatchBefore
 					colorKey={color}
 					swatchBefore={swatchBefore}
-					{...(fg('parent-field-switcher-missing-info-image-text')
-						? { swatchBeforeLabel, swatchBeforeRole }
-						: {})}
+					swatchBeforeLabel={swatchBeforeLabel}
+					swatchBeforeRole={swatchBeforeRole}
 				/>
 				{elemBefore && <span css={styles.beforeStyles}>{elemBefore}</span>}
 				<span css={styles.textStyles} data-tag-text>
@@ -442,9 +495,27 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 					</span>
 				)}
 			</LinkWrapper>
-			{removeButton && <span css={styles.afterStyles}>{removeButton}</span>}
+			{removeButton && (
+				<span css={[styles.afterStyles, isMotionEnabled && styles.afterMotionStyles]}>
+					{!isExiting && removeButton}
+				</span>
+			)}
 		</span>
 	);
+
+	if (isMotionEnabled) {
+		return (
+			<TagMotion
+				forwardedRef={ref}
+				onExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
+				status={status}
+			>
+				{({ isEntering, isExiting, ref: motionRef }) =>
+					renderTagContent(motionRef, isEntering, isExiting)
+				}
+			</TagMotion>
+		);
+	}
 
 	return (
 		<RemovableWrapper
@@ -452,7 +523,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 			status={status}
 			onShrinkOutExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
 		>
-			{tagContent}
+			{renderTagContent(ref)}
 		</RemovableWrapper>
 	);
 });
@@ -489,6 +560,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 	ref,
 ) {
 	const resolvedColor = colorMapping[color] || 'gray';
+	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 	return (
 		<Pressable
 			ref={ref}
@@ -503,6 +575,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 				styles.focusRingStyles,
 				borderIconInteractiveFilterStyles.root,
 				isSelected && dropdownStyles.selected,
+				isMotionEnabled && styles.interactiveMotionStyles,
 				// Reduce end padding when trailing metric is the last element (no chevron)
 				!hasChevron &&
 					trailingMetric != null &&
@@ -519,13 +592,18 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 			testId={testId}
 			{...other}
 		>
-			<span css={[dropdownStyles.content, isLoading && dropdownStyles.loadingContent]}>
+			<span
+				css={[
+					dropdownStyles.content,
+					isMotionEnabled && dropdownStyles.loadingMotion,
+					isLoading && dropdownStyles.loadingContent,
+				]}
+			>
 				<SwatchBefore
 					colorKey={resolvedColor}
 					swatchBefore={swatchBefore}
-					{...(fg('parent-field-switcher-missing-info-image-text')
-						? { swatchBeforeLabel, swatchBeforeRole }
-						: {})}
+					swatchBeforeLabel={swatchBeforeLabel}
+					swatchBeforeRole={swatchBeforeRole}
 				/>
 				{elemBefore && (
 					<span css={[styles.beforeStyles, isSelected && styles.beforeStylesSelected]}>
@@ -550,7 +628,12 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 				)}
 			</span>
 			{isLoading && (
-				<span css={dropdownStyles.loadingOverlay}>
+				<span
+					css={[
+						dropdownStyles.loadingOverlay,
+						isMotionEnabled && dropdownStyles.loadingOverlayMotion,
+					]}
+				>
 					<Spinner
 						size={'xsmall'}
 						label=", Loading"
@@ -569,9 +652,8 @@ const TagNew: import('react').MemoExoticComponent<
 	import('react').ForwardRefExoticComponent<
 		TagNewProps & import('react').RefAttributes<HTMLSpanElement>
 	>
-> = memo(TagNewComponent);
+> = markAsTagMotionCapable(memo(TagNewComponent));
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default TagNew;
 
 export { colorMapping } from './color-mapping';

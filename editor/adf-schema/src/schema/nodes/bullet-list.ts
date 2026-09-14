@@ -1,5 +1,5 @@
-import { uuid } from '../../utils';
 import { bulletList as bulletListFactory } from '../../next-schema/generated/nodeTypes';
+import { uuid } from '../../utils/uuid';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export const bulletListSelector = '.ak-ul';

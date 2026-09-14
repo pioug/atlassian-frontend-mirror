@@ -6,11 +6,12 @@ import React, { useEffect, useState } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- mirror existing renderer pattern
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import Tooltip, { type TriggerProps as TooltipTriggerProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { TriggerProps as TooltipTriggerProps } from '@atlaskit/tooltip/types';
 
 const styles = cssMap({
 	// Visually-hidden trigger surface for ADS `<Tooltip>`. The tooltip's ref

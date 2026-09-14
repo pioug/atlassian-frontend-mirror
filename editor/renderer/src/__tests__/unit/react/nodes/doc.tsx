@@ -1,15 +1,23 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import Doc from '../../../../react/nodes/doc';
 
 describe('Renderer - React/Nodes/Doc', () => {
-	const paragraph = shallow(<Doc>This is an empty document</Doc>);
-
 	it('should wrap content with <div>-tag', () => {
-		expect(paragraph.is('div')).toEqual(true);
+		render(<Doc>This is an empty document</Doc>);
+
+		expect(screen.getByText('This is an empty document').tagName).toBe('DIV');
 	});
 
 	it('should output correct html', () => {
-		expect(paragraph.text()).toEqual('This is an empty document');
+		const { container } = render(<Doc>This is an empty document</Doc>);
+
+		expect(container.textContent).toEqual('This is an empty document');
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Doc>This is an empty document</Doc>);
+
+		await expect(container).toBeAccessible();
 	});
 });

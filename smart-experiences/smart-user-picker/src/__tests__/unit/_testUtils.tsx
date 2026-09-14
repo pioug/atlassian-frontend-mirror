@@ -1,13 +1,9 @@
 /* eslint-env jest */
 /* eslint-disable no-console */
 
-import { type ReactWrapper } from 'enzyme';
-import {
-	UFOExperienceState,
-	UFOExperience,
-	ExperienceTypes,
-	ExperiencePerformanceTypes,
-} from '@atlaskit/ufo';
+import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
+import { UFOExperience } from '@atlaskit/ufo/experience';
+import { ExperienceTypes, ExperiencePerformanceTypes } from '@atlaskit/ufo/experience-types';
 
 export const flushPromises = (): Promise<void> => {
 	// eslint-disable-next-line @atlaskit/platform/no-set-immediate
@@ -44,12 +40,6 @@ export const temporarilySilenceActAndAtlaskitDeprecationWarnings = (): void => {
 		console.error = originalError;
 		console.warn = originalWarn;
 	});
-};
-
-export const waitForUpdate = async (wrapper: ReactWrapper): Promise<void> => {
-	// Wait for promises to run and component to be updated
-	await new Promise(setImmediate);
-	wrapper.update();
 };
 
 export class MockConcurrentExperienceInstance extends UFOExperience {

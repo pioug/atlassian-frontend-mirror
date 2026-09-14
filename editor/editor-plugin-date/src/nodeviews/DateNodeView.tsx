@@ -3,6 +3,7 @@ import type { IntlShape } from 'react-intl';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Decoration, NodeView } from '@atlaskit/editor-prosemirror/view';
 

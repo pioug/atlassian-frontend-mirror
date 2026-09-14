@@ -5,16 +5,16 @@
  */
 {
   "testExamples": [
-    "99-testing.tsx",
+    "99-testing.vr.ap.tsx",
     "22-flag-keyboard-dismiss-from-input.tsx",
     "10-flag-auto-dismiss.tsx",
     "flag-should-render-to-parent-top-layer.tsx",
-    "00-all-flags.tsx",
+    "00-all-flags.vr.ap.tsx",
     "08-flag-with-a-description-containing-a-link.tsx",
-    "15-flag-long-title.tsx",
-    "16-flag-long-content.tsx",
-    "20-flag-group-in-modal-dialog.tsx",
-    "vr-flag-group-top-layer.tsx"
+    "15-flag-long-title.vr.ap.tsx",
+    "16-flag-long-content.vr.ap.tsx",
+    "20-flag-group-in-modal-dialog.vr.ap.tsx",
+    "vr-flag-group-top-layer.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

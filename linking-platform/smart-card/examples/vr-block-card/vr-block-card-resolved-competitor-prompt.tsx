@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
-import { CardClient as Client } from '@atlaskit/link-provider';
+import Client from '@atlaskit/link-provider/client';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

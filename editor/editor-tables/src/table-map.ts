@@ -1,66 +1,14 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
+import { addToCache } from './add-to-cache';
+import { computeMap } from './compute-map';
+import { readFromCache } from './read-from-cache';
+import { Rect } from './rect';
 import type { Axis } from './types';
-
-// Because working with row and column-spanning cells is not quite
-// trivial, this code builds up a descriptive structure for a given
-// table node. The structures are cached with the (persistent) table
-// nodes as key, so that they only have to be recomputed when the
-// content of the table changes.
-//
-// This does mean that they have to store table-relative, not
-// document-relative positions. So code that uses them will typically
-// compute the start position of the table and offset positions passed
-// to or gotten from this structure by that amount.
-
-let readFromCache: (key: PMNode) => TableMap | undefined,
-	addToCache: (key: PMNode, value: TableMap) => TableMap;
-// Prefer using a weak map to cache table maps. Fall back on a
-// fixed-size cache if that's not supported.
-if (typeof WeakMap !== 'undefined') {
-	const cache = new WeakMap<PMNode, TableMap | undefined>();
-	readFromCache = (key: PMNode) => cache.get(key);
-	addToCache = (key: PMNode, value: TableMap) => {
-		cache.set(key, value);
-		return value;
-	};
-} else {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const cache: any[] = [];
-	const cacheSize = 10;
-	let cachePos = 0;
-	readFromCache = (key: PMNode) => {
-		for (let i = 0; i < cache.length; i += 2) {
-			if (cache[i] === key) {
-				return cache[i + 1];
-			}
-		}
-	};
-	addToCache = (key: PMNode, value: TableMap) => {
-		if (cachePos === cacheSize) {
-			cachePos = 0;
-		}
-		cache[cachePos++] = key;
-		return (cache[cachePos++] = value);
-	};
-}
-
-export class Rect {
-	left: number;
-	top: number;
-	right: number;
-	bottom: number;
-	constructor(left: number, top: number, right: number, bottom: number) {
-		this.left = left;
-		this.top = top;
-		this.right = right;
-		this.bottom = bottom;
-	}
-}
 
 export interface TableRect extends Rect {
 	map: TableMap;
@@ -321,207 +269,16 @@ export class TableMap {
 	}
 }
 
-// Compute a table map.
-function computeMap(table: PMNode) {
-	if (table.type.spec.tableRole !== 'table') {
-		throw new RangeError('Not a table node: ' + table.type.name);
-	}
-	const width = findWidth(table);
-	const height = table.childCount;
-	const map: number[] = [];
-	const colWidths: number[] = [];
-	let mapPos = 0,
-		problems: TableProblem[] | null = null;
-	for (let i = 0, e = width * height; i < e; i++) {
-		map[i] = 0;
-	}
+/**
+ * @deprecated Use `import { Rect } from '@atlaskit/editor-tables/rect'` instead.
+ */
+export { Rect } from './rect';
 
-	for (let row = 0, pos = 0; row < height; row++) {
-		const rowNode = table.child(row);
-		pos++;
-		for (let i = 0; ; i++) {
-			while (mapPos < map.length && map[mapPos] !== 0) {
-				mapPos++;
-			}
-			if (i === rowNode.childCount) {
-				break;
-			}
-			const cellNode = rowNode.child(i),
-				{ colspan, rowspan, colwidth } = cellNode.attrs;
-			for (let h = 0; h < rowspan; h++) {
-				if (h + row >= height) {
-					(problems || (problems = [])).push({
-						type: TableProblemTypes.OVERLONG_ROWSPAN,
-						pos,
-						n: rowspan - h,
-					});
-					break;
-				}
-				const start = mapPos + h * width;
-				for (let w = 0; w < colspan; w++) {
-					if (map[start + w] === 0) {
-						map[start + w] = pos;
-					} else {
-						(problems || (problems = [])).push({
-							type: TableProblemTypes.COLLISION,
-							row,
-							pos,
-							n: colspan - w,
-						});
-					}
-					const colW = colwidth && colwidth[w];
-					if (colW) {
-						const widthIndex = ((start + w) % width) * 2,
-							prev = colWidths[widthIndex];
-						if (prev == null || (prev !== colW && colWidths[widthIndex + 1] === 1)) {
-							colWidths[widthIndex] = colW;
-							colWidths[widthIndex + 1] = 1;
-						} else if (prev === colW) {
-							colWidths[widthIndex + 1]++;
-						}
-					}
-				}
-			}
-			mapPos += colspan;
-			pos += cellNode.nodeSize;
-		}
-
-		const expectedPos = (row + 1) * width;
-		let missing = 0;
-		while (mapPos < expectedPos) {
-			if (map[mapPos++] === 0) {
-				missing++;
-			}
-		}
-		if (missing) {
-			(problems || (problems = [])).push({
-				type: TableProblemTypes.MISSING,
-				row,
-				n: missing,
-			});
-		}
-		pos++;
-	}
-
-	const mapByRow: number[][] = Array(height);
-	const mapByColumn: number[][] = Array(width);
-
-	for (let i = 0; i < map.length; i++) {
-		const columnIndex = i % width;
-
-		mapByColumn[columnIndex] = mapByColumn[columnIndex] ?? [];
-		mapByColumn[columnIndex].push(map[i]);
-
-		const rowIndex = Math.trunc(i / width);
-
-		mapByRow[rowIndex] = mapByRow[rowIndex] ?? [];
-		mapByRow[rowIndex].push(map[i]);
-	}
-
-	const tableMap = new TableMap(width, height, map, problems, mapByColumn, mapByRow);
-	let badWidths = false;
-
-	// For columns that have defined widths, but whose widths disagree
-	// between rows, fix up the cells whose width doesn't match the
-	// computed one.
-	for (let i = 0; !badWidths && i < colWidths.length; i += 2) {
-		if (colWidths[i] != null && colWidths[i + 1] < height) {
-			badWidths = true;
-		}
-	}
-
-	// colWidths is an array of numbers, it can look like this
-	// const colWidths = [255, 3, 125, 3, 150, 2, 130, 1];
-	// 255 is a colWidth and 3 is a number of cells with this colwidth.
-	// This check exists to make sure that the table has been resized,
-	// which means there will be elements in the colWidths array.
-	if (colWidths.length > 0 && colWidths.length !== width * 2) {
-		for (let i = 0; i < width * 2 - colWidths.length; i++) {
-			colWidths.push(tableNewColumnMinWidth, 0);
-		}
-
-		badWidths = true;
-	}
-
-	if (badWidths) {
-		findBadColWidths(tableMap, colWidths, table);
-	}
-
-	return tableMap;
-}
-
-function findWidth(table: PMNode) {
-	let width = -1;
-	let hasRowSpan = false;
-	for (let row = 0; row < table.childCount; row++) {
-		const rowNode = table.child(row);
-		let rowWidth = 0;
-		if (hasRowSpan) {
-			for (let j = 0; j < row; j++) {
-				const prevRow = table.child(j);
-				for (let i = 0; i < prevRow.childCount; i++) {
-					const cell = prevRow.child(i);
-					if (j + cell.attrs.rowspan > row) {
-						rowWidth += cell.attrs.colspan;
-					}
-				}
-			}
-		}
-		for (let i = 0; i < rowNode.childCount; i++) {
-			const cell = rowNode.child(i);
-			rowWidth += cell.attrs.colspan;
-			if (cell.attrs.rowspan > 1) {
-				hasRowSpan = true;
-			}
-		}
-		if (width === -1) {
-			width = rowWidth;
-		} else if (width !== rowWidth) {
-			width = Math.max(width, rowWidth);
-		}
-	}
-	return width;
-}
-
-function findBadColWidths(map: TableMap, colWidths: number[], table: PMNode) {
-	if (!map.problems) {
-		map.problems = [];
-	}
-	const seen: { [key: number]: boolean } = {};
-	for (let i = 0; i < map.map.length; i++) {
-		const pos = map.map[i];
-		if (seen[pos]) {
-			continue;
-		}
-		seen[pos] = true;
-		const node = table.nodeAt(pos) as PMNode;
-		let updated = null;
-		for (let j = 0; j < node.attrs.colspan; j++) {
-			const col = (i + j) % map.width,
-				colWidth = colWidths[col * 2];
-			if (colWidth != null && (!node.attrs.colwidth || node.attrs.colwidth[j] !== colWidth)) {
-				(updated || (updated = freshColWidth(node.attrs)))[j] = colWidth;
-			}
-		}
-		if (updated) {
-			map.problems.unshift({
-				type: TableProblemTypes.COLWIDTH_MISMATCH,
-				pos,
-				colwidth: updated,
-			});
-		}
-	}
-}
-
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function freshColWidth(attrs: { [key: string]: any }) {
-	if (attrs.colwidth) {
-		return attrs.colwidth.slice();
-	}
-	const result: number[] = [];
-	for (let i = 0; i < attrs.colspan; i++) {
-		result.push(0);
-	}
-	return result;
-}
+/**
+ * @deprecated Use `import { findWidth } from '@atlaskit/editor-tables/find-width'` instead.
+ */
+export { findWidth } from './find-width';
+/**
+ * @deprecated Use `import { findBadColWidths } from '@atlaskit/editor-tables/find-bad-col-widths'` instead.
+ */
+export { findBadColWidths } from './find-bad-col-widths';

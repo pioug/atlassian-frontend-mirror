@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 
 import cloneDeepWith from 'lodash/cloneDeepWith';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { code } from '@atlaskit/docs';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/preset';
 import type { EditorProps } from '@atlaskit/editor-core';
@@ -82,6 +82,7 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	performanceTracking: undefined,
 	skipValidation: undefined,
 	syncedBlockProvider: undefined,
+	UNSAFE_containLayout: undefined,
 };
 
 const pluginNameExceptions = {

@@ -1,10 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import {
-	createAndFireEvent,
-	UIAnalyticsEvent,
-	type AnalyticsEventPayload,
-	type CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 export const fabricElementsChannel = 'fabric-elements';
 

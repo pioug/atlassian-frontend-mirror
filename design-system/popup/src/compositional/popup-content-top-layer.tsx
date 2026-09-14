@@ -21,12 +21,11 @@ import { css, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import {
-	createPopoverCloseEvent,
-	Popover,
-	type TPopoverCloseReason,
-} from '@atlaskit/top-layer/popover';
+import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
+import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';

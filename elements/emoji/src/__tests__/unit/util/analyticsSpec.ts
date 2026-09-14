@@ -1,5 +1,6 @@
-import { withSampling } from '../../../util/analytics/samplingUfo';
-import { pickerClickedEvent, ufoExperiences } from '../../../util/analytics';
+import { pickerClickedEvent } from '../../../util/analytics/pickerClickedEvent';
+import { ufoExperiences } from '../../../util/analytics/ufoExperiences';
+import { withSampling } from '../../../util/analytics/withSampling';
 
 const attributesForId = (emojiId: string) =>
 	pickerClickedEvent({

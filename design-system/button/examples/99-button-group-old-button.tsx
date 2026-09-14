@@ -6,7 +6,8 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button, { ButtonGroup } from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 import { cssMap } from '@atlaskit/css';
 import AudioIcon from '@atlaskit/icon/core/audio';
 import { Flex } from '@atlaskit/primitives/compiled';

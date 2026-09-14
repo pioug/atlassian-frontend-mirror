@@ -2,27 +2,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
-import {
-	type AnalyticsEventPayload,
-	withAnalyticsEvents,
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 
-import { createAndFireEventInElementsChannel, userInfoEvent } from '../../analytics';
+import { createAndFireEventInElementsChannel } from '../../analytics';
 import { type ExternalUser } from '../../types';
-import { textWrapper } from '../AvatarItemOption';
+import { userInfoEvent } from '../../userInfoEvent';
 import { AvatarOrIcon } from '../AvatarOrIcon';
-import { SizeableAvatar } from '../SizeableAvatar';
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
-import InfoIcon from './InfoIcon';
+import { SizeableAvatar } from '../SizeableAvatar';
+import { textWrapper } from '../textWrapper';
 import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
+import InfoIcon from './InfoIcon';
 import { SourcesTooltipContent } from './SourcesTooltipContent';
-import { getAppearanceForAppType } from '@atlaskit/avatar';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const imageContainer: SerializedStyles = css({

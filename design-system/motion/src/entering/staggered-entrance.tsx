@@ -1,9 +1,8 @@
-import React, { createContext, type Ref, useContext, useRef, useState } from 'react';
+import React, { type Context, createContext, type Ref, useRef, useState } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
 import { useLayoutEffect } from '../utils/use-layout-effect';
-import { useUniqueId } from '../utils/use-unique-id';
 
 export interface StaggeredEntranceProps {
 	/**
@@ -35,19 +34,18 @@ export interface StaggeredEntranceProps {
 	children: JSX.Element | JSX.Element[];
 }
 
-const StaggeredEntranceContext = createContext<
+/**
+ * __Staggered entrance context__
+ *
+ * A staggered entrance context.
+ */
+export const StaggeredEntranceContext: Context<
 	(id: string) => { isReady: boolean; delay: number; ref: Ref<any> }
->(() => ({ isReady: true, delay: 0, ref: noop }));
-
-export const useStaggeredEntrance = (): {
-	isReady: boolean;
-	delay: number;
-	ref: Ref<any>;
-} => {
-	const indentifier = useUniqueId();
-	const context = useContext(StaggeredEntranceContext);
-	return context(indentifier);
-};
+> = createContext<(id: string) => { isReady: boolean; delay: number; ref: Ref<any> }>(() => ({
+	isReady: true,
+	delay: 0,
+	ref: noop,
+}));
 
 /**
  * For a list of elements that need to animate in,

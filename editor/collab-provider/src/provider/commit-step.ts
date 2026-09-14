@@ -8,14 +8,18 @@ import type {
 } from '../types';
 import { AcknowledgementResponseTypes } from '../types';
 import type { CollabEvents, StepJson } from '@atlaskit/editor-common/collab';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { NCS_ERROR_CODE } from '../errors/ncs-errors';
 import { createLogger } from '../helpers/utils';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/internal-errors';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import {
+	AGENT_ATTRIBUTION_META,
+	type AgentAttributionTransactionMeta,
+} from '@atlaskit/editor-common/transaction-agent-attribution';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const logger = createLogger('commit-step', 'black');
 export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;
@@ -23,6 +27,7 @@ export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;
 export class CommitStepService {
 	private readyToCommit: boolean;
 	private lastBroadcastRequestAcked: boolean;
+	private readonly shouldSerializeAgentAttribution: boolean;
 
 	/**
 	 * @param broadcast - Callback for broadcasting events to other clients
@@ -44,6 +49,7 @@ export class CommitStepService {
 	) {
 		this.readyToCommit = true;
 		this.lastBroadcastRequestAcked = true;
+		this.shouldSerializeAgentAttribution = fg('platform_editor_agentic_step_attribution');
 	}
 
 	commitStepQueue({
@@ -95,11 +101,27 @@ export class CommitStepService {
 			logger('reset readyToCommit by timer');
 		}, RESET_READYTOCOMMIT_INTERVAL_MS);
 
-		let stepsWithClientAndUserId = steps.map((step) => ({
-			...step.toJSON(),
-			clientId,
-			userId,
-		})) as StepJson[];
+		let stepsWithClientAndUserId = steps.map((step, index) => {
+			const agentAttribution = this.shouldSerializeAgentAttribution
+				? (stepOrigins?.[index]?.getMeta(AGENT_ATTRIBUTION_META) as
+						| AgentAttributionTransactionMeta
+						| undefined)
+				: undefined;
+
+			return {
+				...step.toJSON(),
+				clientId,
+				userId,
+				...(agentAttribution
+					? {
+							agentType: agentAttribution.agentType,
+							...(agentAttribution.agentId !== undefined
+								? { agentId: agentAttribution.agentId }
+								: {}),
+						}
+					: {}),
+			};
+		}) as StepJson[];
 
 		// Mutate steps to ignore expand expand/collapse changes in live pages
 		// This is expected to be a temporary divergence from standard editor behaviour
@@ -129,9 +151,7 @@ export class CommitStepService {
 			});
 		}
 
-		if (expValEquals('platform_editor_offline_editing_web', 'isEnabled', true)) {
-			stepsWithClientAndUserId = this.addOfflineMetadata(stepsWithClientAndUserId, stepOrigins);
-		}
+		stepsWithClientAndUserId = this.addOfflineMetadata(stepsWithClientAndUserId, stepOrigins);
 
 		const start = new Date().getTime();
 		const ADD_STEPS_ACKNOWLEDGEMENT_ERROR_MSG =

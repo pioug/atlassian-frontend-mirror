@@ -1,0 +1,43 @@
+import { wb, type WorkbenchExample } from '@atlassian/workbench';
+
+import BasicTagExample from './0-basic-tag';
+import RemovableTagExample from './0-removable-tag';
+import AppearanceExample from './1-appearance';
+import ColorsVrExample from './1-colors.vr.ap';
+import ReferenceExample from './10-reference';
+import TagVisualUpliftsBehindFfExample from './11-tag-visual-uplifts-behind-ff';
+import AvatarTagExample from './12-avatar-tag';
+import TagDropdownTriggerVrExample from './13-tag-dropdown-trigger.vr.ap';
+import NewEntrypointExample from './14-new-entrypoint';
+import AddTagsExample from './15-add-tags';
+import TextSimpleExample from './2-text-simple';
+import TextMaxLengthExample from './3-text-max-length';
+import BaselineAlignmentExample from './4-baseline-alignment';
+import AsALinkExample from './5-as-a-link';
+import EdgeCasesExample from './6-edge-cases';
+import OverviewExample from './7-overview';
+import ListenToTagAnalyticsExample from './8-listen-to-tag-analytics';
+import SimpleTagExample from './9-simple-tag';
+import TestingTruncationExample from './99-testing-truncation';
+
+const BasicTag: WorkbenchExample = wb(BasicTagExample);
+
+export default BasicTag;
+export const RemovableTag: WorkbenchExample = wb(RemovableTagExample);
+export const Appearance: WorkbenchExample = wb(AppearanceExample);
+export const ColorsVr: WorkbenchExample = wb(ColorsVrExample);
+export const Reference: WorkbenchExample = wb(ReferenceExample);
+export const TagVisualUpliftsBehindFf: WorkbenchExample = wb(TagVisualUpliftsBehindFfExample);
+export const AvatarTag: WorkbenchExample = wb(AvatarTagExample);
+export const TagDropdownTriggerVr: WorkbenchExample = wb(TagDropdownTriggerVrExample);
+export const NewEntrypoint: WorkbenchExample = wb(NewEntrypointExample);
+export const AddTags: WorkbenchExample = wb(AddTagsExample);
+export const TextSimple: WorkbenchExample = wb(TextSimpleExample);
+export const TextMaxLength: WorkbenchExample = wb(TextMaxLengthExample);
+export const BaselineAlignment: WorkbenchExample = wb(BaselineAlignmentExample);
+export const AsALink: WorkbenchExample = wb(AsALinkExample);
+export const EdgeCases: WorkbenchExample = wb(EdgeCasesExample);
+export const Overview: WorkbenchExample = wb(OverviewExample);
+export const ListenToTagAnalytics: WorkbenchExample = wb(ListenToTagAnalyticsExample);
+export const SimpleTag: WorkbenchExample = wb(SimpleTagExample);
+export const TestingTruncation: WorkbenchExample = wb(TestingTruncationExample);

@@ -33,6 +33,9 @@
 	"references": [
 		{
 			"path": "../ads-mcp/tsconfig.app.json"
+		},
+		{
+			"path": "../cli-output/tsconfig.app.json"
 		}
 	],
 	"files": []

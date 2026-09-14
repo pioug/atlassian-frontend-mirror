@@ -9,3 +9,4 @@ tsconfig.json
 constellation/
 tsconfig.app.json
 tsconfig.dev.json
+*.docs.tsx

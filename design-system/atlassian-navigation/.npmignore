@@ -6,3 +6,4 @@ constellation/
 docs/
 tsconfig.app.json
 tsconfig.dev.json
+*.docs.tsx

@@ -9,6 +9,16 @@ import { findIdentifierInParentScope } from '../utils/find-in-parent';
 const allowedPrefix = [':', '&:'];
 const allowedResponsiveImports = ['@atlaskit/primitives/responsive', '@atlaskit/primitives'];
 
+type TypeScriptExpressionWrapper = Rule.Node & { expression: Rule.Node };
+
+const unwrapSatisfiesExpression = (node: Rule.Node): Rule.Node => {
+	while ((node as { type: string }).type === 'TSSatisfiesExpression') {
+		node = (node as TypeScriptExpressionWrapper).expression;
+	}
+
+	return node;
+};
+
 /**
  * Tests against properties using the Design System primitives media object: [media.above.md]
  * @returns true if the property is a media query
@@ -56,6 +66,8 @@ const parseSelector = (rawSelector: unknown): string[] => {
 };
 
 const getKeyValue = (node: Rule.Node, context: Rule.RuleContext): string => {
+	node = unwrapSatisfiesExpression(node);
+
 	if (node.type === 'Identifier') {
 		return node.name;
 	}

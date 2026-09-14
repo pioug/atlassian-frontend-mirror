@@ -1,7 +1,8 @@
-import { requestService, extractTracingHeaders } from '../serviceUtils';
-
-import { type ServiceConfig } from '../types';
 import * as traceInfo from '@atlaskit/react-ufo/experience-trace-id-context';
+
+import { extractTracingHeaders } from '../extractTracingHeaders';
+import { requestService } from '../requestService';
+import { type ServiceConfig } from '../types';
 
 describe('Tracing headers to requestService', () => {
 	beforeEach(() => {

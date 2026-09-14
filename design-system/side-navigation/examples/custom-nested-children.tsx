@@ -2,13 +2,11 @@ import React from 'react';
 
 import { Box, Text } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	NestableNavigationContent,
-	NestingItem,
-	Section,
-	SideNavigation,
-	useShouldNestedElementRender,
-} from '@atlaskit/side-navigation';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
+import { useShouldNestedElementRender } from '@atlaskit/side-navigation/use-should-nested-element-render';
 
 import AppFrame from './common/app-frame';
 

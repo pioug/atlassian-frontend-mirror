@@ -1,8 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import Button from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import noop from '@atlaskit/ds-lib/noop';
 import { act, fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 

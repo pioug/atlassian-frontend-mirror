@@ -1,23 +1,23 @@
 jest.mock('../getControlsWrapperClassName');
-jest.mock('../fullscreen', () => {
-	const original = jest.requireActual('../fullscreen');
-	return {
-		...original,
-		toggleFullscreen: jest.fn(),
-		getFullscreenElement: jest.fn(),
-	};
-});
+jest.mock('../toggleFullscreen', () => ({
+	...jest.requireActual('../toggleFullscreen'),
+	toggleFullscreen: jest.fn(),
+}));
+jest.mock('../getFullscreenElement', () => ({
+	...jest.requireActual('../getFullscreenElement'),
+	getFullscreenElement: jest.fn(),
+}));
 
 jest.mock('../simultaneousPlayManager');
-jest.mock('@atlaskit/width-detector');
-import * as mediaClientReactModule from '@atlaskit/media-client-react';
+import * as useMediaSettingsModule from '@atlaskit/media-client-react/use-media-settings';
 import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
-import { type WidthObserver } from '@atlaskit/width-detector';
+import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
 import { MediaPlayer } from './mediaPlayer';
 import { type MediaPlayerProps } from './types';
-import { toggleFullscreen, getFullscreenElement } from '../fullscreen';
+import { toggleFullscreen } from '../toggleFullscreen';
+import { getFullscreenElement } from '../getFullscreenElement';
 import simultaneousPlayManager from '../simultaneousPlayManager';
 import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
 import { act } from 'react';
@@ -26,19 +26,43 @@ import { IntlProvider } from 'react-intl';
 import { keyCodes } from '../../shortcut';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { createMockedMediaProvider } from './testHelpers/_MockedMediaProvider';
-import * as analyticsNextModule from '@atlaskit/analytics-next';
+import * as analyticsNextModule from '@atlaskit/analytics-next/useAnalyticsEvents';
 // import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers';
 
-const useMediaSettingsSpy = jest.spyOn(mediaClientReactModule, 'useMediaSettings');
+const useMediaSettingsSpy = jest.spyOn(useMediaSettingsModule, 'useMediaSettings');
 
-const createAnalyticsEventHandler = jest.fn().mockReturnValue({ fire: jest.fn() });
+const createAnalyticsEventHandler = jest.fn().mockReturnValue({
+	fire: jest.fn(),
+	clone: jest.fn().mockReturnThis(),
+	update: jest.fn().mockReturnThis(),
+	context: [],
+});
 jest.spyOn(analyticsNextModule, 'useAnalyticsEvents').mockReturnValue({
 	createAnalyticsEvent: createAnalyticsEventHandler,
 });
 
-const getUIAnalyticsEventDetails = (callIndex: number = 1) => {
-	//event handler 1st call is screen event, 2nd is ui event
-	const payload = createAnalyticsEventHandler.mock.calls[callIndex]?.[0];
+const getUIAnalyticsEventDetails = (callIndex?: number) => {
+	// If a specific index is provided, use it; otherwise find the media UI event
+	// Media UI events are characterized by having an action (clicked/pressed/changed/navigated/firstPlayed)
+	// and video/file attributes, distinguishing them from screen events and HOC button events
+	let payload;
+
+	if (callIndex !== undefined) {
+		payload = createAnalyticsEventHandler.mock.calls[callIndex]?.[0];
+	} else {
+		// Find the media UI event by looking for events with an action and media attributes
+		// (actionSubjectId is optional since playPauseBlanket doesn't have it)
+		payload = createAnalyticsEventHandler.mock.calls.find((call) => {
+			const event = call?.[0];
+			return (
+				event &&
+				event.action &&
+				event.attributes?.type === 'video' &&
+				event.attributes?.fileAttributes
+			);
+		})?.[0];
+	}
+
 	const { attributes } = payload || {};
 	return {
 		payload,
@@ -59,14 +83,12 @@ const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
 type mockWidthObserver = typeof WidthObserver;
 
 let widthCbs: Set<(width: number) => void> = new Set();
-jest.mock('@atlaskit/width-detector', () => {
-	return {
-		WidthObserver: ((props: { setWidth: (width: number) => void }) => {
-			widthCbs.add(props.setWidth);
-			return null;
-		}) as mockWidthObserver,
-	};
-});
+jest.mock('@atlaskit/width-detector/width-observer', () => ({
+	WidthObserver: ((props: { setWidth: (width: number) => void }) => {
+		widthCbs.add(props.setWidth);
+		return null;
+	}) as mockWidthObserver,
+}));
 
 type SetupOptions = {
 	initialWidth?: number;
@@ -305,7 +327,7 @@ describe('<MediaPlayer />', () => {
 					throw new Error('downloadButton does not exist');
 				}
 				fireEvent.click(downloadButton);
-				expect(onDownloadClick).toBeCalledTimes(1);
+				expect(onDownloadClick).toHaveBeenCalledTimes(1);
 			});
 		});
 
@@ -858,13 +880,13 @@ describe('<MediaPlayer />', () => {
 
 		it('should subscribe to Simultaneous Play Manager', () => {
 			setup();
-			expect(simultaneousPlayManager.subscribe).toBeCalledTimes(1);
+			expect(simultaneousPlayManager.subscribe).toHaveBeenCalledTimes(1);
 		});
 
 		it('should unsubscribe from Simultaneous Play Manager on unmount', () => {
 			const { unmount } = setup();
 			unmount();
-			expect(simultaneousPlayManager.unsubscribe).toBeCalledTimes(1);
+			expect(simultaneousPlayManager.unsubscribe).toHaveBeenCalledTimes(1);
 		});
 
 		it('should pause other players when click play button', async () => {
@@ -938,7 +960,11 @@ describe('<MediaPlayer />', () => {
 		};
 
 		beforeEach(() => {
-			const original = jest.requireActual('../fullscreen');
+			// Restore the real toggleFullscreen implementation. Require the specific module directly
+			// rather than the (mocked) '../toggleFullscreen' or the deprecated '../fullscreen' barrel —
+			// requireActual on the barrel would resolve its re-export to the mocked module, yielding the
+			// jest.fn() no-op instead of the real implementation.
+			const original = jest.requireActual('../toggleFullscreen');
 			asMock(toggleFullscreen).mockImplementation(original.toggleFullscreen);
 			asMockFunction(getFullscreenElement).mockReturnValue({} as HTMLElement);
 		});
@@ -981,7 +1007,14 @@ describe('<MediaPlayer />', () => {
 			// Pause
 			fireEvent.click(await getPlayPauseButton());
 
-			const { payload } = getUIAnalyticsEventDetails(2);
+			// Find the pauseButton event (not the playButton event from triggerPlay)
+			const calls = createAnalyticsEventHandler.mock.calls;
+			const pausePayload = calls.find((call) => {
+				const event = call?.[0];
+				return event && event.action === 'clicked' && event.actionSubjectId === 'pauseButton';
+			})?.[0];
+
+			const { payload } = { payload: pausePayload };
 
 			await assertPayload(
 				payload,
@@ -1130,7 +1163,16 @@ describe('<MediaPlayer />', () => {
 			}
 			fireEvent.click(twoTimesButton);
 
-			const { payload } = getUIAnalyticsEventDetails(1);
+			// Find the playbackSpeedButton clicked event
+			const calls = createAnalyticsEventHandler.mock.calls;
+			const speedPayload = calls.find((call) => {
+				const event = call?.[0];
+				return (
+					event && event.action === 'clicked' && event.actionSubjectId === 'playbackSpeedButton'
+				);
+			})?.[0];
+
+			const { payload } = { payload: speedPayload };
 			await assertPayload(
 				payload,
 				{

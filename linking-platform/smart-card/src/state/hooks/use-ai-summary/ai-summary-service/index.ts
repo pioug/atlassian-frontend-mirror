@@ -1,7 +1,8 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { type EnvironmentsKeys, getBaseUrl } from '@atlaskit/linking-common';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
+import { getBaseUrl } from '@atlaskit/linking-common';
 
 import { readStream } from './readStream';
 import {
@@ -14,7 +15,8 @@ import {
 	type StateSetter,
 	type StreamMessage,
 } from './types';
-import { addPath, getXProductHeaderValue } from './utils';
+import { addPath } from './addPath';
+import { getXProductHeaderValue } from './getXProductHeaderValue';
 
 const CONVO_AI_ENDPOINT = 'assist/api/ai/v2/ai-feature/smartlinksummary/stream';
 

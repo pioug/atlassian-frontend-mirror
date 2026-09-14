@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 
 const containerStyles = css({
 	display: 'flex',

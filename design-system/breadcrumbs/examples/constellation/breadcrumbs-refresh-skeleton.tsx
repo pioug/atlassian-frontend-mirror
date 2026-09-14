@@ -4,7 +4,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import { BreadcrumbsSkeleton } from '@atlaskit/breadcrumbs/breadcrumbs-skeleton';
 import { BreadcrumbsSkeletonItem } from '@atlaskit/breadcrumbs/breadcrumbs-skeleton-item';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 const BreadcrumbsRefreshSkeletonExample = (): React.JSX.Element => {

@@ -7,10 +7,10 @@ import type { ReactNode } from 'react';
 import type { AllowedStyles, ApplySchema, CompiledStyles } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { Box } from '@atlaskit/primitives/compiled';
 import type { MediaQuery } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 const styles = cssMap({
@@ -107,8 +107,8 @@ const styles = cssMap({
 			},
 		},
 	},
-	// Preset: fullpage updated (410, 476, 1126, 1232)
-	// Gated behind platform_editor_ai_improve_formatting_toolbar experiment
+	// Preset: fullpage updated (410, 476, 1035, 1130)
+	// Gated behind platform_editor_ai_content_suggested_edits experiment
 	fullpageUpdated: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'@container toolbar-container (max-width: 421px)': {
@@ -132,12 +132,12 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (min-width: 722px) and (max-width: 1125px)': {
+		'@container toolbar-container (min-width: 722px) and (max-width: 1034px)': {
 			'.show-only-md': {
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 1125px)': {
+		'@container toolbar-container (max-width: 1034px)': {
 			'.show-above-lg': {
 				display: 'none',
 			},
@@ -145,12 +145,12 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (min-width: 1126px) and (max-width: 1231px)': {
+		'@container toolbar-container (min-width: 1035px) and (max-width: 1129px)': {
 			'.show-only-lg': {
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (max-width: 1231px)': {
+		'@container toolbar-container (max-width: 1129px)': {
 			'.show-above-xl': {
 				display: 'none',
 			},
@@ -158,7 +158,7 @@ const styles = cssMap({
 				display: 'block',
 			},
 		},
-		'@container toolbar-container (min-width: 1232px)': {
+		'@container toolbar-container (min-width: 1130px)': {
 			'.show-only-xl': {
 				display: 'block',
 			},
@@ -614,7 +614,7 @@ export type ResponsiveContainerProps = {
 	 * Selects the breakpoint preset for the responsive container.
 	 *
 	 * Available presets:
-	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences (updated to 410, 476, 1126, 1232 when platform_editor_ai_improve_formatting_toolbar is enabled)
+	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences (updated to 410, 476, 1035, 1130 when platform_editor_ai_content_suggested_edits is enabled)
 	 * - 'reduced': (210, 408, 575, 1024) - Default compact toolbars, constrained layouts
 	 * - 'jira-issue': (280, 420, 650, 1024) - Jira issue view and similar contexts
 	 * - 'jsm-comment': (365, 500, 630, 1024) - JSM comment editor with canned responses button
@@ -675,10 +675,10 @@ export const ResponsiveContainer = ({
 }: ResponsiveContainerProps): React.JSX.Element => {
 	const isUpdatedConfig = (() => {
 		if (breakpointPreset === 'fullpage') {
-			return expValEqualsNoExposure(
-				'platform_editor_ai_improve_formatting_toolbar',
+			return UNSAFE_expValNoExposure(
+				'platform_editor_ai_content_suggested_edits',
 				'isEnabled',
-				true,
+				false,
 			);
 		}
 		return (

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { SideNavigation } from '@atlaskit/side-navigation';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 
 import AppFrame from './common/app-frame';
 

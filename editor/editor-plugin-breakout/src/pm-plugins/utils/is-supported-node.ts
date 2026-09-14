@@ -1,5 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 const supportedNodesForBreakout = ['codeBlock', 'layoutSection', 'expand'];
 

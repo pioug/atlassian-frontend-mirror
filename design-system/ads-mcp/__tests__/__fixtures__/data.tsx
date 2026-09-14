@@ -199,7 +199,7 @@ export const testData: TestDataCase[] = [
 				fixes: [
 					{
 						after:
-							'import { Button } from \'@atlaskit/button\';\n\n<Button aria-label=\"Close dialog\" onClick={handleClose}>\n  <CloseIcon />\n</Button>',
+							'import Button from \'@atlaskit/button/default/button\';\n\n<Button aria-label=\"Close dialog\" onClick={handleClose}>\n  <CloseIcon />\n</Button>',
 						before: '<button onClick={handleClose}>\n  <CloseIcon />\n</button>',
 						description: 'Add aria-label for icon-only buttons',
 						explanation:

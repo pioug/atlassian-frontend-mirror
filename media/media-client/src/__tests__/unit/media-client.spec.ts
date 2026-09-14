@@ -1,8 +1,8 @@
 jest.mock('../../uploader');
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
-import { type AuthProvider, type Auth } from '@atlaskit/media-core';
+import { v4 as uuid } from 'uuid';
+import type { AuthProvider, Auth } from '@atlaskit/media-core/auth';
 import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/test-helpers';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -25,7 +25,7 @@ import {
 } from '../..';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { uploadFile } from '../../uploader';
-import * as resolveAuth from '../../client/media-store/resolveAuth';
+import * as resolveInitialAuthModule from '../../client/media-store/resolveInitialAuth';
 
 const auth = {
 	token: 'some-token-that-does-not-really-matter-in-this-tests',
@@ -41,7 +41,7 @@ skipAutoA11yFile();
 
 const createMediaClient = (initialAuth?: Auth) => {
 	const mediaClient = new MediaClient({ authProvider, initialAuth });
-	const { MediaStore: MockMediaStore } = jest.genMockFromModule<any>('@atlaskit/media-client');
+	const { MediaStore: MockMediaStore } = jest.createMockFromModule<any>('@atlaskit/media-client');
 	const fakeStore = new MockMediaStore() as jest.Mocked<MediaStore>;
 	(fakeStore.getFileImageURLSync as jest.Mock).mockReturnValue('some-url');
 	(mediaClient as any).mediaStore = fakeStore;
@@ -96,7 +96,7 @@ describe('MediaClient', () => {
 
 		const result = mediaClient.getImage(fileId, params, abortController, true, traceContext);
 
-		expect(mediaClient.mediaStore.getImage).toBeCalledWith(
+		expect(mediaClient.mediaStore.getImage).toHaveBeenCalledWith(
 			fileId,
 			params,
 			abortController,
@@ -139,7 +139,7 @@ describe('MediaClient', () => {
 				.subscribe({
 					next: (state) => {
 						expect(mediaClient.mediaStore.getItems).toHaveBeenCalledTimes(1);
-						expect(mediaClient.mediaStore.getItems).lastCalledWith(
+						expect(mediaClient.mediaStore.getItems).toHaveBeenLastCalledWith(
 							[id],
 							'some-collection',
 							expect.any(Object),
@@ -222,6 +222,7 @@ describe('MediaClient', () => {
 
 				const file: UploadableFile = {
 					content: new Blob([], { type: 'image/jpeg' }),
+					size: 0,
 				};
 
 				mockUploadFile.mockReturnValue({ cancel: jest.fn() });
@@ -246,7 +247,7 @@ describe('MediaClient', () => {
 										preview: { value: expect.any(Blob), origin: 'local' },
 									};
 									expect(state).toEqual(expectedState);
-									expect(mediaClient.mediaStore.getFile).not.toBeCalled();
+									expect(mediaClient.mediaStore.getFile).not.toHaveBeenCalled();
 									subscription.unsubscribe();
 									done();
 								},
@@ -261,6 +262,7 @@ describe('MediaClient', () => {
 
 				const file: UploadableFile = {
 					content: new Blob(),
+					size: 0,
 				};
 
 				mockUploadFile.mockReturnValue({ cancel: jest.fn() });
@@ -285,7 +287,7 @@ describe('MediaClient', () => {
 										preview: { value: expect.any(Blob), origin: 'local' },
 									};
 									expect(state).toEqual(expectedState);
-									expect(mediaClient.mediaStore.getFile).not.toBeCalled();
+									expect(mediaClient.mediaStore.getFile).not.toHaveBeenCalled();
 									subscription.unsubscribe();
 								},
 							});
@@ -328,6 +330,7 @@ describe('MediaClient', () => {
 			const next = jest.fn();
 			const file: UploadableFile = {
 				content: 'data:image/gif;base64,R0lGODlhAQABAAAAACw=',
+				size: 14,
 			};
 
 			mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
@@ -377,7 +380,7 @@ describe('MediaClient', () => {
 			mediaClient.file.upload(file, controller, uploadableFileUpfrontIds).subscribe({
 				next() {
 					expect(uploadFile).toHaveBeenCalled();
-					expect(mockUploadFile).toBeCalledWith(
+					expect(mockUploadFile).toHaveBeenCalledWith(
 						file,
 						mediaClient.mediaStore,
 						uploadableFileUpfrontIds,
@@ -412,6 +415,8 @@ describe('MediaClient', () => {
 				name: 'some-name',
 				mimeType: 'some-mime-type',
 				content: {} as any,
+				// deliberately simulating a non-compliant caller that omits `size`
+				size: undefined as unknown as number,
 			};
 			mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
 				callbacks && callbacks.onProgress(0.1);
@@ -457,6 +462,7 @@ describe('MediaClient', () => {
 			const file: UploadableFile = {
 				content: new Blob(),
 				collection: 'some-collection',
+				size: 0,
 			};
 			const cancelMock = jest.fn();
 			mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
@@ -494,6 +500,7 @@ describe('MediaClient', () => {
 
 			const file: UploadableFile = {
 				content: new Blob([]),
+				size: 0,
 			};
 
 			const error = new Error('some-error-description');
@@ -532,6 +539,7 @@ describe('MediaClient', () => {
 
 			const file: UploadableFile = {
 				content: new Blob([]),
+				size: 0,
 			};
 
 			mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
@@ -568,6 +576,7 @@ describe('MediaClient', () => {
 				content: new File([], '', { type: 'image/png' }),
 				name: 'file-name.png',
 				mimeType: 'image/png',
+				size: 0,
 			};
 
 			mockUploadFile.mockImplementation((_, __, ___, callbacks) => {
@@ -618,8 +627,8 @@ describe('MediaClient', () => {
 			mediaClient.on('file-added', onFileUploaded);
 			mediaClient.emit('file-added', fileState);
 
-			expect(onFileUploaded).toBeCalledTimes(1);
-			expect(onFileUploaded).toBeCalledWith(fileState);
+			expect(onFileUploaded).toHaveBeenCalledTimes(1);
+			expect(onFileUploaded).toHaveBeenCalledWith(fileState);
 		});
 
 		it('Should not call event listener if we unsubscribe', () => {
@@ -631,7 +640,7 @@ describe('MediaClient', () => {
 			mediaClient.off('file-added', onFileUploaded);
 			mediaClient.emit('file-added', fileState);
 
-			expect(onFileUploaded).toBeCalledTimes(1);
+			expect(onFileUploaded).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -642,16 +651,36 @@ describe('MediaClient', () => {
 				const params = { some: 'params' } as MediaStoreGetFileImageParams;
 				const fileId = '1234';
 				const url = mediaClient.getImageUrlSync(fileId, params);
-				expect(mediaClient.mediaStore.getFileImageURLSync).toBeCalledWith(fileId, params);
+				expect(mediaClient.mediaStore.getFileImageURLSync).toHaveBeenCalledWith(
+					fileId,
+					params,
+					undefined,
+				);
 				expect(url).toEqual('some-url');
 				expect.assertions(2);
+			});
+
+			it('should forward a seeded CDN URL', () => {
+				const mediaClient = createMediaClient(auth);
+				const params = { width: 100, height: 200 } as MediaStoreGetFileImageParams;
+				const fileId = '1234';
+				const seededCdnUrl =
+					'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/1234/image?token=cdn-token';
+
+				mediaClient.getImageUrlSync(fileId, params, seededCdnUrl);
+
+				expect(mediaClient.mediaStore.getFileImageURLSync).toHaveBeenCalledWith(
+					fileId,
+					params,
+					seededCdnUrl,
+				);
 			});
 		});
 	});
 
 	describe('initialAuth', () => {
 		const resolveInitialAuthSpy = jest
-			.spyOn(resolveAuth, 'resolveInitialAuth')
+			.spyOn(resolveInitialAuthModule, 'resolveInitialAuth')
 			.mockImplementation(() => auth);
 
 		it('should pass down initialAuth to be resolved in media store', () => {
@@ -659,7 +688,7 @@ describe('MediaClient', () => {
 			const params = { some: 'params' } as MediaStoreGetFileImageParams;
 			const fileId = '1234';
 			mediaClient.getImageUrlSync(fileId, params);
-			expect(resolveInitialAuthSpy).toBeCalledWith(auth);
+			expect(resolveInitialAuthSpy).toHaveBeenCalledWith(auth);
 		});
 	});
 });

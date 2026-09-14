@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ApdexType, BM3Event } from '../../common';
 import { setUFOConfig } from '../../config';
@@ -15,7 +15,7 @@ import {
 	sinkInteractionHandler,
 } from '../index';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockFg = fg as jest.Mock;
 
 // Mock performance.now() for consistent testing

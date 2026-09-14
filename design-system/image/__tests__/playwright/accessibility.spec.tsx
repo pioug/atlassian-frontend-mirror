@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 const exampleComponent = "[data-testid='image']";
 
 test('Image should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../examples/themed.tsx')>(
+	await page.visitExample<typeof import('../../examples/themed.vr.ap.tsx')>(
 		'design-system',
 		'image',
 		'themed',

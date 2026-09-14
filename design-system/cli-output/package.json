@@ -1,0 +1,34 @@
+{
+	"name": "@atlaskit/cli-output",
+	"version": "0.1.0",
+	"description": "Shared human-readable terminal formatting for Atlassian CLIs.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "index.js",
+	"types": "dist/types/index.d.ts",
+	"atlaskit:src": "src/index.tsx",
+	"exports": {
+		".": {
+			"types": "./src/index.tsx",
+			"publish": "./src/index.tsx",
+			"default": "./index.js"
+		},
+		"./human-format": "./src/index.tsx",
+		"./invocation": "./src/invocation.tsx",
+		"./package.json": "./package.json"
+	},
+	"atlassian": {
+		"team": "Design System Team"
+	},
+	"dependencies": {
+		"@babel/runtime": "root:*",
+		"chalk": "root:*"
+	},
+	"devDependencies": {
+		"@atlassian/ts-loader": "workspace:^"
+	}
+}

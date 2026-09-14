@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type NumberType } from '@atlaskit/linking-types';
+import type { NumberType } from '@atlaskit/linking-types/datasource';
 
 import TextRenderType from '../text';
 

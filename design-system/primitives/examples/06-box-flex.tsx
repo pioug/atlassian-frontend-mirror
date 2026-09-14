@@ -1,10 +1,17 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline } from '@atlaskit/primitives/inline';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack } from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss';
 
 const flexContainerStyles = xcss({ display: 'flex' });
+const fixedWidthFlexContainerStyles = xcss({ display: 'flex', width: '300px' });
 const flex1Styles = xcss({ borderStyle: 'solid', flex: '1' });
 const flexGrow0Styles = xcss({ borderStyle: 'solid', flexGrow: '0' });
 const flexGrow1Styles = xcss({ borderStyle: 'solid', flexGrow: '1' });
@@ -25,12 +32,7 @@ export default (): React.JSX.Element => {
 			<Stack space="space.200" testId="box-with-flex">
 				<Heading size="medium">flexGrow</Heading>
 				<Inline space="space.200" alignBlock="center">
-					<Box
-						xcss={flexContainerStyles}
-						padding="space.400"
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={{ width: '300px' }}
-					>
+					<Box xcss={fixedWidthFlexContainerStyles} padding="space.400">
 						<Box xcss={flexGrow0Styles}>flexGrow=0</Box>
 						<Box xcss={flexGrow1Styles}>flexGrow=1</Box>
 					</Box>

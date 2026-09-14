@@ -8,12 +8,17 @@ import { useCallback, useMemo, useState } from 'react';
 import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import Button from '@atlaskit/button/new';
-import Form, { Field } from '@atlaskit/form';
-import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Stack } from '@atlaskit/primitives/compiled';
-import SectionMessage from '@atlaskit/section-message';
-import Select from '@atlaskit/select';
+import SectionMessage from '@atlaskit/section-message/message';
+import Select from '@atlaskit/select/default';
 import type { Operation } from '@atlaskit/side-nav-items/drag-and-drop/hitbox';
 
 import type { TFilter } from '../data';

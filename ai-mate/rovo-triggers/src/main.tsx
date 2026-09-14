@@ -1,6 +1,5 @@
+/* eslint-disable @atlaskit/platform/one-value-export-per-file -- command callers cannot use hooks */
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Callback, Payload, Topic } from './types';
 
@@ -8,6 +7,8 @@ interface SubscribeOptions {
 	topic: Topic;
 	// Trigger the latest event for the topic when subscribing if it hasn't already been triggered
 	triggerLatest?: boolean;
+	// Clear replay state when the subscriber owns the topic lifecycle.
+	clearLatestOnUnmount?: boolean;
 	// When provided, consumeOnce events are processed once across subscribers sharing this key.
 	consumeOnceKey?: string;
 }
@@ -53,20 +54,14 @@ const ignoredTriggerLatestEvents = new Set<Payload['type']>([
 	// originally opened the chat.
 	'smartlinks-subscription-changed',
 	'smartlinks-context-payload',
+	'set-message-context',
+	'jira-create-context-payload',
+	'submit-rovo-remix',
+	'rovo-remix-handoff-failed',
 ]);
 
-const isIgnoredForTriggerLatest = (type: Payload['type']): boolean => {
-	if (ignoredTriggerLatestEvents.has(type)) {
-		return true;
-	}
-	if (type === 'set-message-context') {
-		return fg('rovo_chat_fix_cold_start_prompt_insertion');
-	}
-	if (type === 'jira-create-context-payload') {
-		return fg('rovo_chat_fix_jira_prompt_dropped_on_reopen');
-	}
-	return false;
-};
+const isIgnoredForTriggerLatest = (type: Payload['type']): boolean =>
+	ignoredTriggerLatestEvents.has(type);
 
 const createPubSub = () => {
 	let subscribedEvents: TopicEvents = {};
@@ -195,21 +190,28 @@ const createPubSub = () => {
 	const flushQueue = () => {
 		publishQueue = {};
 	};
+	const clearLatest = (topic: Topic) => {
+		delete publishQueue[topic];
+	};
 
-	return { subscribe, subscribeAll, publish, flushQueue };
+	return { subscribe, subscribeAll, publish, flushQueue, clearLatest };
 };
 
 const pubSub = createPubSub();
+
+export const publish = (topic: Topic, payload: Payload): void => {
+	pubSub.publish(topic, payload);
+};
 
 const usePubSub = () => {
 	return pubSub;
 };
 
 export const useSubscribe = (
-	{ topic, triggerLatest, consumeOnceKey }: SubscribeOptions,
+	{ topic, triggerLatest, clearLatestOnUnmount, consumeOnceKey }: SubscribeOptions,
 	callback: Callback,
 ): void => {
-	const { subscribe } = usePubSub();
+	const { subscribe, clearLatest } = usePubSub();
 	const callbackRef = useRef(callback);
 	callbackRef.current = callback;
 
@@ -218,10 +220,15 @@ export const useSubscribe = (
 			const unsubscribe = subscribe({ topic, triggerLatest, consumeOnceKey }, (...args) =>
 				callbackRef.current(...args),
 			);
-			return unsubscribe;
+			return () => {
+				unsubscribe();
+				if (clearLatestOnUnmount) {
+					clearLatest(topic);
+				}
+			};
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[topic, consumeOnceKey],
+		[topic, clearLatestOnUnmount, consumeOnceKey],
 	);
 };
 

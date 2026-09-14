@@ -6,7 +6,7 @@ import { jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
 import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';

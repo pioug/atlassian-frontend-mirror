@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { request } from '@atlaskit/linking-common';
+import { request } from '@atlaskit/linking-common/api';
 
 import {
 	type UserHydrationAGGResponse,

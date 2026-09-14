@@ -7,7 +7,8 @@ import { forwardRef, type Ref } from 'react';
 import { css, jsx, type StrictXCSSProp } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type TriggerProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { TriggerProps } from '@atlaskit/tooltip/types';
 
 import { type BreadcrumbsItemProps } from '../../types';
 

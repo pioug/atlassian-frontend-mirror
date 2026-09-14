@@ -2,7 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { UnhandledErrorCard } from '..';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 
@@ -20,7 +21,7 @@ describe('<UnhandledErrorCard />', () => {
 		const spy = jest.fn();
 		render(<UnhandledErrorCard onClick={spy} dimensions={{ width: '50px', height: '50px' }} />);
 		fireEvent.click(screen.getByTestId('unhandled-error-card'));
-		expect(spy).toBeCalledTimes(1);
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
 
 	it('should render correct dimension when dimension is in string', () => {

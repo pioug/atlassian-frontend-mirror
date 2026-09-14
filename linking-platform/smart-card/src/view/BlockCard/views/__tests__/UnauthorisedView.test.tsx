@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { screen } from '@atlassian/testing-library';
 
@@ -12,7 +12,8 @@ import {
 import { mocks } from '../../../../utils/mocks';
 import UnauthorisedView from '../UnauthorisedView';
 
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
+jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client/feature-gates'),
 	__esModule: true,
 	default: {
 		checkGate: jest.fn().mockReturnValue(false),

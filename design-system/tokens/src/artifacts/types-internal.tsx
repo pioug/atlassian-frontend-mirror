@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f1bc511c48c2b4152cedcc6564d3fb5c>>
+ * @codegen <<SignedSource::0b19dd7423b1805e821fa683ef2e0230>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -42,13 +42,21 @@ export type InternalTokenIds =
 	| 'motion.keyframe.slide.out.left.short'
 	| 'motion.keyframe.slide.out.right.short'
 	| 'motion.keyframe.slide.out.top.short'
+	| 'motion.label.enter'
+	| 'motion.label.exit'
 	| 'motion.listitem.hovered'
 	| 'motion.listitem.pressed'
 	| 'motion.listitem.selected'
 	| 'motion.modal.enter'
 	| 'motion.modal.exit'
-	| 'motion.panel.enter'
-	| 'motion.panel.exit'
+	| 'motion.panel.content.enter'
+	| 'motion.panel.content.exit'
+	| 'motion.panel.enter.[default]'
+	| 'motion.panel.enter.left'
+	| 'motion.panel.enter.right'
+	| 'motion.panel.exit.[default]'
+	| 'motion.panel.exit.left'
+	| 'motion.panel.exit.right'
 	| 'motion.popup.enter.bottom'
 	| 'motion.popup.enter.left'
 	| 'motion.popup.enter.right'
@@ -57,6 +65,10 @@ export type InternalTokenIds =
 	| 'motion.popup.exit.left'
 	| 'motion.popup.exit.right'
 	| 'motion.popup.exit.top'
+	| 'motion.sidenav.enter.left'
+	| 'motion.sidenav.enter.right'
+	| 'motion.sidenav.exit.left'
+	| 'motion.sidenav.exit.right'
 	| 'motion.spotlight.enter'
 	| 'motion.spotlight.exit'
 	| 'color.background.accent.lime.subtlest.[default]'
@@ -291,7 +303,8 @@ export type InternalTokenIds =
 	| 'color.border.code'
 	| 'color.border.disabled'
 	| 'color.border.focused'
-	| 'color.border.input'
+	| 'color.border.input.[default]'
+	| 'color.border.input.search'
 	| 'color.border.inverse'
 	| 'color.border.selected'
 	| 'color.border.brand'

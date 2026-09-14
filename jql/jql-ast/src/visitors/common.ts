@@ -1,7 +1,7 @@
 import { type CommonTokenStream, type ParserRuleContext, type Token } from 'antlr4ts';
 import { type ErrorNode, type ParseTree, type RuleNode, type TerminalNode } from 'antlr4ts/tree';
 
-import { type JQLParserVisitor } from '@atlaskit/jql-parser';
+import type { JQLParserVisitor } from '@atlaskit/jql-parser/JQLParserVisitor';
 
 import { type Position } from '../types';
 

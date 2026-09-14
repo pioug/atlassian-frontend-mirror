@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import { Checkbox } from '@atlaskit/checkbox';
+import Avatar from '@atlaskit/avatar/avatar';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
 import { Box } from '@atlaskit/primitives/compiled';
 

@@ -1,4 +1,4 @@
-import { type TeamMembership } from '../../types';
+import { type TeamMembership } from '../../types/membership';
 
 enum MemberType {
 	CURRENT_USER = 0,

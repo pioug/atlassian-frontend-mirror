@@ -15,7 +15,7 @@ import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
@@ -141,7 +141,7 @@ const FloatingToolbarTextFormat = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const FloatingToolbarTextFormalWithIntl: React.FC<
 	WithIntlProps<FloatingToolbarComponentProps>
 > & {

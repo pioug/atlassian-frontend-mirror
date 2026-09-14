@@ -1,2 +1,2 @@
-/* eslint-disable-next-line import/no-extraneous-dependencies */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports
 export { ExperienceTrackerContext, ExperienceTracker } from '@atlassian/experience-tracker';

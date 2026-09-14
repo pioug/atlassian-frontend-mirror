@@ -67,10 +67,16 @@
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/emoji/tsconfig.app.json"
@@ -80,6 +86,9 @@
 		},
 		{
 			"path": "../node-data-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

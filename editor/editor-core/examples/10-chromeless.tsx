@@ -5,7 +5,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { Editor } from '../src';

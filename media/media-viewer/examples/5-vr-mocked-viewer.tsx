@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { canUseDOM } from 'exenv';
+
 import Button from '@atlaskit/button/standard-button';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import DetailViewIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import { MediaClient, type Identifier } from '@atlaskit/media-client';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import {
 	MediaMock,
 	defaultCollectionName,
@@ -15,10 +17,11 @@ import {
 	type MockFile,
 } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
-import { wideImage } from '../example-helpers/assets/wide-image';
+
 import { MainWrapper, MVSidebar, MVSidebarHeader } from '../example-helpers/MainWrapper';
-import { MediaViewerBase } from '../src/components/media-viewer';
+import { wideImage } from '../example-helpers/assets/wide-image';
 import { type MediaViewerExtensionsActions } from '../src';
+import { MediaViewerBase } from '../src/components/media-viewer-base';
 
 let files: MockFile[] = [];
 

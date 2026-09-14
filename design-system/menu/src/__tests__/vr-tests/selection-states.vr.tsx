@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import SelectionStates from '../../../examples/selection-states';
+import SelectionStates from '../../../examples/selection-states.vr.ap';
 
 snapshot(SelectionStates, {
 	variants: [

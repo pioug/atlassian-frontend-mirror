@@ -124,22 +124,6 @@ test.describe(`inline-nodes - placeholder`, () => {
 				head: 6,
 			});
 		});
-
-		test('should capture and report a11y violations', async ({ editor }) => {
-			await editor.selection.set({
-				anchor: 7,
-				head: 7,
-			});
-			await editor.waitForEditorStable();
-			await editor.keyboard.press('ArrowLeft');
-			await expect(editor).toHaveSelection({
-				type: 'text',
-				anchor: 6,
-				head: 6,
-			});
-
-			await expect(editor.page).toBeAccessible();
-		});
 	});
 
 	test.describe(`no trailing spaces`, () => {

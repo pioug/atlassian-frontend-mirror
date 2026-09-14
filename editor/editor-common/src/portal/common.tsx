@@ -3,7 +3,6 @@ import React, { memo } from 'react';
 import { createPortal } from 'react-dom';
 
 import { isSSR } from '../core-utils/is-ssr';
-import { isSSRStreaming } from '../core-utils/is-ssr-streaming';
 
 import type { PortalManager } from './PortalManager';
 import { PortalRenderWrapperInner } from './PortalRenderWrapperInner';
@@ -61,7 +60,7 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
 	const portalsMap = new Map();
 	return {
 		render: (children, container, key, onBeforeReactDomRender, immediate = false) => {
-			if (isSSR() && isSSRStreaming()) {
+			if (isSSR()) {
 				let html = '';
 
 				try {
@@ -103,7 +102,7 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
 			}
 		},
 		remove: (key) => {
-			if (isSSR() && isSSRStreaming()) {
+			if (isSSR()) {
 				return;
 			}
 

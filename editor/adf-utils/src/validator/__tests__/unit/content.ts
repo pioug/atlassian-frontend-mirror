@@ -1,37 +1,39 @@
 jest.mock('../../../validator/specs', () => ({
-	nodeA: {
-		props: {
-			type: { type: 'enum', values: ['nodeA'] },
-			content: {
-				type: 'array',
-				items: ['nodeB'],
-				minItems: 1,
-				maxItems: 2,
+	specs: {
+		nodeA: {
+			props: {
+				type: { type: 'enum', values: ['nodeA'] },
+				content: {
+					type: 'array',
+					items: ['nodeB'],
+					minItems: 1,
+					maxItems: 2,
+				},
 			},
 		},
-	},
-	nodeB: {
-		props: {
-			type: { type: 'enum', values: ['nodeB'] },
-		},
-	},
-	nodeC: {
-		props: {
-			type: { type: 'enum', values: ['nodeC'] },
-			content: {
-				type: 'array',
-				items: ['nodeA', 'nodeB'],
-				isTupleLike: false,
+		nodeB: {
+			props: {
+				type: { type: 'enum', values: ['nodeB'] },
 			},
 		},
-	},
-	nodeD: {
-		props: {
-			type: { type: 'enum', values: ['nodeD'] },
-			content: {
-				type: 'array',
-				items: ['nodeA', 'nodeB'],
-				isTupleLike: true,
+		nodeC: {
+			props: {
+				type: { type: 'enum', values: ['nodeC'] },
+				content: {
+					type: 'array',
+					items: ['nodeA', 'nodeB'],
+					isTupleLike: false,
+				},
+			},
+		},
+		nodeD: {
+			props: {
+				type: { type: 'enum', values: ['nodeD'] },
+				content: {
+					type: 'array',
+					items: ['nodeA', 'nodeB'],
+					isTupleLike: true,
+				},
 			},
 		},
 	},
@@ -83,7 +85,7 @@ describe('validate content', () => {
 				content: [],
 			});
 		};
-		expect(run).toThrowError(`nodeA: 'content' should have more than 1 child.`);
+		expect(run).toThrow(`nodeA: 'content' should have more than 1 child.`);
 	});
 
 	test('maxItems', () => {
@@ -93,6 +95,6 @@ describe('validate content', () => {
 				content: [{ type: 'nodeB' }, { type: 'nodeB' }, { type: 'nodeB' }],
 			});
 		};
-		expect(run).toThrowError(`nodeA: 'content' should have less than 2 child`);
+		expect(run).toThrow(`nodeA: 'content' should have less than 2 child`);
 	});
 });

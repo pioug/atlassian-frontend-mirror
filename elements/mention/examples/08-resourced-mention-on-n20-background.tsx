@@ -1,8 +1,10 @@
+import React from 'react';
+
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { token } from '@atlaskit/tokens';
-import React from 'react';
-import { onMentionEvent } from '../example-helpers/index';
+
+import { onMentionEvent } from '../example-helpers/on-mention-event';
 import { mockMentionData as mentionData } from '../src/__tests__/unit/_test-helpers';
 import debug from '../src/util/logger';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

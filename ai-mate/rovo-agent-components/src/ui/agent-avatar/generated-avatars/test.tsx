@@ -1,4 +1,24 @@
-import { getNumberIdForAvatar } from './index';
+import React from 'react';
+
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+
+import { GeneratedAvatar, getNumberIdForAvatar } from './index';
+
+jest.mock('./assets/social-media-scribe', () => ({
+	__esModule: true,
+	default: () => <div data-testid="social-media-scribe-avatar" />,
+}));
+
+jest.mock('./assets/jsm-service-triage-agent', () => ({
+	__esModule: true,
+	default: () => <div data-testid="jsm-service-triage-agent-avatar" />,
+}));
+
+jest.mock('./assets/jira-task-planner-agent', () => ({
+	__esModule: true,
+	default: () => <div data-testid="jira-task-planner-agent-avatar" />,
+}));
 
 describe('getNumberIdForAvatar', () => {
 	[
@@ -31,5 +51,25 @@ describe('getNumberIdForAvatar', () => {
 		it(`should return correctly for agentIdentityAccountId: ${agentIdentityAccountId} and agentId: ${agentId}`, () => {
 			expect(getNumberIdForAvatar({ agentIdentityAccountId, agentId })).toBe(getExpected());
 		});
+	});
+});
+
+describe('GeneratedAvatar', () => {
+	it('renders the Social Media Scribe avatar for the Tech Writer agent', async () => {
+		render(<GeneratedAvatar agentNamedId="tech_writer_agent" size="medium" />);
+
+		expect(await screen.findByTestId('social-media-scribe-avatar')).toBeInTheDocument();
+	});
+
+	it('renders the Request router avatar for the jsm_service_triage_agent agent', async () => {
+		render(<GeneratedAvatar agentNamedId="jsm_service_triage_agent" size="medium" />);
+
+		expect(await screen.findByTestId('jsm-service-triage-agent-avatar')).toBeInTheDocument();
+	});
+
+	it('renders the Jira Scoping avatar for the jira_task_planner_agent agent', async () => {
+		render(<GeneratedAvatar agentNamedId="jira_task_planner_agent" size="medium" />);
+
+		expect(await screen.findByTestId('jira-task-planner-agent-avatar')).toBeInTheDocument();
 	});
 });

@@ -6,7 +6,7 @@ import {
 	MainContentBorderThemingEnabledFullScreenVR,
 	MainContentBorderThemingEnabledSideNavCollapsedVR,
 	MainContentBorderThemingEnabledVR,
-} from '../../../../../examples/main-content-border';
+} from '../../../../../examples/main-content-border.vr.ap';
 
 const defaultOptions: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,

@@ -2,8 +2,8 @@ import React from 'react';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import BranchObject from '@atlaskit/object/branch';
 import BugObject from '@atlaskit/object/bug';
 import ChangesObject from '@atlaskit/object/changes';
@@ -17,7 +17,7 @@ import StoryObject from '@atlaskit/object/story';
 import SubtaskObject from '@atlaskit/object/subtask';
 import TaskObject from '@atlaskit/object/task';
 import WorkItemObject from '@atlaskit/object/work-item';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	CONFLUENCE_GENERATOR_ID,
@@ -33,18 +33,15 @@ import {
 	JIRA_SUB_TASK,
 	JIRA_TASK,
 } from './constants';
+import { extractEntityIcon } from './extract-entity-icon';
+import { extractEntityProvider } from './extract-entity-provider';
+import { extractProvider } from './extract-provider';
+import { extractTitle } from './extract-title';
+import { extractUrlFromIconJsonLd } from './extract-url-from-icon-json-ld';
 import { getIconForFileType } from './get-icon-for-file-type';
-
-import {
-	extractEntityIcon,
-	extractEntityProvider,
-	extractProvider,
-	extractTitle,
-	extractUrlFromIconJsonLd,
-	isConfluenceGenerator,
-	isEntityPresent,
-	type LinkProvider,
-} from './index';
+import { isConfluenceGenerator } from './is-confluence-generator';
+import { isEntityPresent } from './is-entity-present';
+import type { LinkProvider } from './types';
 
 type IconPriority = 'type' | 'provider';
 type SmartLinkInlineIcon = React.ReactNode | [string | undefined, string | undefined];
@@ -378,11 +375,9 @@ export const extractSmartLinkInlineIcon = (
 	showLabel = true,
 ): SmartLinkInlineIcon | undefined => {
 	if (isEntityPresent(response)) {
-		if (fg('platform_lp_use_entity_icon_url_for_icon')) {
-			const entityIcon = extractEntityIcon(response);
-			if (entityIcon) {
-				return [entityIcon.url, entityIcon.label];
-			}
+		const entityIcon = extractEntityIcon(response);
+		if (entityIcon) {
+			return [entityIcon.url, entityIcon.label];
 		}
 		const provider = extractEntityProvider(response);
 		if (provider) {

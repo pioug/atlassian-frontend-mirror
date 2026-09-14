@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { Dialog } from '@atlaskit/top-layer/dialog';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 

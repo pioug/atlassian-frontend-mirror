@@ -1,4 +1,5 @@
-import { ANALYTICS_CHANNEL, fireSmartLinkEvent } from '../analytics';
+import { ANALYTICS_CHANNEL } from '../analytics/analytics';
+import { fireSmartLinkEvent } from '../analytics/fireSmartLinkEvent';
 import { type AnalyticsPayload } from '../types';
 
 // Mock our fire analytics function

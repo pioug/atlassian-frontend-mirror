@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import InlineDialog from '@atlaskit/inline-dialog';
+import Button from '@atlaskit/button/default/button';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 
 /**
  * Test fixture: exercises the initial-focus matrix that `top-layer/useInitialFocus`

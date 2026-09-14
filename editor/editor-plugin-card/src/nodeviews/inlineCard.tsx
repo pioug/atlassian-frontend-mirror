@@ -16,9 +16,6 @@ import {
 	SMART_LINK_DRAG_TYPES,
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { cardPlugin } from '../cardPlugin';
 import { getAwarenessProps } from '../pm-plugins/utils';
@@ -57,18 +54,6 @@ const selectorWithCard = (
 	resolvedInlineSmartLinks: states.cardState?.resolvedInlineSmartLinks,
 });
 
-const selectorWithoutCard = (
-	states: NamedPluginStatesFromInjectionAPI<
-		ExtractInjectionAPI<typeof cardPlugin>,
-		'editorViewMode'
-	>,
-) => ({
-	mode: states.editorViewModeState?.mode,
-	resolvedInlineSmartLinks: undefined as
-		| Array<{ pos: number; source: string; url: string }>
-		| undefined,
-});
-
 /**
  * Inline card node view component that renders a Smart Link inline card within the editor.
  *
@@ -98,14 +83,8 @@ export function InlineCardNodeView(
 
 	const { mode, resolvedInlineSmartLinks } = useSharedPluginStateWithSelector(
 		pluginInjectionApi,
-		expVal('cc_dnd_smart_link_changeboard_platform_css', 'isEnabled', false) &&
-			fg('cc_drag_and_drop_smart_link_from_content_to_tree')
-			? ['editorViewMode', 'card']
-			: ['editorViewMode'],
-		expVal('cc_dnd_smart_link_changeboard_platform_css', 'isEnabled', false) &&
-			fg('cc_drag_and_drop_smart_link_from_content_to_tree')
-			? selectorWithCard
-			: selectorWithoutCard,
+		['editorViewMode', 'card'],
+		selectorWithCard,
 	);
 
 	const url = node.attrs.url;
@@ -114,12 +93,9 @@ export function InlineCardNodeView(
 		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} linkType="inline" /> : null;
 
 	useEffect(() => {
-		if (expValEquals('platform_editor_smartlink_local_cache', 'isEnabled', true)) {
-			// Refresh cache in the background
-			provider?.then((providerInstance) => {
-				(providerInstance as EditorCardProvider).refreshCache?.(props.node);
-			});
-		}
+		provider?.then((providerInstance) => {
+			(providerInstance as EditorCardProvider).refreshCache?.(props.node);
+		});
 	}, [provider, props.node]);
 
 	const linkPosition = useMemo(() => {

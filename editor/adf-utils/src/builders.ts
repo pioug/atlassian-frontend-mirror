@@ -58,6 +58,7 @@ export { paragraph as p } from './builders/nodes/paragraph';
 export { placeholder } from './builders/nodes/placeholder';
 export { rule } from './builders/nodes/rule';
 export { rule as hr } from './builders/nodes/rule';
+export { bodiedRule } from './builders/nodes/bodied-rule';
 export { status } from './builders/nodes/status';
 export { tableCell } from './builders/nodes/table-cell';
 export { tableCell as td } from './builders/nodes/table-cell';

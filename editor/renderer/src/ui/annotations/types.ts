@@ -1,4 +1,4 @@
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 
 export enum InsertDraftPosition {

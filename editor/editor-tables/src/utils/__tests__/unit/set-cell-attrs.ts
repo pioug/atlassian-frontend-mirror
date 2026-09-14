@@ -2,7 +2,7 @@
 import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
-import { findCellClosestToPos } from '../../find';
+import { findCellClosestToPos } from '../../find-cell-closest-to-pos';
 import { setCellAttrs } from '../../set-cell-attrs';
 
 describe('setCellAttrs', () => {

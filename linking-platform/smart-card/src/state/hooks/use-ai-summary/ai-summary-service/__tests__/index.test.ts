@@ -1,4 +1,4 @@
-import type { ProductType } from '@atlaskit/linking-common';
+import type { ProductType } from '@atlaskit/linking-common/types';
 
 import { AISummaryService } from '../index';
 import { readStream } from '../readStream';
@@ -8,7 +8,7 @@ import {
 	type StreamError,
 	type StreamResponse,
 } from '../types';
-import { type getXProductHeaderValue } from '../utils';
+import type { getXProductHeaderValue } from '../getXProductHeaderValue';
 
 import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
 

@@ -2,10 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Presence } from '@atlaskit/avatar';
-import { Code } from '@atlaskit/code';
+import Presence from '@atlaskit/avatar/presence';
+import Code from '@atlaskit/code/code';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -16,7 +16,7 @@ const styles = cssMap({
 	presenceWrapper: {
 		height: '30px',
 		width: '30px',
-		marginRight: token('space.100'),
+		marginInlineEnd: token('space.100'),
 	},
 });
 

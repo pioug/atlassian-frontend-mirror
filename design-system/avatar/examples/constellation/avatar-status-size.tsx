@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Status } from '@atlaskit/avatar';
+import Status from '@atlaskit/avatar/status';
 import { token } from '@atlaskit/tokens';
 
 const AvatarStatusWidthExample = (): React.JSX.Element => {

@@ -2,7 +2,8 @@ import React, { lazy, type ReactNode, useState } from 'react';
 
 import { act, fireEvent, render, renderHook, screen, within } from '@atlassian/testing-library';
 
-import { SmartLinkModalProvider, useSmartLinkModal } from '../index';
+import { SmartLinkModalProvider } from '../SmartLinkModalProvider';
+import { useSmartLinkModal } from '../useSmartLinkModal';
 
 const Modal = lazy(() =>
 	import('./index.test.modal.mock').then(({ Modal }) => ({

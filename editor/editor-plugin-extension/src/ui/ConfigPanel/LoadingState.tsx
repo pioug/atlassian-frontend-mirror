@@ -10,9 +10,9 @@ import { type IntlShape, injectIntl } from 'react-intl';
 import type { LoadingComponentProps } from 'react-loadable';
 
 import { messages } from '@atlaskit/editor-common/extensions';
-import SectionMessage from '@atlaskit/section-message';
-import Spinner from '@atlaskit/spinner';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import SectionMessage from '@atlaskit/section-message/message';
+import Spinner from '@atlaskit/spinner/spinner';
+
 import { token } from '@atlaskit/tokens';
 
 const spinnerWrapperStyles = css({
@@ -44,17 +44,9 @@ const LoadingStateWithErrorHandling = injectIntl(
 	},
 );
 
-const LoadingStateWithoutErrorHandling = () => (
-	<div css={spinnerWrapperStyles} data-testid="ConfigPanelLoading">
-		<Spinner size="small" interactionName="config-panel-spinner" />
-	</div>
-);
-
 const LoadingState = (
 	props: Partial<LoadingComponentProps>,
 ): string | number | boolean | jsx.JSX.Element | Iterable<ReactNode> | null | undefined =>
-	editorExperiment('platform_editor_offline_editing_web', true)
-		? LoadingStateWithErrorHandling(props)
-		: LoadingStateWithoutErrorHandling();
+	LoadingStateWithErrorHandling(props);
 
 export default LoadingState;

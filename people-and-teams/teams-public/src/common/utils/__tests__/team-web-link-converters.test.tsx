@@ -1,5 +1,5 @@
 import { type NewTeamWebLink, type TeamContainer } from '../../types';
-import { isNewTeamWebLink } from '../team-web-link-converters';
+import { isNewTeamWebLink } from '../is-new-team-web-link';
 
 describe('team-web-link-converters', () => {
 	describe('isNewTeamWebLink', () => {

@@ -1,15 +1,17 @@
 jest.mock('../../utils/getElementDimension');
-jest.mock('../../card/ui/styles', () => {
-	const original = jest.requireActual('../../card/ui/styles');
+jest.mock('../../card/ui/calcBreakpointSize', () => {
+	const original = jest.requireActual('../../card/ui/calcBreakpointSize');
 	return {
 		...original,
 		calcBreakpointSize: jest.fn(original.calcBreakpointSize),
 	};
 });
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
-jest.mock('@atlaskit/tooltip', () => ({
+jest.mock('@atlaskit/tooltip/Tooltip', () => ({
+	...jest.requireActual('@atlaskit/tooltip/Tooltip'),
 	__esModule: true,
 	default: ({ children, content }: { children: any; content: any }) => (
 		<div data-testid="mock-tooltip" data-content={typeof content === 'string' ? content : ''}>
@@ -28,16 +30,17 @@ import {
 	createPollingMaxAttemptsError,
 	createMediaStoreError,
 } from '@atlaskit/media-client/test-helpers';
+import { MediaCardError } from '../../MediaCardError';
 import { imgTestId, spinnerTestId, cardTestId, cardBlanketTestId } from '../utils/_testIDs';
-import { MediaCardError } from '../../errors';
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { fireEvent, render as rtlRender, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import { LOCAL_WIDTH_VARIABLE } from '../../card/ui/wrapper/wrapper-compiled';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const identifier = {
 	id: 'some-id',

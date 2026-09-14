@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import { Field } from '@atlaskit/form';
-import Select from '@atlaskit/select/Select';
+import Field from '@atlaskit/form/field';
+import Select from '@atlaskit/select/default';
 
 import { BlockName } from '../../constants';
 

@@ -15,8 +15,10 @@ import {
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-provider';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
+import { useRouterLink } from '@atlaskit/app-provider/use-router-link';
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
@@ -294,9 +296,9 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		>
 			{children}
 			{target === '_blank' && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
-				<VisuallyHidden
-					id={opensNewWindowLabelId}
-				>{`, ${newWindowLabel ? newWindowLabel : OPENS_NEW_WINDOW_LABEL}`}</VisuallyHidden>
+				<VisuallyHidden id={opensNewWindowLabelId}>{`, ${
+					newWindowLabel ? newWindowLabel : OPENS_NEW_WINDOW_LABEL
+				}`}</VisuallyHidden>
 			)}
 		</Component>
 	);
@@ -312,10 +314,13 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
  * - [Code](https://atlassian.design/components/primitives/anchor/code)
  * - [Usage](https://atlassian.design/components/primitives/anchor/usage)
  */
-const Anchor = forwardRef(AnchorNoRef) as <RouterLinkConfig extends Record<string, any> = never>(
+export const Anchor = forwardRef(AnchorNoRef) as <
+	RouterLinkConfig extends Record<string, any> = never,
+>(
 	props: AnchorProps<RouterLinkConfig> & {
 		ref?: Ref<HTMLAnchorElement>;
 	},
 ) => ReturnType<typeof AnchorNoRef>;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Anchor;

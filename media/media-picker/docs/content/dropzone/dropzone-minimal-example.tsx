@@ -10,7 +10,7 @@ import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
 import { type DropzoneConfig, type UploadEndEventPayload } from '../../../src/types';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
-import { Dropzone } from '../../../src';
+import { DropzoneLoader as Dropzone } from '../../../src/components/dropzone';
 
 const mediaClientConfig = createUploadMediaClientConfig();
 const dropzoneMediaClient = new MediaClient(mediaClientConfig);

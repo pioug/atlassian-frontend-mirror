@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 import React, { type ReactNode, forwardRef } from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const imageWrapperStyles = css({
 	width: '100vw',
@@ -29,12 +28,9 @@ export const ImageWrapper: React.ForwardRefExoticComponent<
 	ImageWrapperProps & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, ImageWrapperProps>(
 	({ children, onClick, isHidden }: ImageWrapperProps, ref) => {
-		const a11yProps = fg('platform_media_a11y_suppression_fixes') ? { role: 'none' as const } : {};
-
 		return (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 			<div
-				{...a11yProps}
+				role="none"
 				data-testid="media-viewer-svg-wrapper"
 				onClick={onClick}
 				ref={ref}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, code } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _default_1: any = md`

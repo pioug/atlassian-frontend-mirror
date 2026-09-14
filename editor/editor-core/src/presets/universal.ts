@@ -14,7 +14,6 @@ import { borderPlugin } from '@atlaskit/editor-plugins/border';
 import { breakoutPlugin } from '@atlaskit/editor-plugins/breakout';
 import { captionPlugin } from '@atlaskit/editor-plugins/caption';
 import { cardPlugin } from '@atlaskit/editor-plugins/card';
-import { codeBidiWarningPlugin } from '@atlaskit/editor-plugins/code-bidi-warning';
 import { collabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
 import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
@@ -54,10 +53,8 @@ import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	BeforeAndAfterToolbarComponents,
@@ -88,6 +85,8 @@ export type UniversalPresetProps = DefaultPresetPluginOptions &
 export type InitialPluginConfiguration = {
 	blockControlsPlugin?: {
 		enabled?: boolean;
+		// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- EDITOR-8696 tracks migration to the Quick Insert plugin configuration.
+		/** @deprecated Use `quickInsertPlugin.blockControlButtonEnabled` instead. */
 		quickInsertButtonEnabled?: boolean;
 		rightSideControlsEnabled?: boolean;
 	};
@@ -119,6 +118,9 @@ export type InitialPluginConfiguration = {
 				type: 'added' | 'deleted';
 			}[],
 		) => void;
+	};
+	quickInsertPlugin?: {
+		blockControlButtonEnabled?: boolean;
 	};
 	tasksAndDecisionsPlugin?: {
 		allowBlockTaskItem?: boolean;
@@ -200,6 +202,10 @@ export default function createUniversalPresetInternal({
 			...props.hyperlinkOptions,
 		},
 		__livePage: props.__livePage,
+		quickInsert: {
+			...props.quickInsert,
+			...initialPluginConfiguration?.quickInsertPlugin,
+		},
 		toolbar: initialPluginConfiguration?.toolbarPlugin,
 	});
 
@@ -228,8 +234,13 @@ export default function createUniversalPresetInternal({
 			[
 				blockControlsPlugin,
 				{
-					quickInsertButtonEnabled:
-						initialPluginConfiguration?.blockControlsPlugin?.quickInsertButtonEnabled ?? true,
+					...(initialPluginConfiguration?.blockControlsPlugin?.quickInsertButtonEnabled !==
+					undefined
+						? {
+								quickInsertButtonEnabled:
+									initialPluginConfiguration.blockControlsPlugin.quickInsertButtonEnabled,
+							}
+						: {}),
 					rightSideControlsEnabled:
 						initialPluginConfiguration?.blockControlsPlugin?.rightSideControlsEnabled ?? false,
 				},
@@ -354,11 +365,10 @@ export default function createUniversalPresetInternal({
 					getEditorFeatureFlags,
 					isCommentEditor: isComment,
 					isChromelessEditor: isChromeless,
-					allowFixedColumnWidthOption: fg('platform_editor_table_fixed_column_width_prop')
-						? props.allowTables &&
-							typeof props.allowTables !== 'boolean' &&
-							props.allowTables.allowFixedColumnWidthOption
-						: false,
+					allowFixedColumnWidthOption:
+						props.allowTables &&
+						typeof props.allowTables !== 'boolean' &&
+						props.allowTables.allowFixedColumnWidthOption,
 					__livePage: props.__livePage,
 				},
 			],
@@ -520,10 +530,7 @@ export default function createUniversalPresetInternal({
 			],
 			Boolean(props.allowStatus),
 		)
-		.maybeAdd(
-			[syncedBlockPlugin, props.syncBlock],
-			Boolean(props.syncBlock) && editorExperiment('platform_synced_block', true),
-		)
+		.maybeAdd([syncedBlockPlugin, props.syncBlock], Boolean(props.syncBlock))
 		.maybeAdd(indentationPlugin, Boolean(props.allowIndentation))
 		.maybeAdd(scrollIntoViewPlugin, Boolean(props.autoScrollIntoView !== false))
 		.add([
@@ -589,16 +596,7 @@ export default function createUniversalPresetInternal({
 		)
 		.maybeAdd(borderPlugin, Boolean(props.allowBorderMark))
 		.maybeAdd(fragmentPlugin, Boolean(props.allowFragmentMark))
-		.add(pasteOptionsToolbarPlugin)
-		.maybeAdd(
-			[
-				codeBidiWarningPlugin,
-				{
-					appearance,
-				},
-			],
-			!expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true),
-		);
+		.add(pasteOptionsToolbarPlugin);
 
 	return finalPreset;
 }
@@ -609,10 +607,7 @@ interface ExpandEditorProps {
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isExpandInsertionEnabled({ allowExpand }: ExpandEditorProps): boolean {
-	if (
-		allowExpand === true &&
-		expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)
-	) {
+	if (allowExpand === true) {
 		return true;
 	}
 	if (allowExpand && typeof allowExpand === 'object') {

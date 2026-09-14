@@ -5,7 +5,7 @@ import {
 	EmojiUploadPreview,
 	EmojiUploadPickerWithoutName,
 	EmojiUploadPickerWithName,
-} from './common.fixture';
+} from './common.fixture.vr.ap';
 
 snapshot(EmojiDeletePreview);
 snapshot(EmojiUploadPreview);

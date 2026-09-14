@@ -10,7 +10,6 @@ export interface StrongDefinition {
 
 const strongDOM: DOMOutputSpec = ['strong'];
 
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const BOLD_FONT_WEIGHT_REGEX = /^(bold(er)?|[5-9]\d{2,})$/u;
 export const strong: MarkSpec = strongFactory({
 	parseDOM: [

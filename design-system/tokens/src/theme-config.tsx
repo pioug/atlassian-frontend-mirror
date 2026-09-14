@@ -21,7 +21,6 @@ export type Themes =
 	| 'atlassian-spacing'
 	| 'atlassian-typography'
 	| 'atlassian-motion';
-export type ThemeFileNames = Themes;
 
 /**
  * ThemeOverrides: The internal identifier of a theme override. Which are themes that contain
@@ -29,7 +28,18 @@ export type ThemeFileNames = Themes;
  * theme files/folders are called. style-dictionary will attempt to locate these in the file-system.
  * Theme overrides are temporary and there may not be any defined at times.
  */
-export type ThemeOverrides = Themes;
+type FinesseThemeOverrides =
+	| 'atlassian-light-finesse'
+	| 'atlassian-light-increased-contrast-finesse'
+	| 'atlassian-dark-finesse'
+	| 'atlassian-dark-increased-contrast-finesse'
+	| 'atlassian-typography-finesse';
+
+// Retain Themes in this public type for backwards compatibility.
+// platform-dst-tokens-finesse cleanup: Revisit when the temporary override themes are removed.
+export type ThemeOverrides = Themes | FinesseThemeOverrides;
+
+export type ThemeFileNames = Themes | FinesseThemeOverrides;
 
 /**
  * Theme kinds: The type of theme.
@@ -51,7 +61,13 @@ export type DataContrastModes = 'more' | 'no-preference' | 'auto';
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
  */
-const themeOverrideIds = [] as const;
+export const themeOverrideIds = [
+	'light-finesse',
+	'light-increased-contrast-finesse',
+	'dark-finesse',
+	'dark-increased-contrast-finesse',
+	'typography-finesse',
+] as const;
 
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
@@ -66,7 +82,12 @@ export const themeIdsWithOverrides: readonly [
 	'shape',
 	'typography',
 	'motion',
-] = [...themeIds, ...themeOverrideIds] as const;
+	'light-finesse',
+	'light-increased-contrast-finesse',
+	'dark-finesse',
+	'dark-increased-contrast-finesse',
+	'typography-finesse',
+] = [...themeIds, ...themeOverrideIds];
 
 export type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
 
@@ -134,7 +155,7 @@ interface ThemeConfig {
 	increasesContrastFor?: ThemeIds;
 }
 
-const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
+export const themeConfig: Record<ThemeFileNames, ThemeConfig> = {
 	'atlassian-light': {
 		id: 'light',
 		displayName: 'Light Theme',
@@ -153,6 +174,26 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 			mode: 'light',
 		},
 		override: 'light',
+	},
+	'atlassian-light-finesse': {
+		id: 'light-finesse',
+		displayName: 'FY27 Finesse Light Theme Override',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+		override: 'light',
+	},
+	'atlassian-light-increased-contrast-finesse': {
+		id: 'light-increased-contrast-finesse',
+		displayName: 'FY27 Finesse Light Theme (increased contrast) Override',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+		override: 'light-increased-contrast',
 	},
 	'atlassian-light-increased-contrast': {
 		id: 'light-increased-contrast',
@@ -184,6 +225,26 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 		},
 		override: 'light',
 	},
+	'atlassian-dark-finesse': {
+		id: 'dark-finesse',
+		displayName: 'FY27 Finesse Dark Theme Override',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+		override: 'dark',
+	},
+	'atlassian-dark-increased-contrast-finesse': {
+		id: 'dark-increased-contrast-finesse',
+		displayName: 'FY27 Finesse Dark Theme (increased contrast) Override',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+		override: 'dark-increased-contrast',
+	},
 	'atlassian-dark-increased-contrast': {
 		id: 'dark-increased-contrast',
 		displayName: 'Dark Theme (increased contrast)',
@@ -210,6 +271,15 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 		attributes: {
 			type: 'typography',
 		},
+	},
+	'atlassian-typography-finesse': {
+		id: 'typography-finesse',
+		displayName: 'FY27 Finesse Typography Override',
+		palette: 'typographyPalette',
+		attributes: {
+			type: 'typography',
+		},
+		override: 'typography',
 	},
 	'atlassian-shape': {
 		id: 'shape',
@@ -240,8 +310,17 @@ export interface ActiveThemeState extends ThemeState {
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default themeConfig;
 
+/**
+ * @deprecated Use `import { themeColorModes, ThemeColorModes } from '@atlaskit/tokens/theme-color-modes'` instead.
+ */
 export { themeColorModes, type ThemeColorModes } from './theme-color-modes';
+/**
+ * @deprecated Use `import { themeIds, ThemeIds } from '@atlaskit/tokens/theme-ids'` instead.
+ */
 export { themeIds, type ThemeIds } from './theme-ids';
+/**
+ * @deprecated Use `import { themeStateDefaults } from '@atlaskit/tokens/theme-state-defaults'` instead.
+ */
 export { themeStateDefaults } from './theme-state-defaults';
 export { type ThemeOptionsSchema, type CSSColor } from './theme-options-schema';
 export { type ThemeState } from './theme-state';

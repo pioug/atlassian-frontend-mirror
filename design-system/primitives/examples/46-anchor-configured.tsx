@@ -1,12 +1,24 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag React.Fragment
+ */
 import React, { forwardRef, type Ref } from 'react';
 
-import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
-import { Anchor, Box } from '@atlaskit/primitives/compiled';
+import AppProvider from '@atlaskit/app-provider/app-provider';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 type MyRouterLinkConfig = {
 	to: string;
 	customProp?: string;
 };
+
+const styles = cssMap({
+	tableHeader: { width: '25%' },
+});
 
 const MyRouterLinkComponent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<RouterLinkComponentProps<MyRouterLinkConfig>> &
@@ -58,38 +70,10 @@ const Table = ({
 			<caption>{title}</caption>
 			<thead>
 				<tr>
-					<th
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							width: '25%',
-						}}
-					>
-						Link value
-					</th>
-					<th
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							width: '25%',
-						}}
-					>
-						Link type
-					</th>
-					<th
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							width: '25%',
-						}}
-					>
-						Should this use a router link?
-					</th>
-					<th
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							width: '25%',
-						}}
-					>
-						Result
-					</th>
+					<th css={styles.tableHeader}>Link value</th>
+					<th css={styles.tableHeader}>Link type</th>
+					<th css={styles.tableHeader}>Should this use a router link?</th>
+					<th css={styles.tableHeader}>Result</th>
 				</tr>
 			</thead>
 			<tbody>

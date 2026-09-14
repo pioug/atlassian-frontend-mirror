@@ -234,7 +234,7 @@ const styles = cssMap({
 		backgroundColor: token('color.background.discovery'),
 	},
 	content: {
-		marginTop: token('space.0'),
+		marginBlockStart: token('space.0'),
 	},
 });
 
@@ -328,7 +328,7 @@ describe('Drawer panel', () => {
 		);
 
 		const content = screen.getByTestId('drawer-contents');
-		expect(content).toHaveCompiledCss({ marginTop: 'var(--ds-space-0,0)' });
+		expect(content).toHaveCompiledCss({ marginBlockStart: 'var(--ds-space-0,0)' });
 
 		const sidebar = screen.getByTestId('drawer-sidebar');
 		expect(sidebar).toHaveCompiledCss({

@@ -13,7 +13,7 @@ import {
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 export const copyNode =
 	(
 		nodeType: NodeType | Array<NodeType>,

@@ -1,9 +1,9 @@
 import { snapshot } from '@af/visual-regression';
 
-import ControlledExpandedState from '../../../examples/controlled-expanded-state';
-import VrLoading from '../../../examples/vr-loading';
-import VrLoadingNested from '../../../examples/vr-loading-nested';
-import VrOverflow from '../../../examples/vr-overflow-behavior';
+import ControlledExpandedState from '../../../examples/controlled-expanded-state.vr.ap';
+import VrLoadingNested from '../../../examples/vr-loading-nested.vr.ap';
+import VrLoading from '../../../examples/vr-loading.vr.ap';
+import VrOverflow from '../../../examples/vr-overflow-behavior.vr.ap';
 
 snapshot(ControlledExpandedState, {
 	variants: [

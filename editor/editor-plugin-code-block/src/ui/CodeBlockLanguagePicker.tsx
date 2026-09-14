@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { changeLanguage, detectLanguage } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
@@ -51,33 +50,20 @@ export const CodeBlockLanguagePicker = ({
 			interactionMethod?: LanguagePickerInteractionMethod,
 		) => {
 			const isDetectLanguageSelected = option.value === DETECT_LANGUAGE_VALUE;
-			const command: Command =
-				isDetectLanguageSelected &&
-				(fg('platform_editor_code_block_ga_patch_1') ||
-					fg('platform_editor_code_block_language_detection_flow'))
-					? detectLanguage()
-					: changeLanguage(api?.analytics?.actions)(option.value, selectionSource);
+			const command: Command = isDetectLanguageSelected
+				? detectLanguage()
+				: changeLanguage(api?.analytics?.actions)(option.value, selectionSource);
 			const commandSucceeded = command(editorView.state, editorView.dispatch);
 
-			if (fg('platform_editor_code_block_ga_patch_1')) {
-				if (interactionMethod === 'mouse') {
-					requestAnimationFrame(() => {
-						// Mouse-opened picker should return editing focus to the code block. Keyboard-opened
-						// picker keeps focus on the trigger to avoid CodeMirror DOM focus without cm.hasFocus.
-						api?.core.actions.focus({ scrollIntoView: false });
-					});
-				}
-			} else {
+			if (interactionMethod === 'mouse') {
 				requestAnimationFrame(() => {
-					// Let PopupSelect/FocusLock finish returning focus to the trigger, then restore the editor.
+					// Mouse-opened picker should return editing focus to the code block. Keyboard-opened
+					// picker keeps focus on the trigger to avoid CodeMirror DOM focus without cm.hasFocus.
 					api?.core.actions.focus({ scrollIntoView: false });
 				});
 			}
 
-			if (
-				commandSucceeded &&
-				(option.value !== DETECT_LANGUAGE_VALUE || fg('platform_editor_code_block_ga_patch_1'))
-			) {
+			if (commandSucceeded) {
 				saveRecentLanguage(option.value);
 				setRecentLanguageValues(getRecentLanguages());
 			}

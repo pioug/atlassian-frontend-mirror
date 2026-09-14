@@ -2,8 +2,8 @@ import { Device, type Hooks, type SnapshotTestOptions } from '@af/visual-regress
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { snapshotInformational } from '@atlassian/gemini';
 
-import { ScrollableNoPanelVR, ScrollableVR } from '../../../examples/composition';
-import { LayersInMainShouldForceOpenLayers } from '../../../examples/layers-in-main';
+import { ScrollableNoPanelVR, ScrollableVR } from '../../../examples/composition.vr.ap';
+import { LayersInMainShouldForceOpenLayers } from '../../../examples/layers-in-main.vr.ap';
 
 const mobileOnlyOptions: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,

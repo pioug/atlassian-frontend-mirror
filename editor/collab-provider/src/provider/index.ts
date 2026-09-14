@@ -1,10 +1,11 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Config, InitialDraft, PresenceData } from '../types';
 import type {
 	CollabEditProvider,
@@ -20,7 +21,6 @@ import type {
 	PresenceActivity,
 	ProviderParticipant,
 } from '@atlaskit/editor-common/collab';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createLogger, logObfuscatedSteps } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
@@ -54,6 +54,7 @@ import { NullApi } from '../api/null-api';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
 
 import { getOfflineStepsLength, getOfflineReplaceStepsLength } from './get-offline-steps-length';
+import { acquireSleepDetector, getMaxGapSince } from './sleep-detector';
 
 const logger = createLogger('Provider', 'black');
 
@@ -108,6 +109,8 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 
 	private disconnectedAt?: number;
 	private sendStepsTimer?: ReturnType<typeof setInterval>;
+	private releaseSleepDetector?: () => void;
+	private sleepWatermark = 0;
 
 	private readonly participantsService: ParticipantsService;
 	private readonly metadataService: MetadataService;
@@ -222,6 +225,9 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 			logger('Intervally sendStepsFromCurrentState');
 			this.documentService.sendStepsFromCurrentState(true, undefined);
 		}, 5000);
+
+		this.sleepWatermark = Date.now();
+		this.releaseSleepDetector = acquireSleepDetector();
 	}
 
 	private initializeChannel = () => {
@@ -255,44 +261,26 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 					});
 				}
 				// If already initialized, `connected` means reconnected
-				const shouldBypassOutOfSyncGracePeriod = expValEquals(
-					'collab_bypass_out_of_sync_period_experiment',
-					'isEnabled',
-					true,
-					false,
-				);
+				const offlineDuration = initialized ? this.getOutOfSyncDuration() : undefined;
 
-				if (
-					initialized &&
-					this.disconnectedAt &&
-					// Offline longer than `OUT_OF_SYNC_PERIOD`
-					(shouldBypassOutOfSyncGracePeriod ||
-						Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD)
-				) {
+				if (offlineDuration !== undefined) {
 					this.documentService.throttledCatchupv2(
 						CatchupEventReason.RECONNECTED,
 						{
-							disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
-							offlineStepsLength: editorExperiment('platform_editor_offline_editing_web', true)
-								? getOfflineStepsLength(
-										this.documentService.getUnconfirmedSteps(),
-										this.documentService.getUnconfirmedStepsOrigins(),
-									)
-								: undefined,
-							offlineReplaceStepsLength: editorExperiment(
-								'platform_editor_offline_editing_web',
-								true,
-							)
-								? getOfflineReplaceStepsLength(
-										this.documentService.getUnconfirmedSteps(),
-										this.documentService.getUnconfirmedStepsOrigins(),
-									)
-								: undefined,
+							disconnectionPeriodSeconds: Math.floor(offlineDuration / 1000),
+							offlineStepsLength: getOfflineStepsLength(
+								this.documentService.getUnconfirmedSteps(),
+								this.documentService.getUnconfirmedStepsOrigins(),
+							),
+							offlineReplaceStepsLength: getOfflineReplaceStepsLength(
+								this.documentService.getUnconfirmedSteps(),
+								this.documentService.getUnconfirmedStepsOrigins(),
+							),
 							unconfirmedStepsLength: unconfirmedStepsLength,
 						},
 						this.sessionId,
 					);
-				} else if (expValEquals('platform_editor_early_exit_return_draft', 'isEnabled', true)) {
+				} else if (isExperimentEnabled('platform_editor_early_exit_return_draft')) {
 					// Conditionally run catchup based on CollabDraftMetadata.relevance
 					// Only catch up when relevance is 'STALE' or absent
 					// Skip catchup when relevance is 'LATEST' (draft is up-to-date)
@@ -310,6 +298,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 					this.participantsService.initializeFirstBatchFetchUsers();
 				}
 				this.disconnectedAt = undefined;
+				this.sleepWatermark = Date.now();
 			})
 			.on('init', ({ doc, version, metadata }) => {
 				// Initial document and version
@@ -603,10 +592,12 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 					shouldTelepointerBeSampled() ? telepointerCallback(this.config.documentAri) : undefined,
 				);
 			} else if (data?.type === 'ai-provider:change') {
-				this.participantsService.sendAIProviderChanged({
-					...basePayload,
-					...data,
-				});
+				if (!fg('platform_move_presence_agents')) {
+					this.participantsService.sendAIProviderChanged({
+						...basePayload,
+						...data,
+					});
+				}
 			} else if (data?.type === 'participant:activity') {
 				this.setPresenceActivity(data.activity);
 				this.participantsService.sendPresenceActivityChanged();
@@ -623,6 +614,27 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 
 	private getAIProviderActiveIds = () => {
 		return this.aiProviderActiveIds;
+	};
+
+	private getOutOfSyncDuration = (): number | undefined => {
+		if (!this.disconnectedAt) {
+			return undefined;
+		}
+
+		const disconnectedDuration = Date.now() - this.disconnectedAt;
+		if (disconnectedDuration >= OUT_OF_SYNC_PERIOD) {
+			return disconnectedDuration;
+		}
+
+		const sleepDuration = getMaxGapSince(this.sleepWatermark);
+		if (
+			sleepDuration >= OUT_OF_SYNC_PERIOD &&
+			isExperimentEnabled('collab_check_sleep_detection_experiment')
+		) {
+			return sleepDuration;
+		}
+
+		return undefined;
 	};
 
 	// Note: this gets triggered on page reload for Firefox (not other browsers) because of closeOnBeforeunload: false
@@ -666,6 +678,9 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 				clearInterval(this.sendStepsTimer);
 				this.sendStepsTimer = undefined;
 			}
+
+			this.releaseSleepDetector?.();
+			this.releaseSleepDetector = undefined;
 		} catch (error) {
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while shutting down the collab provider');
 			throw new DestroyError('Error while shutting down the collab provider', error);

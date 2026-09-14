@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { MenuGroup, Section } from '@atlaskit/menu';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 import { selectField, textField } from '@atlassian/teams-app-internal-playground/fields';
 import {
 	Playground,

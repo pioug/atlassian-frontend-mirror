@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e60b7a78bb7ec047b8878ae4dddc1f9f>>
+ * @codegen <<SignedSource::c041462a6a43b77c1c07cb58391a9018>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "VideoStrikethrough".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const VideoStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const VideoStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "VideoStrikethroughIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="m.47 1.53 14 14 1.06-1.06-14-14zM8.82 12l1.48 1.48a2 2 0 0 1-.3.02H2a2 2 0 0 1-2-2v-7c0-.38.11-.73.29-1.03L1.5 4.68v6.82a.5.5 0 0 0 .5.5zM10 2.5H5.68L7.18 4H10a.5.5 0 0 1 .5.5v2.82l1.5 1.5V6.44l2.5-1.41v6.29l1.17 1.17c.2-.22.33-.51.33-.84V4.61a1.25 1.25 0 0 0-1.86-1.09L12 4.72V4.5a2 2 0 0 0-2-2"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

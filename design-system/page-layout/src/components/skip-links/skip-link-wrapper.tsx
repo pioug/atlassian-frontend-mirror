@@ -8,7 +8,8 @@ import type { ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
-import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
+import { easeOut } from '@atlaskit/motion/curves';
+import { prefersReducedMotion } from '@atlaskit/motion/utils/accessibility';
 import { token } from '@atlaskit/tokens';
 
 import {

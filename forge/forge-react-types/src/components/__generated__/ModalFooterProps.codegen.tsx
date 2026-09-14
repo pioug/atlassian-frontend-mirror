@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { ModalFooter as PlatformModalFooter } from '@atlaskit/modal-dialog';
+import PlatformModalFooter from '@atlaskit/modal-dialog/modal-footer';
 
 type PlatformModalFooterProps = React.ComponentProps<typeof PlatformModalFooter>;
 

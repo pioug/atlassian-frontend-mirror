@@ -14,7 +14,7 @@ import {
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
-import type { DatasourceDataResponseItem } from '@atlaskit/linking-types';
+import type { DatasourceDataResponseItem } from '@atlaskit/linking-types/datasource';
 
 type Actions = typeof actions;
 
@@ -101,12 +101,12 @@ export const actions = {
 export const Store: StoreType<
 	State,
 	{
-		onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
 		onAddItems: (
 			items: DatasourceDataResponseItem[],
 			integrationKey: string | undefined,
 			entityType: string | undefined,
 		) => Action<State, void, string[]>;
+		onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
 	}
 > = createStore<State, Actions>({
 	name: 'datasource-store',
@@ -127,12 +127,12 @@ export const useDatasourceActions: HookActionsFunction<
 	BoundActions<
 		State,
 		{
-			onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
 			onAddItems: (
 				items: DatasourceDataResponseItem[],
 				integrationKey: string | undefined,
 				entityType: string | undefined,
 			) => Action<State, void, string[]>;
+			onUpdateItem: (id: string, data: DatasourceDataResponseItem) => Action<State, void, void>;
 		}
 	>
 > = createActionsHook(Store);

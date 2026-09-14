@@ -3,11 +3,12 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type Selection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { SelectionPlugin } from '../selectionPluginType';
 import type { SelectionPluginOptions } from '../types';

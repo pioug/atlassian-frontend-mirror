@@ -85,8 +85,8 @@ describe('TaskDecisionResource', () => {
 		describe('notifyUpdated', () => {
 			it('should call all subscribers', () => {
 				getItemStateManager(resource).notifyUpdated(objectKey, 'DONE');
-				expect(mockHandler).toBeCalledWith('DONE');
-				expect(mockHandler2).toBeCalledWith('DONE');
+				expect(mockHandler).toHaveBeenCalledWith('DONE');
+				expect(mockHandler2).toHaveBeenCalledWith('DONE');
 			});
 		});
 

@@ -1,20 +1,20 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import Form, {
-	CheckboxField,
-	Field,
-	FormFooter,
-	FormHeader,
-	FormSection,
-	RequiredAsterisk,
-} from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Form from '@atlaskit/form/form';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { FormSection } from '@atlaskit/form/form-section';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
-import Select, { type OptionType, type ValueType } from '@atlaskit/select';
-import Textfield from '@atlaskit/textfield';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Select from '@atlaskit/select/default';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
+import Textfield from '@atlaskit/textfield/text-field';
 
 const FormLayoutExample = (): React.JSX.Element => {
 	return (

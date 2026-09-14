@@ -1,23 +1,26 @@
 /* eslint-disable @atlaskit/design-system/no-deprecated-imports, @atlassian/testing-library/prefer-atlassian-testing-library, testing-library/no-container -- Preserve existing mention test coverage while focus-ring usage is reviewed separately. */
-import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
+
+import AnalyticsListenerNext from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // Commented due to HOT-111922
 // import { type ConcurrentExperience } from '@atlaskit/ufo';
-import FocusRing from '@atlaskit/focus-ring';
+import FocusRing from '@atlaskit/focus-ring/focus-ring';
 import React from 'react';
-import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
-import { mentionStyle } from '../../../components/Mention/mention-style';
-import ResourcedMention from '../../../components/Mention/ResourcedMention';
+import { renderToString } from 'react-dom/server';
 import { ELEMENTS_CHANNEL } from '../../../_constants';
+import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
+import { MentionInternal } from '../../../components/Mention/MentionInternal';
+import ResourcedMention from '../../../components/Mention/ResourcedMention';
+import { mentionStyle } from '../../../components/Mention/mention-style';
 import { IntlProvider } from 'react-intl';
-import { MentionType, MentionNameStatus } from '../../../types';
-import MentionResource, { type MentionProvider } from '../../../api/MentionResource';
 import { type MentionNameResolver } from '../../../api/MentionNameResolver';
+import { MentionResource, type MentionProvider } from '../../../api/MentionResource';
+import { MentionType, MentionNameStatus } from '../../../types';
 import {
 	mockMentionData as mentionData,
 	mockMentionProvider as mentionProvider,
 } from '../_test-helpers';
-import { screen, render, waitFor } from '@testing-library/react';
+import { fireEvent, screen, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
@@ -41,9 +44,7 @@ const createPayload = (actionSubject: string, action: string) => ({
 const mockUfoStart = jest.fn();
 const mockUfoSuccess = jest.fn();
 const mockUfoFailure = jest.fn();
-jest.mock('@atlaskit/ufo', () => {
-	const actualModule = jest.requireActual('@atlaskit/ufo');
-
+jest.mock('@atlaskit/ufo/concurrent-experience', () => {
 	class MockConcurrentExperience {
 		experienceId: string;
 		constructor(experienceId: string) {
@@ -58,15 +59,15 @@ jest.mock('@atlaskit/ufo', () => {
 			};
 		}
 	}
-
 	return {
+		...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 		__esModule: true,
-		...actualModule,
 		ConcurrentExperience: MockConcurrentExperience,
 	};
 });
 
-jest.mock('@atlaskit/focus-ring', () => ({
+jest.mock('@atlaskit/focus-ring/focus-ring', () => ({
+	...jest.requireActual('@atlaskit/focus-ring/focus-ring'),
 	__esModule: true,
 	default: jest.fn(),
 }));
@@ -104,6 +105,66 @@ describe('<Mention />', () => {
 			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
 
 			await expect(document.body).toBeAccessible();
+		});
+
+		it('should replace the at-sign with a decorative avatar when avatar data is available', async () => {
+			await renderWait(
+				<Mention {...mentionData} avatarUrl="https://example.com/avatar.png" renderAvatarSlot />,
+			);
+
+			const avatar = screen.getByTestId('mention-avatar');
+			expect(avatar).toBeInTheDocument();
+			expect(avatar).toHaveAttribute('loading', 'lazy');
+			const mentionText = screen.getByText(mentionData.text.slice(1));
+			expect(mentionText).toBeInTheDocument();
+			expect(mentionText.parentElement).toContainElement(screen.getByTestId('mention-avatar-slot'));
+			expect(screen.queryByText(mentionData.text)).not.toBeInTheDocument();
+			expect(screen.queryByRole('img')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should reserve avatar space in server-rendered markup without an image URL', () => {
+			const html = renderToString(
+				<IntlProvider locale="en">
+					<MentionInternal {...mentionData} renderAvatarSlot />
+				</IntlProvider>,
+			);
+
+			expect(html).toContain('mention-avatar-slot');
+			expect(html).not.toContain('https://example.com/avatar.png');
+			expect(html).toContain(mentionData.text.slice(1));
+			expect(html).not.toContain(mentionData.text);
+		});
+
+		it('should replace a failed avatar image with an at-sign inside its reserved space', async () => {
+			await renderWait(
+				<Mention
+					{...mentionData}
+					avatarUrl="https://example.com/broken-avatar.png"
+					renderAvatarSlot
+				/>,
+			);
+
+			fireEvent.error(screen.getByTestId('mention-avatar'));
+
+			expect(screen.queryByTestId('mention-avatar')).not.toBeInTheDocument();
+			expect(screen.getByTestId('mention-avatar-slot')).toHaveTextContent('@');
+			expect(screen.getByText(mentionData.text.slice(1))).toBeInTheDocument();
+		});
+
+		it('should use an ellipsis without an at-sign while avatar space is reserved', async () => {
+			await renderWait(<Mention {...mentionData} text="" renderAvatarSlot />);
+
+			expect(screen.getByText('...')).toBeInTheDocument();
+			expect(screen.queryByText('@...')).not.toBeInTheDocument();
+		});
+
+		it('should preserve the at-sign when the avatar slot is not requested', async () => {
+			await renderWait(<Mention {...mentionData} avatarUrl="https://example.com/avatar.png" />);
+
+			expect(screen.queryByTestId('mention-avatar')).not.toBeInTheDocument();
+			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
 		});
 
 		it('should render a default lozenge if no accessLevel data and is not being mentioned', async () => {

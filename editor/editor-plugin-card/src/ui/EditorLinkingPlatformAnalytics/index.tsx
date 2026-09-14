@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {
-	EditorSmartCardProvider,
-	EditorSmartCardProviderValueGuard,
-} from '@atlaskit/link-provider';
+import { EditorSmartCardProvider } from '@atlaskit/link-provider/editor-smart-card-provider';
+import { EditorSmartCardProviderValueGuard } from '@atlaskit/link-provider/editor-smart-card-provider-value-guard';
 
 import { EditorAnalyticsContext } from '../EditorAnalyticsContext';
 

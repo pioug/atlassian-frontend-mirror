@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { keyName } from 'w3c-keyname';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -19,12 +19,18 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import { closestElement, isEmptyNode } from '@atlaskit/editor-common/utils';
+import {
+	applyContentVisibility,
+	estimateExpandIntrinsicHeight,
+} from '@atlaskit/editor-common/utils/content-visibility';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { redo, undo } from '@atlaskit/prosemirror-history';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -108,13 +114,11 @@ const toDOM = (
 			class: `${expandClassNames.content} ${(__livePage ? !node.attrs.__expanded : node.attrs.__expanded) ? '' : expandClassNames.contentCollapsed}`,
 			contenteditable:
 				contentEditable !== undefined ? (contentEditable ? 'true' : 'false') : undefined,
-			...(expValEquals('platform_editor_expand_content_a11y', 'isEnabled', true) && {
-				role: 'textbox',
-				'aria-multiline': 'true',
-				'aria-label':
-					(intl && intl.formatMessage(expandMessages.expandBodyAriaLabel)) ||
-					expandMessages.expandBodyAriaLabel.defaultMessage,
-			}),
+			role: 'textbox',
+			'aria-multiline': 'true',
+			'aria-label':
+				(intl && intl.formatMessage(expandMessages.expandBodyAriaLabel)) ||
+				expandMessages.expandBodyAriaLabel.defaultMessage,
 		},
 		0,
 	],
@@ -180,9 +184,12 @@ export class ExpandNodeView implements NodeView {
 			`.${expandClassNames.titleContainer}`,
 		);
 		this.content = this.dom.querySelector<HTMLElement>(`.${expandClassNames.content}`);
+		applyContentVisibility(this.dom, this.isLimitedModeEnabled(), () => ({
+			height: estimateExpandIntrinsicHeight(this.node, !this.isCollapsed()),
+		}));
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		this.renderKey = uuid();
-		if (expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)) {
+		if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
 			this.renderNativeIcon(this.node);
 		} else {
 			this.renderIcon(this.intl);
@@ -721,14 +728,33 @@ export class ExpandNodeView implements NodeView {
 	};
 
 	private updateDisplayStyle(node: PmNode): void {
+		const isCollapsed = this.__livePage ? node.attrs.__expanded : !node.attrs.__expanded;
 		if (this.content) {
-			const isCollapsed = this.__livePage ? node.attrs.__expanded : !node.attrs.__expanded;
 			if (isCollapsed) {
 				this.content.classList.add(expandClassNames.contentCollapsed);
 			} else {
 				this.content.classList.remove(expandClassNames.contentCollapsed);
 			}
 		}
+		// Collapsed vs expanded changes the reserved height, so re-apply the intrinsic-size estimate.
+		if (this.dom) {
+			applyContentVisibility(this.dom, this.isLimitedModeEnabled(), () => ({
+				height: estimateExpandIntrinsicHeight(node, !isCollapsed),
+			}));
+		}
+	}
+
+	private isLimitedModeEnabled(): boolean {
+		// Read from `this.view.state` via the exposed plugin key rather than the shared state's
+		// `enabled`, which reads a stale `false` during initial EditorView construction (the injection
+		// API's editor state isn't wired up yet).
+		//
+		// Reads the plugin's derived `enabled`, so this covers every reason limited mode can be on.
+		return Boolean(
+			this.api?.limitedMode?.sharedState
+				.currentState()
+				?.limitedModePluginKey?.getState(this.view.state)?.enabled,
+		);
 	}
 
 	stopEvent(event: Event): boolean {
@@ -760,12 +786,18 @@ export class ExpandNodeView implements NodeView {
 
 	update(node: PmNode, _decorations: readonly Decoration[]): boolean {
 		if (this.node.type === node.type) {
+			// Re-apply in case limited mode flipped from disabled→enabled after the document loaded
+			// (the flip is transaction-driven, so this update() fires once it becomes enabled).
+			const isCollapsed = this.__livePage ? node.attrs.__expanded : !node.attrs.__expanded;
+			applyContentVisibility(this.dom, this.isLimitedModeEnabled(), () => ({
+				height: estimateExpandIntrinsicHeight(node, !isCollapsed),
+			}));
 			if (this.node.attrs.__expanded !== node.attrs.__expanded) {
 				// Instead of re-rendering the view on an expand toggle
 				// we toggle a class name to hide the content and animate the chevron.
 				if (this.dom) {
 					this.dom.classList.toggle(expandClassNames.expanded);
-					if (expValEquals('platform_editor_vc90_transition_expand_icon', 'isEnabled', true)) {
+					if (isExperimentEnabled('platform_editor_vc90_transition_expand_icon')) {
 						this.renderNativeIcon(node);
 					} else {
 						this.renderIcon(this && this.intl, node);

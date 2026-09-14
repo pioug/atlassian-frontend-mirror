@@ -1,6 +1,7 @@
-import paletteRaw from '@atlaskit/tokens/palettes-raw';
+import paletteRaw from '@atlaskit/tokens/palette';
 import tokenNames from '@atlaskit/tokens/token-names';
-import { dark as darkTokensRaw, light as lightTokensRaw } from '@atlaskit/tokens/tokens-raw';
+import darkTokensRaw from '@atlaskit/tokens/atlassian-dark';
+import lightTokensRaw from '@atlaskit/tokens/atlassian-light';
 
 import { getSelectedRowAndColumn } from './getSelectedRowAndColumn';
 import type { PaletteColor } from './Palettes/type';

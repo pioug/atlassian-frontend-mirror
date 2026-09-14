@@ -2,15 +2,16 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import {
 	ReplaceAroundStep,
 	ReplaceStep,
 	AddMarkStep,
 	RemoveMarkStep,
 	AttrStep,
-	type Step,
 } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -24,6 +25,12 @@ export const trackChangesPluginKey: PluginKey<TrackChangesPluginState> =
 type TrackChangesPluginState = {
 	allocations: Set<number>;
 	isShowDiffAvailable: boolean;
+	/**
+	 * Set by other plugins (via the `setToggleChangesDisabled` command) while they own the
+	 * diff decorations — e.g. the AI Review moment. While true the toolbar button and the
+	 * keyboard shortcut must not toggle track changes.
+	 */
+	isToggleChangesDisabled: boolean;
 	shouldChangesBeDisplayed: boolean;
 	steps: InvertableStep[];
 };
@@ -61,11 +68,18 @@ export const createTrackChangesPlugin = (
 					steps: [],
 					shouldChangesBeDisplayed: false,
 					isShowDiffAvailable: false,
+					isToggleChangesDisabled: false,
 					allocations: new Set<number>(),
 				};
 			},
 			apply(tr, state) {
 				const metadata = tr.getMeta(trackChangesPluginKey);
+				if (metadata && metadata.action === ACTION.SET_TOGGLE_CHANGES_DISABLED) {
+					return {
+						...state,
+						isToggleChangesDisabled: Boolean(metadata.isDisabled),
+					};
+				}
 				if (metadata && metadata.action === ACTION.RESET_BASELINE) {
 					return {
 						...state,
@@ -166,6 +180,9 @@ export const createTrackChangesPlugin = (
 									originalDoc,
 									steps: steps.map((s) => s.step),
 									diffType: fg('platform_editor_ai_smart_diff') ? 'smart' : 'inline',
+									showIndicators:
+										fg('platform_editor_diff_plugin_show_indicators') &&
+										isExperimentEnabled('platform_editor_diff_plugin_extended'),
 								}),
 							);
 						}

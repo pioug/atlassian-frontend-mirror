@@ -1,0 +1,78 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
+import { css, jsx } from '@emotion/react';
+
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline } from '@atlaskit/primitives/inline';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack } from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss';
+
+const growItems = ['hug', 'fill'] as const;
+
+const truncateStyles = css({
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+});
+
+const blockStyles = xcss({ borderRadius: 'radius.xsmall' });
+const fixedWidthStyles = xcss({ width: '200px' });
+const truncationContainerStyles = xcss({ maxWidth: '200px' });
+
+export default (): jsx.JSX.Element => (
+	<Stack testId="inline-example" space="space.100" alignInline="start">
+		<Stack space="space.100">
+			{growItems.map((grow) => (
+				<Stack key={grow} alignInline="center">
+					{grow}
+					<Box backgroundColor="color.background.neutral" xcss={fixedWidthStyles}>
+						<Inline grow={grow}>
+							<Stack space="space.100" grow={grow}>
+								<Box
+									xcss={blockStyles}
+									backgroundColor="color.background.discovery.bold"
+									padding="space.200"
+								/>
+								<Box
+									xcss={blockStyles}
+									backgroundColor="color.background.discovery.bold"
+									padding="space.200"
+								/>
+								<Box
+									xcss={blockStyles}
+									backgroundColor="color.background.discovery.bold"
+									padding="space.200"
+								/>
+							</Stack>
+						</Inline>
+					</Box>
+				</Stack>
+			))}
+		</Stack>
+
+		<Stack space="space.100">
+			width=100% enables truncation
+			<Box backgroundColor="color.background.neutral" xcss={truncationContainerStyles}>
+				<Inline grow="fill">
+					<Stack space="space.100" grow="fill">
+						<span css={truncateStyles}>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+							incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+							exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+							dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+							Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+							mollit anim id est laborum
+						</span>
+					</Stack>
+				</Inline>
+			</Box>
+		</Stack>
+	</Stack>
+);

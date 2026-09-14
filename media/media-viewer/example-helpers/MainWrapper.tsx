@@ -6,7 +6,7 @@
 import { jsx } from '@emotion/react';
 import { type ReactNode, type FC } from 'react';
 import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers';
-import { payloadPublisher } from '@atlassian/ufo';
+import { payloadPublisher } from '@atlassian/ufo/publisher';
 import {
 	containerStyles,
 	groupStyles,

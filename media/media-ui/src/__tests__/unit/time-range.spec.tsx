@@ -2,7 +2,7 @@ import React from 'react';
 import { TimeRange, TimeRangeBase, type TimeRangeProps } from '../../customMediaPlayer/timeRange';
 import type { IntlShape } from 'react-intl';
 import { fireEvent, screen, waitFor, act } from '@testing-library/react';
-import { renderWithIntl } from '../../test-helpers';
+import { renderWithIntl } from '../../test-helpers/renderWithIntl';
 
 let mockedWidth = 100;
 Element.prototype.getBoundingClientRect = jest.fn(() => {

@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 import { axe } from '@af/accessibility-testing';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 import InlineMessage from '../../inline-message';
 

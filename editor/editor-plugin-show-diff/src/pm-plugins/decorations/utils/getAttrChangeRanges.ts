@@ -1,11 +1,31 @@
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import isEqual from 'lodash/isEqual';
+import omit from 'lodash/omit';
+
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { type Step as ProseMirrorStep, AttrStep } from '@atlaskit/editor-prosemirror/transform';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { getRequiredIncludedDiffableAttrs, isDiffableAttr } from './diffableAttrs';
 
 export type InlineAttrChangeNodeName = 'date' | 'emoji' | 'mention' | 'status';
 
+type AttrChangeStep = AttrStep | SetAttrsStep;
+
+export type AttrStepContext = {
+	attributionKey?: string;
+	afterNode: PMNode | null;
+	beforeNode: PMNode | null;
+	finalPos: number;
+	originalPos?: number;
+	step: AttrChangeStep;
+};
+
 type StepRange = {
+	/** Attribution key for the step that produced this range. */
+	attributionKey?: string;
 	/**
 	 * Position of the original (before) node in the original doc.
 	 * Populated for inline attr changes (e.g. emoji, date) so the caller can
@@ -23,46 +43,48 @@ type StepRange = {
 
 const filterUndefined = (x: StepRange | undefined): x is StepRange => !!x;
 
-// Attributes that indicate a change in media image
-const mediaAttrs = ['id', 'collection', 'url'];
-
-// Attribute that indicates a date change
-const dateAttrs = ['timestamp'];
-
-// Attribute that indicates a task item state change
-const taskItemAttrs = ['state'];
-
-// Attributes that indicate an emoji change
-const emojiAttrs = ['shortName', 'id', 'text'];
-
-// Attributes that indicate a mention change (who is mentioned)
-const mentionAttrs = ['id', 'text'];
-
-// Attributes that indicate a status change (label or colour)
-const statusAttrs = ['text', 'color'];
+// Attr lists sourced from the shared `diffableAttrs` map (shared with the encoder).
+const mediaAttrs = getRequiredIncludedDiffableAttrs('media');
+const dateAttrs = getRequiredIncludedDiffableAttrs('date');
+const taskItemAttrs = getRequiredIncludedDiffableAttrs('taskItem');
+const panelAttrs = getRequiredIncludedDiffableAttrs('panel');
+const emojiAttrs = getRequiredIncludedDiffableAttrs('emoji');
+const mentionAttrs = getRequiredIncludedDiffableAttrs('mention');
+const statusAttrs = getRequiredIncludedDiffableAttrs('status');
 
 // Map of node type name → the attrs that represent a meaningful content change for that node
-const inlineNodeAttrMap: Record<InlineAttrChangeNodeName, string[]> = {
+const inlineNodeAttrMap: Record<InlineAttrChangeNodeName, readonly string[]> = {
 	date: dateAttrs,
 	emoji: emojiAttrs,
 	mention: mentionAttrs,
 	status: statusAttrs,
 };
 
-const isInlineAttrChangeNodeName = (nodeName: string): nodeName is InlineAttrChangeNodeName =>
-	nodeName in inlineNodeAttrMap;
+export const isInlineAttrChangeNodeName = (
+	nodeName: string,
+): nodeName is InlineAttrChangeNodeName => nodeName in inlineNodeAttrMap;
 
-// Attributes excluded from extension change detection (not meaningful content changes)
-const extensionExcludedAttrs = ['localId'];
-
-// Extension node type names
+// Extension node type names. Their "any attr except localId" exclude rule lives
+// in the shared `diffableAttrs` map and is applied via `isDiffableAttr` below.
 const extensionNodeNames = ['extension', 'inlineExtension', 'bodiedExtension'];
 
-const getStepAttrs = (step: ProseMirrorStep): string[] => {
+const transientExtensionAttrPaths = ['localId', 'parameters.macroParams._parentId'];
+
+/**
+ * Removes extension metadata that can change between document versions without changing the
+ * extension's user-visible configuration.
+ */
+const getComparableExtensionAttrs = (node: PMNode): Record<string, unknown> =>
+	omit(node.attrs, transientExtensionAttrPaths);
+
+const haveSameRelevantExtensionAttrs = (beforeNode: PMNode, afterNode: PMNode): boolean =>
+	isEqual(getComparableExtensionAttrs(beforeNode), getComparableExtensionAttrs(afterNode));
+
+const getStepAttrs = (step: AttrChangeStep): string[] => {
 	if (step instanceof AttrStep) {
 		return [step.attr];
 	}
-	if (step instanceof SetAttrsStep && step.attrs) {
+	if (step.attrs) {
 		return Object.keys(step.attrs);
 	}
 	return [];
@@ -70,51 +92,50 @@ const getStepAttrs = (step: ProseMirrorStep): string[] => {
 
 export const getAttrChangeRanges = (
 	doc: PMNode,
-	steps: ProseMirrorStep[],
+	attrStepContexts: AttrStepContext[],
 	originalDoc: PMNode,
 ): StepRange[] => {
 	return (
-		steps
-			.map((step): StepRange | undefined => {
+		attrStepContexts
+			.map((attrStepContext): StepRange | undefined => {
+				const { afterNode, attributionKey, beforeNode, finalPos, originalPos, step } =
+					attrStepContext;
 				if (!(step instanceof AttrStep) && !(step instanceof SetAttrsStep)) {
 					return undefined;
 				}
 				const stepAttrs = getStepAttrs(step);
-				const $pos = doc.resolve(step.pos);
-				const nodeAtPos = doc.nodeAt(step.pos);
+				// SetAttrsStep contains the complete replacement attrs, not only the attrs that changed.
+				// Keep the legacy payload-based checks until the rollout gate is enabled, and fall back
+				// to them if either step-time node is unavailable.
+				const attrsToCheck =
+					fg('platform_editor_reduce_diff_attr_sensitivity') && beforeNode && afterNode
+						? stepAttrs.filter(
+								(attrName) => !isEqual(beforeNode.attrs[attrName], afterNode.attrs[attrName]),
+							)
+						: stepAttrs;
+				const $pos = doc.resolve(finalPos);
+				const nodeAtPos = doc.nodeAt(finalPos);
+				const originalNodeAtPos =
+					originalPos === undefined ? null : originalDoc.nodeAt(originalPos);
 
-				// date node: timestamp attribute change — highlight the date node itself (inline)
-				if (
-					stepAttrs.some((v) => dateAttrs.includes(v)) &&
-					nodeAtPos?.type.name === 'date' &&
-					!expValEquals('platform_editor_improve_inline_diffs', 'isEnabled', true)
-				) {
-					return {
-						fromB: step.pos,
-						toB: step.pos + nodeAtPos.nodeSize,
-						isInline: true,
-						inlineNodeName: 'date',
-					};
-				}
-
-				// The following inline node attr changes are gated behind platform_editor_improve_inline_diffs.
 				// The changeset path (createDecorationsForChange) handles the deletion widget via
 				// prosemirror-changeset; we only need to add the inline insertion highlight here.
-				if (expValEquals('platform_editor_improve_inline_diffs', 'isEnabled', true) && nodeAtPos) {
+				if (nodeAtPos) {
 					const nodeName = nodeAtPos.type.name;
 					if (isInlineAttrChangeNodeName(nodeName)) {
 						const watchedAttrs = inlineNodeAttrMap[nodeName];
-						if (stepAttrs.some((v) => watchedAttrs.includes(v))) {
-							const originalNodeAtPos = originalDoc?.nodeAt(step.pos);
+						if (attrsToCheck.some((v) => watchedAttrs.includes(v))) {
 							return {
-								fromB: step.pos,
-								toB: step.pos + nodeAtPos.nodeSize,
+								...(attributionKey ? { attributionKey } : {}),
+								fromB: finalPos,
+								toB: finalPos + nodeAtPos.nodeSize,
 								isInline: true,
 								inlineNodeName: nodeName,
-								...(originalNodeAtPos && {
-									fromA: step.pos,
-									toA: step.pos + originalNodeAtPos.nodeSize,
-								}),
+								...(originalPos !== undefined &&
+									originalNodeAtPos && {
+										fromA: originalPos,
+										toA: originalPos + originalNodeAtPos.nodeSize,
+									}),
 							};
 						}
 					}
@@ -122,29 +143,74 @@ export const getAttrChangeRanges = (
 
 				// taskItem node: state attribute change — highlight the taskItem node
 				if (
-					stepAttrs.some((v) => taskItemAttrs.includes(v)) &&
+					attrsToCheck.some((v) => taskItemAttrs.includes(v)) &&
 					nodeAtPos?.type.name === 'taskItem'
 				) {
-					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize };
+					return {
+						...(attributionKey ? { attributionKey } : {}),
+						fromB: finalPos,
+						toB: finalPos + nodeAtPos.nodeSize,
+					};
 				}
 
-				// extension nodes: any attribute change except localId — highlight the node
+				// panel node (incl. variants like panel_c1): type/colour/icon attribute change
+				// (e.g. note -> warning) — highlight the new panel and, when the original node
+				// is resolvable, expose its range (fromA/toA) so the caller can render the old
+				// panel as a "deleted" widget for a before/after comparison.
+				if (
+					attrsToCheck.some((v) => panelAttrs.includes(v)) &&
+					nodeAtPos &&
+					getBaseNodeTypeName(nodeAtPos.type) === 'panel'
+				) {
+					return {
+						...(attributionKey ? { attributionKey } : {}),
+						fromB: finalPos,
+						toB: finalPos + nodeAtPos.nodeSize,
+						...(originalPos !== undefined &&
+							originalNodeAtPos && {
+								fromA: originalPos,
+								toA: originalPos + originalNodeAtPos.nodeSize,
+							}),
+					};
+				}
+
+				// Extension nodes: highlight changes to user-visible configuration. When enabled,
+				// transient extension metadata is ignored by the comparison below.
 				if (
 					nodeAtPos &&
 					extensionNodeNames.includes(nodeAtPos.type.name) &&
-					stepAttrs.some((v) => !extensionExcludedAttrs.includes(v))
+					attrsToCheck.some((v) => isDiffableAttr(nodeAtPos.type.name, v))
 				) {
+					if (
+						fg('platform_editor_reduce_diff_attr_sensitivity') &&
+						beforeNode &&
+						afterNode &&
+						beforeNode.type === afterNode.type &&
+						haveSameRelevantExtensionAttrs(beforeNode, afterNode)
+					) {
+						return undefined;
+					}
+
 					const isInline = nodeAtPos.type.name === 'inlineExtension';
-					return { fromB: step.pos, toB: step.pos + nodeAtPos.nodeSize, isInline };
+					return {
+						...(attributionKey ? { attributionKey } : {}),
+						fromB: finalPos,
+						toB: finalPos + nodeAtPos.nodeSize,
+						isInline,
+					};
 				}
 
 				// media node: id/collection/url attribute change — highlight the mediaSingle parent
 				if (
-					stepAttrs.some((v) => mediaAttrs.includes(v)) &&
+					attrsToCheck.some((v) => mediaAttrs.includes(v)) &&
 					$pos.parent.type === doc.type.schema.nodes.mediaSingle
 				) {
 					const startPos = $pos.pos + $pos.parentOffset;
-					return { fromB: startPos, toB: startPos + $pos.parent.nodeSize - 1 };
+					return {
+						...(attributionKey ? { attributionKey } : {}),
+						fromB: startPos,
+						toB: startPos + $pos.parent.nodeSize - 1,
+					};
 				}
 
 				return undefined;
@@ -153,13 +219,7 @@ export const getAttrChangeRanges = (
 			// Deduplicate by node position: multiple AttrSteps on the same node
 			// (e.g. setNodeAttribute(pos, 'text', ...) + setNodeAttribute(pos, 'color', ...))
 			// should produce only one decoration, not one per step.
-			// Gated behind the same experiment as the inline node attr changes that introduced
-			// the possibility of multiple ranges for the same node position.
-			.filter(
-				(range, i, arr) =>
-					!expValEquals('platform_editor_improve_inline_diffs', 'isEnabled', true) ||
-					arr.findIndex((r) => r.fromB === range.fromB) === i,
-			)
+			.filter((range, i, arr) => arr.findIndex((r) => r.fromB === range.fromB) === i)
 	);
 };
 
@@ -175,7 +235,7 @@ export const stepIsValidAttrChange = (
 	step: ProseMirrorStep,
 	beforeDoc: PMNode,
 	afterDoc: PMNode,
-): boolean => {
+): step is AttrChangeStep => {
 	try {
 		if (step instanceof AttrStep || step instanceof SetAttrsStep) {
 			const attrStepAfter = afterDoc.nodeAt(step.pos);

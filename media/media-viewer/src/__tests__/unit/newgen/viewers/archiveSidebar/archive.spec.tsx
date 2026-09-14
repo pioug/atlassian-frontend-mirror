@@ -22,20 +22,20 @@ import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import {
-	ArchiveViewerBase,
-	getArchiveEntriesFromFileState,
-	type Props as ArchiveViewerProps,
-} from '../../../../../viewers/archiveSidebar/archive';
+import type { Props as ArchiveViewerProps } from '../../../../../viewers/archiveSidebar/archive';
+import { ArchiveViewerBase } from '../../../../../viewers/archiveSidebar/archive-viewer-base';
+import { getArchiveEntriesFromFileState } from '../../../../../viewers/archiveSidebar/get-archive-entries-from-file-state';
 
-import { ArchiveViewerError } from '../../../../../errors';
-import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSidebar/consts';
-import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
+import { ArchiveViewerError } from '../../../../../ArchiveViewerError';
 import { createPreviewUnsupportedEvent } from '../../../../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
+import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../../../../item-viewer';
+import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSidebar/consts';
 
 type EntryConfig = {
 	name: string;
@@ -202,6 +202,7 @@ describe('Archive', () => {
 	});
 
 	it('should render error if selected code file size exceeds the limit', async () => {
+		failGate('platform_media_too_large_preview_state');
 		const src = 'Hello World';
 		setUnzipEntries([
 			{
@@ -215,6 +216,39 @@ describe('Archive', () => {
 		renderComponent({});
 		await userEvent.click(await screen.findByText('file_a.txt'));
 		expect(await screen.findByTestId('media-viewer-error')).toBeInTheDocument();
+		expect(createZipEntryLoadFailedEvent).toHaveBeenCalledWith(
+			expect.objectContaining({ id: 'some-id' }),
+			expect.objectContaining({ message: 'archiveviewer-codeviewer-file-size-exceeds' }),
+			expect.objectContaining({ name: 'file_a.txt' }),
+		);
+	});
+
+	it('shows the size-aware "too large" copy for an oversized zip entry when the gate is on, without changing analytics', async () => {
+		passGate('platform_media_too_large_preview_state');
+		const src = 'Hello World';
+		setUnzipEntries([
+			{
+				name: 'file_a.txt',
+				size: (MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER + 1) * 1024 * 1024,
+				blob: jest.fn().mockResolvedValue({
+					text: jest.fn().mockResolvedValue(src),
+				}) as any,
+			},
+		]);
+		renderComponent({});
+		await userEvent.click(await screen.findByText('file_a.txt'));
+		expect(await screen.findByTestId('media-viewer-error')).toBeInTheDocument();
+
+		// Visual copy changes to the dedicated "too large" heading.
+		expect(
+			screen.getByText(i18nMessages.file_too_large_to_preview.defaultMessage as string),
+		).toBeInTheDocument();
+		expect(
+			screen.queryByText(i18nMessages.couldnt_load_file.defaultMessage as string),
+		).not.toBeInTheDocument();
+
+		// The archive's own zipEntryLoadFailed analytics firing (with supressAnalytics on
+		// ErrorMessage) is unaffected by the gate - only the rendered copy changes.
 		expect(createZipEntryLoadFailedEvent).toHaveBeenCalledWith(
 			expect.objectContaining({ id: 'some-id' }),
 			expect.objectContaining({ message: 'archiveviewer-codeviewer-file-size-exceeds' }),

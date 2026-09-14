@@ -29,9 +29,6 @@ test.describe('table height information analytics', () => {
 		rendererProps: {
 			appearance: 'full-page',
 		},
-		platformFeatureFlags: {
-			platform_editor_table_height_analytics_event: true,
-		},
 	});
 
 	test.describe('for a normal table', () => {

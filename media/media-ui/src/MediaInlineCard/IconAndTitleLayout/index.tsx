@@ -1,14 +1,15 @@
 import React from 'react';
+
 import ImageLoader from 'react-render-image';
-import { Icon } from '../Icon';
-import {
-	IconEmptyWrapper,
-	IconPositionWrapper,
-	IconTitleWrapper,
-	IconWrapper,
-	EmojiWrapper,
-} from './styled';
+
 import LinkIcon from '@atlaskit/icon/core/link';
+
+import { Icon } from '../Icon';
+import { EmojiWrapper } from './emoji-wrapper';
+import { IconEmptyWrapper } from './icon-empty-wrapper';
+import { IconPositionWrapper } from './icon-position-wrapper';
+import { IconTitleWrapper } from './icon-title-wrapper';
+import { IconWrapper } from './icon-wrapper';
 
 export interface IconAndTitleLayoutProps {
 	emoji?: React.ReactNode;

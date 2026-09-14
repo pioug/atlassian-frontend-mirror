@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 import SuccessContainer from './SuccessContainer';

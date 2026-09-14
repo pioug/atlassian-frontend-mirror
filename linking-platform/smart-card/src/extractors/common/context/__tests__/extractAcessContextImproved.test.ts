@@ -1,6 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
-import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import { TEST_META_DATA, TEST_VISIT_URL } from '../../__mocks__/jsonld';
 import { extractRequestAccessContextImproved } from '../extractAccessContext';
 import '@atlaskit/link-test-helpers/jest';

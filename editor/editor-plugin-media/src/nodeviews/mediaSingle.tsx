@@ -23,6 +23,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { isNodeSelectedOrInRange, SelectedState } from '@atlaskit/editor-common/utils';
+import {
+	applyContentVisibility,
+	estimateMediaSingleIntrinsicSize,
+} from '@atlaskit/editor-common/utils/content-visibility';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -150,6 +154,8 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		}
 		domRef.setAttribute('data-media-vc-wrapper', 'true');
 
+		this.updateContentVisibility(domRef);
+
 		return domRef;
 	}
 
@@ -159,6 +165,32 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		const dom = document.createElement('div');
 		dom.classList.add(MEDIA_CONTENT_WRAP_CLASS_NAME);
 		return { dom };
+	}
+
+	/**
+	 * Skip rendering off-screen media in large (limited-mode) documents; the estimate is derived from
+	 * the media's own dimensions and the renderer's width calculation. Called from both `createDomRef`
+	 * and `update()` because limited mode can flip from disabled→enabled after the document loads.
+	 * Takes the target element explicitly because `createDomRef` runs before `this.dom` is assigned.
+	 */
+	private updateContentVisibility(dom: HTMLElement): void {
+		const api = this.reactComponentProps.pluginInjectionApi;
+		// Read limited mode from `this.view.state` via the exposed plugin key, NOT `currentState().enabled`
+		// (which reads a stale false during initial EditorView construction — see the table nodeView).
+		//
+		// Reads the plugin's derived `enabled`, so this covers every reason limited mode can be on.
+		const enabled = Boolean(
+			api?.limitedMode?.sharedState.currentState()?.limitedModePluginKey?.getState(this.view.state)
+				?.enabled,
+		);
+		applyContentVisibility(dom, enabled, () => {
+			const widthState = api?.width?.sharedState.currentState();
+			return estimateMediaSingleIntrinsicSize(
+				this.node,
+				widthState?.lineLength ?? 0,
+				widthState?.width ?? 0,
+			);
+		});
 	}
 
 	viewShouldUpdate(nextNode: PMNode): boolean {
@@ -276,7 +308,13 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 			target?.dispatchEvent(new CustomEvent('resized'));
 		}
 
-		return super.update(node, decorations, _innerDecorations, isValidUpdate);
+		const didUpdate = super.update(node, decorations, _innerDecorations, isValidUpdate);
+
+		if (this.dom) {
+			this.updateContentVisibility(this.dom);
+		}
+
+		return didUpdate;
 	}
 
 	render(props: MediaSingleNodeViewProps, forwardRef?: ForwardRef): jsx.JSX.Element {

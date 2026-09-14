@@ -43,7 +43,7 @@ import type {
 	MediaApiRepresentation,
 	MediaApiToken,
 } from '../../types';
-import { convertMediaToImageRepresentation } from '../../util/type-helpers';
+import { convertMediaToImageRepresentation } from '../../util/convert-media-to-image-representation';
 
 /* eslint-disable import/no-extraneous-dependencies */
 export { mediaEmojiImagePath, mediaBaseUrl } from '@atlaskit/util-data-test/emoji-constants';
@@ -65,49 +65,49 @@ export const standardBoomEmoji: any = getStandardBoomEmoji();
 export const emojis: (
 	| EmojiDescriptionWithVariations
 	| {
-			name: string;
-			type: string;
+			altRepresentation: {
+				height: number;
+				mediaPath: string;
+				width: number;
+			};
 			category: string;
+			fallback: string;
+			id: string;
+			name: string;
 			order: number;
 			representation: {
+				height: number;
 				mediaPath: string;
 				width: number;
-				height: number;
 			};
-			altRepresentation: {
-				mediaPath: string;
-				width: number;
-				height: number;
-			};
-			skinVariations: never[];
 			searchable: boolean;
-			id: string;
 			shortName: string;
-			fallback: string;
+			skinVariations: never[];
+			type: string;
 	  }
 )[] = getTestEmojis();
 export const atlassianEmojis: any = getTestAtlassianEmojis().emojis;
 export const standardEmojis: any = getTestStandardEmojis().emojis;
 export const siteEmojis: {
-	name: string;
-	type: string;
+	altRepresentation: {
+		height: number;
+		mediaPath: string;
+		width: number;
+	};
 	category: string;
+	fallback: string;
+	id: string;
+	name: string;
 	order: number;
 	representation: {
+		height: number;
 		mediaPath: string;
 		width: number;
-		height: number;
 	};
-	altRepresentation: {
-		mediaPath: string;
-		width: number;
-		height: number;
-	};
-	skinVariations: never[];
 	searchable: boolean;
-	id: string;
 	shortName: string;
-	fallback: string;
+	skinVariations: never[];
+	type: string;
 }[] = getTestSiteEmojis().emojis;
 
 export const searchableEmojis: EmojiDescription[] = getTestSearchableEmojis();
@@ -116,115 +116,115 @@ export const atlassianServiceEmojis: any = getTestAtlassianServiceEmojis();
 export const standardServiceEmojis: any = getTestStandardServiceEmojis();
 export const siteServiceEmojis: () => {
 	emojis: {
-		id: string;
-		shortName: string;
-		name: string;
-		fallback: string;
-		type: string;
-		category: string;
-		order: number;
-		representation: {
-			imagePath: string;
-			width: number;
-			height: number;
-		};
 		altRepresentations: {
 			XHDPI: {
+				height: number;
 				imagePath: string;
 				width: number;
-				height: number;
 			};
 		};
+		category: string;
+		fallback: string;
+		id: string;
+		name: string;
+		order: number;
+		representation: {
+			height: number;
+			imagePath: string;
+			width: number;
+		};
 		searchable: boolean;
+		shortName: string;
+		type: string;
 	}[];
 	meta: {
 		mediaApiToken: {
-			url: string;
 			clientId: string;
-			jwt: string;
 			collectionName: string;
 			expiresAt: number;
+			jwt: string;
+			url: string;
 		};
 	};
 } = getTestSiteServiceEmojis;
 
 export const spriteEmoji: {
-	id: string;
-	shortName: string;
-	name: string;
-	type: string;
 	category: string;
+	id: string;
+	name: string;
 	order: number;
 	representation: {
+		height: number;
 		sprite: {
-			url: string;
-			row: number;
 			column: number;
 			height: number;
+			row: number;
+			url: string;
 			width: number;
 		};
-		xIndex: number;
-		yIndex: number;
-		x: number;
-		y: number;
-		height: number;
 		width: number;
+		x: number;
+		xIndex: number;
+		y: number;
+		yIndex: number;
 	};
 	searchable: boolean;
+	shortName: string;
+	type: string;
 } = getTestSpriteEmoji();
 export const imageEmoji: {
-	id: string;
-	shortName: string;
-	fallback: string;
-	name: string;
-	type: string;
+	altRepresentation: {
+		height: number;
+		imagePath: string;
+		width: number;
+	};
 	category: string;
+	fallback: string;
+	id: string;
+	name: string;
 	order: number;
 	representation: {
+		height: number;
 		imagePath: string;
 		width: number;
-		height: number;
-	};
-	altRepresentation: {
-		imagePath: string;
-		width: number;
-		height: number;
 	};
 	searchable: boolean;
+	shortName: string;
+	type: string;
 } = getTestImageEmoji();
 export const siteEmojiWtf: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = getTestSiteEmojiWtf();
 export const siteEmojiFoo: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = getTestSiteEmojiFoo();
 
 export { getTestEmojiResource as getEmojiResourcePromise } from '@atlaskit/util-data-test/get-test-emoji-resource';
@@ -383,10 +383,10 @@ export const createPngFile = (): File => {
 };
 
 export const pngFileUploadData: {
-	width: number;
-	height: number;
-	filename: string;
 	dataURL: string;
+	filename: string;
+	height: number;
+	width: number;
 } = {
 	width: 30,
 	height: 30,

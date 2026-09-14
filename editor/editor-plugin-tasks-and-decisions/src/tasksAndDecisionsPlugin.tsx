@@ -2,9 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { decisionList, taskList } from '@atlaskit/adf-schema';
+import { decisionItem } from '@atlaskit/adf-schema/decision-item';
+import { decisionList } from '@atlaskit/adf-schema/decision-list';
+import { blockTaskItem, taskItem } from '@atlaskit/adf-schema/task-item';
+import { taskList } from '@atlaskit/adf-schema/task-list';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM,
@@ -24,10 +28,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
-import { taskItemNodeSpec, blockTaskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
-import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
 import {
 	closeRequestEditPopupAt,
 	getCurrentIndentLevel,
@@ -53,6 +55,7 @@ import { DecisionListBlockMenuItem } from './ui/DecisionListBlockMenuItem/Decisi
 import { RequestToEditPopup } from './ui/Task/RequestToEditPopup';
 import { TaskListBlockMenuItem } from './ui/TaskListBlockMenuItem/TaskListBlockMenuItem';
 import { getTasksAndDecisionsToolbarComponents } from './ui/toolbar-components';
+import { getTasksAndDecisionsQuickInsertComponents } from './ui/quick-insert/getTasksAndDecisionsQuickInsertComponents';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
@@ -152,6 +155,16 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 	let previousTaskAndDecisionProvider: TaskDecisionProvider | undefined;
 
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
+
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(
+			getTasksAndDecisionsQuickInsertComponents({
+				api,
+				quickInsertActionDescription,
+			}),
+		);
+	}
 
 	if (isToolbarAIFCEnabled) {
 		api?.toolbar?.actions.registerComponents(getTasksAndDecisionsToolbarComponents({ api }));
@@ -205,15 +218,15 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		nodes() {
 			return [
 				{ name: 'decisionList', node: decisionList },
-				{ name: 'decisionItem', node: decisionItemSpecWithFixedToDOM() },
+				{ name: 'decisionItem', node: decisionItem },
 				{
 					name: 'taskList',
 					node: taskList,
 				},
-				{ name: 'taskItem', node: taskItemNodeSpec() },
+				{ name: 'taskItem', node: taskItem },
 				...(expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true) &&
 				allowBlockTaskItem
-					? [{ name: 'blockTaskItem', node: blockTaskItemNodeSpec() }]
+					? [{ name: 'blockTaskItem', node: blockTaskItem }]
 					: []),
 			];
 		},
@@ -355,42 +368,44 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		},
 
 		pluginsOptions: {
-			quickInsert: ({ formatMessage }) => [
-				{
-					id: 'action',
-					title: formatMessage(insertBlockMessages.action),
-					description:
-						quickInsertActionDescription ?? formatMessage(insertBlockMessages.actionDescription),
-					priority: 100,
-					keywords: ['checkbox', 'task', 'todo'],
-					keyshortcut: '[]',
-					icon: () => <IconAction />,
-					action(insert, state, source) {
-						return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
-							state,
-							'taskList',
-							source ?? INPUT_METHOD.QUICK_INSERT,
-							addItem(insert, 'taskList', state.schema),
-						);
+			...(!isRegisteredSlashCommandEnabled && {
+				quickInsert: ({ formatMessage }) => [
+					{
+						id: 'action',
+						title: formatMessage(insertBlockMessages.action),
+						description:
+							quickInsertActionDescription ?? formatMessage(insertBlockMessages.actionDescription),
+						priority: 100,
+						keywords: ['checkbox', 'task', 'todo'],
+						keyshortcut: '[]',
+						icon: () => <IconAction />,
+						action(insert, state, source) {
+							return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
+								state,
+								'taskList',
+								source ?? INPUT_METHOD.QUICK_INSERT,
+								addItem(insert, 'taskList', state.schema),
+							);
+						},
 					},
-				},
-				{
-					id: 'decision',
-					title: formatMessage(insertBlockMessages.decision),
-					description: formatMessage(insertBlockMessages.decisionDescription),
-					priority: 900,
-					keyshortcut: '<>',
-					icon: () => <IconDecision />,
-					action(insert, state, source) {
-						return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
-							state,
-							'decisionList',
-							source ?? INPUT_METHOD.QUICK_INSERT,
-							addItem(insert, 'decisionList', state.schema),
-						);
+					{
+						id: 'decision',
+						title: formatMessage(insertBlockMessages.decision),
+						description: formatMessage(insertBlockMessages.decisionDescription),
+						priority: 900,
+						keyshortcut: '<>',
+						icon: () => <IconDecision />,
+						action(insert, state, source) {
+							return insertTaskDecisionAction(api?.analytics?.actions, getIdentifierProvider)(
+								state,
+								'decisionList',
+								source ?? INPUT_METHOD.QUICK_INSERT,
+								addItem(insert, 'decisionList', state.schema),
+							);
+						},
 					},
-				},
-			],
+				],
+			}),
 		},
 	};
 };

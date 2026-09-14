@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -12,17 +12,15 @@ import {
 	TRIGGER_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
-import { ValidMessage } from '@atlaskit/form';
+import { ValidMessage } from '@atlaskit/form/valid-message';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import Textfield from '@atlaskit/textfield/text-field';
 
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 
-// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 const SPACE_REGEX = / /u;
 
 const replaceContainerStyles = xcss({
@@ -40,12 +38,8 @@ const actionButtonContainerStyles = xcss({
 const actionButtonParentInlineStyles = xcss({
 	justifyContent: 'space-between',
 	flexDirection: 'row-reverse',
-});
-
-const actionButtonParentInlineStylesNew = xcss({
-	justifyContent: 'space-between',
-	flexDirection: 'row-reverse',
 	flexWrap: 'wrap',
+	gap: 'space.075',
 });
 
 const actionButtonInlineStyles = xcss({
@@ -191,10 +185,7 @@ const Replace = ({
 		skipWhileComposing(() => {
 			onReplaceAll({ replaceText });
 			setIsHelperMessageVisible(true);
-			if (
-				count.totalReplaceable &&
-				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-			) {
+			if (count.totalReplaceable) {
 				triggerSuccessReplacementMessageUpdate(count.totalReplaceable);
 				setReplaceCount(count.totalReplaceable);
 			} else {
@@ -259,20 +250,13 @@ const Replace = ({
 				<div ref={successReplacementMessageRef}>
 					<ValidMessage testId="message-success-replacement">
 						{fakeSuccessReplacementMessageUpdate
-							? // @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-								resultsReplace.replace(SPACE_REGEX, '\u00a0')
+							? resultsReplace.replace(SPACE_REGEX, '\u00a0')
 							: resultsReplace}
 					</ValidMessage>
 				</div>
 			)}
 			<Box xcss={actionButtonContainerStyles}>
-				<Inline
-					xcss={
-						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-							? [actionButtonInlineStyles, actionButtonParentInlineStylesNew]
-							: [actionButtonInlineStyles, actionButtonParentInlineStyles]
-					}
-				>
+				<Inline xcss={actionButtonParentInlineStyles}>
 					<Inline xcss={actionButtonInlineStyles}>
 						<FindReplaceTooltipButton
 							title={formatMessage(messages.findNext)}
@@ -305,33 +289,23 @@ const Replace = ({
 							testId={replaceAll}
 							id="replaceAll-button"
 							onClick={handleReplaceAllClick}
-							isDisabled={
-								expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-									? count.totalReplaceable === 0
-									: !canReplace
-							}
+							isDisabled={count.totalReplaceable === 0}
 						>
 							{replaceAll}
 						</Button>
 					</Inline>
-					{expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true) ? (
-						<Inline xcss={closeButtonInlineStyles}>
-							<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>
-								{closeFindReplaceDialog}
-							</Button>
-						</Inline>
-					) : (
+					<Inline xcss={closeButtonInlineStyles}>
 						<Button appearance="subtle" testId={closeFindReplaceDialog} onClick={clearSearch}>
 							{closeFindReplaceDialog}
 						</Button>
-					)}
+					</Inline>
 				</Inline>
 			</Box>
 		</Box>
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<ReplaceProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<ReplaceProps & WrappedComponentProps>;
 } = injectIntl(Replace);

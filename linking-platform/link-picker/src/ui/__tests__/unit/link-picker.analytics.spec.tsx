@@ -11,11 +11,12 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { MockLinkPickerPlugin } from '../../../__tests__/__helpers/mock-plugins';
 import mockedPluginData from '../../../__tests__/__helpers/mock-plugin-data';
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import type { LinkPickerProps } from '../../../common/types';
@@ -29,9 +30,9 @@ const mockUfoSuccess = jest.fn();
 const mockUfoFailure = jest.fn();
 const mockUfoAbort = jest.fn();
 
-jest.mock('@atlaskit/ufo', () => ({
+jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/ufo'),
 	ConcurrentExperience: jest.fn().mockImplementation(
 		(): Partial<ConcurrentExperience> => ({
 			getInstance: jest.fn().mockImplementation((id: string) => ({
@@ -52,8 +53,10 @@ jest.mock('use-debounce', () => ({
 
 let shouldReturnEmptyResponse = false;
 
-jest.mock('@atlaskit/link-provider', () => ({
-	CardClient: jest.fn().mockImplementation(() => ({
+jest.mock('@atlaskit/link-provider/client', () => ({
+	...jest.requireActual('@atlaskit/link-provider/client'),
+	__esModule: true,
+	default: jest.fn().mockImplementation(() => ({
 		fetchData: jest.fn().mockImplementation(async (url, force) => {
 			if (shouldReturnEmptyResponse) {
 				return { data: {} }; // Return an empty object for the first test
@@ -71,7 +74,8 @@ interface LinkPickerTestProps extends Partial<LinkPickerProps> {
 	onSubmit: jest.Mock<any, any>;
 }
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
@@ -1233,7 +1237,7 @@ describe('LinkPicker analytics', () => {
 
 	describe('additional error handling', () => {
 		beforeEach(() => {
-			const fg = require('@atlaskit/platform-feature-flags').fg;
+			const fg = require('@atlaskit/platform-feature-flags/fg').fg;
 			fg.mockReturnValue(true);
 		});
 		it('should reject links without previews when previewableLinksOnly is true', async () => {
@@ -1277,7 +1281,7 @@ describe('LinkPicker analytics', () => {
 
 	describe('submit on input change', () => {
 		beforeEach(() => {
-			const fg = require('@atlaskit/platform-feature-flags').fg;
+			const fg = require('@atlaskit/platform-feature-flags/fg').fg;
 			fg.mockReturnValue(true);
 		});
 		it('debounce rapid typing and only submiting the final valid URL', async () => {

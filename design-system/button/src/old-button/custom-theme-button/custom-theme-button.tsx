@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
-import GlobalTheme from '@atlaskit/theme/components';
+import GlobalTheme from '@atlaskit/theme/theme';
 import { type ThemeModes } from '@atlaskit/theme/types';
 
 import ButtonBase from '../shared/button-base';
@@ -61,7 +61,7 @@ const initial: State = { isHover: false, isActive: false, isFocus: false };
 /**
  * __Custom theme button__
  *
- * @deprecated Legacy buttons are deprecated and will be removed from `atlaskit/button` in an upcoming major release. Please use the new Button components from `@atlaskit/button/new`
+ * @deprecated Legacy buttons are deprecated and will be removed from `atlaskit/button` in an upcoming major release. Please use `Button` from `@atlaskit/button/default/button`.
  *
  * Please refer to the [migration guide](https://atlassian.design/components/button/button-legacy/migration-guide) for further details.
  *

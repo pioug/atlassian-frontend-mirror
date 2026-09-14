@@ -2,9 +2,8 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type { Command, Direction } from '../types';
-
+import { isInTable } from './is-in-table';
 import { selectionCell } from './selection-cell';
-import { isInTable } from './tables';
 
 function moveCellForward($pos: ResolvedPos): ResolvedPos {
 	const nextNodeSize = $pos.nodeAfter ? $pos.nodeAfter.nodeSize : 0;

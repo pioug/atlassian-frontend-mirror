@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/embedded-confluence",
-	"version": "6.2.0",
+	"version": "6.4.1",
 	"description": "Embedded Confluence components for public consumption.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -57,11 +57,11 @@
 	"browser": "dist/embedded-confluence-bundle.js",
 	"exports": {
 		".": "./src/index.ts",
-		"./i18n": "./src/i18n/index.ts",
-		"./edit-page": "./src/entry-points/edit-page.tsx",
-		"./page": "./src/entry-points/page.tsx",
-		"./view-page": "./src/entry-points/view-page.tsx",
+		"./edit-page": "./src/edit-page/index.tsx",
+		"./embedded-confluence-common": "./src/entry-points/embedded-confluence-common.ts",
 		"./experience-tracker": "./src/entry-points/experience-tracker.ts",
-		"./embedded-confluence-common": "./src/entry-points/embedded-confluence-common.ts"
+		"./i18n": "./src/i18n/index.ts",
+		"./page": "./src/page/index.tsx",
+		"./view-page": "./src/view-page/index.tsx"
 	}
 }

@@ -1,6 +1,6 @@
 import React, { type SyntheticEvent, useCallback, useState } from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing/jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
@@ -17,26 +17,17 @@ import { DrawerSidebar } from '../../drawer-panel/drawer-sidebar';
 import { type DrawerProps } from '../../types';
 
 /**
- * Simulates the native `cancel` event the browser fires on `<dialog>` when the
- * user presses Escape. JSDOM does not implement the dialog API, so we dispatch
- * it manually. Mirrors `@atlaskit/modal-dialog`'s top-layer tests.
+ * JSDOM does not run the `cancel` event's default close action. The shared
+ * top-layer polyfill supplies the subsequent native `toggle` and `close` events.
  */
 function simulateDialogCancel(dialogEl: Element) {
+	const dialog = dialogEl as HTMLDialogElement;
 	const event = new Event('cancel', { cancelable: true });
 	act(() => {
-		dialogEl.dispatchEvent(event);
-	});
-}
-
-/**
- * Simulates the native `close` event the browser fires after `dialog.close()`.
- * JSDOM removes the `open` attribute but does not dispatch `close`, so the
- * Dialog primitive's non-animated exit handshake never unmounts the host.
- * Dispatch it manually to mirror a real browser completing the close.
- */
-function simulateDialogClose(dialogEl: Element) {
-	act(() => {
-		dialogEl.dispatchEvent(new Event('close'));
+		dialog.dispatchEvent(event);
+		if (!event.defaultPrevented) {
+			dialog.close();
+		}
 	});
 }
 
@@ -182,31 +173,30 @@ describe('Drawer top-layer rendering', () => {
 
 	// ── Close: Escape (native cancel) ──
 
-	it('should call onClose with a KeyboardEvent when Escape (cancel) fires', () => {
+	it('should call onClose with a KeyboardEvent when Escape (cancel) fires', async () => {
 		const onClose = jest.fn();
 		render(<ControlledDrawer onClose={onClose} />);
 
 		simulateDialogCancel(screen.getByTestId('drawer'));
 
-		expect(onClose).toHaveBeenCalledTimes(1);
+		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		const event = onClose.mock.calls[0][0];
 		expect(event).toBeInstanceOf(KeyboardEvent);
 		expect(event.key).toBe('Escape');
 	});
 
-	it('should close (unmount) after Escape', () => {
+	it('should close (unmount) after Escape', async () => {
 		render(<ControlledDrawer />);
 
 		expect(screen.getByTestId('drawer')).toBeInTheDocument();
 		simulateDialogCancel(screen.getByTestId('drawer'));
-		simulateDialogClose(screen.getByTestId('drawer'));
 
-		expect(screen.queryByTestId('drawer')).not.toBeInTheDocument();
+		await waitFor(() => expect(screen.queryByTestId('drawer')).not.toBeInTheDocument());
 	});
 
 	// ── Close: backdrop click ──
 
-	it('should call onClose with a MouseEvent when the backdrop is clicked', () => {
+	it('should call onClose with a MouseEvent when the backdrop is clicked', async () => {
 		const onClose = jest.fn();
 		render(<ControlledDrawer onClose={onClose} />);
 
@@ -214,7 +204,7 @@ describe('Drawer top-layer rendering', () => {
 		// (event.target === event.currentTarget).
 		fireEvent.click(screen.getByTestId('drawer'));
 
-		expect(onClose).toHaveBeenCalledTimes(1);
+		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		expect(onClose.mock.calls[0][0]).toBeInstanceOf(MouseEvent);
 	});
 
@@ -248,24 +238,23 @@ describe('Drawer top-layer rendering', () => {
 		expect(onOpenComplete).toHaveBeenCalledWith(expect.any(HTMLElement));
 	});
 
-	it('should call onCloseComplete after closing', () => {
+	it('should call onCloseComplete after closing', async () => {
 		const onCloseComplete = jest.fn();
 		render(<ControlledDrawer onCloseComplete={onCloseComplete} />);
 
 		simulateDialogCancel(screen.getByTestId('drawer'));
 
-		expect(onCloseComplete).toHaveBeenCalledTimes(1);
+		await waitFor(() => expect(onCloseComplete).toHaveBeenCalledTimes(1));
 		expect(onCloseComplete).toHaveBeenCalledWith(expect.any(HTMLElement));
 	});
 
 	// ── Re-open ──
 
-	it('should support re-opening after close', () => {
+	it('should support re-opening after close', async () => {
 		render(<ControlledDrawer />);
 
 		simulateDialogCancel(screen.getByTestId('drawer'));
-		simulateDialogClose(screen.getByTestId('drawer'));
-		expect(screen.queryByTestId('drawer')).not.toBeInTheDocument();
+		await waitFor(() => expect(screen.queryByTestId('drawer')).not.toBeInTheDocument());
 
 		fireEvent.click(screen.getByTestId('open-trigger'));
 
@@ -276,7 +265,7 @@ describe('Drawer top-layer rendering', () => {
 
 	// ── Analytics ──
 
-	it('should fire an analytics event with the escKey trigger on Escape', () => {
+	it('should fire an analytics event with the escKey trigger on Escape', async () => {
 		const onEvent = jest.fn();
 		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
@@ -306,12 +295,12 @@ describe('Drawer top-layer rendering', () => {
 			],
 		});
 
-		expect(onEvent).toHaveBeenCalledTimes(1);
+		await waitFor(() => expect(onEvent).toHaveBeenCalledTimes(1));
 		expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
 		expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
 	});
 
-	it('should fire an analytics event with the blanket trigger on backdrop click', () => {
+	it('should fire an analytics event with the blanket trigger on backdrop click', async () => {
 		const onEvent = jest.fn();
 		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onEvent}>
@@ -321,13 +310,13 @@ describe('Drawer top-layer rendering', () => {
 
 		fireEvent.click(screen.getByTestId('drawer'));
 
-		expect(onEvent).toHaveBeenCalledTimes(1);
+		await waitFor(() => expect(onEvent).toHaveBeenCalledTimes(1));
 		expect(onEvent.mock.calls[0][0].context[0]).toEqual(
 			expect.objectContaining({ trigger: 'blanket' }),
 		);
 	});
 
-	it('should pass the analytics event as the second arg to onClose', () => {
+	it('should pass the analytics event as the second arg to onClose', async () => {
 		const onClose = jest.fn();
 		render(
 			<AnalyticsListener channel="atlaskit" onEvent={jest.fn()}>
@@ -337,6 +326,7 @@ describe('Drawer top-layer rendering', () => {
 
 		simulateDialogCancel(screen.getByTestId('drawer'));
 
+		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		expect(onClose.mock.calls[0][1]).toBeDefined();
 		expect(onClose.mock.calls[0][1].payload.action).toBe('dismissed');
 	});

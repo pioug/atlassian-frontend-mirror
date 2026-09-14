@@ -5,8 +5,9 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import JQLEditor from '@atlaskit/jql-editor/ui';
+import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 import {
 	fieldValuesResponseForStatusesMapped,
 	mockSite,
@@ -14,7 +15,7 @@ import {
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { EVENT_CHANNEL } from '../../../../analytics';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
 import {
@@ -30,12 +31,15 @@ jest.mock('../../basic-filters/hooks/useHydrateJqlQuery');
 
 jest.mock('../../basic-filters/hooks/useFilterOptions');
 
-jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
+jest.mock('@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider', () => ({
+	...jest.requireActual('@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider'),
 	useAutocompleteProvider: jest.fn().mockReturnValue('useAutocompleteProvider-call-result'),
 }));
 
-jest.mock('@atlaskit/jql-editor', () => ({
-	JQLEditor: jest.fn().mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
+jest.mock('@atlaskit/jql-editor/ui', () => ({
+	...jest.requireActual('@atlaskit/jql-editor/ui'),
+	__esModule: true,
+	default: jest.fn().mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
 }));
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
@@ -45,13 +49,10 @@ skipAutoA11yFile();
 
 let mockRequest = jest.fn();
 
-jest.mock('@atlaskit/linking-common', () => {
-	const originalModule = jest.requireActual('@atlaskit/linking-common');
-	return {
-		...originalModule,
-		request: (...args: any) => mockRequest(...args),
-	};
-});
+jest.mock('@atlaskit/linking-common/api', () => ({
+	...jest.requireActual('@atlaskit/linking-common/api'),
+	request: (...args: any) => mockRequest(...args),
+}));
 
 const onAnalyticFireEvent = jest.fn();
 

@@ -1,8 +1,8 @@
 import { type Hooks, snapshotInformational, type SnapshotTestOptions } from '@af/visual-regression';
 
-import SpotlightDialogPlacement from '../../../../examples/30-spotlight-dialog-placement';
-import SpotlightButtonAppearance from '../../../../examples/90-spotlight-button-appearance';
-import SpotlightWithoutPulse from '../../../../examples/96-spotlight-without-pulse';
+import SpotlightDialogPlacement from '../../../../examples/30-spotlight-dialog-placement.vr.ap';
+import SpotlightButtonAppearance from '../../../../examples/90-spotlight-button-appearance.vr.ap';
+import SpotlightWithoutPulse from '../../../../examples/96-spotlight-without-pulse.vr.ap';
 
 const variants: SnapshotTestOptions<Hooks>['variants'] = [
 	{

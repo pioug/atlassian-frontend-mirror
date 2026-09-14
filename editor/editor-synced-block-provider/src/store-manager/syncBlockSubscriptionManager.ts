@@ -4,7 +4,6 @@ import { getDocument } from '@atlaskit/browser-apis';
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';
 import type {
@@ -24,16 +23,15 @@ import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 export interface SyncBlockSubscriptionManagerDeps {
-	/** Cancels any pending cache deletion timer for `resourceId` (gated). */
+	/** Cancels any pending cache deletion timer for `resourceId`. */
 	cancelPendingCacheDeletion: (resourceId: ResourceId) => void;
 	debouncedBatchedFetchSyncBlocks: (resourceId: string) => void;
-	deleteFromCache: (resourceId: ResourceId) => void;
 	fetchSyncBlockSourceInfo: (resourceId: ResourceId) => Promise<SyncBlockSourceInfo | undefined>;
 	getDataProvider: () => SyncBlockDataProviderInterface | undefined;
 	getFireAnalyticsEvent: () => ((payload: RendererSyncBlockEventPayload) => void) | undefined;
 	getFromCache: (resourceId: ResourceId) => SyncBlockInstance | undefined;
 	markCacheDirty: () => void;
-	/** Schedules guarded cache deletion for `resourceId` after a grace period (gated). */
+	/** Schedules guarded cache deletion for `resourceId` after a grace period. */
 	scheduleCacheDeletion: (resourceId: ResourceId) => void;
 	updateCache: (syncBlockInstance: SyncBlockInstance) => void;
 }
@@ -57,18 +55,12 @@ export class SyncBlockSubscriptionManager {
 	private graphqlSubscriptions = new Map<ResourceId, Unsubscribe>();
 	private subscriptionChangeListeners = new Set<() => void>();
 	private useRealTimeSubscriptions = false;
-	// Track pending cache deletions to handle block moves (unmount/remount)
-	// When a block is moved, the old component unmounts before the new one mounts,
-	// causing the cache to be deleted prematurely. We delay deletion to allow
-	// the new component to subscribe and cancel the pending deletion.
-	private pendingCacheDeletions = new Map<ResourceId, ReturnType<typeof setTimeout>>();
 
 	// Reconnection with exponential backoff.
 	private static readonly INITIAL_RETRY_DELAY_MS = 1000;
 	private static readonly RETRY_BACKOFF_MULTIPLIER = 2;
-	private static readonly MAX_RETRY_ATTEMPTS = 5; // legacy (gate OFF)
-	private static readonly MAX_RETRY_ATTEMPTS_HARDENED = 8; // gate ON (EDITOR-7861)
-	private static readonly MAX_RETRY_DELAY_MS = 30000; // backoff cap (gate ON)
+	private static readonly MAX_RETRY_ATTEMPTS_HARDENED = 8; // EDITOR-7861
+	private static readonly MAX_RETRY_DELAY_MS = 30000; // backoff cap
 	private retryAttempts = new Map<ResourceId, number>();
 	private pendingRetries = new Map<ResourceId, ReturnType<typeof setTimeout>>();
 
@@ -94,24 +86,17 @@ export class SyncBlockSubscriptionManager {
 	// EDITOR-7861: higher ceiling lets transient WS-gateway drops self-heal
 	// before a terminal failure is surfaced.
 	private getMaxRetryAttempts(): number {
-		return fg('platform_editor_blocks_patch_3')
-			? SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS_HARDENED
-			: SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS;
+		return SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS_HARDENED;
 	}
 
-	// Backoff delay for the given attempt.
-	// Gate OFF: pure exponential (1s, 2s, 4s, 8s, 16s).
-	// Gate ON (EDITOR-7861): exponential capped at MAX_RETRY_DELAY_MS with equal
-	// jitter (capped/2 + random*capped/2) — de-synchronises simultaneous
-	// reconnects while guaranteeing a non-zero delay (full jitter could hit 0).
+	// Backoff delay for the given attempt (EDITOR-7861): exponential capped at
+	// MAX_RETRY_DELAY_MS with equal jitter (capped/2 + random*capped/2) —
+	// de-synchronises simultaneous reconnects while guaranteeing a non-zero delay
+	// (full jitter could hit 0).
 	private getReconnectionDelay(attempts: number): number {
 		const exponential =
 			SyncBlockSubscriptionManager.INITIAL_RETRY_DELAY_MS *
 			Math.pow(SyncBlockSubscriptionManager.RETRY_BACKOFF_MULTIPLIER, attempts);
-
-		if (!fg('platform_editor_blocks_patch_3')) {
-			return exponential;
-		}
 
 		const half = Math.min(exponential, SyncBlockSubscriptionManager.MAX_RETRY_DELAY_MS) / 2;
 		return Math.round(half + Math.random() * half);
@@ -169,10 +154,7 @@ export class SyncBlockSubscriptionManager {
 						(error as Error).message,
 						undefined,
 						undefined,
-						buildFetchErrorAttribution(
-							fg('platform_editor_blocks_patch_3'),
-							(error as Error).message,
-						),
+						buildFetchErrorAttribution((error as Error).message),
 					),
 				);
 			}
@@ -204,17 +186,7 @@ export class SyncBlockSubscriptionManager {
 		// This handles the case where a block is moved - the old component unmounts
 		// (scheduling deletion) but the new component mounts and subscribes before
 		// the deletion timeout fires.
-		//
-		// Under the flag, cache deletion is owned by the store manager.
-		// With the flag off, the legacy 1s timer path is preserved.
-		const pendingDeletion = this.pendingCacheDeletions.get(resourceId);
-
-		if (fg('platform_synced_block_patch_14')) {
-			this.deps.cancelPendingCacheDeletion(resourceId);
-		} else if (pendingDeletion) {
-			clearTimeout(pendingDeletion);
-			this.pendingCacheDeletions.delete(resourceId);
-		}
+		this.deps.cancelPendingCacheDeletion(resourceId);
 
 		// add to subscriptions map
 		const resourceSubscriptions = this.subscriptions.get(resourceId) || {};
@@ -260,30 +232,9 @@ export class SyncBlockSubscriptionManager {
 					// Notify listeners that subscription was removed
 					this.notifySubscriptionChangeListeners();
 
-					// Under the flag, delegate cache deletion to the store manager
+					// Delegate cache deletion to the store manager
 					// which uses a 30s grace period with guard re-checks.
-					if (fg('platform_synced_block_patch_14')) {
-						this.deps.scheduleCacheDeletion(resourceId);
-					} else {
-						// Legacy path (unchanged): delay cache deletion to handle
-						// block moves (unmount/remount). When a block is moved, the
-						// old component unmounts before the new one mounts. By
-						// delaying deletion, we give the new component time to
-						// subscribe and cancel this pending deletion, preserving
-						// the cached data.
-						// TODO: EDITOR-4152 - Rework this logic (superseded by
-						// `platform_synced_block_patch_14`).
-						const deletionTimeout = setTimeout(() => {
-							const hasSubscribers = this.subscriptions.has(resourceId);
-
-							// Only delete if still no subscribers (wasn't re-subscribed)
-							if (!hasSubscribers) {
-								this.deps.deleteFromCache(resourceId);
-							}
-							this.pendingCacheDeletions.delete(resourceId);
-						}, 1000);
-						this.pendingCacheDeletions.set(resourceId, deletionTimeout);
-					}
+					this.deps.scheduleCacheDeletion(resourceId);
 				} else {
 					this.subscriptions.set(resourceId, resourceSubscriptions);
 				}
@@ -364,22 +315,10 @@ export class SyncBlockSubscriptionManager {
 					location:
 						'editor-synced-block-provider/syncBlockSubscriptionManager/graphql-subscription',
 				});
-				// EDITOR-7861: a single socket drop is usually transient and
-				// recovers on reconnect, so under the gate we don't fire a
-				// user-facing error here — it's only surfaced on exhaustion (see
-				// scheduleReconnection). Gate OFF keeps the legacy fire-on-drop.
-				// This branch only runs when the gate is OFF, so buildFetchErrorAttribution
-				// would return undefined; the structured attribution (EDITOR-7862) is therefore
-				// applied at the gate-ON exhaustion site in scheduleReconnection instead.
-				if (!fg('platform_editor_blocks_patch_3')) {
-					this.deps.getFireAnalyticsEvent()?.(
-						fetchErrorPayload(
-							error.message,
-							resourceId,
-							getSourceProductFromResourceIdSafe(resourceId),
-						),
-					);
-				}
+				// EDITOR-7861: a single socket drop is usually transient and recovers
+				// on reconnect, so we don't fire a user-facing error here — it's only
+				// surfaced on exhaustion, where the structured attribution
+				// (EDITOR-7862) is applied too. See scheduleReconnection.
 				this.handleSubscriptionTerminated(resourceId);
 			},
 			() => {
@@ -419,14 +358,13 @@ export class SyncBlockSubscriptionManager {
 
 		if (attempts >= maxAttempts) {
 			// Exhausted all attempts — the only place a WS drop surfaces as a
-			// fetch error under the gate (EDITOR-7861).
+			// fetch error (EDITOR-7861).
 			const errorMessage = `Subscription reconnection failed after ${attempts} attempts`;
 
 			// Tab hidden at exhaustion: don't surface a terminal failure (user isn't
 			// looking, and most exhaustions self-recover once foregrounded). Park + re-arm
 			// on wake, emitting a benign `deferred` signal so suppression stays auditable.
-			const shouldDefer = fg('platform_editor_blocks_patch_3') && this.isDocumentHidden();
-			if (shouldDefer) {
+			if (this.isDocumentHidden()) {
 				this.deferredExhausted.add(resourceId);
 				this.registerWakeListeners();
 				this.deps.getFireAnalyticsEvent()?.(
@@ -434,7 +372,7 @@ export class SyncBlockSubscriptionManager {
 						errorMessage,
 						resourceId,
 						getSourceProductFromResourceIdSafe(resourceId),
-						buildFetchErrorAttribution(true, errorMessage, undefined, /* deferred */ true),
+						buildFetchErrorAttribution(errorMessage, undefined, /* deferred */ true),
 					),
 				);
 				return;
@@ -448,7 +386,7 @@ export class SyncBlockSubscriptionManager {
 					errorMessage,
 					resourceId,
 					getSourceProductFromResourceIdSafe(resourceId),
-					buildFetchErrorAttribution(fg('platform_editor_blocks_patch_3'), errorMessage),
+					buildFetchErrorAttribution(errorMessage),
 				),
 			);
 			return;
@@ -614,12 +552,6 @@ export class SyncBlockSubscriptionManager {
 		this.titleSubscriptions.clear();
 		this.subscriptionChangeListeners.clear();
 		this.useRealTimeSubscriptions = false;
-
-		// Clear any pending cache deletions
-		for (const timeout of this.pendingCacheDeletions.values()) {
-			clearTimeout(timeout);
-		}
-		this.pendingCacheDeletions.clear();
 	}
 
 	public shouldUseRealTime(): boolean {
@@ -673,7 +605,6 @@ export class SyncBlockSubscriptionManager {
 					syncBlockInstance.data?.product ??
 						getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
 					buildFetchErrorAttribution(
-						fg('platform_editor_blocks_patch_3'),
 						syncBlockInstance.error?.type || syncBlockInstance.error?.reason,
 						syncBlockInstance.error?.statusCode,
 					),

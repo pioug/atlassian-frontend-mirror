@@ -9,7 +9,7 @@ import {
 	MockPayloadGenerator,
 } from 'relay-test-utils';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { renderWithDi, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
 
 import { generateMockAgentEdges } from '../../common/utils/generate-mock-agent-edges';

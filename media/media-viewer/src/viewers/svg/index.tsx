@@ -6,23 +6,30 @@ import React, {
 	useCallback,
 	useLayoutEffect,
 } from 'react';
-import { Camera, messages, Vector2 } from '@atlaskit/media-ui';
-import { ANALYTICS_MEDIA_CHANNEL, type MediaTraceContext } from '@atlaskit/media-common';
-import { type FileIdentifier } from '@atlaskit/media-client';
 
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-
-import { BaselineExtend } from '../../styleWrappers';
-import { ZoomLevel } from '../../domain/zoomLevel';
-
-import { ZoomControls } from '../../zoomControls';
-import { createClosedEvent } from '../../analytics/events/ui/closed';
-import MediaSvg, { type MediaSVGError } from '@atlaskit/media-svg';
-import { MediaViewerError } from '../../errors';
-import { clientRectangle, naturalSizeRectangle, zoomLevelAfterResize } from './utils';
-import { ImageWrapper } from './ImageWrapper';
-import { getErrorReason } from './errors';
 import { useIntl } from 'react-intl';
+
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { type FileIdentifier } from '@atlaskit/media-client';
+import { ANALYTICS_MEDIA_CHANNEL, type MediaTraceContext } from '@atlaskit/media-common';
+import MediaSvg from '@atlaskit/media-svg/media-svg';
+import type { MediaSVGError } from '@atlaskit/media-svg/media-svg-error';
+import { Camera } from '@atlaskit/media-ui/camera/camera';
+import { messages } from '@atlaskit/media-ui/messages';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+
+import { MediaViewerError } from '../../MediaViewerError';
+import { createClosedEvent } from '../../analytics/events/ui/closed';
+import { ZoomLevel } from '../../domain/zoomLevel';
+import { BaselineExtend } from '../../styleWrappers';
+import { ZoomControls } from '../../zoomControls';
+import { ImageWrapper } from './ImageWrapper';
+import { clientRectangle } from './clientRectangle';
+import { getErrorReason } from './errors';
+import { naturalSizeRectangle } from './naturalSizeRectangle';
+import { zoomLevelAfterResize } from './zoomLevelAfterResize';
 
 type WrapperScroll = {
 	scrollLeft: number;

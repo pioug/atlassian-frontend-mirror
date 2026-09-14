@@ -9,7 +9,6 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'enforceCommonPeerDependenc
 		type: 'problem',
 		docs: {
 			description: 'Enforce editor common as a peerDependency.',
-			recommended: 'error',
 		},
 		messages: {
 			enforceCommonPeerDependency:

@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import ConnectSuccessFlag from '../../../examples/vr-flag/vr-connect-success-flag';
+import ConnectSuccessFlag from '../../../examples/vr-flag/vr-connect-success-flag.vr.ap';
 
 snapshot(ConnectSuccessFlag, {
 	drawsOutsideBounds: true,

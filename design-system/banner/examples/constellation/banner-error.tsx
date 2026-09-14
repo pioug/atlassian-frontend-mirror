@@ -2,7 +2,7 @@ import React from 'react';
 
 import Banner from '@atlaskit/banner';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 const BannerErrorExample = (): React.JSX.Element => {
 	return (

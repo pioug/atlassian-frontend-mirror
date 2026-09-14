@@ -29,7 +29,7 @@ describe('<EmojiButton />', () => {
 			act(() => {
 				fireEvent.click(btn);
 			});
-			expect(mockOnClickSpy).toBeCalled();
+			expect(mockOnClickSpy).toHaveBeenCalled();
 		});
 	});
 
@@ -45,7 +45,7 @@ describe('<EmojiButton />', () => {
 			act(() => {
 				fireEvent.click(btn);
 			});
-			expect(mockOnClickSpy).toBeCalled();
+			expect(mockOnClickSpy).toHaveBeenCalled();
 		});
 	});
 });

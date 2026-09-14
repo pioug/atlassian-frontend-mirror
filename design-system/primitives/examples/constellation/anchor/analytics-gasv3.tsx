@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Anchor } from '@atlaskit/primitives/compiled';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import {
 	ANALYTICS_BRIDGE_CHANNEL,
 	extractAWCDataFromEvent,

@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import BasicFocusRingExample from '../../../../../examples/80-focusable';
+import BasicFocusRingExample from '../../../../../examples/80-focusable.vr.ap';
 
 snapshot(BasicFocusRingExample);
 

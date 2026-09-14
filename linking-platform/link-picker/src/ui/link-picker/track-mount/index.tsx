@@ -4,7 +4,7 @@
  */
 import { useLayoutEffect } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { succeedUfoExperience, ufoExperience } from '../../../common/analytics/experiences';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';

@@ -1,5 +1,5 @@
 import format from '@af/formatting/sync';
-import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
+import tokens from '@atlaskit/tokens/atlassian-spacing';
 
 const spacingTokenPrefix = 'space.';
 const negativeSuffix = '.negative';

@@ -1,8 +1,8 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import BasicDrawer from '../../../examples/02-drawer-default';
-import Widths from '../../../examples/05-drawer-widths';
-import StackedDrawers from '../../../examples/40-stacked-drawers';
+import BasicDrawer from '../../../examples/02-drawer-default.vr.ap';
+import Widths from '../../../examples/05-drawer-widths.vr.ap';
+import StackedDrawers from '../../../examples/40-stacked-drawers.vr.ap';
 
 // Always force the top-layer (`<dialog>`) path on. These are the permanent
 // visual baselines for the top-layer drawer and survive flag cleanup. The

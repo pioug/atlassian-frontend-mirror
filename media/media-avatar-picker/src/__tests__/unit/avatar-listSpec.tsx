@@ -39,7 +39,7 @@ describe('Avatar List', () => {
 		// click on the other (unselected) avatar to select it
 		await user.click(screen.getByRole('radio', { checked: false }));
 
-		expect(onItemClick).toBeCalledWith(otherAvatar);
+		expect(onItemClick).toHaveBeenCalledWith(otherAvatar);
 	});
 
 	ffTest.on(

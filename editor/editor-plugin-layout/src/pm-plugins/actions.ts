@@ -1,4 +1,4 @@
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -22,9 +22,9 @@ import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prose
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { LayoutPlugin } from '../layoutPluginType';
 import type { Change, PresetLayout } from '../types';
@@ -508,14 +508,8 @@ export const setPresetLayout =
 
 function layoutNeedChanges(node: Node): boolean {
 	if (editorExperiment('advanced_layouts', true)) {
-		if (editorExperiment('platform_editor_layout_column_resize_handle', true)) {
-			// Custom widths that sum to 100% are valid and should not be forced back to presets
-			if (isValidLayoutWidthDistributions(node)) {
-				return false;
-			}
-			return true;
-		}
-		return !getPresetLayout(node) || !isValidLayoutWidthDistributions(node);
+		// Custom widths that sum to 100% are valid and should not be forced back to presets.
+		return !isValidLayoutWidthDistributions(node);
 	}
 
 	return !getPresetLayout(node);
@@ -612,13 +606,8 @@ export const fixColumnStructure = (state: EditorState): Transaction | undefined 
 
 		if (node) {
 			if (node.childCount !== getWidthsForPreset(selectedLayout).length) {
-				// If the resize handle experiment is on and widths are valid, don't force preset
-				// (column count mismatch might be from a different preset being selected)
-				if (
-					editorExperiment('advanced_layouts', true) &&
-					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
-					isValidLayoutWidthDistributions(node)
-				) {
+				// Valid custom widths may use a different column count from the selected preset.
+				if (editorExperiment('advanced_layouts', true) && isValidLayoutWidthDistributions(node)) {
 					return;
 				}
 				return forceSectionToPresetLayout(state, node, pos, selectedLayout);

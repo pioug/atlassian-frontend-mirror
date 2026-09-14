@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformTextfield from '@atlaskit/textfield';
+import PlatformTextfield from '@atlaskit/textfield/text-field';
 import type { EventHandlerProps } from './types.codegen';
 
 type PlatformTextfieldProps = React.ComponentProps<typeof PlatformTextfield>;

@@ -1,12 +1,17 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import type { MentionUserType } from '@atlaskit/adf-schema';
+import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import type { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionNodeData } from '@atlaskit/mention/types';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
 
+import type {
+	MentionNodeDataIdentifier,
+	MentionNodeDataProvider,
+} from './mention-node-data-provider';
 import ResourcedMentionWithProfilecard from './mention-with-profilecard';
 
 export interface Props {
@@ -16,10 +21,16 @@ export interface Props {
 	id: string;
 	isDisabled?: boolean;
 	localId?: string;
+	mentionNodeDataProvider?: MentionNodeDataProvider;
 	mentionProvider?: Promise<MentionProvider>;
 	profilecardProvider?: Promise<ProfilecardProvider>;
 	text: string;
 	userType?: MentionUserType;
+}
+
+export interface MentionWithProvidersProps extends Props {
+	mentionNodeData?: MentionNodeData;
+	renderAvatarSlot?: boolean;
 }
 
 export interface State {
@@ -28,16 +39,53 @@ export interface State {
 
 const GENERIC_USER_IDS = ['HipChat', 'all', 'here'];
 
+const useMentionNodeData = ({
+	id,
+	mentionNodeDataProvider,
+	userType,
+}: {
+	id: string;
+	mentionNodeDataProvider: MentionNodeDataProvider;
+	userType?: MentionUserType;
+}) => {
+	const mention = useMemo<MentionNodeDataIdentifier>(() => ({ id, userType }), [id, userType]);
+	const mentionKey = `${userType ?? 'DEFAULT'}:${id}`;
+	const synchronousData = useMemo(
+		() => mentionNodeDataProvider.getMentionDataFromCache(mention),
+		[mention, mentionNodeDataProvider],
+	);
+	const [state, setState] = useState<{
+		data: MentionNodeData | undefined;
+		key: string;
+	}>(() => ({
+		data: synchronousData,
+		key: mentionKey,
+	}));
+
+	const data = state.key === mentionKey ? (state.data ?? synchronousData) : synchronousData;
+
+	useEffect(() => {
+		if (synchronousData) {
+			return;
+		}
+
+		let isActive = true;
+		mentionNodeDataProvider.getMentionData(mention, (payload) => {
+			if (isActive && payload.data) {
+				setState({ data: payload.data, key: mentionKey });
+			}
+		});
+
+		return () => {
+			isActive = false;
+		};
+	}, [mention, mentionKey, mentionNodeDataProvider, synchronousData]);
+
+	return data;
+};
+
 export const MentionWithProviders: React.MemoExoticComponent<
-	({
-		accessLevel,
-		eventHandlers,
-		id,
-		mentionProvider,
-		profilecardProvider,
-		text,
-		localId,
-	}: Props) => React.JSX.Element
+	(props: MentionWithProvidersProps) => React.JSX.Element
 > = React.memo(
 	({
 		accessLevel,
@@ -45,12 +93,14 @@ export const MentionWithProviders: React.MemoExoticComponent<
 		eventHandlers,
 		id,
 		isDisabled,
+		mentionNodeData,
 		mentionProvider,
 		profilecardProvider: profilecardProviderResolver,
+		renderAvatarSlot = false,
 		text,
 		localId,
 		userType,
-	}: Props): React.JSX.Element => {
+	}: MentionWithProvidersProps): React.JSX.Element => {
 		const [profilecardProvider, setProfilecardProvider] = useState<ProfilecardProvider | null>(
 			null,
 		);
@@ -98,11 +148,15 @@ export const MentionWithProviders: React.MemoExoticComponent<
 					accessLevel={accessLevel}
 					localId={localId}
 					mentionProvider={mentionProvider}
+					appType={mentionNodeData?.appType}
+					avatarUrl={mentionNodeData?.avatarUrl}
+					isAvatarImagePreShaped={mentionNodeData?.isAvatarImagePreShaped}
 					isDisabled
 					disabledTooltip={disabledTooltip}
 					onClick={eventHandlers?.onClick}
 					onMouseEnter={eventHandlers?.onMouseEnter}
 					onMouseLeave={eventHandlers?.onMouseLeave}
+					renderAvatarSlot={renderAvatarSlot}
 					ssrPlaceholderId={ssrPlaceholderId}
 				/>
 			);
@@ -116,14 +170,39 @@ export const MentionWithProviders: React.MemoExoticComponent<
 				localId={localId}
 				userType={userType}
 				mentionProvider={mentionProvider}
+				appType={mentionNodeData?.appType}
+				avatarUrl={mentionNodeData?.avatarUrl}
+				isAvatarImagePreShaped={mentionNodeData?.isAvatarImagePreShaped}
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				profilecardProvider={profilecardProvider!}
 				onClick={eventHandlers?.onClick}
 				onMouseEnter={eventHandlers?.onMouseEnter}
 				onMouseLeave={eventHandlers?.onMouseLeave}
+				renderAvatarSlot={renderAvatarSlot}
 				ssrPlaceholderId={ssrPlaceholderId}
 			/>
 		);
 	},
 );
+
+export const MentionWithAvatarProviders: React.MemoExoticComponent<
+	(props: Props & { mentionNodeDataProvider: MentionNodeDataProvider }) => React.JSX.Element
+> = React.memo(({ id, mentionNodeDataProvider, userType, ...props }): React.JSX.Element => {
+	const mentionNodeData = useMentionNodeData({
+		id,
+		mentionNodeDataProvider,
+		userType,
+	});
+
+	return (
+		<MentionWithProviders
+			// eslint-disable-next-line react/jsx-props-no-spreading -- The treatment adds only resolved avatar data to the existing mention props.
+			{...props}
+			id={id}
+			mentionNodeData={mentionNodeData}
+			renderAvatarSlot
+			userType={userType}
+		/>
+	);
+});

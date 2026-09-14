@@ -13,7 +13,10 @@ import type {
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 import { token } from '@atlaskit/tokens';
 
 import { useStateFromPromise } from '../../src/ui/ConfigPanel/use-state-from-promise';

@@ -1,6 +1,6 @@
 import { getDocument } from '@atlaskit/browser-apis';
 import { themeImportMap } from '@atlaskit/tokens/artifacts/theme-import-map';
-import type { ThemeIds } from '@atlaskit/tokens/theme-config';
+import type { ThemeIds } from '@atlaskit/tokens/theme-ids';
 
 import { type Theme } from '../context/theme';
 

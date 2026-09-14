@@ -1,0 +1,43 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import type { JSX } from 'react';
+
+import { jsx } from '@compiled/react';
+
+import { cssMap } from '@atlaskit/css';
+import Heading from '@atlaskit/heading/heading';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	container: {
+		position: 'relative',
+		width: '12rem',
+		overflow: 'clip',
+	},
+	header: {
+		position: 'absolute',
+		insetBlockStart: token('space.0'),
+		insetInlineEnd: token('space.0'),
+		insetInlineStart: token('space.0'),
+		borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
+		boxShadow: token('elevation.shadow.overflow'),
+	},
+});
+
+export default (): JSX.Element => {
+	return (
+		<Box backgroundColor="elevation.surface.raised" padding="space.200" xcss={styles.container}>
+			<Box
+				backgroundColor="utility.elevation.surface.current"
+				padding="space.200"
+				xcss={styles.header}
+			>
+				<Heading size="small">Header overlay</Heading>
+			</Box>
+			<p>Some text that is partially covered by the header.</p>
+		</Box>
+	);
+};

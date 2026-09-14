@@ -7,10 +7,10 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { type TriggerProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
-import { WidthObserver } from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { OverflowProvider } from '../../controllers/overflow/overflow-provider';
 import { useOverflowController } from '../../controllers/overflow/use-overflow-controller';
@@ -27,8 +27,9 @@ const containerStyles = css({
 	flexBasis: 0,
 	flexGrow: 1,
 	flexShrink: 0,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > *': {
+	// Guard excludes top-layer popover siblings (eg the overflow menu / tooltip); :where() keeps specificity.
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'& > *:not(:where([popover], dialog))': {
 		margin: `0 ${token('space.050')}`,
 		flexShrink: 0,
 	},

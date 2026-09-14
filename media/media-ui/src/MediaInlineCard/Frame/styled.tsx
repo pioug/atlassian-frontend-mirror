@@ -14,5 +14,3 @@ export const Wrapper: React.ForwardRefExoticComponent<
 		ref: React.Ref<HTMLSpanElement>,
 	) => <CompiledWrapper {...props} ref={ref} />,
 );
-
-export type { WrapperProps } from './styled-compiled';

@@ -1,11 +1,11 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { isConfluenceGenerator } from '@atlaskit/link-extractors';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { isConfluenceGenerator } from '@atlaskit/link-extractors/is-confluence-generator';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { IconType } from '../../../../constants';
 import extractDocumentTypeIcon from '../extract-document-type-icon';
 
-jest.mock('@atlaskit/link-extractors');
+jest.mock('@atlaskit/link-extractors/is-confluence-generator');
 
 beforeEach(() => {
 	jest.mocked(isConfluenceGenerator).mockReturnValue(false);

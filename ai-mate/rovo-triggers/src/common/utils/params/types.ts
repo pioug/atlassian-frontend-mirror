@@ -1,6 +1,12 @@
-export type RovoChatPathway = 'chat' | 'agents-browse' | 'agents-create' | 'pulse';
+export type RovoChatPathway =
+	| 'chat'
+	| 'agents-browse'
+	| 'agents-create'
+	| 'pulse'
+	| 'remix'
+	| 'all-conversations';
 
-export type RovoChatOpenMode = 'sidebar' | 'mini-modal' | 'full-screen-modal';
+export type RovoChatOpenMode = 'sidebar' | 'mini-modal';
 
 export interface BaseRovoChatParams {
 	pathway: RovoChatPathway;
@@ -13,8 +19,11 @@ export interface BaseRovoChatParams {
 	insertPrompt: 'highlight-action';
 	stagingAreaOpen: boolean;
 	messageIdSelectedForPreview: string;
+	invocationIdSelectedForPreview: string;
 	promptLibraryOpen: boolean;
 	openChatMode: RovoChatOpenMode;
+	rovoJourneyId: string;
+	searchQuery: string;
 }
 
 export type ValidPrefix = 'rovoChat';
@@ -29,7 +38,14 @@ type ChatParams = RovoParams<'chat'>;
 type AgentBrowseParams = RovoParams<'agents-browse'>;
 type AgentCreateParams = RovoParams<'agents-create'>;
 type PulseParams = RovoParams<'pulse'>;
+type RemixParams = RovoParams<'remix'>;
+type AllConversationsParams = RovoParams<'all-conversations'>;
 
 export type RovoChatParams = Partial<
-	ChatParams | AgentCreateParams | AgentBrowseParams | PulseParams
+	| ChatParams
+	| AgentCreateParams
+	| AgentBrowseParams
+	| PulseParams
+	| RemixParams
+	| AllConversationsParams
 >;

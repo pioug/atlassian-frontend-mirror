@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension/use-smart-link-client-extension';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 
 const useInvoke = (): ((req: InvokeRequest, cb?: Function) => Promise<any>) => {

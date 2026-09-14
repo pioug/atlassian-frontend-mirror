@@ -20,7 +20,7 @@ test.describe('side nav tab order', () => {
 		page,
 		browserName,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/side-nav-layering.tsx')>(
+		await page.visitExample<typeof import('../../../examples/side-nav-layering.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'side-nav-layering',

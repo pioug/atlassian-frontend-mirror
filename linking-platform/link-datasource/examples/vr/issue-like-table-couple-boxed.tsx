@@ -4,7 +4,7 @@ import { styled } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
+import { VRIssueLikeTable } from './issue-like-table.vr.ap';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({

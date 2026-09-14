@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
 
 import { IsFhsEnabledProvider } from '../../is-fhs-enabled-provider';
 

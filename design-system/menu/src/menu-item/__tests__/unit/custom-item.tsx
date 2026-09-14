@@ -61,7 +61,6 @@ describe('<CustomItem />', () => {
 
 		render(
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
-			// @ts-ignore
 			<CustomItem component={Component} css={hackStyles} testId="link">
 				Hello world
 			</CustomItem>,

@@ -77,9 +77,9 @@ export const hasContentBeforeStructure = (
 };
 
 /**
- * Checks if there's any content before the Headings section (i.e., Structure, Create, or Suggested sections have content)
+ * Checks if there's any content before the Text formatting section (i.e., Structure, Create, or Suggested sections have content)
  */
-export const hasContentBeforeHeadings = (
+export const hasContentBeforeTextFormatting = (
 	api: ExtractInjectionAPI<BlockMenuPlugin> | undefined,
 ): boolean => {
 	return (

@@ -9,11 +9,11 @@ import { useIntl } from 'react-intl';
 import { graphql, usePaginationFragment } from 'react-relay';
 
 import { jsx } from '@atlaskit/css';
-import { Label } from '@atlaskit/form';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { Label } from '@atlaskit/form/label/default';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 
 import { useSuspenselessRefetch } from '../../common/utils/use-suspenseless-refetch';
 
@@ -55,6 +55,7 @@ export function RovoAgentSelector({
 	selectedAgent,
 	onChange,
 	isLoading: isLoadingOverride,
+	isDisabled = false,
 }: RovoAgentSelectorProps): JSX.Element | null {
 	const { formatMessage } = useIntl();
 	const isFeatureEnabled = isFeatureEnabledOverride ?? fg('jsm_help_center_one-click_rovo_agent');
@@ -182,6 +183,7 @@ export function RovoAgentSelector({
 					isSearchable
 					filterOption={() => true} // Disabled filtering in component since options are cached and filtered in relay store
 					isLoading={isLoading}
+					isDisabled={isDisabled}
 					onMenuScrollToBottom={handleMenuScrollToBottom}
 					formatOptionLabel={({
 						label,

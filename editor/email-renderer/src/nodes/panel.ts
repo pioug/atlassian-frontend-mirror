@@ -1,4 +1,4 @@
-import { B50, R50, Y50, G50, P50 } from '@atlaskit/adf-schema';
+import { B50, R50, Y50, G50, P50 } from '@atlaskit/adf-schema/colors';
 
 import type { NodeSerializerOpts } from '../interfaces';
 import { createTable } from '../table-util';

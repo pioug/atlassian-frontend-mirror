@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "12.1.0",
+	"version": "18.0.0",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -23,21 +23,32 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./quick-insert-plugin": "./src/entry-points/quick-insert-plugin.tsx",
+		"./registry-element-browser": "./src/entry-points/registry-element-browser.tsx",
 		"./quick-insert-plugin-type": "./src/entry-points/quick-insert-plugin-type.ts"
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-metrics": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/editor-tables": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
@@ -53,42 +64,6 @@
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"platform_editor_ease_of_use_metrics": {

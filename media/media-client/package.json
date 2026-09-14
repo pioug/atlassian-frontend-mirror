@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "37.2.18",
+	"version": "38.1.6",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"./identifier": "./src/identifier.ts",
 		"./image-resize-mode-to-file-image-mode": "./src/utils/imageResizeModeToFileImageMode.ts",
 		"./item": "./src/models/item.ts",
+		"./media-cdn": "./src/utils/mediaCdn.ts",
 		"./media-client": "./src/client/media-client.ts",
 		"./media-store": "./src/client/media-store/MediaStore.ts",
 		"./media-store/types": "./src/client/media-store/types.ts",
@@ -51,6 +52,7 @@
 		"./request/errors": "./src/utils/request/errors.ts",
 		"./request/helpers": "./src/utils/request/helpers.ts",
 		"./request/types": "./src/utils/request/types.ts",
+		"./ssr-media-item": "./src/models/ssr-media-item.ts",
 		"./stargate-client": "./src/client/stargate-client.ts",
 		"./test-helpers/auth-provider": {
 			"publish": null,
@@ -107,6 +109,7 @@
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/chunkinator": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -115,6 +118,7 @@
 		"eventemitter2": "root:*",
 		"js-sha256": "root:*",
 		"lru_map": "root:*",
+		"mime": "root:*",
 		"rusha": "root:*",
 		"rxjs": "root:*",
 		"uuid": "root:*",
@@ -125,30 +129,19 @@
 		"@atlaskit/media-state": "workspace:^"
 	},
 	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@emotion/react": "root:*",
 		"@types/deep-equal": "root:*",
 		"fetch-mock": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"circular-dependencies": [
-				"file-level"
-			]
-		},
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			]
-		}
 	},
 	"platform-feature-flags": {
 		"platform_media_cdn_single_host": {

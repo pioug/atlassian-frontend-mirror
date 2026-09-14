@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import Lorem from 'react-lorem-component';
 
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import { ExitingPersistence, SlideIn } from '@atlaskit/motion';
+import Heading from '@atlaskit/heading/heading';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import SlideIn from '@atlaskit/motion/slide-in';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
 import { Stack } from '@atlaskit/primitives/compiled';

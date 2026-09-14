@@ -2,10 +2,12 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
+import AppProvider from '@atlaskit/app-provider/app-provider';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import TaskIcon from '@atlaskit/icon/core/task';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { DropdownItem } from '../../index';
+import DropdownItem from '../../dropdown-menu-item';
 
 type MyRouterLinkConfig = {
 	to: string;
@@ -58,6 +60,45 @@ describe('DropdownMenu Item', () => {
 			const desc = 'A long text to describe a menu';
 			render(<DropdownItem description={desc}>Menu</DropdownItem>);
 			expect(screen.getByText(desc)).toBeInTheDocument();
+		});
+
+		describe('aria-current', () => {
+			it('should set aria-current when selected', () => {
+				render(
+					<DropdownItem isSelected testId="item">
+						Menu
+					</DropdownItem>,
+				);
+				expect(screen.getByTestId('item')).toHaveAttribute('aria-current', 'true');
+			});
+
+			describe('nested submenu trigger (A11Y-29757)', () => {
+				it('should not set aria-current when gate is on', () => {
+					passGate('platform_dst_dropdown_nested_trigger_aria_current');
+					render(
+						// @ts-ignore -- aria-haspopup is supplied by DropdownMenu via spread props for nested triggers
+						<DropdownItem isSelected aria-haspopup="true" aria-expanded="true" testId="item">
+							Menu
+						</DropdownItem>,
+					);
+					// The open state is conveyed via aria-expanded, so aria-current is inappropriate here.
+					expect(screen.getByTestId('item')).not.toHaveAttribute('aria-current');
+					expect(screen.getByTestId('item')).toHaveAttribute('aria-haspopup', 'true');
+				});
+
+				it('should retain legacy aria-current when gate is off', () => {
+					failGate('platform_dst_dropdown_nested_trigger_aria_current');
+					render(
+						// @ts-ignore -- aria-haspopup is supplied by DropdownMenu via spread props for nested triggers
+						<DropdownItem isSelected aria-haspopup="true" aria-expanded="true" testId="item">
+							Menu
+						</DropdownItem>,
+					);
+					// Legacy behaviour: ButtonItem still sets aria-current from isSelected.
+					expect(screen.getByTestId('item')).toHaveAttribute('aria-current', 'true');
+					expect(screen.getByTestId('item')).toHaveAttribute('aria-haspopup', 'true');
+				});
+			});
 		});
 
 		describe('custom component', () => {

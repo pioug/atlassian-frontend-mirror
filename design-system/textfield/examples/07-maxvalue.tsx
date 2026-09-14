@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import Textfield from '@atlaskit/textfield';
+import { Label } from '@atlaskit/form/label/default';
+import Textfield from '@atlaskit/textfield/text-field';
 
 export default function MaxValueExample(): React.JSX.Element {
 	return (

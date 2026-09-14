@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3ed7d2f84cfdfe8bfef2a295bafed6da>>
+ * @codegen <<SignedSource::044049efdd2217162649a080adc11147>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 83 32">
  *
  */
 export function JiraLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Jira',
 	testId,

@@ -1,5 +1,5 @@
 import { sha256 } from 'js-sha256';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type Hasher } from './hasher';
 import { toFileReaderError } from './fileReaderError';
 

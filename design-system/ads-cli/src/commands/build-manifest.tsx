@@ -16,12 +16,11 @@ export type ManifestCommand = Pick<
 };
 
 export type Manifest = {
-	schemaVersion: 1;
+	schemaVersion: 2;
 	name: typeof CLI_NAME;
 	bin: typeof CLI_BIN_NAME;
 	version: string;
 	description: string;
-	invocation: string;
 	commands: ManifestCommand[];
 	globalFlags: CommandFlag[];
 	errorResponseType: 'ads-cli/error';
@@ -31,12 +30,11 @@ export type Manifest = {
  * Build a serializable capability manifest from the live command registry.
  */
 export const buildManifest = (commands: CommandDefinition[], version: string): Manifest => ({
-	schemaVersion: 1,
+	schemaVersion: 2,
 	name: CLI_NAME,
 	bin: CLI_BIN_NAME,
 	version,
 	description: CLI_DESCRIPTION,
-	invocation: `npx ${CLI_NAME}`,
 	commands: commands.map(
 		({
 			name,

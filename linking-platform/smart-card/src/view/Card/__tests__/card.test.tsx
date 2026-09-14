@@ -1,19 +1,21 @@
-import './card.test.mock';
-
 import React from 'react';
 
+import { render, screen, waitFor } from '@atlassian/testing-library';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
 import { Box } from '@atlaskit/primitives/compiled';
-import { render, screen, waitFor } from '@atlassian/testing-library';
 
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
+import './card.test.mock';
 
 mockSimpleIntersectionObserver();
 

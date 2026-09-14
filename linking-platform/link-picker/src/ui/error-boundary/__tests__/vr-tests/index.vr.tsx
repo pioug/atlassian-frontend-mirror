@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import { ErrorBoundary } from '../../examples';
+import { ErrorBoundary } from '../../examples.vr.ap';
 
 snapshot(ErrorBoundary, {
 	variants: [

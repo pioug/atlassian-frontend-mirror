@@ -27,7 +27,14 @@
 		"**/codemods/**/*.tsx",
 		"./src/mocks/team-link.ts",
 		"./src/mocks/team.ts",
-		"./src/mocks/with-faker.ts"
+		"./src/mocks/with-faker.ts",
+		"./src/mocks/random-basic-team.ts",
+		"./src/mocks/random-full-team.ts",
+		"./src/mocks/random-header-image.ts",
+		"./src/mocks/random-team-images.ts",
+		"./src/mocks/random-team-membership-2.ts",
+		"./src/mocks/random-team-memberships-2.ts",
+		"./src/mocks/random-team-with-memberships.ts"
 	],
 	"compilerOptions": {
 		"composite": true,

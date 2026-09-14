@@ -1,0 +1,140 @@
+import React from 'react';
+
+import __noop from '@atlaskit/ds-lib/noop';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+const fixedWidthStyles = xcss({
+	width: '400px',
+	border: `solid ${token('border.width')} ${token('color.border')}`,
+});
+
+const fixedContainerStyles = xcss({
+	overflow: 'hidden',
+	width: '125px',
+});
+
+const percentageWidthStyles = xcss({
+	width: '20%',
+	overflow: 'hidden',
+});
+
+export default (): React.JSX.Element => (
+	<Stack space="space.100" testId="test-container">
+		<Text>
+			<Lozenge appearance="success" testId="lozenge-truncated-default-short">
+				short text
+			</Lozenge>
+		</Text>
+		<Text>
+			<Lozenge appearance="success" testId="lozenge-truncated-default-long">
+				very very wide text which truncates by default
+			</Lozenge>
+		</Text>
+		<Text>
+			<Lozenge appearance="success" maxWidth={100} testId="lozenge-truncated-override-100">
+				100px maxwidth truncates
+			</Lozenge>
+		</Text>
+		<Box xcss={fixedWidthStyles}>
+			<Stack space="space.100" testId="test-container">
+				<Text>
+					<Text weight="medium" as="p">
+						In a 400px wide container
+					</Text>
+					<Lozenge
+						appearance="discovery"
+						maxWidth={'none'}
+						testId="lozenge-truncated-override-none"
+					>
+						"none" max-width does not truncate text
+					</Lozenge>
+				</Text>
+				<Text>
+					<Lozenge
+						appearance="discovery"
+						maxWidth={'100%'}
+						testId="lozenge-truncated-override-100%"
+					>
+						"100%" max-width does not truncate text
+					</Lozenge>
+				</Text>
+				<Text>
+					<Lozenge appearance="discovery" maxWidth={'90%'} testId="lozenge-truncated-override-90%">
+						"90%" max-width does not truncate text
+					</Lozenge>
+				</Text>
+				<Text>
+					<Lozenge appearance="discovery" maxWidth={'50%'} testId="lozenge-truncated-override-50%">
+						"50%" max-width does truncate text
+					</Lozenge>
+				</Text>
+			</Stack>
+		</Box>
+
+		<Box>
+			<Text weight="medium" as="p">
+				Constrained by maxWidth
+			</Text>
+			<Lozenge appearance="success" maxWidth={150} testId="lozenge-truncated-by-maxWidth">
+				very very very wide text which truncates
+			</Lozenge>
+		</Box>
+
+		<Text weight="medium">Constrained by container size</Text>
+		<Box xcss={fixedContainerStyles}>
+			<Lozenge appearance="success" testId="lozenge-truncated-by-container-size">
+				very very very wide text which truncates
+			</Lozenge>
+		</Box>
+
+		<Text weight="medium">In a % width context truncates at lowest of % and maxWidth</Text>
+		<Box xcss={percentageWidthStyles}>
+			<Lozenge appearance="success" testId="lozenge-truncated-by-container-pc">
+				very very very wide text which truncates
+			</Lozenge>
+		</Box>
+
+		<Text weight="medium" as="p">
+			LozengeDropdownTrigger — Constrained by maxWidth
+		</Text>
+		<LozengeDropdownTrigger
+			appearance="success"
+			isSelected={false}
+			onClick={__noop}
+			maxWidth={150}
+			testId="trigger-truncated-by-maxWidth"
+		>
+			very very very wide text which truncates
+		</LozengeDropdownTrigger>
+
+		<Text weight="medium">LozengeDropdownTrigger — Constrained by container size</Text>
+		<Box xcss={fixedContainerStyles}>
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				testId="trigger-truncated-by-container-size"
+			>
+				very very very wide text which truncates
+			</LozengeDropdownTrigger>
+		</Box>
+
+		<Text weight="medium">
+			LozengeDropdownTrigger — In a % width context truncates at lowest of % and maxWidth
+		</Text>
+		<Box xcss={percentageWidthStyles}>
+			<LozengeDropdownTrigger
+				appearance="success"
+				isSelected={false}
+				onClick={__noop}
+				testId="trigger-truncated-by-container-pc"
+			>
+				very very very wide text which truncates
+			</LozengeDropdownTrigger>
+		</Box>
+	</Stack>
+);

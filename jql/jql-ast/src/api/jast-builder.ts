@@ -6,7 +6,8 @@ import {
 } from 'antlr4ts';
 import memoize from 'memoize-one';
 
-import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
+import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
 
 import creators from '../creators';
 import { JastBuilderErrorListener, JQLParseError } from '../errors';

@@ -11,6 +11,7 @@ import {
 	ToolbarDropdownItem,
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	clearHoverSelection,
@@ -20,6 +21,7 @@ import {
 import { deleteColumnsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getSelectedColumnIndexes } from '../../../../pm-plugins/utils/selection';
 import type { TableSharedStateInternal } from '../../../../types';
+import { CELL_MENU } from '../../cell/keys';
 import { getMenuSelectionRect } from '../../shared/selection';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
@@ -28,6 +30,9 @@ export const DeleteColumnItem = ({ api }: TableMenuComponentsParams): React.JSX.
 	const tableMenuContext = useTableMenuContext();
 	const { editorView } = tableMenuContext ?? {};
 	const selectedColumnCount = tableMenuContext?.selectedColumnCount ?? 1;
+	const shouldShowShortcut =
+		!isExperimentEnabled('platform_editor_table_menu_updates_patch_4') ||
+		tableMenuContext?.surface.key !== CELL_MENU.key;
 	const { formatMessage } = useIntl();
 	const { isCommentEditor, isTableFixedColumnWidthsOptionEnabled, isTableScalingEnabled } =
 		useSharedPluginStateWithSelector(api ?? undefined, ['table'], (states) => {
@@ -99,7 +104,11 @@ export const DeleteColumnItem = ({ api }: TableMenuComponentsParams): React.JSX.
 			onBlur={handleMouseLeave}
 			onMouseLeave={handleMouseLeave}
 			elemBefore={<DeleteIcon color="currentColor" label="" size="small" />}
-			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(deleteColumn) ?? ''} />}
+			elemAfter={
+				shouldShowShortcut ? (
+					<ToolbarKeyboardShortcutHint shortcut={tooltip(deleteColumn) ?? ''} />
+				) : undefined
+			}
 		>
 			{formatMessage(messages.removeColumns, { 0: selectedColumnCount })}
 		</ToolbarDropdownItem>

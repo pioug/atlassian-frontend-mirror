@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::19cf5335c393da35608b01fe889f5c46>>
+ * @codegen <<SignedSource::a67b21df0ebc0ecbf8d46a7728063821>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 161 32">
  *
  */
 export function AnalyticsLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Analytics',
 	testId,

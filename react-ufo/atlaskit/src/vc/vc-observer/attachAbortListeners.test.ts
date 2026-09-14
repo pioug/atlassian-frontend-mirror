@@ -3,15 +3,18 @@ import { bind } from 'bind-event-listener';
 import { AbortEvent } from '../../common/vc/types';
 
 import { attachAbortListeners } from './attachAbortListeners';
-import { getViewportHeight, getViewportWidth } from './getViewport';
+import { getViewportHeight } from './getViewportHeight';
+import { getViewportWidth } from './getViewportWidth';
 
 jest.mock('bind-event-listener', () => ({
 	bind: jest.fn(),
 }));
 
-jest.mock('./getViewport', () => ({
-	getViewportWidth: jest.fn(),
+jest.mock('./getViewportHeight', () => ({
 	getViewportHeight: jest.fn(),
+}));
+jest.mock('./getViewportWidth', () => ({
+	getViewportWidth: jest.fn(),
 }));
 
 describe('attachAbortListeners', () => {

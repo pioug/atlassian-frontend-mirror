@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 import CrossIcon from '@atlaskit/icon/core/cross';

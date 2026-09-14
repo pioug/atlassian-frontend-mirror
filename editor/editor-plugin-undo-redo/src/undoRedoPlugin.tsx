@@ -4,9 +4,10 @@ import { ACTION } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { redo, undo } from '@atlaskit/prosemirror-history';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { attachInputMetaWithAnalytics } from './pm-plugins/attach-input-meta';
 import { InputSource } from './pm-plugins/enums';

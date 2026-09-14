@@ -1,18 +1,20 @@
 import React from 'react';
 
 import { token } from '@atlaskit/tokens';
+import { act } from '@atlassian/testing-library/act';
+import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
-import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
 import { type Transition } from '../../../entering/types';
 import { useMotion, type UseMotionProps } from '../../../entering/use-motion';
-import { isReducedMotion } from '../../../index';
+import { isReducedMotion } from '../../../utils/is-reduced-motion';
 
 const MOTION_DURATION = 350;
 
 jest.mock('@atlaskit/tokens', () => ({
+	...jest.requireActual('@atlaskit/tokens'),
 	token: (path: string) => {
 		if (path === 'motion.test.enter') {
 			return 'var(--ds-test-enter)';
@@ -108,6 +110,11 @@ const MotionSection = ({
 			style={getStyleForState(state, { enteringAnimation, exitingAnimation })}
 		/>
 	);
+};
+
+const ComputedStyleMotionSection = ({ onFinish }: Pick<UseMotionProps, 'onFinish'>) => {
+	const { state, ref } = useMotion<HTMLElement>({ onFinish });
+	return <section data-motion-state={state} data-testid="computed-target" ref={ref} />;
 };
 
 beforeEach(() => {
@@ -242,6 +249,31 @@ describe('useMotion()', () => {
 
 		expect(onFinish).toHaveBeenCalledTimes(1);
 		expect(onFinish).toHaveBeenCalledWith('exiting');
+	});
+
+	it('waits for the longest computed animation when multiple animations run concurrently', () => {
+		jest.spyOn(window, 'getComputedStyle').mockReturnValue({
+			animationDelay: '0s, 0s',
+			animationDuration: '0.15s, 0.15s',
+			animationName: 'ScaleIn, FadeIn',
+		} as CSSStyleDeclaration);
+		const onFinish = jest.fn<void, [Transition]>();
+
+		renderWithMotionStyles(
+			<ExitingPersistence appear>
+				<ComputedStyleMotionSection onFinish={onFinish} />
+			</ExitingPersistence>,
+		);
+
+		act(() => {
+			jest.advanceTimersByTime(149);
+		});
+		expect(onFinish).not.toHaveBeenCalled();
+
+		act(() => {
+			jest.advanceTimersByTime(1);
+		});
+		expect(onFinish).toHaveBeenCalledWith('entering');
 	});
 
 	it('should keep the element mounted until the exit animation finishes, then remove it', () => {

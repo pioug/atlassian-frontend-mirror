@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { CardContext } from '@atlaskit/link-provider';
+import type { CardContext } from '@atlaskit/link-provider/types';
 
 import type { cardPlugin } from '../../cardPlugin';
 import { isLocalStorageKeyDiscovered, LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from '../local-storage';

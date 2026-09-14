@@ -1,9 +1,11 @@
-import type { CellAttributes } from '@atlaskit/adf-schema';
-import { inlineNodes, isSafeUrl, PanelType, generateUuid as uuid } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
+import { inlineNodes } from '@atlaskit/adf-schema/inline-nodes';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import { PanelType } from '@atlaskit/adf-schema/panel';
+import { generateUuid as uuid } from '@atlaskit/adf-schema/uuid';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Mark as PMMark, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ADFStages } from './ADFStages';
 import { isSubSupType } from './isSubSupType';
@@ -840,7 +842,7 @@ export const getValidNode = (
 				return { type, attrs, content, marks };
 			}
 			case 'syncBlock': {
-				if (attrs && attrs.resourceId && editorExperiment('platform_synced_block', true)) {
+				if (attrs && attrs.resourceId) {
 					return {
 						type,
 						attrs: {
@@ -849,18 +851,11 @@ export const getValidNode = (
 						},
 						marks,
 					};
-				} else {
-					return getValidUnknownNode(node);
 				}
+				return getValidUnknownNode(node);
 			}
 			case 'bodiedSyncBlock': {
-				if (
-					attrs &&
-					attrs.resourceId &&
-					Array.isArray(content) &&
-					content.length > 0 &&
-					editorExperiment('platform_synced_block', true)
-				) {
+				if (attrs && attrs.resourceId && Array.isArray(content) && content.length > 0) {
 					return {
 						type,
 						attrs: {
@@ -870,9 +865,8 @@ export const getValidNode = (
 						marks,
 						content,
 					};
-				} else {
-					return getValidUnknownNode(node);
 				}
+				return getValidUnknownNode(node);
 			}
 		}
 	}

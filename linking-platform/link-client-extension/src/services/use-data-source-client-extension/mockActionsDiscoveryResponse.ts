@@ -1,4 +1,4 @@
-import { type ActionsDiscoveryResponse } from '@atlaskit/linking-types';
+import type { ActionsDiscoveryResponse } from '@atlaskit/linking-types/datasource-actions';
 
 export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
 	actions: [

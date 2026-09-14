@@ -1,8 +1,8 @@
 import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
 
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
+import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
 
-import { type CardState } from '../../state/types';
+import type { CardState } from '@atlaskit/linking-common/store';
 import type {
 	InternalCardActionOptions as CardActionOptions,
 	OnResolveCallback,

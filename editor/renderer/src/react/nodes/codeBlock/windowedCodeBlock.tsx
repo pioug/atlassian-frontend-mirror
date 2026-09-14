@@ -10,7 +10,6 @@ import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useInViewport } from '../../hooks/use-in-viewport';
-import { useBidiWarnings } from '../../hooks/use-bidi-warnings';
 import type { Props as CodeBlockProps } from './codeBlock';
 import LightWeightCodeBlock from './components/lightWeightCodeBlock';
 import CodeBlockContainer from './components/codeBlockContainer';
@@ -40,9 +39,6 @@ const WindowedCodeBlock = ({
 	className: rootClassName,
 	wrap,
 }: CodeBlockProps): jsx.JSX.Element => {
-	const { warningLabel } = useBidiWarnings({
-		enableWarningTooltip: codeBidiWarningTooltipEnabled,
-	});
 	const { isInViewport, trackingRef } = useInViewport<HTMLDivElement>();
 	const className = joinWithSpaces(CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER, rootClassName);
 
@@ -50,7 +46,6 @@ const WindowedCodeBlock = ({
 		<MemoizedLightWeightCodeBlock
 			ref={trackingRef}
 			text={text}
-			codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 			hideLineNumbers={
 				expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 				hideLineNumbers
@@ -82,7 +77,6 @@ const WindowedCodeBlock = ({
 					<LazyAkCodeBlock
 						language={language}
 						text={text}
-						codeBidiWarningLabel={warningLabel}
 						codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 						shouldWrapLongLines={allowWrapCodeBlock && wrapLongLines}
 						shouldShowLineNumbers={
@@ -91,11 +85,7 @@ const WindowedCodeBlock = ({
 								hideLineNumbers
 							)
 						}
-						hasBidiWarnings={
-							expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true)
-								? false
-								: undefined
-						}
+						hasBidiWarnings={false}
 					/>
 				</CodeBlockContainer>
 			</Suspense>

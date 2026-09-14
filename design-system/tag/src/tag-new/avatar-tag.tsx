@@ -13,14 +13,17 @@ import {
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { AvatarPropTypes } from '@atlaskit/avatar';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { AvatarPropTypes } from '@atlaskit/avatar/avatar';
 import StatusVerifiedIcon from '@atlaskit/icon/core/status-verified';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { TeamAvatarProps } from '@atlaskit/teams-avatar/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 import { LinkWrapper } from './link-wrapper';
 import { RemovableWrapper } from './removable-wrapper';
+import { markAsTagMotionCapable } from './tag-motion-capability';
+import { TagMotion } from './tag-motion';
 import { useButtonInteraction } from './use-button-interaction';
 import { useLink } from './use-link';
 import { useRemoveButton } from './use-remove-button';
@@ -37,9 +40,9 @@ export type TypesOfAvatars = 'user' | 'agent' | 'other';
  */
 export interface AvatarRenderProps {
 	/**
-	 * The size of the avatar. Always 'xsmall' for AvatarTag.
+	 * The size of the avatar. Always 'xxsmall' for AvatarTag.
 	 */
-	size: 'xsmall';
+	size: 'xxsmall';
 	/**
 	 * The appearance/shape of the avatar based on the tag type.
 	 * - 'circle' for user (round avatars)
@@ -249,6 +252,9 @@ const styles = cssMapUnbound({
 		marginInlineStart: token('space.025'),
 		position: 'relative',
 	},
+	afterMotionStyles: {
+		minWidth: token('space.150'),
+	},
 	verifiedIconStyles: {
 		display: 'inline-flex',
 		alignItems: 'center',
@@ -260,20 +266,17 @@ const styles = cssMapUnbound({
 		// Only show focus ring when keyboard navigating (not mouse clicks)
 		'&:focus-visible': {
 			outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-			// @ts-ignore
 			outlineOffset: token('space.025'),
 		},
 	},
 	// Show focus ring when child link is focused via keyboard (applied conditionally via JS)
 	childFocusRingStyles: {
 		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-		// @ts-ignore
 		outlineOffset: token('space.025'),
 	},
 	// Base interactive styles - always applied when link (cursor, link styling)
 	interactiveBaseStyles: {
 		cursor: 'pointer',
-		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& a': {
 			display: 'inline-flex',
@@ -312,17 +315,38 @@ const styles = cssMapUnbound({
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
-		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& a:hover': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			color: 'inherit !important',
 		},
 		// Only underline the text span, not the avatar
-		// @ts-ignore
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& a:hover > span[data-tag-text]': {
 			textDecoration: 'underline',
+		},
+	},
+	interactiveMotionStyles: {
+		transition: token('motion.button.hovered'),
+		'&:active': {
+			transition: token('motion.button.pressed'),
+		},
+	},
+	activeMotionStyles: {
+		// Prevent controls from painting outside the tag while it scales in or out.
+		overflow: 'hidden',
+		transformOrigin: 'left',
+	},
+	enteringMotionStyles: {
+		animation: token('motion.label.enter'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
+		},
+	},
+	exitingMotionStyles: {
+		animation: token('motion.label.exit'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
 		},
 	},
 });
@@ -415,10 +439,11 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		shape: removeButtonShape,
 		buttonHandlers,
 	});
+	const isMotionEnabled = fg('platform-dst-motion-uplift-labels');
 
 	// Render the avatar with controlled props, then clone so our props are applied
 	const controlledProps: AvatarRenderProps = {
-		size: 'xsmall',
+		size: 'xxsmall',
 		appearance: avatarAppearance,
 		borderColor: 'transparent',
 	};
@@ -428,10 +453,14 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 		// eslint-disable-next-line @repo/internal/react/no-clone-element
 		isValidElement(rendered) ? cloneElement(rendered, controlledProps) : rendered;
 
-	const tagContent = (
+	const renderTagContent = (
+		tagRef: React.Ref<HTMLSpanElement>,
+		isEntering = false,
+		isExiting = false,
+	) => (
 		<span
 			{...other}
-			ref={ref}
+			ref={tagRef}
 			css={[
 				styles.baseStyles,
 				!hasMargin && styles.noMarginStyles,
@@ -441,6 +470,10 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				borderFilterStyles.root,
 				isLink && styles.interactiveBaseStyles,
 				isLink && styles.focusRingStyles,
+				isLink && isMotionEnabled && styles.interactiveMotionStyles,
+				(isEntering || isExiting) && styles.activeMotionStyles,
+				isEntering && styles.enteringMotionStyles,
+				isExiting && styles.exitingMotionStyles,
 				// Only apply hover/active styles when link is hovered but NOT over the button
 				isLink && isLinkHovered && !isOverButton && styles.interactiveHoverStyles,
 				isRemovable && !isUserType && styles.removableStyles,
@@ -449,7 +482,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				isLinkFocused && !isButtonFocused && styles.childFocusRingStyles,
 			]}
 			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- maxWidth is a runtime consumer value
 			style={maxWidth !== undefined ? { maxWidth } : undefined}
 		>
 			<LinkWrapper
@@ -478,9 +511,27 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 					<StatusVerifiedIcon label="Verified" size="small" />
 				</span>
 			)}
-			{removeButton && <span css={styles.afterStyles}>{removeButton}</span>}
+			{removeButton && (
+				<span css={[styles.afterStyles, isMotionEnabled && styles.afterMotionStyles]}>
+					{!isExiting && removeButton}
+				</span>
+			)}
 		</span>
 	);
+
+	if (isMotionEnabled) {
+		return (
+			<TagMotion
+				forwardedRef={ref}
+				onExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
+				status={status}
+			>
+				{({ isEntering, isExiting, ref: motionRef }) =>
+					renderTagContent(motionRef, isEntering, isExiting)
+				}
+			</TagMotion>
+		);
+	}
 
 	return (
 		<RemovableWrapper
@@ -488,7 +539,7 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 			status={status}
 			onShrinkOutExitComplete={isRemovable ? onShrinkOutExitComplete : undefined}
 		>
-			{tagContent}
+			{renderTagContent(ref)}
 		</RemovableWrapper>
 	);
 });
@@ -500,6 +551,6 @@ const AvatarTag: import('react').MemoExoticComponent<
 	import('react').ForwardRefExoticComponent<
 		AvatarTagProps & import('react').RefAttributes<HTMLSpanElement>
 	>
-> = memo(AvatarTagComponent);
+> = markAsTagMotionCapable(memo(AvatarTagComponent));
 
 export default AvatarTag;

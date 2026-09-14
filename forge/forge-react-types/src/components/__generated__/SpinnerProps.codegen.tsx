@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformSpinner from '@atlaskit/spinner';
+import PlatformSpinner from '@atlaskit/spinner/spinner';
 
 type PlatformSpinnerProps = React.ComponentProps<typeof PlatformSpinner>;
 

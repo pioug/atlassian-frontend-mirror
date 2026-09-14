@@ -44,7 +44,7 @@ describe('Media Feature Flags', () => {
 			consumerFlags as MediaFeatureFlags,
 		);
 		expect(value).toBe('some-value');
-		expect(getGenericFeatureFlagMock).toBeCalledWith(
+		expect(getGenericFeatureFlagMock).toHaveBeenCalledWith(
 			requestedKey,
 			defaultMediaFeatureFlags,
 			consumerFlags,

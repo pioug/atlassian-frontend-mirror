@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Returns how far the body is scrolled from the top of the viewport.

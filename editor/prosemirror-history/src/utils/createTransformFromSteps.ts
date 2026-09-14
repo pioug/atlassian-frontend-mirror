@@ -1,13 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 
-export class InvertableStep {
-	constructor(
-		readonly step: ProseMirrorStep,
-		readonly inverted: ProseMirrorStep,
-	) {}
-}
+import type { InvertableStep } from './InvertableStep';
 
 /**
  * Creates a ProseMirror transform from an array of steps.
@@ -36,23 +30,4 @@ export function createTransformFromSteps(steps: InvertableStep[], finalDoc: PMNo
 		}
 	}
 	return tr;
-}
-
-export function mapInvertableSteps(
-	steps: InvertableStep[] | undefined,
-	tr: Transform,
-): InvertableStep[] | undefined {
-	if (steps === undefined) {
-		return undefined;
-	}
-	return steps
-		.map((step) => {
-			const newStep = step.step.map(tr.mapping);
-			const newInvertedStep = step.inverted.map(tr.mapping);
-			if (newStep && newInvertedStep) {
-				return new InvertableStep(newStep, newInvertedStep);
-			}
-			return undefined;
-		})
-		.filter((s) => !!s);
 }

@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useAnnotationRangeState } from '../contexts/AnnotationRangeContext';
 

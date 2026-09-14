@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Avatar, { AvatarItem } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const containerStyle = {
 	padding: token('space.250'),
@@ -12,6 +13,21 @@ export default (): React.JSX.Element => (
 	<>
 		{/* These should be replaced by just using a Stack primitive, but can't
     because of a styling issue. See DSP-16480. */}
+		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+		<div style={containerStyle}>
+			<h2>Decorative images</h2>
+			<p>
+				Use <code>label=""</code> to mark an avatar as decorative when it is accompanied by a
+				visible text label that already identifies the user. Screen readers will skip the avatar
+				image.
+			</p>
+			<Avatar
+				src="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6Skh_400x400.jpg"
+				name="John Smith"
+				label=""
+				testId="accessible-avatar-decorative"
+			/>
+		</div>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<div style={containerStyle}>
 			<h2>Non-Interactive Elements</h2>

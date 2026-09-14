@@ -1,5 +1,5 @@
 // same types defined in analytics-web-client but avoid creating dependency with that
-import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 export const UI_EVENT_TYPE = 'ui';
 export const TRACK_EVENT_TYPE = 'track';
 export const SCREEN_EVENT_TYPE = 'screen';
@@ -14,7 +14,9 @@ export type GasPureScreenEventPayload = {
 		[key: string]: any;
 	};
 	name: string;
+	path?: string;
 	tags?: Array<string>;
+	url?: string;
 };
 
 export type GasPurePayload = {

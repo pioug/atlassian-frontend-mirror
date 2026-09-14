@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 import { CONTENT_URL_ROVO } from '../../../../../constants';
 

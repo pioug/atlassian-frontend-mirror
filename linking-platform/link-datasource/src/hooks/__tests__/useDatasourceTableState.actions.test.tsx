@@ -3,19 +3,18 @@ import React from 'react';
 import { renderHook, type RenderHookOptions, waitFor } from '@testing-library/react';
 import { defaultRegistry } from 'react-sweet-state';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import {
-	mockActionsDiscoveryResponse,
-	mockDatasourceDataNoActionsResponse,
-	mockDatasourceDataResponse,
-	mockDatasourceDataResponseWithSchema,
-	useDatasourceClientExtension,
-} from '@atlaskit/link-client-extension';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { mockActionsDiscoveryResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockActionsDiscoveryResponse';
+import { mockDatasourceDataNoActionsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataNoActionsResponse';
+import { mockDatasourceDataResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponse';
+import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
+import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
-import { EVENT_CHANNEL } from '../../analytics';
+import { EVENT_CHANNEL } from '../../analytics/constants';
 import { Store } from '../../state';
 import { ActionsStore } from '../../state/actions';
 import {
@@ -40,13 +39,10 @@ jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
 	isFedRamp: () => mockIsFedRamp(),
 }));
 
-jest.mock('@atlaskit/link-client-extension', () => {
-	const originalModule = jest.requireActual('@atlaskit/link-client-extension');
-	return {
-		...originalModule,
-		useDatasourceClientExtension: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/link-client-extension/use-data-source-client-extension', () => ({
+	...jest.requireActual('@atlaskit/link-client-extension/use-data-source-client-extension'),
+	useDatasourceClientExtension: jest.fn(),
+}));
 
 jest.mock('@atlaskit/linking-common/sentry', () => {
 	const originalModule = jest.requireActual('@atlaskit/linking-common/sentry');

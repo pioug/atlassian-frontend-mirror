@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
 
 import { useHydratedLozengeWithAvatar } from '../../../../state';
 import { type NodeViewProps } from '../../util/react-node-view';

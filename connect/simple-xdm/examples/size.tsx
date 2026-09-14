@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 import ConfigurationOptions from '../src/plugin/configuration-options';
 import size from '../src/plugin/size';

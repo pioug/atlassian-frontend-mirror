@@ -5,7 +5,8 @@ import { useIntl } from 'react-intl';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import AkFlag, { FlagGroup } from '@atlaskit/flag';
+import AkFlag from '@atlaskit/flag/flag';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
 

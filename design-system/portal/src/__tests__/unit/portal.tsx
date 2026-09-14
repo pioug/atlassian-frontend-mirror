@@ -5,11 +5,11 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
-import { ThemeProvider } from '@atlaskit/app-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
-import Portal from '../../index';
+import Portal from '../../portal';
 import { portalParentSelector } from '../../internal/constants';
 import * as createContainerModule from '../../internal/utils/create-container';
 

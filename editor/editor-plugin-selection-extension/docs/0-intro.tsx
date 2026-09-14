@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
 
@@ -108,6 +107,7 @@ export type ToolbarExtensionConfiguration = {
 
 export type BlockMenuExtensionConfiguration = {
   getMenuItems: GetMenuItemsFn;
+  // 'default': nested Create section; 'structure': nested Structure section; 'featured': top-level
   placement?: BlockMenuPlacement;
 };
 

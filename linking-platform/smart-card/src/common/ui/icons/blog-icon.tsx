@@ -8,8 +8,7 @@ import BlogObjectTile from '@atlaskit/object/tile/blog';
 import type { ObjectProps } from '@atlaskit/object/types';
 
 import type { SmartLinkSize } from '../../../constants';
-
-import { renderIconPerSize } from './utils';
+import { renderIconPerSize } from './render-icon-per-size';
 
 const BlogIconWithColor: FC<
 	Omit<ObjectProps, 'size'> & {

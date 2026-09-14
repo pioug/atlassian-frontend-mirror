@@ -1,4 +1,5 @@
-import { createPlayPauseBlanketClickedEvent, type PlaybackState } from '../../../analytics';
+import { createPlayPauseBlanketClickedEvent } from '../../../analytics/events/ui/playPauseBlanketClicked';
+import type { PlaybackState } from '../../../analytics/utils/playbackAttributes';
 
 describe('createPlayPauseBlanketClickedEvent', () => {
 	const playbackState: PlaybackState = {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 import TagGroup from '@atlaskit/tag-group/tag-group';
 
 const Example = (): React.JSX.Element => (

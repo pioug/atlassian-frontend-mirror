@@ -1,24 +1,4 @@
-import { type CardPreview } from './types';
-
-/**
- * Primary reason is logged through Data Portal.
- * Make sure all the values are whitelisted in Measure -> Event Regitry -> "mediaCardRender failed" event
- */
-export type MediaCardErrorPrimaryReason =
-	| 'upload'
-	| 'metadata-fetch'
-	| 'error-file-state'
-	| 'failed-processing'
-	| RemotePreviewPrimaryReason
-	| LocalPreviewPrimaryReason
-	| ImageLoadPrimaryReason
-	| SsrPreviewPrimaryReason
-	| SvgPrimaryReason
-	| 'missing-error-data'
-	// Reasons below are used to wrap unexpected/unknown errors with ensureMediaCardError
-	| 'preview-fetch'
-	| 'download';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export type ImageLoadPrimaryReason =
 	| 'cache-remote-uri'
 	| 'cache-local-uri'
@@ -51,106 +31,56 @@ export type SvgPrimaryReason =
 	| 'svg-blob-to-datauri'
 	| 'svg-unknown-error';
 
-export class MediaCardError extends Error {
-	constructor(
-		readonly primaryReason: MediaCardErrorPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason);
-		// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
-		Object.setPrototypeOf(this, new.target.prototype);
-
-		// https://v8.dev/docs/stack-trace-api
-		if ('captureStackTrace' in Error) {
-			Error.captureStackTrace(this, new.target);
-		}
-	}
-}
-export class LocalPreviewError extends MediaCardError {
-	constructor(
-		readonly primaryReason: LocalPreviewPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason, secondaryError);
-	}
-}
-
-export class RemotePreviewError extends MediaCardError {
-	constructor(
-		readonly primaryReason: RemotePreviewPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason, secondaryError);
-	}
-}
-
-export class SsrPreviewError extends MediaCardError {
-	constructor(
-		readonly primaryReason: SsrPreviewPrimaryReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason, secondaryError);
-	}
-}
-
-export const getImageLoadPrimaryReason = (
-	source?: CardPreview['source'],
-): ImageLoadPrimaryReason => {
-	switch (source) {
-		case 'cache-remote':
-			return 'cache-remote-uri';
-		case 'cache-local':
-			return 'cache-local-uri';
-		case 'external':
-			return 'external-uri';
-		case 'local':
-			return 'local-uri';
-		case 'remote':
-			return 'remote-uri';
-		// This fail reason will come from a bug, most likely.
-		default:
-			return `unknown-uri`;
-	}
-};
-export class ImageLoadError extends MediaCardError {
-	constructor(source?: CardPreview['source']) {
-		super(getImageLoadPrimaryReason(source));
-	}
-}
-
-export function isMediaCardError(err: Error): err is MediaCardError {
-	return err instanceof MediaCardError;
-}
-
-export const isLocalPreviewError = (err: Error): err is LocalPreviewError =>
-	err instanceof LocalPreviewError;
-
-export const isRemotePreviewError = (err: Error): err is LocalPreviewError =>
-	err instanceof RemotePreviewError;
-
-export const isUnsupportedLocalPreviewError = (err: Error): boolean =>
-	isMediaCardError(err) && err.primaryReason === 'local-preview-unsupported';
-
-export function isImageLoadError(err: Error): err is ImageLoadError {
-	return err instanceof ImageLoadError;
-}
-
-// In a try/catch statement, the error caught is the type of unknown.
-// We can use this helper to ensure that the error handled is the type of MediaCardError if unsure
-// If updatePrimaryReason is true, if it's a MediaCardError already, it will update it's primary reason
-export const ensureMediaCardError = (
-	primaryReason: MediaCardErrorPrimaryReason,
-	error: Error,
-	updatePrimaryReason?: boolean,
-): MediaCardError => {
-	if (isMediaCardError(error)) {
-		if (updatePrimaryReason && error.primaryReason !== primaryReason) {
-			return new MediaCardError(primaryReason, error.secondaryError);
-		}
-		return error;
-	}
-	return new MediaCardError(primaryReason, error);
-};
-
-export const isUploadError = (error?: MediaCardError): boolean | undefined =>
-	error && error.primaryReason === 'upload';
+/**
+ * @deprecated Use `import { MediaCardError } from '@atlaskit/media-card/media-card-error'` instead.
+ */
+export { MediaCardError } from './MediaCardError';
+export type { MediaCardErrorPrimaryReason } from './MediaCardError';
+/**
+ * @deprecated Use `import { LocalPreviewError } from '@atlaskit/media-card/local-preview-error'` instead.
+ */
+export { LocalPreviewError } from './LocalPreviewError';
+/**
+ * @deprecated Use `import { RemotePreviewError } from '@atlaskit/media-card/remote-preview-error'` instead.
+ */
+export { RemotePreviewError } from './RemotePreviewError';
+/**
+ * @deprecated Use `import { SsrPreviewError } from '@atlaskit/media-card/ssr-preview-error'` instead.
+ */
+export { SsrPreviewError } from './SsrPreviewError';
+/**
+ * @deprecated Use `import { getImageLoadPrimaryReason } from '@atlaskit/media-card/get-image-load-primary-reason'` instead.
+ */
+export { getImageLoadPrimaryReason } from './getImageLoadPrimaryReason';
+/**
+ * @deprecated Use `import { ImageLoadError } from '@atlaskit/media-card/image-load-error'` instead.
+ */
+export { ImageLoadError } from './ImageLoadError';
+/**
+ * @deprecated Use `import { isMediaCardError } from '@atlaskit/media-card/is-media-card-error'` instead.
+ */
+export { isMediaCardError } from './isMediaCardError';
+/**
+ * @deprecated Use `import { isLocalPreviewError } from '@atlaskit/media-card/is-local-preview-error'` instead.
+ */
+export { isLocalPreviewError } from './isLocalPreviewError';
+/**
+ * @deprecated Use `import { isRemotePreviewError } from '@atlaskit/media-card/is-remote-preview-error'` instead.
+ */
+export { isRemotePreviewError } from './isRemotePreviewError';
+/**
+ * @deprecated Use `import { isUnsupportedLocalPreviewError } from '@atlaskit/media-card/is-unsupported-local-preview-error'` instead.
+ */
+export { isUnsupportedLocalPreviewError } from './isUnsupportedLocalPreviewError';
+/**
+ * @deprecated Use `import { isImageLoadError } from '@atlaskit/media-card/is-image-load-error'` instead.
+ */
+export { isImageLoadError } from './isImageLoadError';
+/**
+ * @deprecated Use `import { ensureMediaCardError } from '@atlaskit/media-card/ensure-media-card-error'` instead.
+ */
+export { ensureMediaCardError } from './ensureMediaCardError';
+/**
+ * @deprecated Use `import { isUploadError } from '@atlaskit/media-card/is-upload-error'` instead.
+ */
+export { isUploadError } from './isUploadError';

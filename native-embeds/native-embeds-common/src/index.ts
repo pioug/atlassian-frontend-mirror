@@ -23,7 +23,6 @@ export type {
 	BuiltinToolbarKey,
 	ManifestEditorToolbarActions,
 } from './utils/types';
-
 // Plugin actions types
 export type {
 	CardToNativeEmbedNode,

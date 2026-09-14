@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "00-color-picker.tsx",
+    "00-color-picker.vr.ap.tsx",
     "01-multi-columns-color-picker.tsx"
   ]
 }

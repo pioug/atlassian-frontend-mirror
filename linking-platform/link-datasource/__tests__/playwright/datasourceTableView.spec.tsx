@@ -25,11 +25,12 @@ test.describe('DatasourceTableView', () => {
 			},
 		);
 		await page.getByTestId('column-picker-trigger-button').click();
-		page.keyboard.type('Due');
+		await page.getByRole('combobox', { name: 'Search for fields' }).fill('Due');
 
-		await expect(page.locator('#react-select-2-option-11')).toContainText('Due');
-		await expect(page.locator('#react-select-2-option-12')).toContainText('Due');
-		await expect(page.locator('#react-select-2-option-13')).toContainText('Due');
+		const options = page.getByRole('listbox').getByRole('option');
+		await expect(options.getByText('Due Date', { exact: true })).toBeVisible();
+		await expect(options.getByText('Due Date0', { exact: true })).toBeVisible();
+		await expect(options.getByText('Due Date1', { exact: true })).toBeVisible();
 	});
 
 	test('persists column order after loading next page', async ({ page }) => {
@@ -75,7 +76,7 @@ test.describe('DatasourceTableView', () => {
 	});
 
 	test('datasource table reload after auth connection action', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/issue-like-table-3p-unauth.tsx')>(
+		await page.visitExample<typeof import('../../examples/issue-like-table-3p-unauth.vr.ap.tsx')>(
 			'linking-platform',
 			'link-datasource',
 			'issue-like-table-3p-unauth',

@@ -7,7 +7,7 @@ import { type ReactNode, useCallback, useContext, useRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
@@ -112,10 +112,9 @@ export function MenuPortalTopLayer<
 	// teardown (`hidePopover`, observer cleanup, position-hook style reset)
 	// runs against a live element. Conditional render would skip that path.
 	//
-	// `mode="manual"` opts out of native light-dismiss: react-select already
-	// owns outside-click and Escape via its own handlers, and the combobox
-	// trigger lives in a separate DOM subtree that the spec algorithm cannot
-	// see. Matches the pattern in `@atlaskit/datetime-picker`'s MenuTopLayer.
+	// `mode="auto"` delegates light-dismiss and Escape to the browser. The
+	// `onClose` bridge then synchronizes react-select's `menuIsOpen` state after
+	// native dismissal, keeping this popover available to consume the request.
 	//
 	// The Popover host is intentionally roleless: the inner `MenuList`
 	// keeps `role="listbox"` and the id referenced by `aria-controls`.
@@ -128,7 +127,7 @@ export function MenuPortalTopLayer<
 	// transition never gets a frame. Needs keeping the portal mounted
 	// through the exit (`onExitFinish`) on the Select side.
 	return (
-		<Popover ref={popoverRef} mode="manual" isOpen={isAnchored} onClose={handlePopoverClose}>
+		<Popover ref={popoverRef} mode="auto" isOpen={isAnchored} onClose={handlePopoverClose}>
 			<div
 				css={menuPortalStyles.root}
 				// `className` carries consumer `styles.menuPortal({...})` output,

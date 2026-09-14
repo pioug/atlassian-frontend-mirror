@@ -14,6 +14,7 @@ import {
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
+import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
 import Emoji from './Emoji';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -107,7 +108,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 		? 24
 		: undefined;
 
-	return expValEqualsNoExposure('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true) ? (
+	return isTeamoji26RefreshEmojiPickerEnabledNoExposure() ? (
 		<button
 			ref={ref}
 			css={[emojiButton, !isVisible && hidden, emojiButtonOutline, emojiButtonBorderRadius]}

@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { RadioGroup as PlatformRadioGroup } from '@atlaskit/radio';
+import PlatformRadioGroup from '@atlaskit/radio/radio-group';
 import type { EventHandlerProps } from './types.codegen';
 
 type PlatformRadioGroupProps = React.ComponentProps<typeof PlatformRadioGroup>;

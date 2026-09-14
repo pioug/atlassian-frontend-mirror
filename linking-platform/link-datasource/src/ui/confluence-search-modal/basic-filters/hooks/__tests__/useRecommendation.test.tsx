@@ -9,11 +9,11 @@ import {
 	transformedRecommendationMockFilterOptions,
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { getUserRecommendations } from '@atlaskit/smart-user-picker';
+import getUserRecommendations from '@atlaskit/smart-user-picker/recommendation-client';
 
 import useRecommendation from '../useRecommendation';
 
-jest.mock('@atlaskit/smart-user-picker');
+jest.mock('@atlaskit/smart-user-picker/recommendation-client');
 
 const mockFetchFilterOptionsProps = (searchTerm = '') => {
 	return {

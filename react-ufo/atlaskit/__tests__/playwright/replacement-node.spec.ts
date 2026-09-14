@@ -6,6 +6,9 @@ import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtu
 test.describe('ReactUFO: Revisions - replacement node', () => {
 	test.use({
 		examplePage: 'node-replacement',
+	} satisfies {
+		examplePage: 'node-replacement';
+		__exampleDependency?: typeof import('../../examples/08-node-replacement.tsx');
 	});
 
 	for (const viewport of viewports) {

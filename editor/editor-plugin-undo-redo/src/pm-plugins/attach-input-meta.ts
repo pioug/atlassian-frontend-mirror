@@ -77,8 +77,8 @@ function getNodesWithDifferingAttributes({
  * @returns Object containing change analysis results with hasChanged boolean and affectedNodes array
  */
 export function getChanges({ before, after }: NodeHistory): {
-	hasChanged: boolean;
 	affectedNodes: NodeWithDifferingAttributes[] | undefined;
+	hasChanged: boolean;
 } {
 	const hasChanged = !areNodesEqualIgnoreAttrs(after, before);
 

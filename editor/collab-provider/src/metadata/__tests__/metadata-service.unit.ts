@@ -1,4 +1,4 @@
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { Metadata } from '@atlaskit/editor-common/collab';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Provider } from '../../';
@@ -32,19 +32,19 @@ describe('metadata-service', () => {
 		it('Does not emit metadata changed to provider when there is no difference in metadata ', () => {
 			const { service, providerEmitCallbackMock } = createMockService();
 			service.onMetadataChanged({ test: 'value' });
-			expect(providerEmitCallbackMock).toBeCalledTimes(1);
+			expect(providerEmitCallbackMock).toHaveBeenCalledTimes(1);
 			providerEmitCallbackMock.mockClear();
 			service.onMetadataChanged({ test: 'value' });
-			expect(providerEmitCallbackMock).not.toBeCalled();
+			expect(providerEmitCallbackMock).not.toHaveBeenCalled();
 		});
 
 		it('updates and emits metadata when metadata differs to existing value', () => {
 			const { service, providerEmitCallbackMock } = createMockService();
 			service.onMetadataChanged({ aNew: 'value' });
-			expect(providerEmitCallbackMock).toBeCalledWith('metadata:changed', {
+			expect(providerEmitCallbackMock).toHaveBeenCalledWith('metadata:changed', {
 				aNew: 'value',
 			});
-			expect(providerEmitCallbackMock).toBeCalledTimes(1);
+			expect(providerEmitCallbackMock).toHaveBeenCalledTimes(1);
 			expect(service.getMetaData()).toEqual({ aNew: 'value' });
 		});
 
@@ -52,7 +52,7 @@ describe('metadata-service', () => {
 			const { service, providerEmitCallbackMock } = createMockService();
 			service.updateMetadata({ isMeta: true });
 			expect(service.getMetaData()).toEqual({ isMeta: true });
-			expect(providerEmitCallbackMock).toBeCalledWith('metadata:changed', {
+			expect(providerEmitCallbackMock).toHaveBeenCalledWith('metadata:changed', {
 				isMeta: true,
 			});
 		});
@@ -61,38 +61,38 @@ describe('metadata-service', () => {
 			const { service, sendMetadataMock } = createMockService();
 			service.setTitle('newTitle');
 			expect(service.getMetaData()).toEqual({ title: 'newTitle' });
-			expect(sendMetadataMock).not.toBeCalled();
+			expect(sendMetadataMock).not.toHaveBeenCalled();
 		});
 
 		it('Updates and broadcasts metadata and when calling setTitle', () => {
 			const { service, sendMetadataMock } = createMockService();
 			service.setTitle('newTitle', true);
 			expect(service.getMetaData()).toEqual({ title: 'newTitle' });
-			expect(sendMetadataMock).toBeCalledWith({ title: 'newTitle' });
-			expect(sendMetadataMock).toBeCalledTimes(1);
+			expect(sendMetadataMock).toHaveBeenCalledWith({ title: 'newTitle' });
+			expect(sendMetadataMock).toHaveBeenCalledTimes(1);
 		});
 
 		it('Updates metadata when calling setEditorWidth', () => {
 			const { service, sendMetadataMock } = createMockService();
 			service.setEditorWidth('newTitle');
 			expect(service.getMetaData()).toEqual({ editorWidth: 'newTitle' });
-			expect(sendMetadataMock).not.toBeCalled();
+			expect(sendMetadataMock).not.toHaveBeenCalled();
 		});
 
 		it('Updates and broadcasts metadata and when calling setEditorWidth', () => {
 			const { service, sendMetadataMock } = createMockService();
 			service.setEditorWidth('newTitle', true);
 			expect(service.getMetaData()).toEqual({ editorWidth: 'newTitle' });
-			expect(sendMetadataMock).toBeCalledTimes(1);
-			expect(sendMetadataMock).toBeCalledWith({ editorWidth: 'newTitle' });
+			expect(sendMetadataMock).toHaveBeenCalledTimes(1);
+			expect(sendMetadataMock).toHaveBeenCalledWith({ editorWidth: 'newTitle' });
 		});
 
 		it('Updates and broadcasts metadata and when calling setMetadata', () => {
 			const { service, sendMetadataMock } = createMockService();
 			service.setMetadata({ isMeta: true });
 			expect(service.getMetaData()).toEqual({ isMeta: true });
-			expect(sendMetadataMock).toBeCalledWith({ isMeta: true });
-			expect(sendMetadataMock).toBeCalledTimes(1);
+			expect(sendMetadataMock).toHaveBeenCalledWith({ isMeta: true });
+			expect(sendMetadataMock).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -100,14 +100,14 @@ describe('metadata-service', () => {
 		it('Emits metadata:changed when metadata is included', () => {
 			const { service, providerEmitCallbackMock } = createMockService();
 			service.updateMetadata({ key: 'val' });
-			expect(providerEmitCallbackMock).toBeCalledTimes(1);
+			expect(providerEmitCallbackMock).toHaveBeenCalledTimes(1);
 			expect(providerEmitCallbackMock).toHaveBeenCalledWith('metadata:changed', { key: 'val' });
 		});
 
 		it('Does not emits metadata:changed when metadata is an empty object', () => {
 			const { service, providerEmitCallbackMock } = createMockService();
 			service.updateMetadata({});
-			expect(providerEmitCallbackMock).toBeCalledTimes(0);
+			expect(providerEmitCallbackMock).toHaveBeenCalledTimes(0);
 		});
 	});
 

@@ -3,6 +3,9 @@ import { dirname } from 'path';
 import type { TSESTree } from '@typescript-eslint/utils';
 import type { Rule } from 'eslint';
 
+import { PACKAGE_NAMES } from '@atlaskit/volt-components-entry-point-config/package-names';
+
+import { debarrelPackageFolders } from './constants';
 import { parseBarrelExports } from '../shared/barrel-parsing';
 import { DEFAULT_TARGET_FOLDERS, findWorkspaceRoot, isRelativeImport } from '../shared/file-system';
 import { findPackageInRegistry, isPackageInApplyToImportsFrom } from '../shared/package-registry';
@@ -18,10 +21,14 @@ import { type ExportInfo, type FileSystem, realFileSystem } from '../shared/type
  */
 interface RuleOptions {
 	applyToImportsFrom?: string[];
+	includeDebarrelPackages?: boolean;
 	/**
 	 * When a barrel re-exports from another package, prefer `@scope/barrel/subpath` if that
 	 * subpath's entry file directly re-exports from the dependency, instead of importing the
 	 * dependency package.
+	 *
+	 * Defaults to `true` when omitted. Set to `false` to rewrite cross-package re-exports to a
+	 * subpath of the dependency package instead.
 	 *
 	 * If no such bridge subpath exists in the imported package, the specifier is left in
 	 * the original barrel import unchanged (i.e. the rule will NOT fall through to rewriting
@@ -37,6 +44,22 @@ type ImportSpecifierNode =
 	| TSESTree.ImportNamespaceSpecifier;
 type ImportDeclarationNode = TSESTree.ImportDeclaration;
 type AugmentedSpecifier = ImportSpecifierNode & { importKind?: 'type' | 'value' };
+
+/**
+ * TSESTree and ESLint's own ESTree types describe the same runtime nodes, but the
+ * two unions stopped being structurally assignable in typescript-eslint v8, where
+ * `ImportSpecifier.imported` widened to `Identifier | StringLiteral`.
+ *
+ * This rule is written against ESLint's `Rule` API (`context.report`, `fixer`)
+ * while typing its own nodes as TSESTree, so the two meet at those call sites.
+ * Convert only at that boundary — never to weaken typing elsewhere.
+ */
+const asRuleNode = (node: TSESTree.Node): Rule.Node => node as unknown as Rule.Node;
+
+const isAwaitingConsumerMigration = (packageName: string): boolean => {
+	const packageReadiness = PACKAGE_NAMES[packageName as keyof typeof PACKAGE_NAMES];
+	return packageReadiness !== undefined && packageReadiness.consumersMigrated !== true;
+};
 
 /**
  * Represents a Jest automock call: jest.mock('path') with no additional arguments
@@ -55,8 +78,6 @@ const ruleMeta: Rule.RuleMetaData = {
 	type: 'problem',
 	docs: {
 		description: 'Disallow importing from barrel files in entry points.',
-		category: 'Best Practices',
-		recommended: false,
 	},
 	fixable: 'code',
 	schema: [
@@ -69,10 +90,16 @@ const ruleMeta: Rule.RuleMetaData = {
 					description:
 						'The folder paths (relative to workspace root) containing packages whose imports will be checked and autofixed.',
 				},
-				preferImportedPackageSubpath: {
+				includeDebarrelPackages: {
 					type: 'boolean',
 					description:
-						'Prefer subpaths on the imported barrel package when they bridge to the dependency (e.g. @scope/pkg/subpath instead of @scope/dependency). If no bridge subpath exists, the import is left unchanged instead of being rewritten to a subpath of the dependency package.',
+						'When true, include all folders from debarrelPackageFolders in addition to applyToImportsFrom.',
+				},
+				preferImportedPackageSubpath: {
+					type: 'boolean',
+					default: true,
+					description:
+						'Prefer subpaths on the imported barrel package when they bridge to the dependency (e.g. @scope/pkg/subpath instead of @scope/dependency). Defaults to true when omitted. If no bridge subpath exists, the import is left unchanged instead of being rewritten to a subpath of the dependency package. Set to false to rewrite to a subpath of the dependency package instead.',
 				},
 			},
 			additionalProperties: false,
@@ -269,6 +296,11 @@ function resolveImportContextFromModulePath({
 	const packageName = packageNameMatch[1];
 	const subPath = importPath.slice(packageName.length); // e.g., "" or "/controllers/analytics"
 
+	// Stage 1 preserves deprecated shims. Enforce direct consumer imports only after Stage 2.
+	if (isAwaitingConsumerMigration(packageName)) {
+		return null;
+	}
+
 	// Find the package (resolution is not constrained by applyToImportsFrom)
 	const packageDir = findPackageInRegistry({ packageName, workspaceRoot, fs });
 	if (!packageDir) {
@@ -456,11 +488,11 @@ function classifySpecifiers({
 						continue;
 					}
 
-					// preferImportedPackageSubpath is opt-in to: "rewrite to a subpath of the
-					// imported package, or leave the import alone". Falling through to the source
-					// package's subpath would drag the consumer across the package boundary,
-					// which is exactly what this flag is meant to prevent. Mark this specifier as
-					// unmapped so the original barrel import stays in place.
+					// preferImportedPackageSubpath (default true) means: "rewrite to a subpath of
+					// the imported package, or leave the import alone". Falling through to the
+					// source package's subpath would drag the consumer across the package
+					// boundary, which is exactly what this flag is meant to prevent. Mark this
+					// specifier as unmapped so the original barrel import stays in place.
 					unmappedSpecifiers.push({
 						spec: spec as AugmentedSpecifier,
 						targetExportPath: null,
@@ -793,7 +825,7 @@ function createNodeRemovalFix({
 		return fixer.removeRange([nodeStart, nodeEnd + trailingNewlineMatch[1].length]);
 	}
 
-	return fixer.remove(node);
+	return fixer.remove(asRuleNode(node));
 }
 
 /**
@@ -882,7 +914,7 @@ function createBarrelImportFix({
 			});
 
 			if (newImportStatement.length > 0) {
-				fixes.push(fixer.replaceText(existingImport, newImportStatement));
+				fixes.push(fixer.replaceText(asRuleNode(existingImport), newImportStatement));
 			}
 		} else {
 			// Create new import
@@ -930,7 +962,7 @@ function createBarrelImportFix({
 	}
 
 	if (newStatements.length > 0) {
-		fixes.push(fixer.replaceText(node, newStatements.join('\n')));
+		fixes.push(fixer.replaceText(asRuleNode(node), newStatements.join('\n')));
 	} else {
 		// If all were merged, remove the node including surrounding whitespace/newlines
 		fixes.push(createNodeRemovalFix({ fixer, node, sourceCode }));
@@ -1363,7 +1395,7 @@ function handleImportDeclaration({
 	if (hasNamespaceImport) {
 		if (specifiersByTarget.size > 0) {
 			context.report({
-				node,
+				node: asRuleNode(node),
 				messageId: 'barrelEntryImport',
 				data: { path: importContext.importPath },
 			});
@@ -1378,7 +1410,7 @@ function handleImportDeclaration({
 
 	// Report with auto-fix
 	context.report({
-		node,
+		node: asRuleNode(node),
 		messageId: 'barrelEntryImport',
 		data: { path: importContext.importPath },
 		fix(fixer: Rule.RuleFixer) {
@@ -1394,6 +1426,15 @@ function handleImportDeclaration({
 	});
 }
 
+function resolveApplyToImportsFromOptions(options: RuleOptions): string[] {
+	const applyToImportsFrom = options.applyToImportsFrom ?? DEFAULT_TARGET_FOLDERS;
+	if (!options.includeDebarrelPackages) {
+		return applyToImportsFrom;
+	}
+
+	return Array.from(new Set([...applyToImportsFrom, ...debarrelPackageFolders]));
+}
+
 /**
  * Factory function to create the ESLint rule with a given file system.
  * This enables testing with mock file systems.
@@ -1403,8 +1444,8 @@ export function createRule(fs: FileSystem): Rule.RuleModule {
 		meta: ruleMeta,
 		create(context) {
 			const options = (context.options[0] || {}) as RuleOptions;
-			const applyToImportsFrom = options.applyToImportsFrom ?? DEFAULT_TARGET_FOLDERS;
-			const preferImportedPackageSubpath = options.preferImportedPackageSubpath ?? false;
+			const applyToImportsFrom = resolveApplyToImportsFromOptions(options);
+			const preferImportedPackageSubpath = options.preferImportedPackageSubpath ?? true;
 			const workspaceRoot = findWorkspaceRoot({
 				startPath: dirname(context.filename),
 				fs,

@@ -57,7 +57,6 @@ export function setupEditorExperiments(
 		// values.
 		// For production usage -- this is done via the feature flag client which takes the type
 		// and performs equivalent logic.
-		// @ts-ignore
 		groupOverrides = Object.entries(groupOverrides).reduce((acc, [key, value]) => {
 			const config = editorExperimentsConfig[key as keyof typeof editorExperimentsConfig];
 

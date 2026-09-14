@@ -1,6 +1,19 @@
-import React, { type MouseEvent, useEffect, useState, useRef, useMemo } from 'react';
-import { type MessageDescriptor, defineMessages, useIntl } from 'react-intl';
+import React, {
+	type FocusEvent,
+	type MouseEvent,
+	useEffect,
+	useState,
+	useRef,
+	useMemo,
+} from 'react';
 
+import { type MessageDescriptor, defineMessages, useIntl } from 'react-intl';
+import { useMergeRefs } from 'use-callback-ref';
+
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import {
 	type MediaItemType,
 	type FileDetails,
@@ -8,17 +21,16 @@ import {
 	type Identifier,
 	isFileIdentifier,
 } from '@atlaskit/media-client';
-import {
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
-	type UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { MediaFilePreview } from '@atlaskit/media-file-preview/types';
+import { messages } from '@atlaskit/media-ui/messages';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import SpinnerIcon from '@atlaskit/spinner';
-import Tooltip from '@atlaskit/tooltip';
-import { useMergeRefs } from 'use-callback-ref';
-import { messages } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import SpinnerIcon from '@atlaskit/spinner/spinner';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
+import type { MediaCardError } from '../MediaCardError';
+import { isUploadError } from '../isUploadError';
 import {
 	type CardStatus,
 	type CardPreview,
@@ -26,37 +38,32 @@ import {
 	type CardDimensions,
 	type TitleBoxIcon,
 } from '../types';
-import { type MediaFilePreview } from '@atlaskit/media-file-preview';
-import { createAndFireMediaCardEvent } from '../utils/analytics';
-import { type CardAction } from './actions';
-import { ImageRenderer } from './ui/imageRenderer';
-import { TitleBox } from './ui/titleBox/titleBox';
-import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
-import { LoadingBar } from './ui/loadingBar/loadingBar';
-import { ProgressBar } from './ui/progressBar/progressBar';
-import { PlayButton } from './ui/playButton/playButton';
-import { TickBox } from './ui/tickBox/tickBox';
-import { Blanket } from './ui/blanket/blanket';
-import { ActionsBar } from './ui/actionsBar/actionsBar';
-import { IconWrapper } from './ui/iconWrapper/iconWrapper';
-import { AIGeneratingOverlay } from './ai-generating-overlay';
-import {
-	PreviewUnavailable,
-	CreatingPreview,
-	FailedToUpload,
-	FailedToLoad,
-	CheckInternetConnection,
-} from './ui/iconMessage';
-import { isUploadError, type MediaCardError } from '../errors';
+import { createAndFireMediaCardEvent } from '../utils/analytics/createAndFireMediaCardEvent';
 import { isNetworkError } from '../utils/isNetworkError';
-import { Wrapper, ImageContainer } from './ui/wrapper';
-import { fileCardImageViewSelector } from './classnames';
-import { useBreakpoint } from './useBreakpoint';
-import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
-import { SvgView } from './svgView';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { type CardAction } from './actions';
+import { AIGeneratingOverlay } from './ai-generating-overlay/AIGeneratingOverlay';
+import { fileCardImageViewSelector } from './classnames';
+import { SvgView } from './svgView/svgView';
+import { ActionsBar } from './ui/actionsBar/actionsBar';
+import { Blanket } from './ui/blanket/blanket';
+import { CheckInternetConnection } from './ui/iconMessage/CheckInternetConnection';
+import { CreatingPreview } from './ui/iconMessage/CreatingPreview';
+import { FailedToLoad } from './ui/iconMessage/FailedToLoad';
+import { FailedToUpload } from './ui/iconMessage/FailedToUpload';
+import { PreviewUnavailable } from './ui/iconMessage/PreviewUnavailable';
+import { IconWrapper } from './ui/iconWrapper/iconWrapper';
+import { ImageRenderer } from './ui/imageRenderer';
+import { LoadingBar } from './ui/loadingBar/loadingBar';
+import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
+import { PlayButton } from './ui/playButton/playButton';
+import { ProgressBar } from './ui/progressBar/progressBar';
+import { TickBox } from './ui/tickBox/tickBox';
+import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
+import { TitleBox } from './ui/titleBox/titleBox';
+import { ImageContainer } from './ui/wrapper/imageContainer';
+import { Wrapper } from './ui/wrapper/wrapper';
+import { useBreakpoint } from './useBreakpoint';
 
 const i18n = defineMessages({
 	traceIdTooltip: {
@@ -98,6 +105,7 @@ export interface CardViewProps {
 	readonly openMediaViewerButtonRef?: React.Ref<HTMLButtonElement>;
 	readonly shouldOpenMediaViewer?: boolean;
 	readonly onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
+	readonly onFocus?: (event: FocusEvent<HTMLDivElement>) => void;
 	readonly onDisplayImage?: () => void;
 	// FileCardProps
 	readonly cardPreview?: MediaFilePreview;
@@ -116,6 +124,8 @@ export interface CardViewProps {
 	overriddenCreationDate?: number;
 	// When true, shows an animated rainbow border instead of a progress bar during upload
 	readonly isAIGenerating?: boolean;
+	// Marks the card as part of the CWR (create-with-Rovo) infographics flow.
+	readonly isCWR?: boolean;
 }
 
 export type CardViewBaseProps = CardViewProps & WithAnalyticsEventsProps;
@@ -148,6 +158,7 @@ export const CardViewBase = ({
 	dimensions,
 	onClick,
 	onMouseEnter,
+	onFocus,
 	testId,
 	metadata,
 	status,
@@ -177,6 +188,7 @@ export const CardViewBase = ({
 	traceId,
 
 	isAIGenerating,
+	isCWR,
 	backgroundColor,
 }: CardViewBaseProps): React.JSX.Element => {
 	const intl = useIntl();
@@ -454,6 +466,8 @@ export const CardViewBase = ({
 					<AIGeneratingOverlay
 						label={intl.formatMessage(i18n.aiGeneratingImage)}
 						testId="media-card-ai-generating-overlay"
+						// CWR renders the overlay opaque so it also masks the generic type icon.
+						isOpaque={isCWR}
 					/>
 				) : (
 					renderBlanket && <Blanket isFixed={isFixedBlanket} />
@@ -501,6 +515,7 @@ export const CardViewBase = ({
 				onClick={onClick}
 				ariaLabel={name || 'Media Card'}
 				onMouseEnter={onMouseEnter}
+				onFocus={onFocus}
 				innerRef={mergedRef}
 				breakpoint={breakpoint}
 				mediaCardCursor={mediaCardCursor}

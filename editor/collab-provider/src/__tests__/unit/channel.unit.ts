@@ -28,14 +28,14 @@ import type {
 	InitAndAuthData,
 	AuthCallback,
 } from '../../types';
-import type { Metadata, CollabSendableSelection } from '@atlaskit/editor-common/collab';
+import type { Metadata, CollabSendableSelection, StepJson } from '@atlaskit/editor-common/collab';
 import * as Performance from '../../analytics/performance';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { getProduct, getSubProduct } from '../../helpers/utils';
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import Network from '../../connectivity/network';
 import type { InternalError } from '../../errors/internal-errors';
 import { NotConnectedError, NotInitializedError } from '../../errors/custom-errors';
@@ -452,6 +452,46 @@ describe('Channel unit tests', () => {
 		} as StepsPayload);
 	});
 
+	it('should keep the invocationId of every step when receiving steps:added from server', () => {
+		const channel = getChannel();
+		const buildStep = (extra: Partial<StepJson> = {}): StepJson =>
+			({
+				stepType: 'replace',
+				clientId: 'client-1',
+				userId: 'ari:cloud:identity::user/123',
+				from: 7,
+				to: 7,
+				...extra,
+			}) as unknown as StepJson;
+
+		// One batch may carry several invocations alongside steps that have no invocationId.
+		const steps = [
+			buildStep({ invocationId: '01K3M8R7Y9X2Q4W6E8T0V1N3P5' }),
+			buildStep({ invocationId: '01K3M8R7Y9X2Q4W6E8T0V1N3P5' }),
+			buildStep({ invocationId: '01K3M8R7Y9X2Q4W6E8T0V1N3P6' }),
+			buildStep(),
+		];
+
+		// Collect rather than assert inside the handler: a later test dispatching a window `online`
+		// event reconnects this channel, and the socket mock replays its own steps:added payload on
+		// connect, so an asserting handler would fire again inside an unrelated test.
+		const received: StepsPayload[] = [];
+		channel.on('steps:added', (data: StepsPayload) => {
+			received.push(data);
+		});
+		channel.getSocket()!.emit('steps:added', { version: 42, steps } as StepsPayload);
+		channel.disconnect();
+
+		expect(received).toHaveLength(1);
+		expect(received[0].steps.map((step) => step.invocationId)).toEqual([
+			'01K3M8R7Y9X2Q4W6E8T0V1N3P5',
+			'01K3M8R7Y9X2Q4W6E8T0V1N3P5',
+			'01K3M8R7Y9X2Q4W6E8T0V1N3P6',
+			undefined,
+		]);
+		expect(received[0].steps).toEqual(steps);
+	});
+
 	it('should handle receiving participant:telepointer from server', (done) => {
 		const channel = getChannel();
 
@@ -657,7 +697,7 @@ describe('Channel unit tests', () => {
 		const channel = getChannel(configuration);
 		await channel.fetchCatchupv2(1, 'some-random-prosemirror-client-Id', undefined);
 
-		expect(permissionTokenRefresh).toBeCalledTimes(2);
+		expect(permissionTokenRefresh).toHaveBeenCalledTimes(2);
 		expect(spy).toHaveBeenCalledTimes(1);
 		expect(spy).toHaveBeenCalledWith(expect.anything(), {
 			path: 'document/ari%3Acloud%3Aconfluence%3Aa436116f-02ce-4520-8fbb-7301462a1674%3Apage%2F1731046230/catchupv2',
@@ -688,7 +728,7 @@ describe('Channel unit tests', () => {
 			};
 			channel = getChannel(configuration);
 			// Before connected
-			expect(permissionTokenRefresh).toBeCalledTimes(1);
+			expect(permissionTokenRefresh).toHaveBeenCalledTimes(1);
 			// wait for permissionTokenRefresh promise to resolve to set the token in channel
 			await new Promise(process.nextTick);
 			expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledWith({
@@ -751,8 +791,8 @@ describe('Channel unit tests', () => {
 
 			await channel.fetchCatchupv2(1, 'some-random-prosemirror-client-Id', undefined);
 			//making sure permissionTokenRefresh is called a second time in fetchCatchup
-			expect(permissionTokenRefresh).toBeCalledTimes(2);
-			expect(spy).toBeCalledWith(
+			expect(permissionTokenRefresh).toHaveBeenCalledTimes(2);
+			expect(spy).toHaveBeenCalledWith(
 				expect.anything(),
 				expect.objectContaining({
 					requestInit: {
@@ -954,7 +994,7 @@ describe('Channel unit tests', () => {
 		// @ts-ignore
 		const emitSpy = (channel.socket.emit = jest.fn());
 		channel.sendMetadata({ test: 'test' });
-		expect(emitSpy).toBeCalledWith('metadata', { test: 'test' });
+		expect(emitSpy).toHaveBeenCalledWith('metadata', { test: 'test' });
 	});
 
 	it('Should throw an error when trying to emit metadata without having the channel.socket initialised', () => {
@@ -965,9 +1005,7 @@ describe('Channel unit tests', () => {
 		);
 		// getChannel() calls channel.connect(), which initialises channel.socket, therefore creating Channel directly.
 		const channel = new Channel(testChannelConfig, analyticsHelper);
-		expect(() => channel.sendMetadata({ test: 'test' })).toThrowError(
-			expect.any(NotInitializedError),
-		);
+		expect(() => channel.sendMetadata({ test: 'test' })).toThrow(expect.any(NotInitializedError));
 	});
 
 	it('Should emit broadcast events', () => {
@@ -975,7 +1013,6 @@ describe('Channel unit tests', () => {
 		const channel = getChannel();
 		// @ts-ignore
 		const emitSpy = jest.spyOn(channel.socket, 'emit');
-		// @ts-ignore
 		channel.on('connected', () => {
 			channel.broadcast('participant:left', {
 				sessionId: 'sessionId',
@@ -1013,7 +1050,7 @@ describe('Channel unit tests', () => {
 				clientId: 'clientId',
 				userId: 'userId',
 			}),
-		).toThrowError(expect.any(NotInitializedError));
+		).toThrow(expect.any(NotInitializedError));
 	});
 
 	describe('Network', () => {
@@ -1024,9 +1061,7 @@ describe('Channel unit tests', () => {
 			});
 			// @ts-ignore
 			channel.connected = false;
-			expect(() => channel.sendMetadata({ test: 'test' })).toThrowError(
-				expect.any(NotConnectedError),
-			);
+			expect(() => channel.sendMetadata({ test: 'test' })).toThrow(expect.any(NotConnectedError));
 		});
 
 		it('Should throw an error when not connected only if throwOnNotConnected is set for broadcast', () => {
@@ -1036,7 +1071,7 @@ describe('Channel unit tests', () => {
 			});
 			// @ts-ignore
 			channel.connected = false;
-			expect(() => channel.broadcast('status', { waitTimeInMs: 2, isLocked: true })).toThrowError(
+			expect(() => channel.broadcast('status', { waitTimeInMs: 2, isLocked: true })).toThrow(
 				expect.any(NotConnectedError),
 			);
 		});
@@ -1092,21 +1127,19 @@ describe('Channel unit tests', () => {
 			it('Should attempt to immediately reconnect when the browser online event is triggered', () => {
 				const channel = getChannel();
 				window.dispatchEvent(new Event('online'));
-				expect(channel.getSocket()?.close).toBeCalled();
-				expect(channel.getSocket()?.connect).toBeCalled();
+				expect(channel.getSocket()?.close).toHaveBeenCalled();
+				expect(channel.getSocket()?.connect).toHaveBeenCalled();
 			});
 
 			it('Should destroy the network utility when the channel disconnects', () => {
 				const channel = getChannel();
 				// @ts-ignore
 				const destroyMock = jest.spyOn(channel.network, 'destroy');
-				// @ts-ignore
 				window.dispatchEvent(new Event('online'));
-				expect(channel.getSocket()?.close).toBeCalled();
-				expect(channel.getSocket()?.connect).toBeCalled();
+				expect(channel.getSocket()?.close).toHaveBeenCalled();
+				expect(channel.getSocket()?.connect).toHaveBeenCalled();
 				channel.disconnect();
-				// @ts-ignore
-				expect(destroyMock).toBeCalled();
+				expect(destroyMock).toHaveBeenCalled();
 				// @ts-ignore
 				expect(channel.network).toBeNull();
 			});

@@ -1,18 +1,19 @@
 // abstract-base-vc-calculator.test.ts
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { VCObserverEntry } from '../types';
 
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
-import * as percentileCalc from './percentile-calc';
+import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc/canvas-heatmap';
+import * as percentileCalc from './percentile-calc/canvas-heatmap';
 import * as getViewportHeight from './utils/get-viewport-height';
 import * as getViewportWidth from './utils/get-viewport-width';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 const mockFg = fg as jest.Mock;
 
 // Mock canvas functionality for tests
-jest.mock('./percentile-calc/canvas-heatmap/canvas-pixel', () => ({
+jest.mock('./percentile-calc/canvas-heatmap/viewport-canvas', () => ({
 	ViewportCanvas: jest.fn().mockImplementation(() => ({
 		drawRect: jest.fn(),
 		getPixelCounts: jest.fn().mockResolvedValue(new Map()),
@@ -219,7 +220,7 @@ describe('AbstractVCCalculatorBase V1', () => {
 		});
 
 		// Verify that calculateTTVCPercentilesWithDebugInfo was called with only the filtered entries
-		expect(percentileCalc.calculateTTVCPercentilesWithDebugInfo).toHaveBeenCalledWith(
+		expect(calculateTTVCPercentilesWithDebugInfo).toHaveBeenCalledWith(
 			expect.objectContaining({
 				orderedEntries: [entries[0]], // Only the first entry should be included
 			}),

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tmp-editor-statsig",
-	"version": "135.9.0",
+	"version": "188.0.0",
 	"description": "Temp plugin to ease use of statsig feature flags until platform feature flags are available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,6 +28,8 @@
 		"./setup": "./src/setup.ts",
 		"./exp-test-overrides": "./src/exp-test-overrides.ts",
 		"./experiments": "./src/experiments.ts",
+		"./editor-experiment": "./src/editor-experiment.ts",
+		"./unstable-editor-experiment-param": "./src/unstable-editor-experiment-param.ts",
 		"./experiments-config": "./src/experiments-config.ts",
 		"./editor-experiments-test-utils": "./src/editor-experiments-test-utils.ts",
 		"./expVal": "./src/expVal.ts",

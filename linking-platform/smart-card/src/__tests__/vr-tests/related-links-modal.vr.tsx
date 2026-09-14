@@ -1,11 +1,11 @@
 import { snapshot } from '@af/visual-regression';
 
-import RelatedLinksModal from '../../../examples/vr-related-links-modal/vr-related-links-modal';
-import RelatedLinksModalErroredView from '../../../examples/vr-related-links-modal/vr-related-links-modal-errored-view';
-import RelatedLinksResolvedView from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolved-view';
-import RelatedLinksResolvedViewWithEmptyList from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolved-view-empty-outgoing';
-import RelatedLinksModalResolvingView from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolving-view';
-import RelatedLinksModalUnavailableView from '../../../examples/vr-related-links-modal/vr-related-links-modal-unavailable-view';
+import RelatedLinksModalErroredView from '../../../examples/vr-related-links-modal/vr-related-links-modal-errored-view.vr.ap';
+import RelatedLinksResolvedViewWithEmptyList from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolved-view-empty-outgoing.vr.ap';
+import RelatedLinksResolvedView from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolved-view.vr.ap';
+import RelatedLinksModalResolvingView from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolving-view.vr.ap';
+import RelatedLinksModalUnavailableView from '../../../examples/vr-related-links-modal/vr-related-links-modal-unavailable-view.vr.ap';
+import RelatedLinksModal from '../../../examples/vr-related-links-modal/vr-related-links-modal.vr.ap';
 
 snapshot(RelatedLinksModal, {
 	description: 'empty',

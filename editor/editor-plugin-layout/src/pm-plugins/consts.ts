@@ -1,4 +1,4 @@
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 
 export const MAX_STANDARD_LAYOUT_COLUMNS = 3;
 export const MAX_LAYOUT_COLUMNS = 5;

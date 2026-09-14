@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { useAnalyticsEvents, createAndFireEvent } from '@atlaskit/analytics-next';
-import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import { useDatasourceClientExtension } from '@atlaskit/link-client-extension/use-data-source-client-extension';
 
 import createEventPayload from './common/utils/analytics/create-event-payload';
 import { EVENT_CHANNEL } from './common/utils/constants';
@@ -29,7 +30,7 @@ export const useDatasourceLifecycleAnalytics = (): DatasourceLifecycleMethods =>
 					});
 					runWhenIdle(async () => {
 						const { fireDatasourceEvent } = await import(
-							/* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
+							/* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-datasource-event'
 						);
 						fireDatasourceEvent(action, createAnalyticsEvent, getDatasourceData)(...args);
 					});

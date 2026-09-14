@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3ac62e14826e8b3e1f38977284672c29>>
+ * @codegen <<SignedSource::8ee900a9880f2d518e057127da69d851>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,7 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  */
 export function CompanyHubIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Company Hub',
 	testId,

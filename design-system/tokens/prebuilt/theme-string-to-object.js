@@ -24,9 +24,7 @@ var customThemeOptions = 'UNSAFE_themeOptions';
  * ```
  */
 var themeStringToObject = exports.themeStringToObject = function themeStringToObject(themeState) {
-  return themeState.split(' ')
-  // @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-  .map(function (theme) {
+  return themeState.split(' ').map(function (theme) {
     return theme.split(/:([^]*)/);
   }).reduce(function (themeObject, _ref) {
     var _ref2 = (0, _slicedToArray2.default)(_ref, 2),

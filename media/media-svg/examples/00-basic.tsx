@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { MediaClientProvider } from '@atlaskit/media-client-react';
+import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 
-import MediaSvg from '../src';
+import MediaSvg from '../src/media-svg';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 

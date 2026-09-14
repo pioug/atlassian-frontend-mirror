@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Select, { type OptionType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { OptionType } from '@atlaskit/select/types';
 
 const getOptionValue = (option: OptionType) => {
 	if (option.filterValues && option.filterValues.length) {

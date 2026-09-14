@@ -14,7 +14,7 @@ import AvatarSquare from '../../examples/constellation/avatar-square';
 import AvatarHexagon from '../../examples/constellation/avatar-hexagon';
 import AvatarTooltip from '../../examples/constellation/avatar-tooltip';
 import AvatarSmall from '../../examples/constellation/avatar-small';
-import AvatarXSmall from '../../examples/constellation/avatar-x-small';
+import AvatarXXSmall from '../../examples/constellation/avatar-x-small';
 import AvatarMedium from '../../examples/constellation/avatar-medium';
 import AvatarLarge from '../../examples/constellation/avatar-large';
 import AvatarXLarge from '../../examples/constellation/avatar-x-large';
@@ -156,12 +156,18 @@ things like [dropdown menus](/components/dropdown-menu).
 
 <Example Component={AvatarSmall} packageName="@atlaskit/avatar" />
 
-### xsmall
+### xxsmall
 
-Use `xsmall` circle and square avatars for onscreen metadata such as in Jira work items or dropdown
+Use `xxsmall` circle and square avatars for onscreen metadata such as in Jira work items or dropdown
 menus.
 
-<Example Component={AvatarXSmall} packageName="@atlaskit/avatar" />
+<Example Component={AvatarXXSmall} packageName="@atlaskit/avatar" />
+
+### xsmall (legacy)
+
+In the current major, `xsmall` is retained as a legacy name for 16px avatars. Use `xxsmall` for new
+16px usage. In a future major, `xsmall` will become the public 20px size; use `UNSAFE_xsmall` only
+as the temporary 20px migration value until then.
 
 ## Displaying a tooltip
 

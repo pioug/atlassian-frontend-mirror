@@ -1,5 +1,90 @@
 # @atlaskit/editor-json-transformer
 
+## 9.8.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.7.0
+
+### Minor Changes
+
+- [`ae3b452f54cbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae3b452f54cbe) -
+  Add clean granular subpath exports `@atlaskit/editor-json-transformer/JSONTransformer-2` and
+  `@atlaskit/editor-json-transformer/toJSON`, so `JSONTransformer` and `toJSON` each have a
+  non-deprecated import target (Volt Stage-1). The root barrel and the
+  `@atlaskit/editor-json-transformer/jsonTransformer` shim are unchanged.
+
+## 9.6.0
+
+### Minor Changes
+
+- [`1ba964c23baef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ba964c23baef) -
+  `JSONTransformer.parse` no longer upgrades container nodes (`panel` -> `panel_c1`) while
+  deserialising — it is again a plain `schema.nodeFromJSON`, so the ProseMirror node types it
+  produces match the input ADF exactly.
+
+  Removed under HOT-305774, which impacted FedRAMP customers. The upgrade was unconditional: a
+  `panel` at the root of the document became a `panel_c1` whenever the supplied schema declared that
+  node. That is unsafe across a service boundary, because the two sides do not agree on the schema —
+  pf-collab-service (NCS) unconditionally uses the stage-0 schema, which does declare `panel_c1`,
+  while the editor does not support `panel_c1` unless the `platform_editor_nest_table_in_panel`
+  experiment is enabled. NCS therefore produced drafts whose panels had been converted to
+  `panel_c1`, which the editor does not unconditionally support.
+
+  Consumers that need to deserialise table-in-panel ADF (`{ type: 'panel' }` containing a `table`,
+  which ProseMirror models as the separate `panel_c1` node) should apply `transformContainerNodes`
+  from `@atlaskit/adf-utils/transforms` to the document before calling `parse`, as the editor and
+  renderer already do.
+
+## 9.5.0
+
+### Minor Changes
+
+- [`52e80c8d44e5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52e80c8d44e5f) -
+  Behind `platform_editor_sanitize_selection_fragments`, `getFragmentsFromSelection` now sanitises
+  selection fragments via `JSONTransformer.encodeNode` instead of the raw `nodeToJSON`, so the
+  schema-only `panel_c1` container variant no longer leaks to Remix and other AI selection-context
+  consumers when `platform_editor_nest_table_in_panel` is enabled. `keepNestedTables: true` is
+  passed to keep nested tables intact. `encodeNode` and editor-common's `nodeToJSON` now accept
+  `SanitizeNodeOptions`, matching `encode`.
+
+## 9.4.0
+
+### Minor Changes
+
+- [`710e3d9ec4c65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/710e3d9ec4c65) -
+  Add `upgradeContainerNodes` to `@atlaskit/adf-utils/transforms` — a schema-driven, flag-free
+  transform that promotes `panel` nodes to their table-allowing `panel_c1` variant wherever the
+  schema allows it (document root, layout column, synced block), regardless of the panel's content.
+
+  `JSONTransformer.parse` now applies it so table-in-panel deserialises consistently for all
+  `JSONTransformer` consumers. It is a no-op for schemas that do not declare `panel_c1`, and it is
+  best-effort (malformed input still surfaces the canonical `nodeFromJSON` validation error).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.3.0
+
+### Minor Changes
+
+- [`0f11ee2d1f0a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f11ee2d1f0a4) -
+  Apply Stage 1 Volt standards (one export per file) to `@atlaskit/editor-json-transformer`.
+
+  The `exports` map now points directly at the implementation modules instead of routing through
+  `src/entry-points/*` shims, and multi-export source files have been split so each module has a
+  single export. No entry point is removed and no public binding is dropped — every subpath exposes
+  exactly the same bindings as before, with `@deprecated` re-export shims left in place for the
+  Stage 2 consumer migration.
+
 ## 9.2.0
 
 ### Minor Changes

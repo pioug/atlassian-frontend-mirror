@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import Tooltip from '../../tooltip';

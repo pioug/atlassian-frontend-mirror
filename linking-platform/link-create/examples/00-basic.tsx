@@ -2,8 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
 
-import Button from '@atlaskit/button/new';
-import Link from '@atlaskit/link';
+import Button from '@atlaskit/button/default/button';
+import Link from '@atlaskit/link/link';
 import { token } from '@atlaskit/tokens';
 
 import { MockDisclaimer } from '../example-helpers/mock-disclaimer';

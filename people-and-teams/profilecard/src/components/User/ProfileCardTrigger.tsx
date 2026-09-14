@@ -3,9 +3,10 @@ import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } fr
 import { useIntl } from 'react-intl';
 
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Popup from '@atlaskit/popup';
-import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Popup } from '@atlaskit/popup/popup';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -146,14 +147,12 @@ export default function ProfilecardTriggerNext({
 	const hideTimer = useRef<number>(0);
 
 	const isExternalControl = propsIsVisible !== undefined && propsIsVisible !== visible;
-	// Skip delay entirely for click triggers, or for externally controlled visibility
-	// when the flashing fix is not enabled (preserving the original 0ms behavior).
-	const shouldSkipDelay =
-		trigger === 'click' || (isExternalControl && !fg('jira_ai_fix_agent_profile_card_flashing'));
-	// When externally controlled with the flashing fix enabled, use a short debounce
-	// to absorb rapid focus changes from dropdown options settling after async load.
+	// Skip delay entirely for click triggers.
+	const shouldSkipDelay = trigger === 'click';
+	// When externally controlled, use a short debounce to absorb rapid focus
+	// changes from dropdown options settling after async load.
 	const REDUCED_DELAY_MS = 100;
-	const shouldReduceDelay = isExternalControl && fg('jira_ai_fix_agent_profile_card_flashing');
+	const shouldReduceDelay = isExternalControl;
 
 	let showDelay = customShowDelay ?? DELAY_MS_SHOW;
 	let hideDelay = customHideDelay ?? DELAY_MS_HIDE;

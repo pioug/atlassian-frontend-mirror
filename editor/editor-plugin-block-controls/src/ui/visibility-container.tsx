@@ -13,7 +13,7 @@ import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -24,6 +24,7 @@ interface VisibilityContainerProps {
 	children: React.ReactNode;
 	controlSide?: 'left' | 'right';
 	forceVisibleOnMouseOut?: boolean;
+	isPersistent?: boolean;
 	/**
 	 * Set when the container should not create its own layout box while its descendants retain theirs.
 	 */
@@ -77,6 +78,7 @@ export const VisibilityContainer = ({
 	children,
 	controlSide,
 	forceVisibleOnMouseOut,
+	isPersistent,
 	shouldUseDisplayContents,
 }: VisibilityContainerProps): jsx.JSX.Element => {
 	const {
@@ -86,10 +88,11 @@ export const VisibilityContainer = ({
 		hoverSide,
 		editorViewMode,
 		userIntent,
+		isDisplayingDiff,
 		rightSideControlsEnabled,
 	} = useSharedPluginStateWithSelector(
 		api,
-		['typeAhead', 'blockControls', 'editorViewMode', 'userIntent'],
+		['typeAhead', 'blockControls', 'editorViewMode', 'userIntent', 'showDiff'],
 		(states) => ({
 			isTypeAheadOpen: states.typeAheadState?.isOpen,
 			isEditing: states.blockControlsState?.isEditing,
@@ -97,6 +100,7 @@ export const VisibilityContainer = ({
 			hoverSide: states.blockControlsState?.hoverSide,
 			editorViewMode: states.editorViewModeState?.mode,
 			userIntent: states.userIntentState?.currentUserIntent,
+			isDisplayingDiff: states.showDiffState?.isDisplayingChanges,
 			rightSideControlsEnabled: states.blockControlsState?.rightSideControlsEnabled,
 		}),
 	);
@@ -117,14 +121,19 @@ export const VisibilityContainer = ({
 	// When forceVisibleOnMouseOut is true (e.g. drag handle focused via keyboard Shift+Ctrl+H),
 	// override the mouse-out condition so the control stays visible regardless of mouse position.
 	const shouldHideWhenMouseOut = forceVisibleOnMouseOut ? false : hideOnMouseOut;
+	// Persistent controls (e.g. an AI suggestion icon on every qualifying node) aren't hover-driven,
+	// so none of the hover/typing/mouse-out/diff-review reasons below apply to them — they're never
+	// hidden by this container.
 	const shouldHideImmediate =
-		isTypeAheadOpen ||
-		isEditing ||
-		shouldHideWhenMouseOut ||
-		userIntent === 'aiStreaming' ||
-		(userIntent === 'viewingDiff' &&
-			expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) ||
-		sideHidden;
+		!isPersistent &&
+		(isTypeAheadOpen ||
+			isEditing ||
+			shouldHideWhenMouseOut ||
+			userIntent === 'aiStreaming' ||
+			// EDITOR-7926: hide the drag handle while a diff is on screen or a suggestion card is open.
+			((isDisplayingDiff || userIntent === 'reviewing') &&
+				expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) ||
+			sideHidden);
 
 	// Delay hiding the right control in view mode to reduce flickering when moving from block
 	// toward the right-edge button (avoids rapid show/hide as mouse crosses boundaries).

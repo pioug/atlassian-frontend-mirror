@@ -1,6 +1,24 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import PopupSelectExample from '../../../../examples/18-popup-select';
+import PopupSelectExample from '../../../../examples/18-popup-select.vr.ap';
+
+const consolidationFlag = { 'platform-dst-popper-consolidation': [true] } as const;
+
+snapshotInformational(PopupSelectExample, {
+	description: 'Popper consolidation enabled',
+	featureFlags: consolidationFlag,
+	variants: [
+		{
+			name: 'desktop',
+			environment: { colorScheme: 'light' },
+			device: Device.DESKTOP_CHROME,
+		},
+	],
+	async prepare(page) {
+		await page.getByRole('button', { name: 'switcher' }).click();
+		await page.getByRole('listbox').waitFor({ state: 'visible' });
+	},
+});
 
 snapshotInformational(PopupSelectExample, {
 	description: 'basic',

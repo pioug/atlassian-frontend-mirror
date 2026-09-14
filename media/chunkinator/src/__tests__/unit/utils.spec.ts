@@ -1,8 +1,11 @@
-import { asMock } from '@atlaskit/media-common/test-helpers';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import { toArray } from 'rxjs/operators/toArray';
-import { fetchBlob, asyncMap } from '../../utils';
+
+import { asMock } from '@atlaskit/media-common/test-helpers';
+
+import { asyncMap } from '../../asyncMap';
+import { fetchBlob } from '../../fetchBlob';
 
 describe('utils', () => {
 	describe('fetchBlob', () => {
@@ -16,7 +19,7 @@ describe('utils', () => {
 			const { fetch } = setup(blob);
 
 			return fetchBlob(url).then((actualBlob) => {
-				expect(fetch).toBeCalledWith(url);
+				expect(fetch).toHaveBeenCalledWith(url);
 				expect(actualBlob).toEqual(blob);
 			});
 		});

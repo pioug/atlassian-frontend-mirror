@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { type GroupKey } from '@atlaskit/jql-editor-common/autocomplete/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Popper } from '@atlaskit/popper';
-import Spinner from '@atlaskit/spinner';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Popper } from '@atlaskit/popper/main';
+import Spinner from '@atlaskit/spinner/spinner';
 
-import { ScreenReaderText } from '../../../../accessibility';
+import { ScreenReaderText } from '../../../../accessibility/styled';
 import { JQL_EDITOR_AUTOCOMPLETE_ID } from '../../../../common/constants';
 import {
 	useAutocomplete,
@@ -33,6 +33,8 @@ import { messages } from '../../messages';
 import AutocompleteOption from '../autocomplete-option';
 import { type AutocompleteAnalyticsAttributes, type SelectableAutocompleteOption } from '../types';
 
+import { getAutocompleteAnalyticsAttributes } from './getAutocompleteAnalyticsAttributes';
+import { groupAutocompleteOptionsByKey } from './groupAutocompleteOptionsByKey';
 import {
 	AutocompleteContainer,
 	AutocompleteLoadingFooter,
@@ -56,34 +58,7 @@ export type AutocompleteOptionsByGroupKey = {
 	options: SelectableAutocompleteOption[];
 };
 
-const UNGROUPED_KEY = '';
-
-export const groupAutocompleteOptionsByKey = (
-	options: SelectableAutocompleteOption[],
-): AutocompleteOptionsByGroupKey[] => {
-	if (!options.some((option) => option.groupKey != null)) {
-		return [{ options }];
-	}
-
-	const groupsByKey = new Map<string, SelectableAutocompleteOption[]>();
-
-	for (const option of options) {
-		const key = option.groupKey ?? UNGROUPED_KEY;
-
-		let bucket = groupsByKey.get(key);
-		if (!bucket) {
-			bucket = [];
-			groupsByKey.set(key, bucket);
-		}
-		bucket.push(option);
-	}
-
-	return [...groupsByKey.entries()].map(([key, groupedOptions]) =>
-		key === UNGROUPED_KEY
-			? { options: groupedOptions }
-			: { groupKey: key as GroupKey, options: groupedOptions },
-	);
-};
+export const UNGROUPED_KEY: any = '';
 
 const getPreviousOptionId = (
 	options: SelectableAutocompleteOption[],
@@ -202,15 +177,16 @@ const AutocompleteDropdown = ({
 	const handleClick = useCallback(
 		(option: SelectableAutocompleteOption, optionIndex: number, keyboard: boolean) => {
 			closeAutocomplete();
-			onClick(option, {
-				keyboard,
-				numberOfOptions: options.length,
-				optionIndex,
-				optionType: option.type,
-				queryLength: option.matchedText.length,
-				nodeType:
-					areRichInlineNodesEnabled && option.valueType !== undefined ? option.valueType : 'text',
-			});
+			onClick(
+				option,
+				getAutocompleteAnalyticsAttributes({
+					areRichInlineNodesEnabled,
+					keyboard,
+					numberOfOptions: options.length,
+					option,
+					optionIndex,
+				}),
+			);
 		},
 		[options, onClick, closeAutocomplete, areRichInlineNodesEnabled],
 	);

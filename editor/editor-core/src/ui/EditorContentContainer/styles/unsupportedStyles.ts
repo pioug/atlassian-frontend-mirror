@@ -30,6 +30,60 @@ export const UnsupportedSharedCssClassName = {
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+/**
+ * Styles for UnsupportedBlockNodeView — gated behind platform_editor_vanilla_node_views_phase1.
+ * Applied in EditorContentContainerEmotion — will be removed as part of compiled upgrade.
+ *
+ * The `unsupported-*-vanilla-*` class names are produced by `VanillaUnsupportedCssClassName` in
+ * editor-plugin-unsupported-content/src/nodeviews/unsupported-block-node-view.ts — keep both in sync
+ * when renaming.
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
+export const vanillaUnsupportedStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.unsupported-block-vanilla-inner': {
+			alignItems: 'center',
+			background: token('color.background.disabled'),
+			border: `${token('border.width')} dashed ${token('color.border.disabled')}`,
+			borderRadius: token('radius.small', '3px'),
+			boxSizing: 'border-box',
+			cursor: 'pointer',
+			display: 'flex',
+			font: token('font.body'),
+			margin: `${token('space.100')} 0`,
+			minHeight: '24px',
+			minWidth: '120px',
+			padding: token('space.150'),
+			textAlign: 'center',
+			justifyContent: 'center',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.unsupported-inline-vanilla-inner': {
+			alignItems: 'center',
+			background: token('color.background.disabled'),
+			border: `${token('border.width')} dashed ${token('color.border.disabled')}`,
+			borderRadius: token('radius.small', '3px'),
+			boxSizing: 'border-box',
+			cursor: 'default',
+			display: 'inline-flex',
+			font: token('font.body'),
+			margin: `0 ${token('space.025')}`,
+			minHeight: '24px',
+			padding: `0 ${token('space.100')}`,
+			verticalAlign: 'middle',
+			whiteSpace: 'nowrap',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.unsupported-vanilla-icon': {
+			padding: token('space.050', '4px'),
+			display: 'inline-flex',
+			alignItems: 'center',
+		},
+	},
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const unsupportedStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values

@@ -21,14 +21,13 @@ export type {
 	CardDimensions,
 } from './types';
 
-export { Card, CardSync } from './card';
-export {
-	MediaInlineCard,
-	fireFailedMediaInlineEvent,
-	fireSucceededMediaInlineEvent,
-} from './inline';
+export { default as Card } from './card/cardLoader';
+export { default as CardSync } from './card/cardSync';
+export { default as MediaInlineCard } from './inline/loader';
+export { fireFailedOperationalEvent as fireFailedMediaInlineEvent } from './inline/fireFailedOperationalEvent';
+export { fireSucceededOperationalEvent as fireSucceededMediaInlineEvent } from './inline/fireSucceededOperationalEvent';
 
-export { MediaCardError } from './errors';
+export { MediaCardError } from './MediaCardError';
 
 export { CardPlaceholder } from './utils/lightCards/cardPlaceholder';
 export { CardLoading } from './utils/lightCards/cardLoading';

@@ -1,6 +1,6 @@
-import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { insm, init as originalInit } from '../index';
-import type { INSMOptions, PeriodMeasurer } from '../types';
+import type { INSMOptions } from '../types';
 
 // --- Mocks ---
 let rafCallbacks: { cb: FrameRequestCallback; id: number }[] = [];
@@ -29,8 +29,6 @@ function runRAF(frames = 1, frameDuration = 16) {
 	}
 }
 
-function mockPerformance() {}
-
 function mockVisibility() {
 	Object.defineProperty(document, 'visibilityState', {
 		get: () => visibilityState,
@@ -47,10 +45,30 @@ function resetMocks() {
 	rafCallbacks = [];
 	rafId = 1;
 	visibilityState = 'visible';
+	MockPerformanceObserver.instance = null;
 	if (analyticsSpy) {
 		analyticsSpy.mockReset();
 	}
 }
+
+// Mock PerformanceEventTiming - the DOM lib type does not include `interactionId`
+interface PerformanceEventTiming extends PerformanceEntry {
+	interactionId?: number;
+}
+
+function interactionEntry(
+	name: string,
+	duration: number,
+	interactionId: number,
+): PerformanceEventTiming {
+	return { name, entryType: 'event', duration, interactionId } as PerformanceEventTiming;
+}
+
+/**
+ * The INP observer callback defers processing entries by a microtask
+ * (a Safari workaround), so entries are only recorded after the microtask queue drains.
+ */
+const flushEntryProcessing = () => Promise.resolve();
 
 // --- Analytics stub ---
 const analyticsClientStub = {
@@ -288,17 +306,48 @@ describe('Entry Point API (index.ts)', () => {
 			expect(insm.session?.details.paused).toBe(false);
 		});
 
-		test('paused session has no measurement', () => {
+		test('paused session has no measurement', async () => {
 			init({
 				getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
 				experiences: { expA: { enabled: true } },
 			});
 			insm.startHeavyTask('t1');
 			insm.start('expA', { initial: true, contentId: '9001' });
-			runRAF(10, 100); // Simulate slow frames while paused
+
+			// While paused, interactions must not be observed at all
+			expect(MockPerformanceObserver.instance).toBeNull();
+
+			// ... so any interaction timing occurring during the heavy task is discarded
+			MockPerformanceObserver.simulateEntries([interactionEntry('click', 100, 1)]);
+			await flushEntryProcessing();
+
 			insm.stopEarly('test', 'n/a');
-			const afps = analyticsSpy.mock.calls[0][0].attributes.periods.inactive.measurements.afps;
-			expect(afps.denominator).toBe(0);
+			const inp = analyticsSpy.mock.calls[0][0].attributes.periods.inactive.measurements.inp;
+			expect(inp).toEqual({ min: 0, max: 0, average: 0, numerator: 0, denominator: 0 });
+		});
+
+		test('measurement resumes once all heavy tasks have ended', async () => {
+			init({
+				getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
+				experiences: { expA: { enabled: true } },
+			});
+			insm.startHeavyTask('t1');
+			insm.start('expA', { initial: true, contentId: '9001' });
+
+			// Ignored - the session is still paused
+			MockPerformanceObserver.simulateEntries([interactionEntry('click', 100, 1)]);
+			await flushEntryProcessing();
+
+			insm.endHeavyTask('t1');
+			expect(MockPerformanceObserver.instance).not.toBeNull();
+
+			// Measured - the session has resumed
+			MockPerformanceObserver.simulateEntries([interactionEntry('click', 200, 2)]);
+			await flushEntryProcessing();
+
+			insm.stopEarly('test', 'n/a');
+			const inp = analyticsSpy.mock.calls[0][0].attributes.periods.inactive.measurements.inp;
+			expect(inp).toEqual({ min: 200, max: 200, average: 200, numerator: 200, denominator: 1 });
 		});
 
 		test('starting session while a heavy task is active begins paused', () => {
@@ -400,79 +449,5 @@ describe('Entry Point API (index.ts)', () => {
 			expect(periods.active.count).toBe(0);
 			expect(periods.inactive.count).toBe(1);
 		});
-	});
-
-	describe('FPS measurement behavior (observable)', () => {
-		test('FPS while running is reflected in measurement', () => {
-			init({
-				getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
-				experiences: { expA: { enabled: true } },
-			});
-			insm.start('expA', { initial: true, contentId: '9001' });
-			runRAF(2, 500); // 2fps
-
-			insm.stopEarly('test', 'n/a');
-			const afps = analyticsSpy.mock.calls[0][0].attributes.periods.inactive.measurements.afps;
-			expect(afps.average).toBe(2);
-		});
-
-		test('FPS while paused is not reflected', () => {
-			init({
-				getAnalyticsWebClient: Promise.resolve(analyticsClientStub),
-				experiences: { expA: { enabled: true } },
-			});
-			insm.start('expA', { initial: true, contentId: '9001' });
-			insm.startHeavyTask('t1');
-			runRAF(2, 500); // 2fps
-			insm.endHeavyTask('t1');
-			runRAF(10, 100); // 10fps
-			insm.stopEarly('test', 'n/a');
-			const afps = analyticsSpy.mock.calls[0][0].attributes.periods.inactive.measurements.afps;
-			expect(afps.average).toBe(10);
-		});
-	});
-});
-
-describe('AFPS measurer (period-measurers/afps.ts)', () => {
-	let afps: PeriodMeasurer;
-
-	beforeEach(() => {
-		jest.useFakeTimers({ doNotFake: ['requestAnimationFrame'] });
-		resetMocks();
-		mockRAF();
-		mockVisibility();
-		analyticsSpy = jest.fn();
-		mockPerformance();
-		afps = new (require('../period-measurers/afps').AnimationFPSIM)();
-	});
-
-	test('start active begins measuring with RAF + performance.now', () => {
-		afps.start(false);
-		runRAF(10, 16);
-		const result = afps.end();
-		expect(result.numerator).toBeGreaterThan(0);
-		expect(result.denominator).toBeGreaterThan(0);
-		expect(result.average).toBeGreaterThan(0);
-	});
-
-	test('start paused does not measure until resume', () => {
-		afps.start(true);
-		runRAF(2, 500); // 2fps
-		afps.resume();
-		runRAF(10, 100); // 10fps
-		const result = afps.end();
-		expect(result.average).toBe(10);
-	});
-
-	test('pause/resume toggles measurement', () => {
-		afps.start(false);
-		runRAF(4, 250); // 4fps
-		afps.pause();
-		runRAF(10, 100); // 10fps
-		afps.resume();
-		runRAF(4, 250); // 4fps
-		const result = afps.end();
-		expect(result.average).toBe(4);
-		expect(result.denominator).toBe(2); // 2s total time
 	});
 });

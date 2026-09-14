@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "00-default-tabs.tsx",
+    "00-default-tabs.vr.ap.tsx",
     "20-custom-tab-components.tsx",
-    "70-no-space-for-tabs.tsx"
+    "70-no-space-for-tabs.vr.ap.tsx"
   ],
   "exampleDependencies": [
-    "react-lorem-component"
+    "lorem-ipsum"
   ]
 }

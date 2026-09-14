@@ -29,6 +29,9 @@
 			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-analytics/afm-products/tsconfig.json"
 		},
 		{
@@ -50,10 +53,16 @@
 			"path": "../../editor-plugin-type-ahead/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-ui-control-registry/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
@@ -63,6 +72,9 @@
 		},
 		{
 			"path": "../../node-data-provider/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/stylelint-design-system",
-	"version": "5.0.2",
+	"version": "5.1.0",
 	"description": "Stylelint plugin for use with the Atlassian Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,20 +51,6 @@
 	"devDependencies": {
 		"jest-preset-stylelint": "root:*",
 		"tsup": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions",
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
 	},
 	"homepage": "https://atlassian.design/components/stylelint-design-system"
 }

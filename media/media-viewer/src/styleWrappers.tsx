@@ -17,10 +17,9 @@ import { type MediaType } from '@atlaskit/media-client';
 import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 
 const blanketStyles = css({
 	position: 'fixed',
@@ -676,16 +675,9 @@ export const ImageWrapper: ForwardRefExoticComponent<
 		}: ImageWrapperProps & ClassName,
 		ref,
 	) => {
-		const a11yProps = fg('platform_media_a11y_suppression_fixes')
-			? {
-					role: 'none' as const,
-				}
-			: {};
-
 		return (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div
-				{...a11yProps}
+				role="none"
 				data-testid={datatestId}
 				onClick={onClick}
 				ref={ref as React.RefObject<HTMLDivElement>}

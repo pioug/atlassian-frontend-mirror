@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/image",
-	"version": "4.2.1",
+	"version": "5.2.0",
 	"description": "An image that changes in light or dark themes.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -8,14 +8,14 @@
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"module:es2019": "dist/es2019/index.js",
-	"types": "dist/types/index.d.ts",
+	"main": "dist/cjs/ui/image/index.js",
+	"module": "dist/esm/ui/image/index.js",
+	"module:es2019": "dist/es2019/ui/image/index.js",
+	"types": "dist/types/ui/image/index.d.ts",
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.tsx",
+	"atlaskit:src": "src/ui/image/index.tsx",
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,
@@ -38,7 +38,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -50,50 +50,14 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"homepage": "https://atlassian.design/components/image/",
 	"exports": {
-		".": "./src/index.tsx",
+		".": "./src/ui/image/index.tsx",
 		"./image": "./src/ui/image/index.tsx"
 	}
 }

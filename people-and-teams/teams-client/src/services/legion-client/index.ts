@@ -1,30 +1,28 @@
 import {
 	type InvitedUser,
-	type LinkOrder,
-	type NewTeamLink,
-	type ReadMediaTokenResponse,
-	type Team,
-	type TeamLink,
 	type TeamMembership,
-	type TeamMembershipSettings,
-	type TeamWithImageUrls,
 	type TeamWithMemberships,
-} from '../../types';
-import {
-	type AlignmentPermission,
-	type AssignedTeamsResponse,
-	type AssignTeamsToSitesResponse,
-	type ExternalReference,
-	type LinkedTeamsBulkResponse,
-	type LinkedTeamsProfileDetails,
-	type OrgScope,
-	type SoftDeletedTeam,
-	type SoftDeletedTeamResponse,
-	type TeamEnabledSitesResponse,
-	type TeamSiteAssignmentOrgDetailsResponse,
-	type TeamsPermissionFromApi,
-	type TeamsToBeClonedToJsmSitesResponse,
-	type UnassignedTeamsResponse,
+} from '../../types/membership';
+import { type LinkOrder, type NewTeamLink, type TeamLink } from '../../types/links';
+import { type ReadMediaTokenResponse } from '../../types/media';
+import type {
+	AlignmentPermission,
+	AssignedTeamsResponse,
+	AssignTeamsToSitesResponse,
+	ExternalReference,
+	LinkedTeamsBulkResponse,
+	LinkedTeamsProfileDetails,
+	OrgScope,
+	SoftDeletedTeam,
+	SoftDeletedTeamResponse,
+	TeamEnabledSitesResponse,
+	TeamSiteAssignmentOrgDetailsResponse,
+	TeamsPermissionFromApi,
+	TeamsToBeClonedToJsmSitesResponse,
+	UnassignedTeamsResponse,
+	Team,
+	TeamMembershipSettings,
+	TeamWithImageUrls,
 } from '../../types/team';
 import {
 	type ApiTeamContainerCreationPayload,

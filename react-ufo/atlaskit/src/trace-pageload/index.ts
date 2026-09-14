@@ -1,9 +1,10 @@
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
 import { getInteractionRate, isUFOEnabled } from '../config';
-import { getActiveTrace } from '../experience-trace-id-context';
+import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
 import { DefaultInteractionID } from '../interaction-id-context';
 import {
 	abort,
@@ -15,7 +16,7 @@ import {
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 
-const AWAITING_PAGELOAD_NAME = 'awaiting_pageload_name';
+export const AWAITING_PAGELOAD_NAME: any = 'awaiting_pageload_name';
 
 function traceUFOPageLoad(
 	ufoName?: string | null | undefined,
@@ -70,27 +71,7 @@ function traceUFOPageLoad(
 
 export default traceUFOPageLoad;
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function updatePageloadName(
-	ufoName: string,
-	routeName: string | null | undefined = ufoName,
-): void {
-	if (!isUFOEnabled()) {
-		return;
-	}
-
-	const interaction = getActiveInteraction();
-	if (!interaction || (interaction.type !== 'page_load' && interaction.type !== 'transition')) {
-		return;
-	}
-	if (ufoName) {
-		const rate = getInteractionRate(ufoName, 'page_load');
-		updatePageLoadInteractionName(ufoName, routeName);
-		if (coinflip(rate)) {
-			UFORouteName.current = ufoName;
-		} else {
-			abort(interaction.id, 'excluded_by_sampling');
-		}
-	}
-	removeHoldByID(interaction.id, AWAITING_PAGELOAD_NAME);
-}
+/**
+ * @deprecated Use `import { updatePageloadName } from '@atlaskit/react-ufo/update-pageload-name'` instead.
+ */
+export { updatePageloadName } from './updatePageloadName';

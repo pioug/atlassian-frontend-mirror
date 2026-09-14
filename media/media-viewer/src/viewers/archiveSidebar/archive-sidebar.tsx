@@ -1,21 +1,21 @@
 import React from 'react';
+
 import { type ZipEntry, type ZipInfo, unzip } from 'unzipit';
 
 import { type MediaClient } from '@atlaskit/media-client';
 
-import { ArchiveSideBar, Separator } from './styleWrappers';
+import type { ArchiveViewerError } from '../../ArchiveViewerError';
+import { extractArchiveFolderName } from '../../utils/extractArchiveFolderName';
+import { getFolderParent } from '../../utils/getFolderParent';
+import { getMediaTypeFromFilename } from '../../utils/getMediaTypeFromFilename';
+import { rejectAfter } from '../../utils/rejectAfter';
 import {
 	ArchiveSidebarFolderEntry,
 	type ArchiveSidebarFolderProps,
 } from './archive-sidebar-folder-entry';
 import { ArchiveSidebarHeader } from './archive-sidebar-header';
-import {
-	getMediaTypeFromFilename,
-	getFolderParent,
-	extractArchiveFolderName,
-	rejectAfter,
-} from '../../utils';
-import { type ArchiveViewerError } from '../../errors';
+import { Separator } from './separator';
+import { ArchiveSideBar } from './styleWrappers';
 
 export interface ArchiveSidebarProps {
 	entries: { [key: string]: ZipEntry };

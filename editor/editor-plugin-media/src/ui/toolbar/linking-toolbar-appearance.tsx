@@ -8,7 +8,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import { addLink, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { linkMessages, linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import {

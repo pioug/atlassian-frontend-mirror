@@ -4,7 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
 import { SpotlightCard } from '@atlaskit/onboarding';
@@ -31,10 +31,10 @@ const taglineStyles = css({
 
 const optionStyles = cssMap({
 	root: {
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 	},
 });
 

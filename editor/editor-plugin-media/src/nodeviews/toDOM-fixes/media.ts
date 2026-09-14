@@ -1,4 +1,4 @@
-import { media } from '@atlaskit/adf-schema';
+import { media } from '@atlaskit/adf-schema/media';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type {
 	AttributeSpec,
@@ -7,7 +7,7 @@ import type {
 	TagParseRule,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getMediaAttrs } from './toDOMAttrs';

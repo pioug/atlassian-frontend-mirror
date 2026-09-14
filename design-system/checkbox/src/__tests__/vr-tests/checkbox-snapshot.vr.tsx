@@ -1,8 +1,8 @@
 import { snapshot } from '@af/visual-regression';
 
-import BasicUsage from '../../../examples/00-basic-usage';
-import Indeterminate from '../../../examples/03-indeterminate';
-import MultilineLabel from '../../../examples/09-multiline-label';
+import BasicUsage from '../../../examples/00-basic-usage.vr.ap';
+import Indeterminate from '../../../examples/03-indeterminate.vr.ap';
+import MultilineLabel from '../../../examples/09-multiline-label.vr.ap';
 
 snapshot(BasicUsage, {
 	description: 'Basic usage',

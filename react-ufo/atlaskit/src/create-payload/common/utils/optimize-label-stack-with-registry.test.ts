@@ -1,11 +1,9 @@
-import { LabelStackRegistry, resolveLabelStackFromTrie } from './label-stack-registry';
-
-import {
-	optimizeLabelStack,
-	optimizeLabelStackWithRegistry,
-	stringifyLabelStackFully,
-	stringifyLabelStackWithoutId,
-} from './index';
+import { LabelStackRegistry } from './label-stack-registry';
+import { optimizeLabelStack } from './optimize-label-stack';
+import { optimizeLabelStackWithRegistry } from './optimize-label-stack-with-registry';
+import { resolveLabelStackFromTrie } from './resolve-label-stack-from-trie';
+import { stringifyLabelStackFully } from './stringify-label-stack-fully';
+import { stringifyLabelStackWithoutId } from './stringify-label-stack-without-id';
 
 describe('optimizeLabelStackWithRegistry', () => {
 	describe('with registry and v2.0.0', () => {

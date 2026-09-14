@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import SizeFunctionExample from '../../../../examples/09-size-function';
+import SizeFunctionExample from '../../../../examples/09-size-function.vr.ap';
 
 snapshot(SizeFunctionExample, {
 	featureFlags: {

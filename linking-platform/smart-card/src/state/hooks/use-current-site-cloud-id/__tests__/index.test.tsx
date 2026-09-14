@@ -1,11 +1,11 @@
 import { renderHook, waitFor } from '@atlassian/testing-library';
 
-jest.mock('../../../services/current-site-cloud-id', () => ({
-	...jest.requireActual('../../../services/current-site-cloud-id'),
+jest.mock('../../../services/current-site-cloud-id/getCurrentSiteCloudId', () => ({
+	...jest.requireActual('../../../services/current-site-cloud-id/getCurrentSiteCloudId'),
 	getCurrentSiteCloudId: jest.fn(),
 }));
 
-import { getCurrentSiteCloudId } from '../../../services/current-site-cloud-id';
+import { getCurrentSiteCloudId } from '../../../services/current-site-cloud-id/getCurrentSiteCloudId';
 import useCurrentSiteCloudId from '../index';
 
 const mockGetCurrentSiteCloudId = getCurrentSiteCloudId as jest.MockedFunction<

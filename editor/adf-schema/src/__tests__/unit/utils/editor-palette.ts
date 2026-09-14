@@ -1,10 +1,9 @@
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import {
-	hexToEditorTextBackgroundPaletteColor,
-	hexToEditorTextPaletteColor,
-} from '../../../utils/editor-palette';
+import { hexToEditorTextBackgroundPaletteColor } from '../../../utils/hex-to-editor-text-background-palette-color';
+import { hexToEditorTextPaletteColor } from '../../../utils/hex-to-editor-text-palette-color';
 
 jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure', () => ({
 	expValEqualsNoExposure: jest.fn(),

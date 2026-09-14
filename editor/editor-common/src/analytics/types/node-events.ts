@@ -1,4 +1,4 @@
-import type { PanelType } from '@atlaskit/adf-schema';
+import type { PanelType } from '@atlaskit/adf-schema/panel';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { ChangeTypeAEP, TrackAEP, UIAEP } from './utils';
@@ -93,6 +93,7 @@ export type NodeDeletedAEP = TrackAEP<
 	| ACTION_SUBJECT.TABLE
 	| ACTION_SUBJECT.EXTENSION
 	| ACTION_SUBJECT.BODIED_EXTENSION
+	| ACTION_SUBJECT.DIVIDER
 	| ACTION_SUBJECT.SMART_LINK
 	| ACTION_SUBJECT.CODE_BLOCK
 	| ACTION_SUBJECT.MEDIA_SINGLE
@@ -217,6 +218,23 @@ type DeletedExpandAEP = TrackAEP<
 	undefined
 >;
 
+type UpdatedDividerAEP = TrackAEP<
+	ACTION.UPDATED,
+	ACTION_SUBJECT.DIVIDER,
+	undefined,
+	| {
+			inputMethod: INPUT_METHOD.FLOATING_TB;
+			previousStyle: 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';
+			style: 'solid' | 'dashed' | 'dotted' | 'sketch' | 'fade';
+	  }
+	| {
+			inputMethod: INPUT_METHOD.FLOATING_TB;
+			previousWeight: number;
+			weight: number;
+	  },
+	undefined
+>;
+
 type UnsupportedContentAEP = TrackAEP<
 	ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED,
 	ACTION_SUBJECT.DOCUMENT,
@@ -247,6 +265,7 @@ export type NodeEventPayload =
 	| DistributedLayoutColumnAEP
 	| ResizedLayoutColumnAEP
 	| DeletedExpandAEP
+	| UpdatedDividerAEP
 	| NodeDeletedAEP
 	| ChangeSmartLinkAEP
 	| ChangeNativeEmbedAEP

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { FlagGroup } from '@atlaskit/flag';
+import Button from '@atlaskit/button/default/button';
+import FlagGroup from '@atlaskit/flag/flag-group';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';
 
@@ -38,7 +38,6 @@ const DisplayFeedback = () => {
 					atlassianAccountId={aaid}
 					name={name}
 					entrypointId={ENTRYPOINT_ID}
-					// @ts-ignore
 					shouldReturnFocusRef={ref}
 				/>
 			)}

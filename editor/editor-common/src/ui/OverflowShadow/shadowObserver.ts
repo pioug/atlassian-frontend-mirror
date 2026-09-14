@@ -1,5 +1,3 @@
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { ShadowKeys } from './ShadowKeys';
 import { shadowObserverClassNames } from './shadowObserverClassNames';
 
@@ -100,11 +98,9 @@ export class ShadowObserver {
 			this.requestCallbackId && cancelIdleCallback(this.requestCallbackId);
 		}
 
-		if (expValEquals('platform_editor_renderer_shadow_observer_cleanup', 'isEnabled', true)) {
-			this.sentinels.left?.remove();
-			this.sentinels.right?.remove();
-			this.sentinels = {};
-		}
+		this.sentinels.left?.remove();
+		this.sentinels.right?.remove();
+		this.sentinels = {};
 	}
 }
 // eslint-disable-next-line @atlaskit/editor/no-re-export

@@ -1,7 +1,7 @@
 import { type SyntheticEvent, useState } from 'react';
 
 import { type FileIdentifier } from '@atlaskit/media-client';
-import { useMediaClient } from '@atlaskit/media-client-react';
+import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 
 export const useSvgUploader = (
 	collectionName?: string,
@@ -25,6 +25,7 @@ export const useSvgUploader = (
 			content: file,
 			name: file.name,
 			collection: collectionName,
+			size: file.size,
 		};
 
 		mediaClient.file.upload(uplodableFile).subscribe({

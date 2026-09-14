@@ -1,24 +1,9 @@
-import { shallow } from 'enzyme';
-import React, { type ReactElement } from 'react';
-import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
-import { SizeableAvatar } from '../../../components/SizeableAvatar';
-import { AvatarOrIcon } from '../../../components/AvatarOrIcon';
-import { CustomOption, type CustomOptionProps } from '../../../components/CustomOption/main';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { CustomOption } from '../../../components/CustomOption/main';
 import { type Custom } from '../../../types';
-import { token } from '@atlaskit/tokens';
-
-jest.mock('../../../components/AvatarItemOption', () => ({
-	...(jest.requireActual('../../../components/AvatarItemOption') as any),
-	textWrapper: jest.fn(),
-}));
 
 describe('Custom Option', () => {
-	const mockTextWrapper = textWrapper as jest.Mock;
-
-	afterEach(() => {
-		jest.resetAllMocks();
-	});
-
 	const byline = 'A custom byline';
 	const basicCustomOption: Custom = {
 		id: 'custom-option-1',
@@ -28,69 +13,43 @@ describe('Custom Option', () => {
 		byline,
 	};
 
-	const shallowOption = (props: Partial<CustomOptionProps> = {}, data: Custom) =>
-		shallow(<CustomOption data={data} isSelected={false} {...props} />);
+	const renderCustomOption = (data: Custom = basicCustomOption, isSelected = true) =>
+		render(<CustomOption data={data} isSelected={isSelected} />);
 
-	it('should render avatarUrl', () => {
-		const component = shallowOption({ isSelected: true }, basicCustomOption);
-		const avatarOptionProps = component.find(AvatarItemOption);
+	it('renders the custom option name and avatar', async () => {
+		const { container } = renderCustomOption();
 
-		expect(avatarOptionProps.props().avatar).toEqual(
-			<SizeableAvatar appearance="big" src="https://avatars.atlassian.com/team-1.png" />,
-		);
+		expect(screen.getByText(basicCustomOption.name)).toBeInTheDocument();
+		expect(container.querySelector('img')).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render the byline', () => {
-		const component = shallowOption({ isSelected: true }, basicCustomOption);
-		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', '#1868DB'));
+	it('renders the byline', () => {
+		renderCustomOption();
 
-		const secondaryText = avatarOptionProps.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual(byline);
+		expect(screen.getByTestId('user-picker-custom-secondary-text')).toHaveTextContent(byline);
 	});
 
 	describe('icon support', () => {
-		const mockIcon = <div data-testid="test-icon">Icon</div>;
+		const mockIcon = <span data-testid="test-icon">Icon</span>;
 
-		it('should render AvatarOrIcon when icon is provided', () => {
-			const customWithIcon = {
-				...basicCustomOption,
-				icon: mockIcon,
-			};
+		it('renders the supplied icon instead of an avatar', () => {
+			renderCustomOption({ ...basicCustomOption, icon: mockIcon });
 
-			const component = shallowOption({ isSelected: true }, customWithIcon);
-			const avatarItemOption = component.find(AvatarItemOption);
-			const avatar = avatarItemOption.props().avatar as ReactElement;
-
-			expect(avatar.type).toBe(AvatarOrIcon);
-			expect(avatar.props.icon).toEqual(mockIcon);
-			expect(avatar.props.src).toEqual(basicCustomOption.avatarUrl);
+			expect(screen.getByTestId('test-icon')).toBeInTheDocument();
+			expect(screen.queryByRole('img')).not.toBeInTheDocument();
 		});
 
-		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
-			const iconColor = '#FF0000';
-			const customWithIconAndColor = {
-				...basicCustomOption,
-				icon: mockIcon,
-				iconColor,
-			};
+		it('applies iconColor to the icon container', () => {
+			renderCustomOption({ ...basicCustomOption, icon: mockIcon, iconColor: '#FF0000' });
 
-			const component = shallowOption({ isSelected: true }, customWithIconAndColor);
-			const avatarItemOption = component.find(AvatarItemOption);
-			const avatar = avatarItemOption.props().avatar as ReactElement;
-
-			expect(avatar.type).toBe(AvatarOrIcon);
-			expect(avatar.props.icon).toEqual(mockIcon);
-			expect(avatar.props.iconColor).toEqual(iconColor);
+			expect(screen.getByTestId('test-icon').parentElement).toHaveStyle({ color: '#FF0000' });
 		});
 
-		it('should render SizeableAvatar when no icon is provided', () => {
-			const component = shallowOption({ isSelected: true }, basicCustomOption);
-			const avatarItemOption = component.find(AvatarItemOption);
-			const avatar = avatarItemOption.props().avatar as ReactElement;
+		it('renders a sizeable avatar when no icon is supplied', () => {
+			const { container } = renderCustomOption();
 
-			expect(avatar.type).toBe(SizeableAvatar);
+			expect(container.querySelector('img')).toBeInTheDocument();
 		});
 	});
 });

@@ -2,7 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { components, type ControlProps } from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { ControlProps } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 import { cssMap, jsx, cx } from '@compiled/react';

@@ -33,9 +33,8 @@ import {
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { SORTING_ICON_CLASS_NAME } from '../pm-plugins/view-mode-sort/consts';
@@ -66,7 +65,6 @@ import {
 	tableHeaderCellBackgroundColor,
 	tableHeaderCellSelectedColor,
 	tableInsertColumnButtonSize,
-	tableOverflowShadowWidth,
 	tablePadding,
 	tableScrollbarOffset,
 	tableTextColor,
@@ -92,7 +90,6 @@ import {
 	insertLine,
 	InsertMarker,
 	insertRowButtonWrapper,
-	OverflowShadow,
 	resizeHandle,
 	rowControlsWrapperDotStyle,
 } from './ui-styles';
@@ -206,23 +203,6 @@ const stickyScrollbarContainerStyles = `.${ClassName.TABLE_CONTAINER} {
 
 const stickyScrollbarStyles = `${stickyScrollbarContainerStyles} ${stickyScrollbarSentinelStyles}`;
 
-const shadowSentinelStyles = `
-  .${ClassName.TABLE_SHADOW_SENTINEL_LEFT},
-  .${ClassName.TABLE_SHADOW_SENTINEL_RIGHT} {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 1px;
-    visibility: hidden;
-  }
-  .${ClassName.TABLE_SHADOW_SENTINEL_LEFT} {
-    left: 0;
-  }
-  .${ClassName.TABLE_SHADOW_SENTINEL_RIGHT} {
-    right: 0;
-  }
-`;
-
 const breakoutWidthStyling = () => {
 	return css`
 		> *:not([data-mark-type='fragment'])
@@ -330,10 +310,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${insertLine()};
 	${resizeHandle()};
 	${
-		// Only block getSelectionStyles when our replacement (gated by q4 + q4_patch_1) owns the
+		// Only block getSelectionStyles when our replacement (gated by q4) owns the
 		// decoration, so node selection is never left unstyled.
-		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-		fg('platform_editor_table_q4_patch_1')
+		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? rangeSelectionStylesForRoundedTable
 			: rangeSelectionStyles
 	};
@@ -513,17 +492,6 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		}
 	}
 
-	.${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
-		left: unset;
-		position: fixed;
-		/* needs to be above sticky header row and below date and other nodes popups that are inside sticky header */
-		z-index: ${akEditorTableCellOnStickyHeaderZIndex};
-	}
-
-	.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
-		padding-bottom: ${tableToolbarSize}px;
-	}
-
 	.tableView-content-wrap:has(.tableView-content-wrap):has(
 			.${ClassName.NESTED_TABLE_WITH_CONTROLS}
 		) {
@@ -555,48 +523,36 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 	/* use :before element to hide table row insert dots when legacy table sticky header is activated */
-	${expValEquals('platform_editor_table_col_insert', 'isEnabled', true)
-		? // Mask geometry mirrors the drag-handle wrapper geometry from
-			// editor-plugin-block-controls/src/ui/drag-handle.tsx
-			// (`buttonWrapperStyles`):
-			//   height = paddingTop (=calc(space.400 - 1px)) + paddingBottom (=space.200) + DRAG_HANDLE_HEIGHT
-			//   width  = DRAG_HANDLE_WIDTH + paddingRight('space.150')
-			`.${ClassName.TABLE_CONTAINER}.${ClassName.TABLE_STICKY}:has(tr.sticky)::before {
-			content: ' ';
-			position: sticky;
-			pointer-events: none;
-			top: 0;
-			float: left;
-			transform: translateX(calc(-1 * (${DRAG_HANDLE_WIDTH}px + ${token('space.150')})));
-			margin-bottom: calc(-1 * (${token('space.400')} - 1px + ${token('space.200')} + ${token(
-				'space.300',
-			)}));
-			height: calc(${token('space.400')} - 1px + ${token('space.200')} + ${token('space.300')});
-			width: calc(${DRAG_HANDLE_WIDTH}px + ${token('space.150')});
-			background: linear-gradient(
-				to bottom,
-				${
-					expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-						? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
-						: token('elevation.surface')
-				} 90%,
-				transparent
-			);
-			z-index: ${rowControlsZIndex + 5};
-		}
-		${
-			fg('platform_editor_col_insert_patch_1')
-				? // Shift the mask left by the numbered column width so it sits to the left of it.
-					`.${ClassName.TABLE_CONTAINER}.${
-						ClassName.TABLE_STICKY
-					}[data-number-column='true']:has(tr.sticky)::before {
-			transform: translateX(calc(-1 * (${DRAG_HANDLE_WIDTH}px + ${token(
-				'space.150',
-			)} + ${akEditorTableNumberColumnWidth}px)));
-		}`
-				: ``
-		}`
-		: ``}
+	.${ClassName.TABLE_CONTAINER}.${ClassName.TABLE_STICKY}:has(tr.sticky)::before {
+		content: ' ';
+		position: sticky;
+		pointer-events: none;
+		top: 0;
+		float: left;
+		transform: translateX(calc(-1 * (${DRAG_HANDLE_WIDTH}px + ${token('space.150')})));
+		margin-bottom: calc(
+			-1 * (${token('space.400')} - 1px + ${token('space.200')} + ${token('space.300')})
+		);
+		height: calc(${token('space.400')} - 1px + ${token('space.200')} + ${token('space.300')});
+		width: calc(${DRAG_HANDLE_WIDTH}px + ${token('space.150')});
+		background: linear-gradient(
+			to bottom,
+			${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+					? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+					: token('elevation.surface')}
+				90%,
+			transparent
+		);
+		z-index: ${rowControlsZIndex + 5};
+	}
+	/* Shift the mask left by the numbered column width so it sits to the left of it. */
+	.${ClassName.TABLE_CONTAINER}.${ClassName.TABLE_STICKY}[data-number-column='true']:has(tr.sticky)::before {
+		transform: translateX(
+			calc(
+				-1 * (${DRAG_HANDLE_WIDTH}px + ${token('space.150')} + ${akEditorTableNumberColumnWidth}px)
+			)
+		);
+	}
 
 	/* To fix jumpiness caused in Chrome Browsers for sticky headers */
 	.${ClassName.TABLE_STICKY} .sticky + tr {
@@ -691,18 +647,10 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		z-index: ${aboveNativeStickyHeaderZIndex};
 	}
 
-	${expValEquals('platform_editor_table_sticky_header_patch_12', 'isEnabled', true)
-		? `
-			.${ClassName.TABLE_CONTAINER}:has(> .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
-				> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
-				margin-top: 0;
-			}
-			`
-		: `
-			.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}:has(~ .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}) {
-				margin-top: 0;
-			}
-	`}
+	.${ClassName.TABLE_CONTAINER}:has(> .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
+		margin-top: 0;
+	}
 
 	.${ClassName.TABLE_CONTAINER}[data-table-header-is-stuck='true']:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
@@ -763,12 +711,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 	${sentinelStyles}
-	${OverflowShadow()}
-    ${stickyScrollbarStyles}
-
-    .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
-		height: 0; /* stop overflow flash & set correct height in update-overflow-shadows.ts */
-	}
+	${stickyScrollbarStyles}
 
 	.less-padding {
 		padding: 0 ${tablePadding}px;
@@ -799,24 +742,6 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		&.${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
 			padding-left: ${akEditorTableNumberColumnWidth + tablePadding - 1}px;
 		}
-		.${ClassName.TABLE_LEFT_SHADOW}, .${ClassName.TABLE_RIGHT_SHADOW} {
-			width: ${tableOverflowShadowWidth}px;
-		}
-
-		.${ClassName.TABLE_LEFT_SHADOW} {
-			left: 6px;
-		}
-		.${ClassName.TABLE_LEFT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
-			left: 8px;
-		}
-
-		.${ClassName.TABLE_RIGHT_SHADOW} {
-			left: calc(100% - 6px);
-		}
-		.${ClassName.TABLE_RIGHT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
-			left: calc(100% - 16px);
-		}
-
 		.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 			left: 8px;
 		}
@@ -1386,11 +1311,6 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		`}
 	}
 
-	.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}.${ClassName.TABLE_LEFT_SHADOW},
-		.${ClassName.ROW_CONTROLS_WRAPPER}.${ClassName.TABLE_LEFT_SHADOW} {
-		z-index: ${akEditorUnitZIndex};
-	}
-
 	.${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		position: absolute;
 		top: ${tableMarginTop}px;
@@ -1447,11 +1367,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			? `-${akEditorTableNumberColumnWidth + 1}px`
 			: `-${akEditorTableNumberColumnWidth}px`};
 		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-			? fg('platform_editor_table_q4_patch_2')
-				? // Anchor the mask with an explicit `top` so `vertical-align` (data-valign) on the cell
-					// doesn't shift it; the calc reproduces the previous top-aligned offset.
-					`top: calc(${token('space.100')} - ${stickyRowOffsetTop + 1}px);`
-				: `margin-top: -${stickyRowOffsetTop + 1}px;`
+			? // Anchor the mask with an explicit `top` so `vertical-align` (data-valign) on the cell
+				// doesn't shift it; the calc reproduces the previous top-aligned offset.
+				`top: calc(${token('space.100')} - ${stickyRowOffsetTop + 1}px);`
 			: `margin-top: -${stickyRowOffsetTop}px;`}
 		outline: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? 'none'
@@ -1493,8 +1411,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
-		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-		fg('platform_editor_table_q4_patch_2')
+		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? // Recolour the corner edges to the delete border and composite the translucent danger
 				// fill over the mask's gray so it matches the adjacent cells instead of reading as transparent.
 				`border-left: 1px solid ${tableBorderDeleteColor};
@@ -1585,8 +1502,6 @@ export const tableStyles = (props: {
 	.ProseMirror.${ClassName.RESIZE_CURSOR} {
 		cursor: col-resize;
 	}
-
-	${shadowSentinelStyles}
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

@@ -29,6 +29,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import {
 	findParentNodeOfTypeClosestToPos,
 	findPositionOfNodeBefore,
@@ -85,6 +86,21 @@ export const enterKeyCommand =
 
 export const backspaceKeyCommand =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => (): Command => (state, dispatch) => {
+		// Select an adjacent syncBlock before the list command chain can outdent the current list.
+		if (isEmptySelectionAtStart(state) && fg('platform_editor_blocks_patch_7')) {
+			const $cut = findCutBefore(state.selection.$from);
+			if ($cut?.nodeBefore?.type.name === 'syncBlock') {
+				if (dispatch) {
+					dispatch(
+						state.tr
+							.setSelection(NodeSelection.create(state.doc, $cut.pos - $cut.nodeBefore.nodeSize))
+							.scrollIntoView(),
+					);
+				}
+				return true;
+			}
+		}
+
 		return chainCommands(
 			listBackspace(editorAnalyticsAPI),
 			// if we're at the start of a list item, we need to either backspace

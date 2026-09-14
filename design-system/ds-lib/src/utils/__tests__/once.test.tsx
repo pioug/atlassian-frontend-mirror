@@ -57,8 +57,8 @@ test('if the function throws, the cache should not be set', () => {
 	}
 	const cached = once(maybeThrow);
 
-	expect(() => cached({ shouldThrow: true })).toThrowError('Call count: 1');
-	expect(() => cached({ shouldThrow: true })).toThrowError('Call count: 2');
+	expect(() => cached({ shouldThrow: true })).toThrow('Call count: 1');
+	expect(() => cached({ shouldThrow: true })).toThrow('Call count: 2');
 
 	// now cache will be applied
 	expect(cached({ shouldThrow: false })).toBe('Call count: 3');

@@ -6,7 +6,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
+import IconButton, { type IconButtonProps } from '@atlaskit/button/icon/button';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { token } from '@atlaskit/tokens';

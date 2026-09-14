@@ -1,0 +1,142 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ComponentProps, useState } from 'react';
+
+import Button from '@atlaskit/button/default/button';
+import { cssMap, jsx } from '@atlaskit/css';
+import Heading from '@atlaskit/heading/heading';
+import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
+import InboxIcon from '@atlaskit/icon/core/inbox';
+import ShrinkDiagonalIcon from '@atlaskit/icon/core/shrink-diagonal';
+import { Main, Root, Search, SideNav, SideNavBody } from '@atlaskit/navigation-system';
+import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
+import {
+	TopNav,
+	TopNavEnd,
+	TopNavMiddle,
+	TopNavStart,
+} from '@atlaskit/navigation-system/layout/top-nav';
+import {
+	AppSwitcher,
+	CreateButton,
+	Help,
+	Settings,
+} from '@atlaskit/navigation-system/top-nav-items';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { token } from '@atlaskit/tokens';
+
+import { WithResponsiveViewport } from './utils/example-utils';
+
+const headingStyles = cssMap({
+	root: {
+		paddingInline: token('space.300'),
+		paddingBlockStart: token('space.300'),
+	},
+});
+
+type CustomTheme = ComponentProps<typeof TopNav>['customTheme'];
+
+const customTheme: CustomTheme = { backgroundColor: '#ff8160', highlightColor: '#d8388a' };
+
+function MainContentBorderExample({
+	isCustomThemeEnabled: defaultIsCustomThemeEnabled = true,
+	isSideNavCollapsed: defaultIsSideNavCollapsed = false,
+	defaultIsFullScreen = false,
+}: {
+	isCustomThemeEnabled?: boolean;
+	isSideNavCollapsed?: boolean;
+	defaultIsFullScreen?: boolean;
+}): JSX.Element {
+	const [isCustomThemeEnabled, setIsCustomThemeEnabled] = useState(defaultIsCustomThemeEnabled);
+	const [isFullscreen, setIsFullscreen] = useState(defaultIsFullScreen);
+
+	return (
+		<WithResponsiveViewport>
+			<Root>
+				{!isFullscreen && (
+					<TopNav customTheme={isCustomThemeEnabled ? customTheme : undefined}>
+						<TopNavStart
+							sideNavToggleButton={
+								<SideNavToggleButton
+									testId="side-nav-toggle-button"
+									collapseLabel="Collapse sidebar"
+									expandLabel="Expand sidebar"
+								/>
+							}
+						>
+							<AppSwitcher label="Switch apps" />
+						</TopNavStart>
+						<TopNavMiddle>
+							<Search label="Search" />
+							<CreateButton>Create</CreateButton>
+						</TopNavMiddle>
+						<TopNavEnd>
+							<Help label="Help" />
+							<Settings label="Settings" />
+						</TopNavEnd>
+					</TopNav>
+				)}
+
+				{!isFullscreen && (
+					<SideNav defaultCollapsed={defaultIsSideNavCollapsed}>
+						<SideNavBody>
+							<MenuList>
+								<LinkMenuItem href="#" elemBefore={<InboxIcon label="" color="currentColor" />}>
+									Your work
+								</LinkMenuItem>
+							</MenuList>
+						</SideNavBody>
+					</SideNav>
+				)}
+				<Main>
+					<Stack space="space.100" xcss={headingStyles.root}>
+						<Heading size="small">Project Blueshift</Heading>
+						<Inline space="space.100">
+							<Button
+								isSelected={isCustomThemeEnabled}
+								onClick={() => setIsCustomThemeEnabled((prev) => !prev)}
+							>
+								Toggle custom theme
+							</Button>
+							<Button
+								isSelected={isFullscreen}
+								onClick={() => setIsFullscreen((prev) => !prev)}
+								iconBefore={isFullscreen ? ShrinkDiagonalIcon : GrowDiagonalIcon}
+							>
+								Toggle full screen
+							</Button>
+						</Inline>
+					</Stack>
+				</Main>
+			</Root>
+		</WithResponsiveViewport>
+	);
+}
+
+export function MainContentBorderThemingEnabledVR(): JSX.Element {
+	return <MainContentBorderExample isCustomThemeEnabled isSideNavCollapsed={false} />;
+}
+
+export function MainContentBorderThemingDisabledVR(): JSX.Element {
+	return <MainContentBorderExample isCustomThemeEnabled={false} isSideNavCollapsed={false} />;
+}
+
+export function MainContentBorderThemingEnabledSideNavCollapsedVR(): JSX.Element {
+	return <MainContentBorderExample isCustomThemeEnabled isSideNavCollapsed />;
+}
+
+export function MainContentBorderThemingDisabledSideNavCollapsedVR(): JSX.Element {
+	return <MainContentBorderExample isCustomThemeEnabled={false} isSideNavCollapsed />;
+}
+
+export function MainContentBorderThemingEnabledFullScreenVR(): JSX.Element {
+	return (
+		<MainContentBorderExample isCustomThemeEnabled isSideNavCollapsed={false} defaultIsFullScreen />
+	);
+}
+
+export default MainContentBorderExample;

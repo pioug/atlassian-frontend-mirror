@@ -50,6 +50,9 @@
 			"path": "../eslint-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../../volt/volt-components-entry-point-config/tsconfig.app.json"
+		},
+		{
 			"path": "../codegen/tsconfig.app.json"
 		}
 	],

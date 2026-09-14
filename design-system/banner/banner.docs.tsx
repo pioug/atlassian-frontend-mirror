@@ -46,7 +46,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: '00 Basic Usage',
 					description: '00 Basic Usage example',
-					source: path.resolve(__dirname, './examples/00-basic-usage.tsx'),
+					source: path.resolve(__dirname, './examples/00-basic-usage.vr.ap.tsx'),
 				},
 			],
 			keywords: ['banner', 'message', 'notification', 'alert', 'prominent', 'top', 'screen'],

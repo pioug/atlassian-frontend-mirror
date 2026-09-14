@@ -3,18 +3,21 @@ import { Device, snapshotInformational } from '@af/visual-regression';
 import {
 	ButtonMenuItemBasic,
 	ButtonMenuItemDisabled,
-} from '../../../../../examples/button-menu-item';
+} from '../../../../../examples/button-menu-item.vr.ap';
 import {
 	ExpandableMenuItemSelectable,
 	ExpandableMenuItemSelected,
 	ExpandableMenuItemUnselectable,
-} from '../../../../../examples/expandable-menu-item';
+} from '../../../../../examples/expandable-menu-item.vr.ap';
 import {
 	FlyoutMenuItemTriggerBasic,
 	FlyoutMenuItemTriggerSelected,
-} from '../../../../../examples/flyout-menu-item';
-import { LinkMenuItemBasic, LinkMenuItemSelected } from '../../../../../examples/link-menu-item';
-import MenuItemScrollIntoView from '../../../../../examples/menu-item-scroll-into-view';
+} from '../../../../../examples/flyout-menu-item.vr.ap';
+import {
+	LinkMenuItemBasic,
+	LinkMenuItemSelected,
+} from '../../../../../examples/link-menu-item.vr.ap';
+import MenuItemScrollIntoView from '../../../../../examples/menu-item-scroll-into-view.vr.ap';
 
 /**
  * This test used to be a standard VR but it flaked and led to https://hello.jira.atlassian.cloud/browse/ENGHEALTH-26534

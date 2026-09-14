@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/drawer",
-	"version": "13.4.1",
+	"version": "14.3.0",
 	"description": "A drawer is a panel that slides in from the left side of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,11 +18,11 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./drawer": "./src/entry-points/drawer.tsx",
-		"./drawer-close-button": "./src/entry-points/drawer-close-button.tsx",
-		"./drawer-content": "./src/entry-points/drawer-content.tsx",
-		"./drawer-sidebar": "./src/entry-points/drawer-sidebar.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./drawer": "./src/drawer.tsx",
+		"./drawer-close-button": "./src/drawer-panel/drawer-close-button.tsx",
+		"./drawer-content": "./src/drawer-panel/drawer-content.tsx",
+		"./drawer-sidebar": "./src/drawer-panel/drawer-sidebar.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"platform-feature-flags": {
 		"platform-dst-top-layer": {
@@ -73,7 +73,7 @@
 		"use-callback-ref": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -83,6 +83,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/form": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/inline-message": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
@@ -92,32 +93,12 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/exenv": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
-		"react-lorem-component": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"static"
-			],
-			"deprecation": "no-deprecated-imports",
-			"ui-components": [
-				"primitives"
-			]
-		}
+		"lorem-ipsum": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "root:*"
 	}
 }

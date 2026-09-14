@@ -1,6 +1,7 @@
 import * as sentry from '@sentry/browser';
 
-import { logException, logInfoMessage } from './main';
+import { logException } from './logException';
+import { logInfoMessage } from './logInfoMessage';
 import { getSentryConfig } from './utils/get-sentry-config';
 import { initialiseSentry } from './utils/initialise-sentry';
 

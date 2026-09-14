@@ -1,1 +1,0 @@
-export { SvgView } from './svgView';

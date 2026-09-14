@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useSmartCardContext } from '@atlaskit/link-provider';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 
 export const WithCardContext = ({
 	children,

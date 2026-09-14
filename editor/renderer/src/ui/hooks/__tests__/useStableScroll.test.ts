@@ -30,7 +30,6 @@ describe('useStableScroll', () => {
 			};
 		});
 
-		// @ts-ignore
 		global.ResizeObserver = mockResizeObserver;
 
 		mockContainer = document.createElement('div');

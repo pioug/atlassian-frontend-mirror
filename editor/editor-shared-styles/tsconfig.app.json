@@ -34,6 +34,9 @@
 	},
 	"references": [
 		{
+			"path": "../../ai-mate/agent-color/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

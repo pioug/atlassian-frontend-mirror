@@ -129,7 +129,7 @@ const containerCSS = cssMap({
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const NavigationContent: React.ForwardRefExoticComponent<
+export const NavigationContent: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<NavigationContentProps & HTMLAttributes<HTMLElement>> &
 		React.RefAttributes<HTMLElement>
 > = forwardRef<
@@ -162,5 +162,3 @@ const NavigationContent: React.ForwardRefExoticComponent<
 		</div>
 	);
 });
-
-export default NavigationContent;

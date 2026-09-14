@@ -2,7 +2,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { JQLSyntaxError } from '@atlaskit/jql-ast';
 
 import getDocumentPosition from '../../plugins/common/get-document-position';
-import { getJastFromState } from '../../plugins/jql-ast';
+import { getJastFromState } from '../../plugins/jql-ast/getJastFromState';
 import { type JQLEditorCommand } from '../../schema';
 
 /**

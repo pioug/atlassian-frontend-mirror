@@ -2,7 +2,6 @@ import React from 'react';
 
 import type { FieldDefinition, TabField, TabGroupField } from '@atlaskit/editor-common/extensions';
 import { isFieldset } from '@atlaskit/editor-common/extensions';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import Boolean from './Fields/Boolean';
 import ColorPicker from './Fields/ColorPicker';
@@ -232,13 +231,11 @@ export default function FormContent({
 	featureFlags,
 	isDisabled,
 }: FormContentProps): React.JSX.Element {
-	let mappedFields = fields;
-	if (editorExperiment('platform_editor_offline_editing_web', true)) {
-		mappedFields = fields.map((field) => ({
-			...field,
-			isDisabled: field.isDisabled ?? isDisabled,
-		}));
-	}
+	const mappedFields = fields.map((field) => ({
+		...field,
+		isDisabled: field.isDisabled ?? isDisabled,
+	}));
+
 	return (
 		<FormErrorBoundary
 			contextIdentifierProvider={contextIdentifierProvider}

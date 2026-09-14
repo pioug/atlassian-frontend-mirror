@@ -7,21 +7,19 @@ import {
 	createStorybookMediaClientConfig,
 	fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import Toggle from '@atlaskit/toggle';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { type FileState } from '@atlaskit/media-client';
 
-import {
-	MainWrapper,
-	UploadPreviews,
-	DropzoneContainer,
-	PopupHeader,
-	PopupContainer,
-	DropzoneContentWrapper,
-	DropzoneItemsInfo,
-} from '../example-helpers';
-import { Dropzone } from '../src';
+import { DropzoneContentWrapper } from '../example-helpers/DropzoneContentWrapper';
+import { DropzoneItemsInfo } from '../example-helpers/DropzoneItemsInfo';
+import { PopupContainer } from '../example-helpers/PopupContainer';
+import { PopupHeader } from '../example-helpers/PopupHeader';
+import { MainWrapper } from '../example-helpers/mainWrapper';
+import { DropzoneContainer } from '../example-helpers/stylesWrapper';
+import { UploadPreviews } from '../example-helpers/upload-previews';
+import { DropzoneLoader as Dropzone } from '../src/components/dropzone';
 import { type DropzoneConfig, type UploadsStartEventPayload } from '../src/types';
 
 export interface DropzoneWrapperState {

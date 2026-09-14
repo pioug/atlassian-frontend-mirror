@@ -5,7 +5,7 @@ import { injectIntl } from 'react-intl';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import type { DateField } from '@atlaskit/editor-common/extensions';
-import { Field } from '@atlaskit/form';
+import Field from '@atlaskit/form/field';
 
 import FieldMessages from '../FieldMessages';
 import type { OnFieldChange } from '../types';
@@ -68,7 +68,7 @@ function Date({
 	);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<
 	WithIntlProps<
 		{

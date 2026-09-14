@@ -3,21 +3,24 @@ import React from 'react';
 import { act, renderHook, type RenderHookOptions, waitFor } from '@testing-library/react';
 import { defaultRegistry } from 'react-sweet-state';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { mockActionsDiscoveryResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockActionsDiscoveryResponse';
+import { mockDatasourceDataResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponse';
+import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
+import { mockDatasourceDetailsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDetailsResponse';
 import {
 	DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
-	mockActionsDiscoveryResponse,
-	mockDatasourceDataResponse,
-	mockDatasourceDataResponseWithSchema,
-	mockDatasourceDetailsResponse,
 	useDatasourceClientExtension,
-} from '@atlaskit/link-client-extension';
-import { CardClient, SmartCardProvider, useSmartCardContext } from '@atlaskit/link-provider';
+} from '@atlaskit/link-client-extension/use-data-source-client-extension';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { EVENT_CHANNEL } from '../../analytics';
+import { EVENT_CHANNEL } from '../../analytics/constants';
 import { Store } from '../../state';
 import {
 	type DatasourceTableStateProps,
@@ -36,21 +39,15 @@ const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
 	</AnalyticsListener>
 );
 
-jest.mock('@atlaskit/link-client-extension', () => {
-	const originalModule = jest.requireActual('@atlaskit/link-client-extension');
-	return {
-		...originalModule,
-		useDatasourceClientExtension: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/link-client-extension/use-data-source-client-extension', () => ({
+	...jest.requireActual('@atlaskit/link-client-extension/use-data-source-client-extension'),
+	useDatasourceClientExtension: jest.fn(),
+}));
 
-jest.mock('@atlaskit/link-provider', () => {
-	const originalModule = jest.requireActual('@atlaskit/link-provider');
-	return {
-		...originalModule,
-		useSmartCardContext: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/link-provider/use-smart-card-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-card-context'),
+	useSmartCardContext: jest.fn(),
+}));
 
 jest.mock('@atlaskit/linking-common/sentry', () => {
 	const originalModule = jest.requireActual('@atlaskit/linking-common/sentry');
@@ -325,16 +322,36 @@ describe('useDatasourceTableState', () => {
 			});
 		});
 
-		it('should not populate columns after getDatasourceData call with no response items', async () => {
-			asMock(getDatasourceData).mockResolvedValue({
-				...mockDatasourceDataResponseWithSchema,
-				data: { ...mockDatasourceDataResponseWithSchema.data, items: [] },
-			});
-			const { result } = setup();
+		describe('when getDatasourceData responds with a schema but no items', () => {
+			const setupWithNoItems = () => {
+				asMock(getDatasourceData).mockResolvedValue({
+					...mockDatasourceDataResponseWithSchema,
+					data: { ...mockDatasourceDataResponseWithSchema.data, items: [] },
+				});
+				return setup();
+			};
 
-			await waitFor(() => {
-				expect(result.current.columns.length).toEqual(0);
-				expect(result.current.defaultVisibleColumnKeys.length).toEqual(0);
+			it('should not populate columns when the feature gate is off', async () => {
+				failGate('platform_lp_sllv_ux_improvements');
+				const { result } = setupWithNoItems();
+
+				await waitFor(() => {
+					expect(result.current.columns.length).toEqual(0);
+					expect(result.current.defaultVisibleColumnKeys.length).toEqual(0);
+				});
+			});
+
+			it('should populate columns so the table can keep its headers when the feature gate is on', async () => {
+				passGate('platform_lp_sllv_ux_improvements');
+				const expectedProperties = mockDatasourceDataResponseWithSchema.data.schema?.properties;
+				const { result } = setupWithNoItems();
+
+				await waitFor(() => {
+					expect(result.current.columns).toEqual(expectedProperties);
+					expect(result.current.defaultVisibleColumnKeys).toEqual(
+						expectedProperties?.map((property) => property.key),
+					);
+				});
 			});
 		});
 

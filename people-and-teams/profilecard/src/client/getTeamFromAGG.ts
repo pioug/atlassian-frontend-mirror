@@ -1,8 +1,12 @@
 /// <reference types="node" />
 // for typing `process`
+
 import type { Team } from '../types';
 
-import { AGGQuery } from './graphqlUtils';
+import { AGGQuery } from './AGGQuery';
+import { addHeaders } from './addHeaders';
+import { buildGatewayQuery } from './buildGatewayQuery';
+import { convertTeam } from './convertTeam';
 
 interface AGGTeam extends Omit<Team, 'members'> {
 	members?: {
@@ -18,99 +22,9 @@ interface AGGMember {
 	};
 }
 
-interface AGGResult {
+export interface AGGResult {
 	team: AGGTeam;
 }
-
-const ARI_PREFIX = 'ari:cloud:identity::team/';
-
-export const extractIdFromAri = (ari: string): string => {
-	const slashPos = ari.indexOf('/');
-	const id = ari.slice(slashPos + 1);
-	return id;
-};
-
-/**
- * @deprecated Use idToAriSafe instead
- */
-export const idToAri = (teamId: string) => {
-	return `ari:cloud:identity::team/${teamId}`;
-};
-
-export const idToAriSafe = (teamIdOrTeamAri: string): string =>
-	teamIdOrTeamAri.startsWith(ARI_PREFIX) ? teamIdOrTeamAri : idToAri(teamIdOrTeamAri);
-
-export const convertTeam = (result: AGGResult): Team => {
-	const { team } = result;
-	return {
-		...team,
-		id: extractIdFromAri(team.id),
-		members: team.members?.nodes.map(({ member }) => ({
-			id: member.accountId,
-			fullName: member.name,
-			avatarUrl: member.picture,
-		})),
-	};
-};
-
-// indented so it's
-const TEAM_FRAGMENT = `
-      id
-      displayName
-      description
-      smallHeaderImageUrl
-      largeHeaderImageUrl
-      smallAvatarImageUrl
-      largeAvatarImageUrl
-	  isVerified
-	  state
-      members {
-        nodes {
-          member {
-            accountId
-            name
-            picture
-          }
-        }
-      }
-`;
-
-// We alias the team node to always be team
-export const GATEWAY_QUERY_V2: 'query TeamCard($teamId: ID!, $siteId: String!) {\n  Team: team {\n    team: teamV2(id: $teamId, siteId: $siteId) @optIn(to: "Team-v2") {\n      \n      id\n      displayName\n      description\n      smallHeaderImageUrl\n      largeHeaderImageUrl\n      smallAvatarImageUrl\n      largeAvatarImageUrl\n\t  isVerified\n\t  state\n      members {\n        nodes {\n          member {\n            accountId\n            name\n            picture\n          }\n        }\n      }\n\n    }\n  }\n}' = `query TeamCard($teamId: ID!, $siteId: String!) {
-  Team: team {
-    team: teamV2(id: $teamId, siteId: $siteId) @optIn(to: "Team-v2") {
-      ${TEAM_FRAGMENT}
-    }
-  }
-}`;
-
-type TeamQueryVariables = { teamId: string; siteId?: string };
-
-export const buildGatewayQuery = ({
-	teamId,
-	siteId,
-}: TeamQueryVariables): {
-	query: string;
-	variables: {
-		teamId: string;
-		siteId: string;
-	};
-} => ({
-	query: GATEWAY_QUERY_V2,
-	variables: {
-		teamId: idToAriSafe(teamId),
-		siteId: siteId || 'None',
-	},
-});
-
-export const addHeaders = (headers: Headers): Headers => {
-	headers.append('X-ExperimentalApi', 'teams-beta');
-	headers.append('X-ExperimentalApi', 'team-members-beta');
-	headers.append('atl-client-name', process.env._PACKAGE_NAME_ as string);
-	headers.append('atl-client-version', process.env._PACKAGE_VERSION_ as string);
-
-	return headers;
-};
 
 export async function getTeamFromAGG(url: string, teamId: string, siteId?: string): Promise<Team> {
 	const query = buildGatewayQuery({

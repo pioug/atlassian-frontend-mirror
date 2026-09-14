@@ -1,5 +1,5 @@
-import { validator } from '../../../validator';
 import type { ADFEntity } from '../../../types';
+import { validator } from '../../validator';
 
 describe('Validator Errors', () => {
 	const validate = validator();

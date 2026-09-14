@@ -7,7 +7,7 @@ import { type KeyboardEvent, type MouseEvent } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { Box } from '@atlaskit/primitives/compiled';

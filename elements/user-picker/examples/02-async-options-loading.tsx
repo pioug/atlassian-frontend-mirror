@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 import React, { useState } from 'react';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import UserPicker from '../src';
+import { UserPicker } from '../src/components/UserPicker';
 
 const Example = (): React.JSX.Element => {
 	const [enableRandomFailures, setEnableRandomFailures] = useState(false);

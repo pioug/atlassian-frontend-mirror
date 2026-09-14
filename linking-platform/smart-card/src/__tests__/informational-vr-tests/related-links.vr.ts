@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import RelatedLinksResolvedView from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolved-view';
+import RelatedLinksResolvedView from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolved-view.vr.ap';
 
 snapshotInformational(RelatedLinksResolvedView, {
 	prepare: async (page: Page, _component: Locator) => {

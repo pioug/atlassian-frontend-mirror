@@ -1,5 +1,232 @@
 # @atlaskit/select
 
+## 22.11.2
+
+### Patch Changes
+
+- [`dbcebfd7f481c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbcebfd7f481c) -
+  Prevent inline Select menus from rendering duplicate listbox IDs.
+- [`13fcd5b800ea9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13fcd5b800ea9) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+- Updated dependencies
+
+## 22.11.1
+
+### Patch Changes
+
+- [`261fd53b131ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/261fd53b131ba) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+- Updated dependencies
+
+## 22.11.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.10.0
+
+### Minor Changes
+
+- [`b8953faad9b55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8953faad9b55) -
+  Add `menuRenderMode` for choosing between the default `popup` menu and a persistent `inline` menu.
+
+## 22.9.2
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 22.9.1
+
+### Patch Changes
+
+- [`fae4f6a53e4be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae4f6a53e4be) -
+  Render label enter and exit animations through `cssMap` in Tag, React Select, Select, and User
+  Picker. Motion now measures concurrent CSS animation lists correctly so the label scale and fade
+  animations complete together.
+- Updated dependencies
+
+## 22.9.0
+
+### Minor Changes
+
+- [`ef98af289c49b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef98af289c49b) -
+  Add motion to Tag, AvatarTag, TagDropdownTrigger, Tag Group, Select, React Select, and User Picker
+  tag values. Tags use `motion.label.enter` and `motion.label.exit` for entry and exit, while
+  interactive tags and dropdown triggers use the button hover and pressed motion tokens; Tag
+  Dropdown Trigger also fades between its content and loading spinner. The remove control is removed
+  when exit begins so it cannot linger while the tag collapses.
+
+  Motion is gated by `platform-dst-motion-uplift-labels`. Compatibility and adoption paths for the
+  visually uplifted Tag, Tag Group, Select, React Select, and User Picker additionally remain behind
+  `platform-dst-lozenge-tag-badge-visual-uplifts`.
+
+  `@atlaskit/react-select` also adds an optional `onMotionFinish` callback to the exported
+  `MultiValueProps` interface so the Select can restore its placeholder after the final multi-value
+  exit completes.
+
+  ```tsx
+  import Tag from '@atlaskit/tag/new';
+
+  <Tag text="Status" />;
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.8.1
+
+### Patch Changes
+
+- [`a7e63cfd84876`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7e63cfd84876) -
+  [ux] When `platform-dst-top-layer` is enabled, Select menus now use the native Popover API to
+  handle Escape and light-dismiss before synchronizing `menuIsOpen` through `onMenuClose`. This
+  ensures Escape dismisses a nested Select menu without also dismissing its containing popup.
+
+  Existing public props keep their behavior. The top-layer `Popover` implementation gains an
+  internal `source` prop for imperative native popover invokers. The public runtime differences
+  behind the feature gate are:
+  - Select no longer calls `preventDefault()` or `stopPropagation()` for Escape on the top-layer
+    path, whether its menu is open or closed. Successive Escape presses can therefore dismiss the
+    Select menu and then its containing native popover.
+  - `onMenuClose` is called from the native popover close lifecycle rather than synchronously during
+    Select's Escape `keydown` handler.
+  - `shouldPreventEscapePropagation` no longer stops Escape propagation while a top-layer menu is
+    open; its legacy-path behavior is unchanged.
+  - Top-layer Escape invokes `onInputChange` with the `menu-close` action once, after native
+    dismissal, instead of the legacy path's two calls.
+  - Controlled Selects must continue updating `menuIsOpen` to `false` in response to `onMenuClose`.
+  - `PopupSelect` delegates Escape dismissal and focus restoration to its native popover. A consumer
+    `onKeyDown` handler can therefore prevent the native dismissal with `preventDefault()`;
+    previously, `PopupSelect` closed before forwarding the event.
+  - DatePicker's top-layer calendar now uses the Select menu portal's native popover instead of
+    creating a nested manual popover.
+  - The internal Popover forwarding API accepts a native `source` element so imperative Select
+    popovers retain their trigger relationship for light-dismiss behavior.
+
+- Updated dependencies
+
+## 22.8.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.7.0
+
+### Minor Changes
+
+- [`005037db2dcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/005037db2dcaa) -
+  Autofix: update cross-package imports away from barrel entries
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.6.2
+
+### Patch Changes
+
+- [`9356675edac18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9356675edac18) -
+  Replace generated `./src/*` subpath export keys with lint-safe equivalents. The de-barreling
+  migration produced export keys containing a `src` segment (e.g. `@atlaskit/select`
+  `"./src/select"`), which are forbidden by `no-restricted-imports` (`@atlaskit/*/src/*`) in
+  downstream products.
+
+  Renamed keys:
+  - `@atlaskit/select`: `./src/select` → `./default`
+  - `@atlaskit/icon`: `./src/constants` → `./constants/default`
+  - `@atlaskit/react-select`: `./src/async` → `./async/default`, `./src/creatable` →
+    `./creatable/default`
+  - `@atlaskit/heading`: `./src/heading-context` → `./heading-context/default`
+  - `@atlaskit/flag`: removed the redundant `./src/flag-group` key (duplicate of the existing
+    `./flag-group` export)
+
+  The underlying source targets are unchanged.
+
+- Updated dependencies
+
+## 22.6.1
+
+### Patch Changes
+
+- [`6902b31db1608`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6902b31db1608) -
+  Consolidate direct Popper.js callers behind `@atlaskit/popper` compatibility entry points and
+  feature-gated consumer adapters.
+
+  `@atlaskit/popper` now exposes compatibility entry points so existing direct `popper.js` /
+  `react-popper` callers can move their dependency ownership onto `@atlaskit/popper` without a full
+  rewrite:
+  - `@atlaskit/popper/react-popper` re-exports the React `usePopper` hook and `Manager` / `Popper` /
+    `Reference` render-prop components.
+  - `@atlaskit/popper/unsafe-imperative` re-exports the raw Popper.js v2 `createPopper` for
+    non-React, imperative callers. This is an escape hatch for existing callers only. Do not use it
+    for new code; build new overlays on `@atlaskit/top-layer` instead.
+
+  ```ts
+  // Imperative callers (migrating away from a direct `@popperjs/core` / `popper.js` import):
+  import { createPopper } from '@atlaskit/popper/unsafe-imperative';
+
+  const instance = createPopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+
+  // React callers (migrating away from a direct `react-popper` import):
+  import { usePopper } from '@atlaskit/popper/react-popper';
+
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+  ```
+
+- Updated dependencies
+
 ## 22.6.0
 
 ### Minor Changes

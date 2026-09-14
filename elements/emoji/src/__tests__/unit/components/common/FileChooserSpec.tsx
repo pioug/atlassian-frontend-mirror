@@ -2,17 +2,24 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
-import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
+import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/get-files';
 import FileChooser, { dropzoneTestId } from '../../../../components/common/FileChooser';
 
-jest.mock('@atlaskit/pragmatic-drag-and-drop/external/adapter', () => ({
+jest.mock('@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external', () => ({
+	...jest.requireActual('@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external'),
 	dropTargetForExternal: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-jest.mock('@atlaskit/pragmatic-drag-and-drop/external/file', () => ({
+jest.mock('@atlaskit/pragmatic-drag-and-drop/utils/contains-files', () => ({
+	...jest.requireActual('@atlaskit/pragmatic-drag-and-drop/utils/contains-files'),
 	containsFiles: jest.fn().mockReturnValue(true),
+}));
+jest.mock('@atlaskit/pragmatic-drag-and-drop/utils/get-files', () => ({
+	...jest.requireActual('@atlaskit/pragmatic-drag-and-drop/utils/get-files'),
 	getFiles: jest.fn(),
 }));
 
@@ -20,26 +27,25 @@ jest.mock('@atlaskit/pragmatic-drag-and-drop/external/file', () => ({
 describe('File Chooser', () => {
 	let user: ReturnType<typeof userEvent.setup>;
 	let initializeCompletedSpy: jest.SpiedFunction<typeof FeatureGates.initializeCompleted>;
-	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+	let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 	const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
-			experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
-		);
+		if (isEnabled) {
+			mockExpEnabled(teamojiRefreshExperimentName);
+		} else {
+			mockExpDisabled(teamojiRefreshExperimentName);
+		}
 	};
 
 	beforeEach(() => {
 		user = userEvent.setup();
 		jest.clearAllMocks();
 		initializeCompletedSpy = jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
-		getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
-		setTeamojiExperimentEnabled(false);
+		checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
 	});
 
 	afterEach(() => {
-		getExperimentValueSpy.mockRestore();
+		checkGateSpy.mockRestore();
 		initializeCompletedSpy.mockRestore();
 	});
 

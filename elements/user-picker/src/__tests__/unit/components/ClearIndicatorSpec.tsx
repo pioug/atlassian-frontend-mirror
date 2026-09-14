@@ -1,115 +1,88 @@
-import { components } from '@atlaskit/select';
-import Tooltip from '@atlaskit/tooltip';
+import { fireEvent, render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
-import { mount } from 'enzyme';
-import React, { type ReactChildren } from 'react';
+import React from 'react';
 import { ClearIndicator } from '../../../components/ClearIndicator';
 
-// Helper to make <React.Suspense> and React.lazy() work with Enzyme
-jest.mock('react', () => {
-	const React = jest.requireActual('react');
+const TestClearIndicator = ClearIndicator as React.ComponentType<any>;
 
-	return {
-		...React,
-		Suspense: ({ children }: { children: ReactChildren }) => children,
-		lazy: jest.fn().mockImplementation((fn) => {
-			const Component = (props: any) => {
-				const [C, setC] = React.useState();
+jest.mock('@atlaskit/react-select/components', () => ({
+	...jest.requireActual('@atlaskit/react-select/components'),
+	__esModule: true,
+	components: {
+		ClearIndicator: ({ innerProps }: { innerProps: React.HTMLAttributes<HTMLButtonElement> }) => (
+			<button type="button" aria-label="Clear selection" {...innerProps}>
+				Clear
+			</button>
+		),
+	},
+}));
 
-				React.useEffect(() => {
-					fn().then((v: any) => {
-						setC(v);
-					});
-				}, []);
-
-				return C ? <C.default {...props} /> : null;
-			};
-
-			return Component;
-		}),
-	};
-});
+jest.mock('@atlaskit/tooltip/Tooltip', () => ({
+	...jest.requireActual('@atlaskit/tooltip/Tooltip'),
+	__esModule: true,
+	default: ({ children, content }: { children: React.ReactNode; content: string }) => (
+		<div role="tooltip">
+			{content}
+			{children}
+		</div>
+	),
+}));
 
 describe('ClearIndicator', () => {
-	const renderClearIndicator = (props: any) =>
-		mount(<ClearIndicator {...props} getStyles={noop} cx={noop} getClassNames={noop} />);
-
-	it('should clear value onMouseDown', () => {
+	const renderClearIndicator = (selectProps: Record<string, unknown> = {}) => {
+		const parentMouseDown = jest.fn();
 		const clearValue = jest.fn();
-		const component = renderClearIndicator({
-			clearValue,
-			selectProps: {
-				isFocused: true,
-			},
-		});
 
-		const { onMouseDown } = component.find(components.ClearIndicator!).prop('innerProps');
+		const result = render(
+			<div onMouseDown={parentMouseDown}>
+				<TestClearIndicator
+					clearValue={clearValue}
+					selectProps={selectProps as any}
+					getStyles={noop as any}
+					cx={noop as any}
+					innerProps={{}}
+				/>
+			</div>,
+		);
 
-		onMouseDown({ stopPropagation: jest.fn() });
+		return { ...result, clearValue, parentMouseDown };
+	};
+
+	it('clears the value when the indicator is pressed', () => {
+		const { clearValue } = renderClearIndicator({ isFocused: true });
+
+		fireEvent.mouseDown(screen.getByRole('button', { name: 'Clear selection' }), { button: 0 });
 
 		expect(clearValue).toHaveBeenCalledTimes(1);
 	});
 
-	it('should call stopPropagation if not focused', () => {
-		const component = renderClearIndicator({
-			clearValue: jest.fn(),
-			selectProps: {
-				isFocused: false,
-			},
-		});
+	it('stops the mouse event from propagating when the select is not focused', () => {
+		const { clearValue, parentMouseDown } = renderClearIndicator({ isFocused: false });
 
-		const { onMouseDown } = component.find(components.ClearIndicator!).prop('innerProps');
-		const stopPropagation = jest.fn();
-		onMouseDown({ stopPropagation });
-		expect(stopPropagation).toHaveBeenCalledTimes(1);
+		fireEvent.mouseDown(screen.getByRole('button', { name: 'Clear selection' }), { button: 0 });
+
+		expect(clearValue).toHaveBeenCalledTimes(1);
+		expect(parentMouseDown).not.toHaveBeenCalled();
 	});
 
-	it('should not call stopPropagation if focused', () => {
-		const component = renderClearIndicator({
-			clearValue: jest.fn(),
-			selectProps: {
-				isFocused: true,
-			},
-		});
+	it('allows the mouse event to propagate when the select is focused', () => {
+		const { parentMouseDown } = renderClearIndicator({ isFocused: true });
 
-		const { onMouseDown } = component.find(components.ClearIndicator!).prop('innerProps');
-		const stopPropagation = jest.fn();
-		onMouseDown({ stopPropagation });
-		expect(stopPropagation).toHaveBeenCalledTimes(0);
+		fireEvent.mouseDown(screen.getByRole('button', { name: 'Clear selection' }), { button: 0 });
+
+		expect(parentMouseDown).toHaveBeenCalledTimes(1);
 	});
 
-	// FIXME: Jest 29 upgrade - tooltip not present
-	it.skip('should pass in clearValueLabel to tooltip', async () => {
-		const component = renderClearIndicator({
-			selectProps: { clearValueLabel: 'test' },
-		});
+	it('renders a tooltip when a clear value label is supplied', async () => {
+		renderClearIndicator({ clearValueLabel: 'Clear selected people' });
 
-		// fallback
-		component.find(components.ClearIndicator);
-
-		// await tooltip loading
-		await new Promise(setImmediate);
-		component.update();
-
-		component.find(components.ClearIndicator);
-		const tooltip = component.find(Tooltip);
-
-		expect(tooltip).toHaveLength(1);
-		expect(tooltip.prop('content')).toEqual('test');
+		expect(await screen.findByRole('tooltip')).toHaveTextContent('Clear selected people');
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should not render tooltip if no clearValueLabel', async () => {
-		const component = renderClearIndicator({ selectProps: {} });
+	it('does not render a tooltip without a clear value label', () => {
+		renderClearIndicator();
 
-		component.find(components.ClearIndicator);
-
-		// await tooltip loading
-		await new Promise(setImmediate);
-		component.update();
-
-		component.find(components.ClearIndicator);
-		const tooltip = component.find(Tooltip);
-
-		expect(tooltip).toHaveLength(0);
+		expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
 	});
 });

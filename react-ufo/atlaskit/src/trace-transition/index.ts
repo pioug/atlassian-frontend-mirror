@@ -1,6 +1,5 @@
-import { useContext, useEffect } from 'react';
-
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
@@ -9,15 +8,9 @@ import {
 	getInteractionRate,
 	isUFOEnabled,
 } from '../config';
-import { getActiveTrace } from '../experience-trace-id-context';
-import UFOInteractionIDContext, { DefaultInteractionID } from '../interaction-id-context';
-import {
-	abortAll,
-	addNewInteraction,
-	addOnCancelCallback,
-	getActiveInteraction,
-	tryComplete,
-} from '../interaction-metrics';
+import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
+import { DefaultInteractionID } from '../interaction-id-context';
+import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 
 import { setInteractionActiveTrace } from './utils/set-interaction-active-trace';
@@ -25,6 +18,7 @@ import { setInteractionActiveTrace } from './utils/set-interaction-active-trace'
 function traceUFOTransition(
 	ufoName: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
+	preloadKey?: string,
 ): void {
 	if (!isUFOEnabled()) {
 		return;
@@ -57,31 +51,16 @@ function traceUFOTransition(
 				null,
 				routeName,
 				getActiveTrace(),
+				preloadKey,
 			);
 		}
 	}
 }
 
-export function useUFOTransitionCompleter(): void {
-	const interactionId = useContext(UFOInteractionIDContext);
-	const capturedInteractionId = interactionId.current;
-	useEffect(() => {
-		// If we have a current interaction set...
-		if (capturedInteractionId != null) {
-			let cancel = requestAnimationFrame(() => {
-				cancel = requestAnimationFrame(() => {
-					if (capturedInteractionId === interactionId.current) {
-						tryComplete(capturedInteractionId);
-					}
-				});
-			});
-
-			addOnCancelCallback(capturedInteractionId, () => {
-				cancelAnimationFrame(cancel);
-			});
-		}
-	}, [capturedInteractionId, interactionId]);
-}
-
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default traceUFOTransition;
+
+/**
+ * @deprecated Use `import { useUFOTransitionCompleter } from '@atlaskit/react-ufo/use-ufo-transition-completer'` instead.
+ */
+export { useUFOTransitionCompleter } from './useUFOTransitionCompleter';

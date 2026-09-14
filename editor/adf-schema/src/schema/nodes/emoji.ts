@@ -1,8 +1,10 @@
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
-import { acNameToEmoji, acShortcutToEmoji } from '../../utils/confluence/emoji';
-import type { AnnotationMarkDefinition } from '../marks/annotation';
+
 import { emoji as emojiFactory } from '../../next-schema/generated/nodeTypes';
+import { acNameToEmoji } from '../../utils/confluence/acNameToEmoji';
+import { acShortcutToEmoji } from '../../utils/confluence/acShortcutToEmoji';
 import { uuid } from '../../utils/uuid';
+import type { AnnotationMarkDefinition } from '../marks/annotation';
 
 /**
  * @name emoji_node

@@ -21,7 +21,6 @@ const gapCursorBlink = keyframes({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
-export const hideCaretModifier = 'ProseMirror-hide-gapcursor';
 const gapCursorSelector = '.ProseMirror-gapcursor';
 const prosemirrorwidgetNotBlock =
 	'.ProseMirror-widget:not([data-blocks-decoration-container="true"]):not([data-blocks-drag-handle-container="true"]):not([data-blocks-quick-insert-container="true"])';
@@ -103,12 +102,6 @@ ${wrapLeft} + ${gapCursorSelector} + ${wrapRight} + *,
 export const gapCursorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-		[`&.${hideCaretModifier}`]: {
-			// Clean this up with platform_synced_block
-			caretColor: 'transparent',
-		},
-
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		[gapCursorSelector]: {
 			display: 'none',

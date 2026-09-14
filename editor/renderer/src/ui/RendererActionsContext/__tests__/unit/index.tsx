@@ -1,14 +1,12 @@
 import React from 'react';
-import { create, act } from 'react-test-renderer';
-import type { DocNode } from '@atlaskit/adf-schema';
-import { render } from '@testing-library/react';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { render } from '@atlassian/testing-library/render';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
-import Renderer from '../../../Renderer';
 import { initialDoc } from '../../../../__tests__/__fixtures__/initial-doc';
 import { RendererActionsContext, RendererContext } from '../../index';
-import { ReactRenderer } from '../../../../index';
+import { Renderer } from '../../../../entry-points/renderer-default';
 import RendererActions from '../../../../actions/index';
 
 describe('Registering renderer actions', () => {
@@ -18,7 +16,7 @@ describe('Registering renderer actions', () => {
 			'fake.confluence': (ext) => {
 				return (
 					<RendererContext.Provider value={actions}>
-						<ReactRenderer
+						<Renderer
 							adfStage="stage0"
 							document={{ type: 'doc', version: 1, content: ext.content as any }}
 							allowAnnotations={false}
@@ -38,45 +36,44 @@ describe('Registering renderer actions', () => {
 	});
 
 	it('cannot register two Renderer instances under the same context', () => {
+		// React reports the error thrown while rendering to the console before rethrowing it
+		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
 		expect(() => {
-			act(() => {
-				create(
-					<RendererActionsContext>
-						<>
-							<Renderer document={initialDoc} />
-							<Renderer document={initialDoc} />
-						</>
-					</RendererActionsContext>,
-				);
-			});
-		}).toThrowError(
+			render(
+				<RendererActionsContext>
+					<>
+						<Renderer document={initialDoc} />
+						<Renderer document={initialDoc} />
+					</>
+				</RendererActionsContext>,
+			);
+		}).toThrow(
 			`Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.`,
 		);
+
+		consoleErrorSpy.mockRestore();
 	});
 
 	it('can register a single Renderer instance', () => {
 		expect(() => {
-			act(() => {
-				create(
-					<RendererActionsContext>
-						<Renderer document={initialDoc} />
-					</RendererActionsContext>,
-				);
-			});
-		}).not.toThrowError();
+			render(
+				<RendererActionsContext>
+					<Renderer document={initialDoc} />
+				</RendererActionsContext>,
+			);
+		}).not.toThrow();
 	});
 
 	it('can render multiple Renderers without a wrapping context', () => {
 		expect(() => {
-			act(() => {
-				create(
-					<>
-						<Renderer document={initialDoc} />
-						<Renderer document={initialDoc} />
-					</>,
-				);
-			});
-		}).not.toThrowError();
+			render(
+				<>
+					<Renderer document={initialDoc} />
+					<Renderer document={initialDoc} />
+				</>,
+			);
+		}).not.toThrow();
 	});
 
 	eeTest.describe('comment_on_bodied_extensions', 'nested renderers').variant(true, () => {
@@ -87,7 +84,7 @@ describe('Registering renderer actions', () => {
 				'fake.confluence': (ext) => {
 					return (
 						<RendererContext.Provider value={actions}>
-							<ReactRenderer
+							<Renderer
 								adfStage="stage0"
 								document={{ type: 'doc', version: 1, content: ext.content as any }}
 								allowAnnotations={false}

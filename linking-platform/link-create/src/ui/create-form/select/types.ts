@@ -1,4 +1,4 @@
-import { type SelectProps as AKSelectProps, type OptionType } from '@atlaskit/select';
+import type { SelectProps as AKSelectProps, OptionType } from '@atlaskit/select/types';
 
 import { type Validator } from '../../../common/types';
 

@@ -1,12 +1,24 @@
 import type React from 'react';
 
-import type { RegisterComponent } from '../../types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
-import type { ChildrenMap, SurfaceIdentifier } from './types';
+import type {
+	ComponentIdentifier,
+	CommonComponentProps,
+	RegisterComponent,
+	SurfaceContext,
+} from '../../types';
+
+import type { ChildrenMap, ResolvedSurface, SurfaceIdentifier } from './types';
 
 /** Renders children as-is. Used when no explicit component is registered. */
-export const PassThrough = (props: Record<string, unknown>): React.ReactNode =>
-	(props.children as React.ReactNode) ?? null;
+export const PassThrough = (props: CommonComponentProps): React.ReactNode => props.children ?? null;
+
+export const getComponentIdentity = ({ type, key }: ComponentIdentifier): string =>
+	isExperimentEnabled('platform_editor_slash_command') ||
+	isExperimentEnabled('platform_editor_block_control_migration')
+		? `${type}:${key}`
+		: key;
 
 /**
  * Locate the root surface component — one whose key and type match the
@@ -35,22 +47,55 @@ export const buildChildrenMap = (components: RegisterComponent[]): ChildrenMap =
 	for (const component of components) {
 		if (component.parents && component.parents.length > 0) {
 			for (const parent of component.parents) {
-				const existing = childrenMap.get(parent.key) || [];
+				const parentIdentity = getComponentIdentity(parent);
+				const existing = childrenMap.get(parentIdentity) || [];
 				existing.push(component);
-				childrenMap.set(parent.key, existing);
+				childrenMap.set(parentIdentity, existing);
 			}
 		}
 	}
 
-	for (const [parentKey, children] of childrenMap.entries()) {
+	for (const [parentIdentity, children] of childrenMap.entries()) {
 		children.sort((a, b) => {
-			const rankA = a.parents?.find((p) => p.key === parentKey)?.rank ?? 0;
-			const rankB = b.parents?.find((p) => p.key === parentKey)?.rank ?? 0;
+			const rankA =
+				a.parents?.find((parent) => getComponentIdentity(parent) === parentIdentity)?.rank ?? 0;
+			const rankB =
+				b.parents?.find((parent) => getComponentIdentity(parent) === parentIdentity)?.rank ?? 0;
 			return rankA - rankB;
 		});
 	}
 
 	return childrenMap;
+};
+
+export const resolveSurface = (
+	components: RegisterComponent[],
+	surface: SurfaceIdentifier,
+): ResolvedSurface => {
+	const root = findSurface(components, surface);
+	const childrenMap = buildChildrenMap(components);
+	const surfaceComponents: RegisterComponent[] = [];
+
+	if (root) {
+		const visited = new Set<string>();
+		const visit = (component: RegisterComponent): void => {
+			const identity = getComponentIdentity(component);
+			if (visited.has(identity)) {
+				return;
+			}
+			visited.add(identity);
+			surfaceComponents.push(component);
+			childrenMap.get(identity)?.forEach(visit);
+		};
+		visit(root);
+	}
+
+	return {
+		root,
+		childrenMap,
+		components: surfaceComponents,
+		topLevelChildren: root ? childrenMap.get(getComponentIdentity(root)) : undefined,
+	};
 };
 
 /**
@@ -63,16 +108,46 @@ export const buildChildrenMap = (components: RegisterComponent[]): ChildrenMap =
 export const willComponentRender = (
 	component: RegisterComponent,
 	childrenMap: ChildrenMap,
+	surfaceContext?: SurfaceContext,
 ): boolean => {
-	if (component.isHidden?.()) {
+	return willComponentRenderWithAncestors(component, childrenMap, surfaceContext, new Set());
+};
+
+const willComponentRenderWithAncestors = (
+	component: RegisterComponent,
+	childrenMap: ChildrenMap,
+	surfaceContext: SurfaceContext | undefined,
+	ancestors: Set<string>,
+): boolean => {
+	const isHidden = surfaceContext
+		? component.isHidden?.({ surfaceContext })
+		: component.isHidden?.();
+
+	if (isHidden) {
 		return false;
 	}
 
-	const children = childrenMap.get(component.key);
+	const identity = getComponentIdentity(component);
+	if (ancestors.has(identity)) {
+		return false;
+	}
+
+	const children = childrenMap.get(identity);
 
 	if (!children || children.length === 0) {
 		return true;
 	}
+	const nextAncestors = new Set(ancestors).add(identity);
+	return children.some((child) =>
+		willComponentRenderWithAncestors(child, childrenMap, surfaceContext, nextAncestors),
+	);
+};
 
-	return children.some((child) => willComponentRender(child, childrenMap));
+export const willSurfaceRender = (
+	components: RegisterComponent[],
+	surface: SurfaceIdentifier,
+	surfaceContext?: SurfaceContext,
+): boolean => {
+	const { root, childrenMap } = resolveSurface(components, surface);
+	return root ? willComponentRender(root, childrenMap, surfaceContext) : false;
 };

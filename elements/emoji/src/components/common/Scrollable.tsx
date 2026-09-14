@@ -8,7 +8,7 @@ import { type MouseEventHandler, PureComponent, type ReactNode, type UIEvent } f
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const emojiScrollable = css({

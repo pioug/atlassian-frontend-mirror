@@ -7,7 +7,8 @@ import { Fragment, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import WatchFilledIcon from '@atlaskit/icon/core/eye-open-filled';
 import FeedbackIcon from '@atlaskit/icon/core/feedback';

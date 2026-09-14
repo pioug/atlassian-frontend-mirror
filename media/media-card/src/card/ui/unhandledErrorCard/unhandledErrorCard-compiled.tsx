@@ -4,13 +4,12 @@
  */
 import { Component } from 'react';
 import { css, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { type CardDimensions } from '../../../types';
-import { type UnhandledErrorCardProps } from './types';
-import { defaultImageCardDimensions } from '../../../utils';
+import { defaultImageCardDimensions } from '../../../utils/cardDimensions';
 import { ContentLoadingErrorMessage } from './contentLoadingErrorMessage';
+import { type UnhandledErrorCardProps } from './types';
 
 type ConvertedDimensions = {
 	width: string;
@@ -69,17 +68,14 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 		const convertedDimensions = getConvertedDimension(dimensions);
 		const hideText = !shouldShowText(getConvertedDimension(dimensions));
 
-		const a11yProps = fg('platform_media_a11y_suppression_fixes') ? { role: 'none' as const } : {};
-
 		return (
-			// eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlassian/a11y/no-static-element-interactions
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={convertedDimensions}
 				css={wrapperStyle}
 				onClick={onClick}
 				data-testid="unhandled-error-card"
-				{...a11yProps}
+				role="none"
 			>
 				<WarningIcon label="Error" color={token('color.icon.warning')} spacing="spacious" />
 				<ContentLoadingErrorMessage isHidden={hideText} />

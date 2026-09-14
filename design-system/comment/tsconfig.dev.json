@@ -30,11 +30,7 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__comment/dev",
@@ -82,6 +78,9 @@
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

@@ -1,7 +1,7 @@
 import type { Scope } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 
-import { hasStyleObjectArguments, isCssMap, isKeyframes } from './is-supported-import';
+import { getStyleFunction } from './is-supported-import';
 
 export function walkStyleProperties(
 	callExpression: ESTree.CallExpression,
@@ -9,14 +9,17 @@ export function walkStyleProperties(
 	importSources: string[],
 	callback: (property: ESTree.Property) => void,
 ): void {
-	if (!hasStyleObjectArguments(callExpression.callee, referencesInScope, importSources)) {
+	const styleFunction = getStyleFunction(
+		callExpression.callee,
+		referencesInScope,
+		importSources,
+		true,
+	);
+	if (!styleFunction) {
 		return;
 	}
 
-	if (
-		isKeyframes(callExpression.callee, referencesInScope, importSources) ||
-		isCssMap(callExpression.callee, referencesInScope, importSources)
-	) {
+	if (styleFunction === 'keyframes' || styleFunction === 'cssMap') {
 		_walkStyleProperties(callExpression, callback, true);
 		return;
 	}

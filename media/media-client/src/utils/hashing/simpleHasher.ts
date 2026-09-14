@@ -1,5 +1,5 @@
 import * as Rusha from 'rusha';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type Hasher } from './hasher';
 import { toFileReaderError } from './fileReaderError';
 

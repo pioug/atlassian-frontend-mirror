@@ -34,7 +34,7 @@ export interface NavigationHeaderProps {
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const NavigationHeader: (props: NavigationHeaderProps) => JSX.Element = (
+export const NavigationHeader: (props: NavigationHeaderProps) => JSX.Element = (
 	props: NavigationHeaderProps,
 ) => {
 	const { children } = props;
@@ -44,5 +44,3 @@ const NavigationHeader: (props: NavigationHeaderProps) => JSX.Element = (
 		</Box>
 	);
 };
-
-export default NavigationHeader;

@@ -15,7 +15,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { RendererContext, ExtensionViewportSize } from '../types';
-import type { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 
 import type {
@@ -28,9 +28,10 @@ import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps, OverflowShadowState } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { RendererCssClassName } from '../../consts';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { calcBreakoutWidthCss } from '../utils/breakout';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { AnalyticsEventPayload } from '../../analytics/events';
 
@@ -66,9 +67,18 @@ type AllOrNone<T> = T | { [K in keyof T]?: never };
 
 type RenderExtensionOptions = {
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	isInsideOfTable?: boolean;
 	isTopLevel?: boolean;
 	rendererAppearance?: RendererAppearance;
 } & AllOrNone<OverflowShadowProps>;
+
+const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
+/**
+ * Mirrors `FORGE_INLINE_BODIED_PARAM` in `@atlassian/xen-editor-provider`. Duplicated rather than
+ * imported: the renderer must not depend on a Forge package, and this is a stored parameter name,
+ * so it is part of the document contract rather than that package's API.
+ */
+const FORGE_INLINE_BODIED_PARAM = 'atlassianForgeInlineBodied';
 
 const viewportSizes = ['small', 'medium', 'default', 'large', 'xlarge'];
 type ViewportSizeType = (typeof viewportSizes)[number];
@@ -156,7 +166,13 @@ export const renderExtension = (
 		: '';
 
 	// by default, we assume the extension is at top level, (direct child of doc node)
-	const { isTopLevel = true, rendererAppearance, fireAnalyticsEvent } = options || {};
+	const {
+		isInsideOfTable = false,
+		isTopLevel = true,
+		rendererAppearance,
+		fireAnalyticsEvent,
+	} = options || {};
+
 	// we should only use custom layout for full-page appearance
 	const canUseCustomLayout = expValEquals(
 		'platform_editor_remove_important_in_render_ext',
@@ -176,10 +192,56 @@ export const renderExtension = (
 	 */
 	const viewportSize = getViewportSize(extensionId, extensionViewportSizes);
 	const extensionHeight = nodeHeight || viewportSize;
+	/**
+	 * Scoped to nodes inserted by an app declaring `outputType: inline`, which is what writes
+	 * `atlassianForgeInlineBodied`. The output-type marker alone would also match migrated Connect
+	 * content — it carries the same marker, and after an upgrade plus a storage round trip in the
+	 * same shape — so keying on it would change how existing content renders. The renderer only
+	 * ever sees the stored node, never the manifest, so a parameter this code writes is the only
+	 * available signal.
+	 *
+	 * Evaluated once and shared with `isNativeForgeInline` below, so the gate is read a single time
+	 * per render, and the cheap checks stay in front of it so anything ineligible short-circuits
+	 * without firing an exposure it can never act on.
+	 */
+	const hasForgeInlineBodiedMarker = Boolean(
+		node?.extensionType === FORGE_EXTENSION_TYPE &&
+		node?.content &&
+		node?.parameters?.guestParams?.[FORGE_INLINE_BODIED_PARAM] === 'true',
+	);
+	const isForgeInlineBodiedEnabled =
+		hasForgeInlineBodiedMarker && fg('platform_forge_inline_bodied_macro');
+	/**
+	 * The pass that marks the sibling textblocks around an inline extension resolves their
+	 * positions without a depth term, so it only ever matches at the top level. Inlining a nested
+	 * container without joining its neighbours leaves a shrink-wrapped box alone on its own line,
+	 * which is worse than leaving it a block — so keep nested inline-bodied Forge macros as
+	 * blocks until the sibling marking works at depth.
+	 */
+	const isNestedForgeInlineBodied = !isTopLevel && isForgeInlineBodiedEnabled;
 	const isInline =
 		shouldDisplayExtensionAsInline?.(node) &&
-		expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true);
+		expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
+		!isNestedForgeInlineBodied;
 	const inlineClassName = isInline ? RendererCssClassName.EXTENSION_AS_INLINE : '';
+	/**
+	 * A native Forge macro does not have its body rendered by the product — the body ADF is
+	 * sent to the app over the bridge and the app renders it with its own nested renderer.
+	 * The inline styling above stops at the outer wrapper, so mark these nodes to let the
+	 * nested document's block spacing be collapsed too.
+	 */
+	const isNativeForgeInline = Boolean(isInline && isForgeInlineBodiedEnabled);
+	/**
+	 * Migrated inline-bodied macros intentionally do not receive the native Forge marker. Mark the
+	 * rendered wrapper instead so the stylesheet can fix only the surrounding text flow without
+	 * applying the native nested-renderer, overflow or sizing rules to migrated content.
+	 */
+	const isMigratedInlineBodied = Boolean(
+		isInline &&
+		node?.content &&
+		!hasForgeInlineBodiedMarker &&
+		fg('platform_forge_inline_bodied_macro'),
+	);
 
 	const asInlineAnalytics =
 		isInline && fireAnalyticsEvent && node ? (
@@ -213,14 +275,17 @@ export const renderExtension = (
 				data-testid="extension--wrapper"
 				data-node-type="extension"
 				data-top-level={isTopLevel || undefined}
+				data-forge-inline={isNativeForgeInline || undefined}
+				data-migrated-inline={isMigratedInlineBodied || undefined}
 			>
 				<div
 					tabIndex={options.tabIndex}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
 					css={[
-						!isInsideOfInlineExtension &&
-							fg('platform_fix_macro_renders_in_layouts') &&
+						(!isInsideOfTable ||
+							isExperimentEnabled('platform_editor_table_fit_to_content_patch_2')) &&
+							!isInsideOfInlineExtension &&
 							containerStyle,
 					]}
 				>
@@ -229,8 +294,7 @@ export const renderExtension = (
 				</div>
 			</div>
 		);
-		return centerAlignClass &&
-			expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
+		return centerAlignClass ? (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={
@@ -282,14 +346,17 @@ export const renderExtension = (
 						data-layout={layout}
 						data-local-id={localId}
 						data-top-level={isTopLevel || undefined}
+						data-forge-inline={isNativeForgeInline || undefined}
+						data-migrated-inline={isMigratedInlineBodied || undefined}
 					>
 						<div
 							tabIndex={options.tabIndex}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 							className={`${RendererCssClassName.EXTENSION_INNER_WRAPPER} ${overflowContainerClass}`}
 							css={[
-								!isInsideOfInlineExtension &&
-									fg('platform_fix_macro_renders_in_layouts') &&
+								(!isInsideOfTable ||
+									isExperimentEnabled('platform_editor_table_fit_to_content_patch_2')) &&
+									!isInsideOfInlineExtension &&
 									containerStyle,
 							]}
 						>
@@ -298,8 +365,7 @@ export const renderExtension = (
 						</div>
 					</div>
 				);
-				return centerAlignClass &&
-					expValEquals('platform_editor_flex_based_centering', 'isEnabled', true) ? (
+				return centerAlignClass ? (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={
@@ -331,6 +397,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 		localId,
 		isInsideOfInlineExtension,
 	} = props;
+	const isInsideOfTable = path.some((node) => node.type.name === 'table');
 
 	return (
 		<ExtensionRenderer
@@ -348,6 +415,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 							layout,
 							{
 								isTopLevel: path.length < 1,
+								isInsideOfTable,
 								handleRef,
 								shadowClassNames,
 								tabIndex: props.tabIndex,
@@ -382,6 +450,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 					layout,
 					{
 						isTopLevel: path.length < 1,
+						isInsideOfTable,
 						handleRef,
 						shadowClassNames,
 						tabIndex: props.tabIndex,

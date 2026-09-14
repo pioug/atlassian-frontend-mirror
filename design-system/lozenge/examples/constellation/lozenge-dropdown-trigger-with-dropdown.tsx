@@ -5,9 +5,12 @@
 import { useState } from 'react';
 
 import { jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import ImageIcon from '@atlaskit/icon/core/image';
-import Lozenge, { LozengeDropdownTrigger } from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
 
 const _default: () => JSX.Element = () => {
 	const statusOptions = [

@@ -1,5 +1,163 @@
 # @atlaskit/ads-cli
 
+## 0.11.0
+
+### Minor Changes
+
+- [`9a9bcd8b61613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a9bcd8b61613) -
+  Unify ADS and Platform CLI discovery with shared search formatting, ADS foundation catalogs,
+  aligned property tables, dark code blocks, and invocation-aware follow-up commands.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.10.0
+
+### Minor Changes
+
+- [`537518b083114`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/537518b083114) -
+  Extend `init` with a repository-local ADS setup reference and a managed `AGENTS.md` block. The
+  guidance links installed skills when available and documents hosted ADS MCP setup without writing
+  MCP client configuration files.
+
+## 0.9.0
+
+### Minor Changes
+
+- [`3d3cd51d49e72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d3cd51d49e72) -
+  Add an init command that installs the repository-local ADS, UI Styling Standard, and Accessibility
+  Foundation skills and configures the Atlas ADS plugin. When `@atlassian/skills` is unavailable,
+  initialization skips skills and continues with Atlas setup.
+
+## 0.8.2
+
+### Patch Changes
+
+- [`d4d571ff39f04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4d571ff39f04) -
+  Document that `ads-cli search` returns up to two matches per term, per result type by default and
+  that `--limit` overrides the default.
+
+## 0.8.1
+
+### Patch Changes
+
+- [`d26c33453c778`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d26c33453c778) -
+  Refactor grouped search rendering to avoid compacting human-readable results twice.
+
+## 0.8.0
+
+### Minor Changes
+
+- [`7b42e3dbea8db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b42e3dbea8db) -
+  Several updates to the ADS CLI output.
+
+  **`--json` contract change:** `search --json` and `component|token|icon --all --json` now return
+  concise summaries for each result.
+  - Component JSON summaries replace `props` and `examples` with `propCount` and `exampleCount`, and
+    omit `designSource` and other detail-only metadata.
+  - Token `--all --json` summaries omit `usageGuidelines`.
+  - Icon `--all --json` summaries omit fields such as `keywords`, `categorization`, `team`,
+    `status`, and `shouldRecommendSmallIcon`.
+
+  For example, a component result from `ads-cli search avatar --json` changes from a detailed
+  record:
+
+  ```jsonc
+  {
+  	"name": "Avatar",
+  	"package": "@atlaskit/avatar",
+  	"props": [
+  		/* ... */
+  	],
+  	"examples": [
+  		/* ... */
+  	],
+  	"designSource": {
+  		/* ... */
+  	},
+  }
+  ```
+
+  to a compact summary:
+
+  ```json
+  {
+  	"name": "Avatar",
+  	"package": "@atlaskit/avatar",
+  	"propCount": 21,
+  	"exampleCount": 1,
+  	"followUp": "component Avatar"
+  }
+  ```
+
+  The fields omitted from the summary are available by running the individual command, for example
+  `ads-cli component Avatar --json`.
+
+  Other changes:
+  - Search JSON summaries include a `followUp` command for retrieving the individual record.
+  - Individual token JSON (`token <name> --json`) now includes usage guidelines and an actionable
+    `usage` value. Previously, usage guidelines were only available through `token --all --json`.
+  - Human-readable token details now surface usage guidelines; the actionable usage line was already
+    present.
+  - Icon details (`icon <name>`) now include an import statement for `--json` mode.
+  - Human-readable migration guides now preserve before/after steps.
+  - Large JSON responses are allowed to drain before exit.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.7.0
+
+### Minor Changes
+
+- [`70516acb1b138`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70516acb1b138) -
+  Support complete-string child requests in `ads-cli batch` while preserving the canonical tokenized
+  form.
+
+  ```sh
+  # Canonical tokenized form
+  npx @atlaskit/ads-cli batch --command component "Inline Dialog"
+
+  # Complete-string compatibility form
+  npx @atlaskit/ads-cli batch --command 'component "Inline Dialog"'
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.6.0
+
+### Minor Changes
+
+- [`23b45bcd71b5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23b45bcd71b5d) -
+  Add an in-process batch command for running multiple ADS CLI queries with independent results,
+  using a repeated `--command` flag to introduce each child request.
+
+  For example:
+
+  ```sh
+  npx @atlaskit/ads-cli batch --command search button --type icon --command token space.200
+  ```
+
+  For readability, put each `--command` group on its own line — the two forms are equivalent:
+
+  ```sh
+  npx @atlaskit/ads-cli batch \
+    --command search button --type icon \
+    --command token space.200
+  ```
+
+## 0.5.0
+
+### Minor Changes
+
+- [`34cfe0f138d1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34cfe0f138d1c) -
+  Show the active command invocation in ADS CLI help, errors, and follow-up hints. The v2 JSON
+  manifest removes the redundant `invocation` field.
+
 ## 0.4.2
 
 ### Patch Changes

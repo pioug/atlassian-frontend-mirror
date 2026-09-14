@@ -19,7 +19,7 @@
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, parseISO } from 'date-fns';
 
-import { type LocalizationProvider } from '@atlaskit/locale';
+import type { LocalizationProvider } from '@atlaskit/locale/localization-provider';
 
 import { defaultDateFormat } from './default-date-format';
 import { convertTokens } from './parse-tokens';

@@ -3,7 +3,7 @@ import { expect, test } from '@af/integration-testing';
 const myBannerTestId = "[data-testid='basicTestId']";
 
 test('Banner should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../../examples/00-basic-usage.tsx')>(
+	await page.visitExample<typeof import('../../../../examples/00-basic-usage.vr.ap.tsx')>(
 		'design-system',
 		'banner',
 		'basic-usage',

@@ -1,8 +1,8 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
 
+import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
 import {
 	B75,
 	G75,
@@ -12,12 +12,12 @@ import {
 	O200,
 	P200,
 	R200,
-	rgbToHex,
 	T200,
 	Yellow200,
 } from '../../utils/colors';
-import { hexToEditorTextBackgroundPaletteColor } from '../../utils/editor-palette';
-import { getDarkModeLCHColor } from '../../utils/lch-color-inversion';
+import { getDarkModeLCHColor } from '../../utils/get-dark-mode-lch-color';
+import { hexToEditorTextBackgroundPaletteColor } from '../../utils/hex-to-editor-text-background-palette-color';
+import { rgbToHex } from '../../utils/rgb-to-hex';
 import type { TextColorAttributes } from './text-color';
 import { getGlobalTheme } from './text-color';
 
@@ -77,7 +77,6 @@ colorArrayPalette.forEach(([color, label]) =>
 	backgroundColorPalette.set(color.toLowerCase(), label),
 );
 
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const RGB_PREFIX_BG_COLOR_REGEX = /^rgb/iu;
 
 export const backgroundColorPaletteNew: Map<string, BackgroundColorKey> = new Map<

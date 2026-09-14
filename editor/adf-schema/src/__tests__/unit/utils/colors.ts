@@ -1,4 +1,6 @@
-import { hexToRgba, isRgb, normalizeHexColor } from '../../../utils/colors';
+import { hexToRgba } from '../../../utils/hex-to-rgba';
+import { isRgb } from '../../../utils/is-rgb';
+import { normalizeHexColor } from '../../../utils/normalize-hex-color';
 const packageName = process.env.npm_package_name as string;
 
 describe(`${packageName}/colors color utils`, () => {

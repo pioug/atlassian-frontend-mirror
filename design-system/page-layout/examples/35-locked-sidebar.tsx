@@ -7,9 +7,12 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { ButtonItem, CustomItem, PopupMenuGroup, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import CustomItem from '@atlaskit/menu/custom-item';
+import PopupMenuGroup from '@atlaskit/menu/popup-menu-group';
+import Section from '@atlaskit/menu/section';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
 	Content,
@@ -19,15 +22,13 @@ import {
 	RightSidebar,
 	useLeftSidebarFlyoutLock,
 } from '@atlaskit/page-layout';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	Header,
-	NavigationHeader,
-	NestableNavigationContent,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
-import Tooltip from '@atlaskit/tooltip';
+import { Header } from '@atlaskit/side-navigation/header';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ExpandLeftSidebarKeyboardShortcut, SlotLabel } from './common';
 

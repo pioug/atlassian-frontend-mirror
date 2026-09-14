@@ -4,9 +4,10 @@
  */
 import React from 'react';
 
-import AkBlanket from '@atlaskit/blanket';
+import AkBlanket from '@atlaskit/blanket/blanket';
 import { cssMap, jsx } from '@atlaskit/css';
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
 
 type BlanketProps = {
 	isOpen: boolean;

@@ -1,9 +1,10 @@
 import React from 'react';
 
 import LikeIcon from '@atlaskit/icon/core/thumbs-up';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type DatasourceResolveResponse } from '@atlaskit/link-client-extension';
-import { type CardState, type CardType } from '@atlaskit/linking-common';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { DatasourceResolveResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
+import type { CardState } from '@atlaskit/linking-common/store';
+import type { CardType } from '@atlaskit/linking-common/types';
 
 import { ActionName, ElementName } from '../../src';
 import { SmartLinkStatus } from '../../src/constants';

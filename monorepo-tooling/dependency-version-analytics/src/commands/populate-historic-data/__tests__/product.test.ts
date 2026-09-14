@@ -27,7 +27,7 @@ jest.mock('@atlassiansox/analytics-node-client');
 jest.mock('../../../util/git');
 jest.mock('../../../util/statlas');
 jest.mock('../../../util/analytics', () => ({
-	...jest.genMockFromModule<Object>('../../../util/analytics'),
+	...jest.createMockFromModule<object>('../../../util/analytics'),
 	createUpgradeEvent: jest.requireActual('../../../util/analytics').createUpgradeEvent,
 }));
 
@@ -1510,7 +1510,7 @@ describe('populateProduct', () => {
 						product: 'test',
 						reset: false,
 					}),
-				).rejects.toThrowError(
+				).rejects.toThrow(
 					`Tag '${DEFAULT_TAG}' does not exist. Must use --reset for populating from start of history.`,
 				);
 			});
@@ -1594,7 +1594,7 @@ describe('populateProduct', () => {
 						reset: false,
 						statlas: true,
 					}),
-				).rejects.toThrowError(
+				).rejects.toThrow(
 					'Missing or invalid metadata file for test. Must use --reset for populating from start of history',
 				);
 			});
@@ -1616,7 +1616,7 @@ describe('populateProduct', () => {
 						reset: false,
 						statlas: true,
 					}),
-				).rejects.toThrowError(
+				).rejects.toThrow(
 					'Missing or invalid metadata file for test. Must use --reset for populating from start of history',
 				);
 			});

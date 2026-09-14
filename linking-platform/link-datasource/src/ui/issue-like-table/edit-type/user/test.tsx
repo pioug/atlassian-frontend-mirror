@@ -3,18 +3,18 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { FlagsProvider } from '@atlaskit/flag';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { Box } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
+import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';
 import { type DatasourceTypeWithOnlyTypeValues } from '../../../issue-like-table/types';
 
 import UserEditType from './index';
 
-jest.mock('../../../../contexts/datasource-experience-id');
+jest.mock('../../../../contexts/datasource-experience-id/use-datasource-experience-id');
 jest.mock('../../../../hooks/useLoadOptions');
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

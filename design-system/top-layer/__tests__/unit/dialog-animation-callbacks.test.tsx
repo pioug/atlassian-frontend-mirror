@@ -4,12 +4,50 @@ import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
-import { Dialog } from '../../src/entry-points/dialog';
+import { Dialog } from '../../src/dialog/dialog-content';
 
-// JSDOM does not implement CSS transitions, so `transitionend` never fires naturally.
-// When `shouldAnimate` is set, the code falls back to a `setTimeout(fn, durationMs + 50)`.
-// Unit tests use fake timers to drive that fallback. Real `transitionend` behaviour
-// is covered by the Playwright tests.
+const originalGetAnimations = Object.getOwnPropertyDescriptor(
+	HTMLElement.prototype,
+	'getAnimations',
+);
+
+function getAnimationsThatFinish(): Animation[] {
+	const finished = new Promise<Animation>((resolve) => {
+		setTimeout(() => resolve({} as Animation), 100);
+	});
+	return [{ finished } as Animation];
+}
+
+async function finishAnimations() {
+	await act(async () => {
+		jest.runAllTimers();
+		await Promise.resolve();
+	});
+}
+
+function flushNativeToggle() {
+	act(() => {
+		jest.runAllTimers();
+	});
+}
+
+beforeAll(() => {
+	Object.defineProperty(HTMLElement.prototype, 'getAnimations', {
+		configurable: true,
+		value: getAnimationsThatFinish,
+	});
+});
+
+afterAll(() => {
+	if (originalGetAnimations) {
+		Object.defineProperty(HTMLElement.prototype, 'getAnimations', originalGetAnimations);
+		return;
+	}
+	Reflect.deleteProperty(HTMLElement.prototype, 'getAnimations');
+});
+
+// JSDOM does not implement the Web Animations API. The mock above returns an animation whose
+// `finished` promise settles after a timer. Real animation completion is covered by Playwright.
 //
 // `Dialog` and `Popover` both delegate their entry/exit lifecycle to the shared
 // `useAnimatedVisibility` hook, so these tests intentionally mirror
@@ -17,7 +55,7 @@ import { Dialog } from '../../src/entry-points/dialog';
 
 /**
  * Minimal Dialog wrapper that exercises `onEnterFinish` and `onExitFinish` directly.
- * Pass `animated` to toggle between the animated (fallback timer) and non-animated paths.
+ * Pass `animated` to toggle between the animated and non-animated paths.
  */
 function TestDialog({
 	isOpen,
@@ -100,8 +138,6 @@ describe('onEnterFinish - Dialog with shouldAnimate=false', () => {
 	});
 });
 
-// These tests target the fallback timer path, which is only used when `shouldAnimate` is set.
-// The fallback timer is used in case the 'transitionend' event never fires (which is the case in JSDOM)
 describe('onEnterFinish - Dialog with shouldAnimate=true', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
@@ -122,7 +158,7 @@ describe('onEnterFinish - Dialog with shouldAnimate=true', () => {
 		expect(onEnterFinish).not.toHaveBeenCalled();
 	});
 
-	it('fires after the fallback timeout when transitionend never fires', () => {
+	it('fires after the animations settle', async () => {
 		const onEnterFinish = jest.fn();
 		const { rerender } = render(
 			<TestDialog isOpen={false} onEnterFinish={onEnterFinish} animated />,
@@ -130,25 +166,21 @@ describe('onEnterFinish - Dialog with shouldAnimate=true', () => {
 
 		rerender(<TestDialog isOpen={true} onEnterFinish={onEnterFinish} animated />);
 
-		act(() => {
-			jest.runAllTimers();
-		});
+		await finishAnimations();
 
 		expect(onEnterFinish).toHaveBeenCalledTimes(1);
 	});
 
-	it('fires on initial mount when isOpen is true', () => {
+	it('fires on initial mount when isOpen is true', async () => {
 		const onEnterFinish = jest.fn();
 		render(<TestDialog isOpen={true} onEnterFinish={onEnterFinish} animated />);
 
-		act(() => {
-			jest.runAllTimers();
-		});
+		await finishAnimations();
 
 		expect(onEnterFinish).toHaveBeenCalledTimes(1);
 	});
 
-	it('does not fire when the dialog is closed before the entry animation completes', () => {
+	it('does not fire when the dialog is closed before the entry animation completes', async () => {
 		const onEnterFinish = jest.fn();
 		const { rerender } = render(
 			<TestDialog isOpen={false} onEnterFinish={onEnterFinish} animated />,
@@ -156,12 +188,10 @@ describe('onEnterFinish - Dialog with shouldAnimate=true', () => {
 
 		rerender(<TestDialog isOpen={true} onEnterFinish={onEnterFinish} animated />);
 
-		// Close before the fallback timeout fires - cancels the pending listener
+		// Close before the entry animation finishes, cancelling the pending listener.
 		rerender(<TestDialog isOpen={false} onEnterFinish={onEnterFinish} animated />);
 
-		act(() => {
-			jest.runAllTimers();
-		});
+		await finishAnimations();
 
 		expect(onEnterFinish).not.toHaveBeenCalled();
 	});
@@ -190,6 +220,14 @@ describe('onEnterFinish - StrictMode double-fire guard (Dialog with shouldAnimat
 });
 
 describe('onExitFinish - Dialog with shouldAnimate=false', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
 	it('fires once after closing', () => {
 		const onExitFinish = jest.fn();
 		const { rerender } = render(<TestDialog isOpen={true} onExitFinish={onExitFinish} />);
@@ -198,12 +236,17 @@ describe('onExitFinish - Dialog with shouldAnimate=false', () => {
 
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} />);
 
+		expect(onExitFinish).not.toHaveBeenCalled();
+
+		flushNativeToggle();
+
 		expect(onExitFinish).toHaveBeenCalledTimes(1);
 	});
 
 	it('does not fire on initial mount when isOpen is true', () => {
 		const onExitFinish = jest.fn();
 		render(<TestDialog isOpen={true} onExitFinish={onExitFinish} />);
+		flushNativeToggle();
 
 		expect(onExitFinish).not.toHaveBeenCalled();
 	});
@@ -221,9 +264,11 @@ describe('onExitFinish - Dialog with shouldAnimate=false', () => {
 		const { rerender } = render(<TestDialog isOpen={true} onExitFinish={onExitFinish} />);
 
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} />);
+		flushNativeToggle();
 		expect(onExitFinish).toHaveBeenCalledTimes(1);
 
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} />);
+		flushNativeToggle();
 		expect(onExitFinish).toHaveBeenCalledTimes(1);
 	});
 
@@ -232,10 +277,12 @@ describe('onExitFinish - Dialog with shouldAnimate=false', () => {
 		const { rerender } = render(<TestDialog isOpen={true} onExitFinish={onExitFinish} />);
 
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} />);
+		flushNativeToggle();
 		expect(onExitFinish).toHaveBeenCalledTimes(1);
 
 		rerender(<TestDialog isOpen={true} onExitFinish={onExitFinish} />);
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} />);
+		flushNativeToggle();
 		expect(onExitFinish).toHaveBeenCalledTimes(2);
 	});
 });
@@ -258,31 +305,27 @@ describe('onExitFinish - Dialog with shouldAnimate=true', () => {
 		expect(onExitFinish).not.toHaveBeenCalled();
 	});
 
-	it('fires after the fallback timeout when transitionend never fires', () => {
+	it('fires after the animations settle', async () => {
 		const onExitFinish = jest.fn();
 		const { rerender } = render(<TestDialog isOpen={true} onExitFinish={onExitFinish} animated />);
 
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} animated />);
 
-		act(() => {
-			jest.runAllTimers();
-		});
+		await finishAnimations();
 
 		expect(onExitFinish).toHaveBeenCalledTimes(1);
 	});
 
-	it('does not fire when the dialog is reopened before the exit animation completes', () => {
+	it('does not fire when the dialog is reopened before the exit animation completes', async () => {
 		const onExitFinish = jest.fn();
 		const { rerender } = render(<TestDialog isOpen={true} onExitFinish={onExitFinish} animated />);
 
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} animated />);
 
-		// Reopen before the fallback timeout fires - cancels the pending listener
+		// Reopen before the exit animation finishes, cancelling the pending listener.
 		rerender(<TestDialog isOpen={true} onExitFinish={onExitFinish} animated />);
 
-		act(() => {
-			jest.runAllTimers();
-		});
+		await finishAnimations();
 
 		expect(onExitFinish).not.toHaveBeenCalled();
 	});
@@ -292,7 +335,7 @@ describe('onExitFinish - Dialog with shouldAnimate=true', () => {
 	// (which triggers the unmount) must happen after the callback is invoked,
 	// not before. The drawer relies on this to forward `onCloseComplete` with a
 	// still-attached content node.
-	it('fires onExitFinish while the dialog host element is still in the DOM', () => {
+	it('fires onExitFinish while the dialog host element is still in the DOM', async () => {
 		let hostAttachedWhenCallbackFired: boolean | null = null;
 		const onExitFinish = jest.fn(() => {
 			const host = screen.queryByTestId('test-dialog');
@@ -303,9 +346,7 @@ describe('onExitFinish - Dialog with shouldAnimate=true', () => {
 
 		rerender(<TestDialog isOpen={false} onExitFinish={onExitFinish} animated />);
 
-		act(() => {
-			jest.runAllTimers();
-		});
+		await finishAnimations();
 
 		expect(onExitFinish).toHaveBeenCalledTimes(1);
 		expect(hostAttachedWhenCallbackFired).toBe(true);
@@ -313,6 +354,14 @@ describe('onExitFinish - Dialog with shouldAnimate=true', () => {
 });
 
 describe('onExitFinish - StrictMode double-fire guard (Dialog with shouldAnimate=false)', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
 	it('does not double-fire during close', () => {
 		const onExitFinish = jest.fn();
 
@@ -327,6 +376,10 @@ describe('onExitFinish - StrictMode double-fire guard (Dialog with shouldAnimate
 				<TestDialog isOpen={false} onExitFinish={onExitFinish} />
 			</React.StrictMode>,
 		);
+
+		expect(onExitFinish).not.toHaveBeenCalled();
+
+		flushNativeToggle();
 
 		// StrictMode double-fires effects in development, but the prev-value ref
 		// pattern ensures onExitFinish is called exactly once.

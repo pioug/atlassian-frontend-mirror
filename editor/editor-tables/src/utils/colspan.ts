@@ -1,44 +1,17 @@
-import type { CellAttributes, CellAttributesWithColSpan } from '../types';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-export function removeColSpan(attrs: CellAttributes, pos: number, n = 1): CellAttributes {
-	if (!attrs.colspan) {
-		throw new Error('removeColSpan(): attrs.colspan not defined');
-	}
-
-	const result = { ...attrs, colspan: attrs.colspan - n };
-
-	if (result.colwidth) {
-		result.colwidth = result.colwidth.slice();
-		result.colwidth.splice(pos, n);
-		if (!result.colwidth.some((w: number) => w > 0)) {
-			result.colwidth = undefined;
-		}
-	}
-
-	return result;
-}
-
-export function assertColspan(attrs: CellAttributes): void {
-	if (typeof attrs.colspan === 'undefined') {
-		throw new Error('addColSpan: attrs.colspan is not defined');
-	}
-
-	if (typeof attrs.colspan !== 'number' || Number.isNaN(attrs.colspan) || attrs.colspan < 1) {
-		throw new Error(`addColSpan: attrs.colspan must be number >= 1, received: ${attrs.colspan}`);
-	}
-}
-
-// TODO: ED-26961 - replace "addColSpan" from table plugin with this function
-export function addColSpan<T extends CellAttributesWithColSpan>(attrs: T, pos: number, n = 1): T {
-	assertColspan(attrs);
-
-	const result = { ...attrs, colspan: attrs.colspan + n };
-	if (result.colwidth) {
-		result.colwidth = result.colwidth.slice();
-		for (let i = 0; i < n; i++) {
-			result.colwidth.splice(pos, 0, 0);
-		}
-	}
-
-	return result;
-}
+/**
+ * @deprecated Use `import { removeColSpan } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { removeColSpan } from './remove-col-span';
+/**
+ * @deprecated Use `import { assertColspan } from '@atlaskit/editor-tables/utils/colspan'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { assertColspan } from './assert-colspan';
+/**
+ * @deprecated Use `import { addColSpan } from '@atlaskit/editor-tables/utils'` instead.
+ */
+// eslint-disable-next-line @atlaskit/editor/no-re-export -- Compatibility shim for deprecated API
+export { addColSpan } from './add-col-span';

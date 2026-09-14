@@ -6,7 +6,7 @@ describe('UploadController', () => {
 		const cancel = jest.fn();
 
 		controller.setAbort(cancel);
-		expect(cancel).not.toBeCalled();
+		expect(cancel).not.toHaveBeenCalled();
 		controller.abort();
 		expect(cancel).toHaveBeenCalledTimes(1);
 	});

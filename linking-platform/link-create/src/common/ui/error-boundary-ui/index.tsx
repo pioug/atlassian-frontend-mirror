@@ -3,8 +3,8 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
-import EmptyState from '@atlaskit/empty-state';
-import Link from '@atlaskit/link';
+import EmptyState from '@atlaskit/empty-state/empty-state';
+import Link from '@atlaskit/link/link';
 
 import commonMessages from '../../messages';
 

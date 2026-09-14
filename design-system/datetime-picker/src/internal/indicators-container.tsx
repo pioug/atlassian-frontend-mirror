@@ -4,7 +4,8 @@
  */
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { components, type IndicatorsContainerProps } from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { IndicatorsContainerProps } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

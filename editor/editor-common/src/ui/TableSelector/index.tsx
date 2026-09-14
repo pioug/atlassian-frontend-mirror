@@ -11,8 +11,8 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { withReactEditorViewOuterListeners as withOuterListeners } from '../../ui-react';
@@ -316,7 +316,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps): jsx.JSX.Elem
 		return unbind;
 	}, [handleMouseMove, props.allowOutsideSelection, tablePopupRef]);
 
-	const offset = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const offset = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? POPUP_OFFSET
 		: ([0, 3] satisfies [number, number]);
 

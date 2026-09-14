@@ -8,7 +8,7 @@ import { cssMap, cx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { Box, Flex, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
 import { type SideNavTab } from '../../model/HelpLayout';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { jsx } from '@compiled/react';
 import { DynamicHeader } from '../DynamicHeader';
 

@@ -69,7 +69,6 @@ const Tool = (): React.JSX.Element => {
 				/>
 			)}
 		>
-			{/* @ts-ignore */}
 			<IconButton key={TOOL_ID} active={isVisible} title="Apply ADS themes to your story">
 				{themeOptions.find(({ id }) => adsTheme === id)?.icon}
 				{'\xa0ADS Theme'}

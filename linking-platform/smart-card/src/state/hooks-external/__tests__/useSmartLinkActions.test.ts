@@ -1,6 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { renderHook } from '@atlassian/testing-library';
 
 import { extractInvokePreviewAction } from '../../../extractors/action/extract-invoke-preview-action';
@@ -9,22 +8,26 @@ import { mocks } from '../../../utils/mocks';
 import { EmbedModalSize } from '../../../view/EmbedModal/types';
 import useInvokeClientAction from '../../hooks/use-invoke-client-action';
 import useResolve from '../../hooks/use-resolve';
-import { useSmartLinkCrossProductUrlWrapperGated } from '../../hooks/use-smart-link-cross-product-url-wrapper';
+import { useSmartLinkCrossProductUrlWrapper } from '../../hooks/use-smart-link-cross-product-url-wrapper';
 import { useSmartCardState } from '../../store';
-import { type CardState } from '../../types';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { useSmartLinkActions } from '../useSmartLinkActions';
 
 jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(),
 }));
 
-jest.mock('../../analytics', () => ({
+jest.mock('../../analytics/failUfoExperience', () => ({
 	failUfoExperience: jest.fn(),
+}));
+jest.mock('../../analytics/startUfoExperience', () => ({
 	startUfoExperience: jest.fn(),
+}));
+jest.mock('../../analytics/succeedUfoExperience', () => ({
 	succeedUfoExperience: jest.fn(),
 }));
 
-jest.mock('../../store', () => ({
+jest.mock('../../store/index', () => ({
 	useSmartCardState: jest.fn(),
 }));
 
@@ -33,7 +36,8 @@ jest.mock('../../hooks/use-invoke-client-action', () => ({
 	default: jest.fn(),
 }));
 
-jest.mock('@atlaskit/link-provider', () => ({
+jest.mock('@atlaskit/link-provider/use-smart-link-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-link-context'),
 	useSmartLinkContext: jest.fn(),
 }));
 
@@ -45,8 +49,8 @@ jest.mock('../../../extractors/action/extract-invoke-view-action', () => ({
 	extractInvokeViewAction: jest.fn(),
 }));
 
-jest.mock('../../hooks/use-smart-link-cross-product-url-wrapper', () => ({
-	useSmartLinkCrossProductUrlWrapperGated: jest.fn(),
+jest.mock('../../hooks/use-smart-link-cross-product-url-wrapper/index', () => ({
+	useSmartLinkCrossProductUrlWrapper: jest.fn(),
 }));
 
 jest.mock('../../hooks/use-resolve', () => ({
@@ -79,7 +83,7 @@ const mockWithActions = () => {
 
 	(useSmartCardState as jest.Mock).mockReturnValue(state);
 
-	(useSmartLinkCrossProductUrlWrapperGated as jest.Mock).mockReturnValue(
+	(useSmartLinkCrossProductUrlWrapper as jest.Mock).mockReturnValue(
 		(url: string) => `${url}?xpc=1`,
 	);
 
@@ -148,7 +152,7 @@ const mockLifecycle = () => {
 describe(useSmartLinkActions.name, () => {
 	beforeEach(() => {
 		// Default mock for the cross-product URL wrapper (identity function)
-		(useSmartLinkCrossProductUrlWrapperGated as jest.Mock).mockReturnValue((u: string) => u);
+		(useSmartLinkCrossProductUrlWrapper as jest.Mock).mockReturnValue((u: string) => u);
 	});
 
 	afterEach(() => {
@@ -428,7 +432,7 @@ describe(useSmartLinkActions.name, () => {
 		});
 	});
 
-	describe('platform_smartlink_xpc_url_wrapping', () => {
+	describe('cross-product URL transformation', () => {
 		const setup = () => {
 			(useSmartLinkContext as jest.Mock).mockReturnValue({
 				isPreviewPanelAvailable: undefined,
@@ -437,62 +441,36 @@ describe(useSmartLinkActions.name, () => {
 			mockWithActions();
 		};
 
-		ffTest.on('platform_smartlink_xpc_url_wrapping', 'gate is on', () => {
-			it('passes transformUrl to extractInvokeViewAction', () => {
-				setup();
-				renderHook(() => useSmartLinkActions({ url, appearance }));
+		it('passes transformUrl to extractInvokeViewAction', () => {
+			setup();
+			renderHook(() => useSmartLinkActions({ url, appearance }));
 
-				expect(extractInvokeViewAction).toHaveBeenCalledWith(
-					expect.objectContaining({
-						transformUrl: expect.any(Function),
-					}),
-				);
-			});
-
-			it('passes transformUrl to extractInvokePreviewAction', () => {
-				setup();
-				renderHook(() => useSmartLinkActions({ url, appearance }));
-
-				expect(extractInvokePreviewAction).toHaveBeenCalledWith(
-					expect.objectContaining({
-						transformUrl: expect.any(Function),
-					}),
-				);
-			});
-
-			it('transformUrl calls appendCrossProductAnalyticsParams with the url', () => {
-				setup();
-				renderHook(() => useSmartLinkActions({ url, appearance }));
-
-				const callArgs = (extractInvokeViewAction as jest.Mock).mock.calls[0][0];
-				const transformedUrl = callArgs.transformUrl(url);
-
-				expect(transformedUrl).toBe(`${url}?xpc=1`);
-			});
+			expect(extractInvokeViewAction).toHaveBeenCalledWith(
+				expect.objectContaining({
+					transformUrl: expect.any(Function),
+				}),
+			);
 		});
 
-		ffTest.off('platform_smartlink_xpc_url_wrapping', 'gate is off', () => {
-			it('does not pass transformUrl to extractInvokeViewAction', () => {
-				setup();
-				renderHook(() => useSmartLinkActions({ url, appearance }));
+		it('passes transformUrl to extractInvokePreviewAction', () => {
+			setup();
+			renderHook(() => useSmartLinkActions({ url, appearance }));
 
-				expect(extractInvokeViewAction).toHaveBeenCalledWith(
-					expect.not.objectContaining({
-						transformUrl: expect.any(Function),
-					}),
-				);
-			});
+			expect(extractInvokePreviewAction).toHaveBeenCalledWith(
+				expect.objectContaining({
+					transformUrl: expect.any(Function),
+				}),
+			);
+		});
 
-			it('does not pass transformUrl to extractInvokePreviewAction', () => {
-				setup();
-				renderHook(() => useSmartLinkActions({ url, appearance }));
+		it('transformUrl calls appendCrossProductAnalyticsParams with the url', () => {
+			setup();
+			renderHook(() => useSmartLinkActions({ url, appearance }));
 
-				expect(extractInvokePreviewAction).toHaveBeenCalledWith(
-					expect.not.objectContaining({
-						transformUrl: expect.any(Function),
-					}),
-				);
-			});
+			const callArgs = (extractInvokeViewAction as jest.Mock).mock.calls[0][0];
+			const transformedUrl = callArgs.transformUrl(url);
+
+			expect(transformedUrl).toBe(`${url}?xpc=1`);
 		});
 	});
 

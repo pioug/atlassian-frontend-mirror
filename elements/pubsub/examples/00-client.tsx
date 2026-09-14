@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import Textfield from '@atlaskit/textfield';
-import Lozenge from '@atlaskit/lozenge';
+import Button from '@atlaskit/button/default/button';
+import Textfield from '@atlaskit/textfield/text-field';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 
 import Client, { type PubSubClientConfig, SpecialEventType } from '../src';
 import APSProtocol from '../src/protocols/aps';

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Example, md } from '@atlaskit/docs';
-import Image from '@atlaskit/image';
-import Link from '@atlaskit/link';
+import Image from '@atlaskit/image/image';
+import Link from '@atlaskit/link/link';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import sideNavItemsExamplesDark from './images/sideNavItems-examples-dark.png';

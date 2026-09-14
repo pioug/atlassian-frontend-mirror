@@ -6,6 +6,7 @@
  * as `guidelines`, `bestPractices`, `nextSteps`). The default output prints this as readable text
  * rather than raw JSON; `--json` still exposes the full structured payload.
  */
+import { humanFormat } from '@atlaskit/cli-output/human-format';
 
 /**
  * Convert a camelCase / snake_case field key into a human "Title Case" heading,
@@ -36,12 +37,30 @@ const formatListItem = (item: unknown): string => {
 	if (item !== null && typeof item === 'object') {
 		const record = item as Record<string, unknown>;
 		const title = typeof record.title === 'string' ? record.title : null;
-		const code = ['code', 'before', 'after'].find((key) => typeof record[key] === 'string');
+		const codeKeys = ['code', 'before', 'after'].filter((key) => typeof record[key] === 'string');
 
-		if (title && code) {
+		if (title && codeKeys.length > 0) {
 			const description =
-				typeof record.description === 'string' ? `\n    ${oneLine(record.description)}` : '';
-			return `  - ${title}${description}\n    \`\`\`tsx\n${record[code] as string}\n    \`\`\``;
+				typeof record.description === 'string' ? [`    ${oneLine(record.description)}`] : [];
+			const labelCodeBlocks = codeKeys.length > 1 || codeKeys[0] !== 'code';
+			const codeBlocks = codeKeys.flatMap((key) => [
+				...(labelCodeBlocks ? [`    ${humanizeKey(key)}:`] : []),
+				humanFormat.codeBlock(record[key] as string),
+			]);
+			const additionalFields = Object.entries(record).flatMap(([key, value]) => {
+				if (
+					['title', 'description', ...codeKeys].includes(key) ||
+					value === null ||
+					value === undefined
+				) {
+					return [];
+				}
+				return [
+					`    ${humanizeKey(key)}: ${typeof value === 'string' ? oneLine(value) : JSON.stringify(value)}`,
+				];
+			});
+
+			return [`  - ${title}`, ...description, ...codeBlocks, ...additionalFields].join('\n');
 		}
 		if (title) {
 			return `  - ${title}`;

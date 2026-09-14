@@ -11,13 +11,13 @@ import {
 	type RefAttributes,
 } from 'react';
 import { css, jsx } from '@compiled/react';
-import Lozenge, { type SemanticColor } from '@atlaskit/lozenge';
-import {
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import type { SemanticColor } from '@atlaskit/lozenge/types';
+import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
-	type CreateUIAnalyticsEvent,
-	type UIAnalyticsEvent,
-	withAnalyticsEvents,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { createStatusAnalyticsAndFire } from './analytics';
 import { ANALYTICS_HOVER_DELAY } from './constants';
 
@@ -53,6 +53,12 @@ const inlineBlockStyles = css({
 	},
 });
 
+// Bound the Lozenge to its parent while keeping short statuses content-sized.
+const constrainedToParentStyles = css({
+	display: 'inline-block',
+	maxWidth: '100%',
+});
+
 // eg. Version/4.0 Chrome/95.0.4638.50
 const isAndroidChromium =
 	typeof window !== 'undefined' && /Version\/.* Chrome\/.*/.test(window.navigator.userAgent);
@@ -60,6 +66,7 @@ const isAndroidChromium =
 export interface OwnProps {
 	color: Color;
 	isBold?: boolean;
+	isConstrainedToParent?: boolean;
 	localId?: string;
 	onClick?: (event: React.SyntheticEvent<any>) => void;
 	onHover?: () => void;
@@ -116,7 +123,7 @@ class StatusInternal extends PureComponent<Props, any> {
 	}
 
 	render() {
-		const { text, color, style, role, onClick, isBold } = this.props;
+		const { text, color, style, role, onClick, isBold, isConstrainedToParent } = this.props;
 		if (text.trim().length === 0) {
 			return null;
 		}
@@ -125,7 +132,10 @@ class StatusInternal extends PureComponent<Props, any> {
 		// Note: ommitted data-local-id attribute to avoid copying/pasting the same localId
 		return (
 			<span
-				css={[isAndroidChromium ? inlineBlockStyles : undefined]}
+				css={[
+					isAndroidChromium ? inlineBlockStyles : undefined,
+					isConstrainedToParent ? constrainedToParentStyles : undefined,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="status-lozenge-span"
 				onClick={onClick}

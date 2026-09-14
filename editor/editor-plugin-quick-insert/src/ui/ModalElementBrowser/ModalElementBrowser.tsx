@@ -9,13 +9,16 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl, useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/button';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import Modal, { CloseButton, ModalTransition, useModal } from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { useModal } from '@atlaskit/modal-dialog/hooks';
 import { token } from '@atlaskit/tokens';
 
 import { getCategories } from './categories';
@@ -23,6 +26,7 @@ import { getCategories } from './categories';
 export const MODAL_WRAPPER_PADDING = 16;
 
 export interface Props {
+	defaultCategory?: string;
 	emptyStateHandler?: EmptyStateHandler;
 	getItems: (query?: string, category?: string) => QuickInsertItem[];
 	helpUrl?: string | undefined;
@@ -104,6 +108,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 			<div css={wrapperStyles}>
 				<ElementBrowser
 					categories={getCategories(props.intl)}
+					defaultCategory={props.defaultCategory}
 					getItems={props.getItems}
 					showSearch={true}
 					showCategories
@@ -115,7 +120,14 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 				/>
 			</div>
 		),
-		[props.intl, props.getItems, onSelectItem, onInsertItem, props.emptyStateHandler],
+		[
+			props.intl,
+			props.defaultCategory,
+			props.getItems,
+			onSelectItem,
+			onInsertItem,
+			props.emptyStateHandler,
+		],
 	);
 
 	const label = intl.formatMessage(messages.browse);
@@ -124,6 +136,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		<div data-editor-popup={true}>
 			<ModalTransition>
 				{props.isOpen && (
+					// eslint-disable-next-line @atlaskit/design-system/no-modal-label
 					<Modal
 						label={label}
 						testId="element-browser-modal-dialog"

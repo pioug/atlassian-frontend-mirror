@@ -2,7 +2,6 @@ import type { BlockContent } from './types/block-content';
 import { layoutColumn as layoutColumnFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { parseValign } from './types/valign';
 import type { Valign } from './types/valign';
 
@@ -20,10 +19,7 @@ const setColumnAttributes = (
 	const { width, valign, localId } = node.attrs;
 	if (width) {
 		const baseStyle = `flex-basis: ${width}%`;
-		const columnWidthVar = editorExperiment('platform_editor_layout_column_resize_handle', true)
-			? `; --column-width: ${width}%`
-			: '';
-		attrs['style'] = baseStyle + columnWidthVar;
+		attrs['style'] = `${baseStyle}; --column-width: ${width}%`;
 		attrs['data-column-width'] = `${width}`;
 	}
 	if (valign) {

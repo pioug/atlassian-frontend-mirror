@@ -5,9 +5,9 @@
  */
 {
 	"testExamples": [
-		"00-basic-example-uncontrolled.tsx",
-		"02-disabled-display.tsx",
-		"09-different-values.tsx",
+		"00-basic-example-uncontrolled.vr.ap.tsx",
+		"02-disabled-display.vr.ap.tsx",
+		"09-different-values.vr.ap.tsx",
 	],
 	"exampleDependencies": ["lodash"],
 }

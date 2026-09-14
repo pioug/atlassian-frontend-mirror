@@ -21,7 +21,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { Announcer } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { compareItemsArrays, isArrayContainsContent } from '../../editor-commands/utils';
 import type { TextFormattingPlugin } from '../../textFormattingPluginType';

@@ -10,12 +10,12 @@ import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import type { IntlShape } from 'react-intl';
 
-import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+import CustomThemeButton from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { commentMessages as messages } from '../media';
 
@@ -112,7 +112,7 @@ export const CommentBadge: ForwardRefExoticComponent<
 			}),
 			[badgeDimensions, colourToken],
 		);
-		const badgeStyle = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		const badgeStyle = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 			? memoizedBadgeStyle
 			: {
 					height: badgeDimensions,

@@ -1,6 +1,6 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient } from '@atlaskit/link-provider';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import CardClient from '@atlaskit/link-provider/client';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import {
 	AtlasProject,

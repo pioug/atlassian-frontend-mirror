@@ -6,14 +6,14 @@ export {
 	predicateOperators,
 	rulesWithContext,
 	unclosedStringTokens,
-} from './constants';
+} from './jql-autocomplete/constants';
 export type {
-	Position,
-	TokenSuggestions,
 	JQLClause,
 	JQLRuleContext,
 	JQLRuleSuggestion,
 	JQLRuleSuggestions,
 	JQLSuggestions,
 	JQLRuleKey,
-} from './types';
+} from './jql-autocomplete/types';
+export type { TokenSuggestions } from './base-autocomplete/types';
+export type { Position } from './common/types';

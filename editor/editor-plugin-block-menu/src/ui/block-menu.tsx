@@ -10,6 +10,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { surfaceDragHandleElementStore } from '@atlaskit/editor-common/block-controls/surface-drag-handle-element';
 import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -32,11 +33,11 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled';
-import { redo, undo } from '@atlaskit/prosemirror-history';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
@@ -140,6 +141,7 @@ export type BlockMenuProps = {
 	editorView: EditorView | undefined;
 	mountTo?: HTMLElement;
 	scrollableElement?: HTMLElement;
+	useRegistryAnchor: boolean;
 };
 
 const isSelectionWithinCodeBlock = (state: EditorState) => {
@@ -226,7 +228,7 @@ const BlockMenuContent = ({
 		return target.closest('[data-toolbar-nested-dropdown-menu]') !== null;
 	};
 
-	if (expValEquals('platform_editor_menu_radius_update', 'isEnabled', true)) {
+	if (isExperimentEnabled('platform_editor_menu_radius_update')) {
 		return (
 			<ToolbarMenuContainer testId={BLOCK_MENU_TEST_ID} ref={ref} xcss={styles.maxWidthStyles}>
 				<ArrowKeyNavigationProvider
@@ -250,11 +252,7 @@ const BlockMenuContent = ({
 					: undefined
 			}
 			ref={ref}
-			xcss={cx(
-				styles.base,
-				styles.maxWidthStyles,
-				editorExperiment('platform_synced_block', true) && styles.emptyMenuSectionStyles,
-			)}
+			xcss={cx(styles.base, styles.maxWidthStyles, styles.emptyMenuSectionStyles)}
 		>
 			<ArrowKeyNavigationProvider
 				type={ArrowKeyNavigationType.MENU}
@@ -274,6 +272,7 @@ const BlockMenu = ({
 	mountTo,
 	boundariesElement,
 	scrollableElement,
+	useRegistryAnchor,
 }: BlockMenuProps & WrappedComponentProps) => {
 	const {
 		menuTriggerBy,
@@ -289,7 +288,39 @@ const BlockMenu = ({
 		openedViaKeyboard: states.blockControlsState?.blockMenuOptions?.openedViaKeyboard,
 	}));
 	const { onDropdownOpenChanged } = useBlockMenu();
-	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
+	const isMenuOpenRef = React.useRef(isMenuOpen);
+	isMenuOpenRef.current = isMenuOpen;
+	const [surfaceDragHandle, setSurfaceDragHandle] = React.useState<HTMLElement | null>(null);
+	React.useLayoutEffect(() => {
+		if (!useRegistryAnchor) {
+			return;
+		}
+
+		const readElement = () => setSurfaceDragHandle(surfaceDragHandleElementStore.get(editorView));
+		readElement();
+		return surfaceDragHandleElementStore.subscribe(editorView, () => {
+			if (!isMenuOpenRef.current) {
+				readElement();
+			}
+		});
+	}, [editorView, useRegistryAnchor]);
+
+	const openMenuHandleRef = React.useRef<HTMLElement | null>(null);
+	const anchoredToRef = React.useRef<string | undefined>(undefined);
+	if (!isMenuOpen) {
+		openMenuHandleRef.current = null;
+		anchoredToRef.current = undefined;
+	} else if (!openMenuHandleRef.current || anchoredToRef.current !== menuTriggerBy) {
+		openMenuHandleRef.current =
+			surfaceDragHandleElementStore.get(editorView) ??
+			openMenuHandleRef.current ??
+			surfaceDragHandle;
+		anchoredToRef.current = menuTriggerBy;
+	}
+
+	const targetHandleRef = useRegistryAnchor
+		? (openMenuHandleRef.current ?? surfaceDragHandle)
+		: editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
 	const closeMenu = React.useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
 			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
@@ -320,8 +351,9 @@ const BlockMenu = ({
 		if (!isMenuOpen) {
 			return;
 		}
+		onDropdownOpenChanged(true);
 		setMenuHeight(popupRef.current?.clientHeight || FALLBACK_MENU_HEIGHT);
-	}, [isMenuOpen]);
+	}, [isMenuOpen, onDropdownOpenChanged]);
 
 	const hasFocus =
 		(editorView?.hasFocus() ||
@@ -386,8 +418,7 @@ const BlockMenu = ({
 		// check if the clicked element was another drag handle or nested dropdown menu, if so don't close the menu
 		if (
 			e.target instanceof HTMLElement &&
-			(e.target.closest(DRAG_HANDLE_SELECTOR) ||
-				(e.target.closest(NESTED_DROPDOWN_MENU) && fg('platform_editor_block_menu_jira_patch_5')))
+			(e.target.closest(DRAG_HANDLE_SELECTOR) || e.target.closest(NESTED_DROPDOWN_MENU))
 		) {
 			return;
 		}
@@ -451,7 +482,7 @@ const BlockMenu = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<BlockMenuProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<BlockMenuProps & WrappedComponentProps>;
 } = injectIntl(BlockMenu);

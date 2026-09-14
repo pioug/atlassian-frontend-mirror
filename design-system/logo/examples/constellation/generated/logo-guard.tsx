@@ -5,8 +5,5 @@ import { GuardIcon, GuardLogo } from '@atlaskit/logo';
 import LogoTable from '../utils/logo-table';
 
 export default (): React.JSX.Element => (
-	<LogoTable
-		logo={<GuardLogo appearance="brand" shouldUseNewLogoDesign />}
-		icon={<GuardIcon appearance="brand" shouldUseNewLogoDesign />}
-	/>
+	<LogoTable logo={<GuardLogo appearance="brand" />} icon={<GuardIcon appearance="brand" />} />
 );

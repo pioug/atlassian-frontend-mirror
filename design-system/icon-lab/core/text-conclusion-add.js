@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::903316e1daf2f6c27f61b3f789affb4b>>
+ * @codegen <<SignedSource::fe4b6b501d13c4ee60b7b9a041866433>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "TextConclusionAdd".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const TextConclusionAddIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const TextConclusionAddIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "TextConclusionAddIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15 6.5H1V5h14zm0-4H1V1h14z" clip-rule="evenodd"/><path fill="currentcolor" d="M1.75 11a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m0 4a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m3.88-4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0M4.88 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m3.87-4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0M8 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m3.88-4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m2.37.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

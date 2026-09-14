@@ -12,7 +12,7 @@ import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
@@ -163,7 +163,7 @@ const InsertButtonForDragAndDrop = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const DragAndDropInsertButton: React.FC<
 	WithIntlProps<ButtonProps & WrappedComponentProps>
 > & {
@@ -239,7 +239,7 @@ const InsertButton = ({
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<ButtonProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<ButtonProps & WrappedComponentProps>;
 } = injectIntl(InsertButton);

@@ -25,20 +25,22 @@
 	"exports": {
 		"./navigation": "./src/utils/teams-app-navigation/index.ts",
 		"./types": "./src/common/types.ts",
-		"./is-teams-app-enabled": "./src/common/utils/is-teams-app-enabled/index.ts"
+		"./utils/teams-app-navigation/navigate-to-teams-app": "./src/utils/teams-app-navigation/navigateToTeamsApp.ts",
+		"./utils/teams-app-navigation/to-teams-app-url": "./src/utils/teams-app-navigation/toTeamsAppURL.ts"
 	},
 	"scripts": {
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-app-config/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-app-config/src/**\", \"!packages/people-and-teams/teams-app-config/src/**/**/types.ts\", \"!packages/people-and-teams/teams-app-config/src/ui/**/styled.tsx\"]')"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -46,49 +48,11 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "2.1.3",
+	"version": "3.1.0",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

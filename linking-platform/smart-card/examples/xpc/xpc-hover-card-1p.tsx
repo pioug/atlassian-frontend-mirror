@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

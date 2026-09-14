@@ -1,5 +1,101 @@
 # @atlaskit/editor-plugin-caption
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`e6d39cd334b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6d39cd334b84) -
+  EDITOR-8639 clean up native caption nodeview
+
+  Simplifies the vanilla (React-free) caption node view to own its DOM structure and nothing else.
+  Behind the `platform_editor_vanilla_node_views_phase1` experiment;
+
+  **Removed**
+  - `contenteditable` management — the node view no longer sets `contenteditable` on its content
+    element. Editability is now inherited from the ProseMirror root, so a nested `contenteditable`
+    can no longer override an ancestor that has disabled editing. Behaviour change: because
+    `mediaSingle` sets `contentEditable="false"` on its wrapper in view mode, captions are now
+    correctly read-only there, where the React node view left them editable.
+  - The `editorDisabled` shared-state subscription (and its `destroy()` cleanup) that existed only
+    to keep the above attribute in sync.
+  - Unused constructor arguments (`view`, `getPos`, plugin injection API, `intl`) — the node view no
+    longer needs editor state or i18n.
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`ea6e7dbe325bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea6e7dbe325bb) -
+  Gate vanillaCaptionNodeView styles behind `platform_editor_vanilla_node_views_phase1` experiment
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`da5eaf0bc37da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5eaf0bc37da) -
+  Clean up the platform_editor_editor_ssr_streaming experiment. The SSR streaming code paths are now
+  permanent and the isSSRStreaming() utility has been removed from
+  @atlaskit/editor-common/core-utils.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

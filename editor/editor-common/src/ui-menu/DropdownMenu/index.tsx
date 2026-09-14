@@ -10,13 +10,16 @@ import React, { PureComponent, useCallback, useContext, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import type { CustomItemComponentProps } from '@atlaskit/menu';
-import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
+import CustomItem from '@atlaskit/menu/custom-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
-import type { PositionType } from '@atlaskit/tooltip';
-import Tooltip from '@atlaskit/tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { DropdownMenuSharedCssClassName } from '../../styles';
 import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
@@ -364,14 +367,14 @@ export function DropdownMenuItem({
 		() => onItemActivated && onItemActivated({ item }),
 		[onItemActivated, item],
 	);
-	const onClick = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const onClick = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedOnClick
 		: () => onItemActivated && onItemActivated({ item });
 
 	const memoizedOnMouseDown = useCallback((e: React.MouseEvent) => {
 		e.preventDefault();
 	}, []);
-	const onMouseDown = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const onMouseDown = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedOnMouseDown
 		: (e: React.MouseEvent) => {
 				e.preventDefault();
@@ -381,7 +384,7 @@ export function DropdownMenuItem({
 		() => onMouseEnter && onMouseEnter({ item }),
 		[onMouseEnter, item],
 	);
-	const onMouseEnterHandler = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const onMouseEnterHandler = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedOnMouseEnter
 		: () => onMouseEnter && onMouseEnter({ item });
 
@@ -389,7 +392,7 @@ export function DropdownMenuItem({
 		() => onMouseLeave && onMouseLeave({ item }),
 		[onMouseLeave, item],
 	);
-	const onMouseLeaveHandler = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const onMouseLeaveHandler = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedOnMouseLeave
 		: () => onMouseLeave && onMouseLeave({ item });
 
@@ -498,7 +501,7 @@ export const DropdownMenuWithKeyboardNavigation: React.MemoExoticComponent<
 			() => ({ ...props.arrowKeyNavigationProviderOptions, keyDownHandlerContext }),
 			[props.arrowKeyNavigationProviderOptions, keyDownHandlerContext],
 		);
-		const arrowKeyNavOptions = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+		const arrowKeyNavOptions = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 			? memoizedArrowKeyNavOptions
 			: { ...props.arrowKeyNavigationProviderOptions, keyDownHandlerContext };
 		return (

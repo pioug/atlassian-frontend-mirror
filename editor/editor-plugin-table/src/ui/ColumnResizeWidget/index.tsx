@@ -8,7 +8,7 @@ import { useIntl } from 'react-intl';
 
 import { startColumnResizing, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { TableCssClassName } from '../../types';
 

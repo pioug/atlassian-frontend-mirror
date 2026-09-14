@@ -1,4 +1,5 @@
-import { createUrl, extendHeaders } from '../helpers';
+import { createUrl } from '../createUrl';
+import { extendHeaders } from '../extendHeaders';
 
 describe('createUrl', () => {
 	test.each([[null], [undefined]])('(%s) params should be stripped out', (replaceFileId) => {

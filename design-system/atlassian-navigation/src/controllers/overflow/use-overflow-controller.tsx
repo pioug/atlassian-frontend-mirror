@@ -1,6 +1,5 @@
 import React, { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { DebouncedFuncLeading } from 'lodash';
 import throttle from 'lodash/throttle';
 

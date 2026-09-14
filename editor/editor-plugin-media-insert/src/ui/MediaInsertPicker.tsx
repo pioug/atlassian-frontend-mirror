@@ -14,6 +14,10 @@ import {
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import {
+	DEFAULT_MEDIA_INSERT_TAB_RANK,
+	MEDIA_INSERT_TAB_RANK,
+} from '@atlaskit/editor-common/media-insert/rank';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import {
 	PlainOutsideClickTargetRefContext,
@@ -21,15 +25,18 @@ import {
 	withOuterListeners,
 } from '@atlaskit/editor-common/ui';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box, Focusable, Text } from '@atlaskit/primitives/compiled';
-import Tabs, { TabList, useTab, useTabPanel } from '@atlaskit/tabs';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import Tabs from '@atlaskit/tabs/tabs';
+import TabList from '@atlaskit/tabs/tab-list';
+import useTab from '@atlaskit/tabs/use-tab';
+import useTabPanel from '@atlaskit/tabs/use-tab-panel';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { RegisterInsertTab } from '../mediaInsertPluginType';
 import type { MediaInsertPickerProps } from '../types';
 
-import { useFocusEditor } from './hooks/use-focus-editor';
+import { useFocus } from './hooks/use-focus';
 import { useUnholyAutofocus } from './hooks/use-unholy-autofocus';
 import { LocalMedia } from './LocalMedia';
 import { MediaFromURL } from './MediaFromURL';
@@ -43,6 +50,21 @@ type TabAnalyticsMetadata = {
 	selectedTab: string;
 	selectedTabIndex: number;
 };
+
+type OrderedMediaInsertTab =
+	| {
+			key: MEDIA_INSERT_TAB.LINK | MEDIA_INSERT_TAB.UPLOAD;
+			rank: number;
+			tieBreaker: number;
+			type: 'link' | 'upload';
+	  }
+	| {
+			key: string;
+			rank: number;
+			registeredTab: RegisterInsertTab;
+			tieBreaker: number;
+			type: 'registered';
+	  };
 
 const getMediaInsertPickerTabSource = (selectedTab: string): string =>
 	`${MEDIA_INSERT_PICKER_ANALYTICS_SOURCE} - ${selectedTab}`;
@@ -70,9 +92,6 @@ const getNextTabIndexForKey = (
 
 	return undefined;
 };
-
-const getLinkTabIndex = (registeredTabCount: number, isOnlyExternalLinks: boolean): number =>
-	registeredTabCount + (isOnlyExternalLinks ? 0 : 1);
 
 const TabWithAnalytics = ({
 	children,
@@ -202,32 +221,59 @@ export const MediaInsertPicker = ({
 		mountPoint = popupsMountPoint;
 	}
 
+	const focusButton = useFocus({ target: targetRef ?? editorView });
+	const focusEditor = useFocus({ target: editorView });
+	// returnFocusRef stores which function we call on unmount: focusButton | focusEditor
+	// Needs to be a ref so we can instantly toggle it before unmounting triggers the focus trap
+	const returnFocusRef = React.useRef(focusEditor);
+	// When inserting media, close picker and focus editor.
+	const closeAndFocusEditor = React.useCallback(() => {
+		returnFocusRef.current = focusEditor;
+		closeMediaInsertPicker();
+	}, [closeMediaInsertPicker, focusEditor]);
+	// When cancelling, close picker and return focus to button.
+	const closeAndReturnFocusToButton = React.useCallback(() => {
+		returnFocusRef.current = focusButton;
+		closeMediaInsertPicker();
+	}, [closeMediaInsertPicker, focusButton]);
+
 	const intl = useIntl();
-	const focusEditor = useFocusEditor({ editorView });
 	const { autofocusRef, onPositionCalculated } = useUnholyAutofocus();
-	const tabCount = registeredTabs.length + (isOnlyExternalLinks ? 1 : 2);
-	const linkTabIndex = getLinkTabIndex(registeredTabs.length, isOnlyExternalLinks);
+	const orderedTabs = React.useMemo<OrderedMediaInsertTab[]>(() => {
+		const tabs: OrderedMediaInsertTab[] = [];
+		let tieBreaker = 0;
+		if (!isOnlyExternalLinks) {
+			tabs.push({
+				key: MEDIA_INSERT_TAB.UPLOAD,
+				rank: MEDIA_INSERT_TAB_RANK[MEDIA_INSERT_TAB.UPLOAD],
+				tieBreaker: tieBreaker++,
+				type: 'upload',
+			});
+		}
+		tabs.push({
+			key: MEDIA_INSERT_TAB.LINK,
+			rank: MEDIA_INSERT_TAB_RANK[MEDIA_INSERT_TAB.LINK],
+			tieBreaker: tieBreaker++,
+			type: 'link',
+		});
+		registeredTabs.forEach((registeredTab) => {
+			tabs.push({
+				key: registeredTab.key,
+				rank: registeredTab.rank ?? DEFAULT_MEDIA_INSERT_TAB_RANK,
+				registeredTab,
+				tieBreaker: tieBreaker++,
+				type: 'registered',
+			});
+		});
+		return tabs.sort((a, b) => a.rank - b.rank || a.tieBreaker - b.tieBreaker);
+	}, [isOnlyExternalLinks, registeredTabs]);
+	const tabCount = orderedTabs.length;
 	const getTabAnalyticsMetadata = React.useCallback(
 		(selectedTabIndex: number): TabAnalyticsMetadata => {
-			const registeredTab = registeredTabs[selectedTabIndex];
-			if (registeredTab) {
+			const selectedTab = orderedTabs[selectedTabIndex];
+			if (selectedTab) {
 				return {
-					selectedTab: registeredTab.key,
-					selectedTabIndex,
-				};
-			}
-
-			const uploadTabIndex = registeredTabs.length;
-			if (!isOnlyExternalLinks && selectedTabIndex === uploadTabIndex) {
-				return {
-					selectedTab: MEDIA_INSERT_TAB.UPLOAD,
-					selectedTabIndex,
-				};
-			}
-
-			if (selectedTabIndex === linkTabIndex) {
-				return {
-					selectedTab: MEDIA_INSERT_TAB.LINK,
+					selectedTab: selectedTab.key,
 					selectedTabIndex,
 				};
 			}
@@ -237,7 +283,7 @@ export const MediaInsertPicker = ({
 				selectedTabIndex,
 			};
 		},
-		[isOnlyExternalLinks, linkTabIndex, registeredTabs],
+		[orderedTabs],
 	);
 	const selectedTabAnalyticsMetadataRef = React.useRef<TabAnalyticsMetadata>(
 		getTabAnalyticsMetadata(0),
@@ -347,11 +393,21 @@ export const MediaInsertPicker = ({
 				};
 				dispatchAnalyticsEvent(payload);
 			}
-			closeMediaInsertPicker(); // Focuses editor on unmount
-			if (!expValEquals('platform_editor_fix_focus_MediaInsertPicker', 'isEnabled', true)) {
+			if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
+				closeAndReturnFocusToButton();
+			} else {
+				closeMediaInsertPicker(); // Focuses editor on unmount
 				focusEditor();
 			}
 		};
+	const closePickerAndFocusEditor = () => {
+		if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
+			closeAndFocusEditor();
+		} else {
+			closeMediaInsertPicker();
+			focusEditor();
+		}
+	};
 
 	const fileTabTitle = expValEqualsNoExposure(
 		'cc_page_experiences_editor_image_generation',
@@ -372,8 +428,8 @@ export const MediaInsertPicker = ({
 			fitWidth={340}
 			mountTo={mountPoint}
 			onUnmount={
-				expValEquals('platform_editor_fix_focus_MediaInsertPicker', 'isEnabled', true)
-					? focusEditor
+				isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')
+					? () => returnFocusRef.current()
 					: undefined
 			}
 			boundariesElement={popupsBoundariesElement}
@@ -394,103 +450,67 @@ export const MediaInsertPicker = ({
 						>
 							<Box paddingBlockEnd="space.150">
 								<TabList>
-									{registeredTabs.map((tab, index) => (
+									{orderedTabs.map((tab, index) => (
 										<TabWithAnalytics
 											key={tab.key}
 											onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
 											selectedTabIndex={index}
 											tabCount={tabCount}
 										>
-											{tab.label}
+											{tab.type === 'registered'
+												? tab.registeredTab.label
+												: tab.type === 'upload'
+													? fileTabTitle
+													: intl.formatMessage(mediaInsertMessages.linkTabTitle)}
 										</TabWithAnalytics>
 									))}
-									{!isOnlyExternalLinks && (
-										<TabWithAnalytics
-											onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
-											selectedTabIndex={registeredTabs.length}
-											tabCount={tabCount}
-										>
-											{fileTabTitle}
-										</TabWithAnalytics>
-									)}
-									<TabWithAnalytics
-										onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
-										selectedTabIndex={linkTabIndex}
-										tabCount={tabCount}
-									>
-										{intl.formatMessage(mediaInsertMessages.linkTabTitle)}
-									</TabWithAnalytics>
 								</TabList>
 							</Box>
-							{registeredTabs.map(({ key, component: TabComponent }) => (
-								<CustomTabPanel key={key} disablePaddingBlockEnd>
-									<TabComponent
-										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-										closeMediaInsertPicker={() => {
-											closeMediaInsertPicker(); // Focuses editor on unmount
-											if (
-												!expValEquals(
-													'platform_editor_fix_focus_MediaInsertPicker',
-													'isEnabled',
-													true,
-												)
-											) {
-												focusEditor();
-											}
-										}}
-										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-										insertMediaSingle={insertMediaSingle}
-										mediaProvider={mediaProvider}
-									/>
-								</CustomTabPanel>
-							))}
-							{!isOnlyExternalLinks && (
-								<CustomTabPanel>
-									<LocalMedia
-										ref={autofocusRef}
-										mediaProvider={mediaProvider}
-										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-										closeMediaInsertPicker={() => {
-											closeMediaInsertPicker(); // Focuses editor on unmount
-											if (
-												!expValEquals(
-													'platform_editor_fix_focus_MediaInsertPicker',
-													'isEnabled',
-													true,
-												)
-											) {
-												focusEditor();
-											}
-										}}
-										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-										insertFile={insertFile}
-									/>
-								</CustomTabPanel>
-							)}
-							<CustomTabPanel>
-								<MediaFromURL
-									mediaProvider={mediaProvider}
-									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-									closeMediaInsertPicker={() => {
-										closeMediaInsertPicker(); // Focuses editor on unmount
-										if (
-											!expValEquals(
-												'platform_editor_fix_focus_MediaInsertPicker',
-												'isEnabled',
-												true,
-											)
-										) {
-											focusEditor();
-										}
-									}}
-									insertMediaSingle={insertMediaSingle}
-									insertExternalMediaSingle={insertExternalMediaSingle}
-									isOnlyExternalLinks={isOnlyExternalLinks}
-									customizedUrlValidation={customizedUrlValidation}
-									customizedHelperMessage={customizedHelperMessage}
-								/>
-							</CustomTabPanel>
+							{orderedTabs.map((tab) => {
+								if (tab.type === 'registered') {
+									const TabComponent = tab.registeredTab.component;
+									return (
+										<CustomTabPanel key={tab.key} disablePaddingBlockEnd>
+											<TabComponent
+												closeMediaInsertPicker={closePickerAndFocusEditor}
+												dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+												insertMediaSingle={insertMediaSingle}
+												mediaProvider={mediaProvider}
+											/>
+										</CustomTabPanel>
+									);
+								}
+
+								if (tab.type === 'upload') {
+									return (
+										<CustomTabPanel key={tab.key}>
+											<LocalMedia
+												ref={autofocusRef}
+												mediaProvider={mediaProvider}
+												closeMediaInsertPicker={closePickerAndFocusEditor}
+												dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+												insertFile={insertFile}
+											/>
+										</CustomTabPanel>
+									);
+								}
+
+								return (
+									<CustomTabPanel key={tab.key}>
+										<MediaFromURL
+											mediaProvider={mediaProvider}
+											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+											closeMediaInsertPicker={closePickerAndFocusEditor}
+											cancelMediaInsertPicker={closeAndReturnFocusToButton}
+											insertMediaSingle={insertMediaSingle}
+											insertExternalMediaSingle={insertExternalMediaSingle}
+											isOnlyExternalLinks={isOnlyExternalLinks}
+											customizedUrlValidation={customizedUrlValidation}
+											customizedHelperMessage={customizedHelperMessage}
+										/>
+									</CustomTabPanel>
+								);
+							})}
 						</Tabs>
 					</MediaInsertWrapper>
 				)}

@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const bigFontStyles = css({

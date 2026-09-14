@@ -9,16 +9,14 @@ import { Component } from 'react';
 import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl';
 import Button from '@atlaskit/button/standard-button';
 import ImageCropper from '../image-cropper';
-import Spinner from '@atlaskit/spinner';
-import {
-	fileToDataURI,
-	dataURItoFile,
-	getOrientation,
-	isRotated,
-	Ellipsify,
-	Vector2,
-	messages,
-} from '@atlaskit/media-ui';
+import Spinner from '@atlaskit/spinner/spinner';
+import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
+import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
+import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation';
+import { isRotated } from '@atlaskit/media-ui/imageMetaData/isRotated';
+import { Ellipsify } from '@atlaskit/media-ui/ellipsify/ellipsify';
+import { Vector2 } from '@atlaskit/media-ui/vector2';
+import { messages } from '@atlaskit/media-ui/messages';
 import * as exenv from 'exenv';
 import { uploadPlaceholder, errorIcon } from './images';
 import { fileSizeMb } from '../util';

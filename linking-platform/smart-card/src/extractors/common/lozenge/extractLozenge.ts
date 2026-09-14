@@ -1,5 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractType } from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractType } from '@atlaskit/link-extractors/extract-type';
 
 import { extractState } from './extractState';
 import { extractTag } from './extractTag';

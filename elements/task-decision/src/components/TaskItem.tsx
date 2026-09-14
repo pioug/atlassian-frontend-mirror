@@ -6,16 +6,16 @@ import React, { useMemo, useRef, type Ref } from 'react';
 import { useIntl } from 'react-intl';
 
 import { css, jsx } from '@compiled/react';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { Icon } from '@atlaskit/icon/base-new';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import { Icon } from '@atlaskit/icon/components/icon-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import CheckboxCheckedIcon from '@atlaskit/icon/core/checkbox-checked';
 
 import { messages } from './i18n';
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../types';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { createAndFireEventInElementsChannel } from '../analytics';
 import { token } from '@atlaskit/tokens';
 import { useMergeRefs } from 'use-callback-ref';

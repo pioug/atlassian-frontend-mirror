@@ -1,10 +1,10 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import CodeBidiWarning from '@atlaskit/code/bidi-warning';
-import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning-decorator';
+import CodeBidiWarning from '@atlaskit/code/bidi-warning-ui';
+import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning/bidi-warning-decorator';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Command } from '@atlaskit/editor-common/types';

@@ -111,6 +111,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	deletionConfirmationModalDescriptionReferenceCount: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	deletionConfirmationModalTitleSingle: {
 		defaultMessage: string;
 		description: string;
@@ -182,6 +187,26 @@ export const syncBlockMessages: {
 		id: string;
 	};
 	failToEditWhenOfflineDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	feedbackFlagDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	feedbackFlagGiveFeedback: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	feedbackFlagNoThanks: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	feedbackFlagTitle: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -286,6 +311,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	sourceSyncedBlockLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	sourceUnsyncedDescription: {
 		defaultMessage: string;
 		description: string;
@@ -327,6 +357,11 @@ export const syncBlockMessages: {
 		id: string;
 	};
 	syncedBlockLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownActivationNoResults: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -377,6 +412,11 @@ export const syncBlockMessages: {
 		id: string;
 	};
 	syncedLocationDropdownLoading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownNoReferencesTooltip: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -442,6 +482,21 @@ export const syncBlockMessages: {
 		id: string;
 	};
 	unpublishedErrorJiraWorkItem: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unpublishedInParentheses: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unpublishedLocalReferenceAvailabilityTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unpublishedSourceAvailabilityTooltip: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -538,6 +593,11 @@ export const syncBlockMessages: {
 		defaultMessage: 'Synced block',
 		description: 'Label which appears above the synced block when it is selected',
 	},
+	sourceSyncedBlockLabel: {
+		id: 'fabric.editor.sourceSyncedBlock.label.text',
+		defaultMessage: 'Source synced block',
+		description: 'Label which identifies the editable source synced block when it is selected',
+	},
 	unsyncedBlockLabel: {
 		id: 'fabric.editor.unsyncedBlock.label.text',
 		defaultMessage: 'Unsynced block',
@@ -594,6 +654,20 @@ export const syncBlockMessages: {
 		id: 'fabric.editor.referenceSyncBlockTooltip',
 		defaultMessage: 'Synced from: {title}',
 		description: 'Tooltip that shows the source page title of the synced block',
+	},
+	unpublishedLocalReferenceAvailabilityTooltip: {
+		id: 'editor-common.messages.syncBlock.unpublishedLocalReferenceAvailabilityTooltip',
+		defaultMessage:
+			'{sourceType, select, page {Publish the page to make the source synced block content available in other locations.} blog {Publish the blog to make the source synced block content available in other locations.} jiraWorkItem {Publish the work item to make the source synced block content available in other locations.} other {Publish to make the source synced block content available in other locations.}}',
+		description:
+			'Tooltip explaining that a local unpublished reference is only available in its source document. sourceType selects page, blog, or Jira work item copy.',
+	},
+	unpublishedSourceAvailabilityTooltip: {
+		id: 'editor-common.messages.syncBlock.unpublishedSourceAvailabilityTooltip',
+		defaultMessage:
+			'{sourceType, select, page {Publish the page to make the content available in other locations.} blog {Publish the blog to make the content available in other locations.} jiraWorkItem {Publish the work item to make the content available in other locations.} other {Publish to make the content available in other locations.}}',
+		description:
+			'Tooltip explaining that an unpublished source synced block is only available in its source document. sourceType selects page, blog, or Jira work item copy.',
 	},
 	referenceSyncBlockLastEdited: {
 		id: 'fabric.editor.referenceSyncBlockLastEdited',
@@ -653,6 +727,13 @@ export const syncBlockMessages: {
 			'If you delete this synced block, it will appear as an empty "Unsynced block" in {syncBlockCount, plural, one {1 other synced location} other {# locations}}. This action is permanent and cannot be undone.',
 		description:
 			'Description of delete confirmation modal that appears when user tries to delete source synced block with multiple references',
+	},
+	deletionConfirmationModalDescriptionReferenceCount: {
+		id: 'fabric.editor.deletionConfirmationModalDescriptionReferenceCount',
+		defaultMessage:
+			'If you delete this source synced block, it will appear as an empty "Unsynced block" in {syncBlockCount, plural, one {1 other synced location} other {# other synced locations}}. This action is permanent and cannot be undone.',
+		description:
+			'Description of delete confirmation modal that explains how many references remain after deleting the source synced block',
 	},
 	deletionConfirmationModalDescriptionNoRef: {
 		id: 'fabric.editor.deletionConfirmationModalDescriptionNoRef',
@@ -723,6 +804,26 @@ export const syncBlockMessages: {
 		description:
 			'Description in flag which appears when a sync block cannot be created in offline mode',
 	},
+	feedbackFlagTitle: {
+		id: 'editor-common.messages.syncBlock.feedbackFlagTitle',
+		defaultMessage: 'Help us improve Synced blocks',
+		description: 'Title of the flag inviting users to give feedback about synced blocks',
+	},
+	feedbackFlagDescription: {
+		id: 'editor-common.messages.syncBlock.feedbackFlagDescription',
+		defaultMessage: 'We’d love your feedback. This quick survey should take less than a minute.',
+		description: 'Description of the flag inviting users to give feedback about synced blocks',
+	},
+	feedbackFlagGiveFeedback: {
+		id: 'editor-common.messages.syncBlock.feedbackFlagGiveFeedback',
+		defaultMessage: 'Give feedback',
+		description: 'Action that opens the synced blocks feedback collector',
+	},
+	feedbackFlagNoThanks: {
+		id: 'editor-common.messages.syncBlock.feedbackFlagNoThanks',
+		defaultMessage: 'No thanks',
+		description: 'Action that dismisses the synced blocks feedback invitation',
+	},
 	loadingSyncedContent: {
 		id: 'fabric.editor.syncedBlockLoadingSyncedContent',
 		defaultMessage: 'Loading synced content',
@@ -787,6 +888,12 @@ export const syncBlockMessages: {
 		description:
 			'Error message which is shown over sync block when the source page is unpublished.',
 	},
+	unpublishedInParentheses: {
+		id: 'editor-common.messages.syncBlock.unpublishedInParentheses',
+		defaultMessage: '(unpublished)',
+		description:
+			'Parenthetical appended to a synced-block label when the source document is unpublished',
+	},
 	unpublishedErrorJiraWorkItem: {
 		id: 'fabric.editor.error.description.reference.unpublished.jiraWorkItem',
 		defaultMessage: "Synced content will display <link>when the item's description is saved</link>",
@@ -839,6 +946,12 @@ export const syncBlockMessages: {
 		defaultMessage: 'Loading synced locations',
 		description: 'Accessible label for the spinner while synced locations are loading.',
 	},
+	syncedLocationDropdownNoReferencesTooltip: {
+		id: 'editor-common.messages.syncBlock.syncedLocationDropdownNoReferencesTooltip.ai-non-final',
+		defaultMessage: 'Not yet synced to any other locations',
+		description:
+			'Tooltip for the synced locations toolbar button when the selected synced block has no references.',
+	},
 	syncedLocationDropdownHeading: {
 		id: 'fabric.editor.syncedLocationDropdownHeading',
 		defaultMessage: '{count} locations:',
@@ -857,6 +970,12 @@ export const syncBlockMessages: {
 		defaultMessage: 'Copy and paste synced blocks to reuse in other locations.',
 		description:
 			'Message shown in the synced location dropdown menu when no shared locations are found',
+	},
+	syncedLocationDropdownActivationNoResults: {
+		id: 'editor-common.messages.syncBlock.syncedLocationDropdownActivationNoResults',
+		defaultMessage: 'To reuse content, copy and paste this block to sync to other locations',
+		description:
+			'Instruction shown in the activation synced locations dropdown when a synced block has no references. It explains how to create the first reference.',
 	},
 	syncedLocationDropdownLearnMoreLink: {
 		id: 'fabric.editor.syncedLocationDropdownLearnMoreLink',

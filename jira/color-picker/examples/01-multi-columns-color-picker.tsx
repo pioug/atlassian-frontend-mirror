@@ -4,7 +4,7 @@ import { extendedPalette } from '../mock-data';
 import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const platformFgInjectable = injectable(fg, () => true);
 

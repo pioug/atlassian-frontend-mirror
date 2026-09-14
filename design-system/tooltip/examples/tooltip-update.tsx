@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import Tooltip from '@atlaskit/tooltip';
+import Button from '@atlaskit/button/default/button';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const shortMessage = "I'm a short tooltip";
 const longMessage = 'I am a longer tooltip with a decent amount of content inside';

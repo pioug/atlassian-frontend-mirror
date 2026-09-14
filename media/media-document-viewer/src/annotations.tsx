@@ -74,6 +74,7 @@ const TextInput = ({ as: Component, value, style }: TextInputProps) => (
 	/>
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const TextInputFormField = ({
 	field,
 	dataTestId,
@@ -110,6 +111,7 @@ const comboBoxInputStyles = css({
 	width: '100%',
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ComboBoxFormField = ({
 	field,
 	dataTestId,
@@ -144,6 +146,7 @@ export const ComboBoxFormField = ({
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const Annotations = ({ annotations }: { annotations: PageAnnotations }): JSX.Element => {
 	return (
 		<React.Fragment>

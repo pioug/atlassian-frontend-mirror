@@ -1,6 +1,6 @@
 import Dataloader from 'dataloader';
+
 import { asMock, asMockFunctionReturnValue } from '@atlaskit/media-common/test-helpers';
-import { fakeMediaClient } from '../../../test-helpers';
 
 import {
 	type ItemsPayload,
@@ -9,13 +9,11 @@ import {
 	type MediaStoreResponse,
 	type ResponseFileItem,
 } from '../../..';
-
-import {
-	type DataloaderKey,
-	createBatchLoadingFunc,
-	createFileDataloader,
-	getItemsFromKeys,
-} from '../../createFileDataLoader';
+import { fakeMediaClient } from '../../../test-helpers';
+import { createBatchLoadingFunc } from '../../createBatchLoadingFunc';
+import type { DataloaderKey } from '../../createFileDataLoader';
+import { createFileDataloader } from '../../createFileDataloader-2';
+import { getItemsFromKeys } from '../../getItemsFromKeys';
 
 describe('createFileDataLoader', () => {
 	const setup = () => {

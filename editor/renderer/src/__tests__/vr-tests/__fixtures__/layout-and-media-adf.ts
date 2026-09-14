@@ -1,5 +1,6 @@
-import { PanelType, AnnotationTypes } from '@atlaskit/adf-schema';
-import type { DocNode } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export const layoutAndMediaAdf: DocNode = {
 	version: 1,

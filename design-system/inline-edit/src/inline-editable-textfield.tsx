@@ -2,9 +2,9 @@ import React, { useCallback, useRef } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import InlineDialog from '@atlaskit/inline-dialog';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import InlineEdit from './inline-edit';

@@ -5,11 +5,14 @@ import { render, screen } from '@testing-library/react';
 
 import { BaseTheme } from '@atlaskit/editor-common/ui';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 const fgMock = fg as jest.Mock;
@@ -61,30 +64,57 @@ describe('Editor Content styles', () => {
 		});
 	});
 
-	eeTest
-		.describe('platform_editor_table_css_overflow_shadow', 'CSS-only table overflow shadow styles')
-		.variant(true, () => {
-			it('renders the table overflow shadow styles from the editor content container', () => {
-				render(
-					<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
-						<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
-							<div className="ProseMirror">
-								<div className="pm-table-container">
-									<div className="pm-table-wrapper pm-table-scroll-inline-shadow" />
-									<div data-testid="table-overflow-shadow" data-table-overflow-shadow="start" />
-								</div>
-							</div>
-						</EditorContentContainerCompiled>
-					</BaseTheme>,
-				);
+	describe('platform_editor_table_css_overflow_shadow: enabled', () => {
+		it('renders the table overflow shadow styles from the editor content container', () => {
+			mockExpEnabled('platform_editor_table_css_overflow_shadow');
 
-				expect(screen.getByTestId('table-overflow-shadow')).toHaveStyle({
-					opacity: '0',
-					'pointer-events': 'none',
-					position: 'absolute',
-				});
+			render(
+				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+					<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+						<div className="ProseMirror">
+							<div className="pm-table-container">
+								<div className="pm-table-wrapper pm-table-scroll-inline-shadow" />
+								<div data-testid="table-overflow-shadow" data-table-overflow-shadow="start" />
+							</div>
+						</div>
+					</EditorContentContainerCompiled>
+				</BaseTheme>,
+			);
+
+			expect(screen.getByTestId('table-overflow-shadow')).toHaveStyle({
+				opacity: '0',
+				'pointer-events': 'none',
+				position: 'absolute',
 			});
 		});
+	});
+
+	describe('content-mode table extension containment', () => {
+		const renderExtensionInContentModeTable = () =>
+			render(
+				<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+					<div className="ProseMirror">
+						<table data-initial-width-mode="content">
+							<tbody>
+								<tr>
+									<td>
+										<div className="extension-overflow-wrapper" data-testid="extension-wrapper" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</EditorContentContainerCompiled>,
+			);
+
+		it('removes inline-size containment from extensions in content-mode tables', () => {
+			renderExtensionInContentModeTable();
+
+			expect(getComputedStyle(screen.getByTestId('extension-wrapper')).containerType).toBe(
+				'normal',
+			);
+		});
+	});
 
 	eeTest
 		.describe('editor_tinymce_full_width_mode', 'when max width mode feature is enabled')
@@ -172,8 +202,10 @@ describe('Editor Content styles', () => {
 		});
 	});
 
-	eeTest.describe('platform_editor_floating_toc', 'when disabled').variant(false, () => {
+	describe('platform_editor_floating_toc: disabled', () => {
 		it('does not apply heading scroll margin', () => {
+			mockExpDisabled('platform_editor_floating_toc');
+
 			render(
 				<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
 					<div className="ProseMirror">
@@ -184,28 +216,80 @@ describe('Editor Content styles', () => {
 
 			expect(window.getComputedStyle(screen.getByRole('heading')).scrollMarginTop).toBe('');
 		});
-	});
 
-	eeTest.describe('platform_editor_floating_toc', 'when enabled').variant(true, () => {
-		it('applies scroll margin to every heading level', () => {
+		it('retains emoji selection styles inherited from a selected parent', () => {
+			mockExpDisabled('platform_editor_floating_toc');
+
 			render(
 				<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
 					<div className="ProseMirror">
-						<h1>Heading 1</h1>
-						<h2>Heading 2</h2>
-						<h3>Heading 3</h3>
-						<h4>Heading 4</h4>
-						<h5>Heading 5</h5>
-						<h6>Heading 6</h6>
+						<div className="ak-editor-selected-node">
+							<span data-emoji-id="nested-emoji">
+								<span className="emojiView-content-wrap">
+									<span className="emoji-common-emoji-image" data-testid="nested-emoji-image" />
+								</span>
+							</span>
+						</div>
 					</div>
 				</EditorContentContainerCompiled>,
 			);
 
-			screen.getAllByRole('heading').forEach((heading) => {
-				expect(window.getComputedStyle(heading).scrollMarginTop).toMatch(
-					/^var\(--ds-space-300,\s?24px\)$/u,
-				);
-			});
+			expect(window.getComputedStyle(screen.getByTestId('nested-emoji-image')).position).toBe(
+				'relative',
+			);
 		});
+	});
+});
+
+describe('platform_editor_floating_toc: enabled', () => {
+	it('applies scroll margin to every heading level', () => {
+		mockExpEnabled('platform_editor_floating_toc');
+
+		render(
+			<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+				<div className="ProseMirror">
+					<h1>Heading 1</h1>
+					<h2>Heading 2</h2>
+					<h3>Heading 3</h3>
+					<h4>Heading 4</h4>
+					<h5>Heading 5</h5>
+					<h6>Heading 6</h6>
+				</div>
+			</EditorContentContainerCompiled>,
+		);
+
+		screen.getAllByRole('heading').forEach((heading) => {
+			expect(window.getComputedStyle(heading).scrollMarginTop).toMatch(
+				/^var\(--ds-space-300,\s?24px\)$/u,
+			);
+		});
+	});
+
+	it('applies emoji selection styles only when the emoji node itself is selected', () => {
+		mockExpEnabled('platform_editor_floating_toc');
+
+		render(
+			<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+				<div className="ProseMirror">
+					<span className="ak-editor-selected-node" data-emoji-id="selected-emoji">
+						<span className="emojiView-content-wrap">
+							<span className="emoji-common-emoji-image" data-testid="selected-emoji-image" />
+						</span>
+					</span>
+					<div className="ak-editor-selected-node">
+						<span data-emoji-id="nested-emoji">
+							<span className="emojiView-content-wrap">
+								<span className="emoji-common-emoji-image" data-testid="nested-emoji-image" />
+							</span>
+						</span>
+					</div>
+				</div>
+			</EditorContentContainerCompiled>,
+		);
+
+		expect(window.getComputedStyle(screen.getByTestId('selected-emoji-image')).position).toBe(
+			'relative',
+		);
+		expect(window.getComputedStyle(screen.getByTestId('nested-emoji-image')).position).toBe('');
 	});
 });

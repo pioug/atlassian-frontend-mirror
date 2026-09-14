@@ -29,8 +29,24 @@ export type FlagAPI = {
 	hideFlag: (id: FlagId) => void;
 };
 
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { FlagContext } from '@atlaskit/flag/flag-context'` instead.
+ */
 export { FlagContext } from './flag-context';
 
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { useFlags } from '@atlaskit/flag/use-flags'` instead.
+ */
 export { useFlags } from './use-flags';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { FlagsProvider } from '@atlaskit/flag/flags-provider'` instead.
+ */
 export { FlagsProvider } from './flags-provider';
+/* eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { withFlagsProvider } from '@atlaskit/flag/with-flags-provider'` instead.
+ */
 export { withFlagsProvider } from './with-flags-provider';

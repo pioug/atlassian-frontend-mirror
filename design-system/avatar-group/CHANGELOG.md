@@ -1,5 +1,177 @@
 # @atlaskit/avatar-group
 
+## 14.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.2
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+
+## 14.3.1
+
+### Patch Changes
+
+- [`464a2da7b195e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/464a2da7b195e) -
+  Cleanup feature gate `platform-avatar-group-spacing-fix`. Preserve the corrected avatar group
+  spacing.
+
+## 14.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.3
+
+### Patch Changes
+
+- [`251774d12d942`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/251774d12d942) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 14.2.2
+
+### Patch Changes
+
+- [`ba1f311553ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba1f311553ac9) -
+  Replace hardcoded duration/easing CSS literals with motion.duration.\* and
+  motion.easing.out.practical tokens
+
+## 14.2.1
+
+### Patch Changes
+
+- [`9a7653523837c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a7653523837c) -
+  Use `@atlassian/testing-library` exclusively in unit tests.
+- Updated dependencies
+
+## 14.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+- [`005037db2dcaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/005037db2dcaa) -
+  Autofix: update cross-package imports away from barrel entries
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Major Changes
+
+- [`f6328151ae86c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6328151ae86c) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/avatar-group`: the package `exports` map has been restructured so every
+  public subpath now resolves **directly** to its `./src/*` implementation instead of going through
+  an intermediate `./src/entry-points/*` re-export. No public subpaths were removed.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import AvatarGroup from '@atlaskit/avatar-group/entry-points/avatar-group';
+  +import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+  -   "./avatar-group": "./src/entry-points/avatar-group.tsx",
+  +   "./avatar-group": "./src/components/avatar-group.tsx",
+  -   "./types": "./src/entry-points/types.tsx",
+  +   "./types": "./src/components/types.tsx",
+    }
+  ```
+
+  Note that `./types` now resolves to the whole `./src/components/types.tsx` module, so it exposes
+  additional types beyond the previously re-exported `AvatarProps` and `AvatarGroupOverrides`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.3
 
 ### Patch Changes

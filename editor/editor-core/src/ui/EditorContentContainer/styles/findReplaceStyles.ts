@@ -12,45 +12,8 @@ import { token } from '@atlaskit/tokens';
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
-export const findReplaceStyles: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.search-match': {
-		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.small', '3px'),
-		backgroundColor: token('color.background.accent.teal.subtlest'),
-		boxShadow: `${token('elevation.shadow.raised')}, inset 0 0 0 1px ${token('color.border.input')}`,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.selected-search-match': {
-		backgroundColor: token('color.background.accent.teal.subtle'),
-	},
-});
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const findReplaceStylesWithCodeblockColorContrastFix: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} .search-match.selected-search-match`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		span: {
-			// we need to use !important here as we need to override inline selection styles
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			color: `${token('color.text')} !important`,
-		},
-	},
-});
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const findReplaceStylesNewWithCodeblockColorContrastFix: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} .search-match-text.selected-search-match`]:
 		{
@@ -62,8 +25,6 @@ export const findReplaceStylesNewWithCodeblockColorContrastFix: SerializedStyles
 			},
 		},
 });
-
-// TODO: ED-28370 - during platform_editor_find_and_replace_improvements clean up, rename this css object to findReplaceStyles
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in
@@ -71,7 +32,7 @@ export const findReplaceStylesNewWithCodeblockColorContrastFix: SerializedStyles
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const findReplaceStylesNewWithA11Y: SerializedStyles = css({
+export const findReplaceStyles: SerializedStyles = css({
 	// text - inactive match - light mode
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.search-match-text': {

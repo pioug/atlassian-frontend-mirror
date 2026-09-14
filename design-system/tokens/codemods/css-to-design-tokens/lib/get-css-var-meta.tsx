@@ -1,4 +1,4 @@
-import { extractCssVarName } from './declaration';
+import { extractCssVarName } from './extract-css-var-name';
 import { knownVariables } from './known-variables';
 
 export function getCssVarMeta(cssVariable: string): string[] {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { Checkbox } from '../../index';
+import { Checkbox } from '../../checkbox';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Checkbox should be found by data-testid', () => {

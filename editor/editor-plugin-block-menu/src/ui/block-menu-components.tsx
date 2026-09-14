@@ -19,14 +19,15 @@ import {
 	TRANSFORM_CREATE_MENU_SECTION,
 	TRANSFORM_SUGGESTED_MENU_SECTION,
 	TRANSFORM_STRUCTURE_MENU_SECTION,
-	TRANSFORM_HEADINGS_MENU_SECTION,
 	MAIN_BLOCK_MENU_SECTION_RANK,
 	TRANSFORM_SUGGESTED_MENU_SECTION_RANK,
 	TRANSFORM_SUGGESTED_MENU_ITEM,
 } from '@atlaskit/editor-common/block-menu';
+import { TRANSFORM_TEXTFORMATTING_MENU_SECTION } from '@atlaskit/editor-common/block-menu/key';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type {
 	BlockMenuPlugin,
@@ -53,7 +54,7 @@ import { SuggestedMenuItems } from './suggested-menu-items';
 import {
 	hasContentBeforeCreate,
 	hasContentBeforeStructure,
-	hasContentBeforeHeadings,
+	hasContentBeforeTextFormatting,
 } from './utils/checkHasPreviousSectionContent';
 import { checkIsFormatMenuHidden } from './utils/checkIsFormatMenuHidden';
 import { createMenuItemsMap } from './utils/createMenuItemsMap';
@@ -69,7 +70,10 @@ const getTotalNumberOfAvailableNativeTransforms = (
 	}
 
 	const childrenMap = buildChildrenMap(blockMenuComponents);
-	const headingsKey = getChildrenMapKey(TRANSFORM_HEADINGS_MENU_SECTION.key, 'block-menu-section');
+	const headingsKey = getChildrenMapKey(
+		TRANSFORM_TEXTFORMATTING_MENU_SECTION.key,
+		'block-menu-section',
+	);
 	const structureKey = getChildrenMapKey(
 		TRANSFORM_STRUCTURE_MENU_SECTION.key,
 		'block-menu-section',
@@ -215,19 +219,23 @@ const getTurnIntoMenuComponents = (
 		},
 		{
 			type: 'block-menu-section' as const,
-			key: TRANSFORM_HEADINGS_MENU_SECTION.key,
+			key: TRANSFORM_TEXTFORMATTING_MENU_SECTION.key,
 			parent: {
 				type: 'block-menu-nested' as const,
 				key: TRANSFORM_MENU_ITEM.key,
 				rank: (TRANSFORM_MENU_ITEM_RANK as Record<string, number>)[
-					TRANSFORM_HEADINGS_MENU_SECTION.key
+					TRANSFORM_TEXTFORMATTING_MENU_SECTION.key
 				],
 			},
 			component: ({ children }: { children: React.ReactNode } = { children: null }) => {
 				return (
 					<MenuSection
-						title={blockMenuMessages.headings}
-						hasSeparator={hasContentBeforeHeadings(api)}
+						title={
+							isExperimentEnabled('platform_editor_block_menu_small_text')
+								? blockMenuMessages.textFormatting
+								: blockMenuMessages.headings
+						}
+						hasSeparator={hasContentBeforeTextFormatting(api)}
 					>
 						{children}
 					</MenuSection>
@@ -238,9 +246,9 @@ const getTurnIntoMenuComponents = (
 			type: 'block-menu-section' as const,
 			key: TRANSFORM_MENU_SECTION.key,
 			rank: (MAIN_BLOCK_MENU_SECTION_RANK as Record<string, number>)[TRANSFORM_MENU_SECTION.key],
-			component: ({ children }: { children: React.ReactNode }) => {
-				return <FormatMenuSection api={api}>{children}</FormatMenuSection>;
-			},
+			component: ({ children }: { children: React.ReactNode }) => (
+				<FormatMenuSection api={api}>{children}</FormatMenuSection>
+			),
 		},
 	];
 };

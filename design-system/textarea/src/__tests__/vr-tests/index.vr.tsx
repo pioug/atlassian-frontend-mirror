@@ -1,8 +1,8 @@
 import { Device, snapshot } from '@af/visual-regression';
 
-import Basic from '../../../examples/0-basic';
-import Appearance from '../../../examples/1-appearance';
-import Resize from '../../../examples/2-resize';
+import Basic from '../../../examples/0-basic.vr.ap';
+import Appearance from '../../../examples/1-appearance.vr.ap';
+import Resize from '../../../examples/2-resize.vr.ap';
 
 snapshot(Basic, {
 	variants: [

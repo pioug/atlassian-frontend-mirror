@@ -1,37 +1,7 @@
-import {
-	type KeyValues,
-	type RequestServiceOptions,
-	type ServiceConfig,
-	utils as serviceUtils,
-} from '@atlaskit/util-service-support';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+import { type ServiceConfig } from '@atlaskit/util-service-support';
 
-import {
-	type AltRepresentations,
-	type EmojiDescription,
-	type EmojiDescriptionWithVariations,
-	type EmojiVariationDescription,
-	type EmojiMeta,
-	type EmojiRepresentation,
-	type EmojiResponse,
-	type EmojiServiceDescription,
-	type EmojiServiceDescriptionWithVariations,
-	type EmojiServiceRepresentation,
-	type EmojiServiceResponse,
-	type SpriteServiceRepresentation,
-	type EmojiId,
-	ProviderTypes,
-	type UnicodeRepresentation,
-} from '../types';
-import {
-	isImageRepresentation,
-	isSpriteServiceRepresentation,
-	convertImageToMediaRepresentation,
-	buildEmojiDescriptionWithAltRepresentation,
-} from '../util/type-helpers';
-import debug from '../util/logger';
-import { emojiIdToEmoji } from '../util/emojiIdToEmoji';
+import { type EmojiId } from '../types';
 
 export interface EmojiLoaderConfig extends ServiceConfig {
 	getRatio?: () => number;
@@ -50,193 +20,50 @@ export interface OptimisticImageApiLoaderConfig extends Omit<ServiceConfig, 'url
 }
 
 export type EmojiLoadSuccessCallback = (emojiId?: string) => void;
+
 export type EmojiLoadFailCallback = (emojiId?: string, reason?: string) => void;
 
-export const emojiRequest = (
-	provider: EmojiLoaderConfig,
-	options?: RequestServiceOptions,
-): Promise<EmojiServiceResponse> => {
-	const { getRatio = getPixelRatio, ...serviceConfig } = provider;
-	const scaleQueryParams: KeyValues = calculateScale(getRatio);
-	const { queryParams = {}, ...otherOptions } = options || {};
-	const requestOptions = {
-		...otherOptions,
-		queryParams: {
-			...scaleQueryParams,
-			...queryParams,
-			preferredRepresentation: 'IMAGE',
-		},
-	};
-	return serviceUtils.requestService<EmojiServiceResponse>(serviceConfig, requestOptions);
-};
-
-const calculateScale = (getRatio: () => number): KeyValues => {
-	if (expValEquals('platform_editor_emoji_default_scale', 'isEnabled', true)) {
-		// retina display
-		if (getRatio() > 1) {
-			return { scale: 'XXXHDPI', altScale: 'XXXHDPI' };
-		}
-		// default set used for desktop
-		return { altScale: 'XXXHDPI' };
-	}
-
-	// Retina display
-	if (getRatio() > 1) {
-		return { scale: 'XHDPI', altScale: 'XXXHDPI' };
-	}
-	// Default set used for desktop
-	return { altScale: 'XHDPI' };
-};
-
-export const getPixelRatio = (): number => {
-	if (typeof window === 'undefined') {
-		return 0;
-	}
-	return window.devicePixelRatio;
-};
-
-export const getAltRepresentation = (reps: AltRepresentations): EmojiServiceRepresentation => {
-	// Invalid reps handled outside function - logic may change depending what the service returns
-	return reps[calculateScale(getPixelRatio).altScale];
-};
-
-export const isMediaApiUrl = (url: string, meta?: EmojiMeta): boolean =>
-	!!(meta && meta.mediaApiToken && url.indexOf(meta.mediaApiToken.url) === 0);
-
-export const denormaliseServiceRepresentation = (
-	representation: EmojiServiceRepresentation,
-	meta?: EmojiMeta,
-): EmojiRepresentation => {
-	if (isSpriteServiceRepresentation(representation) && meta && meta.spriteSheets) {
-		const { height, width, x, y, xIndex, yIndex, spriteRef } =
-			representation as SpriteServiceRepresentation;
-		const spriteSheet = meta.spriteSheets[spriteRef];
-		if (spriteSheet) {
-			return {
-				sprite: spriteSheet,
-				height,
-				width,
-				x,
-				y,
-				xIndex,
-				yIndex,
-			};
-		}
-	} else if (isImageRepresentation(representation)) {
-		const { height, width, imagePath } = representation;
-		if (isMediaApiUrl(imagePath, meta)) {
-			return convertImageToMediaRepresentation(representation);
-		}
-		return {
-			height,
-			width,
-			imagePath,
-		};
-	}
-
-	debug('failed conversion for representation', representation, meta);
-
-	return undefined;
-};
-
-export const denormaliseServiceAltRepresentation = (
-	altReps?: AltRepresentations,
-	meta?: EmojiMeta,
-): EmojiRepresentation => {
-	return !altReps || Object.keys(altReps).length === 0
-		? undefined
-		: denormaliseServiceRepresentation(getAltRepresentation(altReps), meta);
-};
-
-const denormaliseStandardRepresentation = (
-	emoji: EmojiServiceDescription,
-	meta?: EmojiMeta,
-): EmojiRepresentation => {
-	const unicodeEmoji = emojiIdToEmoji(emoji.id);
-	const useUnicodeRepresentation: boolean = !!(
-		emoji.id &&
-		emoji.type === ProviderTypes.STANDARD &&
-		unicodeEmoji &&
-		expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
-	);
-
-	return useUnicodeRepresentation
-		? ({ unicodeEmoji } as UnicodeRepresentation)
-		: denormaliseServiceRepresentation(emoji.representation, meta);
-};
-
-export const denormaliseSkinEmoji = (
-	emoji: EmojiServiceDescriptionWithVariations,
-	meta?: EmojiMeta,
-): EmojiDescriptionWithVariations[] => {
-	if (!emoji.skinVariations) {
-		return [];
-	}
-
-	const skinEmoji: EmojiServiceDescription[] = emoji.skinVariations;
-	const baseId = emoji.id;
-
-	return skinEmoji.map((skin): EmojiVariationDescription => {
-		const { representation: _representation, altRepresentations, ...other } = skin;
-		return {
-			baseId: baseId,
-			representation: denormaliseStandardRepresentation(skin, meta),
-			altRepresentation: denormaliseServiceAltRepresentation(altRepresentations, meta),
-			...other,
-		};
-	});
-};
-
 /**
- * Denormalised an emoji response (emojis + sprite references) into an array of
- * emoji with local sprite definitions.
+ * @deprecated Use `import { emojiRequest } from '@atlaskit/emoji/emoji-utils'` instead.
  */
-export const denormaliseEmojiServiceResponse = (emojiData: EmojiServiceResponse): EmojiResponse => {
-	const emojis: EmojiDescription[] = emojiData.emojis.map(
-		(emoji: EmojiServiceDescriptionWithVariations): EmojiDescriptionWithVariations => {
-			const newRepresentation = denormaliseStandardRepresentation(emoji, emojiData.meta);
-			const altRepresentation = denormaliseServiceAltRepresentation(
-				emoji.altRepresentations,
-				emojiData.meta,
-			);
-			const newSkinVariations = denormaliseSkinEmoji(emoji, emojiData.meta);
-
-			// create trimmedServiceDesc which is emoji with no representations or skinVariations
-			const {
-				representation: _representation,
-				skinVariations: _skinVariations,
-				altRepresentations: _altRepresentations,
-				...trimmedServiceDesc
-			} = emoji;
-
-			const response: EmojiDescriptionWithVariations = {
-				...trimmedServiceDesc,
-				representation: newRepresentation,
-				skinVariations: newSkinVariations,
-			};
-			return buildEmojiDescriptionWithAltRepresentation(response, altRepresentation);
-		},
-	);
-
-	const mediaApiToken = emojiData.meta && emojiData.meta.mediaApiToken;
-
-	return {
-		emojis,
-		mediaApiToken,
-	};
-};
-
-const getHeight = (fitToHeight: number): number =>
-	getPixelRatio() > 1 ? fitToHeight * 2 : fitToHeight;
-
-export const shouldUseAltRepresentation = (
-	emoji: EmojiDescription,
-	fitToHeight?: number,
-): boolean =>
-	!!(
-		fitToHeight &&
-		emoji.altRepresentation &&
-		emoji.representation &&
-		'height' in emoji.representation &&
-		getHeight(fitToHeight) > emoji.representation.height
-	);
+export { emojiRequest } from './emojiRequest';
+/**
+ * @deprecated Use `import { getPixelRatio } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { getPixelRatio } from './getPixelRatio';
+/**
+ * @deprecated Use `import { getAltRepresentation } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { getAltRepresentation } from './getAltRepresentation';
+/**
+ * @deprecated Use `import { isMediaApiUrl } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { isMediaApiUrl } from './isMediaApiUrl';
+/**
+ * @deprecated Use `import { denormaliseServiceRepresentation } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { denormaliseServiceRepresentation } from './denormaliseServiceRepresentation';
+/**
+ * @deprecated Use `import { denormaliseServiceAltRepresentation } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { denormaliseServiceAltRepresentation } from './denormaliseServiceAltRepresentation';
+/**
+ * @deprecated Use `import { denormaliseSkinEmoji } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { denormaliseSkinEmoji } from './denormaliseSkinEmoji';
+/**
+ * @deprecated Use `import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { denormaliseEmojiServiceResponse } from './denormaliseEmojiServiceResponse';
+/**
+ * @deprecated Use `import { shouldUseAltRepresentation } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { shouldUseAltRepresentation } from './shouldUseAltRepresentation';
+/**
+ * @deprecated Use `import { calculateScale } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { calculateScale } from './calculateScale';
+/**
+ * @deprecated Use `import { denormaliseStandardRepresentation } from '@atlaskit/emoji/emoji-utils'` instead.
+ */
+export { denormaliseStandardRepresentation } from './denormaliseStandardRepresentation';

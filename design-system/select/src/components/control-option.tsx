@@ -6,7 +6,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type OptionProps } from '../types';

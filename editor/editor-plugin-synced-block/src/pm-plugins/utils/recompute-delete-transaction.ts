@@ -15,7 +15,7 @@ type SourceBlockMatch = { node: PMNode; pos: number };
  * requested block's `localId` first and only fall back to its `resourceId` when
  * the `localId` has been regenerated (so it no longer matches the live node).
  */
-const matchesRequestedBlock = (node: PMNode, wanted: SyncBlockAttrs): boolean => {
+export const matchesRequestedBlock = (node: PMNode, wanted: SyncBlockAttrs): boolean => {
 	const { localId, resourceId } = node.attrs as SyncBlockAttrs;
 
 	if (wanted.localId && localId && wanted.localId === localId) {

@@ -1,9 +1,15 @@
 import React from 'react';
-import Avatar, { getAppearanceForAppType } from '@atlaskit/avatar';
+
+import Avatar from '@atlaskit/avatar/avatar';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import { isAppMention, isTeamMention, type MentionDescription, type Presence } from '../../types';
+
+import { isAppMention } from '../../is-app-mention';
+import { isTeamMention } from '../../is-team-mention';
+import type { MentionDescription, Presence } from '../../types';
 
 type MentionAvatarProps = {
 	mention: MentionDescription;
@@ -22,7 +28,9 @@ export const MentionAvatar = ({ mention, selected }: MentionAvatarProps): React.
 	// Agent providers can request GraphQL `identityAccount { picture }` and pass it as
 	// `avatarUrl`; this component only applies the hexagon agent shape.
 	const shouldRenderAgentMentionAvatar =
-		isAppMention(mention) && mention.appType === 'agent' && fg('rovo_chat_agent_selection');
+		isAppMention(mention) &&
+		mention.appType === 'agent' &&
+		isExperimentEnabled('rovo_chat_mention_agents');
 
 	const avatarAppearance = shouldRenderAgentMentionAvatar
 		? 'hexagon'

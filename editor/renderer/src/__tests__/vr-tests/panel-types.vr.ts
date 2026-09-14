@@ -22,7 +22,7 @@ import {
 	SuccessPanelWithColoredTextFinal,
 	WarningPanel,
 	WarningPanelFinal,
-} from './panel-types.fixture';
+} from './panel-types.fixture.vr.ap';
 
 snapshot(CustomPanelEmojiAndColoredBackground);
 // Disabled due to https://hello.atlassian.net/wiki/spaces/~6362283f1cc605b1fd17ef4b/pages/3419700115/Mocking+Issues+while+writing+Gemini+tests?atlOrigin=eyJpIjoiYTBlNGYwN2YxMTMwNDkzMjgyYmQ4NjcyMjY3MjRlYWQiLCJwIjoiY29uZmx1ZW5jZS1jaGF0cy1pbnQifQ

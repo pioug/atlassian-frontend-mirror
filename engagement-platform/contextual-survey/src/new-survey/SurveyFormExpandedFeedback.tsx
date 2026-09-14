@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Checkbox from '@atlaskit/checkbox';
-import { CheckboxField, Field } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { CheckboxField } from '@atlaskit/form/checkbox-field';
+import Field from '@atlaskit/form/field';
+import Textarea from '@atlaskit/textarea/text-area';
 
 export type SurveyFormExpandedFeedbackProps = {
 	canContactDefault: boolean;

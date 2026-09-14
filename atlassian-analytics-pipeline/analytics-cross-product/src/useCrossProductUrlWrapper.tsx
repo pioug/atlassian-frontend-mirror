@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { bind, type UnbindFn } from 'bind-event-listener';
 
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+
 import { generateUrlWithParams } from './generateUrlWithParams';
 import GlobalInteractionSessionTracking, {
 	type InteractionSessionTracking,
@@ -23,6 +25,12 @@ export type CrossProductUrlOptions = {
 };
 
 /**
+ * Kill switch config, defaults to enabled so we fail open if the config can't be resolved.
+ * https://switcheroo.atlassian.com/ui/configurations/d3b9839b-0a19-4f81-928e-44fc4fac4c55/key/atlaskit-analytics-cross-product-kill-switch
+ */
+const KILL_SWITCH_CONFIG = 'atlaskit-analytics-cross-product-kill-switch';
+
+/**
  * This React hook is called with the correct bridge, product and sub-product parameters.
  * It returns a function that can be used to generate URLs with cross-product interaction parameters.
  *
@@ -32,12 +40,14 @@ export type CrossProductUrlOptions = {
  */
 function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: string) => string {
 	const { bridge, product, subProduct } = options;
+	// This is a kill switch rather than an experiment, so no exposure is fired.
+	const isEnabled = !UNSAFE_expValNoExposure<boolean>(KILL_SWITCH_CONFIG, 'value', false);
 
 	// `useRef(initialValue)` evaluates `initialValue` on every render but only uses the result on
 	// the first render. Populate the ref imperatively the first time we need it so we don't call
 	// `getInstance()` on every render (per Billy Chen's review suggestion).
 	const interactionSessionClientRef = useRef<InteractionSessionTracking | undefined>(undefined);
-	if (!interactionSessionClientRef.current) {
+	if (isEnabled && !interactionSessionClientRef.current) {
 		interactionSessionClientRef.current = GlobalInteractionSessionTracking.getInstance();
 	}
 
@@ -46,6 +56,10 @@ function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: strin
 	);
 
 	useEffect(() => {
+		if (!isEnabled) {
+			return () => {};
+		}
+
 		// Add event listener that subscribes to any future interaction session ID updates
 		const unbind: UnbindFn = bind(document, {
 			type: INTERACTION_SESSION_ID_UPDATED_EVENT,
@@ -64,16 +78,16 @@ function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: strin
 		});
 
 		return unbind;
-	}, []);
+	}, [isEnabled]);
 
 	return useCallback(
 		(url: string) => {
-			if (!interactionSessionId) {
+			if (!isEnabled || !interactionSessionId) {
 				return url;
 			}
 			return generateUrlWithParams(url, bridge, interactionSessionId, product, subProduct);
 		},
-		[bridge, interactionSessionId, product, subProduct],
+		[isEnabled, bridge, interactionSessionId, product, subProduct],
 	);
 }
 

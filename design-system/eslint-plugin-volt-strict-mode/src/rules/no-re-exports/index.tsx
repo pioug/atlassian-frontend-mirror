@@ -6,6 +6,7 @@ import { getScope } from '@atlaskit/eslint-utils/context-compat';
 
 import { createLintRule } from '../utils/create-rule';
 import { isImportBinding } from '../utils/is-import-binding';
+import { isRootPackageBarrel } from '../utils/is-root-package-barrel';
 import { lookupVariable } from '../utils/lookup-variable';
 
 const DEPRECATED_TAG = '@deprecated';
@@ -81,8 +82,13 @@ function isPrimitiveLiteral(declarator: TSESTree.VariableDeclarator): boolean {
 	if (init == null) {
 		return false;
 	}
-	if (init.type === AST_NODE_TYPES.TSAsExpression) {
-		init = (init as TSESTree.TSAsExpression).expression;
+	// Unwrap `as X` / `satisfies X` wrappers (incl. nesting), consistent with
+	// unwrapToIdentifier, so a type-asserted primitive isn't miscounted.
+	while (
+		init.type === AST_NODE_TYPES.TSAsExpression ||
+		init.type === AST_NODE_TYPES.TSSatisfiesExpression
+	) {
+		init = (init as TSESTree.TSAsExpression | TSESTree.TSSatisfiesExpression).expression;
 	}
 	if (init.type === AST_NODE_TYPES.Literal) {
 		const { value } = init as TSESTree.Literal;
@@ -168,7 +174,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		name: 'no-re-exports',
 		docs: {
 			description:
-				'Disallows re-exporting symbols from other modules (barrel patterns and import-then-export indirection) so consumers and bundlers do not chase extra layers. A re-export whose leading comment carries an `@deprecated` JSDoc tag is exempt, so intentional temporary migration shims (e.g. Volt entry-point shims) can remain while consumers migrate off them.',
+				"Disallows re-exporting symbols from other modules (barrel patterns and import-then-export indirection) so consumers and bundlers do not chase extra layers. A re-export whose leading comment carries an `@deprecated` JSDoc tag is exempt, so intentional temporary migration shims (e.g. Volt entry-point shims) can remain while consumers migrate off them. A package's root barrel entry point (`<pkg>/src/index.{ts,tsx,js,jsx}`) is also fully exempt — it is the public API surface and may re-export freely without an `@deprecated` marker.",
 			recommended: true,
 			severity: 'warn',
 		},
@@ -179,6 +185,17 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		type: 'problem',
 	},
 	create(context) {
+		// A package's root barrel (`<pkg>/src/index.{ts,tsx,js,jsx}`) is the public
+		// API entry point whose entire purpose is to aggregate and re-export the
+		// package's modules. Re-exports there are expected, so the file is exempt
+		// wholesale — and, notably, without requiring a deprecation migration-shim
+		// marker on each re-export. Returning an empty visitor disables the rule for
+		// this file only.
+		const filename = context.filename ?? context.getFilename();
+		if (isRootPackageBarrel(filename)) {
+			return {};
+		}
+
 		const sourceCode = context.sourceCode ?? context.getSourceCode();
 
 		// A re-exposed import is only a problem when it is NOT the file's sole

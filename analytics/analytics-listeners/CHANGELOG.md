@@ -1,5 +1,28 @@
 # @atlaskit/analytics-listeners
 
+## 11.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.0
+
+### Minor Changes
+
+- [`14ee6b972232b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14ee6b972232b) -
+  [SQA-4568] Allow screen events to populate the Gas top-level `path` and `url` fields, which were
+  previously always sent as empty strings.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.0
 
 ### Minor Changes

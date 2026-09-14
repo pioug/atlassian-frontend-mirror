@@ -1,20 +1,19 @@
 import React, { useCallback, useState } from 'react';
 
-import Lorem from 'react-lorem-component';
+import PlaceholderContent from './placeholder-content';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { Code } from '@atlaskit/code';
-import { Label } from '@atlaskit/form';
-import Heading from '@atlaskit/heading';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import Code from '@atlaskit/code/code';
+import { Label } from '@atlaskit/form/label/default';
+import Heading from '@atlaskit/heading/heading';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 
 const allowlistElement = (element: HTMLElement) => {
 	if (element.closest('[data-allowlist-container="true"]')) {
@@ -87,7 +86,7 @@ export default function Allowlist(): React.JSX.Element {
 								<ModalTitle>Nested Modal</ModalTitle>
 							</ModalHeader>
 							<ModalBody>
-								<Lorem count={1} />
+								<PlaceholderContent count={1} />
 							</ModalBody>
 							<ModalFooter>
 								<ButtonGroup label="Inner modal controls">

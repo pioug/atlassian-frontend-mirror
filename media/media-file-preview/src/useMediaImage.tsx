@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/media-client';
 import { type MediaTraceContext, type SSR } from '@atlaskit/media-common';
 
-import type { MediaFilePreviewError } from './errors';
+import type { MediaFilePreviewError } from './MediaFilePreviewError';
 import {
 	type MediaFilePreviewDimensions,
 	type MediaFilePreviewSource,

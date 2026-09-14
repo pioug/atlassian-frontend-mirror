@@ -10,7 +10,10 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import type { TabField, TabGroupField } from '@atlaskit/editor-common/extensions';
-import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+import Tabs from '@atlaskit/tabs/tabs';
+import Tab from '@atlaskit/tabs/tab';
+import TabList from '@atlaskit/tabs/tab-list';
+import TabPanel from '@atlaskit/tabs/tab-panel';
 
 const panelWrapperStyles = css({
 	flexGrow: 1,
@@ -56,7 +59,7 @@ const TabGroupImpl = (props: Props) => {
 };
 TabGroupImpl.displayName = 'TabGroup';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const TabGroup: React.FC<WithIntlProps<Props>> & {
 	WrappedComponent: React.ComponentType<Props>;
 } = injectIntl(TabGroupImpl);

@@ -7,7 +7,7 @@ import {
 	CollapsedWithOpenLayerVR,
 	ExpandedVR,
 	ExpandedWithOpenLayerVR,
-} from '../../../../../examples/side-nav-flyout';
+} from '../../../../../examples/side-nav-flyout.vr.ap';
 
 const defaultOptions: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,

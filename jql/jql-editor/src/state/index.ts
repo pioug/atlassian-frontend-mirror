@@ -21,47 +21,42 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import {
 	computeJqlInsights,
 	isListOperator,
 	type JQLParseError,
 	normaliseJqlString,
 } from '@atlaskit/jql-ast';
-import { JQLAutocomplete, type JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { JQLAutocomplete } from '@atlaskit/jql-autocomplete/jql-autocomplete';
+import type { JQLRuleSuggestion } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { EventType } from '@atlaskit/jql-editor-common/constants';
 
-import {
-	ActionSubject,
-	ActionSubjectId,
-	Action as AnalyticsAction,
-	EventType,
-	type JqlEditorAnalyticsEvent,
-} from '../analytics';
+import { ActionSubject, ActionSubjectId, Action as AnalyticsAction } from '../analytics/constants';
+import { type JqlEditorAnalyticsEvent } from '../analytics/types';
 import { selectErrorCommand } from '../commands/select-error-command';
 import { JQL_EDITOR_MAIN_ID } from '../common/constants';
-import {
-	type AutocompleteOptionGroup,
-	type AutocompleteOptions,
-	type AutocompleteOptionType,
-	type SelectableAutocompleteOption,
-	type SelectableAutocompleteOptions,
-} from '../plugins/autocomplete/components/types';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 import {
 	defaultAutocompleteProvider,
 	JQLAutocompletePluginKey,
 } from '../plugins/autocomplete/constants';
-import { getJastFromState } from '../plugins/jql-ast';
-import { type AutocompleteProvider } from '../plugins/types';
-import {
-	clipboardTextParser,
-	clipboardTextSerializer,
-	configurePlugins,
-	defaultEditorState,
-	type JQLEditorCommand,
-} from '../schema';
+import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
+import type {
+	AutocompleteOptionGroup,
+	AutocompleteOptionType,
+	SelectableAutocompleteOption,
+	SelectableAutocompleteOptions,
+} from '../plugins/autocomplete/components/types';
+import { getJastFromState } from '../plugins/jql-ast/getJastFromState';
+import { defaultEditorState, type JQLEditorCommand } from '../schema';
+import { clipboardTextParser } from '../schema/clipboardTextParser';
+import { clipboardTextSerializer } from '../schema/clipboardTextSerializer';
+import { configurePlugins } from '../schema/configurePlugins';
 import { type PortalActions } from '../ui/jql-editor-portal-provider/types';
 import {
+	type HydratedAssets,
 	type HydratedDeprecatedField,
 	type HydratedProject,
 	type HydratedGoal,
@@ -70,12 +65,12 @@ import {
 	type HydratedUser,
 	type HydratedValue,
 } from '../ui/jql-editor/types';
-import { getNodeText } from '../utils/document-text';
+import { getNodeText } from '../utils/document-text/getNodeText';
 
 import { onStartAutocompleteEvent } from './analytics';
 import { sortOperators } from './autocomplete';
 import { hydrateQuery } from './hydration';
-import { normaliseHydrationKey } from './hydration/util';
+import { normaliseHydrationKey } from './hydration/normaliseHydrationKey';
 import {
 	type AutocompletePosition,
 	type AutocompleteState,
@@ -89,14 +84,12 @@ import {
 	type Props,
 	type State,
 } from './types';
-import {
-	getAutocompleteOptionId,
-	getAutocompletePosition,
-	getFieldNodes,
-	getReplacePositionStart,
-	sendDebugMessage,
-	tokensToAutocompleteOptions,
-} from './util';
+import { getAutocompleteOptionId } from './getAutocompleteOptionId';
+import { getAutocompletePosition } from './getAutocompletePosition';
+import { getFieldNodes } from './getFieldNodes';
+import { getReplacePositionStart } from './getReplacePositionStart';
+import { sendDebugMessage } from './sendDebugMessage';
+import { tokensToAutocompleteOptions } from './tokensToAutocompleteOptions';
 
 const initialIntl = createIntl({ locale: 'en' });
 
@@ -438,6 +431,7 @@ export const actions: Actions = {
 
 			const optionTypes: OptionsKey[] = [];
 			const observables: Observable<AutocompleteOptions>[] = [];
+			let functionName: string | undefined;
 
 			if (
 				rules.functionArgument &&
@@ -451,8 +445,8 @@ export const actions: Actions = {
 				// swallowed by the else-if chain.
 				const { matchedText, context } = rules.functionArgument;
 				const fieldName = context?.field ?? '';
-				const functionName = context?.functionName ?? '';
-				const functionArguments$ = onFunctionArguments(fieldName, matchedText, functionName);
+				functionName = context?.functionName;
+				const functionArguments$ = onFunctionArguments(fieldName, matchedText, functionName ?? '');
 				optionTypes.push('values');
 				observables.push(
 					dispatch(
@@ -532,11 +526,11 @@ export const actions: Actions = {
 					hasOptions = true;
 				},
 				error() {
-					onStopAutocompleteEvent(false, optionTypes, hasOptions);
+					onStopAutocompleteEvent(false, optionTypes, hasOptions, functionName);
 					dispatch(actions.setLoading(false));
 				},
 				complete() {
-					onStopAutocompleteEvent(true, optionTypes, hasOptions);
+					onStopAutocompleteEvent(true, optionTypes, hasOptions, functionName);
 					dispatch(actions.setLoading(false));
 				},
 			});
@@ -1213,6 +1207,11 @@ export const useHydratedTeam: HookFunction<
 	}
 > = createHook<State, Actions, HydratedTeam | undefined, { fieldName: string; id: string }>(Store, {
 	selector: (state, { id, fieldName }) => {
+		// Field names come from ProseMirror node attributes exactly as written in the query, so a quoted
+		// field (e.g. `"Team[Team]"`) must be unquoted to match the hydration API's jqlTerm.
+		const teamFieldName = fg('jira-descendants-of-team-jql-function')
+			? normaliseJqlString(fieldName)
+			: fieldName;
 		const team =
 			FeatureGates.getExperimentValue(
 				'atlassian_projects_-_native_integration',
@@ -1220,7 +1219,7 @@ export const useHydratedTeam: HookFunction<
 				-1,
 			) >= 1
 				? state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(normaliseJqlString(id))
-				: state.hydratedValues[fieldName]?.get(id);
+				: state.hydratedValues[teamFieldName]?.get(id);
 		return team && team.type === 'team' ? team : undefined;
 	},
 });
@@ -1285,6 +1284,28 @@ export const useHydratedLozengeWithAvatar: HookFunction<
 		return value && value.type === 'lozengeWithAvatar' ? value : undefined;
 	},
 });
+
+export const useHydratedAssets: HookFunction<
+	HydratedAssets | undefined,
+	BoundActions<State, Actions>,
+	{
+		fieldName: string;
+		id: string;
+	}
+> = createHook<State, Actions, HydratedAssets | undefined, { fieldName: string; id: string }>(
+	Store,
+	{
+		selector: (state, { id, fieldName }) => {
+			// The store only normalises its field name keys while the projects experiment is on, so a node
+			// carrying the key it was stored under needs the unnormalised form too. Ids need no such
+			// fallback: normalising only strips quotes, so it is identity on an already unquoted id.
+			const valuesForField =
+				state.hydratedValues[normaliseHydrationKey(fieldName)] ?? state.hydratedValues[fieldName];
+			const value = valuesForField?.get(normaliseJqlString(id));
+			return value && value.type === 'assets' ? value : undefined;
+		},
+	},
+);
 
 export const useHydratedDeprecations: HookFunction<
 	HydratedDeprecatedField[],

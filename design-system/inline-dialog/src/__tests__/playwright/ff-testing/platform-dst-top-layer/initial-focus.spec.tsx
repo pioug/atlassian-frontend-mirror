@@ -24,6 +24,7 @@ test.describe('InlineDialog top-layer — initial focus matrix', () => {
 			typeof import('../../../../../examples/99-testing-initial-focus-matrix.tsx')
 		>('design-system', 'inline-dialog', 'testing-initial-focus-matrix', {
 			featureFlag,
+			'react-18-mode': 'modern',
 		});
 
 		await page.getByTestId('default-inline-dialog-trigger').click();
@@ -37,6 +38,7 @@ test.describe('InlineDialog top-layer — initial focus matrix', () => {
 			typeof import('../../../../../examples/99-testing-initial-focus-matrix.tsx')
 		>('design-system', 'inline-dialog', 'testing-initial-focus-matrix', {
 			featureFlag,
+			'react-18-mode': 'modern',
 		});
 
 		await page.getByTestId('autofocus-inline-dialog-trigger').click();

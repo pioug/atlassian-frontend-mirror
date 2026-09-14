@@ -2,14 +2,14 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { render, screen } from '@atlassian/testing-library';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkStatus } from '../../../../../../constants';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics/analytics';
 import AISummaryBlock from '../index';
 import { type AISummaryBlockProps } from '../types';
 

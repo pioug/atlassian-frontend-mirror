@@ -5,6 +5,7 @@ import { blockGroup } from '../groups/blockGroup';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { unsupportedBlock } from '../nodes/unsupportedBlock';
+import { panel } from './panel';
 
 const layoutColumnAttributes = {
 	width: {
@@ -29,5 +30,10 @@ export const layoutColumn: ADFNode<[string], ADFCommonNodeSpec> = adfNode('layou
 	marks: [unsupportedMark, unsupportedNodeAttribute],
 
 	attrs: layoutColumnAttributes,
-	content: [$onePlus($or(blockGroup, blockContentGroup, unsupportedBlock))],
+	// panel_c1 (table-in-panel) is also valid inside a layout column. It must come before
+	// `blockContentGroup`, which contributes the bare `panel` name: the validator's repairing loop
+	// takes the first valid candidate, and base `panel` "succeeds" by wrapping a nested table as
+	// `unsupportedBlock`. Kept after `blockGroup` so `block` stays the leading PM alternative.
+	// See the same note in full-schema.adf.ts.
+	content: [$onePlus($or(blockGroup, panel.use('c1'), blockContentGroup, unsupportedBlock))],
 });

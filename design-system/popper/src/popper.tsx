@@ -8,14 +8,15 @@ import {
 	Popper as ReactPopper,
 } from 'react-popper';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getMaxSizeModifiers } from './max-size';
 import { PopperTopLayer } from './popper-top-layer';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports
 export { placements } from '@popperjs/core';
 // Export types from PopperJS / React Popper
-export type { Placement, VirtualElement } from '@popperjs/core';
+export type { Placement, State, VirtualElement } from '@popperjs/core';
 export type {
 	ManagerProps,
 	ReferenceProps,
@@ -168,7 +169,6 @@ function LegacyPopper<CustomModifiers>({
 
 		const maxSizeModifiers = shouldFitViewport ? getMaxSizeModifiers({ viewportPadding }) : [];
 
-		// @ts-ignore Type errors from incompatible @popperjs/core versions between Jira and AFM Platform... we are using ts-ignore here because ts-expect-error will cause an "Unused '@ts-expect-error' directive." error
 		return [...constantModifiers, preventOverflowModifier, offsetModifier, ...maxSizeModifiers];
 	}, [offsetX, offsetY, shouldFitViewport]);
 

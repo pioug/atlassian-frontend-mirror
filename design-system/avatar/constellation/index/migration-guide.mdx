@@ -1,0 +1,57 @@
+---
+title: Migration guide
+order: 3
+---
+
+## Migrating from `xsmall` to `xxsmall`
+
+Avatar is adding a 20px size in a future major version. To make room for that size, the current 16px
+`xsmall` size is being renamed to `xxsmall`.
+
+## Timeline
+
+1. In this major, use `xxsmall` for 16px avatars. `UNSAFE_xsmall` is available as a temporary 20px
+   Avatar-only size.
+2. In the next major, `xsmall` will become the public 20px Avatar size.
+3. In a later major, `UNSAFE_xsmall` will be removed. Use `xsmall` for 20px avatars after that major
+   ships.
+
+`AvatarGroup` still does not support 16px or 20px sizes. Use `small`, `medium`, `large`, `xlarge`,
+or `xxlarge` with AvatarGroup.
+
+## Use the codemod
+
+Run the Avatar codemod from the `platform` directory:
+
+```sh
+yarn jscodeshift -t packages/design-system/avatar/codemods/27.0.0-xsmall-to-xxsmall.tsx <path>
+```
+
+The codemod updates static Avatar size values tied to `@atlaskit/avatar` imports. It leaves dynamic
+values in place and adds a `TODO: (from codemod)` comment so you can check them manually. It does
+not rewrite AvatarGroup sizes because AvatarGroup still does not support 16px or 20px avatars.
+
+```tsx
+// Before
+<Avatar size="xsmall" name="Alex" />
+
+// After
+<Avatar size="xxsmall" name="Alex" />
+```
+
+```tsx
+// Before
+const props: AvatarPropTypes = { size: 'xsmall', name: 'Alex' };
+
+// After
+const props: AvatarPropTypes = { size: 'xxsmall', name: 'Alex' };
+```
+
+## Manual follow-up
+
+The codemod does not change dynamic values. Check any Avatar or AvatarGroup size values that are
+passed through variables, constants, maps, or product-specific wrapper components. If the value can
+be `xsmall`, migrate that value to `xxsmall`.
+
+Do not migrate unrelated `xsmall` strings from other components, such as heading, icon, spinner, or
+product-specific size APIs.

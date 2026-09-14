@@ -1,9 +1,9 @@
 import React, { type FC, useState } from 'react';
 
-import { Presence } from '@atlaskit/avatar';
-import { Label } from '@atlaskit/form';
+import Presence from '@atlaskit/avatar/presence';
+import { Label } from '@atlaskit/form/label/default';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 const PresenceWidthExample: FC = () => {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b6b0418a68f5a1c278187f0869a0e32f>>
+ * @codegen <<SignedSource::23550e9a9f6f237ba15b0b9afdf2850e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,20 +10,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "CrossCircle".
  * Category: multi-purpose
  * Location: @atlaskit/icon/core/cross-circle
  * Usage guidance:
- * Multi purpose - Known uses: clear text field, error status.
+ * Known uses: clear text field, error status.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const CrossCircleIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const CrossCircleIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "CrossCircleIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m4.03 5.03L9.06 8l2.97 2.97-1.06 1.06L8 9.06l-2.97 2.97-1.06-1.06L6.94 8 3.97 5.03l1.06-1.06L8 6.94l2.97-2.97z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0m0 6.94L5.03 3.97 3.97 5.03 6.94 8l-2.97 2.97 1.06 1.06L8 9.06l2.97 2.97 1.06-1.06L9.06 8l2.97-2.97-1.06-1.06z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CrossCircleIcon.displayName = 'CrossCircleIcon';

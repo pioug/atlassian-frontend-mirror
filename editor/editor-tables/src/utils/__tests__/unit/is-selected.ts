@@ -1,11 +1,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+
 import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { cEmpty } from '../../../__tests__/__helpers/doc-builder';
 import { selectionFor } from '../../../__tests__/__helpers/selection-for';
-import { isColumnSelected, isRowSelected, isTableSelected } from '../../is-selected';
+import { isColumnSelected } from '../../is-column-selected';
+import { isRowSelected } from '../../is-row-selected';
+import { isTableSelected } from '../../is-table-selected';
 
 describe('isColumnSelected', () => {
 	it('should return `true` if CellSelection spans the entire column', () => {

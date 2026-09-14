@@ -1,22 +1,22 @@
 import React, { useMemo } from 'react';
-import { type VideoTextTracks } from '../react-video-renderer';
-import UploadIcon from '@atlaskit/icon/core/upload';
+
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
+
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import SettingsIcon from '@atlaskit/icon/core/settings';
-import { messages } from '../../messages';
-import Tooltip from '@atlaskit/tooltip';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
-import { formatLocale } from './captions';
+import UploadIcon from '@atlaskit/icon/core/upload';
+import type { OptionType, ValueType } from '@atlaskit/select/types';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import MediaButton from '../../MediaButton';
-import {
-	popupCustomStyles,
-	createPopupSelectComponentsWithIcon,
-	popperProps,
-	getPopperPropsForFullscreen,
-} from '../dropdownControlCommon';
-import { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { messages } from '../../messages';
+import { createPopupSelectComponentsWithIcon } from '../createPopupSelectComponentsWithIcon';
+import { popupCustomStyles } from '../dropdownControlCommon';
+import { getPopperPropsForFullscreen } from '../getPopperPropsForFullscreen';
+import type { VideoTextTracks } from '../react-video-renderer/text';
+import { formatLocale } from './captions/formatLocale';
 
 export interface CaptionsAdminControlsProps {
 	textTracks?: VideoTextTracks;
@@ -95,11 +95,7 @@ export const _CaptionsAdminControls = ({
 				</Tooltip>
 			)}
 			styles={popupCustomStyles}
-			popperProps={
-				fg('platform_editor_video_caption_commit')
-					? getPopperPropsForFullscreen(isFullScreen)
-					: popperProps
-			}
+			popperProps={getPopperPropsForFullscreen(isFullScreen)}
 		/>
 	);
 };

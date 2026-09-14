@@ -1,4 +1,4 @@
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 import { debug } from './debug';
 import { ENV_ENABLE_PLATFORM_FF } from './env-enable-platform-ff';

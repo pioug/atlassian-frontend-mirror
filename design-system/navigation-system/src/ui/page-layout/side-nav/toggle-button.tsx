@@ -7,12 +7,14 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { type IconButtonProps } from '@atlaskit/button/new';
-import { type NewCoreIconProps } from '@atlaskit/icon';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type { IconButtonProps } from '@atlaskit/button/icon/button';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { IconButton } from '../../top-nav-items/themed/icon-button';
@@ -203,7 +205,7 @@ export const SideNavToggleButton: ({
 
 			toggleVisibility();
 
-			if (isFhsEnabled) {
+			if (isFhsEnabled || fg('platform-dst-keep-desired-fhs-features')) {
 				openLayerObserver?.closeLayers();
 			}
 		},
@@ -255,7 +257,7 @@ export const SideNavToggleButton: ({
 	const isShortcutEnabled = useIsSideNavShortcutEnabled();
 
 	const tooltipProps = useMemo(() => {
-		if (isFhsEnabled) {
+		if (isFhsEnabled || fg('platform-dst-keep-desired-fhs-features')) {
 			return {
 				...toggleButtonTooltipOptions,
 				shortcut: isShortcutEnabled ? sideNavToggleTooltipKeyboardShortcut : undefined,

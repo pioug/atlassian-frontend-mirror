@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { layers } from '@atlaskit/theme';
+import { layers } from '@atlaskit/theme/constants';
 
 export default (): React.JSX.Element => {
 	return (

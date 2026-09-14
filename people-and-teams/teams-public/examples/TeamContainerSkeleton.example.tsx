@@ -8,7 +8,7 @@ import {
 	type PlaygroundConfig,
 } from '@atlassian/teams-app-internal-playground/playground';
 
-import { TeamContainerSkeleton } from '../src/next';
+import { TeamContainerSkeleton } from '../src/next/common/ui/team-container-skeleton';
 
 const styles = cssMap({
 	wrapperLarge: {

@@ -8,7 +8,7 @@ import {
 	DateWithGreyColor,
 	DateWithOnClick,
 	DateWithPurpleColor,
-} from './date.fixture';
+} from './date.fixture.vr.ap';
 
 snapshot(DateWithDefaultColor);
 

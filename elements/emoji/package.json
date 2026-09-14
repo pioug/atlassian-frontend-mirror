@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "71.15.3",
+	"version": "72.3.17",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,6 +43,7 @@
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -78,15 +79,19 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/ufo": "workspace:^",
+		"@atlassian/ufo-experimental": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@emotion/jest": "root:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/js-search": "root:*",
+		"@types/react-test-renderer": "root:*",
 		"dotenv": "root:*",
-		"enzyme": "root:*",
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"jest-axe": "root:*",
@@ -121,7 +126,6 @@
 		"./emoji-placeholder": "./src/components/common/EmojiPlaceholder.tsx",
 		"./emoji-repository": "./src/api/EmojiRepository.ts",
 		"./emoji-resource": "./src/api/EmojiResource.ts",
-		"./unicode-emoji-image": "./src/util/renderUnicodeEmojiToImagePath.ts",
 		"./emoji-type-ahead": "./src/components/typeahead/EmojiTypeAhead.tsx",
 		"./emoji-type-ahead-item": "./src/components/typeahead/EmojiTypeAheadItem.tsx",
 		"./emoji-type-ahead-list": "./src/components/typeahead/EmojiTypeAheadList.tsx",
@@ -140,23 +144,14 @@
 		"./typeahead": "./src/typeahead.ts",
 		"./types": "./src/types.ts",
 		"./ufo-experiences": "./src/util/analytics/ufoExperiences.ts",
+		"./unicode-emoji-image": "./src/util/renderUnicodeEmojiToImagePath.ts",
 		"./usage-frequency-tracker": "./src/api/internal/UsageFrequencyTracker.ts",
 		"./use-emoji": "./src/hooks/useEmoji.ts",
 		"./use-emoji-context": "./src/hooks/useEmojiContext.ts",
 		"./utils": "./src/utils.ts"
 	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"compiled"
-			]
-		}
-	},
 	"platform-feature-flags": {
-		"platform_index_emoji_just_in_time": {
+		"nike_r19_render_unmount": {
 			"type": "boolean"
 		},
 		"platform_emoji_prevent_img_src_changing": {
@@ -171,13 +166,17 @@
 		"platform_emoji_keep_picker_open_on_upload": {
 			"type": "boolean"
 		},
+		"platform_bitbucket_fix_shortname_and_ordering": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"use-elements-stargate-emoji-path": {
 			"type": "boolean"
 		},
-		"platform_a11y_fixes_reaction_emoji": {
+		"platform_teamoji_26_refresh_emoji_picker_user_id": {
 			"type": "boolean"
 		},
-		"cache_emoji_loader_for_the_same_config": {
+		"emoji_decorative_label": {
 			"type": "boolean"
 		}
 	},
@@ -187,10 +186,6 @@
 			"defaultValue": false
 		},
 		"platform_teamoji_26_refresh_emoji_picker": {
-			"param": "isEnabled",
-			"defaultValue": false
-		},
-		"confluence_ai_generated_emojis": {
 			"param": "isEnabled",
 			"defaultValue": false
 		}

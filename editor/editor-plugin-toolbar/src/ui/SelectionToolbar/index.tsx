@@ -31,8 +31,9 @@ import {
 } from '@atlaskit/editor-toolbar';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
 import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
@@ -40,6 +41,7 @@ import { SELECTION_TOOLBAR_LABEL } from '../consts';
 import { getKeyboardNavigationConfig } from './keyboard-config';
 import type { Position } from './types';
 import { getDomRefFromSelection } from './utils';
+import { isSelectionToolbarSuppressedByUserIntent } from './visibility';
 
 const isToolbarComponent = (component: RegisterComponent): component is RegisterToolbar => {
 	return component.type === 'toolbar' && component.key === 'inline-text-toolbar';
@@ -50,6 +52,7 @@ type SelectionToolbarProps = {
 	disableSelectionToolbarWhenPinned: boolean;
 	editorView: EditorView;
 	mountPoint: HTMLElement | undefined;
+	onToolbarMouseUp?: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
 const usePluginState = (api?: ExtractInjectionAPI<ToolbarPlugin>) => {
@@ -107,6 +110,7 @@ export const SelectionToolbar = ({
 	editorView,
 	mountPoint,
 	disableSelectionToolbarWhenPinned,
+	onToolbarMouseUp,
 }: SelectionToolbarProps): React.JSX.Element | null => {
 	const {
 		connectivityStateMode,
@@ -163,13 +167,41 @@ export const SelectionToolbar = ({
 		(currentUserIntent === 'blockMenuOpen' &&
 			editorExperiment('platform_editor_block_menu', true)) ||
 		// hide toolbar when user intent is not default, except when it's dragHandleSelected without cell selection
-		(currentUserIntent &&
-			currentUserIntent !== 'default' &&
-			!(currentUserIntent === 'dragHandleSelected' && !isCellSelection)) ||
+		isSelectionToolbarSuppressedByUserIntent(currentUserIntent, isCellSelection) ||
 		isSSR()
 	) {
 		return null;
 	}
+
+	const toolbarContent = (
+		<EditorToolbarProvider
+			editorView={editorView}
+			editorToolbarDockingPreference={editorToolbarDockingPreference}
+			editorViewMode={editorViewMode ?? 'edit'}
+			isOffline={isOffline}
+		>
+			<EditorToolbarUIProvider
+				api={api}
+				isDisabled={isDisabled}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+				fireAnalyticsEvent={(payload: unknown) => {
+					api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
+				}}
+				keyboardNavigation={keyboardNavigation}
+			>
+				<ToolbarModelRenderer
+					toolbar={toolbar as RegisterToolbar}
+					components={components}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					fallbacks={{
+						section: ToolbarSection,
+						menuSection: ToolbarDropdownItemSection,
+						group: ToolbarButtonGroup,
+					}}
+				/>
+			</EditorToolbarUIProvider>
+		</EditorToolbarProvider>
+	);
 
 	return (
 		<Popup
@@ -180,33 +212,11 @@ export const SelectionToolbar = ({
 			mountTo={mountPoint}
 			zIndex={akEditorFloatingDialogZIndex}
 		>
-			<EditorToolbarProvider
-				editorView={editorView}
-				editorToolbarDockingPreference={editorToolbarDockingPreference}
-				editorViewMode={editorViewMode ?? 'edit'}
-				isOffline={isOffline}
-			>
-				<EditorToolbarUIProvider
-					api={api}
-					isDisabled={isDisabled}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					fireAnalyticsEvent={(payload: unknown) => {
-						api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
-					}}
-					keyboardNavigation={keyboardNavigation}
-				>
-					<ToolbarModelRenderer
-						toolbar={toolbar as RegisterToolbar}
-						components={components}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						fallbacks={{
-							section: ToolbarSection,
-							menuSection: ToolbarDropdownItemSection,
-							group: ToolbarButtonGroup,
-						}}
-					/>
-				</EditorToolbarUIProvider>
-			</EditorToolbarProvider>
+			{isExperimentEnabled('platform_editor_toolbar_multi_editor_fix') ? (
+				<div onMouseUpCapture={onToolbarMouseUp}>{toolbarContent}</div>
+			) : (
+				toolbarContent
+			)}
 		</Popup>
 	);
 };
@@ -216,6 +226,7 @@ export const SelectionToolbarWithErrorBoundary = ({
 	editorView,
 	mountPoint,
 	disableSelectionToolbarWhenPinned,
+	onToolbarMouseUp,
 }: SelectionToolbarProps): React.JSX.Element => {
 	return (
 		<ErrorBoundary
@@ -229,6 +240,7 @@ export const SelectionToolbarWithErrorBoundary = ({
 				editorView={editorView}
 				mountPoint={mountPoint}
 				disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned}
+				onToolbarMouseUp={onToolbarMouseUp}
 			/>
 		</ErrorBoundary>
 	);

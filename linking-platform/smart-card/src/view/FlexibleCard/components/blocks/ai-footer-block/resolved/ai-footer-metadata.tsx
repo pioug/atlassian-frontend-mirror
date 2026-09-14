@@ -6,7 +6,7 @@ import { di } from 'react-magnetic-di';
 import RovoIcon from '@atlaskit/icon-lab/core/rovo';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { messages } from '../../../../../../messages';
 import type { AISummaryActionData } from '../../../../../../state/flexible-ui-context/types';

@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 import { DevTools, getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { syncBlockMessages } from '@atlaskit/editor-common/messages';
 import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';

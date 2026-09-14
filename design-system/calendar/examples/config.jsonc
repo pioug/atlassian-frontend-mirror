@@ -5,9 +5,9 @@
  */
 {
   "testExamples": [
-    "0-basic.tsx",
+    "0-basic.vr.ap.tsx",
     "1-controlled.tsx",
     "2-i18n.tsx",
-    "99-testing.tsx"
+    "99-testing.vr.ap.tsx"
   ]
 }

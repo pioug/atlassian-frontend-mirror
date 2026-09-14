@@ -5,7 +5,7 @@
 import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { messages } from '@atlaskit/media-ui';
+import { messages } from '@atlaskit/media-ui/messages';
 import { type Avatar } from '../avatar-list';
 
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';

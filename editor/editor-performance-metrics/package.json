@@ -26,7 +26,6 @@
 		".": "./src/index.ts",
 		"./editorPerformanceObserver": "./src/entry-points/editorPerformanceObserver.ts",
 		"./global": "./src/entry-points/global.ts",
-		"./inp": "./src/entry-points/inp.ts",
 		"./metrics/editorPerformanceMetrics": "./src/entry-points/metrics-editorPerformanceMetrics.ts",
 		"./metrics": "./src/metrics.ts",
 		"./page-complexity-score": "./src/entry-points/page-complexity-score.ts",
@@ -49,58 +48,19 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
-	"techstackIgnore": {
-		"stricter": [
-			"@atlassian/tangerine/project-structure"
-		]
-	},
 	"scripts": {
 		"build-and-copy-page-score": "npx esbuild ./src/page-complexity-score/index.ts --bundle --platform=neutral --target=es2022 --format=iife --global-name=pageTreeScore | pbcopy"
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "3.2.0",
+	"version": "4.0.0",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

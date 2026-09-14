@@ -2,10 +2,13 @@
 import { expect, test } from '@af/integration-testing';
 
 test('should be rendered and pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/00-default-modal.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-default-modal.vr.ap.tsx')>(
 		'design-system',
 		'modal-dialog',
 		'default-modal',
+		{
+			'react-18-mode': 'modern',
+		},
 	);
 
 	const modalTrigger = page.getByTestId('modal-trigger').first();
@@ -27,10 +30,13 @@ test('should include icon as part of title <h1>', async ({ page }) => {
 	 *
 	 * DO NOT REMOVE THE ICON FROM THE TITLE
 	 */
-	await page.visitExample<typeof import('../../../examples/10-appearance.tsx')>(
+	await page.visitExample<typeof import('../../../examples/10-appearance.vr.ap.tsx')>(
 		'design-system',
 		'modal-dialog',
 		'appearance',
+		{
+			'react-18-mode': 'modern',
+		},
 	);
 
 	const warningTrigger = page.getByTestId('warning');

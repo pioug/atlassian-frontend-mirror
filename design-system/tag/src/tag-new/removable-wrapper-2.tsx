@@ -11,7 +11,8 @@ import { type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import ShrinkOut from '@atlaskit/motion/shrink-out';
 
 import { removableShrinkOutChildKey } from './shared';
 import { TagStatus } from './tag-status';

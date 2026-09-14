@@ -1,6 +1,11 @@
 import { TEAM_ARI_PREFIX, USER_ARI_PREFIX } from '../types';
 
-import { isTeamARI, isUserARI, toTeamARI, toTeamId, toUserARI, toUserId } from './ari';
+import { isTeamARI } from './is-team-ari';
+import { isUserARI } from './is-user-ari';
+import { toTeamARI } from './to-team-ari';
+import { toTeamId } from './to-team-id';
+import { toUserARI } from './to-user-ari';
+import { toUserId } from './to-user-id';
 
 describe('ARIs', () => {
 	describe.each([
@@ -16,7 +21,6 @@ describe('ARIs', () => {
 
 		it('should convert a to ID', () => {
 			const ari = `${prefix}12345`;
-			// @ts-ignore
 			const id = toId(ari);
 
 			expect(id).toEqual('12345');
@@ -25,7 +29,6 @@ describe('ARIs', () => {
 		it('should throw an error when trying to convert an invalid ARI to an ID', () => {
 			const invalidUserAri = 'invalid:ari:user/12345';
 
-			// @ts-ignore
 			expect(() => toUserId(invalidUserAri)).toThrow('Invalid UserARI');
 		});
 
@@ -45,7 +48,6 @@ describe('ARIs', () => {
 
 		it('should be able to reverse the conversion from ARI to an ID and back', () => {
 			const input = `${prefix}12345`;
-			// @ts-ignore
 			const id = toId(input);
 			const ARI = toARI(id);
 
@@ -55,7 +57,6 @@ describe('ARIs', () => {
 		it('should be able to reverse the conversion from user ID to UserARI and back', () => {
 			const id = '12345';
 			const ARI = toARI(id);
-			// @ts-ignore
 			const newId = toId(ARI);
 
 			expect(newId).toEqual(id);

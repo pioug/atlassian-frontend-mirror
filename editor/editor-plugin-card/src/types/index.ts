@@ -1,5 +1,5 @@
-import type { RichMediaAttributes } from '@atlaskit/adf-schema';
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { RichMediaAttributes } from '@atlaskit/adf-schema/rich-media-common';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type {
 	CardOptions,
@@ -14,8 +14,8 @@ import type {
 	LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { CardContext } from '@atlaskit/link-provider';
-import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common/types';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
 import type { EditorCardPluginEvents } from '../ui/analytics/create-events-queue';

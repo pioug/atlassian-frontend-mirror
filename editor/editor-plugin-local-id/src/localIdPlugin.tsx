@@ -1,7 +1,8 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { replaceNode, getNode } from './editor-actions';
+import { addMissingLocalIds } from './editor-commands';
 import type { LocalIdPlugin, LocalIdSharedState } from './localIdPluginType';
 import { createPlugin } from './pm-plugins/main';
 import { createWatchmenPlugin, localIdWatchmenPluginKey } from './pm-plugins/watchmen';
@@ -11,6 +12,9 @@ export const localIdPlugin: LocalIdPlugin = ({ api }) => ({
 	actions: {
 		replaceNode: replaceNode(api),
 		getNode: getNode(api),
+	},
+	commands: {
+		addMissingLocalIds,
 	},
 	pmPlugins() {
 		return [

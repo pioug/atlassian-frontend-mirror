@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-dialog",
-	"version": "19.2.0",
+	"version": "20.3.0",
 	"description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -18,8 +18,8 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./inline-dialog": "./src/entry-points/inline-dialog.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./inline-dialog": "./src/inline-dialog.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {
@@ -59,7 +59,7 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -70,6 +70,7 @@
 		"@atlaskit/datetime-picker": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -77,8 +78,9 @@
 		"@atlaskit/select": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"react-dom": "root:*",
 		"react-lorem-component": "root:*"
 	},
@@ -87,28 +89,6 @@
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"design-system": "v1",
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"platform-feature-flags": {
 		"platform-dst-top-layer": {
 			"type": "boolean"

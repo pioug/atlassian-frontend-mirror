@@ -10,7 +10,7 @@ test.beforeEach(({ skipAxeCheck }) => {
 
 test.describe('InlineMessage top-layer — WCAG 2.1.1 Keyboard (Click/Enter/Space)', () => {
 	test('opens via click on trigger button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -31,7 +31,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.1 Keyboard (Click/Enter/Spac
 	});
 
 	test('opens via keyboard Enter on trigger button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -53,7 +53,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.1 Keyboard (Click/Enter/Spac
 	});
 
 	test('opens via keyboard Space on trigger button', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -77,7 +77,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.1 Keyboard (Click/Enter/Spac
 
 test.describe('InlineMessage top-layer — WCAG 2.1.2 No Keyboard Trap (Escape/Click-outside)', () => {
 	test('closes via Escape key', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -100,7 +100,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.2 No Keyboard Trap (Escape/C
 	});
 
 	test('closes via click outside popup', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -123,7 +123,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.2 No Keyboard Trap (Escape/C
 	});
 
 	test('closes via toggle via trigger click', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -148,7 +148,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.2 No Keyboard Trap (Escape/C
 
 test.describe('InlineMessage top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('focus returns to trigger after closing via Escape', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -172,7 +172,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('focus can reach popup content', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -199,7 +199,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.3 Focus Order', () => {
 
 test.describe('InlineMessage top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('trigger button shows focus-visible state when focused', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -216,7 +216,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.7 Focus Visible', () => {
 	});
 
 	test('popup content receives focus when opened via keyboard', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -245,7 +245,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.7 Focus Visible', () => {
 
 test.describe('InlineMessage top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 	test('popup content is visible and not obscured when open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -273,7 +273,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.11 Focus Not Obscured', () =
 
 test.describe('InlineMessage top-layer — WCAG 1.3.2 Meaningful Sequence (Content near trigger in DOM)', () => {
 	test('popup is rendered in document without portal', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -303,7 +303,7 @@ test.describe('InlineMessage top-layer — WCAG 1.3.2 Meaningful Sequence (Conte
 
 test.describe('InlineMessage top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('trigger button has correct aria-expanded attribute', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -326,7 +326,7 @@ test.describe('InlineMessage top-layer — WCAG 4.1.2 Name, Role, Value', () => 
 	});
 
 	test('popup has correct role=dialog attribute', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -349,7 +349,7 @@ test.describe('InlineMessage top-layer — WCAG 4.1.2 Name, Role, Value', () => 
 
 test.describe('InlineMessage top-layer — Component Structure and Content', () => {
 	test('all component parts are present and labeled correctly', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',
@@ -374,7 +374,7 @@ test.describe('InlineMessage top-layer — Component Structure and Content', () 
 	});
 
 	test('popup content renders correctly with correct text', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../../../examples/99-testing.tsx')>(
+		await page.visitExample<typeof import('../../../../../../examples/99-testing.vr.ap.tsx')>(
 			'design-system',
 			'inline-message',
 			'testing',

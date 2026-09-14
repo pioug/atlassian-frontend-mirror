@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::79151986eefb0d79ff7389ad5707c136>>
+ * @codegen <<SignedSource::bf80d35fd40248ec892eab74ce370a0e>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  */
 export function ConfluenceDataCenterIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Confluence Data Center',
 	testId,

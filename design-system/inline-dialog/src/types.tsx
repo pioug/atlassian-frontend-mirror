@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 export type Placement =
 	| 'auto-start'

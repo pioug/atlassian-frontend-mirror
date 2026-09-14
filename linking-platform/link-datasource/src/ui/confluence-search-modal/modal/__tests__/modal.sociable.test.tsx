@@ -5,12 +5,12 @@ import userEvent from '@testing-library/user-event';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
 import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';
-import { ConfluenceSearchConfigModal } from '../index';
+import { ConfluenceSearchConfigModal } from '../ConfluenceSearchConfigModal';
 
 jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
 

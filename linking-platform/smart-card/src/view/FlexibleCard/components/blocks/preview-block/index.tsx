@@ -1,31 +1,10 @@
-import React from 'react';
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
-
-import PreviewBlockResolvedView from './resolved';
-import { type PreviewBlockProps } from './types';
-
-/**
- * Represents a PreviewBlock, which typically contains media or other large format content.
- * @public
- * @param {PreviewBlockProps} PreviewBlock
- * @see Block
- */
-const PreviewBlock = ({
-	testId = 'smart-block-preview',
-	overrideUrl,
-	...blockProps
-}: PreviewBlockProps): React.JSX.Element => {
-	const ui = useFlexibleUiOptionContext();
-
-	return (
-		<PreviewBlockResolvedView
-			{...blockProps}
-			size={blockProps.size ?? ui?.size}
-			testId={testId}
-			overrideUrl={overrideUrl}
-		/>
-	);
-};
+import { PreviewBlock } from './PreviewBlock';
 
 export default PreviewBlock;
+
+/**
+ * @deprecated Use `import { PreviewBlock } from '@atlaskit/smart-card/preview-block'` instead.
+ */
+export { PreviewBlock } from './PreviewBlock';

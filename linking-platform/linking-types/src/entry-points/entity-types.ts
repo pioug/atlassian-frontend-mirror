@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export interface User {
 	accountId?: string;
 	displayName?: string;
@@ -7,10 +8,12 @@ export interface User {
 	picture?: string;
 }
 
-const DESIGN_TYPES = ['FILE', 'CANVAS', 'GROUP', 'NODE', 'PROTOTYPE', 'OTHER'] as const;
+export const DESIGN_TYPES = ['FILE', 'CANVAS', 'GROUP', 'NODE', 'PROTOTYPE', 'OTHER'] as const;
+
 export type DesignType = (typeof DESIGN_TYPES)[number];
 
-const DESIGN_STATUSES = ['READY_FOR_DEVELOPMENT', 'UNKNOWN', 'NONE'] as const;
+export const DESIGN_STATUSES = ['READY_FOR_DEVELOPMENT', 'UNKNOWN', 'NONE'] as const;
+
 export type DesignStatus = (typeof DESIGN_STATUSES)[number];
 
 export type DesignAttributes = {
@@ -19,7 +22,8 @@ export type DesignAttributes = {
 	status: DesignStatus;
 	type: DesignType;
 };
-const REMOTE_LINK_TYPES = [
+
+export const REMOTE_LINK_TYPES = [
 	'document',
 	'alert',
 	'test',
@@ -31,6 +35,7 @@ const REMOTE_LINK_TYPES = [
 	'releaseNotes',
 	'other',
 ] as const;
+
 export type RemoteLinkType = (typeof REMOTE_LINK_TYPES)[number];
 
 export type RemoteLinkAttributes = {
@@ -44,7 +49,9 @@ export type RemoteLinkAttributes = {
 };
 
 const APPEARANCES = ['default', 'inprogress', 'moved', 'new', 'removed', 'success'] as const;
+
 export type Appearance = (typeof APPEARANCES)[number];
+
 export type RemoteLinkStatus = {
 	appearance: Appearance;
 	label: string; // max 255 characters
@@ -72,7 +79,7 @@ export type ProjectAttributes = {
 	watchersCount?: number;
 };
 
-const WORK_ITEM_SUB_TYPES = [
+export const WORK_ITEM_SUB_TYPES = [
 	'task',
 	'bug',
 	'story',
@@ -88,6 +95,7 @@ const WORK_ITEM_SUB_TYPES = [
 	'work_item',
 	'default_task',
 ] as const;
+
 export type SubType = (typeof WORK_ITEM_SUB_TYPES)[number];
 
 export type WorkItemAttributes = {
@@ -102,7 +110,7 @@ export type WorkItemAttributes = {
 	team: string;
 };
 
-const DOCUMENT_CATEGORIES = [
+export const DOCUMENT_CATEGORIES = [
 	'folder',
 	'document',
 	'presentation',
@@ -118,6 +126,7 @@ const DOCUMENT_CATEGORIES = [
 	'web-page',
 	'other',
 ] as const;
+
 export type DocumentCategory = (typeof DOCUMENT_CATEGORIES)[number];
 
 export type DocumentContent = {
@@ -233,107 +242,54 @@ export type EntityType =
 	| UnsupportedEntity;
 
 /**
- * Runtime membership check for string literal tuples.
- * Keeps guard logic aligned with tuple-derived union types.
+ * @deprecated Use `import { isBaseEntity } from '@atlaskit/linking-types/is-base-entity'` instead.
  */
-const isOneOf = <T extends readonly string[]>(values: T, value: unknown): value is T[number] =>
-	typeof value === 'string' && (values as readonly string[]).includes(value);
-
-const isObject = (value: unknown): value is Record<string | number | symbol, unknown> =>
-	typeof value === 'object' && value !== null;
-
-const asRecord = (value: unknown): Record<string | number | symbol, unknown> =>
-	value as Record<string | number | symbol, unknown>;
-
-export const isBaseEntity = (value: unknown): value is BaseEntity =>
-	isObject(value) &&
-	typeof value.displayName === 'string' &&
-	typeof value.id === 'string' &&
-	typeof value.url === 'string';
-
-export const isDesignEntity = (value: unknown): value is DesignEntity =>
-	isBaseEntity(value) &&
-	isOneOf(DESIGN_STATUSES, asRecord(value).status) &&
-	isOneOf(DESIGN_TYPES, asRecord(value).type);
-
-export const isRemoteLinkEntity = (value: unknown): value is RemoteLinkEntity => {
-	if (!isBaseEntity(value)) {
-		return false;
-	}
-
-	const entity = asRecord(value);
-	const remoteLink = entity['atlassian:remote-link'];
-	return isObject(remoteLink) && isOneOf(REMOTE_LINK_TYPES, remoteLink.type);
-};
-
-export const isProjectEntity = (value: unknown): value is ProjectEntity =>
-	isBaseEntity(value) && isObject(asRecord(value)['atlassian:project']);
-
-export const isWorkItemEntity = (value: unknown): value is WorkItemEntity => {
-	if (!isBaseEntity(value)) {
-		return false;
-	}
-
-	const entity = asRecord(value);
-	const workItem = entity['atlassian:work-item'];
-	return (
-		isObject(workItem) &&
-		typeof workItem.status === 'string' &&
-		isOneOf(WORK_ITEM_SUB_TYPES, workItem.subtype) &&
-		typeof workItem.team === 'string'
-	);
-};
-
-export const isDocumentEntity = (value: unknown): value is DocumentEntity => {
-	if (!isBaseEntity(value)) {
-		return false;
-	}
-
-	const entityType = asRecord(value).type;
-	return (
-		isObject(entityType) &&
-		(entityType.category === undefined || isOneOf(DOCUMENT_CATEGORIES, entityType.category)) &&
-		(entityType.iconUrl === undefined || typeof entityType.iconUrl === 'string') &&
-		(isOneOf(DOCUMENT_CATEGORIES, entityType.category) || typeof entityType.iconUrl === 'string')
-	);
-};
-
-export const isMessageEntity = (value: unknown): value is MessageEntity =>
-	isBaseEntity(value) &&
-	('attachments' in value ||
-		'commentCount' in value ||
-		'hidden' in value ||
-		'isPinned' in value ||
-		'lastActive' in value ||
-		'reactions' in value);
-
-export const isConversationEntity = (value: unknown): value is ConversationEntity =>
-	isBaseEntity(value) &&
-	('isArchived' in value ||
-		'lastActive' in value ||
-		'memberCount' in value ||
-		'members' in value ||
-		'membershipType' in value ||
-		'topic' in value ||
-		'workspace' in value);
-
-export const isUnsupportedEntity = (value: unknown): value is UnsupportedEntity =>
-	isBaseEntity(value) &&
-	!isDesignEntity(value) &&
-	!isRemoteLinkEntity(value) &&
-	!isProjectEntity(value) &&
-	!isWorkItemEntity(value) &&
-	!isDocumentEntity(value) &&
-	!isMessageEntity(value) &&
-	!isConversationEntity(value);
-
-export const isEntityType = (value: unknown): value is EntityType =>
-	isBaseEntity(value) &&
-	(isDesignEntity(value) ||
-		isRemoteLinkEntity(value) ||
-		isProjectEntity(value) ||
-		isWorkItemEntity(value) ||
-		isDocumentEntity(value) ||
-		isMessageEntity(value) ||
-		isConversationEntity(value) ||
-		isUnsupportedEntity(value));
+export { isBaseEntity } from './is-base-entity';
+/**
+ * @deprecated Use `import { isDesignEntity } from '@atlaskit/linking-types/is-design-entity'` instead.
+ */
+export { isDesignEntity } from './is-design-entity';
+/**
+ * @deprecated Use `import { isRemoteLinkEntity } from '@atlaskit/linking-types/is-remote-link-entity'` instead.
+ */
+export { isRemoteLinkEntity } from './is-remote-link-entity';
+/**
+ * @deprecated Use `import { isProjectEntity } from '@atlaskit/linking-types/is-project-entity'` instead.
+ */
+export { isProjectEntity } from './is-project-entity';
+/**
+ * @deprecated Use `import { isWorkItemEntity } from '@atlaskit/linking-types/is-work-item-entity'` instead.
+ */
+export { isWorkItemEntity } from './is-work-item-entity';
+/**
+ * @deprecated Use `import { isDocumentEntity } from '@atlaskit/linking-types/is-document-entity'` instead.
+ */
+export { isDocumentEntity } from './is-document-entity';
+/**
+ * @deprecated Use `import { isMessageEntity } from '@atlaskit/linking-types/is-message-entity'` instead.
+ */
+export { isMessageEntity } from './is-message-entity';
+/**
+ * @deprecated Use `import { isConversationEntity } from '@atlaskit/linking-types/is-conversation-entity'` instead.
+ */
+export { isConversationEntity } from './is-conversation-entity';
+/**
+ * @deprecated Use `import { isUnsupportedEntity } from '@atlaskit/linking-types/is-unsupported-entity'` instead.
+ */
+export { isUnsupportedEntity } from './is-unsupported-entity';
+/**
+ * @deprecated Use `import { isEntityType } from '@atlaskit/linking-types/is-entity-type'` instead.
+ */
+export { isEntityType } from './is-entity-type';
+/**
+ * @deprecated Use `import { isOneOf } from '@atlaskit/linking-types/is-one-of'` instead.
+ */
+export { isOneOf } from './is-one-of';
+/**
+ * @deprecated Use `import { isObject } from '@atlaskit/linking-types/is-object'` instead.
+ */
+export { isObject } from './is-object';
+/**
+ * @deprecated Use `import { asRecord } from '@atlaskit/linking-types/as-record'` instead.
+ */
+export { asRecord } from './as-record';

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { DoDont, DoDontGrid } from '@af/design-system-docs-ui';
 import { md } from '@atlaskit/docs';
-import Image from '@atlaskit/image';
-import Link from '@atlaskit/link';
+import Image from '@atlaskit/image/image';
+import Link from '@atlaskit/link/link';
 
 import sideNavItemsAnatomy1Dark from './images/sideNavItems-anatomy-1-dark.png';
 import sideNavItemsAnatomy1Light from './images/sideNavItems-anatomy-1-light.png';

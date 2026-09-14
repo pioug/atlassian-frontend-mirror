@@ -1,13 +1,10 @@
 import differenceInMonths from 'date-fns/differenceInMonths';
 import isThisMonth from 'date-fns/isThisMonth';
 import isThisWeek from 'date-fns/isThisWeek';
-import isValid from 'date-fns/isValid';
 
 import { type RelativeDateKeyType } from '../types';
 
-export function isValidDate(date: Date, today: Date = new Date()): boolean {
-	return !!date.getTime && isValid(date) && date.getTime() <= today.getTime();
-}
+import { isValidDate } from './isValidDate';
 
 export default function getRelativeDateKey(
 	date?: Date | null,

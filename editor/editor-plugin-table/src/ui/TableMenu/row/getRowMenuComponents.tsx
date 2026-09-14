@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TableMenuComponentsParams } from '../shared/types';
 

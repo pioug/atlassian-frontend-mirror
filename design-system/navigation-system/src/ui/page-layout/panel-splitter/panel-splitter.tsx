@@ -21,13 +21,15 @@ import invariant from 'tiny-invariant';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/element/block-dragging-to-iframes';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
-import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/utils/block-dragging-to-iframes';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/disable-native-drag-preview';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 import TooltipContainer, { type TooltipContainerProps } from '@atlaskit/tooltip/TooltipContainer';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -173,7 +175,9 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 			 * Adjusts the translate Y to keep the tooltip within the main content area,
 			 * so that it does not appear over the banner or top navigation.
 			 */
-			const newTranslateY = `max(calc(${contentInsetBlockStart} + ${token('space.100')}), ${translateY})`;
+			const newTranslateY = `max(calc(${contentInsetBlockStart} + ${token(
+				'space.100',
+			)}), ${translateY})`;
 			const newTransform = `translate3d(${translateX}, ${newTranslateY}, 0)`;
 
 			return {
@@ -206,7 +210,7 @@ const PanelSplitterTooltip = forwardRef<HTMLDivElement, TooltipContainerProps>(
 const MaybeTooltip = ({ tooltipContent, shortcut, children, testId }: MaybeTooltipProps) => {
 	const isFhsEnabled = useIsFhsEnabled();
 
-	if (tooltipContent && isFhsEnabled) {
+	if (tooltipContent && (isFhsEnabled || fg('platform-dst-keep-desired-fhs-features'))) {
 		return (
 			<Tooltip
 				testId={testId}
@@ -496,7 +500,10 @@ const PortaledPanelSplitter = ({
 
 	const ariaValueText = useMemo(
 		() =>
-			`${getPercentageWithinPixelBounds({ currentWidth: rangeInputValue, resizeBounds: rangeInputBounds })}% width`,
+			`${getPercentageWithinPixelBounds({
+				currentWidth: rangeInputValue,
+				resizeBounds: rangeInputBounds,
+			})}% width`,
 		[rangeInputValue, rangeInputBounds],
 	);
 

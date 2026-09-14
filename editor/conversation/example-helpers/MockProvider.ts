@@ -69,7 +69,6 @@ export class MockProvider extends AbstractConversationResource implements Resour
 	constructor(config: ConversationResourceConfig) {
 		super();
 		this.config = config;
-		//@ts-ignore
 		this.updateUser(config.user);
 		this.responseCode = 200;
 	}

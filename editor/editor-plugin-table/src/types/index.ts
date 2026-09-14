@@ -3,8 +3,12 @@
 
 import type { IntlShape } from 'react-intl';
 
-import type { TableLayout } from '@atlaskit/adf-schema';
-import { tableCellSelector, tableHeaderSelector, tablePrefixSelector } from '@atlaskit/adf-schema';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
+import {
+	tableCellSelector,
+	tableHeaderSelector,
+	tablePrefixSelector,
+} from '@atlaskit/adf-schema/tableNodes';
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -487,24 +491,19 @@ export const TableCssClassName: {
 	TABLE_HEADER_CELL: 'pm-table-header-content-wrap';
 	TABLE_HEADER_CELL_WRAPPER: 'pm-table-header-content-wrap';
 	TABLE_LEFT_BORDER: 'pm-table-left-border';
-	TABLE_LEFT_SHADOW: 'pm-table-with-left-shadow';
 	TABLE_NODE_WRAPPER: 'pm-table-wrapper';
 	TABLE_NODE_WRAPPER_NO_OVERFLOW: 'pm-table-wrapper-no-overflow';
 	TABLE_RESIZER_CONTAINER: 'pm-table-resizer-container';
 	TABLE_RIGHT_BORDER: 'pm-table-right-border';
-	TABLE_RIGHT_SHADOW: 'pm-table-with-right-shadow';
 	TABLE_ROW_CONTROLS_WRAPPER: 'pm-table-row-controls-wrapper';
 	TABLE_SCROLL_INLINE_SHADOW: 'pm-table-scroll-inline-shadow';
 	TABLE_SELECTED: string;
-	TABLE_SHADOW_SENTINEL_LEFT: 'pm-table-shadow-sentinel-left';
-	TABLE_SHADOW_SENTINEL_RIGHT: 'pm-table-shadow-sentinel-right';
 	TABLE_STICKY: string;
 	TABLE_STICKY_SCROLLBAR_CONTAINER: 'pm-table-sticky-scrollbar-container';
 	TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: 'pm-table-sticky-scrollbar-sentinel-bottom';
 	TABLE_STICKY_SCROLLBAR_SENTINEL_TOP: 'pm-table-sticky-scrollbar-sentinel-top';
 	TABLE_STICKY_SENTINEL_BOTTOM: 'pm-table-sticky-sentinel-bottom';
 	TABLE_STICKY_SENTINEL_TOP: 'pm-table-sticky-sentinel-top';
-	TABLE_STICKY_SHADOW: 'pm-table-sticky-shadow';
 	TABLE_STICKY_WRAPPER: 'pm-table-sticky-wrapper';
 	TABLE_VIEW_CONTENT_WRAP: 'tableView-content-wrap';
 	TOP_LEFT_CELL: string;
@@ -685,11 +684,6 @@ export interface ToolbarMenuState {
 
 export interface ToolbarMenuContext {
 	formatMessage: IntlShape['formatMessage'];
-}
-
-export enum ShadowEvent {
-	SHOW_BEFORE_SHADOW = 'showBeforeShadow',
-	SHOW_AFTER_SHADOW = 'showAfterShadow',
 }
 
 export type ReportInvalidNodeAttrs = (invalidNodeAttrs: InvalidNodeAttr) => void;

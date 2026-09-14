@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export const captionComplicated: DocNode = {
 	version: 1,
@@ -76,7 +76,6 @@ export const captionComplicated: DocNode = {
 						{
 							type: 'text',
 							text: "FAB-1520 UI: Poor man's search",
-							// @ts-ignore - unclear why this will not cast to node_modules/@atlaskit/adf-schema/dist/types/schema/marks/link.d.ts
 							marks: [
 								{
 									type: 'link',

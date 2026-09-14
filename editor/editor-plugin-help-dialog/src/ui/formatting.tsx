@@ -71,7 +71,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import type { Format } from './Format';
@@ -870,9 +870,7 @@ export const getSupportedFormatting = (
 		...navigationKeymaps(intl),
 		...otherFormatting(intl),
 		...supportedBySchema,
-		...(expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true)
-			? blockControlsShortcutsFormatting(intl)
-			: []),
+		...blockControlsShortcutsFormatting(intl),
 		...(imageEnabled ? [imageAutoFormat] : []),
 		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
 		...focusTableResizeHandleFormatting(intl),

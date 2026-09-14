@@ -1,4 +1,4 @@
-import type { Auth, AuthContext } from '@atlaskit/media-core';
+import type { Auth, AuthContext } from '@atlaskit/media-core/auth';
 import { MEDIA_PLAYGROUND_BASE_URL } from './mediaBaseURLS';
 
 let mediaCachedAuth: { [key: string]: Promise<Auth> } = {};

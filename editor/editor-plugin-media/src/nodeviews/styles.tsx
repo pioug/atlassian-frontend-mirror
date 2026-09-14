@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
 import type { NumericalCardDimensions } from '@atlaskit/media-card';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const MediaSingleNodeSelector = 'media-single-node';
 

@@ -3,7 +3,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 interface UpdateExpandedStateNew {
 	isLivePage?: boolean;

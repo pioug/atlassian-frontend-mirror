@@ -1,8 +1,10 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import coinflip from '../../../../coinflip';
 
+import { cacheCleanupState } from './cache-cleanup-state';
 import checkFiberWithinComponent from './check-fiber-within-component';
+import { cleanupCaches } from './cleanup-caches';
 import findFiberWithCache from './find-fiber-with-cache';
 
 const OLD_DOM_WALK_MAX_LEVEL = 40;
@@ -11,27 +13,15 @@ const OLD_FIBER_WALK_MAX_LEVEL = 40;
 const NEW_DOM_WALK_MAX_LEVEL = 400;
 const NEW_FIBER_WALK_MAX_LEVEL = 400;
 
-// Cache cleanup
-let callCount = 0;
 const CLEANUP_THRESHOLD = 50;
 
 function maybeCleanup(resultCache: WeakMap<HTMLElement, boolean>) {
-	callCount++;
-	if (callCount >= CLEANUP_THRESHOLD && coinflip(0.3)) {
+	cacheCleanupState.callCount++;
+	if (cacheCleanupState.callCount >= CLEANUP_THRESHOLD && coinflip(0.3)) {
 		cleanupCaches(resultCache);
 	}
 }
 
-export function cleanupCaches(
-	resultCache: WeakMap<HTMLElement, boolean>,
-): WeakMap<HTMLElement, boolean> {
-	resultCache = new WeakMap<HTMLElement, boolean>();
-	callCount = 0;
-
-	return resultCache;
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function checkWithinComponent(
 	node: HTMLElement,
 	targetComponentName: string,

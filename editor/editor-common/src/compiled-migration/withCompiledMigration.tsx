@@ -17,12 +17,12 @@ import type { ComponentType } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- intentional: this file must use emotion's JSX pragma to apply emotion styles via the css prop
 import { jsx, type SerializedStyles } from '@emotion/react';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 /**
  * A HOC that enables per-component feature-gated migration from Emotion to Compiled CSS-in-JS.
  *
- * When the `platform_editor_static_css` experiment is ON:
+ * When the `platform_editor_renderer_static_css` experiment is ON:
  *   - Renders the component directly. Compiled's statically-extracted CSS classes are applied
  *     via the component's own `css` prop (using the Compiled pragma in the component file).
  *   - No Emotion code runs at all.
@@ -42,7 +42,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
  * // app.tsx — the call site handles both compiled and emotion styles.
  * import { css } from '@compiled/react';
  * import { css as emotionCss } from '@emotion/react';
- * import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+ * import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
  * import { withCompiledMigration } from '@atlaskit/editor-common/compiled-migration';
  * import { Button } from './button';
  *
@@ -56,7 +56,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
  * export function App() {
  *   return (
  *     <StyledButton
- *       css={[expValEquals('platform_editor_static_css', 'isEnabled', true) && compiledStyles]}
+ *       css={[isExperimentEnabled('platform_editor_renderer_static_css') && compiledStyles]}
  *     />
  *   );
  * }
@@ -75,7 +75,7 @@ export function withCompiledMigration<P extends { className?: string }>(
 	const Comp = WrappedComponent as ComponentType<P & { css?: SerializedStyles }>;
 
 	function MigrationGatedComponent(props: P) {
-		const compiledEnabled = expValEquals('platform_editor_static_css', 'isEnabled', true);
+		const compiledEnabled = isExperimentEnabled('platform_editor_renderer_static_css');
 
 		if (compiledEnabled) {
 			// Experiment ON — render directly. Compiled's statically-extracted CSS classes

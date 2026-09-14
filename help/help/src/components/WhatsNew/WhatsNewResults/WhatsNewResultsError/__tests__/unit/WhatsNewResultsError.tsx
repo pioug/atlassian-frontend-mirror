@@ -1,14 +1,7 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import { createIntl, createIntlCache } from 'react-intl';
 
 import { messages } from '../../../../../../messages';
@@ -34,16 +27,16 @@ describe('WhatsNewResultsError', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('Should match snapshot', () => {
-		const { asFragment } = render(<WhatsNewResultsError intl={intl} onSearch={mockOnSearch} />);
+	it('Should render the error state', async () => {
+		render(<WhatsNewResultsError intl={intl} onSearch={mockOnSearch} />);
 
-		expect(asFragment()).toMatchSnapshot();
+		expect(screen.getByText(messageButtonLabel)).toBeInTheDocument();
 	});
 
-	it('Should match snapshot', () => {
-		const { queryByText } = render(<WhatsNewResultsError intl={intl} onSearch={mockOnSearch} />);
+	it('Should display retry button and invoke onSearch when clicked', async () => {
+		render(<WhatsNewResultsError intl={intl} onSearch={mockOnSearch} />);
 
-		const buttonLabel = queryByText(messageButtonLabel);
+		const buttonLabel = screen.queryByText(messageButtonLabel);
 		expect(buttonLabel).not.toBeNull();
 
 		if (buttonLabel) {
@@ -52,7 +45,7 @@ describe('WhatsNewResultsError', () => {
 
 			if (button) {
 				expect(mockOnSearch).toHaveBeenCalledTimes(0);
-				fireEvent.click(button);
+				await userEvent.click(button);
 				expect(mockOnSearch).toHaveBeenCalledTimes(1);
 			}
 		}

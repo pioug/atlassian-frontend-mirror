@@ -5,8 +5,8 @@
 import { css, jsx, cssMap, cx } from '@compiled/react';
 import { FlashAnimation } from './FlashAnimation';
 import { type ReactionProps } from './Reaction';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -143,9 +143,7 @@ export const ReactionButton = ({
 			onFocus={onFocus}
 			aria-label={ariaLabel}
 			aria-pressed={ariaPressed}
-			aria-expanded={
-				expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true) ? ariaExpanded : undefined
-			}
+			aria-expanded={isExperimentEnabled('a11y-fixes-week4-may-2026') ? ariaExpanded : undefined}
 			testId={testId}
 			xcss={cx(
 				styles.reactionButton,

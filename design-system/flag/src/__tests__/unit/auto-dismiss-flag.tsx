@@ -4,7 +4,8 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { Box } from '@atlaskit/primitives/compiled';
 
-import { AutoDismissFlag, FlagGroup } from '../../index';
+import AutoDismissFlag from '../../auto-dismiss-flag';
+import FlagGroup from '../../flag-group';
 import { type AutoDismissFlagProps } from '../../types';
 
 const AUTO_DISMISS_SECONDS = 8;
@@ -40,9 +41,9 @@ describe('Auto dismiss flag', () => {
 			it('should auto dismiss after 8 seconds', () => {
 				const onDismissedSpy = jest.fn();
 				render(<FlagGroup onDismissed={onDismissedSpy}>{generateAutoDismissFlag()}</FlagGroup>);
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 				runTimer();
-				expect(onDismissedSpy).toBeCalled();
+				expect(onDismissedSpy).toHaveBeenCalled();
 			});
 
 			it('should auto dismiss first flag after 8 seconds if there are 2 AutoDismissFlags', () => {
@@ -53,9 +54,9 @@ describe('Auto dismiss flag', () => {
 						{generateAutoDismissFlag({ id: '1' })}
 					</FlagGroup>,
 				);
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 				runTimer();
-				expect(onDismissedSpy).toBeCalledWith('0', expect.anything());
+				expect(onDismissedSpy).toHaveBeenCalledWith('0', expect.anything());
 			});
 
 			it.skip('should auto dismiss second flag after 16 seconds if there are 2 AutoDismissFlags', () => {
@@ -66,7 +67,7 @@ describe('Auto dismiss flag', () => {
 						{generateAutoDismissFlag({ id: '1' })}
 					</FlagGroup>,
 				);
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 				runTimer();
 				rerender(
 					<FlagGroup onDismissed={onDismissedSpy}>
@@ -74,7 +75,7 @@ describe('Auto dismiss flag', () => {
 					</FlagGroup>,
 				);
 				runTimer();
-				expect(onDismissedSpy).toBeCalledWith('1', expect.anything());
+				expect(onDismissedSpy).toHaveBeenCalledWith('1', expect.anything());
 			});
 
 			it('should not dismiss after 8 seconds if another flag is added', () => {
@@ -96,7 +97,7 @@ describe('Auto dismiss flag', () => {
 				act(() => {
 					jest.advanceTimersByTime((AUTO_DISMISS_SECONDS / 2) * 1000);
 				});
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 			});
 
 			it('should pause the dismiss timer on Flag mouseover, and resume on mouseout', () => {
@@ -109,10 +110,10 @@ describe('Auto dismiss flag', () => {
 				const flag = screen.getByTestId('autodismiss-flag');
 				fireEvent.mouseOver(flag);
 				runTimer();
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 				fireEvent.mouseOut(flag);
 				runTimer();
-				expect(onDismissedSpy).toBeCalled();
+				expect(onDismissedSpy).toHaveBeenCalled();
 			});
 
 			it('should pause the dismiss timer on Flag focus, and resume on blur', () => {
@@ -125,19 +126,19 @@ describe('Auto dismiss flag', () => {
 				const flag = screen.getByTestId('autodismiss-flag');
 				fireEvent.focus(flag);
 				runTimer();
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 				fireEvent.blur(flag);
 				runTimer();
-				expect(onDismissedSpy).toBeCalled();
+				expect(onDismissedSpy).toHaveBeenCalled();
 			});
 
 			it('should auto dismiss after 8 seconds and call onDismissed on the flag', () => {
 				const onDismissedSpy = jest.fn();
 
 				render(<FlagGroup>{generateAutoDismissFlag({ onDismissed: onDismissedSpy })}</FlagGroup>);
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 				runTimer();
-				expect(onDismissedSpy).toBeCalled();
+				expect(onDismissedSpy).toHaveBeenCalled();
 			});
 
 			it('should auto dismiss after 8 seconds and call onDismissed on the flag and the flag group', () => {
@@ -149,12 +150,12 @@ describe('Auto dismiss flag', () => {
 						{generateAutoDismissFlag({ onDismissed: onDismissedFlagSpy })}
 					</FlagGroup>,
 				);
-				expect(onDismissedSpy).not.toBeCalled();
-				expect(onDismissedFlagSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
+				expect(onDismissedFlagSpy).not.toHaveBeenCalled();
 
 				runTimer();
-				expect(onDismissedSpy).toBeCalled();
-				expect(onDismissedFlagSpy).toBeCalled();
+				expect(onDismissedSpy).toHaveBeenCalled();
+				expect(onDismissedFlagSpy).toHaveBeenCalled();
 			});
 
 			it('onDismissed provided by FlagGroup should be called when AutoDismissFlag is wrapped in another component', () => {
@@ -170,7 +171,7 @@ describe('Auto dismiss flag', () => {
 				act(() => {
 					jest.advanceTimersByTime(AUTO_DISMISS_SECONDS * 1000);
 				});
-				expect(onDismissedSpy).toBeCalled();
+				expect(onDismissedSpy).toHaveBeenCalled();
 			});
 
 			it('only the first flag in FlagGroup should be dismissed after 8 seconds (when the flag is wrapped in another component)', () => {
@@ -196,11 +197,11 @@ describe('Auto dismiss flag', () => {
 					</FlagGroup>,
 				);
 
-				expect(onDismissedFirstFlagSpy).not.toBeCalled();
-				expect(onDismissedSecondFlagSpy).not.toBeCalled();
+				expect(onDismissedFirstFlagSpy).not.toHaveBeenCalled();
+				expect(onDismissedSecondFlagSpy).not.toHaveBeenCalled();
 				runTimer();
-				expect(onDismissedFirstFlagSpy).toBeCalled();
-				expect(onDismissedSecondFlagSpy).not.toBeCalled();
+				expect(onDismissedFirstFlagSpy).toHaveBeenCalled();
+				expect(onDismissedSecondFlagSpy).not.toHaveBeenCalled();
 
 				rerender(
 					<FlagGroup>
@@ -223,9 +224,9 @@ describe('Auto dismiss flag', () => {
 						})}
 					</FlagGroup>,
 				);
-				expect(onDismissedSpy).not.toBeCalled();
+				expect(onDismissedSpy).not.toHaveBeenCalled();
 				runTimer(16);
-				expect(onDismissedSpy).toBeCalled();
+				expect(onDismissedSpy).toHaveBeenCalled();
 			});
 		});
 	});

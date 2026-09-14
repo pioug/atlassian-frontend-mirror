@@ -1,21 +1,26 @@
 import type { MemoizedFn } from 'memoize-one';
 import memoizeOne from 'memoize-one';
 
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
+import type { SchemaConfig } from './create-schema';
+import { createSchema } from './create-schema';
 import {
 	extensionFrame,
 	layoutSectionWithSingleColumn,
-	multiBodiedExtension,
+	multiBodiedExtensionRootOnlyStage0,
+	bodiedExtensionRootOnlyStage0,
+	extensionRootOnlyStage0,
 	expandWithNestedExpand,
 	tableWithNestedTable,
 	tableRowWithNestedTable,
 	tableCellWithNestedTableStage0,
 	tableHeaderWithNestedTableStage0,
 } from './nodes';
-import { ruleRootOnlyStage0 } from './nodes/rule';
-import { extendedPanelRootOnlyStage0, extendedPanelC1RootOnlyStage0 } from './nodes/panel';
-import type { SchemaConfig } from './create-schema';
-import { createSchema } from './create-schema';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { bodiedRuleRootOnlyStage0 } from './nodes/bodied-rule';
+import { extendedPanelC1RootOnlyStage0 } from './nodes/extended-panel-c1-root-only-stage0';
+import { extendedPanelRootOnlyStage0 } from './nodes/extended-panel-root-only-stage0';
+import { ruleWithAttrsRootOnlyStage0 } from './nodes/rule';
 
 type DefaultSchemaNodes =
 	| 'doc'
@@ -30,6 +35,7 @@ type DefaultSchemaNodes =
 	| 'panel'
 	| 'panel_c1'
 	| 'rule'
+	| 'bodiedRule'
 	| 'image'
 	| 'mention'
 	| 'media'
@@ -189,7 +195,9 @@ export const getSchemaBasedOnStage: MemoizedFn<
 		if (stage === 'stage0') {
 			defaultSchemaConfig.customNodeSpecs = {
 				layoutSection: layoutSectionWithSingleColumn,
-				multiBodiedExtension: multiBodiedExtension,
+				extension: extensionRootOnlyStage0,
+				bodiedExtension: bodiedExtensionRootOnlyStage0,
+				multiBodiedExtension: multiBodiedExtensionRootOnlyStage0,
 				extensionFrame: extensionFrame,
 				expand: expandWithNestedExpand,
 				table: tableWithNestedTable,
@@ -198,7 +206,8 @@ export const getSchemaBasedOnStage: MemoizedFn<
 				tableHeader: tableHeaderWithNestedTableStage0,
 				panel: extendedPanelRootOnlyStage0(true),
 				panel_c1: extendedPanelC1RootOnlyStage0(true),
-				rule: ruleRootOnlyStage0,
+				rule: ruleWithAttrsRootOnlyStage0,
+				bodiedRule: bodiedRuleRootOnlyStage0,
 			};
 		}
 

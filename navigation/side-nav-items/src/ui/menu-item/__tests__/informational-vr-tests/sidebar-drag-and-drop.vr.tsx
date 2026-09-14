@@ -8,7 +8,7 @@ import {
 	type SnapshotTestOptions,
 } from '@af/visual-regression';
 
-import { App } from '../../../../../examples/drag-and-drop/jira/entry';
+import { App } from '../../../../../examples/drag-and-drop/jira/entry.vr.ap';
 
 const variants: SnapshotTestOptions<Hooks>['variants'] = [
 	{

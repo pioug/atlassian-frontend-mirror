@@ -3,7 +3,7 @@ import { useCallback, useContext } from 'react';
 import { bind } from 'bind-event-listener';
 import { flushSync } from 'react-dom';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SetSideNavVisibilityState } from './set-side-nav-visibility-state';
 import { type SideNavTrigger } from './types';

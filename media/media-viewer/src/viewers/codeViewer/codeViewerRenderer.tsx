@@ -1,25 +1,8 @@
-import React, { type ReactNode } from 'react';
+import type { SupportedLanguages } from '@atlaskit/code/constants';
 import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
-import { type Outcome } from '../../domain';
-import type { SupportedLanguages } from '@atlaskit/code/types';
-import { type MediaViewerError } from '../../errors';
-import {
-	CodeViewWrapper as CompiledCodeViewWrapper,
-	CodeViewerHeaderBar as CompiledCodeViewerHeaderBar,
-	CodeViewRenderer as CompiledCodeViewRenderer,
-} from './codeViewerRenderer-compiled';
-import { TouchScrollable } from 'react-scrolllock';
 
-export const CodeViewWrapper = (props: {
-	children: ReactNode;
-	'data-testid': string | undefined;
-}): React.JSX.Element => (
-	<TouchScrollable>
-		<CompiledCodeViewWrapper {...props} />
-	</TouchScrollable>
-);
-
-export const CodeViewerHeaderBar = (): React.JSX.Element => <CompiledCodeViewerHeaderBar />;
+import type { MediaViewerError } from '../../MediaViewerError';
+import type { Outcome } from '../../domain/outcome';
 
 export type Props = {
 	item: Exclude<FileState, ErrorFileState>;
@@ -34,7 +17,3 @@ export type Props = {
 export type State = {
 	doc: Outcome<any, MediaViewerError>;
 };
-
-export const CodeViewRenderer = (props: Props): React.JSX.Element => (
-	<CompiledCodeViewRenderer {...props} />
-);

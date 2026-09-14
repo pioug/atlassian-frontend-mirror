@@ -5,9 +5,10 @@ import ScrollLock from 'react-scrolllock';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
 import { Layering } from '@atlaskit/layering/layering';
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Portal from '@atlaskit/portal';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Portal from '@atlaskit/portal/portal';
 
 import { type ScrollLogicalPosition, type SpotlightProps } from '../types';
 import { type ElementBoundingBox, ElementBox } from '../utils/use-element-box';

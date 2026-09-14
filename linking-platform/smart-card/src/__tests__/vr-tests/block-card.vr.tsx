@@ -4,9 +4,9 @@ import {
 	SocialProofBlockCardLoading,
 	SocialProofBlockCardLowTier,
 	SocialProofBlockCardNotLowTier,
-} from '../../../examples/vr-block-card-social-proof';
-import { BlockCardErrorView } from '../../../examples/vr-block-card/vr-block-card-error';
-import { BlockCardForbiddenView } from '../../../examples/vr-block-card/vr-block-card-forbidden';
+} from '../../../examples/vr-block-card-social-proof.vr.ap';
+import { BlockCardErrorView } from '../../../examples/vr-block-card/vr-block-card-error.vr.ap';
+import { BlockCardForbiddenView } from '../../../examples/vr-block-card/vr-block-card-forbidden.vr.ap';
 import {
 	BlockCardLazyIcon1,
 	BlockCardLazyIcon2,
@@ -18,23 +18,23 @@ import {
 	BlockCardLazyIconsFileType2,
 	BlockCardLazyIconsFileType3,
 	BlockCardLazyIconsFileType4,
-} from '../../../examples/vr-block-card/vr-block-card-lazy-icons';
-import { BlockCardNotFoundView } from '../../../examples/vr-block-card/vr-block-card-not-found';
-import { BlockCardNotFoundSiteAccessExists } from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists';
-import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
-import { BlockCardBitbucket } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
-import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
-import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities';
-import BlockCardResolvedIconVariations from '../../../examples/vr-block-card/vr-block-card-resolved-icon-variations';
-import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
-import VRBlockCardResolvedRovoActions from '../../../examples/vr-block-card/vr-block-card-resolved-rovo-actions';
-import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
-import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
-import { BlockCardUnauthorisedMultipleProviders } from '../../../examples/vr-block-card/vr-block-card-unauthorised-multiple-providers';
-import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
-import { VRBlockProfileCard } from '../../../examples/vr-block-card/vr-block-profile-card';
-import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
-import FlexibleUiErroredTitleBlockCompetitorPrompt from '../../../examples/vr-flexible-card/vr-flexible-ui-errored-title-block-competitor-prompt';
+} from '../../../examples/vr-block-card/vr-block-card-lazy-icons.vr.ap';
+import { BlockCardNotFoundSiteAccessExists } from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists.vr.ap';
+import { BlockCardNotFoundView } from '../../../examples/vr-block-card/vr-block-card-not-found.vr.ap';
+import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas.vr.ap';
+import { BlockCardBitbucket } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket.vr.ap';
+import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence.vr.ap';
+import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities.vr.ap';
+import BlockCardResolvedIconVariations from '../../../examples/vr-block-card/vr-block-card-resolved-icon-variations.vr.ap';
+import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira.vr.ap';
+import VRBlockCardResolvedRovoActions from '../../../examples/vr-block-card/vr-block-card-resolved-rovo-actions.vr.ap';
+import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview.vr.ap';
+import { BlockCardUnauthorisedMultipleProviders } from '../../../examples/vr-block-card/vr-block-card-unauthorised-multiple-providers.vr.ap';
+import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth.vr.ap';
+import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised.vr.ap';
+import { VRBlockProfileCard } from '../../../examples/vr-block-card/vr-block-profile-card.vr.ap';
+import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views.vr.ap';
+import FlexibleUiErroredTitleBlockCompetitorPrompt from '../../../examples/vr-flexible-card/vr-flexible-ui-errored-title-block-competitor-prompt.vr.ap';
 
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
@@ -94,29 +94,19 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	waitForReactLazy: true,
 });
 snapshot(BlockCardJira, {
-	featureFlags: {
-		platform_navx_block_card_footer_spacing: [true, false],
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardConfluence, {
-	featureFlags: {
-		platform_navx_block_card_footer_spacing: [true, false],
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardTrello, {
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardAtlas, {
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
+	featureFlags: {},
 	waitForReactLazy: true,
 });
 
@@ -126,7 +116,6 @@ snapshot(BlockCardResolvedIconVariations, {
 	featureFlags: {
 		platform_sl_3p_preauth_better_hovercard_killswitch: true,
 		platform_sl_3p_preauth_better_hovercard: true,
-		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 	ignoredErrors: [
@@ -138,9 +127,6 @@ snapshot(BlockCardResolvedIconVariations, {
 	],
 });
 snapshot(BlockCardBitbucket, {
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForNetworkIdle: true,
 	waitForReactLazy: true,
 });
@@ -149,37 +135,22 @@ snapshot(BlockCardForbiddenViews, {
 });
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon6, {
@@ -189,37 +160,22 @@ snapshot(BlockCardLazyIcon6, {
 });
 snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -248,9 +204,6 @@ snapshot(SocialProofBlockCardLoading, {
 });
 
 snapshot(VRBlockProfileCard, {
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });
 
@@ -259,8 +212,5 @@ snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
 });
 
 snapshot(VRBlockCardResolvedRovoActions, {
-	featureFlags: {
-		'navx-5343-sl-action-block-styling-fixes': true,
-	},
 	waitForReactLazy: true,
 });

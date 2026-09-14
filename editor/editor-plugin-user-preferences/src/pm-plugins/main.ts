@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	UserPreferencesPluginOptions,

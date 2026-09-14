@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
 import { token } from '@atlaskit/tokens';
 
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';

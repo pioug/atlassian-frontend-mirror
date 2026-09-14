@@ -7,13 +7,15 @@ import React, { type Ref, useContext, useEffect, useRef, useState } from 'react'
 import { css } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import TagIcon from '@atlaskit/icon/core/tag';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { GroupDropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/group-drop-indicator';
 import { useMenuItemDragAndDrop } from '@atlaskit/side-nav-items/drag-and-drop/use-menu-item-drag-and-drop';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';

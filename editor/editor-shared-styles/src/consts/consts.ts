@@ -1,5 +1,5 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { token } from '@atlaskit/tokens';
 

@@ -17,7 +17,7 @@ import { type RouterLinkComponent, RouterLinkProviderContext } from '../index';
  * const RouterLink = useRouterLink<MyRouterLinkConfig>();
  * ```
  */
-const useRouterLink = <RouterLinkConfig extends Record<string, any> = never>():
+export const useRouterLink = <RouterLinkConfig extends Record<string, any> = never>():
 	| RouterLinkComponent<RouterLinkConfig>
 	| undefined => {
 	const { routerLinkComponent } = useContext(RouterLinkProviderContext);
@@ -27,5 +27,3 @@ const useRouterLink = <RouterLinkConfig extends Record<string, any> = never>():
 	}
 	return;
 };
-
-export default useRouterLink;

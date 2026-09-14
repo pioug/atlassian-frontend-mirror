@@ -1,0 +1,166 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@compiled/react';
+
+import Avatar from '@atlaskit/avatar/avatar';
+import type {
+	AppearanceType,
+	Presence as PresenceType,
+	Status as StatusType,
+} from '@atlaskit/avatar/types';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
+import { token } from '@atlaskit/tokens';
+
+const RANDOM_USERS: {
+	email: string;
+	name: string;
+}[] = [
+	{ email: 'chaki@me.com', name: 'Chaki Caronni' },
+	{ email: 'nanop@outlook.com', name: 'Nanop Rgiersig' },
+	{ email: 'dowdy@outlook.com', name: 'Dowdy Metzzo' },
+	{ email: 'daveewart@msn.com', name: 'Daveewart Grdschl' },
+	{ email: 'fwitness@optonline.net', name: 'Fwitness Tezbo' },
+	{ email: 'nighthawk@yahoo.com', name: 'Nighthawk Wikinerd' },
+	{ email: 'naupa@me.com', name: 'Naupa Telbij' },
+	{ email: 'jsmith@verizon.net', name: 'Jsmith Rnelson' },
+	{ email: 'maneesh@msn.com', name: 'Maneesh Solomon' },
+	{ email: 'kiddailey@yahoo.com', name: 'Kiddailey Kodeman' },
+	{ email: 'kodeman@att.net', name: 'Kodeman Kiddailey' },
+	{ email: 'solomon@att.net', name: 'Solomon Maneesh' },
+	{ email: 'rnelson@optonline.net', name: 'Rnelson Jsmith' },
+	{ email: 'telbij@msn.com', name: 'Telbij Naupa' },
+	{ email: 'wikinerd@gmail.com', name: 'Wikinerd Nighthawk' },
+	{ email: 'tezbo@optonline.net', name: 'Tezbo Fwitness' },
+	{ email: 'grdschl@att.net', name: 'Grdschl Daveewart' },
+	{ email: 'metzzo@msn.com', name: 'Metzzo Dowdy' },
+	{ email: 'rgiersig@att.net', name: 'Rgiersig Nanop' },
+	{ email: 'caronni@optonline.net', name: 'Caronni Chaki' },
+];
+
+const presenceOptions: PresenceType[] = ['online', 'busy', 'focus', 'offline'];
+const statusOptions: StatusType[] = ['approved', 'declined', 'locked'];
+const appearanceOptions: AppearanceType[] = ['circle', 'square', 'hexagon'];
+
+const styles = cssMap({
+	container: { display: 'flex' },
+	column: {
+		maxWidth: 270,
+		paddingBlockStart: token('space.250'),
+		paddingInlineEnd: token('space.250'),
+		paddingBlockEnd: token('space.250'),
+		paddingInlineStart: token('space.250'),
+	},
+});
+
+const _default: () => JSX.Element = () => {
+	const data = RANDOM_USERS.slice(0, presenceOptions.length + statusOptions.length).map(
+		(user, i) => {
+			const presence = presenceOptions[i % presenceOptions.length];
+			const status = i > statusOptions.length ? statusOptions[i % statusOptions.length] : undefined;
+			return {
+				...user,
+				presence,
+				status,
+				label: `${user.name} ${user.email} (${status || presence})`,
+			};
+		},
+	);
+
+	return (
+		<div id="avatar-item-examples" css={styles.container}>
+			<div>
+				<div css={styles.column}>
+					<h1>onClick</h1>
+					{data.map((user, index) => (
+						<AvatarItem
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									status={user.status}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+								/>
+							}
+							key={user.email}
+							onClick={console.log}
+							primaryText={user.name}
+							secondaryText={user.email}
+							testId={`avataritem-onClick-${index}`}
+							label={user.label}
+						/>
+					))}
+				</div>
+
+				<div css={styles.column}>
+					<h1>href</h1>
+					{data.map((user, index) => (
+						<AvatarItem
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+									status={user.status}
+								/>
+							}
+							key={user.email}
+							href="#"
+							primaryText={user.name}
+							secondaryText={user.email}
+							testId={`avataritem-href-${index}`}
+							label={user.label}
+						/>
+					))}
+				</div>
+			</div>
+			<div>
+				<div css={styles.column}>
+					<h1>non-interactive</h1>
+					{data.map((user, index) => (
+						<AvatarItem
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									status={user.status}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+								/>
+							}
+							key={user.email}
+							primaryText={user.name}
+							secondaryText={user.email}
+							testId={`avataritem-non-interactive-${index}`}
+							label={user.label}
+						/>
+					))}
+				</div>
+
+				<div css={styles.column}>
+					<h1>disabled</h1>
+					{data.map((user, index) => (
+						<AvatarItem
+							avatar={
+								<Avatar
+									name={user.name}
+									presence={user.presence}
+									appearance={appearanceOptions[index % appearanceOptions.length]}
+									status={user.status}
+								/>
+							}
+							key={user.email}
+							primaryText={user.name}
+							secondaryText={user.email}
+							href="#"
+							testId={`avataritem-disabled-${index}`}
+							label={user.label}
+							isDisabled
+						/>
+					))}
+				</div>
+			</div>
+		</div>
+	);
+};
+export default _default;

@@ -1,5 +1,435 @@
 # @atlaskit/rovo-agent-components
 
+## 8.9.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.29
+
+### Patch Changes
+
+- [`ce4bca26fddc1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce4bca26fddc1) -
+  Add a document writer generated avatar.
+- Updated dependencies
+
+## 8.9.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.23
+
+### Patch Changes
+
+- [`58af51ca2cc2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58af51ca2cc2f) -
+  Add agent profile card to mention typeahead in Jira
+- Updated dependencies
+
+## 8.9.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.15
+
+### Patch Changes
+
+- [`3516c9fac5ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3516c9fac5ea8) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall`.
+- Updated dependencies
+
+## 8.9.14
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+
+## 8.9.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.7
+
+### Patch Changes
+
+- [`44a80d90ea61d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44a80d90ea61d) -
+  Migrate Pressable hover and pressed colour transitions to semantic motion tokens behind
+  platform-dst-motion-uplift-custom-button.
+- Updated dependencies
+
+## 8.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.4
+
+### Patch Changes
+
+- [`2339c88f41eaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2339c88f41eaa) -
+  Adds the Jira Scoping Agent avatar behind the jira_ai_task_level_planning_ootb_agent rollout.
+- Updated dependencies
+
+## 8.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.0
+
+### Minor Changes
+
+- [`b2a45610e0caa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2a45610e0caa) -
+  Update i18n NPM package versions for ai-mate,ai,ai-opt-in,insights-ai-platform (Group 2)
+
+## 8.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.8.0
+
+### Minor Changes
+
+- [`bfdf195b0f2be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfdf195b0f2be) -
+  Cleanup feature gate `rovo_agent_star_icon_button`. Use the accessible icon button for starring
+  agents.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.7.0
+
+### Minor Changes
+
+- [`fa9c2e2279c7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa9c2e2279c7b) -
+  Add a dedicated out-of-the-box avatar for the Request router agent (external config reference
+  `jsm_service_triage_agent`), which previously fell back to a hash-generated generic avatar.
+
+## 8.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.6.0
+
+### Minor Changes
+
+- [`5fbac0cd20e28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fbac0cd20e28) -
+  updating svg for request-resolver agent
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.0
+
+### Minor Changes
+
+- [`6997a74055219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6997a74055219) -
+  Add profile card on hover in the mentions typeahead for agent mentions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.0
+
+### Minor Changes
+
+- [`4041e39ab85ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4041e39ab85ea) -
+  updating icon for rovo service agent
+
+## 8.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [`236f9e8bbe74e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236f9e8bbe74e) -
+  Refine browse agent iconography, avatar cover colors, and sizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.13
+
+### Patch Changes
+
+- [`82d4773eb679e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82d4773eb679e) -
+  Add a blue avatar for the Tech Writer agent
+- Updated dependencies
+
+## 8.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.11
+
+### Patch Changes
+
+- [`e0edc05cd52d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0edc05cd52d7) -
+  Migrates internal 16px Avatar usage from `xsmall` to `xxsmall` as a 1:1 size rename with no visual
+  change.
+- Updated dependencies
+
+## 8.2.10
+
+### Patch Changes
+
+- [`d4335d42eedbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4335d42eedbd) -
+  chore: migrate gemini VR examples to ap-headless pattern
+
+  Rename all VR example/fixture files to the \`\*.vr.ap.<ext>\` naming convention so the Atlaspack
+  (ap) bundler can discover them via the Headless Entry API.
+
+## 8.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

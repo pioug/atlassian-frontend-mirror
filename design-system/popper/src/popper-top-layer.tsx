@@ -1,24 +1,20 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { type CSSProperties, type ReactNode, useMemo, useRef, useState } from 'react';
 
-import { jsx } from '@compiled/react';
 import type { Placement, VirtualElement } from '@popperjs/core';
 import type { PopperChildrenProps } from 'react-popper';
 
-import { getDocument } from '@atlaskit/browser-apis';
 import noop from '@atlaskit/ds-lib/noop';
 import { token } from '@atlaskit/tokens';
-import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useAnchorPositionAtPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
+import { isPageRtl } from './internal/is-page-rtl';
 import { rectPointForPlacement } from './internal/rect-point-for-placement';
+import { toLegacyPlacement } from './internal/to-legacy-placement';
 import { useFitViewportMaxSize } from './internal/use-fit-viewport-max-size';
 import { useManagerAnchor } from './internal/use-manager-anchor';
 import { useReferenceVisibility } from './internal/use-reference-visibility';
@@ -47,32 +43,6 @@ const noopArrowProps: TArrowPropsInert = {
 	style: noopStyle,
 	'data-popper-arrow': true,
 };
-
-/**
- * Returns whether the current page is laid out right-to-left.
- */
-function isPageRtl(): boolean {
-	const document = getDocument();
-	if (!document) {
-		return false;
-	}
-	return (
-		document.dir === 'rtl' || document.body.dir === 'rtl' || document.documentElement.dir === 'rtl'
-	);
-}
-
-/**
- * `@popperjs/core`'s `Placement` union is a strict subset of
- * `TLegacyPlacement` (the placement-map adds `top-center` /
- * `bottom-center` on top of popper's enum), so every value popper hands
- * us is a valid legacy placement. The cast keeps the runtime path free
- * of an extra module-level lookup that bundlers can occasionally fail
- * to wire up (observed as `Cannot read properties of undefined (reading
- * 'includes')` in component-test bundles).
- */
-function toLegacyPlacement(placement: Placement): TLegacyPlacement {
-	return placement as TLegacyPlacement;
-}
 
 /**
  * Returns the primary axis (`top` / `bottom` / `left` / `right`) of a popper

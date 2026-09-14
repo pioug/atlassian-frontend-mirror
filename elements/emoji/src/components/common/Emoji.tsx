@@ -2,74 +2,49 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React, {
 	useEffect,
-	useCallback,
 	useContext,
-	useMemo,
-	useState,
 	type FocusEvent,
 	type MouseEvent,
-	type SyntheticEvent,
 	forwardRef,
 	type PropsWithChildren,
 } from 'react';
-import { IntlContext } from 'react-intl';
+
 import { css, jsx } from '@compiled/react';
+import { IntlContext } from 'react-intl';
+
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
-import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+
 import {
-	defaultEmojiHeight,
+	type EmojiDescription,
+	type OnEmojiEvent,
+	ProviderTypes,
+	UfoEmojiTimings,
+} from '../../types';
+import { hasUfoMarked } from '../../util/analytics/hasUfoMarked';
+import { sampledUfoRenderedEmoji } from '../../util/analytics/sampledUfoRenderedEmoji';
+import { ufoExperiences } from '../../util/analytics/ufoExperiences';
+import { useSampledUFOComponentExperience } from '../../util/analytics/useSampledUFOComponentExperience';
+import {
 	deleteEmojiLabel,
 	EMOJI_KEYBOARD_KEYS_SUPPORTED,
 	KeyboardKeys,
 	SAMPLING_RATE_EMOJI_RENDERED_EXP,
 } from '../../util/constants';
-import {
-	isImageRepresentation,
-	isMediaRepresentation,
-	isSpriteRepresentation,
-	isUnicodeRepresentation,
-	toEmojiId,
-} from '../../util/type-helpers';
-import {
-	type EmojiDescription,
-	type OnEmojiEvent,
-	ProviderTypes,
-	type SpriteRepresentation,
-	UfoEmojiTimings,
-	type UnicodeRepresentation,
-} from '../../types';
-import { leftClick } from '../../util/mouse';
-import DeleteButton from './DeleteButton';
-import {
-	emojiNodeStyles,
-	commonSelectedStyles,
-	selectOnHoverStyles,
-	emojiSprite,
-	emojiMainStyle,
-	emojiImage,
-	deletableEmoji,
-} from './styles';
-import {
-	sampledUfoRenderedEmoji,
-	ufoExperiences,
-	useSampledUFOComponentExperience,
-} from '../../util/analytics';
-import browserSupport from '../../util/browser-support';
-import { useInView } from '../../hooks/useInView';
-import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
-import {
-	DeletableEmojiTooltipContent,
-	DeletableEmojiTooltipContentForScreenReader,
-} from './DeletableEmojiTooltipContent';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { getDocument } from '@atlaskit/browser-apis';
+import { isSpriteRepresentation } from '../../util/is-sprite-representation';
+import { isUnicodeRepresentation } from '../../util/is-unicode-representation';
+import { leftClick } from '../../util/left-click';
+import { toEmojiId } from '../../util/to-emoji-id';
 import { messages } from '../i18n';
-import { isSSR } from '../../util/is-ssr';
-import { renderUnicodeEmojiToImagePath } from '../../util/renderUnicodeEmojiToImagePath';
-import EmojiPlaceholder from './EmojiPlaceholder';
+import { handleDelete } from './handleDelete';
+import { ImageEmoji } from './ImageEmoji';
+import { SpriteEmoji } from './SpriteEmoji';
+import { UnicodeEmoji } from './UnicodeEmoji';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',
@@ -222,6 +197,12 @@ export interface Props extends Omit<
 	fitToHeight?: number;
 
 	/**
+	 * When true, the emoji is treated as decorative (purely visual).
+	 * This removes the aria-label so screen readers will skip the emoji.
+	 */
+	isDecorative?: boolean;
+
+	/**
 	 * Called when an emoji is deleted
 	 */
 	onDelete?: OnEmojiEvent;
@@ -292,12 +273,7 @@ export interface Props extends Omit<
 	showTooltip?: boolean;
 }
 
-const unicodeEmojiCanvasSize = 128;
-
-type UnicodeEmojiImageState =
-	| { status: 'loading'; unicodeEmoji?: string }
-	| { imagePath: string; status: 'ready'; unicodeEmoji: string }
-	| { status: 'failed'; unicodeEmoji: string };
+export const unicodeEmojiCanvasSize: any = 128;
 
 const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
 	// Clicked emoji delete button
@@ -345,359 +321,6 @@ const handleFocus = (props: Props, event: FocusEvent<any>) => {
 	}
 };
 
-const handleDelete = (props: Props, event: SyntheticEvent) => {
-	const { emoji, onDelete } = props;
-	if (onDelete) {
-		onDelete(toEmojiId(emoji), emoji, event);
-	}
-};
-
-const handleImageError = (
-	props: Pick<Props, 'emoji' | 'onLoadError'>,
-	event: SyntheticEvent<HTMLImageElement>,
-) => {
-	const { emoji, onLoadError } = props;
-
-	// Hide error state (but keep space for it)
-	if (event.target) {
-		const target = event.target as HTMLElement;
-		target.style.visibility = 'hidden';
-	}
-	if (onLoadError) {
-		onLoadError(toEmojiId(emoji), emoji, event);
-	}
-};
-
-// Pure functional components are used in favour of class based components, due to the performance!
-// When rendering 1500+ emoji using class based components had a significant impact.
-// TODO: add UFO tracking for sprite emoji
-export const SpriteEmoji = (props: Props): JSX.Element => {
-	const { emoji, fitToHeight, selected, selectOnHover, className } = props;
-
-	const representation = emoji.representation as SpriteRepresentation;
-	const sprite = representation.sprite;
-
-	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${
-		selectOnHover ? selectOnHoverStyles : ''
-	} ${className ? className : ''}`;
-
-	let sizing = {};
-	if (fitToHeight) {
-		if (expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)) {
-			sizing = {
-				minHeight: `${fitToHeight}px`,
-				minWidth: `${fitToHeight}px`,
-			};
-		} else {
-			sizing = {
-				width: `${fitToHeight}px`,
-				height: `${fitToHeight}px`,
-				minHeight: `${fitToHeight}px`,
-				minWidth: `${fitToHeight}px`,
-			};
-		}
-	}
-
-	const xPositionInPercent = (100 / (sprite.column - 1)) * (representation.xIndex - 0);
-	const yPositionInPercent = (100 / (sprite.row - 1)) * (representation.yIndex - 0);
-	const style = {
-		backgroundImage: `url(${sprite.url})`,
-		backgroundPosition: `${xPositionInPercent}% ${yPositionInPercent}%`,
-		backgroundSize: `${sprite.column * 100}% ${sprite.row * 100}%`,
-		...sizing,
-	};
-
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<EmojiNodeWrapper {...props} type="sprite" className={classes}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766  */}
-			<span className={emojiSprite} style={style} />
-		</EmojiNodeWrapper>
-	);
-};
-
-const useUnicodeEmojiImage = (unicodeEmoji: string): UnicodeEmojiImageState => {
-	const [state, setState] = useState<UnicodeEmojiImageState>({ status: 'loading' });
-
-	useEffect(() => {
-		let cancelled = false;
-		let imagePathToRevoke: string | undefined;
-		setState({ status: 'loading', unicodeEmoji });
-
-		void renderUnicodeEmojiToImagePath(unicodeEmoji)
-			.then((imagePath) => {
-				if (cancelled) {
-					if (imagePath) {
-						URL.revokeObjectURL(imagePath);
-					}
-					return;
-				}
-
-				imagePathToRevoke = imagePath;
-				setState(
-					imagePath
-						? { status: 'ready', unicodeEmoji, imagePath }
-						: { status: 'failed', unicodeEmoji },
-				);
-			})
-			.catch(() => {
-				if (!cancelled) {
-					setState({ status: 'failed', unicodeEmoji });
-				}
-			});
-
-		return () => {
-			cancelled = true;
-			if (imagePathToRevoke) {
-				URL.revokeObjectURL(imagePathToRevoke);
-			}
-		};
-	}, [unicodeEmoji]);
-
-	return state;
-};
-
-const UnicodeEmojiImage = (props: Props): JSX.Element => {
-	const { emoji, fitToHeight, showTooltip } = props;
-	const emojiText = (emoji.representation as UnicodeRepresentation).unicodeEmoji;
-	const unicodeEmojiImage = useUnicodeEmojiImage(emojiText);
-
-	const hasCurrentEmojiImage = unicodeEmojiImage.unicodeEmoji === emojiText;
-
-	if (isSSR() || !hasCurrentEmojiImage || unicodeEmojiImage.status === 'loading') {
-		return (
-			<EmojiPlaceholder
-				shortName={emoji.shortName}
-				showTooltip={showTooltip}
-				size={fitToHeight}
-				loading
-			/>
-		);
-	}
-
-	if (unicodeEmojiImage.status === 'ready') {
-		return (
-			<ImageEmoji
-				{...props}
-				emoji={{
-					...emoji,
-					altRepresentation: undefined,
-					representation: {
-						imagePath: unicodeEmojiImage.imagePath,
-						width: unicodeEmojiCanvasSize,
-						height: unicodeEmojiCanvasSize,
-					},
-				}}
-			/>
-		);
-	}
-
-	return (
-		<EmojiPlaceholder shortName={emoji.shortName} showTooltip={showTooltip} size={fitToHeight} />
-	);
-};
-
-export const UnicodeEmoji = (props: Props): JSX.Element => {
-	const {
-		emoji,
-		selected,
-		selectOnHover,
-		className,
-		fitToHeight,
-		renderUnicodeEmojiAsImage = true,
-	} = props;
-
-	if (renderUnicodeEmojiAsImage) {
-		return <UnicodeEmojiImage {...props} />;
-	}
-
-	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${
-		selectOnHover ? selectOnHoverStyles : ''
-	} ${className ? className : ''}`;
-
-	const emojiText = (emoji.representation as UnicodeRepresentation).unicodeEmoji;
-	const defaultSize = `${fitToHeight ?? defaultEmojiHeight}px`;
-	const emojiSize = `var(--emoji-common-unicode-size, ${defaultSize})`;
-
-	const style: React.CSSProperties = {
-		display: 'inline-flex',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: emojiSize,
-		alignItems: 'center',
-		aspectRatio: '1/1',
-	};
-
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-		<EmojiNodeWrapper {...props} type="unicode" className={classes}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
-			<span style={style}>{emojiText}</span>
-		</EmojiNodeWrapper>
-	);
-};
-
-// Keep as pure functional component, see renderAsSprite.
-export const ImageEmoji = (props: Props): JSX.Element => {
-	const {
-		emoji,
-		fitToHeight,
-		selected,
-		selectOnHover,
-		className,
-		showDelete,
-		onLoadSuccess,
-		disableLazyLoad,
-		autoWidth,
-	} = props;
-
-	const [ref, inView] = useInView({
-		triggerOnce: true,
-	});
-
-	const ufoExp = useMemo(() => sampledUfoRenderedEmoji(emoji), [emoji]);
-
-	const classes = `${emojiMainStyle} ${emojiNodeStyles} ${
-		selected ? commonSelectedStyles : ''
-	} ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${
-		className ? className : ''
-	} ${showDelete ? deletableEmoji : ''}`;
-
-	let width;
-	let height;
-	let src;
-
-	const representation = shouldUseAltRepresentation(emoji, fitToHeight)
-		? emoji.altRepresentation
-		: emoji.representation;
-	if (isImageRepresentation(representation)) {
-		src = representation.imagePath;
-		width = representation.width;
-		height = representation.height;
-	} else if (isMediaRepresentation(representation)) {
-		src = representation.mediaPath;
-		width = representation.width;
-		height = representation.height;
-	}
-
-	let sizing = {};
-	if (fitToHeight && width && height) {
-		const sizingWidth = autoWidth ? 'auto' : (fitToHeight / height) * width;
-		// Presize image, to prevent reflow due to size changes after loading
-		sizing = {
-			width: sizingWidth,
-			height: fitToHeight,
-		};
-	}
-
-	const onError = useCallback(
-		(event: SyntheticEvent<HTMLImageElement>) => {
-			handleImageError({ emoji: props.emoji, onLoadError: props.onLoadError }, event);
-		},
-		[props.emoji, props.onLoadError],
-	);
-
-	const onLoad = useCallback(() => {
-		const mountedMark = ufoExp.metrics.marks.find(
-			(mark) => mark.name === UfoEmojiTimings.MOUNTED_END,
-		);
-		// onload could trigger before onBeforeLoad when emojis in viewport at start, so we need to mark onload start manually.
-		if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_START)) {
-			ufoExp.mark(UfoEmojiTimings.ONLOAD_START, mountedMark?.time);
-		}
-		const loadedStartMark = ufoExp.metrics.marks.find(
-			(mark) => mark.name === UfoEmojiTimings.ONLOAD_START,
-		);
-		if (mountedMark && loadedStartMark) {
-			ufoExp.addMetadata({
-				lazyLoad: loadedStartMark.time > mountedMark.time,
-			});
-		}
-		// onload_start
-		if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_END)) {
-			ufoExp.mark(UfoEmojiTimings.ONLOAD_END);
-		}
-		ufoExp.success({
-			metadata: {
-				IBSupported: browserSupport.supportsIntersectionObserver,
-			},
-		});
-
-		if (onLoadSuccess) {
-			onLoadSuccess(emoji);
-		}
-	}, [emoji, onLoadSuccess, ufoExp]);
-
-	const onBeforeLoad = useCallback(() => {
-		if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_START)) {
-			ufoExp.mark(UfoEmojiTimings.ONLOAD_START);
-		}
-	}, [ufoExp]);
-
-	const onMouseOver = useCallback((e: React.MouseEvent<HTMLElement>) => {
-		// only disable tooltip when not on focus
-		if (!getDocument()?.activeElement?.contains(e.target as Node)) {
-			e.stopPropagation();
-		}
-	}, []);
-
-	// because of the lack of browser support of on before load natively, used IntersectionObserver helper hook to mimic the before load time mark for UFO.
-	useEffect(() => {
-		if (inView) {
-			onBeforeLoad();
-		}
-	}, [inView, onBeforeLoad]);
-
-	const emojiNode = (
-		<img
-			//@ts-ignore
-			loading={disableLazyLoad ? 'eager' : 'lazy'}
-			src={src}
-			key={src}
-			alt={emoji.name || emoji.shortName || ''}
-			data-emoji-short-name={emoji.shortName}
-			data-emoji-id={emoji.id}
-			data-emoji-text={emoji.fallback || emoji.shortName}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className="emoji"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={{ visibility: 'visible' }}
-			onError={onError}
-			onLoad={onLoad}
-			{...sizing}
-			data-vc="emoji"
-		/>
-	);
-
-	// show a tooltip for deletable emoji only on focus
-	if (showDelete) {
-		return (
-			<Tooltip content={<DeletableEmojiTooltipContent />} position="right-start" tag="span">
-				<EmojiNodeWrapper
-					{...props}
-					aria-labelledby={`screenreader-emoji-${emoji.id}`}
-					type="image"
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={classes}
-					ref={ref}
-					showTooltip={false} // avoid showing both tooltip and title
-					onMouseOver={onMouseOver}
-				>
-					{emojiNode}
-					<DeleteButton onClick={(event: SyntheticEvent) => handleDelete(props, event)} />
-					<DeletableEmojiTooltipContentForScreenReader emoji={emoji} />
-				</EmojiNodeWrapper>
-			</Tooltip>
-		);
-	}
-
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<EmojiNodeWrapper {...props} type="image" className={classes} ref={ref}>
-			{emojiNode}
-		</EmojiNodeWrapper>
-	);
-};
-
 interface EmojiNodeWrapperProps extends Props {
 	type: 'sprite' | 'image' | 'unicode';
 }
@@ -729,18 +352,23 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 		type,
 		editorEmoji,
 		renderUnicodeEmojiAsImage,
+		isDecorative,
 		...other
 	} = props;
 
 	const intl = useContext(IntlContext);
 
-	const ariaLabel = editorEmoji
-		? undefined
-		: intl
-			? intl.formatMessage(messages.changeEmojiShortnameButtonLabel, {
-					shortName: emoji.name ?? emoji.shortName,
-				})
-			: emoji.shortName;
+	const isAriaLabelEmpty = editorEmoji || (isDecorative && fg('emoji_decorative_label'));
+	let ariaLabel: string | undefined;
+	if (isAriaLabelEmpty) {
+		ariaLabel = undefined;
+	} else if (intl) {
+		ariaLabel = intl.formatMessage(messages.changeEmojiShortnameButtonLabel, {
+			shortName: emoji.name ?? emoji.shortName,
+		});
+	} else {
+		ariaLabel = emoji.shortName;
+	}
 
 	const tooltipContent =
 		showTooltip && expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)

@@ -3,8 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import Avatar from '@atlaskit/avatar';
-import Link from '@atlaskit/link';
+import Avatar from '@atlaskit/avatar/avatar';
+import Link from '@atlaskit/link/link';
 
 import avatarImg from '../../../../examples/images/avatar_400x400.jpg';
 import CommentAction from '../../../../src/components/action-item';

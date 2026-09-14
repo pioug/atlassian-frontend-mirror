@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, code, Props } from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 import { Text } from '@atlaskit/primitives/compiled';
 
 const _default_1: any = md`
@@ -110,15 +110,15 @@ const _default_1: any = md`
   #### 3. Consume your reactionsStore in your ConnectedReactionsView
 
   ${code`
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <ConnectedReactionsView
       store={reactionsStore}
       containerAri={containerAri}
       ari={demoAri}
       emojiProvider={Promise.resolve(emojiResource)}
     />
-    container,
-  };`}
+  );`}
 
 ${(
 	<>

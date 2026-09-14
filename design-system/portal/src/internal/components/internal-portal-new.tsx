@@ -2,9 +2,10 @@ import React, { Suspense, useState } from 'react';
 
 import { createPortal } from 'react-dom';
 
-import { ThemeProvider, useColorMode } from '@atlaskit/app-provider';
+import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
+import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { useIsInsideThemeProvider } from '@atlaskit/app-provider/use-is-inside-theme-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useIsomorphicLayoutEffect } from '../hooks/use-isomorphic-layout-effect';
 import { createAtlaskitPortal } from '../utils/create-atlaskit-portal';

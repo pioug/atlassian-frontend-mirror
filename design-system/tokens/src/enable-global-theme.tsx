@@ -1,6 +1,8 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import { type ThemeIdsWithOverrides, type ThemeState, themeStateDefaults } from './theme-config';
+import { type ThemeIdsWithOverrides } from './theme-config';
+import { type ThemeState } from './theme-state';
+import { themeStateDefaults } from './theme-state-defaults';
 import configurePage from './utils/configure-page';
 import { getThemePreferences } from './utils/get-theme-preferences';
 
@@ -26,7 +28,7 @@ import { getThemePreferences } from './utils/get-theme-preferences';
  * enableGlobalTheme({colorMode: 'auto', light: 'light', dark: 'dark', spacing: 'spacing'});
  * ```
  */
-const enableGlobalTheme = (
+export const enableGlobalTheme = (
 	{
 		colorMode = themeStateDefaults['colorMode'],
 		contrastMode = themeStateDefaults['contrastMode'],

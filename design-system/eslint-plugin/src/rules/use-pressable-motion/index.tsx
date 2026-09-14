@@ -11,6 +11,7 @@ const COMPILED_PRESSABLE = '@atlaskit/primitives/compiled/pressable';
 const LEGACY_PRESSABLE = '@atlaskit/primitives/pressable';
 const XCSS = '@atlaskit/primitives/xcss';
 const ATLASKIT_CSS = '@atlaskit/css';
+const COMPILED_REACT = '@compiled/react';
 const TOKENS = '@atlaskit/tokens';
 
 const BUTTON_PROPERTIES = new Set(['backgroundColor', 'background']);
@@ -36,6 +37,7 @@ type StyleUsage = {
 	node: Rule.Node;
 	styleName: string;
 	styleKey: string;
+	arrayGroup?: Expression;
 };
 
 type MotionFamily = 'button' | 'listitem';
@@ -171,14 +173,14 @@ const rule: Rule.RuleModule = createLintRule({
 		type: 'suggestion',
 		docs: {
 			description:
-				'Suggests semantic motion tokens when Pressable changes interactive colours through local static styles.',
+				'Suggests semantic motion tokens when Pressable or native buttons change interactive colours through local static styles.',
 			removeFromPresets: true,
 		},
 		messages: {
 			missingPressableMotion:
-				'Pressable changes interactive colour properties without the matching semantic motion token.',
+				'An interactive element changes colour properties without the matching semantic motion token.',
 			missingPressableMotionManual:
-				'Pressable changes interactive colour properties without the matching semantic motion token. Update the existing transition manually.',
+				'An interactive element changes colour properties without the matching semantic motion token. Update the existing transition manually.',
 			useButtonMotion: 'Add button motion tokens for hover and pressed states.',
 			useListItemMotion: 'Add list-item motion tokens for hover and pressed states.',
 		},
@@ -192,12 +194,17 @@ const rule: Rule.RuleModule = createLintRule({
 		const tokenNames = new Set<string>();
 		const styles = new Map<string, StyleReference>();
 		const styleUsages: StyleUsage[] = [];
-		const collectStyleUsages = (node: Rule.Node, expression: Expression): void => {
+		const collectStyleUsages = (
+			node: Rule.Node,
+			expression: Expression,
+			arrayGroup?: Expression,
+		): void => {
 			if (expression.type === 'Identifier') {
 				styleUsages.push({
 					node,
 					styleName: expression.name,
 					styleKey: 'default',
+					arrayGroup,
 				});
 				return;
 			}
@@ -212,6 +219,7 @@ const rule: Rule.RuleModule = createLintRule({
 					node,
 					styleName: expression.object.name,
 					styleKey: expression.property.name,
+					arrayGroup,
 				});
 				return;
 			}
@@ -219,24 +227,31 @@ const rule: Rule.RuleModule = createLintRule({
 			if (expression.type === 'ArrayExpression') {
 				expression.elements.forEach((element) => {
 					if (element !== null && element.type !== 'SpreadElement') {
-						collectStyleUsages(node, element);
+						collectStyleUsages(node, element, expression);
 					}
 				});
 				return;
 			}
 
 			if (expression.type === 'LogicalExpression') {
-				collectStyleUsages(node, expression.right);
+				collectStyleUsages(node, expression.right, arrayGroup);
 				return;
 			}
 
 			if (expression.type === 'ConditionalExpression') {
-				collectStyleUsages(node, expression.consequent);
-				collectStyleUsages(node, expression.alternate);
+				collectStyleUsages(node, expression.consequent, arrayGroup);
+				collectStyleUsages(node, expression.alternate, arrayGroup);
 			}
 		};
 
-		const report = (node: Rule.Node, style: StyleRecord) => {
+		const report = (
+			node: Rule.Node,
+			style: StyleRecord,
+			groupProvidesButtonHoverTransition: boolean,
+			groupProvidesListItemHoverTransition: boolean,
+			groupProvidesButtonActiveTransition: boolean,
+			groupProvidesListItemActiveTransition: boolean,
+		) => {
 			const hasHover = hasRelevantColorChange(style.hover, BUTTON_PROPERTIES, tokenNames);
 			const hasActive = hasRelevantColorChange(style.active, BUTTON_PROPERTIES, tokenNames);
 			const hasListItemHover = hasRelevantColorChange(
@@ -256,28 +271,26 @@ const rule: Rule.RuleModule = createLintRule({
 
 			const baseTransition = getProperty(style.base, 'transition');
 			const activeTransition = style.active ? getProperty(style.active, 'transition') : undefined;
-			const hasButtonHoverTransition = isExpectedTransition(
-				baseTransition,
-				tokenNames,
-				'motion.button.hovered',
-			);
-			const hasButtonActiveTransition = isExpectedTransition(
-				activeTransition,
-				tokenNames,
-				'motion.button.pressed',
-			);
-			const hasListItemHoverTransition = isExpectedTransition(
-				baseTransition,
-				tokenNames,
-				'motion.listitem.hovered',
-			);
-			const hasListItemActiveTransition = isExpectedTransition(
-				activeTransition,
-				tokenNames,
-				'motion.listitem.pressed',
-			);
-			const needsHover = hasListItemHover && !baseTransition;
-			const needsActive = hasListItemActive && !activeTransition;
+			const hasButtonHoverTransition =
+				isExpectedTransition(baseTransition, tokenNames, 'motion.button.hovered') ||
+				groupProvidesButtonHoverTransition;
+			const hasButtonActiveTransition =
+				isExpectedTransition(activeTransition, tokenNames, 'motion.button.pressed') ||
+				groupProvidesButtonActiveTransition;
+			const hasListItemHoverTransition =
+				isExpectedTransition(baseTransition, tokenNames, 'motion.listitem.hovered') ||
+				groupProvidesListItemHoverTransition;
+			const hasListItemActiveTransition =
+				isExpectedTransition(activeTransition, tokenNames, 'motion.listitem.pressed') ||
+				groupProvidesListItemActiveTransition;
+			const groupProvidesHoverTransition = hasHover
+				? groupProvidesButtonHoverTransition || groupProvidesListItemHoverTransition
+				: groupProvidesListItemHoverTransition;
+			const groupProvidesActiveTransition = hasActive
+				? groupProvidesButtonActiveTransition || groupProvidesListItemActiveTransition
+				: groupProvidesListItemActiveTransition;
+			const needsHover = hasListItemHover && !baseTransition && !groupProvidesHoverTransition;
+			const needsActive = hasListItemActive && !activeTransition && !groupProvidesActiveTransition;
 			const hasUnsafeTransition =
 				(hasListItemHover &&
 					baseTransition !== undefined &&
@@ -352,6 +365,32 @@ const rule: Rule.RuleModule = createLintRule({
 			});
 		};
 
+		const providesButtonHoverTransition = (style: StyleRecord): boolean => {
+			const baseTransition = getProperty(style.base, 'transition');
+			return isExpectedTransition(baseTransition, tokenNames, 'motion.button.hovered');
+		};
+
+		const providesListItemHoverTransition = (style: StyleRecord): boolean => {
+			const baseTransition = getProperty(style.base, 'transition');
+			return isExpectedTransition(baseTransition, tokenNames, 'motion.listitem.hovered');
+		};
+
+		const providesButtonActiveTransition = (style: StyleRecord): boolean => {
+			if (!style.active) {
+				return false;
+			}
+			const activeTransition = getProperty(style.active, 'transition');
+			return isExpectedTransition(activeTransition, tokenNames, 'motion.button.pressed');
+		};
+
+		const providesListItemActiveTransition = (style: StyleRecord): boolean => {
+			if (!style.active) {
+				return false;
+			}
+			const activeTransition = getProperty(style.active, 'transition');
+			return isExpectedTransition(activeTransition, tokenNames, 'motion.listitem.pressed');
+		};
+
 		return {
 			ImportDeclaration(node: Rule.Node) {
 				if (node.type !== 'ImportDeclaration') {
@@ -374,7 +413,7 @@ const rule: Rule.RuleModule = createLintRule({
 					});
 				}
 
-				if (node.source.value === ATLASKIT_CSS) {
+				if (node.source.value === ATLASKIT_CSS || node.source.value === COMPILED_REACT) {
 					node.specifiers.forEach((specifier) => {
 						if (specifier.type !== 'ImportSpecifier' || specifier.imported.type !== 'Identifier') {
 							return;
@@ -466,29 +505,80 @@ const rule: Rule.RuleModule = createLintRule({
 				if (node.openingElement.name.type !== 'JSXIdentifier') {
 					return;
 				}
-				if (!pressableNames.has(node.openingElement.name.name)) {
+				const isPressable = pressableNames.has(node.openingElement.name.name);
+				const isNativeButton = node.openingElement.name.name === 'button';
+				if (!isPressable && !isNativeButton) {
 					return;
 				}
 
-				const xcss = node.openingElement.attributes.find(
-					(attribute) => attribute.type === 'JSXAttribute' && attribute.name.name === 'xcss',
+				const styleAttribute = node.openingElement.attributes.find(
+					(attribute) =>
+						attribute.type === 'JSXAttribute' &&
+						attribute.name.name === (isNativeButton ? 'css' : 'xcss'),
 				);
-				if (xcss?.type !== 'JSXAttribute' || xcss.value?.type !== 'JSXExpressionContainer') {
+				if (
+					styleAttribute?.type !== 'JSXAttribute' ||
+					styleAttribute.value?.type !== 'JSXExpressionContainer'
+				) {
 					return;
 				}
 
-				const expression = xcss.value.expression;
+				const expression = styleAttribute.value.expression;
 				if (expression.type !== 'JSXEmptyExpression') {
-					collectStyleUsages(xcss as Rule.Node, expression);
+					collectStyleUsages(styleAttribute as Rule.Node, expression);
 				}
 			},
 
 			'Program:exit'() {
-				styleUsages.forEach(({ node, styleName, styleKey }) => {
-					const style = styles.get(styleName)?.styles.get(styleKey);
-					if (style) {
-						report(node, style);
+				const groups = new Map<Expression, StyleUsage[]>();
+				styleUsages.forEach((usage) => {
+					if (!usage.arrayGroup) {
+						const style = styles.get(usage.styleName)?.styles.get(usage.styleKey);
+						if (style) {
+							report(usage.node, style, false, false, false, false);
+						}
+						return;
 					}
+
+					const existing = groups.get(usage.arrayGroup);
+					if (existing) {
+						existing.push(usage);
+					} else {
+						groups.set(usage.arrayGroup, [usage]);
+					}
+				});
+
+				groups.forEach((usages) => {
+					const groupStyles = usages
+						.map((usage) => styles.get(usage.styleName)?.styles.get(usage.styleKey))
+						.filter((style): style is StyleRecord => style !== undefined);
+
+					const groupProvidesButtonHoverTransition = groupStyles.some(
+						providesButtonHoverTransition,
+					);
+					const groupProvidesListItemHoverTransition = groupStyles.some(
+						providesListItemHoverTransition,
+					);
+					const groupProvidesButtonActiveTransition = groupStyles.some(
+						providesButtonActiveTransition,
+					);
+					const groupProvidesListItemActiveTransition = groupStyles.some(
+						providesListItemActiveTransition,
+					);
+
+					usages.forEach(({ node, styleName, styleKey }) => {
+						const style = styles.get(styleName)?.styles.get(styleKey);
+						if (style) {
+							report(
+								node,
+								style,
+								groupProvidesButtonHoverTransition,
+								groupProvidesListItemHoverTransition,
+								groupProvidesButtonActiveTransition,
+								groupProvidesListItemActiveTransition,
+							);
+						}
+					});
 				});
 			},
 		};

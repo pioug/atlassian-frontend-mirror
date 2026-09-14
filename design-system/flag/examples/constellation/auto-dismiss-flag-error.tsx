@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import Button from '@atlaskit/button/default/button';
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

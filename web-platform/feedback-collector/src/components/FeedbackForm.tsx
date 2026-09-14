@@ -3,20 +3,23 @@ import React, { useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
-import { Checkbox } from '@atlaskit/checkbox';
-import Form, {
-	ErrorMessage,
-	Field,
-	Fieldset,
-	MessageWrapper,
-	RequiredAsterisk,
-} from '@atlaskit/form';
-import Link from '@atlaskit/link';
-import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
-import SectionMessage from '@atlaskit/section-message';
-import Select from '@atlaskit/select';
-import TextArea from '@atlaskit/textarea';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { Fieldset } from '@atlaskit/form/fieldset';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
+import Link from '@atlaskit/link/link';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import SectionMessage from '@atlaskit/section-message/message';
+import Select from '@atlaskit/select/default';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
@@ -222,18 +225,18 @@ const FeedbackForm = ({
 
 	const renderContactLabelAppify = () => {
 		if (fg('jfp_a11y_team_feedback_collector_nested_elements')) {
-			return messages.canBeContactedLabelAppifyWithoutLink;
+			return messages.canBeContactedLabelAppifyWithResponseWithoutLink;
 		}
 
-		return messages.canBeContactedLabelAppify;
+		return messages.canBeContactedLabelAppifyWithResponse;
 	};
 
 	const renderContactLabel = () => {
 		if (fg('jfp_a11y_team_feedback_collector_nested_elements')) {
-			return messages.canBeContactedLabelWithoutLink;
+			return messages.canBeContactedLabelWithResponseWithoutLink;
 		}
 
-		return messages.canBeContactedLabel;
+		return messages.canBeContactedLabelWithResponse;
 	};
 
 	const requiredFieldsSummary = (
@@ -314,7 +317,7 @@ const FeedbackForm = ({
 											}}
 											menuPosition="fixed"
 											options={selectOptions}
-											shouldPreventEscapePropagation={fg('ak_feedback_collector_select_escape')}
+											shouldPreventEscapePropagation
 											// @ts-ignore
 											ref={focusRef}
 											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
@@ -513,7 +516,7 @@ const FeedbackForm = ({
 													}}
 													menuPosition="fixed"
 													options={selectOptions}
-													shouldPreventEscapePropagation={fg('ak_feedback_collector_select_escape')}
+													shouldPreventEscapePropagation
 													// @ts-ignore
 													ref={focusRef}
 													placeholder={getDefaultPlaceholder(feedbackGroupLabels)}

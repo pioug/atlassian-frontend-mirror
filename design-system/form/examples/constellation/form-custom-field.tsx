@@ -6,9 +6,11 @@ import React from 'react';
 
 import { css } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
-import Form, { Field, FormFooter } from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 
 interface ColorButtonProps {

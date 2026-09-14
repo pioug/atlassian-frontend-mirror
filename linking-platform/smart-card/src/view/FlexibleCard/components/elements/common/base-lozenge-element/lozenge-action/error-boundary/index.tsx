@@ -2,7 +2,7 @@ import React, { type ComponentType, useMemo } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 
 import type { LozengeActionProps } from '../types';
 

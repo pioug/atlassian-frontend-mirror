@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 
 import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';

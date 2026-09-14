@@ -101,7 +101,7 @@ const CustomItem = memo(
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
 							onClick={isDisabled ? preventEvent : handleClick}
 							tabIndex={isDisabled ? -1 : undefined}
-							aria-disabled={isDisabled}
+							aria-disabled={isDisabled || undefined}
 						>
 							{children}
 						</Component>

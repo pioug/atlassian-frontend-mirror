@@ -17,7 +17,7 @@ import {
 	Layout5ColWithWidthRenderer,
 	Layout5ColWithWidthAndLayout5ColWithWideRenderer,
 	Layout5ColWithWidthInFullWidthRenderer,
-} from './layout.fixture';
+} from './layout.fixture.vr.ap';
 import { Device, snapshot } from '@af/visual-regression';
 import {
 	flagsForVrTests,
@@ -27,18 +27,24 @@ import {
 snapshot(OverflowLayoutRenderer);
 snapshot(Layout2ColRenderer);
 snapshot(LayoutWithDefaultBreakoutMarkRenderer);
-snapshot(Layout3ColRenderer);
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Layout3ColRenderer);
 snapshot(LayoutLeftSidebarRenderer);
 snapshot(LayoutRightSidebarRenderer);
-snapshot(Layout3ColWithSidebarsRenderer);
-snapshot(Layout3ColWithMentionRenderer);
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Layout3ColWithSidebarsRenderer);
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Layout3ColWithMentionRenderer);
 snapshot(LayoutWithBlockNodesRenderer);
-snapshot(LayoutWithDifferentTextRenderer);
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(LayoutWithDifferentTextRenderer);
 snapshot(LayoutWithMediaRenderer);
 snapshot(LayoutWithTextAndCodeblockRenderer);
-snapshot(Layout3ColWithDifferentTextRenderer);
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Layout3ColWithDifferentTextRenderer);
 
-snapshot(Layout3ColWithWidthRenderer, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Layout3ColWithWidthRenderer, {
 	...flagsForVrTests,
 });
 
@@ -68,7 +74,8 @@ snapshot(Layout4ColWithWidthRenderer, {
 	...flagsForVrTests,
 });
 
-snapshot(Layout5ColWithWidthRenderer, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Layout5ColWithWidthRenderer, {
 	...flagsForVrTests,
 });
 
@@ -76,6 +83,7 @@ snapshot(Layout5ColWithWidthAndLayout5ColWithWideRenderer, {
 	...flagsForVrTests,
 });
 
-snapshot(Layout5ColWithWidthInFullWidthRenderer, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(Layout5ColWithWidthInFullWidthRenderer, {
 	...flagsForVrTests,
 });

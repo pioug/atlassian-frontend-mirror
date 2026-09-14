@@ -5,12 +5,13 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.getThemeStyles = exports.default = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
+var _fg = require("@atlaskit/platform-feature-flags/fg");
 var _themeConfig = require("./theme-config");
+var _themeStateDefaults = require("./theme-state-defaults");
 var _getThemeOverridePreferences = require("./utils/get-theme-override-preferences");
 var _getThemePreferences = require("./utils/get-theme-preferences");
 var _isValidBrandHex = require("./utils/is-valid-brand-hex");
@@ -33,7 +34,7 @@ function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r
  * @returns A Promise of an object array, containing theme IDs, data-attributes to attach to the theme, and the theme CSS.
  * If an error is encountered while loading themes, the themes array will be empty.
  */
-var getThemeStyles = /*#__PURE__*/function () {
+var getThemeStyles = exports.getThemeStyles = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3(preferences) {
     var themePreferences, themeOverridePreferences, themeState, results;
     return _regenerator.default.wrap(function (_context3) {
@@ -42,23 +43,28 @@ var getThemeStyles = /*#__PURE__*/function () {
           themeOverridePreferences = [];
           if (preferences === 'all') {
             themePreferences = _themeConfig.themeIdsWithOverrides;
+            if (!(0, _fg.fg)('platform-dst-tokens-finesse')) {
+              themePreferences = themePreferences.filter(function (themeId) {
+                return !_themeConfig.themeOverrideIds.includes(themeId);
+              });
+            }
 
             // CLEANUP: Remove
-            if (!(0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
+            if (!(0, _fg.fg)('platform_increased-contrast-themes')) {
               themePreferences = themePreferences.filter(function (n) {
-                return n !== 'light-increased-contrast' && n !== 'dark-increased-contrast';
+                return n !== 'light-increased-contrast' && n !== 'dark-increased-contrast' && n !== 'light-increased-contrast-finesse' && n !== 'dark-increased-contrast-finesse';
               });
             }
           } else {
             themeState = {
-              colorMode: (preferences === null || preferences === void 0 ? void 0 : preferences.colorMode) || _themeConfig.themeStateDefaults['colorMode'],
-              contrastMode: (preferences === null || preferences === void 0 ? void 0 : preferences.contrastMode) || _themeConfig.themeStateDefaults['contrastMode'],
-              dark: (preferences === null || preferences === void 0 ? void 0 : preferences.dark) || _themeConfig.themeStateDefaults['dark'],
-              light: (preferences === null || preferences === void 0 ? void 0 : preferences.light) || _themeConfig.themeStateDefaults['light'],
-              motion: (preferences === null || preferences === void 0 ? void 0 : preferences.motion) || _themeConfig.themeStateDefaults['motion'](),
-              shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeConfig.themeStateDefaults['shape'](),
-              spacing: (preferences === null || preferences === void 0 ? void 0 : preferences.spacing) || _themeConfig.themeStateDefaults['spacing'],
-              typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeConfig.themeStateDefaults['typography']
+              colorMode: (preferences === null || preferences === void 0 ? void 0 : preferences.colorMode) || _themeStateDefaults.themeStateDefaults['colorMode'],
+              contrastMode: (preferences === null || preferences === void 0 ? void 0 : preferences.contrastMode) || _themeStateDefaults.themeStateDefaults['contrastMode'],
+              dark: (preferences === null || preferences === void 0 ? void 0 : preferences.dark) || _themeStateDefaults.themeStateDefaults['dark'],
+              light: (preferences === null || preferences === void 0 ? void 0 : preferences.light) || _themeStateDefaults.themeStateDefaults['light'],
+              motion: (preferences === null || preferences === void 0 ? void 0 : preferences.motion) || _themeStateDefaults.themeStateDefaults['motion'](),
+              shape: (preferences === null || preferences === void 0 ? void 0 : preferences.shape) || _themeStateDefaults.themeStateDefaults['shape'](),
+              spacing: (preferences === null || preferences === void 0 ? void 0 : preferences.spacing) || _themeStateDefaults.themeStateDefaults['spacing'],
+              typography: (preferences === null || preferences === void 0 ? void 0 : preferences.typography) || _themeStateDefaults.themeStateDefaults['typography']
             };
             themePreferences = (0, _getThemePreferences.getThemePreferences)(themeState);
             themeOverridePreferences = (0, _getThemeOverridePreferences.getThemeOverridePreferences)(themeState);
@@ -111,14 +117,14 @@ var getThemeStyles = /*#__PURE__*/function () {
                   _context2.next = 2;
                   return Promise.resolve().then(function () {
                     return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
-                    './custom-theme'));
+                    './get-custom-theme-styles'));
                   });
                 case 2:
                   _yield$import = _context2.sent;
                   getCustomThemeStyles = _yield$import.getCustomThemeStyles;
                   _context2.next = 3;
                   return getCustomThemeStyles({
-                    colorMode: (preferences === null || preferences === void 0 ? void 0 : preferences.colorMode) || _themeConfig.themeStateDefaults['colorMode'],
+                    colorMode: (preferences === null || preferences === void 0 ? void 0 : preferences.colorMode) || _themeStateDefaults.themeStateDefaults['colorMode'],
                     UNSAFE_themeOptions: preferences === null || preferences === void 0 ? void 0 : preferences.UNSAFE_themeOptions
                   });
                 case 3:

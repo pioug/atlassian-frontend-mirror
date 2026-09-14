@@ -1,4 +1,4 @@
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 
 import { avatar1, avatar2, avatar3, iconBitbucket } from '../../images';
 import preview from '../../images/rectangle.svg';
@@ -9,14 +9,6 @@ export const url = 'https://product-fabric.atlassian.net/wiki/spaces/EM';
 // It is unlikely that a real link would have all these information.
 // For example, a blog link would not have data for a pull request target branch.',
 export const unicornResponse: {
-	meta: {
-		visibility: string;
-		access: string;
-		auth: never[];
-		definitionId: string;
-		key: string;
-		supportedFeature: string[];
-	};
 	data: {
 		'@context': {
 			'@vocab': string;
@@ -24,57 +16,105 @@ export const unicornResponse: {
 			schema: string;
 		};
 		'@type': string[];
-		'atlassian:latestCommit': {
-			url: string;
-			'@id': string;
+		'atlassian:appliedToComponentsCount': number;
+		'atlassian:assignedTo': {
 			'@type': string;
+			icon: string;
+			name: string;
+		};
+		'atlassian:attachmentCount': number;
+		'atlassian:checkItems': {
+			checkedItems: number;
+			totalItems: number;
+		};
+		'atlassian:downloadUrl': string;
+		'atlassian:latestCommit': {
 			'@context': {
 				'@vocab': string;
 				atlassian: string;
 				schema: string;
 			};
-			name: string;
+			'@id': string;
+			'@type': string;
+			'atlassian:committedBy': string;
 			attributedTo: string;
-			'schema:dateCreated': string;
-			updated: string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
 			generator: {
 				'@type': string;
-				name: string;
 				icon: {
 					'@type': string;
 					url: string;
 				};
+				name: string;
 			};
-			'atlassian:committedBy': string;
-			summary: string;
-		};
-		'atlassian:mergeSource': {
-			'@type': string;
-			href: string;
+			icon: {
+				'@type': string;
+				url: string;
+			};
 			name: string;
+			'schema:dateCreated': string;
+			summary: string;
+			updated: string;
+			url: string;
 		};
 		'atlassian:mergeDestination': {
 			'@type': string;
 			href: string;
 			name: string;
 		};
+		'atlassian:mergeSource': {
+			'@type': string;
+			href: string;
+			name: string;
+		};
+		'atlassian:ownedBy': {
+			'@type': string;
+			icon: string;
+			name: string;
+		}[];
 		'atlassian:priority': string;
 		'atlassian:reactCount': number;
 		'atlassian:readTimeInMinutes': number;
+		'atlassian:serverAction': (
+			| {
+					'@type': string;
+					dataRetrievalAction: {
+						'@type': string;
+						name: SmartLinkActionType;
+					};
+					dataUpdateAction: {
+						'@type': string;
+						name: SmartLinkActionType;
+					};
+					name: string;
+					refField: string;
+					resourceIdentifiers: {
+						ari?: undefined;
+						hostname: string;
+						issueKey: string;
+					};
+			  }
+			| {
+					'@type': string;
+					dataRetrievalAction?: undefined;
+					dataUpdateAction: {
+						'@type': string;
+						name: string;
+					};
+					name: string;
+					refField: string;
+					resourceIdentifiers: {
+						ari: string;
+						hostname?: undefined;
+						issueKey?: undefined;
+					};
+			  }
+		)[];
 		'atlassian:state': string;
+		'atlassian:storyPoints': number;
 		'atlassian:subscriberCount': number;
 		'atlassian:subTasks': {
-			totalCount: number;
 			resolvedCount: number;
-		};
-		'atlassian:attachmentCount': number;
-		'atlassian:checkItems': {
-			checkedItems: number;
-			totalItems: number;
+			totalCount: number;
 		};
 		'atlassian:updatedBy': {
 			'@type': string;
@@ -88,75 +128,27 @@ export const unicornResponse: {
 			icon: string;
 			name: string;
 		}[];
-		'atlassian:ownedBy': {
-			'@type': string;
-			icon: string;
-			name: string;
-		}[];
-		'atlassian:assignedTo': {
-			'@type': string;
-			icon: string;
-			name: string;
-		};
-		generator: {
-			'@type': string;
-			'@id': string;
-			name: string;
-		};
 		endTime: string;
+		generator: {
+			'@id': string;
+			'@type': string;
+			name: string;
+		};
 		image: string;
 		mediaType: string;
+		name: string;
 		preview: {
 			'@type': string;
-			href: string;
 			'atlassian:supportedPlatforms': string[];
+			href: string;
 		};
-		name: string;
 		'schema:commentCount': number;
 		'schema:dateCreated': string;
-		'schema:programmingLanguage': string;
-		'atlassian:downloadUrl': string;
-		'atlassian:storyPoints': number;
-		'atlassian:appliedToComponentsCount': number;
 		'schema:potentialAction': {
 			'@type': string;
 			name: string;
 		}[];
-		'atlassian:serverAction': (
-			| {
-					'@type': string;
-					name: string;
-					dataRetrievalAction: {
-						'@type': string;
-						name: SmartLinkActionType;
-					};
-					dataUpdateAction: {
-						'@type': string;
-						name: SmartLinkActionType;
-					};
-					refField: string;
-					resourceIdentifiers: {
-						issueKey: string;
-						hostname: string;
-						ari?: undefined;
-					};
-			  }
-			| {
-					'@type': string;
-					name: string;
-					dataUpdateAction: {
-						'@type': string;
-						name: string;
-					};
-					resourceIdentifiers: {
-						ari: string;
-						issueKey?: undefined;
-						hostname?: undefined;
-					};
-					refField: string;
-					dataRetrievalAction?: undefined;
-			  }
-		)[];
+		'schema:programmingLanguage': string;
 		summary: string;
 		tag: {
 			'@type': string;
@@ -165,6 +157,14 @@ export const unicornResponse: {
 		};
 		updated: string;
 		url: string;
+	};
+	meta: {
+		access: string;
+		auth: never[];
+		definitionId: string;
+		key: string;
+		supportedFeature: string[];
+		visibility: string;
 	};
 } = {
 	meta: {
@@ -307,13 +307,6 @@ export const unicornResponse: {
 };
 
 export const response1: {
-	meta: {
-		visibility: string;
-		access: string;
-		auth: never[];
-		definitionId: string;
-		key: string;
-	};
 	data: {
 		'@context': {
 			'@vocab': string;
@@ -335,12 +328,12 @@ export const response1: {
 			icon: string;
 			name: string;
 		}[];
+		endTime: string;
 		generator: {
-			'@type': string;
 			'@id': string;
+			'@type': string;
 			name: string;
 		};
-		endTime: string;
 		image: string;
 		mediaType: string;
 		name: string;
@@ -349,6 +342,13 @@ export const response1: {
 		summary: string;
 		updated: string;
 		url: string;
+	};
+	meta: {
+		access: string;
+		auth: never[];
+		definitionId: string;
+		key: string;
+		visibility: string;
 	};
 } = {
 	meta: {
@@ -394,52 +394,52 @@ export const response1: {
 };
 
 export const response2: {
-	meta: {
-		auth: never[];
-		definitionId: string;
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-	};
 	data: {
 		'@context': {
 			'@vocab': string;
 			atlassian: string;
 			schema: string;
 		};
-		generator: {
-			'@type': string;
-			'@id': string;
-			name: string;
-		};
 		'@type': string[];
-		name: string;
-		'schema:dateCreated': string;
-		updated: string;
-		'schema:commentCount': number;
 		'atlassian:priority': string;
 		'atlassian:subscriberCount': number;
-		tag: {
-			'@type': string;
-			name: string;
-			appearance: string;
-		};
-		taskType: {
-			'@type': string[];
-			'@id': string;
-			name: string;
-		};
 		attributedTo: {
 			'@type': string;
-			name: string;
 			icon: {
 				'@type': string;
 				url: string;
 			};
+			name: string;
 		};
-		url: string;
+		generator: {
+			'@id': string;
+			'@type': string;
+			name: string;
+		};
+		name: string;
+		'schema:commentCount': number;
+		'schema:dateCreated': string;
 		summary: string;
+		tag: {
+			'@type': string;
+			appearance: string;
+			name: string;
+		};
+		taskType: {
+			'@id': string;
+			'@type': string[];
+			name: string;
+		};
+		updated: string;
+		url: string;
+	};
+	meta: {
+		access: string;
+		auth: never[];
+		definitionId: string;
+		key: string;
+		resourceType: string;
+		visibility: string;
 	};
 } = {
 	meta: {
@@ -485,42 +485,42 @@ export const response2: {
 };
 
 export const response3: {
-	meta: {
-		auth: never[];
-		definitionId: string;
-		visibility: string;
-		access: string;
-		resourceType: string;
-		key: string;
-	};
 	data: {
 		'@context': {
 			'@vocab': string;
 			atlassian: string;
 			schema: string;
 		};
-		generator: {
-			'@type': string;
-			'@id': string;
-			name: string;
-		};
 		'@type': string[];
-		url: string;
-		name: string;
 		'atlassian:state': string;
-		summary: string;
-		'schema:commentCount': number;
-		'schema:dateCreated': string;
 		'atlassian:subscriberCount': number;
-		preview: {
-			'@type': string;
-			href: string;
-		};
 		attributedTo: {
 			'@type': string;
 			icon: string;
 			name: string;
 		}[];
+		generator: {
+			'@id': string;
+			'@type': string;
+			name: string;
+		};
+		name: string;
+		preview: {
+			'@type': string;
+			href: string;
+		};
+		'schema:commentCount': number;
+		'schema:dateCreated': string;
+		summary: string;
+		url: string;
+	};
+	meta: {
+		access: string;
+		auth: never[];
+		definitionId: string;
+		key: string;
+		resourceType: string;
+		visibility: string;
 	};
 } = {
 	meta: {
@@ -560,46 +560,13 @@ export const response3: {
 };
 
 export const response4: {
-	meta: {
-		auth: never[];
-		definitionId: string;
-		visibility: string;
-		access: string;
-		key: string;
-	};
 	data: {
 		'@context': {
 			'@vocab': string;
 			atlassian: string;
 			schema: string;
 		};
-		generator: {
-			'@type': string;
-			'@id': string;
-			name: string;
-		};
 		'@type': string[];
-		url: string;
-		name: string;
-		summary: string;
-		taskType: {
-			'@type': string[];
-			'@id': string;
-			icon: {
-				'@type': string;
-				url: string;
-			};
-			name: string;
-		};
-		tag: {
-			type: string;
-			name: string;
-			appearance: string;
-		};
-		preview: {
-			'@type': string;
-			href: string;
-		};
 		attributedTo: (
 			| {
 					'@type': string;
@@ -608,11 +575,44 @@ export const response4: {
 			  }
 			| {
 					'@type': string;
-					name: string;
 					icon?: undefined;
+					name: string;
 			  }
 		)[];
+		generator: {
+			'@id': string;
+			'@type': string;
+			name: string;
+		};
+		name: string;
+		preview: {
+			'@type': string;
+			href: string;
+		};
 		'schema:dateCreated': string;
+		summary: string;
+		tag: {
+			appearance: string;
+			name: string;
+			type: string;
+		};
+		taskType: {
+			'@id': string;
+			'@type': string[];
+			icon: {
+				'@type': string;
+				url: string;
+			};
+			name: string;
+		};
+		url: string;
+	};
+	meta: {
+		access: string;
+		auth: never[];
+		definitionId: string;
+		key: string;
+		visibility: string;
 	};
 } = {
 	meta: {

@@ -1,4 +1,5 @@
-import { createPlayedTrackEvent, createFirstPlayedTrackEvent } from '../../analytics';
+import { createFirstPlayedTrackEvent } from '../../analytics/events/track/playCount';
+import { createPlayedTrackEvent } from '../../analytics/events/track/played';
 
 describe('createPlayedTrackEvent', () => {
 	it('should create event payload', () =>

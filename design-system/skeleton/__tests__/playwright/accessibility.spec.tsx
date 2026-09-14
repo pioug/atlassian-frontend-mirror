@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Skeleton, default should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../examples/all.tsx')>(
+	await page.visitExample<typeof import('../../examples/all.vr.ap.tsx')>(
 		'design-system',
 		'skeleton',
 		'all',
@@ -11,7 +11,7 @@ test('Skeleton, default should pass basic aXe audit', async ({ page }) => {
 });
 
 test('Skeleton, skeleton-border should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../examples/all.tsx')>(
+	await page.visitExample<typeof import('../../examples/all.vr.ap.tsx')>(
 		'design-system',
 		'skeleton',
 		'all',

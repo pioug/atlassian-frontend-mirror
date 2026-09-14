@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 export const TEST_URL = 'https://my.url.com';
 export const TEST_INTERACTIVE_HREF_URL = 'https://my.url.com/embed';
 export const TEST_NAME = 'my name';

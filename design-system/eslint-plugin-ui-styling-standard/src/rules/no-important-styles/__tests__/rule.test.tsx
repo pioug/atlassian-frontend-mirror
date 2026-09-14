@@ -11,6 +11,24 @@ tester.run('no-important-styles', rule, {
       });
     `,
 		{
+			name: 'ignores a shadowed style function',
+			code: `
+        import { css } from '@compiled/react';
+
+        function makeStyles(css) {
+          return css({ color: 'red !important' });
+        }
+			`,
+		},
+		{
+			name: 'ignores important strings passed to runtime functions',
+			code: `
+        import { css } from '@compiled/react';
+
+        css({ color: getColor('red !important') });
+      `,
+		},
+		{
 			name: 'custom import sources (subtractive)',
 			code: `
         import { css } from '@compiled/react';
@@ -27,6 +45,24 @@ tester.run('no-important-styles', rule, {
 		},
 	],
 	invalid: [
+		{
+			name: 'arrow function style object',
+			code: `
+        import { css } from '@compiled/react';
+
+        css(() => ({ color: 'red !important' }));
+      `,
+			errors: [{ messageId: 'no-important-styles' }],
+		},
+		{
+			name: 'aliased import',
+			code: `
+        import { css as compiledCss } from '@compiled/react';
+
+        compiledCss({ color: 'red !important' });
+      `,
+			errors: [{ messageId: 'no-important-styles' }],
+		},
 		{
 			name: 'basic test case',
 			code: `

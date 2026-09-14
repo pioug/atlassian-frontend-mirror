@@ -11,7 +11,7 @@ import {
 	CodeBlockRendererWithBreakout,
 	CodeBlockRendererWithBreakoutFullWidth,
 	CodeBlockRendererWithWrapEnabled,
-} from './code-block.fixture';
+} from './code-block.fixture.vr.ap';
 
 snapshot(CodeBlockRendererCopy, {
 	description: 'should render copy button on hover if enabled',

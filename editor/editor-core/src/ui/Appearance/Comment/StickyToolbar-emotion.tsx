@@ -14,8 +14,6 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- intentional: emotion fallback for compiled migration
 import { css, jsx } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
@@ -79,10 +77,6 @@ const mainToolbarWrapperStylesVisualRefresh = css({
 	'span svg': { maxWidth: '100%' },
 });
 
-const mainToolbarWithRadiusStyle = css({
-	borderRadius: `${token('radius.small', '3px')} ${token('radius.small', '3px')} 0 0`,
-});
-
 const mainToolbarRadius = css({
 	borderRadius: `${token('radius.medium', '6px')} ${token('radius.medium', '6px')} 0 0`,
 });
@@ -140,11 +134,7 @@ export const StickyToolbarEmotion = (props: StickyToolbarEmotionProps): JSX.Elem
 				mainToolbarWrapperStylesVisualRefresh,
 				stickyToolbarWrapperStyleNew,
 				props.isNewToolbarEnabled && mainToolbarWithPadding,
-				expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
-					mainToolbarRadius,
-				!expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
-					fg('platform_editor_comments_border_radius') &&
-					mainToolbarWithRadiusStyle,
+				mainToolbarRadius,
 				props.isEditorModernisationEnabled && editorModernisationToolbarStyle,
 			]}
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/enforce-style-prop -- top is computed dynamically from externalToolbarRef height / offsetTop and cannot be a static css value

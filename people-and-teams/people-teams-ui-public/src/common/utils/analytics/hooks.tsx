@@ -1,6 +1,6 @@
 import React, { type ReactNode, useMemo } from 'react';
 
-import { PeopleTeamsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { PeopleTeamsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/PeopleTeamsAnalyticsContext';
 
 const defaultAnalyticsContextData = {
 	packageName: process.env._PACKAGE_NAME_ as string,

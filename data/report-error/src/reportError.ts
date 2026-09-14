@@ -1,6 +1,6 @@
 import type { ErrorInfo } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export type ErrorPayload = { error: Error; errorInfo: ErrorInfo; interactionId?: string };
 

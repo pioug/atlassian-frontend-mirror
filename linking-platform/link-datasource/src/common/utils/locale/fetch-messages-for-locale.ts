@@ -1,4 +1,4 @@
-import type { I18NMessages } from '@atlaskit/intl-messages-provider/types';
+import type { I18NMessages } from '@atlaskit/intl-messages-provider/common/types';
 
 import messages from '../../../i18n/en';
 

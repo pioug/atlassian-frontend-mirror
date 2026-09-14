@@ -5,7 +5,7 @@ import {
 	PanelSplitterPositionStart,
 	PanelSplitterWithTooltip,
 	PanelSplitterWithTooltipAndShortcut,
-} from '../../../../../examples/panel-splitter';
+} from '../../../../../examples/panel-splitter.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

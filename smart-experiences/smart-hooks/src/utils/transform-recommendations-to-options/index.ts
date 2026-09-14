@@ -10,7 +10,7 @@ import {
 	TeamType,
 	type User,
 	UserType,
-} from '@atlaskit/user-picker';
+} from '@atlaskit/user-picker/types';
 
 import { messages } from '../../messages';
 

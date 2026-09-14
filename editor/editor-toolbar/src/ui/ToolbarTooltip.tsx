@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import type { PositionType } from '@atlaskit/tooltip';
-import Tooltip from '@atlaskit/tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 type ToolbarTooltipProps = {
 	children?: React.ReactNode;

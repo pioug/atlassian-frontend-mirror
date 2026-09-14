@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { response1, response2, response3 } from '@atlaskit/link-test-helpers';
 import { Grid } from '@atlaskit/primitives/compiled';
 

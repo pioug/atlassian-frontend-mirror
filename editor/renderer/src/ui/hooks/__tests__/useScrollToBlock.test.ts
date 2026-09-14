@@ -1,13 +1,15 @@
 import { renderHook, act } from '@atlassian/testing-library';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 import { useScrollToBlock } from '../useScrollToBlock';
 import * as blockMenuUtils from '@atlaskit/editor-common/block-menu';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags'),
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(() => false),
+}));
+jest.mock('@atlaskit/platform-feature-flags/getBooleanFF', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/getBooleanFF'),
 	getBooleanFF: jest.fn(() => false),
 }));
 
@@ -139,839 +141,421 @@ describe('useScrollToBlock', () => {
 	});
 
 	describe('scrolling without expand parents', () => {
-		describe('gate on', () => {
-			beforeEach(() => {
-				passGate('platform_editor_block_menu_v2_patch_4');
+		it('should scroll to element when node has no expand parents', () => {
+			const containerDiv = document.createElement('div');
+			const targetElement = document.createElement('div');
+			targetElement.setAttribute('data-local-id', 'test-local-id');
+			containerDiv.appendChild(targetElement);
+			document.body.appendChild(containerDiv);
+
+			const containerRef = { current: containerDiv };
+			const adfDoc: DocNode = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'paragraph',
+						attrs: { localId: 'test-local-id' },
+						content: [],
+					},
+				],
+			};
+
+			mockFindNodeWithExpandParents.mockReturnValue({
+				expandParentLocalIds: [],
 			});
-			it('should scroll to element when node has no expand parents', () => {
-				const containerDiv = document.createElement('div');
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				containerDiv.appendChild(targetElement);
-				document.body.appendChild(containerDiv);
+			mockGetLocalIdSelector.mockReturnValue(targetElement);
 
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'paragraph',
-							attrs: { localId: 'test-local-id' },
-							content: [],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: [],
-				});
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Wait for immediate attempt and stability check
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
-					targetElement,
-					0,
-					expect.any(Function),
-				);
+			// Capture the stability callback
+			let stabilityCallback: (() => void) | null = null;
+			mockWaitForStability.mockImplementation((container, callback) => {
+				stabilityCallback = callback;
 			});
 
-			it('should retry finding element if not immediately available', () => {
-				const containerDiv = document.createElement('div');
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'paragraph',
-							attrs: { localId: 'test-local-id' },
-							content: [],
-						},
-					],
-				};
+			renderHook(() => useScrollToBlock(containerRef, adfDoc));
 
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: [],
-				});
-
-				// Element not found initially
-				mockGetLocalIdSelector.mockReturnValue(null);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
-
-				// Add element to DOM and update mock to return it
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				containerDiv.appendChild(targetElement);
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Reset mockWaitForStability to capture new callback
-				mockWaitForStability.mockClear();
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				// Retry
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
-					targetElement,
-					0,
-					expect.any(Function),
-				);
+			// Wait for immediate attempt and stability check
+			act(() => {
+				jest.runOnlyPendingTimers();
 			});
+
+			expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
+
+			// Trigger stability callback
+			act(() => {
+				stabilityCallback?.();
+			});
+
+			expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
+				targetElement,
+				0,
+				expect.any(Function),
+			);
 		});
 
-		describe('gate off', () => {
-			beforeEach(() => {
-				failGate('platform_editor_block_menu_v2_patch_4');
-			});
-			it('should scroll to element when node has no expand parents', () => {
-				const containerDiv = document.createElement('div');
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				containerDiv.appendChild(targetElement);
-				document.body.appendChild(containerDiv);
+		it('should retry finding element if not immediately available', () => {
+			const containerDiv = document.createElement('div');
+			const containerRef = { current: containerDiv };
+			const adfDoc: DocNode = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'paragraph',
+						attrs: { localId: 'test-local-id' },
+						content: [],
+					},
+				],
+			};
 
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'paragraph',
-							attrs: { localId: 'test-local-id' },
-							content: [],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: [],
-				});
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Wait for immediate attempt and stability check
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(targetElement);
+			mockFindNodeWithExpandParents.mockReturnValue({
+				expandParentLocalIds: [],
 			});
 
-			it('should retry finding element if not immediately available', () => {
-				const containerDiv = document.createElement('div');
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'paragraph',
-							attrs: { localId: 'test-local-id' },
-							content: [],
-						},
-					],
-				};
+			// Element not found initially
+			mockGetLocalIdSelector.mockReturnValue(null);
 
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: [],
-				});
-
-				// Element not found initially
-				mockGetLocalIdSelector.mockReturnValue(null);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
-
-				// Add element to DOM and update mock to return it
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				containerDiv.appendChild(targetElement);
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Reset mockWaitForStability to capture new callback
-				mockWaitForStability.mockClear();
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				// Retry
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(targetElement);
+			// Capture the stability callback
+			let stabilityCallback: (() => void) | null = null;
+			mockWaitForStability.mockImplementation((container, callback) => {
+				stabilityCallback = callback;
 			});
+
+			renderHook(() => useScrollToBlock(containerRef, adfDoc));
+
+			// Initial attempt
+			act(() => {
+				jest.runOnlyPendingTimers();
+			});
+
+			expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
+
+			// Add element to DOM and update mock to return it
+			const targetElement = document.createElement('div');
+			targetElement.setAttribute('data-local-id', 'test-local-id');
+			containerDiv.appendChild(targetElement);
+			mockGetLocalIdSelector.mockReturnValue(targetElement);
+
+			// Reset mockWaitForStability to capture new callback
+			mockWaitForStability.mockClear();
+			mockWaitForStability.mockImplementation((container, callback) => {
+				stabilityCallback = callback;
+			});
+
+			// Retry
+			act(() => {
+				jest.advanceTimersByTime(250);
+			});
+
+			// Trigger stability callback
+			act(() => {
+				stabilityCallback?.();
+			});
+
+			expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
+				targetElement,
+				0,
+				expect.any(Function),
+			);
 		});
 	});
 
 	describe('scrolling with expand parents', () => {
-		describe('gate off', () => {
-			beforeEach(() => {
-				failGate('platform_editor_block_menu_v2_patch_4');
+		it('should expand collapsed parent expand before scrolling', () => {
+			const containerDiv = document.createElement('div');
+			const expandContainer = document.createElement('div');
+			expandContainer.setAttribute('data-local-id', 'expand-1');
+			expandContainer.setAttribute('data-node-type', 'expand');
+
+			const targetElement = document.createElement('div');
+			targetElement.setAttribute('data-local-id', 'test-local-id');
+			expandContainer.appendChild(targetElement);
+			containerDiv.appendChild(expandContainer);
+			document.body.appendChild(containerDiv);
+
+			const containerRef = { current: containerDiv };
+			const adfDoc: DocNode = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'expand',
+						attrs: { localId: 'expand-1' },
+						content: [
+							{
+								type: 'paragraph',
+								attrs: { localId: 'test-local-id' },
+								content: [],
+							},
+						],
+					},
+				],
+			};
+
+			mockFindNodeWithExpandParents.mockReturnValue({
+				expandParentLocalIds: ['expand-1'],
 			});
-			it('should expand collapsed parent expand before scrolling', () => {
-				const containerDiv = document.createElement('div');
-				const expandContainer = document.createElement('div');
-				expandContainer.setAttribute('data-local-id', 'expand-1');
-				expandContainer.setAttribute('data-node-type', 'expand');
+			mockIsExpandCollapsed.mockReturnValue(true);
+			mockExpandElement.mockReturnValue(true);
+			mockGetLocalIdSelector.mockReturnValue(null); // Not visible until expanded
 
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				expandContainer.appendChild(targetElement);
-				containerDiv.appendChild(expandContainer);
-				document.body.appendChild(containerDiv);
+			renderHook(() => useScrollToBlock(containerRef, adfDoc));
 
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'expand',
-							attrs: { localId: 'expand-1' },
-							content: [
-								{
-									type: 'paragraph',
-									attrs: { localId: 'test-local-id' },
-									content: [],
-								},
-							],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: ['expand-1'],
-				});
-				mockIsExpandCollapsed.mockReturnValue(true);
-				mockExpandElement.mockReturnValue(true);
-				mockGetLocalIdSelector.mockReturnValue(null); // Not visible until expanded
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockExpandElement).toHaveBeenCalledWith(expandContainer);
-				expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
-
-				// After expansion, element becomes visible
-				mockIsExpandCollapsed.mockReturnValue(false);
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				// Retry after interval
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(targetElement);
+			// Initial attempt
+			act(() => {
+				jest.runOnlyPendingTimers();
 			});
 
-			it('should handle multiple nested expand parents', () => {
-				const containerDiv = document.createElement('div');
+			expect(mockExpandElement).toHaveBeenCalledWith(expandContainer);
+			expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
 
-				const outerExpand = document.createElement('div');
-				outerExpand.setAttribute('data-local-id', 'expand-1');
-				outerExpand.setAttribute('data-node-type', 'expand');
+			// After expansion, element becomes visible
+			mockIsExpandCollapsed.mockReturnValue(false);
+			mockGetLocalIdSelector.mockReturnValue(targetElement);
 
-				const innerExpand = document.createElement('div');
-				innerExpand.setAttribute('data-local-id', 'expand-2');
-				innerExpand.setAttribute('data-node-type', 'nestedExpand');
-
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-
-				innerExpand.appendChild(targetElement);
-				outerExpand.appendChild(innerExpand);
-				containerDiv.appendChild(outerExpand);
-				document.body.appendChild(containerDiv);
-
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'expand',
-							attrs: { localId: 'expand-1' },
-							content: [
-								{
-									type: 'nestedExpand',
-									attrs: { localId: 'expand-2' },
-									content: [
-										{
-											type: 'paragraph',
-											attrs: { localId: 'test-local-id' },
-											content: [],
-										},
-									],
-								},
-							],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: ['expand-1', 'expand-2'],
-				});
-
-				// First attempt: outer expand is collapsed
-				mockIsExpandCollapsed.mockImplementation((el) => el === outerExpand);
-				mockExpandElement.mockReturnValue(true);
-				mockGetLocalIdSelector.mockReturnValue(null);
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockExpandElement).toHaveBeenCalledWith(outerExpand);
-
-				// Second attempt: outer is expanded, inner is collapsed
-				mockIsExpandCollapsed.mockImplementation((el) => el === innerExpand);
-
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				expect(mockExpandElement).toHaveBeenCalledWith(innerExpand);
-
-				// Third attempt: both expanded
-				mockIsExpandCollapsed.mockReturnValue(false);
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(targetElement);
+			// Capture the stability callback
+			let stabilityCallback: (() => void) | null = null;
+			mockWaitForStability.mockImplementation((container, callback) => {
+				stabilityCallback = callback;
 			});
 
-			it('should not attempt to expand already expanded parents', () => {
-				const containerDiv = document.createElement('div');
-				const expandContainer = document.createElement('div');
-				expandContainer.setAttribute('data-local-id', 'expand-1');
-				expandContainer.setAttribute('data-node-type', 'expand');
-
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				expandContainer.appendChild(targetElement);
-				containerDiv.appendChild(expandContainer);
-				document.body.appendChild(containerDiv);
-
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'expand',
-							attrs: { localId: 'expand-1' },
-							content: [
-								{
-									type: 'paragraph',
-									attrs: { localId: 'test-local-id' },
-									content: [],
-								},
-							],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: ['expand-1'],
-				});
-				mockIsExpandCollapsed.mockReturnValue(false); // Already expanded
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockExpandElement).not.toHaveBeenCalled();
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(targetElement);
+			// Retry after interval
+			act(() => {
+				jest.advanceTimersByTime(250);
 			});
+
+			expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
+
+			// Trigger stability callback
+			act(() => {
+				stabilityCallback?.();
+			});
+
+			expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
+				targetElement,
+				0,
+				expect.any(Function),
+			);
 		});
-		describe('gate on', () => {
-			beforeEach(() => {
-				passGate('platform_editor_block_menu_v2_patch_4');
-			});
-			it('should expand collapsed parent expand before scrolling', () => {
-				const containerDiv = document.createElement('div');
-				const expandContainer = document.createElement('div');
-				expandContainer.setAttribute('data-local-id', 'expand-1');
-				expandContainer.setAttribute('data-node-type', 'expand');
 
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				expandContainer.appendChild(targetElement);
-				containerDiv.appendChild(expandContainer);
-				document.body.appendChild(containerDiv);
+		it('should handle multiple nested expand parents', () => {
+			const containerDiv = document.createElement('div');
 
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'expand',
-							attrs: { localId: 'expand-1' },
-							content: [
-								{
-									type: 'paragraph',
-									attrs: { localId: 'test-local-id' },
-									content: [],
-								},
-							],
-						},
-					],
-				};
+			const outerExpand = document.createElement('div');
+			outerExpand.setAttribute('data-local-id', 'expand-1');
+			outerExpand.setAttribute('data-node-type', 'expand');
 
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: ['expand-1'],
-				});
-				mockIsExpandCollapsed.mockReturnValue(true);
-				mockExpandElement.mockReturnValue(true);
-				mockGetLocalIdSelector.mockReturnValue(null); // Not visible until expanded
+			const innerExpand = document.createElement('div');
+			innerExpand.setAttribute('data-local-id', 'expand-2');
+			innerExpand.setAttribute('data-node-type', 'nestedExpand');
 
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
+			const targetElement = document.createElement('div');
+			targetElement.setAttribute('data-local-id', 'test-local-id');
 
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
+			innerExpand.appendChild(targetElement);
+			outerExpand.appendChild(innerExpand);
+			containerDiv.appendChild(outerExpand);
+			document.body.appendChild(containerDiv);
 
-				expect(mockExpandElement).toHaveBeenCalledWith(expandContainer);
-				expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
+			const containerRef = { current: containerDiv };
+			const adfDoc: DocNode = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'expand',
+						attrs: { localId: 'expand-1' },
+						content: [
+							{
+								type: 'nestedExpand',
+								attrs: { localId: 'expand-2' },
+								content: [
+									{
+										type: 'paragraph',
+										attrs: { localId: 'test-local-id' },
+										content: [],
+									},
+								],
+							},
+						],
+					},
+				],
+			};
 
-				// After expansion, element becomes visible
-				mockIsExpandCollapsed.mockReturnValue(false);
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				// Retry after interval
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
-					targetElement,
-					0,
-					expect.any(Function),
-				);
+			mockFindNodeWithExpandParents.mockReturnValue({
+				expandParentLocalIds: ['expand-1', 'expand-2'],
 			});
 
-			it('should handle multiple nested expand parents', () => {
-				const containerDiv = document.createElement('div');
+			// First attempt: outer expand is collapsed
+			mockIsExpandCollapsed.mockImplementation((el) => el === outerExpand);
+			mockExpandElement.mockReturnValue(true);
+			mockGetLocalIdSelector.mockReturnValue(null);
 
-				const outerExpand = document.createElement('div');
-				outerExpand.setAttribute('data-local-id', 'expand-1');
-				outerExpand.setAttribute('data-node-type', 'expand');
+			renderHook(() => useScrollToBlock(containerRef, adfDoc));
 
-				const innerExpand = document.createElement('div');
-				innerExpand.setAttribute('data-local-id', 'expand-2');
-				innerExpand.setAttribute('data-node-type', 'nestedExpand');
-
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-
-				innerExpand.appendChild(targetElement);
-				outerExpand.appendChild(innerExpand);
-				containerDiv.appendChild(outerExpand);
-				document.body.appendChild(containerDiv);
-
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'expand',
-							attrs: { localId: 'expand-1' },
-							content: [
-								{
-									type: 'nestedExpand',
-									attrs: { localId: 'expand-2' },
-									content: [
-										{
-											type: 'paragraph',
-											attrs: { localId: 'test-local-id' },
-											content: [],
-										},
-									],
-								},
-							],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: ['expand-1', 'expand-2'],
-				});
-
-				// First attempt: outer expand is collapsed
-				mockIsExpandCollapsed.mockImplementation((el) => el === outerExpand);
-				mockExpandElement.mockReturnValue(true);
-				mockGetLocalIdSelector.mockReturnValue(null);
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockExpandElement).toHaveBeenCalledWith(outerExpand);
-
-				// Second attempt: outer is expanded, inner is collapsed
-				mockIsExpandCollapsed.mockImplementation((el) => el === innerExpand);
-
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				expect(mockExpandElement).toHaveBeenCalledWith(innerExpand);
-
-				// Third attempt: both expanded
-				mockIsExpandCollapsed.mockReturnValue(false);
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				act(() => {
-					jest.advanceTimersByTime(250);
-				});
-
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
-					targetElement,
-					0,
-					expect.any(Function),
-				);
+			// Initial attempt
+			act(() => {
+				jest.runOnlyPendingTimers();
 			});
 
-			it('should not attempt to expand already expanded parents', () => {
-				const containerDiv = document.createElement('div');
-				const expandContainer = document.createElement('div');
-				expandContainer.setAttribute('data-local-id', 'expand-1');
-				expandContainer.setAttribute('data-node-type', 'expand');
+			expect(mockExpandElement).toHaveBeenCalledWith(outerExpand);
 
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				expandContainer.appendChild(targetElement);
-				containerDiv.appendChild(expandContainer);
-				document.body.appendChild(containerDiv);
+			// Second attempt: outer is expanded, inner is collapsed
+			mockIsExpandCollapsed.mockImplementation((el) => el === innerExpand);
 
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'expand',
-							attrs: { localId: 'expand-1' },
-							content: [
-								{
-									type: 'paragraph',
-									attrs: { localId: 'test-local-id' },
-									content: [],
-								},
-							],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: ['expand-1'],
-				});
-				mockIsExpandCollapsed.mockReturnValue(false); // Already expanded
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Capture the stability callback
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				expect(mockExpandElement).not.toHaveBeenCalled();
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
-					targetElement,
-					0,
-					expect.any(Function),
-				);
+			act(() => {
+				jest.advanceTimersByTime(250);
 			});
+
+			expect(mockExpandElement).toHaveBeenCalledWith(innerExpand);
+
+			// Third attempt: both expanded
+			mockIsExpandCollapsed.mockReturnValue(false);
+			mockGetLocalIdSelector.mockReturnValue(targetElement);
+
+			// Capture the stability callback
+			let stabilityCallback: (() => void) | null = null;
+			mockWaitForStability.mockImplementation((container, callback) => {
+				stabilityCallback = callback;
+			});
+
+			act(() => {
+				jest.advanceTimersByTime(250);
+			});
+
+			expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
+
+			// Trigger stability callback
+			act(() => {
+				stabilityCallback?.();
+			});
+
+			expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
+				targetElement,
+				0,
+				expect.any(Function),
+			);
+		});
+
+		it('should not attempt to expand already expanded parents', () => {
+			const containerDiv = document.createElement('div');
+			const expandContainer = document.createElement('div');
+			expandContainer.setAttribute('data-local-id', 'expand-1');
+			expandContainer.setAttribute('data-node-type', 'expand');
+
+			const targetElement = document.createElement('div');
+			targetElement.setAttribute('data-local-id', 'test-local-id');
+			expandContainer.appendChild(targetElement);
+			containerDiv.appendChild(expandContainer);
+			document.body.appendChild(containerDiv);
+
+			const containerRef = { current: containerDiv };
+			const adfDoc: DocNode = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'expand',
+						attrs: { localId: 'expand-1' },
+						content: [
+							{
+								type: 'paragraph',
+								attrs: { localId: 'test-local-id' },
+								content: [],
+							},
+						],
+					},
+				],
+			};
+
+			mockFindNodeWithExpandParents.mockReturnValue({
+				expandParentLocalIds: ['expand-1'],
+			});
+			mockIsExpandCollapsed.mockReturnValue(false); // Already expanded
+			mockGetLocalIdSelector.mockReturnValue(targetElement);
+
+			// Capture the stability callback
+			let stabilityCallback: (() => void) | null = null;
+			mockWaitForStability.mockImplementation((container, callback) => {
+				stabilityCallback = callback;
+			});
+
+			renderHook(() => useScrollToBlock(containerRef, adfDoc));
+
+			// Initial attempt
+			act(() => {
+				jest.runOnlyPendingTimers();
+			});
+
+			expect(mockExpandElement).not.toHaveBeenCalled();
+			expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
+
+			// Trigger stability callback
+			act(() => {
+				stabilityCallback?.();
+			});
+
+			expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
+				targetElement,
+				0,
+				expect.any(Function),
+			);
 		});
 	});
 
 	describe('stability waiting integration', () => {
-		describe('gate off', () => {
-			beforeEach(() => {
-				failGate('platform_editor_block_menu_v2_patch_4');
+		it('should wait for stability before scrolling', () => {
+			const containerDiv = document.createElement('div');
+			const targetElement = document.createElement('div');
+			targetElement.setAttribute('data-local-id', 'test-local-id');
+			containerDiv.appendChild(targetElement);
+			document.body.appendChild(containerDiv);
+
+			const containerRef = { current: containerDiv };
+			const adfDoc: DocNode = {
+				type: 'doc',
+				version: 1,
+				content: [
+					{
+						type: 'paragraph',
+						attrs: { localId: 'test-local-id' },
+						content: [],
+					},
+				],
+			};
+
+			mockFindNodeWithExpandParents.mockReturnValue({
+				expandParentLocalIds: [],
 			});
-			it('should wait for stability before scrolling', () => {
-				const containerDiv = document.createElement('div');
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				containerDiv.appendChild(targetElement);
-				document.body.appendChild(containerDiv);
+			mockGetLocalIdSelector.mockReturnValue(targetElement);
 
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'paragraph',
-							attrs: { localId: 'test-local-id' },
-							content: [],
-						},
-					],
-				};
-
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: [],
-				});
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Mock waitForStability to not call callback immediately
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				// Should have called waitForStability
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-				expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(targetElement);
+			// Mock waitForStability to not call callback immediately
+			let stabilityCallback: (() => void) | null = null;
+			mockWaitForStability.mockImplementation((container, callback) => {
+				stabilityCallback = callback;
 			});
-		});
 
-		describe('gate on', () => {
-			beforeEach(() => {
-				passGate('platform_editor_block_menu_v2_patch_4');
+			renderHook(() => useScrollToBlock(containerRef, adfDoc));
+
+			// Initial attempt
+			act(() => {
+				jest.runOnlyPendingTimers();
 			});
-			it('should wait for stability before scrolling', () => {
-				const containerDiv = document.createElement('div');
-				const targetElement = document.createElement('div');
-				targetElement.setAttribute('data-local-id', 'test-local-id');
-				containerDiv.appendChild(targetElement);
-				document.body.appendChild(containerDiv);
 
-				const containerRef = { current: containerDiv };
-				const adfDoc: DocNode = {
-					type: 'doc',
-					version: 1,
-					content: [
-						{
-							type: 'paragraph',
-							attrs: { localId: 'test-local-id' },
-							content: [],
-						},
-					],
-				};
+			// Should have called waitForStability
+			expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
+			expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
 
-				mockFindNodeWithExpandParents.mockReturnValue({
-					expandParentLocalIds: [],
-				});
-				mockGetLocalIdSelector.mockReturnValue(targetElement);
-
-				// Mock waitForStability to not call callback immediately
-				let stabilityCallback: (() => void) | null = null;
-				mockWaitForStability.mockImplementation((container, callback) => {
-					stabilityCallback = callback;
-				});
-
-				renderHook(() => useScrollToBlock(containerRef, adfDoc));
-
-				// Initial attempt
-				act(() => {
-					jest.runOnlyPendingTimers();
-				});
-
-				// Should have called waitForStability
-				expect(mockWaitForStability).toHaveBeenCalledWith(containerDiv, expect.any(Function));
-				expect(mockExpandAllParentsThenScroll).not.toHaveBeenCalled();
-
-				// Trigger stability callback
-				act(() => {
-					stabilityCallback?.();
-				});
-
-				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
-					targetElement,
-					0,
-					expect.any(Function),
-				);
+			// Trigger stability callback
+			act(() => {
+				stabilityCallback?.();
 			});
+
+			expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(
+				targetElement,
+				0,
+				expect.any(Function),
+			);
 		});
 
 		it('should only scroll once even if stability callback is called multiple times', () => {

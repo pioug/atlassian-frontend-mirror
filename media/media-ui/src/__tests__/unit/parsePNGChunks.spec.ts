@@ -1,4 +1,4 @@
-import { parsePNGChunks } from '../../imageMetaData/parsePNG';
+import { parsePNGChunks } from '../../imageMetaData/parsePNGChunks';
 
 describe('PNG Image Metadata', () => {
 	describe('Parse PNG Chunks', () => {

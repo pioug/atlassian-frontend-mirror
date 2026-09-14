@@ -1,9 +1,11 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import React from 'react';
 import { act, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
@@ -17,10 +19,11 @@ import { RENDER_REACTIONPICKER_TESTID } from './ReactionPicker';
 import { RENDER_REACTION_TESTID } from './Reaction';
 import { RENDER_MODAL_TESTID } from './ReactionsDialog';
 import { RENDER_SELECTOR_TESTID } from './Selector';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
 import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
+import { RENDER_TRIGGER_BUTTON_TESTID } from './Trigger';
 
 import {
 	type ReactionsProps,
@@ -28,12 +31,21 @@ import {
 	getTooltip,
 	ufoExperiences,
 	RENDER_REACTIONS_TESTID,
+	RENDER_REACTIONS_SUMMARY_TESTID,
 	RENDER_VIEWALL_REACTED_USERS_DIALOG,
 } from './Reactions';
 
 jest.mock('../shared/constants', () => ({
 	...jest.requireActual('../shared/constants'),
 	SAMPLING_RATE_REACTIONS_RENDERED_EXP: 1,
+}));
+
+jest.mock('@atlaskit/emoji/picker', () => ({
+	EmojiPicker: ({ contentId }: { contentId?: string }) => (
+		<div data-content-id={contentId} data-testid="mock-emoji-picker">
+			EmojiPicker
+		</div>
+	),
 }));
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
@@ -249,21 +261,21 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		const closeBtn = screen.getByText('Close Modal');
 		await userEvent.click(closeBtn);
 
-		expect(onDialogOpenCallback).toBeCalledWith(
+		expect(onDialogOpenCallback).toHaveBeenCalledWith(
 			reactionsForDialog[0].emojiId,
 			'endOfPageReactions',
 		);
-		expect(onDialogCloseCallback).toBeCalled();
-		expect(onDialogSelectReactionCallback).toBeCalledWith(reactionsForDialog[1].emojiId);
+		expect(onDialogCloseCallback).toHaveBeenCalled();
+		expect(onDialogSelectReactionCallback).toHaveBeenCalledWith(reactionsForDialog[1].emojiId);
 
-		expect(fakeOpenDialogUFOExperience.success).toBeCalledWith({
+		expect(fakeOpenDialogUFOExperience.success).toHaveBeenCalledWith({
 			metadata: {
 				emojiId: reactionsForDialog[0].emojiId,
 				source: 'Reactions',
 				reason: 'Opening Reactions Dialog successfully',
 			},
 		});
-		expect(fakeSelectedReactionChangeInsideDialogUFOExperience.success).toBeCalledWith({
+		expect(fakeSelectedReactionChangeInsideDialogUFOExperience.success).toHaveBeenCalledWith({
 			metadata: {
 				emojiId: reactionsForDialog[1].emojiId,
 				source: 'Reactions',
@@ -316,6 +328,20 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(wrapper).toBeDefined();
 	});
 
+	it('should forward the content ID to the full reaction emoji picker', async () => {
+		const contentId = 'content-123';
+		renderReactions({ allowAllEmojis: true, contentId });
+
+		const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+		await userEvent.click(within(picker).getByRole('button'));
+		await userEvent.click(await screen.findByTestId(RENDER_SHOWMORE_TESTID));
+
+		expect(await screen.findByTestId('mock-emoji-picker')).toHaveAttribute(
+			'data-content-id',
+			contentId,
+		);
+	});
+
 	it('should not render picker after reactions if isViewOnly is true', async () => {
 		renderReactions({ reactions, isViewOnly: true });
 
@@ -353,6 +379,84 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		const popperPortal = popper.closest('.atlaskit-portal');
 		expect(popperPortal).toHaveStyle({ zIndex: 700 });
 		expect(popper).toHaveStyle({ zIndex: 700 });
+	});
+
+	describe('platform_reactions_a11y_group_added_reactions feature gate', () => {
+		it('groups only added reaction controls with an accessible name when the gate is on', async () => {
+			passGate('platform_reactions_a11y_group_added_reactions');
+			renderReactions();
+
+			const group = await screen.findByRole('group', {
+				name: messages.addedReaction.defaultMessage,
+			});
+			expect(within(group).getAllByTestId(RENDER_REACTION_TESTID)).toHaveLength(reactions.length);
+			expect(within(group).queryByTestId(RENDER_REACTIONPICKER_TESTID)).not.toBeInTheDocument();
+			expect(screen.getByTestId(RENDER_REACTIONPICKER_TESTID)).toBeInTheDocument();
+		});
+
+		it('preserves list semantics inside the group when the list gate is on', async () => {
+			passGate('platform_reactions_a11y_group_added_reactions');
+			passGate('jfp_a11y_team_comment_actions_semantic');
+			renderReactions({ noWrap: true });
+
+			const group = await screen.findByRole('group', {
+				name: messages.addedReaction.defaultMessage,
+			});
+			const list = within(group).getByRole('list');
+			expect(group).not.toHaveStyle({ display: 'flex' });
+			expect(list).toHaveStyle({ display: 'flex', flexWrap: 'nowrap' });
+			expect(within(group).getAllByRole('listitem')).toHaveLength(reactions.length);
+		});
+
+		it('groups reaction controls without list semantics when the list gate is off', async () => {
+			passGate('platform_reactions_a11y_group_added_reactions');
+			failGate('jfp_a11y_team_comment_actions_semantic');
+			renderReactions({ noWrap: true });
+
+			const group = await screen.findByRole('group', {
+				name: messages.addedReaction.defaultMessage,
+			});
+			expect(within(group).queryByRole('list')).not.toBeInTheDocument();
+			expect(group).toHaveStyle({ display: 'flex', flexWrap: 'nowrap' });
+			expect(within(group).getAllByTestId(RENDER_REACTION_TESTID)).toHaveLength(reactions.length);
+		});
+
+		it('does not group the picker-only mode', async () => {
+			renderReactions({ onlyRenderPicker: true });
+
+			await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+			expect(
+				screen.queryByRole('group', { name: messages.addedReaction.defaultMessage }),
+			).not.toBeInTheDocument();
+		});
+
+		it('does not expose an added-reaction group when there are no added reactions', async () => {
+			renderReactions({ reactions: [] });
+
+			await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
+			expect(
+				screen.queryByRole('group', { name: messages.addedReaction.defaultMessage }),
+			).not.toBeInTheDocument();
+		});
+
+		it('does not group the summary view mode', async () => {
+			renderReactions({ summaryViewEnabled: true, summaryViewThreshold: 1 });
+
+			await screen.findByTestId(RENDER_REACTIONS_SUMMARY_TESTID);
+			expect(
+				screen.queryByRole('group', { name: messages.addedReaction.defaultMessage }),
+			).not.toBeInTheDocument();
+		});
+
+		it('does not add group semantics when the gate is off', async () => {
+			failGate('platform_reactions_a11y_group_added_reactions');
+			renderReactions();
+
+			await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			expect(
+				screen.queryByRole('group', { name: messages.addedReaction.defaultMessage }),
+			).not.toBeInTheDocument();
+		});
 	});
 
 	ffTest.on('jfp_a11y_team_comment_actions_semantic', 'with gate ON', () => {
@@ -644,6 +748,19 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			renderReactionsWithSummary();
 			const summaryView = await screen.findByTestId('reaction-summary-view');
 			expect(summaryView).toBeInTheDocument();
+		});
+
+		it('should forward the content ID to the summary view emoji picker', async () => {
+			const contentId = 'content-123';
+			renderReactionsWithSummary({ allowSelectFromSummaryView: true, contentId });
+
+			await userEvent.click(await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID));
+			await userEvent.click(await screen.findByTestId(RENDER_TRIGGER_BUTTON_TESTID));
+
+			expect(await screen.findByTestId('mock-emoji-picker')).toHaveAttribute(
+				'data-content-id',
+				contentId,
+			);
 		});
 
 		it('should not enable summary view when the number of reactions is below the threshold', async () => {

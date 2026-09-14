@@ -5,14 +5,14 @@ import { type Identifier } from '@atlaskit/media-client';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { Header } from '../../../header';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 const externalIdentifierWithName: Identifier = {
 	dataURI: 'some-external-src',

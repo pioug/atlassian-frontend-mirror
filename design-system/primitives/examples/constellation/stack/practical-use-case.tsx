@@ -1,12 +1,14 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import ComponentIcon from '@atlaskit/icon/core/component';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import FeedbackIcon from '@atlaskit/icon/core/feedback';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import StoryObject from '@atlaskit/object/story';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default function Example(): React.JSX.Element {
 	return (

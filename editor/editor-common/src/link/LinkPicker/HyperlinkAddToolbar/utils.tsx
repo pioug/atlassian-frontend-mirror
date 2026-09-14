@@ -9,7 +9,7 @@ import PageObject from '@atlaskit/object/page';
 import StoryObject from '@atlaskit/object/story';
 import TaskObject from '@atlaskit/object/task';
 import WorkItemObject from '@atlaskit/object/work-item';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { LinkContentType } from '../../../provider-factory';
 

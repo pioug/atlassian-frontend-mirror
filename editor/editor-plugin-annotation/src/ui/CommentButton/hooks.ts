@@ -6,6 +6,7 @@ import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirro
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { resolveDraftBookmark } from '../../pm-plugins/utils';
+// oxlint-disable-next-line import/no-duplicates
 import type { AnnotationSelectionType } from '../../types';
 import type { AnnotationProviders } from '../../types';
 

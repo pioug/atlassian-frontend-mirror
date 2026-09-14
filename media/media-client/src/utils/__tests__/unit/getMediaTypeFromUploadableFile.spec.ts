@@ -4,9 +4,11 @@ describe('getMediaTypeFromUploadableFile()', () => {
 	const setup = (type: string = 'image/png') => {
 		const blobFile = {
 			content: new File([], 'file-name', { type }),
+			size: 0,
 		};
 		const base64File = {
 			content: 'some-base-64',
+			size: 0,
 		};
 
 		return {

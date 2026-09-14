@@ -7,8 +7,9 @@
 */
 
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import { createIntl, createIntlCache } from 'react-intl';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
@@ -39,10 +40,10 @@ describe('BackButton', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it.skip('Should match snapshot', () => {
-		const { container } = render(<BackButton intl={intl} onClick={mockOnClick} />);
+	it('Should render correctly', async () => {
+		render(<BackButton intl={intl} onClick={mockOnClick} />);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(screen.getByText(messageNavigateBack)).toBeInTheDocument();
 	});
 
 	it('Should not be visible if the prop "isVisible" is false', () => {
@@ -53,19 +54,19 @@ describe('BackButton', () => {
 		expect(container.firstChild).toBeNull();
 	});
 
-	it('Should execute the prop function "onClick" and "navigateBack" when the back button is clicked', () => {
-		const { getByText } = render(
+	it('Should execute the prop function "onClick" and "navigateBack" when the back button is clicked', async () => {
+		render(
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<BackButton intl={intl} onClick={mockOnClick} />
 			</AnalyticsListener>,
 		);
 
-		const buttonBack = getByText(messageNavigateBack).closest('button');
+		const buttonBack = screen.getByText(messageNavigateBack).closest('button');
 
-		expect(buttonBack).not.toBeNull;
+		expect(buttonBack).not.toBeNull();
 
 		if (buttonBack) {
-			fireEvent.click(buttonBack);
+			await userEvent.click(buttonBack);
 			expect(mockOnClick).toHaveBeenCalledTimes(1);
 		}
 	});

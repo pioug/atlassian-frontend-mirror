@@ -16,7 +16,7 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
-import { easeOut } from '@atlaskit/motion';
+import { easeOut } from '@atlaskit/motion/curves';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';

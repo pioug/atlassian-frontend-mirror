@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports -- exports share Compiled style value(s) [styles] which cannot be exported across files (UI Styling Standard: no-exported-css) */
 import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';

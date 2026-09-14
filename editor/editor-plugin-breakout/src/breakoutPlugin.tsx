@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
-import { breakout } from '@atlaskit/adf-schema';
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema/breakout';
+import { breakout } from '@atlaskit/adf-schema/breakout';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
@@ -19,7 +19,7 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BreakoutPlugin, BreakoutPluginState } from './breakoutPluginType';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -236,13 +236,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 				{
 					name: 'breakout-resizing',
 					plugin: ({ getIntl, nodeViewPortalProviderAPI }) =>
-						createResizingPlugin(
-							api,
-							getIntl,
-							nodeViewPortalProviderAPI,
-							options,
-							expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true),
-						),
+						createResizingPlugin(api, getIntl, nodeViewPortalProviderAPI, options),
 				},
 			];
 		}

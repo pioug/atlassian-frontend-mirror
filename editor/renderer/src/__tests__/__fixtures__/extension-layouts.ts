@@ -1,4 +1,5 @@
-import type { DataConsumerDefinition, DocNode } from '@atlaskit/adf-schema';
+import type { DataConsumerDefinition } from '@atlaskit/adf-schema/data-consumer';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 export const inlineExtensionAdf: DocNode = {
 	version: 1,

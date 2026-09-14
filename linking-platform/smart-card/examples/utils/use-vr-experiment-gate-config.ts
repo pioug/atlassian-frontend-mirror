@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import FeatureGates, {
-	FeatureGateEnvironment,
-} from '@atlaskit/feature-gate-js-client/feature-gates';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client/types';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import {
 	setupEditorExperiments,
 	type EditorExperimentOverrides,

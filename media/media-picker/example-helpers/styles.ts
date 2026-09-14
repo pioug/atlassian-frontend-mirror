@@ -1,11 +1,7 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- example-only helper, not shipped in the package bundle
 import { css, type SerializedStyles } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
-import { type PastedImageStyleType } from './stylesWrapper';
 
-interface DropzoneContainerProps {
-	isActive: boolean;
-}
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const popupContainerStyles: SerializedStyles = css({
@@ -45,17 +41,6 @@ export const infoWrapperStyles: SerializedStyles = css({
 	left: 0,
 	textAlign: 'center',
 });
-
-export const dropzoneContainerStyles = ({ isActive }: DropzoneContainerProps): SerializedStyles =>
-	css(
-		{
-			width: '600px',
-			minHeight: '500px',
-			border: '1px dashed transparent',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		isActive ? `border-color: gray;` : '',
-	);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const dropzoneRootStyles: SerializedStyles = css({
@@ -98,21 +83,6 @@ export const dropzoneItemsInfoStyles: SerializedStyles = css({
 	flexDirection: 'column',
 });
 
-interface ClipboardContainerProps {
-	isWindowFocused: boolean;
-}
-
-export const clipboardContainerStyles = ({
-	isWindowFocused,
-}: // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-ClipboardContainerProps): SerializedStyles =>
-	css({
-		padding: '10px',
-		minHeight: '400px',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		border: isWindowFocused ? `1px dashed gray` : `1px dashed transparent`,
-	});
-
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const infoContainerStyles: SerializedStyles = css({
 	position: 'absolute',
@@ -142,9 +112,3 @@ export const infoContainerStyles: SerializedStyles = css({
 		right: 0,
 	},
 });
-
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-export const pastedImageStyles = (style: PastedImageStyleType): SerializedStyles => css`
-	width: ${style.width ? `${style.width}px` : '100%'};
-	${style.height ? `height: ${style.height}px` : ''};
-`;

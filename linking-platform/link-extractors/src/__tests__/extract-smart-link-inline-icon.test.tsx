@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 import { extractSmartLinkInlineIcon } from '../extract-smart-link-inline-icon';
@@ -142,37 +141,7 @@ describe('extractSmartLinkInlineIcon', () => {
 		expect(queryByTestId('jira-task-icon')).not.toBeInTheDocument();
 	});
 
-	it('keeps the provider icon for entities when entity icon gate is off', () => {
-		failGate('platform_lp_use_entity_icon_url_for_icon');
-
-		const icon = extractSmartLinkInlineIcon({
-			...baseResponse,
-			meta: {
-				...baseResponse.meta,
-				generator: {
-					name: 'Google Drive',
-					icon: {
-						url: 'https://provider-icon.com/icon.png',
-					},
-				},
-			},
-			entityData: {
-				displayName: 'Entity',
-				id: 'entity-id',
-				url: 'https://entity-url.com',
-				type: {
-					category: 'document',
-					iconUrl: 'https://entity-icon.com/icon.png',
-				},
-			},
-		} as SmartLinkResponse);
-
-		expect(icon).toEqual('https://provider-icon.com/icon.png');
-	});
-
-	it('returns an entity icon tuple when entity icon gate is on', () => {
-		passGate('platform_lp_use_entity_icon_url_for_icon');
-
+	it('returns an entity icon tuple', () => {
 		const icon = extractSmartLinkInlineIcon({
 			...baseResponse,
 			meta: {

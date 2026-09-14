@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import type { TextBlockTypes } from '../block-types';

@@ -1,6 +1,6 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 import type { AnalyticsEventPayload, AnalyticsEventPayloadWithChannel } from './types/events';
 

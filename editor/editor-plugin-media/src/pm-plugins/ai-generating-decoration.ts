@@ -2,7 +2,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
@@ -64,18 +65,18 @@ function buildDecorationSet(
 		}
 
 		const wrapperLocalId = parent?.attrs?.localId;
-		const matches =
-			(wrapperLocalId && targetIds.has(wrapperLocalId)) ||
-			(node.attrs.localId && targetIds.has(node.attrs.localId)) ||
-			targetIds.has(node.attrs.id);
+		const source =
+			(wrapperLocalId && targetIds.get(wrapperLocalId)) ||
+			(node.attrs.localId && targetIds.get(node.attrs.localId)) ||
+			targetIds.get(node.attrs.id);
 
-		if (matches) {
+		if (source) {
 			decorations.push(
 				Decoration.node(
 					pos,
 					pos + node.nodeSize,
 					{}, // no DOM attrs needed — the NodeView reads the decoration spec
-					{ type: AI_GENERATING_DECORATION_TYPE, mediaId: node.attrs.id },
+					{ type: AI_GENERATING_DECORATION_TYPE, mediaId: node.attrs.id, source },
 				),
 			);
 		}
@@ -93,6 +94,17 @@ function buildDecorationSet(
  */
 export function hasAIGeneratingDecoration(decorations: readonly Decoration[]): boolean {
 	return decorations.some((d) => d.spec.type === AI_GENERATING_DECORATION_TYPE);
+}
+
+/**
+ * Returns the `source` of the AI-generating decoration present on the given
+ * decorations array, or `undefined` if there is none. Lets a NodeView vary its
+ * rendering by which flow (e.g. `'cwr'`) triggered the generating state.
+ */
+export function getAIGeneratingDecorationSource(
+	decorations: readonly Decoration[],
+): AIGeneratingSource | undefined {
+	return decorations.find((d) => d.spec.type === AI_GENERATING_DECORATION_TYPE)?.spec.source;
 }
 
 /**
@@ -168,11 +180,8 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 							const ids = new Map(pluginState.generatingMediaIds);
 							ids.set(meta.mediaId, meta.source ?? 'maui');
 							const hasCwrIds =
-								expValEquals(
-									'aifc_page_create_with_rovo_include_infographics',
-									'isEnabled',
-									true,
-								) && [...ids.values()].some((s) => s === 'cwr');
+								isExperimentEnabled('aifc_page_create_with_rovo_include_infographics') &&
+								[...ids.values()].some((s) => s === 'cwr');
 							const newDecoSet = buildDecorationSet(newState.doc, ids);
 
 							if (hasCwrIds && newDecoSet.find().length === 0 && ids.size > 0) {
@@ -187,11 +196,8 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 							ids.delete(meta.mediaId);
 
 							const hasCwrIds =
-								expValEquals(
-									'aifc_page_create_with_rovo_include_infographics',
-									'isEnabled',
-									true,
-								) && [...ids.values()].some((s) => s === 'cwr');
+								isExperimentEnabled('aifc_page_create_with_rovo_include_infographics') &&
+								[...ids.values()].some((s) => s === 'cwr');
 							const newDecoSet = buildDecorationSet(newState.doc, ids);
 
 							if (hasCwrIds && newDecoSet.find().length === 0) {
@@ -214,7 +220,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 				// entire document on every chunk and map() drops decorations whose
 				// positions can't be mapped.
 				const hasCwrIds =
-					expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true) &&
+					isExperimentEnabled('aifc_page_create_with_rovo_include_infographics') &&
 					[...pluginState.generatingMediaIds.values()].some((s) => s === 'cwr');
 				if (tr.docChanged && hasCwrIds) {
 					const rebuilt = buildDecorationSet(newState.doc, pluginState.generatingMediaIds);

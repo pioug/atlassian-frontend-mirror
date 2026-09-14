@@ -1,0 +1,45 @@
+{
+	"name": "@atlaskit/editor-plugin-block-collapse",
+	"version": "4.0.0",
+	"description": "BlockCollapse plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Jenga",
+		"releaseModel": "continuous",
+		"singleton": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/blockCollapsePlugin.js",
+	"module": "dist/esm/blockCollapsePlugin.js",
+	"module:es2019": "dist/es2019/blockCollapsePlugin.js",
+	"types": "dist/types/blockCollapsePluginType.d.ts",
+	"sideEffects": false,
+	"exports": {
+		"./blockCollapsePlugin": "./src/entry-points/blockCollapsePlugin.tsx",
+		"./blockCollapsePluginType": "./src/entry-points/blockCollapsePluginType.ts"
+	},
+	"dependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
+		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
+		"@babel/runtime": "root:*"
+	},
+	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
+		"react": "^18.2.0 || ^19.2.0",
+		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
+	},
+	"devDependencies": {
+		"react": "^19.2.0",
+		"react-intl": "root:*",
+		"typescript": "root:*"
+	}
+}

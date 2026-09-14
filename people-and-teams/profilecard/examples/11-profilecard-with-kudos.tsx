@@ -1,18 +1,22 @@
 import React, { useCallback, useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import Flag, { FlagGroup, type FlagProps } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
+import type { FlagProps } from '@atlaskit/flag/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import ProfileCardResourced, { type Team } from '../src';
-import TeamProfilecardTrigger from '../src/components/Team';
-import ProfileCardTrigger from '../src/components/User';
+import ProfileCardResourced from '../src/components/User/ProfileCardResourced';
+import { type Team } from '../src/types';
+import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';
+import ProfileCardTrigger from '../src/components/User/ProfileCardTrigger';
 import teamData from '../src/mocks/team-data';
 
 import ExampleWrapper from './helper/example-wrapper';
 import { MainStage } from './helper/main-stage';
-import { getMockProfileClient, getMockTeamClient } from './helper/util';
+import { getMockProfileClient } from './helper/util';
+import getMockTeamClient from '../src/mocks/mock-team-client';
 
 const styles = cssMap({
 	wrap: {

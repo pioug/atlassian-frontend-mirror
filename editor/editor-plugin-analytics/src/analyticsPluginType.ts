@@ -1,4 +1,4 @@
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
 	NextEditorPlugin,

@@ -6,8 +6,9 @@ import type { ObjectProps } from '@atlaskit/object/types';
 
 import type { SmartLinkSize } from '../../../constants';
 
-import { renderIconPerSize } from './utils';
+import { renderIconPerSize } from './render-icon-per-size';
 
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const LiveDocumentIconWithColor: FC<
 	Omit<ObjectProps, 'size'> & {
 		size?: SmartLinkSize;

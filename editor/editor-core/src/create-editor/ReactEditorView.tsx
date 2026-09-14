@@ -3,7 +3,7 @@ import React, { useCallback, useLayoutEffect, useMemo, useRef, useState, useEffe
 import { injectIntl } from 'react-intl';
 import type { WrappedComponentProps, WithIntlProps } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type {
@@ -64,7 +64,8 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-editor-state';
 import { createSSRPMPlugins } from '@atlaskit/editor-ssr-renderer/create-ssr-pm-plugins';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { addUFOCustomData } from '@atlaskit/react-ufo/custom-data';
 import { getInteractionId } from '@atlaskit/react-ufo/interaction-id-context';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
@@ -80,7 +81,6 @@ import { getNodesCountWithExtensionKeys } from '../utils/getNodesCountWithExtens
 import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
 import { isChromeless } from '../utils/is-chromeless';
 import { isFullPage } from '../utils/is-full-page';
-import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
 
 import {
@@ -146,7 +146,7 @@ export interface EditorViewProps extends WrappedComponentProps {
 }
 
 interface CreateEditorStateOptions {
-	doc?: string | Object | PMNode;
+	doc?: string | object | PMNode;
 	props: EditorViewProps;
 	resetting?: boolean;
 	selectionAtStart?: boolean;
@@ -636,7 +636,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			// (purpose 2). When NOT rebuilding, run both — even under the
 			// `cc-markdown-mode` experiment, otherwise no-op preset identity
 			// changes would silently leave a broken plugin/schema mismatch.
-			if (presetChanged && fg('platform_editor_reconfigure_filter_plugins')) {
+			if (presetChanged) {
 				let dropped: ReturnType<typeof filterPluginsForReconfigure>['dropped'] = [];
 				if (!shouldRebuildSchema) {
 					const result = filterPluginsForReconfigure(
@@ -656,13 +656,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					editorPlugins.map((p) => p?.name).filter((n): n is string => Boolean(n)),
 				);
 				const evictedFromApi = pluginInjectionAPI.current.retainPlugins(keptPluginNames);
-
-				if (fg('platform_editor_reconfigure_reconcile_plugin_api')) {
-					// `retainPlugins` mutates the plugin registry in place. Refresh
-					// the cached editor API proxy so consumers memoized by API identity
-					// see added or removed plugin APIs without waiting for a full reload.
-					pluginInjectionAPI.current.invalidateAPI();
-				}
 
 				if (dropped.length > 0 || evictedFromApi.length > 0) {
 					// eslint-disable-next-line no-console
@@ -936,9 +929,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 								}
 							: {};
 
-						const editorDomSize = expValEquals('platform_editor_dom_node_count', 'isEnabled', true)
-							? getEditorDomSize(viewRef.current)
-							: undefined;
+						const editorDomSize = getEditorDomSize(viewRef.current);
 
 						const interaction = getActiveInteraction();
 						const pageLoadType = interaction?.type;
@@ -984,9 +975,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 							ufoInteractionId: getInteractionId().current,
 						};
 
-						if (editorDomSize !== undefined) {
-							addUFOCustomData({ editorDomSize });
-						}
+						addUFOCustomData({ editorDomSize });
 
 						dispatchAnalyticsEvent({
 							action: ACTION.PROSEMIRROR_RENDERED,
@@ -1016,8 +1005,17 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		isNestedEditorCalculated.current = true;
 	}
 
+	// Preconditioned on the affected population - full page, non nested editors - so that experiment
+	// exposure is not diluted by editors which never run the scroll restoration code below.
+	const scrollRestorePerfEnabled =
+		!isNestedEditor.current &&
+		isFullPage(props.editorProps.appearance) &&
+		isExperimentEnabled('cc_editor_scroll_restore_perf_improvements');
+
 	const originalScrollToRestore = React.useRef(
-		!isNestedEditor.current && isFullPage(props.editorProps.appearance)
+		// Reading scrollTop forces a synchronous layout, and this expression is re-evaluated on every
+		// render. Products restore scroll themselves after the document has rendered.
+		!isNestedEditor.current && isFullPage(props.editorProps.appearance) && !scrollRestorePerfEnabled
 			? document.querySelector('[data-editor-scroll-container]')?.scrollTop
 			: undefined,
 	);
@@ -1071,7 +1069,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	]);
 
 	const scrollElement = React.useRef<Element | null>();
-	const possibleListeners = React.useRef([] as [event: string, handler: () => void][]);
+	const possibleListeners = React.useRef([] as [event: string, handler: (event: Event) => void][]);
 
 	useEffect(() => {
 		if (isSSR()) {
@@ -1106,7 +1104,12 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				};
 
 				if (scrollElement.current) {
-					const wheelAbortHandler = () => {
+					const wheelAbortHandler = (event: Event) => {
+						// Programmatic scrolls are not user interactions and must not abort the load metric.
+						if (scrollRestorePerfEnabled && !event.isTrusted) {
+							return;
+						}
+
 						const activeInteraction = getActiveInteraction();
 
 						if (
@@ -1121,7 +1124,12 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					scrollElement.current.addEventListener('wheel', wheelAbortHandler);
 					possibleListeners.current.push(['wheel', wheelAbortHandler]);
 
-					const scrollAbortHandler = () => {
+					const scrollAbortHandler = (event: Event) => {
+						// Programmatic scrolls are not user interactions and must not abort the load metric.
+						if (scrollRestorePerfEnabled && !event.isTrusted) {
+							return;
+						}
+
 						const activeInteraction = getActiveInteraction();
 
 						if (
@@ -1200,6 +1208,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			onEditorDestroyed,
 			handleAnalyticsEvent,
 			mitigateScrollJump,
+			scrollRestorePerfEnabled,
 		],
 	);
 
@@ -1358,6 +1367,12 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 		const doBuildDoc = () => buildDoc(schema);
 		const doc = profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/buildDoc`, doBuildDoc, onSSRMeasure);
+		const isViewMode =
+			pluginInjectionAPI.current.api()?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+		const ariaReadonly =
+			isViewMode && isExperimentEnabled('platform_editor_viewmode_aria_readonly_a11y')
+				? ('true' as const)
+				: undefined;
 
 		// When the platform_editor_ssr_toolbar_optimistic is on, we create SSR-safe PM plugins and EditorState
 		// HERE in ssrDeps — before any children render — so that FullPageToolbarNext can read correct
@@ -1387,10 +1402,17 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					}),
 				onSSRMeasure,
 			);
-			return { plugins, schema, doc, ssrPMPlugins, ssrEditorState: ssrState };
+			return { plugins, schema, doc, ariaReadonly, ssrPMPlugins, ssrEditorState: ssrState };
 		}
 
-		return { plugins, schema, doc, ssrPMPlugins: undefined, ssrEditorState: undefined };
+		return {
+			plugins,
+			schema,
+			doc,
+			ariaReadonly,
+			ssrPMPlugins: undefined,
+			ssrEditorState: undefined,
+		};
 	}, [allowBlockType, buildDoc, props.preset, onSSRMeasure, props.portalProviderAPI, props.intl]);
 	// SSR only, synchronously set preMountEditorStateRef so it's ready to be consumed by children including toolbar
 	if (ssrDeps?.ssrEditorState) {
@@ -1425,11 +1447,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		[editorRef, props.editorProps.popupsMountPoint],
 	);
 	// eslint-disable-next-line @atlassian/perf-linting/no-inline-context-value, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017
-	const reactEditorViewContext = expValEquals(
-		'platform_editor_perf_lint_cleanup',
-		'isEnabled',
-		true,
-	)
+	const reactEditorViewContext = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? memoizedReactEditorViewContext
 		: {
 				editorRef,
@@ -1461,13 +1479,15 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				}
 				id={EDIT_AREA_ID}
 				aria-describedby={assistiveDescribedBy}
+				// eslint-disable-next-line react/jsx-props-no-spreading -- aria-readonly must be omitted unless view mode is confirmed
+				{...(ssrDeps.ariaReadonly === 'true' ? { 'aria-readonly': 'true' as const } : {})}
 				data-editor-id={editorId.current}
 				onSSRMeasure={onSSRMeasure}
 				prebuiltPMPlugins={ssrDeps.ssrPMPlugins}
 				prebuiltEditorState={ssrDeps.ssrEditorState}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onEditorStateChanged={
-					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+					isExperimentEnabled('platform_editor_perf_lint_cleanup')
 						? handleSsrEditorStateChanged
 						: (state) => {
 								preMountEditorStateRef.current = state;
@@ -1507,11 +1527,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		[props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy, ssrEditor],
 	);
 
-	// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
-	// Also firing too many events for the legacy content macro, so disabling for now. See - https://product-fabric.atlassian.net/browse/ED-26650
-	const renderTrackingEnabled =
-		!fg('platform_editor_disable_rerender_tracking_jira') && !featureFlags.lcmPreventRenderTracking;
-
 	return (
 		<SSRRenderMeasure
 			segmentName={SSR_TRACE_SEGMENT_NAME}
@@ -1519,16 +1534,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			onSSRMeasure={onSSRMeasure}
 		>
 			<ReactEditorViewContext.Provider value={reactEditorViewContext}>
-				{renderTrackingEnabled && (
-					<RenderTracking
-						componentProps={props}
-						action={ACTION.RE_RENDERED}
-						actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
-						handleAnalyticsEvent={handleAnalyticsEvent}
-						useShallow={true}
-					/>
-				)}
-
 				{props.render
 					? (props.render?.({
 							editor,
@@ -1547,7 +1552,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 }
 
 // Preserving exact type generated by TypeScript
-// eslint-disable-next-line @typescript-eslint/ban-types, @atlaskit/volt-strict-mode/no-multiple-exports
+// eslint-disable-next-line @typescript-eslint/no-restricted-types, @atlaskit/volt-strict-mode/no-multiple-exports
 export default injectIntl(ReactEditorView) as React.FC<WithIntlProps<EditorViewProps>> & {
 	WrappedComponent: React.ComponentType<EditorViewProps>;
 };

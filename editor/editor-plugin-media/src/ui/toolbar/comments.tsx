@@ -15,8 +15,8 @@ import type {
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginOptions } from '../../types';

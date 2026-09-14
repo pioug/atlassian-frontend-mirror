@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::18bbd4dc7d8b1f4333c1c99573687157>>
+ * @codegen <<SignedSource::bed93fe274604f7a0e4e565f6d589dc1>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -43,13 +43,21 @@ const tokens = {
 	'motion.keyframe.slide.out.left.short': '--ds-keyframe-slide-out-left-short',
 	'motion.keyframe.slide.out.right.short': '--ds-keyframe-slide-out-right-short',
 	'motion.keyframe.slide.out.top.short': '--ds-keyframe-slide-out-top-short',
+	'motion.label.enter': '--ds-label-enter',
+	'motion.label.exit': '--ds-label-exit',
 	'motion.listitem.hovered': '--ds-listitem-hovered',
 	'motion.listitem.pressed': '--ds-listitem-pressed',
 	'motion.listitem.selected': '--ds-listitem-selected',
 	'motion.modal.enter': '--ds-modal-enter',
 	'motion.modal.exit': '--ds-modal-exit',
+	'motion.panel.content.enter': '--ds-panel-content-enter',
+	'motion.panel.content.exit': '--ds-panel-content-exit',
 	'motion.panel.enter': '--ds-panel-enter',
+	'motion.panel.enter.left': '--ds-panel-enter-left',
+	'motion.panel.enter.right': '--ds-panel-enter-right',
 	'motion.panel.exit': '--ds-panel-exit',
+	'motion.panel.exit.left': '--ds-panel-exit-left',
+	'motion.panel.exit.right': '--ds-panel-exit-right',
 	'motion.popup.enter.bottom': '--ds-popup-enter-bottom',
 	'motion.popup.enter.left': '--ds-popup-enter-left',
 	'motion.popup.enter.right': '--ds-popup-enter-right',
@@ -58,6 +66,10 @@ const tokens = {
 	'motion.popup.exit.left': '--ds-popup-exit-left',
 	'motion.popup.exit.right': '--ds-popup-exit-right',
 	'motion.popup.exit.top': '--ds-popup-exit-top',
+	'motion.sidenav.enter.left': '--ds-sidenav-enter-left',
+	'motion.sidenav.enter.right': '--ds-sidenav-enter-right',
+	'motion.sidenav.exit.left': '--ds-sidenav-exit-left',
+	'motion.sidenav.exit.right': '--ds-sidenav-exit-right',
 	'motion.spotlight.enter': '--ds-spotlight-enter',
 	'motion.spotlight.exit': '--ds-spotlight-exit',
 	'color.background.accent.lime.subtlest': '--ds-background-accent-lime-subtlest',
@@ -303,6 +315,7 @@ const tokens = {
 	'color.border.disabled': '--ds-border-disabled',
 	'color.border.focused': '--ds-border-focused',
 	'color.border.input': '--ds-border-input',
+	'color.border.input.search': '--ds-border-input-search',
 	'color.border.inverse': '--ds-border-inverse',
 	'color.border.selected': '--ds-border-selected',
 	'color.border.brand': '--ds-border-brand',
@@ -635,13 +648,21 @@ export type CSSTokenMap = {
 	'motion.keyframe.slide.out.left.short': 'var(--ds-keyframe-slide-out-left-short)';
 	'motion.keyframe.slide.out.right.short': 'var(--ds-keyframe-slide-out-right-short)';
 	'motion.keyframe.slide.out.top.short': 'var(--ds-keyframe-slide-out-top-short)';
+	'motion.label.enter': 'var(--ds-label-enter)';
+	'motion.label.exit': 'var(--ds-label-exit)';
 	'motion.listitem.hovered': 'var(--ds-listitem-hovered)';
 	'motion.listitem.pressed': 'var(--ds-listitem-pressed)';
 	'motion.listitem.selected': 'var(--ds-listitem-selected)';
 	'motion.modal.enter': 'var(--ds-modal-enter)';
 	'motion.modal.exit': 'var(--ds-modal-exit)';
+	'motion.panel.content.enter': 'var(--ds-panel-content-enter)';
+	'motion.panel.content.exit': 'var(--ds-panel-content-exit)';
 	'motion.panel.enter': 'var(--ds-panel-enter)';
+	'motion.panel.enter.left': 'var(--ds-panel-enter-left)';
+	'motion.panel.enter.right': 'var(--ds-panel-enter-right)';
 	'motion.panel.exit': 'var(--ds-panel-exit)';
+	'motion.panel.exit.left': 'var(--ds-panel-exit-left)';
+	'motion.panel.exit.right': 'var(--ds-panel-exit-right)';
 	'motion.popup.enter.bottom': 'var(--ds-popup-enter-bottom)';
 	'motion.popup.enter.left': 'var(--ds-popup-enter-left)';
 	'motion.popup.enter.right': 'var(--ds-popup-enter-right)';
@@ -650,6 +671,10 @@ export type CSSTokenMap = {
 	'motion.popup.exit.left': 'var(--ds-popup-exit-left)';
 	'motion.popup.exit.right': 'var(--ds-popup-exit-right)';
 	'motion.popup.exit.top': 'var(--ds-popup-exit-top)';
+	'motion.sidenav.enter.left': 'var(--ds-sidenav-enter-left)';
+	'motion.sidenav.enter.right': 'var(--ds-sidenav-enter-right)';
+	'motion.sidenav.exit.left': 'var(--ds-sidenav-exit-left)';
+	'motion.sidenav.exit.right': 'var(--ds-sidenav-exit-right)';
 	'motion.spotlight.enter': 'var(--ds-spotlight-enter)';
 	'motion.spotlight.exit': 'var(--ds-spotlight-exit)';
 	'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
@@ -885,6 +910,7 @@ export type CSSTokenMap = {
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
+	'color.border.input.search': 'var(--ds-border-input-search)';
 	'color.border.inverse': 'var(--ds-border-inverse)';
 	'color.border.selected': 'var(--ds-border-selected)';
 	'color.border.brand': 'var(--ds-border-brand)';

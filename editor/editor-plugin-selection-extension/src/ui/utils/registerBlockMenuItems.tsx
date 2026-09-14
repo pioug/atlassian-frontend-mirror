@@ -9,12 +9,14 @@ import {
 	TRANSFORM_CREATE_MENU_SECTION,
 	TRANSFORM_CREATE_MENU_SECTION_RANK,
 	TRANSFORM_DEFAULT_EXTENSION_SLOT_MENU_ITEM,
+	TRANSFORM_STRUCTURE_EXTENSION_SLOT_MENU_ITEM,
+	TRANSFORM_STRUCTURE_MENU_SECTION,
+	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/block-menu';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionConfiguration, GetMenuItemsContext } from '../../types';
@@ -85,7 +87,7 @@ export function registerBlockMenuItems({
 			);
 		};
 
-		if (blockMenu.placement === 'featured-section' && fg('platform_editor_block_menu_v2_patch_2')) {
+		if (blockMenu.placement === 'featured-section') {
 			// Block menu sections do not support isHidden. Check menu items before registering
 			// the section to avoid rendering an orphan separator when there are no items.
 			if (getMenuItems().length === 0 || !blockMenu.sectionKey) {
@@ -124,12 +126,8 @@ export function registerBlockMenuItems({
 				},
 				component: makeItemComponent,
 			});
-		} else if (
-			blockMenu.placement === 'featured' ||
-			(blockMenu.placement === 'featured-section' && !fg('platform_editor_block_menu_v2_patch_2'))
-		) {
+		} else if (blockMenu.placement === 'featured') {
 			// Register as an item directly under TRANSFORM_MENU_SECTION
-			// (also used as fallback for featured-section when gate is off)
 			componentsToRegister.push({
 				type: 'block-menu-item' as const,
 				key: `selection-extension-${key}`,
@@ -138,6 +136,21 @@ export function registerBlockMenuItems({
 					key: TRANSFORM_MENU_SECTION.key,
 					rank: (TRANSFORM_MENU_SECTION_RANK as Record<string, number>)[
 						BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM.key
+					],
+				},
+				component: makeItemComponent,
+			});
+		} else if (blockMenu.placement === 'structure') {
+			// Register under the Structure section in the nested Turn into menu
+			componentsToRegister.push({
+				type: 'block-menu-item' as const,
+				key: `selection-extension-${key}`,
+				isHidden: () => getMenuItems().length === 0,
+				parent: {
+					type: 'block-menu-section' as const,
+					key: TRANSFORM_STRUCTURE_MENU_SECTION.key,
+					rank: (TRANSFORM_STRUCTURE_MENU_SECTION_RANK as Record<string, number>)[
+						TRANSFORM_STRUCTURE_EXTENSION_SLOT_MENU_ITEM.key
 					],
 				},
 				component: makeItemComponent,

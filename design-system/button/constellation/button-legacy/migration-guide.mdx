@@ -45,7 +45,7 @@ Here is what the codemod will do for all migratable buttons.
 ### Code changes when migrating default buttons
 
 ```diff
-+import Button from '@atlaskit/button/new';
++import Button from '@atlaskit/button/default/button';
 -import Button from '@atlaskit/button';
 
 const App = () => (
@@ -61,7 +61,7 @@ const App = () => (
 ### Code changes when migrating loading buttons
 
 ```diff
-+import Button from '@atlaskit/button/new';
++import Button from '@atlaskit/button/default/button';
 -import { LoadingButton } from '@atlaskit/button';
 import AddIcon from '@atlaskit/icon/glyph/add';
 
@@ -81,7 +81,7 @@ const App = () => (
 
 ```diff
 -import Button from '@atlaskit/button';
-+import { IconButton } from '@atlaskit/button/new';
++import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/glyph/add';
 
 const App = () => (
@@ -99,7 +99,7 @@ const App = () => (
 
 ```diff
 -import Button from '@atlaskit/button';
-+import { LinkButton } from '@atlaskit/button/new';
++import LinkButton from '@atlaskit/button/link';
 
 const App = () => (
 -  <Button

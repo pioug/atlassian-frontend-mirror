@@ -2,7 +2,7 @@ import { Device, type Hooks, snapshot } from '@af/visual-regression';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import type { SnapshotTestOptions } from '@atlassian/gemini';
 
-import { AllDragHandleVariants } from '../../examples/guidelines/all-drag-handle-variants';
+import { AllDragHandleVariants } from '../../examples/guidelines/all-drag-handle-variants.vr.ap';
 
 const defaultOptions: SnapshotTestOptions<Hooks> = {
 	variants: [

@@ -1,4 +1,5 @@
-import { JQLAutocomplete, ORDER_BY_CLAUSE, WHERE_CLAUSE } from '../../src';
+import { JQLAutocomplete } from '../../src/jql-autocomplete';
+import { ORDER_BY_CLAUSE, WHERE_CLAUSE } from '../../src/jql-autocomplete/constants';
 
 const checks = [
 	{

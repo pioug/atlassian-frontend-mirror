@@ -1,4 +1,4 @@
-import type { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,

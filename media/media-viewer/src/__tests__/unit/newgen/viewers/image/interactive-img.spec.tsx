@@ -1,12 +1,16 @@
 import React from 'react';
-import { createMouseEvent } from '@atlaskit/media-test-helpers';
-import { MAX_RESOLUTION } from '@atlaskit/media-client';
+
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { InteractiveImgComponent, type Props } from '../../../../../viewers/image/interactive-img';
+import { MAX_RESOLUTION } from '@atlaskit/media-client';
+import { createMouseEvent } from '@atlaskit/media-test-helpers';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+import type { Props } from '../../../../../viewers/image/interactive-img';
+import { InteractiveImgComponent } from '../../../../../viewers/image/interactive-img-component';
+
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 

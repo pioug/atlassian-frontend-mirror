@@ -6,13 +6,12 @@ import userEvent from '@testing-library/user-event';
 import { type MediaApi } from '@atlaskit/media-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { MockedMediaClientProvider } from '../test-helpers';
+import { MockedMediaClientProvider } from '../test-helpers/MockedMediaClientProvider';
 
 import { useCopyIntent } from './useCopyIntent';
 
 // Polyfill ClipboardEvent for JSDOM
 if (typeof ClipboardEvent === 'undefined') {
-	// @ts-ignore - JSDOM doesn't have ClipboardEvent
 	global.ClipboardEvent = class ClipboardEvent extends Event {
 		clipboardData: DataTransfer | null;
 		constructor(type: string, eventInitDict?: ClipboardEventInit) {

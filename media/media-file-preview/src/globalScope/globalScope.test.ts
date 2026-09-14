@@ -1,16 +1,13 @@
-import { type FileIdentifier } from '@atlaskit/media-client';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { type FileIdentifier } from '@atlaskit/media-client';
 
 import { type MediaFilePreviewErrorInfo } from '../analytics';
 
-import {
-	generateScriptProps,
-	getKey,
-	getMediaCardSSR,
-	getMediaGlobalScope,
-	GLOBAL_MEDIA_CARD_SSR,
-	GLOBAL_MEDIA_NAMESPACE,
-} from './globalScope';
+import { generateScriptProps } from './generateScriptProps';
+import { getKey } from './getKey';
+import { getMediaCardSSR } from './getMediaCardSSR';
+import { getMediaGlobalScope } from './getMediaGlobalScope';
+import { GLOBAL_MEDIA_CARD_SSR, GLOBAL_MEDIA_NAMESPACE } from './globalScope';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

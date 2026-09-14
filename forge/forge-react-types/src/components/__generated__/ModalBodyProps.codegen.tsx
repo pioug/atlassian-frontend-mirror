@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { ModalBody as PlatformModalBody } from '@atlaskit/modal-dialog';
+import PlatformModalBody from '@atlaskit/modal-dialog/modal-body';
 
 type PlatformModalBodyProps = React.ComponentProps<typeof PlatformModalBody>;
 

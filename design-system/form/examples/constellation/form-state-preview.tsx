@@ -5,9 +5,12 @@
 
 import Banner from '@atlaskit/banner';
 import { cssMap, jsx } from '@atlaskit/css';
-import Form, { Field, useFormState } from '@atlaskit/form';
-import Select, { type ValueType as Value } from '@atlaskit/select';
-import TextArea from '@atlaskit/textarea';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { useFormState } from '@atlaskit/form/use-form-state';
+import Select from '@atlaskit/select/default';
+import type { ValueType as Value } from '@atlaskit/select/types';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 
 interface Option {

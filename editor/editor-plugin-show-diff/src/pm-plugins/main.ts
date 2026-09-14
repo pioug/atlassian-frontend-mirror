@@ -1,5 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
+import { toggleExpandRange } from '@atlaskit/editor-common/expand';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -9,26 +10,34 @@ import {
 	type EditorState,
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type {
+	ContributorTagModel,
 	DeletedDiffPlacement,
 	DiffDescriptor,
 	DiffParams,
+	DiffStepAttribution,
 	DiffType,
 	InlineDeletedDiffPlacement,
+	RevealOptions,
 	ShowDiffPlugin,
 	SmartDiffThresholds,
 } from '../showDiffPluginType';
+import { getActiveDiffAnnouncement } from '../ui/DiffNavigation/announceActiveDiff';
 
 import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
+import type { ResolvedDiffContributors } from './decorations/colorSchemes/attributions';
+import type { ContributorTagMountContext } from './decorations/createContributorTagWidget';
+import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
 import { getScrollableDecorations } from './getScrollableDecorations';
-import { isExtendedEnabled } from './isExtendedEnabled';
+import { getDefaultDiffType, isExtendedEnabled } from './isExtendedEnabled';
 import { NodeViewSerializer } from './NodeViewSerializer';
-import { scrollToActiveDecoration, scrollToFirstDecoration } from './scrollToDiff';
+import { rebindReveal } from './revealAnimation';
+import { scrollToDecoration } from './scrollToDiff';
 
 export const showDiffPluginKey: PluginKey<ShowDiffPluginState> = new PluginKey<ShowDiffPluginState>(
 	'showDiffPlugin',
@@ -37,6 +46,10 @@ export const showDiffPluginKey: PluginKey<ShowDiffPluginState> = new PluginKey<S
 export type ShowDiffPluginState = {
 	activeIndex?: number;
 	activeIndexPos?: { from: number; to: number };
+	/** Set via SHOW_DIFF meta, after `normalizeShowDiffParams` has keyed the public list. */
+	contributors?: ResolvedDiffContributors;
+	/** Resolved per calculation, never set via meta. */
+	contributorTags?: ContributorTagModel[];
 	decorations: DecorationSet;
 	/**
 	 * For the `smart` diffType, where node/paragraph-level deleted content is rendered relative to
@@ -61,6 +74,11 @@ export type ShowDiffPluginState = {
 	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
 	/**
+	 * Reveal choreography for the CURRENT paint only. Set from SHOW_DIFF meta and deliberately not
+	 * inherited: a scroll-to-next or an unrelated repaint must not replay the animation.
+	 */
+	reveal?: RevealOptions;
+	/**
 	 * When true, the view update handler should scroll to the first decoration
 	 * and then reset this flag.
 	 */
@@ -71,15 +89,45 @@ export type ShowDiffPluginState = {
 	 * meta. Only relevant when `diffType === 'smart'`.
 	 */
 	smartThresholds?: Partial<SmartDiffThresholds>;
+	/** Internal attribution derived from the public attributed-step input. */
+	stepAttributions?: Array<DiffStepAttribution | undefined>;
 	steps: ProseMirrorStep[];
 };
 
 type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
+/**
+ * Tags whose diff decoration survived the transaction. A document change can map a decoration away
+ * without any `showDiff`/`hideDiff` following it, and a tag left behind has no host to render into.
+ * Returns the given array when every tag is still live.
+ */
+const dropOrphanedContributorTags = (
+	contributorTags: ContributorTagModel[] | undefined,
+	decorations: DecorationSet,
+): ContributorTagModel[] | undefined => {
+	if (!contributorTags?.length) {
+		return contributorTags;
+	}
+
+	const liveDiffIds = new Set(
+		decorations
+			.find(undefined, undefined, isDiffDecorationSpec)
+			.filter(isDiffDecoration)
+			.map(({ spec }) => spec.diffId),
+	);
+	const liveTags = contributorTags.filter(({ diffId }) => liveDiffIds.has(diffId));
+
+	return liveTags.length === contributorTags.length ? contributorTags : liveTags;
+};
+
 export const createPlugin = (
 	config: DiffParams | undefined,
 	getIntl: () => IntlShape,
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined,
+	// Called with the editor view on mount (and `undefined` on destroy) so plugin actions can read
+	// the current state. Lets the `getDeletedWidgets` action reach live decorations without exposing
+	// the plugin key.
+	onEditorView?: (editorView: EditorView | undefined) => void,
 ): SafePlugin<ShowDiffPluginState> => {
 	enforceCustomStepRegisters();
 
@@ -88,20 +136,36 @@ export const createPlugin = (
 		nodeViewSerializer.init({ editorView });
 	};
 
+	/**
+	 * This editor's own content root. The contributor tags scope every DOM lookup to it, so they take
+	 * it from the view the plugin was mounted on rather than resolving `.ProseMirror` by class name
+	 * from a decoration — a class this package does not own, and one whose nearest match is the wrong
+	 * editor whenever editors are nested. A getter because the view arrives with the ProseMirror view
+	 * lifecycle, which decorations are calculated independently of.
+	 */
+	let currentEditorView: EditorView | undefined;
+	const tagMountContext: ContributorTagMountContext = {
+		api,
+		getEditorRoot: () => currentEditorView?.dom ?? null,
+		getIntl,
+	};
+
 	return new SafePlugin<ShowDiffPluginState>({
 		key: showDiffPluginKey,
 		state: {
 			init(_: EditorStateConfig, _state: EditorState) {
 				// We do initial setup after we setup the editor view
+				const defaultDiffType = getDefaultDiffType();
 				return {
 					steps: [],
+					stepAttributions: [],
 					originalDoc: undefined,
 					decorations: DecorationSet.empty,
 					isDisplayingChanges: false,
-					...(isExtendedEnabled()
+					...(isExtendedEnabled(defaultDiffType)
 						? {
 								isInverted: false,
-								diffType: 'inline',
+								diffType: defaultDiffType,
 								hideDeletedDiffs: false,
 								hideAddedDiffsUnderline: false,
 								showIndicators: false,
@@ -120,16 +184,26 @@ export const createPlugin = (
 				let newPluginState = currentPluginState;
 
 				if (meta) {
-					if (meta?.action === 'SHOW_DIFF') {
-						// Update the plugin state with the new metadata
-						newPluginState = {
-							...currentPluginState,
-							...meta,
-							isDisplayingChanges: true,
-							activeIndex: undefined,
-						};
+					if (meta?.action === 'SHOW_DIFF' || meta?.action === 'REVEAL_COMPLETE') {
+						// REVEAL_COMPLETE repaints with the reveal dropped, so the decorations render their
+						// ordinary resting style. Without it the reveal stays in state indefinitely and the
+						// next unrelated repaint re-emits the hidden, zero-width highlight with no animation
+						// left to bring it in — the highlight simply vanishes.
+						newPluginState =
+							meta.action === 'REVEAL_COMPLETE'
+								? { ...currentPluginState, reveal: undefined }
+								: {
+										...currentPluginState,
+										...meta,
+										isDisplayingChanges: true,
+										activeIndex: undefined,
+										// Explicit rather than left to the spread: an absent key in `meta` would let
+										// the previous paint's choreography leak into this one, so closing the diff
+										// would animate too.
+										reveal: meta.reveal,
+									};
 						// Calculate and store decorations in state
-						const { decorations, diffDescriptors } = calculateDiffDecorations({
+						const { contributorTags, decorations, diffDescriptors } = calculateDiffDecorations({
 							state: newState,
 							pluginState: newPluginState,
 							nodeViewSerializer,
@@ -137,6 +211,7 @@ export const createPlugin = (
 							intl: getIntl(),
 							activeIndexPos: newPluginState.activeIndexPos,
 							api,
+							tagMountContext,
 							...(isExtendedEnabled(newPluginState?.diffType)
 								? {
 										isInverted: newPluginState?.isInverted,
@@ -147,11 +222,15 @@ export const createPlugin = (
 										smartThresholds: newPluginState?.smartThresholds,
 										deletedDiffPlacement: newPluginState?.deletedDiffPlacement,
 										inlineDeletedDiffPlacement: newPluginState?.inlineDeletedDiffPlacement,
+										// SHOW_DIFF only. The scroll-to-next recalculation further down deliberately
+										// omits this so stepping through changes cannot replay the choreography.
+										reveal: newPluginState?.reveal,
 									}
 								: {}),
 						});
 						// Update the decorations and their ids
 						newPluginState.decorations = decorations;
+						newPluginState.contributorTags = contributorTags;
 						if (isExtendedEnabled(newPluginState?.diffType)) {
 							newPluginState.diffDescriptors = diffDescriptors;
 						}
@@ -162,6 +241,8 @@ export const createPlugin = (
 							decorations: DecorationSet.empty,
 							isDisplayingChanges: false,
 							activeIndex: undefined,
+							contributorTags: [],
+							reveal: undefined,
 							/**
 							 * Reset isInverted & diffType state when hiding diffs
 							 * Otherwise this should persist for the diff-showing session
@@ -169,7 +250,7 @@ export const createPlugin = (
 							...(isExtendedEnabled(currentPluginState.diffType)
 								? {
 										isInverted: false,
-										diffType: 'inline',
+										diffType: getDefaultDiffType(),
 										hideDeletedDiffs: false,
 										hideAddedDiffsUnderline: false,
 										diffDescriptors: [],
@@ -208,29 +289,34 @@ export const createPlugin = (
 									: undefined,
 							};
 							// Recalculate decorations with the new active index
-							const { decorations: updatedDecorations, diffDescriptors: updatedDiffDescriptors } =
-								calculateDiffDecorations({
-									state: newState,
-									pluginState: newPluginState,
-									nodeViewSerializer,
-									colorScheme: config?.colorScheme,
-									intl: getIntl(),
-									activeIndexPos: newPluginState.activeIndexPos,
-									api,
-									...(isExtendedEnabled(newPluginState.diffType)
-										? {
-												isInverted: newPluginState.isInverted,
-												diffType: newPluginState.diffType,
-												hideDeletedDiffs: newPluginState.hideDeletedDiffs,
-												hideAddedDiffsUnderline: newPluginState.hideAddedDiffsUnderline,
-												showIndicators: newPluginState.showIndicators,
-												smartThresholds: newPluginState.smartThresholds,
-												deletedDiffPlacement: newPluginState.deletedDiffPlacement,
-												inlineDeletedDiffPlacement: newPluginState.inlineDeletedDiffPlacement,
-											}
-										: {}),
-								});
+							const {
+								contributorTags: updatedContributorTags,
+								decorations: updatedDecorations,
+								diffDescriptors: updatedDiffDescriptors,
+							} = calculateDiffDecorations({
+								state: newState,
+								pluginState: newPluginState,
+								nodeViewSerializer,
+								colorScheme: config?.colorScheme,
+								intl: getIntl(),
+								activeIndexPos: newPluginState.activeIndexPos,
+								api,
+								tagMountContext,
+								...(isExtendedEnabled(newPluginState.diffType)
+									? {
+											isInverted: newPluginState.isInverted,
+											diffType: newPluginState.diffType,
+											hideDeletedDiffs: newPluginState.hideDeletedDiffs,
+											hideAddedDiffsUnderline: newPluginState.hideAddedDiffsUnderline,
+											showIndicators: newPluginState.showIndicators,
+											smartThresholds: newPluginState.smartThresholds,
+											deletedDiffPlacement: newPluginState.deletedDiffPlacement,
+											inlineDeletedDiffPlacement: newPluginState.inlineDeletedDiffPlacement,
+										}
+									: {}),
+							});
 							newPluginState.decorations = updatedDecorations;
+							newPluginState.contributorTags = updatedContributorTags;
 							if (isExtendedEnabled(newPluginState.diffType)) {
 								newPluginState.diffDescriptors = updatedDiffDescriptors;
 							}
@@ -240,14 +326,27 @@ export const createPlugin = (
 					}
 				}
 
-				return {
+				const mappedDecorations = newPluginState.decorations.map(tr.mapping, tr.doc);
+
+				const nextState: ShowDiffPluginState = {
 					...newPluginState,
-					decorations: newPluginState.decorations.map(tr.mapping, tr.doc),
+					decorations: mappedDecorations,
 				};
+
+				if (tr.docChanged) {
+					nextState.contributorTags = dropOrphanedContributorTags(
+						newPluginState.contributorTags,
+						mappedDecorations,
+					);
+				}
+
+				return nextState;
 			},
 		},
 		view(editorView: EditorView) {
 			setNodeViewSerializer(editorView);
+			currentEditorView = editorView;
+			onEditorView?.(editorView);
 			let isFirst = true;
 			let previousActiveIndex: number | undefined;
 			let cancelPendingScrollToDecoration: (() => void) | null = null;
@@ -270,12 +369,22 @@ export const createPlugin = (
 
 					const pluginState = showDiffPluginKey.getState(view.state);
 
-					// Scroll to the first decoration when scrollIntoView was requested
+					// A repaint rebuilds inline decorations, destroying any animation bound to them, so
+					// an in-flight reveal has to be re-attached to the new nodes. No-op when idle.
+					rebindReveal(view, view.dom);
+
+					// Scroll to the first decoration when scrollIntoView was requested.
+					// Use the same filtered/position-sorted list as the active-index path
+					// so "first" reliably means the topmost scrollable diff in the document.
 					if (pluginState?.scrollIntoView && isExtendedEnabled(pluginState?.diffType)) {
 						cancelPendingScrollToDecoration?.();
-						cancelPendingScrollToDecoration = scrollToFirstDecoration(
+						cancelPendingScrollToDecoration = scrollToDecoration(
 							view,
-							pluginState.decorations,
+							getScrollableDecorations(
+								pluginState.decorations,
+								view.state.doc,
+								pluginState?.diffType,
+							),
 						);
 
 						// Reset the flag so we don't scroll again on subsequent updates
@@ -300,25 +409,41 @@ export const createPlugin = (
 							pluginState?.diffType,
 						);
 						const activeDecoration = scrollableDecorations[pluginState.activeIndex];
-						if (activeDecoration && api?.expand?.commands?.toggleExpandRange) {
+						if (activeDecoration) {
+							// EDITOR-7926: use editor-common's command instead of the expand plugin API to
+							// avoid a circular dependency; expand picks up the meta if loaded (no-op if not).
 							api?.core.actions.execute(
-								api.expand.commands.toggleExpandRange(
-									activeDecoration.from,
-									activeDecoration.to,
-									true,
-								),
+								toggleExpandRange(activeDecoration.from, activeDecoration.to, true),
 							);
 						}
-						cancelPendingScrollToDecoration = scrollToActiveDecoration(
+						cancelPendingScrollToDecoration = scrollToDecoration(
 							view,
 							scrollableDecorations,
 							pluginState.activeIndex,
 						);
+
+						// Stepping only scrolls — no focus moves and no content changes — so without this a
+						// screen-reader user gets silence. Announced through the live region rather than by
+						// focusing the change, since the "next change" control has to stay focused to be
+						// pressed again. After the scroll above, so the announcement never precedes it.
+						if (isExtendedEnabled(pluginState?.diffType)) {
+							const announcement = getActiveDiffAnnouncement({
+								activeIndex: pluginState.activeIndex,
+								contributorTags: pluginState.contributorTags,
+								decorations: scrollableDecorations,
+								intl: getIntl(),
+							});
+							if (announcement) {
+								api?.accessibilityUtils?.actions.ariaNotify(announcement);
+							}
+						}
 					}
 				},
 				destroy() {
 					cancelPendingScrollToDecoration?.();
 					cancelPendingScrollToDecoration = null;
+					currentEditorView = undefined;
+					onEditorView?.(undefined);
 				},
 			};
 		},

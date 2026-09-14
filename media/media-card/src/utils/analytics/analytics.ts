@@ -1,16 +1,8 @@
 import { type ErrorInfo } from 'react';
+
+import { type MediaClientErrorReason, type RequestMetadata } from '@atlaskit/media-client';
+import { type SSR } from '@atlaskit/media-common';
 import {
-	type FileDetails,
-	type FileStatus,
-	type MediaClientErrorReason,
-	type RequestErrorMetadata,
-	type RequestMetadata,
-	isCommonMediaClientError,
-} from '@atlaskit/media-client';
-import {
-	ANALYTICS_MEDIA_CHANNEL,
-	type FileAttributes,
-	type PerformanceAttributes,
 	type OperationalEventPayload,
 	type UIEventPayload,
 	type WithFileAttributes,
@@ -19,18 +11,11 @@ import {
 	type FailureAttributes,
 	type MediaTraceContext,
 	type WithTraceContext,
-	sanitiseAnalyticsPayload,
 } from '@atlaskit/media-common/analytics';
-
-import {
-	type CreateUIAnalyticsEvent,
-	type UIAnalyticsEvent,
-	createAndFireEvent,
-} from '@atlaskit/analytics-next';
-import { type MediaCardError, type MediaCardErrorPrimaryReason } from '../../errors';
-import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
-import { type SSR } from '@atlaskit/media-common';
 import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
+
+import type { MediaCardErrorPrimaryReason } from '../../MediaCardError';
+import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
 
 export type CardPreviewAttributes = {
 	fileId: string;
@@ -68,6 +53,7 @@ type WithCardPerfAttributes = {
 };
 
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
+
 export type FailedErrorFailReason = MediaCardErrorPrimaryReason | 'nativeError';
 
 export type MediaCardErrorInfo = {
@@ -263,270 +249,8 @@ export type MediaCardAnalyticsEventPayload =
 	| AuthProviderSucceededAnalyticsPayload
 	| AuthProviderFailedAnalyticsPayload;
 
-export const getFileAttributes = (
-	metadata: FileDetails,
-	fileStatus?: FileStatus,
-): FileAttributes => ({
-	fileMediatype: metadata.mediaType,
-	fileMimetype: metadata.mimeType,
-	fileId: metadata.id,
-	fileSize: metadata.size,
-	fileStatus,
-});
-
-export const getRenderSucceededEventPayload = (
-	fileAttributes: FileAttributes,
-	performanceAttributes: PerformanceAttributes,
-	ssrReliability: SSRStatus,
-	traceContext: MediaTraceContext,
-	metadataTraceContext?: MediaTraceContext,
-	samplingRate?: number,
-): RenderSucceededEventPayload => {
-	const isSamplingEnabled = samplingRate !== undefined && samplingRate < 1;
-	return {
-		eventType: 'operational',
-		action: 'succeeded',
-		actionSubject: 'mediaCardRender',
-		attributes: {
-			fileMimetype: fileAttributes.fileMimetype,
-			fileAttributes,
-			performanceAttributes,
-			status: 'success',
-			ssrReliability,
-			traceContext,
-			metadataTraceContext,
-			...(isSamplingEnabled && { isSamplingEnabled }),
-			...(samplingRate !== undefined && { samplingRate }),
-		},
-	};
-};
-
-export const getDownloadSucceededEventPayload = (
-	fileAttributes: FileAttributes,
-	traceContext: MediaTraceContext,
-	metadataTraceContext?: MediaTraceContext,
-): DownloadSucceededEventPayload => ({
-	eventType: 'operational',
-	action: 'succeeded',
-	actionSubject: 'mediaCardDownload',
-	attributes: {
-		fileMimetype: fileAttributes.fileMimetype,
-		fileAttributes,
-		status: 'success',
-		traceContext,
-		metadataTraceContext,
-	},
-});
-
-export const getCacheHitEventPayload = (
-	cardPreviewAttributes: CardPreviewAttributes,
-): CacheHitEventPayload => ({
-	eventType: 'operational',
-	action: 'cache-hit',
-	actionSubject: 'mediaCardCache',
-	attributes: {
-		cardPreviewAttributes,
-	},
-});
-
-export const getRemoteSuccessEventPayload = (
-	cardPreviewAttributes: CardPreviewAttributes,
-): RemoteSuccessEventPayload => ({
-	eventType: 'operational',
-	action: 'Remote-success',
-	actionSubject: 'mediaCardCache',
-	attributes: {
-		cardPreviewAttributes,
-	},
-});
-
-export const getRenderFailedExternalUriPayload = (
-	fileAttributes: FileAttributes,
-	performanceAttributes: PerformanceAttributes,
-): RenderFailedEventPayload => ({
-	eventType: 'operational',
-	action: 'failed',
-	actionSubject: 'mediaCardRender',
-	attributes: {
-		fileAttributes,
-		performanceAttributes,
-		status: 'fail',
-		failReason: 'external-uri',
-	},
-});
-
-export const getRenderErrorFailReason = (error: MediaCardError): FailedErrorFailReason => {
-	return error.primaryReason || 'nativeError';
-};
-
-export const getRenderErrorErrorReason = (
-	error: MediaCardError,
-): MediaClientErrorReason | 'nativeError' => {
-	const { secondaryError } = error;
-	if (isCommonMediaClientError(secondaryError)) {
-		return secondaryError.reason;
-	}
-	return 'nativeError';
-};
-
-export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
-	const { secondaryError } = error;
-	if (isCommonMediaClientError(secondaryError) && secondaryError.innerError?.message) {
-		return secondaryError.innerError?.message;
-	}
-	if (secondaryError instanceof Error) {
-		return secondaryError.message;
-	}
-	return error.message;
-};
-
-export const getErrorTraceContext = (error: MediaCardError): MediaTraceContext | undefined => {
-	const { secondaryError } = error;
-	if (isCommonMediaClientError(secondaryError)) {
-		return secondaryError.metadata?.traceContext;
-	}
-};
-
-export const getRenderErrorRequestMetadata = (
-	error: MediaCardError,
-): RequestErrorMetadata | undefined => {
-	const { secondaryError } = error;
-	if (isCommonMediaClientError(secondaryError)) {
-		return secondaryError.metadata;
-	}
-};
-
-export const extractErrorInfo = (
-	error: MediaCardError,
-	metadataTraceContext?: MediaTraceContext,
-): MediaCardErrorInfo => {
-	return {
-		failReason: getRenderErrorFailReason(error),
-		error: getRenderErrorErrorReason(error),
-		errorDetail: getRenderErrorErrorDetail(error),
-		metadataTraceContext: metadataTraceContext ?? getErrorTraceContext(error),
-	};
-};
-
-export const getRenderErrorEventPayload = (
-	fileAttributes: FileAttributes,
-	performanceAttributes: PerformanceAttributes,
-	error: MediaCardError,
-	ssrReliability: SSRStatus,
-	traceContext: MediaTraceContext,
-	metadataTraceContext?: MediaTraceContext,
-): RenderFailedEventPayload => {
-	const requestMetadata = getRenderErrorRequestMetadata(error);
-	return {
-		eventType: 'operational',
-		action: 'failed',
-		actionSubject: 'mediaCardRender',
-		attributes: {
-			fileMimetype: fileAttributes.fileMimetype,
-			fileAttributes,
-			performanceAttributes,
-			status: 'fail',
-			...extractErrorInfo(error, metadataTraceContext),
-			statusCode: requestMetadata?.statusCode,
-			request: requestMetadata,
-			ssrReliability,
-			traceContext,
-		},
-	};
-};
-
-export const getDownloadFailedEventPayload = (
-	fileAttributes: FileAttributes,
-	error: MediaCardError,
-	traceContext: MediaTraceContext,
-	metadataTraceContext?: MediaTraceContext,
-): DownloadFailedEventPayload => {
-	const requestMetadata = getRenderErrorRequestMetadata(error);
-	return {
-		eventType: 'operational',
-		action: 'failed',
-		actionSubject: 'mediaCardDownload',
-		attributes: {
-			fileMimetype: fileAttributes.fileMimetype,
-			fileAttributes,
-			status: 'fail',
-			...extractErrorInfo(error, metadataTraceContext),
-			statusCode: requestMetadata?.statusCode,
-			request: requestMetadata,
-			traceContext,
-		},
-	};
-};
-
-export const getErrorEventPayload = (
-	cardStatus: CardStatus,
-	fileAttributes: FileAttributes,
-	error: MediaCardError,
-	ssrReliability: SSRStatus,
-	traceContext: MediaTraceContext,
-	metadataTraceContext?: MediaTraceContext,
-): ErrorEventPayload => {
-	const requestMetadata = getRenderErrorRequestMetadata(error);
-	return {
-		eventType: 'operational',
-		action: 'nonCriticalFail',
-		actionSubject: 'mediaCardRender',
-		attributes: {
-			fileAttributes,
-			status: 'fail',
-			...extractErrorInfo(error, metadataTraceContext),
-			statusCode: requestMetadata?.statusCode,
-			request: requestMetadata,
-			ssrReliability,
-			traceContext,
-			cardStatus,
-		},
-	};
-};
-
-export const getRenderFailedFileStatusPayload = (
-	fileAttributes: FileAttributes,
-	performanceAttributes: PerformanceAttributes,
-	ssrReliability: SSRStatus,
-	traceContext: MediaTraceContext,
-	metadataTraceContext?: MediaTraceContext,
-	processingFailReason?: ProcessingFailReason,
-): RenderFailedEventPayload => ({
-	eventType: 'operational',
-	action: 'failed',
-	actionSubject: 'mediaCardRender',
-	attributes: {
-		fileMimetype: fileAttributes.fileMimetype,
-		fileAttributes,
-		performanceAttributes,
-		status: 'fail',
-		failReason: 'failed-processing',
-		// 'not-available' is used for cases before processingFailReason implementation (backward compatibility)
-		processingFailReason: processingFailReason || 'not-available',
-		ssrReliability,
-		traceContext,
-		metadataTraceContext,
-	},
-});
-
-// Similar to extractErrorInfo but works with raw Error (not MediaCardError)
-const extractAuthProviderErrorInfo = (error: Error) => {
-	if (isCommonMediaClientError(error)) {
-		return {
-			failReason: error.reason,
-			error: error.reason,
-			errorDetail: error.innerError?.message ?? error.message,
-		};
-	}
-	return {
-		failReason: error.name || 'unknown',
-		error: error.name || '',
-		errorDetail: error.message,
-	};
-};
-
 // Extract collection name from authContext - supports both new `access` array and deprecated `collectionName`
-const getCollectionNameFromAuthContext = (authContext?: {
+export const getCollectionNameFromAuthContext = (authContext?: {
 	access?: Array<{ type: string; name?: string }>;
 	collectionName?: string;
 }): string | undefined => {
@@ -540,57 +264,4 @@ const getCollectionNameFromAuthContext = (authContext?: {
 	}
 	// Fallback to deprecated collectionName
 	return authContext.collectionName;
-};
-
-export const getAuthProviderSucceededPayload = (
-	durationMs: number,
-	timeoutMs: number,
-	authContext?: { access?: Array<{ type: string; name?: string }>; collectionName?: string },
-): AuthProviderSucceededAnalyticsPayload => ({
-	eventType: 'operational',
-	action: 'succeeded',
-	actionSubject: 'mediaAuthProvider',
-	attributes: {
-		status: 'succeeded',
-		durationMs,
-		timeoutMs,
-		collectionName: getCollectionNameFromAuthContext(authContext),
-	},
-});
-
-export const getAuthProviderFailedPayload = (
-	durationMs: number,
-	timeoutMs: number,
-	error: Error,
-	authContext?: { access?: Array<{ type: string; name?: string }>; collectionName?: string },
-): AuthProviderFailedAnalyticsPayload => {
-	const errorInfo = extractAuthProviderErrorInfo(error);
-	return {
-		eventType: 'operational',
-		action: 'failed',
-		actionSubject: 'mediaAuthProvider',
-		attributes: {
-			status: 'failed',
-			durationMs,
-			timeoutMs,
-			collectionName: getCollectionNameFromAuthContext(authContext),
-			...errorInfo,
-		},
-	};
-};
-
-export function fireMediaCardEvent(
-	payload: MediaCardAnalyticsEventPayload,
-	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): void {
-	if (createAnalyticsEvent) {
-		const event = createAnalyticsEvent(sanitiseAnalyticsPayload(payload));
-		event.fire(ANALYTICS_MEDIA_CHANNEL);
-	}
-}
-
-export const createAndFireMediaCardEvent = (
-	payload: MediaCardAnalyticsEventPayload,
-): ((createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent) => {
-	return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(sanitiseAnalyticsPayload(payload));
 };

@@ -4,7 +4,8 @@ import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 
 import { ImageComponent } from './styled';
-import { getCssFromImageOrientation, isRotated } from '../imageMetaData';
+import { getCssFromImageOrientation } from '../imageMetaData/getCssFromImageOrientation';
+import { isRotated } from '../imageMetaData/isRotated';
 import { useMergeRefs } from 'use-callback-ref';
 
 export interface MediaImageProps {

@@ -3,6 +3,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getReactionSummary } from '../MockReactionsClient';
 import { DefaultReactions } from '../shared/constants';
@@ -21,10 +24,6 @@ jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),
 }));
 
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
-
 const reactions: ReactionSummary[] = [
 	getReactionSummary(DefaultReactions[0].shortName, 5, false),
 	getReactionSummary(DefaultReactions[1].shortName, 4, true),
@@ -33,14 +32,6 @@ const reactions: ReactionSummary[] = [
 ];
 
 describe('ReactionSummaryView', () => {
-	let expValEqualsMock: jest.Mock;
-
-	beforeEach(() => {
-		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-		expValEqualsMock = expValEquals as jest.Mock;
-		expValEqualsMock.mockReturnValue(false);
-	});
-
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -172,58 +163,74 @@ describe('ReactionSummaryView', () => {
 		await expect(document.body).toBeAccessible();
 	});
 
+	it('renders summary reactions in an unordered list', async () => {
+		renderComponent();
+
+		await userEvent.click(await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID));
+
+		const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+		const list = summaryViewPopup.querySelector('ul');
+
+		expect(list).toBeInTheDocument();
+		expect(list?.children).toHaveLength(reactions.length);
+		expect(Array.from(list?.children ?? []).every((item) => item.tagName === 'LI')).toBe(true);
+		expect(list?.querySelectorAll('li li')).toHaveLength(0);
+	});
+
 	describe('a11y-fixes-week4-may-2026 experiment', () => {
 		it('should NOT set aria-expanded on summary button when experiment is disabled', async () => {
-			expValEqualsMock.mockReturnValue(false);
+			mockExpDisabled('a11y-fixes-week4-may-2026');
 			renderComponent();
 			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			expect(button).not.toHaveAttribute('aria-expanded');
 		});
 
 		it('should set aria-expanded="false" on summary button when experiment is enabled and popup is closed', async () => {
-			expValEqualsMock.mockReturnValue(true);
+			mockExpEnabled('a11y-fixes-week4-may-2026');
 			renderComponent();
 			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			expect(button).toHaveAttribute('aria-expanded', 'false');
 		});
 
 		it('should set aria-expanded="true" on summary button when experiment is enabled and popup is open', async () => {
-			expValEqualsMock.mockReturnValue(true);
+			mockExpEnabled('a11y-fixes-week4-may-2026');
 			renderComponent();
 			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.click(button);
 			expect(button).toHaveAttribute('aria-expanded', 'true');
 		});
-		it('should render popup in portal (shouldRenderToParent=false) when experiment is off', async () => {
-			expValEqualsMock.mockReturnValue(false);
-			renderComponent();
-			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-			await userEvent.click(reactionSummaryButton);
-
-			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
-			expect(summaryViewPopup).toBeInTheDocument();
-
-			await expect(document.body).toBeAccessible();
-		});
-
-		it('should render popup inline (shouldRenderToParent=true) when experiment is on', async () => {
-			expValEqualsMock.mockReturnValue(true);
-			renderComponent();
-			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-			await userEvent.click(reactionSummaryButton);
-
-			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
-			expect(summaryViewPopup).toBeInTheDocument();
-		});
-
 		it('should show reactions list when experiment is on and popup is open', async () => {
-			expValEqualsMock.mockReturnValue(true);
+			mockExpEnabled('a11y-fixes-week4-may-2026');
 			renderComponent();
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.click(reactionSummaryButton);
 
 			const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
 			expect(reactionButtons.length).toEqual(reactions.length);
+		});
+	});
+
+	describe('platform_a11y_fixes_reading_order gate', () => {
+		it('renders the summary popup in a portal when the gate is OFF', async () => {
+			failGate('platform_a11y_fixes_reading_order');
+			const { container } = renderComponent();
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(reactionSummaryButton);
+
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+			expect(container).not.toContainElement(summaryViewPopup);
+		});
+
+		it('renders the summary popup inline when the gate is ON', async () => {
+			passGate('platform_a11y_fixes_reading_order');
+			const { container } = renderComponent();
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(reactionSummaryButton);
+
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+			expect(container).toContainElement(summaryViewPopup);
 		});
 	});
 

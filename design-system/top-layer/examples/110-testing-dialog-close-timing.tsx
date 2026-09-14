@@ -1,18 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
-import { Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
+import { Dialog } from '@atlaskit/top-layer/dialog-content';
+import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
 
 /**
- * Test fixture: onClose runs synchronously; close is delayed 200ms so we can assert
- * close-reason is set while dialog is still visible (onClose before unmount/close).
+ * Test fixture: captures the native open state during `onClose` so browser tests
+ * can verify that dismissal happens before controlled-state synchronization.
  */
 export default function TestingDialogCloseTiming(): React.ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 	const [lastReason, setLastReason] = useState<TDialogCloseReason | null>(null);
+	const [wasOpenDuringOnClose, setWasOpenDuringOnClose] = useState<boolean | null>(null);
+	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	const handleClose = useCallback(({ reason }: { reason: TDialogCloseReason }) => {
 		setLastReason(reason);
-		setTimeout(() => setIsOpen(false), 200);
+		setWasOpenDuringOnClose(dialogRef.current?.open ?? null);
+		setIsOpen(false);
 	}, []);
 
 	return (
@@ -21,11 +25,21 @@ export default function TestingDialogCloseTiming(): React.ReactNode {
 				Open dialog
 			</button>
 			{lastReason != null && <div data-testid="close-reason">{lastReason}</div>}
-			<Dialog onClose={handleClose} isOpen={isOpen} label="Close timing test" testId="dialog">
+			{wasOpenDuringOnClose != null && (
+				<div data-testid="dialog-open-during-on-close">{String(wasOpenDuringOnClose)}</div>
+			)}
+			<div data-testid="controlled-open-state">{isOpen ? 'open' : 'closed'}</div>
+			<Dialog
+				ref={dialogRef}
+				onClose={handleClose}
+				isOpen={isOpen}
+				label="Close timing test"
+				testId="dialog"
+			>
 				<button type="button" aria-label="Close" onClick={() => setIsOpen(false)}>
 					&#x2715;
 				</button>
-				<div data-testid="dialog-body">Escape or click backdrop - reason updates before close</div>
+				<div data-testid="dialog-body">Escape or click backdrop to close</div>
 			</Dialog>
 		</div>
 	);

@@ -7,7 +7,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { WikiMarkupTransformer } from '../src';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -17,7 +17,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { Context } from '../src/interfaces';
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { token } from '@atlaskit/tokens';
 
 const container = css({

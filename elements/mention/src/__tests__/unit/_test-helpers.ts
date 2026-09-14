@@ -1,6 +1,4 @@
-import { type ReactWrapper } from 'enzyme';
-import MentionItem from '../../components/MentionItem';
-import MentionResource from '../../api/MentionResource';
+import { MentionResource } from '../../api/MentionResource';
 import { type MentionDescription } from '../../types';
 /* Component structure:
   ak-mention-picker
@@ -26,27 +24,6 @@ export const mentionResource = (): MentionResource =>
 	});
 export const mockMentionProvider = (): Promise<MentionResource> =>
 	Promise.resolve(mentionResource());
-
-export function getMentionItemById(
-	component: ReactWrapper<any, any>,
-	itemId: string,
-): ReactWrapper<any, any> {
-	return component.findWhere(
-		(n) => !!n.length && n.is(MentionItem) && n.prop('mention').id === itemId,
-	);
-}
-
-export function getSelectedMentionItem(component: ReactWrapper<any, any>): ReactWrapper<any, any> {
-	return component.findWhere((n) => !!n.length && n.is(MentionItem) && n.prop('selected'));
-}
-
-export function isMentionItemSelected(
-	component: ReactWrapper<any, any>,
-	itemId: string,
-): boolean | 0 {
-	const selectedItem = getSelectedMentionItem(component);
-	return selectedItem.length && selectedItem.prop('mention').id === itemId;
-}
 
 export function checkOrder(expected: MentionDescription[][], actual: MentionDescription[][]): void {
 	expect(actual).toHaveLength(expected.length);

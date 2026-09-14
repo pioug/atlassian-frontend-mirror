@@ -33,6 +33,9 @@ import { token } from '@atlaskit/tokens';
 export const emojiStyles: SerializedStyles = css({
 	// Show diff: emoji attr change highlight. Keep this with emoji node styles so the highlight
 	// targets sprite/image/unicode emoji renderers.
+	// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+	// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+	// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.show-diff-atomic-inline-changed-emoji': {
 		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
@@ -44,7 +47,8 @@ export const emojiStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
 		{
-			outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineOffset: '1px',
 			borderRadius: token('radius.xsmall'),
@@ -101,41 +105,6 @@ export const emojiStyles: SerializedStyles = css({
 	[`.ProseMirror .${EmojiSharedCssClassName.EMOJI_UNICODE}`]: {
 		cursor: 'pointer',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.ProseMirror .${akEditorSelectedNodeClassName}`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map
-		[`.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_UNICODE}`]:
-			{
-				borderRadius: token('radius.xsmall'),
-				position: 'relative',
-				WebkitUserSelect: 'text',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-				borderColor: 'transparent',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::selection,*::selection': {
-					backgroundColor: 'transparent',
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::-moz-selection,*::-moz-selection': {
-					backgroundColor: 'transparent',
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::before': {
-					position: 'absolute',
-					content: "''",
-					left: 0,
-					right: 0,
-					top: 0,
-					bottom: 0,
-					width: '100%',
-					pointerEvents: 'none',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					zIndex: 12,
-					backgroundColor: token('color.blanket.selected'),
-				},
-			},
-	},
 });
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
@@ -147,6 +116,9 @@ export const emojiStyles: SerializedStyles = css({
 export const scaledEmojiStyles: SerializedStyles = css({
 	// Show diff: emoji attr change highlight. Keep this with scaled emoji node styles too,
 	// because scaled emoji styles replace the base emoji style bucket when enabled.
+	// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+	// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+	// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.show-diff-atomic-inline-changed-emoji': {
 		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
@@ -158,7 +130,8 @@ export const scaledEmojiStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
 		{
-			outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineOffset: '1px',
 			borderRadius: token('radius.xsmall'),
@@ -222,41 +195,6 @@ export const scaledEmojiStyles: SerializedStyles = css({
 		cursor: 'pointer',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-	[`.ProseMirror .${akEditorSelectedNodeClassName}`]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map
-		[`.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_UNICODE}`]:
-			{
-				borderRadius: token('radius.xsmall'),
-				position: 'relative',
-				WebkitUserSelect: 'text',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-				borderColor: 'transparent',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::selection,*::selection': {
-					backgroundColor: 'transparent',
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::-moz-selection,*::-moz-selection': {
-					backgroundColor: 'transparent',
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-				'&::before': {
-					position: 'absolute',
-					content: "''",
-					left: 0,
-					right: 0,
-					top: 0,
-					bottom: 0,
-					width: '100%',
-					pointerEvents: 'none',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					zIndex: 12,
-					backgroundColor: token('color.blanket.selected'),
-				},
-			},
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror h1 :is(.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -294,6 +232,96 @@ export const scaledEmojiStyles: SerializedStyles = css({
 		height: `${defaultEmojiHeight}px`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		width: `${defaultEmojiHeight}px`,
+	},
+});
+
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export const emojiSelectionStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.ProseMirror .${akEditorSelectedNodeClassName}`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map
+		[`.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_UNICODE}`]:
+			{
+				borderRadius: token('radius.xsmall'),
+				position: 'relative',
+				WebkitUserSelect: 'text',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				borderColor: 'transparent',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::selection,*::selection': {
+					backgroundColor: 'transparent',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::-moz-selection,*::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::before': {
+					position: 'absolute',
+					content: "''",
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+					width: '100%',
+					pointerEvents: 'none',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					zIndex: 12,
+					backgroundColor: token('color.blanket.selected'),
+				},
+			},
+	},
+});
+
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export const directEmojiSelectionStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+	[`.ProseMirror .${akEditorSelectedNodeClassName}[data-emoji-id]`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map
+		[`.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_UNICODE}`]:
+			{
+				borderRadius: token('radius.xsmall'),
+				position: 'relative',
+				WebkitUserSelect: 'text',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				borderColor: 'transparent',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::selection,*::selection': {
+					backgroundColor: 'transparent',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::-moz-selection,*::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&::before': {
+					position: 'absolute',
+					content: "''",
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+					width: '100%',
+					pointerEvents: 'none',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					zIndex: 12,
+					backgroundColor: token('color.blanket.selected'),
+				},
+			},
 	},
 });
 

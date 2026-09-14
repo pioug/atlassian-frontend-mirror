@@ -11,10 +11,11 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
-import { isSSR, isSSRStreaming } from '../core-utils';
+import { isSSR } from '../core-utils';
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
 import type { PortalProviderAPI } from '../portal';
@@ -55,6 +56,12 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	private reactComponent?: React.ComponentType<React.PropsWithChildren<any>>;
 	private portalProviderAPI: PortalProviderAPI;
 	private _viewShouldUpdate?: shouldUpdate;
+	/**
+	 * Tracks whether a React portal is currently mounted into `domRef`. Only used under
+	 * `platform_editor_reduce_event_listener_count`, where a node view whose `render()`
+	 * returns `null` does not mount one at all.
+	 */
+	private hasMountedPortal = false;
 	protected eventDispatcher?: EventDispatcher;
 	protected decorations: ReadonlyArray<Decoration> = [];
 
@@ -134,7 +141,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			// contentDOMWrapper that was appended above. The React ref callback
 			// (forwardRef) never fires in renderToStaticMarkup, so contentDOM is
 			// left detached. Re-attach it by finding the marked SSR ref target.
-			if (isSSR() && isSSRStreaming() && this.domRef) {
+			if (isSSR() && this.domRef) {
 				const refTarget = this.domRef.querySelector('[data-ssr-content-dom-ref]');
 				if (refTarget) {
 					this.handleRef(refTarget);
@@ -165,6 +172,34 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			return;
 		}
 
+		// React 18 does event delegation per portal container: `createPortal` calls
+		// `listenToAllSupportedEvents(container)`, which registers a bubble *and* a capture
+		// listener for every supported event type — roughly 130 real `addEventListener` calls
+		// on the container element. Those listeners are never removed (React has no
+		// un-listen path), so mounting a portal for a node view that renders nothing is pure
+		// overhead that scales with the number of such nodes in the document.
+		//
+		// `PortalProviderAPI.render` already invokes the thunk eagerly (see
+		// `getPortalProviderAPI`), so evaluating the element here does not change *when*
+		// `render()` runs — the pre-evaluated element is handed to the same render call below.
+		// If a node view starts out empty and later renders something, `update()` calls back into
+		// this method and the portal is mounted at that point.
+		let renderComponent = component;
+		if (isExperimentEnabled('platform_editor_reduce_event_listener_count')) {
+			const element = component();
+
+			if (element === null) {
+				if (this.hasMountedPortal) {
+					this.portalProviderAPI.remove(this.key);
+					this.hasMountedPortal = false;
+				}
+				return;
+			}
+
+			this.hasMountedPortal = true;
+			renderComponent = () => element;
+		}
+
 		const componentWithErrorBoundary = () => (
 			<ErrorBoundary
 				component={ACTION_SUBJECT.REACT_NODE_VIEW}
@@ -173,7 +208,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 				}
 				dispatchAnalyticsEvent={this.dispatchAnalyticsEvent}
 			>
-				{component()}
+				{renderComponent()}
 			</ErrorBoundary>
 		);
 
@@ -206,7 +241,6 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 
 	private _handleRef(node: Element | null) {
 		const contentDOM = this.contentDOMWrapper || this.contentDOM;
-		// @ts-ignore
 		// Spreading props to pass through dynamic component props
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

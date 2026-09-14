@@ -2,13 +2,15 @@ import React, { type FC, memo, type Ref, useCallback, useEffect, useMemo, useRef
 
 import { bind } from 'bind-event-listener';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import { Layering } from '@atlaskit/layering/layering';
 import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { useLayering } from '@atlaskit/layering/use-layering';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Manager, Popper, Reference } from '@atlaskit/popper';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Manager } from '@atlaskit/popper/manager';
+import { Popper } from '@atlaskit/popper/main';
+import { Reference } from '@atlaskit/popper/reference';
 
 import { Container } from './inline-dialog-container';
 import InlineDialogTopLayer from './inline-dialog-top-layer';

@@ -6,11 +6,12 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import Popup, { type ContentProps, type TriggerProps } from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/popup';
+import type { ContentProps, TriggerProps } from '@atlaskit/popup/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 export default function InsidePopupExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);

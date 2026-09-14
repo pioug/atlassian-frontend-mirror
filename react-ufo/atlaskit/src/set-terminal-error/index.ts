@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-import { getActiveTrace } from '../experience-trace-id-context';
-import { type LabelStack, useInteractionContext } from '../interaction-context';
+import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
+import type { LabelStack } from '../interaction-context';
+import { useInteractionContext } from '../interaction-context/useInteractionContext';
 import { getActiveInteraction, PreviousInteractionLog } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 
@@ -61,7 +62,6 @@ type RelayNetworkErrors = {
 	};
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isRelayNetworkError = (
 	error: RelayNetworkErrors | Error,
 ): error is RelayNetworkErrors => error.name === RELAY_NETWORK_ERRORS_NAME;
@@ -90,7 +90,6 @@ const getErrorTraceId = (error: Error) =>
 		? error.traceId
 		: undefined;
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setTerminalError(
 	error: Error,
 	additionalAttributes?: TerminalErrorAdditionalAttributes,
@@ -137,7 +136,6 @@ export function setTerminalError(
 	sinkHandlerFn(errorData, context);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useReportTerminalError(
 	error: Error | null | undefined,
 	additionalAttributes?: TerminalErrorAdditionalAttributes,

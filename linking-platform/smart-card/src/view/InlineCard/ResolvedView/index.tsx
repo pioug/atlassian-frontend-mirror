@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type LozengeProps } from '../../../types';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
-import { HoverCard } from '../../HoverCard';
+import { HoverCard } from '../../HoverCard/HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
-import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-
+import InlineLozenge from '../common/inline-lozenge';
 import { InlineCardResolvedViewFunctional } from './InlineCardResolvedViewFunctional';
 import type { InlineCardResolvedViewFunctionalProps } from './types';
 

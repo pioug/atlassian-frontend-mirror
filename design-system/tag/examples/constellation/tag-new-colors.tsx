@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Stack } from '@atlaskit/primitives/compiled';
-import Tag from '@atlaskit/tag';
+import Tag from '@atlaskit/tag/removable-tag';
 
 export default (): React.JSX.Element => (
-	<Stack space="space.100">
+	<Stack space="space.100" alignInline="start">
 		<Tag text="Gray" color="gray" />
 		<Tag text="Blue" color="blue" />
 		<Tag text="Red" color="red" />

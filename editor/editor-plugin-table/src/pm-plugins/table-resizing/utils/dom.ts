@@ -89,7 +89,6 @@ export const updateStickyMargins = (table: HTMLElement): void => {
 };
 
 const applyColWidthsToStickyRow = (
-	// @ts-ignore - CCFE error TS6133: 'colGroup' is declared but its value is never read.
 	colGroup: HTMLTableColElement | null,
 	headerRow: HTMLTableRowElement,
 ) => {

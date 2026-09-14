@@ -8,7 +8,16 @@ const clientConfig: ClientConfig = {
 	logException: mockLogException,
 };
 
-jest.mock('../sentry');
+jest.mock('../sentry/addBreadcrumb');
+jest.mock('../sentry/createErrorHandler');
+jest.mock('../sentry/createErrorHandlerWithPackageContext');
+jest.mock('../sentry/logErrorMessage');
+jest.mock('../sentry/logErrorMessageWithPackageContext');
+jest.mock('../sentry/logException');
+jest.mock('../sentry/logExceptionWithPackageContext');
+jest.mock('../sentry/logInfoMessage');
+jest.mock('../sentry/logInfoMessageWithPackageContext');
+jest.mock('../sentry/utils/use-teams-sentry-client-setup');
 
 describe('BaseClient', () => {
 	let client: BaseClient;

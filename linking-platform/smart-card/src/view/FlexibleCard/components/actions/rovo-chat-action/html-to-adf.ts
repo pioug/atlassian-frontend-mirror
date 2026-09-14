@@ -5,7 +5,7 @@
  *
  * Support: p, ul, li, text, b, strong, code, inlineCard (replace a hyperlink)
  */
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { code, doc, inlineCard, p, b, ul, li, text } from '@atlaskit/adf-utils/builders';
 
 type HTMLToken =

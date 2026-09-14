@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "5.3.0",
+	"version": "5.6.0",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,15 @@
 		"./provider": "./src/provider.tsx",
 		"./responses": "./src/client/types/responses.ts",
 		"./types": "./src/state/context/types.ts",
-		"./linking-common": "./src/linking-common.ts"
+		"./linking-common": "./src/linking-common.ts",
+		"./editor-smart-card-provider": "./src/state/context/EditorSmartCardProvider.tsx",
+		"./editor-smart-card-provider-value-guard": "./src/state/context/EditorSmartCardProviderValueGuard.tsx",
+		"./is-error-response": "./src/client/types/isErrorResponse.ts",
+		"./is-successful-response": "./src/client/types/isSuccessfulResponse.ts",
+		"./smart-card-provider": "./src/smart-card-provider.tsx",
+		"./smart-card-external-auth-event": "./src/smart-card-external-auth-event.ts",
+		"./use-smart-card-context": "./src/state/context/useSmartCardContext.tsx",
+		"./use-smart-link-context": "./src/state/context/useSmartLinkContext.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",
@@ -56,8 +64,10 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/code": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
@@ -68,9 +78,6 @@
 		"wait-for-expect": "root:*"
 	},
 	"platform-feature-flags": {
-		"platform_linking_force_no_cache_smart_card_client": {
-			"type": "boolean"
-		},
 		"navx-smartcard-auth-event-listener-killswitch-fg": {
 			"type": "boolean"
 		},

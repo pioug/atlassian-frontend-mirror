@@ -1,14 +1,5 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
-import { shallow } from 'enzyme';
-import { render as renderRTL, screen } from '@testing-library/react';
+import { render, screen } from '@atlassian/testing-library';
 import { DeleteUserOverviewScreen } from '../../components/DeleteUserOverviewScreen';
 import { catherineHirons } from '../../mocks/users';
 import accessibleSites from '../../mocks/accessibleSites';
@@ -22,16 +13,15 @@ const defaultProps: Partial<DeleteUserOverviewScreenProps> = {
 	isUserDeactivated: false,
 };
 
-const render = (props = {}) => shallow(<DeleteUserOverviewScreen {...defaultProps} {...props} />);
-const renderWithRTL = (props = {}) =>
-	renderRTL(
+const renderWithIntl = (props = {}) =>
+	render(
 		<IntlProvider locale="en">
 			<DeleteUserOverviewScreen {...defaultProps} {...props} />
 		</IntlProvider>,
 	);
 
 test('DeleteUserOverviewScreen', async () => {
-	renderWithRTL();
+	renderWithIntl();
 	expect(await screen.findByText('Delete account')).toBeInTheDocument();
 	expect(await screen.findByText('Catherine Hirons')).toBeInTheDocument();
 	expect(await screen.findByText('When you delete the account:')).toBeInTheDocument();
@@ -41,25 +31,15 @@ test('DeleteUserOverviewScreen', async () => {
 
 describe('selectAdminOrSelfCopy', () => {
 	test('selects admin copy if delete candidate is not current user', async () => {
-		const selectAdminOrSelfCopy = (
-			render({
-				deactivateUserHandler: () => {},
-				isCurrentUser: false,
-			}).instance() as DeleteUserOverviewScreen
-		).selectAdminOrSelfCopy;
-		expect(selectAdminOrSelfCopy('admin' as any, 'self' as any)).toBe('admin');
+		renderWithIntl({ isCurrentUser: false });
+		expect(screen.getByText('Delete account')).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});
 
 	test('selects self copy if delete candidate is current user', async () => {
-		const selectAdminOrSelfCopy = (
-			render({
-				deactivateUserHandler: () => {},
-				isCurrentUser: true,
-			}).instance() as DeleteUserOverviewScreen
-		).selectAdminOrSelfCopy;
-		expect(selectAdminOrSelfCopy('admin' as any, 'self' as any)).toBe('self');
+		renderWithIntl({ isCurrentUser: true });
+		expect(screen.getByText('Delete your account')).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});
@@ -67,46 +47,44 @@ describe('selectAdminOrSelfCopy', () => {
 
 describe('accessibleSites display', () => {
 	test('text displayed is different when no accessibleSites prop is passed', async () => {
-		expect(
-			render({
-				deactivateUserHandler: () => {},
-				accessibleSites: [],
-			}),
-		).toMatchSnapshot();
+		renderWithIntl({
+			deactivateUserHandler: () => {},
+			accessibleSites: [],
+		});
 
+		expect(screen.getByText(/Catherine Hirons will/i)).toBeInTheDocument();
 		await expect(document.body).toBeAccessible();
 	});
 
 	test('text displayed is different when no accessibleSites prop is passed for current user', async () => {
-		expect(
-			render({
-				deactivateUserHandler: () => {},
-				accessibleSites: [],
-				isCurrentUser: true,
-			}),
-		).toMatchSnapshot();
+		renderWithIntl({
+			deactivateUserHandler: () => {},
+			accessibleSites: [],
+			isCurrentUser: true,
+		});
 
+		expect(screen.getByText('immediately lose access')).toBeInTheDocument();
 		await expect(document.body).toBeAccessible();
 	});
 });
 
 describe('deactivateUserHandler display', () => {
 	test('warning section is not displayed if the deactivateUserHandler prop is not passed', async () => {
-		expect(render()).toMatchSnapshot();
-
+		renderWithIntl();
+		expect(screen.queryByText(/After a 14-day grace period/i)).not.toBeInTheDocument();
 		await expect(document.body).toBeAccessible();
 	});
 });
 
 describe('delete screen display', () => {
 	test('content is different when user is deactivated', async () => {
-		expect(
-			render({
-				isUserDeactivated: true,
-				deactivateUserHandler: () => {},
-			}),
-		).toMatchSnapshot();
+		renderWithIntl({
+			isUserDeactivated: true,
+			deactivateUserHandler: () => {},
+		});
 
+		expect(screen.getByText(/After a 14-day grace period/i)).toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: /deactivate account/i })).not.toBeInTheDocument();
 		await expect(document.body).toBeAccessible();
 	});
 });

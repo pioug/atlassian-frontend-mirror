@@ -1,7 +1,7 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE } from './constants';
-import { type ThemeState } from './theme-config';
+import { type ThemeState } from './theme-state';
 import { darkModeMediaQuery, moreContrastMediaQuery } from './utils/theme-loading';
 
 /**
@@ -12,7 +12,7 @@ import { darkModeMediaQuery, moreContrastMediaQuery } from './utils/theme-loadin
  *
  * @returns {string} A string to be added to the innerHTML of a script tag in the document head
  */
-const getSSRAutoScript = (
+export const getSSRAutoScript = (
 	colorMode: ThemeState['colorMode'],
 	// TODO: This should be marked as required once safe to roll out.
 	contrastMode?: ThemeState['contrastMode'],

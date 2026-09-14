@@ -1,6 +1,8 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
+
 import type { FileState } from '@atlaskit/media-state/file-state';
-import { createMediaSubject } from '../createMediaSubject';
+
 import { type MediaSubscribable, type MediaSubscription } from './types';
 
 export function fromObservable(observable: ReplaySubject<FileState>): MediaSubscribable {
@@ -22,6 +24,7 @@ export function fromObservable(observable: ReplaySubject<FileState>): MediaSubsc
 	};
 }
 
-export function createMediaSubscribable(item?: FileState | Error): MediaSubscribable {
-	return fromObservable(createMediaSubject(item));
-}
+/**
+ * @deprecated Use `import { createMediaSubscribable } from '@atlaskit/media-client'` instead.
+ */
+export { createMediaSubscribable } from './createMediaSubscribable';

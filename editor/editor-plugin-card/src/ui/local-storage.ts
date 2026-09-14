@@ -1,4 +1,4 @@
-import { StorageClient } from '@atlaskit/frontend-utilities';
+import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 
 export const LOCAL_STORAGE_CLIENT_KEY = '@atlaskit/editor-plugin-card';
 export const LOCAL_STORAGE_DISCOVERED_KEY = 'discovered';

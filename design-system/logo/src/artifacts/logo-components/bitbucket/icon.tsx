@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::83bd991a11895fc697ec86ba4d2d82c2>>
+ * @codegen <<SignedSource::e3c70210ba150d4effce254ea28f635c>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,13 +24,12 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * A temporary component to represent the icon for Bitbucket.
  * @deprecated This component has been replaced by the component `BitbucketIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * Please migrate any usages of this temporary component.
  *
  */
 export function BitbucketIcon({
 	iconColor,
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Bitbucket',
 	testId,

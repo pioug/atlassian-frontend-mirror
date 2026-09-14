@@ -1,12 +1,12 @@
-import {
-	type JqlArgumentListContext,
-	type JqlEmptyContext,
-	type JqlFunctionContext,
-	type JqlFunctionNameContext,
-	type JqlListContext,
-	type JqlOperandContext,
-	type JqlValueContext,
-} from '@atlaskit/jql-parser';
+import type {
+	JqlArgumentListContext,
+	JqlEmptyContext,
+	JqlFunctionContext,
+	JqlFunctionNameContext,
+	JqlListContext,
+	JqlOperandContext,
+	JqlValueContext,
+} from '@atlaskit/jql-parser/JQLParser';
 
 import { OPERAND_EMPTY } from '../constants';
 import { internalCreators } from '../creators';

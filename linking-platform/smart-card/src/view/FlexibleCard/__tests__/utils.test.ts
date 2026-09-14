@@ -1,11 +1,12 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { IconType, SmartLinkStatus } from '../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../extractors/constants';
 import { messages } from '../../../messages';
-import { getContextByStatus, getRetryOptions } from '../utils';
+import { getContextByStatus } from '../getContextByStatus';
+import { getRetryOptions } from '../getRetryOptions';
 
 describe('getContextByStatus', () => {
 	const url = 'some-url';
@@ -184,17 +185,10 @@ describe('getContextByStatus', () => {
 	});
 
 	/**
-	 * The `platform_sl_google_rebrand` gate controls which provider extractor is used
-	 * for non-resolved statuses (Unauthorized, Forbidden, NotFound, Errored, Fallback).
-	 *
-	 * For known providers (Confluence, Jira), both extractors return the same IconType-based
-	 * descriptor — the gate has no visible difference for these.
-	 *
-	 * For third-party providers, the gate matters:
-	 *   - ON:  uses `extractProvider` → returns `{ label, url }` only when providerName is truthy
-	 *   - OFF: uses `extractSmartLinkProviderIcon` → returns `{ label, url }` via extractUrlIcon
+	 * Non-resolved statuses (Unauthorized, Forbidden, NotFound, Errored, Fallback) use
+	 * `extractProvider`, which returns `{ label, url }` only when the provider name is truthy.
 	 */
-	ffTest.both('platform_sl_google_rebrand', 'provider field in error statuses', () => {
+	describe('provider field in error statuses', () => {
 		const makeResponse = (generatorId: string, name: string, iconUrl: string) =>
 			({
 				meta: { access: 'forbidden' as const, visibility: 'restricted' as const },
@@ -221,7 +215,7 @@ describe('getContextByStatus', () => {
 			[SmartLinkStatus.NotFound],
 			[SmartLinkStatus.Errored],
 			[SmartLinkStatus.Fallback],
-		])('returns Confluence icon type provider for both gate states — status: %s', (status) => {
+		])('returns Confluence icon type provider — status: %s', (status) => {
 			const response = makeResponse(
 				CONFLUENCE_GENERATOR_ID,
 				'Confluence',
@@ -229,8 +223,7 @@ describe('getContextByStatus', () => {
 			);
 			const context = getContextByStatus({ url, status, response });
 
-			// Both extractProvider (gate ON) and extractSmartLinkProviderIcon (gate OFF)
-			// return the same IconType-based descriptor for Confluence
+			// extractProvider returns an IconType-based descriptor for Confluence
 			expect(context?.provider).toEqual({
 				icon: IconType.Confluence,
 				label: 'Confluence',
@@ -243,19 +236,18 @@ describe('getContextByStatus', () => {
 			[SmartLinkStatus.NotFound],
 			[SmartLinkStatus.Errored],
 			[SmartLinkStatus.Fallback],
-		])('returns Jira icon type provider for both gate states — status: %s', (status) => {
+		])('returns Jira icon type provider — status: %s', (status) => {
 			const response = makeResponse(JIRA_GENERATOR_ID, 'Jira', 'https://jira-icon.com/icon.png');
 			const context = getContextByStatus({ url, status, response });
 
-			// Both extractProvider (gate ON) and extractSmartLinkProviderIcon (gate OFF)
-			// return the same IconType-based descriptor for Jira
+			// extractProvider returns an IconType-based descriptor for Jira
 			expect(context?.provider).toEqual({
 				icon: IconType.Jira,
 				label: 'Jira',
 			});
 		});
 
-		it('returns url-based provider for third-party when gate is OFF, label+url when ON', () => {
+		it('returns label and url provider for third-party providers', () => {
 			const thirdPartyIconUrl = 'https://figma-icon.com/icon.png';
 			const response = makeResponse('https://figma.com', 'Figma', thirdPartyIconUrl);
 
@@ -265,7 +257,7 @@ describe('getContextByStatus', () => {
 				response,
 			});
 
-			// Both gate states return { label, url } for third-party providers
+			// Third-party providers resolve to { label, url }
 			expect(context?.provider).toEqual({
 				label: 'Figma',
 				url: thirdPartyIconUrl,

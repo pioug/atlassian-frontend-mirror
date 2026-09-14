@@ -1,5 +1,195 @@
 # @atlaskit/button
 
+## 25.3.3
+
+### Patch Changes
+
+- [`accbb9b60a2f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/accbb9b60a2f5) -
+  Update legacy default button hover and active background colors.
+
+## 25.3.2
+
+### Patch Changes
+
+- [`89e0a018eabc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89e0a018eabc9) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 25.3.1
+
+### Patch Changes
+
+- [`d015a4f16b993`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d015a4f16b993) -
+  Keep loading buttons focusable with `aria-disabled` semantics.
+- Updated dependencies
+
+## 25.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.2.1
+
+### Patch Changes
+
+- [`695fcbc68ad47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/695fcbc68ad47) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 25.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.0
+
+### Minor Changes
+
+- [`4e92e18998c08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e92e18998c08) -
+  Apply Volt Standards (One Export Per File) to `@atlaskit/button`.
+
+  No existing entry point changes behaviour and none are removed — every current import path keeps
+  working.
+  - Flattened 11 single-target entry-point shims: their `package.json` subpaths now point directly
+    at the source module instead of hopping through `src/entry-points/*`.
+  - Added 7 subpaths so the symbols behind the remaining multi-source entry points can be imported
+    individually: `./divider`, `./theme`, `./split-button-container`, `./split-button-with-slots`,
+    `./custom-theme-button-types`, `./split-button/split-button` and
+    `./custom-theme-button/custom-theme-button`.
+  - Marked the re-exports in `./new`, `./types`, `./split-button` and `./custom-theme-button` as
+    `@deprecated`, each pointing at the specific subpath to import from instead. These barrels
+    continue to work; they are scheduled for removal in a later change.
+
+## 25.0.4
+
+### Patch Changes
+
+- [`6c993c7e13767`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c993c7e13767) -
+  wrap workbench examples with wb api
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.1
+
+### Patch Changes
+
+- [`261b59cb3277d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/261b59cb3277d) -
+  Add pressed motion to legacy buttons
+
+## 25.0.0
+
+### Major Changes
+
+- [`97d8cde4bcb72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97d8cde4bcb72) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/button`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. It also introduces new public subpaths:
+  `@atlaskit/button/custom-theme-button/custom-theme-button`,
+  `@atlaskit/button/custom-theme-button-types`, `@atlaskit/button/divider`,
+  `@atlaskit/button/split-button/split-button`, `@atlaskit/button/split-button-container`,
+  `@atlaskit/button/split-button-with-slots`, `@atlaskit/button/theme`.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import Button from '@atlaskit/button/button';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import Button from '@atlaskit/button/entry-points/button';
+  +import Button from '@atlaskit/button/button';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+  -   "./button": "./src/entry-points/button.tsx",
+  +   "./button": "./src/old-button/button.tsx",
+  -   "./button-group": "./src/entry-points/button-group.tsx",
+  +   "./button-group": "./src/containers/button-group.tsx",
+  -   "./containers/button-group": "./src/entry-points/containers-button-group.tsx",
+  +   "./containers/button-group": "./src/containers/button-group.tsx",
+      "./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
+  +   "./custom-theme-button-types": "./src/old-button/custom-theme-button/custom-theme-button-types.tsx",
+  +   "./custom-theme-button/custom-theme-button": "./src/old-button/custom-theme-button/custom-theme-button.tsx",
+  -   "./default/button": "./src/entry-points/default-button.tsx",
+  +   "./default/button": "./src/new-button/variants/default/button.tsx",
+  +   "./divider": "./src/new-button/containers/split-button/divider.tsx",
+  -   "./icon/button": "./src/entry-points/icon-button.tsx",
+  +   "./icon/button": "./src/new-button/variants/icon/button.tsx",
+  -   "./icon/link": "./src/entry-points/icon-link.tsx",
+  +   "./icon/link": "./src/new-button/variants/icon/link.tsx",
+  -   "./link": "./src/entry-points/link.tsx",
+  +   "./link": "./src/new-button/variants/default/link.tsx",
+  -   "./loading-button": "./src/entry-points/loading-button.tsx",
+  +   "./loading-button": "./src/old-button/loading-button.tsx",
+      "./new": "./src/entry-points/new.tsx",
+  -   "./old-button/types": "./src/entry-points/old-button-types.tsx",
+  +   "./old-button/types": "./src/old-button/types.tsx",
+      "./split-button": "./src/entry-points/split-button.tsx",
+  +   "./split-button-container": "./src/new-button/containers/split-button/split-button-container.tsx",
+  +   "./split-button-with-slots": "./src/new-button/containers/split-button/split-button-with-slots.tsx",
+  +   "./split-button/split-button": "./src/new-button/containers/split-button/split-button.tsx",
+  -   "./standard-button": "./src/entry-points/standard-button.tsx",
+  +   "./standard-button": "./src/old-button/button.tsx",
+  +   "./theme": "./src/old-button/custom-theme-button/theme.tsx",
+      "./types": "./src/entry-points/types.tsx",
+  -   "./variants/types": "./src/entry-points/variants-types.tsx",
+  +   "./variants/types": "./src/new-button/variants/types.tsx",
+    }
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.9
 
 ### Patch Changes

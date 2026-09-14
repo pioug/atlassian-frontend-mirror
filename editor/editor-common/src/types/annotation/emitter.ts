@@ -1,6 +1,10 @@
 import EventEmitter from 'events';
 
-import type { AnnotationId, AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
+import type {
+	AnnotationId,
+	AnnotationMarkStates,
+	AnnotationTypes,
+} from '@atlaskit/adf-schema/annotation';
 
 export interface AnnotationState<Type> {
 	annotationType: Type;

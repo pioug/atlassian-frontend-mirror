@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import LoadingExample from '../../../examples/75-loading';
+import LoadingExample from '../../../examples/75-loading.vr.ap';
 
 // FIXME Jest 29 - dark varient of this VR test keep failing
 snapshot.skip(LoadingExample, {

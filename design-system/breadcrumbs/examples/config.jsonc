@@ -5,15 +5,15 @@
  */
 {
 	"testExamples": [
-		"0-basic.tsx",
-		"1-long.tsx",
-		"6-primitives.tsx",
+		"0-basic.vr.ap.tsx",
+		"1-long.vr.ap.tsx",
+		"6-primitives.vr.ap.tsx",
 		"10-with-on-click-no-href.tsx",
-		"11-truncation.tsx",
-		"12-skeleton.tsx",
-		"14-with-element-next-to-breadcrumbs.tsx",
-		"4-icons.tsx",
+		"11-truncation.vr.ap.tsx",
+		"12-skeleton.vr.ap.tsx",
+		"14-with-element-next-to-breadcrumbs.vr.ap.tsx",
+		"4-icons.vr.ap.tsx",
 		"5-with-markup.tsx",
-		"7-many-in-container.tsx",
+		"7-many-in-container.vr.ap.tsx",
 	],
 }

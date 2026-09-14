@@ -6,7 +6,7 @@ import { cssMap } from '@atlaskit/css';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
 import { Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 const styles = cssMap({
 	wrapper: {

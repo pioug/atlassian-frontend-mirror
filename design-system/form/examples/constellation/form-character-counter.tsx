@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { CharacterCounterField } from '@atlaskit/form/character-counter-field';
 import { type FieldProps } from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';

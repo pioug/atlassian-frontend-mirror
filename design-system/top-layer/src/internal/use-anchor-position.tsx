@@ -26,10 +26,16 @@ import { combine } from './combine';
 import { placementToPositionArea } from './placement-to-position-area';
 import { placementToTryFallbacks } from './placement-to-try-fallbacks';
 import { resolveCssLengthToPixels } from './resolve-css-length-to-pixels';
-import { getPlacement, type TPlacement } from './resolve-placement';
-import { setStyle } from './set-style';
+import {
+	resolvePlacement,
+	type TCrossAxisShiftDirection,
+	type TPlacement,
+	type TPlacementAxis,
+	type TPlacementEdge,
+} from './resolve-placement';
+import { setStyle, type TStyleDeclaration } from './set-style';
 
-// `getPlacement` is intentionally NOT re-exported here - import it directly
+// `resolvePlacement` is intentionally NOT re-exported here - import it directly
 // from `./resolve-placement` so search-and-jump lands at the source of truth.
 
 /**
@@ -72,66 +78,116 @@ const supportsAnchorPositioning = once((): boolean => {
 });
 
 /**
+ * Every logical margin property this module can write: one per axis, per side.
+ *
+ * Deriving the union from `TPlacementAxis` and `TPlacementEdge` rather than
+ * writing the four names out keeps it in step with the placement model, and
+ * makes `CROSS_AXIS_SHIFT_CUSTOM_PROPERTY` below exhaustive by construction.
+ */
+type TLogicalMarginProperty = `margin-${TPlacementAxis}-${TPlacementEdge}`;
+
+/**
+ * The custom property mirroring each cross-axis shift margin.
+ *
+ * These are written for the planned named arrow `@position-try` rules. Nothing
+ * reads them yet, and the shift no longer depends on them: the antisymmetric
+ * margins written by `crossAxisShiftMargins` survive a cross-axis slide on
+ * their own.
+ *
+ * Keyed on `TLogicalMarginProperty` and not on `string`, so a margin property
+ * that has no custom property (or a custom property whose margin no longer
+ * exists) is a compile error rather than an `undefined` lookup that reaches
+ * `setStyle` as `{ property: undefined, value }`.
+ */
+const CROSS_AXIS_SHIFT_CUSTOM_PROPERTY: Record<TLogicalMarginProperty, string> = {
+	'margin-inline-start': '--ds-cross-axis-shift-margin-start',
+	'margin-inline-end': '--ds-cross-axis-shift-margin-end',
+	'margin-block-start': '--ds-cross-axis-shift-margin-block-start',
+	'margin-block-end': '--ds-cross-axis-shift-margin-block-end',
+};
+
+const ZEROED_CROSS_AXIS_SHIFT_CUSTOM_PROPERTIES: TStyleDeclaration[] = Object.values(
+	CROSS_AXIS_SHIFT_CUSTOM_PROPERTY,
+).map((property) => ({ property, value: '0px' }));
+
+/**
  * Returns the CSS margin declaration that creates a gap between the
  * popover and its trigger on the side facing the anchor.
  *
  * For example, a `block-end` placement (popover below) gets
  * `margin-block-start: 8px` to push it away from the trigger's bottom edge.
  */
-function edgeMargin({ placement, offset }: { placement: TPlacement; offset: string }): {
-	property: string;
-	value: string;
-} {
+function edgeMargin({
+	placement,
+	offset,
+}: {
+	placement: TPlacement;
+	offset: string;
+}): TStyleDeclaration<TLogicalMarginProperty> {
 	const { axis, edge } = placement;
-	const value = offset;
-
-	if (axis === 'block' && edge === 'end') {
-		return { property: 'margin-block-start', value };
-	}
-	if (axis === 'block' && edge === 'start') {
-		return { property: 'margin-block-end', value };
-	}
-	if (axis === 'inline' && edge === 'end') {
-		return { property: 'margin-inline-start', value };
-	}
-	if (axis === 'inline' && edge === 'start') {
-		return { property: 'margin-inline-end', value };
-	}
-	return { property: 'margin-block-start', value };
+	// The gap sits on the side FACING the anchor, which is always the side
+	// opposite the placement edge.
+	const anchorFacingEdge: TPlacementEdge = edge === 'end' ? 'start' : 'end';
+	return { property: `margin-${axis}-${anchorFacingEdge}`, value: offset };
 }
 
 /**
- * Cross-axis shift margin. Margin side matches the popover's anchored
- * cross-axis edge: `align: 'start'` uses the START margin, `align: 'end'`
- * uses the END margin with the sign inverted (so `forwards` is always
- * positive), `align: 'center'` uses START. Margin on the un-anchored side
- * has no effect under CSS Anchor Positioning.
+ * **The cross-axis shift margins.**
+ *
+ * The shift is written antisymmetrically on BOTH cross-axis sides
+ * (`start: +value`, `end: -value`) rather than as a single margin on the side
+ * picked from `align`. Two separate behaviours require it:
+ *
+ * 1. **`align: 'center'` is centered with `anchor-center`, which centers the
+ *    popover's MARGIN box on the anchor.** A single-sided margin widens the
+ *    margin box, so it displaces the border box by only half its value. An
+ *    antisymmetric pair leaves the margin box width unchanged (`+value` and
+ *    `-value` sum to zero) while moving its center by the full value.
+ * 2. **`position-try-fallbacks` can slide the popover onto the opposite
+ *    cross-axis side.** A `<position-area>` fallback keeps the base style's
+ *    margins, and margin on the un-anchored side has no effect, so a
+ *    single-sided margin is silently dropped once the browser slides across the
+ *    cross axis. With both sides written, whichever side ends up anchored moves
+ *    the popover the same physical direction.
+ *
+ * Leaving the margin box width unchanged also means the shift does not move
+ * the point at which `position-try-fallbacks` decides the popover overflows.
+ *
+ * A `<try-tactic>` fallback (`flip-block`, `flip-inline`) behaves differently to
+ * a `<position-area>` one: it SWAPS the start and end margins rather than
+ * keeping them, which is what preserves the gap through a flip. So a flip across
+ * the cross axis mirrors the shift along with the rest of the placement, rather
+ * than preserving its physical direction. Only the diagonal fallback does that,
+ * and only for `align: 'start' | 'end'`. See `placementToTryFallbacks`.
+ *
+ * A positive value always moves the popover toward the cross-axis END, so
+ * `direction: 'forwards'` means the same thing for every `align` value. See
+ * `notes/decisions/placement-offset.md`.
  */
-function crossAxisShiftMargin({
+function crossAxisShiftMargins({
 	placement,
 	crossAxisShiftCssValue,
 	direction,
 }: {
 	placement: TPlacement;
 	crossAxisShiftCssValue: string;
-	direction: 'forwards' | 'backwards';
-}): {
-	property: string;
-	value: string;
-} {
-	const { axis, align } = placement;
-	const directionSign = direction === 'forwards' ? 1 : -1;
-	const crossAxis = axis === 'block' ? 'inline' : 'block';
-	const useEndSide = align === 'end';
-	const side = useEndSide ? 'end' : 'start';
-	const sideSign = useEndSide ? -1 : 1;
-	const finalSign = directionSign * sideSign;
-	// Wrap any string in calc() with the sign factor. CSS handles the math.
-	const value = finalSign === 1 ? crossAxisShiftCssValue : `calc(-1 * ${crossAxisShiftCssValue})`;
-	return {
-		property: `margin-${crossAxis}-${side}`,
-		value,
-	};
+	direction: TCrossAxisShiftDirection;
+}): TStyleDeclaration<TLogicalMarginProperty>[] {
+	const crossAxis: TPlacementAxis = placement.axis === 'block' ? 'inline' : 'block';
+	// Wrap any string in calc() with the sign factor. CSS handles the math,
+	// so opaque values such as design tokens negate correctly.
+	const negated = `calc(-1 * ${crossAxisShiftCssValue})`;
+	const isForwards = direction === 'forwards';
+	return [
+		{
+			property: `margin-${crossAxis}-start`,
+			value: isForwards ? crossAxisShiftCssValue : negated,
+		},
+		{
+			property: `margin-${crossAxis}-end`,
+			value: isForwards ? negated : crossAxisShiftCssValue,
+		},
+	];
 }
 
 /**
@@ -140,7 +196,7 @@ function crossAxisShiftMargin({
  * (or undefined fields vs explicit defaults) does not produce a fresh result.
  */
 function useStablePlacement(placement: TPlacementOptions): TPlacement {
-	const resolved = getPlacement({ placement });
+	const resolved = resolvePlacement({ placement });
 	const axis = resolved.axis;
 	const edge = resolved.edge;
 	const align = resolved.align;
@@ -272,16 +328,15 @@ export function useAnchorPosition({
 				placement: stablePlacement,
 				offset: gapCssValue,
 			});
-			// Computed once; reused below to populate the active
-			// `--ds-cross-axis-shift-margin-*` custom property for the
-			// named arrow @position-try rules.
-			const crossAxisShift = crossAxisShiftMargin({
+			// Computed once; also mirrored into the
+			// `--ds-cross-axis-shift-margin-*` custom properties below.
+			const crossAxisShift = crossAxisShiftMargins({
 				placement: stablePlacement,
 				crossAxisShiftCssValue,
 				direction: stablePlacement.offset.crossAxisShift.direction,
 			});
 
-			const popoverStyles: Array<{ property: string; value: string }> = [
+			const popoverStyles: TStyleDeclaration[] = [
 				{ property: 'position-anchor', value: anchorName },
 				{
 					property: 'position-area',
@@ -295,39 +350,16 @@ export function useAnchorPosition({
 				// with anchor positioning (UA: `inset: 0; margin: auto;`)
 				{ property: 'margin', value: '0' },
 				{ property: 'inset', value: 'auto' },
-				{ property: gap.property, value: gap.value },
-				{ property: crossAxisShift.property, value: crossAxisShift.value },
+				gap,
+				...crossAxisShift,
+				// Zero every side first so the two sides that are NOT on the
+				// active cross axis do not keep a value from a previous placement.
+				...ZEROED_CROSS_AXIS_SHIFT_CUSTOM_PROPERTIES,
+				...crossAxisShift.map(({ property, value }) => ({
+					property: CROSS_AXIS_SHIFT_CUSTOM_PROPERTY[property],
+					value,
+				})),
 			];
-
-			// Expose the active cross-axis shift via custom properties so each
-			// named arrow @position-try rule can re-apply it after a flip.
-			// One of the four (cross-axis, side) properties is non-zero at a time.
-			popoverStyles.push({ property: '--ds-cross-axis-shift-margin-start', value: '0px' });
-			popoverStyles.push({ property: '--ds-cross-axis-shift-margin-end', value: '0px' });
-			popoverStyles.push({
-				property: '--ds-cross-axis-shift-margin-block-start',
-				value: '0px',
-			});
-			popoverStyles.push({
-				property: '--ds-cross-axis-shift-margin-block-end',
-				value: '0px',
-			});
-			// `crossAxisShift` IS the active margin; reuse instead of recomputing.
-			const crossAxisShiftActive = crossAxisShift;
-			const customPropertyByMarginProperty: Record<string, string> = {
-				'margin-inline-start': '--ds-cross-axis-shift-margin-start',
-				'margin-inline-end': '--ds-cross-axis-shift-margin-end',
-				'margin-block-start': '--ds-cross-axis-shift-margin-block-start',
-				'margin-block-end': '--ds-cross-axis-shift-margin-block-end',
-			};
-			const crossAxisShiftCustomProperty =
-				customPropertyByMarginProperty[crossAxisShiftActive.property];
-			if (crossAxisShiftCustomProperty) {
-				popoverStyles.push({
-					property: crossAxisShiftCustomProperty,
-					value: crossAxisShiftActive.value,
-				});
-			}
 
 			/**
 			 * **We are never cleaning up anchor names**
@@ -348,9 +380,7 @@ export function useAnchorPosition({
 			 */
 			trigger.style.setProperty('anchor-name', anchorName);
 
-			const undoPositioning = combine(setStyle({ element: popover, styles: popoverStyles }));
-
-			return undoPositioning;
+			return setStyle({ element: popover, styles: popoverStyles });
 		}
 
 		// JS fallback. The popover is already in the top layer via
@@ -363,6 +393,32 @@ export function useAnchorPosition({
 				{ property: 'inset', value: 'auto' },
 			],
 		});
+
+		// The popover can be consumer-owned (`@atlaskit/popper`'s `createPopper`),
+		// so restore prior inline values rather than removing ours.
+		let undoPosition: (() => void) | undefined;
+		let undoHide: (() => void) | undefined;
+
+		// `opacity: 0` not `visibility: hidden`: Firefox skips visibility-hidden
+		// elements during `<dialog>` initial-focus traversal.
+		function hideUntilPositioned() {
+			// Keep the first snapshot, else we capture our own `opacity: 0`.
+			// (`!popover` is for TS: narrowing does not reach nested functions.)
+			if (!popover || undoHide) {
+				return;
+			}
+			undoHide = setStyle({ element: popover, styles: [{ property: 'opacity', value: '0' }] });
+		}
+
+		function reveal() {
+			undoHide?.();
+			undoHide = undefined;
+		}
+
+		function restorePosition() {
+			undoPosition?.();
+			undoPosition = undefined;
+		}
 
 		function update() {
 			if (!trigger || !popover) {
@@ -403,11 +459,16 @@ export function useAnchorPosition({
 				},
 			});
 
-			popover.style.setProperty('top', `${top}px`);
-			popover.style.setProperty('left', `${left}px`);
-			// Reveal the popover only after it has been positioned.
-			// See the toggle listener below for why we hide on open.
-			popover.style.removeProperty('opacity');
+			// Restore first so the snapshot stays the consumer's value.
+			restorePosition();
+			undoPosition = setStyle({
+				element: popover,
+				styles: [
+					{ property: 'top', value: `${top}px` },
+					{ property: 'left', value: `${left}px` },
+				],
+			});
+			reveal();
 		}
 
 		// Throttle scroll/resize updates to one per animation frame
@@ -442,24 +503,19 @@ export function useAnchorPosition({
 		// event has already fired and our listener below would miss it. Start
 		// observing immediately so the first measurement still happens.
 		if (isPopoverOpen(popover)) {
-			popover.style.setProperty('opacity', '0');
+			hideUntilPositioned();
 			resizeObserver.observe(popover);
 		}
 
 		const undoPositioning = combine(
 			cleanupBaseStyles,
-			// On every open: hide synchronously so the user never sees
-			// the UA-default position, then re-observe for a fresh
-			// measurement. We use `opacity: 0` rather than
-			// `visibility: hidden` because Firefox skips visibility-hidden
-			// elements during `<dialog>` initial-focus traversal. See
-			// `form-in-popup.spec.tsx` on `desktop-firefox`.
+			// Each open needs a fresh measurement, so hide and re-observe.
 			bind(popover, {
 				type: 'toggle',
 				listener: (event: Event) => {
 					const toggleEvent = event as ToggleEvent;
 					if (toggleEvent.newState === 'open') {
-						popover.style.setProperty('opacity', '0');
+						hideUntilPositioned();
 						resizeObserver.observe(popover);
 					}
 				},
@@ -477,9 +533,8 @@ export function useAnchorPosition({
 			}),
 			() => {
 				scheduledUpdate.cancel();
-				popover.style.removeProperty('top');
-				popover.style.removeProperty('left');
-				popover.style.removeProperty('opacity');
+				restorePosition();
+				reveal();
 			},
 		);
 

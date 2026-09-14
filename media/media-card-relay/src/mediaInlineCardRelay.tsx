@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { MediaInlineCard } from '@atlaskit/media-card';
+import { mapSsrMediaItemToFileState } from '@atlaskit/media-client/ssr-media-item';
 
 import type { mediaCardFragment_mediaItem$key } from './__generated__/mediaCardFragment_mediaItem.graphql';
 import { useMediaCardFragment } from './mediaCardFragment';
-import { mapGQLItemsToFileState } from './utils/mapGQLItemsToFileState';
 
 /**
  * Props for MediaInlineCardRelay — same as MediaInlineCard props but with
@@ -38,7 +38,9 @@ export const MediaInlineCardRelay = ({
 }: MediaInlineCardRelayProps): JSX.Element => {
 	const mediaItem = useMediaCardFragment(mediaItemRef);
 
-	const ssrFileState = React.useMemo(() => mapGQLItemsToFileState(mediaItem), [mediaItem]);
+	// The Relay fragment data is structurally assignable to `SsrMediaItem`, so it can be
+	// passed directly to the shared mapper (no cast) — the compiler verifies the contract.
+	const ssrFileState = React.useMemo(() => mapSsrMediaItemToFileState(mediaItem), [mediaItem]);
 
 	return <MediaInlineCard {...cardProps} ssrFileState={ssrFileState} />;
 };

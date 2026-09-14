@@ -1,5 +1,7 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
@@ -27,6 +29,7 @@ import type {
 	Span,
 	SpanType,
 } from '../common';
+import type { PreloadInfo } from '../common/common/types';
 import { sanitizeTimingName } from '../common/utils/timing-name';
 import {
 	getAwaitBM3TTIList,
@@ -39,19 +42,21 @@ import {
 	getSelectorConfig,
 	shouldUseRawDataThirdPartyBehavior,
 } from '../config';
-import { onSearchPageInteractionComplete } from '../create-extra-search-page-interaction-payload';
-import { sanitizeUfoName, stringifyLabelStackFully } from '../create-payload/common/utils';
-import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
+import { onSearchPageInteractionComplete } from '../create-extra-search-page-interaction-payload/on-search-page-interaction-complete';
+import { sanitizeUfoName } from '../create-payload/common/utils/sanitize-ufo-name';
+import { stringifyLabelStackFully } from '../create-payload/common/utils/stringify-label-stack-fully';
+import type { TraceIdContext } from '../experience-trace-id-context';
+import { clearActiveTrace } from '../experience-trace-id-context/clear-active-trace';
 import {
 	allFeatureFlagsAccessed,
 	currentFeatureFlagsAccessed,
 	type FeatureFlagValue,
 } from '../feature-flags-accessed';
 import type { LabelStack, SegmentLabel } from '../interaction-context';
-import { getInteractionId } from '../interaction-id-context';
+import { getInteractionId } from '../interaction-id-context/getInteractionId';
 import { BACKEND_RESOURCE_TIMING_INITIATOR_TYPES } from '../resource-timing/common/utils/resource-timing-initiator-types';
 import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler';
-import { newVCObserver } from '../vc';
+import { newVCObserver } from '../vc/newVCObserver';
 import { type VCObserverInterface } from '../vc/types';
 
 import { interactions } from './common/constants';
@@ -218,6 +223,27 @@ export function addCustomData(
 		Object.keys(data).forEach((i) => {
 			interaction.customData.push({ labelStack, data: { [i]: data[i] } });
 		});
+	}
+}
+
+/**
+ * Records a diagnostic breadcrumb for a third-party segment that was intentionally excluded from all
+ * metric windows (e.g. a Forge background module rendered with `excludeFromMetrics`). The data is a
+ * raw keyed object (same shape as `customData`), stored in its own `excluded3pSegmentData` map keyed
+ * by `segmentId`. This creates no hold and is never read by any metric computation.
+ */
+export function addExcluded3pSegment(
+	interactionId: string,
+	segmentId: string,
+	data: CustomData,
+): void {
+	const interaction = interactions.get(interactionId);
+	if (interaction != null) {
+		(interaction.excluded3pSegmentData ??= {})[segmentId] = {
+			segmentId,
+			...interaction.excluded3pSegmentData[segmentId],
+			...data,
+		};
 	}
 }
 
@@ -510,6 +536,7 @@ export function addHold(
 	labelStack: LabelStack,
 	name: string,
 	_experimental: boolean,
+	holdStartedAt?: number,
 ): () => void {
 	const interaction = interactions.get(interactionId);
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -517,11 +544,11 @@ export function addHold(
 
 	if (!interaction) {
 		// add hold timestamp to post interaction log if interaction is complete
-		postInteractionLog.addHoldInfo(labelStack, name, performance.now());
+		postInteractionLog.addHoldInfo(labelStack, name, holdStartedAt ?? performance.now());
 	}
 
 	if (interaction != null) {
-		const start = performance.now();
+		const start = holdStartedAt ?? performance.now();
 		const holdActive = { labelStack, name, start };
 
 		if (shouldMoveHoldToExtendedBucket(interaction, holdActive)) {
@@ -582,7 +609,7 @@ export function addHoldByID(
 	name: string,
 	id: string,
 	ignoreOnSubmit?: boolean,
-) {
+): () => void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const start = performance.now();
@@ -611,6 +638,9 @@ export function addCompletedHold(
 ): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
+		// `recordMetricVariantCategoryEnd` skips excluded (background-script) holds, so the completed
+		// hold is retained in `hold3pInfo` for observability but never contributes a third-party
+		// category end.
 		recordMetricVariantCategoryEnd(interaction, labelStack, end);
 		ensureExtendedHoldInfo(interaction).push({ labelStack, name, start, end });
 	}
@@ -653,6 +683,80 @@ export function getCurrentInteractionType(interactionId: string): InteractionTyp
 		return interaction.type;
 	}
 	return null;
+}
+
+export function registerPreloadInfo(
+	interactionId: string,
+	info: {
+		source: string;
+		preloadStartedAt: number;
+		adoptedAt: number;
+	},
+): () => void {
+	const interaction = interactions.get(interactionId);
+	if (interaction == null) {
+		return () => {};
+	}
+
+	const preloadRow: PreloadInfo = {
+		source: info.source,
+		preloadStartedAt: info.preloadStartedAt,
+		adoptedAt: info.adoptedAt,
+	};
+	interaction.preloadInfo.push(preloadRow);
+
+	const releaseHold = addHold(
+		interactionId,
+		[],
+		`preload:${info.source}`,
+		false,
+		interaction.start,
+	);
+
+	let released = false;
+	return () => {
+		if (released) {
+			return;
+		}
+		released = true;
+		preloadRow.settledAt = performance.now();
+		releaseHold();
+	};
+}
+
+export function adoptPreloadHoldForActiveInteraction(args: {
+	experienceKey: string;
+	preloadKey?: string;
+	source: string;
+	preloadStartedAt: number;
+	adoptedAt: number;
+}): (() => void) | null {
+	const interaction = getActiveInteraction();
+	if (
+		interaction == null ||
+		interaction.ufoName !== args.experienceKey ||
+		(args.preloadKey !== undefined &&
+			interaction.preloadKey !== undefined &&
+			interaction.preloadKey !== args.preloadKey)
+	) {
+		return null;
+	}
+	return registerPreloadInfo(interaction.id, {
+		source: args.source,
+		preloadStartedAt: args.preloadStartedAt,
+		adoptedAt: args.adoptedAt,
+	});
+}
+
+let onInteractionStartForPreloadHolds:
+	| ((interactionId: string, ufoName: string, preloadKey?: string) => void)
+	| null = null;
+
+/** Adopts pre-interaction preloads without importing `preload-hold` here. */
+export function setPreloadHoldAdoptionHook(
+	hook: ((interactionId: string, ufoName: string, preloadKey?: string) => void) | null,
+): void {
+	onInteractionStartForPreloadHolds = hook;
 }
 
 export const ModuleLoadingProfiler = {
@@ -804,6 +908,22 @@ const hasMetricVariantCategory = (
 const hasAnyMetricVariantCategory = (labelStack: LabelStack | null | undefined): boolean =>
 	labelStack?.some((label) => 'type' in label && isKnownMetricVariantCategory(label.type)) ?? false;
 
+/**
+ * A hold is fully excluded from every metric window (standard and include-third-party) and from
+ * completion gating iff its labelStack contains a single label that is BOTH `type: 'third-party'`
+ * AND `excludeFromMetrics: true`. Requiring both on the same label guarantees exclusion can only
+ * ever apply to third-party work, never first-party. Such holds are dropped at creation time, so
+ * they never enter `holdActive`/`hold3pActive`, never block completion.
+ */
+const isExcludedThirdPartyHold = (labelStack: LabelStack | null | undefined): boolean =>
+	labelStack?.some(
+		(label) =>
+			'type' in label &&
+			label.type === 'third-party' &&
+			'excludeFromMetrics' in label &&
+			label.excludeFromMetrics === true,
+	) ?? false;
+
 const getMetricVariantCategories = (
 	labelStack: LabelStack | null | undefined,
 ): MetricVariantCategory[] => {
@@ -836,6 +956,15 @@ const recordMetricVariantCategoryEnd = (
 	labelStack: LabelStack | null | undefined,
 	end: number,
 ): void => {
+	// Excluded third-party holds (e.g. Forge background scripts) still live in `hold3pActive` and
+	// gate completion like any third-party hold, but they must never contribute a third-party
+	// category end. Skipping here covers every caller at once: the normal-release closure in
+	// `addHold`, `removeHoldByID`, `addCompletedHold`, and the abort/timeout iterator
+	// `recordActiveMetricVariantCategoryEnds`.
+	if (isExcludedThirdPartyHold(labelStack)) {
+		return;
+	}
+
 	const categories = getMetricVariantCategories(labelStack);
 	if (categories.length === 0) {
 		return;
@@ -871,11 +1000,70 @@ function shouldMoveHoldToExtendedBucket(
 	interaction: InteractionMetrics,
 	hold: Pick<HoldActive, 'start' | 'labelStack'>,
 ): boolean {
+	// Excluded third-party holds (e.g. Forge background scripts) are routed to the extended
+	// (`hold3pActive`) bucket exactly like any other third-party hold: they carry `type: 'third-party'`
+	// so `hasAnyMetricVariantCategory` is true. They therefore keep gating completion (which preserves
+	// the standard-bucket VC parity), and are excluded ONLY at the third-party accounting sites
+	// (`recordMetricVariantCategoryEnd` and the `end3p` computation via `getNonExcludedThirdPartyEnd`).
 	return (
 		hasAnyMetricVariantCategory(hold.labelStack) ||
 		(interaction.end !== 0 && hold.start > interaction.end)
 	);
 }
+
+/**
+ * The third-party end marker (`end3p`), used as the `include-third-party` window end whenever no
+ * genuine third-party category end was recorded, must reflect only NON-excluded third-party work.
+ *
+ * `currentTime` is the timestamp the caller would otherwise have used verbatim (e.g. the abort
+ * time, or the interaction end on the success path). If there is any genuine (non-excluded)
+ * third-party hold that is still ACTIVE at this point, that work legitimately extends to
+ * `currentTime`, so we keep it. Otherwise the only active third-party holds are excluded
+ * background scripts, which must NOT drag the marker, so we fall back to the latest end among the
+ * already-released non-excluded holds, clamped to at least `interactionEnd`. This preserves the
+ * pre-fix behaviour for real third-party work while preventing background scripts from inflating
+ * `end3p` / the include-third-party window.
+ *
+ * Note the released entries in `hold3pInfo` are `HoldActive & { end: number }`, so we read `h.end`.
+ */
+const getNonExcludedThirdPartyEnd = (
+	interaction: InteractionMetrics,
+	currentTime: number,
+	interactionEnd: number,
+): number => {
+	const activeHolds = [...(interaction.hold3pActive?.values() ?? [])];
+	const releasedHolds = interaction.hold3pInfo ?? [];
+
+	// If this interaction never involved an excluded (background-script) hold at all
+	// (none active AND none released), it is unaffected by an exclusion logic.
+	// The derivation below only runs when at least one excluded hold actually exists.
+	const hasAnyExcludedThirdParty =
+		activeHolds.some((hold) => isExcludedThirdPartyHold(hold.labelStack)) ||
+		releasedHolds.some((hold) => isExcludedThirdPartyHold(hold.labelStack));
+	if (!hasAnyExcludedThirdParty) {
+		return currentTime;
+	}
+
+	// If a genuine (non-excluded) third-party hold is still active, the interaction is legitimately
+	// being kept open by real third-party work, so the marker is the current time
+	const hasActiveNonExcludedThirdParty = activeHolds.some(
+		(hold) => !isExcludedThirdPartyHold(hold.labelStack),
+	);
+	if (hasActiveNonExcludedThirdParty) {
+		return currentTime;
+	}
+
+	// Otherwise, only excluded background-script holds (if any) remain active. `currentTime` may have
+	// been pushed out purely by a background script, so derive the marker from the latest genuine
+	// (non-excluded) third-party work instead, floored to the interaction end so it is never reported
+	// earlier than the interaction itself and a background script can never drag it late.
+	return Math.max(
+		interactionEnd,
+		...releasedHolds
+			.filter((hold) => !isExcludedThirdPartyHold(hold.labelStack))
+			.map((hold) => hold.end),
+	);
+};
 
 function ensureExtendedHoldActive(interaction: InteractionMetrics): Map<string, HoldActive> {
 	interaction.hold3pActive = interaction.hold3pActive ?? new Map();
@@ -1135,10 +1323,17 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				if (!activeSubmitted) {
 					// Set the legacy third-party end marker when extended metric variant holds clear,
 					// preserving existing 3P payload behavior while category-specific end times are
-					// recorded separately in metricCategoryEnds.
+					// recorded separately in metricCategoryEnds. When a genuine third-party hold is still
+					// active (or was the last to release), `getNonExcludedThirdPartyEnd` returns the same
+					// clamped current time as before. When only excluded background-script holds remain,
+					// the marker is derived from the non-excluded third-party holds and floored to the
+					// interaction end, so a background script cannot drag it late.
 					const currentTime = endTime ?? performance.now();
-					interaction.end3p =
-						interaction.end !== 0 && currentTime < interaction.end ? interaction.end : currentTime;
+					interaction.end3p = getNonExcludedThirdPartyEnd(
+						interaction,
+						interaction.end !== 0 && currentTime < interaction.end ? interaction.end : currentTime,
+						interaction.end !== 0 ? interaction.end : currentTime,
+					);
 					ensureMetricWindows(interaction);
 					finishInteraction(
 						interactionId,
@@ -1199,7 +1394,11 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 		// If only extended metric variant holds are active, finish as successful instead of aborting
 		if (shouldUseSeparatedMetricVariantBehavior && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
-			interaction.end3p = performance.now();
+			// Excluded background-script holds that are still active at abort/timeout must not drag
+			// `end3p` (and thus the include-third-party window) past the real interaction end. Derive it
+			// from the non-excluded third-party holds only. `recordActiveMetricVariantCategoryEnds`
+			// likewise skips excluded holds internally.
+			interaction.end3p = getNonExcludedThirdPartyEnd(interaction, performance.now(), endTime);
 			recordActiveMetricVariantCategoryEnds(interaction, interaction.end3p);
 			addLifecycleObservation(interaction, {
 				type: abortReason === 'timeout' ? 'timeout_expired' : 'page_unloaded',
@@ -1242,8 +1441,10 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		// If only extended metric variant holds are active, finish as successful instead of aborting
 		if (shouldUseSeparatedMetricVariantBehavior && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
-			// Set end3p to current time, but ensure it's at least interaction.end
-			interaction.end3p = performance.now();
+			// Excluded background-script holds still active at this point must not drag `end3p` (and
+			// thus the include-third-party window) past the real interaction end. Derive it from the
+			// non-excluded third-party holds only, clamped to at least the interaction end.
+			interaction.end3p = getNonExcludedThirdPartyEnd(interaction, performance.now(), endTime);
 			recordActiveMetricVariantCategoryEnds(interaction, interaction.end3p);
 			addLifecycleObservation(interaction, {
 				type: 'new_interaction_started',
@@ -1304,7 +1505,10 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		// If only extended metric variant holds are active, finish as successful instead of aborting
 		if (shouldUseSeparatedMetricVariantBehavior && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
-			interaction.end3p = performance.now();
+			// Excluded background-script holds still active at transition/new-interaction abort must not
+			// drag `end3p` (and thus the include-third-party window) past the real interaction end.
+			// Derive it from the non-excluded third-party holds only, clamped to at least the end.
+			interaction.end3p = getNonExcludedThirdPartyEnd(interaction, performance.now(), endTime);
 			recordActiveMetricVariantCategoryEnds(interaction, interaction.end3p);
 			addLifecycleObservation(interaction, {
 				type: abortReason === 'transition' ? 'transition_started' : 'new_interaction_started',
@@ -1353,6 +1557,7 @@ export function addNewInteraction(
 	labelStack: LabelStack | null,
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
+	preloadKey?: string,
 ): void {
 	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
@@ -1411,6 +1616,7 @@ export function addNewInteraction(
 		start: startTime,
 		end: 0,
 		ufoName,
+		preloadKey,
 		type,
 		previousInteractionName: PreviousInteractionLog.name,
 		isPreviousInteractionAborted: PreviousInteractionLog.isAborted === true,
@@ -1423,6 +1629,7 @@ export function addNewInteraction(
 		reactProfilerTimings: [],
 		holdInfo: [],
 		holdActive: new Map(),
+		preloadInfo: [],
 		// measure when we execute this code
 		// from this, we can measure the input delay -
 		// how long the browser took to hand execution back to JS)
@@ -1430,6 +1637,7 @@ export function addNewInteraction(
 		rate,
 		cancelCallbacks: [],
 		metaData: {},
+		excluded3pSegmentData: {},
 		errors: [],
 		apdex: [],
 		labelStack,
@@ -1498,6 +1706,14 @@ export function addNewInteraction(
 		const observer = vcObserver;
 		if (observer) {
 			observer.start({ startTime, experienceKey: ufoName });
+		}
+	}
+
+	if (onInteractionStartForPreloadHolds) {
+		try {
+			onInteractionStartForPreloadHolds(interactionId, ufoName, preloadKey);
+		} catch {
+			// Preload instrumentation must not break interaction creation.
 		}
 	}
 }

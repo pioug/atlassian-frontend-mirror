@@ -6,9 +6,9 @@ import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import SmartLinkIcon from '@atlaskit/icon/core/smart-link';
 import IconTile from '@atlaskit/icon/icon-tile';
 import Image from '@atlaskit/image';
@@ -108,6 +108,8 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+		borderRadius: token('radius.small'),
+		overflow: 'hidden',
 	},
 	iconImage: {
 		width: '100%',
@@ -127,13 +129,6 @@ const styles = cssMap({
 		flexWrap: 'wrap',
 		gap: token('space.100'),
 		alignItems: 'center',
-	},
-	rowButtonNavGroup: {
-		display: 'flex',
-		flexDirection: 'row',
-		gap: token('space.100'),
-		alignItems: 'center',
-		flexShrink: 0,
 	},
 	rowButtonCompact: {
 		width: '100%',
@@ -169,8 +164,6 @@ type CarouselSlideProps = {
 	iconLabel?: string;
 	/** Large hero image — a React element (e.g. SVG/img) or a URL string */
 	image: React.ReactNode | string;
-	/** Called when the user clicks the secondary "Back" button; omit on first slide */
-	onBackClick?: () => void;
 	/** Called when the user clicks a dot indicator to jump to that slide index */
 	onDotClick?: (index: number) => void;
 	/** Called when the user clicks the secondary "See next" button; omit on last slide */
@@ -202,7 +195,6 @@ const CarouselSlide = ({
 	image,
 	primaryButtonLabel,
 	onPrimaryButtonClick,
-	onBackClick,
 	onDotClick,
 	onNextClick,
 	slideIndex,
@@ -279,8 +271,7 @@ const CarouselSlide = ({
 							<Text testId={`${testId}-description`}>{description}</Text>
 						</Box>
 
-						{((showPrimaryButton && !isCompact) ||
-							(showNavigation && (onNextClick || onBackClick))) && (
+						{((showPrimaryButton && !isCompact) || (showNavigation && onNextClick)) && (
 							<Box xcss={styles.rowButton}>
 								{showPrimaryButton && !isCompact && (
 									<Button
@@ -292,19 +283,10 @@ const CarouselSlide = ({
 									</Button>
 								)}
 
-								{showNavigation && (onBackClick || onNextClick) && (
-									<Box xcss={styles.rowButtonNavGroup}>
-										{onBackClick && (
-											<Button appearance="subtle" onClick={onBackClick} testId={`${testId}-back`}>
-												{formatMessage(messages.connect_link_account_embed_carousel_button_back)}
-											</Button>
-										)}
-										{onNextClick && (
-											<Button appearance="subtle" onClick={onNextClick} testId={`${testId}-next`}>
-												{formatMessage(messages.connect_link_account_embed_carousel_button_next)}
-											</Button>
-										)}
-									</Box>
+								{showNavigation && onNextClick && (
+									<Button appearance="subtle" onClick={onNextClick} testId={`${testId}-next`}>
+										{formatMessage(messages.connect_link_account_embed_carousel_button_next)}
+									</Button>
 								)}
 							</Box>
 						)}

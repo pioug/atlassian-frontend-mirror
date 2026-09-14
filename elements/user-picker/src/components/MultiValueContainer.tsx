@@ -2,16 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { components, type MultiValueProps } from '@atlaskit/select';
+
 import React, { Fragment } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { type Option, type User } from '../types';
-import { messages } from './i18n';
-import { isChildInput } from './utils';
-import ValueContainerWrapper from './ValueContainerWrapper';
-import { token } from '@atlaskit/tokens';
+
 import { cx, cssMap, jsx } from '@compiled/react';
+import { FormattedMessage } from 'react-intl';
+
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { components } from '@atlaskit/react-select/components';
+import type { MultiValueProps } from '@atlaskit/select/types';
+import { token } from '@atlaskit/tokens';
+
+import { type Option, type User } from '../types';
+import ValueContainerWrapper from './ValueContainerWrapper';
+import { messages } from './i18n';
+import { isChildInput } from './isChildInput';
 
 export type State = {
 	previousValueSize: number;
@@ -95,7 +100,6 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 
 	componentDidUpdate(): void {
 		const { previousValueSize, valueSize } = this.state;
-		//@ts-ignore react-select unsupported props
 		const { isFocused } = this.props.selectProps;
 		if (valueSize > previousValueSize && isFocused) {
 			if (this.timeoutId) {
@@ -143,7 +147,6 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 
 	private renderChildren = () => {
 		const {
-			//@ts-ignore react-select unsupported props
 			selectProps: { addMoreMessage, isDisabled },
 		} = this.props;
 		// Do not render "Add more..." message if picker is disabled
@@ -168,7 +171,6 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 		return this.addPlaceholder(addMoreMessage);
 	};
 
-	//@ts-ignore react-select unsupported props
 	onValueContainerClick: any = this.props.selectProps.onValueContainerClick;
 
 	render(): JSX.Element {

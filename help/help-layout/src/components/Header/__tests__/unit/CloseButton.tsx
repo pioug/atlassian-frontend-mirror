@@ -7,8 +7,9 @@
 */
 
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import { createIntl, createIntlCache } from 'react-intl';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 
@@ -41,25 +42,25 @@ describe('BackButton', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it.skip('Should match snapshot', () => {
-		const { container } = render(<CloseButton intl={intl} onClick={mockOnClick} />);
+	it('Should render correctly', async () => {
+		render(<CloseButton intl={intl} onClick={mockOnClick} />);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(screen.getByLabelText(messageClose)).toBeInTheDocument();
 	});
 
-	it('Should execute the prop function "mockOnClick" when the close button is clicked', () => {
-		const { getByLabelText } = render(
+	it('Should execute the prop function "mockOnClick" when the close button is clicked', async () => {
+		render(
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<CloseButton intl={intl} onClick={mockOnClick} />,
 			</AnalyticsListener>,
 		);
 
-		const buttonClose = getByLabelText(messageClose).closest('button');
+		const buttonClose = screen.getByLabelText(messageClose).closest('button');
 
-		expect(buttonClose).not.toBeNull;
+		expect(buttonClose).not.toBeNull();
 
 		if (buttonClose) {
-			fireEvent.click(buttonClose);
+			await userEvent.click(buttonClose);
 			expect(mockOnClick).toHaveBeenCalledTimes(1);
 		}
 	});

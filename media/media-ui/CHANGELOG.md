@@ -1,5 +1,171 @@
 # @atlaskit/media-ui
 
+## 30.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.15.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.14.0
+
+### Minor Changes
+
+- [`143ebd1ce2710`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/143ebd1ce2710) -
+  Add `file_too_large_to_preview` and `file_too_large_description` messages, used by
+  `@atlaskit/media-viewer` to show a dedicated "File is too large to preview" state (behind feature
+  gate `platform_media_too_large_preview_state`) instead of a generic error when a file exceeds the
+  size limit supported by preview.
+
+## 30.13.1
+
+### Patch Changes
+
+- [`53ad40b08a887`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53ad40b08a887) -
+  Clean up platform_editor_video_caption_commit
+- Updated dependencies
+
+## 30.13.0
+
+### Minor Changes
+
+- [`f68ceb96f8b80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f68ceb96f8b80) -
+  Apply the Volt one-export-per-file standard to `@atlaskit/media-ui` (VOLTC-102). Multi-export
+  modules are split so each module has a single runtime export, and the previous entry points remain
+  as `@deprecated` re-export shims. Every symbol that was importable before this change is still
+  importable from the same path — no export was removed from any subpath.
+
+  Each symbol now also has a direct subpath export for the module that owns it, so consumers can
+  import it without going through the root barrel or a deprecated aggregator. The `@deprecated`
+  JSDoc on each shim names the specific new subpath to move to. New subpaths (all additive):
+  - `./absolute`, `./ellipsis`, `./size` — previously only via `./mixins` or the root barrel
+  - `./bounds`, `./rectangle`, `./vector2`, `./camera/camera` — previously only via `./camera`
+  - `./dataURItoFile`, `./fileToArrayBuffer`, `./fileToDataURI`, `./findParentByClassname`,
+    `./getFileInfo`, `./getFileInfoFromSrc`, `./getMimeIcon`, `./loadImage`,
+    `./readImageNaturalOrientationFromDOM` — previously only via `./util`
+  - `./getExtension`, `./getLanguageType`, `./isCodeViewerItem` — previously only via `./codeViewer`
+  - `./partsFormatter` — previously only via `./formatDate`
+  - `./isInvalidInput`, `./secondsToTime` — previously only via `./formatDuration`
+  - `./imageMetaData/getImageInfo`, `./imageMetaData/getMetaTagNumericValue`,
+    `./imageMetaData/getOrientation`, `./imageMetaData/getScaleFactor`,
+    `./imageMetaData/getScaleFactorFromFile`, `./imageMetaData/readImageMetaData`,
+    `./imageMetaData/isRotated`, `./imageMetaData/getCssFromImageOrientation` — previously only via
+    `./imageMetaData` or `./imageOrientationUtil`
+  - `./languages` — previously only via the root barrel
+  - `./calculateTruncation`, `./truncateText/truncate`, `./truncateText/truncateLeft`,
+    `./truncateText/truncateRight`, `./truncateText/types`, `./truncateText/compiled/truncate`,
+    `./truncateText/compiled/truncateLeft`, `./truncateText/compiled/truncateRight` — previously
+    only via `./truncateText` or `./truncateText/compiled`
+  - `./ellipsify/ellipsify`, `./ellipsify/compiled/ellipsify` — previously only via `./ellipsify` or
+    `./ellipsify/compiled`
+
+  No new symbols are exposed: every symbol reachable through a new subpath was already reachable
+  through the root barrel or an existing subpath.
+
+  Runtime behaviour is unchanged. `absolute`, `ellipsis`, `size`, `partsFormatter` and `pad` keep
+  their original inferred signatures rather than the `any` the split had introduced.
+
+## 30.12.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.11.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.11.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.11.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.11.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.11.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.11.2
+
+### Patch Changes
+
+- [`6902b31db1608`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6902b31db1608) -
+  Consolidate direct Popper.js callers behind `@atlaskit/popper` compatibility entry points and
+  feature-gated consumer adapters.
+
+  `@atlaskit/popper` now exposes compatibility entry points so existing direct `popper.js` /
+  `react-popper` callers can move their dependency ownership onto `@atlaskit/popper` without a full
+  rewrite:
+  - `@atlaskit/popper/react-popper` re-exports the React `usePopper` hook and `Manager` / `Popper` /
+    `Reference` render-prop components.
+  - `@atlaskit/popper/unsafe-imperative` re-exports the raw Popper.js v2 `createPopper` for
+    non-React, imperative callers. This is an escape hatch for existing callers only. Do not use it
+    for new code; build new overlays on `@atlaskit/top-layer` instead.
+
+  ```ts
+  // Imperative callers (migrating away from a direct `@popperjs/core` / `popper.js` import):
+  import { createPopper } from '@atlaskit/popper/unsafe-imperative';
+
+  const instance = createPopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+
+  // React callers (migrating away from a direct `react-popper` import):
+  import { usePopper } from '@atlaskit/popper/react-popper';
+
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  	placement: 'bottom-start',
+  });
+  ```
+
+- Updated dependencies
+
 ## 30.11.1
 
 ### Patch Changes

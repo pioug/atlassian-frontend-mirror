@@ -2,7 +2,7 @@ import valueParser from 'postcss-value-parser';
 import stylelint, { type Rule, type RuleBase } from 'stylelint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
-import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
+import { getCSSCustomProperty } from '@atlaskit/tokens/utils/get-css-custom-property';
 
 import { isFunction } from '../../utils/is-function';
 import { isWord } from '../../utils/is-word';

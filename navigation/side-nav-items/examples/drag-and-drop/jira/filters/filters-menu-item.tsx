@@ -15,19 +15,21 @@ import React, {
 import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import { IconButton } from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import IconButton from '@atlaskit/button/icon/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import AddIcon from '@atlaskit/icon/core/add';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import GrowVerticalIcon from '@atlaskit/icon/core/grow-vertical';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { ModalTransition } from '@atlaskit/modal-dialog';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import {
 	dropTargetForElements,
 	type ElementDropTargetEventBasePayload,
 	monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+} from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { GroupDropIndicator } from '@atlaskit/side-nav-items/drag-and-drop/group-drop-indicator';
 import { useMenuItemDragAndDrop } from '@atlaskit/side-nav-items/drag-and-drop/use-menu-item-drag-and-drop';
 import {

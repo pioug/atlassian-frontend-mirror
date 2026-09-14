@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b73a20da143650f747e32cb182c99798>>
+ * @codegen <<SignedSource::29def4527313546a2d30c57bb347a6ef>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 113 32">
  *
  */
 export function TrelloLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Trello',
 	testId,

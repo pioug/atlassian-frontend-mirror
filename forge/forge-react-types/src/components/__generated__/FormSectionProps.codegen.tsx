@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { FormSection as PlatformFormSection } from '@atlaskit/form';
+import { FormSection as PlatformFormSection } from '@atlaskit/form/form-section';
 
 type PlatformFormSectionProps = React.ComponentProps<typeof PlatformFormSection>;
 

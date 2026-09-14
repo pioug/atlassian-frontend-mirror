@@ -1,5 +1,146 @@
 # @atlaskit/datetime-picker
 
+## 18.6.0
+
+### Minor Changes
+
+- [`7eb26baefd71e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eb26baefd71e) -
+  Apply Volt Standards to @atlaspack/datetime-picker
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.5.2
+
+### Patch Changes
+
+- [`724fabad010d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/724fabad010d6) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+- Updated dependencies
+
+## 18.5.1
+
+### Patch Changes
+
+- [`d7eeefc938dd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7eeefc938dd4) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+- Updated dependencies
+
+## 18.5.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.4.2
+
+### Patch Changes
+
+- [`6d3790c08ff19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d3790c08ff19) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 18.4.1
+
+### Patch Changes
+
+- [`a7e63cfd84876`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7e63cfd84876) -
+  [ux] When `platform-dst-top-layer` is enabled, Select menus now use the native Popover API to
+  handle Escape and light-dismiss before synchronizing `menuIsOpen` through `onMenuClose`. This
+  ensures Escape dismisses a nested Select menu without also dismissing its containing popup.
+
+  Existing public props keep their behavior. The top-layer `Popover` implementation gains an
+  internal `source` prop for imperative native popover invokers. The public runtime differences
+  behind the feature gate are:
+  - Select no longer calls `preventDefault()` or `stopPropagation()` for Escape on the top-layer
+    path, whether its menu is open or closed. Successive Escape presses can therefore dismiss the
+    Select menu and then its containing native popover.
+  - `onMenuClose` is called from the native popover close lifecycle rather than synchronously during
+    Select's Escape `keydown` handler.
+  - `shouldPreventEscapePropagation` no longer stops Escape propagation while a top-layer menu is
+    open; its legacy-path behavior is unchanged.
+  - Top-layer Escape invokes `onInputChange` with the `menu-close` action once, after native
+    dismissal, instead of the legacy path's two calls.
+  - Controlled Selects must continue updating `menuIsOpen` to `false` in response to `onMenuClose`.
+  - `PopupSelect` delegates Escape dismissal and focus restoration to its native popover. A consumer
+    `onKeyDown` handler can therefore prevent the native dismissal with `preventDefault()`;
+    previously, `PopupSelect` closed before forwarding the event.
+  - DatePicker's top-layer calendar now uses the Select menu portal's native popover instead of
+    creating a nested manual popover.
+  - The internal Popover forwarding API accepts a native `source` element so imperative Select
+    popovers retain their trigger relationship for light-dismiss behavior.
+
+- Updated dependencies
+
+## 18.4.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.0
+
+### Minor Changes
+
+- [`fa627e0fd7b58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa627e0fd7b58) -
+  This is behind a flag `platform-dst-dp-parse-date-format`.
+
+  Parse typed dates with `dateFormat` via `date-fns` when set, so displayed labels re-parse without
+  a custom `parseInputValue`. This will not affect existing instances that already have a
+  `parseInputValue` and will honor provided `dateFormat` props for all entry methods, improving user
+  experience.
+
+## 18.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.0
 
 ### Minor Changes

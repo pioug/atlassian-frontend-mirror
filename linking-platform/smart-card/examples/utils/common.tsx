@@ -5,7 +5,7 @@
 import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import {
 	forbiddenJira,
 	iconGoogleDrive,
@@ -13,7 +13,7 @@ import {
 	image2,
 	imageForbiddenJiraEmbed,
 } from '@atlaskit/link-test-helpers';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 

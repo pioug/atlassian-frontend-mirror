@@ -37,6 +37,9 @@
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -121,6 +124,9 @@
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
@@ -133,6 +139,9 @@
 			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
@@ -142,7 +151,16 @@
 			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"

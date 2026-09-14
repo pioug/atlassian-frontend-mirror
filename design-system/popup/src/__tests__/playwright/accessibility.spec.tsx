@@ -1,6 +1,6 @@
 import { expect, test } from '@af/integration-testing';
 test('Popup passes aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.tsx')>(
+	await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.vr.ap.tsx')>(
 		'design-system',
 		'popup',
 		'popup-role-dialog',

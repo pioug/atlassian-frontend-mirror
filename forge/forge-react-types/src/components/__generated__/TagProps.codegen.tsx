@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { SimpleTag as PlatformSimpleTag } from '@atlaskit/tag';
+import PlatformSimpleTag from '@atlaskit/tag/tag/simple';
 
 type PlatformSimpleTagProps = React.ComponentProps<typeof PlatformSimpleTag>;
 

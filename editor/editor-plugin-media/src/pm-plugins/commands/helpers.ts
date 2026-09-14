@@ -1,5 +1,5 @@
-import type { MediaAttributes } from '@atlaskit/adf-schema';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import type { MediaAttributes } from '@atlaskit/adf-schema/media';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

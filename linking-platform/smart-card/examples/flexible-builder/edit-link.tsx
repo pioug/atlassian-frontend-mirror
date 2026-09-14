@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import Button from '@atlaskit/button/default/button';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 

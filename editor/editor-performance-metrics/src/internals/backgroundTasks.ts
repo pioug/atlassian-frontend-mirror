@@ -32,12 +32,7 @@ export const isTaskAborted = (
 // See https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API
 export const taskYield = async (): Promise<void> => {
 	// This is using globalThis to allow the yield task to be used outside of a browser env
-	if (
-		'scheduler' in globalThis &&
-		// @ts-ignore
-		'yield' in globalThis.scheduler
-	) {
-		// @ts-ignore
+	if ('scheduler' in globalThis && 'yield' in globalThis.scheduler) {
 		await scheduler.yield();
 
 		return;

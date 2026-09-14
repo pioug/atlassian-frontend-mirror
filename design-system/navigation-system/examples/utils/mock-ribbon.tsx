@@ -7,13 +7,8 @@ import React from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import {
-	ConfluenceIcon,
-	CustomerServiceManagementIcon,
-	JiraIcon,
-	type LogoProps,
-	LoomIcon,
-} from '@atlaskit/logo';
+import type { LogoProps } from '@atlaskit/logo/types';
+import { ConfluenceIcon, CustomerServiceManagementIcon, JiraIcon, LoomIcon } from '@atlaskit/logo';
 import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -102,7 +97,7 @@ const RibbonItem = ({
 		// eslint-disable-next-line @compiled/no-suppress-xcss
 		<Pressable xcss={cx(ribbonItemStyles.root, isActive && ribbonItemStyles.active)}>
 			<div css={ribbonItemStyles.logo}>
-				<Logo appearance={isActive ? 'brand' : 'neutral'} size="medium" shouldUseNewLogoDesign />
+				<Logo appearance={isActive ? 'brand' : 'neutral'} size="medium" />
 			</div>
 			<Text size="small" weight="medium" color="color.text.subtle" maxLines={1}>
 				{children}

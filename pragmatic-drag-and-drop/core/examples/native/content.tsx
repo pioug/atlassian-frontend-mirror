@@ -8,13 +8,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { draggable } from '../../src/entry-point/element/adapter';
-import { scrollJustEnoughIntoView } from '../../src/entry-point/element/scroll-just-enough-into-view';
-import { setCustomNativeDragPreview } from '../../src/entry-point/element/set-custom-native-drag-preview';
+import { draggable } from '../../src/adapter/element-adapter';
+import { scrollJustEnoughIntoView } from '../../src/public-utils/element/scroll-just-enough-into-view';
+import { setCustomNativeDragPreview } from '../../src/public-utils/element/custom-native-drag-preview/set-custom-native-drag-preview';
 
 import avatarUrl from './avatar.png';
 

@@ -4,7 +4,7 @@ import {
 	TaskItemDoneEditor,
 	TaskItemRenderer,
 	TaskItemDoneRenderer,
-} from './TaskItem.fixtures';
+} from './TaskItem.fixtures.vr.ap';
 
 snapshot(TaskItemEditor);
 snapshot(TaskItemEditor, {

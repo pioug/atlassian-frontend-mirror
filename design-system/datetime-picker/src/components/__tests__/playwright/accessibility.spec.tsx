@@ -5,6 +5,7 @@ test('Date picker should pass base aXe audit', async ({ page }) => {
 		'design-system',
 		'datetime-picker',
 		'date-picker-states',
+		{ 'react-18-mode': 'modern' },
 	);
 	const calendarButton = page.getByLabel('Stock').and(page.getByRole('button'));
 	await expect(calendarButton).toBeVisible();
@@ -18,6 +19,7 @@ test('Date picker (disabled) should pass base aXe audit', async ({ page }) => {
 		'design-system',
 		'datetime-picker',
 		'date-picker-disabled',
+		{ 'react-18-mode': 'modern' },
 	);
 	const calendarButton = page.getByLabel('Date picker').and(page.getByRole('button'));
 	await expect(calendarButton).toBeVisible();
@@ -30,6 +32,7 @@ test('Time picker should pass base aXe audit', async ({ page }) => {
 		'design-system',
 		'datetime-picker',
 		'time-picker-states',
+		{ 'react-18-mode': 'modern' },
 	);
 	const timePicker = page.getByLabel('Stock');
 	await expect(timePicker).toBeVisible();
@@ -43,6 +46,7 @@ test('DateTime picker should pass base aXe audit', async ({ page }) => {
 		'design-system',
 		'datetime-picker',
 		'datetime-picker-states',
+		{ 'react-18-mode': 'modern' },
 	);
 	const calendarButton = page.getByRole('button', { name: 'Stock, date, Open calendar' });
 	await expect(calendarButton).toBeVisible();

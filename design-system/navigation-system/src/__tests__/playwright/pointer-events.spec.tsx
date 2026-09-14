@@ -6,7 +6,7 @@ import { expect, test } from '@af/integration-testing';
  * This test checks our top nav items are actually interactive.
  */
 test('pointer events on top nav items', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+	await page.visitExample<typeof import('../../../examples/composition.vr.ap.tsx')>(
 		'design-system',
 		'navigation-system',
 		'composition',
@@ -29,7 +29,7 @@ test('pointer events on top nav items', async ({ page }) => {
 });
 
 test('pointer events on top nav items [layering improvements enabled]', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/composition.tsx')>(
+	await page.visitExample<typeof import('../../../examples/composition.vr.ap.tsx')>(
 		'design-system',
 		'navigation-system',
 		'composition',

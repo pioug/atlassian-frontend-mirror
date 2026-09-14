@@ -4,12 +4,10 @@
  */
 import { useCallback, useState } from 'react';
 
-import Lorem from 'react-lorem-component';
-
-import Blanket from '@atlaskit/blanket';
-import Button from '@atlaskit/button/new';
+import Blanket from '@atlaskit/blanket/blanket';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -20,10 +18,10 @@ const blanketChildStyles = cssMap({
 		width: '50%' as any,
 		marginBlock: token('space.800'),
 		marginInline: 'auto',
-		paddingTop: token('space.500'),
-		paddingRight: token('space.500'),
-		paddingBottom: token('space.500'),
-		paddingLeft: token('space.500'),
+		paddingBlockStart: token('space.500'),
+		paddingInlineEnd: token('space.500'),
+		paddingBlockEnd: token('space.500'),
+		paddingInlineStart: token('space.500'),
 		backgroundColor: token('elevation.surface'),
 	},
 });
@@ -65,7 +63,9 @@ const BasicExample = (): JSX.Element => {
 				<Stack space="space.200" xcss={blanketChildStyles.root} grow="hug">
 					<Stack>
 						<Heading size="xlarge">Blanket Heading</Heading>
-						<Lorem count={20} />
+						{Array.from({ length: 20 }, (_, index) => (
+							<Text key={index}>Blanket content</Text>
+						))}
 					</Stack>
 					{isBlanketVisible && (
 						<Box>

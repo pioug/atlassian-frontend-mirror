@@ -1,15 +1,11 @@
 import type { ValueReplacements } from './default-value-replacements';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const DUMMY_TEXT = `Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum`;
 
-// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 const DECIMAL_DIGIT_REGEX = /^\p{Nd}$/u;
-// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 const OTHER_SYMBOL_REGEX = /^\p{So}$/u;
-// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 const CURRENCY_SYMBOL_REGEX = /^\p{Sc}$/u;
-// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 const PUNCT_SEP_CONTROL_REGEX = /^[\p{P}\p{Z}\p{C}]$/u;
 
 const DUMMY_DIGITS = ['2', '7', '4', '3', '5', '9', '1', '8', '0', '5'];

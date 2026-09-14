@@ -1,5 +1,520 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- [`83ad56fdbb764`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83ad56fdbb764) -
+  Clean up feature gate `platform_editor_block_menu_jira_patch_5`
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- [`61a147bcf836c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61a147bcf836c) -
+  Support Small text and Normal text transformations from the block menu by reusing the Paragraph
+  conversion with target block marks.
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- [`ea8de35330d10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea8de35330d10) -
+  Register the gated Small text action in the block menu and hide it when the schema lacks font-size
+  support.
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.4
+
+### Patch Changes
+
+- [`c7130b14cc4b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7130b14cc4b2) -
+  [ux] Add Status to the block menu Turn into list behind platform_editor_turn_into_status.
+- [`68342e8a23fec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68342e8a23fec) -
+  Group text transforms under the renamed Text formatting section in the block menu behind the
+  `platform_editor_block_menu_small_text` experiment.
+- Updated dependencies
+
+## 15.1.3
+
+### Patch Changes
+
+- [`95de7cb0e5f70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95de7cb0e5f70) -
+  Revert position calculation for block menu popup
+- Updated dependencies
+
+## 15.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.0
+
+### Minor Changes
+
+- [`0ac8aba669ed5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ac8aba669ed5) -
+  Add transformInlineNode so the block menu can replace one selected block with a paragraph wrapping
+  a caller-built inline node.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.12
+
+### Patch Changes
+
+- [`91559dfb45b53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91559dfb45b53) -
+  Behind platform_editor_blocks_patch_8, make the block menu popup conditionally sticky after Move
+  up / Move down: the editor no longer scrolls while the moved block's drag handle stays visible,
+  and scrolls by the minimum needed to bring the drag handle, block and popup back into view -
+  realigning the popup to it - when the handle crosses a fold. The scroll distance accounts for the
+  popup's own height, so a popup taller than the moved block is no longer cut off at the fold.
+
+## 15.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.10
+
+### Patch Changes
+
+- [`08bf773f7599a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08bf773f7599a) -
+  Migrate experiments to use the new platform experiment API. This major release removes the
+  migrated experiment entries from `@atlaskit/tmp-editor-statsig`'s `editorExperimentsConfig` and
+  test overrides. Consumers must replace legacy `expVal`/`expValEquals` calls with
+  `@atlaskit/platform-feature-experiments` APIs, using `isExperimentEnabled` for boolean `isEnabled`
+  experiments and `expVal` for parameterized experiments; use `mockExpEnabled`/`mockExpDisabled` in
+  tests.
+- Updated dependencies
+
+## 15.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- [`e62dacf4416fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e62dacf4416fd) -
+  Add the shared popup-anchor contract, registry-backed drag handle, and menu integrations behind
+  `platform_editor_block_control_migration`.
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 14.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.0
+
+### Minor Changes
+
+- [`d96f86ff344b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d96f86ff344b8) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_vc90_transition_expand_icon, platform_editor_add_image_editing,
+  platform_editor_ai_multi_format_streaming, platform_editor_default_toolbar_state,
+  platform_editor_early_exit_return_draft, platform_editor_fix_focus_MediaInsertPicker,
+  platform_editor_fix_table_move_shortcut, platform_editor_menu_radius_update,
+  platform_editor_react19_migration, and show_mentions_in_suggest_reply.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`d585dc37819b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d585dc37819b9) -
+  [ux] ui changes gated by cc-ce-maui-remix-menu-multivariant
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- [`751710cf0b63d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/751710cf0b63d) -
+  [ux] Enable Jira AI actions and the block-menu divider with the
+  `platform_editor_ai_blockmenu_integration_jira` experiment while preserving the existing
+  `platform_editor_ai_blockmenu_integration` rollout.
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.3
+
+### Patch Changes
+
+- [`0cdf73fdf7d3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cdf73fdf7d3e) -
+  [ux] [EDITOR-8273] add breakout resizing to extension nodes behind
+  `platform_editor_lovability_resize_extensions` with graceful rendering behind
+  `platform_editor_lovability_resize_ext_gracefully`
+- Updated dependencies
+
+## 13.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.0
+
+### Minor Changes
+
+- [`337e6777c26aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/337e6777c26aa) -
+  Add Block Menu transform extension APIs. Extension manifests can declare ADF-only transform
+  capabilities without importing Editor internals:
+
+  ```ts
+  const extensionNode = {
+  	blockTransform: {
+  		key: 'convert-tabs-to-panel',
+  		isSupported: ({ targetTypeName }) => targetTypeName === 'panel',
+  		transform: ({ source }) => ({ output: [{ type: 'panel', content: source.content }] }),
+  	},
+  };
+  ```
+
+  The Extension Plugin registers each keyed transform with Block Menu after manifests load. Block
+  Menu checks support, validates returned ADF, and owns replacement, selection, history, focus, and
+  analytics.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- [`72f7cec91a1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f7cec91a1d4) -
+  Remove stale `platform-feature-flags` registrations for shipped block menu and blocks feature
+  gates. No behaviour change.
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.0
 
 ### Minor Changes

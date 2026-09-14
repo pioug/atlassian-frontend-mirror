@@ -1,11 +1,38 @@
 import React, { useCallback } from 'react';
 
-import { type Appearance } from '@atlaskit/button';
+import type { Appearance } from '@atlaskit/button/old-button/types';
 
-import { type SmartLinkSize } from '../../../../../../constants';
-import * as Actions from '../../../actions';
+import { ActionName, InternalActionName, type SmartLinkSize } from '../../../../../../constants';
+
+import Action from '../../../actions/action';
+import AISummaryAction from '../../../actions/ai-summary-action';
+import AutomationAction from '../../../actions/automation-action';
+import CopyLinkAction from '../../../actions/copy-link-action';
+import CustomUnresolvedAction from '../../../actions/custom-unresolved-action';
+import DeleteAction from '../../../actions/delete-action';
+import DownloadAction from '../../../actions/download-action';
+import EditAction from '../../../actions/edit-action';
+import FollowAction from '../../../actions/follow-action';
+import PreviewAction from '../../../actions/preview-action';
+import RovoChatAction from '../../../actions/rovo-chat-action';
+import ViewRelatedLinksAction from '../../../actions/view-related-links-action';
 import { type ActionProps } from '../../../actions/action/types';
 import { type ActionItem } from '../../types';
+
+const Actions = {
+	[ActionName.AutomationAction]: AutomationAction,
+	[ActionName.CopyLinkAction]: CopyLinkAction,
+	[ActionName.CustomAction]: Action,
+	[ActionName.DeleteAction]: DeleteAction,
+	[ActionName.DownloadAction]: DownloadAction,
+	[ActionName.EditAction]: EditAction,
+	[ActionName.FollowAction]: FollowAction,
+	[ActionName.PreviewAction]: PreviewAction,
+	[ActionName.RovoChatAction]: RovoChatAction,
+	[InternalActionName.AISummaryAction]: AISummaryAction,
+	[InternalActionName.UnresolvedAction]: CustomUnresolvedAction,
+	[InternalActionName.ViewRelatedLinksAction]: ViewRelatedLinksAction,
+};
 
 const ActionGroupItem = ({
 	item,

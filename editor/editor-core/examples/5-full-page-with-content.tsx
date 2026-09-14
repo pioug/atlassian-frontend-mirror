@@ -4,8 +4,10 @@ import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-do
 
 import { default as FullPageExample } from './5-full-page';
 
+const loadExampleDocument = () => import('../example-helpers/templates/example.adf.json');
+
 export default function Example(): React.JSX.Element {
-	const exampleDocument = useExampleDocument();
+	const exampleDocument = useExampleDocument(loadExampleDocument);
 
 	return (
 		<FullPageExample

@@ -2,24 +2,20 @@
  * Human-readable rendering of a successful command result.
  */
 
-import chalk from 'chalk';
-
+import { formatHumanResult } from './format-human-result';
 import type { Writer } from './writer';
 
 /**
  * Emit a human-readable rendering of a successful result to stdout.
  *
- * Structured data is pretty-printed as JSON (the underlying tools already return rich
- * objects), while plain-string payloads such as guideline markdown are printed verbatim.
+ * An absent payload is a diagnostic rather than data, so it goes to stderr to keep stdout clean
+ * for piping.
  */
 export const writeHumanResult = ({ data, writer }: { data: unknown; writer: Writer }): void => {
-	if (typeof data === 'string') {
-		writer.out(data);
-		return;
-	}
+	const text = formatHumanResult({ data });
 	if (data === null || data === undefined) {
-		writer.err(chalk.yellow('No results.'));
+		writer.err(text);
 		return;
 	}
-	writer.out(JSON.stringify(data, null, 2));
+	writer.out(text);
 };

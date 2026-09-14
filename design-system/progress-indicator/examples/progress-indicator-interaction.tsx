@@ -1,9 +1,8 @@
 import React, { type ReactNode, useState } from 'react';
 
 import { cx } from '@compiled/react';
-import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
@@ -61,7 +60,7 @@ const Example = (): React.JSX.Element => {
 								xcss={cx(styles.displayBlock, !selected && styles.displayNone)}
 							>
 								<Text as="strong">Panel {i + 1}</Text>
-								<Lorem count={3} />
+								<Text>Panel content</Text>
 							</Stack>
 						</Box>
 					);

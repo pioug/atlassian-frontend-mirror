@@ -5,7 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Code } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -71,11 +71,11 @@ const styles = cssMap({
 		fontSize: '1em',
 	},
 	required: {
-		marginLeft: '1em',
+		marginInlineStart: '1em',
 		color: `${token('color.text.danger')}`,
 	},
 	deprecated: {
-		marginLeft: '1em',
+		marginInlineStart: '1em',
 		color: `${token('color.text.disabled')}`,
 	},
 	type: {

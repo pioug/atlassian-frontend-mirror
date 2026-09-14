@@ -3,9 +3,8 @@ import { type FunctionComponent } from 'react';
 import { Fragment, type Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { isListOperator } from '@atlaskit/jql-ast';
-import { fg } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
@@ -15,33 +14,10 @@ import ReactPluginView from '../common/react-plugin-view';
 import Autocomplete from './components/autocomplete';
 import { type AutocompleteProps, type SelectableAutocompleteOption } from './components/types';
 import { AUTOCOMPLETE_PLUGIN_NAME, JQLAutocompletePluginKey } from './constants';
+import { shouldInsertOpeningParenthesis } from './shouldInsertOpeningParenthesis';
 
 const isRichInlineOperandOption = (type: SelectableAutocompleteOption['type']): boolean =>
 	type === 'value' || type === 'functionArgument';
-
-/**
- * Returns whether an opening parenthesis should be automatically inserted for this option (e.g. after a list operator)
- */
-export const shouldInsertOpeningParenthesis = ({
-	type,
-	context,
-	isListFunction,
-}: SelectableAutocompleteOption): boolean => {
-	// Suggestions rendered inside a function argument already have their own surrounding
-	// parentheses, so we should not apply the generic list-operand "(" insertion logic.
-	if (type === 'functionArgument' && fg('enable-jql-membersof-autocomplete')) {
-		return false;
-	}
-
-	if (type === 'value' || type === 'function' || type === 'keyword') {
-		const operator = context?.operator;
-		if (operator && isListOperator(operator) && !context?.isList && !isListFunction) {
-			return true;
-		}
-	}
-
-	return false;
-};
 
 export default class AutocompletePluginView extends ReactPluginView<AutocompleteProps> {
 	private readonly view: EditorView;
@@ -106,7 +82,8 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 						'atlassian_projects_-_native_integration',
 						'releaseVersion',
 						-1,
-					) >= 1))
+					) >= 1) ||
+				(option.valueType === 'assets' && fg('orion-8274-cmdb-object-jql-values-resolver')))
 		) {
 			transaction.setMeta('hydrate', true);
 		}
@@ -194,6 +171,20 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 							fieldName: context?.field,
 						};
 						nodes.push(this.view.state.schema.nodes.goal.create(attributes, textContent));
+					} else {
+						nodes.push(textContent);
+					}
+					break;
+				}
+				case 'assets': {
+					if (fg('orion-8274-cmdb-object-jql-values-resolver')) {
+						const attributes = {
+							type: 'assets',
+							id: value,
+							name: nameOnRichInlineNode ?? name,
+							fieldName: context?.field,
+						};
+						nodes.push(this.view.state.schema.nodes.assets.create(attributes, textContent));
 					} else {
 						nodes.push(textContent);
 					}

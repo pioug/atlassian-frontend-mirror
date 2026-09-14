@@ -1,5 +1,6 @@
 import React, { type ReactElement } from 'react';
 
+import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
 import type {
 	MatcherOptions,
 	waitForOptions,
@@ -9,20 +10,19 @@ import type {
 import type { UserEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
-import type { ProductType } from '@atlaskit/linking-common';
+import type { ProductType } from '@atlaskit/linking-common/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { Card, type CardProps } from '@atlaskit/smart-card';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
 
 import * as analytics from '../../../../utils/analytics/analytics';
-import { fakeFactory } from '../../../../utils/mocks';
+import { fakeFactory } from '../../../../utils/fake-factory';
 import { mockConfluenceResponse } from '../__mocks__/mocks';
-
 import { mockUrl } from './common.test-utils';
 
 export type SetUpParams = {

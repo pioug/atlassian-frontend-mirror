@@ -104,7 +104,7 @@ const pluralize = (count: number) => `character${count !== 1 ? 's' : ''}`;
  * A character counter component that displays remaining characters for text input.
  * Displays messages for over or under the maximum or minimum character limits.
  */
-const CharacterCounter = ({
+export const CharacterCounter = ({
 	maxCharacters,
 	minCharacters,
 	currentValue,
@@ -194,5 +194,3 @@ const CharacterCounter = ({
 		</Flex>
 	);
 };
-
-export default CharacterCounter;

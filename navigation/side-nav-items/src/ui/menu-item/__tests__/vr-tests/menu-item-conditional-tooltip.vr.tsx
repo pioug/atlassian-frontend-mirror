@@ -5,7 +5,7 @@ import {
 	ExpandableMenuItemExample,
 	FlyoutMenuItemExample,
 	LinkMenuItemExample,
-} from '../../../../../examples/menu-item-conditional-tooltip';
+} from '../../../../../examples/menu-item-conditional-tooltip.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

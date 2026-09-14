@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::424ce79cbb2369bd07d56ed8f48d060e>>
+ * @codegen <<SignedSource::05aed9a8c3586aa7e4680ceb6f9e6ba2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "ShrinkVertical".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ShrinkVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const ShrinkVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "ShrinkVerticalIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8.75 9.75V16h-1.5V9.75zm-1.5-3.5V0h1.5v6.25z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="m8 10.81-2.97 2.97-1.06-1.06 3.5-3.5a.75.75 0 0 1 1.06 0l3.5 3.5-1.06 1.06zm-.53-4.03-3.5-3.5 1.06-1.06L8 5.19l2.97-2.97 1.06 1.06-3.5 3.5a.75.75 0 0 1-1.06 0" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const useElementWidth = (
 	ref: React.RefObject<HTMLElement>,

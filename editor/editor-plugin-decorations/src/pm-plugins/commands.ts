@@ -5,7 +5,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection, TableMap } from '@atlaskit/editor-tables';
 import { findTableClosestToPos } from '@atlaskit/editor-tables/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { HoverDecorationCommand } from '../decorationsPluginType';
 

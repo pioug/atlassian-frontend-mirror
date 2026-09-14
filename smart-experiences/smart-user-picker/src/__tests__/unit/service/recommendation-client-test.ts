@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import fetchMock from 'fetch-mock/cjs/client';
 
 import getUserRecommendations from '../../../service/recommendation-client';
@@ -93,7 +85,9 @@ describe('default-value-hydration-client', () => {
 		try {
 			await getUserRecommendations(exampleRequest, intl);
 		} catch (error) {
-			expect((error as any).message).toMatchSnapshot('URS error');
+			expect((error as Error).message).toBe(
+				'error calling smart service, statusCode=504, statusText=Gateway Timeout',
+			);
 		}
 	});
 
@@ -117,9 +111,42 @@ describe('default-value-hydration-client', () => {
 
 		const users = await getUserRecommendations(exampleRequest, intl);
 
-		expect(fetchMock.called()).toBeTruthy();
-		expect(requestBody).toMatchSnapshot('URS query');
-		expect(users).toMatchSnapshot('URS users');
+		expect(fetchMock.called()).toBe(true);
+		expect(requestBody).toEqual({
+			context: mockBitbucketContext,
+			includeGroups: true,
+			includeNonLicensedUsers: false,
+			includeTeams: true,
+			includeUsers: true,
+			maxNumberOfResults: 50,
+			performSearchQueryOnly: false,
+			searchQuery: {
+				cpusQueryHighlights: { field: '', query: '' },
+				customQuery: '',
+				customerDirectoryId: '',
+				filter: '',
+				minimumAccessLevel: 'APPLICATION',
+				queryString: 'query',
+				restrictTo: { groupIds: [], userIds: [] },
+				searchUserbase: false,
+			},
+		});
+		expect(users).toEqual([
+			expect.objectContaining({
+				id: '5ee0adc79583380ab0afec31',
+				name: 'John Smith',
+				type: 'user',
+				tooltip: 'John Smith',
+				userType: 'DEFAULT',
+			}),
+			expect.objectContaining({
+				id: '5ee0adc79583380ab0afec32',
+				name: 'John Doe',
+				type: 'user',
+				tooltip: 'John Doe',
+				userType: 'DEFAULT',
+			}),
+		]);
 	});
 });
 

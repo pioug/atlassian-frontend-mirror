@@ -4,29 +4,14 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { ErrorMessage } from '@atlaskit/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
 import type { Message } from '../../types';
 import { useIntl } from 'react-intl';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { messages } from '../i18n';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 export type ErrorStyle = 'chooseFile' | 'delete' | 'preview';
 

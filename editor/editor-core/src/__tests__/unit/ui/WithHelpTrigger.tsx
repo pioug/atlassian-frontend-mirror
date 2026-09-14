@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import * as EventDispatcher from '@atlaskit/editor-common/event-dispatcher';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
@@ -11,27 +11,26 @@ import { name } from '../../../version-wrapper';
 
 describe(name, () => {
 	describe('WithHelpTrigger', () => {
-		it('should render child component as is', () => {
+		it('should render child component as is', async () => {
 			const dummy = () => <div>test</div>;
-			const wrapper = mount(
+			const { container } = render(
 				<EditorContext>
 					<WithHelpTrigger render={dummy} />
 				</EditorContext>,
 			);
-			expect(wrapper.html()).toEqual('<div>test</div>');
-			wrapper.unmount();
+			expect(container.innerHTML).toEqual('<div>test</div>');
+			await expect(container).toBeAccessible();
 		});
 
 		it('should pass function openHelp as parameter to render method', () => {
 			const stub = jest.fn();
 			stub.mockImplementation(() => <div>test</div>);
-			const wrapper = mount(
+			render(
 				<EditorContext>
 					<WithHelpTrigger render={stub} />
 				</EditorContext>,
 			);
 			expect(stub).toHaveBeenCalled();
-			wrapper.unmount();
 		});
 
 		describe('open help', () => {
@@ -41,7 +40,7 @@ describe(name, () => {
 					.spyOn(EventDispatcher, 'createDispatch')
 					.mockReturnValue((mockDispatch = jest.fn()));
 
-				mount(
+				render(
 					<EditorContext>
 						<WithHelpTrigger
 							render={(openHelp) => {

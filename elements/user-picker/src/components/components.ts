@@ -10,34 +10,32 @@ import { PopupInput } from './PopupInput';
 import { PopupControl } from './PopupControl';
 import { Menu } from './Menu';
 import Control from './Control';
-import {
-	type ClearIndicatorProps,
-	type ControlProps,
-	type DropdownIndicatorProps,
-	type IndicatorsContainerProps,
-	type InputProps,
-	type LoadingIndicatorProps,
-	type MultiValueGenericProps,
-	type MultiValueProps,
-	type MultiValueRemoveProps,
-	type NoticeProps,
-	type SelectComponentsConfig,
-	type SingleValueProps,
-} from '@atlaskit/select';
-import { type OptionData, type UserPickerProps } from '../types';
 import type {
-	OptionProps as ReactSelectOptionProps,
-	GroupBase,
-	GroupProps,
-	ControlProps as ReactSelectControlProps,
-	GroupHeadingProps,
-	MenuProps,
-	MenuListProps,
-	MenuPortalProps,
-	PlaceholderProps,
-	ContainerProps,
-	ValueContainerProps,
-} from '@atlaskit/react-select';
+	ClearIndicatorProps,
+	ControlProps,
+	DropdownIndicatorProps,
+	IndicatorsContainerProps,
+	InputProps,
+	LoadingIndicatorProps,
+	MultiValueGenericProps,
+	MultiValueProps,
+	MultiValueRemoveProps,
+	NoticeProps,
+	SelectComponentsConfig,
+	SingleValueProps,
+} from '@atlaskit/select/types';
+import { type OptionData, type UserPickerProps } from '../types';
+import type { OptionProps as ReactSelectOptionProps } from '@atlaskit/react-select/option';
+import type { GroupBase } from '@atlaskit/react-select/types';
+import type { GroupProps } from '@atlaskit/react-select/group';
+import type { ControlProps as ReactSelectControlProps } from '@atlaskit/react-select/control';
+import type { GroupHeadingProps } from '@atlaskit/react-select/group-heading';
+import type { MenuProps } from '@atlaskit/react-select/menu';
+import type { MenuListProps } from '@atlaskit/react-select/menu-list';
+import type { MenuPortalProps } from '@atlaskit/react-select/menu-portal';
+import type { PlaceholderProps } from '@atlaskit/react-select/placeholder';
+import type { ContainerProps } from '@atlaskit/react-select/select-container';
+import type { ValueContainerProps } from '@atlaskit/react-select/value-container';
 import type { ComponentType, FC } from 'react';
 
 /**

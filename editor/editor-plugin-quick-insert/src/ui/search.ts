@@ -1,8 +1,9 @@
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { find } from '@atlaskit/editor-common/quick-insert';
+import { getActiveQuickInsertCategories } from '@atlaskit/editor-common/quick-insert/get-active-quick-insert-categories';
 import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types';
 import { dedupe } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 type GetQuickInsertSuggestions = (
 	searchOptions: QuickInsertSearchOptions,
@@ -73,7 +74,6 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	lazyDefaultItems = () => [],
 	providedItems,
 ) => {
-	// @ts-ignore
 	const { query, category, disableDefaultItems, featuredItems, itemFilter, prioritySortingFn } =
 		searchOptions;
 	const defaultItems = disableDefaultItems ? [] : lazyDefaultItems();
@@ -95,7 +95,9 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 		(fg('platform_editor_fix_space_triggering_ai') ? query?.trimEnd() : query) || '',
 		category === 'all' || !category
 			? items
-			: items.filter((item) => item.categories && item.categories.includes(category)),
+			: items.filter((item) =>
+					getActiveQuickInsertCategories(item.category, item.categories).includes(category),
+				),
 		prioritySortingFn,
 	);
 };

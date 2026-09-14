@@ -5,7 +5,7 @@ import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { withErrorBoundary } from './ui/error-boundary';
 import { withIntlProvider } from './ui/intl-provider';
-import { JQLEditorReadOnly } from './ui/jql-editor-layout';
+import { JQLEditorReadOnly } from './ui/jql-editor-layout/JQLEditorReadOnly';
 import { type JQLEditorUIProps } from './ui/jql-editor/types';
 // eslint-disable-next-line import/order
 import { type JQLEditorProps } from './ui/types';

@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import InlineDialog from '../../index';
+import InlineDialog from '../../inline-dialog';
 
 it('Inline Dialog should pass aXe accessibility audit', async () => {
 	const { container } = render(

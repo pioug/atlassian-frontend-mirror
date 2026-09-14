@@ -2,7 +2,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { DefaultExample } from '../../examples';
+import { DefaultExample } from '../../examples.vr.ap';
 
 snapshotInformational(DefaultExample, {
 	description:

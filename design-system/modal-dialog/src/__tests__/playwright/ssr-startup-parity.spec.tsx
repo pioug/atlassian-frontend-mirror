@@ -3,10 +3,11 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Modal - SSR startup parity', () => {
 	test('opens as part of initial render with feature flag off (legacy path)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/103-ssr-initial-open.tsx')>(
+		await page.visitExample<typeof import('../../../examples/103-ssr-initial-open.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'ssr-initial-open',
+			{ 'react-18-mode': 'modern' },
 		);
 
 		await expect(page.getByTestId('ssr-initial-open-modal')).toBeVisible();
@@ -16,11 +17,12 @@ test.describe('Modal - SSR startup parity', () => {
 	test('opens as part of initial render with feature flag on (top-layer path)', async ({
 		page,
 	}) => {
-		await page.visitExample<typeof import('../../../examples/103-ssr-initial-open.tsx')>(
+		await page.visitExample<typeof import('../../../examples/103-ssr-initial-open.vr.ap.tsx')>(
 			'design-system',
 			'modal-dialog',
 			'ssr-initial-open',
 			{
+				'react-18-mode': 'modern',
 				featureFlag: 'platform-dst-top-layer',
 			},
 		);

@@ -1,4 +1,4 @@
-import type { PanelDefinition, PanelAttributes } from '@atlaskit/adf-schema';
+import type { PanelDefinition, PanelAttributes } from '@atlaskit/adf-schema/panel';
 
 export const panel =
 	(attrs: PanelAttributes) =>

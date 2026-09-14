@@ -1,5 +1,98 @@
 # @atlaskit/forge-react-types
 
+## 2.8.0
+
+### Minor Changes
+
+- [`4c012e69c2d7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c012e69c2d7b) -
+  Add MenuSpacer component types for global side navigation.
+
+## 2.7.0
+
+### Minor Changes
+
+- [`515cffbfd2ae3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/515cffbfd2ae3) -
+  Add forYouMenuItem prop for global side navigation
+
+## 2.6.0
+
+### Minor Changes
+
+- [`2e9d020ef0794`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e9d020ef0794) -
+  Add activePath prop to LinkMenuItem and ReoderableMenuItems
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.1
+
+### Patch Changes
+
+- [`d4e462d4af67f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4e462d4af67f) -
+  Add option for badge for artifacts for global top nav
+- Updated dependencies
+
+## 2.5.0
+
+### Minor Changes
+
+- [`94dfc36102449`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94dfc36102449) -
+  Add MenuSection to <Global />
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.0
+
+### Minor Changes
+
+- [`3c30a26a23a2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c30a26a23a2d) -
+  Added unsupported_hideChrome prop to global:ui to hide TopNav and Sidebar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.9
+
+### Patch Changes
+
+- [`7bb2679af9e44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bb2679af9e44) -
+  Adds optional hideMenu property in charts components
+
+## 2.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.6
+
+### Patch Changes
+
+- [`a64454e5b2584`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a64454e5b2584) -
+  Fix TypeScript error bug when using a documented pixel value for an XCSS size property in UI Kit.
+
+## 2.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.4
 
 ### Patch Changes

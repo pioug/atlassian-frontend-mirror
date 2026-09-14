@@ -2,14 +2,13 @@ import React, { Fragment, useState } from 'react';
 
 import { styled } from '@compiled/react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
-import Tooltip, {
-	type PositionType,
-	TooltipPrimitive,
-	type TooltipPrimitiveProps,
-} from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
+import type { PositionType } from '@atlaskit/tooltip/types';
+import TooltipPrimitive, { type TooltipPrimitiveProps } from '@atlaskit/tooltip/TooltipPrimitive';
 
 const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];
 

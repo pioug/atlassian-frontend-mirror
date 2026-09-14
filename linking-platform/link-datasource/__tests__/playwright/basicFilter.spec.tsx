@@ -8,7 +8,7 @@ skipAutoA11yFile();
 const basicFilterContainerTestId = 'jlol-basic-filter-container';
 
 const loadExample = (page: Page) =>
-	page.visitExample<typeof import('../../examples/with-issues-modal.tsx')>(
+	page.visitExample<typeof import('../../examples/with-issues-modal.vr.ap.tsx')>(
 		'linking-platform',
 		'link-datasource',
 		'with-issues-modal',

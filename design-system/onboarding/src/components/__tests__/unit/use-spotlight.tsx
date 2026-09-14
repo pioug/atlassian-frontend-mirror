@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook } from '@testing-library/react';
+import { renderHook } from '@atlassian/testing-library';
 
 import { SpotlightContext } from '../../spotlight-manager';
 import useSpotlight from '../../use-spotlight';
@@ -34,11 +34,11 @@ describe('#useSpotlight', () => {
 				<SpotlightContext.Provider value={value}>{children}</SpotlightContext.Provider>
 			);
 
-			utils.rerender();
+			utils.update();
 		};
 
 		return {
-			result: utils.result,
+			result: utils,
 			rerender,
 		};
 	};
@@ -93,11 +93,11 @@ describe('#useSpotlight', () => {
 		);
 
 		const wrapper = (props: {}) => testWrapper(props);
-		const { result } = renderHook(() => useSpotlight(), { wrapper });
+		const utils = renderHook(() => useSpotlight(), { wrapper });
 
 		const {
 			current: { isTargetRendered, checkVisibility },
-		} = result;
+		} = utils;
 
 		expect(isTargetRendered('hidden-target')).toBe(true);
 		expect(checkVisibility('hidden-target')()).toBe(false);
@@ -131,11 +131,11 @@ describe('#useSpotlight', () => {
 		);
 
 		const wrapper = (props: {}) => testWrapper(props);
-		const { result } = renderHook(() => useSpotlight(), { wrapper });
+		const utils = renderHook(() => useSpotlight(), { wrapper });
 
 		const {
 			current: { checkVisibility },
-		} = result;
+		} = utils;
 
 		expect(() => checkVisibility('test-target')()).not.toThrow();
 		expect(checkVisibility('test-target')()).toBe(false);
@@ -154,11 +154,11 @@ describe('#useSpotlight', () => {
 		);
 
 		const wrapper = (props: {}) => testWrapper(props);
-		const { result } = renderHook(() => useSpotlight(), { wrapper });
+		const utils = renderHook(() => useSpotlight(), { wrapper });
 
 		const {
 			current: { checkVisibility },
-		} = result;
+		} = utils;
 
 		expect(checkVisibility('non-existent-target')()).toBe(false);
 	});

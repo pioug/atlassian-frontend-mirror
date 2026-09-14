@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/primitives",
-	"version": "22.2.0",
+	"version": "22.5.0",
 	"description": "Primitives are token-backed low-level building blocks.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -130,7 +130,7 @@
 		}
 	},
 	"scripts": {
-		"codegen-styles": "ts-node -r tsconfig-paths/register ./scripts/codegen-styles.tsx"
+		"codegen-styles": "yarn run -T run-ts ./scripts/codegen-styles.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -181,14 +181,14 @@
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"csstype": "root:*",
 		"jscodeshift": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"react-resource-router": "root:*",
-		"ts-node": "root:*"
+		"react-resource-router": "root:*"
 	},
 	"homepage": "https://atlassian.design/components/primitives/overview/",
 	"exports": {

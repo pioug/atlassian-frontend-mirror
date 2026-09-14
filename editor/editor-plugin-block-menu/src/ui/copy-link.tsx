@@ -12,7 +12,7 @@ import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 import { FLAG_ID } from '../blockMenuPluginType';
@@ -98,7 +98,7 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 	);
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 export const CopyLinkDropdownItem: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(CopyLinkDropdownItemContent);

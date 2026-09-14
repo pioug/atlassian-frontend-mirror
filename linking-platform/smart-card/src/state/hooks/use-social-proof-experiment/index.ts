@@ -2,16 +2,16 @@ import { useMemo } from 'react';
 
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { getCurrentSiteCloudIdSync } from '../../services/current-site-cloud-id';
-import { getProviderPctMapSync, SOCIAL_PROOF_TRAIT_NAME } from '../../services/personalization';
 import useSocialProof from '../use-social-proof';
+import { getSocialProofTier } from './getSocialProofTier';
 
 export type SocialProofTier = 'low' | 'not-low';
 
 export const SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY = 'social_proof_3p_unauth_block_exp';
+
 export const INLINE_SOCIAL_PROOF_EXPERIMENT_KEY = 'platform_sl_3p_preauth_social_proof_inline_cta';
 
-type SocialProofExperimentMetadata = {
+export type SocialProofExperimentMetadata = {
 	isEligible: boolean;
 	tier?: SocialProofTier;
 };
@@ -47,49 +47,6 @@ export interface SocialProofExperiment {
 }
 
 export const SOCIAL_PROOF_TIER_THRESHOLD = 30;
-
-export const getSocialProofTier = (connectedPct?: number): SocialProofTier | undefined => {
-	if (connectedPct === undefined) {
-		return undefined;
-	}
-
-	return connectedPct >= SOCIAL_PROOF_TIER_THRESHOLD ? 'not-low' : 'low';
-};
-
-const getSocialProofExperimentMetadata = ({
-	extensionKey,
-	baseUriWithNoTrailingSlash = '',
-}: {
-	baseUriWithNoTrailingSlash?: string;
-	extensionKey?: string;
-}): SocialProofExperimentMetadata => {
-	if (!extensionKey) {
-		return { isEligible: false };
-	}
-
-	const cloudId = getCurrentSiteCloudIdSync(baseUriWithNoTrailingSlash);
-	const providerPctMap = getProviderPctMapSync(cloudId, SOCIAL_PROOF_TRAIT_NAME);
-	const tier = getSocialProofTier(providerPctMap?.[extensionKey]);
-
-	return {
-		isEligible: tier !== undefined,
-		...(tier ? { tier } : {}),
-	};
-};
-
-export const getSocialProofExperimentMeta = (params: {
-	baseUriWithNoTrailingSlash?: string;
-	extensionKey?: string;
-}): BlockCardSocialProofExperimentMeta => ({
-	[SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY]: getSocialProofExperimentMetadata(params),
-});
-
-export const getInlineSocialProofExperimentMeta = (params: {
-	baseUriWithNoTrailingSlash?: string;
-	extensionKey?: string;
-}): InlineSocialProofExperimentMeta => ({
-	[INLINE_SOCIAL_PROOF_EXPERIMENT_KEY]: getSocialProofExperimentMetadata(params),
-});
 
 /**
  * Returns enrollment and treatment state for the social proof unauth block card experiment.

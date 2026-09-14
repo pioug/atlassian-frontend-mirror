@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70abca05835995e7c76309210f745105>>
+ * @codegen <<SignedSource::0e799a45f6141819f2eb20c38eefd3f3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "ChartFunnel".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ChartFunnelIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const ChartFunnelIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "ChartFunnelIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M1 13V1h1.5v12a.5.5 0 0 0 .5.5h12V15H3a2 2 0 0 1-2-2"/><path fill="currentcolor" d="M13.25 2.5a.75.75 0 0 1 .75.75v.717c0 .396-.171.773-.47 1.034L10 8.09V12H8.5V8.09L4.97 5a1.38 1.38 0 0 1-.47-1.034V3.25a.75.75 0 0 1 .75-.75zm-4 4.253L12.396 4H6.105z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

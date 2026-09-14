@@ -8,25 +8,21 @@ import { useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ActionName, CardDisplay, ElementName, SmartLinkPosition } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
-import { getExtensionKey } from '../../../state/helpers';
+import { getExtensionKey } from '../../../state/getExtensionKey';
 import useBlockCardRovoAction from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
-import { RovoChatPromptKey } from '../../common/rovo-chat-utils';
 import FlexibleCard from '../../FlexibleCard';
-import {
-	FooterBlock,
-	MetadataBlock,
-	PreviewBlock,
-	SnippetBlock,
-	TitleBlock,
-} from '../../FlexibleCard/components/blocks';
+import { default as FooterBlock } from '../../FlexibleCard/components/blocks/footer-block';
+import { default as MetadataBlock } from '../../FlexibleCard/components/blocks/metadata-block';
+import { default as PreviewBlock } from '../../FlexibleCard/components/blocks/preview-block';
+import { default as SnippetBlock } from '../../FlexibleCard/components/blocks/snippet-block';
+import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
 import type { ActionItem } from '../../FlexibleCard/components/blocks/types';
-
+import { RovoChatPromptKey } from '../../common/rovo-chat-utils';
 import { type FlexibleBlockCardProps } from './types';
 import {
 	FlexibleCardUiOptions,
@@ -45,14 +41,6 @@ const titleBlockCss = css({
 	},
 });
 
-const footerBlockCssOld = css({
-	height: '1.5rem',
-	display: 'flex',
-	justifyContent: 'space-between',
-	alignItems: 'flex-end',
-	alignSelf: 'stretch',
-});
-
 const footerBlockCss = css({
 	height: '25px',
 	display: 'flex',
@@ -61,7 +49,7 @@ const footerBlockCss = css({
 	alignSelf: 'stretch',
 });
 
-const footerExtraSpacingCss = css({
+const footerSpacingCss = css({
 	marginTop: token('space.100'),
 });
 
@@ -200,11 +188,7 @@ const ResolvedView = ({
 				/>
 			) : null}
 			<FooterBlock
-				css={[
-					fg('navx-5343-sl-action-block-styling-fixes') ? footerBlockCss : footerBlockCssOld,
-					safari && footerBlockSafariStyles,
-					fg('platform_navx_block_card_footer_spacing') && footerExtraSpacingCss,
-				]}
+				css={[footerBlockCss, safari && footerBlockSafariStyles, footerSpacingCss]}
 				actions={footerActions}
 				isPreviewBlockErrored={isPreviewBlockErrored}
 			/>

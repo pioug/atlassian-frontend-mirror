@@ -1,6 +1,9 @@
 import { snapshot } from '@af/visual-regression';
 
-import { EmptyCommentEditor, CommentEditorTwoLineToolbar } from './comment-appearance.fixtures';
+import {
+	EmptyCommentEditor,
+	CommentEditorTwoLineToolbar,
+} from './comment-appearance.fixtures.vr.ap';
 
 snapshot(EmptyCommentEditor, {
 	description: 'empty comment editor',

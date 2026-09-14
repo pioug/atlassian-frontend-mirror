@@ -142,7 +142,7 @@ describe('LegacyAnalyticsListener', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(onEvent).toBeCalledWith(event, 'atlaskit');
+				expect(onEvent).toHaveBeenCalledWith(event, 'atlaskit');
 				expect(getByText('Button').dataset.renderCount).toBe('1');
 			});
 
@@ -162,7 +162,7 @@ describe('LegacyAnalyticsListener', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(onEvent).not.toBeCalled();
+				expect(onEvent).not.toHaveBeenCalled();
 				expect(getByText('Button').dataset.renderCount).toBe('1');
 			});
 
@@ -182,7 +182,7 @@ describe('LegacyAnalyticsListener', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(onEvent).toBeCalledWith(event, 'any-channel');
+				expect(onEvent).toHaveBeenCalledWith(event, 'any-channel');
 				expect(getByText('Button').dataset.renderCount).toBe('1');
 			});
 
@@ -205,8 +205,8 @@ describe('LegacyAnalyticsListener', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(innerOnEvent).toBeCalledWith(event, 'atlaskit');
-				expect(outerOnEvent).toBeCalledWith(event, 'atlaskit');
+				expect(innerOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
+				expect(outerOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
 				expect(getByText('Button').dataset.renderCount).toBe('1');
 			});
 
@@ -229,7 +229,7 @@ describe('LegacyAnalyticsListener', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(onEvent1).toBeCalledWith(event, 'atlaskit');
+				expect(onEvent1).toHaveBeenCalledWith(event, 'atlaskit');
 
 				rerender(
 					<UnderTestSingleListener
@@ -245,7 +245,7 @@ describe('LegacyAnalyticsListener', () => {
 
 				fireEvent.click(getByText('Button'));
 
-				expect(onEvent2).toBeCalledWith(event, 'atlaskit');
+				expect(onEvent2).toHaveBeenCalledWith(event, 'atlaskit');
 			});
 		});
 	});

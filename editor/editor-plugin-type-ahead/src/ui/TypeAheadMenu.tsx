@@ -3,8 +3,8 @@ import React from 'react';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
 import type { CloseSelectionOptions } from '../pm-plugins/constants';
@@ -119,7 +119,7 @@ export const TypeAheadMenu: React.MemoExoticComponent<
 
 		const emptyItem = React.useMemo(
 			() =>
-				expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_insert_menu_ai')
 					? triggerHandler?.getEmptyItem?.({ editorState: editorView.state })
 					: undefined,
 			[triggerHandler, editorView.state],

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type NewCoreIconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import { token } from '@atlaskit/tokens';
 

@@ -22,5 +22,3 @@ export const InactivityDetectorWrapper: React.ForwardRefExoticComponent<
 		<CompiledInactivityDetectorWrapper {...props} ref={ref as React.RefObject<HTMLDivElement>} />
 	),
 );
-
-export type { ContentWrapperProps } from './styled-compiled';

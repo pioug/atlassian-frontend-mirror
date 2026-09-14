@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { LinkPickerProps } from '@atlaskit/link-picker';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { INPUT_METHOD } from '../../../analytics';
 import type { CardAppearance, ProviderFactory, Providers } from '../../../provider-factory';
@@ -151,7 +151,7 @@ export function HyperlinkAddToolbar({
 		],
 	);
 
-	const providers = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+	const providers = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 		? HYPERLINK_PROVIDERS
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 			(['activityProvider', 'searchProvider'] satisfies (keyof Providers)[]);
@@ -161,7 +161,7 @@ export function HyperlinkAddToolbar({
 			providers={providers}
 			providerFactory={providerFactory}
 			renderNode={
-				expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_perf_lint_cleanup')
 					? memoizedRenderNode
 					: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 						({ activityProvider, searchProvider }) => {

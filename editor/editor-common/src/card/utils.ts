@@ -1,4 +1,4 @@
-import type { LinkStepMetadata } from '@atlaskit/adf-schema/steps';
+import type { LinkStepMetadata } from '@atlaskit/adf-schema/steps/link-meta-step';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

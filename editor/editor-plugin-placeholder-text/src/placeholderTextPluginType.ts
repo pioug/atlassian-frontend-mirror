@@ -1,6 +1,7 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
 
 import type { showPlaceholderFloatingToolbar } from './editor-actions/actions';
 
@@ -24,6 +25,7 @@ export interface PlaceholderTextPluginState {
 export type PlaceholderTextPluginDependencies = [
 	OptionalPlugin<typeof analyticsPlugin>,
 	OptionalPlugin<TypeAheadPlugin>,
+	OptionalPlugin<UiControlRegistryPlugin>,
 ];
 
 export type PlaceholderTextPlugin = NextEditorPlugin<

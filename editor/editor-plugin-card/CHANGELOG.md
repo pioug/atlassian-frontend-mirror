@@ -1,5 +1,544 @@
 # @atlaskit/editor-plugin-card
 
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.9
+
+### Patch Changes
+
+- [`357df7b291d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/357df7b291d07) -
+  [ux] remove the left hand resizer behind experiment `platform_editor_remove_left_resize_handle`
+- Updated dependencies
+
+## 23.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.7
+
+### Patch Changes
+
+- [`aca1f7aaf3fd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aca1f7aaf3fd6) -
+  Remove the fully rolled-out `platform_editor_exp_lazy_node_views` experiment and call the block
+  card, embed card, extension, table, and task node views directly.
+- Updated dependencies
+
+## 23.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.3
+
+### Patch Changes
+
+- [`0a67d0abf59c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a67d0abf59c1) -
+  Disable Slides entrypoints when cc-mui-slides-opted-out is enabled.
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.1
+
+### Patch Changes
+
+- [`b94131fcee276`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b94131fcee276) -
+  Removes the `platform_smartlink_xpc_url_wrapping` feature gate and makes cross-product URL
+  wrapping for Smart Links permanent, on for all consumers.
+
+  What this behavior does: when a resolved Smart Link points to a first-party Atlassian destination
+  (e.g. a Jira issue, Confluence page), the URL used for navigation — via click, "Open link", or any
+  other destination-URL usage — now has a short-lived interaction-session query parameter (`xpis`)
+  appended automatically. This lets the destination product attribute the visit back to the product
+  and surface the link was opened from, powering cross-product usage analytics. It has no effect on:
+  - third-party (non-Atlassian) links,
+  - links that are not yet resolved,
+  - URLs that already contain the parameter.
+
+  No API shape changes: this only affects the resolved value returned by existing Smart Link
+  URL/navigation behavior (e.g. `Card`, `useSmartLinkDestinationUrl`, inline/block/embed card
+  click-through, and datasource table link cells). No new props, exports, or configuration are
+  introduced, and no action is required from consumers.
+
+- Updated dependencies
+
+## 23.0.0
+
+### Patch Changes
+
+- [`3422261e7a40e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3422261e7a40e) -
+  Clean up experiment `platform_editor_smartlink_local_cache`.
+- Updated dependencies
+
+## 22.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.10
+
+### Patch Changes
+
+- [`c12860a41f49d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c12860a41f49d) -
+  Order the Data and charts slash-command menu, including Bitbucket Snippet and GitHub Gist after
+  Questions List, when platform_editor_slash_command is enabled.
+- Updated dependencies
+
+## 22.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 22.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.5
+
+### Patch Changes
+
+- [`d1f1b273026fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1f1b273026fd) -
+  Clean up experiment `cc_dnd_smart_link_changeboard_platform_css` and preserve smart link
+  changeboarding behavior.
+- Updated dependencies
+
+## 22.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.3
+
+### Patch Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
+## 22.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.14
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 21.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.12
+
+### Patch Changes
+
+- [`9e4a665de419a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e4a665de419a) -
+  Clean up of expriment flag `platform_editor_preview_panel_linking_exp_conf` and
+  `platform_editor_preview_panel_linking_exp_jira`.
+- [`a8fb048ddba1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8fb048ddba1a) -
+  Add a gated table settings menu next to the column picker. When
+  `platform_lp_sllv_table_settings_menu` is on, the menu includes a wrap-text toggle that turns
+  wrapping on for every visible column, or off for every visible column. Gate off keeps the previous
+  column-picker-only header, and the editor does not pass `onWrappedColumnsChange`.
+
+  `DatasourceTableView` now accepts an optional `onWrappedColumnsChange` callback that updates the
+  wrapped state of multiple columns at once.
+
+- Updated dependencies
+
+## 21.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.9
+
+### Patch Changes
+
+- [`a285770e5decb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a285770e5decb) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_inline_card_dispatch_guard.
+- Updated dependencies
+
+## 21.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.3
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 21.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.0
+
+### Minor Changes
+
+- [`da5eaf0bc37da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5eaf0bc37da) -
+  Clean up the platform_editor_editor_ssr_streaming experiment. The SSR streaming code paths are now
+  permanent and the isSSRStreaming() utility has been removed from
+  @atlaskit/editor-common/core-utils.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.5
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 20.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- [`1f436e4732b98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f436e4732b98) -
+  Clean up the shipped smart link drag-and-drop feature gate and make the drag-and-drop path
+  permanent.
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.4.0
+
+### Minor Changes
+
+- [`448792b5143ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/448792b5143ac) -
+  Show the correct Display as option for a pasted link. A 1P link that resolves to an embed is
+  inserted as a native embed, which the paste menu now reports as an embed and can switch to a link,
+  inline card or card. The pasted link's URL is also used to pick the card the menu describes, so a
+  neighbouring card is no longer reported as the one that was pasted.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.3.0
 
 ### Minor Changes

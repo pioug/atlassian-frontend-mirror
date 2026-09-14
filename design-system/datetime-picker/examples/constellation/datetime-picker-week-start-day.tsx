@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import { Box } from '@atlaskit/primitives/compiled';
 
 const DateTimePickerWeekStartDayExample = (): React.JSX.Element => (

@@ -5,7 +5,6 @@ import { fireEvent } from '@testing-library/react';
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { getDefaultItems } from '../../../__tests__/__helpers';
 
 import { LinkSearchList, type LinkSearchListProps, testIds } from './index';

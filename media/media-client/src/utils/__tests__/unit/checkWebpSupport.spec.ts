@@ -7,7 +7,6 @@ describe('checkWebpSupport util', () => {
 
 	beforeEach(() => {
 		imageObjects = [];
-		// @ts-ignore
 		(global as any).Image = function Image() {
 			const stubImage = {};
 			imageObjects.push(stubImage);
@@ -17,7 +16,6 @@ describe('checkWebpSupport util', () => {
 	});
 
 	afterAll(() => {
-		// @ts-ignore
 		delete (global as any).Image;
 	});
 

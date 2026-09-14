@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { SmartLinkStatus } from '../../../../../constants';
-import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
-
+import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context/useFlexibleCardContext';
 import AIFooterBlockResolvedView from './resolved';
 import type { AIFooterBlockProps } from './types';
 

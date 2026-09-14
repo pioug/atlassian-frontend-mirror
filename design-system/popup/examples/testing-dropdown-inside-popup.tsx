@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import Heading from '@atlaskit/heading';
-import Popup from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import Heading from '@atlaskit/heading/heading';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => {

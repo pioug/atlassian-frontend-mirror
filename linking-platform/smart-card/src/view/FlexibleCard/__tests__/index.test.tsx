@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { type CardState } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardState } from '@atlaskit/linking-common/store';
 import { render, screen } from '@atlassian/testing-library';
 
 import { getCardTestWrapper } from '../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkStatus } from '../../../constants';
-import { useSmartLinkCrossProductUrlWrapperGated } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
-import { TitleBlock } from '../components/blocks';
+import { useSmartLinkCrossProductUrlWrapper } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
+import { default as TitleBlock } from '../components/blocks/title-block';
+import { getContextByStatus } from '../getContextByStatus';
 import FlexibleCard from '../index';
-import { getContextByStatus } from '../utils';
 
 jest.mock('@atlaskit/react-ufo/load-hold', () => ({
 	__esModule: true,
@@ -19,13 +18,13 @@ jest.mock('@atlaskit/react-ufo/load-hold', () => ({
 
 jest.mock('../../../state/hooks/use-smart-link-cross-product-url-wrapper', () => ({
 	useSmartLinkCrossProductUrlWrapper: jest.fn().mockReturnValue((url: string) => url),
-	useSmartLinkCrossProductUrlWrapperGated: jest.fn().mockReturnValue((url: string) => url),
 }));
 
-jest.mock('../utils', () => ({
-	...jest.requireActual('../utils'),
-	getContextByStatus: jest.fn((...args: Parameters<typeof import('../utils').getContextByStatus>) =>
-		jest.requireActual('../utils').getContextByStatus(...args),
+jest.mock('../getContextByStatus', () => ({
+	...jest.requireActual('../getContextByStatus'),
+	getContextByStatus: jest.fn(
+		(...args: Parameters<typeof import('../getContextByStatus').getContextByStatus>) =>
+			jest.requireActual('../getContextByStatus').getContextByStatus(...args),
 	),
 }));
 
@@ -597,7 +596,7 @@ describe('FlexibleCard', () => {
 		});
 	});
 
-	describe('platform_smartlink_xpc_url_wrapping', () => {
+	describe('cross-product URL transformation', () => {
 		const cardState: CardState = {
 			status: 'resolved',
 			details: {
@@ -618,60 +617,41 @@ describe('FlexibleCard', () => {
 		const mockWrapper = jest.fn().mockReturnValue(`${url}?xpc=1`);
 
 		beforeEach(() => {
-			(useSmartLinkCrossProductUrlWrapperGated as jest.Mock).mockReturnValue(mockWrapper);
+			(useSmartLinkCrossProductUrlWrapper as jest.Mock).mockReturnValue(mockWrapper);
 		});
 
 		afterEach(() => {
 			jest.clearAllMocks();
 		});
 
-		ffTest.on('platform_smartlink_xpc_url_wrapping', 'gate is on', () => {
-			it('passes transformUrl to getContextByStatus', () => {
-				render(
-					<FlexibleCard cardState={cardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
+		it('passes transformUrl to getContextByStatus', () => {
+			render(
+				<FlexibleCard cardState={cardState} url={url}>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
 
-				expect(getContextByStatus).toHaveBeenCalledWith(
-					expect.objectContaining({
-						transformUrl: expect.any(Function),
-					}),
-				);
-			});
-
-			it('transformUrl uses the cross-product url wrapper', () => {
-				render(
-					<FlexibleCard cardState={cardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
-
-				const callArgs = (getContextByStatus as jest.Mock).mock.calls[0][0];
-				const transformed = callArgs.transformUrl(url);
-
-				expect(mockWrapper).toHaveBeenCalledWith(url);
-				expect(transformed).toBe(`${url}?xpc=1`);
-			});
+			expect(getContextByStatus).toHaveBeenCalledWith(
+				expect.objectContaining({
+					transformUrl: expect.any(Function),
+				}),
+			);
 		});
 
-		ffTest.off('platform_smartlink_xpc_url_wrapping', 'gate is off', () => {
-			it('does not pass transformUrl to getContextByStatus', () => {
-				render(
-					<FlexibleCard cardState={cardState} url={url}>
-						<TitleBlock />
-					</FlexibleCard>,
-					{ wrapper: getCardTestWrapper() },
-				);
+		it('transformUrl uses the cross-product url wrapper', () => {
+			render(
+				<FlexibleCard cardState={cardState} url={url}>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
 
-				expect(getContextByStatus).toHaveBeenCalledWith(
-					expect.not.objectContaining({
-						transformUrl: expect.any(Function),
-					}),
-				);
-			});
+			const callArgs = (getContextByStatus as jest.Mock).mock.calls[0][0];
+			const transformed = callArgs.transformUrl(url);
+
+			expect(mockWrapper).toHaveBeenCalledWith(url);
+			expect(transformed).toBe(`${url}?xpc=1`);
 		});
 	});
 });

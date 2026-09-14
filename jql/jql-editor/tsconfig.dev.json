@@ -92,6 +92,9 @@
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

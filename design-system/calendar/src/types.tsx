@@ -1,6 +1,7 @@
 import { type CSSProperties } from 'react';
 
-import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 import type { DateObj, ISODate } from './internal/types';
 

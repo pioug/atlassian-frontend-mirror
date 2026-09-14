@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import Object from '../../../../../examples/object';
+import Object from '../../../../../examples/object.vr.ap';
 
 snapshot(Object, {
 	variants: [

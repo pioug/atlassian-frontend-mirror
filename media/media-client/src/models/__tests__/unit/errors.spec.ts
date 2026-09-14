@@ -1,12 +1,9 @@
-import {
-	BaseMediaClientError,
-	CommonMediaClientError,
-	fromCommonMediaClientError,
-	getMediaClientErrorReason,
-	isCommonMediaClientError,
-	isMediaClientError,
-	toCommonMediaClientError,
-} from '../../errors';
+import { getMediaClientErrorReason, isMediaClientError } from '../../errors';
+import { BaseMediaClientError } from '../../errors/BaseMediaClientError';
+import { CommonMediaClientError } from '../../errors/CommonMediaClientError';
+import { fromCommonMediaClientError } from '../../errors/fromCommonMediaClientError';
+import { isCommonMediaClientError } from '../../errors/isCommonMediaClientError';
+import { toCommonMediaClientError } from '../../errors/toCommonMediaClientError';
 import type { MediaClientErrorReason, MediaClientErrorAttributes } from '../../errors/types';
 
 class TestError extends BaseMediaClientError<

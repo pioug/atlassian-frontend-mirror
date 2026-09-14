@@ -1,12 +1,12 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Tooltip should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/default-tooltip.tsx')>(
+	await page.visitExample<typeof import('../../../examples/default-tooltip.vr.ap.tsx')>(
 		'design-system',
 		'tooltip',
 		'default-tooltip',
 		{
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 
@@ -19,7 +19,7 @@ test('Nesting Tooltip should pass basic aXe audit', async ({ page }) => {
 		'design-system',
 		'tooltip',
 		'nesting',
-		{ 'react-18-mode': 'legacy' },
+		{ 'react-18-mode': 'modern' },
 	);
 
 	await page.getByRole('button', { name: 'Hover over me or my icon' }).hover();

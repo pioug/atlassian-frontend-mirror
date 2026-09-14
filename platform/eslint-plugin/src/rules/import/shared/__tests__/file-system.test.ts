@@ -1,3 +1,4 @@
+/** @jest-environment node */
 import { readFileContent, resolveImportPath } from '../file-system';
 import type { DirectoryEntry, FileSystem } from '../types';
 

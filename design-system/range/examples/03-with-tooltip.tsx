@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { Label } from '@atlaskit/form';
-import Range from '@atlaskit/range';
+import { Label } from '@atlaskit/form/label/default';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 function WithTooltip(): React.JSX.Element {
 	const [value, setValue] = useState(50);

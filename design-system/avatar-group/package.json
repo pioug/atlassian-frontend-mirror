@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar-group",
-	"version": "13.2.3",
+	"version": "14.3.3",
 	"description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -67,47 +67,23 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
+		"@atlassian/workbench": "workspace:*",
 		"lodash": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./avatar-group": "./src/entry-points/avatar-group.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./avatar-group": "./src/components/avatar-group.tsx",
+		"./types": "./src/components/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/avatar-group/",
 	"platform-feature-flags": {
-		"platform-avatar-group-spacing-fix": {
-			"type": "boolean"
-		},
 		"platform-dst-top-layer": {
 			"type": "boolean"
 		},
@@ -115,6 +91,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift": {
+			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-custom-button": {
 			"type": "boolean"
 		}
 	}

@@ -41,8 +41,11 @@ const getSourceSyncBlockPlaceholderStyles = (placeholderText: string) =>
 					font: 'inherit',
 					insetInlineStart: 0,
 					width: '100%',
+					overflow: 'hidden',
 					pointerEvents: 'none',
+					textOverflow: 'ellipsis',
 					userSelect: 'none',
+					whiteSpace: 'nowrap',
 				},
 			},
 	});

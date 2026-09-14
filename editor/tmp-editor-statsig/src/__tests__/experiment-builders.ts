@@ -1,4 +1,5 @@
-import { createBooleanExperiment, createMultivariateExperiment } from '../experiment-builders';
+import { createBooleanExperiment } from '../create-boolean-experiment';
+import { createMultivariateExperiment } from '../create-multivariate-experiment';
 import type { BooleanExperimentConfig, MultivariateExperimentConfig } from '../types';
 
 describe('experiment-builders', () => {

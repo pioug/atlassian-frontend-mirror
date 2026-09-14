@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Card } from '../src';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { mediaPickerAuthProvider, defaultCollectionName } from '@atlaskit/media-test-helpers';
 import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { MainWrapper } from '../example-helpers';
@@ -45,6 +45,7 @@ class Example extends React.Component<{}, State> {
 				content: file,
 				name: file.name,
 				collection,
+				size: file.size,
 			},
 			undefined,
 			{

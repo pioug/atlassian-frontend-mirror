@@ -1,3 +1,3 @@
-import { AllSlotsRTL } from './page-layout';
+import { AllSlotsRTL } from './page-layout.vr.ap';
 
 export default AllSlotsRTL;

@@ -1,5 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { usePeopleTeamsAnalyticsSubcontext } from '@atlaskit/people-teams-ui-public/analytics';
+import { usePeopleTeamsAnalyticsSubcontext } from '@atlaskit/people-teams-ui-public/analytics-subcontext/store';
 
 const ANALYTICS_CHANNEL = 'peopleTeams';
 

@@ -54,9 +54,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
@@ -75,10 +72,16 @@
 			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../growth/integrations/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

@@ -1,4 +1,5 @@
-import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
+import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
 
 export const ignoredTokens: Set<number> = new Set([
 	JQLLexer.EOF,

@@ -1,5 +1,18 @@
 # @atlaskit/rovo-agent-selector
 
+## 3.1.0
+
+### Minor Changes
+
+- [`2b54f728c22c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b54f728c22c4) -
+  [ux] Adds isDisabled prop to RovoAgentSelector (jsm_help_center_use_rovo_chat_default_agent gate)
+
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

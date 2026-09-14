@@ -1,5 +1,130 @@
 # @atlaskit/ads-mcp
 
+## 1.10.3
+
+### Patch Changes
+
+- [`9a9bcd8b61613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a9bcd8b61613) -
+  Regenerate the structured ADS component, hook, and utility catalog.
+
+## 1.10.2
+
+### Patch Changes
+
+- [`d5f3414d7e9ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5f3414d7e9ca) -
+  Use the canonical Button entrypoint in accessibility fix suggestions.
+
+## 1.10.1
+
+### Patch Changes
+
+- [`5274b8d229fb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5274b8d229fb6) -
+  Update generated Button component metadata to use canonical package entrypoints.
+- Updated dependencies
+
+## 1.10.0
+
+### Minor Changes
+
+- [`61c808498e190`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61c808498e190) -
+  Refresh the generated component catalog exports used by ADS MCP.
+
+## 1.9.1
+
+### Patch Changes
+
+- [`f6087ec434d24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6087ec434d24) -
+  Refresh generated ADS documentation to use the canonical Button deep entrypoint.
+
+## 1.9.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+- [`7e9c520560753`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e9c520560753) -
+  Updated AI documentation for Post Office headless API. Other changes are from code generation and
+  are triggered by minor formatting changes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.8.1
+
+### Patch Changes
+
+- [`b070a1f7c4ef2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b070a1f7c4ef2) -
+  Improve ADS component search with focused component-owner vocabulary such as `facepile`,
+  `picture`, `overflow`, and `busy`.
+
+## 1.8.0
+
+### Minor Changes
+
+- [`7b42e3dbea8db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b42e3dbea8db) -
+  Add an opt-in `includeMetadata` option to ADS MCP token search so callers can retrieve token usage
+  guidelines while existing searches remain compact by default.
+
+  ```ts
+  import { searchTokensTool } from '@atlaskit/ads-mcp/tools/search-tokens';
+
+  await searchTokensTool({
+  	terms: ['border.width.focused'],
+  	includeMetadata: true,
+  });
+  ```
+
+  Metadata-inclusive results contain the existing `name` and `exampleValue` fields plus
+  `usageGuidelines`:
+
+  ```json
+  {
+  	"name": "border.width.focused",
+  	"exampleValue": "0.125rem",
+  	"usageGuidelines": {
+  		"usage": "Controls the thickness of borders/dividers. Use to standardize border widths throughout UI.",
+  		"cssProperties": ["border-width"]
+  	}
+  }
+  ```
+
+## 1.7.4
+
+### Patch Changes
+
+- [`b1775a76f7dfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1775a76f7dfe) -
+  Regenerate the ADS and Atlaskit MCP structured-content catalogs and document their AFM-to-skills
+  distribution workflow.
+- Updated dependencies
+
+## 1.7.3
+
+### Patch Changes
+
+- [`2866cc2465350`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2866cc2465350) -
+  Exclude jira eslint-plugin restricted rules from barrel import ratcheting. Exclude ads-mcp codegen
+  from deprecated entry-point import ratcheting (docs embed example imports). Point
+  use-pressable-motion docs at compiled Pressable.
+- Updated dependencies
+
+## 1.7.2
+
+### Patch Changes
+
+- [`4b7c5c71d51c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7c5c71d51c0) -
+  Add the Avatar `xsmall` to `xxsmall` migration guide to ADS MCP migration guide results.
+
 ## 1.7.1
 
 ### Patch Changes

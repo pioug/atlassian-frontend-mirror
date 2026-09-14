@@ -18,10 +18,10 @@ import {
 } from '@atlaskit/media-card';
 import type { FileIdentifier, FileState, MediaClient } from '@atlaskit/media-client';
 import { FileFetcherError } from '@atlaskit/media-client';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { messages } from '../messages/media-inline-card';
 
@@ -161,7 +161,7 @@ export const MediaInlineImageCardInternal = ({
 					dimensions={dimensions}
 					identifier={identifier}
 					renderError={
-						expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+						isExperimentEnabled('platform_editor_perf_lint_cleanup')
 							? memoizedRenderError
 							: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 								() => (
@@ -252,7 +252,7 @@ export const MediaInlineImageCardInternal = ({
 				<MediaViewer
 					collectionName={identifier.collectionName || ''}
 					items={
-						expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+						isExperimentEnabled('platform_editor_perf_lint_cleanup')
 							? memoizedMediaViewerItems
 							: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 								[identifier]

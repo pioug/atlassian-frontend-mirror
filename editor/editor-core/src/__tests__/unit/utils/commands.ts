@@ -1,4 +1,4 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
 import type { Command } from '@atlaskit/editor-common/types';
 import { filterCommand as filter, isEmptySelectionAtStart } from '@atlaskit/editor-common/utils';

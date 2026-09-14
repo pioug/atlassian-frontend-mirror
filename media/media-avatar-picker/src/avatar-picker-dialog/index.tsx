@@ -8,12 +8,11 @@ import { cssMap } from '@atlaskit/css';
 
 import { token } from '@atlaskit/tokens';
 import { PureComponent } from 'react';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-} from '@atlaskit/modal-dialog';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import Button from '@atlaskit/button/standard-button';
 import {
 	FormattedMessage,
@@ -22,10 +21,13 @@ import {
 	type MessageDescriptor,
 	type WrappedComponentProps,
 } from 'react-intl';
-import { Field, HelperMessage } from '@atlaskit/form';
-import { fileToDataURI, dataURItoFile, messages } from '@atlaskit/media-ui';
+import Field from '@atlaskit/form/field';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
+import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
+import { messages } from '@atlaskit/media-ui/messages';
 import { Box } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { type Avatar } from '../avatar-list';
 import ImageNavigator, { type CropProperties } from '../image-navigator';
 import { PredefinedAvatarList } from '../predefined-avatar-list';

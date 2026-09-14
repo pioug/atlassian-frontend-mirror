@@ -1,5 +1,6 @@
 import { schema, toDOM, fromHTML, toContext } from '@af/adf-test-helpers/src/adf-schema';
 import { multiBodiedExtension, extensionFrame as extensionFrameSpec } from '../../../..';
+import { multiBodiedExtensionRootOnlyStage0 } from '../../../../schema/nodes/multi-bodied-extension';
 import {
 	doc,
 	multiBodiedExtension as multiBodiedExt,
@@ -54,10 +55,17 @@ describe(`${packageName}/schema multiBodiedExtension node`, () => {
 		});
 	});
 
+	it('should return correct stage-0 root-only node spec', () => {
+		expect(multiBodiedExtensionRootOnlyStage0).toStrictEqual({
+			...multiBodiedExtension,
+			marks: 'breakout unsupportedNodeAttribute unsupportedMark',
+		});
+	});
+
 	it('should return correct node spec for extensionFrame', () => {
 		expect(extensionFrameSpec).toStrictEqual({
 			content:
-				'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
+				'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
 			isolating: true,
 			marks: 'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
 			definingAsContext: false,

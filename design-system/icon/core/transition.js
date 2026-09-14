@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::afa91bdc55de1839ed910f52b2869bf9>>
+ * @codegen <<SignedSource::ed500e06d588497269aa29dbe79116f7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Transition".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const TransitionIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const TransitionIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "TransitionIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M12.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5m-2.122 0a2.251 2.251 0 1 1 0 1.5h-.816c-.586 0-1.062.476-1.062 1.063v5.875A2.563 2.563 0 0 1 6.188 13.5h-.816a2.25 2.25 0 1 1 0-1.5h.816c.586 0 1.062-.476 1.062-1.062V5.062A2.56 2.56 0 0 1 9.813 2.5zM3.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

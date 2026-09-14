@@ -53,7 +53,7 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -80,7 +80,7 @@ import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugin
 import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginConfig, TableDirection } from '../../types';
-import { colorPaletteColumns, colorPaletteColumnsOld } from '../consts';
+import { colorPaletteColumns, colorPalletteColumns } from '../consts';
 
 import { DropdownMenu } from './DropdownMenu';
 import { cellColourPreviewStyles, dragMenuBackgroundColorStyles, toggleStyles } from './styles';
@@ -395,7 +395,7 @@ const DragMenu = React.memo(
 			const activePalette = isMoreColorsEnabled
 				? cellBackgroundColorPaletteNew
 				: cellBackgroundColorPalette;
-			const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPaletteColumnsOld;
+			const activeCols = isMoreColorsEnabled ? colorPaletteColumns : colorPalletteColumns;
 
 			const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
 				activePalette,
@@ -711,7 +711,7 @@ const DragMenu = React.memo(
 	},
 );
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<DragMenuProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<DragMenuProps & WrappedComponentProps>;
 } = injectIntl(DragMenu);

@@ -5,11 +5,11 @@
  */
 {
   "testExamples": [
-    "10-dropdown-spacing.tsx",
-    "20-setting-z-index.tsx",
-    "93-testing-is-loading-reposition.tsx",
-    "99-testing-placements.tsx",
-    "selection-states.tsx"
+    "10-dropdown-spacing.vr.ap.tsx",
+    "20-setting-z-index.vr.ap.tsx",
+    "93-testing-is-loading-reposition.vr.ap.tsx",
+    "99-testing-placements.vr.ap.tsx",
+    "selection-states.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

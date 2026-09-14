@@ -1,33 +1,33 @@
+/* eslint-disable @atlassian/testing-library/prefer-atlassian-testing-library */
+/* eslint-disable testing-library/prefer-user-event */
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
-
+import { fireEvent, render, screen } from '@atlassian/testing-library';
 import { Text } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
-import { SpotlightActions } from '../../entry-points/actions';
-import { SpotlightBody } from '../../entry-points/body';
-import { SpotlightCard } from '../../entry-points/card';
-import { SpotlightControls } from '../../entry-points/controls';
-import { SpotlightDismissControl } from '../../entry-points/dismiss-control';
-import { SpotlightFooter } from '../../entry-points/footer';
-import { SpotlightHeader } from '../../entry-points/header';
-import { SpotlightHeadline } from '../../entry-points/headline';
-import { PopoverContent } from '../../entry-points/popover-content';
-import { PopoverProvider } from '../../entry-points/popover-provider';
-import { PopoverTarget } from '../../entry-points/popover-target';
-import { SpotlightPrimaryAction } from '../../entry-points/primary-action';
-import { SpotlightSecondaryAction } from '../../entry-points/secondary-action';
+import { SpotlightActions } from '../actions';
+import { SpotlightBody } from '../body';
+import { SpotlightCard } from '../card';
+import { SpotlightControls } from '../controls';
+import { SpotlightDismissControl } from '../dismiss-control';
+import { SpotlightFooter } from '../footer';
+import { SpotlightHeader } from '../header';
+import { SpotlightHeadline } from '../headline';
+import { PopoverProvider } from '../popover-provider';
+import { PopoverTarget } from '../popover-target';
+import { SpotlightPrimaryAction } from '../primary-action';
+import { SpotlightSecondaryAction } from '../secondary-action';
+
+import { PopoverContent } from './index';
 
 var mockPopoverProps: jest.Mock;
 
-jest.mock('@atlaskit/top-layer/popover', () => {
+jest.mock('@atlaskit/top-layer/popover/popover', () => {
 	const React = require('react');
-	const actual = jest.requireActual('@atlaskit/top-layer/popover');
 	mockPopoverProps = jest.fn();
-
 	return {
-		...actual,
+		...jest.requireActual('@atlaskit/top-layer/popover/popover'),
 		Popover: React.forwardRef(
 			(
 				{

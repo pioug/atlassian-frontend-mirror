@@ -2,16 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
+
 import { FormattedMessage } from 'react-intl';
+
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 import { type Email } from '../../types';
 import { AddOptionAvatar } from '../AddOptionAvatar';
-import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
-import { messages } from '../i18n';
+import { AvatarItemOption } from '../AvatarItemOption';
 import { type EmailValidationResponse } from '../emailValidation';
+import { messages } from '../i18n';
+import { textWrapper } from '../textWrapper';
 
 export type EmailOptionProps = {
 	email: Email;

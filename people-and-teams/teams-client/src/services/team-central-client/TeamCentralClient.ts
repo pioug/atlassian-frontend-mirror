@@ -1,0 +1,248 @@
+import { type ClientConfig } from '../base-client';
+import { BaseGraphQlClient } from '../graphql-client/main';
+
+import { getTeamCentralGraphqlUrl } from './getTeamCentralGraphqlUrl';
+import { getUnshardedTeamCentralGraphqlUrl } from './getUnshardedTeamCentralGraphqlUrl';
+import {
+	AddTeamWatcherMutation,
+	type AddTeamWatcherMutationResponse,
+	type AddTeamWatcherMutationVariables,
+} from './mutations/add-team-watcher.graphql';
+import {
+	CreateTagMutation,
+	type CreateTagMutationResponse,
+	type CreateTagMutationVariables,
+} from './mutations/create-tag-mutation.graphql';
+import {
+	HelpPointerCreateMutation,
+	type HelpPointerCreateMutationResponse,
+	type HelpPointerCreateMutationVariables,
+} from './mutations/help-pointer-create-mutation.graphql';
+import {
+	HelpPointerDeleteMutation,
+	type HelpPointerDeleteMutationResponse,
+	type HelpPointerDeleteMutationVariables,
+} from './mutations/help-pointer-delete-mutation.graphql';
+import {
+	HelpPointerUpdateMutation,
+	type HelpPointerUpdateMutationResponse,
+	type HelpPointerUpdateMutationVariables,
+} from './mutations/help-pointer-update-mutation.graphql';
+import {
+	KudosDeleteMutation,
+	type KudosDeleteMutationResponse,
+	type KudosDeleteMutationVariables,
+} from './mutations/kudos-delete-mutation.graphql';
+import {
+	RemoveTeamWatcherMutation,
+	type RemoveTeamWatcherMutationResponse,
+	type RemoveTeamWatcherMutationVariables,
+} from './mutations/remove-team-watcher.graphql';
+import {
+	IsTeamWatcherQuery,
+	type IsTeamWatcherQueryResponse,
+	type IsTeamWatcherQueryVariables,
+} from './queries/is-team-watcher.graphql';
+import {
+	TagListQuery,
+	type TagListQueryResponse,
+	type TagListQueryVariables,
+} from './queries/tag-list-query.graphql';
+
+export class TeamCentralClient extends BaseGraphQlClient {
+	constructor(baseUrl: string, config: ClientConfig) {
+		super(getUnshardedTeamCentralGraphqlUrl(baseUrl), config);
+	}
+
+	// Team central url is a bit special, that it depends on cloudId.
+	setBaseUrl(baseUrl: string): void {
+		const cloudId = this.getCloudId();
+		this.setServiceUrl(
+			cloudId && cloudId !== 'None'
+				? getTeamCentralGraphqlUrl(baseUrl, cloudId)
+				: getUnshardedTeamCentralGraphqlUrl(baseUrl),
+		);
+	}
+
+	async isTeamWatcher(teamId: string, cloudId?: string): Promise<IsTeamWatcherQueryResponse> {
+		const response = await this.makeGraphQLRequest<
+			'isTeamWatcher',
+			IsTeamWatcherQueryResponse,
+			IsTeamWatcherQueryVariables
+		>(
+			{
+				query: IsTeamWatcherQuery,
+				variables: {
+					teamId: teamId.replace('ari:cloud:identity::team/', ''),
+					cloudId: cloudId || 'None',
+				},
+			},
+			{
+				operationName: 'isTeamWatcher',
+			},
+		);
+
+		return response.isTeamWatcher;
+	}
+
+	async addTeamWatcher(teamId: string, cloudId?: string): Promise<AddTeamWatcherMutationResponse> {
+		const response = await this.makeGraphQLRequest<
+			'addTeamWatcher',
+			AddTeamWatcherMutationResponse,
+			AddTeamWatcherMutationVariables
+		>(
+			{
+				query: AddTeamWatcherMutation,
+				variables: {
+					teamId,
+					cloudId,
+				},
+			},
+			{
+				operationName: 'addTeamWatcher',
+			},
+		);
+
+		return response.addTeamWatcher;
+	}
+
+	async removeTeamWatcher(
+		teamId: string,
+		cloudId?: string,
+	): Promise<RemoveTeamWatcherMutationResponse> {
+		const response = await this.makeGraphQLRequest<
+			'removeTeamWatcher',
+			RemoveTeamWatcherMutationResponse,
+			RemoveTeamWatcherMutationVariables
+		>(
+			{
+				query: RemoveTeamWatcherMutation,
+				variables: {
+					teamId,
+					cloudId,
+				},
+			},
+			{
+				operationName: 'removeTeamWatcher',
+			},
+		);
+
+		return response.removeTeamWatcher;
+	}
+
+	async deleteKudos(id: string): Promise<KudosDeleteMutationResponse> {
+		const response = await this.makeGraphQLRequest<
+			'deleteKudos',
+			KudosDeleteMutationResponse,
+			KudosDeleteMutationVariables
+		>(
+			{
+				query: KudosDeleteMutation,
+				variables: {
+					id,
+				},
+			},
+			{
+				operationName: 'DeleteKudos',
+			},
+		);
+
+		return response.deleteKudos;
+	}
+
+	async queryTagList(variables: TagListQueryVariables): Promise<TagListQueryResponse> {
+		const response = await this.makeGraphQLRequest<
+			'tagSearchByCloudId',
+			TagListQueryResponse,
+			TagListQueryVariables
+		>(
+			{
+				query: TagListQuery,
+				variables,
+			},
+			{
+				operationName: 'TagListByCloudId',
+			},
+		);
+
+		return response.tagSearchByCloudId;
+	}
+
+	async createTag(variables: CreateTagMutationVariables): Promise<CreateTagMutationResponse> {
+		const response = await this.makeGraphQLRequest<
+			'createTagForCloudId',
+			CreateTagMutationResponse,
+			CreateTagMutationVariables
+		>(
+			{
+				query: CreateTagMutation,
+				variables,
+			},
+			{
+				operationName: 'createTagForCloudId',
+			},
+		);
+
+		return response.createTagForCloudId;
+	}
+
+	async createHelpPointer(
+		variables: HelpPointerCreateMutationVariables,
+	): Promise<HelpPointerCreateMutationResponse> {
+		const response = await this.makeGraphQLRequest<
+			'createHelpPointer',
+			HelpPointerCreateMutationResponse,
+			HelpPointerCreateMutationVariables
+		>(
+			{
+				query: HelpPointerCreateMutation,
+				variables,
+			},
+			{
+				operationName: 'CreateHelpPointer',
+			},
+		);
+
+		return response.createHelpPointer;
+	}
+
+	async updateHelpPointer(
+		variables: HelpPointerUpdateMutationVariables,
+	): Promise<HelpPointerUpdateMutationResponse> {
+		const response = await this.makeGraphQLRequest<
+			'updateHelpPointer',
+			HelpPointerUpdateMutationResponse,
+			HelpPointerUpdateMutationVariables
+		>(
+			{
+				query: HelpPointerUpdateMutation,
+				variables,
+			},
+			{
+				operationName: 'UpdateHelpPointer',
+			},
+		);
+
+		return response.updateHelpPointer;
+	}
+
+	async deleteHelpPointer(
+		variables: HelpPointerDeleteMutationVariables,
+	): Promise<HelpPointerDeleteMutationResponse> {
+		const response = await this.makeGraphQLRequest<
+			'deleteHelpPointer',
+			HelpPointerDeleteMutationResponse,
+			HelpPointerDeleteMutationVariables
+		>(
+			{
+				query: HelpPointerDeleteMutation,
+				variables,
+			},
+			{
+				operationName: 'DeleteHelpPointer',
+			},
+		);
+
+		return response.deleteHelpPointer;
+	}
+}

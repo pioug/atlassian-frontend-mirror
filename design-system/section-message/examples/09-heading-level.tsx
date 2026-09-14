@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Text } from '@atlaskit/primitives/compiled';
-import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
+import SectionMessageAction from '@atlaskit/section-message/message-action';
 
 const Example = (): React.JSX.Element => (
 	<>

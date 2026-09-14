@@ -16,9 +16,9 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { buildDatasourceAdf } from '@atlaskit/link-datasource';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import type { CardContext } from '@atlaskit/link-provider';
+import { buildDatasourceAdf } from '@atlaskit/link-datasource/utils/schema';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import type { CardContext } from '@atlaskit/link-provider/types';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { Flex } from '@atlaskit/primitives/compiled';
 

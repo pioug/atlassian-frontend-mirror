@@ -1,4 +1,4 @@
-import { type RefractorNode } from '../../types';
+import type { RefractorNode } from 'refractor';
 
 export default function getInlineLineNumber(lineNumber: number): RefractorNode {
 	return {

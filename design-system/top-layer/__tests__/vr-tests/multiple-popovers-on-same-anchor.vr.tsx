@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import VrMultiplePopoversOnSameAnchor from '../../examples/vr-multiple-popovers-on-same-anchor';
+import VrMultiplePopoversOnSameAnchor from '../../examples/vr-multiple-popovers-on-same-anchor.vr.ap';
 
 const opts = { drawsOutsideBounds: true } as const;
 

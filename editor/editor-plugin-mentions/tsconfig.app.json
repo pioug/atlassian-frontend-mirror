@@ -43,6 +43,9 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-json-transformer/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
@@ -58,7 +61,13 @@
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ui-control-registry/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
@@ -73,10 +82,19 @@
 			"path": "../../elements/mention/tsconfig.app.json"
 		},
 		{
+			"path": "../node-data-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/popper/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/portal/tsconfig.app.json"

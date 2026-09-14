@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { screen } from '@testing-library/react';
+
 import {
 	globalMediaEventEmitter,
 	type MediaViewedEventPayload,
@@ -13,10 +16,10 @@ import {
 	expectFunctionToHaveBeenCalledWith,
 	nextTick,
 } from '@atlaskit/media-test-helpers';
-import { screen } from '@testing-library/react';
-import { MediaViewerError } from '../../../../../errors';
-import { DocViewer } from '../../../../../viewers/doc/index';
+
+import { MediaViewerError } from '../../../../../MediaViewerError';
 import { getObjectUrlFromFileState } from '../../../../../utils/getObjectUrlFromFileState';
+import { DocViewer } from '../../../../../viewers/doc/index';
 
 jest.mock('../../../../../utils/getObjectUrlFromFileState', () => ({
 	__esModule: true,
@@ -188,7 +191,7 @@ describe.skip('DocViewer', () => {
 		);
 		await nextTick();
 		await nextTick();
-		expect(onError).toBeCalledWith(error);
+		expect(onError).toHaveBeenCalledWith(error);
 	});
 
 	it('should use local preview when available', async () => {

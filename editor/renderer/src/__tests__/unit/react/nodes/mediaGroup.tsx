@@ -1,41 +1,63 @@
+const mockMedia = jest.fn();
+jest.mock('../../../../react/nodes/media', () => {
+	const actual = jest.requireActual('../../../../react/nodes/media');
+	const react = jest.requireActual('react');
+	return {
+		__esModule: true,
+		default: (props: Record<string, unknown>) => {
+			mockMedia(props);
+			return react.createElement(actual.default, props);
+		},
+	};
+});
+
+const mockCard = jest.fn();
+jest.mock('@atlaskit/media-card', () => {
+	const actual = jest.requireActual('@atlaskit/media-card');
+	const react = jest.requireActual('react');
+	return {
+		...actual,
+		Card: (props: Record<string, unknown>) => {
+			mockCard(props);
+			return react.createElement(actual.Card, props);
+		},
+	};
+});
+
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { act, render } from '@testing-library/react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import * as sinon from 'sinon';
 import { imageFileId, genericFileId, nextTick } from '@atlaskit/media-test-helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import type { CardEvent } from '@atlaskit/media-card';
-import { Card, defaultImageCardDimensions } from '@atlaskit/media-card';
-import { FilmstripView } from '@atlaskit/media-filmstrip';
+import { defaultImageCardDimensions } from '@atlaskit/media-card';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media from '../../../../react/nodes/media';
 import MediaGroup from '../../../../react/nodes/mediaGroup';
-import { MediaCardInternal } from '../../../../ui/MediaCard';
-import { act } from 'react-dom/test-utils';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import * as mocks from './media.mock';
 
-describe('MediaGroup', () => {
-	let fixture: HTMLDivElement;
+const filmstrips = (container: HTMLElement) =>
+	container.querySelectorAll('[data-testid="filmstrip-list-wrapper"]');
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+describe('MediaGroup', () => {
 	const mediaProvider = storyMediaProviderFactory();
 
 	const providerFactory = ProviderFactory.create({ mediaProvider });
 
 	beforeEach(() => {
-		fixture = document.createElement('div');
-		document.body.appendChild(fixture);
-	});
-
-	afterEach(() => {
-		document.body.removeChild(fixture);
+		jest.clearAllMocks();
 	});
 
 	it('should render media card with the right dimention if is a file', () => {
-		const mediaGroup = shallow(
+		render(
 			<MediaGroup>
 				<Media
 					id={genericFileId.id}
@@ -48,11 +70,14 @@ describe('MediaGroup', () => {
 				/>
 			</MediaGroup>,
 		);
-		expect(mediaGroup.find(Media).prop('cardDimensions')).toEqual(defaultImageCardDimensions);
+
+		expect(mockMedia).toHaveBeenLastCalledWith(
+			expect.objectContaining({ cardDimensions: defaultImageCardDimensions }),
+		);
 	});
 
 	it('should not render a FilmstripView component if it has only one media node', () => {
-		const mediaGroup = mount(
+		const { container } = render(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -65,11 +90,12 @@ describe('MediaGroup', () => {
 				/>
 			</MediaGroup>,
 		);
-		expect(mediaGroup.find(FilmstripView)).toHaveLength(0);
+
+		expect(filmstrips(container)).toHaveLength(0);
 	});
 
 	it('should render a FilmstripView component if it has more than one media node', () => {
-		const mediaGroup = shallow(
+		const { container } = render(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -91,7 +117,8 @@ describe('MediaGroup', () => {
 				/>
 			</MediaGroup>,
 		);
-		expect(mediaGroup.find(FilmstripView)).toHaveLength(1);
+
+		expect(filmstrips(container)).toHaveLength(1);
 	});
 
 	it('should call onClick with all the items in a media group', async () => {
@@ -99,7 +126,7 @@ describe('MediaGroup', () => {
 		const eventHandlers = {
 			media: { onClick },
 		} as EventHandlers;
-		const mediaGroup = mount(
+		const { container } = render(
 			<MediaClientContext.Provider value={mocks.mockMediaClient}>
 				<MediaGroup eventHandlers={eventHandlers}>
 					<Media
@@ -126,19 +153,18 @@ describe('MediaGroup', () => {
 					/>
 				</MediaGroup>
 			</MediaClientContext.Provider>,
-			{ attachTo: fixture },
 		);
 
-		expect(mediaGroup.find(FilmstripView)).toHaveLength(1);
+		expect(filmstrips(container)).toHaveLength(1);
 
 		await act(async () => {
 			await mediaProvider;
 		});
 		await nextTick();
-		mediaGroup.update();
 
-		const card = mediaGroup.find(FilmstripView).find(Media).first().find(Card);
-		card.props().onClick!({} as CardEvent);
+		// the first card rendered inside the filmstrip belongs to the first media node
+		expect(mockCard).toHaveBeenCalled();
+		mockCard.mock.calls[0][0].onClick({} as CardEvent);
 
 		expect(onClick.callCount).toBe(1);
 		expect(onClick.lastCall.args.length).toBeGreaterThan(1);
@@ -150,12 +176,10 @@ describe('MediaGroup', () => {
 		expect(surroundingItems[0].mediaItemType).toBe(imageFileId.mediaItemType);
 		expect(surroundingItems[0].collectionName).toBe(imageFileId.collectionName);
 		expect(surroundingItems[0].occurrenceKey).toBe('001');
-
-		mediaGroup.unmount();
 	});
 
 	it('should send useInlinePlayer: false to the Media', () => {
-		const mediaGroup = mount(
+		render(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -168,11 +192,12 @@ describe('MediaGroup', () => {
 				/>
 			</MediaGroup>,
 		);
-		expect(mediaGroup.find(Media).prop('useInlinePlayer')).toBe(false);
+
+		expect(mockMedia).toHaveBeenLastCalledWith(expect.objectContaining({ useInlinePlayer: false }));
 	});
 
 	it('should pass onClick callback only if eventHandlers.media.onClick its defined', () => {
-		const mediaGroupWithoutHandlers = mount(
+		render(
 			<MediaGroup>
 				<Media
 					id={imageFileId.id}
@@ -194,7 +219,15 @@ describe('MediaGroup', () => {
 				/>
 			</MediaGroup>,
 		);
-		const mediaGroupWithHandlers = mount(
+
+		expect(mockMedia).toHaveBeenNthCalledWith(
+			1,
+			expect.objectContaining({ eventHandlers: { media: { onClick: undefined } } }),
+		);
+
+		mockMedia.mockClear();
+
+		render(
 			<MediaGroup eventHandlers={{ media: { onClick: jest.fn() } }}>
 				<Media
 					id={imageFileId.id}
@@ -217,17 +250,15 @@ describe('MediaGroup', () => {
 			</MediaGroup>,
 		);
 
-		expect(
-			mediaGroupWithoutHandlers.find(Media).first().prop('eventHandlers')!.media!.onClick,
-		).toBeUndefined();
-		expect(
-			mediaGroupWithHandlers.find(Media).first().prop('eventHandlers')!.media!.onClick,
-		).toBeDefined();
+		expect(mockMedia).toHaveBeenNthCalledWith(
+			1,
+			expect.objectContaining({ eventHandlers: { media: { onClick: expect.any(Function) } } }),
+		);
 	});
 
 	it('should pass feature flags to MediaCardInternal', () => {
 		const featureFlags: MediaFeatureFlags = {};
-		const mediaGroup = mount(
+		render(
 			<MediaGroup featureFlags={featureFlags}>
 				<Media
 					id={imageFileId.id}
@@ -240,21 +271,23 @@ describe('MediaGroup', () => {
 				/>
 			</MediaGroup>,
 		);
-		expect(mediaGroup.find(MediaCardInternal).props().featureFlags).toEqual(featureFlags);
+
+		expect(mockMedia).toHaveBeenLastCalledWith(expect.objectContaining({ featureFlags }));
 	});
 
 	it('should render unsupported content if there is unsupported content', () => {
-		const mediaGroup = shallow(
+		const { container } = renderWithIntl(
 			<MediaGroup>
 				<UnsupportedBlock />
 			</MediaGroup>,
 		);
-		expect(mediaGroup.find(UnsupportedBlock)).toHaveLength(1);
+
+		expect(container.querySelectorAll('.unsupported')).toHaveLength(1);
 	});
 
 	describe('enableDownloadButton', () => {
-		const mountMediaGroup = (enableDownloadButton: boolean) =>
-			mount(
+		const renderMediaGroup = (enableDownloadButton: boolean) =>
+			render(
 				<MediaGroup enableDownloadButton={enableDownloadButton}>
 					<Media
 						id={imageFileId.id}
@@ -269,13 +302,19 @@ describe('MediaGroup', () => {
 			);
 
 		it('should enable download button when enableDownloadButton is true', () => {
-			const mediaGroup = mountMediaGroup(true);
-			expect(mediaGroup.find(MediaCardInternal).props().shouldEnableDownloadButton).toEqual(true);
+			renderMediaGroup(true);
+
+			expect(mockMedia).toHaveBeenLastCalledWith(
+				expect.objectContaining({ enableDownloadButton: true }),
+			);
 		});
 
 		it('should not enable download button when enableDownloadButton is false', () => {
-			const mediaGroup = mountMediaGroup(true);
-			expect(mediaGroup.find(MediaCardInternal).props().shouldEnableDownloadButton).toEqual(true);
+			renderMediaGroup(false);
+
+			expect(mockMedia).toHaveBeenLastCalledWith(
+				expect.objectContaining({ enableDownloadButton: false }),
+			);
 		});
 	});
 });

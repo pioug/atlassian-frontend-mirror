@@ -1,9 +1,9 @@
 import React, { type ReactNode, useState } from 'react';
 
-import { AVATAR_SIZES } from '@atlaskit/avatar';
+import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, Text, xcss } from '@atlaskit/primitives';
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 
 import {
 	blueColor,
@@ -19,6 +19,7 @@ import CommsCrafterIcon from '../src/ui/agent-avatar/generated-avatars/assets/co
 import CultureIcon from '../src/ui/agent-avatar/generated-avatars/assets/culture';
 import CustomerInsightIcon from '../src/ui/agent-avatar/generated-avatars/assets/customer-insight';
 import DecisionDirectorIcon from '../src/ui/agent-avatar/generated-avatars/assets/decision-director';
+import DocumentWriterIcon from '../src/ui/agent-avatar/generated-avatars/assets/document-writer';
 import FeatureFlagAvatarIcon from '../src/ui/agent-avatar/generated-avatars/assets/feature-flag-avatar';
 import GenericAvatarIcon from '../src/ui/agent-avatar/generated-avatars/assets/generic-avatar';
 import HireWriterIcon from '../src/ui/agent-avatar/generated-avatars/assets/hire-writer';
@@ -57,7 +58,7 @@ export default (): React.JSX.Element => {
 						}
 					}}
 					options={[
-						{ label: 'X-small', value: AVATAR_SIZES.xsmall.toString() },
+						{ label: 'XX-small', value: AVATAR_SIZES.xxsmall.toString() },
 						{ label: 'Small', value: AVATAR_SIZES.small.toString() },
 						{ label: 'Medium', value: AVATAR_SIZES.medium.toString() },
 						{ label: 'Large', value: AVATAR_SIZES.large.toString() },
@@ -156,6 +157,13 @@ export default (): React.JSX.Element => {
 				</ComponentNameRenderer>
 				<ComponentNameRenderer name="MarketingMessageMaestroIcon">
 					<MarketingMessageMaestroIcon
+						size={size}
+						primaryColor={color.primary}
+						secondaryColor={color.secondary}
+					/>
+				</ComponentNameRenderer>
+				<ComponentNameRenderer name="DocumentWriterIcon">
+					<DocumentWriterIcon
 						size={size}
 						primaryColor={color.primary}
 						secondaryColor={color.secondary}

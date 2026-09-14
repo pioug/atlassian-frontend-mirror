@@ -5,7 +5,7 @@ import {
 	GenericLoadingErrorVR,
 	GenericLoadingErrorWithoutRefreshVR,
 	JiraLoadingErrorVR,
-} from '../../examples/vr/table-loading-error-vr';
+} from '../../examples/vr/table-loading-error-vr.vr.ap';
 
 snapshot(GenericLoadingErrorVR, {
 	featureFlags: {},

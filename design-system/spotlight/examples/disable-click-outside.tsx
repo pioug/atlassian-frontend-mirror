@@ -4,7 +4,7 @@
  */
 import { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';

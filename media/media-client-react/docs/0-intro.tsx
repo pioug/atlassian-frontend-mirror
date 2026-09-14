@@ -60,6 +60,7 @@ function MyApp() {
         content: file,
         name: file.name,
         collection: defaultCollectionName,
+        size: file.size,
       })
       .subscribe(stream => {
         setFileId(stream.id);

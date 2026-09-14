@@ -4,12 +4,12 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.ThemeMutationObserver = void 0;
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _constants = require("./constants");
-var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
+var _getGlobalTheme = require("./get-global-theme");
 /**
  * A MutationObserver which watches the `<html>` element for changes to the theme.
  *
@@ -23,7 +23,7 @@ var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
  * observer.observe();
  * ```
  */
-var ThemeMutationObserver = exports.default = /*#__PURE__*/function () {
+var ThemeMutationObserver = exports.ThemeMutationObserver = /*#__PURE__*/function () {
   function ThemeMutationObserver(callback) {
     (0, _classCallCheck2.default)(this, ThemeMutationObserver);
     (0, _defineProperty2.default)(this, "legacyObserver", null);
@@ -35,7 +35,7 @@ var ThemeMutationObserver = exports.default = /*#__PURE__*/function () {
     value: function observe() {
       if (!ThemeMutationObserver.observer) {
         ThemeMutationObserver.observer = new MutationObserver(function () {
-          var theme = (0, _getGlobalTheme.default)();
+          var theme = (0, _getGlobalTheme.getGlobalTheme)();
           ThemeMutationObserver.callbacks.forEach(function (callback) {
             return callback(theme);
           });
@@ -61,3 +61,4 @@ var ThemeMutationObserver = exports.default = /*#__PURE__*/function () {
 }();
 (0, _defineProperty2.default)(ThemeMutationObserver, "observer", null);
 (0, _defineProperty2.default)(ThemeMutationObserver, "callbacks", new Set());
+var _default = exports.default = ThemeMutationObserver;

@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 
 import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
@@ -22,7 +22,7 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	defaultCollectionName,
 	defaultMediaPickerCollectionName,

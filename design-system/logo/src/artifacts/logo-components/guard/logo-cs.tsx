@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::db6984f13fa8a1f65e3a27814935822a>>
+ * @codegen <<SignedSource::b81f3f72d72332093e24f0b8572b1186>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -24,7 +24,7 @@ const svg = `<svg height="100%" viewBox="0 0 120 32">
  *
  */
 export function GuardLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Guard',
 	testId,

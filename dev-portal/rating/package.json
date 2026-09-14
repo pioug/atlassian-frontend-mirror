@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rating",
-	"version": "4.0.5",
+	"version": "4.2.0",
 	"description": "An accessible rating component that can be heavily customized.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,23 +36,10 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/rating",
 	"exports": {

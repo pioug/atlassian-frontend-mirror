@@ -12,10 +12,10 @@ import EmbedRovoActionsFooter from '../index';
 
 let mockObservedWidth: number | undefined;
 
-jest.mock('@atlaskit/width-detector', () => {
+jest.mock('@atlaskit/width-detector/width-observer', () => {
 	const React = require('react');
-
 	return {
+		...jest.requireActual('@atlaskit/width-detector/width-observer'),
 		WidthObserver: ({ setWidth }: { setWidth: (width: number) => void }) => {
 			React.useEffect(() => {
 				if (mockObservedWidth !== undefined) {

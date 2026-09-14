@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
 export {
 	PanelType,
 	AnnotationTypes,
@@ -163,6 +164,7 @@ export {
 	tableCellWithNestedTableWithLocalId,
 	tableHeaderWithNestedTableWithLocalId,
 } from './schema';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
 export type {
 	AlignmentAttributes,
 	AlignmentMarkDefinition,
@@ -290,6 +292,15 @@ export type {
 	ExtensionFrameDefinition,
 	BackgroundColorDefinition,
 } from './schema';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { isHex } from './utils/is-hex';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { acShortcutToEmoji } from './utils/confluence/acShortcutToEmoji';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { generateUuid, uuid } from './utils/uuid';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { getLinkMatch } from './utils/get-link-match';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
 export {
 	B100,
 	B400,
@@ -336,28 +347,41 @@ export {
 	Y50,
 	Y500,
 	Y75,
-	acNameToEmoji,
-	acShortcutToEmoji,
-	emojiIdToAcName,
-	generateUuid,
-	getEmojiAcName,
-	getLinkMatch,
-	hexToRgb,
-	hexToRgba,
-	isHex,
-	isRgb,
-	isSafeUrl,
-	linkify,
-	linkifyMatch,
-	normalizeHexColor,
-	normalizeUrl,
-	rgbToHex,
-	uuid,
-	getDarkModeLCHColor,
-} from './utils';
+} from './utils/colors';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { acNameToEmoji } from './utils/confluence/acNameToEmoji';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { getDarkModeLCHColor } from './utils/get-dark-mode-lch-color';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { hexToRgba } from './utils/hex-to-rgba';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { isRgb } from './utils/is-rgb';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { linkify } from './utils/url';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { isSafeUrl } from './utils/is-safe-url';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { normalizeUrl } from './utils/normalize-url';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { rgbToHex } from './utils/rgb-to-hex';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { normalizeHexColor } from './utils/normalize-hex-color';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { linkifyMatch } from './utils/linkify-match';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { emojiIdToAcName } from './utils/confluence/emojiIdToAcName';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { hexToRgb } from './utils/hex-to-rgb';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { getEmojiAcName } from './utils/confluence/getEmojiAcName';
 
-export type { Match, NameToEmoji } from './utils';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export type { Match } from './utils/url';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export type { NameToEmoji } from './utils/confluence/emoji';
 
 // ADF createPMSpecFactory
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
 export type { NodeSpecOptions, MarkSpecOptions } from './schema';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
 export { createPMNodeSpecFactory, createPMMarkSpecFactory } from './schema';

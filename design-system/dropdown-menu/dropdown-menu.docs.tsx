@@ -50,7 +50,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/dropdown-menu.tsx'),
 				},
 			],
-			keywords: ['dropdown', 'menu', 'actions', 'options', 'popup', 'contextual'],
+			keywords: ['dropdown', 'menu', 'overflow', 'actions', 'options', 'popup', 'contextual'],
 			categories: ['navigation', 'interaction'],
 		},
 		{

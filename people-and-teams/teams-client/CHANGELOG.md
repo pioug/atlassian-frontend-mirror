@@ -1,5 +1,95 @@
 # @atlaskit/teams-client
 
+## 5.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.0
+
+### Minor Changes
+
+- [`f14ed32129aff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f14ed32129aff) -
+  Apply the Volt one-export-per-file standard via `volt-migrate-package` to
+  `@atlaskit/teams-client`.
+
+  **No symbol was added to or removed from the public API.** The set of symbols reachable through
+  the package `exports` map is byte-identical to before the migration (161 symbols). What changed is
+  how you can reach them: the map grows from 43 to 90 subpaths, so each split module now has a
+  direct import path, and 2 subpaths (`./client`, `./user-info-provider`) were retargeted from a
+  re-export barrel to the module that already owned their symbols. Every previous home keeps a
+  `@deprecated` re-export shim naming the new subpath; VOLTC-139 tracks removing those shims.
+
+  ### No public API was removed or added
+
+  Every import that worked before still works, unchanged:
+
+  ```ts
+  import { teamsClient } from '@atlaskit/teams-client/client';
+  import { hasPermission, userCan } from '@atlaskit/teams-client/has-permission';
+  import { isMember } from '@atlaskit/teams-client/team';
+  ```
+
+  Helpers that the split had to hoist into their own modules are exported at the file level but are
+  deliberately **not** on the `exports` map, so they stay package-private exactly as before — for
+  example `CommonError`, `HttpErrorArguments`, `V1_URL`, `Context`, `logMessage`, `MockConfig` and
+  the individual `mock*Endpoint` helpers.
+
+  ### New subpaths for symbols you can already import
+
+  Each split module now has its own subpath, so you can import a single symbol without pulling in a
+  barrel. These are new _paths_ to existing public symbols, not new symbols — prefer them over the
+  `@deprecated` barrels:
+
+  ```ts
+  // instead of '@atlaskit/teams-client/team'
+  import { isMember } from '@atlaskit/teams-client/is-member';
+  // instead of '@atlaskit/teams-client/sentry'
+  import { logException } from '@atlaskit/teams-client/log-exception';
+  // instead of '@atlaskit/teams-client/use-query-light'
+  import { useQueryLight } from '@atlaskit/teams-client/use-query-light/use-query-light';
+  ```
+
+  ### Note for consumers that mock these modules
+
+  Symbols moved between modules. A `jest.mock()` or `jest.spyOn()` aimed at a module that no longer
+  owns the export silently stops intercepting — the test keeps passing against real code, or fails
+  with `mockReturnValue is not a function`. Mock the module that now owns the export instead:
+
+  | Symbol                                                     | Was mocked via                       | Now owned by                                                           |
+  | ---------------------------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------- |
+  | `withExponentialBackoff`, `is5xx`, `isFetchResponse`       | `common/utils/http`                  | `common/utils/{with-exponential-backoff,is5xx,is-fetch-response}`      |
+  | `isMember`, `isInvited`, `isNonMember`, `isRequestingJoin` | `common/utils/team`                  | `common/utils/{is-member,is-invited,is-non-member,is-requesting-join}` |
+  | `handleGraphQLRequest`, `makeGraphQLRequestWithoutRetries` | `services/graphql-client/utils`      | `services/graphql-client/utils/<symbol>`                               |
+  | `getPermissionMap`, `allPermissions`                       | `common/utils/permissions/constants` | `common/utils/permissions/{get-permission-map,all-permissions}`        |
+  | `PublicApiClient`                                          | `services/public-api-client`         | `services/public-api-client/PublicApiClient`                           |
+  | `useQueryLight`, `useLazyQueryLight`                       | `services/use-query-light/main`      | `services/use-query-light/{useQueryLight,useLazyQueryLight}`           |
+  | the `mock*Endpoint` helpers and `mock*Regex` matchers      | `mocks/endpoints`                    | `mocks/<helper>` and `mocks/endpoint-regexes`                          |
+
+  The private barrels `services/graphql-client/index.ts`, `services/graphql-client/utils/index.ts`
+  and `services/team-central-client/utils.ts` were deleted. None was reachable through the `exports`
+  map, so only deep-relative imports and mock paths are affected.
+
+  ### Internal-only renames
+  - `common/utils/ufo/utils.ts` → `common/utils/ufo/createErrorMetadata.ts`
+  - `services/object-resolver-client/utils.ts` →
+    `services/object-resolver-client/formatLinkIconData.ts`
+
+  Neither path is reachable through the `exports` map. No behaviour change.
+
+## 5.2.0
+
+### Minor Changes
+
+- [`a9a8208446bfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9a8208446bfa) -
+  Support React 19 for people-and-teams packages.
+
 ## 5.1.1
 
 ### Patch Changes

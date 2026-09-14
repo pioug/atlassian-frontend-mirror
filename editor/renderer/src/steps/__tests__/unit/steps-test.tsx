@@ -1,9 +1,8 @@
 /* eslint-disable @atlaskit/editor/no-as-casting */
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import React, { act } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
 import ReactSerializer from '../../../react/index';
 import { getPosFromRange, resolvePos } from '../../index';
@@ -14,10 +13,10 @@ import {
 	docWithImageInTable,
 } from './__fixtures__/documents';
 // eslint-disable-next-line @atlaskit/platform/no-alias
-import * as ffPackage from '@atlaskit/platform-feature-flags';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import * as ffPackage from '@atlaskit/platform-feature-flags/fg';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { MediaClientProvider } from '@atlaskit/media-client-react';
+import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 
 /*
  * NOTE: This will interfere with the ability to test the compiled styles,
@@ -35,8 +34,7 @@ describe('steps', () => {
 	let container: HTMLElement | null = document.createElement('div');
 	let docFromSchema: PMNode;
 	let reactAdf: JSX.Element;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	let root: any; // Change to Root once we go full React 18
+	let root: Root;
 	let firstValidParagraphPosition: number;
 	let firstValidParagraph: HTMLElement;
 
@@ -71,30 +69,16 @@ describe('steps', () => {
 
 			return false;
 		});
-		if (process.env.IS_REACT_18 === 'true') {
-			// @ts-ignore react-dom/client only available in react 18
-			// eslint-disable-next-line @repo/internal/import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
-			const { createRoot } = await import('react-dom/client');
-			root = createRoot(container!);
-			act(() => {
-				root.render(
-					<IntlProvider locale="en">
-						<SmartCardProvider>
-							<MediaClientProvider clientConfig={mediaClientConfig}>{reactAdf}</MediaClientProvider>
-						</SmartCardProvider>
-					</IntlProvider>,
-				);
-			});
-		} else {
-			render(
+		root = createRoot(container!);
+		act(() => {
+			root.render(
 				<IntlProvider locale="en">
 					<SmartCardProvider>
 						<MediaClientProvider clientConfig={mediaClientConfig}>{reactAdf}</MediaClientProvider>
 					</SmartCardProvider>
 				</IntlProvider>,
-				container,
 			);
-		}
+		});
 		firstValidParagraph = container!.querySelector(
 			`p[data-renderer-start-pos="${firstValidParagraphPosition!}"]`,
 		) as HTMLElement;
@@ -106,11 +90,7 @@ describe('steps', () => {
 	}
 
 	afterEach(() => {
-		if (process.env.IS_REACT_18 === 'true') {
-			root.unmount();
-		} else {
-			unmountComponentAtNode(container!);
-		}
+		root.unmount();
 		firstValidParagraphPosition = 0;
 	});
 

@@ -1,5 +1,165 @@
 # @atlaskit/side-navigation
 
+## 13.3.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.1
+
+### Patch Changes
+
+- [`38c7085c92a3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38c7085c92a3a) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
+## 13.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`0075efb228821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0075efb228821) -
+  Autofix: barrel removal (imports + exports)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.1
+
+### Patch Changes
+
+- [`06c47d2aaf93a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06c47d2aaf93a) -
+  Remove incorrect `@deprecated` markers from public entry-point re-exports
+  (`@atlaskit/embedded-confluence` `./embedded-confluence-common` and `./experience-tracker`, and
+  `@atlaskit/side-navigation` `./menu`) so they are no longer flagged as deprecated.
+
+## 13.0.0
+
+### Major Changes
+
+- [`f6328151ae86c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6328151ae86c) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/side-navigation`: the package `exports` map has been restructured so every
+  public subpath now resolves **directly** to its `./src/*` implementation instead of going through
+  an intermediate `./src/entry-points/*` re-export. No public subpaths were removed.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  Internally, every component that was `export default` is now a named export (`ButtonItem`,
+  `CustomItem`, `Footer`, `GoBackItem`, `Header`, `HeadingItem`, `LinkItem`, `LoadingItems`,
+  `NavigationContent`, `NavigationFooter`, `NavigationHeader`, `NestableNavigationContent`,
+  `NestingItem`, `Section`, `SideNavigation`, `SkeletonHeadingItem`, `SkeletonItem`). The published
+  subpaths already exposed these as **named** exports, so their public shape is unchanged.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import { ButtonItem } from '@atlaskit/side-navigation/entry-points/button-item';
+  +import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+  ```
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+  -   "./button-item": "./src/entry-points/button-item.tsx",
+  +   "./button-item": "./src/components/Item/button-item.tsx",
+  -   "./constants": "./src/entry-points/constants.tsx",
+  +   "./constants": "./src/common/constants.tsx",
+  -   "./custom-item": "./src/entry-points/custom-item.tsx",
+  +   "./custom-item": "./src/components/Item/custom-item.tsx",
+  -   "./footer": "./src/entry-points/footer.tsx",
+  +   "./footer": "./src/components/Footer/index.tsx",
+  -   "./go-back-item": "./src/entry-points/go-back-item.tsx",
+  +   "./go-back-item": "./src/components/Item/go-back-item.tsx",
+  -   "./header": "./src/entry-points/header.tsx",
+  +   "./header": "./src/components/Header/index.tsx",
+  -   "./heading-item": "./src/entry-points/heading-item.tsx",
+  +   "./heading-item": "./src/components/Section/heading-item.tsx",
+  -   "./link-item": "./src/entry-points/link-item.tsx",
+  +   "./link-item": "./src/components/Item/link-item.tsx",
+  -   "./loading-items": "./src/entry-points/loading-items.tsx",
+  +   "./loading-items": "./src/components/LoadingItems/index.tsx",
+      "./menu": "./src/entry-points/menu.tsx",
+  -   "./navigation-content": "./src/entry-points/navigation-content.tsx",
+  +   "./navigation-content": "./src/components/NavigationContent/index.tsx",
+  -   "./navigation-footer": "./src/entry-points/navigation-footer.tsx",
+  +   "./navigation-footer": "./src/components/NavigationFooter/index.tsx",
+  -   "./navigation-header": "./src/entry-points/navigation-header.tsx",
+  +   "./navigation-header": "./src/components/NavigationHeader/index.tsx",
+  -   "./nestable-navigation-content": "./src/entry-points/nestable-navigation-content.tsx",
+  +   "./nestable-navigation-content": "./src/components/NestableNavigationContent/index.tsx",
+  -   "./nesting-item": "./src/entry-points/nesting-item.tsx",
+  +   "./nesting-item": "./src/components/NestingItem/index.tsx",
+  -   "./section": "./src/entry-points/section.tsx",
+  +   "./section": "./src/components/Section/section.tsx",
+  -   "./side-navigation": "./src/entry-points/side-navigation.tsx",
+  +   "./side-navigation": "./src/components/SideNavigation/index.tsx",
+  -   "./skeleton-heading-item": "./src/entry-points/skeleton-heading-item.tsx",
+  +   "./skeleton-heading-item": "./src/components/Section/skeleton-heading-item.tsx",
+  -   "./skeleton-item": "./src/entry-points/skeleton-item.tsx",
+  +   "./skeleton-item": "./src/components/Item/skeleton-item.tsx",
+  -   "./use-should-nested-element-render": "./src/entry-points/use-should-nested-element-render.tsx",
+  +   "./use-should-nested-element-render": "./src/components/NestableNavigationContent/use-should-nested-element-render.tsx",
+    }
+  ```
+
+  Because each subpath now exposes its whole implementation module, some subpaths expose additional
+  symbols that the old shims filtered out — for example `ROOT_ID` from
+  `./nestable-navigation-content`, and `CustomItemComponentProps` from `./custom-item`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.9
 
 ### Patch Changes

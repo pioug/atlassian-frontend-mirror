@@ -2,11 +2,13 @@ import { type Token } from 'antlr4ts';
 import { type RecognitionException } from 'antlr4ts/RecognitionException';
 import { type IntlShape } from 'react-intl';
 
-import { type JQLRuleSuggestions } from '@atlaskit/jql-autocomplete';
-import { JQLLexer, type JQLParser } from '@atlaskit/jql-parser';
+import type { JQLRuleSuggestions } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
+import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
+import type { JQLParser } from '@atlaskit/jql-parser/JQLParser';
 
+import { getExpectedTokensFromParserOrException } from '../getExpectedTokensFromParserOrException';
+import { getTokenDisplayNames } from '../getTokenDisplayNames';
 import { errorMessages } from '../messages';
-import { getExpectedTokensFromParserOrException, getTokenDisplayNames } from '../utils';
 
 import { handleExpectedTokensError } from './ExpectedTokensErrorHandler';
 

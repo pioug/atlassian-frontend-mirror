@@ -3,7 +3,7 @@ import {
 	unstable_scheduleCallback as scheduleCallback,
 } from 'scheduler';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 function scheduleIdleCallback(work: () => void): void {
 	if (

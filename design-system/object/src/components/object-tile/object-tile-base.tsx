@@ -2,8 +2,9 @@ import React from 'react';
 
 import invariant from 'tiny-invariant';
 
-import type { NewIconProps } from '@atlaskit/icon';
-import Tile, { type TileProps } from '@atlaskit/tile';
+import type { NewIconProps } from '@atlaskit/icon/types';
+import Tile from '@atlaskit/tile/tile';
+import type { TileProps } from '@atlaskit/tile/types';
 
 import { type ObjectTileProps, type ObjectTileSize } from './types';
 

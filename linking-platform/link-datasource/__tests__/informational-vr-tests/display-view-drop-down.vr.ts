@@ -3,8 +3,8 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import WithConfluenceSearchModal from '../../examples/with-confluence-search-modal';
-import { JiraModalNoSuspense as WithJiraIssuesModal } from '../../examples/with-issues-modal';
+import WithConfluenceSearchModal from '../../examples/with-confluence-search-modal.vr.ap';
+import { JiraModalNoSuspense as WithJiraIssuesModal } from '../../examples/with-issues-modal.vr.ap';
 
 async function openDropDown(page: Page) {
 	await page.getByTestId('datasource-modal--view-drop-down--trigger').click();

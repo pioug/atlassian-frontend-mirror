@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
-import { TeamsAnchor } from '@atlaskit/teams-app-internal-navigation';
+import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
+import { TeamsAnchor } from '@atlaskit/teams-app-internal-navigation/teams-anchor';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../../common/types';
@@ -11,7 +11,7 @@ import { ContainerIcon } from '../../../../common/ui/container-icon';
 import { Separator } from '../../../../common/ui/separator';
 import { TeamLinkCardActions } from '../../../../common/ui/team-link-card-actions';
 import { getContainerProperties } from '../../../../common/utils/get-container-properties';
-import { getDomainFromLinkUri } from '../../../../common/utils/get-link-domain';
+import { getDomainFromLinkUri } from '../../../../common/utils/get-domain-from-link-uri';
 
 const styles = cssMap({
 	container: {

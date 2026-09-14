@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 const BannerAnnouncementExample = (): React.JSX.Element => {
 	return (

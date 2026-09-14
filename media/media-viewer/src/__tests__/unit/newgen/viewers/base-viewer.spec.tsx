@@ -1,11 +1,14 @@
 import React from 'react';
+
 import { render, screen } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
+
 import { type ProcessedFileState } from '@atlaskit/media-client';
-import { type BaseProps, BaseViewer, type BaseState } from '../../../../viewers/base-viewer';
-import { Outcome } from '../../../../domain';
-import { MediaViewerError } from '../../../../errors';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+
+import { MediaViewerError } from '../../../../MediaViewerError';
+import { Outcome } from '../../../../domain/outcome';
+import { type BaseProps, BaseViewer, type BaseState } from '../../../../viewers/base-viewer';
 
 const traceContext = { traceId: 'some-trace-id' };
 

@@ -6,7 +6,7 @@ import type {
 	InlineCardAdf,
 	DatasourceAdf,
 	Datasource,
-} from '@atlaskit/linking-common';
+} from '@atlaskit/linking-common/types';
 
 export class Transformer {
 	private buildInlineAdf(url: string): InlineCardAdf {

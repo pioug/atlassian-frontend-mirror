@@ -6,7 +6,8 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import { useExternalMessages } from '../../../../state';
 import { type ExternalMessagesNormalized } from '../../../../state/types';
 
-import { InfoMessages, useFormattedInfoMessage } from './index';
+import { InfoMessages } from './InfoMessages';
+import { useFormattedInfoMessage } from './useFormattedInfoMessage';
 
 const useFormattedInfoMessageMock = jest.fn<ReactNode, []>(() => null);
 

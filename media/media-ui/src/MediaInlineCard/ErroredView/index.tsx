@@ -2,13 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
+
 import React from 'react';
+
 import { css, jsx } from '@compiled/react';
+
 import WarningIcon from '@atlaskit/icon/core/status-warning';
+import { token } from '@atlaskit/tokens';
+
+import { AKIconWrapper } from '../AKIconWrapper-2';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { AKIconWrapper } from '../Icon';
 export interface MediaInlineCardErroredViewProps {
 	/** The error message to display */
 	message: string;

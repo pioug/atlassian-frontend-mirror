@@ -16,12 +16,12 @@ test(`Creatable-select should pass basic aXe audit`, async ({ page, skipAxeCheck
 	await page.locator(creatableSelectContainer).first().click();
 
 	await expect(page.locator(creatableSelectMenu)).toBeVisible();
-	await expect(page.locator(creatableSelectContainer)).toHaveText('Select...');
+	await expect(page.locator(creatableSelectContainer)).toHaveText('');
 
 	await page.locator(creatableSelectMenuItem).first().click();
 	await page.locator(creatableSelectContainer).first().click();
 
-	await expect(page.locator(creatableSelectContainer)).not.toHaveText('Select...');
+	await expect(page.locator(creatableSelectContainer)).not.toHaveText('');
 
 	// TODO: Remove skip after https://product-fabric.atlassian.net/browse/DSP-21622 is done
 	// Received:

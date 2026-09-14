@@ -1,8 +1,7 @@
+import fetchMock from 'fetch-mock/cjs/client';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
-import fetchMock from 'fetch-mock/cjs/client';
-
-import { requestService } from '../serviceUtils';
+import { requestService } from '../requestService';
 import {
 	type RefreshSecurityProvider,
 	type RequestServiceOptions,

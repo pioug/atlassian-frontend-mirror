@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { renderHook } from '@atlassian/testing-library';
 
 import { useAISummaryConfig } from '../index';

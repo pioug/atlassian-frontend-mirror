@@ -2,14 +2,13 @@ import React from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-} from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Button from '@atlaskit/button/default/button';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { type ContainerTypes } from '../../../common/types';

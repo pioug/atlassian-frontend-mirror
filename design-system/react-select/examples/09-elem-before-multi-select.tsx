@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import PersonIcon from '@atlaskit/icon/core/person';
-import Select from '@atlaskit/react-select';
+import Select from '@atlaskit/react-select/state-manager';
 
 import { cities } from './common/data';
 

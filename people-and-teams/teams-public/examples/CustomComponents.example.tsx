@@ -4,8 +4,8 @@ import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { Playground } from '@atlassian/teams-app-internal-playground/playground';
 
-import { TeamContainers } from '../src';
-import type { TeamLinkCardProps } from '../src';
+import { TeamContainers } from '../src/ui/team-containers/main';
+import type { TeamLinkCardProps } from '../src/ui/team-containers/team-link-card';
 
 const jiraProject = {
 	node: {

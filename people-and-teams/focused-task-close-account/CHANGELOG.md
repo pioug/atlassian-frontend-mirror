@@ -1,5 +1,89 @@
 # @atlaskit/focused-task-close-account
 
+## 5.10.0
+
+### Minor Changes
+
+- [`1a3f7d6aa71c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a3f7d6aa71c6) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.0
+
+### Minor Changes
+
+- [`a75866f802a52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a75866f802a52) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 5.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.7.0
+
+### Minor Changes
+
+- [`c595edf05d60e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c595edf05d60e) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 5.6.0
+
+### Minor Changes
+
+- [`68e50c0e75e2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68e50c0e75e2f) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 5.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.5.0
+
+### Minor Changes
+
+- [`fcad5db87cc77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcad5db87cc77) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.1
 
 ### Patch Changes

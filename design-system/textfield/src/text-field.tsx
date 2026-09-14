@@ -6,8 +6,8 @@ import React, { forwardRef, useCallback, useRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type TextfieldProps } from './types';
@@ -218,16 +218,7 @@ const containerStyles = css({
 	wordWrap: 'break-word',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
 	'&&': {
-		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.small', '3px'),
-	},
-});
-
-const containerStylesT26Shape = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles
-	'&&': {
-		// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-		borderRadius: token('radius.medium', '6px'),
+		borderRadius: token('radius.medium'),
 	},
 });
 
@@ -313,6 +304,10 @@ const inputStyle = css({
 			paddingInlineStart: token('space.075'),
 		},
 	},
+});
+
+const finessePlaceholderStyle = css({
+	'&::placeholder': { color: token('color.text.subtle') },
 });
 
 /**
@@ -429,7 +424,6 @@ const Textfield: React.ForwardRefExoticComponent<
 			}}
 			css={[
 				containerStyles,
-				fg('platform-dst-shape-theme-default') && containerStylesT26Shape,
 				getContainerTextBgAndBorderColor[appearance],
 				containerStyleAppearance[appearance],
 				!isDisabled && focusWithinStyle[appearance],
@@ -450,6 +444,7 @@ const Textfield: React.ForwardRefExoticComponent<
 				// TODO: When removing legacy theming fix this.
 				css={[
 					inputStyle,
+					fg('platform-dst-tokens-finesse') && finessePlaceholderStyle,
 					isMonospaced && inputMonospacedStyle,
 					isCompact && inputCompactStyle,
 					isDisabled && inputDisabledStyle,

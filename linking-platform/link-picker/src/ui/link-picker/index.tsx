@@ -19,14 +19,14 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useMergeRefs } from 'use-callback-ref';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { cssMap } from '@atlaskit/css';
-import { CardClient } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { token } from '@atlaskit/tokens';

@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - ReorderableMenuItems
  *
- * @codegen <<SignedSource::fe9b23ba28a6555fdf3292663a5ab5f7>>
+ * @codegen <<SignedSource::e803c1afbf3ed793ea9268f09cf502aa>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::d821d76600ba855195ee3bae39f60532>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/reorderable-menu-items/types.ts <<SignedSource::32dcff8c7f4f76e98ba391524aa41276>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::3217debf5ba68e84ca5ef7cdbf6ebb43>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/reorderable-menu-items/types.ts <<SignedSource::c4a5138ef88fa4afdfc33dcd5314731f>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,6 +20,11 @@ export interface Item {
 	 * The name of the icon to display before the label. If omitted, a default icon is used.
 	 */
 	icon?: IconProps['glyph'];
+	/**
+	 * Route-path pattern(s) that highlight this item when the current
+	 * route matches, written relative to the app root.
+	 */
+	activePath?: string | string[];
 }
 
 export type ReorderableMenuItemsProps = {

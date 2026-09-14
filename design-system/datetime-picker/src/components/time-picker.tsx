@@ -10,19 +10,23 @@ import React, {
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, isValid } from 'date-fns';
 
-import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
-import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
-import { fg } from '@atlaskit/platform-feature-flags';
-import Select, {
-	type ActionMeta,
-	CreatableSelect,
-	type GroupType,
-	mergeStyles,
-	type OptionType,
-	type SelectComponentsConfig,
-	type ValueType,
-} from '@atlaskit/select';
+import {
+	createLocalizationProvider,
+	type LocalizationProvider,
+} from '@atlaskit/locale/localization-provider';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import Select from '@atlaskit/select/default';
+import type {
+	ActionMeta,
+	GroupType,
+	OptionType,
+	SelectComponentsConfig,
+	ValueType,
+} from '@atlaskit/select/types';
+import CreatableSelect from '@atlaskit/select/creatable-select';
+import { mergeStyles } from '@atlaskit/react-select/styles';
 
 import { defaultTimes } from '../internal/default-times';
 import { EmptyComponent } from '../internal/empty-component';
@@ -293,7 +297,6 @@ const TimePicker: React.ForwardRefExoticComponent<
 
 		const renderIconContainer = Boolean(!hideIcon && value);
 
-		// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'.
 		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 			control: (base) => ({
 				...base,
@@ -331,7 +334,6 @@ const TimePicker: React.ForwardRefExoticComponent<
 					appearance={appearance}
 					autoFocus={autoFocus}
 					clearControlLabel={clearControlLabel}
-					// @ts-ignore - Type mismatch with components - workaround for help-center local consumption
 					components={selectComponents}
 					inputId={id}
 					isClearable
@@ -342,19 +344,16 @@ const TimePicker: React.ForwardRefExoticComponent<
 					openMenuOnFocus
 					onBlur={onBlur}
 					onCreateOption={onCreateOption}
-					// @ts-ignore - Type mismatch with onChange handler - workaround for help-center local consumption
 					onChange={onChange}
 					options={options}
 					onFocus={onFocus}
 					onMenuOpen={onMenuOpen}
 					onMenuClose={onMenuClose}
 					placeholder={placeholder || l10n.formatTime(placeholderDatetime)}
-					// @ts-ignore - Type mismatch with styles config - workaround for help-center local consumption
 					styles={mergedStyles}
 					value={initialValue}
 					spacing={spacing}
 					// We need this to get things to work, even though it's not supported.
-					// @ts-ignore
 					fixedLayerRef={containerRef}
 					isInvalid={isInvalid}
 					testId={testId}

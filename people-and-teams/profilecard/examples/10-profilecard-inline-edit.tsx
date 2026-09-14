@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import InlineEdit from '@atlaskit/inline-edit';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
-import Select, { type ValueType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 
-import TeamProfilecardTrigger from '../src/components/Team';
+import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';
 import teamData from '../src/mocks/team-data';
 import { type Team } from '../src/types';
 

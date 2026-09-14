@@ -1,5 +1,5 @@
-import type { DocNode } from '@atlaskit/adf-schema';
-import { PanelType } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 
 export const infoPanel: DocNode = {
 	version: 1,

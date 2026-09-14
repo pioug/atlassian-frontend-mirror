@@ -2,17 +2,19 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Slice, Node } from '@atlaskit/editor-prosemirror/model';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { CellSelection } from '../cell-selection';
+import type { Rect } from '../rect';
 import { TableMap } from '../table-map';
-import type { Rect } from '../table-map';
 import type { CellSelectionRect } from '../types';
 import { selectionCell } from '../utils/selection-cell';
 import { tableNodeTypes } from '../utils/table-node-types';
-import { isInTable } from '../utils/tables';
-
-import { clipCells, fitSlice, insertCells, pastedCells } from './copy-paste';
+import { clipCells } from './clip-cells';
+import { fitSlice } from './fit-slice';
+import { insertCells } from './insert-cells';
+import { isInTable } from './is-in-table';
+import { pastedCells } from './pasted-cells';
 
 type PasteOptions = {
 	pasteSource: string;

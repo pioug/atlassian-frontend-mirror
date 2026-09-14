@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import SelectedIcon from '@atlaskit/icon/core/check-mark';
 import ButtonIcon from '@atlaskit/icon/core/checkbox-indeterminate';

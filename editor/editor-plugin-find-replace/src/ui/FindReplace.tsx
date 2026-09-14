@@ -12,7 +12,6 @@ import type { IntlShape } from 'react-intl';
 
 import type { DispatchAnalyticsEvent, TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MatchCaseProps } from '../types';
 
@@ -143,14 +142,8 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 				/>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<hr role="presentation" css={ruleStyles} id="replace-hr-element" />
-				{/* Delete the Replace element and rename ReplaceNext to Replace
-						on cleanup of editor_a11y_refactor_find_replace_style */}
 				<Replace
-					canReplace={
-						expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-							? !!isReplaceable
-							: count.total > 0
-					}
+					canReplace={!!isReplaceable}
 					replaceText={replaceText}
 					onReplace={onReplace}
 					onReplaceAll={onReplaceAll}

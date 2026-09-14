@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AvatarGroup from '@atlaskit/avatar-group';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
 
 import { appearances } from '../examples-util/appearances';
 import { RANDOM_USERS } from '../examples-util/random-users';

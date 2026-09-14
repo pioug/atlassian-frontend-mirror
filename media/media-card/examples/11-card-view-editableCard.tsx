@@ -6,7 +6,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import { RadioGroup } from '@atlaskit/radio';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import {
 	videoFileDetails,
 	imageFileDetails,
@@ -22,7 +22,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { type ImageResizeMode } from '@atlaskit/media-client';
 import Toggle from '@atlaskit/toggle';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import * as exenv from 'exenv';
 import { CardView } from '../src/card/cardView';
 import { type CardAppearance, type CardStatus, type CardDimensions, type CardAction } from '../src';

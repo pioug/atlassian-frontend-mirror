@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { findKeymapByDescription, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import type { IconProps } from '@atlaskit/icon/types';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 interface Props {
 	appearance?: 'default' | 'primary' | 'subtle';
 	disabled?: boolean;

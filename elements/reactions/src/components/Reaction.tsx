@@ -6,8 +6,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { cx } from '@atlaskit/css';
 import { css, cssMap, jsx } from '@compiled/react';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	createAndFireSafe,
@@ -19,7 +20,6 @@ import { type ReactionSummary, type ReactionClick, type ReactionMouseEnter } fro
 import { Counter } from './Counter';
 import { ReactionParticleEffect } from './ReactionParticleEffect';
 import { ReactionTooltip } from './ReactionTooltip';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { messages } from '../shared/i18n';
 import { isLeftClick } from '../shared/utils';
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
@@ -40,6 +40,9 @@ const styles = cssMap({
 		marginBlock: token('space.0'),
 		paddingInline: token('space.0'),
 		paddingBlock: token('space.0'),
+	},
+	listItemNoMarker: {
+		listStyleType: 'none',
 	},
 });
 
@@ -98,9 +101,18 @@ export interface ReactionProps {
 	 */
 	onMouseEnter?: ReactionMouseEnter;
 	/**
+	 * Optional URL to optimistically render the emoji image before the catalogue arrives.
+	 * When provided, the emoji will render immediately without waiting for the emoji provider to resolve.
+	 */
+	optimisticImageURL?: string;
+	/**
 	 * Data for the reaction
 	 */
 	reaction: ReactionSummary;
+	/**
+	 * The HTML element used for the reaction root
+	 */
+	rootElement?: 'div' | 'li';
 	/**
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
@@ -113,11 +125,6 @@ export interface ReactionProps {
 	 * Optional prop for controlling if the reaction displayed is a default one and should not have a border
 	 */
 	showSubtleStyle?: boolean;
-	/**
-	 * Optional URL to optimistically render the emoji image before the catalogue arrives.
-	 * When provided, the emoji will render immediately without waiting for the emoji provider to resolve.
-	 */
-	optimisticImageURL?: string;
 }
 
 /**
@@ -137,6 +144,7 @@ export const Reaction = ({
 	isViewOnly = false,
 	showSubtleStyle,
 	optimisticImageURL,
+	rootElement,
 }: ReactionProps): JSX.Element => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
@@ -231,9 +239,12 @@ export const Reaction = ({
 		<Box
 			xcss={cx(
 				styles.container,
-				fg('jfp_a11y_team_comment_actions_semantic') ? styles.listItem : undefined,
+				rootElement === 'li' ? styles.listItem : undefined,
+				rootElement === 'li' && fg('platform_a11y_fixes_reading_order')
+					? styles.listItemNoMarker
+					: undefined,
 			)}
-			as={fg('jfp_a11y_team_comment_actions_semantic') ? 'li' : undefined}
+			as={rootElement}
 		>
 			{showParticleEffect && (
 				<ReactionParticleEffect

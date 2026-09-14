@@ -25,9 +25,6 @@
 		"**/mock.*",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
-		"./src/static/generator/generate.ts",
-		"./src/static/generator/image-sources.ts",
-		"./src/static/generator/types/**/*",
 		"**/stories.ts",
 		"**/stories.tsx",
 		"**/stories/*.ts",
@@ -57,6 +54,9 @@
 		},
 		{
 			"path": "../../elements/util-data-test/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

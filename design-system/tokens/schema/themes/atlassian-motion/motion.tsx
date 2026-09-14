@@ -37,14 +37,14 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				value: {
 					duration: 'Duration150',
 					curve: 'EasePracticalOut',
-					properties: ['BackgroundColor'],
+					properties: ['BackgroundColor', 'BorderColor'],
 				},
 			},
 			pressed: {
 				value: {
 					duration: 'Duration150',
 					curve: 'EasePracticalOut',
-					properties: ['BackgroundColor'],
+					properties: ['BackgroundColor', 'BorderColor'],
 				},
 			},
 		},
@@ -222,18 +222,129 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 		},
 		panel: {
 			enter: {
+				'[default]': {
+					value: {
+						duration: 'Duration250',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideIn100PercentRight'],
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
+				left: {
+					value: {
+						duration: 'Duration250',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideIn100PercentLeft'],
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
+				right: {
+					value: {
+						duration: 'Duration250',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideIn100PercentRight'],
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
+			},
+			exit: {
+				'[default]': {
+					value: {
+						duration: 'Duration200',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideOut100PercentRight'],
+						fill: 'AnimationFillModeForwards',
+					},
+				},
+				left: {
+					value: {
+						duration: 'Duration200',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideOut100PercentLeft'],
+						fill: 'AnimationFillModeForwards',
+					},
+				},
+				right: {
+					value: {
+						duration: 'Duration200',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideOut100PercentRight'],
+						fill: 'AnimationFillModeForwards',
+					},
+				},
+			},
+			content: {
+				enter: {
+					value: {
+						duration: 'Duration150',
+						delay: 'Duration100',
+						curve: 'EasePracticalOut',
+						keyframes: ['FadeIn0to100'],
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
+				exit: {
+					value: {
+						duration: 'Duration050',
+						curve: 'EasePracticalIn',
+						keyframes: ['FadeOut100to0'],
+						fill: 'AnimationFillModeForwards',
+					},
+				},
+			},
+		},
+		sidenav: {
+			enter: {
+				left: {
+					value: {
+						duration: 'Duration250',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideIn100PercentLeft'],
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
+				right: {
+					value: {
+						duration: 'Duration250',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideIn100PercentRight'],
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
+			},
+			exit: {
+				left: {
+					value: {
+						duration: 'Duration200',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideOut100PercentLeft'],
+						fill: 'AnimationFillModeForwards',
+					},
+				},
+				right: {
+					value: {
+						duration: 'Duration200',
+						curve: 'EaseBoldOut',
+						keyframes: ['SlideOut100PercentRight'],
+						fill: 'AnimationFillModeForwards',
+					},
+				},
+			},
+		},
+		label: {
+			enter: {
 				value: {
-					duration: 'Duration250',
-					curve: 'EaseBoldOut',
-					keyframes: ['SlideIn100PercentRight'],
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					keyframes: ['ScaleXIn80to100', 'FadeIn0to100'],
 					fill: 'AnimationFillModeBackwards',
 				},
 			},
 			exit: {
 				value: {
-					duration: 'Duration200',
+					duration: 'Duration100',
 					curve: 'EasePracticalIn',
-					keyframes: ['SlideOut100PercentRight'],
+					keyframes: ['ScaleXOut100to0', 'FadeOut100to0'],
 					fill: 'AnimationFillModeForwards',
 				},
 			},

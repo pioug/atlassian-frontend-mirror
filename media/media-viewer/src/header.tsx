@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { type ReactNode, type ReactChild } from 'react';
+
+import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
+
 import {
 	type FileState,
 	type ProcessingFileState,
@@ -10,17 +13,25 @@ import {
 	type FileIdentifier,
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
-import {
-	hideControlsClassName,
-	messages,
-	toHumanReadableMediaSize,
-	MediaButton,
-} from '@atlaskit/media-ui';
-import { getLanguageType, getExtension, isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
+import { useFileState } from '@atlaskit/media-client-react/use-file-state';
+import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
 import { isZipMimeType } from '@atlaskit/media-common/isZipMimeType';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl';
-import { Outcome } from './domain';
+import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
+import { getExtension } from '@atlaskit/media-ui/getExtension';
+import { getLanguageType } from '@atlaskit/media-ui/getLanguageType';
+import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
+import { isCodeViewerItem } from '@atlaskit/media-ui/isCodeViewerItem';
+import MediaButton from '@atlaskit/media-ui/MediaButton';
+import { messages } from '@atlaskit/media-ui/messages';
+import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { type MediaViewerExtensions } from './components/types';
+import { Outcome } from './domain/outcome';
+import { DisabledToolbarDownloadButton } from './download';
+import { MediaViewerError } from './MediaViewerError';
 import {
 	Header as HeaderWrapper,
 	LeftHeader,
@@ -32,14 +43,8 @@ import {
 	MetadataFileName,
 	FormattedMessageWrapper,
 } from './styleWrappers';
-import { ToolbarDownloadButton, DisabledToolbarDownloadButton } from './download';
-import { type MediaViewerExtensions } from './components/types';
-import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
-import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
-import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import { getFormat } from './viewers/codeViewer/util';
-import { MediaViewerError } from './errors';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { ToolbarDownloadButton } from './ToolbarDownloadButton';
+import { getFormat } from './viewers/codeViewer/getFormat';
 
 export type Props = {
 	readonly identifier: Identifier;
@@ -276,5 +281,3 @@ export const Header = ({
 		</HeaderWrapper>
 	);
 };
-
-export default injectIntl(Header) as React.FC<Props>;

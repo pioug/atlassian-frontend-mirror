@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "37.2.2",
+	"version": "37.6.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -76,17 +76,17 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@babel/core": "root:*",
 		"@babel/register": "root:*",
 		"@codeshift/utils": "root:*",
-		"@testing-library/react": "root:*",
 		"fs-extra": "root:*",
 		"globby": "root:*",
 		"jscodeshift": "root:*",
 		"lodash": "root:*",
 		"nullthrows": "root:*",
 		"pkg-dir": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"react-dom": "root:*",
 		"tsx": "root:*"
 	},
@@ -94,22 +94,6 @@
 		"atlaskit",
 		"ui"
 	],
-	"techstack": {
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"styling": [
-				"static"
-			],
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"homepage": "https://atlassian.design/components/icon/",
 	"exports": {
 		".": "./src/index.tsx",
@@ -128,7 +112,7 @@
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./metadata-core": "./src/metadata-core.tsx",
 		"./skeleton": "./src/components/skeleton.tsx",
-		"./src/constants": "./src/constants.tsx",
+		"./constants/default": "./src/constants.tsx",
 		"./types": "./src/types.tsx"
 	}
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
@@ -49,6 +49,10 @@ function InnerManualPopover(): React.ReactNode {
 				isOpen={isOpen}
 			>
 				<div data-testid="inner-popover">
+					<button type="button" data-testid="inner-before">
+						Inner before
+					</button>
+					<input aria-label="Inner origin" data-testid="inner-origin" tabIndex={-1} />
 					<button type="button" data-testid="inner-button">
 						Inner action
 					</button>

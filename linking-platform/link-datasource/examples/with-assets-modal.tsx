@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { CodeBlock } from '@atlaskit/code';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import CodeBlock from '@atlaskit/code/code-block';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
-import { type InlineCardAdf } from '@atlaskit/linking-common';
+import type { InlineCardAdf } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import {
-	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	type AssetsDatasourceAdf,
 	type AssetsDatasourceParameters,
-} from '../src';
-import JSMAssetsConfigModal from '../src/ui/assets-modal';
+} from '../src/ui/assets-modal/types';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
+import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../src/ui/assets-modal/AssetsConfigModalWithWrappers';
 
 mockAssetsClientFetchRequests();
 

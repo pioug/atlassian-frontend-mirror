@@ -1,5 +1,5 @@
 import type { InsertBlockPluginOptions } from '@atlaskit/editor-plugin-insert-block';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { FullPageEditorAppearance } from '../types';
 

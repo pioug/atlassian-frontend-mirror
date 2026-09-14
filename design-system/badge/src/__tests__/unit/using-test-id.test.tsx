@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import Badge from '../../index';
+import Badge from '../../badge';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Badge should be found by data-testid', () => {

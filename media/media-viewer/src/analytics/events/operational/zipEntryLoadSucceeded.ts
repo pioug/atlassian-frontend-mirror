@@ -1,9 +1,11 @@
+import { type ZipEntry } from 'unzipit';
+
 import { type FileState } from '@atlaskit/media-client';
 import { type SuccessAttributes, type WithFileAttributes } from '@atlaskit/media-common/analytics';
-import { type ZipEntry } from 'unzipit';
+
+import { getMimeTypeFromFilename } from '../../../utils/getMimeTypeFromFilename';
+import { getFileAttributes } from '../../getFileAttributes';
 import { type MediaFileEventPayload } from './_mediaFile';
-import { getMimeTypeFromFilename } from '../../../utils';
-import { getFileAttributes } from '../..';
 
 export type ZipEntryLoadSucceededAttributes = SuccessAttributes &
 	WithFileAttributes & {

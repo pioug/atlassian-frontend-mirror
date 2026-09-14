@@ -11,7 +11,7 @@ import {
 	type GasPayload,
 	type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 const extractFieldsFromContext = (fieldsToPick: string[]) => (contexts: Record<string, any>[]) =>
 	contexts

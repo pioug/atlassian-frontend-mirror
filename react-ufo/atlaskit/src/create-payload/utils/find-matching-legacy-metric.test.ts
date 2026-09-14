@@ -38,6 +38,7 @@ describe('findMatchingLegacyMetric', () => {
 		trace: null,
 		routeName: 'test-route',
 		...overrides,
+		preloadInfo: overrides.preloadInfo ?? [],
 	});
 
 	describe('matching by key', () => {

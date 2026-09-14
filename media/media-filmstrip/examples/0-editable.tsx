@@ -6,9 +6,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { RadioGroup } from '@atlaskit/radio';
-import Range from '@atlaskit/range';
-import Button from '@atlaskit/button/new';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import Range from '@atlaskit/range/range';
+import Button from '@atlaskit/button/default/button';
 import { Card } from '@atlaskit/media-card';
 import {
 	createStorybookMediaClientConfig,

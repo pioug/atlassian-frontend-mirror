@@ -1,7 +1,8 @@
 import React from 'react';
 
-import AKBadge from '@atlaskit/badge';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import AKBadge from '@atlaskit/badge/badge';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {

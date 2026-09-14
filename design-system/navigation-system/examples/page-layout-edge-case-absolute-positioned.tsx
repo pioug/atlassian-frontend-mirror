@@ -1,3 +1,3 @@
-import { EdgeCaseSiblingAbsolutePositioned } from './page-layout';
+import { EdgeCaseSiblingAbsolutePositioned } from './page-layout.vr.ap';
 
 export default EdgeCaseSiblingAbsolutePositioned;

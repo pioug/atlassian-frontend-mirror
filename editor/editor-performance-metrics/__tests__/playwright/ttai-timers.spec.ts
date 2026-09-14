@@ -7,6 +7,9 @@ import { test } from './fixtures';
 test.describe('TTAI: timers', () => {
 	test.use({
 		examplePage: 'ttai-with-timers',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/07-ttai-with-timers.tsx');
+		examplePage: 'ttai-with-timers';
 	});
 
 	test.describe('when there is nested setTimeout simulating a clock behavior', () => {
@@ -20,10 +23,5 @@ test.describe('TTAI: timers', () => {
 
 			await expect(divWithTTAI).toBeVisible();
 		});
-	});
-
-	test('should capture and report a11y violations', async ({ page }) => {
-		await expect(page.locator('[data-is-ttai-ready="true"]')).toBeVisible();
-		await expect(page).toBeAccessible();
 	});
 });

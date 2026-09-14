@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
-import { PopupSelect } from '@atlaskit/select';
+import { PopupSelect } from '@atlaskit/select/popup-select';
 
 const options = [
 	{ value: 'option-1', label: 'Option 1' },

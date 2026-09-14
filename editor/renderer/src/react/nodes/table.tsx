@@ -1,14 +1,17 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop, @repo/internal/react/no-class-components */
 import React from 'react';
-import { useIntl } from 'react-intl';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { TableLayout, UrlType } from '@atlaskit/adf-schema';
+import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
+import type { UrlType } from '@atlaskit/adf-schema/block-card';
 import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common/styles';
-import { tableMessages } from '@atlaskit/editor-common/messages';
-import { WidthConsumer, overflowShadow } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { overflowShadow } from '@atlaskit/editor-common/ui';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { FullPagePadding } from '../../ui/Renderer/style';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { RendererCssClassName } from '../../consts';
 
 import {
 	createCompareNodes,
@@ -23,12 +26,11 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { RendererAppearance, StickyHeaderConfig } from '../../ui/Renderer/types';
-import { FullPagePadding } from '../../ui/Renderer/style';
-import { TableHeader } from './tableCell';
+import { TableCell, TableHeader } from './tableCell';
+import type { TableCellEdgeProps } from './tableCell';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
 import { withSmartCardStorage } from '../../ui/SmartCardStorage';
 
@@ -38,17 +40,15 @@ import { Table } from './table/table';
 import type { SharedTableProps } from './table/types';
 import {
 	isCommentAppearance,
-	isFullPageAppearance,
-	isFullWidthAppearance,
 	isFullWidthOrFullPageAppearance,
+	isFullWidthAppearance,
 	isMaxWidthAppearance,
+	isFullPageAppearance,
 } from '../utils/appearance';
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
 import { useRendererContext } from '../../renderer-context';
-
-import { TableProcessorWithContainerStyles, RefSyncBlockFakeBorders } from './tableNew';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import { isContentModeSupported } from './table/content-mode';
@@ -56,6 +56,24 @@ import { isContentModeSupported } from './table/content-mode';
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
 	rowReact: React.ReactElement;
+};
+
+const stickyContainerBaseStyles = {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	height: token('space.250'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+	// Follow editor to hide by default so it does not show empty gap in SSR
+	// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	display: 'block',
+	width: '100%',
+};
+
+const stickyContainerAdditionalStyles = {
+	visibility: 'hidden',
+	overflowX: 'auto',
+	position: 'sticky',
+	bottom: token('space.0'),
+	zIndex: 1,
 };
 
 export const isTableResizingEnabled = (appearance: RendererAppearance): boolean =>
@@ -114,7 +132,7 @@ export const orderChildren = (
 
 export const hasRowspan = (row: PMNode): boolean => {
 	let hasRowspan = false;
-	row.forEach((cell) => (hasRowspan = hasRowspan || cell.attrs.rowspan > 1));
+	row.forEach((cell: PMNode) => (hasRowspan = hasRowspan || cell.attrs.rowspan > 1));
 	return hasRowspan;
 };
 
@@ -141,7 +159,7 @@ export const addSortableColumn = (
 	rows: React.ReactElement<any>[],
 	tableOrderStatus: TableOrderStatus | undefined,
 	onSorting: (columnIndex: number, sortOrder: SortOrder) => void,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): React.ReactElement<any, string | React.JSXElementConstructor<any>>[] => {
 	return React.Children.map(rows, (row, index) => {
 		if (index === 0) {
@@ -162,7 +180,6 @@ export type TableProps = SharedTableProps & {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children: React.ReactElement<any> | Array<React.ReactElement<any>>;
-	disableTableOverflowShadow?: boolean;
 	isPresentational?: boolean;
 	rendererAppearance?: RendererAppearance;
 	stickyHeaders?: StickyHeaderConfig;
@@ -190,49 +207,6 @@ export const isHeaderRowEnabled = (
 	return children.every((node: React.ReactElement) => node.type === TableHeader);
 };
 
-type TableWrapperProps = {
-	children: React.ReactNode;
-	onScroll?: () => void;
-	stickyHeaders?: StickyHeaderConfig;
-	tabIndex?: number;
-	wrapperRef: React.RefObject<HTMLDivElement>;
-};
-
-/**
- * This TableWrapper component was created to make sure that the aria-label can be
- * internationalized without needing to add `intl` to the TableContainer.
- *
- * <TableWrapper wrapperRef={ref} onScroll={handleScroll} stickyHeaders={config}>
- *   <Table>...</Table>
- * </TableWrapper>
- */
-const TableWrapper = ({
-	children,
-	wrapperRef,
-	onScroll,
-	stickyHeaders,
-	tabIndex,
-}: TableWrapperProps) => {
-	const { formatMessage } = useIntl();
-	const isScrollableRegion = tabIndex !== undefined;
-
-	return (
-		<div
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
-			ref={wrapperRef}
-			onScroll={stickyHeaders ? onScroll : undefined}
-			// Adding tabIndex here because this is a scrollable container and it needs to be focusable so keyboard users can scroll it.
-			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
-			tabIndex={tabIndex}
-			role={isScrollableRegion ? 'region' : undefined}
-			aria-label={isScrollableRegion ? formatMessage(tableMessages.tableScrollRegion) : undefined}
-		>
-			{children}
-		</div>
-	);
-};
-
 export const tableCanBeSticky = (
 	node: PMNode | undefined,
 	children: (React.ReactElement | number | string | React.ReactFragment | React.ReactPortal)[],
@@ -250,8 +224,51 @@ export interface TableState {
 	headerRowHeight: number;
 	stickyMode: StickyMode;
 	wrapperWidth: number;
-} /**
+}
+
+/**
+ * Fake left/right borders rendered as direct children of TABLE_CONTAINER
+ * (the non-scrolling parent of the horizontally scrolling TABLE_NODE_WRAPPER).
  *
+ * The visible styling for these divs lives in `tableFakeBorderStyles`
+ * (`renderer/src/ui/Renderer/RendererStyleContainer.tsx`), which is applied
+ * when `isInsideSyncBlock` is true.
+ */
+const TableFakeBorders = ({ isNumberColumnEnabled }: { isNumberColumnEnabled?: boolean }) => (
+	<>
+		<div
+			className={TableSharedCssClassName.TABLE_LEFT_BORDER}
+			data-with-numbered-table={isNumberColumnEnabled ? 'true' : undefined}
+			data-testid="table-left-border"
+		/>
+		<div
+			className={TableSharedCssClassName.TABLE_RIGHT_BORDER}
+			data-with-numbered-table={isNumberColumnEnabled ? 'true' : undefined}
+			data-testid="table-right-border"
+		/>
+	</>
+);
+
+/**
+ * Reads `nestedRendererType` from RendererContext and renders the fake left/right
+ * borders only when the current renderer is the nested renderer for a reference
+ * synced block.
+ */
+export const RefSyncBlockFakeBorders = ({
+	isNumberColumnEnabled,
+}: {
+	isNumberColumnEnabled: boolean;
+}): React.JSX.Element | null => {
+	const { nestedRendererType } = useRendererContext();
+	const isInsideOfRefSyncBlock = nestedRendererType === 'syncedBlock';
+	if (!isInsideOfRefSyncBlock) {
+		return null;
+	}
+	return <TableFakeBorders isNumberColumnEnabled={isNumberColumnEnabled} />;
+};
+
+/**
+ * TableContainer renders tables using only CSS-based rules
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -276,6 +293,12 @@ export class TableContainer extends React.Component<
 	nextFrame: number | undefined;
 	overflowParent: OverflowParent | null = null;
 
+	private containerRef: HTMLDivElement | null = null;
+	private _isInsideNestedRenderer: boolean | null = null;
+	private _isInsideTableCell: boolean | null = null;
+	// Stores the last computed style values from render() for use by applyNestedRendererTableFix().
+	// This avoids reading from the DOM which can be stale when React removes properties between renders.
+	private lastComputedStyle: { left?: string; marginLeft?: string; width?: string } = {};
 	private resizeObserver: ResizeObserver | null = null;
 
 	private applyResizerChange: ResizeObserverCallback = (entries) => {
@@ -302,6 +325,156 @@ export class TableContainer extends React.Component<
 	};
 
 	/**
+	 * Checks if this table is inside a nested renderer (e.g. Include Page macro)
+	 * by looking for multiple .ak-renderer-document ancestors in the DOM.
+	 * The result is cached since a table's position in the DOM tree is stable after mount.
+	 */
+	private isInsideNestedRenderer(): boolean {
+		if (this._isInsideNestedRenderer !== null) {
+			return this._isInsideNestedRenderer;
+		}
+		if (!this.containerRef) {
+			return false;
+		}
+		let docAncestorCount = 0;
+		let el: HTMLElement | null = this.containerRef.parentElement;
+		while (el) {
+			if (el.classList.contains(RendererCssClassName.DOCUMENT)) {
+				docAncestorCount++;
+				if (docAncestorCount >= 2) {
+					this._isInsideNestedRenderer = true;
+					return true;
+				}
+			}
+			el = el.parentElement;
+		}
+		this._isInsideNestedRenderer = false;
+		return false;
+	}
+
+	/**
+	 * Checks if this table is inside a table cell in the DOM. The result is cached
+	 * since a table's position in the DOM tree is stable after mount.
+	 */
+	private isInsideTableCell(): boolean {
+		if (this._isInsideTableCell !== null) {
+			return this._isInsideTableCell;
+		}
+		if (!this.containerRef) {
+			return false;
+		}
+		this._isInsideTableCell = Boolean(this.containerRef.closest('td, th'));
+		return this._isInsideTableCell;
+	}
+
+	private isInsideTableContext(): boolean {
+		return Boolean(this.props.isInsideOfTable || this.isInsideTableCell());
+	}
+
+	/**
+	 * For tables inside nested renderers (e.g. Include Page macro), the parent
+	 * renderer's CSS override forces width:100%!important and left:0!important
+	 * which overrides the inline styles set by this component. Using
+	 * style.setProperty with 'important' priority on inline styles beats
+	 * stylesheet !important rules per the CSS cascade.
+	 *
+	 * Tables that are nested inside another table need to remain constrained by
+	 * their table-cell context. Do not promote their width to inline !important,
+	 * otherwise nested tables rendered through macros such as Excerpt Include can
+	 * overflow and overlap adjacent cells.
+	 *
+	 * Top-level tables in nested renderers still preserve their saved width, but
+	 * are capped to their containing block so wide tables do not escape constrained
+	 * macro bodies such as Excerpt Include panels.
+	 *
+	 * Uses lastComputedStyle (populated during render) rather than reading from
+	 * element.style, because React may remove properties from the DOM when their
+	 * values transition to undefined between renders.
+	 *
+	 * `platform_nested_table_style_override_2` fixes a follow-up regression where a
+	 * NON-resized table inside an Excerpt macro (not Excerpt Include) on a
+	 * wide/full-width page shrinks to only show its first columns in the renderer.
+	 * Inside a nested renderer (a macro body) a non-resized table's computed width
+	 * is a default layout cap (760px/1800px, or a `cqw` length for full-page
+	 * appearances) taken from the outer renderer's width context. That value does
+	 * not match the macro's own box, so promoting it to inline `!important` makes
+	 * the table collapse. Such tables have no author-chosen size to preserve, so
+	 * under this gate we re-assert the parent stylesheet's intent (fill the box:
+	 * `width: 100%; left: 0`) with inline `!important`.
+	 *
+	 * Explicitly resized tables (`tableNode.attrs.width` set) are excluded and keep
+	 * the original PGXT-10226 behavior: their author-chosen width/left is promoted
+	 * verbatim so the Include Page macro does not stretch or indent them. The
+	 * table-cell short-circuit (PGXT-10294) above also still applies.
+	 */
+	private applyNestedRendererTableFix(): void {
+		if (!this.containerRef || !fg('platform_nested_table_style_override')) {
+			return;
+		}
+		if (!this.isInsideNestedRenderer() || this.isInsideTableContext()) {
+			return;
+		}
+
+		const { width, left, marginLeft } = this.lastComputedStyle;
+		const style = this.containerRef.style;
+
+		// A table is "explicitly resized" when the author set a width on the node.
+		// Non-resized tables instead take a default layout cap (e.g. 760px/1800px)
+		// derived from the outer renderer's appearance.
+		const isExplicitlyResized = Boolean(this.props.tableNode?.attrs.width);
+
+		if (!isExplicitlyResized && fg('platform_nested_table_style_override_2')) {
+			// PGXT-10421: For a NON-resized table inside a nested renderer (e.g. an
+			// Excerpt macro body), the computed width is a default layout cap
+			// (760px/1800px, or a `cqw` length for full-page appearances) taken from
+			// the *outer* renderer's width context. That value does not match the
+			// macro's own box, so promoting it to inline `!important` makes the table
+			// ignore the available space and collapse to its first columns.
+			//
+			// These tables have no author-chosen size to preserve, so re-assert the
+			// parent stylesheet's intent — fill the available box (`width: 100%`) —
+			// with inline `!important` priority so it survives React re-renders and
+			// wins over the stylesheet rule that leaks into nested renderers.
+			style.setProperty('width', '100%', 'important');
+			style.setProperty('max-width', '100%', 'important');
+			style.setProperty('left', '0', 'important');
+			style.setProperty('margin-left', '0', 'important');
+			return;
+		}
+
+		// PGXT-10226: An explicitly resized table inside a nested renderer (e.g.
+		// Include Page macro) must keep its author-chosen width and position. The
+		// parent stylesheet forces `width: 100% !important; left: 0 !important`,
+		// which would stretch and indent it, so we promote the component's own
+		// computed width/left with inline `!important` to win the cascade.
+		style.setProperty('width', width || 'auto', 'important');
+		style.setProperty('max-width', '100%', 'important');
+		style.setProperty('left', left || 'auto', 'important');
+		style.setProperty('margin-left', marginLeft || '0', 'important');
+	}
+
+	/**
+	 * Callback ref that captures the container DOM element and also forwards
+	 * to the handleRef prop from the overflow shadow HOC.
+	 */
+	private setContainerRef = (el: HTMLDivElement | null): void => {
+		if (this.containerRef !== el) {
+			this._isInsideNestedRenderer = null;
+			this._isInsideTableCell = null;
+		}
+		this.containerRef = el;
+		const { handleRef } = this.props;
+		if (typeof handleRef === 'function') {
+			handleRef(el);
+		} else if (handleRef && typeof handleRef === 'object') {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(handleRef as any).current = el;
+		}
+	};
+
+	/**
+	 * Starts observing table dimensions and wires sticky header/scrollbar behavior after mount.
 	 *
 	 * @example
 	 */
@@ -327,9 +500,12 @@ export class TableContainer extends React.Component<
 		if (this.wrapperRef.current && isStickyScrollbarEnabled(this.props.rendererAppearance)) {
 			this.stickyScrollbar = new TableStickyScrollbar(this.wrapperRef.current);
 		}
+
+		this.applyNestedRendererTableFix();
 	}
 
 	/**
+	 * Updates sticky header wiring and scroll synchronization after prop or state changes.
 	 *
 	 * @param prevProps
 	 * @param prevState
@@ -358,6 +534,10 @@ export class TableContainer extends React.Component<
 		if (prevState.stickyMode !== this.state.stickyMode) {
 			this.onWrapperScrolled();
 		}
+
+		// React re-applies the style prop on every render, which overwrites the
+		// !important priorities set at mount time. Re-apply after each update.
+		this.applyNestedRendererTableFix();
 	}
 
 	componentWillUnmount = (): void => {
@@ -433,7 +613,7 @@ export class TableContainer extends React.Component<
 	};
 
 	/**
-	 *
+	 * Calculates the top offset used when the sticky header is pinned to the table bottom.
 	 */
 	get pinTop(): number | undefined {
 		if (!this.tableRef.current || !this.stickyHeaderRef.current) {
@@ -449,7 +629,7 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
-	 *
+	 * Determines whether sticky header positioning should include the default scroll root offset.
 	 */
 	get shouldAddOverflowParentOffsetTop_DO_NOT_USE(): boolean | null | undefined {
 		// IF the StickyHeaderConfig specifies that the default scroll root offsetTop should be added
@@ -466,7 +646,7 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
-	 *
+	 * Resolves the top position for the sticky header based on the current sticky mode.
 	 */
 	get stickyTop(): number | undefined {
 		switch (this.state.stickyMode) {
@@ -486,6 +666,7 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
+	 * Renders the table container, sticky header, table content, sticky scrollbar, and synced block borders.
 	 *
 	 * @example
 	 */
@@ -493,7 +674,6 @@ export class TableContainer extends React.Component<
 		const {
 			isNumberColumnEnabled,
 			layout,
-			renderWidth,
 			columnWidths,
 			stickyHeaders,
 			tableNode,
@@ -511,13 +691,7 @@ export class TableContainer extends React.Component<
 		const { stickyMode } = this.state;
 
 		const lineLengthFixedWidth = akEditorDefaultLayoutWidth;
-		let left: number | undefined;
 		let updatedLayout: TableLayout | 'custom';
-
-		// The tableWidth and left offset logic below must stay aligned with the `breakout-ssr.tsx` logic
-		// Please consider changes below carefully to not negatively impact SSR
-		// `renderWidth` cannot be depended on during SSR
-		const isRenderWidthValid = !!renderWidth && renderWidth > 0;
 
 		const fullPageRendererWidthCSS = editorExperiment(
 			'platform_editor_preview_panel_responsiveness',
@@ -534,42 +708,30 @@ export class TableContainer extends React.Component<
 		const calcDefaultLayoutWidthByAppearance = (
 			rendererAppearance: RendererAppearance,
 			tableNode?: PMNode,
-		): [number, string] => {
-			if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
-				return [
-					isRenderWidthValid
-						? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
-						: akEditorFullWidthLayoutWidth,
-					`min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`,
-				];
-			} else if (rendererAppearance === 'max' && !tableNode?.attrs.width) {
-				return [
-					isRenderWidthValid
-						? Math.min(akEditorMaxWidthLayoutWidth, renderWidth)
-						: akEditorMaxWidthLayoutWidth,
-					`min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`,
-				];
+		): string => {
+			if (
+				rendererAppearance === 'max' &&
+				!tableNode?.attrs.width &&
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
+			) {
+				return `min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`;
+			} else if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
+				return `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
 			} else if (
 				rendererAppearance === 'comment' &&
 				allowTableResizing &&
 				!tableNode?.attrs.width
 			) {
-				const tableContainerWidth = getTableContainerWidth(tableNode);
-				return [isRenderWidthValid ? renderWidth : tableContainerWidth, renderWidthCSS];
+				return renderWidthCSS;
 			} else {
 				// custom width, or width mapped to breakpoint
 				const tableContainerWidth = getTableContainerWidth(tableNode);
-				return [
-					isRenderWidthValid ? Math.min(tableContainerWidth, renderWidth) : tableContainerWidth,
-					`min(${tableContainerWidth}px, ${renderWidthCSS})`,
-				];
+				return `min(${tableContainerWidth}px, ${renderWidthCSS})`;
 			}
 		};
 
-		const [tableWidth, tableWidthCSS] = calcDefaultLayoutWidthByAppearance(
-			rendererAppearance,
-			tableNode,
-		);
+		const tableWidthCSS = calcDefaultLayoutWidthByAppearance(rendererAppearance, tableNode);
 
 		// Logic for table alignment in renderer
 		const isTableAlignStart =
@@ -578,27 +740,10 @@ export class TableContainer extends React.Component<
 			tableNode.attrs.layout === 'align-start' &&
 			allowTableAlignment;
 
-		const fullWidthLineLength = isRenderWidthValid
-			? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
-			: akEditorFullWidthLayoutWidth;
 		const fullWidthLineLengthCSS = `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
-		const maxWidthLineLength = isRenderWidthValid
-			? Math.min(akEditorMaxWidthLayoutWidth, renderWidth)
-			: akEditorMaxWidthLayoutWidth;
 		const maxWidthLineLengthCSS = `min(${akEditorMaxWidthLayoutWidth}px, ${renderWidthCSS})`;
-
-		const commentLineLength = isRenderWidthValid ? renderWidth : lineLengthFixedWidth;
 		const isCommentAppearanceAndTableAlignmentEnabled =
 			isCommentAppearance(rendererAppearance) && allowTableAlignment;
-		const lineLength = isFullWidthAppearance(rendererAppearance)
-			? fullWidthLineLength
-			: isMaxWidthAppearance(rendererAppearance) &&
-				  (expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))
-				? maxWidthLineLength
-				: isCommentAppearanceAndTableAlignmentEnabled
-					? commentLineLength
-					: lineLengthFixedWidth;
 		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLengthCSS
 			: isMaxWidthAppearance(rendererAppearance) &&
@@ -609,41 +754,28 @@ export class TableContainer extends React.Component<
 					? renderWidthCSS
 					: `${lineLengthFixedWidth}px`;
 
-		// Setting fixTableSSRResizing to false while FG logic is true in tableNew
-		const fixTableSSRResizing = false;
-		const tableWidthNew = fixTableSSRResizing ? getTableContainerWidth(tableNode) : tableWidth;
+		const tableWidthNew = getTableContainerWidth(tableNode);
 		const shouldCalculateLeftForAlignment =
 			!isInsideOfBlockNode &&
 			!isInsideOfTable &&
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
-				((expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-					isMaxWidthAppearance(rendererAppearance)) ||
+				(isMaxWidthAppearance(rendererAppearance) &&
+					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true))) ||
 				isCommentAppearanceAndTableAlignmentEnabled);
 
 		let leftCSS: string | undefined;
 		if (shouldCalculateLeftForAlignment) {
-			left = (tableWidth - lineLength) / 2;
 			leftCSS = `(${tableWidthCSS} - ${lineLengthCSS}) / 2`;
 		}
 
-		if (fixTableSSRResizing) {
-			if (!shouldCalculateLeftForAlignment && isFullPageAppearance(rendererAppearance)) {
-				// Note tableWidthCSS here is the renderer width
-				// When the screen is super wide we want table to break out.
-				// However if screen is smaller than 760px. We want table align to left.
-				leftCSS = `min(0px, ${lineLengthCSS} - ${tableWidthCSS}) / 2`;
-			}
-		} else {
-			if (
-				!shouldCalculateLeftForAlignment &&
-				isFullPageAppearance(rendererAppearance) &&
-				tableWidthNew > lineLengthFixedWidth
-			) {
-				left = lineLengthFixedWidth / 2 - tableWidth / 2;
-			}
+		if (!shouldCalculateLeftForAlignment && isFullPageAppearance(rendererAppearance)) {
+			// Note tableWidthCSS here is the renderer width
+			// When the screen is super wide we want table to break out.
+			// However if screen is smaller than 760px. We want table align to left.
+			leftCSS = `min(0px, ${lineLengthCSS} - ${tableWidthCSS}) / 2`;
 		}
 
 		const children = React.Children.toArray(this.props.children);
@@ -668,10 +800,11 @@ export class TableContainer extends React.Component<
 		// When appearance is full-page, full-width or comment we use CSS based width calculation.
 		// Otherwise it's fixed table width (customized width) or inherit.
 		if (
-			(rendererAppearance === 'full-page' ||
-				rendererAppearance === 'full-width' ||
-				rendererAppearance === 'max') &&
-			fixTableSSRResizing
+			rendererAppearance === 'full-page' ||
+			rendererAppearance === 'full-width' ||
+			(rendererAppearance === 'max' &&
+				(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))
 		) {
 			finalTableContainerWidth = allowTableResizing ? `calc(${tableWidthCSS})` : 'inherit';
 		}
@@ -686,9 +819,7 @@ export class TableContainer extends React.Component<
 			// where (allowTableResizing && !allowTableAlignment), the table will loose 760px width.
 			finalTableContainerWidth =
 				tableNode?.attrs.width && tableNode?.attrs.width !== akEditorDefaultLayoutWidth
-					? fixTableSSRResizing
-						? `calc(${tableWidthCSS})`
-						: tableWidth
+					? `calc(${tableWidthCSS})`
 					: 'inherit';
 		}
 
@@ -699,38 +830,34 @@ export class TableContainer extends React.Component<
 			finalTableContainerWidth =
 				(tableNode?.attrs.layout === 'align-start' || tableNode?.attrs.layout === 'center') &&
 				tableNode?.attrs.width
-					? fixTableSSRResizing
-						? `calc(${tableWidthCSS})`
-						: tableWidth
+					? `calc(${tableWidthCSS})`
 					: 'inherit';
 		}
 
-		const isContentModeTable =
-			isTableInContentMode({
-				tableNode,
-				isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
-				isTableNested: isInsideOfBlockNode || isInsideOfNestedRenderer || isInsideOfTable,
-			}) && expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true);
+		const isContentModeTable = isTableInContentMode({
+			tableNode,
+			isSupported: isContentModeSupported({ allowTableResizing, rendererAppearance }),
+			isTableNested: isInsideOfBlockNode || isInsideOfNestedRenderer || isInsideOfTable,
+		});
 
-		let style;
-		if (fixTableSSRResizing) {
-			style = {
-				...(isContentModeTable && { '--renderer-table-max-width': renderWidthCSS }),
-				width: finalTableContainerWidth,
-				left: leftCSS ? `calc(${leftCSS})` : undefined,
-				marginLeft:
-					shouldCalculateLeftForAlignment && leftCSS !== undefined
-						? `calc(-1 * (${leftCSS}))`
-						: undefined,
-			};
-		} else {
-			style = {
-				...(isContentModeTable && { '--renderer-table-max-width': `${renderWidth}px` }),
-				width: finalTableContainerWidth,
-				left: left,
-				marginLeft: shouldCalculateLeftForAlignment && left !== undefined ? -left : undefined,
-			};
-		}
+		const style = {
+			...(isContentModeTable && { '--renderer-table-max-width': renderWidthCSS }),
+			width: finalTableContainerWidth,
+			left: leftCSS ? `calc(${leftCSS})` : undefined,
+			marginLeft:
+				shouldCalculateLeftForAlignment && leftCSS !== undefined
+					? `calc(-1 * (${leftCSS}))`
+					: undefined,
+		};
+
+		// Store computed style values for applyNestedRendererTableFix() to use.
+		// Reading from props rather than the DOM ensures correctness when React
+		// removes properties (transitions from set to undefined) between renders.
+		this.lastComputedStyle = {
+			width: typeof style.width === 'number' ? `${style.width}px` : style.width,
+			left: style.left,
+			marginLeft: style.marginLeft,
+		};
 
 		return (
 			<>
@@ -740,9 +867,10 @@ export class TableContainer extends React.Component<
 						this.props.shadowClassNames || ''
 					}`}
 					data-layout={updatedLayout}
-					ref={this.props.handleRef}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					data-testid="table-container"
+					ref={this.setContainerRef}
 					style={style}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				>
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div
@@ -751,40 +879,49 @@ export class TableContainer extends React.Component<
 							data-testid="sticky-scrollbar-sentinel-top"
 						/>
 					)}
-					{stickyHeaders && tableCanBeSticky(tableNode, children) && (
-						<StickyTable
-							isNumberColumnEnabled={isNumberColumnEnabled}
-							tableWidth={tableWidth}
-							layout={layout}
-							renderWidth={renderWidth}
-							handleRef={this.props.handleRef}
-							shadowClassNames={this.props.shadowClassNames}
-							top={this.stickyTop}
-							mode={stickyMode}
-							innerRef={this.stickyWrapperRef}
-							wrapperWidth={this.state.wrapperWidth}
-							columnWidths={columnWidths}
-							rowHeight={this.state.headerRowHeight}
-							tableNode={tableNode}
-							rendererAppearance={rendererAppearance}
-							allowTableResizing={allowTableResizing}
-							allowFixedColumnWidthOption={allowFixedColumnWidthOption}
-						>
-							{[children && children[0]]}
-						</StickyTable>
-					)}
-					<TableWrapper
-						wrapperRef={this.wrapperRef}
-						onScroll={this.props.stickyHeaders ? this.onWrapperScrolled : undefined}
-						stickyHeaders={stickyHeaders}
-						tabIndex={this.props.tabIndex}
+					{stickyHeaders &&
+						tableNode &&
+						!isContentModeTable &&
+						tableCanBeSticky(tableNode, children) && (
+							<StickyTable
+								isNumberColumnEnabled={isNumberColumnEnabled}
+								tableWidth="inherit"
+								renderWidth={0}
+								layout={layout}
+								handleRef={this.props.handleRef}
+								shadowClassNames={this.props.shadowClassNames}
+								top={this.stickyTop}
+								mode={stickyMode}
+								innerRef={this.stickyWrapperRef}
+								wrapperWidth={this.state.wrapperWidth}
+								columnWidths={columnWidths}
+								rowHeight={this.state.headerRowHeight}
+								tableNode={tableNode}
+								rendererAppearance={rendererAppearance}
+								allowTableResizing={allowTableResizing}
+								allowFixedColumnWidthOption={allowFixedColumnWidthOption}
+							>
+								{[children && children[0]]}
+							</StickyTable>
+						)}
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
+						ref={this.wrapperRef}
+						data-number-column={tableNode?.attrs.isNumberColumnEnabled}
+						data-layout={tableNode?.attrs.layout}
+						data-autosize={tableNode?.attrs.__autoSize}
+						data-table-local-id={tableNode?.attrs.localId}
+						data-table-width={tableNode?.attrs.width}
+						data-vc="table-node-wrapper"
+						onScroll={this.props.stickyHeaders && this.onWrapperScrolled}
 					>
 						<Table
 							innerRef={this.tableRef}
 							columnWidths={columnWidths}
 							layout={layout}
+							renderWidth={0}
 							isNumberColumnEnabled={isNumberColumnEnabled}
-							renderWidth={renderWidth}
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
 							isInsideOfBlockNode={isInsideOfBlockNode}
@@ -797,26 +934,25 @@ export class TableContainer extends React.Component<
 						>
 							{this.grabFirstRowRef(children)}
 						</Table>
-					</TableWrapper>
+					</div>
+
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+							className={`${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}${fg('confluence_frontend_table_scrollbar_ttvc_fix') ? '-view-page' : ''}`}
 							ref={this.stickyScrollbarRef}
-							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								height: token('space.250'), // MAX_BROWSER_SCROLLBAR_HEIGHT
-								// Follow editor to hide by default so it does not show empty gap in SSR
-								// https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								display: fixTableSSRResizing ? 'none' : 'block',
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								width: '100%',
-							}}
+							data-vc="table-sticky-scrollbar-container"
+							style={
+								fg('confluence_frontend_table_scrollbar_ttvc_fix')
+									? { ...stickyContainerBaseStyles, ...stickyContainerAdditionalStyles }
+									: stickyContainerBaseStyles
+							}
 						>
 							<div
 								style={{
-									width: this.tableRef.current?.clientWidth,
+									width: fg('confluence_frontend_table_scrollbar_ttvc_fix')
+										? '100%'
+										: this.tableRef.current?.clientWidth,
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									height: '100%',
 								}}
@@ -857,12 +993,148 @@ type TableProcessorState = {
 	tableOrderStatus?: TableOrderStatus;
 };
 
+const getCellEdgePropsByCellOffset = (
+	tableNode: PMNode,
+	isNumberColumnEnabled?: boolean,
+): Map<number, TableCellEdgeProps> => {
+	const cellEdgePropsByCellOffset = new Map<number, TableCellEdgeProps>();
+	const cellRightByCellOffset = new Map<number, number>();
+	const occupiedGrid: boolean[][] = [];
+	let tableWidth = 0;
+	let cellOffset = 0;
+
+	tableNode.forEach((rowNode, _rowOffset, rowIndex) => {
+		occupiedGrid[rowIndex] = occupiedGrid[rowIndex] ?? [];
+		let columnIndex = 0;
+
+		cellOffset += 1;
+		rowNode.forEach((cellNode) => {
+			while (occupiedGrid[rowIndex][columnIndex]) {
+				columnIndex += 1;
+			}
+
+			const colspan = cellNode.attrs.colspan || 1;
+			const rowspan = cellNode.attrs.rowspan || 1;
+			const cellLeft = columnIndex;
+			const cellRight = cellLeft + colspan;
+			const cellTop = rowIndex;
+			const cellBottom = cellTop + rowspan;
+
+			for (let row = cellTop; row < cellBottom; row += 1) {
+				occupiedGrid[row] = occupiedGrid[row] ?? [];
+				for (let column = cellLeft; column < cellRight; column += 1) {
+					occupiedGrid[row][column] = true;
+				}
+			}
+
+			tableWidth = Math.max(tableWidth, cellRight);
+			cellRightByCellOffset.set(cellOffset, cellRight);
+			cellEdgePropsByCellOffset.set(cellOffset, {
+				reachesBottom: cellBottom >= tableNode.childCount,
+				// With number column enabled, PM column 0 is not visually leftmost and must not get `data-reaches-left`.
+				reachesLeft: cellLeft === 0 && !isNumberColumnEnabled,
+				reachesRight: false,
+				reachesTop: cellTop === 0,
+			});
+
+			columnIndex = cellRight;
+			cellOffset += cellNode.nodeSize;
+		});
+		cellOffset += 1;
+	});
+
+	cellRightByCellOffset.forEach((cellRight, currentCellOffset) => {
+		const edgeProps = cellEdgePropsByCellOffset.get(currentCellOffset);
+		if (edgeProps) {
+			edgeProps.reachesRight = cellRight >= tableWidth;
+		}
+	});
+
+	return cellEdgePropsByCellOffset;
+};
+
+type RenderedTableNodeProps = {
+	children?: React.ReactNode;
+	nodeType?: string;
+};
+
+const isRenderedTableCell = (element: React.ReactElement): boolean => {
+	const { nodeType } = element.props as RenderedTableNodeProps;
+
+	return (
+		nodeType === 'tableCell' ||
+		nodeType === 'tableHeader' ||
+		element.type === TableCell ||
+		element.type === TableHeader
+	);
+};
+
+const addTableCellEdgePropsThroughWrappers = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	rows: React.ReactElement<any>[],
+	tableNode?: PMNode,
+	isNumberColumnEnabled?: boolean,
+): React.ReactElement[] => {
+	try {
+		if (!tableNode) {
+			return rows;
+		}
+
+		const cellEdgePropsByCellOffset = getCellEdgePropsByCellOffset(
+			tableNode,
+			isNumberColumnEnabled,
+		);
+		let cellOffset = 0;
+
+		return React.Children.map(rows, (row, rowIndex) => {
+			const rowNode = tableNode.child(rowIndex);
+			cellOffset += 1;
+			let cellIndex = 0;
+
+			const addEdgePropsToRenderedCells = (element: React.ReactElement): React.ReactElement => {
+				if (isRenderedTableCell(element)) {
+					const cellNode = rowNode.child(cellIndex);
+					const edgeProps = cellEdgePropsByCellOffset.get(cellOffset);
+					cellIndex += 1;
+					cellOffset += cellNode.nodeSize;
+
+					return edgeProps ? React.cloneElement(element, edgeProps) : element;
+				}
+
+				const { children } = element.props as RenderedTableNodeProps;
+				if (children === undefined) {
+					return element;
+				}
+
+				const childrenWithEdgeProps = React.Children.map(children, (child) =>
+					React.isValidElement(child) ? addEdgePropsToRenderedCells(child) : child,
+				);
+
+				return React.cloneElement(element, undefined, childrenWithEdgeProps);
+			};
+
+			const rowWithEdgeProps = addEdgePropsToRenderedCells(row);
+			if (cellIndex !== rowNode.childCount) {
+				throw new Error('Rendered table row does not match its document node');
+			}
+			cellOffset += 1;
+
+			return rowWithEdgeProps;
+		});
+	} catch {
+		// Renderer can receive malformed historical ADF. If the table shape cannot
+		// be described safely, keep rendering without rounded edge metadata.
+		return rows;
+	}
+};
+
 /**
- *
+ * Processes table children before passing them to the styled table container.
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class TableProcessor extends React.Component<
+export class TableProcessorWithContainerStyles extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,
 	TableProcessorState
 > {
@@ -871,25 +1143,84 @@ export class TableProcessor extends React.Component<
 	};
 
 	/**
+	 * Renders processed table children inside the table container.
 	 *
 	 * @example
 	 */
 	render(): React.JSX.Element | null {
-		const { children } = this.props;
+		const {
+			allowColumnSorting,
+			allowFixedColumnWidthOption,
+			allowTableAlignment,
+			allowTableResizing,
+			children,
+			columnWidths,
+			disableTableOverflowShadow,
+			handleRef,
+			isinsideMultiBodiedExtension,
+			isInsideOfBlockNode,
+			isInsideOfNestedRenderer,
+			isInsideOfTable,
+			isNumberColumnEnabled,
+			isPresentational,
+			layout,
+			rendererAppearance,
+			renderWidth,
+			shadowClassNames,
+			smartCardStorage,
+			stickyHeaders,
+			tabIndex,
+			tableNode,
+		} = this.props;
+
 		if (!children) {
 			return null;
 		}
-
 		const childrenArray = React.Children.toArray(children);
+		const childrenWithTableEdgeProps = expValEquals(
+			'platform_editor_table_q4_loveability',
+			'isEnabled',
+			true,
+		)
+			? addTableCellEdgePropsThroughWrappers(
+					childrenArray as React.ReactElement[],
+					tableNode,
+					isNumberColumnEnabled,
+				)
+			: childrenArray;
 		const orderedChildren = compose(
 			this.addNumberColumnIndexes,
 			this.addSortableColumn,
 			// @ts-expect-error TS2345: Argument of type '(ReactChild | ReactFragment | ReactPortal)[]' is not assignable to parameter of type 'ReactElement<any, string | JSXElementConstructor<any>>[]'
-		)(childrenArray);
+		)(childrenWithTableEdgeProps);
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		return <TableContainer {...this.props}>{orderedChildren}</TableContainer>;
+		return (
+			<TableContainer
+				allowColumnSorting={allowColumnSorting}
+				allowFixedColumnWidthOption={allowFixedColumnWidthOption}
+				allowTableAlignment={allowTableAlignment}
+				allowTableResizing={allowTableResizing}
+				columnWidths={columnWidths}
+				disableTableOverflowShadow={disableTableOverflowShadow}
+				handleRef={handleRef}
+				isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
+				isInsideOfBlockNode={isInsideOfBlockNode}
+				isInsideOfNestedRenderer={isInsideOfNestedRenderer}
+				isInsideOfTable={isInsideOfTable}
+				isNumberColumnEnabled={isNumberColumnEnabled}
+				isPresentational={isPresentational}
+				layout={layout}
+				rendererAppearance={rendererAppearance}
+				renderWidth={renderWidth}
+				shadowClassNames={shadowClassNames}
+				smartCardStorage={smartCardStorage}
+				stickyHeaders={stickyHeaders}
+				tabIndex={tabIndex}
+				tableNode={tableNode}
+			>
+				{orderedChildren}
+			</TableContainer>
+		);
 	}
 
 	// adds sortable + re-orders children
@@ -928,10 +1259,13 @@ export class TableProcessor extends React.Component<
 		const { isNumberColumnEnabled } = this.props;
 
 		const headerRowEnabled = isHeaderRowEnabled(rows);
+		const lastRowIndex = React.Children.count(rows) - 1;
 		return React.Children.map(rows, (row, index) => {
 			return React.cloneElement(React.Children.only(row), {
 				isNumberColumnEnabled,
 				index: headerRowEnabled ? (index === 0 ? '' : index) : index + 1,
+				isFirstRow: index === 0,
+				isLastRow: index === lastRowIndex,
 			});
 		});
 	};
@@ -951,84 +1285,35 @@ const TableWithShadowsAndContainerStyles: React.PropsWithChildren<any> = overflo
 	},
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TableWithShadows: React.PropsWithChildren<any> = overflowShadow(TableProcessor, {
-	/**
-	 * The :scope is in reference to table container and we are selecting only
-	 * direct children that match the table node wrapper selector, not their
-	 * descendants.
-	 */
-	overflowSelector: `:scope > .${TableSharedCssClassName.TABLE_NODE_WRAPPER}`,
-	useShadowObserver: true,
-});
-
 const TableWithWidth = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	props: React.PropsWithChildren<any>,
 ) => {
 	const { isTopLevelRenderer } = useRendererContext();
-	const isInsideOfNestedRenderer =
-		isTopLevelRenderer === false &&
-		expValEquals('platform_editor_table_nested_content_mode_fix', 'isEnabled', true);
+	const isInsideOfNestedRenderer = isTopLevelRenderer === false;
 
-	if (fg('platform-ssr-table-resize')) {
-		const colWidthsSum =
-			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
+	const colWidthsSum =
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
+		props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 
-		if (colWidthsSum || props.allowTableResizing) {
-			return (
-				<TableWithShadowsAndContainerStyles
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...props}
-					isInsideOfNestedRenderer={isInsideOfNestedRenderer}
-				/>
-			);
-		}
+	if (colWidthsSum || props.allowTableResizing) {
 		return (
-			<TableProcessorWithContainerStyles
+			<TableWithShadowsAndContainerStyles
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
 				isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 			/>
 		);
-	} else {
-		return (
-			<WidthConsumer>
-				{({ width }) => {
-					const renderWidth =
-						props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
-					const colWidthsSum =
-						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-						props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
-
-					if (colWidthsSum || props.allowTableResizing) {
-						return (
-							<TableWithShadows
-								renderWidth={renderWidth}
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...props}
-								isInsideOfNestedRenderer={isInsideOfNestedRenderer}
-							/>
-						);
-					}
-					// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
-					return (
-						<TableProcessor
-							renderWidth={renderWidth}
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...props}
-							isInsideOfNestedRenderer={isInsideOfNestedRenderer}
-						/>
-					);
-				}}
-			</WidthConsumer>
-		);
 	}
+	return (
+		<TableProcessorWithContainerStyles
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+			isInsideOfNestedRenderer={isInsideOfNestedRenderer}
+		/>
+	);
 };
 
 const _default_1: React.ComponentClass<

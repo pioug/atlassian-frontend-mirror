@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/focus-ring",
-	"version": "5.0.0",
+	"version": "5.2.0",
 	"description": "Deprecated. Use Focusable from @atlaskit/primitives/compiled/focusable instead.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,8 +43,8 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./focus-ring": "./src/focus-ring.tsx",
-		"./use-focus-ring": "./src/use-focus-ring.tsx",
-		"./types": "./src/types.tsx"
+		"./types": "./src/types.tsx",
+		"./use-focus-ring": "./src/use-focus-ring.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/react-compiler-gating": "workspace:^",
@@ -53,7 +53,7 @@
 		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -64,30 +64,10 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions",
-			"circular-dependencies": "file-and-folder-level"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
 	},
 	"homepage": "https://atlassian.design/components/focus-ring"
 }

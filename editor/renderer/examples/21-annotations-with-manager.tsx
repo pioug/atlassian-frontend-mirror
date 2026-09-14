@@ -7,7 +7,7 @@ import type { ChangeEvent } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { css, jsx } from '@atlaskit/css';
-import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { AnnotationSelectedChangeData } from '@atlaskit/editor-common/annotation';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
@@ -25,19 +25,21 @@ import type { UpdateDocument } from '@atlaskit/editor-test-helpers/update-docume
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import { getExamplesProviders } from '@af/editor-examples-helpers/utils';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { AnnotationsWrapper, RendererWithAnalytics } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { token } from '@atlaskit/tokens';
 import { Inline } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
-import { ButtonGroup } from '@atlaskit/button';
-import Button, { IconButton } from '@atlaskit/button/new';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import SectionMessage from '@atlaskit/section-message';
+import SectionMessage from '@atlaskit/section-message/message';
 
 import { exampleDocumentWithComments } from './helper/annotations/example-doc-with-comments';
 
@@ -343,7 +345,7 @@ const ExampleAnnotationsWithManagerRenderer = React.memo(
 									document={adf as any}
 									adfStage="stage0"
 									dataProviders={ProviderFactory.create({
-										...getExamplesProviders({}),
+										emojiProvider: getEmojiResource(),
 										extensionProvider: Promise.resolve(getExampleExtensionProviders(undefined)),
 									})}
 									allowColumnSorting={true}

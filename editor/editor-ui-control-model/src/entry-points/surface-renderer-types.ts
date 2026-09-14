@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export type {
 	ChildrenMap,
-	ComponentIdentifier,
+	ResolvedSurface,
 	SurfaceFallbacks,
 	SurfaceIdentifier,
 	SurfaceRendererProps,

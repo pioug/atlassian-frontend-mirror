@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-import Badge from '@atlaskit/badge';
+import Badge from '@atlaskit/badge/badge';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 
 const MAX_NOTIFICATIONS_COUNT: number = 9;

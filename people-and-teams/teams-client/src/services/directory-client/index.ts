@@ -1,8 +1,8 @@
-import { type TeamMembership } from '../../types';
+import { type TeamMembership } from '../../types/membership';
 import { type ClientConfig } from '../base-client';
 import { DEFAULT_CONFIG } from '../constants';
-import { BaseGraphQlClient } from '../graphql-client';
-import { logException } from '../sentry/main';
+import { BaseGraphQlClient } from '../graphql-client/main';
+import { logException } from '../sentry/logException';
 
 export const BROWSE_USER_SETTINGS_KEY = 'internal.browse-users-allowed';
 

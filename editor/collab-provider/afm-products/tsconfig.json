@@ -1,0 +1,70 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../tsDist/@atlaskit__collab-provider/app",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"references": [
+		{
+			"path": "../../adf-utils/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-gas-types/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-listeners/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/anonymous-assets/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../prosemirror-collab/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/util-service-support/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-products/tsconfig.json"
+		}
+	]
+}

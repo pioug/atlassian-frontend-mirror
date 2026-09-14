@@ -8,7 +8,7 @@ import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
-import { durations } from '@atlaskit/motion/durations';
+import { durations } from '@atlaskit/motion/utils/durations';
 import { token } from '@atlaskit/tokens';
 
 import type { ColumnType } from '../../examples/data/tasks';

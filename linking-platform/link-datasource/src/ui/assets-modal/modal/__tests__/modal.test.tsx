@@ -1,9 +1,11 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { EVENT_CHANNEL } from '../../../../analytics';
-import { FetchError, PermissionError } from '../../../../services/cmdbService.utils';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
+import { FetchError } from '../../../../services/FetchError';
+import { PermissionError } from '../../../../services/PermissionError';
 
 import {
 	getAssetsClientErrorHookState,
@@ -468,6 +470,16 @@ describe('AssetsConfigModal', () => {
 		});
 
 		describe('when no assets are returned', () => {
+			const setupWithNoAssets = () =>
+				setup({
+					datasourceTableHookState: {
+						...getDefaultDataSourceTableHookState(),
+						responseItems: [],
+						responseItemIds: [],
+						totalCount: 0,
+					},
+				});
+
 			it('should show no results screen in assets view mode', async () => {
 				const { getByRole, getByText } = await setup({
 					datasourceTableHookState: {
@@ -479,6 +491,27 @@ describe('AssetsConfigModal', () => {
 					expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
 					expect(getByRole('button', { name: 'Update table' })).toBeEnabled();
 				});
+			});
+
+			it('should replace the whole table with the no results screen when the feature gate is off', async () => {
+				failGate('platform_lp_sllv_ux_improvements');
+				const { queryByTestId } = await setupWithNoAssets();
+
+				await waitFor(() => {
+					expect(queryByTestId('datasource-modal--no-results')).toBeInTheDocument();
+				});
+				expect(queryByTestId('asset-datasource-table--head')).not.toBeInTheDocument();
+			});
+
+			it('should keep the table headers and show the no results screen in place of the rows when the feature gate is on', async () => {
+				passGate('platform_lp_sllv_ux_improvements');
+				const { getByTestId, getByText } = await setupWithNoAssets();
+
+				await waitFor(() => {
+					expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
+				});
+				expect(getByTestId('asset-datasource-table--head')).toBeInTheDocument();
+				expect(getByTestId('asset-datasource-table--no-results-row')).toBeInTheDocument();
 			});
 		});
 

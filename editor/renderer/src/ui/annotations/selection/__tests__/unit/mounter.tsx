@@ -1,4 +1,4 @@
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { doc, p, status } from '@atlaskit/adf-utils/builders';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -12,9 +12,8 @@ import type {
 	AnnotationActionResult,
 	InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types';
-import { render, screen } from '@testing-library/react';
-import React from 'react';
-import { act } from 'react-dom/test-utils';
+import { render, screen } from '@atlassian/testing-library';
+import React, { act } from 'react';
 import type { ApplyAnnotation } from '../../../../../actions/index';
 import type RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';
@@ -24,9 +23,10 @@ import { SelectionInlineCommentMounter } from '../../mounter';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 jest.mock('../../../draft/dom');
-jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
+jest.mock('@atlaskit/tmp-editor-statsig/editor-experiment', () => ({
+	...jest.requireActual('@atlaskit/tmp-editor-statsig/editor-experiment'),
 	editorExperiment: jest.fn(() => false),
 }));
 

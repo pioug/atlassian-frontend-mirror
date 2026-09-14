@@ -14,8 +14,7 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { BlockType } from '@atlaskit/editor-plugin-block-type';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	action,
@@ -158,86 +157,43 @@ const createInsertBlockItems = (
 		);
 	}
 
-	if (editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true)) {
-		if (imageUploadSupported) {
-			items.push(
-				imageUpload({
-					content: formatMessage(messages.image),
-					disabled: !imageUploadEnabled || isOffline,
-				}),
-			);
-		} else if (hasMediaPlugin) {
-			items.push(
-				media({
-					content: formatMessage(messages.addMediaFiles),
-					tooltipDescription: formatMessage(messages.mediaFilesDescription),
-					disabled: isOffline || !mediaSupported || !mediaUploadsEnabled,
-				}),
-			);
-		}
+	if (imageUploadSupported) {
+		items.push(
+			imageUpload({
+				content: formatMessage(messages.image),
+				disabled: !imageUploadEnabled || isOffline,
+			}),
+		);
+	} else if (hasMediaPlugin) {
+		items.push(
+			media({
+				content: formatMessage(messages.addMediaFiles),
+				tooltipDescription: formatMessage(messages.mediaFilesDescription),
+				disabled: isOffline || !mediaSupported || !mediaUploadsEnabled,
+			}),
+		);
+	}
 
-		if (hasMentionsPlugin) {
-			items.push(
-				mention({
-					content: formatMessage(messages.mention),
-					tooltipDescription: formatMessage(messages.mentionDescription),
-					disabled: !isTypeAheadAllowed || !!mentionsDisabled || !mentionsSupported,
-					'aria-haspopup': 'listbox',
-				}),
-			);
-		}
+	if (hasMentionsPlugin) {
+		items.push(
+			mention({
+				content: formatMessage(messages.mention),
+				tooltipDescription: formatMessage(messages.mentionDescription),
+				disabled: !isTypeAheadAllowed || !!mentionsDisabled || !mentionsSupported,
+				'aria-haspopup': 'listbox',
+			}),
+		);
+	}
 
-		if (hasEmojiPlugin) {
-			items.push(
-				emoji({
-					content: formatMessage(messages.emoji),
-					tooltipDescription: formatMessage(messages.emojiDescription),
-					disabled: emojiDisabled || !isTypeAheadAllowed || !emojiProvider,
-					'aria-haspopup': 'dialog',
-				}),
-			);
-		}
-	} else {
-		if (mediaSupported && mediaUploadsEnabled) {
-			items.push(
-				media({
-					content: formatMessage(messages.addMediaFiles),
-					tooltipDescription: formatMessage(messages.mediaFilesDescription),
-					disabled: isOffline,
-				}),
-			);
-		}
-
-		if (imageUploadSupported) {
-			items.push(
-				imageUpload({
-					content: formatMessage(messages.image),
-					disabled: !imageUploadEnabled || isOffline,
-				}),
-			);
-		}
-
-		if (mentionsSupported) {
-			items.push(
-				mention({
-					content: formatMessage(messages.mention),
-					tooltipDescription: formatMessage(messages.mentionDescription),
-					disabled: !isTypeAheadAllowed || !!mentionsDisabled,
-					'aria-haspopup': 'listbox',
-				}),
-			);
-		}
-
-		if (emojiProvider) {
-			items.push(
-				emoji({
-					content: formatMessage(messages.emoji),
-					tooltipDescription: formatMessage(messages.emojiDescription),
-					disabled: emojiDisabled || !isTypeAheadAllowed,
-					'aria-haspopup': 'dialog',
-				}),
-			);
-		}
+	if (hasEmojiPlugin) {
+		items.push(
+			emoji({
+				content: formatMessage(messages.emoji),
+				tooltipDescription: formatMessage(messages.emojiDescription),
+				disabled: emojiDisabled || !isTypeAheadAllowed || !emojiProvider,
+				'aria-haspopup': 'dialog',
+			}),
+		);
 	}
 
 	if (tableSupported) {

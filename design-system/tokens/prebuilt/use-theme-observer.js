@@ -4,10 +4,10 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.useThemeObserver = exports.default = void 0;
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 var _react = require("react");
-var _getGlobalTheme = _interopRequireDefault(require("./get-global-theme"));
+var _getGlobalTheme = require("./get-global-theme");
 var _themeMutationObserver = _interopRequireDefault(require("./theme-mutation-observer"));
 /**
  * A React hook which returns the current themes and color-mode set on `<html>`.
@@ -22,8 +22,8 @@ var _themeMutationObserver = _interopRequireDefault(require("./theme-mutation-ob
  * }, [theme.colorMode]);
  * ```
  */
-var useThemeObserver = function useThemeObserver() {
-  var _useState = (0, _react.useState)((0, _getGlobalTheme.default)()),
+var useThemeObserver = exports.useThemeObserver = function useThemeObserver() {
+  var _useState = (0, _react.useState)((0, _getGlobalTheme.getGlobalTheme)()),
     _useState2 = (0, _slicedToArray2.default)(_useState, 2),
     theme = _useState2[0],
     setTheme = _useState2[1];

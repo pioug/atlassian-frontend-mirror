@@ -1,13 +1,6 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
-import { shallow } from 'enzyme';
+import { IntlProvider } from 'react-intl';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 import { DeleteUserContentPreviewScreen } from '../../components/DeleteUserContentPreviewScreen';
 import { catherineHirons } from '../../mocks/users';
 import { type DeleteUserContentPreviewScreenProps } from '../../components/DeleteUserContentPreviewScreen/types';
@@ -18,39 +11,31 @@ const defaultProps: DeleteUserContentPreviewScreenProps = {
 	preferenceSelection: (name: string) => jest.fn(),
 };
 
-const render = (props = {}) =>
-	shallow(<DeleteUserContentPreviewScreen {...defaultProps} {...props} />);
+const renderWithIntl = (props = {}) =>
+	render(
+		<IntlProvider locale="en">
+			<DeleteUserContentPreviewScreen {...defaultProps} {...props} />
+		</IntlProvider>,
+	);
 
 describe('DeleteUserContentPreviewScreen', () => {
-	test('renders snapshot for personal accounts when isCurrentUser is true', () => {
-		const wrapper = render({ isCurrentUser: true });
-		expect(wrapper).toMatchSnapshot();
+	test('capture and report a11y violations', async () => {
+		const { container } = renderWithIntl();
+		await expect(container).toBeAccessible();
 	});
-	test('renders snapshot for unmanaged accounts when isCurrentUser is false', () => {
-		const wrapper = render();
-		expect(wrapper).toMatchSnapshot();
-	});
+
 	test('componentDidMount calls the preferenceSelection prop', () => {
 		const spyPreferenceSelection = jest.fn();
-		render({ preferenceSelection: spyPreferenceSelection });
+		renderWithIntl({ preferenceSelection: spyPreferenceSelection });
 		expect(spyPreferenceSelection).toHaveBeenCalledTimes(1);
 	});
 });
 
 describe('handleClickSelection', () => {
-	test('changes the isSelected parameter of the element', () => {
-		const wrapper = render();
-		const divWrapper = wrapper.find('.nameSectionCard');
-		divWrapper.simulate('click');
-		wrapper.update();
-		expect(wrapper).toMatchSnapshot();
-	});
-	test('calls "preferenceSelection" prop', () => {
+	test('calls "preferenceSelection" prop', async () => {
 		const preferenceSelection = jest.fn();
-		const wrapper = render({ preferenceSelection });
-		const divWrapper = wrapper.find('.nameSectionCard');
-		divWrapper.simulate('click');
-		wrapper.update();
-		expect(preferenceSelection).toHaveBeenCalled();
+		renderWithIntl({ preferenceSelection });
+		await userEvent.click(screen.getByText(catherineHirons.fullName));
+		expect(preferenceSelection).toHaveBeenCalledWith('Name');
 	});
 });

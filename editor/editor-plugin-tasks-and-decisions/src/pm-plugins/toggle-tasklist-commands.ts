@@ -1,4 +1,4 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,

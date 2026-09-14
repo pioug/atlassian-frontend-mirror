@@ -1,12 +1,10 @@
-jest.mock('@atlaskit/media-client-react', () => {
-	return {
-		...jest.requireActual<Object>('@atlaskit/media-client-react'),
-		getMediaClient: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/media-client-react/get-media-client', () => ({
+	...jest.requireActual('@atlaskit/media-client-react/get-media-client'),
+	getMediaClient: jest.fn(),
+}));
 
 import type { FileState } from '@atlaskit/media-client';
-import * as MediaClientReactModule from '@atlaskit/media-client-react';
+import * as MediaClientReactModule from '@atlaskit/media-client-react/get-media-client';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import fetchMock from 'fetch-mock/cjs/client';
@@ -26,7 +24,8 @@ import type {
 	EmojiUpload,
 	ImageRepresentation,
 } from '../../../../types';
-import { isMediaRepresentation, toEmojiId } from '../../../../util/type-helpers';
+import { isMediaRepresentation } from '../../../../util/is-media-representation';
+import { toEmojiId } from '../../../../util/to-emoji-id';
 
 import {
 	atlassianServiceEmojis,
@@ -63,7 +62,7 @@ describe('SiteEmojiResource', () => {
 			name: 'Cheese',
 			shortName: ':cheese:',
 			filename: 'cheese.png',
-			dataURL: 'data:cheese',
+			dataURL: 'data:image/png;base64,Y2hlZXNl',
 			width: 20,
 			height: 30,
 		};
@@ -109,88 +108,120 @@ describe('SiteEmojiResource', () => {
 					});
 				}),
 			);
+			const getFileState = jest.fn().mockReturnValue(
+				new Observable((observer) => {
+					window.setTimeout(() => {
+						observer.next({
+							id: '123',
+							name: 'some-name',
+							size: 1,
+							status,
+						});
+					});
+				}),
+			);
+			const uploadExternalFile = jest.fn().mockResolvedValue({
+				uploadableFileUpfrontIds: {
+					id: '123',
+					occurrenceKey: 'occurrence-key',
+				},
+				mimeType: 'image/png',
+				dimensions: {
+					width: 20,
+					height: 30,
+				},
+			});
 
 			mockGetMediaClient.mockReturnValue({
 				// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
 				//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-				file: { upload: uploadFile },
+				file: { upload: uploadFile, uploadExternal: uploadExternalFile, getFileState },
 			});
 
-			return { uploadFile };
+			return { uploadFile, uploadExternalFile, getFileState };
 		};
 
 		describe('successful upload', () => {
 			const testUploadStatuses = ['processing', 'processed'];
 
-			testUploadStatuses.forEach((status, index) => {
-				it(`when upload status is: ${status}`, () => {
-					const { uploadFile } = setup(status);
-					const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
-					const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+			const assertEmojiUploadSucceeded = (emoji: EmojiDescription) => {
+				const { altRepresentations, ...serviceEmoji } = serviceResponse.emojis[0];
+				expect(emoji).toEqual({
+					...serviceEmoji,
+					representation: {
+						mediaPath: 'http://media/123.png',
+						width: 20,
+						height: 30,
+					},
+					altRepresentation: {
+						mediaPath: 'http://media/456.png',
+						width: 40,
+						height: 60,
+					},
+				});
 
-					fetchMock.post({
-						matcher: siteServiceConfig.url,
-						response: {
-							body: serviceResponse,
-						},
-						name: 'emoji-upload',
-					});
+				const uploadEmojiCalls = fetchMock.calls('emoji-upload');
+				expect(uploadEmojiCalls).toHaveLength(1);
+				const options = uploadEmojiCalls[0][1];
+				const body = JSON.parse(options.body);
+				const { shortName, name, width, height } = upload;
+				expect(body).toEqual({
+					shortName,
+					name,
+					width,
+					height,
+					fileId: '123',
+				});
+			};
 
-					tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
+			describe('media file upload request includes size', () => {
+				testUploadStatuses.forEach((status) => {
+					it(`uses mediaClient.file.uploadExternal when upload status is: ${status}`, () => {
+						const { uploadFile, uploadExternalFile, getFileState } = setup(status);
+						const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
+						const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
 
-					const uploadPromise = siteEmojiResource.uploadEmoji(upload).then((emoji) => {
-						const { altRepresentations, ...serviceEmoji } = serviceResponse.emojis[0];
-						expect(emoji).toEqual({
-							...serviceEmoji,
-							representation: {
-								mediaPath: 'http://media/123.png',
-								width: 20,
-								height: 30,
+						fetchMock.post({
+							matcher: siteServiceConfig.url,
+							response: {
+								body: serviceResponse,
 							},
-							altRepresentation: {
-								mediaPath: 'http://media/456.png',
-								width: 40,
-								height: 60,
-							},
+							name: 'emoji-upload',
 						});
 
-						expect(uploadFile).toHaveBeenCalledTimes(1);
-						expect(uploadFile).toBeCalledWith({
-							collection: 'emoji-collection',
-							content: 'data:cheese',
-							name: 'cheese.png',
+						tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
+
+						const uploadPromise = siteEmojiResource.uploadEmoji(upload).then((emoji) => {
+							assertEmojiUploadSucceeded(emoji);
+							expect(uploadFile).not.toHaveBeenCalled();
+							expect(uploadExternalFile).toHaveBeenCalledTimes(1);
+							expect(uploadExternalFile).toHaveBeenCalledWith(
+								'data:image/png;base64,Y2hlZXNl',
+								'emoji-collection',
+								undefined,
+								true,
+							);
+							expect(getFileState).toHaveBeenCalledTimes(1);
+							expect(getFileState).toHaveBeenCalledWith('123', {
+								collectionName: 'emoji-collection',
+							});
 						});
 
-						const uploadEmojiCalls = fetchMock.calls('emoji-upload');
-						expect(uploadEmojiCalls).toHaveLength(1);
-						const options = uploadEmojiCalls[0][1];
-						const body = JSON.parse(options.body);
-						const { shortName, name, width, height } = upload;
-						expect(body).toEqual({
-							shortName,
-							name,
-							width,
-							height,
-							fileId: '123',
-						});
+						return uploadPromise;
 					});
-
-					return uploadPromise;
 				});
 			});
 		});
 
-		it('upload error to media', () => {
-			const uploadFile = jest.fn().mockReturnValue(
-				new Observable((observer) => {
-					observer.error('upload_fail');
-				}),
-			);
+		it('uploadExternal error to media', () => {
+			const uploadFile = jest.fn();
+			const uploadExternalFile = jest.fn().mockRejectedValue('upload_fail');
+			const getFileState = jest.fn();
 
 			mockGetMediaClient.mockReturnValue({
 				// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
 				//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-				file: { upload: uploadFile },
+				file: { upload: uploadFile, uploadExternal: uploadExternalFile, getFileState },
 			});
 
 			const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
@@ -207,12 +238,66 @@ describe('SiteEmojiResource', () => {
 			tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
 
 			const uploadPromise = siteEmojiResource.uploadEmoji(upload).catch((error) => {
-				expect(uploadFile).toHaveBeenCalledTimes(1);
-				expect(uploadFile).toBeCalledWith({
-					collection: 'emoji-collection',
-					content: 'data:cheese',
-					name: 'cheese.png',
-				});
+				expect(uploadFile).not.toHaveBeenCalled();
+				expect(uploadExternalFile).toHaveBeenCalledTimes(1);
+				expect(uploadExternalFile).toHaveBeenCalledWith(
+					'data:image/png;base64,Y2hlZXNl',
+					'emoji-collection',
+					undefined,
+					true,
+				);
+				expect(getFileState).not.toHaveBeenCalled();
+
+				const uploadEmojiCalls = fetchMock.calls('emoji-upload');
+				expect(uploadEmojiCalls).toHaveLength(0);
+				expect(error).toEqual('upload_fail');
+			});
+
+			return uploadPromise;
+		});
+
+		it('uploadExternal file state error to media', () => {
+			const uploadFile = jest.fn();
+			const uploadExternalFile = jest.fn().mockResolvedValue({
+				uploadableFileUpfrontIds: {
+					id: '123',
+					occurrenceKey: 'occurrence-key',
+				},
+				mimeType: 'image/png',
+				dimensions: {
+					width: 20,
+					height: 30,
+				},
+			});
+			const getFileState = jest.fn().mockReturnValue(
+				new Observable((observer) => {
+					observer.error('upload_fail');
+				}),
+			);
+
+			mockGetMediaClient.mockReturnValue({
+				// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+				//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
+				file: { upload: uploadFile, uploadExternal: uploadExternalFile, getFileState },
+			});
+
+			const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
+			const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+
+			fetchMock.post({
+				matcher: siteServiceConfig.url,
+				response: {
+					body: serviceResponse,
+				},
+				name: 'emoji-upload',
+			});
+
+			tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
+
+			const uploadPromise = siteEmojiResource.uploadEmoji(upload).catch((error) => {
+				expect(uploadFile).not.toHaveBeenCalled();
+				expect(uploadExternalFile).toHaveBeenCalledTimes(1);
+				expect(getFileState).toHaveBeenCalledTimes(1);
 
 				const uploadEmojiCalls = fetchMock.calls('emoji-upload');
 				expect(uploadEmojiCalls).toHaveLength(0);
@@ -223,7 +308,7 @@ describe('SiteEmojiResource', () => {
 		});
 
 		it('upload error to emoji service', () => {
-			const { uploadFile } = setup();
+			const { uploadFile, uploadExternalFile, getFileState } = setup();
 			const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
 			const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
 
@@ -236,12 +321,9 @@ describe('SiteEmojiResource', () => {
 			tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
 
 			const uploadPromise = siteEmojiResource.uploadEmoji(upload).catch((error) => {
-				expect(uploadFile).toHaveBeenCalledTimes(1);
-				expect(uploadFile).toBeCalledWith({
-					collection: 'emoji-collection',
-					content: 'data:cheese',
-					name: 'cheese.png',
-				});
+				expect(uploadFile).not.toHaveBeenCalled();
+				expect(uploadExternalFile).toHaveBeenCalledTimes(1);
+				expect(getFileState).toHaveBeenCalledTimes(1);
 
 				const uploadEmojiCalls = fetchMock.calls('emoji-upload');
 				expect(uploadEmojiCalls).toHaveLength(1);
@@ -261,8 +343,20 @@ describe('SiteEmojiResource', () => {
 			return uploadPromise;
 		});
 
-		it('media progress events', () => {
-			const uploadFile = jest.fn().mockReturnValue(
+		it('uploadExternal media progress events', async () => {
+			const uploadFile = jest.fn();
+			const uploadExternalFile = jest.fn().mockResolvedValue({
+				uploadableFileUpfrontIds: {
+					id: '123',
+					occurrenceKey: 'occurrence-key',
+				},
+				mimeType: 'image/png',
+				dimensions: {
+					width: 20,
+					height: 30,
+				},
+			});
+			const getFileState = jest.fn().mockReturnValue(
 				new Observable<FileState>((observer) => {
 					observer.next({
 						id: '123',
@@ -279,14 +373,14 @@ describe('SiteEmojiResource', () => {
 			mockGetMediaClient.mockReturnValue({
 				// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
 				//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-				file: { upload: uploadFile },
+				file: { upload: uploadFile, uploadExternal: uploadExternalFile, getFileState },
 			});
 			const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
 			const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
 
 			tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
 
-			let progress: EmojiProgress;
+			let progress: EmojiProgress | undefined;
 			const progressCallback: EmojiProgessCallback = (progressUpdate) => {
 				progress = progressUpdate;
 			};
@@ -294,12 +388,9 @@ describe('SiteEmojiResource', () => {
 			siteEmojiResource.uploadEmoji(upload, false, progressCallback);
 
 			const portion = 0.5;
-			const donePromise = waitFor(() => expect(progress).toBeDefined()).then(() => {
-				expect(progress.percent < portion).toBeTruthy();
-				expect(progress.percent).toEqual(portion * mediaProportionOfProgress);
-			});
-
-			return donePromise;
+			await waitFor(() => expect(progress).toBeDefined());
+			expect(progress!.percent).toBeLessThan(portion);
+			expect(progress!.percent).toEqual(portion * mediaProportionOfProgress);
 		});
 	});
 

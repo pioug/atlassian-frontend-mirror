@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	HelperMessage,
-	MessageWrapper,
-} from '@atlaskit/form';
-import Textfield from '@atlaskit/textfield';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
+import Textfield from '@atlaskit/textfield/text-field';
 
 export default function FormExample(): React.JSX.Element {
 	const validate = (value: string = '') => {

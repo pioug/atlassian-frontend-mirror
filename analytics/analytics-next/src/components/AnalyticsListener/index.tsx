@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import isModernContextEnabledEnv from '../../utils/isModernContextEnabledEnv';
 
@@ -9,13 +9,14 @@ import ModernAnalyticsListener from './ModernAnalyticsListener';
 import type { AnalyticsListenerFunction } from './types';
 
 const AnalyticsListener: AnalyticsListenerFunction = (props) => {
-	const computeIsModernContext = () =>
-		isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
-	// Gated by analytics-next-lock-context-type: capture the value once at mount so a late gate flip can't swap the component type and remount the subtree. While locked the gate is not re-read on later renders.
-	const [lockedIsModernContext] = React.useState(computeIsModernContext);
-	const isModernContext = fg('analytics-next-lock-context-type')
-		? lockedIsModernContext
-		: computeIsModernContext();
+	// Resolved once at mount, never re-read: Modern and Legacy are different component types, so
+	// switching on a later render would unmount the whole subtree beneath this listener.
+	const [isModernContext] = React.useState(
+		() =>
+			isModernContextEnabledEnv ||
+			fg('analytics-next-use-legacy-context') === false ||
+			fg('adminhub-analytics-next-use-modern-context'),
+	);
 
 	return isModernContext ? (
 		<ModernAnalyticsListener {...props} />

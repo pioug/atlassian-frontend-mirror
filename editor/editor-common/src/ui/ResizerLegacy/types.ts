@@ -1,6 +1,6 @@
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import type { DispatchAnalyticsEvent } from '../../analytics';
 import type { getPosHandler } from '../../react-node-view';

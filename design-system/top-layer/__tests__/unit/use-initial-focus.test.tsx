@@ -2,12 +2,11 @@ import React from 'react';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import { Popover } from '../../src/entry-points/popover';
+import { Popover } from '../../src/popover/popover';
 
-// JSDOM does not implement CSS transitions, so the animated path's `entering -> open`
-// settle only fires via the safety-net `setTimeout(durationMs + 50)`. By NOT advancing
-// any timers below we keep the popover stuck in `entering` for the duration of the test
-// and prove that initial focus runs without waiting for the settle.
+// JSDOM does not implement CSS animations. The test environment returns a pending
+// animation, which keeps the popover in `entering` and proves that initial focus
+// does not wait for animation settlement.
 
 type TTestPopoverProps = {
 	isOpen: boolean;
@@ -48,9 +47,9 @@ describe('useInitialFocus (via Popover)', () => {
 
 		rerender(<TestMenuPopover isOpen={true} isAnimated={true} />);
 
-		// Animated path: phase is `entering` right now. The settle timeout has NOT
-		// been advanced, so if focus only fired on `phase === 'open'` this would
-		// fail. The fix moves focus on the transition out of `'closed'`.
+		// Animated path: phase is `entering` because the animation has not settled.
+		// If focus only fired on `phase === 'open'` this would fail. The fix moves
+		// focus on the transition out of `'closed'`.
 		expect(screen.getByTestId('first-item')).toHaveFocus();
 	});
 

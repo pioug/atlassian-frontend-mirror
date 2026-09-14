@@ -6,8 +6,8 @@ import { useMemo } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import Avatar from '@atlaskit/avatar/Avatar';
-import Spinner from '@atlaskit/spinner';
-import { TabPanel } from '@atlaskit/tabs';
+import Spinner from '@atlaskit/spinner/spinner';
+import TabPanel from '@atlaskit/tabs/tab-panel';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { type ReactionSummary, type ProfileCardWrapper } from '../types';
 

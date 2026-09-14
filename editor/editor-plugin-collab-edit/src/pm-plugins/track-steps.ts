@@ -1,5 +1,7 @@
 // delete this file when cleaning up platform_editor_remove_collab_step_metrics
-import { AnalyticsStep, SetAttrsStep, BatchAttrsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
+import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -10,9 +12,8 @@ import {
 	RemoveMarkStep,
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { sendableSteps } from '@atlaskit/prosemirror-collab';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
 
@@ -21,7 +22,6 @@ import { updateNcsSessionStepMetrics } from './track-step-metrics';
 function groupBy<T>(array: T[], keyGetter: (item: T) => string): Record<string, T[]> {
 	// Check group by exists, and that it's a function. If so, use the native browser code
 	if ('groupBy' in Object && typeof Object.groupBy === 'function') {
-		// @ts-ignore TS2322 - Type 'Partial<Record<string, T[]>>' is not assignable to type 'Record<string, T[]>'.
 		return Object.groupBy(array, keyGetter);
 	}
 
@@ -239,9 +239,7 @@ export const track = ({
 
 	updateNcsSessionStepMetrics({
 		api,
-		steps: editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)
-			? newSteps.filter((step) => !(step instanceof AnalyticsStep))
-			: newSteps,
+		steps: newSteps.filter((step) => !(step instanceof AnalyticsStep)),
 	});
 
 	scheduler.postTask(

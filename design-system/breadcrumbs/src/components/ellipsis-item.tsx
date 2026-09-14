@@ -9,7 +9,7 @@ import { css } from '@compiled/react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

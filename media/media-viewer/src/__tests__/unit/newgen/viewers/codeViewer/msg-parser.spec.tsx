@@ -1,4 +1,6 @@
-import { msgToText, formatMessage, getMsgDate } from '../../../../../viewers/codeViewer/msg-parser';
+import { formatMessage } from '../../../../../viewers/codeViewer/formatMessage';
+import { getMsgDate } from '../../../../../viewers/codeViewer/getMsgDate';
+import { msgToText } from '../../../../../viewers/codeViewer/msgToText';
 
 jest.mock('@kenjiuno/msgreader', () => {
 	//ArrayBuffer to String

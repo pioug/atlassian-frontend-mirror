@@ -1,6 +1,6 @@
 import React, { type ChangeEvent, type SyntheticEvent, useCallback, useState } from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 

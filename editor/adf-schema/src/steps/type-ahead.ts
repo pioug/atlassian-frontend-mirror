@@ -1,6 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
-import { ReplaceStep, Step, StepMap, StepResult } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { ReplaceStep, StepMap, StepResult } from '@atlaskit/editor-prosemirror/transform';
 
 export const insertTypeAheadStepType = 'atlaskit-insert-type-ahead';
 

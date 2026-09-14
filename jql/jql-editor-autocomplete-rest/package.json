@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor-autocomplete-rest",
-	"version": "4.2.0",
+	"version": "4.6.0",
 	"description": "Autocomplete REST API integration for the JQL Editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,13 +30,15 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
-		"./state": "./src/entry-points/state.ts",
-		"./types": "./src/entry-points/types.ts",
-		"./use-autocomplete-provider": "./src/entry-points/use-autocomplete-provider.ts"
+		"./state": "./src/state/index.ts",
+		"./types": "./src/common/types.ts",
+		"./use-autocomplete-provider": "./src/hooks/use-autocomplete-provider/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@atlaskit/jql-autocomplete": "workspace:^",
 		"@atlaskit/jql-editor-common": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -52,7 +54,9 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
@@ -66,39 +70,15 @@
 		},
 		"jira-descendants-of-team-jql-function": {
 			"type": "boolean"
+		},
+		"orion-8274-cmdb-object-jql-values-resolver": {
+			"type": "boolean"
 		}
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			]
+	"platform-experiments": {
+		"jira_filter_by_agent_and_agent_state": {
+			"param": "isEnabled",
+			"defaultValue": false
 		}
 	}
 }

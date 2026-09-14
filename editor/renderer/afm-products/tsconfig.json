@@ -50,6 +50,9 @@
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-card-provider/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
 		},
 		{
@@ -105,6 +108,9 @@
 		},
 		{
 			"path": "../../../media/media-viewer/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

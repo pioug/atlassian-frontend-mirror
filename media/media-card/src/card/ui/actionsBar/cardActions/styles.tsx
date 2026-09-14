@@ -4,9 +4,10 @@ import { css, type SerializedStyles } from '@emotion/react';
 import { type MouseEvent, type HTMLAttributes } from 'react';
 import type React from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { token } from '@atlaskit/tokens';
-import { borderRadius, size, center } from '@atlaskit/media-ui';
+import { borderRadius, center } from '@atlaskit/media-ui/mixins';
+import { size } from '@atlaskit/media-ui/size';
 
 export enum CardActionIconButtonVariant {
 	default = 'default',

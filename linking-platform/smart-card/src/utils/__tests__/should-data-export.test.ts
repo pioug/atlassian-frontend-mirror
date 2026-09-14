@@ -1,4 +1,4 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { mockConfluenceResponse } from '../../view/BlockCard/views/__tests__/__mocks__/blockCardMocks';
 import { getIsDataExportEnabled } from '../should-data-export';

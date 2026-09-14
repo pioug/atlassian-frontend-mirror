@@ -59,6 +59,9 @@
 			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../react-select/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../select/afm-products/tsconfig.json"
 		},
 		{

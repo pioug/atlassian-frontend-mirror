@@ -1,8 +1,8 @@
 import { type Hooks, snapshotInformational, type SnapshotTestOptions } from '@af/visual-regression';
 
-import ComplexLayeringExample from '../../../examples/1-complex-layering';
-import StackingContextExample from '../../../examples/2-stacking-context';
-import ReRenderExample from '../../../examples/4-portal-re-render';
+import ComplexLayeringExample from '../../../examples/1-complex-layering.vr.ap';
+import StackingContextExample from '../../../examples/2-stacking-context.vr.ap';
+import ReRenderExample from '../../../examples/4-portal-re-render.vr.ap';
 
 const variants: SnapshotTestOptions<Hooks>['variants'] = [
 	{ name: 'Light', environment: { colorScheme: 'light' } },

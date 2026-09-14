@@ -1,14 +1,16 @@
 import React, { useState, useMemo } from 'react';
-import { IntlProvider } from 'react-intl';
-import Select from '@atlaskit/select';
-import { type DefaultValue, type OptionIdentifier } from '@atlaskit/user-picker';
 
-import SmartUserPicker from '../src';
-import { useEndpointMocks } from '../example-helpers/mock-endpoints';
-import '../example-helpers/mock-ufo';
-import { users } from '../example-helpers/users';
+import { IntlProvider } from 'react-intl';
+
+import Select from '@atlaskit/select/default';
+import type { DefaultValue, OptionIdentifier } from '@atlaskit/user-picker/types';
+
 import { groups } from '../example-helpers/groups';
+import '../example-helpers/mock-ufo';
 import { teams } from '../example-helpers/teams';
+import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';
+import { users } from '../example-helpers/users';
+import SmartUserPicker from '../src/components';
 
 type ProductOption = {
 	label: string;
@@ -41,7 +43,6 @@ const Example = (): React.JSX.Element | null => {
 	return ready ? (
 		<div>
 			<Select
-				//@ts-ignore react-select unsupported props
 				width="medium"
 				onChange={(selectedValue) => {
 					if (selectedValue) {

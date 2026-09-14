@@ -6,6 +6,7 @@ import type {
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { find } from '@atlaskit/editor-common/quick-insert';
+import { getActiveQuickInsertCategories } from '@atlaskit/editor-common/quick-insert/get-active-quick-insert-categories';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
@@ -51,7 +52,9 @@ export const useDefaultQuickInsertGetItems = (): ((
 				query || '',
 				category === 'all' || !category
 					? defaultItems
-					: defaultItems.filter((item) => item.categories && item.categories.includes(category)),
+					: defaultItems.filter((item) =>
+							getActiveQuickInsertCategories(item.category, item.categories).includes(category),
+						),
 			);
 		},
 		[items],

@@ -2,9 +2,10 @@ import type { FC } from 'react';
 
 import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 
+import { renderIconTile } from './render-icon-tile';
 import type { AtlaskitIconTileProps } from './types';
-import { renderIconTile } from './utils';
 
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const ChartBarIconWithColor: FC<AtlaskitIconTileProps> = renderIconTile(ChartBarIcon, 'purpleBold');
 ChartBarIconWithColor.displayName = 'ChartBarIconWithColor';
 

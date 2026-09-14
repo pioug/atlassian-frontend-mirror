@@ -1,9 +1,9 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import TestingSafariFlexCollapse from '../../examples/153-testing-safari-flex-collapse';
-import TestingSafariFlexCollapseMaxHeight from '../../examples/154-testing-safari-flex-collapse-max-height';
-import TestingSafariFlexCollapseMaxHeightBug from '../../examples/156-testing-safari-flex-collapse-max-height-bug';
+import TestingSafariFlexCollapse from '../../examples/153-testing-safari-flex-collapse.vr.ap';
+import TestingSafariFlexCollapseMaxHeight from '../../examples/154-testing-safari-flex-collapse-max-height.vr.ap';
+import TestingSafariFlexCollapseMaxHeightBug from '../../examples/156-testing-safari-flex-collapse-max-height-bug.vr.ap';
 
 /**
  * Primary WebKit guard for the Safari top-layer flex-collapse bug on `Popover`

@@ -43,7 +43,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/date-picker.tsx'),
 				},
 			],
-			keywords: ['date', 'picker', 'calendar', 'selection', 'form'],
+			keywords: ['date', 'picker', 'input', 'calendar', 'selection', 'form'],
 			categories: ['form'],
 		},
 		{
@@ -83,7 +83,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/time-picker.tsx'),
 				},
 			],
-			keywords: ['time', 'picker', 'clock', 'selection', 'form'],
+			keywords: ['time', 'picker', 'input', 'clock', 'selection', 'form'],
 			categories: ['form'],
 		},
 		{
@@ -123,7 +123,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/datetime-picker.tsx'),
 				},
 			],
-			keywords: ['datetime', 'picker', 'date', 'time', 'calendar'],
+			keywords: ['datetime', 'picker', 'date', 'time', 'input', 'calendar'],
 			categories: ['form'],
 		},
 	],

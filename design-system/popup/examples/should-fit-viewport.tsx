@@ -6,8 +6,10 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
-import { Popup, PopupContent, PopupTrigger } from '@atlaskit/popup/experimental';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/compositional/popup';
+import { PopupContent } from '@atlaskit/popup/compositional/popup-content';
+import { PopupTrigger } from '@atlaskit/popup/compositional/popup-trigger';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

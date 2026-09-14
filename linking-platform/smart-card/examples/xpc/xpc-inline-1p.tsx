@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 
 import { Card } from '../../src';
 import VRTestWrapper from '../utils/vr-test-wrapper';
@@ -13,7 +14,7 @@ installInteractionSessionFake();
 /**
  * Positive case — first-party inline Smart Link.
  *
- * With `platform_smartlink_xpc_url_wrapping` + `atlaskit-analytics-cross-product`
+ * With `atlaskit-analytics-cross-product`
  * gates ON, the inline card's anchor
  * `href` should contain `?xpis=…`. Left-, middle-, and Ctrl+click should all
  * navigate to the wrapped URL.

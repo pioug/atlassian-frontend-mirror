@@ -11,11 +11,11 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Button',
 			description:
-				'A versatile button component with multiple appearances and states for triggering actions. A button triggers an event or action. They let users know what will happen next. Note the root entrypoint of `@atlaskit/button` is deprecated and being replaced with `@atlaskit/button/new`.',
+				'A versatile button component with multiple appearances and states for triggering actions. A button triggers an event or action. They let users know what will happen next.',
 			status: 'general-availability',
 			import: {
 				name: 'Button',
-				package: '@atlaskit/button/new',
+				package: '@atlaskit/button/default/button',
 				type: 'default',
 				packagePath,
 				packageJson,
@@ -86,8 +86,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'IconButton',
-				package: '@atlaskit/button/new',
-				type: 'named',
+				package: '@atlaskit/button/icon/button',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -117,13 +117,52 @@ const documentation: StructuredContentSource = {
 			categories: ['form', 'interaction'],
 		},
 		{
+			name: 'LinkIconButton',
+			description:
+				'An icon-only button that helps people navigate to a common link or page location.',
+			status: 'general-availability',
+			import: {
+				name: 'LinkIconButton',
+				package: '@atlaskit/button/icon/link',
+				type: 'default',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [
+				'Use for navigation or other actions that change the page URL or location',
+				'Use an existing system icon with a clear, commonly understood meaning',
+				'Use a link button with a text label when the icon alone would be ambiguous',
+			],
+			contentGuidelines: [
+				'Always provide a clear and specific label for tooltips and screen readers',
+				'Use sentence case for labels',
+				'Specify the object being acted on where possible, such as "Edit page" instead of "Edit"',
+			],
+			accessibilityGuidelines: [
+				'Always provide a meaningful label; it is rendered as visually hidden content for assistive technologies',
+				'Avoid disabling buttons where possible',
+			],
+			examples: [
+				{
+					name: 'Link Icon Button',
+					description: 'Link Icon Button example',
+					source: path.resolve(
+						packagePath,
+						'./examples/constellation/new-button/link-icon-button/link-icon-button.tsx',
+					),
+				},
+			],
+			keywords: ['button', 'icon', 'link', 'navigation', 'href', 'anchor'],
+			categories: ['form', 'navigation', 'interaction'],
+		},
+		{
 			name: 'SplitButton',
 			description:
 				'A button that splits into a primary action and a dropdown menu. The main button performs the primary action, while the dropdown arrow reveals additional related actions.',
 			status: 'general-availability',
 			import: {
 				name: 'SplitButton',
-				package: '@atlaskit/button/new',
+				package: '@atlaskit/button/split-button/split-button',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -161,8 +200,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'LinkButton',
-				package: '@atlaskit/button/new',
-				type: 'named',
+				package: '@atlaskit/button/link',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -227,42 +266,6 @@ const documentation: StructuredContentSource = {
 			],
 			keywords: ['button', 'group', 'container', 'layout', 'spacing'],
 			categories: ['form', 'layout', 'interaction'],
-		},
-		{
-			name: 'Button (Legacy)',
-			description:
-				'Legacy button component (deprecated). Use Button from @atlaskit/button/new instead.',
-			status: 'intent-to-deprecate',
-			import: {
-				name: 'Button',
-				package: '@atlaskit/button/new',
-				type: 'default',
-				packagePath,
-				packageJson,
-			},
-			usageGuidelines: [
-				'Use the new Button component from @atlaskit/button/new instead',
-				'Migrate existing usage to the new Button API',
-				'Consider this component deprecated',
-			],
-			contentGuidelines: [
-				'Use action verbs that describe the interaction',
-				'Keep text concise (1-3 words ideal)',
-				"Avoid generic terms like 'Submit' or 'Click here'",
-			],
-			accessibilityGuidelines: [
-				'Always provide meaningful labels for screen readers',
-				'Provide loading state announcements for async actions',
-			],
-			examples: [
-				{
-					name: '99 Button Old Button',
-					description: '99 Button Old Button example',
-					source: path.resolve(packagePath, './examples/99-button-old-button.tsx'),
-				},
-			],
-			keywords: ['button', 'legacy', 'deprecated', 'action', 'click', 'submit', 'form'],
-			categories: ['form', 'interaction'],
 		},
 	],
 };

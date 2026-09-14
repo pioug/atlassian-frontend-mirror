@@ -6,7 +6,6 @@ import { type AriaRole } from 'react';
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type TagSwatchBeforeTokenName } from './types';
@@ -99,9 +98,7 @@ export default function SwatchBefore({
 		return (
 			<span
 				css={[tagSwatchBeforeStyles.swatch, tagSwatchBeforeColorStyles[colorKey]]}
-				{...(swatchBeforeLabel &&
-				swatchBeforeRole &&
-				fg('parent-field-switcher-missing-info-image-text')
+				{...(swatchBeforeLabel && swatchBeforeRole
 					? { 'aria-label': swatchBeforeLabel, role: swatchBeforeRole }
 					: {})}
 			/>
@@ -110,9 +107,7 @@ export default function SwatchBefore({
 	return (
 		<span
 			css={tagSwatchBeforeStyles.swatch}
-			{...(swatchBeforeLabel &&
-			swatchBeforeRole &&
-			fg('parent-field-switcher-missing-info-image-text')
+			{...(swatchBeforeLabel && swatchBeforeRole
 				? { 'aria-label': swatchBeforeLabel, role: swatchBeforeRole }
 				: {})}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

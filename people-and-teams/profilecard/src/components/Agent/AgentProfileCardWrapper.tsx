@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -26,8 +26,9 @@ export const AgentProfileCardWrapper = ({
 	children: React.ReactNode;
 }): React.JSX.Element => {
 	if (
-		expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-		fg('platform_editor_agent_mentions_drop_one_fixes')
+		(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+			fg('platform_editor_agent_mentions_drop_one_fixes')) ||
+		fg('platform_editor_agent_card_fixes')
 	) {
 		return <Box xcss={styles.wrapper}>{children}</Box>;
 	}

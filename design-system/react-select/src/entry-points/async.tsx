@@ -2,11 +2,11 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
-export { default as useAsync } from '../use-async';
+export { default as useAsync, type AsyncProps } from '../use-async';
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
-export type { AsyncProps } from '../async';
+
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */

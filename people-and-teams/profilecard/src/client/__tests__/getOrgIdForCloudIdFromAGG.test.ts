@@ -1,9 +1,9 @@
 import { isValidAGGQuery } from '@atlassian/ptc-test-utils/graphql-jest';
 
+import { AGGQuery } from '../AGGQuery';
 import { getOrgIdForCloudIdFromAGG } from '../getOrgIdForCloudIdFromAGG';
-import { AGGQuery } from '../graphqlUtils';
 
-jest.mock('../graphqlUtils', () => ({
+jest.mock('../AGGQuery', () => ({
 	AGGQuery: jest.fn(),
 }));
 

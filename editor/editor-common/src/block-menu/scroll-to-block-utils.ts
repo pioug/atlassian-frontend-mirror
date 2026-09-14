@@ -3,7 +3,7 @@
  * Used by both Confluence's useScrollOnUrlChange and platform renderer's useScrollToBlock.
  */
 
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { expandElement } from './expandElement';

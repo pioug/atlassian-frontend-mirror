@@ -1,16 +1,14 @@
-import { normalizeHexColor } from '@atlaskit/adf-schema';
-import {
-	isSchemaWithLists,
-	isSchemaWithMentions,
-	isSchemaWithLinks,
-	isSchemaWithAdvancedTextFormattingMarks,
-	isSchemaWithCodeBlock,
-	isSchemaWithBlockQuotes,
-	isSchemaWithMedia,
-	isSchemaWithSubSupMark,
-	isSchemaWithTextColor,
-	isSchemaWithTables,
-} from '@atlaskit/adf-schema/schema-jira';
+import { normalizeHexColor } from '@atlaskit/adf-schema/normalize-hex-color';
+import { isSchemaWithLists } from '@atlaskit/adf-schema/is-schema-with-lists';
+import { isSchemaWithMentions } from '@atlaskit/adf-schema/is-schema-with-mentions';
+import { isSchemaWithLinks } from '@atlaskit/adf-schema/is-schema-with-links';
+import { isSchemaWithAdvancedTextFormattingMarks } from '@atlaskit/adf-schema/is-schema-with-advanced-text-formatting-marks';
+import { isSchemaWithCodeBlock } from '@atlaskit/adf-schema/is-schema-with-code-block';
+import { isSchemaWithBlockQuotes } from '@atlaskit/adf-schema/is-schema-with-block-quotes';
+import { isSchemaWithMedia } from '@atlaskit/adf-schema/is-schema-with-media';
+import { isSchemaWithSubSupMark } from '@atlaskit/adf-schema/is-schema-with-sub-sup-mark';
+import { isSchemaWithTextColor } from '@atlaskit/adf-schema/is-schema-with-text-color';
+import { isSchemaWithTables } from '@atlaskit/adf-schema/is-schema-with-tables';
 
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node as PMNode, Schema, NodeType } from '@atlaskit/editor-prosemirror/model';

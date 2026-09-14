@@ -1,0 +1,34 @@
+import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import {
+	mockBasicFilterAGGFetchRequests,
+	mockDatasourceFetchRequests,
+} from '@atlaskit/link-test-helpers/datasource';
+
+import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
+import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-modal';
+import { ConfluenceSearchConfigModal } from '../../src/ui/confluence-search-modal/modal/ConfluenceSearchConfigModal';
+
+mockDatasourceFetchRequests({
+	type: 'confluence',
+	delayedResponse: false,
+	availableSitesOverride: [],
+	accessibleProductsOverride: [],
+	shouldMockORSBatch: true,
+});
+mockBasicFilterAGGFetchRequests();
+
+export default (): React.JSX.Element => (
+	<IntlProvider locale="en">
+		<SmartCardProvider client={new SmartLinkClient()}>
+			<ConfluenceSearchConfigModal
+				datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
+				onCancel={() => {}}
+				onInsert={() => {}}
+			/>
+		</SmartCardProvider>
+	</IntlProvider>
+);

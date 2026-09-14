@@ -1,20 +1,18 @@
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { TEST_INTERACTIVE_HREF_LINK } from '../__mocks__/linkingPlatformJsonldMocks';
-import {
-	extractEntityIcon,
-	extractSmartLinkAri,
-	extractSmartLinkCreatedBy,
-	extractSmartLinkCreatedOn,
-	extractSmartLinkEmbed,
-	extractSmartLinkModifiedBy,
-	extractSmartLinkModifiedOn,
-	extractSmartLinkProvider,
-	extractSmartLinkTitle,
-	extractSmartLinkUrl,
-	genericExtractPropsFromJSONLD,
-} from '../index';
+import { extractEntityIcon } from '../extract-entity-icon';
+import { extractSmartLinkAri } from '../extract-smart-link-ari';
+import { extractSmartLinkCreatedBy } from '../extract-smart-link-created-by';
+import { extractSmartLinkCreatedOn } from '../extract-smart-link-created-on';
+import { extractSmartLinkEmbed } from '../extract-smart-link-embed';
+import { extractSmartLinkModifiedBy } from '../extract-smart-link-modified-by';
+import { extractSmartLinkModifiedOn } from '../extract-smart-link-modified-on';
+import { extractSmartLinkProvider } from '../extract-smart-link-provider';
+import { extractSmartLinkTitle } from '../extract-smart-link-title';
+import { extractSmartLinkUrl } from '../extract-smart-link-url';
+import { genericExtractPropsFromJSONLD } from '../generic-extract-props-from-jsonld';
 
 const defaultExtractorFunction = () => ({
 	title: { text: 'default extractor function' },
@@ -216,127 +214,72 @@ describe('entity data', () => {
 	});
 
 	describe('extractEntityIcon()', () => {
-		ffTest.off('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is off', () => {
-			it('should return legacy entity icon', () => {
-				const url = 'https://example.com/icon.png';
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
+		it('should return design entity icon and type', () => {
+			const url = 'https://example.com/icon.png';
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: {
+					displayName: 'Entity Title',
+					iconUrl: url,
+					status: 'READY_FOR_DEVELOPMENT',
+					type: 'FILE',
+					id: 'entity-id',
+					url: 'https://example.com/entity',
+				},
+			} as SmartLinkResponse;
+
+			expect(extractEntityIcon(response)).toEqual({ url, label: 'FILE' });
+		});
+		it('should return undefined for unsupported entity shapes', () => {
+			const response = {
+				meta: { visibility: 'public', access: 'granted' },
+				data: { '@type': 'Object' },
+				entityData: {
+					displayName: 'Entity Title',
+					id: 'entity-id',
+					url: 'https://example.com/entity',
+				},
+			} as SmartLinkResponse;
+
+			expect(extractEntityIcon(response)).toBeUndefined();
+		});
+		it('should return document type icon', () => {
+			const url = 'https://example.com/icon.png';
+			const response = {
+				meta: {
+					visibility: 'public',
+					access: 'granted',
+					generator: {
+						name: 'Google',
+						icon: {
+							url: 'https://google-icon.com/icon.png',
+						},
+					},
+				},
+				data: { '@type': 'Object' },
+				entityData: {
+					displayName: 'Entity Title',
+					type: {
+						category: 'document',
 						iconUrl: url,
 					},
-				} as SmartLinkResponse;
+					id: 'entity-id',
+					url: 'https://example.com/entity',
+				},
+			};
 
-				expect(extractEntityIcon(response)).toEqual({ url, label: 'Entity Title' });
-			});
-		});
-
-		ffTest.on('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is on', () => {
-			it('should return design entity icon and type', () => {
-				const url = 'https://example.com/icon.png';
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
-						iconUrl: url,
-						status: 'READY_FOR_DEVELOPMENT',
-						type: 'FILE',
-						id: 'entity-id',
-						url: 'https://example.com/entity',
-					},
-				} as SmartLinkResponse;
-
-				expect(extractEntityIcon(response)).toEqual({ url, label: 'FILE' });
-			});
-		});
-
-		ffTest.on('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is on', () => {
-			it('should return undefined for unsupported entity shapes', () => {
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
-						id: 'entity-id',
-						url: 'https://example.com/entity',
-					},
-				} as SmartLinkResponse;
-
-				expect(extractEntityIcon(response)).toBeUndefined();
-			});
-		});
-
-		ffTest.off('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is off', () => {
-			it('should return provider icon for document entities', () => {
-				const url = 'https://example.com/icon.png';
-				const response = {
-					meta: {
-						visibility: 'public',
-						access: 'granted',
-						generator: {
-							name: 'Google',
-							icon: {
-								url: 'https://google-icon.com/icon.png',
-							},
-						},
-					},
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
-						type: {
-							category: 'document',
-							iconUrl: url,
-						},
-						id: 'entity-id',
-						url: 'https://example.com/entity',
-					},
-				};
-
-				expect(extractEntityIcon(response as any)).toEqual({
-					url: 'https://google-icon.com/icon.png',
-					label: 'Entity Title',
-				});
-			});
-		});
-
-		ffTest.on('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is on', () => {
-			it('should return document type icon', () => {
-				const url = 'https://example.com/icon.png';
-				const response = {
-					meta: {
-						visibility: 'public',
-						access: 'granted',
-						generator: {
-							name: 'Google',
-							icon: {
-								url: 'https://google-icon.com/icon.png',
-							},
-						},
-					},
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
-						type: {
-							category: 'document',
-							iconUrl: url,
-						},
-						id: 'entity-id',
-						url: 'https://example.com/entity',
-					},
-				};
-
-				expect(extractEntityIcon(response as any)).toEqual({
-					url: 'https://example.com/icon.png',
-					label: 'document',
-				});
+			expect(extractEntityIcon(response as any)).toEqual({
+				url: 'https://example.com/icon.png',
+				label: 'document',
 			});
 		});
 	});
 
 	describe('extractSmartLinkProvider()', () => {
 		it('should return entityProvider when response is an entity and meta.generator is present', () => {
+			failGate('platform_lp_use_generator_icon_for_provider');
+
 			const response = {
 				meta: {
 					generator: {
@@ -353,8 +296,10 @@ describe('entity data', () => {
 
 			expect(extractSmartLinkProvider(response)).toEqual({
 				text: 'Figma',
+				id: undefined,
 				icon: 'https://static.figma.com/app/icon/1/favicon.ico',
 				image: 'https://static.figma.com/app/icon/1/favicon.ico',
+				iconLabel: 'Figma',
 			});
 		});
 
@@ -392,41 +337,56 @@ describe('entity data', () => {
 
 			expect(extractSmartLinkProvider(response)).toEqual({
 				text: 'Figma',
+				id: undefined,
 				icon: 'https://static.figma.com/app/icon/1/favicon.ico',
+				image: undefined,
+				iconLabel: 'Figma',
 			});
 		});
 
-		ffTest.on('platform_lp_use_entity_icon_url_for_icon', 'when feature gate is on', () => {
-			it('should use entity icon URL and iconLabel for document entities', () => {
-				const response = {
-					meta: {
-						generator: {
-							name: 'Google Drive',
-							id: 'google-drive',
-							icon: {
-								url: 'https://provider-icon.com/icon.png',
-							},
-						},
-					},
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity',
-						id: 'entity-id',
-						url: 'https://entity-url.com',
-						type: {
-							category: 'document',
-							iconUrl: 'https://entity-icon.com/icon.png',
-						},
-					},
-				} as unknown as SmartLinkResponse;
-
-				expect(extractSmartLinkProvider(response)).toEqual({
-					text: 'Google Drive',
+		const documentEntityResponse = {
+			meta: {
+				generator: {
+					name: 'Google Drive',
 					id: 'google-drive',
-					icon: 'https://entity-icon.com/icon.png',
-					image: 'https://entity-icon.com/icon.png',
-					iconLabel: 'document',
-				});
+					icon: {
+						url: 'https://provider-icon.com/icon.png',
+					},
+				},
+			},
+			data: { '@type': 'Object' },
+			entityData: {
+				displayName: 'Entity',
+				id: 'entity-id',
+				url: 'https://entity-url.com',
+				type: {
+					category: 'document',
+					iconUrl: 'https://entity-icon.com/icon.png',
+				},
+			},
+		} as unknown as SmartLinkResponse;
+
+		it('should use generator icon URL and label for document entity providers when the gate is on', () => {
+			passGate('platform_lp_use_generator_icon_for_provider');
+
+			expect(extractSmartLinkProvider(documentEntityResponse)).toEqual({
+				text: 'Google Drive',
+				id: 'google-drive',
+				icon: 'https://provider-icon.com/icon.png',
+				image: 'https://provider-icon.com/icon.png',
+				iconLabel: 'Google Drive',
+			});
+		});
+
+		it('should keep using entity icon URL and label for document entity providers when the gate is off', () => {
+			failGate('platform_lp_use_generator_icon_for_provider');
+
+			expect(extractSmartLinkProvider(documentEntityResponse)).toEqual({
+				text: 'Google Drive',
+				id: 'google-drive',
+				icon: 'https://entity-icon.com/icon.png',
+				image: 'https://entity-icon.com/icon.png',
+				iconLabel: 'document',
 			});
 		});
 	});

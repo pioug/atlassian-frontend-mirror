@@ -20,11 +20,32 @@ function hasRunningCssAnimation({ selector }: { selector: string }): boolean {
 	});
 }
 
+function finishCssAnimations({ selector }: { selector: string }): void {
+	const element = document.querySelector(selector);
+	if (!element) {
+		return;
+	}
+
+	for (const animation of element.getAnimations({ subtree: true })) {
+		if (animation.effect?.getComputedTiming().iterations !== Infinity) {
+			animation.finish();
+		}
+	}
+}
+
 test.describe('Animation lifecycle - exit animation', () => {
 	// Category 2: Animation Lifecycle
 	// Verifies that the exit animation completes before element is logically hidden.
-	// This catches the class of bug where React unmounts before transitionend fires.
-	test('exit animation: element remains in DOM during exit transition', async ({ page }) => {
+	// This catches the class of bug where React unmounts before the exit animations settle.
+	test('exit animation: element remains in DOM during exit transition', async ({
+		page,
+		browserName,
+	}) => {
+		test.fixme(
+			browserName === 'firefox' || browserName === 'webkit',
+			'Firefox and WebKit do not support allow-discrete for display, so exit animations do not run',
+		);
+
 		await page.visitExample<typeof import('../../examples/125-testing-animation-exit.tsx')>(
 			'design-system',
 			'top-layer',
@@ -32,13 +53,11 @@ test.describe('Animation lifecycle - exit animation', () => {
 		);
 
 		const trigger = page.getByTestId('popover-trigger');
-		await trigger.click();
+		await trigger.press('Enter');
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Close via Escape - trial click on trigger (interactive button, always stable)
-		await trigger.click({ trial: true });
-		await page.keyboard.press('Escape');
+		await trigger.press('Enter');
 
 		// The popover element should still exist in the DOM immediately after close
 		// (exit animation should be in progress, not instant removal).
@@ -63,7 +82,15 @@ test.describe('Animation lifecycle - exit animation', () => {
  * These tests ensure that a valid CSS animation is actually being applied for the preset animations
  */
 test.describe('Animation lifecycle - CSS animation presence', () => {
-	test('testing-popover-animation has entry animation', async ({ page, skipAxeCheck }) => {
+	test('testing-popover-animation has entry animation', async ({
+		page,
+		skipAxeCheck,
+		browserName,
+	}) => {
+		test.fixme(
+			browserName === 'webkit',
+			'WebKit inconsistently instantiates native Popover entry animations',
+		);
 		// Can produce false positives because of the artificially long animation duration
 		skipAxeCheck();
 
@@ -82,16 +109,18 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 			`,
 		});
 
-		await page.getByTestId('popover-trigger').click();
+		await page.getByTestId('popover-trigger').press('Enter');
 
-		expect(await page.evaluate(hasRunningCssAnimation, { selector: '[popover]' })).toBe(true);
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: '[popover]' }))
+			.toBe(true);
 	});
 
 	test('basic-dialog has entry animation', async ({ page, skipAxeCheck }) => {
 		// Can produce false positives because of the artificially long animation duration
 		skipAxeCheck();
 
-		await page.visitExample<typeof import('../../examples/04-basic-dialog.tsx')>(
+		await page.visitExample<typeof import('../../examples/04-basic-dialog.vr.ap.tsx')>(
 			'design-system',
 			'top-layer',
 			'basic-dialog',
@@ -110,7 +139,9 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 
 		await page.getByRole('button', { name: 'Open dialog' }).click();
 
-		expect(await page.evaluate(hasRunningCssAnimation, { selector: 'dialog' })).toBe(true);
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: 'dialog' }))
+			.toBe(true);
 	});
 
 	test.describe('exit animation checks', () => {
@@ -140,14 +171,16 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 			});
 
 			const trigger = page.getByTestId('popover-trigger');
-			await trigger.click();
-			await trigger.click();
+			await trigger.press('Enter');
+			await trigger.press('Enter');
 
-			expect(await page.evaluate(hasRunningCssAnimation, { selector: '[popover]' })).toBe(true);
+			await expect
+				.poll(() => page.evaluate(hasRunningCssAnimation, { selector: '[popover]' }))
+				.toBe(true);
 		});
 
 		test('basic-dialog has exit animation', async ({ page }) => {
-			await page.visitExample<typeof import('../../examples/04-basic-dialog.tsx')>(
+			await page.visitExample<typeof import('../../examples/04-basic-dialog.vr.ap.tsx')>(
 				'design-system',
 				'top-layer',
 				'basic-dialog',
@@ -167,60 +200,215 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 			await page.getByRole('button', { name: 'Open dialog' }).click();
 			await page.getByRole('button', { name: 'Close' }).click();
 
-			expect(await page.evaluate(hasRunningCssAnimation, { selector: 'dialog' })).toBe(true);
+			await expect
+				.poll(() => page.evaluate(hasRunningCssAnimation, { selector: 'dialog' }))
+				.toBe(true);
 		});
 	});
 });
 
 test.describe('Animation lifecycle - animation callbacks', () => {
-	// Verifies that onEnterFinish and onExitFinish fire after real CSS transitionend
+	// Verifies that onEnterFinish and onExitFinish fire after real CSS animations settle
 	// events in a real browser. This cannot be tested in JSDOM (which has no CSS
-	// transitions) so it lives here in Playwright.
-	test('onEnterFinish fires after entry animation, not before', async ({ page }) => {
+	// animations) so it lives here in Playwright.
+	test('onEnterFinish fires after entry animation, not before', async ({ page, browserName }) => {
+		test.fixme(
+			browserName === 'webkit',
+			'WebKit inconsistently instantiates native Popover entry animations',
+		);
+
 		await page.visitExample<typeof import('../../examples/127-testing-animation-callbacks.tsx')>(
 			'design-system',
 			'top-layer',
 			'testing-animation-callbacks',
 		);
+		await page.addStyleTag({
+			content: `
+				[popover],
+				[popover]:popover-open {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
 
 		const enterCount = page.getByTestId('enter-count');
 
 		await expect(enterCount).toHaveText('0');
 
 		// Open the popup - entry animation begins
-		await page.getByTestId('popover-trigger').click();
+		await page.getByTestId('popover-trigger').press('Enter');
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Immediately after click the animation has just started - not fired yet
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: '[popover]' }))
+			.toBe(true);
 		await expect(enterCount).toHaveText('0');
 
-		// Wait for entry animation to complete (slideAndFade: 350ms + CI headroom)
-		await expect(enterCount).toHaveText('1', { timeout: 2000 });
+		await page.evaluate(finishCssAnimations, { selector: '[popover]' });
+		await expect(enterCount).toHaveText('1');
 	});
 
-	test('onExitFinish fires after exit animation, not before', async ({ page }) => {
+	test('onExitFinish fires after exit animation, not before', async ({ page, browserName }) => {
+		test.fixme(
+			browserName === 'firefox' || browserName === 'webkit',
+			'Firefox and WebKit do not support allow-discrete for display, so exit animations do not run',
+		);
+
 		await page.visitExample<typeof import('../../examples/127-testing-animation-callbacks.tsx')>(
 			'design-system',
 			'top-layer',
 			'testing-animation-callbacks',
 		);
+		await page.addStyleTag({
+			content: `
+				[popover],
+				[popover]:popover-open {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
 
 		const trigger = page.getByTestId('popover-trigger');
 		const exitCount = page.getByTestId('exit-count');
 
-		// Open the popup and wait for it to be visible
-		await trigger.click();
+		await trigger.press('Enter');
 		await expect(page.getByTestId('popover-content')).toBeVisible();
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: '[popover]' }))
+			.toBe(true);
+		await page.evaluate(finishCssAnimations, { selector: '[popover]' });
+		await expect(page.getByTestId('enter-count')).toHaveText('1');
 
-		// Close the popup - exit animation begins
-		await trigger.click();
-
-		// Immediately after close the animation has just started - not fired yet
+		await trigger.press('Enter');
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: '[popover]' }))
+			.toBe(true);
 		await expect(exitCount).toHaveText('0');
 
-		// Wait for exit animation to complete (slideAndFade: 350ms + CI headroom)
+		await page.evaluate(finishCssAnimations, { selector: '[popover]' });
 		await expect(page.getByTestId('popover-content')).toBeHidden();
-		await expect(exitCount).toHaveText('1', { timeout: 2000 });
+		await expect(exitCount).toHaveText('1');
+	});
+
+	test('Dialog callbacks fire after their animations complete', async ({ page, browserName }) => {
+		test.fixme(
+			browserName === 'firefox' || browserName === 'webkit',
+			'Firefox and WebKit do not support allow-discrete for display, so exit animations do not run',
+		);
+
+		await page.visitExample<typeof import('../../examples/testing-dialog-animation-callbacks.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-animation-callbacks',
+		);
+		await page.addStyleTag({
+			content: `
+				dialog,
+				dialog[open],
+				dialog::backdrop,
+				dialog[open]::backdrop {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
+
+		const enterCount = page.getByTestId('dialog-enter-count');
+		const exitCount = page.getByTestId('dialog-exit-count');
+
+		await page.getByTestId('dialog-trigger').click();
+		await expect(page.getByTestId('dialog-content')).toBeVisible();
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: 'dialog' }))
+			.toBe(true);
+		await expect(enterCount).toHaveText('0');
+		await page.evaluate(finishCssAnimations, { selector: 'dialog' });
+		await expect(enterCount).toHaveText('1');
+
+		await page.getByTestId('dialog-close').click();
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: 'dialog' }))
+			.toBe(true);
+		await expect(exitCount).toHaveText('0');
+		await page.evaluate(finishCssAnimations, { selector: 'dialog' });
+		await expect(page.getByTestId('dialog-content')).toBeHidden();
+		await expect(exitCount).toHaveText('1');
+	});
+
+	test('Popover leaves the accessibility tree before its exit animation finishes', async ({
+		page,
+		browserName,
+	}) => {
+		test.fixme(
+			browserName === 'firefox' || browserName === 'webkit',
+			'Firefox and WebKit do not support allow-discrete for display, so exit animations do not run',
+		);
+
+		await page.visitExample<typeof import('../../examples/127-testing-animation-callbacks.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-animation-callbacks',
+		);
+		await page.addStyleTag({
+			content: `
+				[popover],
+				[popover]:popover-open {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
+
+		const trigger = page.getByTestId('popover-trigger');
+		const content = page.getByTestId('popover-content');
+		await trigger.press('Enter');
+		await page.evaluate(finishCssAnimations, { selector: '[popover]' });
+		await expect(page.getByRole('dialog', { name: 'Animation callback test' })).toBeVisible();
+
+		await trigger.press('Enter');
+
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: '[popover]' }))
+			.toBe(true);
+		await expect(content).toBeVisible();
+		await expect(page.getByRole('dialog', { name: 'Animation callback test' })).toHaveCount(0);
+	});
+
+	test('Dialog leaves the accessibility tree before its exit animation finishes', async ({
+		page,
+		browserName,
+	}) => {
+		test.fixme(
+			browserName === 'firefox' || browserName === 'webkit',
+			'Firefox and WebKit do not support allow-discrete for display, so exit animations do not run',
+		);
+
+		await page.visitExample<typeof import('../../examples/04-basic-dialog.vr.ap.tsx')>(
+			'design-system',
+			'top-layer',
+			'basic-dialog',
+		);
+		await page.addStyleTag({
+			content: `
+				dialog,
+				dialog[open],
+				dialog::backdrop,
+				dialog[open]::backdrop {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
+
+		const content = page.getByText('This dialog uses the native <dialog> element.');
+		await page.getByRole('button', { name: 'Open dialog' }).click();
+		await page.evaluate(finishCssAnimations, { selector: 'dialog' });
+		await expect(page.getByRole('dialog', { name: 'Basic dialog' })).toBeVisible();
+
+		await page.getByRole('button', { name: 'Close' }).click();
+
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: 'dialog' }))
+			.toBe(true);
+		await expect(content).toBeVisible();
+		await expect(page.getByRole('dialog', { name: 'Basic dialog' })).toHaveCount(0);
 	});
 });
 
@@ -235,7 +423,7 @@ test.describe('Animation lifecycle - reduced motion', () => {
 		>('design-system', 'top-layer', 'testing-animation-reduced-motion');
 
 		const trigger = page.getByTestId('popover-trigger');
-		await trigger.click();
+		await trigger.press('Enter');
 
 		// Popover should appear instantly (no transition delay)
 		await expect(page.getByTestId('popover-content')).toBeVisible();
@@ -257,14 +445,12 @@ test.describe('Animation lifecycle - reduced motion', () => {
 		>('design-system', 'top-layer', 'testing-animation-reduced-motion');
 
 		const trigger = page.getByTestId('popover-trigger');
-		await trigger.click();
+		await trigger.press('Enter');
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Close via Escape - trial click on trigger (interactive button, always stable)
-		await trigger.click({ trial: true });
 		// Close the popover - should close instantly with reduced motion
-		await page.keyboard.press('Escape');
+		await trigger.press('Enter');
 
 		await expect(page.getByTestId('popover-content')).toBeHidden();
 		await expect(page.getByTestId('status')).toHaveText('closed');

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f88fa64ab9596cfbdf77cc703d3b08ed>>
+ * @codegen <<SignedSource::0812cf7af63b42bd3bd830103e378223>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "TextStyle".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const TextStyleIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const TextStyleIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "TextStyleIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.799.484A.75.75 0 0 1 7.5 0h1.018a.75.75 0 0 1 .701.485l3.733 9.875a.8.8 0 0 1 .048.265V11h-1.5v-.238L10.456 8H5.55L4.5 10.763V11H3v-.375a.8.8 0 0 1 .049-.266zM6.119 6.5h3.77L8.01 1.524z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

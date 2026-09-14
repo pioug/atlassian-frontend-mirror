@@ -2,9 +2,12 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
 
-import Button from '@atlaskit/button/new';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import Link from '@atlaskit/link';
+import Button from '@atlaskit/button/default/button';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
+import Link from '@atlaskit/link/link';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import EmptyState from '@atlaskit/empty-state';
+import Button from '@atlaskit/button/default/button';
+import EmptyState from '@atlaskit/empty-state/empty-state';
 import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';
 
 import items from './data';

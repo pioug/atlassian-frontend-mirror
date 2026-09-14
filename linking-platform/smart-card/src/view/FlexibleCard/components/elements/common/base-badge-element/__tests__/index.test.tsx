@@ -7,7 +7,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { IntlProvider, type MessageFormatElement } from 'react-intl';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { render, screen } from '@atlassian/testing-library';
 
 import { IconType } from '../../../../../../../constants';

@@ -1,8 +1,7 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { CheckboxSelect as AtlaskitCheckboxSelect } from '../../../checkbox-select';
 

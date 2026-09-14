@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
-import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
+import { Label } from '@atlaskit/form/label/default';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 
 export default (): React.JSX.Element => {
 	const [dateTimePickerValue, setDateTimePickerValue] = useState<string>('2018-01-02T14:30+11:00');

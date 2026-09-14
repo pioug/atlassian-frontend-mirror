@@ -3,13 +3,12 @@ import { createElement } from 'react';
 import { RawIntlProvider } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import type { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { nonNullable } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import type {
 	ReadonlyTransaction,
 	Selection,

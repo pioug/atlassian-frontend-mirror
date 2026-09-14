@@ -7,7 +7,8 @@ import React, { useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@compiled/react';
 
-import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import type { CustomTriggerProps } from '@atlaskit/dropdown-menu/types';
 import { ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
 
 /**

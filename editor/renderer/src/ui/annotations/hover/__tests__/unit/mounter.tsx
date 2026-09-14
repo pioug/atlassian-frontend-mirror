@@ -1,5 +1,5 @@
-import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -10,9 +10,8 @@ import type {
 	AnnotationActionResult,
 	InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types';
-import { render } from '@testing-library/react';
-import React from 'react';
-import { act } from 'react-dom/test-utils';
+import { render } from '@atlassian/testing-library';
+import React, { act } from 'react';
 import type { ApplyAnnotation } from '../../../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../../../draft/dom';
 import type { Position } from '../../../types';
@@ -22,7 +21,8 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 
 jest.mock('../../../draft/dom');
 jest.mock('../../../draft/component');
-jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
+jest.mock('@atlaskit/tmp-editor-statsig/editor-experiment', () => ({
+	...jest.requireActual('@atlaskit/tmp-editor-statsig/editor-experiment'),
 	editorExperiment: jest.fn(() => false),
 }));
 

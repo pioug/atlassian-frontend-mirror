@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "81.4.17",
+	"version": "81.10.15",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,14 +27,38 @@
 		"./cardLoading": "./src/utils/lightCards/cardLoading.tsx",
 		"./cardPlaceholder": "./src/utils/lightCards/cardPlaceholder.tsx",
 		"./cardSync": "./src/card/cardSync.tsx",
-		"./classnames": "./src/classnames.ts",
+		"./classnames": "./src/card/classnames.ts",
 		"./dateOverrideContext": "./src/dateOverrideContext.tsx",
 		"./errors": "./src/errors.ts",
 		"./inlinePlayerWrapperStyles": "./src/card/inlinePlayerWrapperStyles.ts",
 		"./loader": "./src/inline/loader.tsx",
 		"./mediaInlineCardAnalytics": "./src/inline/mediaInlineCardAnalytics.ts",
+		"./inline/fire-failed-operational-event": "./src/inline/fireFailedOperationalEvent.ts",
+		"./inline/fire-succeeded-operational-event": "./src/inline/fireSucceededOperationalEvent.ts",
+		"./inline/get-error-status-payload": "./src/inline/getErrorStatusPayload.ts",
+		"./inline/get-failed-processing-status-payload": "./src/inline/getFailedProcessingStatusPayload.ts",
+		"./inline/get-succeeded-status-payload": "./src/inline/getSucceededStatusPayload.ts",
 		"./types": "./src/types.ts",
-		"./mediaCommon": "./src/mediaCommon.ts"
+		"./mediaCommon": "./src/mediaCommon.ts",
+		"./attach-details-to-actions": "./src/card/attachDetailsToActions.tsx",
+		"./create-download-action": "./src/card/createDownloadAction.tsx",
+		"./ensure-media-card-error": "./src/ensureMediaCardError.ts",
+		"./get-image-load-primary-reason": "./src/getImageLoadPrimaryReason.ts",
+		"./image-load-error": "./src/ImageLoadError.ts",
+		"./is-image-load-error": "./src/isImageLoadError.ts",
+		"./is-local-preview-error": "./src/isLocalPreviewError.ts",
+		"./is-media-card-error": "./src/isMediaCardError.ts",
+		"./is-remote-preview-error": "./src/isRemotePreviewError.ts",
+		"./is-ssr-client-preview": "./src/isSSRClientPreview.ts",
+		"./is-ssr-data-preview": "./src/isSSRDataPreview.ts",
+		"./is-ssr-preview": "./src/isSSRPreview.ts",
+		"./is-ssr-server-preview": "./src/isSSRServerPreview.ts",
+		"./is-unsupported-local-preview-error": "./src/isUnsupportedLocalPreviewError.ts",
+		"./is-upload-error": "./src/isUploadError.ts",
+		"./local-preview-error": "./src/LocalPreviewError.ts",
+		"./media-card-error": "./src/MediaCardError.ts",
+		"./remote-preview-error": "./src/RemotePreviewError.ts",
+		"./ssr-preview-error": "./src/SsrPreviewError.ts"
 	},
 	"atlassian": {
 		"react-compiler": {
@@ -69,6 +93,7 @@
 		"@atlaskit/progress-bar": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -94,7 +119,10 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/form": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/inline-message": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-picker": "workspace:^",
@@ -102,6 +130,7 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/range": "workspace:^",
+		"@atlaskit/select": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
@@ -128,9 +157,6 @@
 			"type": "boolean"
 		},
 		"platform_media_auth_provider_analytics": {
-			"type": "boolean"
-		},
-		"platform-filecard-ufo-trace": {
 			"type": "boolean"
 		},
 		"platform.media-card-performance-observer_a803k": {
@@ -178,9 +204,6 @@
 		"platform_media_react19_support": {
 			"type": "boolean"
 		},
-		"platform_media_a11y_suppression_fixes": {
-			"type": "boolean"
-		},
 		"platform_media_ssr_data_seed": {
 			"type": "boolean"
 		},
@@ -195,17 +218,9 @@
 		"platform_create_work_item_modernization": {
 			"referenceOnly": true,
 			"type": "boolean"
-		}
-	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"complied"
-			]
+		},
+		"platform-a11y-media-card-download-icon-decorative": {
+			"type": "boolean"
 		}
 	}
 }

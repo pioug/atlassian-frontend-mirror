@@ -218,7 +218,9 @@ expand to fill available space.
 
 ### Panel
 
-The panel area is rendered to the right of the main area.
+The panel area is rendered to the right of the main area. Wrap `Panel` in `ExitingPersistence` from
+`@atlaskit/motion/exiting-persistence`. This keeps the panel in the DOM until its exit animation
+completes when you conditionally render it.
 
 - The default width of the panel is 365px, which can be modified using the `defaultWidth` prop.
 - The panel is

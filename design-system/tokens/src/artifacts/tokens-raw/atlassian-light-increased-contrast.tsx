@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6df3eff117a75a85216aa6a92c81f805>>
+ * @codegen <<SignedSource::f790d8f170b8a3005b36195fc31bd3c0>>
  * @codegenCommand yarn build tokens
  */
 
@@ -6910,13 +6910,42 @@ const tokens: Token[] = [
         "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
       }
     },
-    "name": "color.border.input",
+    "name": "color.border.input.[default]",
     "path": [
       "color",
       "border",
-      "input"
+      "input",
+      "[default]"
     ],
     "cleanName": "color.border.input"
+  },
+  {
+    "value": "#0B120E24",
+    "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
+    "isSource": true,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.12.0",
+      "description": "Use for the border of search inputs."
+    },
+    "original": {
+      "value": "Neutral300A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.12.0",
+        "description": "Use for the border of search inputs."
+      }
+    },
+    "name": "color.border.input.search",
+    "path": [
+      "color",
+      "border",
+      "input",
+      "search"
+    ],
+    "cleanName": "color.border.input.search"
   },
   {
     "value": "#FFFFFF",

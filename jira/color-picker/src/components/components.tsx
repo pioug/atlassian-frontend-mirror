@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type MenuListComponentProps, type OptionProps } from '@atlaskit/select';
+import type { MenuListComponentProps, OptionProps } from '@atlaskit/select/types';
 import { type Color } from '../types';
 import ColorCard from './ColorCard';
 import { getWidth } from '../utils';
@@ -14,7 +14,6 @@ import messages from '../messages';
 
 export const MenuList = (props: MenuListComponentProps<Color>): JSX.Element => {
 	const {
-		//@ts-ignore react-select unsupported props
 		selectProps: { cols },
 		innerRef,
 		children,
@@ -31,7 +30,6 @@ export const MenuList = (props: MenuListComponentProps<Color>): JSX.Element => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				maxWidth: cols ? getWidth(cols) : undefined,
 			}}
-			//@ts-ignore react-select unsupported props
 			ref={innerRef!}
 		>
 			{children}
@@ -42,7 +40,6 @@ export const MenuList = (props: MenuListComponentProps<Color>): JSX.Element => {
 export const Option = (props: OptionProps<Color>): JSX.Element => {
 	const {
 		data: { value, label },
-		//@ts-ignore react-select unsupported props
 		selectProps: { checkMarkColor, onOptionKeyDown, isTabbing, variant },
 		isFocused,
 		isSelected,

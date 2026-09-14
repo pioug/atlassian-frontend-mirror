@@ -1,4 +1,4 @@
-import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';

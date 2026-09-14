@@ -1,5 +1,6 @@
 import { DOMParser as PMDOMParser } from '@atlaskit/editor-prosemirror/model';
 import type { ParseRule, Schema } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
@@ -29,7 +30,11 @@ function buildAdditionalClipboardParseRules(schema: Schema): ParseRule[] {
 		priority: 60,
 		node: panel_c1.name,
 		getAttrs: (dom: HTMLElement) => {
-			const hasTable = dom.querySelector('[data-prosemirror-node-name="table"]') !== null;
+			const hasEditorTable = dom.querySelector('[data-prosemirror-node-name="table"]') !== null;
+			const hasRendererTable =
+				isExperimentEnabled('platform_editor_nest_in_table_renderer_paste') &&
+				dom.querySelector('.pm-table-container table') !== null;
+			const hasTable = hasEditorTable || hasRendererTable;
 			if (!hasTable) {
 				return false; // fall through to standard panel rule
 			}

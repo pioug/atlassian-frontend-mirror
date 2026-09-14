@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-tracker",
-	"version": "11.2.3",
+	"version": "11.4.0",
 	"description": "A progress tracker displays the steps and progress through a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -52,31 +52,11 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
+		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"jest-in-case": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"analytics": "analytics-next",
-			"deprecation": "no-deprecated-imports",
-			"ui-components": "primitives"
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"exports": {
 		"./types": "./src/types.tsx",

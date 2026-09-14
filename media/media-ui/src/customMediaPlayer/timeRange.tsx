@@ -1,13 +1,16 @@
 import React from 'react';
 import { Component } from 'react';
-import {
-	CurrentTimeTooltip as CompiledCurrentTimeTooltip,
-	TimeRangeWrapper as CompiledTimeRangeWrapper,
-} from './styled-compiled';
-import { formatDuration, secondsToTime } from '../formatDuration';
+
 import { injectIntl, type WrappedComponentProps } from 'react-intl';
+
+import { formatDuration } from '../formatDuration';
 import { messages } from '../messages';
-import { BufferedTime, CurrentTimeLine, CurrentTimeLineThumb, TimeLine } from './styled';
+import { secondsToTime } from '../secondsToTime';
+import { BufferedTime } from './BufferedTime-2';
+import { CurrentTimeLine } from './CurrentTimeLine-2';
+import { CurrentTimeTooltip as CompiledCurrentTimeTooltip } from './CurrentTimeTooltip';
+import { CurrentTimeLineThumb, TimeLine } from './styled';
+import { TimeRangeWrapper as CompiledTimeRangeWrapper } from './styled-compiled';
 
 export interface TimeRangeProps {
 	currentTime: number;

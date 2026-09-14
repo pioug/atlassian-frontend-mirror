@@ -1,8 +1,13 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+
+import type { DiffStepAttribution, StepWithAttribution } from '../../showDiffPluginType';
+import { getAttributionKey } from '../decorations/colorSchemes/attributions';
+
+type ProseMirrorStepWithAttribution = StepWithAttribution<ProseMirrorStep>;
 
 /**
  * Attempts to merge two consecutive ReplaceStep operations.
@@ -51,6 +56,89 @@ export function simplifySteps(steps: ProseMirrorStep[], originalDoc: PMNode): Pr
 				return acc;
 			}, [])
 	);
+}
+
+const mergeAttributions = (
+	first: DiffStepAttribution | undefined,
+	second: DiffStepAttribution | undefined,
+): DiffStepAttribution | undefined => {
+	if (!first) {
+		return second;
+	}
+	if (!second) {
+		return first;
+	}
+
+	return {
+		...first,
+		...second,
+		wasOffline:
+			first.wasOffline === true || second.wasOffline === true
+				? true
+				: (second.wasOffline ?? first.wasOffline),
+	};
+};
+
+/**
+ * Attribution-preserving variant of `simplifySteps`.
+ *
+ * Steps may only merge when they have the same effective actor identity. Keeping the attribution
+ * coupled to the step also ensures filtering a no-op/analytics step cannot shift array indexes.
+ */
+export function simplifyStepsWithAttribution(
+	steps: ProseMirrorStep[],
+	stepAttributions: Array<DiffStepAttribution | undefined>,
+	originalDoc: PMNode,
+): ProseMirrorStepWithAttribution[] {
+	const stepsToFilter = removeUnusedAttributedSteps(
+		steps.map((step, index) => ({ step, stepAttribution: stepAttributions[index] })),
+		originalDoc,
+	);
+	return stepsToFilter
+		.filter(({ step }) => !(step instanceof AnalyticsStep))
+		.reduce<ProseMirrorStepWithAttribution[]>((acc, current) => {
+			const previous = acc[acc.length - 1];
+			const isSameIdentity =
+				previous &&
+				getAttributionKey(previous.stepAttribution) === getAttributionKey(current.stepAttribution);
+			const merged = isSameIdentity
+				? (previous.step.merge?.(current.step) ?? mergeReplaceSteps(previous.step, current.step))
+				: null;
+
+			if (merged) {
+				acc[acc.length - 1] = {
+					step: merged,
+					stepAttribution: mergeAttributions(previous.stepAttribution, current.stepAttribution),
+				};
+			} else {
+				acc.push(current);
+			}
+			return acc;
+		}, []);
+}
+
+/**
+ * Does a first pass to remove steps that don't impact the document
+ */
+function removeUnusedAttributedSteps(
+	stepsWithAttribution: ProseMirrorStepWithAttribution[],
+	originalDoc: PMNode,
+): ProseMirrorStepWithAttribution[] {
+	const finalSteps: ProseMirrorStepWithAttribution[] = [];
+	let firstPassDoc = originalDoc;
+	for (const stepWithAttribution of stepsWithAttribution) {
+		const { step } = stepWithAttribution;
+		const result = step.apply(firstPassDoc);
+		if (
+			result.failed === null &&
+			result.doc &&
+			!areNodesEqualIgnoreAttrs(firstPassDoc, result.doc, ['localId'])
+		) {
+			finalSteps.push(stepWithAttribution);
+			firstPassDoc = result.doc;
+		}
+	}
+	return finalSteps;
 }
 
 /**

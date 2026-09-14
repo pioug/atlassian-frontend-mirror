@@ -3,6 +3,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: TTAI (basic)', () => {
 	test.use({
 		examplePage: 'basic',
+	} satisfies {
+		examplePage: 'basic';
+		__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 	});
 
 	for (const viewport of viewports) {
@@ -36,6 +39,9 @@ test.describe('ReactUFO: TTAI (basic)', () => {
 test.describe('ReactUFO: TTAI (basic section below viewport)', () => {
 	test.use({
 		examplePage: 'basic-section-below-viewport',
+	} satisfies {
+		examplePage: 'basic-section-below-viewport';
+		__exampleDependency?: typeof import('../../examples/03-basic-section-below-viewport.tsx');
 	});
 
 	for (const viewport of viewports) {

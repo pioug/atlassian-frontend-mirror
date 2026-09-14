@@ -122,6 +122,13 @@ export type HoldInfo = HoldActive & {
 	end: number;
 };
 
+export type PreloadInfo = {
+	source: string;
+	preloadStartedAt: number;
+	adoptedAt: number;
+	settledAt?: number;
+};
+
 export interface Redirect {
 	fromInteractionName: string;
 	time: number;
@@ -204,17 +211,28 @@ export interface InteractionMetrics {
 	 */
 	end3p?: number;
 	ufoName: string;
+	preloadKey?: string;
 	previousInteractionName?: string;
 	isPreviousInteractionAborted: boolean;
 	type: InteractionType;
 	marks: Mark[];
 	customData: { labelStack: LabelStack; data: CustomData }[];
+	/**
+	 * Diagnostic breadcrumbs for third-party segments that were intentionally excluded from all
+	 * metric windows (e.g. Forge background/headless modules under `excludeFromMetrics`).
+	 * This is intended to be purely side-channel:
+	 * never read by any metric window / `ttai` / `vc` computation, creates no hold, and is emitted
+	 * independently of iframe timings so the module identity survives even when `segment3pData` is
+	 * dropped. Kept separate from `customData` as this pertains to a special metadata.
+	 */
+	excluded3pSegmentData?: Record<string, CustomData>;
 	cohortingCustomData: Map<string, number | boolean | string | null | undefined>;
 	customTimings: { labelStack: LabelStack; data: CustomTiming }[];
 	spans: Span[];
 	requestInfo: (RequestInfo & { labelStack: LabelStack })[];
 	holdInfo: HoldInfo[];
 	holdActive: Map<string, HoldActive>;
+	preloadInfo: PreloadInfo[];
 	reactProfilerTimings: ReactProfilerTiming[];
 	measureStart: number;
 	rate: number;

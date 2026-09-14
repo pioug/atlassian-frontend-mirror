@@ -5,7 +5,7 @@ import { SimpleHasher } from '../../simpleHasher';
 import { SimpleHasher as Sha256SimpleHasher } from '../../sha256SimpleHasher';
 
 import { createHasher, destroyHashers } from '../../hasherCreator';
-import { ChunkHashAlgorithm } from '@atlaskit/media-core';
+import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 
 describe('createHasher', () => {
 	const SimpleHasherStub: jest.Mock<SimpleHasher> = SimpleHasher as any;

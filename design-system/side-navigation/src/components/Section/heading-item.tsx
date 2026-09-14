@@ -4,10 +4,8 @@
  */
 
 import { cssMap, jsx } from '@atlaskit/css';
-import {
-	HeadingItem as MenuHeadingItem,
-	type HeadingItemProps as MenuHeadingItemProps,
-} from '@atlaskit/menu';
+import MenuHeadingItem from '@atlaskit/menu/heading-item';
+import type { HeadingItemProps as MenuHeadingItemProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -30,7 +28,9 @@ export interface HeadingItemProps extends MenuHeadingItemProps {}
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const HeadingItem: (props: HeadingItemProps) => JSX.Element | null = (props: HeadingItemProps) => {
+export const HeadingItem: (props: HeadingItemProps) => JSX.Element | null = (
+	props: HeadingItemProps,
+) => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;
@@ -52,5 +52,3 @@ const HeadingItem: (props: HeadingItemProps) => JSX.Element | null = (props: Hea
 		/>
 	);
 };
-
-export default HeadingItem;

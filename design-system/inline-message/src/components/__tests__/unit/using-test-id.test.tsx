@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 import InlineMessage from '../../../index';
 

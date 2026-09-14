@@ -3,11 +3,15 @@
  * @jsx jsx
  */
 import {
+	type ForwardedRef,
 	Fragment,
 	type KeyboardEventHandler,
 	type ReactNode,
+	type Ref,
+	forwardRef,
 	useCallback,
 	useEffect,
+	useImperativeHandle,
 	useMemo,
 	useRef,
 	useState,
@@ -16,11 +20,13 @@ import {
 import { css, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { type GroupBase, mergeStyles } from '@atlaskit/react-select';
+import type { GroupBase } from '@atlaskit/react-select/types';
+import { mergeStyles } from '@atlaskit/react-select/styles';
 import { token } from '@atlaskit/tokens';
-import { type TLegacyPlacement, fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
+import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
@@ -37,18 +43,12 @@ import {
 
 import { defaultComponents } from './components';
 import { DummyControl } from './dummy-control';
-import type { PopupSelectProps } from './popup-select';
-
-// Styles.
+import type { PopupSelectHandle, PopupSelectProps } from './popup-select';
 
 const menuDialogStyles = css({
 	backgroundColor: token('elevation.surface.overlay'),
-	borderRadius: token('radius.small'),
-	boxShadow: token('elevation.shadow.overlay'),
-});
-
-const menuDialogStylesT26Shape = css({
 	borderRadius: token('radius.large'),
+	boxShadow: token('elevation.shadow.overlay'),
 });
 
 /**
@@ -60,50 +60,51 @@ const menuDialogStylesT26Shape = css({
  *
  * Gated behind the `platform-dst-top-layer` feature flag.
  */
-export function PopupSelectTopLayer<
+function PopupSelectTopLayerInner<
 	Option = OptionType,
 	IsMulti extends boolean = false,
 	Modifiers = unknown,
->({
-	// PopupSelect-specific props.
-	closeMenuOnSelect = true,
-	shouldCloseMenuOnTab = true,
-	footer,
-	searchThreshold = 5,
-	maxMenuWidth = 440,
-	minMenuWidth = 220,
-	maxMenuHeight = 300,
-	target,
-	label,
-	placeholder,
-	testId,
-	isOpen: controlledIsOpen,
-	defaultIsOpen,
-	spacing: _spacing,
-	options = [],
-	isSearchable = true,
-	components: consumerComponents,
-	styles: consumerStyles,
-	onChange,
-	onKeyDown,
+>(
+	{
+		// PopupSelect-specific props.
+		closeMenuOnSelect = true,
+		shouldCloseMenuOnTab = true,
+		footer,
+		searchThreshold = 5,
+		maxMenuWidth = 440,
+		minMenuWidth = 220,
+		maxMenuHeight = 300,
+		target,
+		label,
+		placeholder,
+		testId,
+		isOpen: controlledIsOpen,
+		defaultIsOpen,
+		spacing: _spacing,
+		options = [],
+		isSearchable = true,
+		components: consumerComponents,
+		styles: consumerStyles,
+		onChange,
+		onKeyDown,
 
-	// Lifecycle callbacks.
-	// @ts-ignore react-select unsupported props
-	onOpen,
-	// @ts-ignore react-select unsupported props
-	onClose,
-	onMenuOpen,
-	onMenuClose,
+		// Lifecycle callbacks.
+		onOpen,
+		onClose,
+		onMenuOpen,
+		onMenuClose,
 
-	// No-op props in top-layer path.
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	popperProps,
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	shouldPreventEscapePropagation: _shouldPreventEscapePropagation,
+		// No-op props in top-layer path.
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		popperProps,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		shouldPreventEscapePropagation: _shouldPreventEscapePropagation,
 
-	// Remaining props spread to Select.
-	...selectProps
-}: PopupSelectProps<Option, IsMulti, Modifiers>): ReactNode {
+		// Remaining props spread to Select.
+		...selectProps
+	}: PopupSelectProps<Option, IsMulti, Modifiers>,
+	forwardedRef: ForwardedRef<PopupSelectHandle>,
+): ReactNode {
 	// State.
 	const isControlled = controlledIsOpen !== undefined;
 	const [internalIsOpen, setInternalIsOpen] = useState(
@@ -114,6 +115,7 @@ export function PopupSelectTopLayer<
 
 	const selectRef = useRef<AtlaskitSelectRefType | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
+	const menuRef = useRef<HTMLDivElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 
 	const popoverId = usePopoverId();
@@ -167,15 +169,17 @@ export function PopupSelectTopLayer<
 	);
 
 	// Utils.
-	const getItemCount = useCallback((): number => {
-		return options.reduce((count, groupOrOption: Option | GroupBase<Option>) => {
-			const group = groupOrOption as GroupBase<Option>;
-			if (group.options) {
-				return count + group.options.length;
-			}
-			return count + 1;
-		}, 0);
-	}, [options]);
+	const getItemCount = useCallback(
+		(): number =>
+			options.reduce((count, groupOrOption: Option | GroupBase<Option>) => {
+				const group = groupOrOption as GroupBase<Option>;
+				if (group.options) {
+					return count + group.options.length;
+				}
+				return count + 1;
+			}, 0),
+		[options],
+	);
 
 	const showSearchControl = isSearchable && getItemCount() > searchThreshold;
 
@@ -214,6 +218,27 @@ export function PopupSelectTopLayer<
 		onClose?.();
 		onMenuClose?.();
 	}, [isControlled, onClose, onMenuClose]);
+
+	/**
+	 * For backwards compatibility
+	 */
+	useImperativeHandle(
+		forwardedRef,
+		() => ({
+			open,
+			close,
+			get selectRef() {
+				return selectRef.current;
+			},
+			get menuRef() {
+				return menuRef.current;
+			},
+			get targetRef() {
+				return triggerRef.current;
+			},
+		}),
+		[close, open],
+	);
 
 	// Sync controlled isOpen.
 	useEffect(() => {
@@ -259,7 +284,7 @@ export function PopupSelectTopLayer<
 		return bind(window, {
 			type: 'click',
 			listener: (event) => {
-				const target = event.target;
+				const { target } = event;
 				if (!(target instanceof Element)) {
 					return;
 				}
@@ -311,13 +336,6 @@ export function PopupSelectTopLayer<
 				close();
 				triggerRef.current?.focus();
 			}
-			// Escape closes the menu and returns focus to the trigger.
-			// The browser auto-restores focus on Escape, but we close
-			// explicitly here so isOpen state stays in sync with the popover.
-			if (event.key === 'Escape') {
-				close();
-				triggerRef.current?.focus();
-			}
 			onKeyDown?.(event);
 		},
 		[shouldCloseMenuOnTab, close, onKeyDown],
@@ -332,10 +350,6 @@ export function PopupSelectTopLayer<
 			({
 				...mergedComponents,
 				Control: showSearchControl ? mergedComponents.Control : DummyControl,
-				// Render react-select's menu inline; PopupSelectTopLayer's own
-				// `Popover` is already the top-layer host. Otherwise the flag-on
-				// `MenuPortalTopLayer` would nest a second popover.
-				MenuPortal: ({ children }) => <Fragment>{children}</Fragment>,
 			}) as SelectComponentsConfig<Option, IsMulti>,
 		[mergedComponents, showSearchControl],
 	);
@@ -382,10 +396,8 @@ export function PopupSelectTopLayer<
 			>
 				<PopoverSurface>
 					<div
-						css={[
-							menuDialogStyles,
-							fg('platform-dst-shape-theme-default') && menuDialogStylesT26Shape,
-						]}
+						ref={menuRef}
+						css={[menuDialogStyles]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						style={{
 							maxWidth: maxMenuWidth,
@@ -399,11 +411,11 @@ export function PopupSelectTopLayer<
 							controlShouldRenderValue={false}
 							isClearable={false}
 							tabSelectsValue={false}
-							menuIsOpen
 							placeholder={placeholder}
 							ref={getSelectRef}
 							// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props -- preserving legacy PopupSelect API during migration
 							{...selectProps}
+							menuRenderMode="inline"
 							options={options}
 							isSearchable={showSearchControl}
 							styles={mergeStyles(defaultStyles, consumerStyles || {})}
@@ -420,3 +432,13 @@ export function PopupSelectTopLayer<
 		</Fragment>
 	);
 }
+
+export const PopupSelectTopLayer = forwardRef(PopupSelectTopLayerInner) as <
+	Option = OptionType,
+	IsMulti extends boolean = false,
+	Modifiers = unknown,
+>(
+	props: PopupSelectProps<Option, IsMulti, Modifiers> & {
+		ref?: Ref<PopupSelectHandle>;
+	},
+) => ReactNode;

@@ -5,11 +5,12 @@
  */
 {
   "testExamples": [
-    "component-prop.tsx",
-    "default-tooltip.tsx",
-    "position.tsx",
-    "position-mouse.tsx",
-    "render-props.tsx"
+    "component-prop.vr.ap.tsx",
+    "default-tooltip.vr.ap.tsx",
+    "position.vr.ap.tsx",
+    "position-mouse.vr.ap.tsx",
+    "render-props.tsx",
+    "testing-top-layer-pointer-dismiss.tsx"
   ],
   "exampleDependencies": []
 }

@@ -1,4 +1,4 @@
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';

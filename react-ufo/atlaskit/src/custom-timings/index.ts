@@ -1,78 +1,21 @@
-import { useContext, useMemo } from 'react';
-
-import UFOInteractionContext from '../interaction-context';
-import { getInteractionId } from '../interaction-id-context';
-import { addCustomTiming, getCurrentInteractionType } from '../interaction-metrics';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 export type BM3Marks = { [key: string]: number };
+
 export type BM3TimingsConfig = {
 	key: string;
 	startMark?: string;
 	endMark?: string;
 };
 
-export function getBm3Timings(
-	marks?: BM3Marks,
-	timingConfigs?: BM3TimingsConfig[],
-): {
-	[key: string]: {
-		startTime: number;
-		endTime: number;
-	};
-} {
-	const bm3Timings: { [key: string]: { startTime: number; endTime: number } } = {};
-	if (!marks || !timingConfigs) {
-		return bm3Timings;
-	}
-	timingConfigs.forEach((item) => {
-		if (!item.startMark || !item.endMark) {
-			return;
-		}
-		const startTime = marks[item.startMark];
-		if (!startTime) {
-			return;
-		}
-		const endTime = marks[item.endMark];
-		if (!endTime) {
-			return;
-		}
-		bm3Timings[item.key] = { startTime, endTime };
-	});
-	return bm3Timings;
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function UFOBM3TimingsToUFO({
-	marks,
-	timings,
-}: {
-	marks?: BM3Marks;
-	timings?: BM3TimingsConfig[];
-}) {
-	const interactionContext = useContext(UFOInteractionContext);
-	const interactionId = getInteractionId().current;
-	useMemo(() => {
-		if (interactionContext != null && interactionId != null && marks != null && timings != null) {
-			const interactionType = getCurrentInteractionType(interactionId);
-			if (interactionType === 'press') {
-				return;
-			}
-			const bm3Timings = getBm3Timings(marks, timings);
-			interactionContext.addCustomTimings(bm3Timings);
-		}
-	}, [interactionContext, interactionId, marks, timings]);
-	return null;
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export function addBM3TimingsToUFO(marks?: BM3Marks, timingsConfig?: BM3TimingsConfig[]): void {
-	const interactionId = getInteractionId().current;
-	if (interactionId) {
-		const interactionType = getCurrentInteractionType(interactionId);
-		if (interactionType === 'press') {
-			return;
-		}
-		const bm3Timings = getBm3Timings(marks, timingsConfig);
-		addCustomTiming(interactionId, [], bm3Timings);
-	}
-}
+/**
+ * @deprecated Use `import { getBm3Timings } from '@atlaskit/react-ufo/get-bm3-timings'` instead.
+ */
+export { getBm3Timings } from './getBm3Timings';
+/**
+ * @deprecated Use `import { UFOBM3TimingsToUFO } from '@atlaskit/react-ufo/ufobm3-timings-to-ufo'` instead.
+ */
+export { UFOBM3TimingsToUFO } from './UFOBM3TimingsToUFO';
+/**
+ * @deprecated Use `import { addBM3TimingsToUFO } from '@atlaskit/react-ufo/add-bm3-timings-to-ufo'` instead.
+ */
+export { addBM3TimingsToUFO } from './addBM3TimingsToUFO';

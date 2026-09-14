@@ -1,5 +1,4 @@
 import React from 'react';
-
 import type { IntlShape } from 'react-intl';
 
 import {
@@ -51,8 +50,8 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { editExtension } from '../editor-actions/actions';
 import {
@@ -499,6 +498,8 @@ export const createOnClickCopyButton = ({
 
 interface GetToolbarConfigProps {
 	breakoutEnabled: boolean | undefined;
+	copyEnabled?: boolean | undefined;
+	deleteEnabled?: boolean | undefined;
 	extensionApi?:
 		| PublicPluginAPI<
 				[
@@ -517,6 +518,8 @@ interface GetToolbarConfigProps {
 export const getToolbarConfig =
 	({
 		breakoutEnabled = true,
+		copyEnabled = true,
+		deleteEnabled = true,
 		extensionApi,
 		getUnsupportedContent,
 	}: GetToolbarConfigProps): FloatingToolbarHandler =>
@@ -545,8 +548,7 @@ export const getToolbarConfig =
 			extensionState,
 			applyChangeToContextPanel,
 			editorAnalyticsAPI,
-			editorExperiment('platform_editor_offline_editing_web', true) &&
-				isOfflineMode(extensionApi?.connectivity?.sharedState?.currentState()?.mode),
+			isOfflineMode(extensionApi?.connectivity?.sharedState?.currentState()?.mode),
 			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
 		);
 		const breakoutItems = breakoutOptions(
@@ -587,10 +589,24 @@ export const getToolbarConfig =
 			};
 		}
 
-		// disable copy button for legacy content macro
+		// Hide the copy button when the host disables it for every extension
+		// (`copyEnabled`), when the extension's manifest node opts out via
+		// `hideCopyButton` (e.g. redactions), or for the legacy content macro.
+		//
+		// The host check is deliberately evaluated before the gate, so the gate is
+		// only read — and so only exposed — for hosts that opted in. Reading it
+		// unconditionally would report an exposure on every extension toolbar in
+		// every product, drowning the rollout metric in traffic it cannot affect.
 		const shouldHideCopyButton =
-			extensionObj?.node.attrs.extensionType === 'com.atlassian.confluence.migration' &&
-			extensionObj?.node.attrs.extensionKey === 'legacy-content';
+			(!copyEnabled && fg('platform_editor_extension_hide_toolbar_actions')) ||
+			(!extensionState.showCopyButton && fg('platform_editor_extension_hide_copy_button')) ||
+			(extensionObj?.node.attrs.extensionType === 'com.atlassian.confluence.migration' &&
+				extensionObj?.node.attrs.extensionKey === 'legacy-content');
+		const shouldHideDeleteButton =
+			!deleteEnabled && fg('platform_editor_extension_hide_toolbar_actions');
+		// With both trailing actions gone the toolbar ends after the breakout
+		// options, so the divider that used to introduce them would be an orphan.
+		const hasTrailingActions = !shouldHideCopyButton || !shouldHideDeleteButton;
 
 		return {
 			title: 'Extension floating controls',
@@ -605,7 +621,8 @@ export const getToolbarConfig =
 				...breakoutItems,
 				{
 					type: 'separator',
-					hidden: editButtonItems.length === 0 && breakoutItems.length === 0,
+					hidden:
+						(editButtonItems.length === 0 && breakoutItems.length === 0) || !hasTrailingActions,
 				},
 				{
 					type: 'extensions-placeholder',
@@ -630,8 +647,11 @@ export const getToolbarConfig =
 					],
 					...(shouldHideCopyButton && { hidden: shouldHideCopyButton }),
 				},
-				{ type: 'separator' },
+				// Hide this separator when either neighbour is hidden, otherwise it
+				// renders as an orphaned divider before or after the delete button.
+				{ type: 'separator', hidden: shouldHideCopyButton || shouldHideDeleteButton },
 				{
+					...(shouldHideDeleteButton && { hidden: true }),
 					id: 'editor.extension.delete',
 					type: 'button',
 					icon: DeleteIcon,

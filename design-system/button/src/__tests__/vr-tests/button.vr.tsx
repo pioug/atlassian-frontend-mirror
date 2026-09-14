@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import ButtonExample from '../../../examples/05-button';
+import ButtonExample from '../../../examples/05-button.vr.ap';
 
 import { themeVariants } from './utils';
 

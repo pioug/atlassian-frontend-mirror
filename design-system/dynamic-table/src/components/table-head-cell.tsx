@@ -10,7 +10,7 @@ import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { HeadCell } from '../styled/head-cell';
 import { type SortOrderType } from '../types';
@@ -24,6 +24,20 @@ const styles = cssMap({
 		paddingRight: token('space.0'),
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),
+		'&:hover': {
+			cursor: 'pointer',
+		},
+	},
+	truncateButtonWrapper: {
+		display: 'flex',
+		backgroundColor: 'transparent',
+		alignItems: 'center',
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		minWidth: 0,
+		maxWidth: '100%',
 		'&:hover': {
 			cursor: 'pointer',
 		},
@@ -57,6 +71,22 @@ const styles = cssMap({
 		opacity: 1,
 		paddingRight: token('space.050'),
 	},
+	truncateHeaderWrapper: {
+		opacity: 1,
+		paddingRight: token('space.050'),
+		flex: '1 1 0%',
+		minWidth: 0,
+	},
+	truncateHiddenIconHeaderWrapper: {
+		opacity: 0,
+		marginLeft: token('space.negative.300'),
+		flex: '1 1 0%',
+		minWidth: 0,
+	},
+	truncateTooltipWrapper: {
+		minWidth: 0,
+		maxWidth: '100%',
+	},
 });
 
 const headCellStyles = cssMap({
@@ -68,6 +98,14 @@ const headCellStyles = cssMap({
 		font: token('font.body.small'),
 		color: token('color.text.subtle'),
 		fontWeight: token('font.weight.bold'),
+	},
+	truncateText: {
+		display: 'block',
+		flex: '1 1 0%',
+		minWidth: 0,
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
 	},
 });
 
@@ -108,6 +146,8 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 	descendingSortTooltip = 'Sort descending',
 	buttonAriaRoleDescription = 'Sort button',
 	isIconOnlyHeader,
+	isFixedSize,
+	shouldTruncate,
 	...rest
 }) => {
 	const [isHovered, setIsHovered] = useState(false);
@@ -144,40 +184,63 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 			onBlur={handleBlur}
 		>
 			<Tooltip content={sortOrder === 'ASC' ? ascendingSortTooltip : descendingSortTooltip}>
-				<Pressable
-					onClick={onClick}
-					xcss={styles.buttonWrapper}
-					aria-roledescription={buttonAriaRoleDescription}
-				>
-					<Flex
-						xcss={
-							isVisibleIconOnlyHeader ? styles.hideIconHeaderWrapper : styles.visibleHeaderWrapper
-						}
+				{(tooltipProps) => (
+					<Box
+						role="presentation"
+						xcss={isFixedSize && shouldTruncate ? styles.truncateTooltipWrapper : undefined}
 					>
-						<span css={headCellStyles.text}>{content}</span>
-					</Flex>
-					{shouldRenderSortIcon && (
-						<Flex
+						<Pressable
+							{...tooltipProps}
+							onClick={onClick}
 							xcss={
-								isSortIconVisible ? styles.sortIconVisibleWrapper : styles.sortIconHiddenWrapper
+								isFixedSize && shouldTruncate ? styles.truncateButtonWrapper : styles.buttonWrapper
 							}
+							aria-roledescription={buttonAriaRoleDescription}
 						>
-							{sortOrder === 'ASC' ? (
-								<ArrowUpIcon
-									label=""
-									color={token('color.text.subtle')}
-									testId={testId && `${testId}--up--icon`}
-								/>
-							) : (
-								<ArrowDownIcon
-									label=""
-									color={token('color.text.subtle')}
-									testId={testId && `${testId}--down--icon`}
-								/>
+							<Flex
+								xcss={
+									isFixedSize && shouldTruncate
+										? isVisibleIconOnlyHeader
+											? styles.truncateHiddenIconHeaderWrapper
+											: styles.truncateHeaderWrapper
+										: isVisibleIconOnlyHeader
+											? styles.hideIconHeaderWrapper
+											: styles.visibleHeaderWrapper
+								}
+							>
+								<span
+									css={[
+										headCellStyles.text,
+										isFixedSize && shouldTruncate && headCellStyles.truncateText,
+									]}
+								>
+									{content}
+								</span>
+							</Flex>
+							{shouldRenderSortIcon && (
+								<Flex
+									xcss={
+										isSortIconVisible ? styles.sortIconVisibleWrapper : styles.sortIconHiddenWrapper
+									}
+								>
+									{sortOrder === 'ASC' ? (
+										<ArrowUpIcon
+											label=""
+											color={token('color.text.subtle')}
+											testId={testId && `${testId}--up--icon`}
+										/>
+									) : (
+										<ArrowDownIcon
+											label=""
+											color={token('color.text.subtle')}
+											testId={testId && `${testId}--down--icon`}
+										/>
+									)}
+								</Flex>
 							)}
-						</Flex>
-					)}
-				</Pressable>
+						</Pressable>
+					</Box>
+				)}
 			</Tooltip>
 		</Box>
 	);
@@ -190,8 +253,10 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 			ref={typeof innerRef !== 'string' ? innerRef : null} // string refs must be discarded as LegacyRefs are not compatible with FC forwardRefs
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
+			isFixedSize={isFixedSize}
 			isSortable={isSortable}
 			sortOrder={sortOrder}
+			shouldTruncate={shouldTruncate}
 		>
 			{isSortable ? visuallyRefreshedButton : content}
 		</HeadCell>

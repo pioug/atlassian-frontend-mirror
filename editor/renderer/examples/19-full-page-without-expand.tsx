@@ -1,6 +1,6 @@
 import React from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { createSchema } from '@atlaskit/adf-schema';
+import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import { defaultSchemaConfig } from '@atlaskit/adf-schema/schema-default';
 
 const schemaWithoutExpand = createSchema({

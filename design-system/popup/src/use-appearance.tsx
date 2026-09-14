@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 
 /**
@@ -20,14 +21,24 @@ export function usePopupAppearance({
 	appearance: 'default' | 'UNSAFE_modal-below-sm';
 	shouldRenderToParent: boolean | undefined;
 } {
-	const mq = useMediaQuery('below.sm', (e) => {
-		setIsSmallViewport(!!e.matches);
-	});
+	const canBecomeModal = _appearance === 'UNSAFE_modal-below-sm';
+
+	/**
+	 * This gate removes unnecessary state changes across the below-sm boundary
+	 * The state change is only needed if the popup can become a modal - and this is maintained
+	 */
+	const shouldUseMediaQuery = !fg('platform_dst_popup_media_query_perf_fix') || canBecomeModal;
+	const mq = useMediaQuery(
+		'below.sm',
+		shouldUseMediaQuery
+			? (e) => {
+					setIsSmallViewport(!!e.matches);
+				}
+			: undefined,
+	);
 	const [isSmallViewport, setIsSmallViewport] = useState(!!mq?.matches);
 	const appearance: 'default' | 'UNSAFE_modal-below-sm' =
-		_appearance === 'UNSAFE_modal-below-sm' && isSmallViewport
-			? 'UNSAFE_modal-below-sm'
-			: 'default';
+		canBecomeModal && isSmallViewport ? 'UNSAFE_modal-below-sm' : 'default';
 	const shouldRenderToParent = _shouldRenderToParent && appearance === 'default';
 
 	return {

@@ -1,84 +1,71 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { mount } from 'enzyme';
 
-import DecisionIcon from '@atlaskit/icon/core/decision';
+import { screen } from '@testing-library/react';
+
 import { DecisionItem } from '../../../';
+import { renderWithIntl } from '../_testing-library';
 
 describe('<DecisionItem/>', () => {
 	it('should render children', () => {
-		const component = mount(
-			<IntlProvider locale="en">
-				<DecisionItem>
-					Hello <b>world</b>
-				</DecisionItem>
-			</IntlProvider>,
+		const { container } = renderWithIntl(
+			<DecisionItem>
+				Hello <b>world</b>
+			</DecisionItem>,
 		);
 
-		expect(component.find('b').length).toBe(1);
-		expect(component.find('div[data-component="content"]').text()).toBe('Hello world');
+		expect(container.querySelector('[data-component="content"]')).toHaveTextContent('Hello world');
 	});
 
 	it('should render callback with ref', () => {
 		let contentRef: HTMLElement | null = null;
 		const handleContentRef = (ref: HTMLElement | null) => (contentRef = ref);
-		const component = mount(
-			<IntlProvider locale="en">
-				<DecisionItem contentRef={handleContentRef}>
-					Hello <b>world</b>
-				</DecisionItem>
-			</IntlProvider>,
+
+		const { container } = renderWithIntl(
+			<DecisionItem contentRef={handleContentRef}>
+				Hello <b>world</b>
+			</DecisionItem>,
 		);
-		expect(component.find('b').length).toBe(1);
-		expect(contentRef).not.toBe(null);
-		expect(contentRef!.textContent).toBe('Hello world');
+
+		expect(container.querySelector('[data-component="content"]')).toHaveTextContent('Hello world');
+		expect(contentRef).not.toBeNull();
+		expect(contentRef).toHaveTextContent('Hello world');
 	});
 
 	describe('showPlaceholder', () => {
-		it('shoud render placeholder if decision is empty', () => {
-			const component = mount(
-				<IntlProvider locale="en">
-					<DecisionItem showPlaceholder={true} placeholder="cheese" />
-				</IntlProvider>,
-			);
-			expect(component.find('span[data-component="placeholder"]').length).toEqual(1);
+		it('should render placeholder if decision is empty', () => {
+			renderWithIntl(<DecisionItem showPlaceholder={true} placeholder="cheese" />);
+
+			expect(screen.getByTestId('task-decision-item-placeholder')).toBeInTheDocument();
 		});
 
 		it('should not render placeholder if decision is not empty', () => {
-			const component = mount(
-				<IntlProvider locale="en">
-					<DecisionItem showPlaceholder={true} placeholder="cheese">
-						Hello <b>world</b>
-					</DecisionItem>
-				</IntlProvider>,
+			renderWithIntl(
+				<DecisionItem showPlaceholder={true} placeholder="cheese">
+					Hello <b>world</b>
+				</DecisionItem>,
 			);
-			expect(component.find('span[data-component="placeholder"]').length).toEqual(0);
+
+			expect(screen.queryByTestId('task-decision-item-placeholder')).not.toBeInTheDocument();
 		});
 	});
 
 	describe('Image labels', () => {
 		it('should render aria-label as Undefined decision when the placeholder is showing', () => {
-			const component = mount(
-				<IntlProvider locale="en">
-					<DecisionItem showPlaceholder={true} placeholder="cheese"></DecisionItem>
-				</IntlProvider>,
-			);
-			expect(component.find('span[data-component="placeholder"]').length).toEqual(1);
-			expect(component.find(DecisionIcon).prop('label')).toEqual('Undefined decision');
-			expect(component.find(DecisionIcon).prop('label')).not.toEqual('Decision');
+			renderWithIntl(<DecisionItem showPlaceholder={true} placeholder="cheese" />);
+
+			expect(screen.getByRole('img', { name: 'Undefined decision' })).toBeInTheDocument();
+			expect(screen.queryByRole('img', { name: 'Decision' })).not.toBeInTheDocument();
 		});
 
 		it('should render aria-label as Decision when the placeholder is not showing', () => {
-			const component = mount(
-				<IntlProvider locale="en">
-					<DecisionItem showPlaceholder={true} placeholder="cheese">
-						Hello <b>world</b>
-					</DecisionItem>
-				</IntlProvider>,
+			renderWithIntl(
+				<DecisionItem showPlaceholder={true} placeholder="cheese">
+					Hello <b>world</b>
+				</DecisionItem>,
 			);
-			expect(component.find('span[data-component="placeholder"]').length).toEqual(0);
-			expect(component.find(DecisionIcon).prop('label')).toEqual('Decision');
-			expect(component.find(DecisionIcon).prop('label')).not.toEqual('Undefined decision');
+
+			expect(screen.getByRole('img', { name: 'Decision' })).toBeInTheDocument();
+			expect(screen.queryByRole('img', { name: 'Undefined decision' })).not.toBeInTheDocument();
 		});
 	});
 });

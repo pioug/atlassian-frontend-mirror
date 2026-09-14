@@ -2,18 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
 import type { SmartCardProps } from '../../nodeviews/genericCard';
 import { getResolvedAttributesFromStore } from '../../pm-plugins/utils';
 import useLinkUpgradeDiscoverability from '../hooks/useLinkUpgradeDiscoverability';
-import InlineCardOverlay from '../InlineCardOverlay';
 import {
 	isLocalStorageKeyDiscovered,
 	LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
@@ -49,19 +47,15 @@ export const AwarenessWrapper = ({
 	cardContext,
 	children,
 	getPos,
-	isInserted,
 	isOverlayEnabled,
 	isSelected,
 	isResolvedViewRendered,
 	isPulseEnabled,
 	markMostRecentlyInsertedLink,
 	pluginInjectionApi,
-	setOverlayHoveredStyles,
 	url,
 	appearance,
 }: AwarenessWrapperProps): jsx.JSX.Element => {
-	const [isHovered, setIsHovered] = useState(false);
-
 	const linkPosition = useMemo(() => {
 		if (!getPos || typeof getPos === 'boolean') {
 			return undefined;
@@ -101,46 +95,6 @@ export const AwarenessWrapper = ({
 		}
 	}, [isLinkMostRecentlyInserted, markMostRecentlyInsertedLink, shouldShowLinkOverlay]);
 
-	const handleOverlayChange = useCallback(
-		(isHovered: boolean) => {
-			setIsHovered(isHovered);
-			setOverlayHoveredStyles(isHovered);
-		},
-		[setOverlayHoveredStyles],
-	);
-
-	const cardWithOverlay = useMemo(() => {
-		if (
-			shouldShowLinkOverlay &&
-			!editorExperiment('platform_editor_controls', 'variant1') &&
-			!editorExperiment('platform_editor_preview_panel_linking_exp', true)
-		) {
-			return (
-				<InlineCardOverlay
-					isSelected={isSelected}
-					isVisible={isResolvedViewRendered && (isInserted || isHovered || isSelected)}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					onMouseEnter={() => handleOverlayChange(true)}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					onMouseLeave={() => handleOverlayChange(false)}
-					url={url}
-				>
-					{children}
-				</InlineCardOverlay>
-			);
-		}
-		return children;
-	}, [
-		shouldShowLinkOverlay,
-		children,
-		isSelected,
-		isResolvedViewRendered,
-		isInserted,
-		isHovered,
-		url,
-		handleOverlayChange,
-	]);
-
 	const isInline = appearance === 'inline';
 	const placeholderUniqId = linkPosition || 0;
 
@@ -168,7 +122,7 @@ export const AwarenessWrapper = ({
 						testId="link-discovery-pulse"
 						isInline={isInline}
 					>
-						{cardWithOverlay}
+						{children}
 					</DiscoveryPulse>
 				</AnalyticsContext>
 			</span>
@@ -178,7 +132,7 @@ export const AwarenessWrapper = ({
 			url,
 			cardContext?.value?.store,
 			isResolvedViewRendered,
-			cardWithOverlay,
+			children,
 			isInline,
 			placeholderUniqId,
 		],

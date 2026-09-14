@@ -1,8 +1,8 @@
 import React, { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Inline } from '@atlaskit/primitives/compiled';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 /**
  * Content updates after a timeout only (no click).

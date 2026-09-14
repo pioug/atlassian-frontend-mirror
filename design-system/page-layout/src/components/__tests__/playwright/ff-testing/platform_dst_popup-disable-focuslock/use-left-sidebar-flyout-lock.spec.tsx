@@ -22,7 +22,7 @@ test('Hovering the sidebar opens the flyout', async ({ page }) => {
 		'locked-sidebar',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 
@@ -42,7 +42,7 @@ test('The flyout is not locked by default', async ({ page }) => {
 		'locked-sidebar',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 
@@ -68,7 +68,7 @@ test('The lock prevents the flyout state from automatically collapsing', async (
 		'locked-sidebar',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 
@@ -97,7 +97,7 @@ test('Releasing the lock while the cursor is outside of the sidebar will make th
 		'locked-sidebar',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 
@@ -119,7 +119,7 @@ test('Releasing the lock while the cursor is inside of the sidebar will make the
 		'locked-sidebar',
 		{
 			featureFlag: 'platform_dst_popup-disable-focuslock',
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		},
 	);
 

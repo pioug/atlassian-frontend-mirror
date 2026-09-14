@@ -39,7 +39,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Top navigation',
 					description: 'Basic usage of the top navigation bar.',
-					source: path.resolve(packagePath, './examples/top-navigation.tsx'),
+					source: path.resolve(packagePath, './examples/top-navigation.vr.ap.tsx'),
 				},
 			],
 		},

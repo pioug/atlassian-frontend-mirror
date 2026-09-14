@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css-reset",
-	"version": "8.1.1",
+	"version": "8.4.1",
 	"description": "A base stylesheet for the Atlassian Design System.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 		}
 	},
 	"scripts": {
-		"ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && ABS_PATH=$(pwd) && ln -sf $ABS_PATH/dist/bundle.css dist/cjs/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/esm/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/es2019/bundle.css",
+		"ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && cp src/scrollbars.css dist/scrollbars.css && ABS_PATH=$(pwd) && ln -sf $ABS_PATH/dist/bundle.css dist/cjs/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/esm/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/es2019/bundle.css && cp $ABS_PATH/dist/scrollbars.css $ABS_PATH/dist/cjs/scrollbars.css && cp $ABS_PATH/dist/scrollbars.css $ABS_PATH/dist/esm/scrollbars.css && cp $ABS_PATH/dist/scrollbars.css $ABS_PATH/dist/es2019/scrollbars.css",
 		"build-css": "run-ts build/js-to-css.tsx"
 	},
 	"dependencies": {
@@ -29,7 +29,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/formatting": "workspace:^",
@@ -39,37 +39,22 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"mkdirp": "root:*",
-		"react": "root:*"
+		"react": "^19.0.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"css",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./styles": "./src/index.tsx",
 		"./base": "./src/base.tsx",
 		"./browser-fixes": "./src/browser-fixes.tsx",
 		"./bundle.css": "./src/bundle.css",
+		"./scrollbars.css": "./src/scrollbars.css",
 		"./reset": "./src/reset.tsx",
 		"./tables": "./src/tables.tsx",
 		"./utils": "./src/utils.tsx"

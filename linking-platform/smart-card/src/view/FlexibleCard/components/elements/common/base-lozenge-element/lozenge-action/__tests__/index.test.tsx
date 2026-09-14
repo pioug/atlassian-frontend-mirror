@@ -3,7 +3,8 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { Text } from '@atlaskit/primitives/compiled';

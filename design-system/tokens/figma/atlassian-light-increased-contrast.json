@@ -2098,6 +2098,15 @@
         "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
       }
     },
+    "Light increased-contrast/color.border.input.search": {
+      "value": "#0B120E24",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.12.0",
+        "description": "Use for the border of search inputs."
+      }
+    },
     "Light increased-contrast/color.border.inverse": {
       "value": "#FFFFFF",
       "attributes": {

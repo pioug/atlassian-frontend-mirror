@@ -93,6 +93,11 @@ function traverseNode(node: ADFNode<any>, visitor: ADFVisitor, visited: Set<stri
 			children.push(traverseNodeContent(child, visitor, visited));
 		}
 	}
+
+	// Need to remove itself from visited to allow the same node in multiple subtrees.
+	// Traverse should only be preventing cycles in the same branch of a DFS.
+	visited.delete(node.getName());
+
 	return visitor?.node?.(node, children);
 }
 

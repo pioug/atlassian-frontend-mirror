@@ -118,6 +118,41 @@ typescriptEslintTester.run(
           export default X;
         `,
 			},
+			{
+				name: 'satisfies-wrapped primitive const is still primitive, so sole re-exposed import stays exempt',
+				code: `
+          import X from './x';
+          export const LABEL = 'hello' satisfies string;
+          export default X;
+        `,
+			},
+			{
+				name: 'root package barrel (src/index.tsx) may re-export freely without @deprecated',
+				filename: '/repo/packages/my-pkg/src/index.tsx',
+				code: `
+          export * from './Foo';
+          export { Bar } from './Bar';
+        `,
+			},
+			{
+				name: 'root package barrel (src/index.ts) import-then-export alongside other exports is exempt',
+				filename: '/repo/packages/my-pkg/src/index.ts',
+				code: `
+          import { Foo } from './Foo';
+          export { Foo };
+          export function bar() {}
+        `,
+			},
+			{
+				name: 'root package barrel with .js extension is exempt',
+				filename: '/repo/packages/my-pkg/src/index.js',
+				code: `export { Bar } from './Bar';`,
+			},
+			{
+				name: 'root package barrel with .jsx extension is exempt',
+				filename: '/repo/packages/my-pkg/src/index.jsx',
+				code: `export { Bar } from './Bar';`,
+			},
 		],
 		invalid: [
 			{
@@ -194,6 +229,24 @@ typescriptEslintTester.run(
           const x = 1;
           export { Bar } from './Bar';
         `,
+				errors: [{ messageId: 'no-re-exports' }],
+			},
+			{
+				name: 'nested barrel (src/components/index.tsx) is NOT a root barrel and still reports',
+				filename: '/repo/packages/my-pkg/src/components/index.tsx',
+				code: `export { Bar } from './Bar';`,
+				errors: [{ messageId: 'no-re-exports' }],
+			},
+			{
+				name: 'non-index file directly under src is NOT a root barrel and still reports',
+				filename: '/repo/packages/my-pkg/src/entry.tsx',
+				code: `export { Bar } from './Bar';`,
+				errors: [{ messageId: 'no-re-exports' }],
+			},
+			{
+				name: 'index file not under a src directory is NOT a root barrel and still reports',
+				filename: '/repo/packages/my-pkg/lib/index.tsx',
+				code: `export { Bar } from './Bar';`,
 				errors: [{ messageId: 'no-re-exports' }],
 			},
 		],

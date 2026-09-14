@@ -1,6 +1,7 @@
 import React from 'react';
-import type { DocNode } from '@atlaskit/adf-schema';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import CardClient from '@atlaskit/link-provider/client';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { createRendererWindowBindings } from './helper/testing-setup';
 

@@ -35,6 +35,9 @@
 			"path": "../../input-rules/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/section-message/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-products/tsconfig.json"
 		}
 	]

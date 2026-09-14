@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 
-import { type FieldProps } from '@atlaskit/form';
+import type { FieldProps } from '@atlaskit/form/field';
 import { Layering } from '@atlaskit/layering/layering';
-import { type Icon } from '@atlaskit/linking-types';
-import { type FilterOptionOption } from '@atlaskit/react-select';
-import Select from '@atlaskit/select';
-import Tooltip from '@atlaskit/tooltip';
+import type { Icon } from '@atlaskit/linking-types/datasource';
+import type { FilterOptionOption } from '@atlaskit/react-select/filters';
+import Select from '@atlaskit/select/default';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
-import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
+import { failUfoExperience } from '../../../../analytics/ufoExperiences/failUfoExperience';
+import { succeedUfoExperience } from '../../../../analytics/ufoExperiences/succeedUfoExperience';
+import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';
 import { type ExecuteFetch } from '../../../../state/actions';
+import { getCleanedSelectProps } from '../../get-cleaned-select-props';
 import { SharedIconComponent } from '../../shared-components/icon';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
-import { getCleanedSelectProps } from '../../utils';
 
 interface IconEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'icon'>;

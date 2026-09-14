@@ -1,11 +1,9 @@
 import React from 'react';
 import { Container } from '../example-helpers/styled';
 
-import {
-	MediaInlineCardErroredView,
-	MediaInlineCardLoadedView,
-	MediaInlineCardLoadingView,
-} from '../src';
+import { MediaInlineCardErroredView } from '../src/MediaInlineCard/ErroredView';
+import { MediaInlineCardLoadedView } from '../src/MediaInlineCard/LoadedView';
+import { MediaInlineCardLoadingView } from '../src/MediaInlineCard/LoadingView';
 
 import { token } from '@atlaskit/tokens';
 

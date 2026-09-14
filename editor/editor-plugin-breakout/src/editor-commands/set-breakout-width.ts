@@ -1,6 +1,8 @@
 import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
 import type { BreakoutMode, Command } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { updateExpandedStateNew } from '../pm-plugins/utils/single-player-expand';
 
@@ -16,9 +18,15 @@ export function setBreakoutWidth(
 			return false;
 		}
 
-		const tr = state.tr.setNodeMarkup(pos, node.type, node.attrs, [
-			state.schema.marks.breakout.create({ width, mode }),
-		]);
+		let tr: Transaction;
+		if (isExperimentEnabled('platform_editor_lovability_resize_extensions')) {
+			const marks = state.schema.marks.breakout.create({ width, mode }).addToSet(node.marks);
+			tr = state.tr.setNodeMarkup(pos, node.type, node.attrs, marks);
+		} else {
+			tr = state.tr.setNodeMarkup(pos, node.type, node.attrs, [
+				state.schema.marks.breakout.create({ width, mode }),
+			]);
+		}
 
 		if (node.type === state.schema.nodes.expand) {
 			updateExpandedStateNew({ tr, node, pos, isLivePage });

@@ -1,13 +1,18 @@
 import React from 'react';
 
-import { code, em, strike, strong, subsup, underline } from '@atlaskit/adf-schema';
+import { code } from '@atlaskit/adf-schema/code';
+import { em } from '@atlaskit/adf-schema/em';
+import { strike } from '@atlaskit/adf-schema/strike';
+import { strong } from '@atlaskit/adf-schema/strong';
+import { subsup } from '@atlaskit/adf-schema/subsup';
+import { underline } from '@atlaskit/adf-schema/underline';
 import type {
 	Command,
 	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	toggleCodeWithAnalytics,

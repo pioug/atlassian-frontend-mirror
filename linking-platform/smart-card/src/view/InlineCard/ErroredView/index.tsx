@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
@@ -11,10 +12,10 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import { HoverCard } from '../../HoverCard';
-import { ActionButton } from '../common/action-button';
+import { HoverCard } from '../../HoverCard/HoverCard';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
+import { ActionButton } from '../common/action-button';
 
 export interface InlineCardErroredViewProps {
 	/* Icon to be provided to show this error state */

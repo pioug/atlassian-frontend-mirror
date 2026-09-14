@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AtlassianMarketplaceIcon, AtlassianMarketplaceLogo } from '@atlaskit/logo';
+import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
+import { AtlassianMarketplaceLogo } from '@atlaskit/logo/atlassian-marketplace/logo';
 
 import LogoTable from '../utils/logo-table';
 

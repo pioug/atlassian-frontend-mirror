@@ -1,4 +1,3 @@
-import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { calcTableColumnWidths, getFragmentBackingArray } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -51,7 +50,7 @@ const generateColStyle = (
 		if (hasTableBeenResized) {
 			return `width: max(${fixedColWidth}px, ${tableCellMinWidth}px)`;
 		}
-		return isSSRStreaming() ? `width: ${tableCellMinWidth}px` : `width: ${tableCellMinWidth}px)`;
+		return `width: ${tableCellMinWidth}px`;
 	}
 	if (isFullPageEditor || (!isFullPageEditor && isTableHasWidth)) {
 		const scaledPercent = isNumberColumnEnabled

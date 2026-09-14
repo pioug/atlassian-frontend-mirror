@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ImageIcon from '@atlaskit/icon/core/image';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => (

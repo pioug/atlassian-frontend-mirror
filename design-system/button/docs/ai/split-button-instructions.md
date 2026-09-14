@@ -23,7 +23,9 @@
 An example diff of a migration from Tailwind generated code to ADS generated code.
 
 ```diff
-+import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
++import Button from '@atlaskit/button/default/button';
++import IconButton from '@atlaskit/button/icon/button';
++import { SplitButton } from '@atlaskit/button/split-button/split-button';
 +import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 +import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 -<div className="inline-flex rounded-md shadow-sm">

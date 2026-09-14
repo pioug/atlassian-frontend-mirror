@@ -1,3 +1,3 @@
-import { EdgeCaseSiblingAbsolutePositionedResizable } from './page-layout';
+import { EdgeCaseSiblingAbsolutePositionedResizable } from './page-layout.vr.ap';
 
 export default EdgeCaseSiblingAbsolutePositionedResizable;

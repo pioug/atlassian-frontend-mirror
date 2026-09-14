@@ -2,7 +2,8 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { Anchor, Box } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { GlobalStyleSimulator } from './utils/global-style-simulator';

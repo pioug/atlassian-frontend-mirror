@@ -11,12 +11,10 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { token } from '@atlaskit/tokens';
 
 import FlexibleCard from '../../../FlexibleCard';
-import {
-	CustomBlock,
-	InternalFooterBlock,
-	PreviewBlock,
-	TitleBlock,
-} from '../../../FlexibleCard/components/blocks';
+import { default as CustomBlock } from '../../../FlexibleCard/components/blocks/block';
+import { default as InternalFooterBlock } from '../../../FlexibleCard/components/blocks/footer-block/resolved';
+import { default as PreviewBlock } from '../../../FlexibleCard/components/blocks/preview-block';
+import { default as TitleBlock } from '../../../FlexibleCard/components/blocks/title-block';
 import { FlexibleCardUiOptions, PreviewBlockOptions, titleBlockOptions } from '../utils';
 
 import { type UnresolvedViewProps } from './types';

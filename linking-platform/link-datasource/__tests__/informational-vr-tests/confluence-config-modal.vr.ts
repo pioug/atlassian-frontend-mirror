@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import ConfluenceSearchConfigModal from '../../examples/with-confluence-search-modal';
+import ConfluenceSearchConfigModal from '../../examples/with-confluence-search-modal.vr.ap';
 
 const openLastUpdatedFilter = async (page: Page) => {
 	await page.getByTestId('confluence-search-modal--date-range-button').click();

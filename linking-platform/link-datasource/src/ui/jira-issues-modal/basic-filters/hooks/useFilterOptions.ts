@@ -1,21 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { type IntlShape, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import type { Site } from '../../../../common/types';
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
-import {
-	type AvatarLabelOption,
-	type SelectOption,
-} from '../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { type BasicFilterFieldType, type FieldValuesResponse } from '../types';
-import {
-	mapFieldValuesToFilterOptions,
-	mapFieldValuesToPageCursor,
-	mapFieldValuesToTotalCount,
-} from '../utils/transformers';
+import { mapFieldValuesToFilterOptions } from '../utils/mapFieldValuesToFilterOptions';
+import { mapFieldValuesToPageCursor } from '../utils/mapFieldValuesToPageCursor';
+import { mapFieldValuesToTotalCount } from '../utils/mapFieldValuesToTotalCount';
 
-import { filterOptionMessages } from './messages';
+import { getAssigneeUnassignedFilterOption } from './getAssigneeUnassignedFilterOption';
 
 interface FilterOptionsProps {
 	filterType: BasicFilterFieldType;
@@ -36,14 +31,6 @@ export interface FilterOptionsState {
 	status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
 	totalCount: number;
 }
-
-export const getAssigneeUnassignedFilterOption = (
-	formatMessage: IntlShape['formatMessage'],
-): AvatarLabelOption => ({
-	label: formatMessage(filterOptionMessages.assigneeUnassignedFilterOption),
-	optionType: 'avatarLabel',
-	value: 'empty',
-});
 
 export const useFilterOptions = ({ filterType, site }: FilterOptionsProps): FilterOptionsState => {
 	const { formatMessage } = useIntl();

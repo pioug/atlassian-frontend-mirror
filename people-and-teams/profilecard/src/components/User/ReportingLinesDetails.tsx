@@ -2,8 +2,8 @@ import React from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Avatar from '@atlaskit/avatar';
-import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group/avatar-group';
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -44,6 +44,7 @@ const styles = cssMap({
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
+		transition: token('motion.button.hovered'),
 	},
 	reportingLinesHeadingDefaultStyles: {
 		color: token('color.text'),

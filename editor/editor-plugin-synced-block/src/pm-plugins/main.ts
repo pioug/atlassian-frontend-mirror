@@ -15,15 +15,13 @@ import {
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { mapSlice, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
-import {
-	convertPMNodesToSyncBlockNodes,
-	rebaseTransaction,
-} from '@atlaskit/editor-synced-block-provider';
+import { convertPMNodesToSyncBlockNodes } from '@atlaskit/editor-synced-block-provider';
 import type {
 	SyncBlockProduct,
 	SyncBlockStoreManager,
@@ -33,15 +31,10 @@ import type {
 	DeletionMechanism,
 } from '@atlaskit/editor-synced-block-provider/common/types';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import {
-	bodiedSyncBlockNodeView,
-	bodiedSyncBlockNodeViewOld,
-} from '../nodeviews/bodiedSyncedBlock';
+import { bodiedSyncBlockNodeView } from '../nodeviews/bodiedSyncedBlock';
 import { SyncBlock as SyncBlockView } from '../nodeviews/syncedBlock';
 import type {
 	SyncedBlockFeedbackContext,
@@ -58,7 +51,10 @@ import type {
 
 import { handleBodiedSyncBlockCreation } from './utils/handle-bodied-sync-block-creation';
 import { handleBodiedSyncBlockRemoval } from './utils/handle-bodied-sync-block-removal';
-import type { TransactionRef } from './utils/handle-bodied-sync-block-removal';
+import type {
+	SourceFeedbackCallbacks,
+	TransactionRef,
+} from './utils/handle-bodied-sync-block-removal';
 import { hasSyncedBlocks } from './utils/has-synced-blocks';
 import { shouldIgnoreDomEvent } from './utils/ignore-dom-event';
 import { calculateDecorations } from './utils/selection-decorations';
@@ -78,8 +74,7 @@ export const syncedBlockPluginKey: PluginKey = new PluginKey('syncedBlockPlugin'
  * `deleteButton` (otherwise indistinguishable from a keyboard delete — both are
  * plain ReplaceSteps). A separate key (rather than `syncedBlockPluginKey`, which
  * carries plugin-state transitions read in `apply()`, or a bare string) keeps
- * this transient signal uniquely namespaced and isolated. Only read behind
- * `platform_editor_blocks_patch_4`.
+ * this transient signal uniquely namespaced and isolated.
  */
 export const deleteMechanismMetaKey: PluginKey<DeletionMechanism> =
 	new PluginKey<DeletionMechanism>('syncedBlockDeleteMechanism');
@@ -93,15 +88,15 @@ const syncedBlockPromptedFeedbackMetaKey: PluginKey<PromptedFeedbackMeta> =
 	new PluginKey<PromptedFeedbackMeta>('syncedBlockPromptedFeedback');
 
 /**
- * Creation-type signals set by {@link createSyncedBlock} on the creating
+ * Creation analytics signals set by {@link createSyncedBlock} on the creating
  * transaction. The async creation handler forwards them to the store manager,
  * which attaches them to the `syncedBlockCreate` event. A dedicated key keeps
- * this transient signal isolated from plugin state. Consumed behind
- * `platform_editor_blocks_patch_4`.
+ * this transient signal isolated from plugin state.
  */
 export type SyncedBlockCreationMeta = {
 	createdEmpty?: boolean;
 	inputMethod?: INPUT_METHOD;
+	nodeTypes?: string[];
 };
 export const creationMetaKey: PluginKey<SyncedBlockCreationMeta> =
 	new PluginKey<SyncedBlockCreationMeta>('syncedBlockCreationMeta');
@@ -110,22 +105,18 @@ type SyncedBlockPluginState = {
 	activeFlag: ActiveFlag;
 	bodiedSyncBlockDeletionStatus?: BodiedSyncBlockDeletionStatus;
 	/**
-	 * When `editor_synced_block_perf` is ON, this flag tracks whether the
-	 * document currently contains any synced block (source or reference). When
-	 * `false`, downstream work in `appendTransaction`, `decorations`, and the
-	 * `contentComponent` short-circuits to avoid the per-transition feature tax
-	 * on the ~99.97% of pages that have no synced blocks (see EDITOR-6586).
-	 *
-	 * When the gate is OFF this is always `true` so existing behavior is
-	 * preserved.
+	 * Tracks whether the document currently contains any synced block (source or
+	 * reference). When `false`, downstream work in `appendTransaction`,
+	 * `decorations`, and the `contentComponent` short-circuits to avoid the
+	 * per-transition feature tax on the ~99.97% of pages that have no synced
+	 * blocks (see EDITOR-6586).
 	 */
 	hasSyncedBlocks: boolean;
 	hasUnsavedBodiedSyncBlockChanges?: boolean;
 	/**
 	 * Cached previous values for shared-state signals. Used inside `apply()` to
 	 * detect when a status change requires a full rebuild of `statusDecorationSet`
-	 * instead of a cheap `map()` call. Only meaningful when
-	 * `editor_synced_block_perf` is ON.
+	 * instead of a cheap `map()` call.
 	 */
 	prevIsDragging: boolean;
 	prevIsOffline: boolean;
@@ -147,14 +138,13 @@ const mapRetryCreationPosMap = (
 	oldMap: RetryCreationPosMap,
 	newRetryCreationPos: RetryCreationPosEntry | undefined,
 	mapPos: (pos: number) => number,
-	isPerfExperimentOn?: boolean,
 ): RetryCreationPosMap => {
 	const resourceId = newRetryCreationPos?.resourceId;
 
 	// Fast path: no new entry and nothing to remap — return the same reference.
 	// This is critical for PR-E (EDITOR-6929) which relies on reference equality
 	// to short-circuit SharedStateAPI deep-equality checks.
-	if (isPerfExperimentOn && !resourceId && oldMap.size === 0) {
+	if (!resourceId && oldMap.size === 0) {
 		return oldMap;
 	}
 
@@ -458,19 +448,9 @@ const filterTransactionOnline = ({
 	});
 
 	if (bodiedSyncBlockRemoved.length > 0) {
-		if (!fg('platform_editor_blocks_patch_4')) {
-			// Legacy stash-and-rebase path: store the original delete transaction so it
-			// can be rebased against intervening edits and replayed on confirm. When
-			// platform_editor_blocks_patch_4 is on we instead recompute the delete fresh
-			// from the live document on confirm (see handleBodiedSyncBlockRemoval), so
-			// there is no need to stash the transaction here. See EDITOR-7889.
-			// eslint-disable-next-line no-param-reassign
-			confirmationTransactionRef.current = tr;
-		}
-		// Only derive the mechanism behind the gate — discarded gate-off.
-		const mechanism = fg('platform_editor_blocks_patch_4')
-			? getDeleteMechanism(tr, state)
-			: undefined;
+		// Recompute the delete fresh from the live document on confirm
+		// (see handleBodiedSyncBlockRemoval). See EDITOR-7889.
+		const mechanism = getDeleteMechanism(tr, state);
 		const feedbackContext =
 			entryPoint && getDeleteReason(tr) !== 'source-block-unsynced'
 				? ({
@@ -478,35 +458,28 @@ const filterTransactionOnline = ({
 						entryPoint,
 					} satisfies SyncedBlockFeedbackContext)
 				: undefined;
+		let feedbackCallbacks: SourceFeedbackCallbacks | undefined;
 		if (feedbackContext) {
 			const sourceAttempt = ctx.queueSourceFeedback(feedbackContext);
-			return handleBodiedSyncBlockRemoval(
-				bodiedSyncBlockRemoved,
-				syncBlockStore,
-				api,
-				confirmationTransactionRef,
-				getDeleteReason(tr),
-				mechanism,
-				{
-					onDeleteCompleted: (success) => ctx.completeSourceDeletion(sourceAttempt, success),
-					onDeleteTransaction: (deleteTr) =>
-						deleteTr.setMeta(syncedBlockPromptedFeedbackMetaKey, {
-							context: feedbackContext,
-							sourceAttempt,
-						}),
-					onDestroy: () => ctx.clearSourceFeedback(sourceAttempt),
-				},
-			);
+			feedbackCallbacks = {
+				onDeleteCompleted: (success) => ctx.completeSourceDeletion(sourceAttempt, success),
+				onDeleteTransaction: (deleteTr) =>
+					deleteTr.setMeta(syncedBlockPromptedFeedbackMetaKey, {
+						context: feedbackContext,
+						sourceAttempt,
+					}),
+				onDestroy: () => ctx.clearSourceFeedback(sourceAttempt),
+			};
 		}
-		return handleBodiedSyncBlockRemoval(
-			bodiedSyncBlockRemoved,
+		return handleBodiedSyncBlockRemoval({
+			removed: bodiedSyncBlockRemoved,
 			syncBlockStore,
 			api,
 			confirmationTransactionRef,
-			getDeleteReason(tr),
+			deletionReason: getDeleteReason(tr),
 			mechanism,
-			undefined,
-		);
+			feedbackCallbacks,
+		});
 	}
 
 	if (bodiedSyncBlockAdded.length > 0) {
@@ -523,11 +496,11 @@ const filterTransactionOnline = ({
 		// be wrong. The bodiedSyncBlock content will still be inserted but will
 		// not be registered as a source block in Block Service, which is safer
 		// than creating a zombie block under the wrong ARI.
-		if (isPasteOrDrop && fg('platform_synced_block_patch_13')) {
+		if (isPasteOrDrop) {
 			return true;
 		}
 
-		// Forward creation-type signals captured by createSyncedBlock onto the async
+		// Forward creation analytics signals captured by createSyncedBlock onto the async
 		// `syncedBlockCreate` success event.
 		const creationMeta = tr.getMeta(creationMetaKey) as SyncedBlockCreationMeta | undefined;
 		handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api, creationMeta);
@@ -685,6 +658,7 @@ class SyncedBlockPluginContext {
 	private cutRemovalGeneration = 0;
 	private _isCopyEvent = false;
 	private _isCutEvent = false;
+	private feedbackPromptConsumed = false;
 	private pendingSourceFeedback:
 		| {
 				context: SyncedBlockFeedbackContext;
@@ -696,7 +670,11 @@ class SyncedBlockPluginContext {
 	readonly unpublishedFlagShown = new Set<string>();
 	readonly extensionFlagShown = new Set<string>();
 
-	constructor(readonly onGiveFeedback: SyncedBlockPluginOptions['onGiveFeedback']) {}
+	constructor(
+		readonly onGiveFeedback: SyncedBlockPluginOptions['onGiveFeedback'],
+		readonly shouldShowFeedbackPrompt: SyncedBlockPluginOptions['shouldShowFeedbackPrompt'],
+		private readonly api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	) {}
 
 	get isCopyEvent(): boolean {
 		return this._isCopyEvent;
@@ -780,7 +758,7 @@ class SyncedBlockPluginContext {
 			return;
 		}
 		if (context.blockType === 'reference') {
-			this.invokeFeedback(context);
+			this.requestFeedbackPrompt(context);
 		}
 	}
 
@@ -792,18 +770,36 @@ class SyncedBlockPluginContext {
 		) {
 			const { context } = this.pendingSourceFeedback;
 			this.pendingSourceFeedback = undefined;
-			this.invokeFeedback(context);
+			this.requestFeedbackPrompt(context);
 		}
 	}
 
-	private invokeFeedback(context: SyncedBlockFeedbackContext): void {
+	private requestFeedbackPrompt(context: SyncedBlockFeedbackContext): void {
+		if (this.feedbackPromptConsumed) {
+			return;
+		}
+		this.feedbackPromptConsumed = true;
+
 		deferDispatch(() => {
 			try {
-				const feedbackResult = this.onGiveFeedback?.(context);
-				void Promise.resolve(feedbackResult).catch(() => {});
+				const shouldShow = this.shouldShowFeedbackPrompt?.() ?? true;
+				void Promise.resolve(shouldShow)
+					.then((isEligible) => {
+						if (!isEligible) {
+							return;
+						}
+						this.api?.core.actions.execute(({ tr }) =>
+							tr.setMeta(syncedBlockPluginKey, {
+								activeFlag: {
+									id: FLAG_ID.SYNC_BLOCK_FEEDBACK_PROMPT,
+									feedbackContext: context,
+								},
+							}),
+						);
+					})
+					.catch(() => {});
 			} catch {
-				// Product feedback collectors are optional UI. Their failures must
-				// never affect the already-applied editor transaction.
+				// Persisted feedback eligibility is optional product UI.
 			}
 		});
 	}
@@ -817,13 +813,11 @@ export const createPlugin = (
 ): SafePlugin<SyncedBlockPluginState> => {
 	const { useLongPressSelection = false } = options || {};
 
-	// Cache the experiment value once at plugin creation time.
-	// This fires the exposure event exactly once (correct per Exposure Events 101)
-	// and avoids ~10 redundant Statsig SDK evaluations per keystroke in hot paths
-	// (apply, filterTransaction, appendTransaction, decorations).
-	const isPerfExperimentOn = expValEquals('editor_synced_block_perf', 'isEnabled', true);
-
-	const ctx = new SyncedBlockPluginContext(options?.onGiveFeedback);
+	const ctx = new SyncedBlockPluginContext(
+		options?.onGiveFeedback,
+		options?.shouldShowFeedbackPrompt,
+		api,
+	);
 	const confirmationTransactionRef = ctx.confirmationTransactionRef;
 	const unpublishedFlagShown = ctx.unpublishedFlagShown;
 	const extensionFlagShown = ctx.extensionFlagShown;
@@ -872,11 +866,11 @@ export const createPlugin = (
 		key: syncedBlockPluginKey,
 		state: {
 			init(_, instance: EditorState): SyncedBlockPluginState {
-				// When `editor_synced_block_perf` is ON and the document has no
-				// synced blocks, we skip the eager fetch + cache walks. They will be
-				// re-run lazily by `apply` the first time a synced block enters the
-				// document (paste, collab insert, or programmatic insert).
-				const docHasSyncedBlocks = isPerfExperimentOn ? hasSyncedBlocks(instance.doc) : true;
+				// When the document has no synced blocks, we skip the eager fetch +
+				// cache walks. They will be re-run lazily by `apply` the first time a
+				// synced block enters the document (paste, collab insert, or
+				// programmatic insert).
+				const docHasSyncedBlocks = hasSyncedBlocks(instance.doc);
 
 				if (docHasSyncedBlocks) {
 					const syncBlockNodes = instance.doc.children.filter(
@@ -886,8 +880,8 @@ export const createPlugin = (
 						convertPMNodesToSyncBlockNodes(syncBlockNodes),
 					);
 
-					// Populate source sync block cache from initial document
-					// When fg is ON, this replaces the constructor call in the nodeview
+					// Populate source sync block cache from initial document.
+					// This replaces the constructor call in the nodeview.
 					instance.doc.forEach((node) => {
 						if (syncBlockStore.sourceManager.isSourceBlock(node)) {
 							syncBlockStore.sourceManager.updateSyncBlockData(node, false);
@@ -908,16 +902,15 @@ export const createPlugin = (
 				// When the perf gate is ON and the doc has synced blocks we do a
 				// single traversal here; afterwards `apply()` will map or rebuild
 				// only when a status signal changes.
-				const initStatusDecorationSet =
-					docHasSyncedBlocks && isPerfExperimentOn
-						? buildStatusDecorations(
-								instance.doc,
-								syncBlockStore,
-								initIsOffline,
-								initIsViewMode,
-								initIsDragging,
-							)
-						: DecorationSet.empty;
+				const initStatusDecorationSet = docHasSyncedBlocks
+					? buildStatusDecorations(
+							instance.doc,
+							syncBlockStore,
+							initIsOffline,
+							initIsViewMode,
+							initIsDragging,
+						)
+					: DecorationSet.empty;
 
 				return {
 					selectionDecorationSet: calculateDecorations(
@@ -938,7 +931,6 @@ export const createPlugin = (
 			},
 			apply: (tr, currentPluginState, oldEditorState) => {
 				const meta = tr.getMeta(syncedBlockPluginKey);
-				// isPerfExperimentOn is cached at createPlugin() level — see above
 
 				const {
 					activeFlag,
@@ -973,7 +965,6 @@ export const createPlugin = (
 				// fast path would swallow drag-start transactions and the synced block
 				// border would never appear (see VR test: synced-block-drag-selection).
 				if (
-					isPerfExperimentOn &&
 					!meta &&
 					!tr.docChanged &&
 					tr.selection.eq(oldEditorState.selection) &&
@@ -990,7 +981,7 @@ export const createPlugin = (
 				// Lazy-init bookkeeping: once a synced block enters the document we
 				// flip `hasSyncedBlocks` to `true` for the lifetime of this editor
 				let nextHasSyncedBlocks = prevHasSyncedBlocks;
-				if (!prevHasSyncedBlocks && tr.docChanged && isPerfExperimentOn) {
+				if (!prevHasSyncedBlocks && tr.docChanged) {
 					if (transactionInsertsSyncedBlock(tr)) {
 						nextHasSyncedBlocks = true;
 					}
@@ -1022,42 +1013,40 @@ export const createPlugin = (
 				let nextIsViewMode = prevViewMode;
 				let nextIsDragging = prevDragging;
 
-				if (isPerfExperimentOn) {
-					if (!nextHasSyncedBlocks) {
-						// No synced blocks → keep empty status decorations
-						nextStatusDecorationSet = DecorationSet.empty;
-					} else {
-						// Read current shared-state signals
-						nextIsOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
-						nextIsViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-						nextIsDragging =
-							api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
+				if (!nextHasSyncedBlocks) {
+					// No synced blocks → keep empty status decorations
+					nextStatusDecorationSet = DecorationSet.empty;
+				} else {
+					// Read current shared-state signals
+					nextIsOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
+					nextIsViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+					nextIsDragging =
+						api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
 
-						// Determine whether we need a full rebuild or a cheap map
-						const hasSyncedBlocksJustFlipped = nextHasSyncedBlocks && !prevHasSyncedBlocks;
-						const statusSignalChanged =
-							nextIsOffline !== prevOffline ||
-							nextIsViewMode !== prevViewMode ||
-							nextIsDragging !== prevDragging;
-						// Meta-driven status changes (e.g. pending creation
-						// completed, retry creation pos updated)
-						const hasMetaStatusChange = !!meta?.retryCreationPos || !!meta?.activeFlag;
+					// Determine whether we need a full rebuild or a cheap map
+					const hasSyncedBlocksJustFlipped = nextHasSyncedBlocks && !prevHasSyncedBlocks;
+					const statusSignalChanged =
+						nextIsOffline !== prevOffline ||
+						nextIsViewMode !== prevViewMode ||
+						nextIsDragging !== prevDragging;
+					// Meta-driven status changes (e.g. pending creation
+					// completed, retry creation pos updated)
+					const hasMetaStatusChange = !!meta?.retryCreationPos || !!meta?.activeFlag;
 
-						if (hasSyncedBlocksJustFlipped || statusSignalChanged || hasMetaStatusChange) {
-							// Full rebuild — a status signal changed
-							nextStatusDecorationSet = buildStatusDecorations(
-								tr.doc,
-								syncBlockStore,
-								nextIsOffline,
-								nextIsViewMode,
-								nextIsDragging,
-							);
-						} else if (tr.docChanged) {
-							// Cheap map — positions shifted but status unchanged
-							nextStatusDecorationSet = prevStatusDecorationSet.map(tr.mapping, tr.doc);
-						}
-						// else: nothing changed, keep same reference
+					if (hasSyncedBlocksJustFlipped || statusSignalChanged || hasMetaStatusChange) {
+						// Full rebuild — a status signal changed
+						nextStatusDecorationSet = buildStatusDecorations(
+							tr.doc,
+							syncBlockStore,
+							nextIsOffline,
+							nextIsViewMode,
+							nextIsDragging,
+						);
+					} else if (tr.docChanged) {
+						// Cheap map — positions shifted but status unchanged
+						nextStatusDecorationSet = prevStatusDecorationSet.map(tr.mapping, tr.doc);
 					}
+					// else: nothing changed, keep same reference
 				}
 
 				const newPosEntry = meta?.retryCreationPos;
@@ -1065,7 +1054,6 @@ export const createPlugin = (
 					retryCreationPosMap,
 					newPosEntry,
 					tr.mapping.map.bind(tr.mapping),
-					isPerfExperimentOn,
 				);
 
 				const nextActiveFlag = meta?.activeFlag ?? activeFlag;
@@ -1086,8 +1074,7 @@ export const createPlugin = (
 					nextStatusDecorationSet === prevStatusDecorationSet &&
 					nextIsOffline === prevOffline &&
 					nextIsViewMode === prevViewMode &&
-					nextIsDragging === prevDragging &&
-					isPerfExperimentOn
+					nextIsDragging === prevDragging
 				) {
 					return currentPluginState;
 				}
@@ -1125,21 +1112,12 @@ export const createPlugin = (
 						syncBlockStore: syncBlockStore,
 						intl: pmPluginFactoryParams.getIntl(),
 					}).init(),
-				bodiedSyncBlock: editorExperiment('platform_synced_block_use_new_source_nodeview', true, {
-					exposure: true,
-				})
-					? bodiedSyncBlockNodeView({
-							pluginOptions: options,
-							pmPluginFactoryParams,
-							api,
-							syncBlockStore,
-						})
-					: bodiedSyncBlockNodeViewOld({
-							pluginOptions: options,
-							pmPluginFactoryParams,
-							api,
-							syncBlockStore,
-						}),
+				bodiedSyncBlock: bodiedSyncBlockNodeView({
+					pluginOptions: options,
+					pmPluginFactoryParams,
+					api,
+					syncBlockStore,
+				}),
 			},
 			decorations: (state) => {
 				const currentPluginState = syncedBlockPluginKey.getState(state);
@@ -1158,95 +1136,26 @@ export const createPlugin = (
 				// `apply()`. The `decorations` prop is now an O(1) merge of
 				// the two cached sets — no `doc.descendants()` walk, no
 				// shared-state reads.
-				if (isPerfExperimentOn) {
-					if (!docHasSyncedBlocks) {
-						return selectionDecorationSet;
-					}
+				if (!docHasSyncedBlocks) {
+					return selectionDecorationSet;
+				}
 
-					// Focus state is read live here (single cheap read) because
-					// it only gates whether selection decorations are included —
-					// it does not affect the status decoration set and can change
-					// within the same transaction cycle.
-					const hasFocus = api?.focus?.sharedState?.currentState()?.hasFocus ?? true;
+				// Focus state is read live here (single cheap read) because
+				// it only gates whether selection decorations are included —
+				// it does not affect the status decoration set and can change
+				// within the same transaction cycle.
+				const hasFocus = api?.focus?.sharedState?.currentState()?.hasFocus ?? true;
 
-					// Merge selection + status decorations.
-					// When the editor is unfocused,
-					// omit selection decorations (matches old behaviour).
-					const statusDecorations = statusDecorationSet.find();
-					if (statusDecorations.length === 0) {
-						return hasFocus ? selectionDecorationSet : DecorationSet.empty;
-					} else {
-						return hasFocus
-							? selectionDecorationSet.add(state.doc, statusDecorations)
-							: statusDecorationSet;
-					}
+				// Merge selection + status decorations.
+				// When the editor is unfocused,
+				// omit selection decorations (matches old behaviour).
+				const statusDecorations = statusDecorationSet.find();
+				if (statusDecorations.length === 0) {
+					return hasFocus ? selectionDecorationSet : DecorationSet.empty;
 				} else {
-					// --- Legacy path (perf gate OFF) ---
-					// Full `doc.descendants()` walk every transaction. Preserved
-					// for safe rollback.
-					const syncBlockStore: SyncBlockStoreManager = currentPluginState.syncBlockStore;
-					const { doc } = state;
-
-					const isOffline = isOfflineMode(api?.connectivity?.sharedState.currentState()?.mode);
-					const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-					const isDragging =
-						api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragging';
-
-					const offlineDecorations: Decoration[] = [];
-					const viewModeDecorations: Decoration[] = [];
-					const loadingDecorations: Decoration[] = [];
-					const dragDecorations: Decoration[] = [];
-
-					state.doc.descendants((node, pos) => {
-						if (node.type.name === 'bodiedSyncBlock' && isOffline) {
-							offlineDecorations.push(
-								Decoration.node(pos, pos + node.nodeSize, {
-									class: SyncBlockStateCssClassName.disabledClassName,
-								}),
-							);
-						}
-
-						if (syncBlockStore.isSyncBlock(node) && isViewMode) {
-							viewModeDecorations.push(
-								Decoration.node(pos, pos + node.nodeSize, {
-									class: SyncBlockStateCssClassName.viewModeClassName,
-								}),
-							);
-						}
-
-						if (
-							node.type.name === 'bodiedSyncBlock' &&
-							syncBlockStore.sourceManager.isPendingCreation(node.attrs.resourceId)
-						) {
-							loadingDecorations.push(
-								Decoration.node(pos, pos + node.nodeSize, {
-									class: SyncBlockStateCssClassName.creationLoadingClassName,
-								}),
-							);
-						}
-
-						if (isDragging && syncBlockStore.isSyncBlock(node)) {
-							dragDecorations.push(
-								Decoration.node(pos, pos + node.nodeSize, {
-									class: SyncBlockStateCssClassName.draggingClassName,
-								}),
-							);
-						}
-					});
-
-					if (api?.focus?.sharedState?.currentState()?.hasFocus) {
-						return selectionDecorationSet
-							.add(doc, offlineDecorations)
-							.add(doc, viewModeDecorations)
-							.add(doc, loadingDecorations)
-							.add(doc, dragDecorations);
-					} else {
-						return DecorationSet.empty
-							.add(doc, offlineDecorations)
-							.add(doc, viewModeDecorations)
-							.add(doc, loadingDecorations)
-							.add(doc, dragDecorations);
-					}
+					return hasFocus
+						? selectionDecorationSet.add(state.doc, statusDecorations)
+						: statusDecorationSet;
 				}
 			},
 			handleClickOn: createSelectionClickHandler(
@@ -1266,22 +1175,12 @@ export const createPlugin = (
 					return false;
 				},
 				cut: () => {
-					if (
-						fg('platform_synced_block_patch_13') ||
-						(Boolean(options?.onGiveFeedback) &&
-							expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true))
-					) {
-						ctx.consumeCutEvent();
-						ctx.markCutEvent();
-					}
+					ctx.consumeCutEvent();
+					ctx.markCutEvent();
 					return false;
 				},
 			},
 			transformPasted: (slice, _view) => {
-				if (!fg('platform_synced_block_patch_13')) {
-					return slice;
-				}
-
 				// Defense against bodiedSyncBlock nodes arriving via paste
 				// (e.g. drag-and-drop, cut-paste, or browser-level clipboard
 				// operations that bypass the transformCopied handler).
@@ -1306,31 +1205,13 @@ export const createPlugin = (
 				const syncBlockStore = pluginState?.syncBlockStore;
 				const { schema } = state;
 				const isCopy = ctx.consumeCopyEvent();
-				const isSyncedBlockPatch13Enabled = fg('platform_synced_block_patch_13');
-				const wasCut = ctx.consumeCutEvent();
-				const isCut = isSyncedBlockPatch13Enabled && wasCut;
+				const isCut = ctx.consumeCutEvent();
+				// A prompted feedback cut is always a cut, so the two never need combining.
 				const isPromptedFeedbackCut =
-					Boolean(syncBlockStore && options?.onGiveFeedback && wasCut) &&
+					Boolean(syncBlockStore && options?.onGiveFeedback && isCut) &&
 					expValEqualsNoExposure('platform_editor_sync_block_activation', 'isEnabled', true);
 
-				if (!syncBlockStore || (!isCopy && !isCut && !isPromptedFeedbackCut)) {
-					return slice;
-				}
-
-				if (isPromptedFeedbackCut && !isCut) {
-					let containsCutSyncBlock = false;
-					mapSlice(slice, (node: Node) => {
-						if (
-							syncBlockStore.referenceManager.isReferenceBlock(node) ||
-							(node.type.name === 'bodiedSyncBlock' && sliceFullyContainsNode(slice, node))
-						) {
-							containsCutSyncBlock = true;
-						}
-						return node;
-					});
-					if (containsCutSyncBlock) {
-						ctx.markCutRemovalPending();
-					}
+				if (!syncBlockStore || (!isCopy && !isCut)) {
 					return slice;
 				}
 
@@ -1352,7 +1233,7 @@ export const createPlugin = (
 						return node;
 					}
 					if (node.type.name === 'bodiedSyncBlock' && node.attrs.resourceId) {
-						if (isPromptedFeedbackCut && isCut && sliceFullyContainsNode(slice, node)) {
+						if (isPromptedFeedbackCut && sliceFullyContainsNode(slice, node)) {
 							containsCutSyncBlock = true;
 						}
 						// if we only selected part of the bodied sync block content,
@@ -1361,7 +1242,7 @@ export const createPlugin = (
 							return node.content;
 						}
 
-						if (isSyncedBlockPatch13Enabled && isCut) {
+						if (isCut) {
 							return node;
 						}
 
@@ -1397,11 +1278,9 @@ export const createPlugin = (
 			// transaction does not insert one, all downstream filter logic is a
 			// no-op. Avoid both the shared-state reads and the `trackSyncBlocks`
 			// walks for the ~99.97% of pages that have no synced blocks.
-			if (isPerfExperimentOn) {
-				const pluginState = syncedBlockPluginKey.getState(state);
-				if (pluginState && !pluginState.hasSyncedBlocks && !transactionInsertsSyncedBlock(tr)) {
-					return true;
-				}
+			const pluginState = syncedBlockPluginKey.getState(state);
+			if (pluginState && !pluginState.hasSyncedBlocks && !transactionInsertsSyncedBlock(tr)) {
+				return true;
 			}
 
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
@@ -1500,14 +1379,12 @@ export const createPlugin = (
 			// synced block (and none of the dispatched transactions inserts one),
 			// skip all downstream work. This is the hot path on the ~99.97% of
 			// pages that don't use synced blocks (see EDITOR-6586).
-			if (isPerfExperimentOn) {
-				const oldPluginState = syncedBlockPluginKey.getState(oldState);
-				const newPluginState = syncedBlockPluginKey.getState(newState);
-				const hadOrHasSyncedBlocks =
-					!!oldPluginState?.hasSyncedBlocks || !!newPluginState?.hasSyncedBlocks;
-				if (!hadOrHasSyncedBlocks) {
-					return null;
-				}
+			const oldPluginState = syncedBlockPluginKey.getState(oldState);
+			const newPluginState = syncedBlockPluginKey.getState(newState);
+			const hadOrHasSyncedBlocks =
+				!!oldPluginState?.hasSyncedBlocks || !!newPluginState?.hasSyncedBlocks;
+			if (!hadOrHasSyncedBlocks) {
+				return null;
 			}
 
 			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
@@ -1549,23 +1426,6 @@ export const createPlugin = (
 				});
 			}
 
-			// Legacy stash-and-rebase path. When platform_editor_blocks_patch_4 is on the
-			// delete is recomputed fresh from the live document on confirm, so there is
-			// no stashed transaction to rebase here. See EDITOR-7889.
-			if (!fg('platform_editor_blocks_patch_4')) {
-				trs
-					.filter((tr) => tr.docChanged)
-					.forEach((tr) => {
-						if (confirmationTransactionRef.current) {
-							confirmationTransactionRef.current = rebaseTransaction(
-								confirmationTransactionRef.current,
-								tr,
-								newState,
-							);
-						}
-					});
-			}
-
 			for (const tr of trs) {
 				if (tr.getMeta(pmHistoryPluginKey)) {
 					const { added } = trackSyncBlocks(
@@ -1575,14 +1435,31 @@ export const createPlugin = (
 					);
 
 					if (added.length > 0) {
-						// Delete bodiedSyncBlock if it's originated from history, i.e. redo creation
-						// See filterTransaction above for more details
+						// A bodiedSyncBlock must not be (re)created from history, i.e. redo of a
+						// creation (see filterTransaction above). Unwrap it instead of deleting it:
+						// deleting the whole node also dropped the content the block was converted
+						// from (e.g. a table), and undoing that delete re-added the block and hit
+						// this guard again, so the content was unrecoverable (EDITOR-8863).
 						const { tr } = newState;
-						added.forEach((node) => {
-							if (node.from !== undefined && node.to !== undefined) {
-								tr.delete(node.from, node.to);
-							}
-						});
+						if (isExperimentEnabled('platform_editor_blocks_exp_patch_10')) {
+							// Unwrap in reverse document order so earlier replacements keep later
+							// positions valid.
+							[...added]
+								.sort((a, b) => (b.from ?? 0) - (a.from ?? 0))
+								.forEach(({ node, from, to }) => {
+									if (node && from !== undefined && to !== undefined) {
+										// This is ProseMirror's Transaction.replace (a document edit), not String.replace.
+										// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace
+										tr.replace(from, to, new Slice(node.content, 0, 0));
+									}
+								});
+						} else {
+							added.forEach((node) => {
+								if (node.from !== undefined && node.to !== undefined) {
+									tr.delete(node.from, node.to);
+								}
+							});
+						}
 
 						return tr;
 					}

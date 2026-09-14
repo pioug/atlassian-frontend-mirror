@@ -1,5 +1,94 @@
 # @atlaskit/icon-lab
 
+## 7.8.0
+
+### Minor Changes
+
+- [`7b6da1701c25a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b6da1701c25a) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `hardware-insights`
+  - `question-circle-filled`
+
+## 7.7.2
+
+### Patch Changes
+
+- [`85a3e1ec4b6ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85a3e1ec4b6ff) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+
+## 7.7.1
+
+### Patch Changes
+
+- [`4612437357f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4612437357f61) -
+  Remove references to the unused @atlassian/icon-private package. Its value is dropped from the
+  icon metadata location union, the ensure-icon-color lint rule no longer matches it, and the
+  adoption scanner no longer scans its entrypoint.
+- Updated dependencies
+
+## 7.7.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.6.0
+
+### Minor Changes
+
+- [`19f67a13fde54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19f67a13fde54) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `block-quote`
+  - `hardware-assignment`
+  - `pull-quote`
+  - `step-through`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.0
+
+### Minor Changes
+
+- [`9f6f84dd3db72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f6f84dd3db72) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `curve-ease-in`
+  - `curve-ease-out`
+  - `curve-linear`
+  - `hardware-cleanse`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.1
 
 ### Patch Changes

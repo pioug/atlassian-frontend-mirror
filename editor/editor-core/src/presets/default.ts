@@ -55,7 +55,8 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-c
 import { userIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -158,7 +159,9 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 			uiControlRegistryPlugin,
 			expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true) ||
 				expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
-				expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true),
+				expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) ||
+				isExperimentEnabled('platform_editor_slash_command') ||
+				isExperimentEnabled('platform_editor_block_control_migration'),
 		)
 		.maybeAdd(
 			undoRedoPlugin,

@@ -21,9 +21,10 @@ export function keymapPlugin(api?: ExtractInjectionAPI<TrackChangesPlugin>): Saf
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			toggleViewChanges.common!,
 			() => {
-				const isShowDiffAvailable =
-					api?.trackChanges?.sharedState.currentState()?.isShowDiffAvailable;
-				if (!isShowDiffAvailable) {
+				const trackChangesState = api?.trackChanges?.sharedState.currentState();
+				// Mirror the toolbar button: no changes to show, or another plugin currently owns
+				// the diff decorations (e.g. the AI Review moment is visible).
+				if (!trackChangesState?.isShowDiffAvailable || trackChangesState?.isToggleChangesDisabled) {
 					return false;
 				}
 				const result = api?.core.actions.execute(api?.trackChanges?.commands.toggleChanges);

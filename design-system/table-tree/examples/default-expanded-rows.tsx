@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';
 
 import staticData from './data-cleancode-toc.json';

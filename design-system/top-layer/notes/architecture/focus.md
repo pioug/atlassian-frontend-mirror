@@ -43,6 +43,8 @@ background content.
 
 - Intercepts `Tab` and `Shift+Tab` (capture phase, `preventDefault()`)
 - Remaps them to `getNextFocusable({ container, direction })`, which handles wrapping
+- Uses a non-tabbable focused element only as the navigation origin so focus can leave it;
+  `tabindex="-1"` elements remain excluded as destinations
 - Used in `Popover` (active when role is `'dialog'`) and `Dialog` (always active)
 
 ### Nested top-layer scopes
@@ -57,9 +59,8 @@ layer and triggering its blur handlers (which typically close the inner layer).
 
 To avoid this, `useFocusWrap` calls `isNestedLayerFocused({ container })` before intercepting Tab.
 The helper returns `true` when `document.activeElement` is a descendant of the container but lives
-in a different (nested) top-layer scope (a `[popover]`, `<dialog>`, `[role="dialog"]`, or
-`[role="alertdialog"]` element). When that is the case, the outer hook returns early and lets the
-inner hook take over.
+in a different nested top-layer scope (a `[popover]` or `<dialog>` element). When that is the case,
+the outer hook returns early and lets the inner hook take over.
 
 The contract this preserves:
 

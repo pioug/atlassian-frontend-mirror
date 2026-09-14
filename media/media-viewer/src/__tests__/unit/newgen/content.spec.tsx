@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@atlassian/testing-library';
 import { Content } from '../../../content';
-import { type WithShowControlMethodProp } from '@atlaskit/media-ui';
+import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 
 let receivedShowControls: (() => void) | undefined;
 

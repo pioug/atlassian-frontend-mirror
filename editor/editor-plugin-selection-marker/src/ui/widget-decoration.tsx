@@ -12,7 +12,6 @@ import { token } from '@atlaskit/tokens';
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
 const MS_PREFIX_REGEX = /^ms/;
-// @ts-ignore - TS1501 Older versions of TypeScript don't play nice with the u flag. With the current AFM TypeScript version, this *should* be fine, but the pipeline type check fails, hence why a ts-ignore is needed (over a ts-expect-error)
 const NON_WHITESPACE_REGEX = /\S/u;
 
 type SelectionType = 'anchor' | 'head';

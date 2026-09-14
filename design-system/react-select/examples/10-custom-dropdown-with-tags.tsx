@@ -6,10 +6,11 @@
 import React from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import PersonIcon from '@atlaskit/icon/core/person';
-import Select, { components } from '@atlaskit/react-select';
-import Tag from '@atlaskit/tag';
+import Select from '@atlaskit/react-select/state-manager';
+import { components } from '@atlaskit/react-select/components';
+import Tag from '@atlaskit/tag/removable-tag';
 import { token } from '@atlaskit/tokens';
 
 import { cities } from './common/data';

@@ -3,14 +3,14 @@ import React from 'react';
 
 import * as tokensGetGlobalTheme from '@atlaskit/tokens/get-global-theme';
 import * as tokensSetGlobalTheme from '@atlaskit/tokens/set-global-theme';
-import { themeObjectToString } from '@atlaskit/tokens/theme-state-transformer';
+import { themeObjectToString } from '@atlaskit/tokens/theme-object-to-string';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 // Mock must be imported before ThemeProvider
 import { setMatchMediaPrefersDark } from '../mocks/match-media.mock';
 
 import AppProvider from '../../src/app-provider';
-import ThemeProvider from '../../src/theme-provider';
+import { ThemeProvider } from '../../src/theme-provider';
 import { type Theme } from '../../src/theme-provider/context/theme';
 import { useColorMode } from '../../src/theme-provider/hooks/use-color-mode';
 import { useIsInsideThemeProvider } from '../../src/theme-provider/hooks/use-is-inside-theme-provider';

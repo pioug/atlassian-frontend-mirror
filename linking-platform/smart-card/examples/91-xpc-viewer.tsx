@@ -2,7 +2,7 @@ import React, { Suspense, useCallback, useEffect, useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';
 
 const XPC_DROPDOWN_ZINDEX = 99999;

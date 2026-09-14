@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ButtonGroup from '@atlaskit/button';
-import Button from '@atlaskit/button/new';
+import ButtonGroup from '@atlaskit/button/button';
+import Button from '@atlaskit/button/default/button';
 
 const ButtonGroupDefaultExample = (): React.JSX.Element => {
 	return (

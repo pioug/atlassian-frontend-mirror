@@ -1,4 +1,6 @@
 import waitForExpect from 'wait-for-expect';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { type Client, ReactionStatus, ReactionUpdateType } from '../types';
 import * as AnalyticsModule from '../analytics';
 import {
@@ -91,6 +93,7 @@ describe('MemoryReactionsStore', () => {
 	});
 
 	const successCallBackFn = jest.fn();
+	const failureCallBackFn = jest.fn();
 
 	/**
 	 * Mock the getInstance method for all different UfoExperience object
@@ -119,6 +122,8 @@ describe('MemoryReactionsStore', () => {
 		(fakeClient.deleteReaction as jest.Mock<any>).mockReset();
 
 		fakeCreateAndFireSafe.mockReset();
+		successCallBackFn.mockReset();
+		failureCallBackFn.mockReset();
 
 		// Add UFO experience reset mocks
 		mockResetUFOInstance(fakeAddUFOInstance);
@@ -333,7 +338,7 @@ describe('MemoryReactionsStore', () => {
 
 			store.addReaction(containerAri, ari, '1f44d');
 
-			expect(fakeClient.addReaction).toBeCalledWith(containerAri, ari, '1f44d', metadata);
+			expect(fakeClient.addReaction).toHaveBeenCalledWith(containerAri, ari, '1f44d', metadata);
 		});
 	});
 	describe('with state set', () => {
@@ -462,13 +467,181 @@ describe('MemoryReactionsStore', () => {
 			});
 		});
 
-		it('should call success callback passed to remove reaction using toggle action if defined', () => {
+		it('should call success callback passed to remove reaction using toggle action if defined', async () => {
 			const response = Promise.resolve();
 			(fakeClient.deleteReaction as jest.Mock<any>).mockReturnValueOnce(response);
 
 			store.toggleReaction(containerAri, ari, '1f44f', successCallBackFn);
 
+			await response;
+
 			expect(successCallBackFn).toHaveBeenCalledTimes(1);
+		});
+
+		it('should revert the optimistic update and call onFailure when adding a reaction fails and onFailure is passed', async () => {
+			mockExpEnabled('exp-comment-reaction-fail-fix');
+			const error = new Error('add error');
+			(fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(
+				createSafeRejectedPromise(error),
+			);
+
+			store.addReaction(containerAri, ari, '1f44d', undefined, failureCallBackFn);
+
+			await waitForExpect(() => {
+				expect(failureCallBackFn).toHaveBeenCalledWith(
+					ReactionUpdateType.added,
+					ari,
+					'1f44d',
+					error,
+				);
+				expect(store.getState()).toMatchObject({
+					reactions: {
+						[`${containerAri}|${ari}`]: {
+							status: ReactionStatus.ready,
+							reactions: [
+								getReactionSummary(':thumbsup:', 3, false),
+								getReactionSummary(':clap:', 3, true),
+							],
+						},
+					},
+				});
+			});
+		});
+
+		it('should revert the optimistic update and call onFailure when removing a reaction fails and onFailure is passed', async () => {
+			mockExpEnabled('exp-comment-reaction-fail-fix');
+			const error = new Error('delete error');
+			(fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(error);
+
+			store.toggleReaction(containerAri, ari, '1f44f', undefined, failureCallBackFn);
+
+			await waitForExpect(() => {
+				expect(failureCallBackFn).toHaveBeenCalledWith(
+					ReactionUpdateType.removed,
+					ari,
+					'1f44f',
+					error,
+				);
+				expect(store.getState()).toMatchObject({
+					reactions: {
+						[`${containerAri}|${ari}`]: {
+							status: ReactionStatus.ready,
+							reactions: [
+								getReactionSummary(':thumbsup:', 3, false),
+								getReactionSummary(':clap:', 3, true),
+							],
+						},
+					},
+				});
+			});
+		});
+
+		it('should not revert the optimistic update or call onFailure when adding a reaction fails and the gate is off', async () => {
+			mockExpDisabled('exp-comment-reaction-fail-fix');
+			const error = new Error('add error');
+			(fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(
+				createSafeRejectedPromise(error),
+			);
+
+			store.addReaction(containerAri, ari, '1f44d', undefined, failureCallBackFn);
+
+			await waitForExpect(() => {
+				expect(fakeClient.addReaction).toHaveBeenCalledTimes(1);
+				expect(failureCallBackFn).not.toHaveBeenCalled();
+				expect(store.getState()).toMatchObject({
+					reactions: {
+						[`${containerAri}|${ari}`]: {
+							status: ReactionStatus.ready,
+							reactions: [
+								{
+									...getReactionSummary(':thumbsup:', 4, true),
+									optimisticallyUpdated: true,
+								},
+								getReactionSummary(':clap:', 3, true),
+							],
+						},
+					},
+				});
+			});
+		});
+
+		it('should not revert the optimistic update or call onFailure when removing a reaction fails and the gate is off', async () => {
+			mockExpDisabled('exp-comment-reaction-fail-fix');
+			const error = new Error('delete error');
+			(fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(error);
+
+			store.toggleReaction(containerAri, ari, '1f44f', undefined, failureCallBackFn);
+
+			await waitForExpect(() => {
+				expect(fakeClient.deleteReaction).toHaveBeenCalledTimes(1);
+				expect(failureCallBackFn).not.toHaveBeenCalled();
+				expect(store.getState()).toMatchObject({
+					reactions: {
+						[`${containerAri}|${ari}`]: {
+							status: ReactionStatus.ready,
+							reactions: [
+								getReactionSummary(':thumbsup:', 3, false),
+								{
+									...getReactionSummary(':clap:', 2, false),
+									optimisticallyUpdated: true,
+								},
+							],
+						},
+					},
+				});
+			});
+		});
+
+		it('should not revert the optimistic update when adding a reaction fails and onFailure is not passed', async () => {
+			const error = new Error('add error');
+			(fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(
+				createSafeRejectedPromise(error),
+			);
+
+			store.addReaction(containerAri, ari, '1f44d');
+
+			await waitForExpect(() => {
+				expect(fakeClient.addReaction).toHaveBeenCalledTimes(1);
+				expect(store.getState()).toMatchObject({
+					reactions: {
+						[`${containerAri}|${ari}`]: {
+							status: ReactionStatus.ready,
+							reactions: [
+								{
+									...getReactionSummary(':thumbsup:', 4, true),
+									optimisticallyUpdated: true,
+								},
+								getReactionSummary(':clap:', 3, true),
+							],
+						},
+					},
+				});
+			});
+		});
+
+		it('should not revert the optimistic update when removing a reaction fails and onFailure is not passed', async () => {
+			const error = new Error('delete error');
+			(fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(error);
+
+			store.toggleReaction(containerAri, ari, '1f44f');
+
+			await waitForExpect(() => {
+				expect(fakeClient.deleteReaction).toHaveBeenCalledTimes(1);
+				expect(store.getState()).toMatchObject({
+					reactions: {
+						[`${containerAri}|${ari}`]: {
+							status: ReactionStatus.ready,
+							reactions: [
+								getReactionSummary(':thumbsup:', 3, false),
+								{
+									...getReactionSummary(':clap:', 2, false),
+									optimisticallyUpdated: true,
+								},
+							],
+						},
+					},
+				});
+			});
 		});
 	});
 
@@ -500,14 +673,14 @@ describe('MemoryReactionsStore', () => {
 				store.getDetailedReaction(containerAri, ari, '1f44d');
 
 				// Validate the start method been called
-				expect(fakeFetchDetailsUFOInstance.start).toBeCalled();
+				expect(fakeFetchDetailsUFOInstance.start).toHaveBeenCalled();
 				expect(fakeClient.getDetailedReaction).toHaveBeenCalledTimes(1);
 
 				await response;
 
 				// Check success response
-				expect(fakeFetchDetailsUFOInstance.success).toBeCalled();
-				expect(fakeFetchDetailsUFOInstance.failure).not.toBeCalled();
+				expect(fakeFetchDetailsUFOInstance.success).toHaveBeenCalled();
+				expect(fakeFetchDetailsUFOInstance.failure).not.toHaveBeenCalled();
 				expect(store.getState()).toMatchObject({
 					reactions: {
 						[`${containerAri}|${ari}`]: {
@@ -531,13 +704,13 @@ describe('MemoryReactionsStore', () => {
 				store.getDetailedReaction(containerAri, ari, '1f44d');
 
 				// Validate the start method been called
-				expect(fakeFetchDetailsUFOInstance.start).toBeCalled();
+				expect(fakeFetchDetailsUFOInstance.start).toHaveBeenCalled();
 
 				await response;
 
 				await waitForExpect(() => {
-					expect(fakeFetchDetailsUFOInstance.success).not.toBeCalled();
-					expect(fakeFetchDetailsUFOInstance.failure).toBeCalled();
+					expect(fakeFetchDetailsUFOInstance.success).not.toHaveBeenCalled();
+					expect(fakeFetchDetailsUFOInstance.failure).toHaveBeenCalled();
 				});
 			});
 		});
@@ -551,18 +724,18 @@ describe('MemoryReactionsStore', () => {
 				store.addReaction(containerAri, ari, '1f44d');
 
 				// Validate the start method been called
-				expect(fakeAddUFOInstance.start).toBeCalled();
+				expect(fakeAddUFOInstance.start).toHaveBeenCalled();
 
 				await response;
 
 				// Check success response
-				expect(fakeCreateAndFireSafe).toBeCalledWith(
+				expect(fakeCreateAndFireSafe).toHaveBeenCalledWith(
 					fakeCreateAnalyticsEvent,
 					AnalyticsModule.createRestSucceededEvent,
 					'addReaction',
 				);
-				expect(fakeAddUFOInstance.success).toBeCalled();
-				expect(fakeAddUFOInstance.failure).not.toBeCalled();
+				expect(fakeAddUFOInstance.success).toHaveBeenCalled();
+				expect(fakeAddUFOInstance.failure).not.toHaveBeenCalled();
 			});
 
 			it('should fire SLI analytics when reaction failed to be added', async () => {
@@ -578,15 +751,15 @@ describe('MemoryReactionsStore', () => {
 
 				// assert
 				// Validate the start method been called
-				expect(fakeAddUFOInstance.start).toBeCalled();
-				expect(fakeCreateAndFireSafe).toBeCalledWith(
+				expect(fakeAddUFOInstance.start).toHaveBeenCalled();
+				expect(fakeCreateAndFireSafe).toHaveBeenCalledWith(
 					fakeCreateAnalyticsEvent,
 					AnalyticsModule.createRestFailedEvent,
 					'addReaction',
 					503,
 				);
-				expect(fakeAddUFOInstance.success).not.toBeCalled();
-				expect(fakeAddUFOInstance.failure).toBeCalled();
+				expect(fakeAddUFOInstance.success).not.toHaveBeenCalled();
+				expect(fakeAddUFOInstance.failure).toHaveBeenCalled();
 			});
 
 			it('should not fire addReaction SLI analytics when createAnalyticsEvent is not provided', async () => {
@@ -609,10 +782,10 @@ describe('MemoryReactionsStore', () => {
 				store.toggleReaction(containerAri, ari, '1f44f');
 
 				// Validate the start method been called
-				expect(fakeRemoveUFOInstance.start).toBeCalled();
+				expect(fakeRemoveUFOInstance.start).toHaveBeenCalled();
 				await response;
 				// Check success response
-				expect(fakeRemoveUFOInstance.success).toBeCalled();
+				expect(fakeRemoveUFOInstance.success).toHaveBeenCalled();
 			});
 
 			it('should fire SLI analytics when reaction failed to be removed', async () => {
@@ -622,13 +795,13 @@ describe('MemoryReactionsStore', () => {
 				store.toggleReaction(containerAri, ari, '1f44f');
 
 				// Validate the start method been called
-				expect(fakeRemoveUFOInstance.start).toBeCalled();
+				expect(fakeRemoveUFOInstance.start).toHaveBeenCalled();
 
 				await response;
 
 				await waitForExpect(() => {
-					expect(fakeRemoveUFOInstance.success).not.toBeCalled();
-					expect(fakeRemoveUFOInstance.failure).toBeCalled();
+					expect(fakeRemoveUFOInstance.success).not.toHaveBeenCalled();
+					expect(fakeRemoveUFOInstance.failure).toHaveBeenCalled();
 				});
 			});
 		});
@@ -646,9 +819,9 @@ describe('MemoryReactionsStore', () => {
 				await getReactionsResponse;
 
 				await waitForExpect(() => {
-					expect(fakeRenderUFOInstance.start).toBeCalled();
-					expect(fakeRenderUFOInstance.success).toBeCalled();
-					expect(fakeCreateAndFireSafe).toBeCalledWith(
+					expect(fakeRenderUFOInstance.start).toHaveBeenCalled();
+					expect(fakeRenderUFOInstance.success).toHaveBeenCalled();
+					expect(fakeCreateAndFireSafe).toHaveBeenCalledWith(
 						fakeCreateAnalyticsEvent,
 						AnalyticsModule.createRestSucceededEvent,
 						'getReactions',
@@ -671,9 +844,9 @@ describe('MemoryReactionsStore', () => {
 				await getReactionsResponse;
 
 				// assert
-				expect(fakeRenderUFOInstance.start).toBeCalled();
-				expect(fakeRenderUFOInstance.failure).toBeCalled();
-				expect(fakeCreateAndFireSafe).toBeCalledWith(
+				expect(fakeRenderUFOInstance.start).toHaveBeenCalled();
+				expect(fakeRenderUFOInstance.failure).toHaveBeenCalled();
+				expect(fakeCreateAndFireSafe).toHaveBeenCalledWith(
 					fakeCreateAnalyticsEvent,
 					AnalyticsModule.createRestFailedEvent,
 					'getReactions',

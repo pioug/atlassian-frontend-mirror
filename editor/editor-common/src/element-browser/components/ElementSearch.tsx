@@ -14,7 +14,8 @@ import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsCon
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import SearchIcon from '@atlaskit/icon/core/search';
-import Textfield from '@atlaskit/textfield';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import type { QuickInsertItem } from '../../provider-factory';
@@ -97,9 +98,11 @@ function ElementSearch({
 	const assistiveMessage = getFormattedMessage(items?.length);
 
 	const isInputNotFocusedAndItemSelected = !inputFocused && selectedItemIndex !== undefined;
-	const ariaActiveDescendant = isInputNotFocusedAndItemSelected
-		? `searched-item-${selectedItemIndex}`
-		: undefined;
+	const ariaActiveDescendant =
+		isInputNotFocusedAndItemSelected &&
+		(!isExperimentEnabled('platform_editor_element_browser_aria_fix') || items[selectedItemIndex])
+			? `searched-item-${selectedItemIndex}`
+			: undefined;
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

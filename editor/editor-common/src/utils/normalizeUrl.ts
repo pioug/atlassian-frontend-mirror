@@ -1,4 +1,5 @@
-import { isSafeUrl, normalizeUrl as normaliseLinkHref } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import { normalizeUrl as normaliseLinkHref } from '@atlaskit/adf-schema/normalize-url';
 
 /**
  * Adds protocol to url if needed.

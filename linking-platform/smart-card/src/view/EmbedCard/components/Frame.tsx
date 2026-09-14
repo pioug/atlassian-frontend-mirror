@@ -16,10 +16,10 @@ import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-import { getIframeSandboxAttribute } from '../../../utils';
+import { getIframeSandboxAttribute } from '../../../utils/get-iframe-sandbox-attribute';
 
 import { IFrame } from './IFrame';
 import { IframeDwellTracker } from './IframeDwellTracker';

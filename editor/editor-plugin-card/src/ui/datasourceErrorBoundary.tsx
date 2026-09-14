@@ -1,9 +1,9 @@
 /* eslint-disable @repo/internal/react/no-class-components */
 import React from 'react';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
-import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
+import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource/analytics/render-failed';
 import type { APIError } from '@atlaskit/linking-common';
 
 import type { DatasourceProps } from '../nodeviews/datasource';

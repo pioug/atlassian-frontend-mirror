@@ -22,5 +22,13 @@ class UFOLogger {
 
 export const ufologger: UFOLogger = new UFOLogger();
 
+/**
+ * @deprecated Volt migration shim. Import from the explicit subpath instead.
+ * Retained only while consumers migrate off the barrel.
+ */
 export { ufolog } from './ufolog';
+/**
+ * @deprecated Volt migration shim. Import from the explicit subpath instead.
+ * Retained only while consumers migrate off the barrel.
+ */
 export { ufowarn } from './ufowarn';

@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-common/lists';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Returns true if a listItem has at least one non-list child (paragraph, etc.).

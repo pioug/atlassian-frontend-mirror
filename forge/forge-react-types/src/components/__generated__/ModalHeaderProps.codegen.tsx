@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { ModalHeader as PlatformModalHeader } from '@atlaskit/modal-dialog';
+import PlatformModalHeader from '@atlaskit/modal-dialog/modal-header';
 
 type PlatformModalHeaderProps = React.ComponentProps<typeof PlatformModalHeader>;
 

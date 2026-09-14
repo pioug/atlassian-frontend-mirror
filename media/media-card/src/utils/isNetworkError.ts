@@ -1,5 +1,6 @@
-import type { MediaCardError } from '../errors';
 import { isCommonMediaClientError } from '@atlaskit/media-client';
+
+import type { MediaCardError } from '../MediaCardError';
 
 export function isNetworkError(error: MediaCardError | undefined): boolean {
 	if (!error) {

@@ -93,15 +93,15 @@ test.describe('width-provider when table resizing is enabled', () => {
 
 			// NOTE: Comment Renderer uses 40% as MAX_SCALING_PERCENT
 			// (MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION) because
-			// isTableScalingEnabled is always true for comment appearance.
-
-			// tableWidthDiff = (ADFTableWidth - newViwportWidth) / ADFTableWidth =
-			// 				  = (880 - 500) / 880 = 0.432;
-			// Scale table by = tableWidthDiff > MAX_SCALING_PERCENT ? MAX_SCALING_PERCENT : tableWidthDiff;
-			// New table width will be using max scaling percent (40%). So new target width is equal:
-			// Note: actual rendered width is 526 due to integer rounding of column widths
-			// (floor(880/3) = 293 per column, 293 * 3 = 879, 879 * 0.6 = 527.4 → 526px rendered)
-			const targetWidth = 526;
+			// isTableScalingEnabled is always true for comment appearance, which would cap the
+			// rendered width at 526px (floor(880/3) = 293 per column, 293 * 3 = 879,
+			// 879 * 0.6 = 527.4 → 526px).
+			//
+			// The table has an explicit `width` attribute, so the comment renderer's container
+			// query resolves its width to min(tableWidth, 100cqw). The 100cqw clamp is the tighter
+			// of the two, so the table tracks the 500px renderer width rather than stopping at the
+			// 40% maximum column scale down.
+			const targetWidth = newViwportWidth;
 
 			await renderer.page.waitForFunction(
 				(targetWidth) => {

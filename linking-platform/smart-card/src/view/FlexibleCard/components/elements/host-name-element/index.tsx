@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ElementName } from '../../../../../constants';
-import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context/useFlexibleCardContext';
 import { BaseTextElement, type BaseTextElementProps } from '../common';
 
 export type HostNameElementProps = BaseTextElementProps;

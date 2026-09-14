@@ -1,7 +1,9 @@
 import { getAllIconsTool } from '../../src/tools/get-all-icons/get-all-icons-tool';
 
-jest.mock('@atlaskit/icon/metadata', () => ({
-	coreIconMetadata: {
+jest.mock('@atlaskit/icon/metadata-core', () => ({
+	...jest.requireActual('@atlaskit/icon/metadata-core'),
+	__esModule: true,
+	default: {
 		'test-icon': {
 			keywords: ['test-keyword'],
 			componentName: 'ExampleIcon',

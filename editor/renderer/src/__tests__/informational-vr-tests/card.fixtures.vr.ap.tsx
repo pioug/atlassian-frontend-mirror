@@ -1,0 +1,708 @@
+import React from 'react';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { IFrame } from '@atlaskit/smart-card/test-utils/iframe';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+
+import { Renderer } from '../../entry-points/renderer-default';
+import {
+	NotFoundClient,
+	ForbiddenClient,
+	ErroredClient,
+	UnauthorizedClient,
+	ResolvingClient,
+	embedContent,
+	ResolvedClient,
+	ForbiddenWithSiteDeniedRequestClient,
+	ForbiddenWithSiteDirectAccessClient,
+	ForbiddenWithObjectRequestAccessClient,
+	ForbiddenWithSitePendingRequestClient,
+	ForbiddenWithSiteRequestAccessClient,
+	ForbiddenWithSiteApprovedRequestClient,
+	ForbiddenWithSiteForbiddenClient,
+} from './card.customClient';
+
+import { DiProvider, injectable } from 'react-magnetic-di';
+
+mockDatasourceFetchRequests({
+	initialVisibleColumnKeys: ['key', 'assignee', 'summary', 'description'],
+	delayedResponse: false,
+});
+
+const MockIFrame: typeof IFrame = ({ childRef, ...props }) => (
+	// eslint-disable-next-line @atlassian/a11y/iframe-has-title -- See https://go/a11y-iframe-has-title for more details
+	<iframe ref={childRef} {...props} srcDoc={embedContent} />
+);
+
+const contextIdentifierProvider = storyContextIdentifierProviderFactory();
+const providerFactory = ProviderFactory.create({
+	contextIdentifierProvider,
+});
+
+const buildEmbedCardWithAttributesAdf = (attributes: Record<string, unknown>) => ({
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'embedCard',
+			attrs: {
+				...attributes,
+			},
+		},
+	],
+});
+
+const buildEmbedCardAdf = (url: string, layout: 'center' | 'wide' = 'center') => ({
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'embedCard',
+			attrs: {
+				url: url,
+				layout,
+			},
+		},
+	],
+});
+
+const buildBlockCardAdf = (url: string) => ({
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'blockCard',
+			attrs: {
+				url: url,
+			},
+		},
+	],
+});
+
+const buildBlockCardWithAttributesAdf = (attributes: Record<string, unknown>) => ({
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'blockCard',
+			attrs: {
+				...attributes,
+			},
+		},
+	],
+});
+
+const buildInlineCardAdf = (url: string) => ({
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'inlineCard',
+					attrs: {
+						url,
+					},
+				},
+				{
+					type: 'text',
+					text: ' ',
+				},
+			],
+		},
+	],
+});
+
+const buildRendererExampleAttributes = (width: string) => {
+	const attrs = {
+		url: 'https://a4t-moro.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC',
+		datasource: {
+			id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
+			parameters: {
+				cloudId: 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b',
+				jql: 'project=EDM',
+			},
+			views: [
+				{
+					type: 'table',
+					properties: {
+						columns: [
+							{
+								key: 'key',
+							},
+							{
+								key: 'description',
+							},
+						],
+					},
+				},
+			],
+		},
+		layout: width,
+	};
+
+	return attrs;
+};
+
+const SmartCardTestWrapper = ({ adf, client }: { adf: unknown; client: CardClient }) => {
+	return (
+		<SmartCardProvider client={client}>
+			<DiProvider use={[injectable(IFrame, MockIFrame)]}>
+				<MockMediaClientProvider>
+					<Renderer
+						adfStage={'stage0'}
+						// @ts-expect-error
+						document={adf}
+						appearance={'full-page'}
+						dataProviders={providerFactory}
+						media={{
+							allowLinking: true,
+						}}
+						allowColumnSorting={true}
+					/>
+				</MockMediaClientProvider>
+			</DiProvider>
+		</SmartCardProvider>
+	);
+};
+
+export const RendererInlineCard = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl')}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardXSS = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('javascript:alert(document.domain)')}
+			client={new NotFoundClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardResolving = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/resolving')}
+			client={new ResolvingClient(1000000)}
+		/>
+	);
+};
+
+export const RendererInlineCardUnauthorized = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/unauthorized')}
+			client={new UnauthorizedClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardForbidden = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden')}
+			client={new ForbiddenClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardNotFound = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/notFound')}
+			client={new NotFoundClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardErrored = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/errored')}
+			client={new ErroredClient()}
+		/>
+	);
+};
+
+export const RendererBlockCard = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl')}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardXSS = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('javascript:alert(document.domain)')}
+			client={new NotFoundClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardResolving = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/resolving')}
+			client={new ResolvingClient(1000000)}
+		/>
+	);
+};
+
+export const RendererBlockCardUnauthorized = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/unauthorized')}
+			client={new UnauthorizedClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardForbidden = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://inlineCardTestUrl/forbidden')}
+			client={new ForbiddenClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardNotFound = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/notFound')}
+			client={new NotFoundClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardErrored = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/errored')}
+			client={new ErroredClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCard = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl')}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardXSS = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('javascript:alert(document.domain)')}
+			client={new NotFoundClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardWide = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl', 'wide')}
+			// Honestly doesn't really matter - we just need to check the layout
+			client={new NotFoundClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardResolving = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/resolving')}
+			client={new ResolvingClient(1000000)}
+		/>
+	);
+};
+export const RendererEmbedCardUnauthorized = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/unauthorized')}
+			client={new UnauthorizedClient()}
+		/>
+	);
+};
+export const RendererEmbedCardForbidden = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden')}
+			client={new ForbiddenClient()}
+		/>
+	);
+};
+export const RendererEmbedCardNotFound = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/notFound')}
+			client={new NotFoundClient()}
+		/>
+	);
+};
+export const RendererEmbedCardErrored = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/errored')}
+			client={new ErroredClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardComplex = (): React.JSX.Element => {
+	const attrs = {
+		layout: 'center',
+		originalHeight: 322,
+		originalWidth: null,
+		url: 'https://embedCardTestUrl',
+		width: 100,
+	};
+
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardWithAttributesAdf(attrs)}
+			// Honestly doesn't really matter - we just need to check the layout
+			client={new NotFoundClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardCenterLayoutAndNoWidth = (): React.JSX.Element => {
+	const attrs = {
+		layout: 'center',
+		originalWidth: null,
+		originalHeight: 331,
+		url: 'https://embedCardTestUrl',
+	};
+
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardWithAttributesAdf(attrs)}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardCenterLayout100PercentWidth = (): React.JSX.Element => {
+	const attrs = {
+		layout: 'center',
+		originalWidth: null,
+		width: 100,
+		originalHeight: 331,
+		url: 'https://embedCardTestUrl',
+	};
+
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardWithAttributesAdf(attrs)}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardCenterLayout88PercentWidth = (): React.JSX.Element => {
+	const attrs = {
+		layout: 'center',
+		originalWidth: null,
+		width: 88,
+		originalHeight: 262,
+		url: 'https://embedCardTestUrl',
+	};
+
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardWithAttributesAdf(attrs)}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+// ------
+export const RendererEmbedCardCenterLayoutNoHeightAndNoMessageAndNoWidth =
+	(): React.JSX.Element => {
+		const attrs = {
+			layout: 'center',
+			originalWidth: null,
+			originalHeight: undefined,
+			url: 'https://embedCardTestUrl/noMessages',
+		};
+
+		return (
+			<SmartCardTestWrapper
+				adf={buildEmbedCardWithAttributesAdf(attrs)}
+				client={new ResolvedClient()}
+			/>
+		);
+	};
+
+export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage100PercentWidth =
+	(): React.JSX.Element => {
+		const attrs = {
+			layout: 'center',
+			originalWidth: null,
+			width: 100,
+			originalHeight: undefined,
+			url: 'https://embedCardTestUrl/noMessages',
+		};
+
+		return (
+			<SmartCardTestWrapper
+				adf={buildEmbedCardWithAttributesAdf(attrs)}
+				client={new ResolvedClient()}
+			/>
+		);
+	};
+
+export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth =
+	(): React.JSX.Element => {
+		const attrs = {
+			layout: 'center',
+			originalWidth: null,
+			width: 88,
+			originalHeight: undefined,
+			url: 'https://embedCardTestUrl/noMessages',
+		};
+
+		return (
+			<SmartCardTestWrapper
+				adf={buildEmbedCardWithAttributesAdf(attrs)}
+				client={new ResolvedClient()}
+			/>
+		);
+	};
+
+export const RendererBlockCardFullWidthLayout = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardWithAttributesAdf(buildRendererExampleAttributes('full-width'))}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardDefaultWidthLayout = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardWithAttributesAdf(buildRendererExampleAttributes('center'))}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardWideWidthLayout = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardWithAttributesAdf(buildRendererExampleAttributes('wide'))}
+			client={new ResolvedClient()}
+		/>
+	);
+};
+
+// Inline card forbidden links with request access
+export const RendererInlineCardRequestAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/REQUEST_ACCESS')}
+			client={new ForbiddenWithSiteRequestAccessClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardForbiddenPendingRequestAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/PENDING_REQUEST_EXISTS')}
+			client={new ForbiddenWithSitePendingRequestClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardRequestAccessForbidden = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/FORBIDDEN')}
+			client={new ForbiddenWithSiteForbiddenClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardRequestAccessDirectAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/DIRECT_ACCESS')}
+			client={new ForbiddenWithSiteDirectAccessClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardRequestAccessDeniedRequestExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/DENIED_REQUEST_EXISTS')}
+			client={new ForbiddenWithSiteDeniedRequestClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardForbiddenRequestApprovedRequestExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS')}
+			client={new ForbiddenWithSiteApprovedRequestClient()}
+		/>
+	);
+};
+
+export const RendererInlineCardRequestAccessAccessExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden/ACCESS_EXISTS')}
+			client={new ForbiddenWithObjectRequestAccessClient()}
+		/>
+	);
+};
+
+// block card forbidden links with request access
+export const RendererBlockCardRequestAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/REQUEST_ACCESS')}
+			client={new ForbiddenWithSiteRequestAccessClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardForbiddenPendingRequestAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/PENDING_REQUEST_EXISTS')}
+			client={new ForbiddenWithSitePendingRequestClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardRequestAccessForbidden = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/FORBIDDEN')}
+			client={new ForbiddenWithSiteForbiddenClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardRequestAccessDirectAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/DIRECT_ACCESS')}
+			client={new ForbiddenWithSiteDirectAccessClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardRequestAccessDeniedRequestExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/DENIED_REQUEST_EXISTS')}
+			client={new ForbiddenWithSiteDeniedRequestClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardForbiddenRequestApprovedRequestExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS')}
+			client={new ForbiddenWithSiteApprovedRequestClient()}
+		/>
+	);
+};
+
+export const RendererBlockCardRequestAccessAccessExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden/ACCESS_EXISTS')}
+			client={new ForbiddenWithObjectRequestAccessClient()}
+		/>
+	);
+};
+
+// Embed card forbidden links with request access
+export const RendererEmbedCardRequestAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/REQUEST_ACCESS')}
+			client={new ForbiddenWithSiteRequestAccessClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardForbiddenPendingRequestAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/PENDING_REQUEST_EXISTS')}
+			client={new ForbiddenWithSitePendingRequestClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardRequestAccessForbidden = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/FORBIDDEN')}
+			client={new ForbiddenWithSiteForbiddenClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardRequestAccessDirectAccess = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/DIRECT_ACCESS')}
+			client={new ForbiddenWithSiteDirectAccessClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardRequestAccessDeniedRequestExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/DENIED_REQUEST_EXISTS')}
+			client={new ForbiddenWithSiteDeniedRequestClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardForbiddenRequestApprovedRequestExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/APPROVED_REQUEST_EXISTS')}
+			client={new ForbiddenWithSiteApprovedRequestClient()}
+		/>
+	);
+};
+
+export const RendererEmbedCardRequestAccessAccessExists = (): React.JSX.Element => {
+	return (
+		<SmartCardTestWrapper
+			adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden/ACCESS_EXISTS')}
+			client={new ForbiddenWithObjectRequestAccessClient()}
+		/>
+	);
+};

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';

@@ -8,10 +8,11 @@ import {
 	createRateLimitedError,
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
-import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import * as analytics from '../../../analytics';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ItemViewer } from '../../../item-viewer';
 import { createMockedMediaClientProvider } from '../../utils/_mockedMediaClientProvider';
@@ -35,7 +36,7 @@ jest.mock('@atlaskit/media-client', () => {
 
 /* Jest Spies */
 
-jest.spyOn(analytics, 'fireAnalytics').mockImplementation(() => {});
+jest.spyOn(fireAnalyticsModule, 'fireAnalytics').mockImplementation(() => {});
 
 const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFileUfoExperience');
 
@@ -266,7 +267,7 @@ describe('<ItemViewer />', () => {
 				}),
 			).toBeInTheDocument();
 
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					action: 'commenced',
 					actionSubject: 'mediaFile',
@@ -281,7 +282,7 @@ describe('<ItemViewer />', () => {
 				expect.anything(),
 			);
 
-			expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+			expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
 
 			await expect(document.body).toBeAccessible();
 		});
@@ -309,7 +310,7 @@ describe('<ItemViewer />', () => {
 			expect(img).toBeDefined();
 			fireEvent.load(img);
 
-			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'commenced',
 					actionSubject: 'mediaFile',
@@ -323,8 +324,8 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
-			expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					action: 'loadSucceeded',
 					actionSubject: 'mediaFile',
@@ -347,7 +348,7 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
-			expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+			expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith({
 				fileAttributes: {
 					fileId: identifier.id,
 					fileMediatype: 'image',
@@ -404,7 +405,7 @@ describe('<ItemViewer />', () => {
 			expect(interactiveImg).toBeInTheDocument();
 			fireEvent.load(interactiveImg);
 
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					action: 'loadSucceeded',
 					actionSubject: 'mediaFile',
@@ -425,7 +426,7 @@ describe('<ItemViewer />', () => {
 				expect.anything(),
 			);
 
-			expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+			expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith({
 				fileAttributes: {
 					fileId: identifier.id,
 					fileMediatype: 'image',
@@ -457,7 +458,7 @@ describe('<ItemViewer />', () => {
 			expect(interactiveImg).toBeInTheDocument();
 			fireEvent.load(interactiveImg);
 
-			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'loadSucceeded',
 					actionSubject: 'mediaFile',
@@ -478,7 +479,7 @@ describe('<ItemViewer />', () => {
 				}),
 				expect.anything(),
 			);
-			expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+			expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith({
 				fileAttributes: {
 					fileId: 'external-image',
 					fileMediatype: undefined,
@@ -528,7 +529,7 @@ describe('<ItemViewer />', () => {
 			expect(interactiveImg).toBeInTheDocument();
 			fireEvent.error(interactiveImg);
 
-			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenCalledWith(
 				{
 					action: 'loadFailed',
 					actionSubject: 'mediaFile',
@@ -543,7 +544,7 @@ describe('<ItemViewer />', () => {
 				expect.anything(),
 			);
 
-			expect(mockfailMediaFileUfoExperience).toBeCalledWith({
+			expect(mockfailMediaFileUfoExperience).toHaveBeenCalledWith({
 				...errorInfo,
 				request: undefined,
 				traceContext: undefined,
@@ -577,7 +578,7 @@ describe('<ItemViewer />', () => {
 				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
 			);
 
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				{
 					eventType: 'operational',
 					action: 'loadFailed',
@@ -641,7 +642,7 @@ describe('<ItemViewer />', () => {
 			expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
 
 			// check the error attributes
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				{
 					eventType: 'operational',
 					action: 'loadFailed',
@@ -708,7 +709,7 @@ describe('<ItemViewer />', () => {
 			).toBeDefined();
 
 			// check the error attributes
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'itemviewer-file-failed-processing-status',
@@ -751,7 +752,7 @@ describe('<ItemViewer />', () => {
 			).toBeDefined();
 
 			// check the error attributes
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					action: 'previewUnsupported',
 					attributes: expect.objectContaining({
@@ -770,6 +771,7 @@ describe('<ItemViewer />', () => {
 		});
 
 		it('should load error expeience when file size exceeds the limit on code mimetype', async () => {
+			failGate('platform_media_too_large_preview_state');
 			const [fileItem, identifier] = generateSampleFileItem.workingCodeLarge();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -787,7 +789,7 @@ describe('<ItemViewer />', () => {
 			expect(errorIcon).toBeInTheDocument();
 
 			// check the error attributes
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'codeviewer-file-size-exceeds',
@@ -798,6 +800,56 @@ describe('<ItemViewer />', () => {
 							fileSize: fileItem.details.size,
 						},
 					}),
+				}),
+				expect.anything(),
+			);
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should show size-aware too-large state when gate is on and code file exceeds size limit', async () => {
+			passGate('platform_media_too_large_preview_state');
+			const [fileItem, identifier] = generateSampleFileItem.workingCodeLarge();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			expect(await screen.findByText('File is too large to preview')).toBeInTheDocument();
+
+			// This is a non-SLI `previewTooLarge` metric, not a `loadFailed` SLI. The
+			// `failReason` distinguishes an oversized item from an oversized ZIP entry.
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'previewTooLarge',
+					attributes: expect.objectContaining({
+						failReason: 'codeviewer-file-size-exceeds',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
+					}),
+				}),
+				expect.anything(),
+			);
+
+			// The shared download CTA is unaffected by the gate.
+			const downloadButton = screen.getByTestId('media-viewer-error-download-button');
+			expect(downloadButton).toBeInTheDocument();
+
+			fireEvent.click(downloadButton);
+
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubjectId: 'failedPreviewDownloadButton',
 				}),
 				expect.anything(),
 			);
@@ -833,7 +885,7 @@ describe('<ItemViewer />', () => {
 			expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
 
 			// check the error attributes
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'videoviewer-playback',
@@ -879,7 +931,7 @@ describe('<ItemViewer />', () => {
 			expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
 
 			// check the error attributes
-			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+			expect(fireAnalyticsModule.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'audioviewer-playback',

@@ -7,8 +7,9 @@ import { useCallback, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { ExitingPersistence, SlideIn, type Transition } from '@atlaskit/motion';
-import type { SlideInProps } from '@atlaskit/motion/types';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import type { Transition } from '@atlaskit/motion/entering/types';
+import SlideIn, { type SlideInProps } from '@atlaskit/motion/slide-in';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 

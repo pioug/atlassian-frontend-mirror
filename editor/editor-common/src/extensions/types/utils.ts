@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type {
+	ExtensionApp,
 	ExtensionKey,
 	ExtensionModuleActionHandler,
 	ExtensionType,
@@ -10,7 +11,9 @@ import type {
 } from './extension-manifest';
 
 export type MenuItem = {
+	app?: ExtensionApp;
 	categories: string[];
+	category?: string;
 	description?: string;
 	documentationUrl?: string;
 	extensionKey: ExtensionKey;

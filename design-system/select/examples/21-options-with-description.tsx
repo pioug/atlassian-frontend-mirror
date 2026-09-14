@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import Select, { type FormatOptionLabelMeta, type OptionType } from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/select/default';
+import type { FormatOptionLabelMeta, OptionType } from '@atlaskit/select/types';
 
 type CustomOption = {
 	label: string;

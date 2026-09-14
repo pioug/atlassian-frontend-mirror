@@ -8,7 +8,7 @@ import OwnedByElement from './index';
 
 const testId = 'smart-element-text';
 
-jest.mock('../../../../../state/flexible-ui-context', () => ({
+jest.mock('../../../../../state/flexible-ui-context/useFlexibleUiContext', () => ({
 	useFlexibleUiContext: jest.fn(() => ({
 		ownedBy: 'John Doe',
 	})),

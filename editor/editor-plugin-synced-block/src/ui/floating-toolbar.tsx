@@ -28,7 +28,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -229,7 +228,7 @@ export const getToolbarConfig = (
 			items.push(editSourceButton);
 		}
 
-		if (!isSyncBlockActivationEnabled && fg('platform_synced_block_patch_13')) {
+		if (!isSyncBlockActivationEnabled) {
 			const separator: FloatingToolbarItem<Command> = {
 				type: 'separator',
 			};

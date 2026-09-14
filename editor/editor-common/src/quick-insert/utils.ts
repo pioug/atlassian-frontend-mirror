@@ -2,8 +2,8 @@ import Fuse from 'fuse.js';
 import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { QuickInsertItem } from '../provider-factory';
 import type { QuickInsertHandler, QuickInsertHandlerFn } from '../types';
@@ -100,7 +100,7 @@ export function find(
 	const results = fuse.search(query);
 
 	// platform_editor_insert_menu_ai: boost native editor elements above skills
-	const rerankedResults = expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+	const rerankedResults = isExperimentEnabled('platform_editor_insert_menu_ai')
 		? boostNativeResultsAboveSkills(results)
 		: results;
 

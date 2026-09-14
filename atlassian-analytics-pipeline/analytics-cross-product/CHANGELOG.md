@@ -1,5 +1,14 @@
 # @atlaskit/analytics-cross-product
 
+## 2.2.0
+
+### Minor Changes
+
+- [`917a733b30a8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/917a733b30a8e) -
+  `useCrossProductUrlWrapper` is now guarded by the `atlaskit-analytics-cross-product-kill-switch`
+  dynamic config. The config defaults to enabled, so behaviour is unchanged unless the kill switch
+  is flipped off.
+
 ## 2.1.1
 
 ### Patch Changes

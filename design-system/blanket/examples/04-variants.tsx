@@ -5,11 +5,11 @@
 
 import { useCallback, useState } from 'react';
 
-import Badge from '@atlaskit/badge';
-import Blanket from '@atlaskit/blanket';
-import Button from '@atlaskit/button/new';
+import Badge from '@atlaskit/badge/badge';
+import Blanket from '@atlaskit/blanket/blanket';
+import Button from '@atlaskit/button/default/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';

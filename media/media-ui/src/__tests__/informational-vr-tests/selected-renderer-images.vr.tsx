@@ -1,7 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
-import MediaWithText from '../../../examples/media-with-text';
+import MediaWithText from '../../../examples/media-with-text.vr.ap';
 
 snapshotInformational(MediaWithText, {
 	drawsOutsideBounds: true,

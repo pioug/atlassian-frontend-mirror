@@ -1,7 +1,10 @@
 import React from 'react';
+
 import { type MentionDescription, type OnMentionEvent } from '../../types';
+import { actualMouseMove } from '../../util/actual-mouse-move';
 import debug from '../../util/logger';
-import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
+import type { Position } from '../../util/mouse';
+import { mouseLocation } from '../../util/mouse-location';
 import type MentionItem from '../MentionItem';
 import { MentionItemWithRef } from '../MentionItem';
 import MentionListError from '../MentionListError';

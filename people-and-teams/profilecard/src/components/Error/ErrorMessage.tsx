@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { Text } from '@atlaskit/primitives/compiled';
-import type { FireEventType } from '@atlaskit/teams-app-internal-analytics';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
 import messages from '../../messages';
 import { ErrorTitle, ErrorWrapper } from '../../styled/Error';

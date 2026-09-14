@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { components, type OptionType, type SingleValueProps } from '@atlaskit/select';
+import { components } from '@atlaskit/react-select/components';
+import type { OptionType, SingleValueProps } from '@atlaskit/select/types';
 
 /**
  * This creates a functional component that `react-select` will use to make the
@@ -8,6 +9,7 @@ import { components, type OptionType, type SingleValueProps } from '@atlaskit/se
  */
 export const makeSingleValue =
 	// TODO: Make ID required
+
 	({ id, lang }: { id?: string; lang: string }) =>
 		({
 			children,

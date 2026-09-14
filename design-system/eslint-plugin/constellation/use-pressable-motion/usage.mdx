@@ -1,12 +1,13 @@
 # use-pressable-motion
 
-Encourages semantic motion tokens when local static styles change interactive colours on
-`Pressable`.
+Encourages semantic motion tokens when local static styles change interactive colours on `Pressable`
+or native `<button>` elements.
 
 It supports Pressable imports from `@atlaskit/primitives/compiled`,
 `@atlaskit/primitives/compiled/pressable`, and `@atlaskit/primitives/pressable`. It recognises
 styles created with `css`, `cssMap`, and `xcss`. Use `&:hover` and `&:active` with `css` or
-`cssMap`; use `:hover` and `:active` with `xcss`.
+`cssMap`; use `:hover` and `:active` with `xcss`. Pass styles to Pressable with `xcss` and to native
+buttons with `css`.
 
 For button motion, the rule detects `backgroundColor` and colour-only `background` changes. For
 list-item motion, it also detects `color`, `borderColor`, and `textDecorationColor`. It offers
@@ -17,11 +18,11 @@ states, but the rule does not autofix code.
 The rule does not infer semantics, follow imported or dynamic styles, or overwrite an existing
 `transition`.
 
-## Example
+## Pressable example
 
 ```tsx
 import { token } from '@atlaskit/tokens';
-import Pressable from '@atlaskit/primitives/pressable';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { xcss } from '@atlaskit/primitives/xcss';
 
 const styles = xcss({
@@ -34,6 +35,24 @@ const styles = xcss({
 });
 
 <Pressable xcss={styles} />;
+```
+
+## Native button example
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const styles = css({
+	transition: token('motion.button.hovered'),
+	'&:hover': { backgroundColor: token('color.background.neutral.hovered') },
+	'&:active': {
+		backgroundColor: token('color.background.neutral.pressed'),
+		transition: token('motion.button.pressed'),
+	},
+});
+
+<button css={styles}>Save</button>;
 ```
 
 For custom button guidance, see the

@@ -1,6 +1,8 @@
 import React, { type FormEvent, type MouseEvent, useCallback, useState } from 'react';
 
-import { AnalyticsListener, type AnalyticsEventPayload, type UIAnalyticsEvent } from '../src';
+import AnalyticsListener from '../src/components/AnalyticsListener';
+import { type AnalyticsEventPayload } from '../src/events/AnalyticsEvent';
+import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
 
 import AnalyticsButton from './helpers/AnalyticsButton';
 

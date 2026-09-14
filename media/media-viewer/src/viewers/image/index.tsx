@@ -9,14 +9,15 @@ import {
 	addFileAttrsToUrl,
 } from '@atlaskit/media-client';
 import { isImageMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
-import { getOrientation } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { Outcome } from '../../domain';
-import { buildImgErrorDiagnostics, MediaViewerError } from '../../errors';
-import { InteractiveImg } from './interactive-img';
-import { BaseViewer } from '../base-viewer';
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { MediaViewerError } from '../../MediaViewerError';
+import { buildImgErrorDiagnostics } from '../../buildImgErrorDiagnostics';
+import { Outcome } from '../../domain/outcome';
+import { BaseViewer } from '../base-viewer';
+import { InteractiveImg } from './interactive-img';
 
 export type ObjectUrl = string;
 
@@ -70,6 +71,8 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 			let originalBinaryImageUrl: string | undefined;
 			let isLocalFileReference: boolean = false;
 			let clientId: string | undefined;
+			// The MIME type of the actual bytes that will be rendered.
+			let renderedBlobMimeType: string | undefined;
 
 			// Fetch clientId for cross-client copy
 			try {
@@ -85,6 +88,7 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 					orientation = await getOrientation(value as File);
 					objectUrl = URL.createObjectURL(value);
 					isLocalFileReference = origin === 'local';
+					renderedBlobMimeType = value.type || undefined;
 				} else {
 					objectUrl = value;
 				}
@@ -102,7 +106,9 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 					traceContext,
 				);
 				this.cancelImageFetch = () => controller?.abort();
-				objectUrl = URL.createObjectURL(await response);
+				const blob = await response;
+				renderedBlobMimeType = blob.type || undefined;
+				objectUrl = URL.createObjectURL(blob);
 			} else {
 				this.setState({
 					content: Outcome.pending(),
@@ -116,7 +122,12 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 				fileState.status !== 'uploading' &&
 				fileState.mediaType === 'image'
 			) {
-				if (isImageMimeTypeSupportedByBrowser(fileState.mimeType)) {
+				// Prefer the MIME type of the actual fetched bytes over the declared one.
+
+				const effectiveMimeType = fg('platform_media_unsupported_mime_routing')
+					? (renderedBlobMimeType ?? fileState.mimeType)
+					: fileState.mimeType;
+				if (isImageMimeTypeSupportedByBrowser(effectiveMimeType)) {
 					originalBinaryImageUrl = await mediaClient.file.getFileBinaryURL(
 						fileState.id,
 						collectionName,

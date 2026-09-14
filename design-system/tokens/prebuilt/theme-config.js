@@ -11,13 +11,14 @@ Object.defineProperty(exports, "themeColorModes", {
     return _themeColorModes.themeColorModes;
   }
 });
+exports.themeConfig = void 0;
 Object.defineProperty(exports, "themeIds", {
   enumerable: true,
   get: function get() {
     return _themeIds.themeIds;
   }
 });
-exports.themeIdsWithOverrides = void 0;
+exports.themeOverrideIds = exports.themeIdsWithOverrides = void 0;
 Object.defineProperty(exports, "themeStateDefaults", {
   enumerable: true,
   get: function get() {
@@ -45,6 +46,9 @@ var _themeStateDefaults = require("./theme-state-defaults");
  * Theme overrides are temporary and there may not be any defined at times.
  */
 
+// Retain Themes in this public type for backwards compatibility.
+// platform-dst-tokens-finesse cleanup: Revisit when the temporary override themes are removed.
+
 /**
  * Theme kinds: The type of theme.
  * Some themes are entirely focused on Color, whilst others are purely focused on spacing.
@@ -59,7 +63,7 @@ var themeContrastModes = ['more', 'no-preference', 'auto'];
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
  */
-var themeOverrideIds = [];
+var themeOverrideIds = exports.themeOverrideIds = ['light-finesse', 'light-increased-contrast-finesse', 'dark-finesse', 'dark-increased-contrast-finesse', 'typography-finesse'];
 var themeIdsWithOverrides = exports.themeIdsWithOverrides = [].concat((0, _toConsumableArray2.default)(_themeIds.themeIds), themeOverrideIds);
 
 /**
@@ -79,7 +83,7 @@ var themeIdsWithOverrides = exports.themeIdsWithOverrides = [].concat((0, _toCon
  * This object should be used whenever interfacing with themes.
  */
 
-var themeConfig = {
+var themeConfig = exports.themeConfig = {
   'atlassian-light': {
     id: 'light',
     displayName: 'Light Theme',
@@ -98,6 +102,26 @@ var themeConfig = {
       mode: 'light'
     },
     override: 'light'
+  },
+  'atlassian-light-finesse': {
+    id: 'light-finesse',
+    displayName: 'FY27 Finesse Light Theme Override',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'light'
+    },
+    override: 'light'
+  },
+  'atlassian-light-increased-contrast-finesse': {
+    id: 'light-increased-contrast-finesse',
+    displayName: 'FY27 Finesse Light Theme (increased contrast) Override',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'light'
+    },
+    override: 'light-increased-contrast'
   },
   'atlassian-light-increased-contrast': {
     id: 'light-increased-contrast',
@@ -129,6 +153,26 @@ var themeConfig = {
     },
     override: 'light'
   },
+  'atlassian-dark-finesse': {
+    id: 'dark-finesse',
+    displayName: 'FY27 Finesse Dark Theme Override',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'dark'
+    },
+    override: 'dark'
+  },
+  'atlassian-dark-increased-contrast-finesse': {
+    id: 'dark-increased-contrast-finesse',
+    displayName: 'FY27 Finesse Dark Theme (increased contrast) Override',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'dark'
+    },
+    override: 'dark-increased-contrast'
+  },
   'atlassian-dark-increased-contrast': {
     id: 'dark-increased-contrast',
     displayName: 'Dark Theme (increased contrast)',
@@ -156,6 +200,15 @@ var themeConfig = {
       type: 'typography'
     }
   },
+  'atlassian-typography-finesse': {
+    id: 'typography-finesse',
+    displayName: 'FY27 Finesse Typography Override',
+    palette: 'typographyPalette',
+    attributes: {
+      type: 'typography'
+    },
+    override: 'typography'
+  },
   'atlassian-shape': {
     id: 'shape',
     displayName: 'Shape',
@@ -180,3 +233,12 @@ var themeConfig = {
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var _default = exports.default = themeConfig;
+/**
+ * @deprecated Use `import { themeColorModes, ThemeColorModes } from '@atlaskit/tokens/theme-color-modes'` instead.
+ */
+/**
+ * @deprecated Use `import { themeIds, ThemeIds } from '@atlaskit/tokens/theme-ids'` instead.
+ */
+/**
+ * @deprecated Use `import { themeStateDefaults } from '@atlaskit/tokens/theme-state-defaults'` instead.
+ */

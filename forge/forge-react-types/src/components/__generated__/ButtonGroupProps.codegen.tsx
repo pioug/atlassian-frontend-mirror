@@ -9,7 +9,8 @@
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type { ButtonGroupProps as PlatformButtonGroupProps, ButtonProps } from '@atlaskit/button';
+import type { ButtonGroupProps as PlatformButtonGroupProps } from '@atlaskit/button/button-group';
+import type { ButtonProps } from '@atlaskit/button/button';
 
 export type ButtonGroupProps = Pick<
 	PlatformButtonGroupProps,

@@ -6,7 +6,7 @@ import {
 	NodeNestingTransformError,
 	transformNestedTablesIncomingDocument,
 } from '@atlaskit/adf-utils/transforms';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -22,6 +22,11 @@ jest.mock('@atlaskit/editor-common/validator', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/validator'),
 }));
 
+jest.mock('@atlaskit/editor-common/utils', () => ({
+	__esModule: true,
+	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+}));
+
 jest.mock('@atlaskit/adf-utils/transforms', () => ({
 	__esModule: true,
 	...jest.requireActual<Object>('@atlaskit/adf-utils/transforms'),
@@ -35,9 +40,9 @@ jest.mock('@atlaskit/adf-utils/transforms', () => ({
 	})),
 }));
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/platform-feature-flags'),
 	fg: jest.fn(() => false),
 }));
 
@@ -45,6 +50,7 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(() => false),
 }));
 
+import * as commonUtils from '@atlaskit/editor-common/utils';
 import * as common from '@atlaskit/editor-common/validator';
 import type { Serializer } from '../../serializer';
 import { renderDocument } from '../../render-document';
@@ -154,6 +160,76 @@ describe('Renderer', () => {
 			expect(result.stat.buildTreeTime).toBeGreaterThan(0);
 			expect(result.stat.serializeTime).toBeDefined();
 			expect(result.stat.serializeTime).toBeGreaterThan(0);
+		});
+
+		it.each(['final', 'stage0'] as const)(
+			'should tell validateADFEntity the document is %s when useSpecBasedValidator is TRUE',
+			(adfStage) => {
+				const validateADFEntitySpy = sinon.spy(commonUtils, 'validateADFEntity');
+				// A document unique to this case, otherwise `memoValidation`, which compares documents by
+				// content rather than by identity, returns a memoized result and never reaches the validator.
+				const docForStage = {
+					version: 1,
+					type: 'doc',
+					content: [
+						{ type: 'paragraph', content: [{ type: 'text', text: `adfStage ${adfStage}` }] },
+					],
+				};
+				try {
+					renderDocument(docForStage, serializer, schema, adfStage, true);
+
+					expect(validateADFEntitySpy.callCount).toEqual(1);
+					expect(validateADFEntitySpy.lastCall.args[4]).toEqual(adfStage);
+				} finally {
+					validateADFEntitySpy.restore();
+				}
+			},
+		);
+
+		// A caller with no stage to declare must not be validated against full ADF, so the stage reaches
+		// `validateADFEntity` as `undefined` rather than as this function's own default.
+		it('should leave the stage undefined for validateADFEntity when the caller omits it', () => {
+			const validateADFEntitySpy = sinon.spy(commonUtils, 'validateADFEntity');
+			const docWithoutStage = {
+				version: 1,
+				type: 'doc',
+				content: [{ type: 'paragraph', content: [{ type: 'text', text: 'no adfStage supplied' }] }],
+			};
+			try {
+				renderDocument(docWithoutStage, serializer, schema, undefined, true);
+
+				expect(validateADFEntitySpy.callCount).toEqual(1);
+				expect(validateADFEntitySpy.lastCall.args[4]).toBeUndefined();
+			} finally {
+				validateADFEntitySpy.restore();
+			}
+		});
+
+		// A `layoutSection` with one column is a stage-0-only construct. Rendering it without declaring
+		// a stage keeps the column, rather than wrapping it as unsupported content.
+		it('should keep a single-column layoutSection when the caller declares no stage', () => {
+			const singleColumnLayout = {
+				version: 1,
+				type: 'doc',
+				content: [
+					{
+						type: 'layoutSection',
+						content: [
+							{
+								type: 'layoutColumn',
+								attrs: { width: 50 },
+								content: [
+									{ type: 'paragraph', content: [{ type: 'text', text: 'single column' }] },
+								],
+							},
+						],
+					},
+				],
+			};
+
+			const result = renderDocument(singleColumnLayout, serializer, schema, undefined, true);
+
+			expect(JSON.stringify(result.result)).not.toContain('unsupportedBlock');
 		});
 
 		it('should return stat when useSpecBasedValidator is false', () => {

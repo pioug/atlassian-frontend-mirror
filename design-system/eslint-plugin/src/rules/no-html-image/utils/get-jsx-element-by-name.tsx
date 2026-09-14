@@ -13,43 +13,27 @@ export const getJsxElementByName = (
 		return;
 	}
 
-	// length here should be exactly 2 to indicate only two references:
-	// one being the variable declaration itself
-	// second being the JSX call site
+	// `@typescript-eslint/scope-manager` v8 records a reference for both the opening *and* the
+	// closing tag of an element, where v7 only recorded the opening one. So key off the opening
+	// elements rather than the raw reference count, which differs between the two.
+	const jsxOpeningElements = variableDeclaration.references
+		.map((ref) => ref?.identifier)
+		.filter((identifier) => isNodeOfType(identifier, 'JSXIdentifier'))
+		.map((identifier) => (identifier as JSXIdentifier & Rule.NodeParentExtension).parent)
+		.filter((parent) => isNodeOfType(parent, 'JSXOpeningElement'));
+
+	// Anything that isn't a JSX reference, beyond the declaration itself, means the component is
+	// also used somewhere we can't reason about.
+	const nonJsxReferences = variableDeclaration.references.filter(
+		(ref) => !isNodeOfType(ref?.identifier, 'JSXIdentifier'),
+	);
+
+	// there should be exactly one JSX call site, and the declaration as the only other reference.
 	// we might consider handling multiple local JSX call sites in the future
 	// but "this is good enough for now"™️
-	if (variableDeclaration.references.length !== 2) {
+	if (jsxOpeningElements.length !== 1 || nonJsxReferences.length !== 1) {
 		return;
 	}
 
-	let jsxUsage = variableDeclaration.references[1]?.identifier;
-
-	const [firstIdentifier, secondIdentifier] = variableDeclaration.references.map(
-		(ref) => ref?.identifier,
-	);
-	// Check if the first reference is a JSXOpeningElement and the second is not or vice versa
-	if (
-		isNodeOfType(firstIdentifier, 'JSXIdentifier') &&
-		!isNodeOfType(secondIdentifier, 'JSXIdentifier')
-	) {
-		jsxUsage = firstIdentifier;
-	} else if (
-		isNodeOfType(secondIdentifier, 'JSXIdentifier') &&
-		!isNodeOfType(firstIdentifier, 'JSXIdentifier')
-	) {
-		jsxUsage = secondIdentifier;
-	} else {
-		return;
-	}
-
-	if (!isNodeOfType(jsxUsage, 'JSXIdentifier')) {
-		return;
-	}
-
-	const jsxOpeningElement = (jsxUsage as JSXIdentifier & Rule.NodeParentExtension).parent;
-	if (!isNodeOfType(jsxOpeningElement, 'JSXOpeningElement')) {
-		return;
-	}
-
-	return jsxOpeningElement;
+	return jsxOpeningElements[0] as JSXOpeningElement & Rule.NodeParentExtension;
 };

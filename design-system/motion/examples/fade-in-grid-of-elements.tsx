@@ -6,22 +6,24 @@ import { cloneElement, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import {
 	BitbucketIcon,
 	ConfluenceIcon,
 	JiraIcon,
 	JiraServiceManagementIcon,
-	JiraSoftwareIcon,
-	JiraWorkManagementIcon,
 	OpsgenieIcon,
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
-import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
+import FadeIn from '@atlaskit/motion/fade-in';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { RetryContainer } from './utils/containers';
 
 const buttonContainerStyles = css({
 	textAlign: 'center',

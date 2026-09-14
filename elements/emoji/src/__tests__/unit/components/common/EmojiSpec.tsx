@@ -13,6 +13,7 @@ import * as isSSRModule from '../../../../util/is-ssr';
 
 import '@testing-library/jest-dom';
 import { renderWithIntl } from '../../_testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 // Add matcher provided by 'jest-axe'
 expect.extend(toHaveNoViolations);
@@ -416,5 +417,19 @@ describe('<Emoji />', () => {
 
 			expect(results).toHaveNoViolations();
 		});
+
+		ffTest.on(
+			'emoji_decorative_label',
+			'should remove aria-label for image emoji when isDecorative is true',
+			() => {
+				it('should not have aria-label and should have presentation role', async () => {
+					const result = await renderWithIntl(<Emoji emoji={imageEmoji} isDecorative />);
+					mockAllIsIntersecting(true);
+					const emoji = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+					expect(emoji).not.toHaveAttribute('aria-label');
+					expect(emoji).toHaveAttribute('role', 'presentation');
+				});
+			},
+		);
 	});
 });

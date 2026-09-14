@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "6.1.0",
+	"version": "6.4.1",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,8 +26,10 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./get-file-state-error-reason": "./src/getFileStateErrorReason.ts",
 		"./get-media-client": "./src/getMediaClient.ts",
 		"./get-media-user-preferences": "./src/mediaSettings/getMediaUserPreferences.ts",
+		"./is-media-file-state-error": "./src/isMediaFileStateError.ts",
 		"./media-client-provider": "./src/MediaClientProvider.tsx",
 		"./media-file-state-error": "./src/MediaFileStateError.ts",
 		"./media-parsed-settings": "./src/mediaSettings/mediaParsedSettings.ts",
@@ -67,6 +69,7 @@
 	"devDependencies": {
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
+		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
@@ -90,16 +93,6 @@
 		},
 		"platform_media_ssr_data_seed": {
 			"type": "boolean"
-		}
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
 		}
 	}
 }

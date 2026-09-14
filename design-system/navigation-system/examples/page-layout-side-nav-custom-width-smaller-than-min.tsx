@@ -1,3 +1,3 @@
-import { SideNavCustomWidthSmallerThanMinWidth } from './page-layout';
+import { SideNavCustomWidthSmallerThanMinWidth } from './page-layout.vr.ap';
 
 export default SideNavCustomWidthSmallerThanMinWidth;

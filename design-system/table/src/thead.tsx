@@ -1,6 +1,6 @@
 import React, { type FC, type ReactNode } from 'react';
 
-import Checkbox from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Inline from '@atlaskit/primitives/inline';
 import { token } from '@atlaskit/tokens';
@@ -44,7 +44,6 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
 							style={{
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								color: token('color.text'),
-								/* @ts-ignore migrate to Text */
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								fontWeight: token('font.weight.medium'),
 							}}

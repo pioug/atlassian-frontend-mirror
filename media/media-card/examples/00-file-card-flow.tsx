@@ -24,7 +24,7 @@ import {
 	emptyImageFileId,
 } from '@atlaskit/media-test-helpers';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Card } from '../src';
 import {
 	UploadController,
@@ -114,6 +114,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 			name: file.name,
 			collection: defaultCollectionName,
 			mimeType: file.type,
+			size: file.size,
 		};
 		const uploadController = new UploadController();
 		const stream = mediaClient.file.upload(uplodableFile, uploadController);

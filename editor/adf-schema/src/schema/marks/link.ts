@@ -1,6 +1,9 @@
-import type { MarkSpec, Mark } from '@atlaskit/editor-prosemirror/model';
+/* eslint-disable @atlaskit/editor/no-re-export -- VOLTC-139 tracks removal of these deprecated compatibility re-export shims. */
+import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+
 import { link as linkFactory } from '../../next-schema/generated/markTypes';
-import { isRootRelative, isSafeUrl, normalizeUrl } from '../../utils/url';
+import { isSafeUrl } from '../../utils/is-safe-url';
+import { getLinkAttrs } from './get-link-attrs';
 
 export interface ConfluenceLinkMetadata {
 	anchorName?: string | null;
@@ -35,38 +38,6 @@ export interface LinkDefinition {
 	attrs: LinkAttributes;
 	type: 'link';
 }
-
-export const getLinkAttrs =
-	(attribute: string) =>
-	(
-		domNode: Node | string,
-	):
-		| false
-		| {
-				__confluenceMetadata: string;
-				href?: string;
-		  } => {
-		const dom = domNode as HTMLLinkElement;
-
-		const href = dom.getAttribute(attribute) || '';
-		const attrs: { __confluenceMetadata: string; href?: string } = {
-			__confluenceMetadata: dom.hasAttribute('__confluenceMetadata')
-				? JSON.parse(dom.getAttribute('__confluenceMetadata') || '')
-				: undefined,
-		};
-
-		if (!isSafeUrl(href)) {
-			return false;
-		}
-
-		if (isRootRelative(href)) {
-			attrs.href = href;
-			return attrs;
-		}
-
-		attrs.href = normalizeUrl(href);
-		return attrs;
-	};
 
 export const link: MarkSpec = linkFactory({
 	parseDOM: [
@@ -122,19 +93,5 @@ export const link: MarkSpec = linkFactory({
 	},
 });
 
-const OPTIONAL_ATTRS = ['title', 'id', 'collection', 'occurrenceKey', '__confluenceMetadata'];
-
-export const toJSON = (
-	mark: Mark,
-): {
-	attrs: Record<string, string>;
-	type: string;
-} => ({
-	type: mark.type.name,
-	attrs: Object.keys(mark.attrs).reduce<Record<string, string>>((attrs, key) => {
-		if (OPTIONAL_ATTRS.indexOf(key) === -1 || mark.attrs[key] !== null) {
-			attrs[key] = mark.attrs[key];
-		}
-		return attrs;
-	}, {}),
-});
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-re-exports -- Public compatibility re-export.
+export { toJSON } from './to-json';

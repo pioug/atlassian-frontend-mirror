@@ -1,0 +1,38 @@
+{
+	"name": "@atlaskit/volt-components-entry-point-config",
+	"version": "0.1.2",
+	"description": "Config for entry-points to drive codemods, linting, and ratcheting",
+	"atlassian": {
+		"team": "UIP: Volt",
+		"website": {
+			"name": "VoltComponentsEntryPointConfig",
+			"category": "Layout and structure"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"main": "dist/cjs/entry-points.codegen.js",
+	"module": "dist/esm/entry-points.codegen.js",
+	"module:es2019": "dist/es2019/entry-points.codegen.js",
+	"types": "dist/types/entry-points.codegen.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/entry-points.codegen.tsx",
+	"dependencies": {
+		"@babel/runtime": "root:*"
+	},
+	"devDependencies": {
+		"@atlassian/codegen": "workspace:^",
+		"typescript": "root:*"
+	},
+	"scripts": {
+		"codegen": "yarn run -T run-ts ./scripts/codegen.tsx"
+	},
+	"exports": {
+		".": "./src/entry-points.codegen.tsx",
+		"./package-names": "./src/package-names.codegen.tsx"
+	},
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	}
+}

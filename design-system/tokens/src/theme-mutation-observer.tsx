@@ -1,8 +1,6 @@
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
-import getGlobalTheme from './get-global-theme';
-import { type ActiveThemeState } from './theme-config';
-
-type ThemeCallback = (theme: Partial<ActiveThemeState>) => unknown;
+import { getGlobalTheme } from './get-global-theme';
+import { type ThemeCallback } from './theme-callback';
 
 /**
  * A MutationObserver which watches the `<html>` element for changes to the theme.
@@ -17,7 +15,7 @@ type ThemeCallback = (theme: Partial<ActiveThemeState>) => unknown;
  * observer.observe();
  * ```
  */
-export default class ThemeMutationObserver {
+export class ThemeMutationObserver {
 	legacyObserver: MutationObserver | null = null;
 	static observer: MutationObserver | null = null;
 	static callbacks: Set<ThemeCallback> = new Set();
@@ -51,3 +49,5 @@ export default class ThemeMutationObserver {
 		}
 	}
 }
+
+export default ThemeMutationObserver;

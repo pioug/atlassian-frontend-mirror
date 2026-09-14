@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "18.2.2",
+	"version": "19.2.2",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 		"refractor": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -65,14 +65,15 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@types/jscodeshift": "root:*",
 		"@types/refractor": "root:*",
 		"color-contrast-checker": "root:*",
 		"css-loader": "root:*",
 		"prismjs": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"style-loader": "root:*"
 	},
 	"keywords": [
@@ -80,49 +81,25 @@
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"dom-events": "use-bind-event-listener",
-			"ui-components": [
-				"lite-mode"
-			],
-			"analytics": [
-				"analytics-next"
-			],
-			"theming": [
-				"react-context"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.tsx",
+		"./bidi-character-regex": "./src/bidi-warning/bidi-character-regex.tsx",
 		"./bidi-warning": "./src/bidi-warning/index.tsx",
 		"./bidi-warning-decorator": "./src/entry-points/bidi-warning-decorator.tsx",
-		"./bidi-warning-ui": "./src/entry-points/bidi-warning-ui.tsx",
+		"./bidi-warning-ui": "./src/bidi-warning/ui/index.tsx",
+		"./bidi-warning/bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
 		"./block": "./src/entry-points/block.tsx",
-		"./code": "./src/entry-points/code.tsx",
-		"./code-block": "./src/entry-points/code-block.tsx",
-		"./constants": "./src/entry-points/constants.tsx",
+		"./code": "./src/code.tsx",
+		"./code-block": "./src/code-block.tsx",
+		"./constants": "./src/constants.tsx",
 		"./inline": "./src/entry-points/inline.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./internal/types": "./src/internal/types.tsx",
+		"./theme/constants": "./src/internal/theme/constants.tsx",
+		"./theme/types": "./src/internal/theme/types.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"homepage": "https://atlassian.design/components/code/",
 	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
 		"platform-code-highlight-markdown-safe": {
 			"type": "boolean"
 		}

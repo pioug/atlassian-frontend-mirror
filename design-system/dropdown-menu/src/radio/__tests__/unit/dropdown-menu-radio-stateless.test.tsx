@@ -4,7 +4,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../../index';
+import DropdownMenu from '../../../dropdown-menu';
+import DropdownItemRadio from '../../dropdown-item-radio';
+import DropdownItemRadioGroup from '../../dropdown-item-radio-group';
 
 const DropdownMenuWithRadio = () => {
 	const [selected, setSelected] = useState('');

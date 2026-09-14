@@ -1,25 +1,29 @@
 // eslint-disable-line no-console
 
 import React, { type PropsWithChildren } from 'react';
+
+import { payloadPublisher } from '@atlassian/ufo/publisher';
+
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import CrossIcon from '@atlaskit/icon/core/cross';
+import AnnotateIcon from '@atlaskit/icon/core/edit';
 import { type FileItem, type Identifier, type MediaClientConfig } from '@atlaskit/media-client';
+import {
+	createPollingMaxAttemptsError,
+	createRateLimitedError,
+} from '@atlaskit/media-client/test-helpers';
 import {
 	createStorybookMediaClientConfig,
 	enableMediaUfoLogger,
 	FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
-import {
-	createPollingMaxAttemptsError,
-	createRateLimitedError,
-} from '@atlaskit/media-client/test-helpers';
-import CrossIcon from '@atlaskit/icon/core/cross';
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { payloadPublisher } from '@atlassian/ufo';
 
-import AnnotateIcon from '@atlaskit/icon/core/edit';
-import { SelectableCard } from './selectableCard';
 import { Card, type CardAppearance, type CardEvent, type CardAction } from '../src';
-import { MediaCardError } from '../src/errors';
+import { MediaCardError } from '../src/MediaCardError';
+import { type CardFocusEvent } from '../src/types';
 import DevelopmentUseMessage from './developmentUseMessage';
+import { SelectableCard } from './selectableCard';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
@@ -31,6 +35,10 @@ export const clickHandler = (result: CardEvent): void => {
 export const mouseEnterHandler = (result: CardEvent): void => {
 	result.event.preventDefault();
 	console.log('mouseEnter', result.mediaItemDetails);
+};
+
+export const focusHandler = (result: CardFocusEvent): void => {
+	console.log('focus', result.mediaItemDetails);
 };
 
 export const createApiCards = (
@@ -51,6 +59,7 @@ export const createApiCards = (
 					identifier={identifier}
 					onClick={clickHandler}
 					onMouseEnter={mouseEnterHandler}
+					onFocus={focusHandler}
 				/>
 			),
 		},

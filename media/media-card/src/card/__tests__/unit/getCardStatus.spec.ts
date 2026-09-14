@@ -8,8 +8,9 @@ jest.mock('@atlaskit/media-client', () => {
 	};
 });
 import { type FileStatus } from '@atlaskit/media-client';
-import { getCardStatus, isFinalCardStatus } from '../../getCardStatus';
 import { type FilePreviewStatus, type CardStatus } from '../../../types';
+import { getCardStatus } from '../../getCardStatus';
+import { isFinalCardStatus } from '../../isFinalCardStatus';
 
 const defaultOptions: FilePreviewStatus = {
 	hasFilesize: true,

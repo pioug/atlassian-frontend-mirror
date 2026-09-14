@@ -54,8 +54,11 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 - Runtime dependencies: `@atlaskit/link`, `@atlaskit/media-client`, `@atlaskit/media-client-react`,
   `@atlaskit/spinner`, `react-error-boundary`
 - Peer dependencies: `@emotion/react`, `react`
-- Export subpaths: `.`, `./errors`, `./media-svg`, `./mock-file-reader`, `./test-helpers`,
-  `./types`, `./use-resolve-svg`
+- Export subpaths: `.`, `./create-unexpected-error-callback`, `./errors`, `./media-svg`,
+  `./media-svg-error`, `./mock-file-reader`, `./test-helpers`, `./types`, `./use-resolve-svg`
+- `./media-svg-error` is the clean, non-deprecated entry point for the `MediaSVGError` class and
+  `MediaSVGErrorReason` type; the `./errors` and `./media-svg` re-exports of these are deprecated
+  shims (tracked by VOLTC-139)
 - Security note: always sanitise SVG content before rendering to prevent XSS
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)

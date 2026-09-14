@@ -7,7 +7,8 @@ import React from 'react';
 
 import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
-import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../index';
+import { DatasourceExperienceIdProvider } from '../datasource-experience-id-provider';
+import { useDatasourceExperienceId } from '../use-datasource-experience-id';
 
 const wrapper: RenderHookOptions<{ children: React.ReactNode }>['wrapper'] = ({ children }) => (
 	<DatasourceExperienceIdProvider>{children}</DatasourceExperienceIdProvider>

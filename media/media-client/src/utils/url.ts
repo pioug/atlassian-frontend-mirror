@@ -1,8 +1,5 @@
-const mediaBlobUrlIdentifier = 'media-blob-url';
-
-export const isMediaBlobUrl = (url: string): boolean => {
-	return url.indexOf(`${mediaBlobUrlIdentifier}=true`) > -1;
-};
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+export const mediaBlobUrlIdentifier: any = 'media-blob-url';
 
 export interface MediaBlobUrlAttrs {
 	id: string;
@@ -17,83 +14,19 @@ export interface MediaBlobUrlAttrs {
 	alt?: string;
 }
 
-const getNumberFromParams = (
-	params: URLSearchParams,
-	name: keyof MediaBlobUrlAttrs,
-): number | undefined => {
-	const value = params.get(name);
-
-	return typeof value === 'string' && !isNaN(parseInt(value)) ? parseInt(value) : undefined;
-};
-
-const getStringFromParams = (
-	params: URLSearchParams,
-	name: keyof MediaBlobUrlAttrs,
-): string | undefined => {
-	const value = params.get(name);
-	if (!value) {
-		return;
-	}
-
-	return decodeURIComponent(value);
-};
-
-export const getAttrsFromUrl = (blobUrl: string): MediaBlobUrlAttrs | undefined => {
-	const url = new URL(blobUrl);
-	const hash = url.hash.replace('#', '');
-	const params = new URLSearchParams(hash);
-	const id = params.get('id');
-	const contextId = params.get('contextId');
-	const clientId = params.get('clientId');
-	// check if we have the required params (clientId is optional for backwards compatibility)
-	if (!id || !contextId) {
-		return;
-	}
-
-	return {
-		id,
-		contextId,
-		clientId: clientId || undefined,
-		collection: getStringFromParams(params, 'collection'),
-		alt: getStringFromParams(params, 'alt'),
-		height: getNumberFromParams(params, 'height'),
-		width: getNumberFromParams(params, 'width'),
-		size: getNumberFromParams(params, 'size'),
-		name: getStringFromParams(params, 'name'),
-		mimeType: getStringFromParams(params, 'mimeType'),
-	};
-};
-
-export const objectToQueryString = (json: {
-	[key: string]: string | number | boolean | undefined | null;
-}): string => {
-	return Object.keys(json)
-		.filter((attrName) => typeof json[attrName] !== 'undefined' && json[attrName] !== null)
-		.map((key) => {
-			const value = json[key];
-			if (typeof value === 'undefined' || value === null) {
-				return;
-			}
-
-			return `${encodeURIComponent(key)}=${encodeURIComponent(value.toString())}`;
-		})
-		.join('&');
-};
-
-export const addFileAttrsToUrl = (url: string, fileAttrs: MediaBlobUrlAttrs): string => {
-	const isSafari = /^((?!chrome|android).)*safari/i.test((navigator as Navigator).userAgent);
-	if (isSafari) {
-		return url;
-	}
-	const mediaIdentifierAttr = {
-		[mediaBlobUrlIdentifier]: 'true',
-	};
-	const mergedAttrs = {
-		...mediaIdentifierAttr,
-		...fileAttrs,
-	};
-	const queryAttrs = objectToQueryString(mergedAttrs);
-
-	// we can't use '?' separator for blob url params
-	return `${url}#${queryAttrs}`;
-};
+/**
+ * @deprecated Use `import { isMediaBlobUrl } from '@atlaskit/media-client'` instead.
+ */
+export { isMediaBlobUrl } from './isMediaBlobUrl';
+/**
+ * @deprecated Use `import { getAttrsFromUrl } from '@atlaskit/media-client'` instead.
+ */
+export { getAttrsFromUrl } from './getAttrsFromUrl';
+/**
+ * @deprecated Use `import { objectToQueryString } from '@atlaskit/media-client'` instead.
+ */
+export { objectToQueryString } from './objectToQueryString';
+/**
+ * @deprecated Use `import { addFileAttrsToUrl } from '@atlaskit/media-client'` instead.
+ */
+export { addFileAttrsToUrl } from './addFileAttrsToUrl';

@@ -5,11 +5,14 @@
 
 import { jsx } from '@compiled/react';
 
-import Badge from '@atlaskit/badge';
-import Button, { IconButton } from '@atlaskit/button/new';
+import Badge from '@atlaskit/badge/badge';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import Heading from '@atlaskit/heading';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import Heading from '@atlaskit/heading/heading';
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ScreenIcon from '@atlaskit/icon/core/screen';

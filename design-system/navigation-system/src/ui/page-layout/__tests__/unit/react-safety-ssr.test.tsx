@@ -3,7 +3,7 @@ import React from 'react';
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
 import { resetMatchMedia } from '@atlassian/test-utils';
 
-import CompositionExample from '../../../../../examples/composition';
+import CompositionExample from '../../../../../examples/composition.vr.ap';
 
 beforeEach(() => {
 	resetMatchMedia();

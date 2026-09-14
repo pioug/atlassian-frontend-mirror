@@ -1,5 +1,1062 @@
 # @atlaskit/renderer
 
+## 140.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 139.1.1
+
+### Patch Changes
+
+- [`5917191a3107d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5917191a3107d) -
+  Clean up feature gate `platform_fix_macro_renders_in_layouts`
+- [`031f2b4eddd7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/031f2b4eddd7b) -
+  Fix code blocks remaining visible in collapsed heading sections under
+  platform_editor_collapsible_headings by overriding CodeMirror display priority. Simplify collapse
+  reconciliation by deriving section content from document positions instead of maintaining mutable
+  content flags, and separate decoration creation from section traversal.
+
+  Preserve collapsed heading state when unchanged content is rebuilt with a fresh schema instance
+  under platform_renderer_collapsible_headings.
+
+- Updated dependencies
+
+## 139.1.0
+
+### Minor Changes
+
+- [`d3a7f9016da28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3a7f9016da28) -
+  Add media render lifecycle callbacks for Remix-generated media behind
+  cc-maui-add-mark-for-remix-generated-images.
+
+### Patch Changes
+
+- [`f07b2560158eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f07b2560158eb) -
+  Fix Expand top-margin shifts during streaming SSR hydration behind
+  platform_renderer_expand_ssr_margin_fix.
+
+## 139.0.0
+
+### Major Changes
+
+- [`8774ea3d3d0fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8774ea3d3d0fb) -
+  Cleanup experiment `platform_editor_renderer_defer_content`. This is a breaking change: the
+  `content` prop is removed from `NodeMeta` and the `bodiedExtension`, `extensionFrame`,
+  `layoutSection`, `multiBodiedExtension`, and `orderedList` props.
+
+  To migrate, replace reads of `content` with `getContent?.()`. Consumers that construct node props
+  and need to provide content should supply a `getContent` callback instead, for example
+  `getContent: () => content`. The callback remains optional in the prop types. The
+  serializer-provided getter serializes the node's subtree on first call and memoizes the result.
+  `ExtensionParams.content` handed to extension handlers is unaffected.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.1.7
+
+### Patch Changes
+
+- [`d79d6327dfa5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d79d6327dfa5b) -
+  Clean up feature gate `platform_fix_nested_num_column_scaling`
+
+## 138.1.6
+
+### Patch Changes
+
+- [`bbd1404101645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbd1404101645) -
+  Clean up the `platform_editor_adf_validator_perf` experiment, keeping the enabled behaviour: the
+  validator caches allowed content per node type, `renderDocument` compares `validationOverrides` by
+  value and ProseMirror nodes with `Node.eq`, and `Renderer` passes a stable `validationOverrides`
+  reference across re-renders.
+- [`60a282ed26282`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60a282ed26282) -
+  Behind `platform_forge_inline_bodied_macro`, allow text adjacent to migrated inline-bodied macros
+  to wrap naturally without applying native Forge nested-renderer styling.
+- Updated dependencies
+
+## 138.1.5
+
+### Patch Changes
+
+- [`9f200fd3beece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f200fd3beece) -
+  Cleanup experiment `platform_editor_table_fit_to_content_patch_1`. Make extension containment
+  styles permanent in editor tables and preserve renderer container styles outside tables.
+- Updated dependencies
+
+## 138.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.1.3
+
+### Patch Changes
+
+- [`71689d3c584fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71689d3c584fe) -
+  Clean up the `platform_editor_table_q4_patch_7` experiment while retaining the permanently
+  rolled-out rounded table corner behavior.
+- Updated dependencies
+
+## 138.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.1.0
+
+### Minor Changes
+
+- [`297ace14c7245`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/297ace14c7245) -
+  Enable compatibility with React 19.2.0
+
+### Patch Changes
+
+- [`b94131fcee276`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b94131fcee276) -
+  Removes the `platform_smartlink_xpc_url_wrapping` feature gate and makes cross-product URL
+  wrapping for Smart Links permanent, on for all consumers.
+
+  What this behavior does: when a resolved Smart Link points to a first-party Atlassian destination
+  (e.g. a Jira issue, Confluence page), the URL used for navigation — via click, "Open link", or any
+  other destination-URL usage — now has a short-lived interaction-session query parameter (`xpis`)
+  appended automatically. This lets the destination product attribute the visit back to the product
+  and surface the link was opened from, powering cross-product usage analytics. It has no effect on:
+  - third-party (non-Atlassian) links,
+  - links that are not yet resolved,
+  - URLs that already contain the parameter.
+
+  No API shape changes: this only affects the resolved value returned by existing Smart Link
+  URL/navigation behavior (e.g. `Card`, `useSmartLinkDestinationUrl`, inline/block/embed card
+  click-through, and datasource table link cells). No new props, exports, or configuration are
+  introduced, and no action is required from consumers.
+
+- Updated dependencies
+
+## 138.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.0.1
+
+### Patch Changes
+
+- [`8d65b130dff43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d65b130dff43) -
+  Behind the `platform_renderer_on_complete_after_commit` experiment, `onComplete` is invoked from
+  an effect after the rendered document is committed instead of synchronously during render. Calling
+  it during render let consumers set state on other components mid-render, which React forbids and
+  which could feed a render loop on pages that never reached commit. With the experiment off the
+  callback fires exactly as before.
+- Updated dependencies
+
+## 138.0.0
+
+### Patch Changes
+
+- [`3422261e7a40e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3422261e7a40e) -
+  Clean up experiment `platform_editor_smartlink_local_cache`.
+- [`7c7646bee3e68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c7646bee3e68) -
+  Clean up feature gate `platform_editor_table_height_analytics_event`
+- Updated dependencies
+
+## 137.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.4.5
+
+### Patch Changes
+
+- [`e29faa16e0c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e29faa16e0c66) -
+  Migrate selected editor experiment reads and tooling from tmp-editor-statsig to
+  platform-feature-experiments, including static CSS, floating ToC, insert-menu AI, table overflow
+  shadows, and collapsible headings.
+- Updated dependencies
+
+## 137.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.4.1
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 137.4.0
+
+### Minor Changes
+
+- [`be8a71519cbc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be8a71519cbc2) -
+  Add support for seeding media card file state from SSR media node metadata, behind the
+  `platform_media_ssr_data_seed` feature gate.
+
+  `@atlaskit/media-client` gains a Relay-free `mapSsrMediaItemToFileState`. Malformed, partial, or
+  non-array input yields `undefined` rather than throwing.
+
+  `@atlaskit/media-card` accepts an optional `ssrMediaItem` prop. When `ssrFileState` is absent and
+  the gate is on, the card converts `ssrMediaItem` to FileState via `mapSsrMediaItemToFileState` and
+  seeds `useFileState`. `ssrFileState` still wins when both are provided (Relay / media-card-relay).
+
+  `@atlaskit/renderer` extends `MediaSSR` with `ssrMediaItems` — the host's SSR media payload,
+  passed through untouched. The renderer finds the matching item by id and forwards it as
+  `ssrMediaItem` to Card. Hosts need no knowledge of `FileState` or of media internals. The field is
+  optional and additive: hosts that do not supply it, and media ids without an entry, keep the
+  current fetch behaviour.
+
+  `@atlaskit/media-card-relay`'s `MediaCardRelay` / `MediaInlineCardRelay` now call the shared
+  `mapSsrMediaItemToFileState` mapper directly (the Relay fragment data is structurally assignable
+  to `SsrMediaItem`, so no cast or wrapper is needed). Its public API and behaviour are unchanged.
+
+  `@atlaskit/media-file-preview` now forwards an SSR-seeded pre-signed `previewCdnUrl` to the new
+  optional `MediaClient.getImageUrlSync(id, params, seededCdnUrl)` argument when
+  `platform_media_ssr_data_seed` is enabled and CDN delivery is in use. `@atlaskit/media-client`
+  preserves the signed CDN asset URL and inserts supported image parameters before the `wm-ari` /
+  `wm-v` watermark anchor, avoiding query-string rebuilding or re-encoding that can invalidate
+  CloudFront signatures. Path-based routing, isolated cloud, GCP, and callers without a seeded URL
+  retain the existing URL-generation behaviour.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.3.0
+
+### Minor Changes
+
+- [`1f75590af7b4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f75590af7b4c) -
+  Add `@atlaskit/renderer/default`, which includes the default synchronous node components, and
+  `@atlaskit/renderer/nodes/default`, which exports those components as a node map. Editor is moving
+  to synchronously load nodes in view mode and these entry points allow consumers to incrementally
+  migrate. The legacy renderer and node entry points will be removed in January 2027.
+
+  Before:
+
+  ```ts
+  import { ReactRenderer } from '@atlaskit/renderer';
+
+  export function Page() {
+  	return <ReactRenderer document={document} appearance="full-page" />;
+  }
+  ```
+
+  After:
+
+  ```ts
+  import { Renderer } from '@atlaskit/renderer/default';
+
+  export function Page() {
+  	return <Renderer document={document} appearance="full-page" />;
+  }
+  ```
+
+  Read more here:
+  https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.2.8
+
+### Patch Changes
+
+- [`929a93a3d858c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/929a93a3d858c) -
+  Fix nested renderer overflow in regular table cells behind the
+  `platform_editor_table_fit_to_content_patch_2` experiment.
+- Updated dependencies
+
+## 137.2.7
+
+### Patch Changes
+
+- [`43740d342ffe7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43740d342ffe7) -
+  Clean up feature gate `platform_renderer_sample_high_volume_events`. This means the "started" and
+  "rendered" analytics events will only be fired 10% of the time. This is designed to reduce running
+  costs. If you need to hook into the rendered lifecycle then you should use the `onRendered` hook.
+- [`a6c26b16402ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6c26b16402ca) -
+  Migrate nine dogfooding editor experiments from `@atlaskit/tmp-editor-statsig` to the Platform
+  experiment API and move their tests to Platform experiment mocks.
+- Updated dependencies
+
+## 137.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.2.4
+
+### Patch Changes
+
+- [`38efae8b5d945`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38efae8b5d945) -
+  Scope MultiBodiedExtension active frame styles to the owning frames article to avoid showing
+  nested inactive tab bodies.
+- Updated dependencies
+
+## 137.2.3
+
+### Patch Changes
+
+- [`9b0887c8cbac4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b0887c8cbac4) -
+  Clean up feature gate `platform_editor_fix_media_in_renderer`
+- Updated dependencies
+
+## 137.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.2.1
+
+### Patch Changes
+
+- [`4db8fed8666c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4db8fed8666c0) -
+  Clean up experiment `platform_editor_close_expand_find` and permanently enable browser find in
+  collapsed Expand content.
+- [`5cacf96fc4102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cacf96fc4102) -
+  A collapsed expand no longer wraps a body that is standing in for itself in `WidthProvider`, or
+  renders the div that clears the following sibling's margin. Nothing in that body is laid out until
+  the reader or browser find opens the expand, so neither is of any use yet, and `WidthProvider`
+  costs two divs, a `ResizeObserver` and an `IntersectionObserver` for every expand on the page.
+
+  Opening the expand puts both back. React cannot add a DOM ancestor without rebuilding what is
+  under it, so the blocks that do render while collapsed are mounted a second time then: a nested
+  expand, which comes back open through the set browser find records it in, and an extension holding
+  stashed ADF, whose nested renderer is rebuilt.
+
+  Behind the `platform_editor_defer_collapsed_expand_body` experiment, which controls whether a
+  collapsed expand holds its body back at all.
+
+- [`08bf773f7599a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08bf773f7599a) -
+  Migrate experiments to use the new platform experiment API. This major release removes the
+  migrated experiment entries from `@atlaskit/tmp-editor-statsig`'s `editorExperimentsConfig` and
+  test overrides. Consumers must replace legacy `expVal`/`expValEquals` calls with
+  `@atlaskit/platform-feature-experiments` APIs, using `isExperimentEnabled` for boolean `isEnabled`
+  experiments and `expVal` for parameterized experiments; use `mockExpEnabled`/`mockExpDisabled` in
+  tests.
+- Updated dependencies
+
+## 137.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.1.10
+
+### Patch Changes
+
+- [`2e56a5fbd0f35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e56a5fbd0f35) -
+  Clean up feature gate `platform-ssr-table-resize`
+- Updated dependencies
+
+## 137.1.9
+
+### Patch Changes
+
+- [`c967639892512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c967639892512) -
+  Cleanup experiment `platform_editor_table_q4_patch_5` and permanently restrict sticky table
+  headers to the first header row.
+- [`5b8bba86d7b3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b8bba86d7b3d) -
+  A table in the body of a collapsed expand no longer renders in full just because a nested expand
+  sits in one of its rows. It shows the text of its rows instead, keeping only the rows that hold a
+  nested expand — those still need an element of their own for browser find to reveal. Opening the
+  expand renders the table, and a nested expand that find had opened stays open through it.
+
+  Behind the `platform_editor_defer_collapsed_expand_body` experiment, which controls whether a
+  collapsed expand holds its body back at all. The find-in-page behaviour described here also needs
+  `platform_editor_close_expand_find`, which is what applies `hidden="until-found"` to the collapsed
+  body.
+
+- Updated dependencies
+
+## 137.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.1.7
+
+### Patch Changes
+
+- [`2a540b54c3b3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a540b54c3b3d) -
+  Two fixes to the lazy loading of collapsed expand bodies, now behind the
+  `platform_editor_defer_collapsed_expand_body` experiment rather than the
+  `hot-121622_lazy_load_expand_content` feature gate.
+
+  The body is now only held back where `hidden="until-found"` can reveal it again. Without it
+  nothing can reveal the text standing in for the body, so browser find cannot reach the content and
+  the body was missing for no gain — those browsers render the body as normal.
+
+  `display: block` is now set on the collapsed wrapper alongside the attribute. Products ship a CSS
+  reset with `[hidden] { display: none }`, and as an author rule it beats the UA stylesheet's
+  `content-visibility` for `[hidden="until-found"]`, taking the content out of the page where
+  browser find cannot reach it at all.
+
+  `user-select: none` is no longer set on the collapsed wrapper while browser find is enabled.
+  WebKit scrolls to a find-in-page match by selecting it, so unselectable text was matched but never
+  revealed: Safari reported a hit, the attribute stayed in place, and the expand never opened.
+  Chrome does not need a selection, which hid the problem. Nothing is lost by leaving it off,
+  because `content-visibility: hidden` already makes a skipped subtree unselectable.
+
+  A collapsed expand no longer replaces its whole body with text. Instead each block of the body
+  shows its own text, and blocks holding something that can be opened on its own — a nested expand,
+  or an extension whose stashed ADF a nested renderer mounts expands from — are rendered as they
+  are. So a nested expand keeps a real element while its parent is collapsed, which is what lets
+  browser find reveal it directly: one match now opens every expand on the path to it and none
+  beside it, where before it opened only the outermost one and left the reader searching again at
+  each level. Because blocks decide for themselves rather than being swapped out, opening an expand
+  no longer rebuilds everything inside it.
+
+- Updated dependencies
+
+## 137.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.1.5
+
+### Patch Changes
+
+- [`6f34a5002d9ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f34a5002d9ed) -
+  [ux] Fix nested multi-bodied extensions so a parent active tab does not force a nested extension's
+  first frame to render behind the `platform_editor_nested_mbe_frames` feature gate.
+- Updated dependencies
+
+## 137.1.4
+
+### Patch Changes
+
+- [`53ad40b08a887`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53ad40b08a887) -
+  Clean up platform_editor_video_caption_commit
+- [`ad40c91e7c746`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad40c91e7c746) -
+  Rework lazy loading of Expand body content behind the `hot-121622_lazy_load_expand_content`
+  feature gate, fixing an SSR hydration failure. Bodies were previously wrapped in `Suspense` +
+  `React.lazy`, which `renderToString` cannot resolve — it emitted an errored Suspense boundary and
+  hydration failed with "The server did not finish this Suspense boundary". That wrapper provided no
+  code splitting and has been removed.
+
+  A collapsed expand now renders a plain-text mirror of its body, and mounts the real children on
+  expand or on the browser's `beforematch` event. `Expand` takes the expand's ProseMirror `node` and
+  derives that mirror itself, replacing the `loadBodyContent` and `searchText` props. Deriving it in
+  the component means a nested expand — which is not mounted until its ancestor opens — never builds
+  a mirror on initial load, and the result is cached per node.
+
+  The mirror also now covers text the previous `node.textContent` call could not see: leaf nodes
+  that carry their text in attrs (mentions, emoji, status), text separated across block boundaries,
+  and ADF stashed in a coerced extension's `parameters.nestedContent` — which is how Confluence
+  stores nesting the schema cannot represent, and which renders on the page via a nested renderer.
+
+  Once an expand has been opened its children stay mounted, including after it is collapsed again
+  (PGXT-9021). Remounting them would re-run every macro and Forge data fetch inside the body on each
+  reopen; the saving this gate exists for is at initial load, where the body has never been opened.
+
+- Updated dependencies
+
+## 137.1.3
+
+### Patch Changes
+
+- [`28054f27e1549`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28054f27e1549) -
+  Support inline-bodied Forge macros in view mode, behind `platform_forge_inline_bodied_macro`.
+
+  A macro with a rich body must declare `layout: bodied`, and `layout` is a single enum, so it
+  cannot also express "inline". Such a macro now declares display intent separately with
+  `outputType: inline`. The stored node remains a block `bodiedExtension` — only its presentation
+  changes, and only in view mode; the editor still shows a block.
+
+  `@atlassian/forge-ui-types`: adds `properties.outputType?: 'inline' | 'block'`.
+
+  `@atlassian/xen-editor-provider`: when a macro declares `layout: bodied` + `outputType: inline`,
+  the output type is seeded into `guestParams` at insert so the renderer's inline treatment applies
+  from the first render with no config edit, and it is re-applied as a default when a config panel
+  saves (config saves replace `guestParams` wholesale). The Forge app container is laid out inline
+  for these macros in view mode, Custom UI excluded.
+
+  `@atlaskit/renderer`: native Forge inline extensions are marked with `data-forge-inline` and their
+  nested body renderer's top-level paragraphs are collapsed inline, so the app's own block spacing
+  does not push the surrounding sentence away. Nested inline-bodied Forge macros are left as blocks,
+  because the pass that marks the sibling textblocks around an inline extension only resolves
+  positions correctly at the top level.
+
+  With the gate disabled every code path above evaluates to today's behaviour.
+
+- Updated dependencies
+
+## 137.1.2
+
+### Patch Changes
+
+- [`fa8c160c2b9ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa8c160c2b9ec) -
+  Changes to support Atlaspack Incremental bundling
+- Updated dependencies
+
+## 137.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.1.0
+
+### Minor Changes
+
+- [`6b67bdd5e6a75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b67bdd5e6a75) -
+  Node components now receive a `getContent()` prop, which supersedes `content` and will replace it.
+  `content` is a recursive `Fragment.toJSON()` of the node's subtree, attached to every node and
+  serialized on every render whether or not anything reads it — so the document was re-serialized
+  once per ancestor node, and a table paid it again for every row and every cell. `getContent()`
+  returns the same data, computed on first call and memoized, and is present whether or not the
+  experiment below is enabled.
+
+  Behind experiment `platform_editor_renderer_defer_content`, `content` is no longer provided on any
+  node that has children (a childless node keeps the `null` both arms produce). Custom
+  `nodeComponents` that read `content` should read `content ?? getContent?.()`, which covers both
+  arms without serializing twice while the experiment is off; `content` is removed outright when the
+  experiment ships. Extension handlers are unaffected — `ExtensionParams.content` is still
+  populated, now from a single `getContent()` call rather than one serialization per ancestor.
+
+## 137.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.2.6
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 136.2.5
+
+### Patch Changes
+
+- [`4067622b56b33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4067622b56b33) -
+  Clean up experiment `platform_editor_flex_based_centering`
+- Updated dependencies
+
+## 136.2.4
+
+### Patch Changes
+
+- [`b6733d7c1b79e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6733d7c1b79e) -
+  [ux] Updated styles for collapsible headings to ensure any element with height set via inline
+  style is not taking space when heading is collapsed.
+- Updated dependencies
+
+## 136.2.3
+
+### Patch Changes
+
+- [`9e4a665de419a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e4a665de419a) -
+  Clean up of expriment flag `platform_editor_preview_panel_linking_exp_conf` and
+  `platform_editor_preview_panel_linking_exp_jira`.
+- Updated dependencies
+
+## 136.2.2
+
+### Patch Changes
+
+- [`e2be8a7b1a21b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2be8a7b1a21b) -
+  Under experiment `platform_editor_adf_validator_perf`, `validationOverrides` (including the
+  `allowTableInPanel` override) is built in a single `useMemo` instead of a fresh object literal per
+  render. The unstable reference made `renderDocument`'s validation memo miss, re-validating an
+  unchanged document on every render. Added a test asserting the reference stays stable across
+  re-renders.
+
+  `RendererFunctionalComponent` now takes an `allowNestedTables` boolean in place of the
+  `validationOverrides` object prop, and derives the overrides itself.
+
+- Updated dependencies
+
+## 136.2.1
+
+### Patch Changes
+
+- [`de41cde76539d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de41cde76539d) -
+  [ux] EDITOR-8647 fix sticky header mask for rounded table in panel
+
+## 136.2.0
+
+### Minor Changes
+
+- [`67cb56528e699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67cb56528e699) -
+  Add emojiProviderLookupOrder as an optional override for the shortName-only emoji lookup priority
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.1.3
+
+### Patch Changes
+
+- [`07c45974a615f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07c45974a615f) -
+  Reduce ADF validation cost on large documents, behind the new `platform_editor_adf_validator_perf`
+  experiment. The validator resolves the `platform_editor_fix_adf-validator_mutation_bug` gate once
+  per validator instead of once per node and per mark, and caches allowed-content lookups per node
+  type. The renderer compares `validationOverrides` by value so its validation memo stops missing on
+  every render, and compares ProseMirror documents with `Node.eq` rather than stringifying both. Its
+  memo comparator now runs the cheap checks before the document comparison. Behaviour is unchanged
+  in both cohorts.
+- Updated dependencies
+
+## 136.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.1.1
+
+### Patch Changes
+
+- [`1eb42bae392d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eb42bae392d7) -
+  Clean up experiment `platform_editor_remove_bidi_char_warning`. Bidirectional character warnings
+  are no longer rendered in code blocks: `codeBidiWarningPlugin` is no longer registered by any
+  preset, and the renderer passes `hasBidiWarnings={false}` to `@atlaskit/code` code blocks. Bidi
+  warnings on inline `code` marks are unaffected.
+
+  `codeBidiWarning` has been removed from the plugin lists and plugin options of the Confluence
+  full-page, Confluence markdown, and Company Hub presets, so consumers no longer need to pass
+  `pluginOptions.codeBidiWarning` or `enabledOptionalPlugins.codeBidiWarning`.
+
+  `@atlaskit/editor-plugin-code-bidi-warning` is retained but now has no consumers; it is scheduled
+  for removal in a follow-up.
+
+- Updated dependencies
+
+## 136.1.0
+
+### Minor Changes
+
+- [`94ab527fc5fbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94ab527fc5fbf) -
+  Remove lazy-loaded nodes from the renderer. All nodes are now imported synchronously and will not
+  be affected by preloading if your app uses it.
+
+## 136.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.0.6
+
+### Patch Changes
+
+- [`da678c24b2eb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da678c24b2eb7) -
+  `validateADFEntity` takes an optional trailing `adfStage`, and full-ADF strictness is opt-in: only
+  a caller that names `final` is validated against full ADF, while omitting the argument keeps
+  stage-0 specs acceptable. Every existing caller behaves exactly as it did before.
+
+  Strictness is opt-in rather than derived from a default because a document holding a stage-0-only
+  construct, such as a `layoutSection` with a single column, otherwise has that content wrapped as
+  unsupported. Editors carry such constructs by design, since the editor's own schema enables them,
+  and renderers meet them in stored documents as well as in partially streamed ones. The legacy
+  `getValidDocument` path never enforced these cardinality rules, so deriving strictness
+  automatically would have made the two validation paths disagree on the same document.
+
+  `renderDocument`'s `adfStage` argument is consequently optional and no longer defaults to `final`
+  before reaching validation. It forwards whatever the caller supplied, and the legacy branch keeps
+  its own `final` default because it reads the value as a schema selector rather than as a
+  strictness request.
+
+  All of this is a no-op while `platform_editor_adf_validator_stage0` is off, and with the flag on
+  it changes nothing for callers that do not name a stage.
+
+- Updated dependencies
+
+## 136.0.5
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 136.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.1.0
+
+### Minor Changes
+
+- [`13e86ff9f1588`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13e86ff9f1588) -
+  [ux] Display avatars for mention nodes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.11
+
+### Patch Changes
+
+- [`2f8a5739a1726`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f8a5739a1726) -
+  Clean up feature gate `platform_editor_table_nested_renderer_fix`
+- Updated dependencies
+
+## 135.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.9
+
+### Patch Changes
+
+- [`b52df281b2214`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b52df281b2214) -
+  Clean up feature gate `platform_editor_table_renderer_fix_2`
+- Updated dependencies
+
+## 135.0.8
+
+### Patch Changes
+
+- [`2a425de8b292b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a425de8b292b) -
+  EDITOR-8504 Fix nested info panel icon colour
+
+## 135.0.7
+
+### Patch Changes
+
+- [`7eef7404cacac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eef7404cacac) -
+  Clean up feature gate `platform_editor_table_q4_patch_1`
+- Updated dependencies
+
+## 135.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.5
+
+### Patch Changes
+
+- [`5021c76db606a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5021c76db606a) -
+  Clean up feature gate `jfp-magma-ssr-iv-editor-codeblock`
+- Updated dependencies
+
+## 135.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 135.0.0
+
+### Patch Changes
+
+- [`1db4a5f3ed39f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1db4a5f3ed39f) -
+  Add analytics for collapsible heading toggles
+- Updated dependencies
+
+## 134.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.0.7
+
+### Patch Changes
+
+- [`b0682afb9fdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0682afb9fdf1) -
+  Add lime, orange and magenta colours to the table cell background colour palette.
+- [`2b6d25f854593`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b6d25f854593) -
+  Remove legacy ReactDOM.render/hydrate/unmountComponentAtNode usage from non-production code
+  (tests, demo entries, VR fixtures) as part of the React 19 migration
+- Updated dependencies
+
+## 134.0.6
+
+### Patch Changes
+
+- [`1f436e4732b98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f436e4732b98) -
+  Clean up the shipped smart link drag-and-drop feature gate and make the drag-and-drop path
+  permanent.
+- Updated dependencies
+
+## 134.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.0.4
+
+### Patch Changes
+
+- [`620801a55eefe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/620801a55eefe) -
+  Prevent extensions inside fit-to-content tables from collapsing their intrinsic width in the
+  editor and renderer
+- Updated dependencies
+
+## 134.0.3
+
+### Patch Changes
+
+- [`72f7cec91a1d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f7cec91a1d4) -
+  Remove the `platform_editor_block_menu_v2_patch_4` feature flag. Block menu local-id lookups now
+  always scope the query to the provided container.
+- Updated dependencies
+
+## 134.0.2
+
+### Patch Changes
+
+- [`7a8d5e478d5d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a8d5e478d5d1) -
+  Clean up feature gate `platform_editor_table_fixed_column_width_prop`
+- Updated dependencies
+
+## 134.0.1
+
+### Patch Changes
+
+- [`ae5ca1873aef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5ca1873aef4) -
+  Clean up feature gate `platform_editor_nested_dnd_styles_changes`
+- Updated dependencies
+
+## 134.0.0
+
+### Patch Changes
+
+- [`2681224a00763`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2681224a00763) -
+  Allow rounded table cell descendants elements to not clip within cell when
+  platform_editor_table_q4_loveability and platform_editor_table_q4_patch_7 are enabled.
+- Updated dependencies
+
+## 133.17.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.17.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.17.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.17.6
+
+### Patch Changes
+
+- [`7cecf41634d18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cecf41634d18) -
+  Revert the lime, orange, and magenta table cell background color options.
+- Updated dependencies
+
 ## 133.17.5
 
 ### Patch Changes

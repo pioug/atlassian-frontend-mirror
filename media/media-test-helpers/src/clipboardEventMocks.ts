@@ -33,7 +33,6 @@ export class ClipboardMockFile implements Omit<File, 'constructor'> {
 	arrayBuffer(): Promise<ArrayBuffer> {
 		return Promise.resolve(new ArrayBuffer(0));
 	}
-	// @ts-ignore: https://github.com/microsoft/TypeScript/issues/52166
 	stream(): ReadableStream<any> {
 		// IE11 compat
 		// eslint-disable-next-line compat/compat

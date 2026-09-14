@@ -1,13 +1,13 @@
 import { snapshot } from '@af/visual-regression';
 
-import InlineBasic from '../../../../../examples/10-inline-basic-compiled';
-import InlineSeparator from '../../../../../examples/12-inline-separator-compiled';
-import InlineSpace from '../../../../../examples/12-inline-space-compiled';
-import InlineAlignBlock from '../../../../../examples/13-inline-align-block-compiled';
-import InlineAlignInline from '../../../../../examples/14-inline-align-inline-compiled';
-import InlineSpread from '../../../../../examples/15-inline-spread-compiled';
-import InlineShouldWrap from '../../../../../examples/16-inline-should-wrap-compiled';
-import InlineGrow from '../../../../../examples/17-inline-grow-compiled';
+import InlineBasic from '../../../../../examples/10-inline-basic-compiled.vr.ap';
+import InlineSeparator from '../../../../../examples/12-inline-separator-compiled.vr.ap';
+import InlineSpace from '../../../../../examples/12-inline-space-compiled.vr.ap';
+import InlineAlignBlock from '../../../../../examples/13-inline-align-block-compiled.vr.ap';
+import InlineAlignInline from '../../../../../examples/14-inline-align-inline-compiled.vr.ap';
+import InlineSpread from '../../../../../examples/15-inline-spread-compiled.vr.ap';
+import InlineShouldWrap from '../../../../../examples/16-inline-should-wrap-compiled.vr.ap';
+import InlineGrow from '../../../../../examples/17-inline-grow-compiled.vr.ap';
 
 snapshot(InlineBasic, {
 	variants: [

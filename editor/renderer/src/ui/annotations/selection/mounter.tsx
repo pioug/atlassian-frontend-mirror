@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useMemo, useEffect } from 'react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
-import type { AnnotationId } from '@atlaskit/adf-schema';
+import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
+import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
 import type {
 	ApplyDraftResult,
 	ClearDraftResult,
@@ -19,7 +19,7 @@ import type {
 import type { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft/dom';
 import type { Position } from '../types';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import {
 	ACTION,

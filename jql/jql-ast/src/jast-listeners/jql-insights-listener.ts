@@ -52,6 +52,8 @@ export const collapsedFieldType = (text: string): string | undefined => {
  * Analytics computed for a JQL query.
  */
 export type JqlInsightsAttributes = {
+	// Total number of descendantsOfTeam function usages
+	descendantsOfTeamTotalCount: number;
 	jqlClauseCount: {
 		// The number of AND clauses in our AST
 		and: number;
@@ -147,6 +149,7 @@ class JastAnalyticsListener implements JastListener {
 		membersOfTeamCount: 0,
 		membersOfTeamIds: [],
 		membersOfGroupCount: 0,
+		descendantsOfTeamTotalCount: 0,
 	};
 
 	private usedFields: Set<string> = new Set();
@@ -291,6 +294,9 @@ class JastAnalyticsListener implements JastListener {
 					this.attributes.membersOfGroupCount += 1;
 				}
 			});
+		} else if (functionName === 'descendantsofteam') {
+			// Track each descendantsOfTeam function call
+			this.attributes.descendantsOfTeamTotalCount += 1;
 		}
 	};
 	enterKeywordOperand = this.incrementFieldValueCount;

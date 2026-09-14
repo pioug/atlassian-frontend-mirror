@@ -3,7 +3,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
+import { VRIssueLikeTable } from '../../examples/vr/issue-like-table.vr.ap';
 
 snapshotInformational(VRIssueLikeTable, {
 	description: 'Issue Like Table',

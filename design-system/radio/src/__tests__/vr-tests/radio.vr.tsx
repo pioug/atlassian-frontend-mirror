@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import RadioExample from '../../../examples/02-form-example';
+import RadioExample from '../../../examples/02-form-example.vr.ap';
 
 snapshot(RadioExample, {
 	description: 'Legacy style',

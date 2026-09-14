@@ -1,5 +1,84 @@
 # @atlaskit/side-nav-items
 
+## 2.4.3
+
+### Patch Changes
+
+- [`eac2b82a415cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eac2b82a415cd) -
+  Replace imported constants in Compiled style keys with static literals guarded by type assertions.
+
+## 2.4.2
+
+### Patch Changes
+
+- [`393071d99ae5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/393071d99ae5d) -
+  Cleanup feature gate `navx-5180-flyout-dialog-aria-label`. Flyout dialogs now always receive their
+  accessible name from the flyout title.
+- Updated dependencies
+
+## 2.4.1
+
+### Patch Changes
+
+- [`57c18753b01aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57c18753b01aa) -
+  Updated side navigation menu item hover and active states to use neutral subtle background tokens
+  behind the `platform-dst-tokens-finesse` feature gate.
+
+## 2.4.0
+
+### Minor Changes
+
+- [`5dabf123adf60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dabf123adf60) -
+  Add `SkeletonMenuItemNext`, a variant of `SkeletonMenuItem` that draws its placeholders with
+  `Skeleton` from `@atlaskit/skeleton` instead of plain elements. The layout is unchanged, except
+  that the description placeholder now fills the width available to it rather than a fixed 60px.
+
+## 2.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.12
+
+### Patch Changes
+
+- [`546fd492efa66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/546fd492efa66) -
+  Updated imports that were pointing to barrel files, to point to the correct import path.
+
+## 2.3.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.7
+
+### Patch Changes
+
+- [`5814d24060ed4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5814d24060ed4) -
+  Updated package ownership to point to correct team, and update README.md files for each navigation
+  package to point to Atlaskit docs
+- Updated dependencies
+
 ## 2.3.6
 
 ### Patch Changes

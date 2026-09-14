@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::a02b25be55c0f5e13c05e0e16ef8caa7>>
+ * @codegen <<SignedSource::e37e1511230c88e6ce33024f31bdbdcd>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -317,6 +317,7 @@ export type BorderColor =
 	| 'var(--ds-border-disabled)'
 	| 'var(--ds-border-focused)'
 	| 'var(--ds-border-input)'
+	| 'var(--ds-border-input-search)'
 	| 'var(--ds-border-inverse)'
 	| 'var(--ds-border-selected)'
 	| 'var(--ds-border-brand)'
@@ -519,13 +520,21 @@ export type Motion =
 	| 'var(--ds-flag-enter)'
 	| 'var(--ds-flag-exit)'
 	| 'var(--ds-flag-reposition)'
+	| 'var(--ds-label-enter)'
+	| 'var(--ds-label-exit)'
 	| 'var(--ds-listitem-hovered)'
 	| 'var(--ds-listitem-pressed)'
 	| 'var(--ds-listitem-selected)'
 	| 'var(--ds-modal-enter)'
 	| 'var(--ds-modal-exit)'
+	| 'var(--ds-panel-content-enter)'
+	| 'var(--ds-panel-content-exit)'
 	| 'var(--ds-panel-enter)'
+	| 'var(--ds-panel-enter-left)'
+	| 'var(--ds-panel-enter-right)'
 	| 'var(--ds-panel-exit)'
+	| 'var(--ds-panel-exit-left)'
+	| 'var(--ds-panel-exit-right)'
 	| 'var(--ds-popup-enter-bottom)'
 	| 'var(--ds-popup-enter-left)'
 	| 'var(--ds-popup-enter-right)'
@@ -534,6 +543,10 @@ export type Motion =
 	| 'var(--ds-popup-exit-left)'
 	| 'var(--ds-popup-exit-right)'
 	| 'var(--ds-popup-exit-top)'
+	| 'var(--ds-sidenav-enter-left)'
+	| 'var(--ds-sidenav-enter-right)'
+	| 'var(--ds-sidenav-exit-left)'
+	| 'var(--ds-sidenav-exit-right)'
 	| 'var(--ds-spotlight-enter)'
 	| 'var(--ds-spotlight-exit)';
 

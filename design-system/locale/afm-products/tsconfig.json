@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../react-select/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../select/afm-products/tsconfig.json"
 		}
 	]

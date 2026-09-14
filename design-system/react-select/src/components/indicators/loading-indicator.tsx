@@ -7,7 +7,7 @@ import { type CSSProperties, type JSX } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../../get-style-props';

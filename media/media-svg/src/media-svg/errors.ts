@@ -1,26 +1,13 @@
-import { type MediaSvgProps } from './types';
-
-export class MediaSVGError extends Error {
-	constructor(
-		readonly primaryReason: MediaSVGErrorReason,
-		readonly secondaryError?: Error | undefined,
-	) {
-		super(primaryReason);
-
-		// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#support-for-newtarget
-		Object.setPrototypeOf(this, new.target.prototype);
-
-		// https://v8.dev/docs/stack-trace-api
-		if ('captureStackTrace' in Error) {
-			Error.captureStackTrace(this, new.target);
-		}
-	}
-}
-
-export type MediaSVGErrorReason = 'img-error' | 'binary-fetch' | 'blob-to-datauri' | 'unexpected';
-
-export const createUnexpectedErrorCallback =
-	(onError: MediaSvgProps['onError']) =>
-	(e: Error): void => {
-		onError?.(new MediaSVGError('unexpected', e));
-	};
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
+/**
+ * @deprecated Use `import { MediaSVGError } from '@atlaskit/media-svg/media-svg-error'` instead.
+ */
+export { MediaSVGError } from './MediaSVGError';
+/**
+ * @deprecated Use `import { type MediaSVGErrorReason } from '@atlaskit/media-svg/media-svg-error'` instead.
+ */
+export type { MediaSVGErrorReason } from './MediaSVGError';
+/**
+ * @deprecated Use `import { createUnexpectedErrorCallback } from '@atlaskit/media-svg/errors'` instead.
+ */
+export { createUnexpectedErrorCallback } from './createUnexpectedErrorCallback';

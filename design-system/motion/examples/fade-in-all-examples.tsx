@@ -9,10 +9,12 @@
 import { css, jsx } from '@compiled/react';
 
 import { md } from '@atlaskit/docs';
-import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
+import FadeIn from '@atlaskit/motion/fade-in';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered, RetryContainer } from './utils';
+import { Block } from './utils/blocks';
+import { Centered, RetryContainer } from './utils/containers';
 
 export default (): any => md`
   ## Single element

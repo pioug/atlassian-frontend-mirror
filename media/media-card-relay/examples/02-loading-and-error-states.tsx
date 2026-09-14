@@ -14,8 +14,8 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { MediaProvider } from '@atlaskit/media-client-react';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { errorFileId, imageFileId } from '@atlaskit/media-test-helpers';
 
 import { MediaCardRelay } from '../src';

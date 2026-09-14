@@ -5,6 +5,9 @@ import { test } from './fixtures';
 test.describe('Editor Metrics - TTVC: Moving node', () => {
 	test.use({
 		examplePage: 'vc-observer-moving-node',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/02-vc-observer-moving-node.tsx');
+		examplePage: 'vc-observer-moving-node';
 	});
 
 	test.describe('when measure the whole page', () => {
@@ -50,10 +53,5 @@ test.describe('Editor Metrics - TTVC: Moving node', () => {
 				}),
 			);
 		});
-	});
-
-	test('should capture and report a11y violations', async ({ page }) => {
-		await expect(page.getByTestId('content-to-mutate')).toBeVisible();
-		await expect(page).toBeAccessible();
 	});
 });

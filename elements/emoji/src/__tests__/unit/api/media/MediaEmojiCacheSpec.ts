@@ -1,15 +1,15 @@
 import { waitFor } from '@testing-library/react';
 import * as sinon from 'sinon';
-import MediaEmojiCache, {
-	BrowserCacheStrategy,
-	type EmojiCacheStrategy,
-	MemoryCacheStrategy,
-} from '../../../../api/media/MediaEmojiCache';
+
+import { BrowserCacheStrategy } from '../../../../api/media/BrowserCacheStrategy';
+import type { EmojiCacheStrategy } from '../../../../api/media/MediaEmojiCache';
+import MediaEmojiCache from '../../../../api/media/MediaEmojiCache';
 import MediaImageLoader from '../../../../api/media/MediaImageLoader';
+import { MemoryCacheStrategy } from '../../../../api/media/MemoryCacheStrategy';
 import type TokenManager from '../../../../api/media/TokenManager';
-import { frequentCategory } from '../../../../util/constants';
-import { isPromise } from '../../../../util/type-helpers';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
+import { frequentCategory } from '../../../../util/constants';
+import { isPromise } from '../../../../util/is-promise';
 import {
 	createTokenManager,
 	imageEmoji,

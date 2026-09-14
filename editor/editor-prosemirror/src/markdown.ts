@@ -1,11 +1,8 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-re-exports -- These should be re-exported as they are an external dependency */
 export type {
-	// @ts-ignore - These types are augmented via typings/prosemirror-markdown.d.ts and are available in the built package
 	MarkSerializer,
-	// @ts-ignore - These types are augmented via typings/prosemirror-markdown.d.ts and are available in the built package
 	MarkSerializerSpec,
-	// @ts-ignore - These types are augmented via typings/prosemirror-markdown.d.ts and are available in the built package
 	NodeSerializerSpec,
-	// @ts-ignore - These types are augmented via typings/prosemirror-markdown.d.ts and are available in the built package
 	NodeSerializer,
 } from 'prosemirror-markdown';
 

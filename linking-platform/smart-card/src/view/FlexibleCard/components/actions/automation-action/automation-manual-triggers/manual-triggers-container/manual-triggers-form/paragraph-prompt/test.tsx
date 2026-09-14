@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { injectable } from 'react-magnetic-di';
-
-import { Field } from '@atlaskit/form';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { screen } from '@atlassian/testing-library';
+import { injectable } from 'react-magnetic-di';
 
-import { createGenericComponent, renderWithDi } from '../../common/test-utils';
+import Field from '@atlaskit/form/field';
+
+import { createGenericComponent } from '../../common/create-generic-component';
+import { renderWithDi } from '../../common/test-utils/render-with-di';
 import { type UserInputParagraphPrompt, UserInputType } from '../../common/types';
-
 import ParagraphInputPrompt from './main';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

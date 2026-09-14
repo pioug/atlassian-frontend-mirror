@@ -1,5 +1,5 @@
 import format from '@af/formatting/sync';
-import { light as tokens } from '@atlaskit/tokens/tokens-raw';
+import tokens from '@atlaskit/tokens/atlassian-light';
 
 import { capitalize } from './capitalize';
 import { compose } from './compose';

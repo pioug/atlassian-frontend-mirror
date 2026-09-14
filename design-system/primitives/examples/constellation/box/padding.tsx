@@ -5,9 +5,13 @@
 import { type JSX, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import { Box, Flex, Inline, type Space, Stack } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Heading from '@atlaskit/heading/heading';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import type { Space } from '@atlaskit/primitives/compiled/components/types';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

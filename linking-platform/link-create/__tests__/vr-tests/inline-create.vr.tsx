@@ -3,7 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import {
 	DefaultInlineCreate,
 	DefaultInlineCreateWithEditButton,
-} from '../../examples/vr/vr-inline-create';
+} from '../../examples/vr/vr-inline-create.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

@@ -16,7 +16,7 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { CopyButtonPlugin } from '../copyButtonPluginType';
 

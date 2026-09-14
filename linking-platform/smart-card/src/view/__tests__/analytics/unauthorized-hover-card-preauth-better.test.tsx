@@ -6,19 +6,22 @@ import React from 'react';
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers';
-import { auth } from '@atlaskit/outbound-auth-flow-client';
+import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
 import '../../../utils/shouldSample';

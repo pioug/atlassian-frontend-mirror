@@ -1,4 +1,5 @@
-import { canCompareDimension, isBigger } from '../../dimensionComparer';
+import { canCompareDimension } from '../../canCompareDimension';
+import { isBigger } from '../../isBigger';
 
 describe('dimensionComparer', () => {
 	describe('canCompareDimension', () => {

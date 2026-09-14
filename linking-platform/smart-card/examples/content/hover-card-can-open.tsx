@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { Checkbox } from '@atlaskit/checkbox';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 

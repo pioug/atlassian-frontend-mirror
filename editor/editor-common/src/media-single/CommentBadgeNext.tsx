@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import CommentIcon from '@atlaskit/icon/core/comment';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { commentMessages as messages } from '../media';
 

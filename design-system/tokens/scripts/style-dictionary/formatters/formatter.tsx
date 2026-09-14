@@ -1,0 +1,48 @@
+import format from '@af/formatting/sync';
+import { createSignedArtifact } from '@atlassian/codegen';
+import type { Format } from 'style-dictionary';
+
+import { additionalChecks } from '../../../src/utils/custom-theme-token-contrast-check';
+import { getTokenId } from '../../../src/utils/get-token-id';
+
+export const formatter: Format['formatter'] = ({ dictionary }) => {
+	const tokens: Record<string, string> = {};
+	const theme = dictionary.allProperties[0].filePath.includes('light') ? 'light' : 'dark';
+	additionalChecks.forEach((pair) => {
+		if (!(pair.foreground in tokens)) {
+			tokens[pair.foreground] = '';
+		}
+		if (theme === 'light' && !(pair.backgroundLight in tokens)) {
+			tokens[pair.backgroundLight] = '';
+		}
+		if (theme === 'dark' && !(pair.backgroundDark in tokens)) {
+			tokens[pair.backgroundDark] = '';
+		}
+	});
+
+	dictionary.allTokens.forEach((token) => {
+		const tokenName = getTokenId(token.path);
+		if (tokenName in tokens || tokenName === 'color.text.inverse') {
+			tokens[tokenName] = token.value;
+		}
+	});
+
+	const tokensKeyValues = Object.keys(tokens)
+		.map((name) => `  '${name}': '${tokens[name]}',`)
+		.join('\n');
+
+	const source = format(
+		`const tokenValues = {
+      ${tokensKeyValues}
+    } as const;
+
+    export default tokenValues;\n`,
+		'typescript',
+	);
+
+	return createSignedArtifact(
+		source,
+		`yarn build tokens`,
+		'Token names mapped to their values, used for contrast checking when generating custom themes',
+	);
+};

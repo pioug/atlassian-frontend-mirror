@@ -1,49 +1,57 @@
+import { render, screen } from '@testing-library/react';
+import noop from 'lodash/noop';
 import React from 'react';
-import { shallow } from 'enzyme';
 import { Menu } from '../../../components/Menu';
 
+const TestMenu = Menu as React.ComponentType<any>;
+
 describe('Menu', () => {
-	const shallowMenu = (props: any) => shallow(<Menu id="menu" {...props} />);
-
-	it('should render footer if footer is passed into Menu', () => {
-		const footer = (
-			<div id="footer">
-				<button>Test</button>
-			</div>
+	const renderMenu = (selectProps: Record<string, unknown> = {}) =>
+		render(
+			<TestMenu
+				id="menu"
+				selectProps={selectProps as any}
+				getStyles={noop as any}
+				cx={noop as any}
+				getClassNames={noop as any}
+			>
+				<div>menu option</div>
+			</TestMenu>,
 		);
-		const component = shallowMenu({
-			selectProps: { footer },
+
+	it('renders a footer when one is passed into Menu', async () => {
+		renderMenu({
+			footer: (
+				<div id="footer">
+					<button type="button">Test</button>
+				</div>
+			),
 		});
 
-		expect(component.find('#menu')).toHaveLength(1);
-		expect(component.find('#footer')).toHaveLength(1);
+		expect(screen.getByText('menu option')).toBeInTheDocument();
+		expect(document.querySelector('#footer')).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'Test' })).toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render Menu without footer if footer is not passed in', () => {
-		const component = shallowMenu({
-			selectProps: {},
-		});
+	it('renders without a footer when one is not passed in', () => {
+		renderMenu();
 
-		expect(component.find('#menu')).toHaveLength(1);
-		expect(component.find('#footer')).toHaveLength(0);
+		expect(screen.getByText('menu option')).toBeInTheDocument();
+		expect(document.querySelector('#footer')).not.toBeInTheDocument();
 	});
 
-	it('should render header if header is passed into Menu', () => {
-		const header = <div id="header">header</div>;
-		const component = shallowMenu({
-			selectProps: { header },
-		});
+	it('renders a header when one is passed into Menu', () => {
+		renderMenu({ header: <div id="header">header</div> });
 
-		expect(component.find('#menu')).toHaveLength(1);
-		expect(component.find('#header')).toHaveLength(1);
+		expect(screen.getByText('menu option')).toBeInTheDocument();
+		expect(screen.getByText('header')).toBeInTheDocument();
 	});
 
-	it('should render Menu without header if header is not passed in', () => {
-		const component = shallowMenu({
-			selectProps: {},
-		});
+	it('renders without a header when one is not passed in', () => {
+		renderMenu();
 
-		expect(component.find('#menu')).toHaveLength(1);
-		expect(component.find('#header')).toHaveLength(0);
+		expect(screen.getByText('menu option')).toBeInTheDocument();
+		expect(document.querySelector('#header')).not.toBeInTheDocument();
 	});
 });

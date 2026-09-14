@@ -2,6 +2,8 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export type { JSONDocNode, JSONNode } from './types';
 
-export { JSONTransformer, SchemaStage, toJSON as nodeToJSON } from './jsonTransformer';
+export { JSONTransformer } from './JSONTransformer-2';
+export { SchemaStage } from './SchemaStage';
+export { toJSON as nodeToJSON } from './toJSON';
 
-export { isJSONDocNode } from './entry-points/main';
+export { isJSONDocNode } from './main';

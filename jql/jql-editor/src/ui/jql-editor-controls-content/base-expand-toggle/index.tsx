@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
-import { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/button';
+import IconButton from '@atlaskit/button/icon/button';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import ShrinkDiagonalIcon from '@atlaskit/icon/core/shrink-diagonal';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandToggleContainer } from './styled';

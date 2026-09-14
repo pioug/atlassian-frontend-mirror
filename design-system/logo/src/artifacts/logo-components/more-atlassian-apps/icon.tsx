@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c11df6f0c8182479108e0649acaca190>>
+ * @codegen <<SignedSource::bc0afd96818da648d8573bee37a3cf46>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,7 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  */
 export function MoreAtlassianAppsIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'More Atlassian Apps',
 	testId,

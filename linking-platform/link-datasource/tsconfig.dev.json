@@ -50,6 +50,9 @@
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
+			"path": "../../atlassian-analytics-pipeline/analytics-cross-product/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
@@ -134,6 +137,9 @@
 			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/theme/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
@@ -149,7 +155,13 @@
 			"path": "../../accessibility/axe-integration/a11y-playwright-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/experiment-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

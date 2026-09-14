@@ -1,10 +1,10 @@
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type {
 	NextEditorPlugin,
 	EditorCommand,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import type { MediaEditingPluginState } from './pm-plugins/types';
 

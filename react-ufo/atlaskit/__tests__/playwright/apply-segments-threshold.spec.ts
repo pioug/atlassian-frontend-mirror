@@ -57,6 +57,13 @@ test.describe('React UFO: Segments threshold configuration', () => {
 			width: 1920,
 			height: 1080,
 		},
+	} satisfies {
+		examplePage: 'multiple-segments-labelstack-tree';
+		viewport: {
+			width: number;
+			height: number;
+		};
+		__exampleDependency?: typeof import('../../examples/31-multiple-segments-labelstack-tree.tsx');
 	});
 
 	test(`UFO Segment threshold is applied correctly`, async ({ page, waitForReactUFOPayload }) => {
@@ -74,6 +81,9 @@ test.describe('React UFO: Segments threshold configuration', () => {
 test.describe('ReactUFO: Interactions Segments threshold configuration', () => {
 	test.use({
 		examplePage: 'multiple-segments-labelstack-tree',
+	} satisfies {
+		examplePage: 'multiple-segments-labelstack-tree';
+		__exampleDependency?: typeof import('../../examples/31-multiple-segments-labelstack-tree.tsx');
 	});
 	test('segments limited to 3', async ({ page, waitForReactUFOInteractionPayload }) => {
 		const mainDiv = page.locator('[data-testid="page-container"]');

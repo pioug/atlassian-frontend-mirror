@@ -1,8 +1,8 @@
-import {
-	type AsyncSelectProps as AKAsyncSelectProps,
-	type GroupType,
-	type OptionType,
-} from '@atlaskit/select';
+import type {
+	AsyncSelectProps as AKAsyncSelectProps,
+	GroupType,
+	OptionType,
+} from '@atlaskit/select/types';
 
 import { type Validator } from '../../../common/types';
 

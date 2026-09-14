@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import ShowcaseExample from '../../../../examples/internal-logo-component/01-showcase';
-import ShowcaseLegacyExample from '../../../../examples/internal-logo-component/02-showcase-legacy';
+import ShowcaseExample from '../../../../examples/internal-logo-component/01-showcase.vr.ap';
+import ShowcaseLegacyExample from '../../../../examples/internal-logo-component/02-showcase-legacy.vr.ap';
 
 snapshot(ShowcaseExample, {
 	variants: [
@@ -24,7 +24,7 @@ snapshot(ShowcaseExample, {
 	],
 	featureFlags: {
 		'assets-platform-branding': true,
-		'assets-platform-branding-with-confluence': true,
+		'assets-platform-branding-v2': true,
 	},
 });
 
@@ -39,6 +39,6 @@ snapshot(ShowcaseLegacyExample, {
 	],
 	featureFlags: {
 		'assets-platform-branding': true,
-		'assets-platform-branding-with-confluence': true,
+		'assets-platform-branding-v2': true,
 	},
 });

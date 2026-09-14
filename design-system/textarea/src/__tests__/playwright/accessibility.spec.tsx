@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Disabled Textarea should pass base aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/0-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/0-basic.vr.ap.tsx')>(
 		'design-system',
 		'textarea',
 		'basic',
@@ -12,7 +12,7 @@ test('Disabled Textarea should pass base aXe audit', async ({ page }) => {
 });
 
 test('Textarea should pass base aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/0-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/0-basic.vr.ap.tsx')>(
 		'design-system',
 		'textarea',
 		'basic',

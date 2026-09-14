@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import CommonCell from './common-cell';

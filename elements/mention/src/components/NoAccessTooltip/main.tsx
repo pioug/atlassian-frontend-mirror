@@ -1,4 +1,4 @@
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import React from 'react';
 import { NoAccessWarning } from '../../util/i18n';
 

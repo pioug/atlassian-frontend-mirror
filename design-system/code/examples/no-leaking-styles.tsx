@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/code-block';
 
 // brings in prism styles
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @repo/internal/import/no-unresolved -- Ignored via go/DSP-18766
-import '!style-loader!css-loader!prismjs/themes/prism-tomorrow.css';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
+import 'prismjs/themes/prism-tomorrow.css';
 
 const exampleCodeBlock = `/**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
@@ -31,7 +31,8 @@ class HelloMessage extends React.Component {
   }
 }
 
-ReactDOM.render(<HelloMessage name="Taylor" />, document.body);`;
+const root = createRoot(document.body);
+root.render(<HelloMessage name="Taylor" />);`;
 
 export default function Component(): React.JSX.Element {
 	return (

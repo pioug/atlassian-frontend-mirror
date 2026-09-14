@@ -73,7 +73,9 @@ When applying components to the navigational areas,
 	</li>
 	<li>
 		<strong>Panel:</strong> Optional. Use to display supporting or supplementary content. Is
-		resizable and collapsible.
+		resizable and collapsible. Wrap `Panel` in `ExitingPersistence` from
+		`@atlaskit/motion/exiting-persistence` so it stays in the DOM until its exit animation
+		completes.
 	</li>
 </ol>
 

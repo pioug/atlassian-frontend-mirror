@@ -1,4 +1,8 @@
-import { useAnalyticsEvents, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import {
 	type ExternalImageIdentifier,
 	type FileDetails,
@@ -12,9 +16,9 @@ import {
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { ImageLoadError, type MediaCardError } from '../errors';
+
+import { ImageLoadError } from '../ImageLoadError';
+import type { MediaCardError } from '../MediaCardError';
 import {
 	type CardEventProps,
 	type CardPreview,
@@ -22,14 +26,15 @@ import {
 	type SharedCardProps,
 } from '../types';
 import { type SSRStatus } from '../utils/analytics';
+import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
+import { isKeyboardFocusEnteringElement } from '../utils/isKeyboardFocusEnteringElement';
 import { shouldPerformanceBeSampled, useMediaCardUfoExperience } from '../utils/ufoExperiences';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
-import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { usePrevious } from '../utils/usePrevious';
-import { fireOperationalEvent } from './cardAnalytics';
 import { CardView } from './cardView';
+import { fireOperationalEvent } from './fireOperationalEvent';
 import { performanceNow } from './performance';
 
 type ExternalImageCardStatus = 'loading-preview' | 'complete' | 'error';
@@ -71,6 +76,7 @@ export const ExternalImageCard = ({
 	mediaViewerItems,
 	onClick,
 	onMouseEnter,
+	onFocus,
 }: ExternalImageCardProps): React.JSX.Element => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -284,6 +290,15 @@ export const ExternalImageCard = ({
 				}}
 				onMouseEnter={(event: React.MouseEvent<HTMLDivElement>) => {
 					onMouseEnter?.({
+						event,
+						mediaItemDetails: metadata,
+					});
+				}}
+				onFocus={(event: React.FocusEvent<HTMLDivElement>) => {
+					if (!isKeyboardFocusEnteringElement(event)) {
+						return;
+					}
+					onFocus?.({
 						event,
 						mediaItemDetails: metadata,
 					});

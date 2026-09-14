@@ -113,7 +113,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
+		expect(callback).toHaveBeenCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
 	});
 
 	it('should wrap any props with matching keys found in createEventMap when value is a function', () => {
@@ -147,7 +147,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
+		expect(callback).toHaveBeenCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
 	});
 
 	it('should re-render with new props when createEventMap or wrapped props are updated', () => {
@@ -181,7 +181,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
+		expect(callback).toHaveBeenCalledWith({ action: 'click' }, [{ ticket: 'AFP-123' }], 'atlaskit');
 		callback.mockReset();
 
 		const updatedCreateEventMap: CreateEventMap = {
@@ -202,7 +202,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(callback).toBeCalledWith(
+		expect(callback).toHaveBeenCalledWith(
 			{ action: 'click', component: 'Button' },
 			[{ ticket: 'AFP-123' }],
 			'atlaskit',
@@ -234,7 +234,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.mouseOver(getByText('Button'));
 
-		expect(callback).toBeCalledWith(
+		expect(callback).toHaveBeenCalledWith(
 			{ action: 'mouseover', component: 'Button' },
 			[{ ticket: 'AFP-123' }],
 			'media',
@@ -272,7 +272,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(initialCallback).toBeCalledWith(
+		expect(initialCallback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[{ ticket: 'AFP-123' }],
 			'atlaskit',
@@ -294,7 +294,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(initialCallback).toBeCalledWith(
+		expect(initialCallback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[{ ticket: 'AFP-234' }],
 			'atlaskit',
@@ -319,7 +319,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(updatedCallback).toBeCalledWith(
+		expect(updatedCallback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[{ ticket: 'AFP-234' }],
 			'atlaskit',
@@ -364,7 +364,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(initialCallback).toBeCalledWith(
+		expect(initialCallback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[{ ticket: 'AFP-123' }],
 			'atlaskit',
@@ -390,7 +390,7 @@ describe('usePatchedProps', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(initialCallback).toBeCalledWith(
+		expect(initialCallback).toHaveBeenCalledWith(
 			{ action: 'click' },
 			[{ ticket: 'AFP-123' }],
 			'atlaskit',

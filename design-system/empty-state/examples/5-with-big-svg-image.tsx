@@ -1,7 +1,7 @@
 import React from 'react';
 
-import EmptyState, { type Width } from '@atlaskit/empty-state';
-// @ts-ignore
+import EmptyState from '@atlaskit/empty-state/empty-state';
+import type { Width } from '@atlaskit/empty-state/types';
 
 import exampleImage from './img/example-image.svg';
 

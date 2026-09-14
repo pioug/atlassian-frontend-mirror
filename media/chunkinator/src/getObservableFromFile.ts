@@ -1,0 +1,56 @@
+import { type Observable } from 'rxjs/Observable';
+import { from } from 'rxjs/observable/from';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+import { bufferCount } from 'rxjs/operators/bufferCount';
+import { concatMap } from 'rxjs/operators/concatMap';
+import { tap } from 'rxjs/operators/tap';
+
+import { type ChunkinatorFile, type Options, type Callbacks, type HashedBlob } from './domain';
+import { fetchBlob } from './fetchBlob';
+import { hashinator } from './hashinator';
+import { processinator } from './processinator';
+import { slicenator } from './slicenator';
+import { uploadinator } from './uploadinator';
+
+export const getObservableFromFile = (
+	file: ChunkinatorFile,
+	options: Options,
+	callbacks: Callbacks,
+): Observable<HashedBlob[]> =>
+	fromPromise(fetchBlob(file)).pipe(
+		concatMap((blob) => {
+			const { chunkSize } = options;
+			const { onProgress } = callbacks;
+			const totalChunks = Math.ceil(blob.size / chunkSize);
+			const slicenatedBlobs = slicenator(blob, { size: chunkSize });
+			const hashinatedBlobs = hashinator(slicenatedBlobs, {
+				concurrency: options.hashingConcurrency,
+				hasher: options.hashingFunction,
+			});
+
+			let uploadedChunks = 0;
+
+			let uploadedBlobs = uploadinator(hashinatedBlobs, {
+				concurrency: options.uploadingConcurrency,
+				uploader: options.uploadingFunction,
+			});
+
+			if (onProgress) {
+				uploadedBlobs = uploadedBlobs.pipe(
+					tap(() => {
+						uploadedChunks += 1;
+						onProgress(uploadedChunks / totalChunks);
+					}),
+				);
+			}
+			return processinator(uploadedBlobs, {
+				batchSize: options.processingBatchSize,
+				processor: options.processingFunction,
+			}).pipe(
+				concatMap((batchedChunks) => {
+					return from(batchedChunks);
+				}),
+				bufferCount(totalChunks),
+			);
+		}),
+	);

@@ -50,7 +50,16 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/constellation/modal-default.tsx'),
 				},
 			],
-			keywords: ['modal', 'dialog', 'popup', 'overlay', 'focused', 'interaction', 'layer'],
+			keywords: [
+				'modal',
+				'dialog',
+				'confirmation',
+				'popup',
+				'overlay',
+				'focused',
+				'interaction',
+				'layer',
+			],
 			categories: ['overlay'],
 		},
 		{

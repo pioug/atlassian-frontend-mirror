@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import type { LinkButtonProps as PlatformLinkButtonProps } from '@atlaskit/button/new';
+import type { LinkButtonProps as PlatformLinkButtonProps } from '@atlaskit/button/link';
 
 export type LinkButtonProps = Pick<
 	PlatformLinkButtonProps,

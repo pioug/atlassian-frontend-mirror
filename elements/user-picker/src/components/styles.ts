@@ -1,5 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-import { mergeStyles, type StylesConfig } from '@atlaskit/select';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { mergeStyles } from '@atlaskit/react-select/styles';
+import type { StylesConfig } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 

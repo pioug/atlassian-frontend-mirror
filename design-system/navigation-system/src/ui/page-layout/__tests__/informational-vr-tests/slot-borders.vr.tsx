@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { CompositionVR } from '../../../../../examples/composition';
+import { CompositionVR } from '../../../../../examples/composition.vr.ap';
 
 snapshotInformational(CompositionVR, {
 	description: 'above md breakpoint - side nav expanded',

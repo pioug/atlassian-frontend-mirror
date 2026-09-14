@@ -1,21 +1,55 @@
 import { type RefObject, useLayoutEffect } from 'react';
 
+import once from '@atlaskit/ds-lib/once';
+
 import type { TWidthFromAnchorMode } from '../popover/types';
 
 import { setStyle } from './set-style';
 
 /**
+ * Probes anchor SIZING, separately from `anchor-name` (see
+ * `supportsAnchorPositioning`): some browsers have positioning but not sizing.
+ * `once()` for SSR safety.
+ */
+const supportsAnchorSize = once((): boolean => {
+	if (
+		typeof window === 'undefined' ||
+		typeof CSS === 'undefined' ||
+		typeof CSS.supports !== 'function'
+	) {
+		return false;
+	}
+	return CSS.supports('min-inline-size', 'anchor-size(self-inline)');
+});
+
+/**
+ * The JS fallback's stand-in for `anchor-size(self-inline)`. `offsetWidth` / `offsetHeight` are
+ * physical, so the axis is picked from the popover's `writing-mode`. Anything not horizontal is
+ * treated as vertical, and an unknown or empty value falls back to `offsetWidth`.
+ */
+function getFallbackAnchorInlineSize({
+	anchor,
+	popover,
+}: {
+	anchor: HTMLElement;
+	popover: HTMLElement;
+}): number {
+	// `String()` because not every test environment implements `writing-mode`.
+	const writingMode = String(getComputedStyle(popover).writingMode);
+	const isVertical = writingMode.startsWith('vertical') || writingMode.startsWith('sideways');
+	return isVertical ? anchor.offsetHeight : anchor.offsetWidth;
+}
+
+/**
  * Sets the width of a popover element relative to its anchor element.
  *
- * - `'match-anchor'` → `width: anchor-size(width)` - popover matches anchor width exactly.
- * - `'min-anchor'`   → `min-width: anchor-size(width)` - popover is at least as wide as anchor,
- *   but can grow wider.
- * - `'none'`         → no explicit width is set (default behaviour)
+ * - `'match-anchor'` → `inline-size: anchor-size(self-inline)`, exact
+ * - `'min-anchor'`   → `min-inline-size: anchor-size(self-inline)`, floor only
+ * - `'none'`         → `min-inline-size: max-content`, content floor (default)
  *
- * Uses CSS `anchor-size(width)` when the browser supports it, falling back to a
- * one-off measurement of `anchor.offsetWidth`.
- *
- * Designed to be composed alongside `useAnchorPosition` for top-layer popovers.
+ * `self-inline` is the inline axis of the element USING the function (the popover), never the
+ * anchor, so it matches the axis `inline-size` constrains. See
+ * `notes/decisions/width-from-anchor-floors.md`.
  */
 export function useWidthFromAnchor({
 	mode,
@@ -34,49 +68,38 @@ export function useWidthFromAnchor({
 			return;
 		}
 
-		// Feature-detect `anchor-size()` specifically (not just `anchor-name`)
-		// so the JS fallback fires correctly in browsers that support anchor
-		// positioning but not anchor sizing.
-		const supportsAnchorSize =
-			typeof CSS !== 'undefined' &&
-			typeof CSS.supports === 'function' &&
-			CSS.supports('width', 'anchor-size(width)');
-
 		if (mode === 'match-anchor') {
-			// Set an exact width matching the anchor.
-			// `min-inline-size` is intentionally NOT set here - it would override the
-			// explicit width constraint, allowing the popover to grow past the anchor's width.
-			if (supportsAnchorSize) {
+			// No floor here: it would let the popover grow past the anchor.
+			if (supportsAnchorSize()) {
 				return setStyle({
 					element: node,
-					styles: [{ property: 'width', value: 'anchor-size(width)' }],
+					styles: [{ property: 'inline-size', value: 'anchor-size(self-inline)' }],
 				});
 			}
 
-			// JS fallback: one-off read of the anchor's width.
 			const anchor = anchorRef.current;
 			if (anchor) {
 				return setStyle({
 					element: node,
-					styles: [{ property: 'width', value: `${anchor.offsetWidth}px` }],
+					styles: [
+						{
+							property: 'inline-size',
+							value: `${getFallbackAnchorInlineSize({ anchor, popover: node })}px`,
+						},
+					],
 				});
 			}
 
 			return;
 		}
 
-		// For 'min-anchor' and 'none', apply `min-inline-size: max-content` to ensure
-		// correct position-try-fallbacks behaviour (popover margin box overflows the
-		// viewport when its span region is too narrow, rather than wrapping content).
-		const minInlineSizeStyle = { property: 'min-inline-size', value: 'max-content' };
-
 		if (mode === 'min-anchor') {
-			// Set a minimum width matching the anchor. The popover can grow wider
-			// if its content requires it.
-			if (supportsAnchorSize) {
+			// One floor only. The content floor from mode 'none' deliberately does not also apply
+			// here, and cannot: it would need this same property. See the decision note.
+			if (supportsAnchorSize()) {
 				return setStyle({
 					element: node,
-					styles: [minInlineSizeStyle, { property: 'min-width', value: 'anchor-size(width)' }],
+					styles: [{ property: 'min-inline-size', value: 'anchor-size(self-inline)' }],
 				});
 			}
 
@@ -84,15 +107,24 @@ export function useWidthFromAnchor({
 			if (anchor) {
 				return setStyle({
 					element: node,
-					styles: [minInlineSizeStyle, { property: 'min-width', value: `${anchor.offsetWidth}px` }],
+					styles: [
+						{
+							property: 'min-inline-size',
+							value: `${getFallbackAnchorInlineSize({ anchor, popover: node })}px`,
+						},
+					],
 				});
 			}
 
-			// No anchor available in JS fallback - still apply min-inline-size.
-			return setStyle({ element: node, styles: [minInlineSizeStyle] });
+			// Nothing to measure, so no floor.
+			return;
 		}
 
-		// 'none' mode: no explicit width, but still apply `min-inline-size: max-content`.
-		return setStyle({ element: node, styles: [minInlineSizeStyle] });
+		// Makes a too-narrow span overflow and drive `position-try-fallbacks` instead of wrapping.
+		// `@atlaskit/popper` resets this exact property to `0` for its fit-to-viewport mode.
+		return setStyle({
+			element: node,
+			styles: [{ property: 'min-inline-size', value: 'max-content' }],
+		});
 	}, [mode, popoverRef, anchorRef, isOpen]);
 }

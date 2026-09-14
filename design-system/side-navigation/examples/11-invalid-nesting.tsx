@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	ButtonItem,
-	GoBackItem,
-	Header,
-	NavigationHeader,
-	NestableNavigationContent,
-	NestingItem,
-	Section,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+import { GoBackItem } from '@atlaskit/side-navigation/go-back-item';
+import { Header } from '@atlaskit/side-navigation/header';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';

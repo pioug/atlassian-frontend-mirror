@@ -37,7 +37,7 @@ const rule: Rule.RuleModule = createLintRule({
 		 * Contains a map of imported icon components from any atlaskit icon package.
 		 */
 		const isNewIcon = createIsFromImportSourceFor(
-			/^@(atlaskit\/icon|atlaskit\/icon-lab|atlassian\/icon-private)\/(core|utility)\/*/,
+			/^@(atlaskit\/icon|atlaskit\/icon-lab)\/(core|utility)\/*/,
 		);
 
 		return errorBoundary({

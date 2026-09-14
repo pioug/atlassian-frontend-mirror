@@ -41,5 +41,6 @@
 		{
 			"path": "../experience-tracker/tsconfig.app.json"
 		}
-	]
+	],
+	"files": []
 }

@@ -1,0 +1,244 @@
+import React from 'react';
+
+import { cssMap } from '@atlaskit/css';
+import __noop from '@atlaskit/ds-lib/noop';
+import NotificationIcon from '@atlaskit/icon/core/notification';
+import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { NotificationIndicator } from '@atlaskit/notification-indicator';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import { DefaultCreate } from '../../../examples/shared/create';
+import { jiraPrimaryItems } from '../../../examples/shared/primary-items';
+import {
+	DefaultCustomProductHome,
+	JiraAppHome,
+	JiraProductHome,
+	JiraServiceManagementAppHome,
+	JiraServiceManagementProductHome,
+} from '../../../examples/shared/product-home';
+import { DefaultProfile } from '../../../examples/shared/profile';
+import Search from '../../../examples/shared/search';
+import { themes } from '../../../examples/shared/themes';
+import {
+	AppSwitcher,
+	AtlassianNavigation,
+	Help,
+	Notifications,
+	ProductHome,
+	Settings,
+} from '../../index';
+import {
+	NavigationSkeleton,
+	SkeletonCreateButton,
+	SkeletonIconButton,
+	SkeletonPrimaryButton,
+} from '../../skeleton';
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
+	},
+});
+
+const NotificationsBadge = () => (
+	<NotificationIndicator
+		onCountUpdated={__noop}
+		notificationLogProvider={Promise.resolve({}) as any}
+	/>
+);
+const DefaultAppSwitcher = () => <AppSwitcher tooltip="Switch to..." />;
+const DefaultSettings = () => <Settings tooltip="Product settings" />;
+
+const NavExample = (): React.JSX.Element => (
+	<AtlassianNavigation
+		label="site"
+		renderAppSwitcher={DefaultAppSwitcher}
+		renderProductHome={JiraProductHome}
+		primaryItems={jiraPrimaryItems}
+		renderHelp={() => <Help tooltip="Get help" />}
+		renderSettings={DefaultSettings}
+		renderCreate={DefaultCreate}
+		renderSearch={Search}
+		renderNotifications={() => <Notifications badge={NotificationsBadge} tooltip="Notifications" />}
+		renderProfile={DefaultProfile}
+	/>
+);
+
+const NavExampleAppHome = (): React.JSX.Element => (
+	<AtlassianNavigation
+		label="site"
+		renderAppSwitcher={DefaultAppSwitcher}
+		renderProductHome={JiraAppHome}
+		primaryItems={jiraPrimaryItems}
+		renderHelp={() => <Help tooltip="Get help" />}
+		renderSettings={DefaultSettings}
+		renderCreate={DefaultCreate}
+		renderSearch={Search}
+		renderNotifications={() => <Notifications badge={NotificationsBadge} tooltip="Notifications" />}
+		renderProfile={DefaultProfile}
+	/>
+);
+
+const ThemingAppHomeExample = (): React.JSX.Element => (
+	<>
+		{themes.map((theme, index) => (
+			<Stack key={index} space="space.200">
+				<AtlassianNavigation
+					label="site"
+					renderAppSwitcher={DefaultAppSwitcher}
+					renderProductHome={JiraServiceManagementAppHome}
+					primaryItems={jiraPrimaryItems}
+					renderHelp={() => <Help tooltip="Get help" />}
+					renderSettings={DefaultSettings}
+					renderCreate={DefaultCreate}
+					renderSearch={Search}
+					renderNotifications={() => (
+						<Notifications badge={NotificationsBadge} tooltip="Notifications" />
+					)}
+					renderProfile={DefaultProfile}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={theme}
+				/>
+			</Stack>
+		))}
+	</>
+);
+
+const ThemingExample = (): React.JSX.Element => (
+	<>
+		{themes.map((theme, index) => (
+			<Stack key={index} space="space.200">
+				<AtlassianNavigation
+					label="site"
+					renderAppSwitcher={DefaultAppSwitcher}
+					renderProductHome={JiraServiceManagementProductHome}
+					primaryItems={jiraPrimaryItems}
+					renderHelp={() => <Help tooltip="Get help" />}
+					renderSettings={DefaultSettings}
+					renderCreate={DefaultCreate}
+					renderSearch={Search}
+					renderNotifications={() => (
+						<Notifications badge={NotificationsBadge} tooltip="Notifications" />
+					)}
+					renderProfile={DefaultProfile}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={theme}
+				/>
+			</Stack>
+		))}
+	</>
+);
+
+// using Home, Create and Search - these components should adapt to small screens
+// using an empty primaryItems array until the feature flag is removed or PFF support
+// is in gemini
+const ResponsiveCreateHomeAndSearchExample = (): React.JSX.Element => (
+	<AtlassianNavigation
+		label="site"
+		primaryItems={[]}
+		renderProductHome={() => (
+			<ProductHome aria-label={'Jira'} icon={JiraIcon} logo={JiraLogo} testId="jira-product-home" />
+		)}
+		renderCreate={DefaultCreate}
+		renderSearch={Search}
+	/>
+);
+
+const CustomProductHomeExample = (): React.JSX.Element => (
+	<AtlassianNavigation
+		label="site"
+		renderProductHome={DefaultCustomProductHome}
+		primaryItems={[]}
+		renderCreate={DefaultCreate}
+		renderSearch={Search}
+	/>
+);
+
+const skeletonPrimaryItems = [
+	<SkeletonPrimaryButton key="home">Home</SkeletonPrimaryButton>,
+	<SkeletonPrimaryButton key="projects" isDropdownButton text="Projects" />,
+	<SkeletonPrimaryButton
+		key="filters-and-work-items"
+		isDropdownButton
+		isHighlighted
+		text="Filters &amp; work items"
+	/>,
+	<SkeletonPrimaryButton key="dashboards" isDropdownButton text="Dashboards" />,
+	<SkeletonPrimaryButton key="apps" isDropdownButton text="Apps" testId="apps-skeleton" />,
+];
+
+const SkeletonButtonsExample = (): React.JSX.Element => (
+	<AtlassianNavigation
+		label="site"
+		renderProductHome={DefaultCustomProductHome}
+		primaryItems={skeletonPrimaryItems}
+		renderCreate={() => <SkeletonCreateButton text="Create"></SkeletonCreateButton>}
+		renderNotifications={() => (
+			<SkeletonIconButton>
+				<NotificationIcon color="currentColor" label="Notifications" />
+			</SkeletonIconButton>
+		)}
+	/>
+);
+
+const ThemedSkeletonButtonsExample = (): React.JSX.Element => (
+	<AtlassianNavigation
+		label="site"
+		renderProductHome={DefaultCustomProductHome}
+		primaryItems={skeletonPrimaryItems}
+		renderCreate={() => <SkeletonCreateButton text="Create"></SkeletonCreateButton>}
+		renderNotifications={() => (
+			<SkeletonIconButton>
+				<Flex xcss={iconSpacingStyles.space050}>
+					<NotificationIcon color="currentColor" label="Notifications" />
+				</Flex>
+			</SkeletonIconButton>
+		)}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+		theme={themes[1]}
+	/>
+);
+
+const NavigationSkeletonExample = (): React.JSX.Element => (
+	<NavigationSkeleton primaryItemsCount={4} secondaryItemsCount={3} shouldShowSearch={true} />
+);
+
+const ThemingNavigationSkeletonExample = (): React.JSX.Element => (
+	<>
+		{themes.map((theme, index) => (
+			<Stack key={index} space="space.200">
+				<NavigationSkeleton
+					primaryItemsCount={4}
+					secondaryItemsCount={3}
+					shouldShowSearch={true}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={theme}
+				/>
+			</Stack>
+		))}
+	</>
+);
+
+export {
+	NavExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	NavExampleAppHome,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	ResponsiveCreateHomeAndSearchExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	CustomProductHomeExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	SkeletonButtonsExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	ThemedSkeletonButtonsExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	NavigationSkeletonExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	ThemingAppHomeExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	ThemingExample,
+	// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+	ThemingNavigationSkeletonExample,
+};

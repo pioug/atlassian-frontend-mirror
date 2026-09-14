@@ -26,6 +26,9 @@
 			"path": "../../../uip/atlassian-context/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{

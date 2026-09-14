@@ -6,7 +6,7 @@
 import React, { type ReactNode } from 'react';
 import { jsx, css } from '@compiled/react';
 import Button from '@atlaskit/button/standard-button';
-import { ModalTransition } from '@atlaskit/modal-dialog';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { type Avatar, AvatarPickerDialog } from '../src';
 import { generateAvatars } from '../example-helpers';
 import {

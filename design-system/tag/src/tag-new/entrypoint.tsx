@@ -2,7 +2,11 @@
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */
-export { default, colorMapping } from './tag-new';
+export { default } from './tag-new';
+/**
+ * @deprecated Import from the generated per-export subpath instead.
+ */
+export { colorMapping } from './color-mapping';
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */

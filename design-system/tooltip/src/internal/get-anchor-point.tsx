@@ -1,4 +1,4 @@
-import { type TPlacementOptions } from '@atlaskit/top-layer/placement-map';
+import type { TPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
 import type { TAnchorPoint } from '@atlaskit/top-layer/use-anchor-position-at-point';
 
 import { type PositionMouseOptions } from '../types';

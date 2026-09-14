@@ -3,14 +3,12 @@ import type React from 'react';
 import { type IntlShape } from 'react-intl';
 
 import { type ConversationStarter } from '@atlaskit/rovo-agent-components/ui/AgentConversationStarters';
-import type {
-	AnalyticsEventAttributes,
-	FireEventType,
-	useAnalyticsEvents,
-} from '@atlaskit/teams-app-internal-analytics';
+import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
+import type { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 
 import { type TeamCentralScopes } from './client/ProfileCardClient';
-import type RovoAgentCardClient from './client/RovoAgentCardClient';
+import type { default as RovoAgentCardClient } from './client/RovoAgentCardClient';
 import {
 	type default as TeamCentralCardClient,
 	type TeamCentralCardClientOptions,
@@ -374,6 +372,8 @@ export type AgentProfileCardProps = {
 	hideAgentActions?: boolean;
 	/** Hide the favourite (star) button. Defaults to false (the star is shown). */
 	hideStarButton?: boolean;
+	/** Render the creator/author as plain text with no link. Defaults to false. */
+	showCreatorNameWithoutLink?: boolean;
 	/** Optional component rendered at the bottom of the agent profile card. */
 	footerComponent?: React.ReactNode;
 } & AgentActionsType;

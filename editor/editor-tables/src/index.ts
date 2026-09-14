@@ -25,7 +25,8 @@
   THE SOFTWARE.
  */
 
-export { TableMap, Rect } from './table-map';
+export { Rect } from './rect';
+export { TableMap } from './table-map';
 export { CellSelection } from './cell-selection';
-export { findTable } from './utils/find';
+export { findTable } from './utils/find-table';
 export { uuid } from './utils/uuid';

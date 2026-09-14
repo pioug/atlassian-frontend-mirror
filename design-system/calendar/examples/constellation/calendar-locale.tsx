@@ -6,13 +6,14 @@ import { useCallback, useState } from 'react';
 
 import { css } from '@compiled/react';
 
-import Calendar from '@atlaskit/calendar';
+import Calendar from '@atlaskit/calendar/calendar';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Box } from '@atlaskit/primitives/compiled';
-import Select, { type ValueType } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
 
 const styles = cssMap({
 	localeContainer: { maxWidth: '300px' },

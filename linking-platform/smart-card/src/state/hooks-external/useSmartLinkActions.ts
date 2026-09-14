@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -18,7 +18,7 @@ import type { AnalyticsOrigin } from '../../utils/types';
 import type { CardActionOptions, CardInnerAppearance } from '../../view/Card/types';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve from '../hooks/use-resolve';
-import { useSmartLinkCrossProductUrlWrapperGated } from '../hooks/use-smart-link-cross-product-url-wrapper';
+import { useSmartLinkCrossProductUrlWrapper } from '../hooks/use-smart-link-cross-product-url-wrapper';
 import { useSmartCardState as useLinkState } from '../store';
 
 export interface LinkAction {
@@ -87,7 +87,7 @@ export function useSmartLinkActions({
 	const invokeClientAction = useInvokeClientAction({ fireEvent });
 	const resolve = useResolve();
 
-	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapperGated({
+	const appendCrossProductAnalyticsParams = useSmartLinkCrossProductUrlWrapper({
 		details: linkState.details,
 	});
 
@@ -110,12 +110,10 @@ export function useSmartLinkActions({
 			);
 		}
 
-		const viewActionProps = fg('platform_smartlink_xpc_url_wrapping')
-			? extractInvokeViewAction({
-					...invokeParam,
-					transformUrl: (destinationUrl = url) => appendCrossProductAnalyticsParams(destinationUrl),
-				})
-			: extractInvokeViewAction(invokeParam);
+		const viewActionProps = extractInvokeViewAction({
+			...invokeParam,
+			transformUrl: (destinationUrl = url) => appendCrossProductAnalyticsParams(destinationUrl),
+		});
 		if (viewActionProps) {
 			actions.push(toAction(viewActionProps, invokeClientAction, messages.view, 'view-content'));
 		}
@@ -127,12 +125,7 @@ export function useSmartLinkActions({
 			isPreviewPanelAvailable,
 			...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 			openPreviewPanel,
-			...(fg('platform_smartlink_xpc_url_wrapping')
-				? {
-						transformUrl: (destinationUrl = url) =>
-							appendCrossProductAnalyticsParams(destinationUrl),
-					}
-				: undefined),
+			transformUrl: (destinationUrl = url) => appendCrossProductAnalyticsParams(destinationUrl),
 		});
 		if (previewActionProps) {
 			actions.push(

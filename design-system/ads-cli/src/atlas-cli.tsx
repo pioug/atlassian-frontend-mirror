@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { run } from './cli';
+import { CLI_ATLAS_INVOCATION } from './commands/cli-metadata';
 
 /**
  * Process entrypoint for the `atlas ads` distribution.
@@ -11,7 +12,7 @@ import { run } from './cli';
  */
 export const main = async (argv: string[] = process.argv.slice(2)): Promise<void> => {
 	try {
-		const exitCode = await run(argv);
+		const exitCode = await run(argv, undefined, { invocation: CLI_ATLAS_INVOCATION });
 		process.exitCode = exitCode;
 	} catch (error) {
 		if (typeof error === 'number') {

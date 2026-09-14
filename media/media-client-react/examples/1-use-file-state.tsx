@@ -2,7 +2,9 @@ import React, { type SyntheticEvent, useState } from 'react';
 
 import { defaultCollectionName, mediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
 
-import { MediaClientProvider, useFileState, useMediaClient } from '../src';
+import { MediaClientProvider } from '../src/MediaClientProvider';
+import { useFileState } from '../src/useFileState';
+import { useMediaClient } from '../src/useMediaClient';
 
 const mediaClientConfig = {
 	authProvider: mediaPickerAuthProvider(),
@@ -32,6 +34,7 @@ function MyApp() {
 				content: file,
 				name: file.name,
 				collection: defaultCollectionName,
+				size: file.size,
 			})
 			.subscribe((stream) => {
 				setFileId(stream.id);

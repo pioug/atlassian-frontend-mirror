@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
 import { Box, Flex } from '@atlaskit/primitives/compiled';

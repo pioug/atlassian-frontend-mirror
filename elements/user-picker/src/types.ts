@@ -1,15 +1,12 @@
 import { type ReactNode } from 'react';
 import type React from 'react';
 import { type AriaAttributes } from 'react';
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type Placement } from '@atlaskit/popper';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { Placement } from '@atlaskit/popper/main';
 
 import { type EmailValidator } from './components/emailValidation';
-import {
-	type StylesConfig,
-	type SelectComponentsConfig,
-	type PopupSelectProps,
-} from '@atlaskit/select';
+import type { StylesConfig, SelectComponentsConfig } from '@atlaskit/select/types';
+import type { PopupSelectProps } from '@atlaskit/select/popup-select';
 import { type BaseUserPickerWithoutAnalytics } from './components/BaseUserPicker';
 
 export type UserPickerProps = WithAnalyticsEventsProps & {

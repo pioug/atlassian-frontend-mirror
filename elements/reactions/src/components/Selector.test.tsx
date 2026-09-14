@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
+import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
 import { type EmojiId, type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
@@ -50,6 +51,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 			platform_teamoji_26_refresh_emoji_picker: false,
 			platform_a11y_fixes_reactions_selector_list: false,
 		});
+		resetAllExperiments();
 	});
 
 	it('should have no accessibility violations', async () => {
@@ -153,5 +155,14 @@ describe('@atlaskit/reactions/components/selector', () => {
 		renderWithIntl(renderSelector(jest.fn(), false, jest.fn(), true));
 		const triggerPickerButton = await screen.findByLabelText('Add reaction');
 		expect(triggerPickerButton).toBeInTheDocument();
+	});
+
+	it('renders the hoverable emoji buttons in an unordered list', () => {
+		renderWithIntl(renderSelector(jest.fn(), false, jest.fn(), true));
+		const list = screen.getByRole('list');
+
+		expect(list).toBeInTheDocument();
+		expect(list?.children).toHaveLength(DefaultReactions.length);
+		expect(Array.from(list?.children ?? []).every((item) => item.tagName === 'LI')).toBe(true);
 	});
 });

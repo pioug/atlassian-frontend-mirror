@@ -8,17 +8,17 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Label } from '@atlaskit/form';
+import { Label } from '@atlaskit/form/label/default';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		display: 'flex',
 		flexDirection: 'column',
 	},

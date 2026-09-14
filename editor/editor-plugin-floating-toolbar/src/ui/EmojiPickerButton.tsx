@@ -7,7 +7,7 @@ import React, { useCallback, useContext } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -21,7 +21,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 

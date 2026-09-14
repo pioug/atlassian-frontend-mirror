@@ -3,7 +3,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../index';
+import DropdownMenu from '../../dropdown-menu';
+import DropdownItemRadio from '../../radio/dropdown-item-radio';
+import DropdownItemRadioGroup from '../../radio/dropdown-item-radio-group';
 
 /**
  * With the FF off the default selected state is not persisted.

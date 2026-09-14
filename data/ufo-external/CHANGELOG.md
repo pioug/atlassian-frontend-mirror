@@ -1,5 +1,27 @@
 # @af/ufo-types
 
+## 1.2.0
+
+### Minor Changes
+
+- [`1646c59e857d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1646c59e857d9) -
+  Add granular subpath exports for `global-stream-buffer` helpers (`experiencePayloadEvent`,
+  `getGlobalEventStream`, `setGlobalEventStream`, `subscribeEvent`, `unsubscribeEvent`) and `logger`
+  helpers (`ufolog`, `ufowarn`). These give Volt Stage-1 clean, non-deprecated homes for exports
+  that were previously only reachable through the root barrel, so consumers can migrate off the
+  deprecated public surface.
+
+## 1.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

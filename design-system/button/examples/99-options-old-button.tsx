@@ -7,8 +7,8 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button';
-import { AtlassianIcon } from '@atlaskit/logo';
+import Button from '@atlaskit/button/button';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { token } from '@atlaskit/tokens';
 
 const Icon = <AtlassianIcon label="" size="small" />;

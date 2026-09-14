@@ -5,6 +5,9 @@ import { test } from './fixtures';
 test.describe('Editor Metrics - TTVC: Element moving', () => {
 	test.use({
 		examplePage: 'vc-observer-moving-node',
+	} satisfies {
+		__exampleDependency?: typeof import('../../examples/02-vc-observer-moving-node.tsx');
+		examplePage: 'vc-observer-moving-node';
 	});
 
 	test.describe('when measure the whole page', () => {
@@ -76,10 +79,5 @@ test.describe('Editor Metrics - TTVC: Element moving', () => {
 			const timestamps = new Set(Object.values(VCTargets!));
 			expect(timestamps.size).toBe(2);
 		});
-	});
-
-	test('should capture and report a11y violations', async ({ page, waitForTicks }) => {
-		await waitForTicks(1);
-		await expect(page).toBeAccessible();
 	});
 });

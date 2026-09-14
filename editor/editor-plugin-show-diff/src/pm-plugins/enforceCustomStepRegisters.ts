@@ -6,7 +6,7 @@ import * as adfCustomSteps from '@atlaskit/adf-schema/steps';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as atlaskKitCustomSteps from '@atlaskit/custom-steps';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 export const enforceCustomStepRegisters = (): void => {
 	const tryToRegisterStep = (obj: Record<string, Step>) => {

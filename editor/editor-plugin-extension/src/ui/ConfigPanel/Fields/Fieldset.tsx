@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import type {
 	ExtensionManifest,
 	FieldDefinition,
@@ -17,12 +17,12 @@ import type {
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import AddCircleIcon from '@atlaskit/icon/core/add';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
-import SectionMessage from '@atlaskit/section-message';
-import Select from '@atlaskit/select';
+import SectionMessage from '@atlaskit/section-message/message';
+import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';
 
 import type { FormContentProps, OnFieldChange } from '../types';
@@ -324,7 +324,7 @@ const sectionMessageWrapperStyles = xcss({
 	marginBottom: 'space.300',
 });
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<Props>> & {
 	WrappedComponent: React.ComponentType<Props>;
 } = injectIntl(FieldsetField);

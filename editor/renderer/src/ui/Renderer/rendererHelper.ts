@@ -1,4 +1,4 @@
-import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer/types';
 
 export const removeEmptySpaceAroundContent = (document: JSONDocNode): JSONDocNode => {
 	// Check if the document is valid

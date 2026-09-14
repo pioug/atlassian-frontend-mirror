@@ -5,13 +5,11 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
-import {
-	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-	CONFLUENCE_SEARCH_DATASOURCE_ID,
-	JIRA_LIST_OF_LINKS_DATASOURCE_ID,
-} from '@atlaskit/link-datasource';
-import type { CardContext } from '@atlaskit/link-provider';
+import { getResolvedAttributes } from '@atlaskit/link-analytics/get-resolved-attributes';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
+import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '@atlaskit/link-datasource/confluence-search-modal';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
+import type { CardContext } from '@atlaskit/link-provider/types';
 
 import type {
 	CardInfo,

@@ -30,7 +30,14 @@ import { type LintRule, parseLintRuleRecords } from '../output/parse-lint-rule-r
 
 import { buildManifest } from './build-manifest';
 import { getVersion } from './get-version';
-import type { CommandDefinition, CommandFlag, CommandInput, ResolveResult } from './types';
+import { normalizeBatchRequest } from './normalize-batch-request';
+import type {
+	BatchRequest,
+	CommandDefinition,
+	CommandFlag,
+	CommandInput,
+	ResolveResult,
+} from './types';
 
 /**
  * Shared `--limit` flag definition reused across the search-style commands.
@@ -40,6 +47,12 @@ const limitFlag: CommandFlag = {
 	type: 'number',
 	alias: 'l',
 	description: 'Maximum matches per term.',
+};
+
+const searchLimitFlag: CommandFlag = {
+	...limitFlag,
+	default: 2,
+	description: 'Maximum matches per term, per result type (default: 2).',
 };
 
 /**
@@ -277,6 +290,31 @@ const EXAMPLE_NAME: Record<keyof typeof itemFields, string> = {
 };
 
 /**
+ * Add the actionable fields that exact human detail views derive from the raw record. Including
+ * them in JSON keeps both representations content-equivalent without requiring consumers to know
+ * ADS import or token-call conventions.
+ */
+const addActionableDetail = (
+	kind: keyof typeof itemFields,
+	item: Record<string, unknown>,
+): Record<string, unknown> => {
+	if (kind === 'tokens') {
+		const name = itemFields.tokens.nameOf(item);
+		return name ? { ...item, usage: `token('${name}')` } : item;
+	}
+
+	if (kind === 'icons') {
+		const componentName = itemFields.icons.nameOf(item);
+		const packageName = typeof item.package === 'string' ? item.package : undefined;
+		return componentName && packageName
+			? { ...item, import: `import ${componentName} from '${packageName}';` }
+			: item;
+	}
+
+	return item;
+};
+
+/**
  * Build one of the singular item commands (`component <name>`, `token <name>`, `icon <name>`).
  *
  * All three share the same shape, so they are generated from a single factory to avoid drift:
@@ -323,10 +361,10 @@ const makeItemCommand = ({
 		// disambiguation marker, both handled by `formatHuman`.
 		resultKind: (input) => (input.flags.all ? kind : undefined),
 		envelopeType: (input) => (input.flags.all ? listTool.envelopeType : name),
-		formatHuman: (data) => {
+		formatHuman: (data, { invocation }) => {
 			// Ambiguous lookup → render the "did you mean?" list; otherwise the item detail view.
 			if (isDisambiguation(data)) {
-				return formatDisambiguation(data);
+				return formatDisambiguation(data, invocation);
 			}
 			return formatHuman(data);
 		},
@@ -342,11 +380,11 @@ const makeItemCommand = ({
 			// Prefer an exact, case-insensitive name match from the tool's own results.
 			const exact = candidates.find((item) => nameOf(item).toLowerCase() === query.toLowerCase());
 			if (exact) {
-				return exact;
+				return addActionableDetail(kind, exact);
 			}
 			// A single candidate is unambiguous — show it.
 			if (candidates.length === 1) {
-				return candidates[0];
+				return addActionableDetail(kind, candidates[0]);
 			}
 			// Otherwise do not guess: surface a disambiguation list.
 			return {
@@ -381,7 +419,10 @@ const makeItemCommand = ({
 			return singleTool({
 				importPath: searchTool.importPath,
 				handlerName: searchTool.handlerName,
-				args: { terms: [name_], limit: ITEM_LOOKUP_LIMIT },
+				args:
+					kind === 'tokens'
+						? { terms: [name_], limit: ITEM_LOOKUP_LIMIT, includeMetadata: true }
+						: { terms: [name_], limit: ITEM_LOOKUP_LIMIT },
 				meta: { name: name_ },
 			});
 		},
@@ -420,13 +461,80 @@ const resolveUnifiedSearch = (input: CommandInput): ResolveResult => {
 };
 
 /**
+ * Split a batch invocation into argv groups introduced by repeated `--command` flags. Canonical
+ * tokenized groups remain unchanged; a complete request in the first token is safely normalized
+ * to argv without evaluating shell strings.
+ */
+const resolveBatch = (input: CommandInput): ResolveResult => {
+	const rawArgs = input.rawArgs ?? [];
+	const batchIndex = rawArgs.indexOf('batch');
+	const tokens = rawArgs.slice(batchIndex + 1).filter((token) => token !== '--json');
+
+	if (tokens.length === 0) {
+		return { error: 'At least one command request is required.' };
+	}
+	if (tokens[0] !== '--command') {
+		return { error: 'Each batch request must start with `--command`.' };
+	}
+
+	const requests: BatchRequest[] = [];
+	// The leading `--command` is validated above, so every remaining token either closes the open
+	// request or appends to it. Seeding the accumulator here keeps it non-nullable, which is what
+	// lets the loop stay free of "no request open yet" checks.
+	let current: string[] = [];
+
+	for (const token of tokens.slice(1)) {
+		if (token === '--command') {
+			if (current.length === 0) {
+				return { error: '`--command` must be followed by a non-empty command request.' };
+			}
+			const normalized = normalizeBatchRequest(current);
+			if ('error' in normalized) {
+				return normalized;
+			}
+			requests.push(normalized);
+			current = [];
+			continue;
+		}
+		current.push(token);
+	}
+
+	if (current.length === 0) {
+		return { error: '`--command` must be followed by a non-empty command request.' };
+	}
+	const normalized = normalizeBatchRequest(current);
+	if ('error' in normalized) {
+		return normalized;
+	}
+	requests.push(normalized);
+
+	return {
+		tools: [],
+		batch: requests,
+		meta: {},
+	};
+};
+
+/**
  * The full set of CLI commands. Order here is the order shown by `manifest` and `--help`.
  */
 export const commands: CommandDefinition[] = [
 	{
+		name: 'init',
+		action: 'init',
+		description:
+			'Set up the ADS, UI Styling Standard, and Accessibility Foundation skills at the Git repository root and install the Atlas CLI ADS plugin.',
+		usage: 'init',
+		arguments: [],
+		flags: [],
+		examples: ['init'],
+		responseTypes: ['ads-cli/init'],
+		envelopeType: () => 'init',
+	},
+	{
 		name: 'search',
 		description:
-			'Fuzzy-search ADS components, tokens, icons, and docs together (or narrow results with --type).',
+			'Fuzzy-search ADS components, tokens, icons, and docs together (or narrow results with --type). Returns up to 2 matches per term, per result type by default; override with --limit.',
 		usage: `search <query...> [--type ${Object.keys(SEARCH_TYPE_VALUES).join('|')}] [--limit N]`,
 		arguments: [
 			{
@@ -445,7 +553,7 @@ export const commands: CommandDefinition[] = [
 				choices: Object.keys(SEARCH_TYPE_VALUES),
 				description: `Narrow the search to a single kind: ${Object.keys(SEARCH_TYPE_VALUES).join(', ')}.`,
 			},
-			limitFlag,
+			searchLimitFlag,
 		],
 		examples: [
 			'search button',
@@ -486,6 +594,29 @@ export const commands: CommandDefinition[] = [
 			return resolveSearch({ input, tool: searchKindTools[searchType] });
 		},
 	},
+	{
+		name: 'batch',
+		description:
+			'Run multiple ADS CLI queries in one process. Tokenized child requests are canonical; complete-request strings are also accepted.',
+		usage: 'batch [--json] --command <command> [args...] [--command <command> [args...]]...',
+		arguments: [],
+		flags: [
+			{
+				name: 'command',
+				type: 'string[]',
+				description:
+					'Canonical: a tokenized child command and its arguments. A complete quoted request is also accepted. Repeat once per child command.',
+			},
+		],
+		examples: [
+			'batch --command search button --type icon --command token space.200',
+			'batch --command "search button" --type icon --command "token space.200"',
+			'batch --json --command component Button --command docs spacing',
+		],
+		responseTypes: ['ads-cli/batch'],
+		envelopeType: () => 'batch',
+		resolve: resolveBatch,
+	},
 	makeItemCommand({
 		kind: 'components',
 		name: 'component',
@@ -520,8 +651,8 @@ export const commands: CommandDefinition[] = [
 		envelopeType: () => 'lint-rules',
 		// Ambiguous fuzzy lookup → render the "did you mean?" list; otherwise print each rule's
 		// Markdown `content` verbatim rather than JSON.
-		formatHuman: (data) =>
-			isDisambiguation(data) ? formatDisambiguation(data) : formatLintRules(data),
+		formatHuman: (data, { invocation }) =>
+			isDisambiguation(data) ? formatDisambiguation(data, invocation) : formatLintRules(data),
 		// Mirror the item commands: a fuzzy term that matches one rule exactly (or a lone match)
 		// shows that rule's docs, but several matches with no exact name surface a disambiguation
 		// list instead of dumping every rule's full Markdown. Skipped for bare `lint-rules` (which
@@ -709,7 +840,7 @@ export const commands: CommandDefinition[] = [
 		formatHuman: formatManifest,
 		resolve: () => ({
 			data: buildManifest(commands, getVersion()),
-			meta: { schemaVersion: 1 },
+			meta: {},
 		}),
 	},
 ];

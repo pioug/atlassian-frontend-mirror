@@ -15,6 +15,50 @@ describe('utils', () => {
 	});
 
 	describe('getParticipantColor', () => {
+		it.each(['claude', ' Claude '])(
+			'uses fixed orange for %s regardless of participant ID',
+			(agentType) => {
+				for (const id of ['first-agent', 'second-agent', '']) {
+					expect(getParticipantColor(id, agentType)).toEqual({
+						index: 7,
+						isFixed: true,
+						color: {
+							backgroundColor: token('color.background.accent.orange.bolder'),
+							svgBackgroundColor: token('color.background.accent.orange.subtler'),
+							textColor: token('color.text.inverse'),
+						},
+					});
+				}
+			},
+		);
+
+		it.each(['rovo_chat'])(
+			'uses fixed purple for Rovo agent type %s regardless of participant ID',
+			(agentType) => {
+				for (const id of ['first-agent', 'second-agent', '']) {
+					expect(getParticipantColor(id, agentType)).toMatchObject({
+						index: 4,
+						isFixed: true,
+					});
+				}
+			},
+		);
+
+		it.each([undefined, ''])('preserves hashing when agent type is %s', (agentType) => {
+			expect(getParticipantColor('participant-id', agentType)).toEqual(
+				getParticipantColor('participant-id'),
+			);
+		});
+
+		it.each([
+			['00000000', 3],
+			['00000001', 4],
+			['00000002', 2],
+			['00000003', 1],
+		] as const)('maps agent identity %s to participant colour %d', (agentId, index) => {
+			expect(getParticipantColor(agentId, 'convo-ai')).toMatchObject({ index });
+		});
+
 		it('should return a participant color based on the hash code of the input string', () => {
 			expect(getParticipantColor('FawAXOcgL7ixM9qtAB0L')).toEqual({
 				index: 2,

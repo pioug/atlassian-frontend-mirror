@@ -1,4 +1,4 @@
-import { Rectangle } from '@atlaskit/media-ui';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
 
 export const DEFAULT_VISIBLE_PREDEFINED_AVATARS = 5;
 export const AVATAR_DIALOG_WIDTH = 375;

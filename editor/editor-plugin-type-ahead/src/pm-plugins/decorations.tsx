@@ -12,8 +12,9 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { redo, undo } from '@atlaskit/prosemirror-history';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 import { token } from '@atlaskit/tokens';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';

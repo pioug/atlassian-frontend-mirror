@@ -2,11 +2,8 @@ import { expect, test } from '@af/integration-testing';
 
 const getLinkSelector = (position: number) => `#examples a[href="#link-item${position}"]`;
 
-test('Selected nav items should have aria-current="page" attribute', async ({
-	page,
-	skipAxeCheck,
-}) => {
-	await page.visitExample<typeof import('../../../examples/link-item.tsx')>(
+test('Selected nav items should have aria-current="page" attribute', async ({ page }) => {
+	await page.visitExample<typeof import('../../../examples/link-item.vr.ap.tsx')>(
 		'design-system',
 		'menu',
 		'link-item',
@@ -31,10 +28,4 @@ test('Selected nav items should have aria-current="page" attribute', async ({
 	await expect(page.locator(linkItem4).first()).toHaveAttribute('aria-current', 'page');
 	expect(await page.locator(linkItem1).first().getAttribute('aria-current')).toBeNull();
 	expect(await page.locator(linkItem2).first().getAttribute('aria-current')).toBeNull();
-
-	// Enabling the axe check for this test is blocked by the following issue:
-	// https://product-fabric.atlassian.net/browse/DSP-19090
-	// This skip was put in to unblock this issue:
-	// https://product-fabric.atlassian.net/browse/DSP-18760
-	skipAxeCheck();
 });

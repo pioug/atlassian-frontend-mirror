@@ -4,7 +4,7 @@
  */
 import { jsx } from '@compiled/react';
 
-import InlineDialog from '@atlaskit/inline-dialog';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
 import { token } from '@atlaskit/tokens';
 
 const centeredContainerStyles = {

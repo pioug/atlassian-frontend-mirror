@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 
-import { type DatasourceTableStatusType } from '@atlaskit/linking-types';
+import type { DatasourceTableStatusType } from '@atlaskit/linking-types/datasource';
 
-import { addMetadataToExperience, failUfoExperience, succeedUfoExperience } from '../index';
+import { addMetadataToExperience } from '../addMetadataToExperience';
+import { failUfoExperience } from '../failUfoExperience';
+import { succeedUfoExperience } from '../succeedUfoExperience';
 
 interface DataRenderedUfoExperienceProps {
 	canBeLink?: boolean;

@@ -1,6 +1,8 @@
 import { COLOR_MODE_ATTRIBUTE, CUSTOM_THEME_ATTRIBUTE } from './constants';
 import { type ThemeStyles } from './get-theme-styles';
-import { type ThemeOptionsSchema, type ThemeState, themeStateDefaults } from './theme-config';
+import { type ThemeOptionsSchema } from './theme-options-schema';
+import { type ThemeState } from './theme-state';
+import { themeStateDefaults } from './theme-state-defaults';
 import { generateColors } from './utils/generate-colors';
 import { generateTokenMapWithContrastCheck } from './utils/generate-token-map-with-contrast-check';
 import { hash } from './utils/hash';

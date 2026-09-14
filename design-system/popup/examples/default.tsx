@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/core/comment-add';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 
 const popupStyles = css({
 	width: 175,

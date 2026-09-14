@@ -1,13 +1,13 @@
 import { Device, snapshotInformational } from '@af/visual-regression';
 
-import LongTitle from '../../../examples/15-flag-long-title';
-import LongContent from '../../../examples/16-flag-long-content';
-import FlagGroupInModal from '../../../examples/20-flag-group-in-modal-dialog';
+import LongTitle from '../../../examples/15-flag-long-title.vr.ap';
+import LongContent from '../../../examples/16-flag-long-content.vr.ap';
+import FlagGroupInModal from '../../../examples/20-flag-group-in-modal-dialog.vr.ap';
 import {
 	AppearanceFlags,
 	MultipleFlags,
 	SingleFlag,
-} from '../../../examples/vr-flag-group-top-layer';
+} from '../../../examples/vr-flag-group-top-layer.vr.ap';
 
 const featureFlagVariants = {
 	'platform-dst-top-layer': [true, false],

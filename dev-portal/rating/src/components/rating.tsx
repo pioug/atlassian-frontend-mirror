@@ -14,8 +14,9 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@compiled/react';
 
-import { durations, easeInOut } from '@atlaskit/motion';
-import Tooltip from '@atlaskit/tooltip';
+import { durations } from '@atlaskit/motion/utils/durations';
+import { easeInOut } from '@atlaskit/motion/curves';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 export type RatingRender = (props: { isChecked: boolean }) => React.ReactNode;

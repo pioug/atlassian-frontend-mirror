@@ -4,26 +4,28 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { defaultRegistry } from 'react-sweet-state';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider, useSmartCardContext } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import {
-	type DatasourceDataResponseItem,
-	type DatasourceTableStatusType,
-} from '@atlaskit/linking-types';
-import { type ConcurrentExperience } from '@atlaskit/ufo';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import type {
+	DatasourceDataResponseItem,
+	DatasourceTableStatusType,
+} from '@atlaskit/linking-types/datasource';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
-import { EVENT_CHANNEL } from '../../analytics';
+import { EVENT_CHANNEL } from '../../analytics/constants';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
-import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import {
 	type DatasourceTableState,
 	useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
 import { Store } from '../../state';
+import * as issueLikeModule from '../issue-like-table/issue-like-data-table-view';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
-import * as issueLikeModule from '../issue-like-table';
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import { useIsOnScreen } from '../issue-like-table/useIsOnScreen';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../jira-issues-modal';
@@ -33,8 +35,8 @@ import { type DatasourceTableViewProps } from './types';
 
 jest.mock('../../hooks/useDatasourceTableState');
 jest.mock('../issue-like-table/useIsOnScreen');
-jest.mock('@atlaskit/link-provider', () => ({
-	...jest.requireActual('@atlaskit/link-provider'),
+jest.mock('@atlaskit/link-provider/use-smart-card-context', () => ({
+	...jest.requireActual('@atlaskit/link-provider/use-smart-card-context'),
 	useSmartCardContext: jest.fn(),
 }));
 
@@ -45,9 +47,9 @@ const mockTableRenderUfoAddMetadata = jest.fn();
 
 const mockColumnPickerRenderUfoFailure = jest.fn();
 
-jest.mock('@atlaskit/ufo', () => ({
+jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	...jest.requireActual<object>('@atlaskit/ufo'),
 	ConcurrentExperience: jest.fn().mockImplementation(
 		(experienceId: string): Partial<ConcurrentExperience> => ({
 			experienceId: experienceId,
@@ -70,9 +72,9 @@ jest.mock('@atlaskit/ufo', () => ({
 	),
 }));
 
-jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
+jest.mock('@atlaskit/outbound-auth-flow-client/auth', () => ({
+	...jest.requireActual('@atlaskit/outbound-auth-flow-client/auth'),
 	__esModule: true,
-	...jest.requireActual<object>('@atlaskit/outbound-auth-flow-client'),
 	auth: (url: string) => {
 		if (url === 'test.success.url') {
 			return Promise.resolve();
@@ -303,6 +305,56 @@ describe('DatasourceTableView', () => {
 				onWrappedColumnChange: mockOnWrappedColumnChange,
 			}),
 		);
+		expect(issueLikeDataTableViewProps.onWrappedColumnsChange).toBeUndefined();
+	});
+
+	it('should pass onWrappedColumnsChange through when the table settings menu gate is on', () => {
+		passGate('platform_lp_sllv_table_settings_menu');
+		store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+
+		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+			issueLikeModule,
+			'IssueLikeDataTableView',
+		);
+		const mockOnWrappedColumnsChange = jest.fn();
+		setup(
+			{
+				visibleColumnKeys: ['myColumn'],
+				responseItems: defaultMockResponseItems,
+			},
+			{
+				onWrappedColumnsChange: mockOnWrappedColumnsChange,
+			},
+		);
+
+		const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+			.calls[0][0] as IssueLikeDataTableViewProps;
+
+		expect(issueLikeDataTableViewProps.onWrappedColumnsChange).toBe(mockOnWrappedColumnsChange);
+	});
+
+	it('should not pass onWrappedColumnsChange through when the table settings menu gate is off', () => {
+		failGate('platform_lp_sllv_table_settings_menu');
+		store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+
+		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+			issueLikeModule,
+			'IssueLikeDataTableView',
+		);
+		setup(
+			{
+				visibleColumnKeys: ['myColumn'],
+				responseItems: defaultMockResponseItems,
+			},
+			{
+				onWrappedColumnsChange: jest.fn(),
+			},
+		);
+
+		const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+			.calls[0][0] as IssueLikeDataTableViewProps;
+
+		expect(issueLikeDataTableViewProps.onWrappedColumnsChange).toBeUndefined();
 	});
 
 	it('should call useDatasourceTableState with the correct arguments', () => {
@@ -822,6 +874,56 @@ describe('DatasourceTableView', () => {
 			const { getByText } = setup({ status: 'forbidden' });
 
 			expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
+		});
+	});
+
+	describe('when the request resolves with no items', () => {
+		const setupWithNoItems = () =>
+			setup({
+				status: 'resolved',
+				visibleColumnKeys: ['myColumn'],
+				responseItems: [],
+				totalCount: 0,
+			});
+
+		ffTest.off('platform_lp_sllv_ux_improvements', '', () => {
+			it('should replace the whole table with the no results view', () => {
+				const { getByText, queryByTestId } = setupWithNoItems();
+
+				expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
+				expect(queryByTestId('datasource-table-view--head')).not.toBeInTheDocument();
+				expect(queryByTestId('table-footer')).not.toBeInTheDocument();
+			});
+		});
+
+		ffTest.on('platform_lp_sllv_ux_improvements', '', () => {
+			it('should keep the table headers and footer and show the no results view in place of the rows', () => {
+				const { getByText, getByTestId } = setupWithNoItems();
+
+				expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
+				expect(getByTestId('datasource-table-view--head')).toBeInTheDocument();
+				expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
+				expect(getByTestId('table-footer')).toBeInTheDocument();
+			});
+
+			it('should show a zero item count in the footer', () => {
+				const { getByTestId } = setupWithNoItems();
+
+				expect(getByTestId('item-count').textContent).toEqual('0 items');
+			});
+		});
+
+		it('should replace the whole table with the no results view when there are no columns', () => {
+			const { getByText, queryByTestId } = setup({
+				status: 'resolved',
+				visibleColumnKeys: ['myColumn'],
+				responseItems: [],
+				totalCount: 0,
+				columns: [],
+			});
+
+			expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
+			expect(queryByTestId('datasource-table-view--head')).not.toBeInTheDocument();
 		});
 	});
 

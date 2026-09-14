@@ -1,10 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import {
-	createAndFireEvent,
-	UIAnalyticsEvent,
-	type AnalyticsEventPayload,
-	type CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
 	UI_EVENT_TYPE,
 	OPERATIONAL_EVENT_TYPE,
@@ -82,12 +80,12 @@ export const createRestSucceededEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } => createPayload('succeeded', actionSubject, OPERATIONAL_EVENT_TYPE)();
 
 export const createRestFailedEvent = (
@@ -96,12 +94,12 @@ export const createRestFailedEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'failed',
@@ -116,12 +114,12 @@ export const createReactionsRenderedEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'rendered',
@@ -136,12 +134,12 @@ export const createPickerButtonClickedEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'clicked',
@@ -156,12 +154,12 @@ export const createPickerCancelledEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'cancelled',
@@ -176,12 +174,12 @@ export const createPickerMoreClickedEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'clicked',
@@ -200,12 +198,12 @@ export const createReactionSelectionEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'clicked',
@@ -224,12 +222,12 @@ export const createReactionHoveredEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'hovered',
@@ -244,12 +242,12 @@ export const createReactionFocusedEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'focused',
@@ -265,12 +263,12 @@ export const createReactionClickedEvent = (
 ): {
 	action: string;
 	actionSubject: string;
-	eventType: EventType;
 	actionSubjectId: string | undefined;
 	attributes: {
 		packageName: string;
 		packageVersion: string;
 	};
+	eventType: EventType;
 } =>
 	createPayload(
 		'clicked',

@@ -5,8 +5,8 @@
  */
 {
   "testExamples": [
-    "1-complex-layering.tsx",
-    "2-stacking-context.tsx",
-    "4-portal-re-render.tsx"
+    "1-complex-layering.vr.ap.tsx",
+    "2-stacking-context.vr.ap.tsx",
+    "4-portal-re-render.vr.ap.tsx"
   ]
 }

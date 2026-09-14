@@ -2,16 +2,14 @@ import React from 'react';
 
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import ProjectIcon from '@atlaskit/icon/core/project';
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	Footer,
-	Header,
-	NavigationContent,
-	NavigationFooter,
-	NavigationHeader,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { Footer } from '@atlaskit/side-navigation/footer';
+import { Header } from '@atlaskit/side-navigation/header';
+import { NavigationContent } from '@atlaskit/side-navigation/navigation-content';
+import { NavigationFooter } from '@atlaskit/side-navigation/navigation-footer';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 
 import AppFrame from '../common/app-frame';
 

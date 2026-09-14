@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { type UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';

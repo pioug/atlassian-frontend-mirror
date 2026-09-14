@@ -2,10 +2,10 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { renderHook } from '@atlassian/testing-library';
 
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
 import { useDispatchAnalytics } from '../useDispatchAnalytics';
 
 describe('useDispatchAnalytics', () => {

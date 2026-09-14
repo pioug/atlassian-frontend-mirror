@@ -13,7 +13,7 @@ import {
 	VrInlineStart,
 	VrInlineStartBlockEnd,
 	VrInlineStartBlockStart,
-} from '../../examples/80-vr-popover-placements';
+} from '../../examples/80-vr-popover-placements.vr.ap';
 
 const opts = { drawsOutsideBounds: true } as const;
 

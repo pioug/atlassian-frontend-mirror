@@ -1,23 +1,23 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { extractEmbedProps } from '../../extractors/embed';
 import { extractInlineProps } from '../../extractors/inline';
-import { getExtensionKey, hasAuthScopeOverrides } from '../../state/helpers';
+import { getExtensionKey } from '../../state/getExtensionKey';
+import { hasAuthScopeOverrides } from '../../state/hasAuthScopeOverrides';
 import { useControlDataExportConfig } from '../../state/hooks/use-control-data-export-config';
-import { getForbiddenJsonLd } from '../../utils/jsonld';
+import { getForbiddenJsonLd } from '../../utils/get-forbidden-json-ld';
 import { getIsDataExportEnabled } from '../../utils/should-data-export';
 import BlockCardResolvedView from '../BlockCard/views/ResolvedView';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
-
 import { type EmbedCardProps } from './types';
 import { EmbedCardErroredView } from './views/ErroredView';
+import { EmbedCardResolvedView } from './views/ResolvedView';
 import ForbiddenView from './views/forbidden-view';
 import NotFoundView from './views/not-found-view';
-import { EmbedCardResolvedView } from './views/ResolvedView';
 import UnauthorizedView from './views/unauthorized-view';
 
 const UFOLoadHoldWrapper = ({ children }: PropsWithChildren) => (

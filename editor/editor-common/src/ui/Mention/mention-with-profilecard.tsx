@@ -2,14 +2,15 @@ import React, { useMemo } from 'react';
 
 import Loadable from 'react-loadable';
 
-import type { MentionUserType } from '@atlaskit/adf-schema';
+import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import type { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import Anchor from '@atlaskit/primitives/anchor';
-import ProfileCardTrigger from '@atlaskit/profilecard/user';
-import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
+import { Anchor } from '@atlaskit/primitives/anchor';
+import ProfileCardTrigger from '@atlaskit/profilecard/profile-card-trigger';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
@@ -39,14 +40,18 @@ const AT_PREFIX_REGEX = /^@/;
 
 export interface Props {
 	accessLevel?: string;
+	appType?: string | null;
 	autoFocus?: boolean;
+	avatarUrl?: string;
 	id: string;
+	isAvatarImagePreShaped?: boolean;
 	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
 	onClick?: MentionEventHandler;
 	onMouseEnter?: MentionEventHandler;
 	onMouseLeave?: MentionEventHandler;
 	profilecardProvider: ProfilecardProvider;
+	renderAvatarSlot?: boolean;
 	ssrPlaceholderId?: string;
 	text: string;
 	userType?: MentionUserType;
@@ -54,7 +59,7 @@ export interface Props {
 
 /**
  * Renders a mention chip wrapped in the appropriate profile card trigger.
- * 1. Agent mentions (`userType === 'APP'`, behind `rovo_chat_agent_selection`) open the Rovo agent profile card on click.
+ * 1. Agent mentions (`userType === 'APP'`, behind the `rovo_chat_mention_agents` experiment) open the Rovo agent profile card on click.
  * 2. Otherwise renders the person profile card (either via the provider's `renderUserMentionCard`/link fallback or the default user `ProfileCardTrigger`).
  */
 export default function MentionWithProfileCard({
@@ -62,11 +67,15 @@ export default function MentionWithProfileCard({
 	id,
 	text,
 	accessLevel,
+	appType,
+	avatarUrl,
+	isAvatarImagePreShaped,
 	mentionProvider,
 	profilecardProvider,
 	onClick,
 	onMouseEnter,
 	onMouseLeave,
+	renderAvatarSlot,
 	localId,
 	ssrPlaceholderId,
 	userType,
@@ -83,17 +92,21 @@ export default function MentionWithProfileCard({
 			id={id}
 			text={text}
 			accessLevel={accessLevel}
+			appType={appType}
+			avatarUrl={avatarUrl}
+			isAvatarImagePreShaped={isAvatarImagePreShaped}
 			localId={localId}
 			mentionProvider={mentionProvider}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
+			renderAvatarSlot={renderAvatarSlot}
 			ssrPlaceholderId={ssrPlaceholderId}
 		/>
 	);
 
 	// Agent mentions (userType 'APP') open the Rovo agent profile card on click.
-	if (userType === 'APP' && cloudId && fg('rovo_chat_agent_selection')) {
+	if (userType === 'APP' && cloudId && isExperimentEnabled('rovo_chat_mention_agents')) {
 		return (
 			<AgentProfileCardTrigger
 				agentId={id}
@@ -106,9 +119,27 @@ export default function MentionWithProfileCard({
 		);
 	}
 
-	if (fg('people-teams_migrate-user-profile-card')) {
+	if (
+		fg('people-teams_migrate-user-profile-card') ||
+		isExperimentEnabled('pt_user_profile_card_migration_exp')
+	) {
 		if (renderUserMentionCard) {
-			return <>{renderUserMentionCard({ userId: id, cloudId, children: mention })}</>;
+			const prefilledProfileData = isExperimentEnabled(
+				'platform_mention_profilecard_accessible_name_exp',
+			)
+				? { accountId: id, name: text.replace(AT_PREFIX_REGEX, '') }
+				: undefined;
+			return (
+				<>
+					{renderUserMentionCard({
+						userId: id,
+						cloudId,
+						children: mention,
+						localId,
+						prefilledProfileData,
+					})}
+				</>
+			);
 		}
 
 		const { href, target } = navigateToTeamsApp({

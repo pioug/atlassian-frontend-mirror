@@ -3,7 +3,7 @@ import { isInEmptyLine } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaOptions } from '../../types';
 import { canInsertMediaInline } from '../utils/media-files';

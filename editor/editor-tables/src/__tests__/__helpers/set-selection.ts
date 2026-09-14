@@ -9,8 +9,8 @@ export function setSelectionTransform(
 	doc: RefsNode,
 	tr: Transaction,
 ): {
-	tr: Transaction;
 	refs: Refs;
+	tr: Transaction;
 } {
 	const refs: Refs = doc.refs;
 

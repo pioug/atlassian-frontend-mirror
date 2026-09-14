@@ -1,7 +1,8 @@
 import React from 'react';
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
-import type { DocNode } from '@atlaskit/adf-schema';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import CardClient from '@atlaskit/link-provider/client';
 
 import { RendererWithAnnotationsAndBodiedExtensions } from './reference-renderer-annotation-provider/RendererWithAnnotationsAndBodiedExtensions';
 

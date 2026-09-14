@@ -18,7 +18,7 @@ export interface ButtonProps extends BaseProps {}
 /**
  * __Button__
  *
- * @deprecated Legacy buttons are deprecated and will be removed from `atlaskit/button` in an upcoming major release. Please use the new Button components from `@atlaskit/button/new`
+ * @deprecated Legacy buttons are deprecated and will be removed from `atlaskit/button` in an upcoming major release. Please use `Button` from `@atlaskit/button/default/button`.
  *
  * Please refer to the [migration guide](https://atlassian.design/components/button/button-legacy/migration-guide) for further details.
  *

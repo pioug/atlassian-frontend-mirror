@@ -2,18 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { getAppearanceForAppType } from '@atlaskit/avatar';
+
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { type User } from '../types';
-import { AvatarItemOption, textWrapper } from './AvatarItemOption';
-import { HighlightText } from './HighlightText';
+import { AvatarItemOption } from './AvatarItemOption';
 import { AvatarOrIcon } from './AvatarOrIcon';
+import { HighlightText } from './HighlightText';
 import { SizeableAvatar } from './SizeableAvatar';
-import { hasValue } from './utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { hasValue } from './hasValue';
+import { textWrapper } from './textWrapper';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export type UserOptionProps = {
 	isSelected: boolean;

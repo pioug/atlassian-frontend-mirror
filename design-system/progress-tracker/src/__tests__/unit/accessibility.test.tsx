@@ -1,6 +1,6 @@
 import React, { type ReactElement } from 'react';
 
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library';
 import cases from 'jest-in-case';
 
 import { axe } from '@af/accessibility-testing';

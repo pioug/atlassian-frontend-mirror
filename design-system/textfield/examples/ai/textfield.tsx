@@ -5,7 +5,13 @@ import TextField from '@atlaskit/textfield/text-field';
 const Examples = (): React.JSX.Element => (
 	<>
 		<TextField label="Name" placeholder="Enter your name" />
-		<TextField label="Email" type="email" placeholder="Enter your email address" isRequired />
+		<TextField
+			label="Email"
+			type="email"
+			placeholder="Enter your email address"
+			isRequired
+			autoComplete="email"
+		/>
 		<TextField label="Password" type="password" placeholder="Enter your password" isRequired />
 	</>
 );

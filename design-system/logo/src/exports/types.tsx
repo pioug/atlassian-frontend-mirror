@@ -1,1 +1,0 @@
-export type { LogoProps } from '../types';

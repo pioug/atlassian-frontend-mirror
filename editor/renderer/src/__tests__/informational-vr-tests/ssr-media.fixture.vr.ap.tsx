@@ -1,0 +1,88 @@
+import React, { useEffect } from 'react';
+import { IntlProvider } from 'react-intl';
+import { hydrateRoot } from 'react-dom/client';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import type { SSR } from '@atlaskit/media-common';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import ReactDOMServer from 'react-dom/server';
+import { Renderer } from '../../entry-points/renderer-default';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-client/test-helpers';
+import { adfMediaSingleAndMediaGroupFiles } from './__fixtures__';
+
+const getMediaClientConfig = async () => {
+	const mediaClientConfig = createStorybookMediaClientConfig();
+	const initialAuth = await mediaClientConfig.authProvider();
+	return {
+		...mediaClientConfig,
+		initialAuth,
+	};
+};
+
+type PageProps = {
+	mediaClientConfig: MediaClientConfig;
+	ssr: SSR;
+	title: string;
+};
+
+const Page = ({ ssr, title, mediaClientConfig }: PageProps) => {
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ width: 1200 }}>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ display: 'flex', justifyContent: 'center' }}>
+				<h3>{title}</h3>
+			</div>
+			<IntlProvider locale="en">
+				<Renderer
+					document={adfMediaSingleAndMediaGroupFiles}
+					schema={defaultSchema}
+					appearance="full-page"
+					enableSsrInlineScripts={true}
+					media={{
+						ssr: {
+							mode: ssr,
+							config: mediaClientConfig, // TODO: MEX-1260 - update example to use Media Mock
+						},
+					}}
+				/>
+			</IntlProvider>
+		</div>
+	);
+};
+
+const runSSR = async (containerId: string, hydrate?: boolean) => {
+	const mediaClientConfig = await getMediaClientConfig();
+	const txt = ReactDOMServer.renderToString(
+		<Page ssr="server" title={'Renderer SSR Only'} mediaClientConfig={mediaClientConfig} />,
+	);
+	const elem = document.querySelector(`#${containerId}`);
+
+	if (elem) {
+		elem.innerHTML = txt;
+		hydrate &&
+			hydrateRoot(
+				elem,
+				<Page
+					ssr="client"
+					title={'Renderer SSR + Hydration'}
+					mediaClientConfig={mediaClientConfig}
+				/>,
+			);
+	}
+};
+
+export const MediaSSR = (): React.JSX.Element => {
+	const serverOnlyId = 'container-ssr';
+	const hydrationId = 'container-hydration';
+	useEffect(() => {
+		void runSSR(serverOnlyId);
+		void runSSR(hydrationId, true);
+	}, []);
+
+	return (
+		<div>
+			<div id={serverOnlyId}></div>
+			<div id={hydrationId}></div>
+		</div>
+	);
+};

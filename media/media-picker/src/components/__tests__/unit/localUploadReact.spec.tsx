@@ -24,7 +24,7 @@ import * as ufoWrapper from '../../../util/ufoExperiences';
 import { type UploadComponent } from '../../component';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const imageFile: MediaFile = {
 	id: 'some-id',

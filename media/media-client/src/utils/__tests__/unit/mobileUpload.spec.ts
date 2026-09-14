@@ -12,10 +12,14 @@ import {
 	isErrorFileState,
 	type MediaStore,
 } from '../../..';
-import { createFileDataloader } from '../../createFileDataLoader';
-import { createMobileUploadStateMachine, createMobileUploadService } from '../../mobileUpload';
+import { createFileDataloader } from '../../createFileDataloader-2';
+import { createMobileUploadService } from '../../mobileUpload/stateMachine/createMobileUploadService';
+import { createMobileUploadStateMachine } from '../../mobileUpload/stateMachine/createMobileUploadStateMachine';
 
+jest.mock('../../createBatchLoadingFunc');
 jest.mock('../../createFileDataLoader');
+jest.mock('../../createFileDataloader-2');
+jest.mock('../../getItemsFromKeys');
 
 describe('mobileUpload', () => {
 	const processingFileState: ProcessingFileState = {

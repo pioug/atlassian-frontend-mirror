@@ -11,7 +11,7 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { MediaProvider } from '@atlaskit/media-client-react';
+import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

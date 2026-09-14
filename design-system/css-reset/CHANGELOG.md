@@ -1,5 +1,82 @@
 # @atlaskit/css-reset
 
+## 8.4.1
+
+### Patch Changes
+
+- [`ab3d042218204`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab3d042218204) -
+  Add the platform_dst_scrollbar_harmonisation_transparent gated transparent scrollbar track
+  treatment.
+
+## 8.4.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.2
+
+### Patch Changes
+
+- [`695fcbc68ad47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/695fcbc68ad47) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+
+## 8.3.1
+
+### Patch Changes
+
+- [`5c14d443c940e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c14d443c940e) -
+  Include the standalone scrollbar stylesheet in published package subpaths.
+
+## 8.3.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`90719ed81baa0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90719ed81baa0) -
+  [ux] Add a standalone scrollbar stylesheet for products adopting
+  platform_dst_scrollbar_harmonisation.
+
+## 8.1.3
+
+### Patch Changes
+
+- [`4ad7f055c9427`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad7f055c9427) -
+  Fix scrollbar colors on nested surfaces
+
+## 8.1.2
+
+### Patch Changes
+
+- [`7d000f0d5beac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d000f0d5beac) -
+  Add a platform-gated harmonised scrollbar appearance using accessible thumb colors and the current
+  surface. Visibility and width remain browser managed.
+
 ## 8.1.1
 
 ### Patch Changes

@@ -10,7 +10,7 @@ import {
 } from 'react';
 
 import { type StrictXCSSProp } from '@atlaskit/css';
-import { type Modifier, type Placement, type PopperChildrenProps } from '@atlaskit/popper';
+import type { Modifier, Placement, PopperChildrenProps } from '@atlaskit/popper/main';
 
 export interface TriggerProps {
 	/**

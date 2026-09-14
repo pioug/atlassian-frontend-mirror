@@ -1,5 +1,368 @@
 # @atlaskit/editor-palette
 
+## 3.5.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.26
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 3.4.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.7
+
+### Patch Changes
+
+- [`b0682afb9fdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0682afb9fdf1) -
+  Add lime, orange and magenta colours to the table cell background colour palette.
+- Updated dependencies
+
+## 3.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.0
+
+### Minor Changes
+
+- [`7cecf41634d18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cecf41634d18) -
+  Revert the lime, orange, and magenta table cell background color options.
+
+## 3.3.1
+
+### Patch Changes
+
+- [`7a9ec6f1fa018`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a9ec6f1fa018) -
+  [EDITOR-7592] Add a new panel background color palette with expanded colors behind the lovability
+  experiment and patch gate.
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

@@ -1,5 +1,376 @@
 # @atlaskit/editor-toolbar
 
+## 2.6.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.0
+
+### Minor Changes
+
+- [`d96f86ff344b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d96f86ff344b8) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_vc90_transition_expand_icon, platform_editor_add_image_editing,
+  platform_editor_ai_multi_format_streaming, platform_editor_default_toolbar_state,
+  platform_editor_early_exit_return_draft, platform_editor_fix_focus_MediaInsertPicker,
+  platform_editor_fix_table_move_shortcut, platform_editor_menu_radius_update,
+  platform_editor_react19_migration, and show_mentions_in_suggest_reply.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.0
+
+### Minor Changes
+
+- [`85c7571a0f48b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85c7571a0f48b) -
+  Return focus to the editor after selecting a text style (e.g. a heading) from the toolbar Text
+  styles dropdown, so typing continues immediately instead of focus staying on the trigger button.
+  The Text styles dropdown now renders inline via `shouldRenderToParent`, which stops the popup
+  focus-trap from returning focus to the trigger on close. `ToolbarDropdownMenu` gains an opt-in
+  `shouldRenderToParent` prop so only the Text styles menu is affected. Gated behind the
+  `platform_editor_return_focus_after_text_styles` feature flag.
+
+## 2.4.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.14
+
+### Patch Changes
+
+- [`76e9f6152bf16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76e9f6152bf16) -
+  Enable launched synced block integrations and remove obsolete experiment scaffolding.
+
+  BREAKING: `@atlaskit/tmp-editor-statsig` no longer defines the `platform_synced_block` editor
+  experiment. Consumers that use `editorExperiment('platform_synced_block', ...)` to conditionally
+  enable synced-block integrations will no longer be able to look up that experiment; synced-block
+  integrations are now enabled by default. Remove each lookup and its conditional branch:
+
+  ```ts
+  // Before
+  if (editorExperiment('platform_synced_block', true)) {
+  	enableSyncedBlocks();
+  }
+
+  // After
+  enableSyncedBlocks();
+  ```
+
+- Updated dependencies
+
+## 2.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.9
+
+### Patch Changes
+
+- [`8c1c9cf057b32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c1c9cf057b32) -
+  Use the suggested edits experiment for the updated full-page editor toolbar breakpoints, with the
+  large and extra-large thresholds set to 1035px and 1130px.
+- Updated dependencies
+
+## 2.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

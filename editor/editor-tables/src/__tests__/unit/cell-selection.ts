@@ -10,7 +10,10 @@ import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 import { CellSelection } from '../../cell-selection';
 import { tableEditing } from '../../pm-plugins/table-editing';
 import type { Command } from '../../types';
-import { addColumnAfter, addColumnBefore, addRowAfter, addRowBefore } from '../../utils/test-utils';
+import { addColumnAfter } from '../../utils/add-column-after';
+import { addColumnBefore } from '../../utils/add-column-before';
+import { addRowAfter } from '../../utils/add-row-after';
+import { addRowBefore } from '../../utils/add-row-before';
 import {
 	c,
 	c11,

@@ -21,7 +21,7 @@ import {
 	IconTypeSubTasksProgress,
 	IconTypeView,
 	IconTypeVote,
-} from '../../../examples/vr-flexible-card/vr-flexible-ui-icon';
+} from '../../../examples/vr-flexible-card/vr-flexible-ui-icon.vr.ap';
 
 snapshot(IconTypeAttachment, {
 	featureFlags: {},

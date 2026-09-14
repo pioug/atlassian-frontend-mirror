@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/storybook-addon-design-system",
-	"version": "4.0.2",
+	"version": "4.1.0",
 	"description": "Design token storybook addon",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -50,7 +50,7 @@
 		"storybook": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"scripts": {
 		"ak-postbuild": "echo \"/* eslint-disable */\nimport './dist/esm/manager.js';\" > manager.js && echo \"/* eslint-disable */\nexport { default } from './dist/esm/preview.js';\" > preview.js && echo \"/* eslint-disable */\nexport { webpack } from './dist/esm/preset.js';\" > preset.js"
@@ -69,25 +69,8 @@
 			"src/preset.tsx"
 		]
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
-	},
 	"homepage": "https://atlassian.design/components/storybook-addon-design-system",
 	"devDependencies": {
-		"react": "root:*"
+		"react": "^19.0.0"
 	}
 }

@@ -1,9 +1,14 @@
 import React from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { MenuType } from '@atlaskit/editor-ui-control-model';
 
 export type TableMenuContextValue = {
 	canMergeCells?: boolean;
+	canMoveColumnLeft?: boolean;
+	canMoveColumnRight?: boolean;
+	canMoveRowDown?: boolean;
+	canMoveRowUp?: boolean;
 	canSplitCell?: boolean;
 	editorView?: EditorView;
 	hasMergedCellsInTable?: boolean;
@@ -13,6 +18,7 @@ export type TableMenuContextValue = {
 	isLastRow?: boolean;
 	selectedColumnCount?: number;
 	selectedRowCount?: number;
+	surface: MenuType;
 };
 
 const TableMenuContext = React.createContext<TableMenuContextValue | undefined>(undefined);

@@ -1,5 +1,5 @@
 import type { ResolvedEditorState, SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
-import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { InternalError } from '../errors/internal-errors';

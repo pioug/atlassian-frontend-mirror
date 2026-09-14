@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
-import type { ProductType } from '@atlaskit/linking-common';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
+import type { ProductType } from '@atlaskit/linking-common/types';
 import { renderHook } from '@atlassian/testing-library';
 
 import useBlockCardRovoAction from '../index';

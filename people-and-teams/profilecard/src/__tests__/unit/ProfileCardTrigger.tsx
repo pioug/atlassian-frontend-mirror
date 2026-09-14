@@ -3,7 +3,7 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import ProfileCardTrigger from '../../components/User/ProfileCardTrigger';
 import { type ProfileClient } from '../../types';
@@ -11,12 +11,10 @@ import { type ProfileClient } from '../../types';
 import { flexiTime } from './helper/_mock-analytics';
 
 const mockFireEvent = jest.fn();
-jest.mock('@atlaskit/teams-app-internal-analytics', () => {
-	return {
-		...(jest.requireActual('@atlaskit/teams-app-internal-analytics') as object),
-		useAnalyticsEvents: jest.fn().mockImplementation(() => ({ fireEvent: mockFireEvent })),
-	};
-});
+jest.mock('@atlaskit/teams-app-internal-analytics/use-analytics-events', () => ({
+	...jest.requireActual('@atlaskit/teams-app-internal-analytics/use-analytics-events'),
+	useAnalyticsEvents: jest.fn().mockImplementation(() => ({ fireEvent: mockFireEvent })),
+}));
 
 const defaultProps = {
 	userId: '1234',

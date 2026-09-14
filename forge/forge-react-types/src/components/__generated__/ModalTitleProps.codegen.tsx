@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { ModalTitle as PlatformModalTitle } from '@atlaskit/modal-dialog';
+import PlatformModalTitle from '@atlaskit/modal-dialog/modal-title';
 
 type PlatformModalTitleProps = React.ComponentProps<typeof PlatformModalTitle>;
 

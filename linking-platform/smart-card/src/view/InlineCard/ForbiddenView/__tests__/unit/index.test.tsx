@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
@@ -10,7 +10,7 @@ import { InlineCardForbiddenView } from '../../index';
 
 jest.mock('react-render-image');
 
-jest.mock('@atlaskit/platform-feature-flags');
+jest.mock('@atlaskit/platform-feature-flags/fg');
 
 const URL =
 	'http://product.example.com/lorem/ipsum/dolor/sit/amet/consectetur/adipiscing/volutpat/';

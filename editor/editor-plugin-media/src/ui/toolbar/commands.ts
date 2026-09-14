@@ -1,4 +1,5 @@
-import type { BorderMarkAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
+import type { BorderMarkAttributes } from '@atlaskit/adf-schema/border';
+import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,

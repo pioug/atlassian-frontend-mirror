@@ -6,6 +6,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - bad replacement node', () => {
 	test.use({
 		examplePage: 'bad-node-replacement',
+	} satisfies {
+		examplePage: 'bad-node-replacement';
+		__exampleDependency?: typeof import('../../examples/08-bad-node-replacement.tsx');
 	});
 
 	for (const viewport of viewports) {

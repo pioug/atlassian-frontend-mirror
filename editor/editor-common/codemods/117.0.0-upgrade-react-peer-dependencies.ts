@@ -6,28 +6,9 @@ const NEW_PEER_DEP_RANGE = '^18.2.0 || ^19.2.0'; // Ensure backwards compatible 
 const NEW_DEV_DEP_RANGE = '^19.2.0'; // Ensure everyone is using React 19 types from now on
 const VALID_ORIGINAL_RANGES = [NEW_PEER_DEP_RANGE, NEW_DEV_DEP_RANGE, 'root:*', '^18.2.0'];
 
-const EXCLUDED_PACKAGE_JSON_PATHS = [
-	'packages/editor/renderer/package.json',
-	'packages/editor/editor-plugin-block-controls-tests/package.json',
-	'packages/editor/editor-plugin-block-menu-tests/package.json',
-	'packages/editor/editor-plugin-media-tests/package.json',
-	'packages/editor/editor-plugin-ai/package.json',
-	'packages/editor/editor-common-tests/package.json',
-	'packages/editor/editor-plugin-find-replace-tests/package.json',
-	'packages/editor/editor-core/package.json',
-	'packages/editor/editor-plugin-ai-tests/package.json',
-	'packages/editor/editor-plugin-extension-tests/package.json',
-	'packages/editor/editor-plugin-synced-block-tests/package.json',
-	'packages/editor/generative-ai-modal/package.json',
-	'packages/editor/editor-plugin-floating-toolbar-tests/package.json',
-	'packages/editor/editor-plugin-show-diff-tests/package.json',
-	'packages/editor/editor-plugin-table-tests/package.json',
-	'packages/editor/editor-plugin-annotation-tests/package.json',
-	'packages/editor/editor-plugin-quick-insert-tests/package.json',
-	'packages/editor/editor-plugin-highlight-tests/package.json',
-	'packages/editor/editor-referentiality/package.json',
-	'packages/editor/editor-plugin-paste-tests/package.json',
-	'packages/editor/editor-synced-block-renderer-tests/package.json',
+const EXCLUDED_PACKAGE_JSON_PATHS: string[] = [
+	// Example - this will exclude editor-core from upgrade
+	// 'packages/editor/editor-core/package.json',
 ];
 
 type DependencyName = 'react' | 'react-dom' | '@types/react' | '@types/react-dom';

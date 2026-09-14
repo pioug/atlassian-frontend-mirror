@@ -1,26 +1,28 @@
 import React, { Fragment, useState } from 'react';
+
+import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party';
 import { IntlProvider } from 'react-intl';
 
-import {
-	type ActionTypes,
-	type OnChange,
-	type OnInputChange,
-	type Value,
-	type OptionData,
-	type ExternalUser,
-	type User,
-	type Team,
-} from '@atlaskit/user-picker';
-import SmartUserPicker from '../src';
-import Textfield from '@atlaskit/textfield';
-import Select from '@atlaskit/select';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Button from '@atlaskit/button/standard-button';
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import Select from '@atlaskit/select/default';
+import Textfield from '@atlaskit/textfield/text-field';
+import type {
+	ActionTypes,
+	OnChange,
+	OnInputChange,
+	Value,
+	OptionData,
+	ExternalUser,
+	User,
+	Team,
+} from '@atlaskit/user-picker/types';
 
-import { options } from '../example-helpers/options';
-import { useEndpointMocks } from '../example-helpers/mock-endpoints';
 import '../example-helpers/mock-ufo';
-import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party';
+import { options } from '../example-helpers/options';
+import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';
+import SmartUserPicker from '../src/components';
 
 const exampleLocales = ['en-EN', 'cs-CZ', 'da-DK', 'de-DE'];
 
@@ -184,7 +186,6 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 					checked={Boolean(state[id] as boolean)}
 					id={id}
 					onChange={() =>
-						// @ts-ignore
 						setState({
 							...state,
 							[id]: !state[id],
@@ -206,7 +207,6 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 				name={id}
 				value={(state[id] as string) || ''}
 				onChange={(e) => {
-					// @ts-ignore
 					setState({
 						...state,
 						[id]: e.currentTarget.value,
@@ -219,13 +219,11 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 		<div>
 			<label htmlFor="product">Product</label>
 			<Select
-				//@ts-ignore react-select unsupported props
 				width="medium"
 				onChange={(selectedValue) => {
 					if (selectedValue) {
 						setState({
 							...state,
-							// @ts-ignore
 							product: selectedValue.value,
 						});
 					}
@@ -251,7 +249,6 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 					})
 				}
 				value={{ label: state.locale, value: state.locale }}
-				//@ts-ignore react-select unsupported props
 				width={150}
 			/>
 			<h5>Smart Picker props</h5>
@@ -360,7 +357,6 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 							checked={Boolean(state.confluenceAttributes.isEntitledConfluenceExternalCollaborator)}
 							id="includeGuests"
 							onChange={(e) => {
-								// @ts-ignore
 								setState({
 									...state,
 									confluenceAttributes: {
@@ -400,7 +396,6 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 						name="emailDomain"
 						value={state.bitbucketAttributes.emailDomain || ''}
 						onChange={(e) => {
-							// @ts-ignore
 							setState({
 								...state,
 								bitbucketAttributes: {
@@ -416,7 +411,6 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 							checked={Boolean(state.bitbucketAttributes.isPublicRepo)}
 							id="isPublicRepo"
 							onChange={(e) => {
-								// @ts-ignore
 								setState({
 									...state,
 									bitbucketAttributes: {

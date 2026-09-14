@@ -25,7 +25,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { LayoutPluginOptions } from '../types';
 
@@ -374,11 +374,7 @@ export default (
 
 				const isLayoutResizingPluginAvailable = layoutResizingPluginKey.get(state) !== undefined;
 
-				if (
-					editorExperiment('advanced_layouts', true) &&
-					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
-					isLayoutResizingPluginAvailable
-				) {
+				if (editorExperiment('advanced_layouts', true) && isLayoutResizingPluginAvailable) {
 					const dividerDecorations = getColumnDividerDecorations(
 						state,
 						editorViewRef,
@@ -496,10 +492,7 @@ export default (
 				}
 
 				// Skip fixing column sizes for column resize drag transactions
-				if (
-					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
-					prevTr.getMeta('layoutColumnResize')
-				) {
+				if (prevTr.getMeta('layoutColumnResize')) {
 					return;
 				}
 

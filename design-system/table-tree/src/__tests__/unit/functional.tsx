@@ -605,7 +605,7 @@ test('with isExpanded=true property', async () => {
 
 	expect(onCollapseSpy).toHaveBeenCalled();
 
-	expect(onCollapseSpy).toBeCalledWith(
+	expect(onCollapseSpy).toHaveBeenCalledWith(
 		expect.objectContaining({
 			...c('Chapter 2'),
 			children: expect.any(Array),
@@ -658,7 +658,7 @@ test('with isExpanded=false property', async () => {
 	expect(rowContent[0]).toHaveTextContent('Chapter 1');
 	expect(rowContent[1]).toHaveTextContent('Chapter 2');
 	expect(rowContent[2]).toHaveTextContent('Chapter 3');
-	expect(onExpandSpy).toBeCalledWith(
+	expect(onExpandSpy).toHaveBeenCalledWith(
 		expect.objectContaining({
 			...c('Chapter 2'),
 			children: expect.any(Array),

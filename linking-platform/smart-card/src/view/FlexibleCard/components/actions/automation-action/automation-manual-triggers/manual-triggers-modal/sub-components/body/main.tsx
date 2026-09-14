@@ -1,10 +1,10 @@
 import React, { type Dispatch, type SetStateAction, useEffect } from 'react';
 
 import type { ManualRule } from '../../../manual-triggers-container/common/types';
-import { useAutomationMenu } from '../../menu-context';
+import { useAutomationMenu } from '../../menu-context/useAutomationMenu';
 import { AutomationModalErrorState } from '../error-state';
 import { AutomationModalRuleList } from '../rule-list';
-import { Skeleton } from '../skeleton';
+import { Skeleton } from '../skeleton/main';
 
 type AutomationModalBodyProps = {
 	selectedRule: ManualRule | undefined;

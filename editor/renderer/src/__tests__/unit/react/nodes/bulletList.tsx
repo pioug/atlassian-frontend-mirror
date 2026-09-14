@@ -1,11 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import BulletList from '../../../../react/nodes/bulletList';
 
 describe('Renderer - React/Nodes/BulletList', () => {
-	const bulletList = shallow(<BulletList>This is a bullet list</BulletList>);
+	const content = <li>This is a bullet list</li>;
 
 	it('should wrap content with <ul>-tag', () => {
-		expect(bulletList.is('ul')).toEqual(true);
+		render(<BulletList>{content}</BulletList>);
+
+		expect(screen.getByRole('list').tagName).toBe('UL');
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<BulletList>{content}</BulletList>);
+
+		await expect(container).toBeAccessible();
 	});
 });

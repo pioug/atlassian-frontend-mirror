@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import PrettyProps, { PropsTable as PT } from 'pretty-proptypes';
+import PrettyProps, { PropsTable as PT } from '../pretty-proptypes';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';

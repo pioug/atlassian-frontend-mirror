@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import styled from '@emotion/styled';
 
 import Banner from '@atlaskit/banner';
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import MenuIcon from '@atlaskit/icon/core/menu';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 

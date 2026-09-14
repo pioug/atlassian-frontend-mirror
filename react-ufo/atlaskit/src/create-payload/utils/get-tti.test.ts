@@ -46,6 +46,7 @@ describe('getTTI', () => {
 		trace: null,
 		routeName: 'test-route',
 		...overrides,
+		preloadInfo: overrides.preloadInfo ?? [],
 	});
 
 	describe('TTI calculation', () => {

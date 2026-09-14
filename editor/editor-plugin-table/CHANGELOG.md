@@ -1,5 +1,792 @@
 # @atlaskit/editor-plugin-table
 
+## 30.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.8
+
+### Patch Changes
+
+- [`aca1f7aaf3fd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aca1f7aaf3fd6) -
+  Remove the fully rolled-out `platform_editor_exp_lazy_node_views` experiment and call the block
+  card, embed card, extension, table, and task node views directly.
+- Updated dependencies
+
+## 29.1.7
+
+### Patch Changes
+
+- [`f4930ad3105bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4930ad3105bb) -
+  Fix column menu targeting for tables with merged final rows behind
+  `platform_editor_table_menu_updates_patch_5`.
+- [`37382f7ca3e93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37382f7ca3e93) -
+  Clean up feature gate `platform_editor_max_width_default_width`
+- Updated dependencies
+
+## 29.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.5
+
+### Patch Changes
+
+- [`d92f804b3ec93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d92f804b3ec93) -
+  Permanently enable single-row native sticky header behavior and remove the fully rolled-out
+  `platform_editor_table_q4_patch_4` experiment.
+- Updated dependencies
+
+## 29.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.2
+
+### Patch Changes
+
+- [`d539514424fd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d539514424fd9) -
+  Clean up experiment `platform_editor_fix_table_sort_with_mark`
+- Updated dependencies
+
+## 29.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.0
+
+### Minor Changes
+
+- [`aec3fcfe13ff9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aec3fcfe13ff9) -
+  EDITOR-8303 Add runtime input-latency trigger for limited mode behind
+  platform_editor_dynamic_limited_mode. Limited mode can now latch mid-session when sustained slow
+  input or repeated browser freezes indicate the device is struggling, in addition to the existing
+  document-size decision. The latch is one-way. Nothing is constructed when the experiment is off.
+
+  How much evidence is needed is a single tunable, `requiredConfirmations`: that many qualifying
+  windows, each separated from the last by `confirmationGapMs`. The hardware no longer feeds into
+  the decision — `navigator.hardwareConcurrency` and `navigator.deviceMemory` are reported with the
+  `limitedModeLatched` event instead, so which devices latch can be answered from the data rather
+  than assumed up front.
+
+  `LimitedModePluginState` gains a derived `enabled` flag, which is now the single thing consumers
+  should branch on — the individual reasons (`documentSizeBreachesThreshold`, `latchPolicyBreached`)
+  no longer need to be combined at each call site, so a future reason needs no change outside this
+  plugin. `sharedState.enabled` reads from it.
+
+  Under the experiment the document decision is also evaluated on load and on document replacement
+  only, rather than on every transaction that changes the document. That check walks the whole
+  document, so it was a full-document scan per keystroke on exactly the pages least able to afford
+  one. The trade-off is that a document editing its way past the thresholds is not re-judged until
+  it next loads.
+
+  Consumers updated to react to a mid-session change: table sticky headers now subscribe instead of
+  reading once at construction, block-controls resets rather than freezes its state on entry, and
+  the expand, media and table nodeviews read the derived flag so they no longer miss a runtime
+  latch.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.0
+
+### Patch Changes
+
+- [`7c7646bee3e68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c7646bee3e68) -
+  Clean up feature gate `platform_editor_table_height_analytics_event`
+- Updated dependencies
+
+## 28.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.14
+
+### Patch Changes
+
+- [`e29faa16e0c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e29faa16e0c66) -
+  Migrate selected editor experiment reads and tooling from tmp-editor-statsig to
+  platform-feature-experiments, including static CSS, floating ToC, insert-menu AI, table overflow
+  shadows, and collapsible headings.
+- Updated dependencies
+
+## 28.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.8
+
+### Patch Changes
+
+- [`3c8aad45af6a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c8aad45af6a2) -
+  Clean up the platform_editor_enable_table_scaling feature gate.
+- Updated dependencies
+
+## 28.1.7
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 28.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.3
+
+### Patch Changes
+
+- [`468a533e36283`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/468a533e36283) -
+  Clean up the shipped `platform_editor_table_a11y_eslint_fix` experiment and keep its enabled table
+  focus behavior.
+- Updated dependencies
+
+## 28.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.8
+
+### Patch Changes
+
+- [`c967639892512`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c967639892512) -
+  Cleanup experiment `platform_editor_table_q4_patch_5` and permanently restrict sticky table
+  headers to the first header row.
+- Updated dependencies
+
+## 28.0.7
+
+### Patch Changes
+
+- [`f34bb99565856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f34bb99565856) -
+  Remove the `platform_editor_table_q4_patch_3` experiment and permanently retain interaction-aware
+  table cell highlighting.
+- Updated dependencies
+
+## 28.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.5
+
+### Patch Changes
+
+- [`76a10b0cda613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76a10b0cda613) -
+  Remove the `platform_editor_table_menu_updates_patch_2` experiment and permanently apply its
+  rolled-out table menu treatment.
+- [`854ce1f630037`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/854ce1f630037) -
+  Cleanup experiment platform_editor_col_insert_patch_1 and retain the numbered sticky-table mask
+  adjustment.
+- [`2bcdac2d8a382`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bcdac2d8a382) -
+  [EDITOR-8301] Disable table width resizing while limited mode is active, behind the
+  platform_editor_table_limited_mode experiment (the same gate that disables table row and column
+  dragging). Tables render a static container instead of a TableResizer, so there is no table width
+  handle on the right edge. Column resizing is unaffected. Limited mode turning on or off at runtime
+  is picked up immediately.
+- Updated dependencies
+
+## 28.0.4
+
+### Patch Changes
+
+- [`d82ea790b5c1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82ea790b5c1c) -
+  Update registered slash-command menu icons, including the Jira datasource WorkItems icon, when the
+  `platform_editor_slash_command` experiment is enabled.
+- Updated dependencies
+
+## 28.0.3
+
+### Patch Changes
+
+- [`3c376dcc27b56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c376dcc27b56) -
+  Clean up experiment `platform_editor_table_ref_optimisation`
+- Updated dependencies
+
+## 28.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.5
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 27.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.2
+
+### Patch Changes
+
+- [`b8080a4285efd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8080a4285efd) -
+  Clean up feature gate platform_editor_enable_table_update_ref_atlas
+- Updated dependencies
+
+## 27.1.1
+
+### Patch Changes
+
+- [`de41cde76539d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de41cde76539d) -
+  [ux] EDITOR-8647 fix sticky header mask for rounded table in panel
+
+## 27.1.0
+
+### Minor Changes
+
+- [`d96f86ff344b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d96f86ff344b8) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_vc90_transition_expand_icon, platform_editor_add_image_editing,
+  platform_editor_ai_multi_format_streaming, platform_editor_default_toolbar_state,
+  platform_editor_early_exit_return_draft, platform_editor_fix_focus_MediaInsertPicker,
+  platform_editor_fix_table_move_shortcut, platform_editor_menu_radius_update,
+  platform_editor_react19_migration, and show_mentions_in_suggest_reply.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.14
+
+### Patch Changes
+
+- [`6cf283ca60155`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf283ca60155) -
+  Clean up experiment `platform_editor_table_col_insert`
+- Updated dependencies
+
+## 27.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.7
+
+### Patch Changes
+
+- [`b53c8a7c458af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b53c8a7c458af) -
+  Disable dragging table rows and columns while limited mode is active, behind the
+  platform_editor_table_limited_mode experiment. The row and column drag handles are no longer
+  registered as draggable, so no drag can start from them. The handles themselves still render and
+  still select the row/column and open its menu on click. Responds to limited mode being toggled
+  during a session.
+
+## 27.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.3
+
+### Patch Changes
+
+- [`ce7484d621739`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce7484d621739) -
+  Fix table controls after editor remounts by refreshing stale toolbar anchors and publishing the
+  selected table ref before the first interaction, behind the
+  `platform_editor_table_toolbar_position_fix` experiment.
+
+## 27.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.1
+
+### Patch Changes
+
+- [`945f7cef17713`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/945f7cef17713) -
+  Fix table menu selection and shortcut behavior behind
+  `platform_editor_table_menu_updates_patch_4`.
+- Updated dependencies
+
+## 27.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.2.0
+
+### Minor Changes
+
+- [`da5eaf0bc37da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5eaf0bc37da) -
+  Clean up the platform_editor_editor_ssr_streaming experiment. The SSR streaming code paths are now
+  permanent and the isSSRStreaming() utility has been removed from
+  @atlaskit/editor-common/core-utils.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.1.0
+
+### Minor Changes
+
+- [`2d23b40eed4f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d23b40eed4f0) -
+  Add gated content-visibility:auto to tables, expands and media singles to improve editor rendering
+  performance on large documents. Applied only to nodes whose rendered size can be estimated closely
+  — structurally (row/child counts) for tables and expands, and from the media's own dimensions and
+  the renderer's width calculation for media singles. Behind the
+  cc_editor_limited_mode_perf_improvements experiment and only active when limited mode is enabled
+  for the document (shared large-document detection with the limited-mode plugin).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.10
+
+### Patch Changes
+
+- [`3abf1a11015f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3abf1a11015f2) -
+  Clean up feature gate `platform_editor_table_q4_patch_2`
+- [`2f8a5739a1726`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f8a5739a1726) -
+  Clean up feature gate `platform_editor_table_nested_renderer_fix`
+- Updated dependencies
+
+## 26.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.8
+
+### Patch Changes
+
+- [`3a4c286fdb8c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4c286fdb8c1) -
+  Add registry-backed Quick Insert search matching under the existing
+  `platform_editor_slash_command` experiment. Make native, provider, and extension registered Quick
+  Insert items searchable.
+- Updated dependencies
+
+## 26.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.6
+
+### Patch Changes
+
+- [`7eef7404cacac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eef7404cacac) -
+  Clean up feature gate `platform_editor_table_q4_patch_1`
+- Updated dependencies
+
+## 26.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.3
+
+### Patch Changes
+
+- [`2ed029496fab6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ed029496fab6) -
+  [ux] [EDITOR-8491] Fix the table cell background colour palette so the current colour is shown as
+  selected.
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.1.0
+
+### Minor Changes
+
+- [`b0682afb9fdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0682afb9fdf1) -
+  Add lime, orange and magenta colours to the table cell background colour palette.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.4
+
+### Patch Changes
+
+- [`7087f393ec725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7087f393ec725) -
+  Add the categorized registered Quick Insert browse experience with representative native elements
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- [`7a8d5e478d5d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a8d5e478d5d1) -
+  Clean up feature gate `platform_editor_table_fixed_column_width_prop`
+- Updated dependencies
+
+## 25.0.1
+
+### Patch Changes
+
+- [`ae5ca1873aef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5ca1873aef4) -
+  Clean up feature gate `platform_editor_nested_dnd_styles_changes`
+- Updated dependencies
+
+## 25.0.0
+
+### Major Changes
+
+- [`4cc8b22d77107`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cc8b22d77107) -
+  Remove the legacy JavaScript shadow logic (observer, sentinel elements, and supporting styles)
+  which was no longer in use.
+
+  ### What has changed
+
+  Removes the following public APIs, even though they no longer represented elements rendered by the
+  editor:
+  - `@atlaskit/editor-plugin-table` (also re-exported by `@atlaskit/editor-plugins`):
+    - `ShadowEvent`
+    - `TableCssClassName.TABLE_LEFT_SHADOW`
+    - `TableCssClassName.TABLE_RIGHT_SHADOW`
+    - `TableCssClassName.TABLE_SHADOW_SENTINEL_LEFT`
+    - `TableCssClassName.TABLE_SHADOW_SENTINEL_RIGHT`
+    - `TableCssClassName.TABLE_STICKY_SHADOW`
+  - `@atlaskit/editor-common`:
+    - `TableSharedCssClassName.TABLE_LEFT_SHADOW`
+    - `TableSharedCssClassName.TABLE_RIGHT_SHADOW`
+    - `TableSharedCssClassName.TABLE_SHADOW_SENTINEL_LEFT`
+    - `TableSharedCssClassName.TABLE_SHADOW_SENTINEL_RIGHT`
+    - `TableSharedCssClassName.TABLE_STICKY_SHADOW`
+
+### Patch Changes
+
+- [`d127dff1fb012`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d127dff1fb012) -
+  Optimize rounded table edge detection, caching, DOM writes, and update traversal behind Patch 6
+- Updated dependencies
+
+## 24.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.6.0
+
+### Minor Changes
+
+- [`509b29022dde2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/509b29022dde2) -
+  cleanup platform_editor_table_display_mode_in_to_dom
+
+### Patch Changes
+
+- [`399ca50adb668`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/399ca50adb668) -
+  [ux] [EDITOR-8377] Fix the table cell background colour palette so the current colour is shown as
+  selected.
+- Updated dependencies
+
+## 24.5.7
+
+### Patch Changes
+
+- [`4bc741a70d678`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bc741a70d678) -
+  Add the first registry-backed Quick Insert slice with Table
+- Updated dependencies
+
+## 24.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.5.5
+
+### Patch Changes
+
+- [`6e8461981e75d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e8461981e75d) -
+  Disable row and column move options when merged cells prevent reordering behind the
+  platform_editor_table_menu_updates_patch_2 experiment
+- Updated dependencies
+
+## 24.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.5.3
+
+### Patch Changes
+
+- [`7cecf41634d18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cecf41634d18) -
+  Revert the lime, orange, and magenta table cell background color options.
+- Updated dependencies
+
 ## 24.5.2
 
 ### Patch Changes

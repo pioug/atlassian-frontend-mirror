@@ -8,12 +8,10 @@ import {
 	getMostRecentVCRevision,
 	getPostInteractionRate,
 } from '../config';
-import {
-	isSegmentLabel,
-	sanitizeLabelStackName,
-	sanitizeUfoName,
-	stringifyLabelStackFully,
-} from '../create-payload/common/utils';
+import { isSegmentLabel } from '../create-payload/common/utils/is-segment-label';
+import { sanitizeLabelStackName } from '../create-payload/common/utils/sanitize-label-stack-name';
+import { sanitizeUfoName } from '../create-payload/common/utils/sanitize-ufo-name';
+import { stringifyLabelStackFully } from '../create-payload/common/utils/stringify-label-stack-fully';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';

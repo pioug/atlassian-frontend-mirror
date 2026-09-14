@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type HeaderProps } from '../Header';
 import HeaderContainer from '../Header/header-container';
-import CustomItem from '../Item/custom-item';
+import { CustomItem } from '../Item/custom-item';
 
 const styles = cssMap({
 	iconContainer: {
@@ -145,7 +145,7 @@ const Footer = ({ description, children, iconBefore, testId }: NewFooterProps) =
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const FooterFacade: ({
+export const FooterFacade: ({
 	useDeprecatedApi,
 	description,
 	iconBefore,
@@ -193,4 +193,5 @@ const FooterFacade: ({
 	);
 };
 
-export default FooterFacade;
+// Public API aliases preserved from an eliminated entry-point (volt-migrate-package).
+export { FooterFacade as Footer };

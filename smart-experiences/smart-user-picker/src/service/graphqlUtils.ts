@@ -1,5 +1,4 @@
 import { createAtlAttributionHeader, type AtlAttributionHeaderData } from './atl-attribution';
-export type { AtlAttributionHeaderData } from './atl-attribution';
 
 const buildHeaders = (attributionData?: Partial<AtlAttributionHeaderData>) => {
 	const headers = new Headers();

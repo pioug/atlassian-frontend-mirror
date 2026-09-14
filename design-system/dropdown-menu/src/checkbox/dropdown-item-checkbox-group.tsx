@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
-import type { SectionProps } from '@atlaskit/menu';
+import type { SectionProps } from '@atlaskit/menu/types';
 import Section from '@atlaskit/menu/section';
 
 import GroupTitle from '../internal/components/group-title';

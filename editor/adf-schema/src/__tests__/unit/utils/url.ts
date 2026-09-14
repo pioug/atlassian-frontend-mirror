@@ -1,4 +1,9 @@
-import { getLinkMatch, isRootRelative, linkifyMatch, normalizeUrl } from '../../../utils/url';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { getLinkMatch } from '../../../utils/get-link-match';
+import { isRootRelative } from '../../../utils/is-root-relative';
+import { linkifyMatch } from '../../../utils/linkify-match';
+import { normalizeUrl } from '../../../utils/normalize-url';
 const packageName = process.env.npm_package_name as string;
 
 describe(`${packageName}/url url utils`, () => {
@@ -9,6 +14,7 @@ describe(`${packageName}/url url utils`, () => {
 			['dynamicsnav://go.com', 'dynamicsnav://go.com'],
 			['integrity://go.com', 'integrity://go.com'],
 			['file://go.pdf', 'file://go.pdf'],
+			['file:///C:/ProgramData/Diagnostic', 'file:///C:/ProgramData/Diagnostic'],
 			['smb://go.com', 'smb://go.com'],
 			['mailto:prettyandsimple@example.com', 'mailto:prettyandsimple@example.com'],
 			['tel:1234', 'tel:1234'],
@@ -92,6 +98,54 @@ describe(`${packageName}/url url utils`, () => {
 		it('should not match filepaths', () => {
 			expect(getLinkMatch('./index.php')).toEqual(null);
 			expect(getLinkMatch('/index.php')).toEqual(null);
+		});
+		it('should not match a bare windows filepath', () => {
+			expect(getLinkMatch('C:\\ProgramData\\Snapshots\\Backup')).toEqual(null);
+		});
+
+		// JSDCLOUD-19450: `file:` and `tel:` are registered with a validator that must be anchored.
+		// Unanchored, a scheme-like word followed by whitespace swallows the rest of the text and
+		// reports a match whose length is measured at the wrong offset.
+		describe('with platform_bugfix_invalid_urls_parsing_in_editor enabled', () => {
+			beforeEach(() => {
+				passGate('platform_bugfix_invalid_urls_parsing_in_editor');
+			});
+
+			it('should not match a scheme followed by whitespace', () => {
+				expect(
+					getLinkMatch('File: C:\\ProgramData\\SystemTools\\Diagnostic\\Snapshots\\Backup'),
+				).toEqual(null);
+				expect(getLinkMatch('FILE: hello world')).toEqual(null);
+				expect(getLinkMatch('The file: report.txt')).toEqual(null);
+				expect(getLinkMatch('tel: 12345')).toEqual(null);
+			});
+
+			it('should match file: and tel: URIs', () => {
+				expect(getLinkMatch('file:///C:/ProgramData/Diagnostic')!.raw).toEqual(
+					'file:///C:/ProgramData/Diagnostic',
+				);
+				expect(getLinkMatch('file://server/share/x')!.raw).toEqual('file://server/share/x');
+				expect(getLinkMatch('tel:+61400000000')!.raw).toEqual('tel:+61400000000');
+			});
+		});
+
+		describe('with platform_bugfix_invalid_urls_parsing_in_editor disabled', () => {
+			beforeEach(() => {
+				failGate('platform_bugfix_invalid_urls_parsing_in_editor');
+			});
+
+			it('matches a scheme followed by whitespace and drops the last character', () => {
+				expect(
+					getLinkMatch('File: C:\\ProgramData\\SystemTools\\Diagnostic\\Snapshots\\Backup')!.raw,
+				).toEqual('File: C:\\ProgramData\\SystemTools\\Diagnostic\\Snapshots\\Backu');
+			});
+
+			it('should match file: and tel: URIs', () => {
+				expect(getLinkMatch('file:///C:/ProgramData/Diagnostic')!.raw).toEqual(
+					'file:///C:/ProgramData/Diagnostic',
+				);
+				expect(getLinkMatch('tel:+61400000000')!.raw).toEqual('tel:+61400000000');
+			});
 		});
 		it('should not match markdown headings', () => {
 			expect(getLinkMatch('#hello')).toEqual(null);

@@ -14,7 +14,7 @@ import {
 	P500,
 	N40,
 	N500,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/colors';
 
 const commonStyle = `
   border-radius: 3px;

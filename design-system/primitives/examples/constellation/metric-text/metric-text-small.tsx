@@ -2,7 +2,11 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import ChartPieIcon from '@atlaskit/icon/core/chart-pie';
-import { Box, Inline, MetricText, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { MetricText } from '@atlaskit/primitives/compiled/metric-text';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD, PasteTypes } from '@atlaskit/editor-common/analytics';
@@ -46,18 +46,24 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { extractClientIdsFromHtml } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { PastePluginActionTypes } from '../editor-actions/actions';
 import { splitParagraphs, upgradeTextToLists } from '../editor-commands/commands';
 import type { PastePlugin } from '../index';
-import type { LastContentPasted, PastePluginState } from '../pastePluginType';
+import type {
+	LastContentPasted,
+	MarkdownToPmConverter,
+	PastePluginState,
+} from '../pastePluginType';
 import {
 	transformSliceForMedia,
 	transformSliceToCorrectMediaWrapper,
@@ -98,6 +104,7 @@ import {
 	transformUnsupportedBlockCardToInline,
 } from './util';
 import { handleVSCodeBlock } from './util/edge-cases/handleVSCodeBlock';
+import { getMarkdownSliceViaGfm } from './util/get-markdown-slice';
 import {
 	applyContainerNodeTransformToSlice,
 	splitTablesOutOfPanelHtml,
@@ -178,11 +185,24 @@ export function createPlugin(
 	sanitizePrivateContent?: boolean,
 	providerFactory?: ProviderFactory,
 	pasteWarningOptions?: PasteWarningOptions,
+	markdownToPmConverter?: MarkdownToPmConverter,
 ): SafePlugin<PastePluginState> {
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
+
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
 	function getMarkdownSlice(text: string, openStart: number, openEnd: number): Slice | undefined {
+		if (markdownToPmConverter && isExperimentEnabled('platform_editor_paste_as_md_use_gfm')) {
+			return getMarkdownSliceViaGfm(
+				text,
+				schema,
+				openStart,
+				openEnd,
+				markdownToPmConverter,
+				isExperimentEnabled('platform_editor_gfm_link_paste_fix'),
+			);
+		}
+
 		const escapedTextInput: string = escapeBackslashAndLinksExceptCodeBlock(text);
 
 		const doc = atlassianMarkDownParser.parse(escapedTextInput);
@@ -231,7 +251,7 @@ export function createPlugin(
 			clipboardParser: createClipboardParser(schema),
 			handleDOMEvents: {
 				// note
-				paste: (view, event) => {
+				paste: (view: EditorView, event: ClipboardEvent) => {
 					mostRecentPasteEvent = event as ClipboardEvent;
 					if (event.clipboardData) {
 						insm.startHeavyTask('paste');
@@ -240,7 +260,7 @@ export function createPlugin(
 				},
 			},
 			// note
-			handlePaste(view, rawEvent, slice) {
+			handlePaste(view: EditorView, rawEvent: Event, slice: Slice) {
 				const event = rawEvent as ClipboardEvent;
 				if (!event.clipboardData) {
 					return false;
@@ -468,19 +488,14 @@ export function createPlugin(
 
 				slice = handleVSCodeBlock({ state, slice, event, text });
 
-				if (
-					editorExperiment('platform_synced_block', true) ||
-					fg('platform_synced_block_unsupported_products')
-				) {
-					slice = handleSyncBlocksPaste(
-						slice,
-						schema,
-						getPasteSource(event),
-						html,
-						pasteWarningOptions,
-						pluginInjectionApi,
-					);
-				}
+				slice = handleSyncBlocksPaste(
+					slice,
+					schema,
+					getPasteSource(event),
+					html,
+					pasteWarningOptions,
+					pluginInjectionApi,
+				);
 
 				const plainTextPasteSlice = linkifyContent(state.schema)(slice);
 
@@ -548,6 +563,7 @@ export function createPlugin(
 								pluginInjectionApi?.extension?.actions?.runMacroAutoConvert,
 								cardOptions,
 								extensionAutoConverter,
+								editorAnalyticsAPI,
 							)(state, dispatch, view)
 						) {
 							// TODO: ED-26959 - handleMacroAutoConvert dispatch twice, so we can't use the helper
@@ -744,6 +760,7 @@ export function createPlugin(
 							pluginInjectionApi?.extension?.actions?.runMacroAutoConvert,
 							cardOptions,
 							extensionAutoConverter,
+							editorAnalyticsAPI,
 						)(state, dispatch, view)
 					) {
 						// TODO: ED-26959 - handleMacroAutoConvert dispatch twice, so we can't use the helper
@@ -798,11 +815,10 @@ export function createPlugin(
 					// breakout marks, if so we strip the mark and paste. Note that
 					// breakout marks are only valid in the root document.
 					if (
-						fg('platform_editor_lovability_resize_patch_2')
-							? selectionParentType !== state.schema.nodes.doc
-							: // When pasting at a root GapCursor, selection depth is 0 and there is no
-								// parent node to resolve. Treat it as doc-level so valid breakout marks stay.
-								selectionParentType !== state.schema.nodes.doc && selectionDepth !== 0
+						selectionParentType !== state.schema.nodes.doc &&
+						// When pasting at a root GapCursor, selection depth is 0 and there is no
+						// parent node to resolve. Treat it as doc-level so valid breakout marks stay.
+						selectionDepth !== 0
 					) {
 						const sliceCopy = Slice.fromJSON(state.schema, slice.toJSON() || {});
 
@@ -855,7 +871,7 @@ export function createPlugin(
 				}
 				return false;
 			},
-			transformPasted(slice) {
+			transformPasted(slice: Slice) {
 				if (sanitizePrivateContent) {
 					slice = handleMention(slice, schema);
 				}
@@ -866,10 +882,7 @@ export function createPlugin(
 					slice = transformSliceToJoinAdjacentCodeBlocks(slice);
 				}
 				// Filter out expand nodes if allowExpand is false
-				if (
-					!pluginInjectionApi?.expand?.sharedState?.currentState()?.allowInsertion &&
-					expValEquals('platform_editor_expand_paste_in_comment_editor', 'isEnabled', true)
-				) {
+				if (!pluginInjectionApi?.expand?.sharedState?.currentState()?.allowInsertion) {
 					slice = handlePasteExpand(slice);
 				}
 
@@ -909,7 +922,7 @@ export function createPlugin(
 
 				return slice;
 			},
-			transformPastedHTML(html) {
+			transformPastedHTML(html: string) {
 				// Fix for issue ED-4438
 				// text from google docs should not be pasted as inline code
 				if (html.indexOf('id="docs-internal-guid-') >= 0) {
@@ -951,10 +964,7 @@ export function createPlugin(
 
 				// Remove breakout marks HTML around sync block renderer nodes
 				// so the breakout mark doesn't get applied to the wrong nodes
-				if (
-					html.indexOf(SyncBlockRendererDataAttributeName) >= 0 &&
-					editorExperiment('platform_synced_block', true)
-				) {
+				if (html.indexOf(SyncBlockRendererDataAttributeName) >= 0) {
 					html = removeBreakoutFromRendererSyncBlockHTML(html);
 				}
 

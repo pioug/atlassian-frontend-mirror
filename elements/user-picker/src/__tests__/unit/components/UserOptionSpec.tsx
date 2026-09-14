@@ -1,295 +1,160 @@
-import { token } from '@atlaskit/tokens';
-import { shallow } from 'enzyme';
-import React, { type ReactElement } from 'react';
-import { type LozengeProps } from '../../../types';
-import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
-import { HighlightText } from '../../../components/HighlightText';
-import { SizeableAvatar } from '../../../components/SizeableAvatar';
-import { AvatarOrIcon } from '../../../components/AvatarOrIcon';
-import { UserOption, type UserOptionProps } from '../../../components/UserOption';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { UserOption } from '../../../components/UserOption';
+import { type LozengeProps, type User } from '../../../types';
 
-jest.mock('../../../components/AvatarItemOption', () => ({
-	...(jest.requireActual('../../../components/AvatarItemOption') as any),
-	textWrapper: jest.fn(),
+jest.mock('@atlaskit/avatar/get-appearance', () => ({
+	...jest.requireActual('@atlaskit/avatar/get-appearance'),
+	__esModule: true,
+	default: jest.fn(),
+}));
+
+jest.mock('../../../components/SizeableAvatar', () => ({
+	SizeableAvatar: ({
+		appearance,
+		avatarAppearanceShape,
+		presence,
+		src,
+	}: {
+		appearance: string;
+		avatarAppearanceShape?: string;
+		presence?: string;
+		src?: string;
+	}) => (
+		<div
+			data-testid="user-avatar"
+			data-appearance={appearance}
+			data-avatar-appearance-shape={avatarAppearanceShape}
+			data-presence={presence}
+			data-src={src}
+		/>
+	),
+}));
+
+jest.mock('../../../components/AvatarOrIcon', () => ({
+	AvatarOrIcon: ({
+		icon,
+		iconColor,
+		src,
+	}: {
+		icon: React.ReactNode;
+		iconColor?: string;
+		src?: string;
+	}) => (
+		<div data-testid="user-avatar-icon" data-src={src} style={{ color: iconColor }}>
+			{icon}
+		</div>
+	),
 }));
 
 describe('User Option', () => {
-	const mockTextWrapper = textWrapper as jest.Mock;
-
-	afterEach(() => {
-		jest.resetAllMocks();
-	});
-
-	const user = {
+	const user: User = {
 		id: 'abc-123',
 		name: 'Jace Beleren',
 		publicName: 'jbeleren',
 		avatarUrl: 'http://avatars.atlassian.com/jace.png',
 		byline: 'Teammate',
 		lozenge: 'WORKSPACE',
+		type: 'user',
 	};
 
-	const shallowOption = (props: Partial<UserOptionProps> = {}) =>
-		shallow<UserOption>(<UserOption user={user} status="approved" isSelected={false} {...props} />);
-
-	it('should render UserOption component', () => {
-		const component = shallowOption();
-		const avatarItemOption = component.find(AvatarItemOption);
-
-		expect(avatarItemOption.props().avatar).toEqual(
-			<SizeableAvatar
-				appearance="big"
-				src="http://avatars.atlassian.com/jace.png"
-				presence="approved"
-				avatarAppearanceShape="circle"
-			/>,
+	const renderUserOption = (userProps: Partial<User> = {}, isSelected = false) =>
+		render(
+			<UserOption user={{ ...user, ...userProps }} status="approved" isSelected={isSelected} />,
 		);
 
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+	it('renders the name, public name, byline, lozenge, and avatar', async () => {
+		renderUserOption();
 
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>Jace Beleren</HighlightText>);
-		expect(primaryText[1].key).toEqual('publicName');
-		expect(primaryText[1].props.children[1].props.children[1]).toEqual(
-			<HighlightText>jbeleren</HighlightText>,
-		);
-
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual('Teammate');
-		expect(avatarItemOption.props().lozenge).toEqual({
-			text: 'WORKSPACE',
-		});
+		expect(screen.getByText(user.name)).toBeInTheDocument();
+		expect(screen.getByText('(jbeleren)')).toBeInTheDocument();
+		expect(screen.getByText(user.byline!)).toBeInTheDocument();
+		expect(screen.getByText('WORKSPACE')).toBeInTheDocument();
+		expect(screen.getByTestId('user-avatar')).toHaveAttribute('data-presence', 'approved');
+		expect(screen.getByTestId('user-avatar')).toHaveAttribute('data-src', user.avatarUrl);
+		await expect(document.body).toBeAccessible();
 	});
 
-	it('should render Option in selected state', () => {
-		const component = shallowOption({ isSelected: true });
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(3, token('color.text.selected', '#1868DB'));
+	it('renders the same user information in selected state', () => {
+		renderUserOption({}, true);
 
-		expect(avatarItemOption.props().avatar).toEqual(
-			<SizeableAvatar
-				appearance="big"
-				src="http://avatars.atlassian.com/jace.png"
-				presence="approved"
-				avatarAppearanceShape="circle"
-			/>,
-		);
-
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>Jace Beleren</HighlightText>);
-		expect(primaryText[1].key).toEqual('publicName');
-		expect(primaryText[1].props.children[1].props.children[1]).toEqual(
-			<HighlightText>jbeleren</HighlightText>,
-		);
-
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual('Teammate');
-		expect(avatarItemOption.props().lozenge).toEqual({
-			text: 'WORKSPACE',
-		});
+		expect(screen.getByText(user.name)).toBeInTheDocument();
+		expect(screen.getByText('(jbeleren)')).toBeInTheDocument();
+		expect(screen.getByText(user.byline!)).toBeInTheDocument();
+		expect(screen.getByText('WORKSPACE')).toBeInTheDocument();
 	});
 
-	it('should render lozenge when providing LozengeProps type object', () => {
-		const lozengeObject: LozengeProps = {
-			text: 'GUEST',
-			appearance: 'new',
-		};
+	it('renders an object lozenge', () => {
+		const lozenge: LozengeProps = { text: 'GUEST', appearance: 'new' };
+		renderUserOption({ lozenge });
 
-		const userWithLozenge = {
-			...user,
-			lozenge: lozengeObject,
-		};
-
-		const component = shallowOption({ user: userWithLozenge });
-
-		const avatarItemOption = component.find(AvatarItemOption);
-
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.subtlest', '#6B6E76'));
-		expect(avatarItemOption.props().avatar).toEqual(
-			<SizeableAvatar
-				appearance="big"
-				src="http://avatars.atlassian.com/jace.png"
-				presence="approved"
-				avatarAppearanceShape="circle"
-			/>,
-		);
-
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>Jace Beleren</HighlightText>);
-		expect(primaryText[1].key).toEqual('publicName');
-		expect(primaryText[1].props.children[1].props.children[1]).toEqual(
-			<HighlightText>jbeleren</HighlightText>,
-		);
-
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual('Teammate');
-		expect(avatarItemOption.props().lozenge).toEqual({
-			text: 'GUEST',
-			appearance: 'new',
-		});
+		expect(screen.getByText('GUEST')).toBeInTheDocument();
 	});
 
-	it('should highlight text', () => {
-		const userWithHighlight = {
-			...user,
+	it('highlights the configured name and public name ranges', () => {
+		const { container } = renderUserOption({
 			highlight: {
 				name: [{ start: 0, end: 2 }],
 				publicName: [{ start: 2, end: 4 }],
 			},
-		};
-		const component = shallowOption({ user: userWithHighlight });
-		const avatarItemOption = component.find(AvatarItemOption);
+		});
 
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-		expect(mockTextWrapper).toHaveBeenNthCalledWith(2, token('color.text.subtlest', '#6B6E76'));
-		expect(avatarItemOption.props().avatar).toEqual(
-			<SizeableAvatar
-				appearance="big"
-				src="http://avatars.atlassian.com/jace.png"
-				presence="approved"
-				avatarAppearanceShape="circle"
-			/>,
-		);
-
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(
-			<HighlightText highlights={[{ start: 0, end: 2 }]}>Jace Beleren</HighlightText>,
-		);
-		expect(primaryText[1].key).toEqual('publicName');
-		expect(primaryText[1].props.children[1].props.children[1]).toEqual(
-			<HighlightText highlights={[{ start: 2, end: 4 }]}>jbeleren</HighlightText>,
-		);
-
-		const secondaryText = avatarItemOption.props().secondaryText as ReactElement;
-
-		expect(secondaryText.props.children).toEqual('Teammate');
+		expect(Array.from(container.querySelectorAll('b')).map((part) => part.textContent)).toEqual([
+			'Jac',
+			'ele',
+		]);
 	});
 
-	it('should show only the name when no publicName is provided', () => {
-		const userWithoutName = {
-			id: 'abc-123',
+	it('shows only the name when no public name is provided', () => {
+		const { container } = renderUserOption({
 			name: 'jbeleren',
-			highlight: {
-				name: [{ start: 2, end: 4 }],
-				publicName: [],
-			},
-		};
-		const component = shallowOption({ user: userWithoutName });
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
+			publicName: undefined,
+			highlight: { name: [{ start: 2, end: 4 }], publicName: [] },
+		});
 
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
+		expect(container).toHaveTextContent('jbeleren');
+		expect(container.querySelectorAll('span').length).toBeGreaterThan(0);
+		expect(screen.queryByText('(jbeleren)')).not.toBeInTheDocument();
+	});
 
-		expect(primaryText[0].props.children).toEqual(
-			<HighlightText highlights={[{ start: 2, end: 4 }]}>jbeleren</HighlightText>,
+	it('shows only the name when public name matches after trimming', () => {
+		renderUserOption({ publicName: `  ${user.name}  ` });
+
+		expect(screen.getAllByText(user.name)).toHaveLength(1);
+	});
+
+	it('renders a hexagon avatar for an agent', () => {
+		(getAppearanceForAppType as jest.Mock).mockReturnValue('hexagon');
+		renderUserOption({ appType: 'agent' });
+
+		expect(getAppearanceForAppType).toHaveBeenCalledWith('agent');
+		expect(screen.getByTestId('user-avatar')).toHaveAttribute(
+			'data-avatar-appearance-shape',
+			'hexagon',
 		);
-	});
-
-	it('should show only name', () => {
-		const userWithSamePublicName = {
-			...user,
-			publicName: user.name,
-		};
-		const component = shallowOption({ user: userWithSamePublicName });
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>Jace Beleren</HighlightText>);
-	});
-
-	it('should ignore blank spaces while comparing', () => {
-		const userWithSamePublicName = {
-			...user,
-			publicName: `  ${user.name}  `,
-		};
-		const component = shallowOption({ user: userWithSamePublicName });
-		const avatarItemOption = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', '#292A2E'));
-
-		const primaryText = avatarItemOption.props().primaryText as ReactElement[];
-
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>Jace Beleren</HighlightText>);
-	});
-
-	it('should render hexagon avatar when appType is agent', () => {
-		const getAppearanceForAppTypeSpy = jest.spyOn(
-			require('@atlaskit/avatar'),
-			'getAppearanceForAppType',
-		);
-		const userWithAgentAppType = {
-			...user,
-			appType: 'agent',
-		};
-
-		const component = shallowOption({ user: userWithAgentAppType });
-		const avatarItemOption = component.find(AvatarItemOption);
-
-		expect(getAppearanceForAppTypeSpy).toHaveBeenCalledWith('agent');
-		expect(getAppearanceForAppTypeSpy).toHaveReturnedWith('hexagon');
-
-		const avatar = avatarItemOption.props().avatar as ReactElement;
-		expect(avatar.props.avatarAppearanceShape).toBe('hexagon');
-
-		getAppearanceForAppTypeSpy.mockRestore();
 	});
 
 	describe('icon support', () => {
-		const mockIcon = <div data-testid="test-icon">Icon</div>;
+		const mockIcon = <span data-testid="test-icon">Icon</span>;
 
-		it('should render AvatarOrIcon when icon is provided', () => {
-			const userWithIcon = {
-				...user,
-				icon: mockIcon,
-			};
+		it('renders AvatarOrIcon when an icon is provided', () => {
+			renderUserOption({ icon: mockIcon });
 
-			const component = shallowOption({ user: userWithIcon });
-			const avatarItemOption = component.find(AvatarItemOption);
-			const avatar = avatarItemOption.props().avatar as ReactElement;
-
-			expect(avatar.type).toBe(AvatarOrIcon);
-			expect(avatar.props.icon).toEqual(mockIcon);
-			expect(avatar.props.src).toEqual(user.avatarUrl);
+			expect(screen.getByTestId('user-avatar-icon')).toBeInTheDocument();
+			expect(screen.getByTestId('test-icon')).toBeInTheDocument();
 		});
 
-		it('should render AvatarOrIcon with iconColor when both icon and iconColor are provided', () => {
-			const iconColor = '#FF0000';
-			const userWithIconAndColor = {
-				...user,
-				icon: mockIcon,
-				iconColor,
-			};
+		it('passes iconColor to AvatarOrIcon', () => {
+			renderUserOption({ icon: mockIcon, iconColor: '#FF0000' });
 
-			const component = shallowOption({ user: userWithIconAndColor });
-			const avatarItemOption = component.find(AvatarItemOption);
-			const avatar = avatarItemOption.props().avatar as ReactElement;
-
-			expect(avatar.type).toBe(AvatarOrIcon);
-			expect(avatar.props.icon).toEqual(mockIcon);
-			expect(avatar.props.iconColor).toEqual(iconColor);
+			expect(screen.getByTestId('user-avatar-icon')).toHaveStyle({ color: '#FF0000' });
 		});
 
-		it('should render SizeableAvatar when no icon is provided', () => {
-			const component = shallowOption();
-			const avatarItemOption = component.find(AvatarItemOption);
-			const avatar = avatarItemOption.props().avatar as ReactElement;
+		it('renders SizeableAvatar when no icon is provided', () => {
+			renderUserOption();
 
-			expect(avatar.type).toBe(SizeableAvatar);
+			expect(screen.getByTestId('user-avatar')).toBeInTheDocument();
 		});
 	});
 });

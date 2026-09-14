@@ -31,6 +31,7 @@ import {
 	UNDERLINE_MENU_ITEM,
 	getInputMethodFromParentKeys,
 } from '@atlaskit/editor-common/toolbar';
+// oxlint-disable-next-line import/no-duplicates
 import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -44,7 +45,7 @@ import {
 } from '@atlaskit/editor-toolbar';
 import type { IconComponent } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {

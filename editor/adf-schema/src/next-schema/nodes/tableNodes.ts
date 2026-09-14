@@ -1,4 +1,3 @@
-import type { ADFNode, ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
 import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
 import { fragment } from '../marks/fragment';
 import { unsupportedMark } from '../marks/unsupportedMark';
@@ -12,9 +11,7 @@ import { tableCellContent } from './tableCellContent';
 
 import { nestedExpand } from './nestedExpand';
 import { unsupportedBlock } from './unsupportedBlock';
-
-// Declare early to allow for circular references within the file
-const table: ADFNode<[string], ADFCommonNodeSpec> = adfNode('table');
+import { table } from './tableStub';
 
 const valign = {
 	type: 'enum' as const,
@@ -145,4 +142,8 @@ table
 		ignore: ['json-schema', 'validator-spec'],
 	});
 
+// Re-export the now-defined `table` stub as this module's public API. Importing `table` from here
+// (rather than from `./tableStub`) forces this definition module to evaluate first, so consumers
+// that eagerly call `table.use('with_nested_table')` see the defined variant.
+// eslint-disable-next-line @atlaskit/editor/no-re-export
 export { table };

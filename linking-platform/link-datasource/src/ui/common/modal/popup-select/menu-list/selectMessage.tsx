@@ -3,7 +3,7 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

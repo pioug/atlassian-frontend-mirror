@@ -7,7 +7,8 @@
  * Note: This file is not meant to be executed, only type-checked.
  */
 
-import { expVal, expValNoExposure } from '../expVal';
+import { expVal } from '../exp-val';
+import { expValNoExposure } from '../exp-val-no-exposure';
 
 // ============================================================================
 // Boolean Experiment Tests

@@ -278,6 +278,21 @@ export const tableContentModeStyles: SerializedStyles = css({
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
+export const tableContentModeExtensionContainmentStyles: SerializedStyles = css({
+	// Inline-size containment hides extension content from a fit-to-content table's intrinsic width.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror table[data-initial-width-mode="content"] .extension-overflow-wrapper': {
+		containerType: 'normal',
+	},
+});
+
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableContentModeNestedTableStyles: SerializedStyles = css({
 	// Reset the base `margin-right: -1px` (ED-16212) that clips content-mode tables by 1px.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

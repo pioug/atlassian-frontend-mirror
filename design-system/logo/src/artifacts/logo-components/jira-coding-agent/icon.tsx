@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f238f469c20433ab8ed5a1e4abeae5fe>>
+ * @codegen <<SignedSource::019474b1e5551ee277018509f77e4040>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -23,7 +23,7 @@ const svg = `<svg height="100%" viewBox="0 0 55 55">
  *
  */
 export function JiraCodingAgentIcon({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Jira Coding Agent',
 	testId,

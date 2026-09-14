@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import Link from '../../../../index';
+import Link from '../..';
 
 const testId = 'link';
 

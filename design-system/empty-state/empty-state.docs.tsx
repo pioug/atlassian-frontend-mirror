@@ -50,7 +50,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/empty-state.tsx'),
 				},
 			],
-			keywords: ['empty', 'state', 'placeholder', 'no-content', 'void'],
+			keywords: ['empty', 'state', 'results', 'placeholder', 'no-content', 'void'],
 			categories: ['status'],
 		},
 	],

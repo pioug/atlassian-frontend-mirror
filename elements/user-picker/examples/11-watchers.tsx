@@ -1,13 +1,16 @@
-import Avatar, { AvatarItem } from '@atlaskit/avatar';
-import { IconButton } from '@atlaskit/button/new';
-import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
 import React, { type FC, useCallback, useState } from 'react';
+
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
+import IconButton from '@atlaskit/button/icon/button';
+import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import { type OptionData, type Value } from '../src';
-import UserPicker from '../src';
-import { isTeam, isUser } from '../src/components/utils';
+import { type OptionData, type Value } from '../src/types';
+import { UserPicker } from '../src/components/UserPicker';
+import { isTeam } from '../src/components/isTeam';
+import { isUser } from '../src/components/isUser';
 
 type UserValueProps = {
 	onRemove: (user: OptionData) => void;

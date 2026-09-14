@@ -1,11 +1,9 @@
 import React, { forwardRef, type ReactNode } from 'react';
 
-import {
-	type UIAnalyticsEvent,
-	usePlatformLeafEventHandler,
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import Button from '@atlaskit/button/button';
 
 export interface CommentActionItemProps extends WithAnalyticsEventsProps {
 	/**

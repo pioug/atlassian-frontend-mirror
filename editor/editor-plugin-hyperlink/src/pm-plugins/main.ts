@@ -1,6 +1,8 @@
 import type { IntlShape } from 'react-intl';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
@@ -17,7 +19,6 @@ import type {
 	ReadonlyTransaction,
 	Selection,
 } from '@atlaskit/editor-prosemirror/state';
-import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 
@@ -240,16 +241,49 @@ export const plugin = (
 		},
 		key: stateKey,
 		props: {
-			decorations: () => {
-				return DecorationSet.empty;
-			},
 			handleDOMEvents: {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				auxclick: (_, event: any) => {
+					if (event.button !== 1) {
+						return false;
+					}
+					const anchor = getLinkAnchor(event);
+					if (!anchor) {
+						return false;
+					}
+
+					// Browsers do not follow a link clicked inside contenteditable, so a link in
+					// editable text never opens on middle-click and has to be opened here. Cards
+					// render their anchor inside a contenteditable="false" node view, and a
+					// read-only editor is itself contenteditable="false" — in both cases the
+					// browser opens the tab, so doing it again here would open two.
+					if (anchor.closest('[contenteditable="false"]')) {
+						return false;
+					}
+
+					const href = anchor.getAttribute('href');
+					if (!href || !isSafeUrl(href)) {
+						return false;
+					}
+
+					if (!fg('platform_editor_middle_click_no_link_toolbar')) {
+						return false;
+					}
+
+					window.open(href, '_blank', 'noopener,noreferrer');
+					return true;
+				},
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				mouseup: (_, event: any) => {
 					// this prevents redundant selection transaction when clicking on link
 					// link state will be update on slection change which happens on mousedown
 					if (isLinkDirectTarget(event)) {
+						// Leave middle-click alone so the browser can still open the link in a new tab.
+						if (event.button === 1 && fg('platform_editor_middle_click_no_link_toolbar')) {
+							return false;
+						}
 						event.preventDefault();
 						return true;
 					}
@@ -258,6 +292,25 @@ export const plugin = (
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				mousedown: (view, event: any) => {
+					// Middle-click on a link: skip ProseMirror's own handling so it does not move
+					// the selection into the link or select the card node, which is what opens
+					// the toolbar.
+					const middleClickAnchor = event.button === 1 ? getLinkAnchor(event) : null;
+					if (middleClickAnchor && fg('platform_editor_middle_click_no_link_toolbar')) {
+						// Returning true only stops ProseMirror. The browser still places a caret
+						// at the click point inside contenteditable, and a caret inside the link is
+						// itself enough to open the toolbar, so the default has to be suppressed
+						// too. The auxclick handler above opens the tab for these links.
+						//
+						// Anchors inside a contenteditable="false" node view (cards, and read-only
+						// editors) are deliberately left alone: they get no caret, and it is the
+						// browser's default that opens their new tab.
+						if (!middleClickAnchor.closest('[contenteditable="false"]')) {
+							event.preventDefault();
+						}
+						return true;
+					}
+
 					// since link clicks are disallowed by browsers inside contenteditable
 					// so we need to handle shift+click selection ourselves in this case
 					if (!event.shiftKey || !isLinkDirectTarget(event)) {
@@ -286,4 +339,28 @@ export const plugin = (
 
 function isLinkDirectTarget(event: MouseEvent) {
 	return event?.target instanceof HTMLElement && event.target.tagName === 'A';
+}
+
+/**
+ * Whether the event happened anywhere inside a link, rather than on the anchor itself.
+ *
+ * Matching on the anchor alone is not enough. Every smart link variant renders its anchor
+ * with nested content inside it — inline cards nest icon, title and lozenge spans, block
+ * and embed cards render anchors via the flexible card `base-link-element` and
+ * `ExpandedFrame` — so the direct target of a real click is almost never the anchor.
+ *
+ * Being DOM based rather than node based, this covers every variant that renders a real
+ * anchor: link marks, inline cards, block cards, embed card headers and datasource cell
+ * links. None of the card node views swallow `mousedown` (their `stopEvent` only returns
+ * true for `dragstart`, or for form elements in the datasource case), so the event does
+ * reach this handler in all of those cases. The exception is content inside an embed
+ * card's iframe, which is a separate document we cannot observe.
+ *
+ * `isLinkDirectTarget` is deliberately left alone: widening it would also change
+ * shift+click and mouseup handling for every nested element inside a link.
+ */
+function getLinkAnchor(event: MouseEvent) {
+	return event?.target instanceof Element
+		? event.target.closest<HTMLAnchorElement>('a[href]')
+		: null;
 }

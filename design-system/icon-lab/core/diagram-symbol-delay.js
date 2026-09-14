@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d67cfd368b863efa54eb0c6e833182a>>
+ * @codegen <<SignedSource::83e4793814c56f4d0863e3720fa4c006>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "DiagramSymbolDelay".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const DiagramSymbolDelayIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const DiagramSymbolDelayIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "DiagramSymbolDelayIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 8A4.5 4.5 0 0 0 10 3.5H1.5v9H10A4.5 4.5 0 0 0 14.5 8M16 8a6 6 0 0 1-6 6H1.447A1.447 1.447 0 0 1 0 12.553V3.447C0 2.648.648 2 1.447 2H10a6 6 0 0 1 6 6"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

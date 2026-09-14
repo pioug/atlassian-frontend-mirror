@@ -1,4 +1,5 @@
-import { type CardAuthFlowOpts, type EnvironmentsKeys } from '@atlaskit/link-provider';
+import type { CardAuthFlowOpts } from '@atlaskit/link-provider/types';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 
 import { type CardAppearance } from '../../src';
 

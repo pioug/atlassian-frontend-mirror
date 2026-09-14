@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { Mode } from './types';
-import { messages } from '@atlaskit/media-ui';
+import { messages } from '@atlaskit/media-ui/messages';
 
 type SRLiveTitleProps = {
 	mode: Mode;

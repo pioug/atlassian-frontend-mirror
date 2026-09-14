@@ -1,6 +1,7 @@
 import { createSchema } from '../../../../schema/create-schema';
 import { toDOM, fromHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 import { extension, dataConsumer } from '../../../..';
+import { extensionRootOnlyStage0 } from '../../../../schema/nodes/extension';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 const packageName = process.env.npm_package_name as string;
@@ -45,6 +46,13 @@ describe(`${packageName}/schema extension node`, () => {
 			],
 			selectable: true,
 			toDOM: expect.anything(),
+		});
+	});
+
+	it('should return correct stage-0 root-only node spec', () => {
+		expect(extensionRootOnlyStage0).toStrictEqual({
+			...extension,
+			marks: 'breakout dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
 		});
 	});
 

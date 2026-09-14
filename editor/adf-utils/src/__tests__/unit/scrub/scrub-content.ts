@@ -45,7 +45,7 @@ describe('scrubAttrs', () => {
 			scrubAttrs('coolNodeType', attrs);
 			// Ignored via go/ees005
 			// eslint-disable-next-line require-unicode-regexp
-		}).toThrowError(/scrubAttrs: encountered unsupported attributes type/);
+		}).toThrow(/scrubAttrs: encountered unsupported attributes type/);
 	});
 
 	it('should replace nested attributes values with dummy values of the same length', () => {

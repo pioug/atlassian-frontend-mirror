@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Motion, type MotionProps } from '@atlaskit/motion';
+import Motion, { type MotionProps } from '@atlaskit/motion/entering/motion';
 import { token } from '@atlaskit/tokens';
 
 const customAnimation = cssMap({

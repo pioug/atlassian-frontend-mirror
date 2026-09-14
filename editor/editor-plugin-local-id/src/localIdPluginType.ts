@@ -1,4 +1,8 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
 import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
@@ -7,6 +11,10 @@ import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 export type ActionProps = {
 	localId: string;
+};
+
+export type AddMissingLocalIdsOptions = {
+	onRepaired?: (payload: { repairedNodeCount: number }) => void;
 };
 
 export type LocalIdStatusCode =
@@ -74,6 +82,12 @@ export type LocalIdPlugin = NextEditorPlugin<
 			 * @returns boolean if the replace was successful
 			 */
 			replaceNode: (props: ActionProps & { value: Node }) => boolean;
+		};
+		commands: {
+			/**
+			 * Scans the current document and adds local IDs to eligible nodes that are missing them.
+			 */
+			addMissingLocalIds: (options?: AddMissingLocalIdsOptions) => EditorCommand;
 		};
 		dependencies: [
 			CompositionPlugin,

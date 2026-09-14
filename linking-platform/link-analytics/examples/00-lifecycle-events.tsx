@@ -1,21 +1,23 @@
 import React, { useCallback, useRef, useState, Fragment, forwardRef } from 'react';
 import { IntlProvider } from 'react-intl';
-import Button from '@atlaskit/button/new';
-import Popup, { type PopupProps } from '@atlaskit/popup';
+import Button from '@atlaskit/button/default/button';
+import { Popup } from '@atlaskit/popup/popup';
+import type { PopupProps } from '@atlaskit/popup/types';
 import {
 	LinkPicker,
 	type LinkPickerProps,
 	type LinkSearchListItemData,
 } from '@atlaskit/link-picker';
-import { createAndFireEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { FooterBlock, Card, SmartLinkSize, TitleBlock, ActionName } from '@atlaskit/smart-card';
 import fetchMock from 'fetch-mock/cjs/client';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
 
-import { useSmartLinkLifecycleAnalytics } from '../src';
+import { useSmartLinkLifecycleAnalytics } from '../src/use-smart-link-lifecycle-analytics';
 import { icon } from '@atlaskit/link-test-helpers/images';
 import { token } from '@atlaskit/tokens';
 
@@ -43,7 +45,6 @@ const linkPickerResults: LinkSearchListItemData[] = [
 export const generateResolvedLink = (
 	resourceUrl: string,
 ): {
-	status: number;
 	body: {
 		data: {
 			'@context': {
@@ -61,9 +62,9 @@ export const generateResolvedLink = (
 				'@type': string;
 				name: string;
 			};
-			url: string;
 			name: string;
 			summary: string;
+			url: string;
 		};
 		meta: {
 			access: string;
@@ -74,6 +75,7 @@ export const generateResolvedLink = (
 			resourceType: string;
 		};
 	};
+	status: number;
 } => ({
 	status: 200,
 	body: {

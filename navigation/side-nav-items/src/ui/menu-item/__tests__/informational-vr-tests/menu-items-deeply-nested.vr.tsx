@@ -3,7 +3,7 @@ import { type Hooks, snapshotInformational, type SnapshotTestOptions } from '@af
 import {
 	MenuItemsDeeplyNestedSelectedVR,
 	MenuItemsDeeplyNestedVR,
-} from '../../../../../examples/menu-items-deeply-nested';
+} from '../../../../../examples/menu-items-deeply-nested.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

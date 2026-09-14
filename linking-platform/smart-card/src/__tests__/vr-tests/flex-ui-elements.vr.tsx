@@ -1,12 +1,12 @@
 import { snapshot } from '@af/visual-regression';
 
-import FlexUiCustomElementsView from '../../../examples/vr-flexible-card/vr-flexible-ui-custom-elements';
-import FlexUiAtlaskitBadgeView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-atlaskit-badge';
-import FlexUiBaseTextView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-base-text';
-import FlexUiModifiedOnView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-modified-on';
-import FlexUiDateTimeTextView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-text-and-date';
-import FlexUiOwnedByElementView from '../../../examples/vr-flexible-card/vr-flexible-ui-owned-by';
-import FlexUiTitleElementView from '../../../examples/vr-flexible-card/vr-flexible-ui-title-element';
+import FlexUiCustomElementsView from '../../../examples/vr-flexible-card/vr-flexible-ui-custom-elements.vr.ap';
+import FlexUiAtlaskitBadgeView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-atlaskit-badge.vr.ap';
+import FlexUiBaseTextView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-base-text.vr.ap';
+import FlexUiModifiedOnView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-modified-on.vr.ap';
+import FlexUiDateTimeTextView from '../../../examples/vr-flexible-card/vr-flexible-ui-element-text-and-date.vr.ap';
+import FlexUiOwnedByElementView from '../../../examples/vr-flexible-card/vr-flexible-ui-owned-by.vr.ap';
+import FlexUiTitleElementView from '../../../examples/vr-flexible-card/vr-flexible-ui-title-element.vr.ap';
 
 snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {

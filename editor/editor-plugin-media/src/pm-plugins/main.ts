@@ -5,10 +5,11 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 import { RawIntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -55,9 +56,9 @@ import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { type Identifier, isFileIdentifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { createMediaNodeUpdater } from '../nodeviews/mediaNodeUpdater';

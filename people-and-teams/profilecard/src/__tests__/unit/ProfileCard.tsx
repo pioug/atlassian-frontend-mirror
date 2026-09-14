@@ -3,12 +3,13 @@ import React from 'react';
 import { act, fireEvent, within } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
 import { screen, userEvent } from '@atlassian/testing-library';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import ProfileCard from '../../components/User/ProfileCard';
-import { moreActionsClicked, profileCardRendered } from '../../util/analytics';
+import { ProfilecardInternal as ProfileCard } from '../../components/User/ProfilecardInternal';
+import { moreActionsClicked } from '../../util/moreActionsClicked';
+import { profileCardRendered } from '../../util/profileCardRendered';
 
 import { flexiTime } from './helper/_mock-analytics';
 
@@ -21,8 +22,8 @@ jest.mock('react-intl', () => {
 	};
 });
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

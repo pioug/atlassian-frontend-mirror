@@ -1,4 +1,4 @@
-import { dataConsumer } from '@atlaskit/adf-schema';
+import { dataConsumer } from '@atlaskit/adf-schema/data-consumer';
 
 import type { DataConsumerPlugin } from './dataConsumerPluginType';
 

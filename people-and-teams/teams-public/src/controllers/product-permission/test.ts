@@ -1,9 +1,7 @@
+import { getProductPermissionRequestBody } from './getProductPermissionRequestBody';
+import { hasProductPermission } from './hasProductPermission';
+import { transformPermissions } from './transformPermissions';
 import type { ProductPermissionsResponse, UserProductPermissions } from './types';
-import {
-	getProductPermissionRequestBody,
-	hasProductPermission,
-	transformPermissions,
-} from './utils';
 
 describe('transformPermissions', () => {
 	it('should return true for jira and confluence when write permissions are granted', () => {

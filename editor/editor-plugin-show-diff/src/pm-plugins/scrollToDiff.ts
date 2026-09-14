@@ -1,6 +1,6 @@
-import type { EditorView, Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 
-import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
+import { isDiffDecoration } from './decorations/decorationKeys';
 
 /**
  * Extra space above the scrolled-to element so it does not sit flush under the
@@ -39,70 +39,35 @@ function scrollToSelection(node: Node | null | undefined): void {
 }
 
 /**
- * Schedules scrolling to the first diff decoration after the next frame.
- * Unlike `scrollToActiveDecoration`, this does not require an active index —
- * it simply scrolls to bring the first decoration into view.
+ * Schedules scrolling to the decoration at the given index after the next frame. Defaults to the
+ * first decoration when no index is provided.
  *
  * @returns A function that cancels the scheduled `requestAnimationFrame` if it has not run yet.
  */
-export const scrollToFirstDecoration = (view: EditorView, set: DecorationSet): (() => void) => {
-	const decoration = set.find(undefined, undefined, isDiffDecorationSpec).find(isDiffDecoration);
-	if (!decoration) {
-		return () => {};
-	}
-
-	let rafId: number | null = requestAnimationFrame(() => {
-		rafId = null;
-		// @ts-expect-error - decoration.type is not typed public API
-		if (decoration.spec.decorationType === 'widget' && decoration?.type?.toDOM) {
-			// @ts-expect-error - decoration.type is not typed public API
-			const widgetDom = decoration.type.toDOM;
-			// Always scroll to the top of this decoration even if it's in view already
-			scrollToSelection(widgetDom);
-		} else {
-			const targetNode = view.nodeDOM(decoration?.from);
-			const node =
-				targetNode instanceof Element ? targetNode : view.domAtPos(decoration?.from)?.node;
-			if (node instanceof HTMLElement) {
-				// Always scroll to the top of this decoration even if it's in view already
-				scrollToSelection(node);
-			}
-		}
-	});
-
-	return () => {
-		if (rafId !== null) {
-			cancelAnimationFrame(rafId);
-			rafId = null;
-		}
-	};
-};
-
-/**
- * Schedules scrolling to the decoration at the given index after the next frame.
- *
- * @returns A function that cancels the scheduled `requestAnimationFrame` if it has not run yet.
- */
-export const scrollToActiveDecoration = (
+export const scrollToDecoration = (
 	view: EditorView,
 	decorations: Decoration[],
-	activeIndex: number,
+	activeIndex: number = 0,
 ): (() => void) => {
 	const decoration = decorations[activeIndex];
 	if (!decoration) {
 		return () => {};
 	}
 
+	// A grouped decoration spans a whole customer-facing edit, which can visually start with a
+	// deleted-content widget rather than at the group's `from` position — see `scrollTarget` in
+	// `getScrollableDecorations`. Only set under `platform_editor_ai_show_diff_patch_1`.
+	const target = (isDiffDecoration(decoration) && decoration.spec.scrollTarget) || decoration;
+
 	let rafId: number | null = requestAnimationFrame(() => {
 		rafId = null;
-		if (isDiffDecoration(decoration) && decoration.spec.decorationType === 'widget') {
+		if (isDiffDecoration(target) && target.spec.decorationType === 'widget') {
 			// @ts-expect-error - decoration.type is not typed public API
-			const widgetDom = decoration?.type?.toDOM;
+			const widgetDom = target?.type?.toDOM;
 			scrollToSelection(widgetDom);
 		} else {
-			const targetNode = view.nodeDOM(decoration?.from);
-			const node =
-				targetNode instanceof Element ? targetNode : view.domAtPos(decoration?.from)?.node;
+			const targetNode = view.nodeDOM(target?.from);
+			const node = targetNode instanceof Element ? targetNode : view.domAtPos(target?.from)?.node;
 			scrollToSelection(node);
 		}
 	});

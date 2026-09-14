@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 export default (): React.JSX.Element => {

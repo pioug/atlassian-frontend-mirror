@@ -142,7 +142,6 @@ export function createInputRulePlugin(
 			},
 		},
 
-		// @ts-ignore This is used by prosemirror-view to apply input rules on text input event.
 		// However, there is no typing ffor this, yet.
 		isInputRules: true,
 	};

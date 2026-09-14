@@ -2,13 +2,10 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import {
-	extendedBlockquote,
-	extendedBlockquoteWithLocalId,
-	fontSize,
-	hardBreak,
-	heading,
-} from '@atlaskit/adf-schema';
+import { extendedBlockquote, extendedBlockquoteWithLocalId } from '@atlaskit/adf-schema/blockquote';
+import { fontSize } from '@atlaskit/adf-schema/font-size';
+import { hardBreak } from '@atlaskit/adf-schema/hard-break';
+import { heading } from '@atlaskit/adf-schema/heading';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -24,7 +21,7 @@ import type {
 	QuickInsertItem,
 	QuickInsertItemId,
 } from '@atlaskit/editor-common/provider-factory';
-import { IconHeading, IconQuote } from '@atlaskit/editor-common/quick-insert';
+import { IconHeading, IconQuote } from '@atlaskit/editor-common/assets';
 import type {
 	Command,
 	FloatingToolbarCustom,
@@ -33,9 +30,10 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockTypePlugin } from './blockTypePluginType';
 import type { TextBlockTypes } from './pm-plugins/block-types';
@@ -54,6 +52,7 @@ import { FloatingToolbarComponent } from './pm-plugins/ui/FloatingToolbarCompone
 import { PrimaryToolbarComponent } from './pm-plugins/ui/PrimaryToolbarComponent';
 import { getToolbarComponents } from './pm-plugins/ui/toolbar-components';
 import { getBlockTypeComponents } from './ui';
+import { getBlockTypeQuickInsertComponents } from './ui/quick-insert/getBlockTypeQuickInsertComponents';
 
 const headingPluginOptions = (
 	{ formatMessage }: IntlShape,
@@ -143,6 +142,7 @@ const blockquotePluginOptions = (
 
 const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,
@@ -185,7 +185,18 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 	}
 
 	if (editorExperiment('platform_editor_block_menu', true)) {
-		api?.blockMenu?.actions.registerBlockMenuComponents(getBlockTypeComponents(api));
+		api?.blockMenu?.actions.registerBlockMenuComponents(
+			getBlockTypeComponents(api, { allowFontSize: options?.allowFontSize }),
+		);
+	}
+
+	if (isRegisteredSlashCommandEnabled) {
+		api?.uiControlRegistry?.actions.register(
+			getBlockTypeQuickInsertComponents({
+				api,
+				exclude: options?.allowBlockType?.exclude ?? [],
+			}),
+		);
 	}
 
 	return {
@@ -225,14 +236,15 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			return [
 				{
 					name: 'blockType',
-					plugin: ({ dispatch }) =>
-						createPlugin(
+					plugin: ({ dispatch }) => {
+						return createPlugin(
 							api,
 							dispatch,
 							options && options.lastNodeMustBeParagraph,
 							options?.includeBlockQuoteAsTextstyleOption,
 							options?.allowFontSize,
-						),
+						);
+					},
 				},
 				{
 					name: 'blockTypeInputRule',
@@ -319,21 +331,27 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 				},
 			}),
 
-			quickInsert: (intl) => {
-				const exclude =
-					options && options.allowBlockType && options.allowBlockType.exclude
-						? options.allowBlockType.exclude
-						: [];
+			...(!isRegisteredSlashCommandEnabled && {
+				quickInsert: (intl) => {
+					const exclude =
+						options && options.allowBlockType && options.allowBlockType.exclude
+							? options.allowBlockType.exclude
+							: [];
 
-				return [
-					...blockquotePluginOptions(
-						intl,
-						exclude.indexOf('blockquote') === -1,
-						api?.analytics?.actions,
-					),
-					...headingPluginOptions(intl, exclude.indexOf('heading') === -1, api?.analytics?.actions),
-				];
-			},
+					return [
+						...blockquotePluginOptions(
+							intl,
+							exclude.indexOf('blockquote') === -1,
+							api?.analytics?.actions,
+						),
+						...headingPluginOptions(
+							intl,
+							exclude.indexOf('heading') === -1,
+							api?.analytics?.actions,
+						),
+					];
+				},
+			}),
 		},
 	};
 };

@@ -1,8 +1,5 @@
-import type {
-	FontSizeMarkAttrs,
-	FontSizeMarkDefinition,
-	ParagraphDefinition,
-} from '@atlaskit/adf-schema';
+import type { FontSizeMarkAttrs, FontSizeMarkDefinition } from '@atlaskit/adf-schema/font-size';
+import type { ParagraphDefinition } from '@atlaskit/adf-schema/paragraph';
 import { applyMark } from '../utils/apply-mark';
 import type { WithMark, WithAppliedMark } from '../types';
 

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import Button from '@atlaskit/button/default/button';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
-import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID, type AssetsDatasourceParameters } from '../../src';
-import JSMAssetsConfigModal from '../../src/ui/assets-modal';
+import { type AssetsDatasourceParameters } from '../../src/ui/assets-modal/types';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../../src/ui/assets-modal';
+import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../../src/ui/assets-modal/AssetsConfigModalWithWrappers';
 
 mockAssetsClientFetchRequests({ delayedResponse: false });
 

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
-import { Label } from '@atlaskit/form';
-import Range from '@atlaskit/range';
+import { Label } from '@atlaskit/form/label/default';
+import Range from '@atlaskit/range/range';
 
 function ControlledRange(): React.JSX.Element {
 	const [value, setValue] = useState(50);

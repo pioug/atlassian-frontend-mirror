@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
-import { usePrefetch } from '../../../state';
-import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
+import { startUfoExperience } from '../../../state/analytics/startUfoExperience';
 import useIntersectionObserver from '../../../state/hooks/use-intersection-observer';
 import { useSmartLinkSeenEvent } from '../../../state/hooks/use-smart-link-seen-event';
+import { usePrefetch } from '../../../state/hooks/usePrefetch';
 import { shouldSample } from '../../../utils/shouldSample';
 import type { OnErrorCallback } from '../../types';
 import CardLoaderWrapper from '../card-loader-wrapper';

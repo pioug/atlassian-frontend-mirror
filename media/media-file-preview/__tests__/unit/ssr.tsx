@@ -7,7 +7,6 @@ import { ssr } from '@atlaskit/ssr';
 
 import Example from '../../examples/00-use-media-image';
 
-// @ts-ignore
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 afterEach(() => {

@@ -18,11 +18,11 @@ import {
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import type { DatasourceAdf } from '@atlaskit/link-datasource';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { ButtonItem } from '@atlaskit/menu';
+import type { DatasourceAdf } from '@atlaskit/linking-common/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import ButtonItem from '@atlaskit/menu/button-item';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView, isDatasourceConfigEditable } from '../../pm-plugins/utils';

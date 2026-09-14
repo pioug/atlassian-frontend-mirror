@@ -43,8 +43,7 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
 	ConfigWithNodeInfo,
@@ -671,50 +670,39 @@ export function floatingToolbarPluginFactory(options: {
 		return false;
 	};
 
-	const apply = () => {
-		const newPluginState: FloatingToolbarPluginState = {
-			getConfigWithNodeInfo,
-		};
-		return newPluginState;
-	};
-
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
 			init: () => {
 				return { getConfigWithNodeInfo };
 			},
-			apply: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
-				? (_tr, _pluginState, __oldEditorState) => {
-						const suppressedToolbar = getIsToolbarSuppressed();
+			apply: (_tr, _pluginState, __oldEditorState) => {
+				const suppressedToolbar = getIsToolbarSuppressed();
 
-						const newPluginState: FloatingToolbarPluginState = {
-							getConfigWithNodeInfo,
-							suppressedToolbar,
-						};
+				const newPluginState: FloatingToolbarPluginState = {
+					getConfigWithNodeInfo,
+					suppressedToolbar,
+				};
 
-						return newPluginState;
-					}
-				: apply,
+				return newPluginState;
+			},
 		},
-		view: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
-			? () => {
-					return {
-						update: (view, prevState) => {
-							const pluginState = pluginKey.getState(view.state);
-							const prevPluginState = pluginKey.getState(prevState);
+		view: () => {
+			return {
+				update: (view, prevState) => {
+					const pluginState = pluginKey.getState(view.state);
+					const prevPluginState = pluginKey.getState(prevState);
 
-							if (pluginState?.suppressedToolbar && !prevPluginState?.suppressedToolbar) {
-								api?.analytics?.actions?.fireAnalyticsEvent({
-									action: ACTION.SUPPRESSED,
-									actionSubject: ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN,
-									actionSubjectId: ACTION_SUBJECT_ID.FLOATING_TOOLBAR,
-									eventType: EVENT_TYPE.TRACK,
-								});
-							}
-						},
-					};
-				}
-			: undefined,
+					if (pluginState?.suppressedToolbar && !prevPluginState?.suppressedToolbar) {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.SUPPRESSED,
+							actionSubject: ACTION_SUBJECT.FLOATING_TOOLBAR_PLUGIN,
+							actionSubjectId: ACTION_SUBJECT_ID.FLOATING_TOOLBAR,
+							eventType: EVENT_TYPE.TRACK,
+						});
+					}
+				},
+			};
+		},
 	});
 }

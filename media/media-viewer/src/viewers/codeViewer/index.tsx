@@ -1,4 +1,5 @@
 import React, { type ComponentType } from 'react';
+
 import {
 	type MediaClient,
 	type FileState,
@@ -6,20 +7,23 @@ import {
 	request,
 	type ErrorFileState,
 } from '@atlaskit/media-client';
-import { Outcome } from '../../domain';
-import { MediaViewerError } from '../../errors';
-import { Spinner } from '../../loading';
-import { type Props as RendererProps } from './codeViewerRenderer';
-import { BaseViewer } from '../base-viewer';
-import { DEFAULT_LANGUAGE, normaliseLineBreaks } from './util';
-import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';
-import { msgToText } from './msg-parser';
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import { getExtension } from '@atlaskit/media-ui/getExtension';
+import { getLanguageType } from '@atlaskit/media-ui/getLanguageType';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { MediaViewerError } from '../../MediaViewerError';
+import { Outcome } from '../../domain/outcome';
+import { Spinner } from '../../loading';
+import { BaseViewer } from '../base-viewer';
 import { CodeRendererAdvanced } from './CodeRendererAdvanced/CodeRendererAdvanced';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { type Props as RendererProps } from './codeViewerRenderer';
+import { msgToText } from './msgToText';
+import { normaliseLineBreaks } from './normaliseLineBreaks';
+import { DEFAULT_LANGUAGE } from './util';
 
 const moduleLoader = () =>
-	import(/* webpackChunkName: "@atlaskit-internal_media-code-viewer" */ './codeViewerRenderer');
+	import(/* webpackChunkName: "@atlaskit-internal_media-code-viewer" */ './CodeViewRenderer-2');
 
 const componentLoader: () => Promise<ComponentType<RendererProps>> = () =>
 	moduleLoader().then((module) => module.CodeViewRenderer);

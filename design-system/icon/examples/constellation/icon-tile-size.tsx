@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { IconTile, type IconTileProps } from '@atlaskit/icon';
+import IconTile from '@atlaskit/icon/icon-tile';
+import type { IconTileProps } from '@atlaskit/icon/types';
 import GlobeIcon from '@atlaskit/icon/core/globe';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
 

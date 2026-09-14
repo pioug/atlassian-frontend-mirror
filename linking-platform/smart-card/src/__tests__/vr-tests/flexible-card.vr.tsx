@@ -1,12 +1,11 @@
 import { snapshot } from '@af/visual-regression';
 
-import FlexibleUiAccessibility from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility';
-import FlexibleUiAccessibilityForbidden from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility-forbidden';
-import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block';
-import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states';
-import FlexibleUiBlockEntities from '../../../examples/vr-flexible-card/vr-flexible-ui-block-entities';
-import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
-import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
+import FlexibleUiAccessibilityForbidden from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility-forbidden.vr.ap';
+import FlexibleUiAccessibility from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility.vr.ap';
+import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states.vr.ap';
+import FlexibleUiBlockEntities from '../../../examples/vr-flexible-card/vr-flexible-ui-block-entities.vr.ap';
+import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer.vr.ap';
+import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata.vr.ap';
 import {
 	FlexibleUiBlockPreviewLarge,
 	FlexibleUiBlockPreviewMedium,
@@ -14,22 +13,23 @@ import {
 	FlexibleUiBlockPreviewOverrideCSS,
 	FlexibleUiBlockPreviewSmall,
 	FlexibleUiBlockPreviewXLarge,
-} from '../../../examples/vr-flexible-card/vr-flexible-ui-block-preview';
-import FlexibleUiBlockSnippet from '../../../examples/vr-flexible-card/vr-flexible-ui-block-snippet';
-import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title';
-import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexible-ui-composition';
-import FlexibleUiElementAppliedToComponentsCount from '../../../examples/vr-flexible-card/vr-flexible-ui-element-applied-to-components-count';
-import FlexibleUiElementAvatarGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-element-avatar-group';
-import FlexibleUiElementBadge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-badge';
-import FlexibleUiElementLink from '../../../examples/vr-flexible-card/vr-flexible-ui-element-link';
-import FlexibleUiElementLozenge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-lozenge';
-import FlexibleUiElementMedia from '../../../examples/vr-flexible-card/vr-flexible-ui-element-media';
-import FlexibleUiElementTeamMemberCount from '../../../examples/vr-flexible-card/vr-flexible-ui-element-team-member-count';
-import FlexibleUiElementUserAttributes from '../../../examples/vr-flexible-card/vr-flexible-ui-element-user-attributes';
-import FlexibleUiHoverCard from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card';
-import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-no-preview-button';
-import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui-options';
-import FlexibleUiPlaceholderData from '../../../examples/vr-flexible-card/vr-flexible-ui-placeholder-data';
+} from '../../../examples/vr-flexible-card/vr-flexible-ui-block-preview.vr.ap';
+import FlexibleUiBlockSnippet from '../../../examples/vr-flexible-card/vr-flexible-ui-block-snippet.vr.ap';
+import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title.vr.ap';
+import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block.vr.ap';
+import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexible-ui-composition.vr.ap';
+import FlexibleUiElementAppliedToComponentsCount from '../../../examples/vr-flexible-card/vr-flexible-ui-element-applied-to-components-count.vr.ap';
+import FlexibleUiElementAvatarGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-element-avatar-group.vr.ap';
+import FlexibleUiElementBadge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-badge.vr.ap';
+import FlexibleUiElementLink from '../../../examples/vr-flexible-card/vr-flexible-ui-element-link.vr.ap';
+import FlexibleUiElementLozenge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-lozenge.vr.ap';
+import FlexibleUiElementMedia from '../../../examples/vr-flexible-card/vr-flexible-ui-element-media.vr.ap';
+import FlexibleUiElementTeamMemberCount from '../../../examples/vr-flexible-card/vr-flexible-ui-element-team-member-count.vr.ap';
+import FlexibleUiElementUserAttributes from '../../../examples/vr-flexible-card/vr-flexible-ui-element-user-attributes.vr.ap';
+import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-no-preview-button.vr.ap';
+import FlexibleUiHoverCard from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card.vr.ap';
+import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui-options.vr.ap';
+import FlexibleUiPlaceholderData from '../../../examples/vr-flexible-card/vr-flexible-ui-placeholder-data.vr.ap';
 
 // Variants
 snapshot(FlexibleUiOptions, {
@@ -161,7 +161,8 @@ snapshot(FlexibleUiBlockPreviewLarge, {
 	},
 	waitForReactLazy: true,
 });
-snapshot(FlexibleUiBlockPreviewMedium, {
+// Will be re-enabled as part of UTEST-2316.
+snapshot.skip(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

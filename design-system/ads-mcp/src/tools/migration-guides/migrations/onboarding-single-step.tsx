@@ -17,7 +17,7 @@ export const onboardingSingleStep: MigrationGuide = {
 			before: `
 // file1.tsx
 import React, { useState } from 'react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Spotlight } from '@atlaskit/onboarding';
 
 const OnboardingSpotlight = () => {
@@ -46,7 +46,7 @@ const OnboardingSpotlight = () => {
 
 // file2.tsx
 import React from 'react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Spotlight } from '@atlaskit/onboarding';
 
 const SomeFeature = () => {
@@ -61,22 +61,20 @@ const SomeFeature = () => {
 			after: `
 // file2.tsx -- the Spotlight has been co-located to the targeted element.
 import React, { useState } from 'react';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { Text } from '@atlaskit/primitives/compiled';
-import {
-  PopoverContent,
-  PopoverProvider,
-  PopoverTarget,
-  SpotlightActions,
-  SpotlightBody,
-  SpotlightCard,
-  SpotlightControls,
-  SpotlightDismissControl,
-  SpotlightFooter,
-  SpotlightHeader,
-  SpotlightHeadline,
-  SpotlightPrimaryAction,
-} from '@atlaskit/spotlight';
+import { PopoverContent } from '@atlaskit/spotlight/popover-content';
+import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
+import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
+import { SpotlightActions } from '@atlaskit/spotlight/actions';
+import { SpotlightBody } from '@atlaskit/spotlight/body';
+import { SpotlightCard } from '@atlaskit/spotlight/card';
+import { SpotlightControls } from '@atlaskit/spotlight/controls';
+import { SpotlightDismissControl } from '@atlaskit/spotlight/dismiss-control';
+import { SpotlightFooter } from '@atlaskit/spotlight/footer';
+import { SpotlightHeader } from '@atlaskit/spotlight/header';
+import { SpotlightHeadline } from '@atlaskit/spotlight/headline';
+import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
 
 const Spotlight = () => {
   const [isVisible, setIsVisible] = useState(false);

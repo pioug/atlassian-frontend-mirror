@@ -10,13 +10,13 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { nonWrappedLayouts } from '../../utils';

@@ -1,4 +1,5 @@
-import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
+import type { CardContext } from '@atlaskit/link-provider/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 
 export const useSmartLinkConfig = (): CardContext['config'] | undefined => {
 	const context = useSmartLinkContext();

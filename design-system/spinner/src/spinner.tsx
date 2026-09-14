@@ -52,9 +52,11 @@ const styles = cssMap({
 		animationDuration: '1s',
 		animationTimingFunction: 'ease-in-out',
 		/**
-		 * When the animation completes, stay at the last frame of the animation.
+		 * `both` applies the first frame during `delay` and holds the last frame
+		 * after the animation completes, so a delayed spinner does not paint a
+		 * complete circle while it waits.
 		 */
-		animationFillMode: 'forwards',
+		animationFillMode: 'both',
 	},
 	wrapperStyles: {
 		display: 'inline-flex',

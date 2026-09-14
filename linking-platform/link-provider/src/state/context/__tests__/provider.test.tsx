@@ -1,19 +1,24 @@
 import { type CardProviderProps } from '../types';
 
-jest.mock('@atlaskit/link-extractors', () => ({
-	...jest.requireActual<Object>('@atlaskit/link-extractors'),
+jest.mock('@atlaskit/link-extractors/extract-preview', () => ({
+	...jest.requireActual('@atlaskit/link-extractors/extract-preview'),
 	extractPreview: () => 'some-link-preview',
+}));
+jest.mock('@atlaskit/link-extractors/extract-smart-link-embed', () => ({
+	...jest.requireActual('@atlaskit/link-extractors/extract-smart-link-embed'),
 	extractSmartLinkEmbed: () => 'some-live-embed-url',
 }));
 
 import React from 'react';
 import { act, render } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { SmartCardContext as Context } from '..';
 import CardClient from '../../../client';
-import { SmartCardProvider, type CardContext } from '..';
+import type { CardContext } from '..';
+import { SmartCardProvider } from '../../../smart-card-provider';
 import { SMART_CARD_EXTERNAL_AUTH_EVENT } from '../../../provider';
-import { APIError, type CardStore } from '@atlaskit/linking-common';
+import type { CardStore } from '@atlaskit/linking-common/store';
+import { APIError } from '@atlaskit/linking-common';
 
 describe('Provider', () => {
 	it('should setup provider with default options', () => {
@@ -25,7 +30,7 @@ describe('Provider', () => {
 			</SmartCardProvider>,
 		);
 
-		expect(fn).toBeCalledWith(
+		expect(fn).toHaveBeenCalledWith(
 			expect.objectContaining({
 				config: {
 					authFlow: 'oauth2',
@@ -45,7 +50,7 @@ describe('Provider', () => {
 				<Context.Consumer>{fn}</Context.Consumer>
 			</SmartCardProvider>,
 		);
-		expect(fn).toBeCalledWith(
+		expect(fn).toHaveBeenCalledWith(
 			expect.objectContaining({
 				config: {
 					authFlow: 'oauth2',
@@ -67,7 +72,7 @@ describe('Provider', () => {
 				</SmartCardProvider>
 			</SmartCardProvider>,
 		);
-		expect(fn).toBeCalledWith(
+		expect(fn).toHaveBeenCalledWith(
 			expect.objectContaining({
 				config: {
 					authFlow: 'oauth2',
@@ -131,7 +136,7 @@ describe('Provider', () => {
 			</SmartCardProvider>,
 		);
 
-		expect(fn).toBeCalledWith(
+		expect(fn).toHaveBeenCalledWith(
 			expect.objectContaining({
 				isAdminHubAIEnabled: true,
 			}),
@@ -146,7 +151,7 @@ describe('Provider', () => {
 			</SmartCardProvider>,
 		);
 
-		expect(fn).toBeCalledWith(
+		expect(fn).toHaveBeenCalledWith(
 			expect.objectContaining({
 				product: 'CONFLUENCE',
 			}),
@@ -171,7 +176,7 @@ describe('Provider', () => {
 			</SmartCardProvider>,
 		);
 
-		expect(fn).toBeCalledTimes(1);
+		expect(fn).toHaveBeenCalledTimes(1);
 
 		const { store } = fn.mock.calls[0][0] as CardContext;
 
@@ -181,7 +186,7 @@ describe('Provider', () => {
 			</SmartCardProvider>,
 		);
 
-		expect(fn).toBeCalledTimes(2);
+		expect(fn).toHaveBeenCalledTimes(2);
 
 		const { store: newStore } = fn.mock.calls[1][0] as CardContext;
 
@@ -196,7 +201,7 @@ describe('Provider', () => {
 			</SmartCardProvider>,
 		);
 
-		expect(fn).toBeCalledTimes(1);
+		expect(fn).toHaveBeenCalledTimes(1);
 
 		const { store } = fn.mock.calls[0][0] as CardContext;
 
@@ -206,7 +211,7 @@ describe('Provider', () => {
 			</SmartCardProvider>,
 		);
 
-		expect(fn).toBeCalledTimes(2);
+		expect(fn).toHaveBeenCalledTimes(2);
 
 		const { store: newStore } = fn.mock.calls[1][0] as CardContext;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { act, render, screen, userEvent } from '@atlassian/testing-library';
-import { InactivityDetector } from '../..';
+import { InactivityDetector } from '../../inactivityDetector/inactivityDetector';
 
 const renderInactivityDetector = () => {
 	return render(

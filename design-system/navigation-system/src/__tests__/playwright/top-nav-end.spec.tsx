@@ -8,7 +8,7 @@ test.describe('top nav end', () => {
 		// Start at large viewport size
 		await page.setViewportSize(desktopViewport);
 
-		await page.visitExample<typeof import('../../../examples/top-navigation.tsx')>(
+		await page.visitExample<typeof import('../../../examples/top-navigation.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'top-navigation',
@@ -58,7 +58,7 @@ test.describe('top nav end', () => {
 	}) => {
 		await page.setViewportSize(mobileViewport);
 
-		await page.visitExample<typeof import('../../../examples/top-navigation.tsx')>(
+		await page.visitExample<typeof import('../../../examples/top-navigation.vr.ap.tsx')>(
 			'design-system',
 			'navigation-system',
 			'top-navigation',

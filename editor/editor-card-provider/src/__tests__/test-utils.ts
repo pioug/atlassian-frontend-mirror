@@ -1,4 +1,4 @@
-import type { Datasource } from '@atlaskit/linking-common';
+import type { Datasource } from '@atlaskit/linking-common/types';
 import type { ProviderPattern, UserPreferences } from '../types';
 
 export type PatternsProviderResponse = {

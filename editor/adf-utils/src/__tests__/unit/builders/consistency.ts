@@ -29,6 +29,22 @@ const ignoredPaths = [
 	'image',
 	'types',
 	'__tests__',
+	// Utility modules co-located with node specs; they do not have ADF builders.
+	'camel-case-to-kebab-case',
+	'copy-private-attributes',
+	'create-media-spec',
+	'create-panel-node-spec-options',
+	'extended-panel',
+	'extended-panel-c1',
+	'extended-panel-c1-root-only-stage0',
+	'extended-panel-c1-with-local-id',
+	'extended-panel-root-only-stage0',
+	'extended-panel-with-local-id',
+	'get-dom-attrs',
+	'get-parse-dom-attrs',
+	'media-single-spec',
+	'to-json',
+	'to-json-2',
 ];
 
 const REPO_ROOT = execSync('git rev-parse --show-toplevel', {
@@ -56,6 +72,9 @@ const ignoredMarks = [
 	'unsupported-mark',
 	'__tests__',
 	'unsupported-node-attributes',
+	// Utility modules co-located with mark specs; they do not have ADF builders.
+	'get-link-attrs',
+	'to-json',
 ];
 
 const adfSchemaMarksPath = path.join(

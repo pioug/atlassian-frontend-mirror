@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
+import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider/types';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	ErroredClient,
 	ForbiddenClient,
@@ -18,9 +19,9 @@ import {
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
 } from '@atlaskit/link-test-helpers';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
+import RadioGroup from '@atlaskit/radio/radio-group';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 import { token } from '@atlaskit/tokens';
 

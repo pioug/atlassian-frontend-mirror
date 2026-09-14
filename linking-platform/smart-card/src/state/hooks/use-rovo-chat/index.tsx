@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import type { ProductType } from '@atlaskit/linking-common';
+import type { ProductType } from '@atlaskit/linking-common/types';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
 

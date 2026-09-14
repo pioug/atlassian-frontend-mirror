@@ -1,36 +1,10 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-/**
- * This takes an adf hex color and returns a matching border palette color.
- *
- * By providing a design token, this enables ADF content to be rendered in new themes such as dark mode.
- *
- * Example usage
- * ```tsx
- * const cssValue = hexToEditorBorderPaletteColor('#091E4224');
- * //     ^? const cssValue: string
- * <div style={{borderColor: cssValue}} />
- * ```
- * The names of tokens can change over time, and the values of tokens will differ between themes.
- * The exact output of this function is an implementation detail and should only be used when rendering
- * content to the user, on a client with a matching major version of `@atlaskit/tokens`.
- * - **DO NOT**: store the output of these functions in any user-generated content or back-end.
- * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color
- */
-export function hexToEditorBorderPaletteColor<HexColor extends string>(
-	hexColor: HexColor,
-): HexColor extends EditorBorderPaletteKey
-	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		EditorBorderPalette[HexColor]
-	: string | undefined {
-	// Ts ignore was used to allow use of conditional return type
-	// (preferencing better type on consumption over safety in implementation)
-	// @ts-expect-error
-	return hexColor ? editorBorderPalette[hexColor.toUpperCase()] : undefined;
-}
-type EditorBorderPalette = typeof editorBorderPalette;
+export type EditorBorderPalette = typeof editorBorderPalette;
+
 export type EditorBorderPaletteKey = keyof EditorBorderPalette;
+
 export const editorBorderPalette = {
 	/** gray - subtle */
 	'#091E4224': 'var(--ds-border, #091E4224)',
@@ -40,38 +14,10 @@ export const editorBorderPalette = {
 	'#172B4D': 'var(--ds-text, #172B4D)',
 };
 
-/**
- * This takes an adf hex color and returns a matching text palette color.
- *
- * By providing a design token, this enables ADF content to be rendered in new themes such as dark mode.
- *
- * Example usage
- * ```tsx
- * const cssValue = hexToTextPaletteColor('#0747A6');
- * //     ^? const cssValue: string
- * <span style={{textColor: cssValue}} />
- * ```
- * The names of tokens can change over time, and the values of tokens will differ between themes.
- * The exact output of this function is an implementation detail and should only be used when rendering
- * content to the user, on a client with a matching major version of `@atlaskit/tokens`.
- * - **DO NOT**: store the output of these functions in any user-generated content or back-end.
- * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color
- */
-export function hexToEditorTextPaletteColor<HexColor extends string>(
-	hexColor: HexColor,
-): HexColor extends EditorTextPaletteKey
-	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		EditorTextPalette[HexColor]
-	: string | undefined {
-	const normalizedHexColor = hexColor ? hexColor.toUpperCase() : undefined;
+export type EditorTextPalette = typeof editorTextPalette;
 
-	// Ts ignore was used to allow use of conditional return type
-	// (preferencing better type on consumption over safety in implementation)
-	// @ts-expect-error
-	return normalizedHexColor ? editorTextPalette[normalizedHexColor] : undefined;
-}
-type EditorTextPalette = typeof editorTextPalette;
 export type EditorTextPaletteKey = keyof EditorTextPalette;
+
 export const editorTextPalette = {
 	/** blue - light */
 	'#B3D4FF': 'var(--ds-background-accent-blue-subtler, #B3D4FF)',
@@ -146,37 +92,6 @@ export const editorTextPalette = {
 	'#7F5F01': 'var(--ds-text-accent-yellow, #7F5F01)',
 };
 
-/**
- * This takes an ADF hex color and returns a matching text background palette color.
- *
- * By providing a design token, this enables ADF content to be rendered in new themes such as dark mode.
- *
- * Example usage
- * ```tsx
- * const cssValue = hexToEditorTextBackgroundPaletteColor('#0747A6');
- * //     ^? const cssValue: string
- * <span style={{backgroundColor: cssValue}} />
- * ```
- * The names of tokens can change over time, and the values of tokens will differ between themes.
- * The exact output of this function is an implementation detail and should only be used when rendering
- * content to the user, on a client with a matching major version of `@atlaskit/tokens`.
- * - **DO NOT**: store the output of these functions in any user-generated content or back-end.
- * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color
- */
-export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
-	hexColor: HexColor,
-): HexColor extends TextBackgroundColorPaletteKey
-	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		TextBackgroundColorPalette[HexColor]
-	: string | undefined {
-	// Ts ignore was used to allow use of conditional return type
-	// (preferring better type on consumption over safety in implementation)
-	return hexColor
-		? // @ts-expect-error
-			textBackgroundColorPalette[hexColor.toUpperCase()]
-		: // @ts-expect-error
-			undefined;
-}
 export const textBackgroundColorPalette = {
 	/** Gray - light */
 	'#DCDFE4': 'var(--ds-background-accent-gray-subtler, #DCDFE4)',
@@ -199,39 +114,15 @@ export const textBackgroundColorPalette = {
 	/** Green - light */
 	'#ABF5D1': 'var(--ds-background-accent-green-subtler, #ABF5D1)',
 };
-type TextBackgroundColorPalette = typeof textBackgroundColorPalette;
+
+export type TextBackgroundColorPalette = typeof textBackgroundColorPalette;
+
 export type TextBackgroundColorPaletteKey = keyof TextBackgroundColorPalette;
 
-/**
- * Takes an ADF hex color and returns the rendered hex code for the associated background palette design token using getTokenValue.
- * If the provided color does not exist in the Editor color palette, this function returns undefined.
- *
- * This should only be used when rendering content where CSS variables are not feasible, such as a non-CSS environment
- * or to enable cross-app copy/paste.
- *
- * WARNING: If the rendered theme changes (such as from light -> dark mode) the value returned here will no longer match
- * the surrounding UI and will need to be re-fetched.
- * In addition, the values of tokens will differ between themes and the value for a given theme can and will change.
- * - **DO NOT**: store the output of these functions in any user-generated content or back-end.
- * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color.
- */
-export function hexToEditorBackgroundPaletteRawValue<HexColor extends string>(
-	hexColor: HexColor,
-): HexColor extends EditorBackgroundPaletteKey
-	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		string
-	: undefined {
-	// Ts ignore was used to allow use of conditional return type
-	// (preferencing better type on consumption over safety in implementation)
-	const tokenData = hexColor
-		? // @ts-expect-error
-			editorBackgroundPalette[hexColor.toUpperCase()]
-		: undefined;
-	// @ts-expect-error
-	return tokenData ? tokenData.getValue(hexColor) : undefined;
-}
 type EditorBackgroundPalette = typeof editorBackgroundPalette;
+
 export type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
+
 /**
  * Values are asserted to improve generated type declarations
  * Using object structure as getValue() function needed for table values, and other
@@ -426,5 +317,3 @@ export const editorBackgroundPalette = {
 		token: 'var(--ds-background-accent-gray-subtler-hovered, #B7B9BE)',
 	},
 };
-
-export {};

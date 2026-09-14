@@ -1,9 +1,11 @@
 import React, { type FC, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import Modal, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import Popup from '@atlaskit/popup';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

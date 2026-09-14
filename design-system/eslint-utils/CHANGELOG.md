@@ -1,5 +1,20 @@
 # @atlaskit/eslint-utils
 
+## 3.1.1
+
+### Patch Changes
+
+- [`85a3e1ec4b6ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85a3e1ec4b6ff) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+
+## 3.1.0
+
+### Minor Changes
+
+- [`153f1b982bd5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/153f1b982bd5c) -
+  Expose cached style-function resolution for UI Styling Standard rules
+
 ## 3.0.0
 
 ### Major Changes

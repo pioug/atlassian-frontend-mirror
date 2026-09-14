@@ -19,7 +19,7 @@ describe(`${packageName}/schema bodiedSyncBlock node`, () => {
 			selectable: true,
 			isolating: true,
 			content:
-				'(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | panel_c1 | rule | table | taskList | unsupportedBlock)+',
+				'(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel_c1 | panel | rule | bodiedRule | table | taskList | unsupportedBlock)+',
 			marks:
 				'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation breakout link fragment',
 			parseDOM: [

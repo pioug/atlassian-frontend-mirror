@@ -1,32 +1,31 @@
 import React from 'react';
+
 import debounce from 'lodash/debounce';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type WrappedComponentProps, injectIntl } from 'react-intl';
-import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
-import UserPicker, {
-	type OptionData,
-	isExternalUser,
-	isTeam,
-	isGroup,
-	isUser,
-	isValidEmail,
-} from '@atlaskit/user-picker';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { CustomData } from '@atlaskit/ufo/types';
+import type { UFOExperience } from '@atlaskit/ufo/experience';
+import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
+import { UserPicker } from '@atlaskit/user-picker/components/user-picker';
+import type { OptionData } from '@atlaskit/user-picker/types';
+import { isExternalUser } from '@atlaskit/user-picker/is-external-user';
+import { isTeam } from '@atlaskit/user-picker/is-team';
+import { isGroup } from '@atlaskit/user-picker/is-group';
+import { isUser } from '@atlaskit/user-picker/is-user';
+import { isValidEmail } from '@atlaskit/user-picker/components/email-validation';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import {
-	requestUsersEvent,
-	filterUsersEvent,
-	preparedUsersLoadedEvent,
-	successfulRequestUsersEvent,
-	failedRequestUsersEvent,
-	mountedWithPrefetchEvent,
-	createAndFireEventInElementsChannel,
-	failedUserResolversEvent,
-	type SmartEventCreator,
-} from '../analytics';
+import { createAndFireEventInElementsChannel, type SmartEventCreator } from '../analytics';
+import { failedRequestUsersEvent } from '../failedRequestUsersEvent';
+import { failedUserResolversEvent } from '../failedUserResolversEvent';
+import { filterUsersEvent } from '../filterUsersEvent';
+import { mountedWithPrefetchEvent } from '../mountedWithPrefetchEvent';
+import { preparedUsersLoadedEvent } from '../preparedUsersLoadedEvent';
+import { requestUsersEvent } from '../requestUsersEvent';
+import { successfulRequestUsersEvent } from '../successfulRequestUsersEvent';
 import MessagesIntlProvider from './MessagesIntlProvider';
 import {
 	type SmartProps,
@@ -35,9 +34,10 @@ import {
 	type FilterOptions,
 	UserEntityType,
 } from '../types';
-import { getUserRecommendations, hydrateDefaultValues } from '../service';
-import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
+import getUserRecommendations from '../service/recommendation-client';
+import hydrateDefaultValues from '../service/default-value-hydration-client';
 import { type SUPError } from '../service/recommendation-client';
+import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
 import type { DebouncedFunc } from 'lodash';
 
 const DEFAULT_DEBOUNCE_TIME_MS = 150;
@@ -104,6 +104,10 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
 	// Track if the last search was an email search that found matches
 	private lastEmailSearchFoundMatches = false;
+
+	// Track if the domain-suggested email (`<query>@<suggestEmailsForDomain>`) for a partial
+	// query already belongs to a returned user, in which case the suggestion is redundant
+	private lastDomainSuggestionMatchedUser = false;
 
 	optionsShownUfoExperienceInstance: UFOExperience;
 
@@ -312,7 +316,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				isEmail && !searchQueryFilter
 					? '(NOT not_mentionable:true) AND (account_status:active) AND (NOT account_type:app)'
 					: searchQueryFilter,
-			...(restrictTo && fg('smart-user-picker-restrict-to-gate') && { restrictTo }),
+			...(restrictTo && { restrictTo }),
 			...(isTeamSyncedToGroupDirectoryFilter === true && {
 				isTeamSyncedToGroupDirectoryFilter: true,
 			}),
@@ -324,7 +328,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 			let recommendedUsers;
 			if (fetchOptions && fg('smart-user-picker-load-options-gate')) {
 				recommendedUsers = await fetchOptions(query);
-			} else if (fg('twcg-444-invite-usd-improvements-m2-gate')) {
+			} else {
 				const userRecommendationsPromise = getUserRecommendations(recommendationsRequest, intl);
 
 				const userResolversPromises = (userResolvers ?? []).map((resolver) =>
@@ -344,8 +348,6 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				]);
 
 				recommendedUsers = [mainRecommendations, ...userResolverResults].flat();
-			} else {
-				recommendedUsers = await getUserRecommendations(recommendationsRequest, intl);
 			}
 
 			if (overrideByline) {
@@ -389,6 +391,21 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				this.lastEmailSearchFoundMatches = false;
 			}
 
+			// For a partial query with a suggested domain, check whether the email we would
+			// synthesize (`<query>@<domain>`) already belongs to one of the returned users. If so,
+			// the real user option is shown instead and the email suggestion is suppressed.
+			const { suggestEmailsForDomain } = this.props;
+			if (suggestEmailsForDomain && !isEmail && query) {
+				const suggestedEmail = `${query}@${suggestEmailsForDomain}`.toLowerCase();
+				this.lastDomainSuggestionMatchedUser = recommendedUsers.some(
+					(option) =>
+						(isUser(option) || isExternalUser(option)) &&
+						option.email?.toLowerCase() === suggestedEmail,
+				);
+			} else {
+				this.lastDomainSuggestionMatchedUser = false;
+			}
+
 			const elapsedTimeMilli = window.performance.now() - startTime;
 
 			const transformedOptions = transformOptions
@@ -411,16 +428,25 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 					displayedUsers: getUsersForAnalytics(displayedUsers),
 					productAttributes,
 					applicable,
-					...(fg('twcg-444-invite-usd-improvements-m2-gate') && {
-						userResolvers: Array.isArray(userResolvers)
-							? userResolvers.map((resolver) => resolver.name)
-							: [],
-					}),
+					userResolvers: Array.isArray(userResolvers)
+						? userResolvers.map((resolver) => resolver.name)
+						: [],
 				});
 
 				return { users, loading };
 			});
 		} catch (e) {
+			if (this.state.query !== query && fg('smart-user-picker-fetch-error-fix')) {
+				// The query has moved on since this request was sent, so its results are not the ones
+				// on screen. Applying the failure here would clear the options and fail the UFO
+				// experience that belong to the newer query.
+				this.fireEvent(failedRequestUsersEvent, {
+					elapsedTimeMilli: window.performance.now() - startTime,
+					productAttributes,
+				});
+				return;
+			}
+
 			const is5xxEvent = checkIf500Event((e as SUPError).statusCode);
 			if (!closed && !onError && is5xxEvent) {
 				// If the user lookup fails while the menu is open, and the consumer is not providing a
@@ -540,18 +566,33 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 	};
 
 	render(): React.JSX.Element {
-		const { allowEmail, enableEmailSearch, allowEmailSelectionWhenEmailMatched, ...restProps } =
-			this.props;
+		const {
+			allowEmail,
+			enableEmailSearch,
+			allowEmailSelectionWhenEmailMatched,
+			suggestEmailsForDomain,
+			...restProps
+		} = this.props;
 
 		// Determine whether to allow email selection based on allowEmailSelectionWhenEmailMatched, if needed
 		let shouldAllowEmail = allowEmail;
 
 		if (allowEmail && enableEmailSearch && !allowEmailSelectionWhenEmailMatched) {
 			const isCurrentQueryEmail = isEmailQuery(this.state.query);
-			// Only allow email selection when:
-			// 1. The query matches email format (validated by regex)
-			// 2. No user/external user matches were found (only teams/groups suggested)
-			shouldAllowEmail = isCurrentQueryEmail && !this.lastEmailSearchFoundMatches;
+
+			if (suggestEmailsForDomain) {
+				// Allow email for partial queries so the "<query>@<domain>" suggestion can render,
+				// but still suppress selection when a full email query matched an existing user,
+				// or when the synthesized "<query>@<domain>" is itself an existing user's email.
+				shouldAllowEmail = isCurrentQueryEmail
+					? !this.lastEmailSearchFoundMatches // full email: suppress when user matched
+					: !this.lastDomainSuggestionMatchedUser; // partial: suppress when synth email matched a user
+			} else {
+				// Only allow email selection when:
+				// 1. The query matches email format (validated by regex)
+				// 2. No user/external user matches were found (only teams/groups suggested)
+				shouldAllowEmail = isCurrentQueryEmail && !this.lastEmailSearchFoundMatches;
+			}
 		}
 
 		return (
@@ -559,6 +600,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				<UserPicker
 					{...restProps}
 					allowEmail={shouldAllowEmail}
+					suggestEmailsForDomain={suggestEmailsForDomain}
 					onInputChange={this.onInputChange}
 					onBlur={this.onBlur}
 					onFocus={this.onFocus}

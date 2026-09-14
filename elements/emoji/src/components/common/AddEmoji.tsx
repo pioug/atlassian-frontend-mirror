@@ -4,30 +4,15 @@
  */
 import { Fragment, useCallback, type MouseEvent } from 'react';
 import { css, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 import { messages } from '../i18n';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 export const emojiActionsTestId = 'emoji-actions';
 export const uploadEmojiTestId = 'upload-emoji';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	if (!FeatureGates.initializeCompleted()) {
-		return false;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-	const isEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
-
-	return isEnabled;
-};
 
 const addCustomEmoji = css({
 	alignSelf: 'center',

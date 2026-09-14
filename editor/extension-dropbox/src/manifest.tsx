@@ -4,18 +4,17 @@ import { createRoot, type Root } from 'react-dom/client';
 
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { inlineCard } from '@atlaskit/adf-utils/builders';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import enableDropbox from './enable-dropbox';
 import type { DropboxFile } from './types';
 import { POPUP_MOUNTPOINT, DROPBOX_IFRAME_NAME } from './constants';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 const reactRoots = new WeakMap<Element, Root>();
 
-/** Mounts `element` into `mountPoint`: uses the React 18/19 `createRoot` API when `nike_r19_render_unmount` is on, else the legacy render path. */
+/** Mounts `element` into `mountPoint` using `createRoot` when the migration experiment is on. */
 const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) => {
-	if (fg('nike_r19_render_unmount')) {
+	if (isExperimentEnabled('platform_editor_react19_migration')) {
 		let root = reactRoots.get(mountPoint);
 
 		if (!root) {
@@ -29,9 +28,9 @@ const renderToMountPoint = (element: React.ReactElement, mountPoint: Element) =>
 	}
 };
 
-/** Unmounts the tree at `mountPoint`: uses `root.unmount()` when `nike_r19_render_unmount` is on, else the legacy unmount path. */
+/** Unmounts the tree using the registered root when the migration experiment is on. */
 const unmountFromMountPoint = (mountPoint: Element) => {
-	if (fg('nike_r19_render_unmount')) {
+	if (isExperimentEnabled('platform_editor_react19_migration')) {
 		const root = reactRoots.get(mountPoint);
 
 		if (root) {
@@ -82,7 +81,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 			popupMountPoint.id = POPUP_MOUNTPOINT;
 			document.body.appendChild(popupMountPoint);
 		}
-		if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+		if (isExperimentEnabled('platform_editor_react19_migration')) {
 			root = createRoot(popupMountPoint);
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			root.render(<Modal.default onClose={() => {}} />);
@@ -105,7 +104,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 		});
 		// eslint-disable-next-line no-unused-vars
 	} catch (e) {
-		if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+		if (isExperimentEnabled('platform_editor_react19_migration')) {
 			if (root) {
 				root.unmount();
 			}
@@ -117,7 +116,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 	let node;
 
 	if (!files.length) {
-		if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+		if (isExperimentEnabled('platform_editor_react19_migration')) {
 			if (root) {
 				root.unmount();
 			}
@@ -140,7 +139,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 		};
 	}
 
-	if (expValEquals('platform_editor_react19_migration', 'isEnabled', true)) {
+	if (isExperimentEnabled('platform_editor_react19_migration')) {
 		if (root) {
 			root.unmount();
 		}

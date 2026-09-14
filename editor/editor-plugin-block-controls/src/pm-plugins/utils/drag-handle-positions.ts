@@ -2,7 +2,7 @@ import memoizeOne from 'memoize-one';
 
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT,

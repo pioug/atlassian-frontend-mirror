@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import FailIcon from '@atlaskit/icon/core/cross-circle';
 import { token } from '@atlaskit/tokens';
 

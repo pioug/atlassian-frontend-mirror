@@ -1,10 +1,9 @@
 import type { IntlShape } from 'react-intl/src/types';
 
-import type { TableLayout } from '@atlaskit/adf-schema';
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import type { Valign } from '@atlaskit/adf-schema/valign';
 import {
-	tableBackgroundColorPalette,
-	tableBackgroundColorPaletteNew,
+	tableBackgroundColorNameByHex,
+	type Layout as TableLayout,
 } from '@atlaskit/adf-schema/tableNodes';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type {
@@ -36,8 +35,6 @@ import {
 	findCellRectClosestToPos,
 	getSelectionRect,
 } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	AlignmentOptions,
@@ -182,11 +179,7 @@ export const setColorWithAnalytics =
 				attributes: {
 					inputMethod,
 					cellColor: (
-						(expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-						fg('platform_editor_lovability_text_bg_color_patch_2')
-							? tableBackgroundColorPaletteNew
-							: tableBackgroundColorPalette
-						).get(cellColor.toLowerCase()) || cellColor
+						tableBackgroundColorNameByHex.get(cellColor.toLowerCase()) || cellColor
 					).toLowerCase(),
 					horizontalCells,
 					verticalCells,

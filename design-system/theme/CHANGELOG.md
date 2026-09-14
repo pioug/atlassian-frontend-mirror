@@ -1,5 +1,119 @@
 # @atlaskit/theme
 
+## 28.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.0
+
+### Major Changes
+
+- [`f6328151ae86c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6328151ae86c) -
+  Apply Volt entry-point and multi-export standards via `volt-migrate-package`. This is a **major**
+  change to `@atlaskit/theme`: the package `exports` map has been restructured so every public
+  subpath now resolves **directly** to its `./src/*` implementation instead of going through an
+  intermediate `./src/entry-points/*` re-export. No public subpaths were removed.
+
+  ### Why this is breaking
+
+  Because each subpath now points straight at its implementation module, a subpath and the package
+  root can resolve to the **same module instance**. Consumers that deep-import the internal
+  `entry-points/*` files, or that `jest.mock()` a specific subpath, may observe changed
+  resolution/behaviour and need updating.
+
+  `getTheme` is now a named export of `./src/utils/get-theme.tsx` rather than that module's default
+  export. The `./get-theme` subpath already exposed it as the **named** export `getTheme`, so its
+  public shape is unchanged.
+
+  ### Migration — public imports are unchanged
+
+  Importing the published subpaths (or the package root) continues to work as before:
+
+  ```ts
+  // Still valid — no change required
+  import { getTheme } from '@atlaskit/theme/get-theme';
+  ```
+
+  If you were reaching into the internal entry-point modules, switch to the public subpath:
+
+  ```diff
+  -import { createTheme } from '@atlaskit/theme/entry-points/create-theme';
+  +import { createTheme } from '@atlaskit/theme/create-theme';
+  ```
+
+  The re-exports on the `./components` subpath are now marked `@deprecated`, each pointing at the
+  per-export subpath to use instead. VOLTC-139 tracks their removal.
+
+  ### Before / after `exports` map
+
+  ```diff
+    "exports": {
+      ".": "./src/index.tsx",
+      "./components": "./src/components.tsx",
+      "./constants": "./src/constants.tsx",
+  -   "./create-theme": "./src/entry-points/create-theme.tsx",
+  +   "./create-theme": "./src/utils/create-theme.tsx",
+  -   "./get-theme": "./src/entry-points/get-theme.tsx",
+  +   "./get-theme": "./src/utils/get-theme.tsx",
+  -   "./theme": "./src/entry-points/theme.tsx",
+  +   "./theme": "./src/components/theme.tsx",
+  -   "./types": "./src/entry-points/types.tsx",
+  +   "./types": "./src/types.tsx",
+    }
+  ```
+
+  Note that `./types` now resolves to the whole `./src/types.tsx` module, so it exposes additional
+  types beyond the previously re-exported `AKThemeProviderProps`, `Layers`, `Theme`, `ThemeModes`,
+  and `ThemeProps`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.0
+
+### Major Changes
+
+- [`7d977ad05bb8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d977ad05bb8b) -
+  Removed deprecated constants exports: `focusRing`, `noFocusRing`, `visuallyHidden`, and
+  `assistive`. Removed type exports: `AtlaskitThemeProps`, `CustomThemeProps`, `DefaultValue`,
+  `GlobalThemeTokens`, `NoThemeProps`, and `ThemedValue`. Marked `layers` constant as deprecated.
+  Use Design System components instead.
+
+### Patch Changes
+
+- [`95d4618be32ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95d4618be32ae) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+- Updated dependencies
+
 ## 26.1.1
 
 ### Patch Changes

@@ -7,7 +7,8 @@
 */
 
 import step from './__fixtures__/clean-step-for-empty-doc.json';
-import { Step as ProseMirrorStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';

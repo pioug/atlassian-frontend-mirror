@@ -1,4 +1,4 @@
-import { DirectoryGraphQLError } from '../errors';
+import { DirectoryGraphQLError } from '../DirectoryGraphQLError';
 
 describe('DirectoryGraphQLError', () => {
 	it('should create an error with the correct properties', () => {

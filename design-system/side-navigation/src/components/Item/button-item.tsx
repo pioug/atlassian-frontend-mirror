@@ -6,8 +6,9 @@ import { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { ButtonItem as Button, type ButtonItemProps } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Button from '@atlaskit/menu/button-item';
+import type { ButtonItemProps } from '@atlaskit/menu/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -82,7 +83,7 @@ const styles = cssMap({
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const ButtonItem: React.ForwardRefExoticComponent<
+export const ButtonItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ButtonItemProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, ButtonItemProps>(({ className, ...props }, ref) => {
 	const { shouldRender } = useShouldNestedElementRender();
@@ -107,5 +108,3 @@ const ButtonItem: React.ForwardRefExoticComponent<
 		/>
 	);
 });
-
-export default ButtonItem;

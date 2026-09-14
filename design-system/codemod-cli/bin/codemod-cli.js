@@ -8,8 +8,8 @@ const project = path.join(__dirname, '../tsconfig.json');
 const dev = fs.existsSync(project);
 
 if (dev && !require.extensions['.ts']) {
-	// ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
-	require('ts-node').register({ project });
+	// tsx registers the TypeScript loader
+	require('tsx/cjs');
 }
 
 require(path.join('..', dev ? 'src/cli' : 'dist/cjs/cli'))

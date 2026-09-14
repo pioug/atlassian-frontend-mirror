@@ -20,8 +20,8 @@ import {
 import type { MediaStore } from '@atlaskit/media-state/media-store';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 
-import { MockedMediaProvider } from '@atlaskit/media-client-react/test-helpers';
-import { type MediaSettings } from '@atlaskit/media-client-react';
+import { MockedMediaProvider } from '@atlaskit/media-client-react/mocked-media-provider';
+import type { MediaSettings } from '@atlaskit/media-client-react/media-parsed-settings';
 
 import { dataURItoBlob } from './_helpers';
 

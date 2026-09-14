@@ -1,7 +1,6 @@
-import getNavigationMetrics, {
-	getNavigationMetricsToLegacyFormat,
-	type NavigationMetrics,
-} from './get-navigation-metrics';
+import type { NavigationMetrics } from './get-navigation-metrics';
+import getNavigationMetrics from './get-navigation-metrics';
+import { getNavigationMetricsToLegacyFormat } from './get-navigation-metrics-to-legacy-format';
 
 // Mock performance API
 const mockPerformance = {

@@ -6,7 +6,7 @@ import { type CSSProperties, type JSX, type ReactNode, type RefCallback } from '
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -92,6 +92,12 @@ const optionStyles = cssMap({
 			borderInlineStart: `${token('border.width.selected')} solid transparent`,
 		},
 	},
+	finesseFocused: {
+		boxShadow: 'none',
+		'@media screen and (-ms-high-contrast: active)': {
+			borderInlineStart: 'none',
+		},
+	},
 	selected: {
 		'&:active': {
 			backgroundColor: token('color.background.selected.pressed'),
@@ -145,6 +151,10 @@ const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 					fg('platform-dst-motion-uplift-list-item') &&
 					optionStyles.motion,
 				isFocused && optionStyles.focused,
+				isFocused &&
+					!isSelected &&
+					fg('platform-dst-tokens-finesse') &&
+					optionStyles.finesseFocused,
 				isSelected && optionStyles.selected,
 				isFocused && isSelected && optionStyles.focusedSelected,
 				!isDisabled &&

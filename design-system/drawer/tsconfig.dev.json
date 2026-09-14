@@ -111,6 +111,9 @@
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

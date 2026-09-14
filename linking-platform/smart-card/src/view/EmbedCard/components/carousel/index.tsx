@@ -123,11 +123,6 @@ const Carousel = ({
 		setActiveIndex((current) => (current + 1) % items.length);
 	}, [items, activeIndex, onNextClick]);
 
-	const goPrev = useCallback(() => {
-		hasNavigated.current = true;
-		setActiveIndex((current) => Math.max(0, current - 1));
-	}, []);
-
 	const goTo = useCallback(
 		(index: number) => {
 			if (index === activeIndex) {
@@ -144,7 +139,6 @@ const Carousel = ({
 	}, [onPrimaryButtonClick, items, activeIndex]);
 
 	const currentSlide = items[activeIndex];
-	const isFirstSlide = activeIndex === 0;
 	const isLastSlide = activeIndex === items.length - 1;
 
 	return (
@@ -162,7 +156,6 @@ const Carousel = ({
 					image={currentSlide.image}
 					title={currentSlide.title}
 					onPrimaryButtonClick={onPrimaryButtonClick ? handlePrimaryButtonClick : undefined}
-					onBackClick={!isFirstSlide ? goPrev : undefined}
 					onDotClick={goTo}
 					onNextClick={!isLastSlide ? goNext : undefined}
 					size={size}

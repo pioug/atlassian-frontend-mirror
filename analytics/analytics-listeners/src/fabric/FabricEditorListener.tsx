@@ -1,5 +1,6 @@
 import React from 'react';
-import { AnalyticsListener, type UIAnalyticsEventHandler } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type { UIAnalyticsEventHandler } from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type ListenerProps, FabricChannel } from '../types';
 
 import { handleEvent } from './handle-event';

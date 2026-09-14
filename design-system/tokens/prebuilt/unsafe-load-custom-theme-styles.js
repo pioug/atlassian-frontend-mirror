@@ -1,0 +1,43 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UNSAFE_loadCustomThemeStyles = void 0;
+var _customTheme = require("./custom-theme");
+var _themeStateDefaults = require("./theme-state-defaults");
+var _customThemeLoadingUtils = require("./utils/custom-theme-loading-utils");
+var _isValidBrandHex = require("./utils/is-valid-brand-hex");
+/**
+ * Synchronously generates and applies custom theme styles to the page.
+ *
+ * @param {Object<string, string>} themeState The themes and color mode that should be applied.
+ * @param {Object} themeState.UNSAFE_themeOptions The custom branding options to be used for custom theme generation
+ *
+ * @example
+ * ```
+ * UNSAFE_loadCustomThemeStyles({
+ *    colorMode: 'auto',
+ *    UNSAFE_themeOptions: { brandColor: '#FF0000' }
+ * });
+ * ```
+ */
+var UNSAFE_loadCustomThemeStyles = exports.UNSAFE_loadCustomThemeStyles = function UNSAFE_loadCustomThemeStyles() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    _ref$colorMode = _ref.colorMode,
+    colorMode = _ref$colorMode === void 0 ? _themeStateDefaults.themeStateDefaults['colorMode'] : _ref$colorMode,
+    _ref$UNSAFE_themeOpti = _ref.UNSAFE_themeOptions,
+    UNSAFE_themeOptions = _ref$UNSAFE_themeOpti === void 0 ? _themeStateDefaults.themeStateDefaults['UNSAFE_themeOptions'] : _ref$UNSAFE_themeOpti;
+  // Load custom theme styles
+  if (UNSAFE_themeOptions && (0, _isValidBrandHex.isValidBrandHex)(UNSAFE_themeOptions === null || UNSAFE_themeOptions === void 0 ? void 0 : UNSAFE_themeOptions.brandColor)) {
+    var attrOfMissingCustomStyles = (0, _customThemeLoadingUtils.findMissingCustomStyleElements)(UNSAFE_themeOptions, colorMode);
+    if (attrOfMissingCustomStyles.length !== 0) {
+      (0, _customTheme.loadAndAppendCustomThemeCss)({
+        colorMode: attrOfMissingCustomStyles.length === 2 ? 'auto' :
+        // only load the missing custom theme styles
+        attrOfMissingCustomStyles[0],
+        UNSAFE_themeOptions: UNSAFE_themeOptions
+      });
+    }
+  }
+};

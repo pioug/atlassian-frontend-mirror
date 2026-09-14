@@ -9,7 +9,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import { cssMap as strictCssMap } from '@atlaskit/css';
 import DownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Inline, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -97,6 +97,8 @@ const dropdownStyles = cssMap({
 	disabled: {
 		color: token('color.text.disabled'),
 	},
+	finesse: { color: token('color.icon.subtle') },
+	finesseDisabled: { color: token('color.icon.disabled') },
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -144,7 +146,9 @@ export const DropdownIndicator: <Option, IsMulti extends boolean, Group extends 
 		<div
 			css={[
 				dropdownStyles.default,
+				fg('platform-dst-tokens-finesse') && dropdownStyles.finesse,
 				isDisabled && dropdownStyles.disabled,
+				isDisabled && fg('platform-dst-tokens-finesse') && dropdownStyles.finesseDisabled,
 				isCompact && dropdownStyles.compact,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

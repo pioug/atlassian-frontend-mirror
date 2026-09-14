@@ -1,14 +1,6 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library/render';
 import { IntlProvider } from 'react-intl';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
@@ -34,13 +26,13 @@ describe('RelatedArticlesLoading', () => {
 		});
 	});
 
-	it('Should match snapshot', () => {
-		const { asFragment } = render(
+	it('should render the related articles loading state', () => {
+		const { container } = render(
 			<IntlProvider locale="en">
 				<RelatedArticlesLoading />
 			</IntlProvider>,
 		);
 
-		expect(asFragment()).toMatchSnapshot();
+		expect(container.querySelectorAll('li').length).toBeGreaterThan(0);
 	});
 });

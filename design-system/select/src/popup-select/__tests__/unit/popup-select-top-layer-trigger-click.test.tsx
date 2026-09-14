@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { type OptionsType, PopupSelect } from '../../../index';
+import { type OptionsType } from '../../../types';
+import { PopupSelect } from '../../popup-select';
 
 const OPTIONS: OptionsType = [
 	{ label: 'Adelaide', value: 'adelaide' },

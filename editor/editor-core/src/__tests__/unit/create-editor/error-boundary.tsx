@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 
 import { render, waitFor } from '@testing-library/react';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 /* eslint-disable-next-line import/no-extraneous-dependencies -- Removed from package.json to fix  circular dependencies */

@@ -2,8 +2,8 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import Tag from '@atlaskit/tag';
-import TagGroup from '@atlaskit/tag-group';
+import Tag from '@atlaskit/tag/removable-tag';
+import TagGroup from '@atlaskit/tag-group/tag-group';
 
 const truncateStyles = xcss({
 	width: '80px',

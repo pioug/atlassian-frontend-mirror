@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	getEarliestHiddenTiming,
@@ -11,7 +11,8 @@ import {
 	stopThrottleDetection,
 } from '../../index';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
@@ -110,11 +111,8 @@ describe('hidden-timing with timings which is smaller than 50(SIZE)', () => {
 
 		// When hidden-timing with timings which is smaller than 50(SIZE)
 		for (let i = 1; i < 10; i++) {
-			performanceSpy.mockImplementationOnce(() => i * 10);
-			visibilitySpy.mockReturnValueOnce(i % 2 === 0 ? 'visible' : 'hidden');
-		}
-
-		for (let i = 1; i < 10; i++) {
+			performanceSpy.mockReturnValue(i * 10);
+			visibilitySpy.mockReturnValue(i % 2 === 0 ? 'visible' : 'hidden');
 			document.dispatchEvent(new Event('visibilitychange'));
 		}
 
@@ -138,11 +136,8 @@ describe('hidden-timing with timings which is smaller than 50(SIZE)', () => {
 
 		// When hidden-timing with timings which is greater than 50(SIZE)
 		for (let i = 10; i < 75; i++) {
-			performanceSpy.mockImplementationOnce(() => i * 10);
-			visibilitySpy.mockReturnValueOnce(i % 2 === 0 ? 'visible' : 'hidden');
-		}
-
-		for (let i = 10; i < 75; i++) {
+			performanceSpy.mockReturnValue(i * 10);
+			visibilitySpy.mockReturnValue(i % 2 === 0 ? 'visible' : 'hidden');
 			document.dispatchEvent(new Event('visibilitychange'));
 		}
 
@@ -436,6 +431,13 @@ describe('isOpenedInBackground', () => {
 	});
 
 	describe('fallback with time threshold', () => {
+		beforeEach(() => {
+			// The time-threshold fallback path is gated by
+			// `platform_ufo_use_native_page_visibility_api`; the outer beforeEach sets
+			// the gate to false, so enable it here for these fallback-specific tests.
+			mockedFg.mockReturnValue(true);
+		});
+
 		it('should return true when setup runs early (< 100ms) and page is hidden', () => {
 			jest.isolateModules(() => {
 				const {

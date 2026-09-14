@@ -6,7 +6,7 @@
 import { css, jsx } from '@compiled/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import InlineEdit from '@atlaskit/inline-edit';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import PageHeader from '@atlaskit/page-header';
 import { token } from '@atlaskit/tokens';
 

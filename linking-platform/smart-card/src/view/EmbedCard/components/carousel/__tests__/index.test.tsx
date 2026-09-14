@@ -16,7 +16,6 @@ class MockResizeObserver {
 	disconnect() {}
 }
 beforeAll(() => {
-	// @ts-ignore
 	global.ResizeObserver = MockResizeObserver;
 });
 
@@ -65,11 +64,6 @@ describe('Carousel', () => {
 			expect(screen.getByTestId('carousel-slide-next')).toBeInTheDocument();
 		});
 
-		it('does not render a "Back" button on the first slide', () => {
-			setup();
-			expect(screen.queryByTestId('carousel-slide-back')).not.toBeInTheDocument();
-		});
-
 		it('does not render a "See next" button on the last slide', () => {
 			// Single slide — no next needed
 			setup({ items: [makeCarouselItem(1)] });
@@ -107,42 +101,6 @@ describe('Carousel', () => {
 			setup({ items: [makeCarouselItem(1), makeCarouselItem(2)] });
 			fireEvent.click(screen.getByTestId('carousel-slide-next'));
 			expect(screen.queryByTestId('carousel-slide-next')).not.toBeInTheDocument();
-		});
-	});
-
-	describe('goPrev — "Back" button', () => {
-		it('shows the "Back" button on the second slide after navigating forward', () => {
-			setup();
-			fireEvent.click(screen.getByTestId('carousel-slide-next'));
-			expect(screen.getByTestId('carousel-slide-back')).toBeInTheDocument();
-		});
-
-		it('goes back to the first slide when "Back" is clicked from the second slide', () => {
-			setup();
-			fireEvent.click(screen.getByTestId('carousel-slide-next'));
-			fireEvent.click(screen.getByTestId('carousel-slide-back'));
-			expect(screen.getByTestId('carousel-slide-title')).toHaveTextContent('Slide 1 title');
-		});
-
-		it('shows "Back" but hides "Next" on the last slide', () => {
-			setup({ items: [makeCarouselItem(1), makeCarouselItem(2)] });
-			fireEvent.click(screen.getByTestId('carousel-slide-next'));
-			expect(screen.getByTestId('carousel-slide-back')).toBeInTheDocument();
-			expect(screen.queryByTestId('carousel-slide-next')).not.toBeInTheDocument();
-		});
-
-		it('shows both "Back" and "Next" on a middle slide', () => {
-			setup();
-			fireEvent.click(screen.getByTestId('carousel-slide-next'));
-			expect(screen.getByTestId('carousel-slide-back')).toBeInTheDocument();
-			expect(screen.getByTestId('carousel-slide-next')).toBeInTheDocument();
-		});
-
-		it('does not render "Back" on the first slide after navigating back from second', () => {
-			setup();
-			fireEvent.click(screen.getByTestId('carousel-slide-next'));
-			fireEvent.click(screen.getByTestId('carousel-slide-back'));
-			expect(screen.queryByTestId('carousel-slide-back')).not.toBeInTheDocument();
 		});
 	});
 
@@ -231,7 +189,6 @@ describe('Carousel', () => {
 				unobserve() {}
 				disconnect() {}
 			}
-			// @ts-ignore
 			global.ResizeObserver = CapturingResizeObserver;
 
 			setup();
@@ -251,7 +208,6 @@ describe('Carousel', () => {
 			expect(screen.queryByTestId('carousel-slide-image-panel-0')).not.toBeInTheDocument();
 
 			// Restore default mock
-			// @ts-ignore
 			global.ResizeObserver = MockResizeObserver;
 		});
 
@@ -265,7 +221,6 @@ describe('Carousel', () => {
 				unobserve() {}
 				disconnect() {}
 			}
-			// @ts-ignore
 			global.ResizeObserver = CapturingResizeObserver;
 
 			setup({ onPrimaryButtonClick: jest.fn() });
@@ -283,7 +238,6 @@ describe('Carousel', () => {
 
 			expect(screen.getByTestId('carousel-slide-connect-compact')).toBeInTheDocument();
 
-			// @ts-ignore
 			global.ResizeObserver = MockResizeObserver;
 		});
 	});

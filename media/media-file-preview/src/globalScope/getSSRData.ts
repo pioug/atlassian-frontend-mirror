@@ -1,6 +1,7 @@
 import { type FileIdentifier, type ImageResizeMode } from '@atlaskit/media-client';
 
-import { getKey, getMediaCardSSR } from './globalScope';
+import { getKey } from './getKey';
+import { getMediaCardSSR } from './getMediaCardSSR';
 import type { MediaCardSsrData } from './types';
 
 export const getSSRData = (

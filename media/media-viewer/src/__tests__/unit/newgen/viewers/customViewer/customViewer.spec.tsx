@@ -21,9 +21,9 @@ import {
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import type { CustomRendererConfig, CustomRendererProps } from '@atlaskit/media-viewer';
 import { sleep } from '@atlaskit/media-common/test-helpers';
-import { MediaViewerError } from '../../../../../errors';
+import { MediaViewerError } from '../../../../../MediaViewerError';
 
-jest.mock('../../../../../viewers/codeViewer/msg-parser', () => ({
+jest.mock('../../../../../viewers/codeViewer/msgToText', () => ({
 	__esModule: true,
 	msgToText: jest.fn(),
 }));

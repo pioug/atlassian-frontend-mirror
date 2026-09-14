@@ -4,22 +4,26 @@ import { render } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl';
 
-import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
-import {
-	type GetAutocompleteInitialData,
-	type GetAutocompleteSuggestions,
-	useAutocompleteProvider,
-} from '@atlaskit/jql-editor-autocomplete-rest';
+import JQLEditor from '@atlaskit/jql-editor/ui';
+import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
+import type {
+	GetAutocompleteInitialData,
+	GetAutocompleteSuggestions,
+} from '@atlaskit/jql-editor-autocomplete-rest/types';
+import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider';
 import { mockAutoCompleteData, mockSuggestionData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { JiraJQLEditor, type JiraJQLEditorProps } from './index';
 
-jest.mock('@atlaskit/jql-editor', () => ({
-	JQLEditor: jest.fn().mockReturnValue(<div data-testid={'mocked-jira-editor'}></div>),
+jest.mock('@atlaskit/jql-editor/ui', () => ({
+	...jest.requireActual('@atlaskit/jql-editor/ui'),
+	__esModule: true,
+	default: jest.fn().mockReturnValue(<div data-testid={'mocked-jira-editor'}></div>),
 }));
 
-jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
+jest.mock('@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider', () => ({
+	...jest.requireActual('@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider'),
 	useAutocompleteProvider: jest.fn().mockReturnValue('useAutocompleteProvider-call-result'),
 }));
 

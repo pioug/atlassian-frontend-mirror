@@ -16,8 +16,8 @@ import {
 	td,
 	ol,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 describe('MarkdownTransformer', () => {

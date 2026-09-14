@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { token } from '@atlaskit/tokens';
 

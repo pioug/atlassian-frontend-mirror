@@ -13,20 +13,20 @@ import {
 	type Dispatch,
 	type SetStateAction,
 } from 'react';
-import { type VideoTextTrack, type VideoTextTracks } from '../react-video-renderer';
-import { useMediaClient, useMediaSettings } from '@atlaskit/media-client-react';
-import {
-	getUserCaptionsEnabled,
-	getUserCaptionsLocale,
-	findPreselectedTrackIndex,
-	setUserCaptionsEnabled,
-	setUserCaptionsLocale,
-} from './captions';
+import type { VideoTextTrack, VideoTextTracks } from '../react-video-renderer/text';
+import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
+import { getUserCaptionsEnabled } from './captions/getUserCaptionsEnabled';
+import { getUserCaptionsLocale } from './captions/getUserCaptionsLocale';
+import { findPreselectedTrackIndex } from './captions/selectTracks';
+import { setUserCaptionsEnabled } from './captions/setUserCaptionsEnabled';
+import { setUserCaptionsLocale } from './captions/setUserCaptionsLocale';
 import { useIntl } from 'react-intl';
 
 import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
-import { createCaptionDisplayFailedEventPayload, fireAnalyticsEvent } from '../analytics';
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { createCaptionDisplayFailedEventPayload } from '../analytics/events/operational/createCaptionDisplayFailedEventPayload';
+import { fireAnalyticsEvent } from '../analytics/utils/fireAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { type CustomMediaPlayerType } from '../types';
 
 type CaptionsRawMetadata = { l?: string; n?: string };

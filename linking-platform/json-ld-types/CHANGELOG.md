@@ -1,5 +1,12 @@
 # @atlaskit/json-ld-types
 
+## 2.0.1
+
+### Patch Changes
+
+- [`b8a2a416a8219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8a2a416a8219) -
+  VOLTC-62 - run volt-migrate-package on @atlaskit/json-ld-types
+
 ## 2.0.0
 
 ### Major Changes

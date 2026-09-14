@@ -27,9 +27,8 @@ import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from './mediaPluginType';
 import { lazyMediaGroupView } from './nodeviews/lazy-media-group';
@@ -183,7 +182,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			handleMediaNodeRenderError: (node: PMNode, reason: string, nestedUnder?: string) => {
 				let isDuplicateError = false;
 
-				if (expValEquals('platform_editor_media_reliability_observability', 'isEnabled', true)) {
+				if (isExperimentEnabled('platform_editor_media_reliability_observability')) {
 					if (mediaErrorLocalIds.has(node.attrs.localId)) {
 						// we mark duplicate errors in the case of nested media nodes
 						// renderering to avoid firing multiple errored events for the same underlying issue,
@@ -202,10 +201,8 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 					attributes: {
 						reason,
 						external: node.attrs.__external,
-						...(nestedUnder && editorExperiment('platform_synced_block', true)
-							? { nestedUnder }
-							: {}),
-						...(editorExperiment('platform_synced_block', true) ? { isDuplicateError } : {}),
+						...(nestedUnder ? { nestedUnder } : {}),
+						isDuplicateError,
 					},
 				});
 			},

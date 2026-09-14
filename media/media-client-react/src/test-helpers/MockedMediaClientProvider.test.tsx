@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { type MediaClient } from '@atlaskit/media-client';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 
-import { useMediaClient } from '../../src';
+import { useMediaClient } from '../useMediaClient';
 
 import { MockedMediaClientProvider } from './MockedMediaClientProvider';
 

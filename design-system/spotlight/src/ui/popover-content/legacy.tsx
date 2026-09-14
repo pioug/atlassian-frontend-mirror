@@ -6,9 +6,9 @@ import { type ReactNode, useContext, useEffect, useLayoutEffect, useRef } from '
 
 import { cssMap, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { Motion } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper';
+import Motion from '@atlaskit/motion/entering/motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Popper, type Placement as PopperPlacement } from '@atlaskit/popper/main';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';

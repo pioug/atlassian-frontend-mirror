@@ -7,6 +7,11 @@
  *
  */
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import CardClient from '@atlaskit/link-provider/client';
+import {
+	SmartCardProvider,
+	SmartCardProvider as SmartCardContextProvider,
+} from '@atlaskit/link-provider/smart-card-provider';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import React, { PureComponent } from 'react';
@@ -43,7 +48,41 @@ const providerFactory = ProviderFactory.create({
 	emojiProvider: getEmojiResource(),
 });
 
+const cardClient = new CardClient('stg');
+
 const ajv = initialize();
+
+interface RenderErrorBoundaryState {
+	error?: Error;
+}
+
+/**
+ * Keeps an unexpected render-time throw from a single node (for example a smart link
+ * failing to find its context) from blanking the whole playground. Without this the user
+ * loses the textarea along with their document and has to reload the page.
+ */
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+class RenderErrorBoundary extends React.Component<
+	{ children: React.ReactNode },
+	RenderErrorBoundaryState
+> {
+	state: RenderErrorBoundaryState = {};
+
+	static getDerivedStateFromError(error: Error): RenderErrorBoundaryState {
+		return { error };
+	}
+
+	render(): React.ReactNode {
+		const { error } = this.state;
+
+		if (error) {
+			return <span>Something went wrong while rendering this document: {error.message}</span>;
+		}
+
+		return this.props.children;
+	}
+}
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -82,7 +121,13 @@ export default class Example extends PureComponent<{}, State> {
 			return <span dangerouslySetInnerHTML={{ __html: textMessage }} />;
 		}
 
-		return <Renderer document={json} dataProviders={providerFactory} />;
+		return (
+			<SmartCardProvider client={cardClient}>
+				<SmartCardContextProvider client={cardClient}>
+					<Renderer document={json} dataProviders={providerFactory} />
+				</SmartCardContextProvider>
+			</SmartCardProvider>
+		);
 	}
 
 	componentDidMount(): void {
@@ -140,7 +185,8 @@ export default class Example extends PureComponent<{}, State> {
 						overflow: 'auto',
 					}}
 				>
-					{renderedContent}
+					{/* Keyed on the document so editing the textarea clears a previously caught error. */}
+					<RenderErrorBoundary key={this.state.value}>{renderedContent}</RenderErrorBoundary>
 				</div>
 			</div>
 		);

@@ -8,7 +8,7 @@ import Conversation from '../components/Conversation';
 import type { Props as BaseProps } from '../components/Conversation';
 import type { ResourceProvider } from '../api/ConversationResource';
 import type { Comment as CommentType } from '../model/Comment';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 import {
 	addComment,

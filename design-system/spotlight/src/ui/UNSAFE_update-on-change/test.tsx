@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 

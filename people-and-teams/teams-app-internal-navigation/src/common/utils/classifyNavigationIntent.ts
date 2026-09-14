@@ -1,5 +1,6 @@
 import type { NavigationIntent } from './getNavigationProps';
-import { isFedramp, isIsolatedCloud } from './utils';
+import { isFedramp } from './isFedramp';
+import { isIsolatedCloud } from './isIsolatedCloud';
 
 export interface classifyNavigationIntentInput {
 	href: string;

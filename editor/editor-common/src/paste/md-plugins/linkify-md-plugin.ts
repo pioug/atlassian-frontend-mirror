@@ -5,8 +5,8 @@
 
 import LinkifyIt from 'linkify-it';
 
-import type { Match } from '@atlaskit/adf-schema';
-import { linkifyMatch } from '@atlaskit/adf-schema';
+import type { Match } from '@atlaskit/adf-schema/url';
+import { linkifyMatch } from '@atlaskit/adf-schema/linkify-match';
 
 import { findFilepaths, isLinkInMatches, shouldAutoLinkifyMatch } from '../../utils';
 

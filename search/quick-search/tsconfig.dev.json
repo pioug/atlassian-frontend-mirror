@@ -57,10 +57,10 @@
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/spinner/tsconfig.app.json"
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

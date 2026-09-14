@@ -7,11 +7,13 @@ import { useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
-import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
+import Button from '@atlaskit/button/default/button';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import ShrinkOut from '@atlaskit/motion/shrink-out';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered } from '../utils';
+import { Block } from '../utils/blocks';
+import { Centered } from '../utils/containers';
 
 const MotionShrinkOutExample = (): JSX.Element => {
 	const [actualApps, setApps] = useState(apps);

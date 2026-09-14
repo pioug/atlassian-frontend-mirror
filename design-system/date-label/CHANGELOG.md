@@ -1,5 +1,40 @@
 # @atlaskit/date-label
 
+## 1.2.1
+
+### Patch Changes
+
+- [`bcfe498b206d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcfe498b206d5) -
+  Adopt button and list-item motion tokens behind the use-pressable-motion rollout.
+
+## 1.2.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.0
+
+### Minor Changes
+
+- [`b6b1f2f22c227`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6b1f2f22c227) -
+  Add button hover and pressed motion transitions to DateLabelDropdownTrigger, and fade between its
+  content and loading spinner, behind the `platform-dst-motion-uplift-labels` feature gate.
+
 ## 1.0.4
 
 ### Patch Changes

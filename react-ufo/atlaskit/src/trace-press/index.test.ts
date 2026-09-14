@@ -1,11 +1,14 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+
+// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID mock used by these tests.
 import { v4 as createUUID } from 'uuid';
 
 // Mock all dependencies
 jest.mock('uuid');
 jest.mock('../coinflip');
 jest.mock('../config');
-jest.mock('../experience-trace-id-context');
+jest.mock('../experience-trace-id-context/get-active-trace');
+jest.mock('../experience-trace-id-context/set-interaction-active-trace');
 jest.mock('../interaction-id-context');
 jest.mock('../interaction-metrics');
 jest.mock('../route-name-context');
@@ -17,7 +20,8 @@ import {
 	getMinorInteractions,
 	isUFOEnabled,
 } from '../config';
-import { getActiveTrace, setInteractionActiveTrace } from '../experience-trace-id-context';
+import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
+import { setInteractionActiveTrace } from '../experience-trace-id-context/set-interaction-active-trace';
 import { DefaultInteractionID } from '../interaction-id-context';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
@@ -43,7 +47,7 @@ const mockGetActiveTrace = getActiveTrace as jest.MockedFunction<typeof getActiv
 const mockSetInteractionActiveTrace = setInteractionActiveTrace as jest.MockedFunction<
 	typeof setInteractionActiveTrace
 >;
-const mockCreateUUID = createUUID as jest.MockedFunction<typeof createUUID>;
+const mockCreateUUID = createUUID as jest.MockedFunction<() => string>;
 
 describe('traceUFOPress', () => {
 	beforeEach(() => {

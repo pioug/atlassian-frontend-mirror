@@ -1,5 +1,5 @@
 import React from 'react';
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { ReactRenderer as Renderer } from '@atlaskit/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 

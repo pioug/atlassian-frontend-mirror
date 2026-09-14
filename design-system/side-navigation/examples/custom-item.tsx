@@ -5,7 +5,8 @@ import AddItemIcon from '@atlaskit/icon/core/shortcut';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { CustomItem, type CustomItemComponentProps } from '@atlaskit/side-navigation';
+import { CustomItem } from '@atlaskit/side-navigation/custom-item';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { token } from '@atlaskit/tokens';
 
 const iconSpacingStyles = cssMap({

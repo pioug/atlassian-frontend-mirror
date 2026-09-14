@@ -5,21 +5,24 @@
 import { Fragment, useEffect, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button, { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import { Label } from '@atlaskit/form';
-import Heading from '@atlaskit/heading';
+import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { Label } from '@atlaskit/form/label/default';
+import Heading from '@atlaskit/heading/heading';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { Popup } from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
-import Select from '@atlaskit/select';
-import TextArea from '@atlaskit/textarea';
+import SectionMessage from '@atlaskit/section-message/message';
+import SectionMessageAction from '@atlaskit/section-message/message-action';
+import Select from '@atlaskit/select/default';
+import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getCSSCustomProperty } from '../src/utils/get-css-custom-property';

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { type EnvironmentsKeys, useSmartLinkContext } from '@atlaskit/link-provider';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 
 import { type ControlDataExportConfig } from './types';
 

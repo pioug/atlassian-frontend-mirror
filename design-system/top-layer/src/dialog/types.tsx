@@ -16,6 +16,11 @@ import type { StrictXCSSProp } from '@atlaskit/css';
 export type TDialogCloseReason = 'escape' | 'overlay-click';
 
 /**
+ * User interactions that are allowed to dismiss the dialog.
+ */
+export type TDialogDismissedBy = 'none' | 'escape' | 'escape-and-outside-click';
+
+/**
  * Props shared across `TDialogProps` variants.
  *
  * The accessible-name requirement (one of `label` or `labelledBy`) is encoded
@@ -25,12 +30,13 @@ export type TDialogCloseReason = 'escape' | 'overlay-click';
 type TDialogBaseProps = {
 	children: ReactNode;
 	/**
-	 * Whether the dialog is open.
+	 * Controlled visibility intent for the dialog. Native visibility and lifecycle
+	 * phase can temporarily differ from this value while a close settles.
 	 *
 	 * - `true`: calls `showModal()`. When `shouldAnimate` is `true`, the entry
 	 *   animation plays via `@starting-style`.
 	 * - `false`: calls `close()`. When `shouldAnimate` is `true`, the exit
-	 *   animation plays via `allow-discrete` before the dialog becomes logically closed.
+	 *   animation plays via `allow-discrete` while the lifecycle phase is `exiting`.
 	 *
 	 * **Lifecycle observable to consumers:**
 	 *
@@ -44,12 +50,22 @@ type TDialogBaseProps = {
 	 */
 	isOpen: boolean;
 	/**
-	 * Called when the user triggers close via Escape or backdrop click.
+	 * Called after the dialog closes through an allowed Escape or backdrop interaction.
 	 *
-	 * The dialog does **not** close itself. The consumer decides whether to
-	 * set `isOpen={false}` (e.g. gate by reason).
+	 * User dismissal cannot be rejected from this callback. The consumer must set
+	 * `isOpen={false}` in response to synchronize controlled state with the native dialog.
 	 */
 	onClose: (args: { reason: TDialogCloseReason }) => void;
+	/**
+	 * Controls which user actions can dismiss the dialog.
+	 *
+	 * - `'escape-and-outside-click'`: Escape and outside click.
+	 * - `'escape'`: Escape only.
+	 * - `'none'`: no user action.
+	 *
+	 * Defaults to `'escape-and-outside-click'`.
+	 */
+	dismissedBy?: TDialogDismissedBy;
 	/**
 	 * Whether the dialog should animate in and out.
 	 *
@@ -71,7 +87,9 @@ type TDialogBaseProps = {
 		| 'maxWidth'
 		| 'insetBlockStart'
 		| 'insetInlineStart'
-		| 'insetInlineEnd',
+		| 'insetInlineEnd'
+		| 'overflow'
+		| 'scrollbarGutter',
 		never
 	>;
 	/**
@@ -123,8 +141,9 @@ type TDialogBaseProps = {
 	 */
 	onEnterFinish?: () => void;
 	/**
-	 * Called after the exit animation completes (or immediately on close when
-	 * there is no animation or reduced motion is active).
+	 * Called after the native closed `toggle` and any exit animations settle.
+	 * With no animation or reduced motion, this still waits for the browser's
+	 * task-queued `toggle` so focus restoration finishes against a mounted host.
 	 *
 	 * Use this for external lifecycle coordination, e.g. firing an
 	 * `onCloseComplete` callback or notifying ExitingPersistence.

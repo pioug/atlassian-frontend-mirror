@@ -28,9 +28,6 @@ HTML rendering occurs via traversal of the ADF and calling the serializer corres
 
 ### Adding new embedded images / icons
 
-This will generate static image modules that can be used to easily embed inside of email as part of a ADF node serializer, etc.
+Static icon modules are checked in under `src/static/icons` and their SVG sources live in `src/static/svg`.
 
-Currently uses a custom build process, which like this: `SVG -> PNG -> Base64 -> TypeScript Module`
-
-- Add the source image to `src/static/svg` folder and to generator config `src/static/image-sources.ts`
-- run `yarn run build:images`
+When adding or updating an embedded image, update the generated icon module(s) in `src/static/icons` to match the corresponding SVG asset.

@@ -4,18 +4,22 @@
  * feature. Some ways of using the component in here might not be the standard
  * way. It is discouraged to use this code as a base for consumers.
  */
+
 import React, { useEffect, useMemo } from 'react';
 import { hydrateRoot } from 'react-dom/client';
+import ReactDOMServer from 'react-dom/server';
+
+import { MediaClient } from '@atlaskit/media-client';
+import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import { type SSR } from '@atlaskit/media-common';
 import { tallImage } from '@atlaskit/media-test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { MediaClient } from '@atlaskit/media-client';
-import { type SSR } from '@atlaskit/media-common';
-import { token } from '@atlaskit/tokens';
-import { Card, type CardBaseProps } from '../src/card/card';
-import ReactDOMServer from 'react-dom/server';
 import { imageFileId } from '@atlaskit/media-test-helpers';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { token } from '@atlaskit/tokens';
+
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';
+import type { CardBaseProps } from '../src/card/CardBase';
+import { Card } from '../src/card/card';
 
 const dimensions = { width: 250, height: 150 };
 

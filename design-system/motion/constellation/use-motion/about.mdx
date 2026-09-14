@@ -1,0 +1,50 @@
+---
+title: useMotion
+description:
+  Apply entry and exit animations to an element you already render, without adding a wrapper.
+order: 0
+---
+
+`useMotion` powers the [Motion primitive](/components/motion/motion-primitive), but you can also use
+the hook directly as an alternative. Both use the same animation lifecycle, but they apply it
+differently.
+
+The Motion primitive renders a wrapper and applies animation styles for you. `useMotion` renders
+nothing. It returns the current animation state and a `ref`, so you can apply motion directly to an
+element you already render.
+
+## Choose between the primitive and hook
+
+Use the Motion primitive by default. It handles the animation styles and reduced motion behavior
+with less code.
+
+Use `useMotion` when a wrapper would break the layout or HTML semantics, when the animated element
+needs to keep its own attributes, or when other behavior needs to respond to the animation state.
+With the hook, you are responsible for attaching the returned `ref`, styling each state, and
+disabling animations for reduced motion preferences.
+
+| Motion primitive                        | `useMotion`                                             |
+| --------------------------------------- | ------------------------------------------------------- |
+| Renders a wrapper element               | Renders no markup                                       |
+| Applies animation styles                | Returns a state for you to style                        |
+| Handles reduced motion styles           | Requires reduced motion styles                          |
+| Best for most entry and exit animations | Best when motion must be applied to an existing element |
+
+## State machine
+
+`useMotion` is a state machine. It moves through entry and exit states, and returns the current
+state on each render.
+
+| State      | Meaning                                      |
+| ---------- | -------------------------------------------- |
+| `init`     | The element is mounted and waiting to enter. |
+| `entering` | The entry animation is running.              |
+| `visible`  | The element is at rest.                      |
+| `exiting`  | The exit animation is running.               |
+| `hidden`   | The element has exited but remains mounted.  |
+
+The usual lifecycle is `init` → `entering` → `visible` → `exiting`, after which `ExitingPersistence`
+unmounts the element. The `hidden` state is used when an imperative exit keeps the element mounted.
+
+See [Examples](/components/motion/use-motion/examples) for styling and lifecycle patterns, and
+[Code](/components/motion/use-motion/code) for the API.

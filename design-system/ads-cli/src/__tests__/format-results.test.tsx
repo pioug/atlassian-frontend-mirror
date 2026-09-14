@@ -1,5 +1,80 @@
+import { compactResults } from '../output/compact-results';
 import { createDocSearchResults } from '../output/create-doc-search-results';
 import { formatCompactResults } from '../output/format-results';
+
+describe('compactResults', () => {
+	it('projects rich component discovery payloads into the fields shown by the human row', () => {
+		expect(
+			compactResults({
+				kind: 'components',
+				data: [
+					{
+						name: 'Button',
+						package: '@atlaskit/button',
+						props: [{ name: 'appearance' }, { name: 'isDisabled' }],
+						examples: ['<Button />'],
+						designSource: { figmaUrl: 'https://example.com' },
+					},
+				],
+				showFollowUp: true,
+			}),
+		).toEqual([
+			{
+				name: 'Button',
+				package: '@atlaskit/button',
+				propCount: 2,
+				exampleCount: 1,
+				followUp: 'component Button',
+			},
+		]);
+	});
+
+	it('is idempotent for compact rows used by batch rendering', () => {
+		const rows = [
+			{
+				name: 'Button',
+				package: '@atlaskit/button',
+				propCount: 2,
+				exampleCount: 1,
+				followUp: 'component Button',
+			},
+		];
+		expect(compactResults({ kind: 'components', data: rows, showFollowUp: true })).toEqual(rows);
+	});
+
+	it('bounds token and icon text in the JSON projection as well as the human view', () => {
+		const longText = 'word '.repeat(40);
+		const tokens = compactResults({
+			kind: 'tokens',
+			data: [{ name: 'motion.long', exampleValue: longText }],
+		});
+		const icons = compactResults({
+			kind: 'icons',
+			data: [{ componentName: 'LongIcon', usage: longText }],
+		});
+
+		expect((tokens?.[0] as { exampleValue?: string }).exampleValue).toContain('…');
+		expect((icons?.[0] as { usage?: string }).usage).toContain('…');
+	});
+
+	it('only includes document follow-up commands when requested', () => {
+		const data = [
+			{
+				title: 'Spacing',
+				summary: 'Spacing guidance.',
+				followUp: 'docs spacing',
+			},
+		];
+
+		expect(compactResults({ kind: 'docs', data })).toEqual([
+			{
+				title: 'Spacing',
+				summary: 'Spacing guidance.',
+			},
+		]);
+		expect(compactResults({ kind: 'docs', data, showFollowUp: true })).toEqual(data);
+	});
+});
 
 describe('formatCompactResults', () => {
 	it('returns null for non-array data so the caller can fall back', () => {
@@ -17,9 +92,21 @@ describe('formatCompactResults', () => {
 			data: [{ name: 'Button', package: '@atlaskit/button', props: [1, 2, 3], examples: ['x'] }],
 		});
 		expect(out).toContain('Results (1):');
-		expect(out).toContain('Button  @atlaskit/button  (3 props, 1 example)');
+		expect(out).toContain('Button  @atlaskit/button');
+		expect(out).toContain('3 props');
+		expect(out).toContain('1 example');
 		// Single-kind listings are terse by default.
 		expect(out).not.toContain('→ ads-cli component Button');
+	});
+
+	it('renders an already-compact component row without losing its counts', () => {
+		const out = formatCompactResults({
+			kind: 'components',
+			data: [{ name: 'Button', propCount: 13, exampleCount: 3 }],
+		});
+		expect(out).toContain('Button');
+		expect(out).toContain('13 props');
+		expect(out).toContain('3 examples');
 	});
 
 	it('adds a per-row follow-up hint for every kind when showFollowUp is set', () => {
@@ -55,8 +142,21 @@ describe('formatCompactResults', () => {
 			],
 			showFollowUp: true,
 		});
-		expect(docs).toContain('Color accessibility  — Meet contrast requirements.');
+		expect(docs).toContain('Color accessibility');
+		expect(docs).toContain('Meet contrast requirements.');
 		expect(docs).toContain('→ ads-cli docs contrast');
+	});
+
+	it('uses the supplied invocation in follow-up hints', () => {
+		const out = formatCompactResults({
+			kind: 'components',
+			data: [{ name: 'CountrySelect', package: '@atlaskit/select', props: [], examples: [] }],
+			showFollowUp: true,
+			invocation: 'atlas ads',
+		});
+
+		expect(out).toContain('→ atlas ads component CountrySelect');
+		expect(out).not.toContain('→ ads-cli component CountrySelect');
 	});
 
 	it('pluralises prop/example counts correctly', () => {
@@ -64,7 +164,8 @@ describe('formatCompactResults', () => {
 			kind: 'components',
 			data: [{ name: 'Icon', package: '@atlaskit/icon', props: [1], examples: [] }],
 		});
-		expect(out).toContain('(1 prop, 0 examples)');
+		expect(out).toContain('1 prop');
+		expect(out).toContain('0 examples');
 	});
 
 	it('renders tokens as name = value lines', () => {
@@ -72,7 +173,8 @@ describe('formatCompactResults', () => {
 			kind: 'tokens',
 			data: [{ name: 'space.100', exampleValue: '8px' }],
 		});
-		expect(out).toContain('space.100 = 8px');
+		expect(out).toContain('space.100');
+		expect(out).toContain('= 8px');
 	});
 
 	it('truncates very long token values to keep one line', () => {
@@ -82,9 +184,8 @@ describe('formatCompactResults', () => {
 			data: [{ name: 'motion.long', exampleValue: longValue }],
 		});
 		// The truncated line must be far shorter than the raw value and end with an ellipsis.
-		const line = out?.split('\n').find((l) => l.startsWith('motion.long')) ?? '';
-		expect(line.length).toBeLessThan(120);
-		expect(line).toContain('…');
+		expect(out?.length ?? 0).toBeLessThan(240);
+		expect(out).toContain('…');
 	});
 
 	it('renders icons with package and truncated usage', () => {
@@ -98,7 +199,8 @@ describe('formatCompactResults', () => {
 				},
 			],
 		});
-		expect(out).toContain('AddIcon  @atlaskit/icon/core/add  — Reserved for adding.');
+		expect(out).toContain('AddIcon  @atlaskit/icon/core/add');
+		expect(out).toContain('Reserved for adding.');
 	});
 
 	it('tolerates missing optional fields', () => {

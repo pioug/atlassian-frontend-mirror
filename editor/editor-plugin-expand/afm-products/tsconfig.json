@@ -47,6 +47,9 @@
 			"path": "../../editor-plugin-editor-viewmode/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-limited-mode/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-local-id/afm-products/tsconfig.json"
 		},
 		{
@@ -68,10 +71,16 @@
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"

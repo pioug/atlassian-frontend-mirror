@@ -8,7 +8,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('Opens via Enter key on trigger', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -24,7 +24,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('Opens via Space key on trigger', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -40,7 +40,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('Opens via click on trigger', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -57,7 +57,7 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Escape closes popup with default role (menu)', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -83,7 +83,7 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
 		>('design-system', 'popup', 'popup-should-render-to-parent', {
 			featureFlag,
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		const trigger = page.getByTestId('popup-trigger');
@@ -108,13 +108,13 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	});
 
 	test('Dialog role has focus trap even with focus lock disabled', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.tsx')>(
+		await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup-role-dialog',
 			{
 				featureFlag,
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -148,7 +148,7 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('Focus moves into popup content on open', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -165,7 +165,7 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('Focus returns to trigger on close', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -181,11 +181,11 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	test('Focus traps in dialog popup (shifts + tab/tab wrap)', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.tsx')>(
+		await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup-role-dialog',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
@@ -213,7 +213,7 @@ test.describe('Popup top-layer — WCAG 2.4.7 Focus Visible', () => {
 	test('Focus-visible visible on keyboard navigation', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const popupButton0 = page.getByTestId('popup-button-0');
@@ -236,11 +236,11 @@ test.describe('Popup top-layer — WCAG 2.4.7 Focus Visible', () => {
 
 test.describe('Popup top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 	test('Popup content is visible when open', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/10-popup.tsx')>(
+		await page.visitExample<typeof import('../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
@@ -255,7 +255,7 @@ test.describe('Popup top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 			'design-system',
 			'popup',
 			'popup-with-a11y-props',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const firstTrigger = page.getByRole('button', { name: /Open Popup/i }).first();
@@ -269,11 +269,11 @@ test.describe('Popup top-layer — WCAG 2.4.11 Focus Not Obscured', () => {
 
 test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('Popup with dialog role has correct ARIA attributes', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.tsx')>(
+		await page.visitExample<typeof import('../../../examples/19-popup-role-dialog.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'popup-role-dialog',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
@@ -300,7 +300,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 			'design-system',
 			'popup',
 			'popup-with-a11y-props',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const firstTrigger = page.getByRole('button', { name: /Open Popup/i }).first();
@@ -319,7 +319,7 @@ test.describe('Popup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('Popup renders near trigger, not at end of body', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'legacy' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -346,7 +346,7 @@ test.describe('Popup top-layer — Nested popups', () => {
 			'design-system',
 			'popup',
 			'nested',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
@@ -393,7 +393,7 @@ test.describe('Popup top-layer — Nested popups', () => {
 			'nested',
 			{
 				featureFlag,
-				'react-18-mode': 'legacy',
+				'react-18-mode': 'modern',
 			},
 		);
 
@@ -437,11 +437,11 @@ test.describe('Popup top-layer — Content positioning', () => {
 	// trigger-width parity. Legacy code path is being removed in scope
 	// of the top-layer migration.
 	test.fixme('shouldFitContainer makes popup match trigger width', async ({ page }) => {
-		await page.visitExample<typeof import('../../../examples/18-should-fit-container.tsx')>(
+		await page.visitExample<typeof import('../../../examples/18-should-fit-container.vr.ap.tsx')>(
 			'design-system',
 			'popup',
 			'should-fit-container',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByRole('button', { name: /Open Popup/i });
@@ -467,7 +467,7 @@ test.describe('Popup top-layer — Auto-focus behavior', () => {
 			'design-system',
 			'popup',
 			'setting-focus',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const openButton = page.getByRole('button', { name: 'Open Popup' });
@@ -484,7 +484,7 @@ test.describe('Popup top-layer — Auto-focus behavior', () => {
 			'design-system',
 			'popup',
 			'popup-disable-autofocus-vr',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const openButton = page.getByRole('button', { name: 'Open Popup' });
@@ -503,7 +503,7 @@ test.describe('Popup top-layer — Auto-focus behavior', () => {
 			'design-system',
 			'popup',
 			'popup-disable-autofocus',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
@@ -535,7 +535,7 @@ test.describe('Popup top-layer — Complex interactions', () => {
 		await page.visitExample<
 			typeof import('../../../examples/testing-modal-inside-popup-inside-dropdown.tsx')
 		>('design-system', 'popup', 'testing-modal-inside-popup-inside-dropdown', {
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		const dropdownTrigger = page.getByTestId('dropdown--trigger');
@@ -563,7 +563,7 @@ test.describe('Popup top-layer — Complex interactions', () => {
 			'design-system',
 			'popup',
 			'testing-dropdown-inside-popup',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const popupTrigger = page.getByTestId('popup-trigger');
@@ -698,7 +698,7 @@ test.describe('Popup top-layer — Complex interactions', () => {
 			typeof import('../../../examples/testing-modal-inside-popup-inside-dropdown.tsx')
 		>('design-system', 'popup', 'testing-modal-inside-popup-inside-dropdown', {
 			featureFlag,
-			'react-18-mode': 'legacy',
+			'react-18-mode': 'modern',
 		});
 
 		const dropdownTrigger = page.getByTestId('dropdown--trigger');
@@ -724,7 +724,7 @@ test.describe('Popup top-layer — Complex interactions', () => {
 			'design-system',
 			'popup',
 			'should-not-return-focus',
-			{ 'react-18-mode': 'legacy' },
+			{ 'react-18-mode': 'modern' },
 		);
 
 		const trigger = page.getByText('Trigger');
@@ -747,5 +747,116 @@ test.describe('Popup top-layer — Complex interactions', () => {
 
 		await page.keyboard.press('Escape');
 		await expect(trigger).toBeFocused();
+	});
+});
+
+test.describe('Popup — trigger focus rescue (platform_dst-popup-trigger-initial-focus-ref)', () => {
+	/**
+	 * These tests exercise the `platform_dst-popup-trigger-initial-focus-ref` feature gate.
+	 *
+	 * The gate adds a safety-net animation-frame callback inside the focus-trap cleanup that
+	 * fires after `focusTrap.deactivate()`. When active, it checks whether focus has landed
+	 * on `document.body`, `document.documentElement`, or is `null` — all of which indicate
+	 * that focus-trap's own `returnFocusOnDeactivate` silently failed. If the trigger is still
+	 * connected to the DOM at that point, the gate manually calls `triggerRef.focus()`
+	 * to rescue focus back to the trigger.
+	 */
+	const triggerFocusRescueFlag = 'platform_dst-popup-trigger-initial-focus-ref';
+
+	test('focus returns to trigger after closing with Escape key', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
+		>('design-system', 'popup', 'popup-should-render-to-parent', {
+			featureFlag: triggerFocusRescueFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const trigger = page.getByTestId('popup-trigger');
+		const content = page.getByTestId('popup');
+
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(content).toBeVisible();
+
+		await page.keyboard.press('Escape');
+		await expect(content).toBeHidden();
+
+		await expect(trigger).toBeFocused();
+	});
+
+	test('gate does not steal focus from a clicked-outside element that naturally receives focus', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
+		>('design-system', 'popup', 'popup-should-render-to-parent', {
+			featureFlag: triggerFocusRescueFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const trigger = page.getByTestId('popup-trigger');
+		const content = page.getByTestId('popup');
+		const outsideButton = page.getByTestId('button-0');
+
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(content).toBeVisible();
+
+		await outsideButton.click();
+		await expect(content).toBeHidden();
+
+		await expect(outsideButton).toBeFocused();
+		await expect(trigger).not.toBeFocused();
+	});
+
+	test('trigger focus is rescued on repeated open/close cycles', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
+		>('design-system', 'popup', 'popup-should-render-to-parent', {
+			featureFlag: triggerFocusRescueFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const trigger = page.getByTestId('popup-trigger');
+		const content = page.getByTestId('popup');
+
+		// First cycle
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(content).toBeVisible();
+		await page.keyboard.press('Escape');
+		await expect(content).toBeHidden();
+		await expect(trigger).toBeFocused();
+
+		// Second cycle
+		await trigger.press('Enter');
+		await expect(content).toBeVisible();
+		await page.keyboard.press('Escape');
+		await expect(content).toBeHidden();
+		await expect(trigger).toBeFocused();
+	});
+
+	test('shouldReturnFocus={false} is unaffected — trigger does not receive focus after close', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../examples/should-not-return-focus.tsx')>(
+			'design-system',
+			'popup',
+			'should-not-return-focus',
+			{
+				featureFlag: triggerFocusRescueFlag,
+				'react-18-mode': 'modern',
+			},
+		);
+
+		const trigger = page.getByText('Trigger');
+		const content = page.getByText('Content');
+
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(content).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(trigger).not.toBeFocused();
 	});
 });

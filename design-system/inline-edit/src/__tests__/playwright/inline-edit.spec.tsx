@@ -12,6 +12,7 @@ test.describe('Inline Edit Validation', () => {
 			'design-system',
 			'inline-edit',
 			'validation',
+			{ 'react-18-mode': 'modern' },
 		);
 	});
 	test('Displays error message', async ({ page }) => {
@@ -53,6 +54,7 @@ test.describe('Default Inline Edit', () => {
 			'design-system',
 			'inline-edit',
 			'basic-usage',
+			{ 'react-18-mode': 'modern' },
 		);
 	});
 	test('Should hide edit button after confirmation', async ({ page }) => {
@@ -118,6 +120,7 @@ test.describe('Inline Edit with Datepicker', () => {
 			'design-system',
 			'inline-edit',
 			'inline-edit-with-datepicker',
+			{ 'react-18-mode': 'modern' },
 		);
 		const edit = page.getByRole('button', { name: /Select date and time/ });
 		await edit.focus();

@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';

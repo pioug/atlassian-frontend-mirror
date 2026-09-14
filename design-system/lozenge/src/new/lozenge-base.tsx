@@ -4,14 +4,15 @@
  */
 import { forwardRef, memo, type Ref, useLayoutEffect, useRef, useState } from 'react';
 
-import Badge, { type BadgeNewProps } from '@atlaskit/badge/new';
+import Badge from '@atlaskit/badge/badge-new';
+import type { BadgeNewProps } from '@atlaskit/badge/types';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { useResizing } from '@atlaskit/motion/resizing';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { useResizing } from '@atlaskit/motion/use-resizing';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Pressable from '@atlaskit/primitives/pressable';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { getThemeStyles } from './get-theme-styles';
@@ -110,6 +111,11 @@ const styles = cssMap({
 		insetInlineStart: token('space.0'),
 		pointerEvents: 'none',
 		// Force Spinner to follow the lozenge icon color.
+	},
+	loadingOverlayMotion: {
+		animationName: token('motion.keyframe.fade.in'),
+		animationDuration: token('motion.duration.short'),
+		animationTimingFunction: token('motion.easing.out.practical'),
 	},
 	metricBadgeWrapper: {
 		display: 'flex',
@@ -364,6 +370,11 @@ const styles = cssMap({
 	loadingContent: {
 		opacity: 0,
 	},
+	loadingMotion: {
+		transitionProperty: 'opacity',
+		transitionDuration: token('motion.duration.short'),
+		transitionTimingFunction: token('motion.easing.out.practical'),
+	},
 	// In the pressed/selected state the lozenge background darkens, so override the
 	// badge background to `color.background.neutral` to keep it distinguishable.
 	// Applied via `:active` (mouse-down) and `data-selected` (dropdown open).
@@ -390,6 +401,15 @@ const styles = cssMap({
 			{
 				backgroundColor: `${token('color.background.neutral.hovered')} !important`,
 			},
+	},
+});
+
+const interactiveMotionStyles = cssMap({
+	motion: {
+		transition: token('motion.button.hovered'),
+		'&:active': {
+			transition: token('motion.button.pressed'),
+		},
 	},
 });
 
@@ -507,12 +527,15 @@ const LozengeBase: import('react').MemoExoticComponent<
 			}, [childrenKey]);
 
 			const enableMotionFG = fg('platform-dst-motion-uplift');
+			const enableButtonMotionFG = fg('platform-dst-motion-uplift-button');
 
 			const innerContent = (
 				<span
+					data-testid={testId ? `${testId}--content` : undefined}
 					css={[
 						styles.content,
 						spacing === 'spacious' && styles.contentSpacious,
+						isInteractive && enableButtonMotionFG && styles.loadingMotion,
 						isLoading && styles.loadingContent,
 						// Constrain the content wrapper to its container so text truncation
 						// works correctly within the flex layout, regardless of whether maxWidth
@@ -575,7 +598,9 @@ const LozengeBase: import('react').MemoExoticComponent<
 						ref={ref as Ref<HTMLButtonElement>}
 						xcss={cx(
 							styles.container,
-							fg('platform-dst-motion-uplift') && styles.motionContainer,
+							!isLoading && enableButtonMotionFG
+								? interactiveMotionStyles.motion
+								: enableMotionFG && styles.motionContainer,
 							spacing === 'spacious' && styles.containerSpacious,
 							!isSelected && styles.iconBorderFilter,
 							styles[colorStyleKey],
@@ -612,7 +637,10 @@ const LozengeBase: import('react').MemoExoticComponent<
 					>
 						{innerContent}
 						{isLoading && (
-							<span css={styles.loadingOverlay}>
+							<span
+								data-testid={testId ? `${testId}--loading-overlay` : undefined}
+								css={[styles.loadingOverlay, enableButtonMotionFG && styles.loadingOverlayMotion]}
+							>
 								<Spinner
 									size={spacing === 'spacious' ? 'small' : 'xsmall'}
 									label=", Loading"

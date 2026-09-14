@@ -6,6 +6,9 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: css display:contents (TTVC v4)', () => {
 	test.use({
 		examplePage: 'css-display-contents',
+	} satisfies {
+		examplePage: 'css-display-contents';
+		__exampleDependency?: typeof import('../../examples/32-css-display-contents.tsx');
 	});
 
 	for (const viewport of viewports) {

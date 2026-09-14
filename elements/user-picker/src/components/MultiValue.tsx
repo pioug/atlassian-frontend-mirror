@@ -2,42 +2,39 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, xcss } from '@atlaskit/primitives';
-import { components, type OptionType } from '@atlaskit/select';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { AvatarTag, default as Tag } from '@atlaskit/tag';
+import { FormattedMessage } from 'react-intl';
+
+import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar/avatar';
+import PeopleIcon from '@atlaskit/icon/core/people-group';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { components } from '@atlaskit/react-select/components';
+import type { OptionType } from '@atlaskit/select/types';
+import type { MultiValueProps } from '@atlaskit/select/types';
+import AvatarTag from '@atlaskit/tag/avatar-tag';
+import { default as Tag } from '@atlaskit/tag/removable-tag';
 import TeamAvatar, { type TeamAvatarProps } from '@atlaskit/teams-avatar/teams-avatar';
+import { token } from '@atlaskit/tokens';
+
+import type { Email } from '../types';
+import { type Option, type UserPickerProps } from '../types';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
-import { getAvatarUrl, isEmail, isGroup, isTeam } from './utils';
-import type { Email } from '../types';
-import { type Option, type UserPickerProps } from '../types';
-import Lozenge from '@atlaskit/lozenge';
-import PeopleIcon from '@atlaskit/icon/core/people-group';
-import { type MultiValueProps } from '@atlaskit/select';
-import { token } from '@atlaskit/tokens';
-import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { FormattedMessage } from 'react-intl';
+import { getAvatarUrl } from './getAvatarUrl';
 import { messages } from './i18n';
-
-export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement): void => {
-	const { top, height } = valueContainer.getBoundingClientRect();
-	const { height: controlHeight } = control.getBoundingClientRect();
-
-	if (top - height < 0) {
-		valueContainer.scrollIntoView();
-	}
-
-	if (top + height > controlHeight) {
-		valueContainer.scrollIntoView(false);
-	}
-};
+import { isEmail } from './isEmail';
+import { isGroup } from './isGroup';
+import { isTeam } from './isTeam';
+import { scrollToValue } from './scrollToValue';
 
 const groupTagContainerOld = xcss({
 	paddingLeft: 'space.025',
@@ -268,7 +265,7 @@ export class MultiValue extends React.Component<Props> {
 								isRemovable={!isDisabled}
 								onAfterRemoveAction={onAfterRemoveAction}
 								avatar={(props: AvatarPropTypes) => (
-									// AvatarTag always supplies size="xsmall", which is a valid
+									// AvatarTag always supplies size="xxsmall", which is a valid
 									// TeamAvatarSize; TeamAvatar does not support UNSAFE_xsmall.
 									<TeamAvatar {...(props as TeamAvatarProps)} {...avatarProps} />
 								)}

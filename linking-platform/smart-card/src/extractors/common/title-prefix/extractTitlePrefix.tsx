@@ -1,9 +1,8 @@
-import type React from 'react';
+import React from 'react';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type CardProviderRenderers } from '@atlaskit/link-provider';
-
-import { type CardAppearance } from '../../../view/Card';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
+import type { CardAppearance } from '@atlaskit/linking-common/types';
 
 const sanitizeEmojiValue = (value: string | undefined) =>
 	(value && value.replace(/['"]+/g, '').replace(/null/, '')) || '';

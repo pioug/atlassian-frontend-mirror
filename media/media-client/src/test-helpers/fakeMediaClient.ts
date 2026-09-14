@@ -1,28 +1,20 @@
-import { type MediaApiConfig, type MediaClientConfig } from '@atlaskit/media-core';
-import { MediaClient } from '../';
-
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { asMock } from '@atlaskit/media-common/test-helpers';
+import type { MediaApiConfig, MediaClientConfig } from '@atlaskit/media-core/auth';
 
-export const getDefaultMediaClientConfig = (): MediaClientConfig => ({
-	authProvider: jest.fn().mockReturnValue(
-		Promise.resolve({
-			clientId: 'some-client-id',
-			token: 'some-token',
-			baseUrl: 'some-service-host',
-		}),
-	),
-});
+import { MediaClient } from '../';
+import { getDefaultMediaClientConfig } from './getDefaultMediaClientConfig';
 
 export const fakeMediaClient = (
 	config: MediaClientConfig = getDefaultMediaClientConfig(),
 ): MediaClient => {
-	if (jest && jest.genMockFromModule) {
+	if (jest && jest.createMockFromModule) {
 		const {
 			MediaClient: MockMediaClient,
 			FileFetcherImpl,
 			MediaStore: MockMediaStore,
 			StargateClient,
-		} = jest.genMockFromModule<any>('@atlaskit/media-client');
+		} = jest.createMockFromModule<any>('@atlaskit/media-client');
 		const mediaClient = new MockMediaClient();
 
 		const fileFetcher = new FileFetcherImpl();
@@ -67,3 +59,8 @@ export const fakeMediaClient = (
 		return new MediaClient(config);
 	}
 };
+
+/**
+ * @deprecated Use `import { getDefaultMediaClientConfig } from '@atlaskit/media-client/test-helpers'` instead.
+ */
+export { getDefaultMediaClientConfig } from './getDefaultMediaClientConfig';

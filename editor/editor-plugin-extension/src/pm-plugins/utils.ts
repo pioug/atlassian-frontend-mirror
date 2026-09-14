@@ -7,7 +7,8 @@ import {
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { closestElement, findNodePosByLocalIds } from '@atlaskit/editor-common/utils';
-import { JSONTransformer, type JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';

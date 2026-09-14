@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import PlanIcon from '@atlaskit/icon-lab/core/plan';
 import AddIcon from '@atlaskit/icon/core/add';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';

@@ -4,12 +4,13 @@
  */
 import { cssMap } from '@compiled/react';
 
-import { Code } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
 import { jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import ImageIcon from '@atlaskit/icon/core/image';
-import Lozenge from '@atlaskit/lozenge/new';
-import type { AccentColor, SemanticColor } from '@atlaskit/lozenge/new';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
+// oxlint-disable-next-line no-duplicate-imports
+import type { AccentColor, SemanticColor } from '@atlaskit/lozenge/types';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

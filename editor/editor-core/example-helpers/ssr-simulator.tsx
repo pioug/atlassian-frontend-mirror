@@ -19,8 +19,8 @@ import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import Heading from '@atlaskit/heading';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import Heading from '@atlaskit/heading/heading';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Flex, Stack } from '@atlaskit/primitives/compiled';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';

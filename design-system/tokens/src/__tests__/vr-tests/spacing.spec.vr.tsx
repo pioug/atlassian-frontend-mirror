@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import SpacingVr from '../../../examples/4-spacing-vr';
+import SpacingVr from '../../../examples/4-spacing-vr.vr.ap';
 
 snapshot(SpacingVr, {
 	variants: [

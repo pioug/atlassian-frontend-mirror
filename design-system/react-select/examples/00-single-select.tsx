@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import Select from '@atlaskit/react-select';
+import { Label } from '@atlaskit/form/label/default';
+import Select from '@atlaskit/react-select/state-manager';
 
 const SingleExample = (): React.JSX.Element => (
 	<>

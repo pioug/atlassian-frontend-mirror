@@ -1,4 +1,4 @@
-import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import React from 'react';
 import type { ExternalUser } from '../../types';
 

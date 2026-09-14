@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import { IconButton } from '@atlaskit/button/new';
+import Avatar from '@atlaskit/avatar/avatar';
+import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
 
+import { LoomSpaceAvatar } from '../loom-avatar/main';
 import { type ContainerTypes } from '../../types';
-import { LoomSpaceAvatar } from '../loom-avatar';
 
 const styles = cssMap({
 	linkIconWrapperSmall: {

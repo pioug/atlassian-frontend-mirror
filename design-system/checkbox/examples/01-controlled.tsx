@@ -4,7 +4,7 @@
  */
 import { type ChangeEvent, type MouseEvent, useCallback, useState } from 'react';
 
-import { Checkbox } from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 

@@ -6,10 +6,10 @@ import { useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { type Placement, placements } from '@atlaskit/popper';
-import Popup from '@atlaskit/popup';
+import { type Placement, placements } from '@atlaskit/popper/main';
+import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

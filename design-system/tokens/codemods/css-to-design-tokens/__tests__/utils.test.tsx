@@ -1,5 +1,5 @@
-import { isRawColor } from '../lib/colors';
-import { splitCssValue } from '../lib/declaration';
+import { isRawColor } from '../lib/is-raw-color';
+import { splitCssValue } from '../lib/split-css-value';
 
 describe('Utils', () => {
 	describe('splitCssValue', () => {

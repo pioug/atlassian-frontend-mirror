@@ -1,22 +1,21 @@
 import React, { type PropsWithChildren, useEffect } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
 
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { extractInlineProps } from '../../extractors/inline';
-import { getExtensionKey } from '../../state/helpers';
-import { getForbiddenJsonLd } from '../../utils/jsonld';
+import { getExtensionKey } from '../../state/getExtensionKey';
+import { getForbiddenJsonLd } from '../../utils/get-forbidden-json-ld';
 import { CardLinkView } from '../LinkView';
-
 import { InlineCardErroredView } from './ErroredView';
 import { InlineCardForbiddenView } from './ForbiddenView';
 import { InlineCardResolvedView } from './ResolvedView';
 import { InlineCardResolvingView } from './ResolvingView';
-import { type InlineCardProps } from './types';
 import { InlineCardUnauthorizedView } from './UnauthorisedView';
+import { type InlineCardProps } from './types';
 
 export {
 	InlineCardResolvedView,

@@ -1,5 +1,619 @@
 # @atlaskit/adf-schema
 
+## 57.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.4.0
+
+### Minor Changes
+
+- [`3bae5cd6dc118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bae5cd6dc118) -
+  EDITOR-8815: On stage-0 ADF, `status.attrs.color` is no longer a closed enum of six names. It is a
+  string that must match `neutral | purple | blue | red | yellow | green | #[0-9a-fA-F]{6}`.
+  Existing named colors stay valid. Full-schema status color is unchanged and still validates those
+  six names only. The public `StatusDefinition` type now types `color` as `string`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.3.0
+
+### Minor Changes
+
+- [`a282017db3b85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a282017db3b85) -
+  [EDITOR-8339] introduce new bodiedRule node and new rule node variants to support styling
+  attributes and content
+
+## 57.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.2.0
+
+### Minor Changes
+
+- [`6f957d4e7bcb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f957d4e7bcb8) -
+  Make layout column resizing generally available
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.1.1
+
+### Patch Changes
+
+- [`f53997ccf546a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f53997ccf546a) -
+  [ux] Fix a bug where the Editor parses invalid URLs (e.g. "File: C:\ProgramData") as link marks in
+  ADF. The feature gate is platform_bugfix_invalid_urls_parsing_in_editor.
+
+## 57.1.0
+
+### Minor Changes
+
+- [`da5b7301ff330`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da5b7301ff330) -
+  Adds the following direct import entry points for ADF schema nodes, marks, shared schema types,
+  and utilities:
+  - `@atlaskit/adf-schema/full`
+  - `@atlaskit/adf-schema/nodes/layout-column`
+  - `@atlaskit/adf-schema/stage-0`
+  - `@atlaskit/adf-schema/valign`
+  - `@atlaskit/adf-schema/src/schema/nodes/index`
+  - `@atlaskit/adf-schema/src/schema/marks/index`
+  - `@atlaskit/adf-schema/ac-name-to-emoji`
+  - `@atlaskit/adf-schema/ac-name-to-emoji-map`
+  - `@atlaskit/adf-schema/ac-shortcut-to-emoji`
+  - `@atlaskit/adf-schema/camel-case-to-kebab-case`
+  - `@atlaskit/adf-schema/clamp-lightness`
+  - `@atlaskit/adf-schema/copy-private-attributes`
+  - `@atlaskit/adf-schema/create-panel-node-spec-options`
+  - `@atlaskit/adf-schema/create-pm-mark-spec-factory`
+  - `@atlaskit/adf-schema/create-pm-node-spec-factory`
+  - `@atlaskit/adf-schema/emoji-id-to-ac-name`
+  - `@atlaskit/adf-schema/expand-shorthand-hex`
+  - `@atlaskit/adf-schema/extended-panel`
+  - `@atlaskit/adf-schema/extended-panel-c1`
+  - `@atlaskit/adf-schema/extended-panel-c1-root-only-stage0`
+  - `@atlaskit/adf-schema/extended-panel-c1-with-local-id`
+  - `@atlaskit/adf-schema/extended-panel-root-only-stage0`
+  - `@atlaskit/adf-schema/extended-panel-with-local-id`
+  - `@atlaskit/adf-schema/get-dark-mode-lch-color`
+  - `@atlaskit/adf-schema/get-dom-attrs`
+  - `@atlaskit/adf-schema/get-emoji-ac-name`
+  - `@atlaskit/adf-schema/get-link-match`
+  - `@atlaskit/adf-schema/get-nodes-and-marks-map`
+  - `@atlaskit/adf-schema/get-parse-dom-attrs`
+  - `@atlaskit/adf-schema/hex-to-rgb`
+  - `@atlaskit/adf-schema/hex-to-rgba`
+  - `@atlaskit/adf-schema/is-hex`
+  - `@atlaskit/adf-schema/is-rgb`
+  - `@atlaskit/adf-schema/is-root-relative`
+  - `@atlaskit/adf-schema/is-safe-url`
+  - `@atlaskit/adf-schema/is-schema-with-advanced-text-formatting-marks`
+  - `@atlaskit/adf-schema/is-schema-with-block-quotes`
+  - `@atlaskit/adf-schema/is-schema-with-code-block`
+  - `@atlaskit/adf-schema/is-schema-with-emojis`
+  - `@atlaskit/adf-schema/is-schema-with-links`
+  - `@atlaskit/adf-schema/is-schema-with-lists`
+  - `@atlaskit/adf-schema/is-schema-with-media`
+  - `@atlaskit/adf-schema/is-schema-with-mentions`
+  - `@atlaskit/adf-schema/is-schema-with-sub-sup-mark`
+  - `@atlaskit/adf-schema/is-schema-with-tables`
+  - `@atlaskit/adf-schema/is-schema-with-text-color`
+  - `@atlaskit/adf-schema/lab`
+  - `@atlaskit/adf-schema/lab-to-lch`
+  - `@atlaskit/adf-schema/linkify-match`
+  - `@atlaskit/adf-schema/media-single-spec`
+  - `@atlaskit/adf-schema/normalize-hex-color`
+  - `@atlaskit/adf-schema/normalize-url`
+  - `@atlaskit/adf-schema/rgb-from-hex`
+  - `@atlaskit/adf-schema/rgb-to-hex`
+  - `@atlaskit/adf-schema/rgb-to-lch`
+  - `@atlaskit/adf-schema/rgb-to-xyz`
+  - `@atlaskit/adf-schema/to-json`
+  - `@atlaskit/adf-schema/to-json-2`
+  - `@atlaskit/adf-schema/xyz`
+  - `@atlaskit/adf-schema/xyz-to-lab`
+
+## 57.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.15
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 57.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.5
+
+### Patch Changes
+
+- [`249ac5d9191e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/249ac5d9191e0) -
+  Behind `platform_editor_adf_validator_empty_marks`, accept an explicitly empty `marks` array on a
+  node that ADF gives a `marks` property no mark type may go into.
+
+  ADF spells that property `marks: { type: 'array', maxItems: 0 }`, and the JSON schema accordingly
+  accepts `"marks": []` on `paragraph`, `heading`, `extension`, `codeBlock` and `expand`. The
+  spec-based validator rejected it: mark validation has nothing to reject in an empty array, so it
+  reported the node valid with an empty `marksValidationOutput`, which reads to the parent's
+  `validateChildMarks` as every mark on the child having been rejected, and the candidate spec was
+  declined. Without an error callback that surfaced as a thrown `undefined`; with one the document
+  was silently repaired and no error was reported. The five reference documents that carry
+  `marks: []` (`paragraph-with-empty-marks`, `heading-with-empty-marks`,
+  `extension-with-empty-marks`, `nestedExpand-with-codeBlock`, `panel-with-codeBlock`) were on an
+  ignore list in `src/validator/__tests__/unit/validate.ts` because of it, and are now validated.
+
+  A node with no `marks` property at all keeps rejecting an empty array as `REDUNDANT_MARKS`,
+  because `marks` is then a property ADF does not define on it: `rule`, `panel`, `mediaGroup`,
+  `hardBreak`, `doc`, `blockquote` and the list nodes all stay invalid, as do `mention` and `emoji`,
+  which declare a mark rather than an empty list. The declaration is read off the node's base spec,
+  since a variant only widens the mark types — `doc` offers a root `extension` as
+  `extension_with_marks`, which adds `dataConsumer` and `fragment`, and that cannot make the empty
+  list illegal.
+
+  `codeBlock` and `expand` declare `noMarks` without listing any marks, and `adfToValidatorSpec`
+  compared mark lists alone, so the flag was dropped and their validator specs read as taking no
+  `marks` property — the same thing `rule` means, which is why an empty array on them was reported
+  as redundant. The generator now honours `noMarks` on its own, so both emit
+  `marks: { type: 'array', items: [], maxItems: 0, optional: true }`, matching their JSON schema.
+  That part is generated data and is not gated: a real mark on a `codeBlock` or an `expand` is still
+  rejected, now as an unsupported mark type rather than as a redundant `marks` property, so the
+  error code reported for an already-invalid document changes.
+
+  Gate off preserves today's acceptance behaviour. Covered by
+  `src/validator/__tests__/unit/empty-marks.ts`.
+
+- Updated dependencies
+
+## 57.0.4
+
+### Patch Changes
+
+- [`da678c24b2eb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da678c24b2eb7) -
+  `adfToValidatorSpec` now emits `meta: { stage0: true }` on the validator spec of any node that
+  exists only in stage 0 (`ADFNode.isStage0Only()`), and the generated validator spec is regenerated
+  so 10 specs carry the flag: `bodiedExtension_root_only`, `extension_root_only`, `extensionFrame`,
+  `layoutSection_with_single_column`, `multiBodiedExtension`, `multiBodiedExtension_root_only`,
+  `panel_c1`, `panel_c1_root_only`, `panel_root_only` and `rule_root_only`.
+
+  The predicate is `isStage0Only()` rather than `hasStage0()` because consumers read the flag as
+  "this whole spec is stage-0 only". `hasStage0()` is also true for a stable node carrying a partial
+  stage-0 override, so it flagged `date`, `emoji`, `inlineCard`, `mention` and `status`, whose only
+  stage-0 delta is an optional `annotation` mark. A per-spec boolean cannot say "the node is fine,
+  one of its marks is not", so flagging those said something false about stable nodes.
+
+  `meta` is additive metadata that sits beside `props`, so the validated shape of every spec is
+  unchanged and consumers that ignore the field see no difference. Emission is not gated. The only
+  consumer that reads the flag is `@atlaskit/adf-utils`, behind
+  `platform_editor_adf_validator_stage0`.
+
+- Updated dependencies
+
+## 57.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.2
+
+### Patch Changes
+
+- [`158de476cd932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/158de476cd932) -
+  Table-in-panel: order the `panel_c1` variant ahead of the base `panel` in `doc`, `layoutColumn`
+  and `bodiedSyncBlock` content. The validator's repairing loop returns the first candidate that
+  reports valid, so with a repairing callback the less permissive base `panel` "succeeded" by
+  wrapping a nested `table` as `unsupportedBlock` and `panel_c1` was never reached. Ordering the
+  variant first replaces a candidate-probing workaround in the validator.
+
+  `panel_c1` is placed after `blockGroup` rather than first so that `block` remains the leading
+  alternative in the ProseMirror content expression, leaving `defaultType` and fill behaviour
+  unchanged; the ProseMirror content expressions for these three nodes do change order
+  mid-expression.
+
+  Also adds two stage-0 reference fixtures covering table-in-panel inside a synced block and
+  alongside mixed panel content.
+
+  Gated by `platform_editor_table_in_panel_patch_1`.
+
+## 57.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.0.0
+
+### Major Changes
+
+- [`710e3d9ec4c65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/710e3d9ec4c65) -
+  Allow a table nested inside a panel, but only at the document root, inside a synced block, or
+  inside a layout column (the `panel_c1` variant).
+
+  `panel_c1` is now marked `stage0` and emitted as a standalone JSON Schema definition (via
+  `noExtend`), so table-in-panel validates in the stage-0 schema at those positions only — a plain
+  `panel` elsewhere still rejects a table.
+
+  The runtime `@atlaskit/adf-utils` validator can now accept table-in-panel via the `panel_c1` spec
+  directly, gated behind the `platform_editor_table_in_panel_patch_1` feature gate. Three validator
+  fixes make this work (all gated — when the gate is off, the validator behaves exactly as before):
+  1. A variant tuple's overridden content-item names are resolved to their base specs the same way
+     base-spec content is (e.g. `paragraph_with_no_marks` → `paragraph`). Previously they stayed
+     raw, so `panel_c1` matched only plainly-named children (`table`) and rejected variant-named
+     ones (a normal `paragraph`).
+  2. `createSpec` retains a variant whose overridden content is a nested `$or` list (e.g.
+     `panel_c1`) when the validator is built from an explicit node list (as `validateADFEntity`
+     does).
+  3. When a stored node matches several candidate specs, the multi-branch matcher prefers a branch
+     that validates cleanly over one that only "succeeds" by wrapping otherwise-valid content as
+     `unsupportedBlock` — so `panel_c1` is chosen instead of the base `panel` repairing the table
+     away.
+
+  The `allowTableInPanel` override in `@atlaskit/editor-common` is retained but gated by the same
+  feature gate: when `platform_editor_table_in_panel_patch_1` is on the override is skipped (the
+  validator fixes handle table-in-panel); when it is off the override runs as before. So the single
+  gate flips between the new validator behaviour (on) and the previous override behaviour (off).
+
+  Also adds `panel-with-nested-table` validation fixtures.
+
+  **BREAKING (`@atlaskit/adf-schema`):** marking `panel_c1` as `stage0` (correcting an earlier
+  omission) renames its generated `schema-next` exports: `panelC1` → `panelC1Stage0`, `PanelC1Node`
+  → `PanelC1Stage0Node`, `PanelC1Definition` → `PanelC1Stage0Definition`.
+
+  Migration — update imports from `@atlaskit/adf-schema/schema-next`:
+
+  ```ts
+  // Before
+  import {
+  	panelC1,
+  	type PanelC1Node,
+  	type PanelC1Definition,
+  } from '@atlaskit/adf-schema/schema-next';
+
+  // After
+  import {
+  	panelC1Stage0,
+  	type PanelC1Stage0Node,
+  	type PanelC1Stage0Definition,
+  } from '@atlaskit/adf-schema/schema-next';
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.7.2
+
+### Patch Changes
+
+- [`21f16025e3e5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21f16025e3e5c) -
+  Internal refactor of the next-schema DSL: `panel_c1` and `panel_c1_root_only` now list `table`
+  directly in their content specs (single source of truth), referenced via a new import-cycle-free
+  `tableStub` leaf module instead of the removed `ADFNode#addContent` runtime wiring. The generated
+  ProseMirror, JSON, and validator schema output is unchanged.
+- Updated dependencies
+
+## 56.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.7.0
+
+### Minor Changes
+
+- [`bafd7711a515b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bafd7711a515b) -
+  Upgrade linkify-it to 5.0.2 and markdown-it to 14.1.1 to resolve a quadratic-complexity
+  denial-of-service vulnerability in link parsing.
+
+## 56.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.6.0
+
+### Minor Changes
+
+- [`b0682afb9fdf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0682afb9fdf1) -
+  Add lime, orange and magenta colours to the table cell background colour palette.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.5.0
+
+### Minor Changes
+
+- [`bdea706d6a55a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdea706d6a55a) -
+  [EDITOR-8271] Add Stage-0 breakout mark support for root-level extension, bodiedExtension, and
+  multiBodiedExtension nodes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.4.0
+
+### Minor Changes
+
+- [`7cecf41634d18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cecf41634d18) -
+  Revert the lime, orange, and magenta table cell background color options.
+
 ## 56.3.0
 
 ### Minor Changes

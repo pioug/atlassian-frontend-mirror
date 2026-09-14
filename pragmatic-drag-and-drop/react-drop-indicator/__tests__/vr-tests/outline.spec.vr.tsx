@@ -5,7 +5,7 @@ import {
 	Inset,
 	StrokeColorDefault,
 	StrokeColorWarning,
-} from '../../examples/outline';
+} from '../../examples/outline.vr.ap';
 
 const options: Parameters<typeof snapshot>[1] = {
 	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],

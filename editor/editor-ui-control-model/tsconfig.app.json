@@ -38,6 +38,10 @@
 		"outDir": "../../../tsDist/@atlaskit__editor-ui-control-model/app",
 		"isolatedDeclarations": true
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

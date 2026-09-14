@@ -11,12 +11,13 @@ import React, { useContext, useState } from 'react';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext } from '../types';
 import type { Serializer } from '../../serializer';
-import type { ExtensionLayout } from '@atlaskit/adf-schema';
+import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { RendererCssClassName } from '../../consts';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useMultiBodiedExtensionActions } from './multiBodiedExtension/actions';
 import { useMultiBodiedExtensionContext } from './multiBodiedExtension/context';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -25,12 +26,12 @@ import type { RendererAppearance } from '../../ui/Renderer/types';
 import AnalyticsContext from '../../analytics/analyticsContext';
 
 type Props = React.PropsWithChildren<{
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	content?: any;
 	extensionHandlers?: ExtensionHandlers;
 	extensionKey: string;
 	extensionType: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	getContent?: () => any;
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
@@ -62,8 +63,46 @@ const containerStyles = css({
 	},
 });
 
-const MultiBodiedExtensionChildrenContainer = ({ children }: React.PropsWithChildren) => {
-	return <article data-testid="multiBodiedExtension--frames">{children}</article>;
+const getFramesActiveFrameStyles = (activeChildIndex: number) => {
+	if (!fg('platform_editor_nested_mbe_frames')) {
+		return undefined;
+	}
+
+	// Apply the active-frame rule on the frames article itself so nested MBEs
+	// only target their own direct frames.
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+	return css`
+		& > [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
+			display: block;
+		}
+	`;
+};
+
+const getContainerActiveFrameStyles = (activeChildIndex: number) => {
+	if (fg('platform_editor_nested_mbe_frames')) {
+		return undefined;
+	}
+
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+	return css`
+		& [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
+			display: block;
+		}
+	`;
+};
+
+const MultiBodiedExtensionChildrenContainer = ({
+	activeChildIndex,
+	children,
+}: React.PropsWithChildren<{ activeChildIndex: number }>) => {
+	return (
+		<article
+			css={getFramesActiveFrameStyles(activeChildIndex)}
+			data-testid="multiBodiedExtension--frames"
+		>
+			{children}
+		</article>
+	);
 };
 
 const MultiBodiedExtensionNavigation = ({ children }: React.PropsWithChildren) => {
@@ -189,7 +228,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 		extensionType,
 		extensionKey,
 		extensionHandlers,
-		content,
+		getContent,
 		marks,
 		localId,
 		rendererAppearance,
@@ -201,12 +240,13 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 		extensionType,
 		extensionKey,
 	});
-
 	const actions = useMultiBodiedExtensionActions({
 		updateActiveChild: setActiveChildIndex,
 		children,
 		childrenContainer: (
-			<MultiBodiedExtensionChildrenContainer>{children}</MultiBodiedExtensionChildrenContainer>
+			<MultiBodiedExtensionChildrenContainer activeChildIndex={activeChildIndex}>
+				{children}
+			</MultiBodiedExtensionChildrenContainer>
 		),
 		allowBodiedOverride: extensionContext?.privateProps?.__allowBodiedOverride,
 		extensionKey,
@@ -228,7 +268,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 			extensionKey,
 			extensionType,
 			parameters,
-			content,
+			content: getContent?.(),
 			localId,
 			fragmentLocalId,
 		};
@@ -241,37 +281,32 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 					<MultiBodiedExtensionNavigation>
 						<NodeRenderer node={node} actions={actions} />
 					</MultiBodiedExtensionNavigation>
-					<MultiBodiedExtensionChildrenContainer>{children}</MultiBodiedExtensionChildrenContainer>
+					<MultiBodiedExtensionChildrenContainer activeChildIndex={activeChildIndex}>
+						{children}
+					</MultiBodiedExtensionChildrenContainer>
 				</React.Fragment>
 			);
 		}
 	}, [
+		activeChildIndex,
 		loading,
 		extensionContext,
 		marks,
 		extensionKey,
 		extensionType,
 		parameters,
-		content,
+		getContent,
 		localId,
 		actions,
 		children,
 	]);
 
 	// make the frame visible
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
-	const containerActiveFrameStyles = css`
-		& [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
-			display: block;
-		}
-	`;
+	const containerActiveFrameStyles = getContainerActiveFrameStyles(activeChildIndex);
 
 	if (expValEquals('platform_editor_renderer_extension_width_fix', 'isEnabled', true)) {
 		const isTopLevel = path.length < 1;
-		const useCenterWrapper =
-			isTopLevel &&
-			['wide', 'full-width'].includes(layout) &&
-			expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+		const useCenterWrapper = isTopLevel && ['wide', 'full-width'].includes(layout);
 		const wrapper = (
 			<MultiBodiedExtensionWrapperNext
 				layout={layout}
@@ -310,10 +345,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 	}
 
 	const isTopLevel = path.length < 1;
-	const useCenterWrapper =
-		isTopLevel &&
-		['wide', 'full-width'].includes(layout) &&
-		expValEquals('platform_editor_flex_based_centering', 'isEnabled', true);
+	const useCenterWrapper = isTopLevel && ['wide', 'full-width'].includes(layout);
 
 	return (
 		<section

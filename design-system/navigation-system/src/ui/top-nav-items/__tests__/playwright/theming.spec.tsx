@@ -12,11 +12,9 @@ test.describe('theming', () => {
 		 */
 		skipAxeCheck();
 
-		await page.visitExample<typeof import('../../../../../examples/top-navigation-theming.tsx')>(
-			'design-system',
-			'navigation-system',
-			'top-navigation-theming',
-		);
+		await page.visitExample<
+			typeof import('../../../../../examples/top-navigation-theming.vr.ap.tsx')
+		>('design-system', 'navigation-system', 'top-navigation-theming');
 
 		const result = await new AxeBuilder({ page }).withRules('color-contrast').analyze();
 

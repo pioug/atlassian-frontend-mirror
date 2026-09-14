@@ -13,7 +13,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { layoutBreakpointWidth } from '@atlaskit/editor-shared-styles';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

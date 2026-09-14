@@ -4,7 +4,7 @@ import { keyframes } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import Motion from '@atlaskit/motion/motion';
+import Motion from '@atlaskit/motion/entering/motion';
 import { token } from '@atlaskit/tokens';
 
 const slideIn = keyframes({

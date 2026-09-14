@@ -1,6 +1,6 @@
-import { uuid } from '../../../../utils';
 import { createSchema } from '../../../../schema/create-schema';
 import type { TableAttributes, CellAttributes } from '../../../../schema/nodes/tableNodes';
+import { uuid } from '../../../../utils/uuid';
 import {
 	table,
 	tableCell,
@@ -173,7 +173,7 @@ describe(`${packageName}/schema table node`, () => {
 						},
 					},
 					content:
-						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
+						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
 					isolating: true,
 					marks:
 						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
@@ -220,7 +220,7 @@ describe(`${packageName}/schema table node`, () => {
 						},
 					},
 					content:
-						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
+						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
 					isolating: true,
 					marks:
 						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
@@ -321,7 +321,7 @@ describe(`${packageName}/schema table node`, () => {
 						},
 					},
 					content:
-						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
+						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
 					isolating: true,
 					marks:
 						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
@@ -368,7 +368,7 @@ describe(`${packageName}/schema table node`, () => {
 						},
 					},
 					content:
-						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
+						'(paragraph | panel | blockquote | orderedList | bulletList | rule | bodiedRule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
 					isolating: true,
 					marks:
 						'alignment fontSize dataConsumer fragment unsupportedMark unsupportedNodeAttribute',

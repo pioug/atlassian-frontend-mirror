@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports -- exports share Compiled style value(s) [styles] which cannot be exported across files (UI Styling Standard: no-exported-css) */
 /* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation */
 import React, { type ReactNode, useRef } from 'react';
 
@@ -6,7 +7,7 @@ import { cssMap as cssMapCompiled, keyframes as keyframescompiled } from '@compi
 import { cssMap, cx } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const kudosButtonAnimationTransformationCompiled = keyframescompiled({
 	'0%': {

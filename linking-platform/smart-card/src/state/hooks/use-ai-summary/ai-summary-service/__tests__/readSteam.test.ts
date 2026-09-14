@@ -1,7 +1,7 @@
+import { getBufferReader } from '../getBufferReader';
 import { readStream } from '../readStream';
-import { getBufferReader } from '../utils';
 
-jest.mock('../utils', () => ({
+jest.mock('../getBufferReader', () => ({
 	getBufferReader: jest.fn(),
 }));
 const getBufferReaderMock = getBufferReader as jest.MockedFunction<typeof getBufferReader>;

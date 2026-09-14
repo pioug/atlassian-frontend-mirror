@@ -1,22 +1,23 @@
 jest.mock('../../imageMetaData/metatags');
-jest.mock('../../imageMetaData/imageOrientationUtil');
+jest.mock('../../imageMetaData/isRotated');
 
 import { asMock } from '@atlaskit/media-common/test-helpers';
-import * as util from '../../util';
+import * as loadImageModule from '../../loadImage';
+import * as readImageNaturalOrientationFromDOMModule from '../../readImageNaturalOrientationFromDOM';
 
+import { getImageInfo } from '../../imageMetaData/getImageInfo';
+import { getMetaTagNumericValue } from '../../imageMetaData/getMetaTagNumericValue';
+import { getOrientation } from '../../imageMetaData/getOrientation';
+import { getScaleFactorFromFile } from '../../imageMetaData/getScaleFactorFromFile';
+import { isRotated } from '../../imageMetaData/isRotated';
+import { readImageMetaTags } from '../../imageMetaData/metatags';
+import { readImageMetaData } from '../../imageMetaData/readImageMetaData';
 import {
-	getImageInfo,
-	getOrientation,
-	getMetaTagNumericValue,
-	getScaleFactorFromFile,
-	readImageMetaData,
+	ExifOrientation,
 	type ImageMetaData,
 	type ImageMetaDataTags,
 	type ImageInfo,
-} from '../../imageMetaData';
-import { isRotated } from '../../imageMetaData/imageOrientationUtil';
-import { readImageMetaTags } from '../../imageMetaData/metatags';
-import { ExifOrientation } from '../../imageMetaData/types';
+} from '../../imageMetaData/types';
 
 describe('Image Meta Data', () => {
 	let loadImage: jest.Mock<any>;
@@ -28,14 +29,16 @@ describe('Image Meta Data', () => {
 	beforeEach(() => {
 		// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
 		//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-		loadImage = jest.spyOn(util, 'loadImage').mockReturnValue({
+		loadImage = jest.spyOn(loadImageModule, 'loadImage').mockReturnValue({
 			naturalWidth: 1,
 			naturalHeight: 2,
 		} as unknown as Promise<HTMLImageElement>);
-		jest.spyOn(util, 'readImageNaturalOrientationFromDOM').mockReturnValue({
-			width: 1,
-			height: 2,
-		});
+		jest
+			.spyOn(readImageNaturalOrientationFromDOMModule, 'readImageNaturalOrientationFromDOM')
+			.mockReturnValue({
+				width: 1,
+				height: 2,
+			});
 		asMock(readImageMetaTags).mockReturnValue({ Orientation: 'top-right' });
 	});
 
@@ -73,7 +76,7 @@ describe('Image Meta Data', () => {
 
 		it('should return orientation from metatags using strings', async () => {
 			const orientation = await getOrientation(file);
-			expect(readImageMetaTags).toBeCalled();
+			expect(readImageMetaTags).toHaveBeenCalled();
 			expect(orientation).toBe(ExifOrientation['top-right']);
 		});
 
@@ -86,7 +89,7 @@ describe('Image Meta Data', () => {
 		it('should return 1="top-left" (default) when cannot read orientation from metatags', async () => {
 			asMock(readImageMetaTags).mockReturnValue({});
 			const orientation = await getOrientation(file);
-			expect(readImageMetaTags).toBeCalled();
+			expect(readImageMetaTags).toHaveBeenCalled();
 			expect(orientation).toBe(ExifOrientation['top-left']);
 		});
 	});
@@ -142,10 +145,12 @@ describe('Image Meta Data', () => {
 		});
 
 		it('should flip width and height when image is on its side', async () => {
-			jest.spyOn(util, 'readImageNaturalOrientationFromDOM').mockReturnValue({
-				width: 100,
-				height: 75,
-			});
+			jest
+				.spyOn(readImageNaturalOrientationFromDOMModule, 'readImageNaturalOrientationFromDOM')
+				.mockReturnValue({
+					width: 100,
+					height: 75,
+				});
 			loadImage.mockReturnValue({
 				naturalWidth: 100,
 				naturalHeight: 75,

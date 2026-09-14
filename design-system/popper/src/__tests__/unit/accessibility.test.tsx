@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render } from '@atlassian/testing-library';
 
 import { axe } from '@af/accessibility-testing';
 
-import { Manager, Popper, Reference } from '../../index';
+import { Manager } from '../../manager';
+import { Popper } from '../../popper';
+import { Reference } from '../../reference';
 
 it('Popper should pass axe audit', async () => {
 	const { container } = render(

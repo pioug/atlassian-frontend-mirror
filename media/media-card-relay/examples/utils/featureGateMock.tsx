@@ -11,7 +11,7 @@
 
 import React, { useEffect, useRef, type ReactNode } from 'react';
 
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 
 // PFF_GLOBAL_KEY is the window key used by @atlaskit/platform-feature-flags internals.
 // We inline the string here to avoid importing from an unexported subpath.
@@ -107,7 +107,9 @@ export function withGateOn<P extends object>(
 			<Component {...props} />
 		</FeatureGateMock>
 	);
-	WrappedComponent.displayName = `withGateOn(${Component.displayName || Component.name || 'Component'})`;
+	WrappedComponent.displayName = `withGateOn(${
+		Component.displayName || Component.name || 'Component'
+	})`;
 	return WrappedComponent;
 }
 
@@ -129,6 +131,8 @@ export function withGateOff<P extends object>(
 			<Component {...props} />
 		</FeatureGateMock>
 	);
-	WrappedComponent.displayName = `withGateOff(${Component.displayName || Component.name || 'Component'})`;
+	WrappedComponent.displayName = `withGateOff(${
+		Component.displayName || Component.name || 'Component'
+	})`;
 	return WrappedComponent;
 }

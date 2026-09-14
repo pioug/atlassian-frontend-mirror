@@ -1,4 +1,5 @@
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+// oxlint-disable-next-line import/no-duplicates
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD, RESOLVE_METHOD, type VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';

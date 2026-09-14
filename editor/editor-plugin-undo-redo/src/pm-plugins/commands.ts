@@ -1,6 +1,7 @@
 import { ACTION, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import { redo, undo } from '@atlaskit/prosemirror-history';
+import { redo } from '@atlaskit/prosemirror-history/redo';
+import { undo } from '@atlaskit/prosemirror-history/undo';
 
 import { attachInputMeta, attachInputMetaWithAnalytics } from './attach-input-meta';
 import { InputSource } from './enums';

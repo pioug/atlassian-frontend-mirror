@@ -1,14 +1,15 @@
 import fetchMock from 'fetch-mock';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { default as TeamCentralCardClient } from '../TeamCentralCardClient';
+import { buildReportingLinesQuery } from '../buildReportingLinesQuery';
+import { directoryGraphqlQuery } from '../directoryGraphqlQuery';
 import { getOrgIdForCloudIdFromAGG } from '../getOrgIdForCloudIdFromAGG';
-import { directoryGraphqlQuery } from '../graphqlUtils';
-import TeamCentralCardClient, { buildReportingLinesQuery } from '../TeamCentralCardClient';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags'),
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 
@@ -17,8 +18,8 @@ jest.mock('../getOrgIdForCloudIdFromAGG', () => ({
 	getOrgIdForCloudIdFromAGG: jest.fn(),
 }));
 
-jest.mock('../graphqlUtils', () => {
-	const original = jest.requireActual('../graphqlUtils');
+jest.mock('../directoryGraphqlQuery', () => {
+	const original = jest.requireActual('../directoryGraphqlQuery');
 	return {
 		...original,
 		directoryGraphqlQuery: jest.fn(),

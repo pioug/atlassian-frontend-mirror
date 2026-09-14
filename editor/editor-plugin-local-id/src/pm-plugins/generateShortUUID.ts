@@ -1,4 +1,4 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 
 /**
  * Global Set to track currently generated and existing short UUIDs in the document.

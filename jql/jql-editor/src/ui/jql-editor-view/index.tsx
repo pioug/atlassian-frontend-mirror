@@ -9,7 +9,7 @@ import {
 	JQL_EDITOR_MAIN_ID,
 	JQL_EDITOR_VALIDATION_ID,
 } from '../../common/constants';
-import { useEditorThemeContext } from '../../hooks/use-editor-theme';
+import { useEditorThemeContext } from '../../hooks/use-editor-theme/useEditorThemeContext';
 import { useEditorViewIsInvalid } from '../../hooks/use-editor-view-is-invalid';
 import {
 	useAutocomplete,
@@ -21,15 +21,10 @@ import {
 	useScopedId,
 	useStoreActions,
 } from '../../state';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { JQLEditorControlsContent } from '../jql-editor-controls-content';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { JQLEditorFooterContent } from '../jql-editor-footer-content';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import JQLEditorLayout from '../jql-editor-layout';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { usePortalActionsContext } from '../jql-editor-portal-provider/context';
-// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { messages } from '../messages';
 
 /**

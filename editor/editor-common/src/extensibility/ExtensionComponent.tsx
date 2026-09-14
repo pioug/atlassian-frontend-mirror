@@ -7,10 +7,14 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EventDispatcher } from '../event-dispatcher';
-import { getExtensionModuleNodePrivateProps, getNodeRenderer } from '../extensions';
+import {
+	getExtensionModuleNode,
+	getExtensionModuleNodePrivateProps,
+	getNodeRenderer,
+} from '../extensions';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
@@ -88,6 +92,9 @@ export interface State {
 	activeChildIndex?: number; // Holds the currently active Frame/Tab/Card
 	extensionHandlersFromProvider?: ExtensionHandlers;
 	extensionProvider?: ExtensionProvider;
+	// True once we know this node exposes no way to configure it, so the "Configure {name}"
+	// lozenge label should be hidden. See resolveConfigureAffordanceIfNeeded.
+	hideConfigureLabel?: boolean;
 	isNodeHovered?: boolean;
 	showBodiedExtensionRendererView?: boolean; // Main state which will keep track to show the renderer or editor view of bodied macros in live pages. Controlled via the EditToggle
 }
@@ -148,11 +155,22 @@ export const ExtensionComponent = (props: Props): React.JSX.Element => {
 
 class ExtensionComponentInner extends Component<PropsInner, State> {
 	private privatePropsParsed = false;
+	private configureAffordanceResolved = false;
+	private isUnmounted = false;
 
 	state: State = {};
 
+	componentDidMount() {
+		this.resolveConfigureAffordanceIfNeeded();
+	}
+
 	componentDidUpdate() {
 		this.parsePrivateNodePropsIfNeeded();
+		this.resolveConfigureAffordanceIfNeeded();
+	}
+
+	componentWillUnmount() {
+		this.isUnmounted = true;
 	}
 
 	// memoized to avoid rerender on extension state changes
@@ -216,6 +234,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 					setIsNodeHovered={this.setIsNodeHovered}
 					isLivePageViewMode={isLivePageViewMode}
 					allowBodiedOverride={allowBodiedOverride}
+					hideConfigureLabel={this.state.hideConfigureLabel}
 				/>
 			);
 		}
@@ -233,6 +252,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 						handleContentDOMRef={handleContentDOMRef}
 						view={editorView}
 						editorAppearance={editorAppearance}
+						hideConfigureLabel={this.state.hideConfigureLabel}
 						hideFrame={this.state._privateProps?.__hideFrame}
 						pluginInjectionApi={pluginInjectionApi}
 						macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
@@ -259,6 +279,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 						isNodeSelected={selectedNode === node}
 						pluginInjectionApi={pluginInjectionApi}
 						isLivePageViewMode={isLivePageViewMode}
+						hideConfigureLabel={this.state.hideConfigureLabel}
 					>
 						{extensionHandlerResult}
 					</InlineExtension>
@@ -302,6 +323,81 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 			console.error('Provided extension handler has thrown an error\n', e);
 			/** We don't want this error to block renderer */
 			/** We keep rendering the default content */
+		}
+	};
+
+	/**
+	 * Decides whether the "Configure {name}" lozenge label should be hidden for this node.
+	 *
+	 * Mirrors how the floating toolbar decides to show its edit button (see
+	 * `shouldShowEditButton` and `updateEditButton` in `editor-plugin-extension`):
+	 * - a legacy function handler is configurable via the macro browser;
+	 * - an object handler is configurable only if it defines `update`;
+	 * - otherwise the node module from the extension provider decides via its optional `update`.
+	 * Nodes with no way to be configured get no Configure affordance. Anything we cannot
+	 * resolve keeps the label, which is the pre-existing behaviour.
+	 *
+	 * The result is resolved once per node and held in state rather than derived on each render
+	 * because the provider path is asynchronous: `getExtensionModuleNode` goes through
+	 * `extensionProvider.getExtension`, which returns a Promise. Deriving the synchronous handler
+	 * branches in render while the provider branch stays async would let the same node flip
+	 * between answers, and would re-run the manifest lookup on every hover re-render. One
+	 * resolution keeps the label stable and cheap.
+	 */
+	private resolveConfigureAffordanceIfNeeded = async () => {
+		if (
+			this.configureAffordanceResolved ||
+			!fg('platform_editor_hide_configure_lozenge_non_configurable')
+		) {
+			return;
+		}
+
+		const { extensionHandlers, extensionProvider, node } = this.props;
+		const { extensionType, extensionKey } = node.attrs;
+		const extensionHandler = extensionHandlers?.[extensionType];
+
+		if (typeof extensionHandler === 'function') {
+			// Legacy macro browser: configurable, keep the label.
+			this.configureAffordanceResolved = true;
+			return;
+		}
+
+		if (extensionHandler && typeof extensionHandler === 'object') {
+			this.configureAffordanceResolved = true;
+			if (typeof extensionHandler.update !== 'function') {
+				this.setState({ hideConfigureLabel: true });
+			}
+			return;
+		}
+
+		if (!extensionProvider) {
+			// No handler and no provider yet. The provider usually arrives asynchronously, so try
+			// again from componentDidUpdate. If none ever arrives this is the legacy macro browser
+			// path, which is configurable, so leaving the label is correct.
+			return;
+		}
+
+		this.configureAffordanceResolved = true;
+
+		try {
+			const extensionModuleNode = await getExtensionModuleNode(
+				extensionProvider,
+				extensionType,
+				extensionKey,
+			);
+
+			if (this.isUnmounted) {
+				return;
+			}
+
+			if (typeof extensionModuleNode?.update !== 'function') {
+				this.setState({ hideConfigureLabel: true });
+			}
+		} catch (e) {
+			// Manifest lookups can throw (unknown extension, malformed manifest). Keep the label,
+			// which matches the toolbar failing silently and keeping its default. Not logged here on
+			// purpose: parsePrivateNodePropsIfNeeded runs the same lookup for the same node and already
+			// console.errors the failure, so a second log would double up per unknown extension.
 		}
 	};
 

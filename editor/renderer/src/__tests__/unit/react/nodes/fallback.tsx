@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
-import { isSafeUrl } from '@atlaskit/adf-schema';
-import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import Client from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Loadable from 'react-loadable';

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
-import Button from '@atlaskit/button/new';
-import { AtlassianIcon } from '@atlaskit/logo';
+import Button from '@atlaskit/button/default/button';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 
 const StatelessExample = (): React.JSX.Element => {
 	const [isExpanded, setIsExpanded] = useState(false);

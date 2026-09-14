@@ -15,7 +15,7 @@ const NotFoundView = ({
 	testId = 'embed-card-not-found-view',
 	...unresolvedViewProps
 }: NotFoundViewProps): React.JSX.Element => {
-	const { icon, image, text = '' } = context ?? {};
+	const { icon, image, providerIcon, providerIconLabel, text = '' } = context ?? {};
 	const { titleMessageKey, descriptiveMessageKey } = accessContext ?? {};
 	const values = useMemo(() => ({ product: text }), [text]);
 
@@ -23,6 +23,8 @@ const NotFoundView = ({
 		<UnresolvedView
 			{...unresolvedViewProps}
 			icon={icon}
+			providerIcon={providerIcon}
+			providerIconLabel={providerIconLabel}
 			image={image ?? <NotFoundSVG />}
 			testId={testId}
 			text={text}

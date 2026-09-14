@@ -1,5 +1,503 @@
 # @atlaskit/editor-synced-block-provider
 
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.2
+
+### Patch Changes
+
+- [`b12eed2cd2633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b12eed2cd2633) -
+  Add node type analytics for non-empty synced block conversions behind the
+  platform_editor_sync_block_node_types experiment.
+- Updated dependencies
+
+## 13.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.0
+
+### Minor Changes
+
+- [`5dd6cdd8c1d11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd6cdd8c1d11) -
+  Allow a surface to opt out of real-time synced block subscriptions.
+
+  `SyncBlockStoreManager` and `useMemoizedSyncBlockStoreManager` accept a new
+  `SyncBlockStoreManagerOptions` argument, and `useMemoizedSyncedBlockNodeComponent` accepts a
+  matching `enableRealTimeSubscriptions` prop. Both default to `true`, so existing behaviour is
+  unchanged.
+
+  When set to `false`, real-time updates are turned off at construction, so no
+  `blockService_onBlockUpdated` subscription is ever opened for that store's reference blocks. This
+  is deliberately independent of `viewMode`: a live doc in read mode is the editor in view mode and
+  must stay live. Consumed by the Confluence classic renderer behind the
+  `platform_editor_sync_block_renderer_no_realtime` experiment, so a page being read no longer
+  changes under the reader.
+
+## 13.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`cf59769ca5527`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf59769ca5527) -
+  Export `getJiraIssueAriFromSourceAri` and rewrite Jira `issuefieldvalue` source ARIs to the parent
+  issue ARI before AGG `issueById`, object-resolver, and media token requests. Returned metadata
+  keeps the original field-value `sourceAri`. Gated by `editor_synced_blocks_jira_custom_rich_text`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.2
+
+### Patch Changes
+
+- [`0927c3666c010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0927c3666c010) -
+  Upgrade `uuid` from `3.x` to `11.1.1` to remediate GHSA-w5hq-g745-h8pq / SNYK-JS-UUID-16133035.
+
+  `uuid@11` removed the deep subpath exports (`uuid/v4`, `uuid/v1`, `uuid/v5`) and the default
+  export, so all internal call sites were migrated to named imports:
+
+  ```diff
+  -import uuid from 'uuid/v4';
+  +import { v4 as uuid } from 'uuid';
+
+  -import uuid from 'uuid';
+  +import { v4 as uuid } from 'uuid';
+  ```
+
+  With the exception of `@atlassian/integrations` (below), this is an internal implementation change
+  only - no public API, export, or entrypoint changed. UUID generation behaviour is unchanged
+  (`uuid@3`'s default export was already `v4`).
+
+  `@atlassian/integrations` declares `uuid` as a peer dependency, so its declared range moved from
+  `^3.1.0` to `^11.1.1`. That is a peer dependency declaration change, hence `minor` rather than
+  `patch` for that package.
+
+  The following `platform/packages/ai-mate` packages were also touched, but are all `private: true`
+  and so are intentionally not listed in the frontmatter above:
+  - `@atlassian/csm-assistance-service` - bumped its explicit `uuid` dependency from `npm:^9.0.0` to
+    `npm:^11.1.1` (`9.0.1` is also within the advisory's affected range).
+  - `@atlassian/csm-guidance-config` - example helper only, migrated to the named `uuid` import.
+  - `@atlassian/csm-ui-components` - example helper only, migrated to the named `uuid` import.
+
+- Updated dependencies
+
+## 12.2.1
+
+### Patch Changes
+
+- [`c5bc5493c5486`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5bc5493c5486) -
+  Fix migrateSyncBlockIds mutating the caller's input ADF document. traverse() falls back to
+  mutating a node in place whenever its visitor returns undefined, so the transform now always
+  returns a copy instead.
+- Updated dependencies
+
+## 12.2.0
+
+### Minor Changes
+
+- [`6cf6b735bf90a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cf6b735bf90a) -
+  Add migrateSyncBlockIds to the utils/resourceId entry point. Rewrites syncBlock and
+  bodiedSyncBlock identifiers so a document stays internally consistent after cloud-to-cloud
+  migration, preserving block UUIDs by default and supporting optional UUID regeneration.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.0
+
+### Minor Changes
+
+- [`90712d67e0e35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90712d67e0e35) -
+  Add APIs and renderer support for unpublished same-page synced block references behind
+  editor-synced-block-same-page-sync.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.14
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 11.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.1
+
+### Patch Changes
+
+- [`d54d23973a171`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d54d23973a171) -
+  Emit reference-format resource IDs for bodied sync block document-inserted analytics behind
+  `platform_editor_blocks_patch_7`.
+
+## 11.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.5
+
+### Patch Changes
+
+- [`1f0dab65b6efd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f0dab65b6efd) -
+  Remove unreachable cut-handling branch and duplicated synced block node view setup left over from
+  feature gate cleanup
+- Updated dependencies
+
+## 10.0.4
+
+### Patch Changes
+
+- [`0b4753c0a8c07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b4753c0a8c07) -
+  Clean up feature gates from completed rollout
+- Updated dependencies
+
+## 10.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`b7e3a66378c6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7e3a66378c6e) -
+  [ux] Restore the contextual toolbar when selecting text inside a reference synced block, behind
+  `platform_editor_blocks_patch_7`.
+  - `@atlaskit/editor-plugin-toolbar`: the toolbar no longer treats focus inside a nested editable
+    region that ProseMirror does not own - such as the content island a reference synced block
+    renders - as the editor being blurred.
+  - `@atlaskit/editor-synced-block-provider`: `getProviderFactory` is now side-effect free. Applying
+    parent and dynamically created providers moved to a new `syncProviders` method. Previously this
+    ran during render, scheduling a `setState` on another component mid-render, which forced an
+    extra render pass that replaced the synced block DOM and destroyed any in-progress text
+    selection.
+
+  `syncProviders` mutates the cached factory and notifies its subscribers, so call it from an effect
+  rather than during render:
+
+  ```ts
+  const providerFactory = manager.referenceManager.getProviderFactory(resourceId);
+
+  useEffect(() => {
+  	manager.referenceManager.syncProviders(resourceId);
+  }, [manager.referenceManager, resourceId, syncBlockInstance]);
+  ```
+
+  With the flag off, `getProviderFactory` keeps applying providers inline, so existing behaviour is
+  unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.7.0
 
 ### Minor Changes

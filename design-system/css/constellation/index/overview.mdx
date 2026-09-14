@@ -64,6 +64,28 @@ const styles = css({
 <div css={styles}>Hello world!</div>;
 ```
 
+### Media queries
+
+Use canonical media-query types from granular `@atlaskit/css/at-rules/*` entrypoints with
+`satisfies` to keep responsive style keys type-safe. See the
+[breakpoint reference](/components/primitives/responsive/breakpoints) for the available breakpoint
+queries.
+
+```tsx
+import { css } from '@atlaskit/css';
+import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
+import { token } from '@atlaskit/tokens';
+
+const styles = css({
+	padding: token('space.100'),
+	['@media (min-width: 30rem)' satisfies MediaAboveXs]: {
+		padding: token('space.200'),
+	},
+});
+
+export default () => <div css={styles} />;
+```
+
 ### Primitives
 
 When using `@atlaskit/css`, it's important to note that it's not compatible with the Emotion variant

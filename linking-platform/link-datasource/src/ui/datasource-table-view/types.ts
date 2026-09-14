@@ -1,4 +1,4 @@
-import type { DatasourceParameters } from '@atlaskit/linking-types';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
 
@@ -18,6 +18,7 @@ export type DatasourceTableViewProps = {
 		| 'onVisibleColumnKeysChange'
 		| 'wrappedColumnKeys'
 		| 'onWrappedColumnChange'
+		| 'onWrappedColumnsChange'
 		| 'onColumnResize'
 		| 'onColumnSort'
 		| 'sortState'

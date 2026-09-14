@@ -6,7 +6,7 @@ import { memo, type ReactNode } from 'react';
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -3,9 +3,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 
-import InlineEdit, { InlineEditableTextfield } from '../../index';
+import InlineEdit from '../../inline-edit';
+import InlineEditableTextfield from '../../inline-editable-textfield';
 
 it('Inline Edit should pass basic aXe audit', async () => {
 	const { container } = render(

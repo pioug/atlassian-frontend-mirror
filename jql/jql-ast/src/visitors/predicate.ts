@@ -1,12 +1,12 @@
-import {
-	type JqlChangedPredicateContext,
-	type JqlDatePredicateOperatorContext,
-	type JqlDateRangePredicateOperatorContext,
-	type JqlPredicateOperandContext,
-	type JqlUserPredicateOperatorContext,
-	type JqlValuePredicateOperatorContext,
-	type JqlWasPredicateContext,
-} from '@atlaskit/jql-parser';
+import type {
+	JqlChangedPredicateContext,
+	JqlDatePredicateOperatorContext,
+	JqlDateRangePredicateOperatorContext,
+	JqlPredicateOperandContext,
+	JqlUserPredicateOperatorContext,
+	JqlValuePredicateOperatorContext,
+	JqlWasPredicateContext,
+} from '@atlaskit/jql-parser/JQLParser';
 
 import { internalCreators } from '../creators';
 import {

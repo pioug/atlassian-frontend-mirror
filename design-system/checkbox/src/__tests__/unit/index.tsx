@@ -5,7 +5,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import Checkbox from '../../checkbox';
+import { Checkbox } from '../../checkbox';
 
 declare var global: any;
 
@@ -30,7 +30,6 @@ describe('@atlaskit/checkbox', () => {
 				(call) => !shouldIgnoreLog(call),
 			);
 			expect(errorCalls).toHaveLength(0);
-			// @ts-ignore - Property 'mockRestore' does not exist
 			global.console.error.mockRestore();
 		});
 	});
@@ -68,7 +67,7 @@ describe('@atlaskit/checkbox', () => {
 
 			checkbox.click();
 
-			expect(onChange).toBeCalledTimes(1);
+			expect(onChange).toHaveBeenCalledTimes(1);
 		});
 		it('should call onChange and change variable', () => {
 			let value = '';
@@ -146,7 +145,7 @@ describe('@atlaskit/checkbox', () => {
 
 			fireEvent.focus(checkbox);
 
-			expect(onFocus).toBeCalled();
+			expect(onFocus).toHaveBeenCalled();
 		});
 		it('should set the reference on the checkbox', () => {
 			const ref = createRef<HTMLInputElement>();

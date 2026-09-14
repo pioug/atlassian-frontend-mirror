@@ -13,7 +13,7 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import type { Command } from '@atlaskit/editor-common/types';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { clearFormattingWithAnalytics } from '../../../editor-commands/clear-formatting';
 import { getInputMethod } from '../input-method-utils';

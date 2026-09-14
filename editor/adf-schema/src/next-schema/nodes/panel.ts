@@ -4,6 +4,7 @@ import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';
 import { blockCard } from './blockCard';
+import { bodiedRule } from './bodiedRule';
 import { codeBlock } from './codeBlock';
 import { decisionList } from './decisionList';
 import { heading } from './heading';
@@ -15,6 +16,7 @@ import { rule } from './rule';
 import { taskList } from './task';
 import { unsupportedBlock } from './unsupportedBlock';
 import { extension } from './extension';
+import { table } from './tableStub';
 
 const panelContent = [
 	paragraph.use('with_no_marks'),
@@ -29,6 +31,8 @@ const panelContent = [
 	codeBlock,
 	taskList,
 	rule,
+	rule.use('with_attrs'),
+	bodiedRule,
 	decisionList,
 	unsupportedBlock,
 ];
@@ -55,10 +59,14 @@ export const panel: ADFNode<[string, 'c1', 'root_only', 'c1_root_only'], ADFComm
 			content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
 		})
 		.variant('c1', {
-			// panel_c1 allows all standard panel content plus table (wired via addContent
-			// in full-schema.adf.ts to avoid a circular module import).
-			content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
-			ignore: ['json-schema', 'validator-spec'],
+			// panel_c1 allows all standard panel content plus table. `stage0: true` includes it in the
+			// stage-0 JSON schema (not full) and the validator spec so table-in-panel validates.
+			// `noExtend` emits it as a standalone JSON Schema definition because its content is a
+			// superset of panel_node (adds table), which an allOf extension cannot express. Runtime
+			// acceptance is gated in adf-utils behind the patch flag.
+			stage0: true,
+			noExtend: true,
+			content: [$onePlus($or(...panelContent, extension.use('with_marks'), table))],
 			preserveVariantNameInPm: true,
 		})
 		// this variant is used to support breakout resizing for panel nodes at the document root
@@ -69,10 +77,9 @@ export const panel: ADFNode<[string, 'c1', 'root_only', 'c1_root_only'], ADFComm
 		// this variant is used to support breakout resizing for panel_c1 nodes at the document root
 		.variant('c1_root_only', {
 			stage0: true,
+			noExtend: true,
 			marks: [breakout, unsupportedMark, unsupportedNodeAttribute],
-			// panel_c1 allows all standard panel content plus table (wired via addContent
-			// in full-schema.adf.ts to avoid a circular module import).
-			content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
-			ignore: ['json-schema', 'validator-spec'],
+			// panel_c1_root_only allows all standard panel content plus table (see c1 above).
+			content: [$onePlus($or(...panelContent, extension.use('with_marks'), table))],
 			preserveVariantNameInPm: true,
 		});

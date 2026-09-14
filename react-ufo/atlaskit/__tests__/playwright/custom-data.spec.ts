@@ -4,6 +4,10 @@ test.describe('ReactUFO: Custom Data', () => {
 	test.use({
 		examplePage: 'basic-with-custom-data',
 		featureFlags: [],
+	} satisfies {
+		examplePage: 'basic-with-custom-data';
+		featureFlags: string[];
+		__exampleDependency?: typeof import('../../examples/03-basic-with-custom-data.tsx');
 	});
 
 	test('custom data should be present in the UFO payload', async ({

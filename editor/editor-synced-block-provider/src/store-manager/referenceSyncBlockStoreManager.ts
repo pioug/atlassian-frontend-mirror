@@ -6,7 +6,7 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { isProviderNotReadyError, ProviderNotReadyError, SyncBlockError } from '../common/types';
 import type {
@@ -22,6 +22,7 @@ import type {
 	SyncBlockDataProviderInterface,
 	TitleSubscriptionCallback,
 	SyncBlockSourceInfo,
+	SyncedBlockRendererProviderOptions,
 } from '../providers/types';
 import {
 	buildErrorAttribution,
@@ -38,6 +39,7 @@ import {
 	getFetchSourceInfoExperience,
 	getSaveReferenceExperience,
 } from '../utils/experienceTracking';
+import { parseResourceId } from '../utils/resourceId';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import {
 	createSyncBlockNode,
@@ -49,6 +51,7 @@ import { SyncBlockBatchFetcher } from './syncBlockBatchFetcher';
 import { syncBlockInMemorySessionCache } from './syncBlockInMemorySessionCache';
 import { SyncBlockProviderFactoryManager } from './syncBlockProviderFactoryManager';
 import { SyncBlockSubscriptionManager } from './syncBlockSubscriptionManager';
+import type { SourceSyncBlockStoreManager } from './sourceSyncBlockStoreManager';
 
 const CACHE_KEY_PREFIX = 'sync-block-data-';
 
@@ -56,7 +59,7 @@ const ENTITY_NOT_FOUND_MAX_RETRIES = 3;
 const ENTITY_NOT_FOUND_INITIAL_DELAY_MS = 2000;
 
 // Grace period before a cache entry is removed after the last subscriber
-// unsubscribes (gated by `platform_synced_block_patch_14`). Guards are
+// unsubscribes. Guards are
 // re-checked at fire time; if any are positive, the timer is rescheduled.
 const CACHE_DELETION_GRACE_PERIOD_MS = 30_000;
 // Max reschedules before force-deleting with an analytics event (~5 min).
@@ -70,6 +73,7 @@ const CACHE_DELETION_MAX_RESCHEDULES = 10;
 export class ReferenceSyncBlockStoreManager {
 	private viewMode?: ViewMode;
 	private dataProvider?: SyncBlockDataProviderInterface;
+	private sourceManager?: SourceSyncBlockStoreManager;
 	// Keeps track of addition and deletion of reference synced blocks on the document
 	// This starts as true to always flush the cache when document is saved for the first time
 	// to cater the case when a editor session is closed without document being updated right after reference block is deleted
@@ -95,8 +99,7 @@ export class ReferenceSyncBlockStoreManager {
 	private entityNotFoundRetryCount: Map<ResourceId, number> = new Map();
 	private entityNotFoundRetryTimers: Map<ResourceId, ReturnType<typeof setTimeout>> = new Map();
 
-	// Pending cache deletion timers keyed by resourceId (gated by
-	// `platform_synced_block_patch_14`). Cancelled when a subscriber re-attaches.
+	// Pending cache deletion timers keyed by resourceId. Cancelled when a subscriber re-attaches.
 	private pendingCacheDeletions: Map<ResourceId, ReturnType<typeof setTimeout>> = new Map();
 	// Reschedule counter per resource — reset on actual deletion or re-subscribe.
 	private cacheDeletionRescheduleCounts: Map<ResourceId, number> = new Map();
@@ -111,9 +114,14 @@ export class ReferenceSyncBlockStoreManager {
 	private _providerFactoryManager: SyncBlockProviderFactoryManager;
 	private _batchFetcher: SyncBlockBatchFetcher;
 
-	constructor(dataProvider?: SyncBlockDataProviderInterface, viewMode?: ViewMode) {
+	constructor(
+		dataProvider?: SyncBlockDataProviderInterface,
+		viewMode?: ViewMode,
+		sourceManager?: SourceSyncBlockStoreManager,
+	) {
 		this.dataProvider = dataProvider;
 		this.viewMode = viewMode;
+		this.sourceManager = sourceManager;
 		this.syncBlockFetchDataRequests = new Map();
 		this.syncBlockSourceInfoRequests = new Map();
 		this.newlyAddedSyncBlocks = new Set();
@@ -122,7 +130,6 @@ export class ReferenceSyncBlockStoreManager {
 			getDataProvider: () => this.dataProvider,
 			getFromCache: (rid) => this.getFromCache(rid),
 			updateCache: (inst) => this.updateCache(inst),
-			deleteFromCache: (rid) => this.deleteFromCache(rid),
 			debouncedBatchedFetchSyncBlocks: (rid) => this.debouncedBatchedFetchSyncBlocks(rid),
 			fetchSyncBlockSourceInfo: (rid) => this.fetchSyncBlockSourceInfo(rid),
 			getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
@@ -130,7 +137,7 @@ export class ReferenceSyncBlockStoreManager {
 				this.isCacheDirty = true;
 			},
 			// Delegate cache lifecycle to the store manager so guards can be
-			// checked atomically (gated by `platform_synced_block_patch_14`).
+			// checked atomically.
 			scheduleCacheDeletion: (rid) => this.scheduleCacheDeletion(rid),
 			cancelPendingCacheDeletion: (rid) => this.cancelPendingCacheDeletion(rid),
 		});
@@ -248,6 +255,10 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	public getInitialSyncBlockData(resourceId: ResourceId): SyncBlockInstance | undefined {
+		const localReference = this.getLocalReference(resourceId);
+		if (localReference) {
+			return localReference;
+		}
 		const syncBlockNode = createSyncBlockNode('', resourceId);
 		const providerData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 		if (providerData) {
@@ -256,6 +267,45 @@ export class ReferenceSyncBlockStoreManager {
 			return this.normalizeReferenceData(providerData);
 		}
 		return this.getFromSessionCache(resourceId);
+	}
+
+	private getSameDocumentReferenceParts(
+		resourceId: ResourceId,
+	): ReturnType<typeof parseResourceId> {
+		const parsed = parseResourceId(resourceId);
+		if (
+			!parsed ||
+			!this.dataProvider ||
+			this.dataProvider.generateResourceIdForReference(parsed.uuid) !== resourceId
+		) {
+			return undefined;
+		}
+		return parsed;
+	}
+
+	private getLocalReference(resourceId: ResourceId): SyncBlockInstance | undefined {
+		if (!isExperimentEnabled('editor-synced-block-same-page-sync')) {
+			return undefined;
+		}
+		const parsed = this.getSameDocumentReferenceParts(resourceId);
+		if (!parsed) {
+			return undefined;
+		}
+		const snapshot = this.sourceManager?.getLocalSourceSnapshot(parsed.uuid);
+		if (!snapshot) {
+			return undefined;
+		}
+		return {
+			resourceId,
+			data: {
+				...snapshot,
+				content: [...snapshot.content],
+			},
+			localSameDocumentSource: {
+				sourceBlockInstanceId: snapshot.blockInstanceId,
+				sourceProduct: parsed.product,
+			},
+		};
 	}
 
 	private normalizeReferenceData(syncBlock: SyncBlockInstance): SyncBlockInstance {
@@ -551,11 +601,8 @@ export class ReferenceSyncBlockStoreManager {
 
 		if (!this.dataProvider) {
 			// EDITOR-7860: tag the throw so catch sites can suppress the benign
-			// not-ready/torn-down case. Gate-off keeps the legacy throw + message.
-			if (fg('platform_editor_blocks_patch_3')) {
-				throw new ProviderNotReadyError();
-			}
-			throw new Error('Data provider not set');
+			// not-ready/torn-down case.
+			throw new ProviderNotReadyError();
 		}
 
 		nodesToFetch.forEach((node) => {
@@ -604,7 +651,6 @@ export class ReferenceSyncBlockStoreManager {
 						undefined,
 						undefined,
 						buildFetchErrorAttribution(
-							fg('platform_editor_blocks_patch_3'),
 							syncBlockInstance.error?.type || syncBlockInstance.error?.reason || payload,
 							syncBlockInstance.error?.statusCode,
 						),
@@ -656,8 +702,7 @@ export class ReferenceSyncBlockStoreManager {
 				const isRetryingEntityNotFound =
 					syncBlockInstance.error.type === SyncBlockError.EntityNotFound &&
 					(this.entityNotFoundRetryCount.get(syncBlockInstance.resourceId) ?? 0) <
-						ENTITY_NOT_FOUND_MAX_RETRIES &&
-					fg('platform_synced_block_patch_13');
+						ENTITY_NOT_FOUND_MAX_RETRIES;
 
 				if (!isRetryingEntityNotFound) {
 					// Classify on the structured `type` (a `SyncBlockError` enum value) first,
@@ -670,7 +715,6 @@ export class ReferenceSyncBlockStoreManager {
 							syncBlockInstance.data?.product ??
 								getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
 							buildFetchErrorAttribution(
-								fg('platform_editor_blocks_patch_3'),
 								syncBlockInstance.error.type || syncBlockInstance.error.reason,
 								syncBlockInstance.error.statusCode,
 							),
@@ -687,9 +731,7 @@ export class ReferenceSyncBlockStoreManager {
 					// Schedule a retry for EntityNotFound — the source block may be in
 					// the process of being created by a collaborator (race condition
 					// between NCS propagation and Block Service createBlock call).
-					if (fg('platform_synced_block_patch_13')) {
-						this.scheduleEntityNotFoundRetry(syncBlockInstance.resourceId);
-					}
+					this.scheduleEntityNotFoundRetry(syncBlockInstance.resourceId);
 					if (!isRetryingEntityNotFound) {
 						hasUnexpectedError = true;
 					}
@@ -723,7 +765,7 @@ export class ReferenceSyncBlockStoreManager {
 		const existingSyncBlock = this.getFromCache(resourceId);
 		// If the cache entry was deleted while the source-info request was
 		// in flight, fire an analytics event so the race is observable.
-		if (!existingSyncBlock && fg('platform_synced_block_patch_14')) {
+		if (!existingSyncBlock) {
 			this.fireAnalyticsEvent?.(
 				sourceInfoOrphanedPayload(resourceId, getSourceProductFromResourceIdSafe(resourceId), {
 					hasPendingDeletion: this.pendingCacheDeletions.has(resourceId),
@@ -774,16 +816,14 @@ export class ReferenceSyncBlockStoreManager {
 		this._providerFactoryManager.deleteFactory(resourceId);
 		// Evict in-flight source-info promise and reset reschedule counter
 		// so a stale resolution can't silently merge into a re-fetched entry.
-		if (fg('platform_synced_block_patch_14')) {
-			this.syncBlockSourceInfoRequests.delete(resourceId);
-			this.cacheDeletionRescheduleCounts.delete(resourceId);
-		}
+		this.syncBlockSourceInfoRequests.delete(resourceId);
+		this.cacheDeletionRescheduleCounts.delete(resourceId);
 	}
 
 	/**
 	 * Returns true if the cache entry for `resourceId` is safe to delete:
 	 * no active subscribers, no in-flight source-info request, and no
-	 * queued/in-flight batch fetch (gated by `platform_synced_block_patch_14`).
+	 * queued/in-flight batch fetch.
 	 */
 	private canDeleteCache(resourceId: ResourceId): boolean {
 		if (this._subscriptionManager.getSubscriptions().has(resourceId)) {
@@ -800,14 +840,11 @@ export class ReferenceSyncBlockStoreManager {
 
 	/**
 	 * Schedules cache deletion for `resourceId` after the grace period
-	 * (gated by `platform_synced_block_patch_14`). Called when the last
+	 * Called when the last
 	 * subscriber unsubscribes. Guards are re-checked at fire time; if any
 	 * are positive the timer is rescheduled up to MAX_RESCHEDULES times.
 	 */
 	public scheduleCacheDeletion(resourceId: ResourceId): void {
-		if (!fg('platform_synced_block_patch_14')) {
-			return;
-		}
 		if (this.isDestroyed) {
 			return;
 		}
@@ -837,13 +874,10 @@ export class ReferenceSyncBlockStoreManager {
 
 	/**
 	 * Cancels any pending cache deletion timer for `resourceId` and resets the
-	 * reschedule counter (gated by `platform_synced_block_patch_14`). Called
+	 * reschedule counter. Called
 	 * when a new subscriber arrives.
 	 */
 	public cancelPendingCacheDeletion(resourceId: ResourceId): void {
-		if (!fg('platform_synced_block_patch_14')) {
-			return;
-		}
 		const existing = this.pendingCacheDeletions.get(resourceId);
 		if (existing) {
 			clearTimeout(existing);
@@ -861,7 +895,7 @@ export class ReferenceSyncBlockStoreManager {
 
 	private onCacheDeletionTimerFire(resourceId: ResourceId): void {
 		if (this.canDeleteCache(resourceId)) {
-			// `deleteFromCache` resets the reschedule counter under the flag.
+			// `deleteFromCache` resets the reschedule counter.
 			this.deleteFromCache(resourceId);
 			return;
 		}
@@ -893,7 +927,7 @@ export class ReferenceSyncBlockStoreManager {
 						'editor-synced-block-provider/referenceSyncBlockStoreManager/cache-deletion-forced',
 				},
 			);
-			// `deleteFromCache` resets the reschedule counter under the flag.
+			// `deleteFromCache` resets the reschedule counter.
 			this.deleteFromCache(resourceId);
 			// If subscribers still exist, kick off a fresh fetch so they get
 			// fresh data on the next batch tick instead of holding stale data
@@ -978,7 +1012,43 @@ export class ReferenceSyncBlockStoreManager {
 		localId: string,
 		callback: SubscriptionCallback,
 	): () => void {
-		return this._subscriptionManager.subscribeToSyncBlock(resourceId, localId, callback);
+		const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
+		const sameDocumentParts = isSamePageSyncEnabled
+			? this.getSameDocumentReferenceParts(resourceId)
+			: undefined;
+		let localReference = isSamePageSyncEnabled ? this.getLocalReference(resourceId) : undefined;
+
+		const unsubscribeRemote = this._subscriptionManager.subscribeToSyncBlock(
+			resourceId,
+			localId,
+			(instance) => {
+				if (!localReference) {
+					callback(instance);
+				}
+			},
+		);
+		const unsubscribeLocal = sameDocumentParts
+			? this.sourceManager?.subscribeToLocalSource(sameDocumentParts.uuid, () => {
+					const hadLocalReference = Boolean(localReference);
+					localReference = this.getLocalReference(resourceId);
+					if (localReference) {
+						callback(localReference);
+						return;
+					}
+					if (!hadLocalReference) {
+						return;
+					}
+					// Source left the document: keep the last local instance on screen
+					// and fetch the current backend value. Do not replay a remote
+					// value captured while the local source was authoritative.
+					this.debouncedBatchedFetchSyncBlocks(resourceId);
+				})
+			: undefined;
+
+		return () => {
+			unsubscribeLocal?.();
+			unsubscribeRemote();
+		};
 	}
 
 	public subscribeToSourceTitle(node: PMNode, callback: TitleSubscriptionCallback): () => void {
@@ -998,12 +1068,12 @@ export class ReferenceSyncBlockStoreManager {
 				throw new Error('Missing local id or resource id');
 			}
 
-			return this._subscriptionManager.subscribeToSyncBlock(resourceId, localId, callback);
+			return this.subscribeToSyncBlock(resourceId, localId, callback);
 		} catch (error) {
 			// EDITOR-7860: benign not-ready/torn-down case — suppress both the
 			// exception-tracker log and the analytics event (checked first so the
-			// benign case stays fully silent). Gate-off behaviour is unchanged.
-			if (isProviderNotReadyError(error) && fg('platform_editor_blocks_patch_3')) {
+			// benign case stays fully silent).
+			if (isProviderNotReadyError(error)) {
 				return () => {};
 			}
 			logException(error as Error, {
@@ -1014,10 +1084,7 @@ export class ReferenceSyncBlockStoreManager {
 					(error as Error).message,
 					undefined,
 					undefined,
-					buildFetchErrorAttribution(
-						fg('platform_editor_blocks_patch_3'),
-						(error as Error).message,
-					),
+					buildFetchErrorAttribution((error as Error).message),
 				),
 			);
 			return () => {};
@@ -1035,6 +1102,22 @@ export class ReferenceSyncBlockStoreManager {
 
 	public getProviderFactory(resourceId: ResourceId): ProviderFactory | undefined {
 		return this._providerFactoryManager.getProviderFactory(resourceId);
+	}
+
+	/**
+	 * The provider options currently supplied by the host. Safe to read during
+	 * render - it notifies nobody.
+	 */
+	public getProviderOptions(): SyncedBlockRendererProviderOptions | undefined {
+		return this._providerFactoryManager.getProviderOptions();
+	}
+
+	/**
+	 * Applies the latest providers to the cached factory. Notifies subscribers, so
+	 * call from an effect rather than during render.
+	 */
+	public syncProviders(resourceId: ResourceId): void {
+		this._providerFactoryManager.syncProviders(resourceId);
 	}
 
 	public getSSRProviders(resourceId: ResourceId): {
@@ -1127,11 +1210,7 @@ export class ReferenceSyncBlockStoreManager {
 						updateResult.error || 'Failed to update reference synced blocks on the document',
 						undefined,
 						undefined,
-						buildErrorAttribution(
-							fg('platform_editor_blocks_patch_3'),
-							updateResult.error,
-							updateResult.statusCode,
-						),
+						buildErrorAttribution(updateResult.error, updateResult.statusCode),
 					),
 				);
 			}
@@ -1143,13 +1222,13 @@ export class ReferenceSyncBlockStoreManager {
 			this.saveExperience?.failure({ reason: (error as Error).message });
 			// No `resourceId` available in this catch — sourceProduct is intentionally omitted.
 			// No structured SyncBlockError/status here, so the attribution `reason` falls back
-			// to `unknown` when the gate is on.
+			// to `unknown`.
 			this.fireAnalyticsEvent?.(
 				updateReferenceErrorPayload(
 					(error as Error).message,
 					undefined,
 					undefined,
-					buildErrorAttribution(fg('platform_editor_blocks_patch_3')),
+					buildErrorAttribution(),
 				),
 			);
 		} finally {
@@ -1213,16 +1292,8 @@ export class ReferenceSyncBlockStoreManager {
 		this.fetchSourceInfoExperience?.abort({ reason: 'editorDestroyed' });
 		this.fireAnalyticsEvent = undefined;
 
-		// Under `platform_synced_block_patch_14`, `destroy()` is now wired to
-		// React component unmount via `useMemoizedSyncBlockStoreManager`.
-		// Clearing the module-level singleton on unmount would wipe SSR session
-		// cache data that a sibling/successor manager (e.g. the editor
-		// instance that mounts immediately after the renderer unmounts during
-		// the view-mode transition) is about to read.
-		// Let entries age out naturally instead — the in-memory cache is
-		// naturally bounded by `maxSize` (LRU) and cleared on hard navigation.
-		if (!fg('platform_synced_block_patch_14')) {
-			syncBlockInMemorySessionCache.clear();
-		}
+		// `destroy()` is wired to React component unmount via
+		// `useMemoizedSyncBlockStoreManager`. Let the in-memory session cache age
+		// out naturally instead of clearing it during a view-mode transition.
 	}
 }

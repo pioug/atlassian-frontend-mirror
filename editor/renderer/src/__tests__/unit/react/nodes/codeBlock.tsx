@@ -1,15 +1,15 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import userEvent from '@testing-library/user-event';
 import CodeBlock from '../../../../react/nodes/codeBlock/codeBlock';
-import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 const textSample = 'window.alert';
-const render = (overrides = {}, fireAnalyticsEvent = jest.fn()) => {
-	return mountWithIntl(
+const renderCodeBlock = (overrides = {}, fireAnalyticsEvent = jest.fn()) => {
+	return renderWithIntl(
 		<AnalyticsContext.Provider value={{ fireAnalyticsEvent }}>
 			<CodeBlock
 				language="javascript"
@@ -22,6 +22,11 @@ const render = (overrides = {}, fireAnalyticsEvent = jest.fn()) => {
 		</AnalyticsContext.Provider>,
 	);
 };
+
+const lineNumbers = (container: HTMLElement) => container.querySelectorAll('.linenumber');
+const codeTag = (container: HTMLElement) => container.querySelector('code');
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/CodeBlock', () => {
 	beforeEach(() => {
 		setupEditorExperiments('test');
@@ -32,96 +37,85 @@ describe('Renderer - React/Nodes/CodeBlock', () => {
 	});
 
 	it('should render @atlaskit/code component', () => {
-		const node = render();
-		const codeBlockWrapper = node.find(AkCodeBlock);
-		expect(codeBlockWrapper).toHaveLength(1);
-		expect(codeBlockWrapper.at(0).prop('text')).toBe(textSample);
-		node.unmount();
+		const { container } = renderCodeBlock();
+
+		expect(container.querySelectorAll('[data-ds--code--code-block]')).toHaveLength(1);
+		expect(container).toHaveTextContent(textSample);
 	});
 
 	it('should show line numbers by default', () => {
-		const node = render();
-		const codeBlockWrapper = node.find(AkCodeBlock);
-		expect(codeBlockWrapper.at(0).prop('shouldShowLineNumbers')).toBe(true);
-		node.unmount();
+		const { container } = renderCodeBlock();
+
+		expect(lineNumbers(container)).toHaveLength(1);
 	});
 
 	it('should hide line numbers when hideLineNumbers is true', () => {
-		const node = render({ hideLineNumbers: true });
-		const codeBlockWrapper = node.find(AkCodeBlock);
-		expect(codeBlockWrapper.at(0).prop('shouldShowLineNumbers')).toBe(false);
-		node.unmount();
+		const { container } = renderCodeBlock({ hideLineNumbers: true });
+
+		expect(lineNumbers(container)).toHaveLength(0);
 	});
 
 	it('should render CopyButton component if allowCopyToClipboard is enabled', () => {
-		const node = render({ allowCopyToClipboard: true });
-		expect(node.find('CopyButton')).toHaveLength(1);
-		node.unmount();
+		const { container } = renderCodeBlock({ allowCopyToClipboard: true });
+
+		expect(container.querySelector('button.copy-to-clipboard')).toBeInTheDocument();
 	});
 
 	it('should not render CopyButton component if allowCopyToClipboard is disabled', () => {
-		const node = render();
-		expect(node.find('CopyButton').exists()).toBe(false);
-		node.unmount();
+		const { container } = renderCodeBlock();
+
+		expect(container.querySelector('button.copy-to-clipboard')).not.toBeInTheDocument();
 	});
 
 	it('should render wrap button if allowWrapCodeBlock is enabled', () => {
-		const node = render({ allowWrapCodeBlock: true });
-		expect(node.find('CodeBlockWrapButton')).toHaveLength(1);
-		node.unmount();
+		const { container } = renderCodeBlock({ allowWrapCodeBlock: true });
+
+		expect(container.querySelector('button.wrap-code')).toBeInTheDocument();
 	});
 
 	it('should not render wrap button if allowWrapCodeBlock is disabled', () => {
-		const node = render();
-		expect(node.find('CodeBlockWrapButton').exists()).toBe(false);
-		node.unmount();
+		const { container } = renderCodeBlock();
+
+		expect(container.querySelector('button.wrap-code')).not.toBeInTheDocument();
 	});
 
 	it('should initialise wrapped lines from the ADF wrap attribute when wrapping is allowed', () => {
-		const node = render({ allowWrapCodeBlock: true, wrap: true });
+		const { container } = renderCodeBlock({ allowWrapCodeBlock: true, wrap: true });
 
-		expect(node.find(AkCodeBlock).prop('shouldWrapLongLines')).toBe(true);
-
-		node.unmount();
+		expect(codeTag(container)).toHaveStyle({ whiteSpace: 'pre-wrap' });
 	});
 
 	it('should not initialise wrapped lines when the ADF wrap attribute is false', () => {
-		const node = render({ allowWrapCodeBlock: true, wrap: false });
+		const { container } = renderCodeBlock({ allowWrapCodeBlock: true, wrap: false });
 
-		expect(node.find(AkCodeBlock).prop('shouldWrapLongLines')).toBe(false);
-
-		node.unmount();
+		expect(codeTag(container)).toHaveStyle({ whiteSpace: 'pre' });
 	});
 
 	it('should not initialise wrapped lines when the ADF wrap attribute is not provided', () => {
-		const node = render({ allowWrapCodeBlock: true });
+		const { container } = renderCodeBlock({ allowWrapCodeBlock: true });
 
-		expect(node.find(AkCodeBlock).prop('shouldWrapLongLines')).toBe(false);
-
-		node.unmount();
+		expect(codeTag(container)).toHaveStyle({ whiteSpace: 'pre' });
 	});
 
 	it('should not initialise wrapped lines from the ADF wrap attribute when experiment is disabled', () => {
 		setupEditorExperiments('test', {}, {}, { disableTestOverrides: true });
-		const node = render({ allowWrapCodeBlock: true, wrap: true });
+		const { container } = renderCodeBlock({ allowWrapCodeBlock: true, wrap: true });
 
-		expect(node.find(AkCodeBlock).prop('shouldWrapLongLines')).toBe(false);
-
-		node.unmount();
+		expect(codeTag(container)).toHaveStyle({ whiteSpace: 'pre' });
 	});
 
-	it('should keep the wrap button as a local toggle and fire analytics', () => {
+	it('should keep the wrap button as a local toggle and fire analytics', async () => {
 		const fireAnalyticsEvent = jest.fn();
-		const node = render({ allowWrapCodeBlock: true, wrap: true }, fireAnalyticsEvent);
+		const { container } = renderCodeBlock(
+			{ allowWrapCodeBlock: true, wrap: true },
+			fireAnalyticsEvent,
+		);
 
-		expect(node.find(AkCodeBlock).prop('shouldWrapLongLines')).toBe(true);
+		expect(codeTag(container)).toHaveStyle({ whiteSpace: 'pre-wrap' });
 
-		node
-			.find('CodeBlockWrapButton')
-			.find('button')
-			.simulate('click', { stopPropagation: jest.fn() });
+		await userEvent.click(container.querySelector('button.wrap-code')!);
 
-		expect(node.find(AkCodeBlock).prop('shouldWrapLongLines')).toBe(false);
+		expect(codeTag(container)).toHaveStyle({ whiteSpace: 'pre' });
 		expect(fireAnalyticsEvent).toHaveBeenCalledWith({
 			action: ACTION.CLICKED,
 			actionSubject: ACTION_SUBJECT.BUTTON,
@@ -131,7 +125,5 @@ describe('Renderer - React/Nodes/CodeBlock', () => {
 			},
 			eventType: EVENT_TYPE.UI,
 		});
-
-		node.unmount();
 	});
 });

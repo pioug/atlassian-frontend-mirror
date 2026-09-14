@@ -6,6 +6,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: data-vc-ignore-if-no-layout-shift true', () => {
 	test.use({
 		examplePage: 'vc-no-layout-shift',
+	} satisfies {
+		examplePage: 'vc-no-layout-shift';
+		__exampleDependency?: typeof import('../../examples/25-vc-no-layout-shift.tsx');
 	});
 
 	test(`VC90 should match when the [main-div] is first visible`, async ({
@@ -50,6 +53,9 @@ test.describe('ReactUFO: data-vc-ignore-if-no-layout-shift true', () => {
 test.describe('ReactUFO: data-vc-ignore-if-no-layout-shift false', () => {
 	test.use({
 		examplePage: 'vc-no-layout-shift_false',
+	} satisfies {
+		examplePage: 'vc-no-layout-shift_false';
+		__exampleDependency?: typeof import('../../examples/25-vc-no-layout-shift_false.tsx');
 	});
 
 	test(`VC90 should match when the [final-div] is first visible`, async ({

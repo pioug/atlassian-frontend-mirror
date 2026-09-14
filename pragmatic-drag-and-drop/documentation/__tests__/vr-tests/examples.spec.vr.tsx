@@ -2,11 +2,11 @@ import { Device, type Hooks, snapshot } from '@af/visual-regression';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import type { SnapshotTestOptions } from '@atlassian/gemini';
 
-import Board from '../../examples/board';
-import Grid from '../../examples/grid';
-import List from '../../examples/list';
-import Table from '../../examples/table';
-import Tree from '../../examples/tree';
+import Board from '../../examples/board.vr.ap';
+import Grid from '../../examples/grid.vr.ap';
+import List from '../../examples/list.vr.ap';
+import Table from '../../examples/table.vr.ap';
+import Tree from '../../examples/tree.vr.ap';
 
 const defaultOptions: SnapshotTestOptions<Hooks> = {
 	drawsOutsideBounds: true,

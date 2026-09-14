@@ -1,22 +1,35 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 import { type RequestMetadata, type RequestOptions } from './types';
 
 export type { RequestErrorReason, RequestErrorMetadata, RequestErrorAttributes } from './types';
 
-export { RequestError, isRequestError } from './errors';
-export { isRateLimitedError, createRequestErrorReason } from './helpers';
+/**
+ * @deprecated Use `import { RequestError } from '@atlaskit/media-client/request/errors'` instead.
+ */
+export { RequestError } from './RequestError';
+/**
+ * @deprecated Use `import { isRequestError } from '@atlaskit/media-client/request/errors'` instead.
+ */
+export { isRequestError } from './isRequestError';
+/**
+ * @deprecated Use `import { createRequestErrorReason } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { createRequestErrorReason } from './createRequestErrorReason';
+/**
+ * @deprecated Use `import { isRateLimitedError } from '@atlaskit/media-client/request/helpers'` instead.
+ */
+export { isRateLimitedError } from './isRateLimitedError';
 
-import {
-	createUrl,
-	fetchRetry,
-	createProcessFetchResponse,
-	extendHeaders,
-	isFetchNetworkError,
-	defaultShouldRetryError,
-} from './helpers';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { createProcessFetchResponse } from './createProcessFetchResponse';
+import { createUrl } from './createUrl';
+import { defaultShouldRetryError } from './defaultShouldRetryError';
+import { extendHeaders } from './extendHeaders';
+import { fetchRetry } from './fetchRetry';
+import { isFetchNetworkError } from './isFetchNetworkError';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { mapRetryUrlToPathBasedUrl } from '../pathBasedUrl';
 import getNavigator from '../getNavigator';
+import { mapRetryUrlToPathBasedUrl } from '../mapRetryUrlToPathBasedUrl';
 
 export async function request(
 	url: string,

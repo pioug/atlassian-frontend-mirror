@@ -4,7 +4,7 @@ import createFocusTrap, { type FocusTrap } from 'focus-trap';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { useLayering } from '@atlaskit/layering/use-layering';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type FocusManagerHook } from './types';
 import { useAnimationFrame } from './utils/use-animation-frame';
@@ -63,6 +63,18 @@ export const useFocusManager = ({
 		return () => {
 			cancelAllFrames();
 			focusTrap.deactivate();
+			if (fg('platform_dst-popup-trigger-initial-focus-ref') && shouldReturnFocus) {
+				requestFrame(() => {
+					if (
+						triggerRef?.isConnected &&
+						(document.activeElement === document.body ||
+							document.activeElement === document.documentElement ||
+							!document.activeElement)
+					) {
+						triggerRef.focus();
+					}
+				});
+			}
 		};
 	}, [
 		popupRef,

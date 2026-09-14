@@ -3,10 +3,12 @@ import React from 'react';
 import { renderHook, type RenderHookOptions } from '@testing-library/react';
 import { defaultRegistry } from 'react-sweet-state';
 
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
-import { ActionsStore, type ActionsStoreState, useExecuteAtomicAction } from '../actions';
+import { ActionsStore, type ActionsStoreState } from '../actions';
+import { useExecuteAtomicAction } from '../actions/useExecuteAtomicAction';
 import { Store } from '../index';
 
 const mockUseDatasourceClientExtension: jest.Mock = jest.fn();
@@ -15,16 +17,13 @@ const mockExecuteAction: jest.Mock = jest.fn();
 const mockInvalidateDatasourceDataCacheByAri: jest.Mock = jest.fn();
 const mockFireEvent: jest.Mock = jest.fn();
 
-jest.mock('@atlaskit/link-client-extension', () => {
-	const originalModule = jest.requireActual('@atlaskit/link-client-extension');
-	return {
-		...originalModule,
-		useDatasourceClientExtension: () => mockUseDatasourceClientExtension(),
-	};
-});
+jest.mock('@atlaskit/link-client-extension/use-data-source-client-extension', () => ({
+	...jest.requireActual('@atlaskit/link-client-extension/use-data-source-client-extension'),
+	useDatasourceClientExtension: () => mockUseDatasourceClientExtension(),
+}));
 
-jest.mock('../../analytics', () => {
-	const originalModule = jest.requireActual('../../analytics');
+jest.mock('../../analytics/index', () => {
+	const originalModule = jest.requireActual('../../analytics/index');
 	return {
 		...originalModule,
 		useDatasourceAnalyticsEvents: () => mockUseDatasourceAnalyticsEvents(),

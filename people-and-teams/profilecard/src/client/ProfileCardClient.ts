@@ -1,6 +1,5 @@
 import { getATLContextUrl } from '@atlaskit/atlassian-context/get-atl-context-url';
-import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
-import type { FireEventType } from '@atlaskit/teams-app-internal-analytics';
+import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 
 import {
 	type AgentIdType,
@@ -13,18 +12,16 @@ import {
 	type TeamCentralReportingLinesData,
 } from '../types';
 
-import RovoAgentCardClient from './RovoAgentCardClient';
-import TeamCentralCardClient, { type TeamCentralCardClientOptions } from './TeamCentralCardClient';
+import { defaultConfig } from './defaultConfig';
+import { maybeCreateTeamCentralClient } from './maybeCreateTeamCentralClient';
+import { default as RovoAgentCardClient } from './RovoAgentCardClient';
+import { type default as TeamCentralCardClient } from './TeamCentralCardClient';
 import TeamProfileCardClient from './TeamProfileCardClient';
 import UserProfileCardClient from './UserProfileCardClient';
 
-const defaultConfig = {
-	gatewayGraphqlUrl: '/gateway/api/graphql',
-};
-
 export type TeamCentralScopes = { withOrgContext: true; withSiteContext: boolean };
 
-class ProfileCardClient implements ProfileClient {
+export class ProfileCardClient implements ProfileClient {
 	userClient: UserProfileCardClient;
 	teamClient: TeamProfileCardClient;
 	tcClient?: TeamCentralCardClient;
@@ -119,19 +116,10 @@ class ProfileCardClient implements ProfileClient {
 	}
 }
 
-function maybeCreateTeamCentralClient(
-	config: TeamCentralCardClientOptions,
-	clients?: ClientOverrides,
-) {
-	if (isFedRamp()) {
-		return undefined;
-	}
-
-	if (clients?.teamCentralClient) {
-		return clients.teamCentralClient;
-	}
-	const teamCentralEnabled = config.teamCentralDisabled !== true;
-	return teamCentralEnabled ? new TeamCentralCardClient({ ...config }) : undefined;
-}
+/**
+ * @deprecated Use the `ProfileCardClient` export from
+ * `@atlaskit/profilecard/profile-card-client` instead.
+ */
+export { ProfileCardClient as ProfileClient };
 
 export default ProfileCardClient;

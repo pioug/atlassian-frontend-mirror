@@ -4,7 +4,7 @@
  */
 import React, { type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
-import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 import { messages } from './i18n';
 import { token } from '@atlaskit/tokens';
 

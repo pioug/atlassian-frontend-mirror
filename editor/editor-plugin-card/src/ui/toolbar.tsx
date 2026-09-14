@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import type {
 	ACTION_SUBJECT_ID,
 	AnalyticsEventPayload,
@@ -60,9 +60,8 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import CogIcon from '@atlaskit/icon/core/settings';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { cardPlugin } from '../index';
 import { changeSelectedCardToText } from '../pm-plugins/doc';
@@ -249,7 +248,7 @@ export const floatingToolbar = (
 		const isEmbedCard = appearanceForNodeType(selectedNode.type) === 'embed';
 
 		/* add an offset to embeds due to extra padding */
-		const toolbarOffset: { offset: [number, number] } | Object = isEmbedCard
+		const toolbarOffset: { offset: [number, number] } | object = isEmbedCard
 			? {
 					offset: [0, 24],
 				}
@@ -582,26 +581,20 @@ const generateToolbarItems =
 						},
 					];
 
-			const openPreviewPanelItems: FloatingToolbarItem<Command>[] = editorExperiment(
-				'platform_editor_preview_panel_linking_exp',
-				true,
-				{ exposure: true },
-			)
-				? [
-						{
-							type: 'custom',
-							fallback: [],
-							render: () => (
-								<OpenPreviewPanelToolbarButton
-									node={node}
-									intl={intl}
-									editorAnalyticsApi={editorAnalyticsApi}
-									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
-								/>
-							),
-						},
-					]
-				: [];
+			const openPreviewPanelItems: FloatingToolbarItem<Command>[] = [
+				{
+					type: 'custom',
+					fallback: [],
+					render: () => (
+						<OpenPreviewPanelToolbarButton
+							node={node}
+							intl={intl}
+							editorAnalyticsApi={editorAnalyticsApi}
+							areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
+						/>
+					),
+				},
+			];
 
 			const resolvedToolbarAttributes = url
 				? (pluginState?.resolvedToolbarAttributesByUrl[url] ?? {})
@@ -623,28 +616,24 @@ const generateToolbarItems =
 				href: url,
 				target: '_blank',
 			};
-			const openLinkToolbarItem: FloatingToolbarItem<Command> = fg(
-				'platform_smartlink_xpc_url_wrapping',
-			)
-				? {
-						type: 'custom',
-						fallback: [openLinkToolbarItemFallback],
-						render: (editorView) =>
-							editorView && url ? (
-								<OpenLinkToolbarButton
-									url={url}
-									title={intl.formatMessage(linkMessages.openLink)}
-									editorView={editorView}
-									onClick={fireOpenLinkToolbarAnalytics(
-										editorAnalyticsApi,
-										openLinkInputMethod,
-										resolvedToolbarAttributes,
-									)}
-									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
-								/>
-							) : null,
-					}
-				: openLinkToolbarItemFallback;
+			const openLinkToolbarItem: FloatingToolbarItem<Command> = {
+				type: 'custom',
+				fallback: [openLinkToolbarItemFallback],
+				render: (editorView) =>
+					editorView && url ? (
+						<OpenLinkToolbarButton
+							url={url}
+							title={intl.formatMessage(linkMessages.openLink)}
+							editorView={editorView}
+							onClick={fireOpenLinkToolbarAnalytics(
+								editorAnalyticsApi,
+								openLinkInputMethod,
+								resolvedToolbarAttributes,
+							)}
+							areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
+						/>
+					) : null,
+			};
 
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = areAllNewToolbarFlagsDisabled
 				? [
@@ -819,7 +808,6 @@ const generateToolbarItems =
 								title: intl.formatMessage(commonMessages.copyToClipboard),
 								onClick: () => {
 									pluginInjectionApi?.core?.actions.execute(
-										// @ts-ignore
 										pluginInjectionApi?.floatingToolbar?.commands.copyNode(
 											node.type,
 											INPUT_METHOD.FLOATING_TB,
@@ -1025,28 +1013,24 @@ const getDatasourceButtonGroup = (
 			href: node.attrs.url,
 			target: '_blank',
 		};
-		toolbarItems.push(
-			fg('platform_smartlink_xpc_url_wrapping')
-				? {
-						type: 'custom',
-						fallback: [openLinkToolbarItemFallback],
-						render: (editorView) =>
-							editorView ? (
-								<OpenLinkToolbarButton
-									url={node.attrs.url}
-									title={intl.formatMessage(linkMessages.openLink)}
-									editorView={editorView}
-									onClick={fireOpenLinkToolbarAnalytics(
-										editorAnalyticsApi,
-										openLinkInputMethod,
-										pluginState?.resolvedToolbarAttributesByUrl[node.attrs.url] ?? {},
-									)}
-									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
-								/>
-							) : null,
-					}
-				: openLinkToolbarItemFallback,
-		);
+		toolbarItems.push({
+			type: 'custom',
+			fallback: [openLinkToolbarItemFallback],
+			render: (editorView) =>
+				editorView ? (
+					<OpenLinkToolbarButton
+						url={node.attrs.url}
+						title={intl.formatMessage(linkMessages.openLink)}
+						editorView={editorView}
+						onClick={fireOpenLinkToolbarAnalytics(
+							editorAnalyticsApi,
+							openLinkInputMethod,
+							pluginState?.resolvedToolbarAttributesByUrl[node.attrs.url] ?? {},
+						)}
+						areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
+					/>
+				) : null,
+		});
 		if (areAllNewToolbarFlagsDisabled) {
 			toolbarItems.push({ type: 'separator' });
 		}
@@ -1113,7 +1097,6 @@ const getDatasourceButtonGroup = (
 						title: intl.formatMessage(commonMessages.copyToClipboard),
 						onClick: () => {
 							pluginInjectionApi?.core?.actions.execute(
-								// @ts-ignore
 								pluginInjectionApi?.floatingToolbar?.commands.copyNode(
 									node.type,
 									INPUT_METHOD.FLOATING_TB,

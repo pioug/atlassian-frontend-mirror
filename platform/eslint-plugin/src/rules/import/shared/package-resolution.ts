@@ -3,6 +3,7 @@ import { dirname, join } from 'path';
 import * as ts from 'typescript';
 
 import { isRelativeImport, readFileContent, resolveImportPath } from './file-system';
+import { isExportNameDeprecatedInFile, isNodeDeprecated } from './jsdoc';
 import { findPackageInRegistry } from './package-registry';
 import type { FileSystem } from './types';
 
@@ -24,6 +25,12 @@ interface EntryPointReExport {
 	 * E.g. `export { default as Foo }` → Map { 'default' → 'Foo' }
 	 * Empty for star exports (`export * from`). */
 	nameMap: Map<string, string>;
+	/** Entry-point export names (the re-exported name) re-exported via a `@deprecated`
+	 * named re-export. Used to exclude deprecated shim subpaths as rewrite targets. */
+	deprecatedNames: Set<string>;
+	/** True when this is a `@deprecated export * from '...'` star re-export, which would
+	 * otherwise expose every export of the source file. */
+	deprecatedStar: boolean;
 }
 
 /**
@@ -69,15 +76,25 @@ function resolveEntryPointReExports({
 				}
 
 				const nameMap = new Map<string, string>();
+				const deprecatedNames = new Set<string>();
+				const statementDeprecated = isNodeDeprecated(statement, content);
 				if (statement.exportClause && ts.isNamedExports(statement.exportClause)) {
 					for (const element of statement.exportClause.elements) {
 						const exportedName = element.name.text;
 						const sourceName = element.propertyName ? element.propertyName.text : exportedName;
 						nameMap.set(sourceName, exportedName);
+						if (statementDeprecated || isNodeDeprecated(element, content)) {
+							deprecatedNames.add(exportedName);
+						}
 					}
 				}
+				// A star re-export (`export * from '...'`) has an empty nameMap and exposes
+				// every export of the source file; flag it when the whole statement is deprecated.
+				const deprecatedStar =
+					statementDeprecated &&
+					(!statement.exportClause || !ts.isNamedExports(statement.exportClause));
 
-				results.push({ sourcePath: resolved, nameMap });
+				results.push({ sourcePath: resolved, nameMap, deprecatedNames, deprecatedStar });
 			}
 		}
 
@@ -251,10 +268,33 @@ export function findExportForSourceFile({
 	fs?: FileSystem;
 	sourceExportName?: string;
 }): ExportMatchResult | null {
+	// Deprecated subpaths (backward-compat re-export shims marked `@deprecated`) must never
+	// be chosen as a rewrite target while a non-deprecated twin exists. We collect deprecated
+	// candidates separately in each phase and only fall back to them as a last resort.
+	const deprecatedFallbacks: ExportMatchResult[] = [];
+
 	// --- Phase 1: direct matches (export value === sourceFilePath) ---
 	const directMatches: ExportMatchResult[] = [];
 	for (const [exportPath, resolvedPath] of exportsMap) {
-		if (resolvedPath === sourceFilePath) {
+		if (resolvedPath !== sourceFilePath) {
+			continue;
+		}
+		// Only a `@deprecated` re-export (a path/shim deprecation) disqualifies this subpath
+		// as a rewrite target. A `@deprecated` on the symbol's local declaration is an API
+		// deprecation that says nothing about which import path to use, so it must not
+		// exclude an otherwise-clean subpath — hence `reExportsOnly: true`.
+		const deprecated =
+			fs !== undefined &&
+			sourceExportName !== undefined &&
+			isExportNameDeprecatedInFile({
+				filePath: resolvedPath,
+				exportName: sourceExportName,
+				fs,
+				reExportsOnly: true,
+			});
+		if (deprecated) {
+			deprecatedFallbacks.push({ exportPath });
+		} else {
 			directMatches.push({ exportPath });
 		}
 	}
@@ -296,13 +336,31 @@ export function findExportForSourceFile({
 					if (sourceExportName !== undefined && reExport.nameMap.has(sourceExportName)) {
 						entryPointExportName = reExport.nameMap.get(sourceExportName);
 					}
-					entryPointMatches.push({ exportPath, entryPointExportName });
+					// The re-export is deprecated when the whole `export * from '...'` is
+					// deprecated, or when the specific re-exported name is.
+					const entryPointName = entryPointExportName ?? sourceExportName;
+					const deprecated =
+						reExport.deprecatedStar ||
+						(entryPointName !== undefined && reExport.deprecatedNames.has(entryPointName));
+					if (deprecated) {
+						deprecatedFallbacks.push({ exportPath, entryPointExportName });
+					} else {
+						entryPointMatches.push({ exportPath, entryPointExportName });
+					}
 				}
 			}
 		}
 		if (entryPointMatches.length > 0) {
 			return pickBestMatch(entryPointMatches, exportsMap);
 		}
+	}
+
+	// No clean (non-deprecated) subpath exposes the symbol. Fall back to a deprecated shim
+	// only if one exists — the "every deprecated export has a non-deprecated twin" invariant
+	// means this is rarely hit, but returning it preserves previous behaviour for packages
+	// that only ship a deprecated subpath.
+	if (deprecatedFallbacks.length > 0) {
+		return pickBestMatch(deprecatedFallbacks, exportsMap);
 	}
 
 	return null;
@@ -332,6 +390,10 @@ export function findCrossPackageBridgeExportPath({
 	exportedName: string;
 	fs: FileSystem;
 }): ExportMatchResult | null {
+	// A deprecated bridge re-export shim must not be chosen while a non-deprecated bridge
+	// exists; keep any deprecated match as a last-resort fallback only.
+	let deprecatedFallback: ExportMatchResult | null = null;
+
 	for (const [exportPath, resolvedPath] of exportsMap) {
 		const content = readFileContent({ filePath: resolvedPath, fs });
 		if (!content) {
@@ -358,6 +420,7 @@ export function findCrossPackageBridgeExportPath({
 					continue;
 				}
 
+				const statementDeprecated = isNodeDeprecated(statement, content);
 				for (const element of statement.exportClause.elements) {
 					const publicName = element.name.text;
 					if (publicName !== exportedName) {
@@ -365,8 +428,14 @@ export function findCrossPackageBridgeExportPath({
 					}
 
 					const entryPointExportName = element.propertyName ? element.propertyName.text : undefined;
+					const match: ExportMatchResult = { exportPath, entryPointExportName };
 
-					return { exportPath, entryPointExportName };
+					if (statementDeprecated || isNodeDeprecated(element, content)) {
+						deprecatedFallback = deprecatedFallback ?? match;
+						continue;
+					}
+
+					return match;
 				}
 			}
 		} catch {
@@ -374,7 +443,7 @@ export function findCrossPackageBridgeExportPath({
 		}
 	}
 
-	return null;
+	return deprecatedFallback;
 }
 
 /**

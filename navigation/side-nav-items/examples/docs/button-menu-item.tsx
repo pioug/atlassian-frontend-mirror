@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { JiraIcon } from '@atlaskit/logo';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { ButtonMenuItem, COLLAPSE_ELEM_BEFORE } from '@atlaskit/side-nav-items/button-menu-item';
@@ -52,7 +52,7 @@ export function ButtonMenuItemExample(): React.JSX.Element {
 						<ButtonMenuItem elemBefore={<ContainerAvatar src={MoneyIcon} />}>
 							Button menu item (ContainerAvatar)
 						</ButtonMenuItem>
-						<ButtonMenuItem elemBefore={<JiraIcon label="" shouldUseNewLogoDesign size="xsmall" />}>
+						<ButtonMenuItem elemBefore={<JiraIcon label="" size="xsmall" />}>
 							Button menu item (app tile)
 						</ButtonMenuItem>
 						<ButtonMenuItem>Button menu item (spacer)</ButtonMenuItem>

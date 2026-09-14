@@ -8,9 +8,13 @@ import { useMemo, useCallback } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
-import type { AnnotationId, AnnotationDataAttributes, AnnotationTypes } from '@atlaskit/adf-schema';
-import { AnnotationMarkStates } from '@atlaskit/adf-schema';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type {
+	AnnotationId,
+	AnnotationDataAttributes,
+	AnnotationTypes,
+} from '@atlaskit/adf-schema/annotation';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useIntl } from 'react-intl';
 import { inlineCommentMessages } from '../../../messages';
 import { token } from '@atlaskit/tokens';

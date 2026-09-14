@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 
 const hasInvalidSteps = (tr: Transaction) =>
 	((tr.steps || []) as (Step & { from: number; to: number })[]).some((step) => step.from > step.to);

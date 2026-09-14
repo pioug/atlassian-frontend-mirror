@@ -17,18 +17,18 @@ import {
 } from '@atlaskit/atlassian-navigation';
 import noop from '@atlaskit/ds-lib/noop';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
-import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '@atlaskit/page-layout';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	Header,
-	NavigationHeader,
-	NestableNavigationContent,
-	NestingItem,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { Header } from '@atlaskit/side-navigation/header';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
+import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 
 import { SlotLabel, SlotWrapper } from '../common';
 

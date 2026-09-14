@@ -5,9 +5,9 @@
  */
 {
   "testExamples": [
-    "0-basic.tsx",
-    "4-customization.tsx",
-    "5-containers.tsx"
+    "0-basic.vr.ap.tsx",
+    "4-customization.vr.ap.tsx",
+    "5-containers.vr.ap.tsx"
   ],
   "exampleDependencies": []
 }

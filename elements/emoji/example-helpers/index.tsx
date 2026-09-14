@@ -1,24 +1,4 @@
-import type { OnLifecycle } from '../src/components/typeahead/EmojiTypeAheadComponent';
-import debug, { enableLogger } from '../src/util/logger';
-import type { OnEmojiEvent, OnToneSelected, EmojiUpload } from '../src/types';
-import type { OnUploadEmoji } from '../src/components/common/EmojiUploadPicker';
-
-enableLogger(true);
-
-export const onOpen: OnLifecycle = () => debug('picker opened');
-
-export const onClose: OnLifecycle = () => debug('picker closed');
-
-export const onSelection: OnEmojiEvent = (emojiId, emoji) =>
-	debug('emoji selected', emojiId, emoji);
-
-export const onToneSelected: OnToneSelected = (variation: number) =>
-	debug('tone selected', variation);
-
-export const onUploadEmoji: OnUploadEmoji = (upload: EmojiUpload) =>
-	debug('uploaded emoji', upload);
-
-export const onUploadCancelled = (): any => debug('upload cancelled');
+import { enableLogger } from '../src/util/logger';
 
 export const lorem = `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt,
@@ -33,3 +13,5 @@ export const lorem = `
   ullamcorper lectus mi, quis varius libero ultricies nec. Quisque tempus neque ligula,
   a semper massa dignissim nec.
 `;
+
+enableLogger(true);

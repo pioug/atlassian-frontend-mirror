@@ -1,5 +1,10 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
+import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 import type { MessageDescriptor } from 'react-intl';
 
@@ -8,20 +13,25 @@ import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages'
 import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
+import AkFlag from '@atlaskit/flag/flag';
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
+import { FlagGroup } from '@atlaskit/flag/flag-group';
+import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
-import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { type ActiveFlag, FLAG_ID } from '../types';
 type Props = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	onFeedbackPromptShown?: SyncedBlockPluginOptions['onFeedbackPromptShown'];
+	onGiveFeedback?: SyncedBlockPluginOptions['onGiveFeedback'];
 };
 
-type FlagType = 'error' | 'info';
+type FlagType = 'error' | 'feedback' | 'info';
 
 type FlagConfig = {
 	action?: MessageDescriptor;
@@ -29,6 +39,14 @@ type FlagConfig = {
 	title: MessageDescriptor;
 	type: FlagType;
 };
+
+const feedbackFlagStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Flag does not expose a styling hook for its action buttons, so keep this override scoped to the feedback flag.
+	'& [data-testid="synced-block-feedback-prompt-actions"] button': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Flag's internal action button padding is important, so the local override must match it.
+		paddingInlineStart: '0 !important',
+	},
+});
 
 const flagMap: Record<FLAG_ID, FlagConfig> = {
 	[FLAG_ID.CANNOT_DELETE_WHEN_OFFLINE]: {
@@ -80,6 +98,11 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 		description: messages.duplicateSourceSyncBlockDescription,
 		type: 'error',
 	},
+	[FLAG_ID.SYNC_BLOCK_FEEDBACK_PROMPT]: {
+		title: messages.feedbackFlagTitle,
+		description: messages.feedbackFlagDescription,
+		type: 'feedback',
+	},
 };
 
 export const getSyncBlockCopiedDescription = (
@@ -100,7 +123,11 @@ export const getSyncBlockCopiedDescription = (
 		: messages.syncBlockCopiedUnpublishedDescription;
 };
 
-export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
+export const Flag = ({
+	api,
+	onFeedbackPromptShown,
+	onGiveFeedback,
+}: Props): React.JSX.Element | undefined => {
 	const { activeFlag, mode } = useSharedPluginStateWithSelector(
 		api,
 		['syncedBlock', 'connectivity'],
@@ -112,6 +139,20 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 		},
 	);
 	const { formatMessage } = useIntl();
+	const isFeedbackPromptVisible =
+		activeFlag && activeFlag.id === FLAG_ID.SYNC_BLOCK_FEEDBACK_PROMPT;
+
+	React.useEffect(() => {
+		if (!isFeedbackPromptVisible || !onFeedbackPromptShown) {
+			return;
+		}
+		try {
+			const promptShownResult = onFeedbackPromptShown();
+			void Promise.resolve(promptShownResult).catch(() => {});
+		} catch {
+			// Prompt persistence is optional product UI.
+		}
+	}, [isFeedbackPromptVisible, onFeedbackPromptShown]);
 
 	if (!activeFlag) {
 		return;
@@ -155,7 +196,7 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 		return;
 	}
 
-	const onDismissed = () => {
+	const dismissFlag = (shouldFocusEditor: boolean) => {
 		api?.core.actions.execute(({ tr }) => {
 			onDismissedCallback?.(tr);
 			const oldMeta = tr.getMeta(syncedBlockPluginKey);
@@ -165,8 +206,11 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 			});
 			return tr;
 		});
-		api?.core.actions.focus();
+		if (shouldFocusEditor) {
+			api?.core.actions.focus();
+		}
 	};
+	const onDismissed = () => dismissFlag(true);
 
 	const typeToActions = () => {
 		if (type === 'error') {
@@ -187,23 +231,56 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 					rel: 'noopener noreferrer',
 				},
 			];
+		} else if (
+			type === 'feedback' &&
+			activeFlag.id === FLAG_ID.SYNC_BLOCK_FEEDBACK_PROMPT &&
+			activeFlag.feedbackContext
+		) {
+			const feedbackContext = activeFlag.feedbackContext;
+			return [
+				{
+					content: formatMessage(messages.feedbackFlagGiveFeedback),
+					onClick: () => {
+						dismissFlag(false);
+						try {
+							const feedbackResult = onGiveFeedback?.(feedbackContext);
+							void Promise.resolve(feedbackResult).catch(() => {});
+						} catch {
+							// Feedback collectors are optional product UI.
+						}
+					},
+				},
+				{
+					content: formatMessage(messages.feedbackFlagNoThanks),
+					onClick: onDismissed,
+				},
+			];
 		}
 		return undefined;
 	};
 
 	const FlagComponent = type === 'info' ? AutoDismissFlag : AkFlag;
+	const flag = (
+		<FlagComponent
+			onDismissed={onDismissed}
+			title={formatMessage(title)}
+			description={description ? formatMessage(description) : undefined}
+			id={activeFlag.id}
+			testId={activeFlag.id}
+			icon={typeToIcon(type)}
+			actions={typeToActions()}
+		/>
+	);
 
 	return (
 		<FlagGroup>
-			<FlagComponent
-				onDismissed={onDismissed}
-				title={formatMessage(title)}
-				description={description ? formatMessage(description) : undefined}
-				id={activeFlag.id}
-				testId={activeFlag.id}
-				icon={typeToIcon(type)}
-				actions={typeToActions()}
-			/>
+			{type === 'feedback' ? (
+				<div id={activeFlag.id} css={feedbackFlagStyles}>
+					{flag}
+				</div>
+			) : (
+				flag
+			)}
 		</FlagGroup>
 	);
 };
@@ -211,6 +288,9 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 const typeToIcon = (type: FlagType) => {
 	if (type === 'error') {
 		return <StatusWarningIcon label="" color={token('color.icon.warning')} />;
+	}
+	if (type === 'feedback') {
+		return <MegaphoneIcon label="" spacing="spacious" color={token('color.icon')} />;
 	}
 	return <StatusSuccessIcon label="" color={token('color.icon.success')} />;
 };

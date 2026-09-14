@@ -1,9 +1,7 @@
 import type { NavigationAction, NavigationActionCommon } from '../../common/types';
-import { isTeamsAppEnabled } from '../../common/utils/is-teams-app-enabled';
-
-import { generatePath, getPathAndQuery } from './utils';
-
-import { navigateToTeamsApp } from './index';
+import { generatePath } from './generatePath';
+import { getPathAndQuery } from './getPathAndQuery';
+import { navigateToTeamsApp } from './navigateToTeamsApp';
 
 jest.mock('@atlaskit/atlassian-context/get-atl-context-url', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context/get-atl-context-url'),
@@ -15,14 +13,20 @@ jest.mock('@atlaskit/atlassian-context/get-atl-context-url', () => ({
 	}),
 }));
 
-jest.mock('../../common/utils', () => ({
+jest.mock('../../common/utils/openInNewTab', () => ({
 	openInNewTab: jest.fn(),
+}));
+jest.mock('../../common/utils/redirect', () => ({
 	redirect: jest.fn(),
 }));
 
-jest.mock('../../common/utils/is-teams-app-enabled');
-
-jest.mock('./utils');
+jest.mock('./generatePath');
+jest.mock('./generateTeamsAppPath');
+jest.mock('./getEnvironment');
+jest.mock('./getHostProductFromPath');
+jest.mock('./getPathAndQuery');
+jest.mock('./isFedRampStaging');
+jest.mock('./onNavigateBase');
 
 const baseConfig: NavigationActionCommon = {
 	orgId: 'org123',
@@ -33,51 +37,7 @@ const baseConfig: NavigationActionCommon = {
 };
 
 describe('teams app navigation', () => {
-	describe('without Teams app redirect', () => {
-		beforeAll(() => {
-			(isTeamsAppEnabled as jest.Mock).mockReturnValue(false);
-		});
-		afterAll(() => {
-			jest.resetAllMocks();
-		});
-		it('should set shouldOpenInSameTab to true by default', () => {
-			const action: NavigationAction = {
-				...baseConfig,
-				type: 'LANDING',
-			};
-			const getPathAndQueryMock = jest
-				.fn()
-				.mockReturnValue({ path: 'somepath', query: new URLSearchParams() });
-			const generatePathMock = jest
-				.fn()
-				.mockReturnValue('https://jira.atlassian.net/people/somepath');
-			(getPathAndQuery as jest.Mock).mockImplementation(getPathAndQueryMock);
-			(generatePath as jest.Mock).mockImplementation(generatePathMock);
-
-			const result = navigateToTeamsApp(action);
-			expect(result.href).toEqual('https://jira.atlassian.net/people/somepath');
-
-			const actionWithDefaults = {
-				...action,
-				shouldOpenInSameTab: true,
-			};
-
-			expect(getPathAndQueryMock).toHaveBeenCalledWith(actionWithDefaults);
-			expect(generatePathMock).toHaveBeenCalledWith(
-				'somepath',
-				actionWithDefaults,
-				new URLSearchParams(),
-			);
-		});
-	});
-
-	describe('with Teams app redirect', () => {
-		beforeAll(() => {
-			(isTeamsAppEnabled as jest.Mock).mockReturnValue(true);
-		});
-		afterAll(() => {
-			jest.resetAllMocks();
-		});
+	describe('Teams app redirect', () => {
 		it('should set shouldOpenInSameTab to false by default', () => {
 			const action: NavigationAction = {
 				...baseConfig,

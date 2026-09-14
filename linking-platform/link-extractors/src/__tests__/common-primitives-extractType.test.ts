@@ -1,5 +1,5 @@
 import { TEST_OBJECT } from '../__mocks__/linkingPlatformJsonldMocks';
-import { extractType } from '../index';
+import { extractType } from '../extract-type';
 
 describe('extractors.primitives.type', () => {
 	it('returns undefined if not present', () => {

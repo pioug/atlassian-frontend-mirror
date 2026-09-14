@@ -98,6 +98,9 @@
 			"path": "../range/tsconfig.app.json"
 		},
 		{
+			"path": "../react-select/tsconfig.app.json"
+		},
+		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
@@ -120,6 +123,9 @@
 		},
 		{
 			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, waitFor, fireEvent } from '@testing-library/react';
@@ -95,26 +87,6 @@ describe('RelatedArticles', () => {
 			// eslint-disable-next-line @atlassian/a11y/no-violation-count
 			violationCount: 2,
 		});
-	});
-
-	it.skip('Should match snapshot', async () => {
-		const { container } = render(
-			<IntlProvider locale="en">
-				<RelatedArticles
-					routeGroup="test"
-					routeName="test"
-					onGetRelatedArticles={() => mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)}
-					onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
-					onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
-				/>
-			</IntlProvider>,
-		);
-
-		jest.advanceTimersByTime(200);
-
-		await waitFor(() => expect(mockOnGetRelatedArticles).toHaveBeenCalled());
-
-		expect(container.firstChild).toMatchSnapshot();
 	});
 
 	it('Should request the related article on the first render', async () => {

@@ -1,5 +1,5 @@
 // vcnext/index.test.ts
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { VCObserverEntry, ViewportEntryData } from '../../types';
 import {
@@ -11,7 +11,8 @@ import {
 import VCCalculator_FY26_04 from './index';
 
 // Mock feature flags
-jest.mock('@atlaskit/platform-feature-flags', () => ({
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn(),
 }));
 

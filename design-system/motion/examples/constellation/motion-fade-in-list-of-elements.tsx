@@ -14,11 +14,12 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
-import { Motion, StaggeredEntrance } from '@atlaskit/motion';
+import Motion from '@atlaskit/motion/entering/motion';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { RetryContainer } from '../utils';
+import { RetryContainer } from '../utils/containers';
 
 const styles = cssMap({
 	list: {

@@ -1,9 +1,10 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { mentionMessages } from '@atlaskit/editor-common/messages';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
 	ExtractInjectionAPI,
@@ -14,7 +15,7 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import type { MentionStats } from '@atlaskit/mention';
 import {
 	MENTION_ITEM_HEIGHT,
@@ -24,18 +25,15 @@ import {
 import type { MentionDescription, MentionProvider } from '@atlaskit/mention/resource';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { TeamMember } from '@atlaskit/mention/team-resource';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
 import { mentionPluginKey } from '../../pm-plugins/key';
 import { ACTIONS } from '../../pm-plugins/main';
-import {
-	mentionPlaceholderPluginKey,
-	MENTION_PLACEHOLDER_ACTIONS,
-} from '../../pm-plugins/mentionPlaceholder';
 import { getMentionPluginState } from '../../pm-plugins/utils';
 import type { FireElementsChannelEvent, MentionChange, TeamInfoAttrAnalytics } from '../../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../InviteItem';
@@ -48,24 +46,60 @@ import {
 	buildTypeAheadInviteItemViewedPayload,
 	buildTypeAheadRenderedPayload,
 } from './analytics';
-import { isInviteItem, isTeamStats, isTeamType, shouldKeepInviteItem } from './utils';
-
-const isAgentUserType = (userType: string | undefined): boolean =>
-	userType === 'APP' || userType === 'AGENT';
-
-const isAgentMention = (mention: Pick<MentionDescription, 'appType' | 'userType'>): boolean =>
-	isAgentUserType(mention.userType) || mention.appType === 'agent';
+import { AgentMentionLoadErrorItem } from './AgentMentionLoadErrorItem';
+import { MentionItemWithProfileCard } from './MentionItemWithProfileCard';
+import {
+	isAgentMention,
+	isAgentMentionLoadError,
+	isBotOrTeamMention,
+	isExplicitAgentMention,
+	isInviteItem,
+	isTeamStats,
+	isTeamType,
+	orderMentionsForDisplay,
+	shouldKeepInviteItem,
+} from './utils';
 
 const isAgentTypeAheadItem = (item: TypeAheadItem): boolean =>
 	item.mention ? isAgentMention(item.mention) : false;
+
+const isAgentMentionLoadErrorEnabled = (
+	mention:
+		| (Partial<Pick<MentionDescription, 'appType' | 'id' | 'isPlaceholder' | 'userType'>> & {
+				placeholderType?: string;
+		  })
+		| undefined,
+): boolean =>
+	isExperimentEnabled('platform_editor_agent_mentions_rovo_query_timeout') &&
+	isAgentMentionLoadError(mention);
+
+const isSearchOrderedAgentTypeAheadItem = (item: TypeAheadItem): boolean =>
+	!!item.mention && isExplicitAgentMention(item.mention);
+
+const isSearchOrderedPersonTypeAheadItem = (item: TypeAheadItem): boolean =>
+	!!item.mention &&
+	!isInviteItem(item.mention) &&
+	!isExplicitAgentMention(item.mention) &&
+	!isBotOrTeamMention(item.mention);
+
+const shouldApplyMentionSearchOrder = (query: string): boolean =>
+	isExperimentEnabled('platform_editor_mention_search_order') && query.trim().length > 0;
 
 // A non-selectable loading placeholder injected by the provider (e.g.
 // `RovoChatMentionResource`) while the slower agent source resolves. It
 // renders as a skeleton row via `@atlaskit/mention`'s `MentionItem` and
 // must never be inserted or counted in rendered-mention analytics.
-const isLoadingPlaceholder = (
+const isMentionPlaceholder = (
 	mention: Pick<MentionDescription, 'isPlaceholder'> | undefined,
 ): boolean => !!mention?.isPlaceholder;
+
+const isLoadingPlaceholder = (
+	mention:
+		| (Partial<Pick<MentionDescription, 'appType' | 'id' | 'isPlaceholder' | 'userType'>> & {
+				placeholderType?: string;
+		  })
+		| undefined,
+): boolean => isMentionPlaceholder(mention) && !isAgentMentionLoadErrorEnabled(mention);
 
 const createInviteItem = ({
 	mentionProvider,
@@ -82,7 +116,7 @@ const createInviteItem = ({
 	render: ({ isSelected, onClick, onHover }) =>
 		emailDomain &&
 		mentionProvider.getShouldEnableInlineInvite?.() &&
-		fg('jira_invites_auto_tag_new_user_in_mentions_fg') ? (
+		fg('inline_invite_from_mentions_kill_switch') ? (
 			<InviteItemWithEmailDomain
 				productName={mentionProvider ? mentionProvider.productName : undefined}
 				selected={isSelected}
@@ -140,21 +174,72 @@ const withInviteItem =
 	};
 
 const makeMentionToTypeaheadItem =
-	(useRefreshedItemHeight: boolean) =>
+	({
+		useRefreshedItemHeight,
+		profilecardProvider,
+	}: {
+		profilecardProvider?: Promise<ProfilecardProvider>;
+		useRefreshedItemHeight: boolean;
+	}) =>
 	(mention: MentionDescription): TypeAheadItem => {
 		const itemHeight = useRefreshedItemHeight ? MENTION_ITEM_HEIGHT_REFRESHED : MENTION_ITEM_HEIGHT;
 
+		if (isAgentMentionLoadErrorEnabled(mention)) {
+			return {
+				title: mention.id,
+				render: ({ onClick }) => <AgentMentionLoadErrorItem onRetry={onClick} />,
+				getCustomComponentHeight: () => {
+					return itemHeight;
+				},
+				mention,
+			};
+		}
+
+		if (
+			isLoadingPlaceholder(mention) &&
+			isExperimentEnabled('platform_editor_mention_search_order')
+		) {
+			return {
+				title: mention.id,
+				isNonInteractive: true,
+				render: ({ isSelected, onClick }) => (
+					<MentionItemWithProfileCard
+						mention={mention}
+						selected={isSelected}
+						onSelection={onClick}
+						height={itemHeight}
+						profilecardProvider={profilecardProvider}
+					/>
+				),
+				getCustomComponentHeight: () => {
+					return itemHeight;
+				},
+				mention,
+			};
+		}
+
 		return {
 			title: mention.id,
-			render: ({ isSelected, onClick, onHover }) => (
-				<MentionItem
-					mention={mention}
-					selected={isSelected}
-					onMouseEnter={onHover}
-					onSelection={onClick}
-					height={itemHeight}
-				/>
-			),
+			render: ({ isSelected, onClick, onHover }) =>
+				(expVal('platform_editor_agent_mentions', 'isEnabled', false) &&
+					fg('platform_editor_mention_typeahead_profilecard')) ||
+				fg('platform_editor_agent_card_fixes') ? (
+					<MentionItemWithProfileCard
+						mention={mention}
+						selected={isSelected}
+						onSelection={onClick}
+						height={itemHeight}
+						profilecardProvider={profilecardProvider}
+					/>
+				) : (
+					<MentionItem
+						mention={mention}
+						selected={isSelected}
+						onMouseEnter={onHover}
+						onSelection={onClick}
+						height={itemHeight}
+					/>
+				),
 			getCustomComponentHeight: () => {
 				return itemHeight;
 			},
@@ -163,7 +248,9 @@ const makeMentionToTypeaheadItem =
 	};
 
 export const mentionToTypeaheadItem = (mention: MentionDescription): TypeAheadItem =>
-	makeMentionToTypeaheadItem(expVal('platform_editor_agent_mentions', 'isEnabled', false))(mention);
+	makeMentionToTypeaheadItem({
+		useRefreshedItemHeight: expVal('platform_editor_agent_mentions', 'isEnabled', false),
+	})(mention);
 
 /**
  * Caches mention typeahead items by mention ID.
@@ -201,6 +288,7 @@ const buildAndSendElementsTypeAheadAnalytics =
 		query,
 		mentions,
 		stats,
+		mentionTypeaheadSessionId,
 		agentAnalytics,
 	}: {
 		agentAnalytics?: {
@@ -208,6 +296,7 @@ const buildAndSendElementsTypeAheadAnalytics =
 			agentSectioningEnabled: boolean;
 		};
 		mentions: MentionDescription[];
+		mentionTypeaheadSessionId: string;
 		query: string;
 		stats?: MentionStats;
 	}) => {
@@ -248,6 +337,7 @@ const buildAndSendElementsTypeAheadAnalytics =
 			query,
 			teams,
 			xProductMentionsLength,
+			mentionTypeaheadSessionId,
 			agentAnalytics,
 		);
 		fireEvent(payload, 'fabric-elements');
@@ -316,6 +406,7 @@ type Props = {
 	handleMentionsChanged?: (mentionChanges: MentionChange[]) => void;
 	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
 	mentionInsertDisplayName?: boolean;
+	profilecardProvider?: Promise<ProfilecardProvider>;
 	sanitizePrivateContent?: boolean;
 	showAgentMentionsLabsLozenge?: boolean;
 };
@@ -334,12 +425,16 @@ const makeTransformMentionsToTypeAheadItems = ({
 	fireEvent,
 	getFirstQueryWithoutResults,
 	setFirstQueryWithoutResults,
+	hasFiredInviteItemViewed,
+	markInviteItemViewed,
 	toItem,
 	enableAgentSectioning,
 }: {
 	enableAgentSectioning: boolean;
 	fireEvent: FireElementsChannelEvent;
 	getFirstQueryWithoutResults: () => string | null;
+	hasFiredInviteItemViewed: () => boolean;
+	markInviteItemViewed: () => void;
 	setFirstQueryWithoutResults: (query: string) => void;
 	toItem: (mention: MentionDescription) => TypeAheadItem;
 }) => {
@@ -359,22 +454,24 @@ const makeTransformMentionsToTypeAheadItems = ({
 		sessionId: string;
 		stats?: MentionStats;
 	}): Array<TypeAheadItem> => {
-		const mentionItems = mentions.map((mention) => toItem(mention));
-		const agentCount = mentions.filter(isAgentMention).length;
+		const displayMentions = shouldApplyMentionSearchOrder(query)
+			? orderMentionsForDisplay(mentions)
+			: mentions;
+		const mentionItems = displayMentions.map((mention) => toItem(mention));
+		// Provider placeholders stay in `mentionItems` so loading/error rows render,
+		// but they are not real mention results for analytics or agent counts.
+		const realMentions = displayMentions.filter((mention) => !isMentionPlaceholder(mention));
+		const agentCount = realMentions.filter(isAgentMention).length;
 		const agentAnalytics = {
 			agentCount,
 			agentSectioningEnabled: enableAgentSectioning,
 		};
 
-		// The loading placeholder is a rendered-only row — keep it in
-		// `mentionItems` so the shimmer shows, but exclude it from analytics
-		// and no-results bookkeeping so it isn't counted as a real result.
-		const realMentions = mentions.filter((mention) => !isLoadingPlaceholder(mention));
-
 		buildAndSendElementsTypeAheadAnalytics(fireEvent)({
 			query,
 			mentions: realMentions,
 			stats,
+			mentionTypeaheadSessionId: sessionId,
 			agentAnalytics,
 		});
 
@@ -399,12 +496,18 @@ const makeTransformMentionsToTypeAheadItems = ({
 			firstQueryWithoutResults: getFirstQueryWithoutResults() || '',
 			currentQuery: query,
 			onInviteItemMount: () => {
+				if (fg('inline_invite_from_mentions_kill_switch')) {
+					if (hasFiredInviteItemViewed()) {
+						return;
+					}
+					markInviteItemViewed();
+				}
 				fireEvent(
 					buildTypeAheadInviteItemViewedPayload(
 						sessionId,
 						contextIdentifierProvider,
 						mentionProvider.userRole,
-						fg('jira_invites_auto_tag_new_user_in_mentions_fg')
+						fg('inline_invite_from_mentions_kill_switch')
 							? {
 									isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.(),
 								}
@@ -426,10 +529,13 @@ export const createTypeAheadConfig = ({
 	handleMentionsChanged,
 	enableAgentSectioning = false,
 	showAgentMentionsLabsLozenge = false,
+	profilecardProvider,
 }: Props): TypeAheadHandler => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	let sessionId = uuid();
 	let firstQueryWithoutResults: string | null = null;
+	let lastTypeAheadQuery = '';
+	let hasFiredInviteItemViewed = false;
 	const subscriptionKeys = new Set<string>();
 
 	const transformMentionsToTypeAheadItems = makeTransformMentionsToTypeAheadItems({
@@ -439,7 +545,16 @@ export const createTypeAheadConfig = ({
 		setFirstQueryWithoutResults: (query: string) => {
 			firstQueryWithoutResults = query;
 		},
-		toItem: memoize(makeMentionToTypeaheadItem(enableAgentSectioning)).call,
+		hasFiredInviteItemViewed: () => hasFiredInviteItemViewed,
+		markInviteItemViewed: () => {
+			hasFiredInviteItemViewed = true;
+		},
+		toItem: memoize(
+			makeMentionToTypeaheadItem({
+				useRefreshedItemHeight: enableAgentSectioning,
+				profilecardProvider,
+			}),
+		).call,
 	});
 
 	const typeAhead: TypeAheadHandler = {
@@ -457,6 +572,7 @@ export const createTypeAheadConfig = ({
 			return null;
 		},
 		getItems({ query, editorState }) {
+			lastTypeAheadQuery = query || '';
 			const pluginState = getMentionPluginState(editorState);
 
 			if (!pluginState?.mentionProvider) {
@@ -494,11 +610,9 @@ export const createTypeAheadConfig = ({
 				subscriptionKeys.add(key);
 
 				mentionProvider.subscribe(key, mentionsSubscribeCallback, () => {
-					if (editorExperiment('platform_editor_offline_editing_web', true)) {
-						mentionProvider.unsubscribe(key);
-						subscriptionKeys.delete(key);
-						reject('FETCH_ERROR');
-					}
+					mentionProvider.unsubscribe(key);
+					subscriptionKeys.delete(key);
+					reject('FETCH_ERROR');
 				});
 
 				mentionProvider.filter(query || '', {
@@ -512,18 +626,38 @@ export const createTypeAheadConfig = ({
 				return [];
 			}
 
+			const applySearchOrder = shouldApplyMentionSearchOrder(lastTypeAheadQuery);
+
 			return [
 				{
 					id: 'people',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionPeople),
-					filter: (item) => !isAgentTypeAheadItem(item),
+					filter: applySearchOrder
+						? isSearchOrderedPersonTypeAheadItem
+						: (item) => {
+								if (isAgentTypeAheadItem(item)) {
+									return false;
+								}
+								// Keep the invite ("Add teammate") row out of the people section so no
+								// section claims it. `buildSectionedResult` then appends it after every
+								// section, placing it below the agent results instead of above them, so the
+								// first highlighted option is an agent you can pick with Enter.
+								if (
+									item.mention &&
+									isInviteItem(item.mention) &&
+									fg('platform_editor_agent_mentions_invite_order')
+								) {
+									return false;
+								}
+								return true;
+							},
 					limit: 5,
 					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
 				},
 				{
 					id: 'agents',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionAgents),
-					filter: (item) => isAgentTypeAheadItem(item),
+					filter: applySearchOrder ? isSearchOrderedAgentTypeAheadItem : isAgentTypeAheadItem,
 					limit: 5,
 					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
 					lozenge:
@@ -537,6 +671,8 @@ export const createTypeAheadConfig = ({
 		},
 		onOpen: () => {
 			firstQueryWithoutResults = null;
+			lastTypeAheadQuery = '';
+			hasFiredInviteItemViewed = false;
 		},
 		selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
 			const { schema } = state;
@@ -549,7 +685,6 @@ export const createTypeAheadConfig = ({
 
 			const pluginState = getMentionPluginState(state);
 			const { mentionProvider } = pluginState;
-			const { id, name, nickname, accessLevel, userType, isXProductUser } = item.mention;
 			const { contextIdentifierProvider } =
 				api?.contextIdentifier?.sharedState.currentState() ?? {};
 
@@ -557,6 +692,13 @@ export const createTypeAheadConfig = ({
 				...contextIdentifierProvider,
 				sessionId,
 			};
+
+			if (isAgentMentionLoadErrorEnabled(item.mention)) {
+				mentionProvider?.filter(query || '', mentionContext);
+				return false;
+			}
+
+			const { id, name, nickname, accessLevel, userType, isXProductUser } = item.mention;
 			const isAgentMentionSelection = isAgentMention(item.mention);
 			const isAgentMentionInsertion =
 				isAgentMentionSelection && expVal('platform_editor_agent_mentions', 'isEnabled', false);
@@ -584,7 +726,7 @@ export const createTypeAheadConfig = ({
 							query,
 							contextIdentifierProvider,
 							mentionProvider.userRole,
-							fg('jira_invites_auto_tag_new_user_in_mentions_fg')
+							fg('inline_invite_from_mentions_kill_switch')
 								? { isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.() }
 								: {},
 						),
@@ -592,7 +734,7 @@ export const createTypeAheadConfig = ({
 
 					if (
 						mentionProvider.getShouldEnableInlineInvite?.() &&
-						fg('jira_invites_auto_tag_new_user_in_mentions_fg')
+						fg('inline_invite_from_mentions_kill_switch')
 					) {
 						// Get the email from query, using the same logic as InviteItemWithEmailDomain
 						const emailDomain = mentionProvider.userEmailDomain;
@@ -602,13 +744,23 @@ export const createTypeAheadConfig = ({
 							email = `${email.toLowerCase()}@${emailDomain}`;
 						}
 						// If query already includes @, use it as is
-						if (email && mentionProvider.showInlineInviteRecaptcha) {
-							mentionProvider.showInlineInviteRecaptcha(email);
-							const { tr } = state;
-							tr.setMeta(mentionPlaceholderPluginKey, {
-								action: MENTION_PLACEHOLDER_ACTIONS.SHOW_PLACEHOLDER,
-								placeholder: `@${query}`,
-							});
+						if (email && mentionProvider.showInlineInvitePopup) {
+							const pendingLocalId = crypto.randomUUID();
+							const tr = insert(
+								createSingleMentionFragment({
+									mentionProvider,
+									mentionInsertDisplayName,
+									tr: state.tr,
+									sanitizePrivateContent,
+								})({
+									name: email,
+									id: pendingLocalId,
+									userType: 'DEFAULT',
+									localId: pendingLocalId,
+									accessLevel: 'CONTAINER',
+								}),
+							);
+							mentionProvider.showInlineInvitePopup(email, pendingLocalId);
 							return tr;
 						}
 					} else if (mentionProvider.onInviteItemClick) {
@@ -723,6 +875,7 @@ export const createTypeAheadConfig = ({
 		},
 		dismiss({ editorState, query, stats, wasItemInserted }) {
 			firstQueryWithoutResults = null;
+			hasFiredInviteItemViewed = false;
 			const pickerElapsedTime = stats.startedAt ? performance.now() - stats.startedAt : 0;
 
 			if (!wasItemInserted) {
@@ -762,7 +915,8 @@ export const createTypeAheadConfig = ({
 	 * people + agents to the dropdown without the typeahead dropping
 	 * the second emission on the floor.
 	 *
-	 * Gated behind `rovo_chat_agent_selection` (the same gate that drives
+	 * Gated behind the `rovo_chat_mention_agents` experiment (the same control
+	 * that drives
 	 * agent mentions in the Rovo chat input). The generic type-ahead hook
 	 * opts a handler into streaming purely by the presence of this method,
 	 * so we only attach it when the gate is on — otherwise the proven
@@ -772,6 +926,7 @@ export const createTypeAheadConfig = ({
 		query,
 		editorState,
 	}) => {
+		lastTypeAheadQuery = query || '';
 		const pluginState = getMentionPluginState(editorState);
 		if (!pluginState?.mentionProvider) {
 			return { initial: Promise.resolve([]), subscribe: () => () => {} };
@@ -785,6 +940,7 @@ export const createTypeAheadConfig = ({
 		let initialReject: ((reason?: unknown) => void) | null = null;
 		let initialResolved = false;
 		let updateCallback: ((items: Array<TypeAheadItem>) => void) | null = null;
+		let pendingUpdate: Array<TypeAheadItem> | null = null;
 		let unsubscribed = false;
 
 		const initial = new Promise<Array<TypeAheadItem>>((resolve, reject) => {
@@ -816,6 +972,13 @@ export const createTypeAheadConfig = ({
 			if (!initialResolved) {
 				initialResolved = true;
 				initialResolve?.(items);
+			} else if (
+				enableAgentSectioning &&
+				isExperimentEnabled('platform_editor_mention_search_order') &&
+				!updateCallback
+			) {
+				// Agent Studio can resolve before the typeahead installs its update subscriber.
+				pendingUpdate = items;
 			} else {
 				updateCallback?.(items);
 			}
@@ -823,13 +986,11 @@ export const createTypeAheadConfig = ({
 
 		subscriptionKeys.add(key);
 		mentionProvider.subscribe(key, mentionsSubscribeCallback, () => {
-			if (editorExperiment('platform_editor_offline_editing_web', true)) {
-				mentionProvider.unsubscribe(key);
-				subscriptionKeys.delete(key);
-				if (!initialResolved) {
-					initialResolved = true;
-					initialReject?.('FETCH_ERROR');
-				}
+			mentionProvider.unsubscribe(key);
+			subscriptionKeys.delete(key);
+			if (!initialResolved) {
+				initialResolved = true;
+				initialReject?.('FETCH_ERROR');
 			}
 		});
 
@@ -845,9 +1006,18 @@ export const createTypeAheadConfig = ({
 					throw new Error('TypeAhead mention updates support only one subscriber');
 				}
 				updateCallback = update;
+				if (
+					enableAgentSectioning &&
+					isExperimentEnabled('platform_editor_mention_search_order') &&
+					pendingUpdate
+				) {
+					updateCallback(pendingUpdate);
+					pendingUpdate = null;
+				}
 				return () => {
 					unsubscribed = true;
 					updateCallback = null;
+					pendingUpdate = null;
 					mentionProvider.unsubscribe(key);
 					subscriptionKeys.delete(key);
 					// If cleanup runs before the first emission, settle the initial
@@ -862,10 +1032,14 @@ export const createTypeAheadConfig = ({
 		};
 	};
 
+	if (enableAgentSectioning && isExperimentEnabled('platform_editor_mention_search_order')) {
+		typeAhead.subscribeToItemsUpdates = subscribeToItemsUpdates;
+	}
+
 	// Presence of `subscribeToItemsUpdates` is how the type-ahead hook
 	// opts a handler into the multi-emit path, so only expose it when the
-	// agent-selection gate is on.
-	if (fg('rovo_chat_agent_selection')) {
+	// agent-mentions experiment is enabled.
+	if (isExperimentEnabled('rovo_chat_mention_agents')) {
 		typeAhead.subscribeToItemsUpdates = subscribeToItemsUpdates;
 	}
 

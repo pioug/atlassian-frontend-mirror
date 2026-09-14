@@ -2,10 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { css, jsx } from '@compiled/react';
 
 import { type MediaType } from '../../../../../constants';
-import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
 import ImageIcon from '../../../../common/image-icon';
 import { type ElementProps } from '../index';
 

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-wrapper-object-types */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
 	type Symbol,
@@ -1093,11 +1093,6 @@ const handleXCSSProp: CodeConsolidator = ({
 		.getProject()
 		.addSourceFileAtPath(require.resolve('@atlassian/forge-ui/utils/xcssValidator'));
 	const xcssValidatorDeclaration = xcssValidatorfile.getVariableDeclarationOrThrow('xcssValidator');
-	// Emit `xcssValidator = makeXCSSValidator({...})` from the initializer expression only —
-	// dropping the source's `: XCSSValidatorFn` annotation and its `as unknown as XCSSValidatorFn`
-	// cast. `XCSSValidatorFn` is local to xcssValidator.ts and is not carried into the generated
-	// file, and `XCSSProp` (derived via `ReturnType<typeof xcssValidator>`) must reflect
-	// makeXCSSValidator's precise inferred return rather than the hand-written `XCSSValidatorFn`.
 	// Strip any type-only / grouping wrappers (`as ...`, `satisfies ...`, parentheses) to reach the
 	// underlying `makeXCSSValidator({...})` call. Any such wrapper would otherwise leak a type name
 	// (e.g. `XCSSValidatorFn`) that is local to xcssValidator.ts and not carried into the generated
@@ -1110,11 +1105,53 @@ const handleXCSSProp: CodeConsolidator = ({
 	) {
 		xcssValidatorInitializer = xcssValidatorInitializer.getExpression();
 	}
-	const xcssValidator = `${xcssValidatorDeclaration.getName()}: XCSSPropsValidator<XCSSValidatorParam> = ${xcssValidatorInitializer.getText()} as unknown as XCSSPropsValidator<XCSSValidatorParam>`;
-	const XCSSPropType = xcssValidatorfile
-		.getTypeAliasOrThrow('XCSSProp')
-		.setIsExported(false)
-		.getText();
+
+	// Emit the validator spec as a *type* alias rather than a `const`.
+	//
+	// The spec is only ever needed at type level here: `XCSSProp` is derived from it, and
+	// `makeXCSSValidator` is an ambient `declare const`, so a runtime binding would emit nothing
+	// and go unused. Emitting a `const` instead forces `--isolatedDeclarations` to infer the
+	// object literal for the `.d.ts`, which fails on the non-const array literals
+	// (TS9017/TS9013). Annotating the const to satisfy that instead instantiates
+	// `XCSSPropsValidator<typeof spec>` and makes the checker compare two deep instantiations
+	// (TS2859). A type alias sidesteps both: aliases are emitted verbatim, so nothing is
+	// inferred and no function type is instantiated.
+	//
+	// The source object literal is already valid type syntax — `true` is a literal type and
+	// `['a', 'b']` is a tuple type (mutable, so it still satisfies the
+	// `supportedValues: Array<...>` constraint on `XCSSValidatorParam`). The only exception is a
+	// property whose value is a reference to a hoisted variable, which must become
+	// `typeof <name>` to be legal in type position.
+	const xcssValidatorSpec = xcssValidatorInitializer
+		.asKindOrThrow(SyntaxKind.CallExpression)
+		.getArguments()[0];
+	if (!Node.isObjectLiteralExpression(xcssValidatorSpec)) {
+		throw new Error(
+			'Expected makeXCSSValidator to be called with an object literal spec; got ' +
+				xcssValidatorSpec?.getKindName(),
+		);
+	}
+	const specStart = xcssValidatorSpec.getStart();
+	// Collect identifier-valued properties (e.g. `supportedValues: borderRadiusSupportedValues`)
+	// and splice in `typeof ` from the end so earlier offsets stay valid.
+	const identifierValueEdits = xcssValidatorSpec
+		.getDescendantsOfKind(SyntaxKind.PropertyAssignment)
+		.map((property) => property.getInitializer())
+		.filter((initializer) => initializer !== undefined && Node.isIdentifier(initializer))
+		.map((initializer) => initializer.getStart() - specStart)
+		.sort((a, b) => b - a);
+	let specText = xcssValidatorSpec.getText();
+	for (const offset of identifierValueEdits) {
+		specText = `${specText.slice(0, offset)}typeof ${specText.slice(offset)}`;
+	}
+
+	const xcssValidatorArgTypeName = 'XCSSValidatorArg';
+	const xcssValidatorSpecType = `type ${xcssValidatorArgTypeName} = ${specText};`;
+	// `XCSSProp` in the source is `ReturnType<typeof xcssValidator>`. With no `xcssValidator`
+	// binding emitted, resolve it through the validator's function type instead. The
+	// `U extends XCSSValidatorParam` constraint still validates the spec, so dropping the
+	// source's `satisfies XCSSValidatorParam` loses no checking.
+	const XCSSPropType = `type XCSSProp = ReturnType<XCSSPropsValidator<${xcssValidatorArgTypeName}>>;`;
 
 	// Extract variables referenced in xcssValidator
 	const referencedVariables = extractReferencedVariables(
@@ -1142,7 +1179,7 @@ const handleXCSSProp: CodeConsolidator = ({
 			xcssValidatorDeclarationCode,
 			variableImportsCode,
 			referencedVariablesCode,
-			`const ${xcssValidator};`,
+			xcssValidatorSpecType,
 			XCSSPropType,
 		]
 			.filter((code) => !!code)

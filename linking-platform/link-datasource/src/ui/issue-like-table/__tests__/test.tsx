@@ -16,39 +16,41 @@ import { IntlProvider } from 'react-intl';
 import { defaultRegistry } from 'react-sweet-state';
 import invariant from 'tiny-invariant';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	flushPromises,
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { ActionOperationStatus } from '@atlaskit/linking-types';
+import { ActionOperationStatus } from '@atlaskit/linking-types/datasource-actions';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,
 	type Icon,
 } from '@atlaskit/linking-types/datasource';
-import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { type ConcurrentExperience } from '@atlaskit/ufo';
+import type { Input } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
+import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
-import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { Store } from '../../../state';
 import { ActionsStore } from '../../../state/actions';
-import { getOrderedColumns, IssueLikeDataTableView } from '../index';
+import { getColumnMinWidth } from '../get-column-min-width';
+import { getOrderedColumns } from '../get-ordered-columns';
+import { IssueLikeDataTableView } from '../issue-like-data-table-view';
 import { type IssueLikeDataTableViewProps, type TableViewPropsRenderType } from '../types';
-import { getColumnMinWidth } from '../utils';
 
 let mockUseExecuteAtomicAction = jest.fn();
 
-jest.mock('../../../state/actions', () => {
+jest.mock('../../../state/actions/useExecuteAtomicAction', () => {
 	return {
 		__esModule: true,
-		...jest.requireActual('../../../state/actions'),
+		...jest.requireActual('../../../state/actions/useExecuteAtomicAction'),
 		useExecuteAtomicAction: () => mockUseExecuteAtomicAction(),
 	};
 });
@@ -82,9 +84,9 @@ const mockInlineEditUfoStart = jest.fn();
 const mockInlineEditUfoSuccess = jest.fn();
 const mockInlineEditUfoFailure = jest.fn();
 
-jest.mock('@atlaskit/ufo', () => ({
+jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
+	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	...jest.requireActual<object>('@atlaskit/ufo'),
 	ConcurrentExperience: jest.fn().mockImplementation(
 		(experienceId: string): Partial<ConcurrentExperience> => ({
 			experienceId: experienceId,
@@ -172,6 +174,7 @@ describe('IssueLikeDataTableView', () => {
 		const onVisibleColumnKeysChange = jest.fn(() => {});
 		const onColumnResize = jest.fn(() => {});
 		const onWrappedColumnChange = jest.fn(() => {});
+		const onWrappedColumnsChange = jest.fn(() => {});
 		const smartLinkClient = new SmartLinkClient();
 
 		const renderResult = render(
@@ -188,6 +191,7 @@ describe('IssueLikeDataTableView', () => {
 								onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 								onColumnResize={onColumnResize}
 								onWrappedColumnChange={onWrappedColumnChange}
+								onWrappedColumnsChange={onWrappedColumnsChange}
 								items={[]}
 								itemIds={[]}
 								columns={[]}
@@ -263,6 +267,7 @@ describe('IssueLikeDataTableView', () => {
 			onVisibleColumnKeysChange,
 			onColumnResize,
 			onWrappedColumnChange,
+			onWrappedColumnsChange,
 			openColumnPicker,
 			openInlineEdit,
 		};
@@ -1100,6 +1105,182 @@ describe('IssueLikeDataTableView', () => {
 			});
 
 			expect(screen.getByTestId('column-picker-trigger-button')).toBeInTheDocument();
+		});
+
+		it('should not show the table settings menu when the gate is off', () => {
+			failGate('platform_lp_sllv_table_settings_menu');
+			jest.useFakeTimers();
+			const items = getSimpleItems();
+			const itemIds = setupItemIds(items);
+			const columns = getSimpleColumns();
+
+			setup({
+				items,
+				itemIds,
+				hasNextPage: true,
+				columns,
+			});
+
+			expect(screen.queryByRole('button', { name: 'More actions' })).not.toBeInTheDocument();
+		});
+
+		it('should not show the table settings menu without an available setting', () => {
+			passGate('platform_lp_sllv_table_settings_menu');
+			jest.useFakeTimers();
+			const items = getSimpleItems();
+			const itemIds = setupItemIds(items);
+			const columns = getSimpleColumns();
+
+			setup({
+				items,
+				itemIds,
+				hasNextPage: true,
+				columns,
+				onWrappedColumnsChange: undefined,
+			});
+
+			expect(screen.getByTestId('column-picker-trigger-button')).toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: 'More actions' })).not.toBeInTheDocument();
+		});
+
+		it('should show the table settings menu next to the column picker when the gate is on', async () => {
+			passGate('platform_lp_sllv_table_settings_menu');
+			jest.useFakeTimers();
+			const items = getSimpleItems();
+			const itemIds = setupItemIds(items);
+			const columns = getSimpleColumns();
+
+			setup({
+				items,
+				itemIds,
+				hasNextPage: true,
+				columns,
+			});
+
+			expect(screen.getByTestId('column-picker-trigger-button')).toBeInTheDocument();
+			const moreActionsButton = screen.getByRole('button', { name: 'More actions' });
+			expect(moreActionsButton).toBeInTheDocument();
+
+			fireEvent.click(moreActionsButton);
+			expect(await screen.findByTestId('table-settings-menu-wrap-text-toggle')).toBeInTheDocument();
+			expect(screen.getByText('Wrap text in all columns')).toBeInTheDocument();
+		});
+
+		it('should show the wrap-all toggle as on when every visible column is wrapped', async () => {
+			passGate('platform_lp_sllv_table_settings_menu');
+			const items = getComplexItems();
+			const itemIds = setupItemIds(items);
+
+			setup({
+				items,
+				itemIds,
+				columns: getComplexColumns(),
+				visibleColumnKeys: ['id', 'someOtherKey'],
+				wrappedColumnKeys: ['id', 'someOtherKey'],
+			});
+
+			fireEvent.click(screen.getByRole('button', { name: 'More actions' }));
+			expect(
+				await screen.findByRole('checkbox', { name: 'Wrap text in all columns' }),
+			).toBeChecked();
+		});
+
+		it('should show the wrap-all toggle as off when any visible column is unwrapped', async () => {
+			passGate('platform_lp_sllv_table_settings_menu');
+			const items = getComplexItems();
+			const itemIds = setupItemIds(items);
+
+			setup({
+				items,
+				itemIds,
+				columns: getComplexColumns(),
+				visibleColumnKeys: ['id', 'someOtherKey'],
+				wrappedColumnKeys: ['id'],
+			});
+
+			fireEvent.click(screen.getByRole('button', { name: 'More actions' }));
+			expect(
+				await screen.findByRole('checkbox', { name: 'Wrap text in all columns' }),
+			).not.toBeChecked();
+		});
+
+		it('should wrap all visible columns when the wrap-all toggle is off', async () => {
+			passGate('platform_lp_sllv_table_settings_menu');
+			const items = getComplexItems();
+			const itemIds = setupItemIds(items);
+
+			const { onWrappedColumnsChange } = setup({
+				items,
+				itemIds,
+				columns: getComplexColumns(),
+				visibleColumnKeys: ['id', 'someOtherKey'],
+				wrappedColumnKeys: ['id', 'hiddenWrapped'],
+			});
+
+			fireEvent.click(screen.getByRole('button', { name: 'More actions' }));
+			fireEvent.click(await screen.findByRole('checkbox', { name: 'Wrap text in all columns' }));
+
+			expect(onWrappedColumnsChange).toHaveBeenCalledWith(['id', 'hiddenWrapped', 'someOtherKey']);
+		});
+
+		it('should unwrap all visible columns when the wrap-all toggle is on', async () => {
+			passGate('platform_lp_sllv_table_settings_menu');
+			const items = getComplexItems();
+			const itemIds = setupItemIds(items);
+
+			const { onWrappedColumnsChange } = setup({
+				items,
+				itemIds,
+				columns: getComplexColumns(),
+				visibleColumnKeys: ['id', 'someOtherKey'],
+				wrappedColumnKeys: ['id', 'someOtherKey', 'hiddenWrapped'],
+			});
+
+			fireEvent.click(screen.getByRole('button', { name: 'More actions' }));
+			fireEvent.click(await screen.findByRole('checkbox', { name: 'Wrap text in all columns' }));
+
+			expect(onWrappedColumnsChange).toHaveBeenCalledWith(['hiddenWrapped']);
+		});
+
+		describe('when the request resolved without any items', () => {
+			const setupWithNoItems = () =>
+				setup({
+					items: [],
+					itemIds: [],
+					columns: getSimpleColumns(),
+					visibleColumnKeys: ['id'],
+					status: 'resolved',
+				});
+
+			ffTest.off('platform_lp_sllv_ux_improvements', '', () => {
+				it('should render an empty table body', () => {
+					const { queryByTestId, queryByText } = setupWithNoItems();
+
+					expect(queryByTestId('sometable--no-results-row')).not.toBeInTheDocument();
+					expect(
+						queryByText("We couldn't find anything matching your search"),
+					).not.toBeInTheDocument();
+				});
+			});
+
+			ffTest.on('platform_lp_sllv_ux_improvements', '', () => {
+				it('should render the no results view in the table body while keeping the headers', () => {
+					const { getByTestId, getByText } = setupWithNoItems();
+
+					expect(getByTestId('sometable--head')).toBeInTheDocument();
+					expect(getByTestId('id-column-heading')).toBeInTheDocument();
+					expect(getByTestId('sometable--no-results-row')).toBeInTheDocument();
+					expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
+				});
+
+				it('should span the no results cell across every column including the column picker', () => {
+					const { getByTestId } = setupWithNoItems();
+
+					expect(
+						within(getByTestId('sometable--no-results-row')).getByRole('cell'),
+					).toHaveAttribute('colspan', '2');
+				});
+			});
 		});
 
 		describe('column picker integration', () => {

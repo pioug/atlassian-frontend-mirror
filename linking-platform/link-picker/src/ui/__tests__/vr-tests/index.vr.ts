@@ -19,7 +19,7 @@ import {
 	VrWithoutEmptyResultsIllustrationExample,
 	WithCancelExample,
 	ZeroPaddingExample,
-} from '../../examples';
+} from '../../examples.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

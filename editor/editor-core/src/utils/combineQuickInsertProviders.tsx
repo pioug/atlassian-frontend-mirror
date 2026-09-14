@@ -4,9 +4,13 @@ import { combineProviders } from '@atlaskit/editor-common/provider-helpers';
 export function combineQuickInsertProviders(
 	quickInsertProviders: Array<QuickInsertProvider | Promise<QuickInsertProvider>>,
 ): QuickInsertProvider {
-	const { invokeList } = combineProviders<QuickInsertProvider>(quickInsertProviders);
+	const { invokeList, invokeOptionalList } =
+		combineProviders<QuickInsertProvider>(quickInsertProviders);
 
 	return {
+		getComponents() {
+			return invokeOptionalList('getComponents');
+		},
 		getItems() {
 			return invokeList('getItems');
 		},

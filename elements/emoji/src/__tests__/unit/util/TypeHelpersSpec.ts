@@ -1,9 +1,7 @@
-import {
-	buildEmojiDescriptionWithAltRepresentation,
-	convertMediaToImageEmoji,
-	convertMediaToImageRepresentation,
-} from '../../../util/type-helpers';
 import type { EmojiDescriptionWithVariations, MediaApiRepresentation } from '../../../types';
+import { buildEmojiDescriptionWithAltRepresentation } from '../../../util/build-emoji-description-with-alt-representation';
+import { convertMediaToImageEmoji } from '../../../util/convert-media-to-image-emoji';
+import { convertMediaToImageRepresentation } from '../../../util/convert-media-to-image-representation';
 import { evilburnsEmoji, mediaEmoji } from '../_test-data';
 
 const newPath = 'http://new-path/';

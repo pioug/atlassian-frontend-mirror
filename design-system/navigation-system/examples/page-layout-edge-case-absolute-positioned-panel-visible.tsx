@@ -1,3 +1,3 @@
-import { EdgeCaseSiblingAbsolutePositionedPanelVisible } from './page-layout';
+import { EdgeCaseSiblingAbsolutePositionedPanelVisible } from './page-layout.vr.ap';
 
 export default EdgeCaseSiblingAbsolutePositionedPanelVisible;

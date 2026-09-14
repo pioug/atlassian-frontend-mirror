@@ -4,11 +4,23 @@
  */
 
 import { css, jsx, styled } from '@compiled/react';
-import Lorem from 'react-lorem-component';
 
-import Button from '@atlaskit/button/new';
-import { Manager, Popper, Reference } from '@atlaskit/popper';
+import Button from '@atlaskit/button/default/button';
+import { Manager } from '@atlaskit/popper/manager';
+import { Popper } from '@atlaskit/popper/main';
+import { Reference } from '@atlaskit/popper/reference';
 import { token } from '@atlaskit/tokens';
+
+const placeholderText =
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
+const PlaceholderContent = ({ count }: { count: number }) => (
+	<div>
+		{Array.from({ length: count }, (_, index) => (
+			<p key={index}>{placeholderText}</p>
+		))}
+	</div>
+);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Popup = styled.div({
@@ -49,7 +61,7 @@ const BasicPopper = () => (
 					data-placement={placement}
 				>
 					<h3>New Popper</h3>
-					<Lorem count={1} />
+					<PlaceholderContent count={1} />
 				</Popup>
 			)}
 		</Popper>
@@ -85,12 +97,12 @@ export default (): JSX.Element => (
 	<div css={containerStyles}>
 		<div css={innerStyles}>
 			<h2>Scroll down halfway, then across to see the popper</h2>
-			<Lorem count={10} />
+			<PlaceholderContent count={10} />
 			<h2 data-testid="vertical-scroll-identifier">Halfway, now scroll right</h2>
 			<div css={popperWrapperStyles}>
 				<BasicPopper />
 			</div>
-			<Lorem count={10} />
+			<PlaceholderContent count={10} />
 		</div>
 	</div>
 );

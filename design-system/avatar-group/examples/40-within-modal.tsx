@@ -1,7 +1,10 @@
 import React from 'react';
 
-import AvatarGroup from '@atlaskit/avatar-group';
-import Modal, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 
 import { appearances } from '../examples-util/appearances';
 import ExampleImage from '../examples-util/nucleus.png';

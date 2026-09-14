@@ -5,7 +5,7 @@ import {
 	DefaultCreateWithModal,
 	DefaultCreateWithModalHero,
 	DefaultCreateWithModalTitle,
-} from '../../examples/vr/vr-create-modal';
+} from '../../examples/vr/vr-create-modal.vr.ap';
 
 type OptionsType = Parameters<typeof snapshot>[1];
 

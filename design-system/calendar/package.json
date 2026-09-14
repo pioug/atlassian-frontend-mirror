@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/calendar",
-	"version": "18.3.6",
+	"version": "19.2.3",
 	"description": "An interactive calendar for date selection experiences.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 		"date-fns": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -58,47 +58,26 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jest-in-case": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
-			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"static",
-				"emotion"
-			]
-		}
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./calendar": "./src/entry-points/calendar.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./calendar": "./src/calendar.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
+		"platform-dst-motion-uplift-list-item": {
 			"type": "boolean"
 		},
-		"platform-dst-motion-uplift-list-item": {
+		"platform-dst-tokens-finesse": {
 			"type": "boolean"
 		}
 	},

@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DiffType } from '../showDiffPluginType';
@@ -15,3 +15,6 @@ import type { DiffType } from '../showDiffPluginType';
 export const isExtendedEnabled = (diffType?: DiffType): boolean =>
 	expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
 	(diffType === 'smart' && fg('platform_editor_ai_smart_diff'));
+
+export const getDefaultDiffType = (): DiffType =>
+	fg('platform_editor_ai_smart_diff') ? 'smart' : 'inline';

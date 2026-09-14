@@ -1,5 +1,23 @@
 # @atlaskit/media-core
 
+## 38.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+## 38.1.0
+
+### Minor Changes
+
+- [`ae3b452f54cbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae3b452f54cbe) -
+  Add clean granular subpath exports `@atlaskit/media-core/auth-to-owner`,
+  `@atlaskit/media-core/is-asap-based-auth` and `@atlaskit/media-core/is-client-based-auth`, so
+  `authToOwner`, `isAsapBasedAuth` and `isClientBasedAuth` each have a non-deprecated import target
+  (Volt Stage-1). The `@atlaskit/media-core/auth` shim's `@deprecated` messages now point at these
+  subpaths instead of the root package barrel.
+
 ## 38.0.0
 
 ### Major Changes

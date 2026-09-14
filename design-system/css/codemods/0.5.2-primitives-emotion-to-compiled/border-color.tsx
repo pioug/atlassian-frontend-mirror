@@ -1,8 +1,8 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c2243347101d0284063f83cb3084a0b4>>
+ * @codegen <<SignedSource::d6795e6c2d3e9cfa47c92243c08ae4b7>>
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  */
 import { token } from '@atlaskit/tokens';
 
@@ -32,6 +32,7 @@ export const borderColorMap: {
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
+	'color.border.input.search': 'var(--ds-border-input-search)';
 	'color.border.inverse': 'var(--ds-border-inverse)';
 	'color.border.selected': 'var(--ds-border-selected)';
 	'color.border.brand': 'var(--ds-border-brand)';
@@ -72,6 +73,7 @@ export const borderColorMap: {
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
+	'color.border.input.search': token('color.border.input.search', '#0B120E24'),
 	'color.border.inverse': token('color.border.inverse', '#FFFFFF'),
 	'color.border.selected': token('color.border.selected', '#1868DB'),
 	'color.border.brand': token('color.border.brand', '#1868DB'),

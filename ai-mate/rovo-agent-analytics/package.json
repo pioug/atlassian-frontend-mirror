@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "6.0.0",
+	"version": "6.3.0",
 	"description": "Rovo Agents analytics",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -53,40 +53,5 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
 	}
 }

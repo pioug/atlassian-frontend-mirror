@@ -6,7 +6,9 @@ import NotificationIndicator, {
 	type ValueUpdatingParams,
 	type ValueUpdatingResult,
 } from './NotificationIndicator';
-import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 const NotificationIndicatorWithAnalytics: ForwardRefExoticComponent<
 	Pick<Omit<Props, keyof WithAnalyticsEventsProps>, never> & {

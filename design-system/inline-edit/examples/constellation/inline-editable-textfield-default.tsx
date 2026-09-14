@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { InlineEditableTextfield } from '@atlaskit/inline-edit';
+import InlineEditableTextfield from '@atlaskit/inline-edit/inline-editable-textfield';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 const InlineEditableTextfieldDefault = (): React.JSX.Element => {

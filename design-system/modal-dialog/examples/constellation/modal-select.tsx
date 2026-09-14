@@ -1,17 +1,18 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { Code } from '@atlaskit/code';
-import Form, { Field } from '@atlaskit/form';
-import ModalDialog, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Button from '@atlaskit/button/default/button';
+import Code from '@atlaskit/code/code';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Text } from '@atlaskit/primitives/compiled';
-import Select, { type OptionType as Option, type ValueType as Value } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { OptionType as Option, ValueType as Value } from '@atlaskit/select/types';
 
 export default function ModalDialogSelect(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);

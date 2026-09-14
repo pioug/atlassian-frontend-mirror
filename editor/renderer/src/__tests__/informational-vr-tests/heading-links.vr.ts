@@ -10,7 +10,7 @@ import {
 	SimpleHeadingInsideExpand,
 	SimpleHeadingInsideTable,
 	SimpleHeadingInsideLayout,
-} from './heading-links.fixture';
+} from './heading-links.fixture.vr.ap';
 
 const RENDERER_HEADING_WRAPPER = 'renderer-heading-wrapper';
 

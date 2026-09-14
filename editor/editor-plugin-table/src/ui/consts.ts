@@ -83,8 +83,6 @@ export const contextualMenuDropdownWidthDnD = 250;
 export const stickyRowZIndex: number = resizeHandlerZIndex + 2;
 export const stickyRowOffsetTop = 8;
 export const stickyHeaderBorderBottomWidth = 1;
-export const tableOverflowShadowWidth = 8;
-export const tableOverflowShadowWidthWide = 32;
 export const tablePopupMenuFitHeight = 188;
 export const tableColumnControlsHeight = 24;
 export const nativeStickyHeaderZIndex: number = akEditorTableCellOnStickyHeaderZIndex - 5;
@@ -111,7 +109,10 @@ export const dragMenuDropdownWidth = 250;
 export const dragTableInsertColumnButtonSize = 16;
 export const dropTargetExtendedWidth = 150;
 export const dragRowControlsWidth = 14;
-export const colorPaletteColumnsOld = 7;
+// Column count for the 7-column palette. Kept under its original (misspelled) name so existing
+// importers are not broken.
+export const colorPalletteColumns = 7;
+// Column count for the expanded palette, which adds lime, orange and magenta columns.
 export const colorPaletteColumns = 10;
 
 export const tableResizerWidth = 8;

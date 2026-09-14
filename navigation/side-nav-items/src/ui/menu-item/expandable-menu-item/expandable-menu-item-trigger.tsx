@@ -6,11 +6,11 @@ import React, { type ReactNode, useCallback, useId, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
-import { IconButton } from '@atlaskit/button/new';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
+import IconButton from '@atlaskit/button/icon/button';
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
-import type { IconProps } from '@atlaskit/icon';
+import type { IconProps } from '@atlaskit/icon/types';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-breakout",
-	"version": "12.4.0",
+	"version": "18.0.0",
 	"description": "Breakout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,6 +37,7 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -62,47 +63,11 @@
 		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
 	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			],
-			"code-structure": [
-				"editor-plugin"
-			]
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
-		}
-	},
 	"platform-feature-flags": {
-		"platform_editor_lovability_resize_gracefully": {
+		"platform_editor_lovability_resize_exts_gracefully": {
 			"type": "boolean"
 		},
-		"platform_editor_lovability_resize_patch_1": {
+		"platform_editor_lovability_resize_gracefully": {
 			"type": "boolean"
 		}
 	}

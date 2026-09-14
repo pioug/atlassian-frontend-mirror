@@ -1,8 +1,8 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { VCAbortReason } from '../../../../common/vc/types';
 import { expVal } from '../../../expVal';
-import { containsDnDMutationInStyle } from '../../../vc-observer/observers/non-visual-styles/is-dnd-style-mutation';
+import { containsAnchorNameMutationInStyle } from '../../../vc-observer/observers/non-visual-styles/is-anchor-name-style-mutation';
 import type {
 	VCObserverEntry,
 	VCObserverEntryType,
@@ -15,7 +15,6 @@ import {
 	MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES,
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,
 	NON_VISUAL_ARIA_ATTRIBUTES,
-	THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES,
 } from '../utils/constants';
 import isViewportEntryData from '../utils/is-viewport-entry-data';
 
@@ -97,7 +96,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			// special case for style attribute to ignore only anchor-name changes
 			if (expVal('platform_editor_media_vc_fixes', 'isEnabled', false)) {
 				if (
-					containsDnDMutationInStyle({
+					containsAnchorNameMutationInStyle({
 						attributeName: entryData.attributeName,
 						oldValue: entryData.oldValue,
 						newValue: entryData.newValue,
@@ -122,10 +121,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			if (
 				attributeName.startsWith('data-test') ||
 				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName) ||
-				(THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) &&
-					fg('platform_ufo_exclude_3p_extensions_from_ttvc')) ||
-				(DARK_READER_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) &&
-					fg('platform_ufo_exclude_dark_reader_extension')) ||
+				DARK_READER_BROWSER_EXTENSION_ATTRIBUTES.includes(attributeName) ||
 				(MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES.includes(attributeName) &&
 					fg('platform_ufo_exclude_fdprocessedid_attribute'))
 			) {

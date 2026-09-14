@@ -9,7 +9,7 @@ import MentionPicker, {
 	type OnOpen,
 	type Props,
 } from '../../../components/MentionPicker';
-import * as Analytics from '../../../util/analytics';
+import * as fireSliAnalyticsEventModule from '../../../util/fire-sli-analytics-event';
 import { screen, render, act, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import userEvent from '@testing-library/user-event';
@@ -104,7 +104,7 @@ describe('MentionPicker', () => {
 	});
 
 	it('should fire SLI analytcs after search', async () => {
-		const analytics = jest.spyOn(Analytics, 'fireSliAnalyticsEvent');
+		const analytics = jest.spyOn(fireSliAnalyticsEventModule, 'fireSliAnalyticsEvent');
 		const component = setupPicker({
 			query: 's',
 		} as Props);

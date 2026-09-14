@@ -4,7 +4,8 @@ import debounce from 'debounce-promise';
 import { useForm } from 'react-final-form';
 import { useIntl } from 'react-intl';
 
-import { AsyncSelect as AkAsyncSelect, type GroupType, type OptionType } from '@atlaskit/select';
+import AkAsyncSelect from '@atlaskit/select/async-select';
+import type { GroupType, OptionType } from '@atlaskit/select/types';
 
 import messages from '../../../common/messages';
 import { useLinkCreateCallback } from '../../../controllers/callback-context/main';
@@ -29,7 +30,6 @@ export function AsyncSelect<T = OptionType>({
 	validators,
 	validationHelpText,
 	testId = TEST_ID,
-	//@ts-ignore react-select unsupported props
 	defaultOption: propsDefaultValue,
 	loadOptions: loadOptionsFn,
 	...restProps

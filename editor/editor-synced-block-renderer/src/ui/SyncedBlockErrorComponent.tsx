@@ -11,7 +11,6 @@ import {
 import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
 import { buildFetchErrorAttribution } from '@atlaskit/editor-synced-block-provider/errorHandling';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncedBlockEntityNotFoundError } from './SyncedBlockEntityNotFoundError';
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
@@ -69,8 +68,6 @@ export const SyncedBlockErrorComponent = ({
 		// Emit structured attribution via the shared builder instead of an opaque
 		// `errored`-only blob. Prefer the PII-safe `originalMessage` so the classifier
 		// can bucket the real cause; fall back to `reason` then the bare `type`.
-		// Gate-off is a no-op (builder returns undefined → no new attributes).
-		const gateEnabled = fg('platform_editor_blocks_patch_4');
 		const rawError = error?.originalMessage || error?.reason || error?.type || 'unknown';
 
 		fireAnalyticsEvent?.(
@@ -78,7 +75,7 @@ export const SyncedBlockErrorComponent = ({
 				`${rawError}: error component rendered`,
 				resourceId,
 				getSourceProductFromResourceIdSafe(resourceId),
-				buildFetchErrorAttribution(gateEnabled, rawError, error?.statusCode),
+				buildFetchErrorAttribution(rawError, error?.statusCode),
 			),
 		);
 	}, [

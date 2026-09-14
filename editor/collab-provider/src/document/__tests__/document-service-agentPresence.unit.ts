@@ -1,6 +1,8 @@
 import type { StepJson } from '@atlaskit/editor-common/collab';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 import type { StepsPayload } from '../../types';
 import type { DocumentService } from '../document-service';
@@ -65,7 +67,15 @@ eeTest
 			).toHaveBeenCalledTimes(1);
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:712020:abc');
+			).toHaveBeenCalledWith('agent:712020:abc', 'mcp');
+		});
+
+		it('preserves agent type when agentId is absent', () => {
+			ctx.processSteps([buildStep({ agentType: 'convo-ai' })]);
+
+			expect(
+				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
+			).toHaveBeenCalledWith('agent:convo-ai', 'convo-ai');
 		});
 
 		it('falls back to the agent type as the id when agentId is absent', () => {
@@ -73,7 +83,7 @@ eeTest
 
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:twg');
+			).toHaveBeenCalledWith('agent:twg', 'twg');
 		});
 
 		it('adds each distinct agent once for a mixed batch', () => {
@@ -89,10 +99,10 @@ eeTest
 			).toHaveBeenCalledTimes(2);
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:712020:abc');
+			).toHaveBeenCalledWith('agent:712020:abc', 'mcp');
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:twg');
+			).toHaveBeenCalledWith('agent:twg', 'twg');
 		});
 
 		it('does nothing for steps without agent attribution', () => {
@@ -140,13 +150,18 @@ eeTest
 		});
 	});
 
-// OFF-path guard on a shared collab-provider hot path — remove when the experiment is cleaned up.
+// OFF-path guard on a shared collab-provider hot path — remove when the experiments are cleaned up.
+// The frontend streaming UX milestone enables agent presence independently of backend streaming: it
+// attributes its own local steps, which are echoed back to this client, so it needs the facepile
+// without the backend streaming visuals.
 eeTest
 	.describe('platform_editor_agent_be_streaming', 'document-service: agent edit presence detection')
 	.variant(false, () => {
 		const ctx = withService();
 
 		it('does nothing (shared collab-provider safety)', () => {
+			mockExpDisabled('platform_editor_ai_streaming_ux_experience_m1');
+
 			ctx.processSteps([buildStep({ agentType: 'mcp', agentId: '712020:abc' })]);
 
 			expect(
@@ -157,5 +172,28 @@ eeTest
 				expect.anything(),
 				expect.anything(),
 			);
+		});
+
+		it('registers a participant when the streaming UX milestone is enabled', () => {
+			mockExpEnabled('platform_editor_ai_streaming_ux_experience_m1');
+
+			ctx.processSteps([buildStep({ agentType: 'convo-ai' })]);
+
+			expect(
+				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
+			).toHaveBeenCalledWith('agent:convo-ai', 'convo-ai');
+			expect(ctx.getAnalyticsHelperMock().sendActionEvent).toHaveBeenCalledWith(
+				EVENT_ACTION.AGENT_EDIT_RECEIVED,
+				EVENT_STATUS.SUCCESS,
+				expect.objectContaining({ agentTypes: ['convo-ai'] }),
+			);
+		});
+
+		it('does not log an exposure for the streaming UX milestone on this hot path', () => {
+			mockExpEnabled('platform_editor_ai_streaming_ux_experience_m1');
+
+			ctx.processSteps([buildStep({ agentType: 'convo-ai' })]);
+
+			expect(wasExperimentExposed('platform_editor_ai_streaming_ux_experience_m1')).toBe(false);
 		});
 	});

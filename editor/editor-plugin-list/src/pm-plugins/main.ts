@@ -18,6 +18,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { ListPlugin } from '../listPluginType';
@@ -35,7 +36,65 @@ const initialState: ListState = {
 	orderedListActive: false,
 	orderedListDisabled: false,
 	decorationSet: DecorationSet.empty,
+	listStructureToken: 0,
 };
+
+/**
+ * Numbered lists whose item counters reach 2+ digits need extra gutter spacing so the counter
+ * does not collide with the item content.
+ */
+const getItemCounterPaddingStyle = (node: Node): string | undefined => {
+	if (node.type.name !== 'orderedList') {
+		return undefined;
+	}
+	const digitsSize = getItemCounterDigitsSize({
+		itemsCount: node?.childCount,
+		order: node?.attrs?.order,
+	});
+	return digitsSize && digitsSize > 1
+		? getOrderedListInlineStyles(digitsSize, 'string')
+		: undefined;
+};
+
+/**
+ * Builds the decorations for a range aligned to top-level block boundaries — or for the whole
+ * document, which is the same thing.
+ *
+ * Indentation level is no longer decorated: the `:is(ul, ol)` rules in
+ * `editor-core/src/ui/EditorContentContainer/styles/list.ts` derive the marker from the list's
+ * ancestors in CSS instead. All that remains is the ordered-list counter gutter, which depends on
+ * the item count and start number and so cannot be expressed as a selector.
+ *
+ * Textblocks only hold inline content, so they can never contain a list. Skipping their subtrees
+ * avoids visiting every text node in the range.
+ */
+const getDecorationsForRange = (doc: Node, from: number, to: number): Decoration[] => {
+	const decorations: Decoration[] = [];
+
+	doc.nodesBetween(from, to, (node, currentNodeStartPos) => {
+		if (node.isTextblock) {
+			return false;
+		}
+
+		const style = getItemCounterPaddingStyle(node);
+		if (style) {
+			decorations.push(
+				Decoration.node(currentNodeStartPos, currentNodeStartPos + node.nodeSize, { style }),
+			);
+		}
+
+		return true;
+	});
+
+	return decorations;
+};
+
+/**
+ * Full-document rebuild on the improved path, used when the decoration set has no previous value
+ * to update. The whole document is just one aligned range.
+ */
+export const getDecorationsForDocument = (doc: Node): DecorationSet =>
+	DecorationSet.empty.add(doc, getDecorationsForRange(doc, 0, doc.content.size));
 
 export const getDecorations = (
 	doc: Node,
@@ -96,7 +155,122 @@ export const getDecorations = (
 	return DecorationSet.empty.add(doc, decorations);
 };
 
-const getListState = (doc: Node, selection: Selection): Omit<ListState, 'decorationSet'> => {
+/**
+ * The parts of a transaction the decoration update needs, so that both `Transaction` and
+ * `ReadonlyTransaction` can be passed in.
+ */
+type TransactionSteps = Pick<ReadonlyTransaction, 'mapping' | 'steps'>;
+
+/**
+ * Expands the ranges touched by a transaction out to whole top-level blocks. A list decoration
+ * depends only on the subtree of the top-level block containing it, so recomputing whole blocks is
+ * enough — and it keeps the depth calculation free of any ancestor accounting.
+ */
+const getDirtyTopLevelRanges = (
+	tr: TransactionSteps,
+	doc: Node,
+): { from: number; to: number }[] => {
+	const docSize = doc.content.size;
+	const wholeDoc = [{ from: 0, to: docSize }];
+
+	const boundsAt = (pos: number) => {
+		// resolving a position strictly inside a block gives us its boundaries in O(depth)
+		const inside = Math.max(1, Math.min(pos, Math.max(1, docSize - 1)));
+		const $inside = doc.resolve(inside);
+		if ($inside.depth > 0) {
+			return { from: $inside.before(1), to: $inside.after(1) };
+		}
+		// exactly between two top-level blocks — cover both neighbours
+		const $before = doc.resolve(Math.max(1, inside - 1));
+		const $after = doc.resolve(Math.min(Math.max(1, docSize - 1), inside + 1));
+		return {
+			from: $before.depth > 0 ? $before.before(1) : 0,
+			to: $after.depth > 0 ? $after.after(1) : docSize,
+		};
+	};
+
+	const ranges: { from: number; to: number }[] = [];
+
+	for (let index = 0; index < tr.steps.length; index++) {
+		const step = tr.steps[index];
+		// Duck-typed rather than matched on step class so that unknown step types fall back to a
+		// full recompute instead of being silently skipped.
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const { from, to, pos } = step as any;
+		const positions: number[] =
+			typeof from === 'number' && typeof to === 'number'
+				? [from, to]
+				: typeof pos === 'number'
+					? [pos]
+					: [];
+
+		if (positions.length === 0) {
+			return wholeDoc;
+		}
+
+		// Step positions are in the document before this step, so map through the later steps. The
+		// range start is biased left and the end biased right, so that neither slides across a
+		// block boundary and leaves a dirty block out of the recompute.
+		const remainder = tr.mapping.slice(index);
+		const start = boundsAt(remainder.map(Math.min(...positions), -1));
+		const end = boundsAt(remainder.map(Math.max(...positions), 1));
+		ranges.push({ from: Math.min(start.from, end.from), to: Math.max(start.to, end.to) });
+	}
+
+	ranges.sort((a, b) => a.from - b.from);
+
+	const merged: { from: number; to: number }[] = [];
+	for (const range of ranges) {
+		const last = merged[merged.length - 1];
+		if (last && range.from <= last.to) {
+			last.to = Math.max(last.to, range.to);
+		} else {
+			merged.push({ ...range });
+		}
+	}
+	return merged;
+};
+
+/**
+ * Maps the previous decoration set through the transaction and recomputes only the top-level blocks
+ * it touched, instead of rebuilding the whole set from a full document scan.
+ */
+export const updateDecorations = (
+	previousDecorationSet: DecorationSet,
+	tr: TransactionSteps,
+	doc: Node,
+): DecorationSet => {
+	let decorationSet = previousDecorationSet.map(tr.mapping, doc);
+
+	for (const { from, to } of getDirtyTopLevelRanges(tr, doc)) {
+		// find() also returns decorations that merely touch the range, so removal is restricted to
+		// the ones fully inside it — those are exactly the decorations recomputed below. Removing a
+		// decoration that only touches the boundary would drop it permanently.
+		const stale = decorationSet
+			.find(from, to)
+			.filter((decoration) => decoration.from >= from && decoration.to <= to);
+		if (stale.length > 0) {
+			decorationSet = decorationSet.remove(stale);
+		}
+
+		const fresh = getDecorationsForRange(doc, from, to);
+		if (fresh.length > 0) {
+			decorationSet = decorationSet.add(doc, fresh);
+		}
+	}
+
+	return decorationSet;
+};
+
+/**
+ * The selection-derived part of the plugin state. `decorationSet` and `listStructureToken` are
+ * excluded because they depend on the previous state rather than on the current selection.
+ */
+const getListState = (
+	doc: Node,
+	selection: Selection,
+): Omit<ListState, 'decorationSet' | 'listStructureToken'> => {
 	const { bulletList, orderedList, taskList } = doc.type.schema.nodes;
 	const listParent = findParentNodeOfType([bulletList, orderedList, taskList])(selection);
 
@@ -121,14 +295,38 @@ const getListState = (doc: Node, selection: Selection): Omit<ListState, 'decorat
 	};
 };
 
-const handleDocChanged =
+/**
+ * Bumps `listStructureToken` only when the selection sits inside a list, so that editing a
+ * document with no list involvement does not churn toolbar renders.
+ */
+const withListStructureToken = (nextPluginState: ListState, pluginState: ListState): number => {
+	const isInList =
+		nextPluginState.bulletListActive ||
+		nextPluginState.orderedListActive ||
+		pluginState.bulletListActive ||
+		pluginState.orderedListActive;
+	return isInList ? pluginState.listStructureToken + 1 : pluginState.listStructureToken;
+};
+
+const handleDocChangedOld =
 	(featureFlags: FeatureFlags) =>
 	(tr: ReadonlyTransaction, pluginState: ListState, editorState: EditorState): ListState => {
 		const nextPluginState = handleSelectionChanged(tr, pluginState);
-		const decorationSet = getDecorations(tr.doc, editorState, featureFlags);
 		return {
 			...nextPluginState,
-			decorationSet,
+			decorationSet: getDecorations(tr.doc, editorState, featureFlags),
+			listStructureToken: withListStructureToken(nextPluginState, pluginState),
+		};
+	};
+
+const handleDocChangedNew =
+	() =>
+	(tr: ReadonlyTransaction, pluginState: ListState, editorState: EditorState): ListState => {
+		const nextPluginState = handleSelectionChanged(tr, pluginState);
+		return {
+			...nextPluginState,
+			decorationSet: updateDecorations(pluginState.decorationSet, tr, tr.doc),
+			listStructureToken: withListStructureToken(nextPluginState, pluginState),
 		};
 	};
 
@@ -161,7 +359,7 @@ const reducer =
 		return state;
 	};
 
-const createInitialState =
+const createInitialStateOld =
 	(featureFlags: FeatureFlags, api?: ExtractInjectionAPI<ListPlugin>) => (state: EditorState) => {
 		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
 		return {
@@ -169,6 +367,19 @@ const createInitialState =
 			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
 			...(isToolbarAIFCEnabled ? getListState(state.doc, state.selection) : initialState),
 			decorationSet: getDecorations(state.doc, state, featureFlags),
+			listStructureToken: 0,
+		};
+	};
+
+const createInitialStateNew =
+	(featureFlags: FeatureFlags, api?: ExtractInjectionAPI<ListPlugin>) => (state: EditorState) => {
+		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+		return {
+			// When plugin is initialised, editor state is defined with selection
+			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
+			...(isToolbarAIFCEnabled ? getListState(state.doc, state.selection) : initialState),
+			decorationSet: getDecorationsForDocument(state.doc),
+			listStructureToken: 0,
 		};
 	};
 
@@ -178,12 +389,21 @@ export const createPlugin = (
 	api?: ExtractInjectionAPI<ListPlugin>,
 ): SafePlugin => {
 	const { getPluginState, createPluginState } = pluginFactory(listPluginKey, reducer(), {
-		onDocChanged: handleDocChanged(featureFlags),
+		// Resolved once per editor instance rather than per transaction, so the exposure event fires
+		// once and the decoration hot path stays free of experiment lookups.
+		onDocChanged: isExperimentEnabled('platform_editor_list_performance_improv')
+			? handleDocChangedNew()
+			: handleDocChangedOld(featureFlags),
 		onSelectionChanged: handleSelectionChanged,
 	});
 
 	return new SafePlugin({
-		state: createPluginState(eventDispatch, createInitialState(featureFlags, api)),
+		state: createPluginState(
+			eventDispatch,
+			isExperimentEnabled('platform_editor_list_performance_improv')
+				? createInitialStateNew(featureFlags, api)
+				: createInitialStateOld(featureFlags, api),
+		),
 		key: listPluginKey,
 
 		appendTransaction(transactions, _oldState, newState) {
@@ -207,11 +427,11 @@ export const createPlugin = (
 		},
 
 		props: {
-			decorations(state) {
+			decorations(state: EditorState) {
 				const { decorationSet } = getPluginState(state);
 				return decorationSet;
 			},
-			handleClick: (view: EditorView, pos, event: MouseEvent) => {
+			handleClick: (view: EditorView, pos: number, event: MouseEvent) => {
 				const { state } = view;
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting

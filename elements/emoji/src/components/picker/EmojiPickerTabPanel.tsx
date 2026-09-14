@@ -56,7 +56,7 @@ class EmojiPickerTabPanelInternal extends PureComponent<
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<React.PropsWithChildren<EmojiPickerTabPanelProps>>> & {
 	WrappedComponent: React.ComponentType<React.PropsWithChildren<EmojiPickerTabPanelProps>>;
 } = injectIntl(EmojiPickerTabPanelInternal);

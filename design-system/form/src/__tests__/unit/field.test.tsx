@@ -1,13 +1,18 @@
 import React, { type ReactNode } from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
-import Select, { type ValueType } from '@atlaskit/select';
-import TextField from '@atlaskit/textfield';
+import Select from '@atlaskit/select/default';
+import type { ValueType } from '@atlaskit/select/types';
+import TextField from '@atlaskit/textfield/text-field';
 import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
-import Form, { ErrorMessage, Field, HelperMessage, ValidMessage } from '../../index';
+import Form from '../../form';
+import { ErrorMessage } from '../../error-message';
+import Field from '../../field';
+import { HelperMessage } from '../../helper-message';
+import { ValidMessage } from '../../valid-message';
 
 const testId = 'testId';
 
@@ -1049,12 +1054,12 @@ describe('Field', () => {
 			);
 			const setRequiredButton = screen.getByTestId('SetRequiredButton');
 
-			expect(validate).toBeCalledTimes(1);
+			expect(validate).toHaveBeenCalledTimes(1);
 
 			// Change if the field is required
 			await user.click(setRequiredButton);
 
-			expect(validate).toBeCalledTimes(2);
+			expect(validate).toHaveBeenCalledTimes(2);
 		});
 
 		it('should not reset form field after re-mounting caused by changed key', async () => {

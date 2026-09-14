@@ -5,13 +5,17 @@ import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { Subscription } from 'rxjs/Subscription';
 
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { JQLParseError } from '@atlaskit/jql-ast';
-import { type JQLRuleSuggestion, type JQLSuggestions } from '@atlaskit/jql-autocomplete';
-import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import type {
+	JQLRuleSuggestion,
+	JQLSuggestions,
+} from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
+import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 
 import * as analyticsActionsModule from './analytics';
+import { getAutocompleteOptionId } from './getAutocompleteOptionId';
 import { type ExternalError, type Props, type State } from './types';
-import { getAutocompleteOptionId } from './util';
 
 import { actions, initialState } from './index';
 
@@ -47,6 +51,7 @@ const onFields = jest.fn(() => empty<AutocompleteOptions>());
 const onOperators = jest.fn(() => empty<AutocompleteOptions>());
 const onValues = jest.fn(() => empty<AutocompleteOptions>());
 const onFunctions = jest.fn(() => empty<AutocompleteOptions>());
+const onFunctionArguments = jest.fn(() => empty<AutocompleteOptions>());
 const appendOptionsForObservable = jest.fn(() => empty<AutocompleteOptions>());
 const callAutocompleteProviders = jest.fn();
 const cancelSubscription = jest.fn();
@@ -68,6 +73,7 @@ const stateWithProviders = {
 		onOperators,
 		onValues,
 		onFunctions,
+		onFunctionArguments,
 	},
 };
 
@@ -368,7 +374,12 @@ describe('callAutocompleteProviders', () => {
 
 		thunk({ getState, setState, dispatch });
 
-		expect(onStopAutocompleteEvent).toHaveBeenCalledWith(true, ['values', 'functions'], true);
+		expect(onStopAutocompleteEvent).toHaveBeenCalledWith(
+			true,
+			['values', 'functions'],
+			true,
+			undefined,
+		);
 	});
 
 	it('calls onStopAutocompleteEvent with correct arguments when observable returns no data', () => {
@@ -392,7 +403,12 @@ describe('callAutocompleteProviders', () => {
 
 		thunk({ getState, setState, dispatch });
 
-		expect(onStopAutocompleteEvent).toHaveBeenCalledWith(true, ['values', 'functions'], false);
+		expect(onStopAutocompleteEvent).toHaveBeenCalledWith(
+			true,
+			['values', 'functions'],
+			false,
+			undefined,
+		);
 	});
 
 	it('calls onStopAutocompleteEvent with correct arguments when observable returns an error', () => {
@@ -416,7 +432,92 @@ describe('callAutocompleteProviders', () => {
 
 		thunk({ getState, setState, dispatch });
 
-		expect(onStopAutocompleteEvent).toHaveBeenCalledWith(false, ['values', 'functions'], false);
+		expect(onStopAutocompleteEvent).toHaveBeenCalledWith(
+			false,
+			['values', 'functions'],
+			false,
+			undefined,
+		);
+	});
+
+	describe('function argument suggestions', () => {
+		it('calls onStopAutocompleteEvent with the enclosing function name when observable returns options', () => {
+			passGate('enable-jql-membersof-autocomplete');
+			appendOptionsForObservable.mockReturnValue(of(mockValues));
+
+			const thunk = actions.callAutocompleteProviders({
+				tokens: noTokens,
+				rules: {
+					functionArgument: {
+						context: {
+							field: 'team',
+							functionName: 'descendantsofteam',
+						},
+						matchedText: '',
+						replacePosition: [0, 0],
+					},
+				},
+			});
+
+			thunk({ getState, setState, dispatch });
+
+			expect(onStopAutocompleteEvent).toHaveBeenCalledWith(
+				true,
+				['values'],
+				true,
+				'descendantsofteam',
+			);
+		});
+
+		it('calls onStopAutocompleteEvent with the enclosing function name when observable returns an error', () => {
+			passGate('enable-jql-membersof-autocomplete');
+			appendOptionsForObservable.mockReturnValue(_throw('Something went wrong'));
+
+			const thunk = actions.callAutocompleteProviders({
+				tokens: noTokens,
+				rules: {
+					functionArgument: {
+						context: {
+							field: 'team',
+							functionName: 'descendantsofteam',
+						},
+						matchedText: '',
+						replacePosition: [0, 0],
+					},
+				},
+			});
+
+			thunk({ getState, setState, dispatch });
+
+			expect(onStopAutocompleteEvent).toHaveBeenCalledWith(
+				false,
+				['values'],
+				false,
+				'descendantsofteam',
+			);
+		});
+
+		it('calls onStopAutocompleteEvent without a function name when the parse context has none', () => {
+			passGate('enable-jql-membersof-autocomplete');
+			appendOptionsForObservable.mockReturnValue(of(mockValues));
+
+			const thunk = actions.callAutocompleteProviders({
+				tokens: noTokens,
+				rules: {
+					functionArgument: {
+						context: {
+							field: 'team',
+						},
+						matchedText: '',
+						replacePosition: [0, 0],
+					},
+				},
+			});
+
+			thunk({ getState, setState, dispatch });
+
+			expect(onStopAutocompleteEvent).toHaveBeenCalledWith(true, ['values'], true, undefined);
+		});
 	});
 });
 

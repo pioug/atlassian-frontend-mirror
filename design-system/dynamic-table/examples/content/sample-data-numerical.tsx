@@ -7,8 +7,8 @@ import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Avatar from '@atlaskit/avatar';
-import Link from '@atlaskit/link';
+import Avatar from '@atlaskit/avatar/avatar';
+import Link from '@atlaskit/link/link';
 import { token } from '@atlaskit/tokens';
 
 import { presidents } from './numerical';

@@ -13,7 +13,6 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 		type: 'problem',
 		docs: {
 			description: 'Public API export rules from editor plugins.',
-			recommended: 'error',
 		},
 		messages: {
 			onlyExportPlugin:
@@ -44,7 +43,11 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 				const isTypeExport = node.exportKind === 'type';
 				if (!isTypeExport) {
 					node.specifiers.forEach((specifier) => {
-						if (PLUGIN_NAME_REGEX.test(specifier.exported.name)) {
+						const exportedName =
+							specifier.exported.type === 'Identifier'
+								? specifier.exported.name
+								: specifier.exported.value;
+						if (PLUGIN_NAME_REGEX.test(exportedName)) {
 							pluginExportCount++;
 						} else {
 							additionalExport++;
@@ -52,7 +55,11 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 					});
 				} else {
 					node.specifiers.forEach((specifier) => {
-						if (PLUGIN_NAME_REGEX.test(specifier.exported.name)) {
+						const exportedName =
+							specifier.exported.type === 'Identifier'
+								? specifier.exported.name
+								: specifier.exported.value;
+						if (PLUGIN_NAME_REGEX.test(exportedName)) {
 							pluginTypeExportCount++;
 						}
 					});

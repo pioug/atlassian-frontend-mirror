@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
-import Link from '@atlaskit/link';
-import SectionMessage from '@atlaskit/section-message';
+import Link from '@atlaskit/link/link';
+import SectionMessage from '@atlaskit/section-message/message';
 
 const _default_1: any = md`
 

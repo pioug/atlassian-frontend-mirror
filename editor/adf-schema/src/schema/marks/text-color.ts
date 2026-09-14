@@ -1,11 +1,9 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports -- exports reassign shared mutable module local(s) [testGlobalTheme]; splitting would fork the singleton and is forbidden by TS2632 */
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+
 import { textColor as textColorFactory } from '../../next-schema/generated/markTypes';
-
-import { hexToEditorTextPaletteColor } from '../../utils/editor-palette';
-
 import {
-	rgbToHex,
 	N0,
 	N80,
 	P50,
@@ -38,8 +36,9 @@ import {
 	Y600,
 	Y800,
 } from '../../utils/colors';
-
-import { getDarkModeLCHColor } from '../../utils/lch-color-inversion';
+import { getDarkModeLCHColor } from '../../utils/get-dark-mode-lch-color';
+import { hexToEditorTextPaletteColor } from '../../utils/hex-to-editor-text-palette-color';
+import { rgbToHex } from '../../utils/rgb-to-hex';
 
 export interface TextColorAttributes {
 	/**
@@ -166,7 +165,9 @@ export const colorPalette: Map<string, TextColorKey> = new Map<string, TextColor
 export const colorPaletteNew: Map<string, TextColorKey> = new Map<string, TextColorKey>();
 
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-/** @deprecated [ED-15849] The extended palette is now rolled into the main one. Use `colorPalette` instead. */
+/**
+ * @deprecated [ED-15849] The extended palette is now rolled into the main one. Use `colorPalette` instead.
+ **/
 export const colorPaletteExtended: Map<string, TextColorKey> = colorPalette;
 
 colorArrayPalette.forEach(([color, label]) => colorPalette.set(color.toLowerCase(), label));
@@ -206,7 +207,6 @@ export const getGlobalTheme = (): {
 	return { colorMode };
 };
 
-// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const RGB_PREFIX_TEXT_COLOR_REGEX = /^rgb/iu;
 
 export const textColor: MarkSpec = textColorFactory({

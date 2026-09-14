@@ -1,4 +1,4 @@
-import type { CardAttributes, DataType, UrlType } from '@atlaskit/adf-schema';
+import type { CardAttributes, DataType, UrlType } from '@atlaskit/adf-schema/block-card';
 import { TableSortOrder as SortOrder, TableSortStep } from '@atlaskit/custom-steps';
 import type { Command } from '@atlaskit/editor-common/types';
 import { createCompareNodes } from '@atlaskit/editor-common/utils';

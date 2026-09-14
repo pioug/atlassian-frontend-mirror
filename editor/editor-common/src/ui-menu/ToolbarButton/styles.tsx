@@ -4,7 +4,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import type { ButtonProps } from '@atlaskit/button/standard-button';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 const toolbarButtonStyle = {
 	alignItems: 'center',
@@ -23,7 +23,7 @@ const _default_1: React.ForwardRefExoticComponent<ButtonProps & React.RefAttribu
 				// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={
-					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
+					isExperimentEnabled('platform_editor_perf_lint_cleanup')
 						? toolbarButtonStyle
 						: {
 								alignItems: 'center',

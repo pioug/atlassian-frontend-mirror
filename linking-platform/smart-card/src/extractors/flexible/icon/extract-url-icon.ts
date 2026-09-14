@@ -1,5 +1,5 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors/extract-url-from-icon-json-ld';
 
 import { type IconDescriptor } from './types';
 

@@ -1,4 +1,4 @@
-import { type TextFieldProps as AKTextFieldProps } from '@atlaskit/textfield';
+import type { TextfieldProps as AKTextFieldProps } from '@atlaskit/textfield/types';
 
 import { type Validator } from '../../../common/types';
 

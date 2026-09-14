@@ -17,7 +17,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { Box } from '@atlaskit/primitives/compiled';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

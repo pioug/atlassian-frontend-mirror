@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { placeholder } from '@atlaskit/adf-schema';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { placeholder } from '@atlaskit/adf-schema/placeholder';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -36,6 +37,7 @@ import { PlaceholderTextNodeView } from './pm-plugins/placeholder-text-nodeview'
 import { pluginKey } from './pm-plugins/plugin-key';
 import { isSelectionAtPlaceholder } from './pm-plugins/utils/selection-utils';
 import PlaceholderFloatingToolbar from './ui/PlaceholderFloatingToolbar';
+import { getPlaceholderTextQuickInsertComponents } from './ui/quick-insert/getPlaceholderTextQuickInsertComponents';
 
 const getOpenTypeAhead = (
 	trigger: string,
@@ -52,6 +54,7 @@ const getOpenTypeAhead = (
 	});
 };
 
+/** Creates the placeholder-text ProseMirror plugin and its controlled typeahead action. */
 export function createPlugin(
 	dispatch: Dispatch<PlaceholderTextPluginState>,
 	options: PlaceholderTextOptions,
@@ -281,7 +284,7 @@ const decorateWithPluginOptions = (
 	options: PlaceholderTextOptions,
 	api: ExtractInjectionAPI<typeof placeholderTextPlugin> | undefined,
 ) => {
-	if (!options.allowInserting) {
+	if (!options.allowInserting || isExperimentEnabled('platform_editor_slash_command')) {
 		return plugin;
 	}
 
@@ -317,7 +320,16 @@ const decorateWithPluginOptions = (
 	return plugin;
 };
 
-const placeholderTextPlugin: PlaceholderTextPlugin = ({ config: options = {}, api }) =>
-	decorateWithPluginOptions(basePlaceholderTextPlugin({ config: options, api }), options, api);
+const placeholderTextPlugin: PlaceholderTextPlugin = ({ config: options = {}, api }) => {
+	if (isExperimentEnabled('platform_editor_slash_command') && options.allowInserting) {
+		api?.uiControlRegistry?.actions.register(getPlaceholderTextQuickInsertComponents({ api }));
+	}
+
+	return decorateWithPluginOptions(
+		basePlaceholderTextPlugin({ config: options, api }),
+		options,
+		api,
+	);
+};
 
 export default placeholderTextPlugin;

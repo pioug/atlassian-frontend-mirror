@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 
+// eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library
 import { render } from '@testing-library/react';
-import { from } from 'rxjs/observable/from';
+import { of } from 'rxjs/observable/of';
 
-import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import {
 	accountJqlField,
@@ -26,9 +28,19 @@ import { type JQLFieldResponse, type JQLFunctionResponse } from '../../common/ty
 
 import useOnFunctions from './index';
 
+const agentSessionsAgentApplicationUserField: JQLFieldResponse = {
+	auto: 'true',
+	displayName: 'AgentSessions - agentSessions[agent]',
+	operators: ['=', '!=', 'in', 'not in', 'is', 'is not'],
+	searchable: 'true',
+	types: ['com.atlassian.jira.user.ApplicationUser'],
+	value: 'agentSessions[agent]',
+};
+
 const mockJqlSearchableFields: JQLFieldResponse[] = [
 	accountJqlField,
 	accountManagerJqlField,
+	agentSessionsAgentApplicationUserField,
 	assigneeJqlField,
 	componentJqlField,
 	doubleQuotedJqlField,
@@ -83,7 +95,7 @@ describe('onFunctions', () => {
 		isListOperator,
 		done,
 	}: OnFunctionsConsumerProps) => {
-		const onFunctions = useOnFunctions(from(jqlSearchableFields), from(jqlFunctions));
+		const onFunctions = useOnFunctions(of(...jqlSearchableFields), of(...jqlFunctions));
 		const functions = useRef<AutocompleteOptions>([]);
 
 		onFunctions(query, field, isListOperator).subscribe({
@@ -215,6 +227,24 @@ describe('onFunctions', () => {
 				field={field}
 				query={query}
 				isListOperator={isListOperator}
+				onAssert={assertFunctions}
+				done={done}
+			/>,
+		);
+	});
+
+	it('returns no functions for agentSessions[agent] when the experiment is enabled', (done) => {
+		mockExpEnabled('jira_filter_by_agent_and_agent_state');
+		const field = 'agentSessions[agent]';
+		const assertFunctions = (functions: AutocompleteOptions) => {
+			expect(functions).toEqual([]);
+		};
+
+		render(
+			<OnFunctionsConsumer
+				jqlSearchableFields={mockJqlSearchableFields}
+				jqlFunctions={mockJqlFunctions}
+				field={field}
 				onAssert={assertFunctions}
 				done={done}
 			/>,

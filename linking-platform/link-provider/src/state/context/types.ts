@@ -1,6 +1,7 @@
 import { type Store } from 'redux';
-import { type CardAppearance, type CardStore, type ProductType } from '@atlaskit/linking-common';
-import { type LinkPreview, type CardPlatform } from '@atlaskit/link-extractors';
+import type { CardAppearance, ProductType } from '@atlaskit/linking-common/types';
+import type { CardStore } from '@atlaskit/linking-common/store';
+import type { LinkPreview, CardPlatform } from '@atlaskit/link-extractors/types';
 import type CardClient from '../../client';
 import { type CardConnections } from '../store/types';
 
@@ -63,14 +64,14 @@ export interface CardProviderRenderers {
 
 export type CardProviderProps = {
 	/**
-	 * Any React components contains linking components.
-	 */
-	children: React.ReactNode;
-	/**
 	 * Optional override for the bridge value used when wrapping smart link URLs for
 	 * cross-product analytics. When omitted, defaults to `'smartLinks'`.
 	 */
 	bridgeProduct?: string;
+	/**
+	 * Any React components contains linking components.
+	 */
+	children: React.ReactNode;
 	/**
 	 * A client that make request to Object Resolver Service to resolve url for linking components.
 	 * See `CardClient` for more details.
@@ -119,6 +120,11 @@ export type CardProviderProps = {
 	 */
 	shouldControlDataExport?: boolean;
 	/**
+	 * The options for redux store that contains linking data.
+	 * `initialState` can be used to set linking data and prevent card client to make a request to resolve the url.
+	 */
+	storeOptions?: CardProviderStoreOpts;
+	/**
 	 * The product identifier used exclusively for cross-product (XPC) URL wrapping analytics
 	 * (e.g. 'confluence', 'jira'). Does not affect link resolution.
 	 * Takes precedence over `product` when determining the source product for XPC URL wrapping.
@@ -129,11 +135,6 @@ export type CardProviderProps = {
 	 * (e.g. 'jsw', 'jsm'). Does not affect link resolution.
 	 */
 	xpcSubProduct?: string;
-	/**
-	 * The options for redux store that contains linking data.
-	 * `initialState` can be used to set linking data and prevent card client to make a request to resolve the url.
-	 */
-	storeOptions?: CardProviderStoreOpts;
 } & CardAuthFlowOpts;
 
 export type SnippetRendererProps = AISnippetRendererProps | Record<string, never>;

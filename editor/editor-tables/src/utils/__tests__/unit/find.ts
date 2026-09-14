@@ -1,11 +1,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+
 import { doc, p, tr as row, table, td } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { cCursor, cEmpty, createEditorState } from '../../../__tests__/__helpers/doc-builder';
 import { selectionFor } from '../../../__tests__/__helpers/selection-for';
-import { findCellClosestToPos, findCellRectClosestToPos, findTable } from '../../find';
+import { findCellClosestToPos } from '../../find-cell-closest-to-pos';
+import { findCellRectClosestToPos } from '../../find-cell-rect-closest-to-pos';
+import { findTable } from '../../find-table';
 
 describe('findTable', () => {
 	it('should find table node if cursor is inside of a table cell', () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
 
 import LogoTable from '../utils/logo-table';
 

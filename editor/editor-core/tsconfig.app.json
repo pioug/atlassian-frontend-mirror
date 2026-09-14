@@ -48,6 +48,9 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../../helpers/browser-apis/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
@@ -58,9 +61,6 @@
 		},
 		{
 			"path": "../editor-json-transformer/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-performance-metrics/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-accessibility-utils/tsconfig.app.json"
@@ -300,16 +300,25 @@
 			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/icon-lab/tsconfig.app.json"
+		},
+		{
 			"path": "../../media/media-card/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/mention/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

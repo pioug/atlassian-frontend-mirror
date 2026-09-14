@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e69fa4e6ed45c9755193e19593b57593>>
+ * @codegen <<SignedSource::40531bcdc95af6312555058b1783482c>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const svg = `<svg height="100%" viewBox="0 0 126 32">
  *
  */
 export function AssetsLogoCS({
-	size,
+	size = 'medium',
 	appearance = 'brand',
 	label = 'Assets',
 	testId,

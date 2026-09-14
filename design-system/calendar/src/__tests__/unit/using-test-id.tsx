@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import Calendar from '../../index';
+import Calendar from '../../calendar';
 import dateToString from '../../internal/utils/date-to-string';
 
 const testId = 'testing';

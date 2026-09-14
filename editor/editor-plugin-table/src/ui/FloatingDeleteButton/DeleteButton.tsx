@@ -4,8 +4,6 @@ import React from 'react';
 import type { MessageDescriptor, WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { TableCssClassName as ClassName } from '../../types';
 
 interface ButtonProps {
@@ -31,16 +29,8 @@ const DeleteButton = ({
 		style={style}
 		onMouseEnter={onMouseEnter}
 		onMouseLeave={onMouseLeave}
-		onFocus={
-			expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-				? onMouseEnter
-				: undefined
-		}
-		onBlur={
-			expValEquals('platform_editor_table_a11y_eslint_fix', 'isEnabled', true)
-				? onMouseLeave
-				: undefined
-		}
+		onFocus={onMouseEnter}
+		onBlur={onMouseLeave}
 	>
 		<button
 			type="button"
@@ -62,7 +52,7 @@ const DeleteButton = ({
 	</div>
 );
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-restricted-types
 const _default_1: React.FC<WithIntlProps<ButtonProps & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<ButtonProps & WrappedComponentProps>;
 } = injectIntl(DeleteButton);

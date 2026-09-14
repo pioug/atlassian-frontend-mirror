@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaClientConfig } from '@atlaskit/media-client';

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
-import Modal, { type ModalDialogProps } from '@atlaskit/modal-dialog';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import type { ModalDialogProps } from '@atlaskit/modal-dialog/types';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 

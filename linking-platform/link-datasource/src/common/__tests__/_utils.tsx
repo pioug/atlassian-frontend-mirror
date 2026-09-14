@@ -15,16 +15,17 @@ import {
 import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import JQLEditor from '@atlaskit/jql-editor/ui';
+import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { type DatasourceParameters } from '@atlaskit/linking-types';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
-import { EVENT_CHANNEL } from '../../analytics';
-import { succeedUfoExperience } from '../../analytics/ufoExperiences';
+import { EVENT_CHANNEL } from '../../analytics/constants';
+import { succeedUfoExperience } from '../../analytics/ufoExperiences/succeedUfoExperience';
 import { type ConfigModalProps, type DisplayViewModes, type Site } from '../../common/types';
 import {
 	type DatasourceTableState,
@@ -33,7 +34,7 @@ import {
 } from '../../hooks/useDatasourceTableState';
 import { getAccessibleProducts } from '../../services/getAvailableSites';
 import { type ConfluenceSearchConfigModalProps } from '../../ui/confluence-search-modal/types';
-import { IssueLikeDataTableView } from '../../ui/issue-like-table';
+import { IssueLikeDataTableView } from '../../ui/issue-like-table/issue-like-data-table-view';
 import { type IssueLikeDataTableViewProps } from '../../ui/issue-like-table/types';
 
 jest.mock('../../services/getAvailableSites', () => ({
@@ -54,8 +55,8 @@ const MockIssueLikeTable = () => {
 	return null;
 };
 
-jest.mock('../../ui/issue-like-table', () => ({
-	...jest.requireActual('../../ui/issue-like-table'),
+jest.mock('../../ui/issue-like-table/issue-like-data-table-view', () => ({
+	...jest.requireActual('../../ui/issue-like-table/issue-like-data-table-view'),
 	IssueLikeDataTableView: jest.fn(() => <MockIssueLikeTable />),
 }));
 

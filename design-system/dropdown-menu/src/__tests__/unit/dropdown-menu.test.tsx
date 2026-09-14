@@ -4,7 +4,9 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
 
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
+import DropdownMenu from '../../dropdown-menu';
+import DropdownItem from '../../dropdown-menu-item';
+import DropdownItemGroup from '../../dropdown-menu-item-group';
 import { type DropdownMenuProps } from '../../types';
 
 const triggerText = 'Options';

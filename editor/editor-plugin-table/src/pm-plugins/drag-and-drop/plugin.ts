@@ -9,8 +9,8 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getCellsInRow, getSelectedCellInfo } from '@atlaskit/editor-tables/utils';
 import { insm } from '@atlaskit/insm';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TablePlugin } from '../../tablePluginType';

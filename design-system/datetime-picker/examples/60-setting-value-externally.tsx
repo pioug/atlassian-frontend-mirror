@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import { DatePicker, DateTimePicker, TimePicker } from '@atlaskit/datetime-picker';
-import { Label } from '@atlaskit/form';
-import Heading from '@atlaskit/heading';
+import { Label } from '@atlaskit/form/label/default';
+import Heading from '@atlaskit/heading/heading';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import TextField from '@atlaskit/textfield';
+import TextField from '@atlaskit/textfield/text-field';
 
 const dateId = 'datepicker-input';
 const timeId = 'timepicker-input';

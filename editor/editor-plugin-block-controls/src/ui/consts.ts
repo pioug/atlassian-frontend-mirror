@@ -1,13 +1,18 @@
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
-import { breakoutResizableNodes as breakoutResizableNodesNew } from '@atlaskit/editor-common/utils';
+import {
+	breakoutResizableNodes as breakoutResizableNodesNew,
+	getBreakoutResizableNodes,
+} from '@atlaskit/editor-common/utils';
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 export const ACTIVE_DRAG_HANDLE_ATTR = 'data-active-drag-handle';
 export const ACTIVE_QUICK_INSERT_ATTR = 'data-active-quick-insert';
+export const BLOCK_CONTROLS_SURFACE_SELECTOR = '[data-editor-block-controls-surface]';
 export const ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME =
 	'--editor-block-controls-active-drag-handle-anchor';
 export const ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME =
@@ -17,11 +22,20 @@ export const DRAG_HANDLE_HEIGHT = 24;
 
 export const DRAG_HANDLE_BORDER_RADIUS = 4;
 export const DRAG_HANDLE_ZINDEX: number = akRichMediaResizeZIndex + akEditorUnitZIndex; //place above legacy resizer
-export const DRAG_HANDLE_DEFAULT_GAP = 8;
+const LEGACY_DRAG_HANDLE_DEFAULT_GAP = 8;
+const MIGRATED_DRAG_HANDLE_DEFAULT_GAP = 12;
 export const DRAG_HANDLE_NARROW_GAP = 4;
 export const DRAG_HANDLE_MAX_GAP = 12;
 export const DRAG_HANDLE_SYNCED_BLOCK_GAP = 2.5;
 export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP: number = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
+
+// Non-resizable/default-sized nodes get the same gap as resizable/breakout nodes
+// (DRAG_HANDLE_MAX_GAP) once the registry-backed surfaces are on; kept at the legacy value
+// otherwise to avoid an unrelated visual change for consumers still on the old decoration path.
+const getDragHandleDefaultGap = (): number =>
+	isExperimentEnabled('platform_editor_block_control_migration')
+		? MIGRATED_DRAG_HANDLE_DEFAULT_GAP
+		: LEGACY_DRAG_HANDLE_DEFAULT_GAP;
 
 export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT: number = 4 + 2; // 4px for the divider vertical padding and 2px for the divider height
 export const DRAG_HANDLE_H1_TOP_ADJUSTMENT = 5;
@@ -54,7 +68,6 @@ export const QUICK_INSERT_DIMENSIONS: {
 export const QUICK_INSERT_LEFT_OFFSET = 16;
 
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
-const breakoutResizableNodes = ['expand', 'layoutSection', 'codeBlock'];
 
 export const dragHandleGap = (nodeType: string, parentNodeType?: string): number => {
 	if (parentNodeType === 'syncBlock' || parentNodeType === 'bodiedSyncBlock') {
@@ -65,13 +78,18 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string): number
 		return DRAG_HANDLE_NARROW_GAP;
 	}
 
-	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
-		? expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
+	let breakoutResizableNodesList: string[] = [];
+	if (isExperimentEnabled('platform_editor_lovability_resize_extensions')) {
+		breakoutResizableNodesList = getBreakoutResizableNodes();
+	} else {
+		breakoutResizableNodesList = expValEqualsNoExposure(
+			'platform_editor_lovability_resize_dividers_panels',
+			'isEnabled',
+			true,
+		)
 			? [...breakoutResizableNodesNew, 'rule', 'panel']
-			: breakoutResizableNodesNew
-		: expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
-			? [...breakoutResizableNodes, 'rule', 'panel']
-			: breakoutResizableNodes;
+			: breakoutResizableNodesNew;
+	}
 
 	if (
 		editorExperiment('platform_editor_breakout_resizing', true) &&
@@ -84,25 +102,30 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string): number
 		}
 	}
 	if (nodeType === 'layoutSection') {
-		return DRAG_HANDLE_DEFAULT_GAP + 20;
+		return getDragHandleDefaultGap() + 20;
 	}
 
 	if (nodeTypeExcludeList.includes(nodeType)) {
 		return DRAG_HANDLE_MAX_GAP;
 	}
 
-	return DRAG_HANDLE_DEFAULT_GAP;
+	return getDragHandleDefaultGap();
 };
 
 // use for returning gap only for root level elements
 export const rootElementGap = (nodeType: string): number => {
-	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
-		? expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
+	let breakoutResizableNodesList: string[] = [];
+	if (isExperimentEnabled('platform_editor_lovability_resize_extensions')) {
+		breakoutResizableNodesList = getBreakoutResizableNodes();
+	} else {
+		breakoutResizableNodesList = expValEqualsNoExposure(
+			'platform_editor_lovability_resize_dividers_panels',
+			'isEnabled',
+			true,
+		)
 			? [...breakoutResizableNodesNew, 'rule', 'panel']
-			: breakoutResizableNodesNew
-		: expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
-			? [...breakoutResizableNodes, 'rule', 'panel']
-			: breakoutResizableNodes;
+			: breakoutResizableNodesNew;
+	}
 
 	if (
 		nodeTypeExcludeList.includes(nodeType) ||
@@ -120,7 +143,7 @@ export const rootElementGap = (nodeType: string): number => {
 		return DRAG_HANDLE_MAX_GAP + 12;
 	}
 
-	return DRAG_HANDLE_DEFAULT_GAP;
+	return getDragHandleDefaultGap();
 };
 
 export const getNestedNodeLeftPaddingMargin = (

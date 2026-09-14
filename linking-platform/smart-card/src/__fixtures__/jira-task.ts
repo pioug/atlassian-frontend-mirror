@@ -1,4 +1,5 @@
-import { SmartLinkActionType, type SmartLinkResponse } from '@atlaskit/linking-types';
+import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 export default {
 	meta: {

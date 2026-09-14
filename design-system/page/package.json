@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page",
-	"version": "15.1.0",
+	"version": "15.3.0",
 	"description": "A page layout organizes sections on a page using a grid and grid columns.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,7 +58,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -73,33 +73,15 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"analytics": "analytics-next",
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"deprecation": "no-deprecated-imports",
-			"design-system": "v1"
-		}
-	},
 	"homepage": "https://atlassian.design/components/page"
 }

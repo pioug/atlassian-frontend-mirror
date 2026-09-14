@@ -2,14 +2,14 @@ import React from 'react';
 
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { SmartLinkModalContext } from '../src/state/modal';
 import type { SmartLinkModalAPI } from '../src/state/modal/types';
+import { default as AutomationAction } from '../src/view/FlexibleCard/components/actions/automation-action';
 import { StopPropagation } from '../src/view/common/stop-propagation';
-import { AutomationAction } from '../src/view/FlexibleCard/components/actions';
 
 import ExampleContainer from './content/example-container';
 

@@ -16,7 +16,6 @@ import { captionPlugin } from '@atlaskit/editor-plugin-caption';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { clearMarksOnEmptyDocPlugin } from '@atlaskit/editor-plugin-clear-marks-on-empty-doc';
 import { clipboardPlugin } from '@atlaskit/editor-plugin-clipboard';
-import { codeBidiWarningPlugin } from '@atlaskit/editor-plugin-code-bidi-warning';
 import { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { collabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
@@ -51,6 +50,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { indentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';
 import { interactionPlugin } from '@atlaskit/editor-plugin-interaction';
+import { interactivityPlugin } from '@atlaskit/editor-plugin-interactivity';
 import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
 import { limitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
 import { listPlugin } from '@atlaskit/editor-plugin-list';
@@ -92,10 +92,11 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-co
 import { userIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { agentManagedExtensionPlugin } from '@atlassian/editor-plugin-agent-managed-extension';
 
 import { agentManagedExtensionPluginOptions } from './pluginOptions/agentManagedExtensionPluginOptions';
@@ -107,7 +108,6 @@ import { blockMenuPluginOptions } from './pluginOptions/blockMenuPluginOptions';
 import { blockTypePluginOptions } from './pluginOptions/blockTypePluginOptions';
 import { breakoutPluginOptions } from './pluginOptions/breakoutPluginOptions';
 import { cardPluginOptions } from './pluginOptions/cardPluginOptions';
-import { codeBidiWarningPluginOptions } from './pluginOptions/codeBidiWarningPluginOptions';
 import { codeBlockAdvancedPluginOptions } from './pluginOptions/codeBlockAdvancedPluginOptions';
 import { codeBlockPluginOptions } from './pluginOptions/codeBlockPluginOptions';
 import { collabEditPluginOptions } from './pluginOptions/collabEditPluginOptions';
@@ -184,7 +184,6 @@ export function confluenceFullPageBasePreset(
 	// we need to return them back.
 	const pluginOptions = props.pluginOptions as AllPublicPluginOptions;
 
-	// @ts-ignore - Preset builder cannot infer mutually exclusive registry insertion points.
 	return new EditorPresetBuilder()
 		.maybeAdd(
 			[limitedModePlugin, limitedModePluginOptions({ options: pluginOptions.limitedMode })],
@@ -219,7 +218,9 @@ export function confluenceFullPageBasePreset(
 		.maybeAdd(
 			uiControlRegistryPlugin,
 			expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true) ||
-				expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true),
+				expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
+				UNSAFE_expValNoExposure('platform_editor_slash_command', 'isEnabled', false) ||
+				isExperimentEnabled('platform_editor_block_control_migration'),
 		)
 		.maybeAdd(
 			[toolbarPlugin, toolbarPluginOptions({ options: pluginOptions.toolbar })],
@@ -306,7 +307,7 @@ export function confluenceFullPageBasePreset(
 				agentManagedExtensionPlugin,
 				agentManagedExtensionPluginOptions({ options: pluginOptions.agentManagedExtension }),
 			],
-			expValEqualsNoExposure('agent-managed_blocks_mvp', 'isEnabled', true),
+			UNSAFE_expValNoExposure('agent-managed_blocks_mvp', 'isEnabled', false),
 		)
 		.add([datePlugin, datePluginOptions({ options: pluginOptions.date })])
 		.add([
@@ -316,12 +317,14 @@ export function confluenceFullPageBasePreset(
 		.add([layoutPlugin, layoutPluginOptions({ options: pluginOptions.layout })])
 		.maybeAdd(
 			// Register uiControlRegistry before cardPlugin so card can register paste menu components at init.
-			// @ts-expect-error - Preserve paste registry order; mutually exclusive with layout insertion.
+			// @ts-expect-error - Preserve paste registry order; mutually exclusive with earlier insertion.
 			uiControlRegistryPlugin,
 			expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) &&
 				!(
 					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) ||
-					expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
+					expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true) ||
+					UNSAFE_expValNoExposure('platform_editor_slash_command', 'isEnabled', false) ||
+					isExperimentEnabled('platform_editor_block_control_migration')
 				),
 		)
 		.add([cardPlugin, cardPluginOptions({ options: pluginOptions.card, providers })])
@@ -332,7 +335,7 @@ export function confluenceFullPageBasePreset(
 		.add([statusPlugin, statusPluginOptions({ options: pluginOptions.status })])
 		.maybeAdd(
 			[syncedBlockPlugin, syncedBlockPluginOptions({ options: pluginOptions.syncedBlock })],
-			!!pluginOptions.syncedBlock && editorExperiment('platform_synced_block', true),
+			!!pluginOptions.syncedBlock,
 		)
 		.add(indentationPlugin)
 		.add(scrollIntoViewPlugin)
@@ -354,13 +357,6 @@ export function confluenceFullPageBasePreset(
 				usePopupBasedPasteActionsMenu: false,
 			},
 		])
-		.maybeAdd(
-			[
-				codeBidiWarningPlugin,
-				codeBidiWarningPluginOptions({ options: pluginOptions.codeBidiWarning }),
-			],
-			!expValEquals('platform_editor_remove_bidi_char_warning', 'isEnabled', true),
-		)
 		.maybeAdd(
 			[loomPlugin, loomPluginOptions({ options: pluginOptions.loom })],
 			enabledOptionalPlugins.loom,
@@ -388,6 +384,7 @@ export function confluenceFullPageBasePreset(
 			[metricsPlugin, metricsPluginOptions({ options: pluginOptions.metrics })],
 			enabledOptionalPlugins.metrics,
 		)
+		.maybeAdd(interactivityPlugin, isExperimentEnabled('platform_editor_editor_interactivity'))
 		.add([
 			contentFormatPlugin,
 			contentFormatPluginOptions({ options: pluginOptions.contentFormat }),

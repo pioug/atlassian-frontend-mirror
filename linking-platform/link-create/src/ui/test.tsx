@@ -4,11 +4,11 @@ import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-lib
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Button from '@atlaskit/button/standard-button';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
@@ -194,7 +194,7 @@ describe('Link create', () => {
 
 			expect(screen.getByTestId(DEFAULT_TEST_ID)).toBeInTheDocument();
 
-			expect(onAnalyticsEventMock).toBeCalled();
+			expect(onAnalyticsEventMock).toHaveBeenCalled();
 			const mockCall = onAnalyticsEventMock.mock.calls[0];
 			expect(mockCall[0]).toMatchObject({
 				payload: {
@@ -228,7 +228,7 @@ describe('Link create', () => {
 			// the onCreate callback is awaited
 			await flushPromises();
 
-			expect(onCompleteMock).toBeCalledTimes(0);
+			expect(onCompleteMock).toHaveBeenCalledTimes(0);
 		});
 
 		it('should trigger the callback onCreate and onComplete when it submits the form if onComplete is provided', async () => {
@@ -239,7 +239,7 @@ describe('Link create', () => {
 
 			screen.getByTestId('submit-button').click();
 
-			expect(onCreateMock).toBeCalledWith(
+			expect(onCreateMock).toHaveBeenCalledWith(
 				expect.objectContaining({
 					url: 'https://www.atlassian.com',
 					objectId: '123',
@@ -250,7 +250,7 @@ describe('Link create', () => {
 			);
 			// the onCreate callback is awaited before onComplete is called
 			await flushPromises();
-			expect(onCompleteMock).toBeCalledTimes(1);
+			expect(onCompleteMock).toHaveBeenCalledTimes(1);
 		});
 
 		it('should trigger the callback onFailure when the form fails', async () => {
@@ -260,7 +260,7 @@ describe('Link create', () => {
 
 			screen.getByTestId('error-button').click();
 
-			expect(onFailureMock).toBeCalled();
+			expect(onFailureMock).toHaveBeenCalled();
 		});
 
 		it('it should not consider all errors to fail our SLO (eg. ignore failed to fetch) when `onFailure` is called', () => {
@@ -271,7 +271,7 @@ describe('Link create', () => {
 
 			screen.getByTestId('error-button').click();
 
-			expect(onFailureMock).toBeCalledTimes(1);
+			expect(onFailureMock).toHaveBeenCalledTimes(1);
 
 			expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
 				payload: {
@@ -296,7 +296,7 @@ describe('Link create', () => {
 			});
 
 			screen.getByTestId('error-button').click();
-			expect(onFailureMock).toBeCalledTimes(1);
+			expect(onFailureMock).toHaveBeenCalledTimes(1);
 
 			expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
 				payload: {
@@ -317,7 +317,7 @@ describe('Link create', () => {
 
 			screen.getByTestId('submit-button').click();
 
-			expect(onCreateMock).toBeCalledWith(
+			expect(onCreateMock).toHaveBeenCalledWith(
 				expect.objectContaining({
 					url: 'https://www.atlassian.com',
 					objectId: '123',
@@ -340,7 +340,7 @@ describe('Link create', () => {
 			// 	 * Could technically still fail the experience again after creation if we want to
 			// 	 */
 			screen.getByTestId('error-button').click();
-			expect(onFailureMock).toBeCalledTimes(2);
+			expect(onFailureMock).toHaveBeenCalledTimes(2);
 
 			expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
 				payload: {
@@ -378,7 +378,7 @@ describe('Link create', () => {
 			setup({ onComplete: onCompleteMock, onCreate: onCreateMock });
 			screen.getByTestId('submit-button').click();
 
-			expect(onCreateMock).toBeCalledWith(
+			expect(onCreateMock).toHaveBeenCalledWith(
 				expect.objectContaining({
 					url: 'https://www.atlassian.com',
 					objectId: '123',
@@ -390,7 +390,7 @@ describe('Link create', () => {
 			// the onCreate callback is awaited before onComplete is called
 			await flushPromises();
 
-			expect(onCompleteMock).toBeCalledTimes(1);
+			expect(onCompleteMock).toHaveBeenCalledTimes(1);
 		});
 	};
 
@@ -885,8 +885,8 @@ describe('Plugin edit view', () => {
 				},
 			});
 
-			expect(onSubmitSpy).toBeCalled();
-			expect(onCreateMock).toBeCalledWith(
+			expect(onSubmitSpy).toHaveBeenCalled();
+			expect(onCreateMock).toHaveBeenCalledWith(
 				expect.objectContaining({
 					url: 'https://atlassian.com',
 					objectId: 'someId',
@@ -896,7 +896,7 @@ describe('Plugin edit view', () => {
 
 			// the onCreate callback is awaited before onComplete is called
 			await flushPromises();
-			expect(onCompleteMock).toBeCalledTimes(0);
+			expect(onCompleteMock).toHaveBeenCalledTimes(0);
 
 			const editCloseButton = await screen.findByRole('button', {
 				name: 'Finish',
@@ -912,7 +912,7 @@ describe('Plugin edit view', () => {
 			await waitFor(() => {
 				expect(screen.queryByTestId('link-create-edit-modal')).not.toBeInTheDocument();
 			});
-			expect(onCloseCompleteMock).toBeCalledTimes(1);
+			expect(onCloseCompleteMock).toHaveBeenCalledTimes(1);
 		});
 
 		it('with create form + edit view should NOT render editView when create button is clicked', async () => {
@@ -938,8 +938,8 @@ describe('Plugin edit view', () => {
 				expect(screen.queryByTestId('link-create-edit-modal')).not.toBeInTheDocument();
 			});
 
-			expect(onSubmitSpy).toBeCalled();
-			expect(onCreateMock).toBeCalledWith(
+			expect(onSubmitSpy).toHaveBeenCalled();
+			expect(onCreateMock).toHaveBeenCalledWith(
 				expect.objectContaining({
 					url: 'https://atlassian.com',
 					objectId: 'someId',
@@ -969,9 +969,9 @@ describe('Plugin edit view', () => {
 
 			await userEvent.click(closeButton);
 
-			expect(onCreateMock).toBeCalledTimes(0);
-			expect(onCompleteMock).toBeCalledTimes(0);
-			expect(onCancelMock).toBeCalledTimes(1);
+			expect(onCreateMock).toHaveBeenCalledTimes(0);
+			expect(onCompleteMock).toHaveBeenCalledTimes(0);
+			expect(onCancelMock).toHaveBeenCalledTimes(1);
 			expect(screen.queryByTestId('link-create-edit-modal')).not.toBeInTheDocument();
 		});
 
@@ -1012,14 +1012,14 @@ describe('Plugin edit view', () => {
 				expect(screen.getByRole('button', { name: editButtonLabel })).not.toHaveAttribute(
 					'aria-disabled',
 				);
-				expect(onSubmitSpy).toBeCalled();
+				expect(onSubmitSpy).toHaveBeenCalled();
 			});
 
 			// Edit modal not visible
 			// Create modal still visible
 			expect(screen.queryByTestId('link-create-edit-modal')).not.toBeInTheDocument();
 			expect(screen.queryByTestId('link-create-modal')).toBeInTheDocument();
-			expect(onCreateMock).not.toBeCalled();
+			expect(onCreateMock).not.toHaveBeenCalled();
 
 			onSubmitSpy.mockReset();
 		});
@@ -1069,7 +1069,7 @@ describe('Modal create specific tests', () => {
 		});
 
 		expect(screen.getByTestId(DEFAULT_TEST_ID)).toBeInTheDocument();
-		expect(onCloseCompleteMock).toBeCalledTimes(0);
+		expect(onCloseCompleteMock).toHaveBeenCalledTimes(0);
 
 		rerender({ active: false });
 
@@ -1080,7 +1080,7 @@ describe('Modal create specific tests', () => {
 		await waitFor(() => {
 			expect(screen.queryByTestId(DEFAULT_TEST_ID)).not.toBeInTheDocument();
 		});
-		expect(onCloseCompleteMock).toBeCalledTimes(1);
+		expect(onCloseCompleteMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('should fire screen viewed analytics event when it opens', async () => {
@@ -1088,7 +1088,7 @@ describe('Modal create specific tests', () => {
 
 		expect(screen.getByTestId(DEFAULT_TEST_ID)).toBeInTheDocument();
 
-		expect(onAnalyticsEventMock).toBeCalled();
+		expect(onAnalyticsEventMock).toHaveBeenCalled();
 		const mockCall = onAnalyticsEventMock.mock.calls[0];
 		expect(mockCall[0]).toMatchObject({
 			payload: {

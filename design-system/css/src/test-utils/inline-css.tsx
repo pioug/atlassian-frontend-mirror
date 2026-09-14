@@ -90,5 +90,3 @@ function removeCssContent(text: string | number | null | undefined, node: Node):
 		text.toString(),
 	);
 }
-
-export { isExtendedElement } from './is-extended-element';

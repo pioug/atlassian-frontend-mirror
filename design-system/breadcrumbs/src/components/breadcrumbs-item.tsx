@@ -7,9 +7,9 @@ import { type CSSProperties, memo, type Ref, useCallback, useState } from 'react
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { type BreadcrumbsItemProps } from '../types';
 

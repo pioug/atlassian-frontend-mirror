@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import CharacterCounter from './character-counter';
+import { CharacterCounter } from './character-counter';
 import { ErrorMessage } from './error-message';
 import Field, { type FieldComponentProps, type FieldProps, type Meta } from './field';
 import { HelperMessage } from './helper-message';
@@ -87,7 +87,7 @@ export interface CharacterCounterFieldProps<
  * A field component that wraps the standard Field with automatic character count validation.
  * Validates minimum and maximum character limits and displays a character counter.
  */
-export default function CharacterCounterField<
+export function CharacterCounterField<
 	FieldValue = string,
 	Element extends SupportedElements = HTMLInputElement,
 >({

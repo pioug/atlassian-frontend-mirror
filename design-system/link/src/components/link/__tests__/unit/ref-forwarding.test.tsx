@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { render } from '@testing-library/react';
 
-import Link from '../../../../index';
+import Link from '../..';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe(`Ref forwarding:`, () => {

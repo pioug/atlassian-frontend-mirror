@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar",
-	"version": "9.1.0",
+	"version": "15.0.0",
 	"description": "Toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -48,41 +49,17 @@
 		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
-	"platform-feature-flags": {},
-	"techstack": {
-		"@atlassian/frontend": {
-			"code-structure": [
-				"editor-plugin"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
+	"platform-feature-flags": {
+		"platform_editor_toolbar_intent_fix": {
+			"type": "boolean"
 		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
+		"platform_editor_blocks_patch_7": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_blocks_patch_9": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"devDependencies": {

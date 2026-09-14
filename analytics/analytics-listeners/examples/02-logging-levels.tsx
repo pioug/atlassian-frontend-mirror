@@ -1,4 +1,4 @@
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 import {
@@ -6,7 +6,7 @@ import {
 	createComponentWithAnalytics,
 	IncorrectEventType,
 } from './helpers';
-import { LOG_LEVEL } from '../src';
+import { LOG_LEVEL } from '../src/helpers/logger';
 import FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';
 import { FabricChannel } from '../src/types';
 

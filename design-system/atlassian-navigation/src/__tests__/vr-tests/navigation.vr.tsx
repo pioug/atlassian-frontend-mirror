@@ -11,7 +11,7 @@ import {
 	ThemingAppHomeExample,
 	ThemingExample,
 	ThemingNavigationSkeletonExample,
-} from './test-examples';
+} from './test-examples.vr.ap';
 
 snapshot(NavExample, {
 	variants: [

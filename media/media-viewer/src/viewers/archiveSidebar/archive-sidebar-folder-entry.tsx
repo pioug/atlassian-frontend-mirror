@@ -1,23 +1,24 @@
 import React from 'react';
+
+import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 import { type ZipEntry } from 'unzipit';
 
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
+import { type MediaClient, globalMediaEventEmitter } from '@atlaskit/media-client';
 import { downloadUrl } from '@atlaskit/media-common';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
-import { type MediaClient, globalMediaEventEmitter } from '@atlaskit/media-client';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { messages } from '@atlaskit/media-ui/messages';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import {
-	ArchiveSidebarFolderWrapper,
-	ArchiveSidebarFileEntryWrapper,
-	SidebarItemWrapper,
-} from './styleWrappers';
-import { getMediaTypeFromFilename, isMacPrivateFile, rejectAfter } from '../../utils';
-import { type ArchiveViewerError } from '../../errors';
-import { CustomButtonItem } from './custom-button-item';
-import { messages } from '@atlaskit/media-ui';
+import type { ArchiveViewerError } from '../../ArchiveViewerError';
+import { getMediaTypeFromFilename } from '../../utils/getMediaTypeFromFilename';
+import { isMacPrivateFile } from '../../utils/isMacPrivateFile';
+import { rejectAfter } from '../../utils/rejectAfter';
 import { ArchiveDownloadButton } from './archive-download-button';
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
+import { ArchiveSidebarFileEntryWrapper } from './archive-sidebar-file-entry-wrapper';
+import { ArchiveSidebarFolderWrapper } from './archive-sidebar-folder-wrapper';
+import { CustomButtonItem } from './custom-button-item';
+import { SidebarItemWrapper } from './sidebar-item-wrapper';
 
 type Entries = { [key: string]: ZipEntry };
 

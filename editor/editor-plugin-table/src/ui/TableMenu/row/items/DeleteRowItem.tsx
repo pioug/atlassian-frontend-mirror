@@ -11,6 +11,7 @@ import {
 	ToolbarDropdownItem,
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	clearHoverSelection,
@@ -20,6 +21,7 @@ import {
 import { deleteRowsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getSelectedRowIndexes } from '../../../../pm-plugins/utils/selection';
 import type { TableSharedStateInternal } from '../../../../types';
+import { CELL_MENU } from '../../cell/keys';
 import { getMenuSelectionRect } from '../../shared/selection';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
@@ -37,6 +39,9 @@ export const DeleteRowItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 		}),
 	);
 	const selectedRowCount = tableMenuContext?.selectedRowCount ?? 1;
+	const shouldShowShortcut =
+		!isExperimentEnabled('platform_editor_table_menu_updates_patch_4') ||
+		tableMenuContext?.surface.key !== CELL_MENU.key;
 	const { formatMessage } = useIntl();
 
 	const handleMouseEnter = () => {
@@ -86,7 +91,11 @@ export const DeleteRowItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 			onBlur={handleMouseLeave}
 			onMouseLeave={handleMouseLeave}
 			elemBefore={<DeleteIcon color="currentColor" label="" size="small" />}
-			elemAfter={<ToolbarKeyboardShortcutHint shortcut={tooltip(deleteRow) ?? ''} />}
+			elemAfter={
+				shouldShowShortcut ? (
+					<ToolbarKeyboardShortcutHint shortcut={tooltip(deleteRow) ?? ''} />
+				) : undefined
+			}
 		>
 			{formatMessage(messages.removeRows, { 0: selectedRowCount })}
 		</ToolbarDropdownItem>

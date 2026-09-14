@@ -1,19 +1,17 @@
-import React, { useCallback, useMemo, useRef, Fragment } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 
 import isEqual from 'lodash/isEqual';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import EditorActions from '../actions';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
@@ -23,7 +21,6 @@ import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import measurements from '../utils/performance/measure-enum';
 import { name, version } from '../version-wrapper';
 
-import { EditorINPMetrics } from './editor-inp-metrics';
 import { EditorInternal } from './editor-internal';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 // Ignored via go/ees005
@@ -49,15 +46,6 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	const editorActions = editorContext.editorActions || editorActionsPlaceholderInstance;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-	const editorViewRef = useRef<EditorView | null>(null);
-
-	const handleAnalyticsEvent: FireAnalyticsCallback = useCallback(
-		(data) => {
-			fireAnalyticsEvent(createAnalyticsEvent)(data);
-		},
-		[createAnalyticsEvent],
-	);
-
 	const getFeatureFlagsFromRef = useCallback(() => {
 		return {
 			...createFeatureFlagsFromProps(propsRef.current.featureFlags),
@@ -76,8 +64,6 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 			view: EditorView;
 		}) => {
 			const { contextIdentifierProvider, onEditorReady, featureFlags } = propsRef.current;
-
-			editorViewRef.current = instance.view;
 
 			editorActions._privateRegisterEditor(
 				instance.view,
@@ -110,7 +96,6 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	const onEditorDestroyed = useCallback(
 		(_instance: { transformer?: Transformer<string>; view: EditorView }) => {
 			const { onDestroy } = propsRef.current;
-			editorViewRef.current = null;
 			editorActions._privateUnregisterEditor();
 
 			if (onDestroy) {
@@ -133,31 +118,19 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 		},
 		[onSaveFromProps],
 	);
-	const isFullPageAppearance = Boolean(
-		props.appearance &&
-		[
-			'full-page',
-			'full-width',
-			...(editorExperiment('platform_synced_block', true) ? ['max'] : []),
-		].includes(props.appearance),
-	);
 
 	return (
-		<Fragment>
-			{isFullPageAppearance ? <EditorINPMetrics editorViewRef={editorViewRef} /> : null}
-			<EditorInternal
-				props={props}
-				handleAnalyticsEvent={handleAnalyticsEvent}
-				createAnalyticsEvent={createAnalyticsEvent}
-				preset={props.preset}
-				handleSave={handleSave}
-				editorActions={editorActions}
-				onEditorCreated={onEditorCreated}
-				onEditorDestroyed={onEditorDestroyed}
-				providerFactory={providerFactory}
-				AppearanceComponent={props.AppearanceComponent}
-			/>
-		</Fragment>
+		<EditorInternal
+			props={props}
+			createAnalyticsEvent={createAnalyticsEvent}
+			preset={props.preset}
+			handleSave={handleSave}
+			editorActions={editorActions}
+			onEditorCreated={onEditorCreated}
+			onEditorDestroyed={onEditorDestroyed}
+			providerFactory={providerFactory}
+			AppearanceComponent={props.AppearanceComponent}
+		/>
 	);
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { renderWithDi, render as rtlRender, screen } from '@atlassian/testing-library';
+import { render as rtlRender, screen } from '@atlassian/testing-library';
 
-import Badge from '../../index';
+import Badge from '../../badge';
 
 const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
@@ -12,7 +12,7 @@ describe('badge component', () => {
 	const testId = 'test';
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = renderWithDi(<Badge />);
+		const { container } = rtlRender(<Badge />);
 
 		await expect(container).toBeAccessible();
 	});

@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useRef, useCallback } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 import { css, jsx } from '@compiled/react';

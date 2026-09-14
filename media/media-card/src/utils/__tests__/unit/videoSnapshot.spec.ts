@@ -69,7 +69,7 @@ describe('takeSnapshot()', () => {
 		const { videoFile, video, drawImage, revokeObjectURL } = setup();
 		const snapshot = await takeSnapshot(videoFile);
 
-		expect(drawImage).toBeCalledWith(video, 0, 0, 50, 100);
+		expect(drawImage).toHaveBeenCalledWith(video, 0, 0, 50, 100);
 		expect(revokeObjectURL).toHaveBeenCalledTimes(1);
 		expect(video.src).toEqual('video-url');
 		expect(snapshot).toEqual('data-img');

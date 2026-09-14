@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformTextarea from '@atlaskit/textarea';
+import PlatformTextarea from '@atlaskit/textarea/text-area';
 import type { EventHandlerProps } from './types.codegen';
 
 type PlatformTextareaProps = React.ComponentProps<typeof PlatformTextarea>;

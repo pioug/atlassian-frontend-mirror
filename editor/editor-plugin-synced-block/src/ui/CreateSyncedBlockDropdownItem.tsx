@@ -4,12 +4,13 @@ import { useIntl } from 'react-intl';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
+import { blockMenuMessages, syncBlockMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
-import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Lozenge from '@atlaskit/lozenge/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
@@ -49,42 +50,32 @@ const CreateSyncedBlockDropdownItem = ({
 	}
 
 	const onClick = () => {
-		if (fg('platform_editor_blocks_patch_4')) {
-			// Insert the synced block, close the block menu, and stop preserving the
-			// selection — all in a single transaction, mirroring the block-menu delete
-			// item. Stopping preservation is required so the caret that
-			// insertSyncedBlock places inside the new block survives; otherwise
-			// block-controls restores a whole-node NodeSelection over it, hiding the
-			// caret (EDITOR-7949). Then re-focus the editor so the caret is active,
-			// but only when the transaction was actually dispatched — otherwise a
-			// failed insertion would still steal DOM focus into the editor.
-			const dispatched = api?.core?.actions.execute(({ tr }) => {
-				// If the insertion fails, bail out without closing the menu or
-				// stopping selection preservation — otherwise we would dispatch an
-				// effectively-empty transaction and close the menu despite nothing
-				// having been inserted.
-				const result = api?.syncedBlock.commands.insertSyncedBlock(INPUT_METHOD.BLOCK_MENU)({
-					tr,
-				});
-				if (!result) {
-					return null;
-				}
-				api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
-				api?.blockControls?.commands?.stopPreservingSelection()({ tr });
-				return tr;
+		// Insert the synced block, close the block menu, and stop preserving the
+		// selection — all in a single transaction, mirroring the block-menu delete
+		// item. Stopping preservation is required so the caret that
+		// insertSyncedBlock places inside the new block survives; otherwise
+		// block-controls restores a whole-node NodeSelection over it, hiding the
+		// caret (EDITOR-7949). Then re-focus the editor so the caret is active,
+		// but only when the transaction was actually dispatched — otherwise a
+		// failed insertion would still steal DOM focus into the editor.
+		const dispatched = api?.core?.actions.execute(({ tr }) => {
+			// If the insertion fails, bail out without closing the menu or
+			// stopping selection preservation — otherwise we would dispatch an
+			// effectively-empty transaction and close the menu despite nothing
+			// having been inserted.
+			const result = api?.syncedBlock.commands.insertSyncedBlock(INPUT_METHOD.BLOCK_MENU)({
+				tr,
 			});
-			if (dispatched) {
-				api?.core?.actions.focus();
+			if (!result) {
+				return null;
 			}
-			return;
+			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
+			api?.blockControls?.commands?.stopPreservingSelection()({ tr });
+			return tr;
+		});
+		if (dispatched) {
+			api?.core?.actions.focus();
 		}
-
-		// Legacy behaviour: insert then close the block menu as two separate executes
-		// (batching them caused selection collisions — EDITOR-2751).
-		api?.core?.actions.execute(
-			api?.syncedBlock.commands.insertSyncedBlock(INPUT_METHOD.BLOCK_MENU),
-		);
-		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 
 	const isOffline = isOfflineMode(mode);
@@ -122,6 +113,9 @@ const CopySyncedBlockDropdownItem = ({
 	};
 
 	const lozenge = <SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />;
+	const copyLabel = expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
+		? syncBlockMessages.copyToSyncLabel
+		: blockMenuMessages.copySyncedBlock;
 
 	return (
 		<ToolbarDropdownItem
@@ -130,7 +124,7 @@ const CopySyncedBlockDropdownItem = ({
 			isDisabled={isOfflineMode(mode)}
 			elemAfterText={lozenge}
 		>
-			{formatMessage(blockMenuMessages.copySyncedBlock)}
+			{formatMessage(copyLabel)}
 		</ToolbarDropdownItem>
 	);
 };

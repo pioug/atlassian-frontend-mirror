@@ -3,8 +3,8 @@ import React, { useMemo, useState, useEffect } from 'react';
 import {
 	MediaClientContext,
 	MediaClientProvider,
-	useFileHashes,
-} from '@atlaskit/media-client-react';
+} from '@atlaskit/media-client-react/media-client-provider';
+import { useFileHashes } from '@atlaskit/media-client-react/use-file-hashes';
 import { Card, defaultImageCardDimensions, CardLoading } from '@atlaskit/media-card';
 import { FilmstripView, type SizeEvent, type ScrollEvent } from './filmstripView';
 import { generateIdentifierKey } from './utils/generateIdentifierKey';

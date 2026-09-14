@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import InteractionContext from '@atlaskit/interaction-context';
 
-import Spinner from '../../index';
+import Spinner from '../../spinner';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('spinner', () => {

@@ -5,17 +5,17 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl';
 import { defaultRegistry } from 'react-sweet-state';
 
-import { mockActionsDiscoveryEmptyResponse } from '@atlaskit/link-client-extension';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { mockActionsDiscoveryEmptyResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockActionsDiscoveryEmptyResponse';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import { ORS_ACTIONS_DISCOVERY_ENDPOINT } from '@atlaskit/link-test-helpers/datasource';
-import {
-	type AtomicActionInterface,
-	type DatasourceDataResponseItem,
-	type DatasourceDataSchema,
-} from '@atlaskit/linking-types';
+import type { AtomicActionInterface } from '@atlaskit/linking-types/datasource-actions';
+import type {
+	DatasourceDataResponseItem,
+	DatasourceDataSchema,
+} from '@atlaskit/linking-types/datasource';
 
-import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
+import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { ActionsStore } from '../../state/actions';
 
 import {
@@ -25,10 +25,12 @@ import {
 } from './__tests__/_utils';
 import { DatasourceTableView } from './datasourceTableView';
 
-jest.mock('@atlaskit/link-client-extension', () => {
-	const originalModule = jest.requireActual('@atlaskit/link-client-extension');
+jest.mock('@atlaskit/link-client-extension/use-data-source-client-extension', () => {
+	const originalModule = jest.requireActual(
+		'@atlaskit/link-client-extension/use-data-source-client-extension',
+	);
 	return {
-		...originalModule,
+		...jest.requireActual('@atlaskit/link-client-extension/use-data-source-client-extension'),
 		useDatasourceClientExtension: jest.fn(() => {
 			const result = originalModule.useDatasourceClientExtension();
 

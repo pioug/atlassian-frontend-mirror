@@ -1,5 +1,112 @@
 # @atlaskit/icon
 
+## 37.6.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.3
+
+### Patch Changes
+
+- [`4612437357f61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4612437357f61) -
+  Remove references to the unused @atlassian/icon-private package. Its value is dropped from the
+  icon metadata location union, the ensure-icon-color lint rule no longer matches it, and the
+  adoption scanner no longer scans its entrypoint.
+
+## 37.5.2
+
+### Patch Changes
+
+- [`3bcd16de0216e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bcd16de0216e) -
+  Experimental React 19 peer dependency support. This patch widens the peer range; CI coverage is
+  partial.
+
+## 37.5.1
+
+### Patch Changes
+
+- Use `@atlassian/testing-library` exclusively in unit tests.
+
+## 37.5.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.4.0
+
+### Minor Changes
+
+- [`19f67a13fde54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19f67a13fde54) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `chart-pie`
+
+## 37.3.0
+
+### Minor Changes
+
+- [`9f6f84dd3db72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f6f84dd3db72) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+  - `chart-pie`
+  - `cross-circle`
+  - `data-flow`
+
+## 37.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.3
+
+### Patch Changes
+
+- [`9356675edac18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9356675edac18) -
+  Replace generated `./src/*` subpath export keys with lint-safe equivalents. The de-barreling
+  migration produced export keys containing a `src` segment (e.g. `@atlaskit/select`
+  `"./src/select"`), which are forbidden by `no-restricted-imports` (`@atlaskit/*/src/*`) in
+  downstream products.
+
+  Renamed keys:
+  - `@atlaskit/select`: `./src/select` → `./default`
+  - `@atlaskit/icon`: `./src/constants` → `./constants/default`
+  - `@atlaskit/react-select`: `./src/async` → `./async/default`, `./src/creatable` →
+    `./creatable/default`
+  - `@atlaskit/heading`: `./src/heading-context` → `./heading-context/default`
+  - `@atlaskit/flag`: removed the redundant `./src/flag-group` key (duplicate of the existing
+    `./flag-group` export)
+
+  The underlying source targets are unchanged.
+
 ## 37.2.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ActiveNode } from '../../blockControlsPluginType';
 
@@ -23,7 +23,7 @@ export const shouldAllowInlineDropTarget = (
 
 	if (editorExperiment('advanced_layouts', false) || isNested) {
 		// If nested inside bodiedSyncBlock, enable inline drop target so user can drop to create a layout inside it
-		if (isInsideBodiedSyncBlock && editorExperiment('platform_synced_block', true)) {
+		if (isInsideBodiedSyncBlock) {
 			return true;
 		}
 		return false;
@@ -37,9 +37,8 @@ export const shouldAllowInlineDropTarget = (
 	}
 
 	if (
-		(syncedBlockTypes.includes(activeNode?.nodeType || '') ||
-			syncedBlockTypes.includes(node?.type.name || '')) &&
-		editorExperiment('platform_synced_block', true)
+		syncedBlockTypes.includes(activeNode?.nodeType || '') ||
+		syncedBlockTypes.includes(node?.type.name || '')
 	) {
 		return false;
 	}

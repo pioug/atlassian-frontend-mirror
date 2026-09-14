@@ -1,4 +1,4 @@
-import { N20, N50, N200 } from '@atlaskit/adf-schema';
+import { N20, N50, N200 } from '@atlaskit/adf-schema/colors';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 import type { NodeSerializerOpts } from '../interfaces';

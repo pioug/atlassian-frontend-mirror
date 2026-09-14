@@ -31,11 +31,8 @@ ${code`
 
 ${code`
   import React from 'react';
-  import {
-    withAnalyticsEvents,
-    createAndFireEvent,
-    WithAnalyticsEventsProps
-  } from '@atlaskit/analytics-next';
+  import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+  import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
   import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 
   export type Props = WithAnalyticsEventsProps & {
@@ -68,13 +65,13 @@ ${code`
 
   // Pass the analyticsWebClient instance created by the Product
   // Refer to type AnalyticsWebClient from @atlaskit/analytics-listeners
-  ReactDOM.render(
+  const root = createRoot(container);
+  root.render(
     <div>
       <FabricAnalyticsListeners client={analyticsWebClient}>
         <DummyComponentWithAnalytics onClick={myOnClickHandler} />
       </FabricAnalyticsListeners>
     </div>,
-    container,
   );
 `}
 `;

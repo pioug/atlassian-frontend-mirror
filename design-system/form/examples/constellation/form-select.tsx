@@ -1,9 +1,12 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
-import Form, { Field, FormFooter } from '@atlaskit/form';
+import Button from '@atlaskit/button/default/button';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
 import { Flex } from '@atlaskit/primitives/compiled';
-import Select, { type ValueType as Value } from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
+import type { ValueType as Value } from '@atlaskit/select/types';
 
 interface Option {
 	label: string;

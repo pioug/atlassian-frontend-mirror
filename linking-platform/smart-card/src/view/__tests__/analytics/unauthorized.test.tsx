@@ -6,21 +6,26 @@ import React from 'react';
 import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import type CardClient from '@atlaskit/link-provider/client';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers';
-import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
+import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
-import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import { fakeFactory, mocks } from '../../../utils/mocks';
+import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
+import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';
+import { fakeFactory } from '../../../utils/fake-factory';
+import { mocks } from '../../../utils/mocks';
 import { Card, type CardAppearance } from '../../Card';
 
 // ShouldSample needs to be loaded for beforeEach inside to be picked up before test runs
@@ -41,8 +46,8 @@ describe('smart-card: unauthorized analytics', () => {
 	let mockWindowOpen: jest.Mock;
 
 	const mockUuid = uuid as JestFunction<typeof uuid>;
-	const mockStartUfoExperience = jest.spyOn(ufoWrapper, 'startUfoExperience');
-	const mockSucceedUfoExperience = jest.spyOn(ufoWrapper, 'succeedUfoExperience');
+	const mockStartUfoExperience = jest.spyOn(startUfoExperienceModule, 'startUfoExperience');
+	const mockSucceedUfoExperience = jest.spyOn(succeedUfoExperienceModule, 'succeedUfoExperience');
 	const mockAnalyticsClient = {
 		sendUIEvent: jest.fn().mockResolvedValue(undefined),
 		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
@@ -55,7 +60,6 @@ describe('smart-card: unauthorized analytics', () => {
 		mockClient = new (fakeFactory(mockFetch))();
 		mockWindowOpen = jest.fn();
 		mockUuid.mockReturnValue('some-uuid-1');
-		/// @ts-ignore
 		global.open = mockWindowOpen;
 	});
 

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { RESERVED_CHARACTERS_REGEX, RESERVED_WORDS } from '../constants/reserved-words';
 
 /**
@@ -15,7 +13,7 @@ export const sanitiseJqlString = (jqlString: string): string => {
 
 	// If the string matches a reserved word, wrap it in quotes since any
 	// special characters would have been caught above already
-	if (RESERVED_WORDS.has(jqlString.toLowerCase()) && fg('queue-setting-page-jql-bug')) {
+	if (RESERVED_WORDS.has(jqlString.toLowerCase())) {
 		return `"${jqlString}"`;
 	}
 

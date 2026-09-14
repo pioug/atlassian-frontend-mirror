@@ -1,5 +1,518 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.2
+
+### Patch Changes
+
+- [`962e8dc0188bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/962e8dc0188bf) -
+  Clean up `platform_editor_offline_editing_web` with `isEnabled: true` for Confluence, keeping
+  offline editing and recovery behavior enabled. Remove the retired experiment from the editor
+  Statsig configuration; consumers must stop querying or overriding this experiment.
+- Updated dependencies
+
+## 18.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.1.0
+
+### Minor Changes
+
+- [`920a9bc294e07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/920a9bc294e07) -
+  Show names for supported external agents, plus Claude branding and its consistent orange diff
+  colour. Share the Claude colour override through getParticipantColor for diff attribution and
+  collaboration telepointers behind confluence_ncs_step_diffing_version_history.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- [`e80305319abbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e80305319abbb) -
+  CCI-19338: Gate Review moment on `platform_editor_ai_streaming_ux_experience_m1` and
+  `platform_editor_ai_xstate_migration` only, dropping
+  `platform_editor_ai_new_aifc_editor_experience` and its FE/BE params. Optional Review moment
+  slices now read prefixed tokens from `platform_editor_ai_streaming_ux_m1_config`.
+- Updated dependencies
+
+## 18.0.6
+
+### Patch Changes
+
+- [`e345ad014bb3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e345ad014bb3c) -
+  Avoid duplicate agent highlights and telepointers for locally acknowledged frontend steps under
+  platform_editor_agent_be_streaming, while preserving remote collaborator and backend edit visuals.
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.10
+
+### Patch Changes
+
+- [`08bf773f7599a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08bf773f7599a) -
+  Migrate experiments to use the new platform experiment API. This major release removes the
+  migrated experiment entries from `@atlaskit/tmp-editor-statsig`'s `editorExperimentsConfig` and
+  test overrides. Consumers must replace legacy `expVal`/`expValEquals` calls with
+  `@atlaskit/platform-feature-experiments` APIs, using `isExperimentEnabled` for boolean `isEnabled`
+  experiments and `expVal` for parameterized experiments; use `mockExpEnabled`/`mockExpDisabled` in
+  tests.
+- Updated dependencies
+
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- [`3059547e2a266`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3059547e2a266) -
+  [ux] Extract the configurable post-apply AI highlight and telepointer into a shared plugin and
+  trigger it for collab-edit backend updates behind the
+  `platform_editor_ai_unified_post_apply_chrome` experiment. Connected top-level blocks share one
+  telepointer, separated groups receive their own, and consumers can supply an optional agent avatar
+  identity. Producers resolve dynamic configuration and presentation before sending chrome metadata,
+  and each Rovo frontend update starts with a fresh Post Stream Review range set.
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.16
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 16.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.12
+
+### Patch Changes
+
+- [`5b8cbd160862d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b8cbd160862d) -
+  Gate the backend Review moment on the `isBackendReviewMomentEnabled` param of
+  `platform_editor_ai_new_aifc_editor_experience` instead of the
+  `platform_editor_agent_be_streaming` gate.
+- Updated dependencies
+
+## 16.0.11
+
+### Patch Changes
+
+- [`fd3620d4e137b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3620d4e137b) -
+  [CCI-18915] Surface and render formatting-only (mark) agent edits in the AI Review Moment.
+
+  Mark-only agent steps (`AddMarkStep`/`RemoveMarkStep` — e.g. making text bold, italic, or a link)
+  have an empty `StepMap`, so the agent review-segment and shimmer builders — which derived their
+  changed ranges purely from `StepMap` geometry — never produced a range for them. As a result a
+  formatting-only agent edit opened no Review Moment and showed no shimmer. Both builders now detect
+  mark steps and derive their range from `step.from`/`step.to`.
+
+  The smart-diff token encoder additionally folds each character's marks (type + attrs) into its
+  token, so once the moment opens the change renders as a real diff (e.g. a bold-only edit, or a
+  link whose `href` changes) instead of an empty one.
+
+- Updated dependencies
+
+## 16.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.9
+
+### Patch Changes
+
+- [`f24601e815f0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f24601e815f0b) -
+  Clean up the `platform_editor_reduce_noisy_steps_ncs` experiment.
+- Updated dependencies
+
+## 16.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.7
+
+### Patch Changes
+
+- [`8e31bb980f037`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e31bb980f037) -
+  Under platform_editor_agent_be_review_undo, record locally requested backend agent edits in native
+  undo history while preserving existing remote-collab history behavior for other updates.
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- [`e2d9151b3bd46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2d9151b3bd46) -
+  Fix the agent edit shimmer/telepointer appearing on a panel (or other block) the agent did not
+  meaningfully change during backend streaming. The collab apply can stamp a same-size re-write on
+  an unrelated node (e.g. a `localId`/`breakout` re-stamp on a panel) whose StepMap still reports
+  new content, so the shimmer highlighted the whole block despite no visible change. The shimmer now
+  skips same-size steps whose before/after content is equal ignoring identity-only metadata
+  (`localId`) and layout-only marks (`breakout`), reusing the shared `slicesEqualIgnoringLocalId`
+  helper — matching the Review-moment segment producer's guard.
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- [`b5b6cb8261481`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5b6cb8261481) -
+  [CCI-18813] Fix the Post Stream Review modal anchoring far from the real edit (e.g. at an
+  unrelated panel) during backend AI streaming, when the only change to that node was a layout
+  `breakout` mark (e.g. a width change). The collab-edit segment producer recorded it as a
+  reviewable segment while the AI-plugin filter dropped it, leaving the modal anchored to a node
+  with no visible diff.
+
+  The layout-mark-aware slice comparison is now shared from `@atlaskit/editor-common` (new
+  `./collab-agent-review-slice-compare` entry point exporting `slicesEqualIgnoringLocalId`) and used
+  by both sides, so a `localId`-only or `breakout`-only difference is consistently treated as no
+  change. Real content and formatting edits are still recorded.
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.0
+
+### Patch Changes
+
+- [`ddb1f3da1e991`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddb1f3da1e991) -
+  Track acceptance rate for backend-persisted agent edits. These arrive as remote collab steps
+  rather than frontend-streamed transformations, so they previously started no analytics session and
+  were absent from the metric. They now reuse the existing survival definition, and are recorded
+  only on the requesting user's client.
+
+  Gated by `platform_editor_agent_be_streaming`, which controls whether remote agent steps are
+  annotated at all, and by the agent type allowlist in
+  `platform_editor_backend_review_moment_agent_types`, which defaults to empty. Recording cannot
+  occur unless both permit it.
+
+- Updated dependencies
+
+## 15.0.8
+
+### Patch Changes
+
+- [`1d1cb3e25a787`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d1cb3e25a787) -
+  Fix BE-streaming Review moment data loss and chimera diffs: derive coarse review segments as
+  closed, whole top-level node slices (mapped consistently between the pre-edit and post-edit doc),
+  filter out position-neutral phantom collab touches, and fall back to a safe add-only segment when
+  a change relocates content. Behind the platform_editor_backend_review_moment_agent_types gate.
+- Updated dependencies
+
+## 15.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.6
+
+### Patch Changes
+
+- [`88aff7b9d6346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88aff7b9d6346) -
+  Allowlist BE streaming Review Moment agentTypes via Statsig dynamic config
+  platform_editor_backend_review_moment_agent_types (code default empty until Statsig is set).
+
+## 15.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.4
+
+### Patch Changes
+
+- [`b8700e10d6391`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8700e10d6391) -
+  Remove invalid experiment keys from Editor package feature gate manifests.
+- Updated dependencies
+
+## 15.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.0
+
+### Minor Changes
+
+- [`95e5e100318c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95e5e100318c4) -
+  Review moment (Post Stream Review) for BE streaming — record remote agent edits into
+  aiContentPositions and open/append the Review moment (hybrid completion signal + idle debounce).
+  - New `@atlaskit/editor-common/collab/agent-remote-edit-review` subpath export for the neutral
+    agent-edit review contract (AGENT_REMOTE_EDIT_REVIEW_DATA, AgentRemoteEditReviewSegment,
+    AgentRemoteEditReviewData).
+  - Fix chimera delete diffs in agent-review-segments: per-step backward StepMap mapping replaces
+    the previous group-then-invert approach that produced blended original text when multiple
+    discrete operations (delete + insert) interacted in the same region.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.0
 
 ### Minor Changes

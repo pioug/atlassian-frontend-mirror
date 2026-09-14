@@ -1,15 +1,15 @@
 import React, { type PropsWithChildren, useCallback } from 'react';
 
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Button from '@atlaskit/button/standard-button';
-import type { InlineCardAdf } from '@atlaskit/linking-common';
-import { type DatasourceParameters } from '@atlaskit/linking-types';
+import type { InlineCardAdf } from '@atlaskit/linking-common/types';
+import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
-import { EVENT_CHANNEL } from '../../../../analytics';
+import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { DatasourceDisplay, DatasourceSearchMethod } from '../../../../analytics/types';
 import { buildDatasourceAdf } from '../../../../common/utils/schema-utils';
-import { useUserInteractions } from '../../../../contexts/user-interactions';
-import { useDatasourceContext } from '../datasource-context';
+import { useUserInteractions } from '../../../../contexts/user-interactions/use-user-interactions';
+import { useDatasourceContext } from '../datasource-context/useDatasourceContext';
 import { useViewModeContext } from '../mode-switcher/useViewModeContext';
 
 export type InsertButtonProps<Parameters extends DatasourceParameters> = PropsWithChildren<{

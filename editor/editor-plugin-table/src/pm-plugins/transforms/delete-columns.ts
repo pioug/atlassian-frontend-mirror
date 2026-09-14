@@ -1,4 +1,4 @@
-import type { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import { AddColumnStep } from '@atlaskit/custom-steps';
 import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

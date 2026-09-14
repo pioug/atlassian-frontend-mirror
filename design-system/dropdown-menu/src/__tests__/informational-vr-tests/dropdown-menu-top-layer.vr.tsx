@@ -1,11 +1,11 @@
 import { snapshotInformational } from '@af/visual-regression';
 
-import DropdownSpacing from '../../../examples/10-dropdown-spacing';
-import ShouldFitContainer from '../../../examples/18-should-fit-container';
-import Loading from '../../../examples/93-testing-is-loading-reposition';
-import Testing from '../../../examples/99-testing';
-import ComplexDropdown from '../../../examples/99-testing-complex-dropdown-menu';
-import SelectionStates from '../../../examples/selection-states';
+import DropdownSpacing from '../../../examples/10-dropdown-spacing.vr.ap';
+import ShouldFitContainer from '../../../examples/18-should-fit-container.vr.ap';
+import Loading from '../../../examples/93-testing-is-loading-reposition.vr.ap';
+import ComplexDropdown from '../../../examples/99-testing-complex-dropdown-menu.vr.ap';
+import Testing from '../../../examples/99-testing.vr.ap';
+import SelectionStates from '../../../examples/selection-states.vr.ap';
 
 const topLayerFlag = {
 	'platform-dst-top-layer': [true, false],

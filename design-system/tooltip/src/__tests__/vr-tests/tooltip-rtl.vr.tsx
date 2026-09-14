@@ -1,6 +1,6 @@
 import { type Hooks, type SnapshotTestOptions, snapshot } from '@af/visual-regression';
 
-import VrPositionRtlExample from '../../../examples/vr-position-rtl';
+import VrPositionRtlExample from '../../../examples/vr-position-rtl.vr.ap';
 
 const lightModeVariant: SnapshotTestOptions<Hooks>['variants'] = [
 	{

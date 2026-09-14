@@ -23,7 +23,7 @@ describe('consts', () => {
 			expect(relativeFontSizeToBase16('14px')).toBe('0.875rem');
 		});
 		it('relativeFontSizeToBase16 should throw an error for invalid string', () => {
-			expect(() => relativeFontSizeToBase16('px')).toThrowError();
+			expect(() => relativeFontSizeToBase16('px')).toThrow();
 		});
 	});
 });

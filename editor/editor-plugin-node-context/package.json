@@ -1,0 +1,43 @@
+{
+	"name": "@atlaskit/editor-plugin-node-context",
+	"version": "3.0.0",
+	"description": "NodeContext plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Confluence AI - Yellow",
+		"releaseModel": "continuous",
+		"singleton": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-json-transformer": "workspace:^",
+		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@babel/runtime": "root:*"
+	},
+	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
+		"react": "^18.2.0 || ^19.2.0"
+	},
+	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-core": "workspace:^",
+		"@atlaskit/editor-plugins": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/gesture-detection": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
+		"react": "^19.2.0",
+		"typescript": "root:*"
+	}
+}

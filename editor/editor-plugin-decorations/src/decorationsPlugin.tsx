@@ -1,4 +1,4 @@
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { DecorationsPlugin, HoverDecorationProps } from './decorationsPluginType';
 import { hoverDecorationCommand, removeDecorationCommand } from './pm-plugins/commands';

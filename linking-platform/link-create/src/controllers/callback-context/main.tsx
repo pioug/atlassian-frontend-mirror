@@ -1,12 +1,12 @@
 import React, { type PropsWithChildren, useContext, useMemo } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 
 import { ANALYTICS_CHANNEL } from '../../common/constants';
-import { type CreatePayload } from '../../common/types';
+import { type CreatePayload, type LinkCreateFailureContext } from '../../common/types';
 import { useExperience } from '../../common/ui/experience-tracker';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
-import { getErrorType } from '../../common/utils/errors';
+import { getErrorType, getNetworkFields } from '../../common/utils/errors';
 
 interface LinkCreateCallbackProviderProps {
 	/**
@@ -25,7 +25,16 @@ interface LinkCreateCallbackProviderProps {
 	onCancel?: () => void;
 }
 
-const LinkCreateCallbackContext = React.createContext<LinkCreateCallbackProviderProps>({});
+/**
+ * The value exposed through context. This differs from the provider's own props: internal callers
+ * may additionally supply a `LinkCreateFailureContext` identifying which operation failed, which is
+ * recorded in analytics but never forwarded to the consumer's `onFailure` prop.
+ */
+type LinkCreateCallbackContextValue = Omit<LinkCreateCallbackProviderProps, 'onFailure'> & {
+	onFailure?: (error: unknown, context?: LinkCreateFailureContext) => void;
+};
+
+const LinkCreateCallbackContext = React.createContext<LinkCreateCallbackContextValue>({});
 
 const LinkCreateCallbackProvider = ({
 	children,
@@ -64,10 +73,14 @@ const LinkCreateCallbackProvider = ({
 
 	const handleFailure = useMemo(
 		() => ({
-			onFailure: async (error: unknown) => {
+			onFailure: async (error: unknown, context?: LinkCreateFailureContext) => {
+				const { status } = getNetworkFields(error);
+
 				createAnalyticsEvent(
 					createEventPayload('track.object.createFailed.linkCreate', {
 						failureType: getErrorType(error),
+						operation: context?.operation ?? null,
+						status,
 					}),
 				).fire(ANALYTICS_CHANNEL);
 
@@ -95,7 +108,7 @@ const LinkCreateCallbackProvider = ({
 	);
 };
 
-const useLinkCreateCallback = (): LinkCreateCallbackProviderProps =>
+const useLinkCreateCallback = (): LinkCreateCallbackContextValue =>
 	useContext(LinkCreateCallbackContext);
 
 export { LinkCreateCallbackProvider, useLinkCreateCallback };

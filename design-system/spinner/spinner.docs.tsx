@@ -42,7 +42,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/spinner.tsx'),
 				},
 			],
-			keywords: ['spinner', 'loading', 'progress', 'wait', 'activity'],
+			keywords: ['spinner', 'loading', 'busy', 'progress', 'wait', 'activity'],
 			categories: ['feedback'],
 		},
 	],

@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { isSafeUrl } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -16,19 +16,19 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	HelperMessage,
-	MessageWrapper,
-} from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import { ErrorMessage } from '@atlaskit/form/error-message';
+import Field from '@atlaskit/form/field';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { HelperMessage } from '@atlaskit/form/helper-message';
+import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
-import { getMediaClient } from '@atlaskit/media-client-react';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
-import SectionMessage from '@atlaskit/section-message';
-import TextField from '@atlaskit/textfield';
+import SectionMessage from '@atlaskit/section-message/message';
+import TextField from '@atlaskit/textfield/text-field';
 
 import type {
 	CustomizedHelperMessage,
@@ -123,6 +123,7 @@ const previewStateReducer = (state: PreviewState, action: PreviewStateAction) =>
 };
 
 type Props = {
+	cancelMediaInsertPicker?: () => void;
 	closeMediaInsertPicker: () => void;
 	customizedHelperMessage?: CustomizedHelperMessage;
 	customizedUrlValidation?: (input: string) => boolean;
@@ -137,6 +138,7 @@ export function MediaFromURL({
 	mediaProvider,
 	dispatchAnalyticsEvent,
 	closeMediaInsertPicker,
+	cancelMediaInsertPicker = closeMediaInsertPicker,
 	insertMediaSingle,
 	insertExternalMediaSingle,
 	isOnlyExternalLinks,
@@ -290,10 +292,14 @@ export function MediaFromURL({
 					};
 					dispatchAnalyticsEvent(payload);
 				}
-				closeMediaInsertPicker();
+				if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
+					cancelMediaInsertPicker();
+				} else {
+					closeMediaInsertPicker();
+				}
 			}
 		},
-		[dispatchAnalyticsEvent, closeMediaInsertPicker],
+		[dispatchAnalyticsEvent, cancelMediaInsertPicker, closeMediaInsertPicker],
 	);
 
 	const onCancel = React.useCallback(() => {
@@ -306,8 +312,12 @@ export function MediaFromURL({
 			};
 			dispatchAnalyticsEvent(payload);
 		}
-		closeMediaInsertPicker();
-	}, [closeMediaInsertPicker, dispatchAnalyticsEvent]);
+		if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
+			cancelMediaInsertPicker();
+		} else {
+			closeMediaInsertPicker();
+		}
+	}, [cancelMediaInsertPicker, dispatchAnalyticsEvent, closeMediaInsertPicker]);
 
 	return (
 		<Form<{ inputUrl: string }>

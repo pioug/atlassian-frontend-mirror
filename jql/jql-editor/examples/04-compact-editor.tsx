@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
 
-import {
-	type GetAutocompleteInitialData,
-	type GetAutocompleteSuggestions,
-	useAutocompleteProvider,
-} from '@atlaskit/jql-editor-autocomplete-rest';
+import type {
+	GetAutocompleteInitialData,
+	GetAutocompleteSuggestions,
+} from '@atlaskit/jql-editor-autocomplete-rest/types';
+import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider';
 
 import { jqlFieldsMock, jqlFunctionsMock, jqlValuesMock } from '../examples-utils/data';
 import { Container } from '../examples-utils/styled';
-import { JQLEditor } from '../src';
+import JQLEditor from '../src/ui';
 
 const getAutocompleteInitialData: GetAutocompleteInitialData = () =>
 	// Simulate fetching initial data from an API

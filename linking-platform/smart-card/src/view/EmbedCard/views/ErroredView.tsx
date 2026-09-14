@@ -6,7 +6,7 @@
 import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

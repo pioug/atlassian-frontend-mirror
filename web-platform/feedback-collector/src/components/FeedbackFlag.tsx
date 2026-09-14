@@ -2,9 +2,9 @@ import React, { type FunctionComponent } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { AutoDismissFlag } from '@atlaskit/flag';
+import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';

@@ -1,10 +1,10 @@
-import { type JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 import { CardAction } from '../../../constants';
 import { type AISummaryActionData } from '../../../state/flexible-ui-context/types';
 import { type AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
-import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
+import { getIsAISummaryEnabled } from '../../../utils/get-is-ai-summary-enabled';
 import { type InternalCardActionOptions as CardActionOptions } from '../../../view/Card/types';
 
 export const extractAISummaryAction = (

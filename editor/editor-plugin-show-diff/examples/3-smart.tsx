@@ -5,17 +5,20 @@
  */
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { PanelType } from '@atlaskit/adf-schema/schema';
+import { PanelType } from '@atlaskit/adf-schema/panel';
 import {
 	blockQuote,
 	bulletList,
+	code,
 	codeBlock,
 	doc,
+	em,
 	expand,
 	heading,
 	layoutColumn,
 	layoutSection,
 	li,
+	link,
 	panel,
 	p,
 	strong,
@@ -25,7 +28,7 @@ import {
 	th,
 	tr,
 } from '@atlaskit/adf-utils/builders';
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
 import DropdownItemCheckboxGroup from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';
@@ -72,13 +75,10 @@ import {
 	type Schema as PMSchema,
 	Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import {
-	AddMarkStep,
-	Mapping,
-	ReplaceStep,
-	type Step,
-	StepMap,
-} from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
+import { AddMarkStep, Mapping, ReplaceStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -87,9 +87,47 @@ import type {
 	DeletedDiffPlacement,
 	DiffType,
 	InlineDeletedDiffPlacement,
+	RevealOptions,
 } from '../src/showDiffPluginType';
 
-// `smart` is the star of this example; the others are kept so you can compare.
+// WARNING: `setBooleanFeatureFlagResolver` REPLACES the resolver — it does not layer on top of one.
+// Every gate absent from this list resolves to `false`, so this must name every gate the show-diff
+// pipeline reads, not just the ones this example adds. Keep it in sync with:
+//   grep -rho "fg('[a-z_0-9]*')" ../src | sort -u
+//
+// - `platform_editor_ai_smart_diff` ............ the `smart` diff type, and the extended pipeline
+// - `platform_editor_diff_inline_mark_changes` . mark-aware tokenising; WITHOUT this, `inline` shows
+//                                                no diff at all for mark-only changes (bold, links,
+//                                                colour). `smart` is unaffected — it takes the
+//                                                attr-aware encoder before this gate is read.
+// - `platform_editor_reduce_diff_attr_sensitivity` ... attribute-change sensitivity
+// - `platform_editor_ai_show_diff_patch_1` ..... diff correctness patch
+// - `platform_editor_diff_reveal_animation` .... the reveal, driven by the "Reveal" toggle
+// - `platform_editor_diff_hide_pure_deletions` . keeps delete-only changes out of the clean view,
+//                                                which `inline` otherwise leaks
+//
+// `confluence_ncs_step_diffing_version_history` is deliberately omitted: it is a Confluence version
+// history concern, not something this example exercises.
+// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
+setBooleanFeatureFlagResolver((flagKey) =>
+	[
+		'platform_editor_ai_smart_diff',
+		'platform_editor_ai_show_diff_patch_1',
+		'platform_editor_diff_inline_mark_changes',
+		'platform_editor_reduce_diff_attr_sensitivity',
+		'platform_editor_diff_reveal_animation',
+		'platform_editor_diff_hide_pure_deletions',
+	].includes(flagKey),
+);
+
+// The reveal animation and hide-pure-deletions behaviours also require the Milestone 1 streaming
+// UX umbrella experiment to be enrolled. Override its `isEnabled` value so this example shows the
+// intended production behaviour once the umbrella is fully rolled out.
+// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
+UNSAFE_overrideExperiment('platform_editor_ai_streaming_ux_experience_m1', { isEnabled: true });
+
+// `inline` is the type being taken forward, so it is what the first panel opens on. The others are
+// kept for comparison — `smart` in particular, since it is what the thresholds below apply to.
 const diffTypes: DiffType[] = ['smart', 'inline', 'block', 'step'];
 
 // Default smart thresholds — shown explicitly so they are discoverable/tunable.
@@ -213,6 +251,108 @@ const LONG =
  *         ABOVE = at/above threshold (promotion to the next level expected).
  */
 const scenarios: Scenario[] = [
+	// ── DESIGN REFERENCE ────────────────────────────────────────────────────────
+	// The case the reveal animation is being designed against. Intended breakdown:
+	//
+	//   deleted (strikethrough + grey)   " based coffee"
+	//                                    ", We exist to make rare, competition-level coffees
+	//                                     accessible in a structured, curated format for serious
+	//                                     home brewers."
+	//                                    "Rather than" (before "selling full retail bags")
+	//                                    " The experience is positioned closer to a wine allocation
+	//                                     club than a traditional coffee subscription."
+	//   added (agent highlight)          "making rare, competition-level coffees accessible through
+	//                                     a curated monthly allocation." (after "Gesha varietals,")
+	//                                    "Instead of" (before "selling full retail bags")
+	//   unchanged                        everything else
+	//
+	// CAVEAT: with the default thresholds above this will NOT render at word level. All three of
+	// the original's sentences are touched (3/3 = 1.0, well over `paragraph.ratio` 0.4), so smart
+	// promotes it to a whole-paragraph diff — the entire old paragraph struck through against the
+	// entire new one. To see the word-level breakdown the design shows, raise the paragraph and
+	// sentence ratios above 1 in `smartThresholds` (e.g. `ratio: 1.1`) so nothing is promoted.
+	{
+		label: 'D1. Design reference — Gesha Coffee rewrite (see thresholds caveat above)',
+		before: doc(
+			p(
+				'Gesha Coffee is a premium subscription based coffee brand dedicated exclusively to exceptional Gesha varietals, We exist to make rare, competition-level coffees accessible in a structured, curated format for serious home brewers. Rather than selling full retail bags, we deliver tasting-sized selections that allow members to explore diverse farms and processing styles with intention. The experience is positioned closer to a wine allocation club than a traditional coffee subscription.',
+			),
+		) as JSONDocNode,
+		after: doc(
+			p(
+				'Gesha Coffee is a premium subscription brand dedicated exclusively to exceptional Gesha varietals, making rare, competition-level coffees accessible through a curated monthly allocation. Instead of selling full retail bags, we deliver tasting-sized selections that allow members to explore diverse farms and processing styles with intention.',
+			),
+		) as JSONDocNode,
+	},
+
+	// Reflow probe: one changed paragraph with untouched paragraphs above and below it. Showing
+	// deletions makes the changed paragraph taller, so this is where to watch that (a) only the
+	// changed paragraph cross-fades and (b) the paragraphs below slide rather than jump. Toggling
+	// "Deleted" back shrinks it again, exercising the opposite direction.
+	// Set `only: true` here to isolate it — the merged gallery changes almost every block, which
+	// leaves little unchanged content to judge the effect against.
+	{
+		label: 'D2. Reflow — changed paragraph between untouched ones',
+		before: doc(
+			p('This paragraph is untouched and sits above the change. It should not fade or move.'),
+			p(
+				'Our onboarding process is currently a lengthy affair that involves a great deal of manual paperwork, several separate approval steps, and a written handover from the recruiting team, all of which we have found adds considerable delay before a new starter can be productive.',
+			),
+			p('This paragraph is untouched and sits below the change. It should slide, never fade.'),
+			p('So is this one, and it should stay in step with the paragraph above it.'),
+		) as JSONDocNode,
+		after: doc(
+			p('This paragraph is untouched and sits above the change. It should not fade or move.'),
+			p('Onboarding is now a single automated step.'),
+			p('This paragraph is untouched and sits below the change. It should slide, never fade.'),
+			p('So is this one, and it should stay in step with the paragraph above it.'),
+		) as JSONDocNode,
+	},
+
+	// ── MARK (formatting) level ─────────────────────────────────────────────────
+	// These deliberately use the DEFAULT whole-body ReplaceStep (no `buildSteps`), which is how
+	// Review Moment reconstructs an agent edit. `getMarkChangeRanges` only inspects
+	// AddMarkStep/RemoveMarkStep, so it never fires here — these reproduce "inline diff shows
+	// nothing when only formatting changed".
+	{
+		label: '0a. Mark only: bold added (text identical)',
+		before: doc(p('Ship the release on Friday.')) as JSONDocNode,
+		after: doc(p(strong('Ship the release on Friday.'))) as JSONDocNode,
+	},
+	{
+		label: '0b. Mark only: bold on two words mid-sentence',
+		before: doc(p('The quick brown fox jumps over the lazy dog.')) as JSONDocNode,
+		after: doc(
+			p(text('The quick '), strong('brown fox'), text(' jumps over the lazy dog.')),
+		) as JSONDocNode,
+	},
+	{
+		label: '0c. Mark only: bold removed',
+		before: doc(p(strong('This was emphasised before.'))) as JSONDocNode,
+		after: doc(p('This was emphasised before.')) as JSONDocNode,
+	},
+	{
+		label: '0d. Mark only: italic + inline code added',
+		before: doc(p(text('Run yarn start to boot the server.'))) as JSONDocNode,
+		after: doc(
+			p(text('Run '), code('yarn start'), text(' to '), em('boot'), text(' the server.')),
+		) as JSONDocNode,
+	},
+	{
+		label: '0e. Mark only: link href changed (same link text)',
+		before: doc(
+			p(text('See the '), link({ href: 'https://example.com/old' })('runbook'), text(' first.')),
+		) as JSONDocNode,
+		after: doc(
+			p(text('See the '), link({ href: 'https://example.com/new' })('runbook'), text(' first.')),
+		) as JSONDocNode,
+	},
+	{
+		label: '0f. Mixed: text edit AND bold added',
+		before: doc(p('Deploy on Friday afternoon.')) as JSONDocNode,
+		after: doc(p(text('Deploy on '), strong('Monday'), text(' morning.'))) as JSONDocNode,
+	},
+
 	// ── SENTENCE level ──────────────────────────────────────────────────────────
 	{
 		label: '1a. Sentence BELOW threshold → inline word diff',
@@ -1478,6 +1618,7 @@ function KitchenSinkEditor({
 	colorScheme,
 	hideDeletedDiffs,
 	hideAddedDiffsUnderline,
+	reveal,
 	showIndicators,
 	diffType,
 	deletedDiffPlacement,
@@ -1494,6 +1635,7 @@ function KitchenSinkEditor({
 	inlineDeletedDiffPlacement: InlineDeletedDiffPlacement;
 	/** 1-based index of this scenario's label in the full visible gallery. */
 	labelIndex: number;
+	reveal: RevealOptions | undefined;
 	scenario: Scenario;
 	showIndicators: boolean;
 }): React.JSX.Element | null {
@@ -1547,30 +1689,39 @@ function KitchenSinkEditor({
 		[colorScheme],
 	);
 
-	useEffect(() => {
+	const built = useMemo(() => {
 		if (!editorApi) {
-			return;
+			return null;
 		}
 		const state = editorApi.core.sharedState.currentState();
 		if (!state?.schema) {
-			return;
+			return null;
 		}
-		const built = buildSingleScenarioDocsAndSteps(state.schema, scenario);
-		if (!built) {
-			return;
-		}
-		const { originalDoc, steps, finalDoc } = built;
+		return buildSingleScenarioDocsAndSteps(state.schema, scenario);
+	}, [editorApi, scenario]);
 
+	// Content setup, deliberately SEPARATE from the diff effect below. Replacing the document tears
+	// down every decoration, so if this ran on each toggle the reveal animation would have nothing
+	// to snapshot as its outgoing state and would cross-fade from a blank, undecorated document.
+	useEffect(() => {
+		if (!editorApi || !built) {
+			return;
+		}
 		editorApi.core.actions.execute(({ tr }) => {
-			tr.replaceWith(0, tr.doc.content.size, finalDoc.content);
+			tr.replaceWith(0, tr.doc.content.size, built.finalDoc.content);
 			tr.setMeta('addToHistory', false);
 			return tr;
 		});
+	}, [editorApi, built]);
 
+	useEffect(() => {
+		if (!editorApi || !built) {
+			return;
+		}
 		editorApi.core.actions.execute(
 			editorApi.showDiff.commands.showDiff({
-				steps,
-				originalDoc,
+				steps: built.steps,
+				originalDoc: built.originalDoc,
 				hideDeletedDiffs,
 				hideAddedDiffsUnderline,
 				showIndicators,
@@ -1578,17 +1729,19 @@ function KitchenSinkEditor({
 				smartThresholds,
 				deletedDiffPlacement,
 				inlineDeletedDiffPlacement,
+				reveal,
 			}),
 		);
 	}, [
 		editorApi,
+		built,
 		hideDeletedDiffs,
 		hideAddedDiffsUnderline,
 		showIndicators,
 		diffType,
 		deletedDiffPlacement,
 		inlineDeletedDiffPlacement,
-		scenario,
+		reveal,
 	]);
 
 	return (
@@ -1621,6 +1774,14 @@ function DiffPanel({
 	const [deletedDiffPlacement, setDeletedDiffPlacement] = useState<DeletedDiffPlacement>('top');
 	const [inlineDeletedDiffPlacement, setInlineDeletedDiffPlacement] =
 		useState<InlineDeletedDiffPlacement>('before');
+	// The two-phase reveal. Flip this on, then use the "Deleted" toggle to replay the transition
+	// the AI review surface plays when the reviewer presses "Compare with original".
+	const [revealEnabled, setRevealEnabled] = useState(true);
+	// Memoised so it is referentially stable: it is a dependency of the effect that calls showDiff.
+	const reveal: RevealOptions | undefined = useMemo(
+		() => (revealEnabled ? { mode: 'phased' } : undefined),
+		[revealEnabled],
+	);
 
 	// Split the visible scenarios into the merged set and the optional separate kitchen-sink
 	// scenario, and derive the merged BEFORE/AFTER JSON. Recomputed whenever the visible set
@@ -1697,41 +1858,43 @@ function DiffPanel({
 		({ showDiffState }) => ({ numberOfChanges: showDiffState?.numberOfChanges ?? 0 }),
 	);
 
+	const merged = useMemo(() => {
+		if (!editorApi) {
+			return null;
+		}
+		const state = editorApi.core.sharedState.currentState();
+		if (!state?.schema || mergedScenarios.length === 0) {
+			return null;
+		}
+		// The diff engine reconstructs the "after" doc by applying `steps` to `originalDoc` and then
+		// requires it to match the editor's CURRENT doc; if they differ it renders nothing. Rather
+		// than hand-authoring an `after` doc that must byte-match the steps, we make the editor's
+		// content BE the steps-applied doc (`finalDoc`), so the two always agree.
+		return buildMergedDocsAndSteps(state.schema, mergedScenarios);
+	}, [editorApi, mergedScenarios]);
+
+	// Content setup, deliberately SEPARATE from the diff effect below. Replacing the document tears
+	// down every decoration, so if this ran on each toggle the reveal animation would have nothing
+	// to snapshot as its outgoing state and would cross-fade from a blank, undecorated document.
 	useEffect(() => {
 		if (!editorApi) {
 			return;
 		}
-		const state = editorApi.core.sharedState.currentState();
-		if (!state?.schema) {
-			return;
-		}
-		if (mergedScenarios.length === 0) {
-			// Nothing merged is visible; clear the editor so no stale diff remains.
-			editorApi.core.actions.execute(({ tr }) => {
-				tr.replaceWith(0, tr.doc.content.size, Fragment.empty);
-				tr.setMeta('addToHistory', false);
-				return tr;
-			});
-			return;
-		}
-		const { originalDoc, steps, finalDoc } = buildMergedDocsAndSteps(state.schema, mergedScenarios);
-
-		// The diff engine reconstructs the "after" doc by applying `steps` to `originalDoc` and
-		// then requires it to match the editor's CURRENT doc; if they differ it renders nothing.
-		// Rather than hand-authoring an `after` doc that must byte-match the steps, we make the
-		// editor's content BE the steps-applied doc (`finalDoc`). This guarantees they always
-		// agree, for both the default whole-body ReplaceStep and multi-step `buildSteps`
-		// scenarios. Replace the whole document with `finalDoc` before showing the diff.
 		editorApi.core.actions.execute(({ tr }) => {
-			tr.replaceWith(0, tr.doc.content.size, finalDoc.content);
+			tr.replaceWith(0, tr.doc.content.size, merged ? merged.finalDoc.content : Fragment.empty);
 			tr.setMeta('addToHistory', false);
 			return tr;
 		});
+	}, [editorApi, merged]);
 
+	useEffect(() => {
+		if (!editorApi || !merged) {
+			return;
+		}
 		editorApi.core.actions.execute(
 			editorApi.showDiff.commands.showDiff({
-				steps,
-				originalDoc,
+				steps: merged.steps,
+				originalDoc: merged.originalDoc,
 				hideDeletedDiffs,
 				hideAddedDiffsUnderline,
 				showIndicators,
@@ -1739,17 +1902,19 @@ function DiffPanel({
 				smartThresholds,
 				deletedDiffPlacement,
 				inlineDeletedDiffPlacement,
+				reveal,
 			}),
 		);
 	}, [
 		editorApi,
+		merged,
 		hideDeletedDiffs,
 		hideAddedDiffsUnderline,
 		showIndicators,
 		diffType,
 		deletedDiffPlacement,
 		inlineDeletedDiffPlacement,
-		mergedScenarios,
+		reveal,
 	]);
 
 	return (
@@ -1789,6 +1954,9 @@ function DiffPanel({
 				>
 					Inline deleted placement: {inlineDeletedDiffPlacement}
 				</Button>
+				<Button onClick={() => setRevealEnabled((prev) => !prev)}>
+					Reveal: {revealEnabled ? 'phased' : 'none'}
+				</Button>
 				<Text color="color.text.subtle">
 					{numberOfChanges > 0 ? `${numberOfChanges} change(s)` : 'No changes'}
 				</Text>
@@ -1810,6 +1978,7 @@ function DiffPanel({
 					diffType={diffType}
 					deletedDiffPlacement={deletedDiffPlacement}
 					inlineDeletedDiffPlacement={inlineDeletedDiffPlacement}
+					reveal={reveal}
 					scenario={kitchenSinkScenario}
 					labelIndex={mergedScenarios.length + 1}
 				/>
@@ -1899,10 +2068,8 @@ export default function Editor(): React.JSX.Element {
 			</div>
 
 			<div css={styles.panelRow}>
-				<DiffPanel initialDiffType="smart" visibleScenarios={visibleScenarios} />
-				{compare ? (
-					<DiffPanel initialDiffType="inline" visibleScenarios={visibleScenarios} />
-				) : null}
+				<DiffPanel initialDiffType="inline" visibleScenarios={visibleScenarios} />
+				{compare ? <DiffPanel initialDiffType="smart" visibleScenarios={visibleScenarios} /> : null}
 			</div>
 		</div>
 	);

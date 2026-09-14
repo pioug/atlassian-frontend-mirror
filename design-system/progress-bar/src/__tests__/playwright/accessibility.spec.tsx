@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Progress bar should pass base aXe audit', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/00-basic.tsx')>(
+	await page.visitExample<typeof import('../../../examples/00-basic.vr.ap.tsx')>(
 		'design-system',
 		'progress-bar',
 		'basic',

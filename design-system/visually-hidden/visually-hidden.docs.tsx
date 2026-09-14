@@ -36,7 +36,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: '00 Basic',
 					description: '00 Basic example',
-					source: path.resolve(__dirname, './examples/00-basic.tsx'),
+					source: path.resolve(__dirname, './examples/00-basic.vr.ap.tsx'),
 				},
 			],
 			keywords: ['hidden', 'accessibility', 'screen-reader', 'aria', 'utility'],

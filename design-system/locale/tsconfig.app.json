@@ -1,9 +1,6 @@
 {
 	"extends": "../../../tsconfig.base.json",
-	"include": [
-		"./src/**/*.ts",
-		"./src/**/*.tsx"
-	],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": [
 		"**/docs/**/*",
 		"**/__tests__/**/*",
@@ -34,6 +31,9 @@
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../react-select/tsconfig.app.json"
+		},
 		{
 			"path": "../select/tsconfig.app.json"
 		}

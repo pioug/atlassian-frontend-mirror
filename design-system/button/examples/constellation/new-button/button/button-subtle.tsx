@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 
 const ButtonSubtleExample = (): React.JSX.Element => {
 	return <Button appearance="subtle">Subtle button</Button>;

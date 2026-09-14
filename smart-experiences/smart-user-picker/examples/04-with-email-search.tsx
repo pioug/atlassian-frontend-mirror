@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import SmartUserPicker from '../src';
+import SmartUserPicker from '../src/components';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints-for-emails';
 import '../example-helpers/mock-ufo';
 

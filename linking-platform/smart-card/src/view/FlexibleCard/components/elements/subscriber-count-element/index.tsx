@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ElementName, IconType } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { BaseBadgeElement, type BaseBadgeElementProps, toBadgeProps } from '../common';
 
 export type SubscriberCountElementProps = BaseBadgeElementProps;

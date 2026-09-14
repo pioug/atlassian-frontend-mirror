@@ -70,7 +70,6 @@ export const MORE_THIRD_PARTY_EXTENSION_ATTRIBUTES: string[] = [
 	'data-dashlane-classification',
 ];
 
-// TODO Merge with THIRD_PARTY_BROWSER_EXTENSION_ATTRIBUTES on platform_ufo_exclude_dark_reader_extension cleanup
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const DARK_READER_BROWSER_EXTENSION_ATTRIBUTES: string[] = [
 	// dark reader extension

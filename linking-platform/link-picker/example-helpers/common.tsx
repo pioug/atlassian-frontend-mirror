@@ -7,10 +7,10 @@ import { type ReactNode, useContext } from 'react';
 import { createIntl, createIntlCache, IntlContext, IntlProvider } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { ufologger } from '@atlaskit/ufo';
+import { ufologger } from '@atlaskit/ufo/logger';
 
 const styles = cssMap({
 	pageWrapper: {

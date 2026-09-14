@@ -1,5 +1,466 @@
 # @atlaskit/editor-plugin-block-type
 
+## 22.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.11
+
+### Patch Changes
+
+- [`01af1b9854154`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01af1b9854154) -
+  [ux] Reverted PR #459528
+- Updated dependencies
+
+## 21.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.9
+
+### Patch Changes
+
+- [`61a147bcf836c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61a147bcf836c) -
+  Support Small text and Normal text transformations from the block menu by reusing the Paragraph
+  conversion with target block marks.
+- Updated dependencies
+
+## 21.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.4
+
+### Patch Changes
+
+- [`ea8de35330d10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea8de35330d10) -
+  Register the gated Small text action in the block menu and hide it when the schema lacks font-size
+  support.
+- Updated dependencies
+
+## 21.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.1
+
+### Patch Changes
+
+- [`2b9ae0b463256`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b9ae0b463256) -
+  Clean up feature gate `platform_editor_return_focus_after_text_styles`
+- Updated dependencies
+
+## 21.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.7
+
+### Patch Changes
+
+- [`68342e8a23fec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68342e8a23fec) -
+  Group text transforms under the renamed Text formatting section in the block menu behind the
+  `platform_editor_block_menu_small_text` experiment.
+- Updated dependencies
+
+## 20.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.4
+
+### Patch Changes
+
+- [`9f8027e06f6f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f8027e06f6f6) -
+  Use updated slash-command menu icons when platform_editor_slash_command is enabled.
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.3
+
+### Patch Changes
+
+- [`656801b9e097c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656801b9e097c) -
+  VOLTC-331 - Migrate updated package usage in platform/editor: rewrite barrel imports of
+  voltCompliant provider packages to deep/subpath imports (consumer-side debarrel). No public API
+  changes.
+- Updated dependencies
+
+## 19.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.0
+
+### Minor Changes
+
+- [`d96f86ff344b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d96f86ff344b8) -
+  Use @atlaskit/platform-feature-experiments directly for
+  platform_editor_vc90_transition_expand_icon, platform_editor_add_image_editing,
+  platform_editor_ai_multi_format_streaming, platform_editor_default_toolbar_state,
+  platform_editor_early_exit_return_draft, platform_editor_fix_focus_MediaInsertPicker,
+  platform_editor_fix_table_move_shortcut, platform_editor_menu_radius_update,
+  platform_editor_react19_migration, and show_mentions_in_suggest_reply.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.8
+
+### Patch Changes
+
+- [`85c7571a0f48b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85c7571a0f48b) -
+  Return focus to the editor after selecting a text style (e.g. a heading) from the toolbar Text
+  styles dropdown, so typing continues immediately instead of focus staying on the trigger button.
+  The Text styles dropdown now renders inline via `shouldRenderToParent`, which stops the popup
+  focus-trap from returning focus to the trigger on close. `ToolbarDropdownMenu` gains an opt-in
+  `shouldRenderToParent` prop so only the Text styles menu is affected. Gated behind the
+  `platform_editor_return_focus_after_text_styles` feature flag.
+- Updated dependencies
+
+## 19.0.7
+
+### Patch Changes
+
+- [`70c05b380d08c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70c05b380d08c) -
+  Clean up experiment `platform_editor_blockquote_in_text_formatting_menu` as globally enabled.
+- Updated dependencies
+
+## 19.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- [`4273da2e1a648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4273da2e1a648) -
+  Register native Quick Insert items behind `platform_editor_slash_command`.
+- Updated dependencies
+
+## 19.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- [`ae5ca1873aef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae5ca1873aef4) -
+  Clean up feature gate `platform_editor_nested_dnd_styles_changes`
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- [`e13803b85f2da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e13803b85f2da) -
+  [ux] Fix heading typography in block type dropdown items.
+
+  Applies editor UGC font tokens directly to block type dropdown previews when
+  `platform_editor_fix_block_type_dropdown_no_style` is enabled.
+
+- Updated dependencies
+
+## 16.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.2.0
 
 ### Minor Changes

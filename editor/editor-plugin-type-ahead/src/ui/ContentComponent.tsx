@@ -7,6 +7,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { PopupMountPointReference } from '../types';
 
+import { getTypeAheadSurface } from './registered-menu/typeAheadSurfaces';
 import { TypeAheadMenu } from './TypeAheadMenu';
 
 interface ContentComponentProps {
@@ -48,6 +49,10 @@ export function ContentComponent({
 		query === undefined ||
 		selectedIndex === undefined
 	) {
+		return null;
+	}
+
+	if (getTypeAheadSurface(triggerHandler?.id)) {
 		return null;
 	}
 

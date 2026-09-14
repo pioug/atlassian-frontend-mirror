@@ -1,5 +1,5 @@
-import { validator } from '../../../validator';
 import type { ADFEntityMark } from '../../../types';
+import { validator } from '../../validator';
 
 describe('validate Mark', () => {
 	const validate = validator(
@@ -117,7 +117,7 @@ describe('validate Mark', () => {
 		const run = () => {
 			validate(initialEntity);
 		};
-		expect(run).toThrowError('unsupported: unsupported mark.');
+		expect(run).toThrow('unsupported: unsupported mark.');
 		expect(errorCallbackMock.mock.calls.length).toBe(0);
 	});
 

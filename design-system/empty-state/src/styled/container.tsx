@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import type { Width } from '../index';
+import type { Width } from '../types';
 const containerStyles = css({
 	marginBlockEnd: token('space.600'),
 	marginBlockStart: token('space.600'),

@@ -1,4 +1,4 @@
-import { type TooltipProps } from '@atlaskit/tooltip';
+import type { TooltipProps } from '@atlaskit/tooltip/types';
 
 import { type IconButtonAppearance, type IconButtonSpacing, type IconProp } from '../types';
 

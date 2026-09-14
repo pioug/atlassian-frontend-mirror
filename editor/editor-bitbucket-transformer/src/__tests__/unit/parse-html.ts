@@ -1,6 +1,7 @@
-import { uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import {
 	a,
 	blockquote,
@@ -1245,6 +1246,30 @@ describe('BitbucketTransformer: parser', () => {
 				),
 			).toEqualDocument(
 				doc(p('foo ', emoji({ shortName: ':diamond_shape_with_a_dot_inside:' })(), ' bar')),
+			);
+		});
+
+		it('should preserve emoji id and text from data attributes on the img', () => {
+			passGate('platform_bitbucket_fix_shortname_and_ordering');
+
+			expect(
+				parse(
+					'<p>' +
+						'foo ' +
+						'<img ' +
+						'data-emoji-short-name=":grinning:" ' +
+						'data-emoji-id="1f600" ' +
+						'data-emoji-text="😀" ' +
+						'src="https://pf-emoji-service--cdn.useast.atlassian.io/standard/551c9814-1d37-4573-819d-afab3afeaf32/32x32/1f600.png" ' +
+						'alt="grinning face" ' +
+						'title="grinning face" ' +
+						'class="emoji"' +
+						'>' +
+						' bar' +
+						'</p>',
+				),
+			).toEqualDocument(
+				doc(p('foo ', emoji({ shortName: ':grinning:', id: '1f600', text: '😀' })(), ' bar')),
 			);
 		});
 

@@ -1,10 +1,10 @@
 import { snapshot } from '@af/visual-regression';
 
-import Box from '../../../../../examples/02-box-compiled';
-import BoxPadding from '../../../../../examples/03-box-padding-compiled';
-import BoxColor from '../../../../../examples/05-box-color-compiled';
-import BoxCustomStyles from '../../../../../examples/07-box-custom-styles-compiled';
-import BoxSurfaceDetection from '../../../../../examples/08-box-surface-detection-compiled';
+import Box from '../../../../../examples/02-box-compiled.vr.ap';
+import BoxPadding from '../../../../../examples/03-box-padding-compiled.vr.ap';
+import BoxColor from '../../../../../examples/05-box-color-compiled.vr.ap';
+import BoxCustomStyles from '../../../../../examples/07-box-custom-styles-compiled.vr.ap';
+import BoxSurfaceDetection from '../../../../../examples/08-box-surface-detection-compiled.vr.ap';
 
 snapshot(Box, {
 	variants: [

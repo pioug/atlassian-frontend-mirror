@@ -1,7 +1,7 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import getThemeHtmlAttrs from '../get-theme-html-attrs';
-import { type ThemeState } from '../theme-config';
+import { type ThemeState } from '../theme-state';
 
 import ColorModeObserver from './color-mode-listeners';
 import ContrastModeObserver from './contrast-mode-listeners';

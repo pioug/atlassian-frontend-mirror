@@ -7,10 +7,9 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { IconButton } from '@atlaskit/button/new';
+import IconButton from '@atlaskit/button/icon/button';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const buttonsContainerStyles = css({
@@ -27,7 +26,7 @@ const buttonWrapperBaseStyles = css({
 	width: token('space.400'),
 	zIndex: 200,
 	backgroundColor: token('elevation.surface.overlay'),
-	borderRadius: token('radius.small', '3px'),
+	borderRadius: token('radius.medium'),
 	boxShadow: token('elevation.shadow.overlay'),
 	font: token('font.body'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -44,10 +43,6 @@ const buttonWrapperBaseStyles = css({
 		backgroundColor: token('elevation.surface.overlay.pressed'),
 		color: token('color.text'),
 	},
-});
-
-const buttonWrapperBaseStylesT26Shape = css({
-	borderRadius: token('radius.medium', '6px'),
 });
 
 interface ButtonsProp {
@@ -70,42 +65,27 @@ const Buttons: ({
 	onMouseDown,
 	onCancelClick,
 	testId,
-}: ButtonsProp) => {
-	return (
-		<div css={buttonsContainerStyles}>
-			<div
-				css={[
-					buttonWrapperBaseStyles,
-					fg('platform-dst-shape-theme-default') && buttonWrapperBaseStylesT26Shape,
-				]}
-				tabIndex={-1}
-			>
-				<IconButton
-					type="submit"
-					icon={(iconProps) => <CheckMarkIcon {...iconProps} size="small" />}
-					onMouseDown={onMouseDown}
-					label={confirmButtonLabel}
-					testId={testId && `${testId}--confirm`}
-				/>
-			</div>
-			<div
-				css={[
-					buttonWrapperBaseStyles,
-					fg('platform-dst-shape-theme-default') && buttonWrapperBaseStylesT26Shape,
-				]}
-				tabIndex={-1}
-			>
-				<IconButton
-					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-					label={cancelButtonLabel}
-					onClick={onCancelClick}
-					onMouseDown={onMouseDown}
-					testId={testId && `${testId}--cancel`}
-				/>
-			</div>
+}: ButtonsProp) => (
+	<div css={buttonsContainerStyles}>
+		<div css={[buttonWrapperBaseStyles]} tabIndex={-1}>
+			<IconButton
+				type="submit"
+				icon={(iconProps) => <CheckMarkIcon {...iconProps} size="small" />}
+				onMouseDown={onMouseDown}
+				label={confirmButtonLabel}
+				testId={testId && `${testId}--confirm`}
+			/>
 		</div>
-	);
-};
-
+		<div css={[buttonWrapperBaseStyles]} tabIndex={-1}>
+			<IconButton
+				icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+				label={cancelButtonLabel}
+				onClick={onCancelClick}
+				onMouseDown={onMouseDown}
+				testId={testId && `${testId}--cancel`}
+			/>
+		</div>
+	</div>
+);
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Buttons;

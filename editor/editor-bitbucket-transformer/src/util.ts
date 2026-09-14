@@ -1,4 +1,5 @@
 /* eslint-disable require-unicode-regexp */
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const ESCAPE_MARKDOWN_SPECIAL_CHARS_REGEX = /^[#-&(-*]/;
 
@@ -199,7 +200,6 @@ export function transformHtml(
 			suggestionDiv.setAttribute('data-extension-key', 'codesuggestions:suggestion-node');
 			suggestionDiv.setAttribute('data-local-id', index.toString());
 			// remove trailing newline from suggestion text
-			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
 			const textContent = div.textContent;
 			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 			const suggestionText = textContent ? textContent.replace(TRAILING_NEWLINE_REGEX, '') : '';
@@ -328,6 +328,18 @@ export function transformHtml(
 
 			if (shortName) {
 				span.setAttribute('data-emoji-short-name', shortName);
+			}
+
+			if (fg('platform_bitbucket_fix_shortname_and_ordering')) {
+				const id = img.getAttribute('data-emoji-id') || '';
+				if (id) {
+					span.setAttribute('data-emoji-id', id);
+				}
+
+				const text = img.getAttribute('data-emoji-text') || '';
+				if (text) {
+					span.setAttribute('data-emoji-text', text);
+				}
 			}
 
 			// Ignored via go/ees005

@@ -1,3 +1,3 @@
-import { ufologger } from '@atlaskit/ufo';
+import { ufologger } from '@atlaskit/ufo/logger';
 
 ufologger.enable();

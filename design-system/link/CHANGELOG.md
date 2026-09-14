@@ -1,5 +1,39 @@
 # @atlaskit/link
 
+## 5.1.2
+
+### Patch Changes
+
+- [`cfa177078b753`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfa177078b753) -
+  Experimental React 19 test compatibility fix for Link. Test coverage is partial.
+
+## 5.1.1
+
+### Patch Changes
+
+- [`680ed4ddc61bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/680ed4ddc61bf) -
+  Cleaned up new shape theme styles, making new border and radius values the default.
+
+## 5.1.0
+
+### Minor Changes
+
+- [`d82e6f76528ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d82e6f76528ab) -
+  Add direct subpath package exports as part of the linking-platform, search, media, and
+  design-system barrel-removal (de-barrel) migration.
+
+  These packages now expose their individual modules via explicit `package.json` `exports` subpaths
+  so that consumers can import directly from the leaf module (e.g. `@atlaskit/pkg/thing`) instead of
+  the package barrel/index. This adds new public entry points without changing or removing any
+  existing exports, so it is a backwards-compatible additive change.
+
+  No runtime behaviour changes; this is an API-surface (entry-point) addition to support
+  tree-shaking and to unblock removal of the barrel index files.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.0
 
 ### Major Changes

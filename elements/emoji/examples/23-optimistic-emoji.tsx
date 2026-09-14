@@ -1,11 +1,12 @@
-import { token } from '@atlaskit/tokens';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { IntlProvider } from 'react-intl';
-import {
-	ResourcedEmojiControl,
-	getEmojiConfig,
-	getRealEmojiProvider,
-} from '../example-helpers/demo-resource-control';
+
+import { token } from '@atlaskit/tokens';
+
+import { getEmojiConfig } from '../example-helpers/get-emoji-config';
+import { getRealEmojiProvider } from '../example-helpers/get-real-emoji-provider';
+import { ResourcedEmojiControl } from '../example-helpers/resourced-emoji-control';
 import { type EmojiId, type EmojiProvider, ResourcedEmoji } from '../src';
 
 const emojiIds: EmojiId[] = [

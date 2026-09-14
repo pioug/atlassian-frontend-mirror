@@ -122,3 +122,43 @@ export const updateNodeLayout = <Datum>(
 
 	return { top, left };
 };
+
+type ConnectorEndpoint = {
+	x: number;
+	y: number;
+};
+
+type ConnectorLink = {
+	source: ConnectorEndpoint;
+	target: ConnectorEndpoint;
+};
+
+export const buildRoundedVerticalStepPath =
+	({ percent, cornerRadius }: { percent: number; cornerRadius: number }) =>
+	(link: ConnectorLink): string => {
+		const { x: sourceX, y: sourceY } = link.source;
+		const { x: targetX, y: targetY } = link.target;
+		const elbowY = sourceY + (targetY - sourceY) * percent;
+
+		if (cornerRadius <= 0 || sourceX === targetX) {
+			return `M${sourceX},${sourceY}V${elbowY}H${targetX}V${targetY}`;
+		}
+
+		const horizontalDirection = Math.sign(targetX - sourceX);
+		const verticalDirection = Math.sign(targetY - sourceY);
+		const radius = Math.min(
+			cornerRadius,
+			Math.abs(targetX - sourceX) / 2,
+			Math.abs(elbowY - sourceY),
+			Math.abs(targetY - elbowY),
+		);
+
+		return [
+			`M${sourceX},${sourceY}`,
+			`V${elbowY - verticalDirection * radius}`,
+			`Q${sourceX},${elbowY} ${sourceX + horizontalDirection * radius},${elbowY}`,
+			`H${targetX - horizontalDirection * radius}`,
+			`Q${targetX},${elbowY} ${targetX},${elbowY + verticalDirection * radius}`,
+			`V${targetY}`,
+		].join('');
+	};

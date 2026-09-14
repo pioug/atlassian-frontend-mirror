@@ -104,6 +104,8 @@ export const createVanillaButton = (props: VanillaQuickInsertProps): Node => {
 		if (button instanceof HTMLButtonElement) {
 			button.onclick = () => handleQuickInsert(props);
 
+			// Flag-on (platform-dst-top-layer), positioning is async via a React root;
+			// safe here as VanillaTooltip stays hidden until positioned.
 			const tooltip = new VanillaTooltip(
 				button,
 				props.formatMessage(messages.insert),

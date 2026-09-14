@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { backgroundColor } from '@atlaskit/adf-schema';
+import { backgroundColor } from '@atlaskit/adf-schema/background-color';
 import type {
 	Command,
 	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { changeColor } from './editor-commands/change-color';
 import type { HighlightPlugin } from './highlightPluginType';
@@ -63,7 +64,7 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		marks() {
 			if (
 				expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) ||
-				expValEquals('platform_editor_lovability_color_schema_change', 'isEnabled', true)
+				isExperimentEnabled('platform_editor_lovability_color_schema_change')
 			) {
 				return [{ name: 'backgroundColor', mark: backgroundColor }];
 			}

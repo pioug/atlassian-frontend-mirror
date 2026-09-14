@@ -4,7 +4,7 @@ import { hierarchy } from '@visx/hierarchy';
 
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 
 import { CharlieHierarchy } from '../src';

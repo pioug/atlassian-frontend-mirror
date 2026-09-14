@@ -9,16 +9,17 @@ import type { ChangeEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx, css } from '@emotion/react';
 
-import Button from '@atlaskit/button';
-import { IconButton } from '@atlaskit/button/new';
+import Button from '@atlaskit/button/button';
+import IconButton from '@atlaskit/button/icon/button';
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
-import Form, { Field } from '@atlaskit/form';
+import Form from '@atlaskit/form/form';
+import Field from '@atlaskit/form/field';
 import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives, @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Box, Text, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import {
 	PIXEL_RESIZING_TOOLBAR_WIDTH,

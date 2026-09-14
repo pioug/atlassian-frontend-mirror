@@ -90,6 +90,9 @@
 			"path": "../editor-toolbar-model/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-ui-control-model/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
@@ -147,10 +150,10 @@
 			"path": "../../design-system/onboarding/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/popper/tsconfig.app.json"

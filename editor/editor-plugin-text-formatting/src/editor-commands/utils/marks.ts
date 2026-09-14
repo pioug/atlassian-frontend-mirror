@@ -4,7 +4,7 @@ import type { Mark, MarkType, Node as PMNode } from '@atlaskit/editor-prosemirro
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TextFormattingPlugin } from '../../textFormattingPluginType';
 

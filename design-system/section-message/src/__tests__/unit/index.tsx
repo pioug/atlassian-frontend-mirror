@@ -14,7 +14,8 @@ import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import SectionMessage, { SectionMessageAction } from '../../index';
+import SectionMessage from '../../section-message';
+import SectionMessageAction from '../../section-message-action';
 import { type Appearance } from '../../types';
 
 const iconSpacingStyles = cssMap({

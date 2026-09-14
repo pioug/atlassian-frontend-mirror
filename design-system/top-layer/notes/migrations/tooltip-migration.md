@@ -1,7 +1,7 @@
 # Tooltip Migration
 
 > What changed when migrating `@atlaskit/tooltip` to use `@atlaskit/top-layer`, behind the
-> `platform-dst-top-layer` feature flag.
+> `platform-dst-top-layer-tooltip` feature flag.
 
 **Test IDs:** Trigger vs popover vs primitive layers (`--container`, `--popover`, etc.) and
 render-prop usage — **[architecture/test-ids.md](../architecture/test-ids.md)**.
@@ -12,8 +12,8 @@ render-prop usage — **[architecture/test-ids.md](../architecture/test-ids.md)*
 
 ### Feature-flagged branch in `tooltip.tsx`
 
-The `Tooltip` component has a feature-flagged branch (`platform-dst-top-layer`) that replaces the
-legacy rendering pipeline with native `popover="auto"` via `Popup.Content` from
+The `Tooltip` component has a feature-flagged branch (`platform-dst-top-layer-tooltip`) that
+replaces the legacy rendering pipeline with native `popover="hint"` via the `Popover` primitive from
 `@atlaskit/top-layer`.
 
 **Legacy path:**
@@ -25,31 +25,37 @@ Portal (zIndex=tooltip) → Popper (placement, referenceElement, strategy) → E
 **Top-layer path:**
 
 ```
-Popup.Content (popover="auto", role="tooltip", placement, offset, animate) → TooltipContainer
+Popover (mode="hint", role="tooltip", placement, shouldAnimate) → TooltipContainer
 ```
+
+`mode="hint"` is the tooltip-shaped popover mode: hints do not participate in the `auto` dismissal
+stack, so showing a tooltip does not close an unrelated open `@atlaskit/popup`. `Popover` falls back
+to `mode="auto"` in engines without `hint` support, which stays as a safety net but does not engage
+on the shipping support matrix. See
+[tooltip-pointer-dismissal.md](../decisions/tooltip-pointer-dismissal.md).
 
 ### What was replaced
 
-| Legacy mechanism                      | Native replacement                                                            |
-| ------------------------------------- | ----------------------------------------------------------------------------- |
-| `@atlaskit/portal` (zIndex=tooltip)   | `popover="auto"` renders in the browser's top layer                           |
-| `@atlaskit/popper` (Popper.js)        | CSS Anchor Positioning via `useAnchorPositioning`                             |
-| z-index stacking (`layers.tooltip()`) | Top layer insertion order                                                     |
-| `useCloseOnEscapePress`               | Native `popover="auto"` light dismiss                                         |
-| `ExitingPersistence` + `FadeIn`       | CSS `@starting-style` + `allow-discrete` via `Popover animate` default motion |
-| `VirtualElement` (mouse positioning)  | JS `useLayoutEffect` with viewport clamping                                   |
+| Legacy mechanism                      | Native replacement                                                   |
+| ------------------------------------- | -------------------------------------------------------------------- |
+| `@atlaskit/portal` (zIndex=tooltip)   | `popover="hint"` renders in the browser's top layer                  |
+| `@atlaskit/popper` (Popper.js)        | CSS Anchor Positioning via `useAnchorPosition`                       |
+| z-index stacking (`layers.tooltip()`) | Top layer insertion order                                            |
+| `useCloseOnEscapePress`               | Native `popover="hint"` light dismiss                                |
+| `hideTooltipOnClick`                  | Native `popover="hint"` light dismiss on pointerup                   |
+| `ExitingPersistence` + `FadeIn`       | CSS `@starting-style` + `allow-discrete` via `Popover shouldAnimate` |
+| `VirtualElement` (mouse positioning)  | `useAnchorPositionAtPoint` (synthetic anchor at the cursor)          |
 
-### Standalone `Popup.Content` approach
+### Standalone `Popover` approach
 
-Tooltip could not use the full `Popup` compound component because tooltip has a complex hover/focus
+Tooltip could not use a trigger-bound compound component because tooltip has a complex hover/focus
 lifecycle managed by `tooltip-manager` (delay scheduling, singleton management, drag awareness,
-scroll-hide). The `Popup.Trigger` sub-component binds a click handler and calls `togglePopover()`,
-which conflicts with tooltip's hover-based show/hide.
+scroll-hide). A trigger sub-component binds a click handler and calls `togglePopover()`, which
+conflicts with tooltip's hover-based show/hide.
 
-Instead, `TopLayerTooltipPopup` uses `Popup.Content` directly in **standalone mode** (without
-`Popup.Trigger`), letting tooltip's existing state machine control visibility via React conditional
-rendering. When the component mounts, `Popup.Content` calls `showPopover()` internally. When it
-unmounts, `hidePopover()` is called in the layout effect cleanup.
+Instead, `TopLayerTooltipPopup` composes the `Popover` primitive directly, letting tooltip's
+existing state machine control visibility through `Popover`'s `isOpen` prop. `Popover` owns
+`showPopover()` / `hidePopover()` and the animation phases; tooltip owns when to open and close.
 
 ### Change to `@atlaskit/top-layer`: viewport edge clipping fix
 
@@ -80,22 +86,52 @@ This restores parity with the legacy Popper.js overflow prevention and benefits 
 
 ## Behavior changes for consumers
 
-### Light dismiss via `popover="auto"`
+### Light dismiss via `popover="hint"`
 
-`popover="auto"` provides native light dismiss (click-outside closes) and native Escape handling.
-Tooltips now close on click-outside in addition to mouse-leave/blur. The existing
-`useCloseOnEscapePress` hook is disabled when the flag is on:
+`popover="hint"` provides native light dismiss (press-outside closes) and native Escape handling.
+The existing `useCloseOnEscapePress` hook is disabled when the flag is on:
 
 ```typescript
 useCloseOnEscapePress({
 	onClose: hideTooltipOnEsc,
-	isDisabled: state === 'hide' || state === 'fade-out' || fg('platform-dst-top-layer'),
+	isDisabled:
+		state === 'hide' ||
+		state === 'fade-out' ||
+		state === 'top-layer-exit' ||
+		fg('platform-dst-top-layer-tooltip'),
 });
 ```
 
-The `onClose` prop passed to `Popup.Content` calls
-`apiRef.current?.requestHide({ isImmediate: true })`, bridging the native popover dismiss back into
-tooltip-manager's lifecycle.
+`Popover`'s `onClose` prop calls `apiRef.current?.requestHide({ isImmediate: true })`, bridging the
+native popover dismiss back into tooltip-manager's lifecycle.
+
+### Pointer dismissal contract
+
+A press on the trigger dismisses the tooltip, and it stays dismissed until the trigger is
+re-entered. This is the native `hint` contract, and tooltip now matches it rather than approximating
+it with `hideTooltipOnClick` / `hideTooltipOnMouseDown`.
+
+| Step                                  | Flag off | Flag on                          |
+| ------------------------------------- | -------- | -------------------------------- |
+| Hover trigger                         | visible  | visible, `popover="hint"` open   |
+| `mousedown` held                      | visible  | visible                          |
+| `mouseup`                             | visible  | dismissed (native light dismiss) |
+| Pointer nudged a few pixels inside it | visible  | stays dismissed                  |
+| Pointer leaves and re-enters          | visible  | shown again after the delay      |
+| Trigger blurs and is re-focused       | visible  | shown again                      |
+
+Two details a consumer can observe:
+
+- **Dismissal lands on pointerup, not mousedown.** The HTML light dismiss algorithm records the
+  topmost clicked popover on pointerdown and hides on the matching pointerup, so a held press keeps
+  the tooltip visible. `hideTooltipOnMouseDown` is still honoured and remains the only way to hide
+  before the press completes.
+- **A press before the show delay elapses cancels the pending show.** No popover is open on
+  pointerup in that case, so native dismissal never runs. Without the cancel a quick click would
+  surface a tooltip a moment later, over content the press has already changed.
+
+Rationale, mechanism and the remaining open questions are in
+[tooltip-pointer-dismissal.md](../decisions/tooltip-pointer-dismissal.md).
 
 ### Hide behavior
 
@@ -132,8 +168,8 @@ and exit transitions using `@starting-style` and `allow-discrete` for progressiv
 ### Non-mouse positions
 
 `top`, `bottom`, `left`, `right`, and their `-start`/`-end` variants use CSS Anchor Positioning via
-`useAnchorPositioning`, with a JS fallback for browsers that don't support it. The `triggerRef` is
-passed to `Popup.Content` so it can set up the anchor relationship.
+`useAnchorPosition`, with a JS fallback for browsers that do not support it. The trigger ref is
+passed to `useAnchorPosition` as `anchorRef` so it can set up the anchor relationship.
 
 ### Mouse-tracking positions (`mouse`, `mouse-x`, `mouse-y`)
 
@@ -144,18 +180,19 @@ center would place the tooltip far from the cursor. Instead, the tooltip follows
 - `mouse-y`: Y tracks cursor, X anchored to trigger
 - `mouse-x`: X tracks cursor, Y anchored to trigger
 
-The tooltip still renders as `<div popover="auto">` in the browser's top layer. The difference is
+The tooltip still renders as `<div popover="hint">` in the browser's top layer. The difference is
 only in positioning:
 
-1. `triggerRef` is passed as `undefined` to `Popup.Content`, which causes `useAnchorPositioning` to
-   skip.
-2. A `useLayoutEffect` computes `top`/`left` from stored mouse coordinates with viewport clamping.
-   The effect re-runs whenever `mousePos` changes so the tooltip tracks the cursor.
+1. `useAnchorPosition` is disabled (`isEnabled: false`) so the two strategies do not fight over
+   ownership of the same popover.
+2. `useAnchorPositionAtPoint` latches the cursor coordinate once per activation and positions the
+   popover against a synthetic anchor at that point, rendered as a sibling of the popover.
 3. Mouse-positioned tooltips override the default directional motion with a fade-only
    `animationName` because there is no meaningful entrance direction when following a mouse.
 
-CSS Anchor Positioning does not apply here -- a mouse cursor is not a DOM element. JS positioning is
-the only viable approach for this use case.
+A keyboard-activated tooltip has no cursor to track, so `getPoint()` returns `null` and the direct
+anchor strategy keeps ownership. CSS Anchor Positioning cannot anchor to a cursor, because a cursor
+is not a DOM element.
 
 ---
 
@@ -166,6 +203,17 @@ the only viable approach for this use case.
 | Medium   | Top-layer / non-top-layer interlacing       | A portal-rendered popup could appear behind a tooltip     | Open   |
 | Low      | `content` function `update` is a no-op      | Consumers calling `update()` get no repositioning trigger | Open   |
 | Low      | Mouse-tracking positions use JS positioning | Minor visual stutter possible while tracking cursor       | Open   |
+
+### Consumer-side gaps
+
+A repo-wide sweep of all 855 render-prop `<Tooltip>` consumers fixed every trigger that dropped the
+`ref` Tooltip uses as its anchor (invisible with the flag off; unanchored `popover="hint"` with it
+on). Each of those fixes is itself gated on `platform-dst-top-layer-tooltip`, so the control arm
+keeps resolving its reference element the way it does today and any diff between the arms is
+attributable to the rendering path alone. Triggers that discard the render-prop object _entirely_ —
+handlers included, so the tooltip has never rendered on either side of the flag — are a separate
+class and were left alone:
+**[follow-ups/tooltip-triggers-discarding-render-prop-props.md](../follow-ups/tooltip-triggers-discarding-render-prop-props.md)**.
 
 ### Resolved risks
 
@@ -180,7 +228,7 @@ the only viable approach for this use case.
 
 ### Unit tests (Jest)
 
-**`tooltip-top-layer.test.tsx`** -- 16+ tests behind `ffTest.on('platform-dst-top-layer')`:
+**`tooltip-top-layer.test.tsx`** -- 16+ tests behind `ffTest.on('platform-dst-top-layer-tooltip')`:
 
 - Show on hover after delay
 - Hide on unhover
@@ -198,24 +246,47 @@ the only viable approach for this use case.
 - Null content guard
 - Immediate hide during waiting-to-hide
 - Render prop children support
-- `popover="auto"` element rendered
+- `popover="hint"` element rendered
 - `role="tooltip"` set on popover element
 - `showPopover()` called when tooltip becomes visible
 - No portal rendering (tooltip is in DOM near trigger)
 - Animation data attribute applied
 - 8px offset used (matches legacy popper default)
 
+**`tooltip-pointer-dismissal.test.tsx`** -- the pointer dismissal contract, on both arms of the
+gate. Unlike `tooltip-top-layer.test.tsx`, these drive real `pointerdown` / `mousedown` /
+`pointerup` / `mouseup` rather than dispatching a synthetic `toggle` event at the popover host,
+which works because the platform jest setup installs the popover polyfill and it binds two-phase
+light dismiss:
+
+- Visible through a held press, dismissed on release
+- No re-show when the pointer crosses a boundary inside the trigger after a dismissal
+- Shown again once the pointer leaves the trigger and comes back
+- No tooltip when the press lands before the show delay has elapsed
+- Keyboard focus still shows the tooltip after a press dismissal (blur re-arms it)
+- `hideTooltipOnMouseDown` still hides before the release
+- Flag off: visible through a press, release and internal pointer movement
+
+### Browser tests (Playwright)
+
+**`ff-testing/platform-dst-top-layer-tooltip/pointer-dismiss.spec.tsx`** -- the same contract in
+real Chromium, against `examples/testing-top-layer-pointer-dismiss.tsx`. The fixture gives the
+trigger generous padding and an element child so a pointer nudge that stays inside the trigger still
+crosses an element boundary. Verified to fail without the suppression, so it is a real guard rather
+than a tautology.
+
 ### Visual regression tests
 
 **`tooltip.vr.tsx`** — All existing `snapshot()` calls now include
-`'platform-dst-top-layer': [true, false]` in `featureFlags`, generating side-by-side snapshots for
-comparison between the legacy and top-layer paths. This covers: default tooltip, custom component,
-dynamic position, mouse-x, mouse-y, truncate, keyboard shortcuts (3 variants), and keyboard shortcut
-global styles.
+`'platform-dst-top-layer-tooltip': [true, false]` in `featureFlags`, generating side-by-side
+snapshots for comparison between the legacy and top-layer paths. This covers: default tooltip,
+custom component, dynamic position, mouse-x, mouse-y, truncate, keyboard shortcuts (3 variants), and
+keyboard shortcut global styles.
 
 **`vr-position-all.tsx`** — New example with separate hoverable buttons for each cardinal position
 (`top`, `right`, `bottom`, `left`). Four additional `snapshot()` calls (one per position) target
-individual triggers by `testId`, each with the `platform-dst-top-layer` feature flag variants.
+individual triggers by `testId`, each with the `platform-dst-top-layer-tooltip` feature flag
+variants.
 
 ### Existing tests
 
@@ -223,21 +294,22 @@ All existing legacy tests continue to pass.
 
 ### Accessibility (top-layer path)
 
-| A11y criterion               | Test | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ---------------------------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.3.1 Info and Relationships | ✗    | **Gap:** Standalone `Popup.Content` does not wire `aria-controls` from trigger to tooltip. Tooltip manages its own `aria-describedby` on the trigger, but the inverse `aria-controls` link is not set. Decision (2026-03-17 audit): This is a consumer-level concern. Each standalone consumer owns their trigger lifecycle and should wire `aria-controls` in their own migration code. Tooltip already provides `aria-describedby` which links trigger to content. |
-| 1.3.2 Meaningful Sequence    | ✓    | `tooltip.spec.tsx` — no portal rendering; unit tests validate DOM order                                                                                                                                                                                                                                                                                                                                                                                              |
-| 2.1.1 Keyboard               | ✓    | `tooltip.spec.tsx` — keyboard focus shows tooltip; unit tests                                                                                                                                                                                                                                                                                                                                                                                                        |
-| 2.1.2 No Keyboard Trap       | ✓    | `tooltip.spec.tsx` — Escape dismisses tooltip; unit tests                                                                                                                                                                                                                                                                                                                                                                                                            |
-| 2.4.3 Focus Order            | ✓    | Top-layer `popover.spec` validates focus return to trigger on dismiss                                                                                                                                                                                                                                                                                                                                                                                                |
-| 2.4.7 Focus Visible          | ✓    | `tooltip.spec.tsx` — `:focus-visible` on trigger; top-layer `accessibility.spec`                                                                                                                                                                                                                                                                                                                                                                                     |
-| 2.4.11 Focus Not Obscured    | ✓    | `tooltip.spec.tsx` — top-layer content not obscured; top-layer `accessibility.spec`                                                                                                                                                                                                                                                                                                                                                                                  |
-| 3.2.1 On Focus               | ✓    | Top-layer `accessibility.spec` validates focus return does not re-open layer                                                                                                                                                                                                                                                                                                                                                                                         |
-| 4.1.2 Name, Role, Value      | ✓    | Unit: `role="tooltip"` set on popover element; top-layer `accessibility.spec` validates ARIA attributes                                                                                                                                                                                                                                                                                                                                                              |
-| 4.1.3 Status Messages        | ✓    | Top-layer `accessibility.spec` validates role-based screen reader announcement                                                                                                                                                                                                                                                                                                                                                                                       |
+| A11y criterion               | Test | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1.3.1 Info and Relationships | ✗    | **Gap:** The standalone `Popover` composition does not wire `aria-controls` from trigger to tooltip. Tooltip manages its own `aria-describedby` on the trigger, but the inverse `aria-controls` link is not set. Decision (2026-03-17 audit): This is a consumer-level concern. Each standalone consumer owns their trigger lifecycle and should wire `aria-controls` in their own migration code. Tooltip already provides `aria-describedby` which links trigger to content. |
+| 1.3.2 Meaningful Sequence    | ✓    | `tooltip.spec.tsx` — no portal rendering; unit tests validate DOM order                                                                                                                                                                                                                                                                                                                                                                                                        |
+| 2.1.1 Keyboard               | ✓    | `tooltip.spec.tsx` — keyboard focus shows tooltip; unit tests                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| 2.1.2 No Keyboard Trap       | ✓    | `tooltip.spec.tsx` — Escape dismisses tooltip; unit tests                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| 2.4.3 Focus Order            | ✓    | Top-layer `popover.spec` validates focus return to trigger on dismiss                                                                                                                                                                                                                                                                                                                                                                                                          |
+| 2.4.7 Focus Visible          | ✓    | `tooltip.spec.tsx` — `:focus-visible` on trigger; top-layer `accessibility.spec`                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2.4.11 Focus Not Obscured    | ✓    | `tooltip.spec.tsx` — top-layer content not obscured; top-layer `accessibility.spec`                                                                                                                                                                                                                                                                                                                                                                                            |
+| 3.2.1 On Focus               | ✓    | Top-layer `accessibility.spec` validates focus return does not re-open layer                                                                                                                                                                                                                                                                                                                                                                                                   |
+| 4.1.2 Name, Role, Value      | ✓    | Unit: `role="tooltip"` set on popover element; top-layer `accessibility.spec` validates ARIA attributes                                                                                                                                                                                                                                                                                                                                                                        |
+| 4.1.3 Status Messages        | ✓    | Top-layer `accessibility.spec` validates role-based screen reader announcement                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 > **Note:** Tooltip has dedicated top-layer browser tests in
-> `tooltip/src/__tests__/playwright/ff-testing/platform-dst-top-layer/tooltip.spec.tsx` (5 tests).
+> `tooltip/src/__tests__/playwright/ff-testing/platform-dst-top-layer-tooltip/tooltip.spec.tsx` (5
+> tests).
 
 ---
 
@@ -286,12 +358,12 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 ### `@atlaskit/tooltip`
 
-| File                                            | Change                                                                                              |
-| ----------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `src/tooltip.tsx`                               | Feature-flagged top-layer path; `TopLayerTooltipPopup`                                              |
-| `src/__tests__/unit/tooltip-top-layer.test.tsx` | Unit tests for top-layer path                                                                       |
-| `src/__tests__/vr-tests/tooltip.vr.tsx`         | Added `platform-dst-top-layer: [true, false]` to all snapshots; added 4 position-specific snapshots |
-| `examples/vr-position-all.tsx`                  | New example with per-position hoverable buttons for VR testing                                      |
+| File                                            | Change                                                                                                      |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `src/tooltip.tsx`                               | Feature-flagged top-layer path; `TopLayerTooltipPopup`                                                      |
+| `src/__tests__/unit/tooltip-top-layer.test.tsx` | Unit tests for top-layer path                                                                               |
+| `src/__tests__/vr-tests/tooltip.vr.tsx`         | Added `platform-dst-top-layer-tooltip: [true, false]` to all snapshots; added 4 position-specific snapshots |
+| `examples/vr-position-all.tsx`                  | New example with per-position hoverable buttons for VR testing                                              |
 
 ### `@atlaskit/top-layer`
 
@@ -303,8 +375,8 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 ## Merge Risk Assessment
 
-**Question:** Is it safe to merge this code to master, assuming the `platform-dst-top-layer` feature
-flag is OFF?
+**Question:** Is it safe to merge this code to master, assuming the `platform-dst-top-layer-tooltip`
+feature flag is OFF?
 
 ### 1. Verdict
 
@@ -322,11 +394,11 @@ path. The `role` prop change preserves the default value. All existing legacy te
   with `role = 'tooltip'` as default. No behavioral change on the legacy path; preserves identical
   default value
 
-### 3. Changes gated behind `platform-dst-top-layer`
+### 3. Changes gated behind `platform-dst-top-layer-tooltip`
 
 - Feature-flagged branch in `tooltip.tsx` (`tooltip.tsx:265`, `tooltip.tsx:307`, `tooltip.tsx:608`)
-- Entire `Popup.Content` rendering path (standalone popover mode with CSS Anchor Positioning)
-- `useCloseOnEscapePress` hook disabled when flag is on (native `popover="auto"` provides light
+- Entire `Popover` rendering path (standalone popover composition with CSS Anchor Positioning)
+- `useCloseOnEscapePress` hook disabled when flag is on (native `popover="hint"` provides light
   dismiss)
 - Bug fix in `tooltip-manager.tsx` for the `waiting-to-hide` phase (`tooltip-manager.tsx:120`) —
   gated behind the flag; surrounding code comments are the only unflagged change
@@ -362,11 +434,11 @@ path. The imports are side-effect-free. No code execution changes when flag is o
 
 **5 browser tests pass** (dedicated top-layer tests in `tooltip.spec.tsx`)
 
-**13 VR tests pass** (all existing snapshots now include `platform-dst-top-layer: [true, false]`
-pairs; 4 new position-specific snapshots added)
+**13 VR tests pass** (all existing snapshots now include
+`platform-dst-top-layer-tooltip: [true, false]` pairs; 4 new position-specific snapshots added)
 
 **All existing legacy tests pass** — no regressions
 
 **Coverage:** Show/hide on hover/focus, delay behavior, light dismiss, singleton management,
 scroll-hide, all cardinal positions, keyboard shortcuts, mouse-tracking positions (mouse, mouse-x,
-mouse-y), accessibility (WCAG), and integration with `Popup.Content`.
+mouse-y), accessibility (WCAG), pointer dismissal, and integration with the `Popover` primitive.

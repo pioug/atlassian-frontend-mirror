@@ -2,12 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { unstable_batchedUpdates } from 'react-dom';
 
-import { extractLink } from '@atlaskit/link-extractors';
-import {
-	type ErrorResponse,
-	type SuccessResponse,
-	useSmartLinkContext,
-} from '@atlaskit/link-provider';
+import { extractLink } from '@atlaskit/link-extractors/extract-link';
+import type { ErrorResponse, SuccessResponse } from '@atlaskit/link-provider/responses';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import useIncomingOutgoingAri from '../../state/hooks/use-incoming-outgoing-links';

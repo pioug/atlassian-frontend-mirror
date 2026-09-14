@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import applyDevTools from 'prosemirror-dev-tools';
 
-import Button from '@atlaskit/button/new';
+import Button from '@atlaskit/button/default/button';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';

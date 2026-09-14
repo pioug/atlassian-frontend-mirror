@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type CustomItemComponentProps } from '@atlaskit/menu';
+import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 
 /**
  * __Container__

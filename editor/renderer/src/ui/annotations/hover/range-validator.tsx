@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Mounter } from './mounter';
 import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import {
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,

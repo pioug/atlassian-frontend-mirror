@@ -3,7 +3,9 @@ import { md, PropsTable } from '@atlaskit/docs';
 
 const _default_1: any = md`
 ${(
-	<PropsTable props={require('!!extract-react-types-loader!../../src/components/media-viewer')} />
+	<PropsTable
+		props={require('!!extract-react-types-loader!../../src/components/media-viewer-base')}
+	/>
 )}
 `;
 export default _default_1;

@@ -4,7 +4,7 @@
  * `Presets` - if the generics get too unwieldy, we may redesign how presets
  * are put together - but for now `Builder` & `Preset` aim to beinterchangeable.
  */
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Fragment, Node, Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

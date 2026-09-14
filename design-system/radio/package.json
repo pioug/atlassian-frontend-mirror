@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/radio",
-	"version": "9.1.1",
+	"version": "10.2.0",
 	"description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,11 +32,11 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./radio-group": "./src/entry-points/radio-group.tsx",
-		"./radio": "./src/entry-points/radio.tsx",
-		"./Radio": "./src/entry-points/radio.tsx",
-		"./RadioGroup": "./src/entry-points/radio-group.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./radio": "./src/radio.tsx",
+		"./Radio": "./src/radio.tsx",
+		"./radio-group": "./src/radio-group.tsx",
+		"./RadioGroup": "./src/radio-group.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -50,7 +50,7 @@
 		"@compiled/react": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -65,37 +65,18 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*"
+		"react": "^19.0.0",
+		"react-dom": "^19.2.0"
 	},
 	"keywords": [
 		"atlaskit",
 		"react",
 		"ui"
 	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"dom-events": "use-bind-event-listener",
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"analytics": "analytics-next",
-			"styling": [
-				"static",
-				"emotion"
-			],
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports"
-		}
-	},
 	"homepage": "https://atlassian.design/components/radio/",
 	"platform-feature-flags": {}
 }

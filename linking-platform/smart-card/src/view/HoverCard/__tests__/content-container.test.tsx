@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import type { ProductType } from '@atlaskit/linking-common';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import type { ProductType } from '@atlaskit/linking-common/types';
 import { render, screen } from '@atlassian/testing-library';
 
 import { useAISummary } from '../../../state/hooks/use-ai-summary';

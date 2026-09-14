@@ -2,14 +2,14 @@ import React from 'react';
 
 import { injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl';
 
-import {
-	withAnalyticsContext,
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
+import withAnalyticsContext, {
 	type WithContextProps,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsContext';
+import withAnalyticsEvents, {
+	type WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 
-import { context } from '../../utils/analytics';
+import { context } from '../../utils/analytics/analytics';
 import { CardWithURLRenderer } from '../CardWithUrl/loader';
 
 import { type CardAppearance, type CardPlatform, type CardProps } from './types';

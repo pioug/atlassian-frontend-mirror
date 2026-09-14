@@ -1,28 +1,20 @@
 import Dataloader from 'dataloader';
-import { asMock, asMockFunctionReturnValue } from '@atlaskit/media-common/test-helpers';
-import { fakeMediaClient } from '../../../test-helpers';
+import { asMock } from '@atlaskit/media-common/test-helpers';
 
-import { type MediaStore } from '../../..';
+import { MediaStore } from '../../..';
 
 import { createCopyIntentRegisterationBatcher } from '../../createCopyIntentRegisterationBatcher';
 
 describe('createCopyIntentRegisterationBatcher', () => {
 	const setup = () => {
-		const mediaClient = fakeMediaClient();
 		const resolvedAuth = {
 			clientId: 'some-client',
 			token: 'some-token',
 			baseUrl: 'some-url',
 		};
 
-		const mediaStore = {
-			...mediaClient.mediaStore,
-			registerCopyIntents: asMockFunctionReturnValue(
-				mediaClient.mediaStore.registerCopyIntents,
-				Promise.resolve(),
-			),
-			resolveAuth: async () => resolvedAuth,
-		} as jest.Mocked<MediaStore>;
+		const mediaStore = new MediaStore({ authProvider: async () => resolvedAuth });
+		jest.spyOn(mediaStore, 'registerCopyIntents').mockResolvedValue(undefined);
 
 		const registerationBatcher = createCopyIntentRegisterationBatcher(mediaStore);
 

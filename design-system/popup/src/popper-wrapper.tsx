@@ -8,9 +8,9 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
 import { useLayering } from '@atlaskit/layering/use-layering';
-import { Motion, type MotionProps } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { type Placement, Popper } from '@atlaskit/popper';
+import Motion, { type MotionProps } from '@atlaskit/motion/entering/motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { type Placement, Popper } from '@atlaskit/popper/main';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
@@ -30,7 +30,7 @@ const wrapperStyles = cssMap({
 		boxSizing: 'border-box',
 		zIndex: 400,
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
 		// Resetting text color for portal content.
 		// Otherwise, when rendering into the parent (not using a portal),
@@ -40,10 +40,6 @@ const wrapperStyles = cssMap({
 		'&:focus': {
 			outline: 'none',
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	rootT26Shape: {
-		borderRadius: token('radius.large'),
 	},
 	fullWidth: {
 		width: '100%',
@@ -75,10 +71,8 @@ const focusRingStyles = cssMap({
 	root: {
 		'&:focus-visible': {
 			outlineColor: token('color.border.focused'),
-			// @ts-ignore
 			outlineOffset: token('border.width.focused'),
 			outlineStyle: 'solid',
-			// @ts-ignore
 			outlineWidth: token('border.width.focused'),
 		},
 		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
@@ -162,7 +156,6 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 		<div
 			css={[
 				wrapperStyles.root,
-				fg('platform-dst-shape-theme-default') && wrapperStyles.rootT26Shape,
 				appearance === 'UNSAFE_modal-below-sm' && modalStyles,
 				// The popup creates its own scroll container when either:
 				// - It is rendered in a portal
@@ -193,7 +186,6 @@ function PopperWrapper({
 	rootBoundary,
 	shouldFlip,
 	placement = 'auto',
-	// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 	popupComponent: PopupContainer = DefaultPopupComponent,
 	autoFocus = true,
 	triggerRef,

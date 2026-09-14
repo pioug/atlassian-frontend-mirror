@@ -33,7 +33,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/constellation/actions.tsx'),
 				},
 			],
-			keywords: ['spotlight', 'onboarding', 'feature', 'discovery', 'card'],
+			keywords: ['spotlight', 'onboarding', 'tour', 'feature', 'discovery', 'card'],
 			categories: ['navigation'],
 		},
 		{

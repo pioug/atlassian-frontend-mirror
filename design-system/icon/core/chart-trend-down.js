@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65d6dc59a918c63f783a9b5432059d67>>
+ * @codegen <<SignedSource::1a4af5fc7ac540a08a09c53345c7d699>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+var _iconNew = _interopRequireDefault(require("@atlaskit/icon/components/icon-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "ChartTrendDown".
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const ChartTrendDownIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+const ChartTrendDownIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "ChartTrendDownIcon",
   dangerouslySetGlyph: `<path fill="currentcolor" d="M1 13V1h1.5v12a.5.5 0 0 0 .5.5h12V15H3a2 2 0 0 1-2-2"/><path fill="currentcolor" d="M15 6h-1.5v1.94L9.78 4.22a.75.75 0 0 0-1.06 0L7.25 5.69 5.03 3.47 3.97 4.53l2.75 2.75.056.052A.75.75 0 0 0 7.78 7.28l1.47-1.47L12.44 9H10.5v1.5h3.75a.75.75 0 0 0 .75-.75z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

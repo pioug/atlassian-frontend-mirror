@@ -14,10 +14,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
@@ -158,10 +158,7 @@ const HoverZone = ({
 		return node ? getNodeAnchor(node) : '';
 	}, [api, node, pos, position]);
 	const [_isActive, setActiveAnchor] = useActiveAnchorTracker(anchorName);
-	const isInsideBodiedSyncBlock =
-		parent &&
-		parent.type.name === 'bodiedSyncBlock' &&
-		editorExperiment('platform_synced_block', true);
+	const isInsideBodiedSyncBlock = parent?.type.name === 'bodiedSyncBlock';
 
 	useEffect(() => {
 		if (ref.current) {

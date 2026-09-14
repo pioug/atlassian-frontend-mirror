@@ -1,4 +1,4 @@
-import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
+import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';

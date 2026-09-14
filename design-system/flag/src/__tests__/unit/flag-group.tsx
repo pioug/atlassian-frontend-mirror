@@ -7,7 +7,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import FlagGroup from '../../flag-group';
-import Flag from '../../index';
+import Flag from '../../flag';
 import { type FlagProps } from '../../types';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

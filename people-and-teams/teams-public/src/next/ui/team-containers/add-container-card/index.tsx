@@ -24,6 +24,7 @@ const styles = cssMap({
 		'&:hover': {
 			backgroundColor: token('elevation.surface.hovered'),
 		},
+		transition: token('motion.button.hovered'),
 	},
 	iconWrapper: {
 		borderRadius: token('radius.small'),

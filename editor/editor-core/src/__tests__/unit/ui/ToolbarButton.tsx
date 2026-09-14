@@ -1,42 +1,53 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
-import { mount } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import Tooltip from '@atlaskit/tooltip';
 
 const noop = () => {};
 
 describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 	it('should not render tooltip if title is not set', async () => {
-		const toolbarButtonElem = mount(
-			<ToolbarButton onClick={noop} selected={false} disabled={false} />,
+		render(
+			<ToolbarButton
+				aria-label="Toolbar action"
+				onClick={noop}
+				selected={false}
+				disabled={false}
+			/>,
 		);
 
-		expect(toolbarButtonElem.find(Tooltip)).toHaveLength(0);
-		toolbarButtonElem.unmount();
+		await userEvent.hover(screen.getByRole('button', { name: 'Toolbar action' }));
 
+		expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
 		await expect(document.body).toBeAccessible();
 	});
 
 	it('should render tooltip if title is set', async () => {
-		const toolbarButtonElem = mount(
-			<ToolbarButton onClick={noop} selected={false} disabled={false} title="tooltip text" />,
+		render(
+			<ToolbarButton
+				aria-label="Toolbar action"
+				onClick={noop}
+				selected={false}
+				disabled={false}
+				title="tooltip text"
+			/>,
 		);
 
-		expect(toolbarButtonElem.find(Tooltip)).toHaveLength(1);
-		toolbarButtonElem.unmount();
+		await userEvent.hover(screen.getByRole('button', { name: 'Toolbar action' }));
 
+		expect(await screen.findByRole('tooltip', { name: 'tooltip text' })).toBeVisible();
 		await expect(document.body).toBeAccessible();
 	});
 
 	it('should not display tooltip if hideTooltip prop is passed in', async () => {
-		const toolbarButtonElem = mount(
+		render(
 			<ToolbarButton
+				aria-label="Toolbar action"
 				onClick={noop}
 				selected={false}
 				disabled={false}
@@ -45,19 +56,16 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 			/>,
 		);
 
-		toolbarButtonElem.simulate('mouseover');
+		await userEvent.hover(screen.getByRole('button', { name: 'Toolbar action' }));
 
-		const tooltip = toolbarButtonElem.find(Tooltip);
-
-		expect(tooltip.html()).not.toContain('tooltip text');
-		toolbarButtonElem.unmount();
-
+		expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
 		await expect(document.body).toBeAccessible();
 	});
 
 	it('should pass titlePosition to tooltip position', async () => {
-		const toolbarButtonElem = mount(
+		render(
 			<ToolbarButton
+				aria-label="Toolbar action"
 				onClick={noop}
 				selected={false}
 				disabled={false}
@@ -66,18 +74,19 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 			/>,
 		);
 
-		const tooltip = toolbarButtonElem.find(Tooltip);
-		tooltip.simulate('mouseover');
-		expect(tooltip.prop('position')).toEqual('left');
-		toolbarButtonElem.unmount();
+		await userEvent.hover(screen.getByRole('button', { name: 'Toolbar action' }));
 
+		expect(await screen.findByRole('tooltip', { name: 'tooltip text' })).toHaveAttribute(
+			'data-placement',
+			'left',
+		);
 		await expect(document.body).toBeAccessible();
 	});
 
 	describe('when button id is not set', () => {
 		it('should not fire the analytics event', async () => {
 			const onEvent = jest.fn();
-			const component = render(
+			render(
 				<AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
 					<ToolbarButton
 						testId="some-test-id"
@@ -90,8 +99,7 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 				</AnalyticsListener>,
 			);
 
-			const { getByTestId } = component;
-			fireEvent.click(getByTestId('some-test-id'));
+			fireEvent.click(screen.getByTestId('some-test-id'));
 			expect(onEvent).not.toHaveBeenCalled();
 
 			// eslint-disable-next-line @atlassian/a11y/no-violation-count
@@ -102,7 +110,7 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 	describe('when button id is set', () => {
 		it('should fire the analytics event with the button id', async () => {
 			const onEvent = jest.fn();
-			const component = render(
+			render(
 				<AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
 					<ToolbarButton
 						buttonId={TOOLBAR_BUTTON.UNDO}
@@ -116,8 +124,7 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 				</AnalyticsListener>,
 			);
 
-			const { getByTestId } = component;
-			fireEvent.click(getByTestId('some-test-id'));
+			fireEvent.click(screen.getByTestId('some-test-id'));
 			expect(onEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					payload: {

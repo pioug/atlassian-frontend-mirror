@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import TaskItemWithProviders from './task-item-with-providers';
 import type { RendererContext, NodeProps } from '../types';
-import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 import {
 	TaskItemsFormatProvider,
 	TaskItemsFormatConsumer,
@@ -21,7 +21,7 @@ export interface Props {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
+export default class TaskItem extends PureComponent<NodeProps<Props>, object> {
 	private providerFactory: ProviderFactory;
 
 	constructor(props: NodeProps<Props>) {

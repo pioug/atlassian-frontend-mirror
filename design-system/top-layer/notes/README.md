@@ -71,10 +71,22 @@ Architectural decisions, design rationale, and decision logs.
   `getAriaForTrigger` always emits stable `aria-controls`
 - **[popover-trigger-hook.md](./decisions/popover-trigger-hook.md)** — Decision: defer
   `usePopoverTrigger`; keep `usePopoverId` and `getAriaForTrigger` as low-level primitives
+- **[tooltip-pointer-dismissal.md](./decisions/tooltip-pointer-dismissal.md)** — Decision: tooltip
+  leans into `popover="hint"` light dismiss instead of `mode="manual"`; a press dismisses the
+  tooltip until the trigger is re-entered. Read before citing the `mode="manual"` precedent for a
+  hover-driven surface
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
+- **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why
+  `useWidthFromAnchor` declares one width floor per mode, and why `mode: 'min-anchor'` gets the
+  anchor floor but deliberately not the content floor
 - **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Current matrix: which packages ship
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
+- **[top-layer-unsafe-selectors.md](./decisions/top-layer-unsafe-selectors.md)** — **The single
+  source of guard strings** for making AFM-authored selectors top-layer safe: the `L` / `S` / `Lw` /
+  `Sw` term lists, the rewrite forms, the six verified traps, the patterns with no guard form (and
+  the search behind each claim), and the new-adopter checklist. Read this before rewriting any
+  selector for top layer
 - **[accessibility-audit-report.md](./decisions/accessibility-audit-report.md)** — Per-component
   a11y audit of primitives and all adopters (WCAG compliance, findings, justifications)
 - **[safari-escape-nested-popover-in-dialog.md](./decisions/safari-escape-nested-popover-in-dialog.md)**
@@ -109,3 +121,15 @@ Per-component migration records (what changed, how, and why).
   list surfaces
 - **[popper-migration.md](./migrations/popper-migration.md)** — deprecation plan for the positioning
   primitive itself (no in-package code path)
+
+### [`follow-ups/`](./follow-ups/)
+
+Known gaps deliberately left open, with the reasoning and a suggested implementation.
+
+- **[tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** — `useInitialFocus` is
+  unimplemented for `role="tree"` and `role="grid"`
+- **[popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** — declarative
+  `popovertarget` invoker attribute vs. the current JS toggle
+- **[tooltip-triggers-discarding-render-prop-props.md](./follow-ups/tooltip-triggers-discarding-render-prop-props.md)**
+  — 14 consumer call sites whose trigger drops the whole tooltip render-prop object, so the tooltip
+  never renders on either side of the flag (as distinct from the ref-only drops, which were fixed)

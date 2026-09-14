@@ -1,8 +1,8 @@
 import { snapshot } from '@af/visual-regression';
 
-import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
-import IssueLikeTableCustomColumns from '../../examples/vr/issue-like-table-custom-columns';
-import IssueLikeTableReadonly from '../../examples/vr/issue-like-table-readonly';
+import IssueLikeTableCustomColumns from '../../examples/vr/issue-like-table-custom-columns.vr.ap';
+import IssueLikeTableReadonly from '../../examples/vr/issue-like-table-readonly.vr.ap';
+import { VRIssueLikeTable } from '../../examples/vr/issue-like-table.vr.ap';
 
 snapshot(VRIssueLikeTable, {
 	description: 'Issue Like Table',

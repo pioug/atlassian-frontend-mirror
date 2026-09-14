@@ -9,7 +9,7 @@ import type { KeyboardEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import ForwardedLinkSearchListItemNextWithIntl from './LinkSearchListItem';

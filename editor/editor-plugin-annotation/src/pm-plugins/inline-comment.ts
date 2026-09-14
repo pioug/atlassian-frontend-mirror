@@ -1,4 +1,4 @@
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
@@ -9,7 +9,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	clearDirtyMark,
@@ -77,7 +77,7 @@ const fetchState = async (
 	if (Object.keys(inlineCommentStates).length === 0) {
 		const { annotationsLoaded } = getPluginState(editorView.state) || {};
 
-		if (!annotationsLoaded && fg('confluence_frontend_new_dangling_comments_ux')) {
+		if (!annotationsLoaded) {
 			setInlineCommentsFetched()(editorView.state, editorView.dispatch);
 		}
 

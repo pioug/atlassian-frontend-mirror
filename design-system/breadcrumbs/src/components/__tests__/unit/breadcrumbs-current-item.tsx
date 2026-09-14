@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { AtlassianIcon } from '@atlaskit/logo';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
 
 import BreadcrumbsCurrentItem from '../../breadcrumbs-current-item';

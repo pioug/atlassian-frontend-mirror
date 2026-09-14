@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type {
 	Mark,
 	Node as PMNode,
@@ -8,7 +8,7 @@ import type {
 	Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import type { AllSelection, EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 type Range = {
 	from: number;
 	to: number;

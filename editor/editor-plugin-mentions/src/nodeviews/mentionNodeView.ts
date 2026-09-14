@@ -1,27 +1,46 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type {
+	MentionNodeDataIdentifier,
+	MentionNodeDataProvider,
+} from '@atlaskit/editor-common/mention';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import {
+	VANILLA_TOOLTIP_DEFAULT_CLASS,
+	VanillaTooltip,
+} from '@atlaskit/editor-common/vanilla-tooltip';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+// oxlint-disable-next-line import/no-duplicates
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention';
+import { UNKNOWN_USER_ID } from '@atlaskit/mention/constants';
 import { isResolvingMentionProvider, MentionNameStatus } from '@atlaskit/mention/resource';
 import type { MentionNameDetails } from '@atlaskit/mention/resource';
 import type { MentionDisabledState, MentionDisabledStateInput } from '@atlaskit/mention/types';
 import { isRestricted } from '@atlaskit/mention/types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import type { MentionPluginOptions } from '../types';
 
 import { disabledTooltipRenderer } from './disabledTooltipRenderer';
+import { type MentionAvatarController, mentionAvatarRenderer } from './mentionAvatarRenderer';
 import { profileCardRenderer } from './profileCardRenderer';
 
 const primitiveClassName = 'editor-mention-primitive';
+const primitiveWithAvatarClassName = 'editor-mention-primitive-with-avatar';
+const avatarContainerClassName = 'editor-mention-avatar';
+const mentionTextClassName = 'editor-mention-text';
+/** Classes applied to the disabled-reason tooltip: the shared default look, plus our own hook. */
+const disabledTooltipClassNames = `${VANILLA_TOOLTIP_DEFAULT_CLASS} mention-disabled-tooltip`;
+const genericMentionIds = ['HipChat', 'all', 'here'];
+const unknownMentionText = `@${UNKNOWN_USER_ID}`;
 
 type HTMLAttributes = Partial<
 	Omit<Record<Lowercase<keyof React.AllHTMLAttributes<HTMLElement>>, string>, 'classname'>
@@ -59,7 +78,7 @@ const isAgentAaidText = (node: PMNode, isAgentMentionsEnabled: boolean): boolean
 	!!node.attrs.text &&
 	isMentionTextAnAaid(node.attrs.text);
 
-const toDOM = (node: PMNode): DOMOutputSpec => {
+const toDOM = (node: PMNode, hasAvatarSlot: boolean): DOMOutputSpec => {
 	// packages/elements/mention/src/components/Mention/index.tsx
 	let mentionAttrs: HTMLAttributes = {
 		contenteditable: 'false',
@@ -84,6 +103,33 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 
 	const browser = getBrowserInfo();
 	const hasAgentAaidText = isAgentAaidText(node, isAgentMentionsEnabled);
+	const mentionText = node.attrs.text && !hasAgentAaidText ? node.attrs.text : '@…';
+	const visibleMentionText =
+		hasAvatarSlot && mentionText.startsWith('@') ? mentionText.slice(1) : mentionText;
+	const mentionContentSpec: DOMOutputSpec = hasAvatarSlot
+		? [
+				'span',
+				{
+					spellcheck: 'false',
+					class: `${primitiveClassName} ${primitiveWithAvatarClassName}`,
+				},
+				[
+					'span',
+					{
+						class: avatarContainerClassName,
+						'aria-hidden': 'true',
+					},
+				],
+				['span', { class: mentionTextClassName }, visibleMentionText],
+			]
+		: [
+				'span',
+				{
+					spellcheck: 'false',
+					class: primitiveClassName,
+				},
+				mentionText,
+			];
 
 	return [
 		'span',
@@ -93,14 +139,7 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 			{ class: 'zeroWidthSpaceContainer' },
 			['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
 		],
-		[
-			'span',
-			{
-				spellcheck: 'false',
-				class: primitiveClassName,
-			},
-			node.attrs.text && !hasAgentAaidText ? node.attrs.text : '@…',
-		],
+		mentionContentSpec,
 		browser.android
 			? [
 					'span',
@@ -118,7 +157,7 @@ interface MentionNodeViewProps {
 	portalProviderAPI: PortalProviderAPI;
 }
 const processName = (name: MentionNameDetails): string => {
-	return name.status === MentionNameStatus.OK ? `@${name.name || ''}` : `@_|unknown|_`;
+	return name.status === MentionNameStatus.OK ? `@${name.name || ''}` : unknownMentionText;
 };
 
 const handleProviderName = async (
@@ -169,18 +208,29 @@ export class MentionNodeView implements NodeView {
 	private removeProfileCard: (() => void) | undefined;
 	private updateProfileCardNode: ((nextNode: PMNode) => void) | undefined;
 	private mentionPrimitiveElement: HTMLElement | undefined;
+	private mentionTextElement: HTMLElement | undefined;
+	private mentionAvatar: MentionAvatarController | undefined;
+	private hasAvatarSlot = false;
+	private isDestroyed = false;
 	private disabledTooltip:
 		| {
 				destroy: () => void;
 				setTooltip: (text: string | undefined) => void;
 		  }
 		| undefined;
+	private vanillaDisabledTooltip: VanillaTooltip | undefined;
+	private vanillaDisabledTooltipText: string | undefined;
 	private unsubscribeFromDisabledStateChanges: (() => void) | undefined;
 	private subscribedProvider: MentionProvider | undefined;
 
 	constructor(node: PMNode, config: MentionNodeViewProps) {
 		const { options, api, portalProviderAPI, editorView } = config;
-		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
+		this.hasAvatarSlot =
+			Boolean(options?.mentionNodeDataProvider) &&
+			node.attrs.userType !== 'SPECIAL' &&
+			!genericMentionIds.includes(node.attrs.id) &&
+			isExperimentEnabled('platform_editor_mention_node_avatar');
+		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node, this.hasAvatarSlot));
 		this.dom = dom;
 		this.contentDOM = contentDOM;
 		this.config = config;
@@ -189,6 +239,20 @@ export class MentionNodeView implements NodeView {
 		this.mentionPrimitiveElement = this.domElement
 			? (this.domElement.querySelector<HTMLElement>(`.${primitiveClassName}`) ?? undefined)
 			: undefined;
+		this.mentionTextElement = this.mentionPrimitiveElement;
+
+		if (this.hasAvatarSlot) {
+			this.mentionTextElement =
+				this.domElement?.querySelector<HTMLElement>(`.${mentionTextClassName}`) ??
+				this.mentionPrimitiveElement;
+			const avatarContainer = this.domElement?.querySelector<HTMLElement>(
+				`.${avatarContainerClassName}`,
+			);
+			if (avatarContainer) {
+				this.mentionAvatar = mentionAvatarRenderer({ container: avatarContainer });
+				this.resolveMentionAvatar(options?.mentionNodeDataProvider);
+			}
+		}
 
 		const { mentionProvider } = api?.mention.sharedState.currentState() ?? {};
 		this.updateState(mentionProvider);
@@ -287,6 +351,36 @@ export class MentionNodeView implements NodeView {
 		);
 	}
 
+	/**
+	 * Bind to `this.domElement`, the node-view wrapper. `VanillaTooltip` appends the popover to
+	 * its trigger and listens for hover/focus there. This wrapper is also where `role`,
+	 * `tabindex`, and aria are set, so `aria-describedby` belongs on it — not on the inner
+	 * `.editor-mention-primitive` that the React tooltip still wraps.
+	 */
+	private syncVanillaDisabledTooltip(tooltipText: string | undefined): void {
+		const trigger = this.domElement;
+		if (!trigger || tooltipText === this.vanillaDisabledTooltipText) {
+			return;
+		}
+
+		// A changed reason rebuilds rather than re-texting, so nothing out here has to reach into
+		// the element `VanillaTooltip` owns. `destroy()` takes that element with it.
+		this.vanillaDisabledTooltip?.destroy();
+		this.vanillaDisabledTooltip = undefined;
+		this.vanillaDisabledTooltipText = tooltipText;
+
+		if (isSSR() || !tooltipText) {
+			return;
+		}
+
+		this.vanillaDisabledTooltip = new VanillaTooltip(
+			trigger,
+			tooltipText,
+			undefined,
+			disabledTooltipClassNames,
+		);
+	}
+
 	private syncDisabledTooltip(disabledState: MentionDisabledState | undefined): void {
 		// Capture the tooltip text into a local so the rest of the method can
 		// branch on a truthy string instead of re-asserting non-null fields
@@ -294,6 +388,12 @@ export class MentionNodeView implements NodeView {
 		const tooltipText: string | undefined = disabledState?.disabled
 			? disabledState.tooltip
 			: undefined;
+
+		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
+			this.syncVanillaDisabledTooltip(tooltipText);
+			return;
+		}
+
 		const chip = this.mentionPrimitiveElement;
 		const { portalProviderAPI } = this.config;
 		if (!chip || !portalProviderAPI) {
@@ -316,9 +416,44 @@ export class MentionNodeView implements NodeView {
 	private setTextContent(name: string | undefined, isAgentMentionsEnabled: boolean) {
 		// Also overwrite when text is a raw AAID so the resolved name takes precedence.
 		const textIsAaid = isAgentAaidText(this.node, isAgentMentionsEnabled);
-		if (name && (!this.node.attrs.text || textIsAaid) && this.mentionPrimitiveElement) {
-			this.mentionPrimitiveElement.textContent = name;
+		if (name && (!this.node.attrs.text || textIsAaid) && this.mentionTextElement) {
+			this.setVisibleText(name);
 		}
+	}
+
+	private setVisibleText(text: string): void {
+		if (!this.mentionTextElement) {
+			return;
+		}
+
+		this.mentionTextElement.textContent =
+			this.hasAvatarSlot && text.startsWith('@') && text !== unknownMentionText
+				? text.slice(1)
+				: text;
+	}
+
+	private resolveMentionAvatar(mentionNodeDataProvider: MentionNodeDataProvider | undefined): void {
+		if (!this.hasAvatarSlot || !mentionNodeDataProvider || this.node.attrs.userType === 'SPECIAL') {
+			return;
+		}
+
+		const mention: MentionNodeDataIdentifier = {
+			id: this.node.attrs.id,
+			userType: this.node.attrs.userType,
+		};
+		const applyData = (data: ReturnType<MentionNodeDataProvider['getMentionDataFromCache']>) => {
+			if (this.isDestroyed || !data?.avatarUrl) {
+				return;
+			}
+
+			this.mentionAvatar?.render(data);
+		};
+
+		mentionNodeDataProvider.getMentionData(mention, (payload) => {
+			if (payload.data) {
+				applyData(payload.data);
+			}
+		});
 	}
 
 	private shouldHighlightMention(mentionProvider: MentionProvider | undefined): boolean {
@@ -333,13 +468,7 @@ export class MentionNodeView implements NodeView {
 
 	private async updateState(mentionProvider: MentionProvider | undefined) {
 		const isAgentMentionsEnabled = isAgentMentionsExperimentEnabled();
-		const isHighlighted = expValEquals(
-			'platform_editor_vc90_transition_mentions',
-			'isEnabled',
-			true,
-		)
-			? this.shouldHighlightMention(mentionProvider)
-			: (mentionProvider?.shouldHighlightMention({ id: this.node.attrs.id }) ?? false);
+		const isHighlighted = this.shouldHighlightMention(mentionProvider);
 
 		const disabledState = this.getDisabledState(mentionProvider);
 		const isDisabled = !!disabledState?.disabled;
@@ -395,6 +524,7 @@ export class MentionNodeView implements NodeView {
 	}
 
 	destroy(): void {
+		this.isDestroyed = true;
 		// Surface the destruction to the provider before tearing down so the
 		// chat layer can react (e.g. drop the agent id from `selectedAgentIds`).
 		// This is the lowest-level deletion signal — fires for backspace,
@@ -407,8 +537,15 @@ export class MentionNodeView implements NodeView {
 		}
 		this.cleanup?.();
 		this.destroyProfileCard?.();
+		this.mentionAvatar?.destroy();
+		this.mentionAvatar = undefined;
 		this.disabledTooltip?.destroy();
 		this.disabledTooltip = undefined;
+		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
+			this.vanillaDisabledTooltip?.destroy();
+			this.vanillaDisabledTooltip = undefined;
+			this.vanillaDisabledTooltipText = undefined;
+		}
 		this.unsubscribeFromDisabledStateChanges?.();
 		this.unsubscribeFromDisabledStateChanges = undefined;
 		this.subscribedProvider = undefined;

@@ -5,10 +5,11 @@
 import { css, jsx } from '@compiled/react';
 
 import Grid, { GridItem } from '@atlaskit/grid';
-import Heading, { HeadingContextProvider } from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
+import HeadingContextProvider from '@atlaskit/heading/heading-context/default';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 

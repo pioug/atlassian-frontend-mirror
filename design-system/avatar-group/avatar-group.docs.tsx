@@ -44,7 +44,7 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/avatar-group.tsx'),
 				},
 			],
-			keywords: ['avatar', 'group', 'multiple', 'users', 'team', 'overlap'],
+			keywords: ['avatar', 'group', 'multiple', 'users', 'team', 'overlap', 'facepile'],
 			categories: ['data-display'],
 		},
 	],

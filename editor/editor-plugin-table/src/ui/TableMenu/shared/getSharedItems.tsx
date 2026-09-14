@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	CELL_ACTION_SECTION,

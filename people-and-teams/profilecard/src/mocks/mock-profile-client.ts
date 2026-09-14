@@ -1,12 +1,15 @@
-import TeamCentralCardClient, {
+import {
+	default as TeamCentralCardClient,
 	type TeamCentralCardClientOptions,
 } from '../client/TeamCentralCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
 import { type ClientOverrides, type ProfileClientOptions } from '../types';
 
+import { getTimeString } from './get-time-string';
+import { getWeekday } from './get-weekday';
 import profiles from './profile-data';
+import { random } from './random';
 import { reportingLinesData } from './reporting-lines-data';
-import { getTimeString, getWeekday, random } from './util';
 
 export default function getMockProfileClient(BaseProfileClient: any, modifyResponse: any): any {
 	class MockUserClient extends UserProfileCardClient {

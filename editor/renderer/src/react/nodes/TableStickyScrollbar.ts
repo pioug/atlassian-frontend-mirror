@@ -1,5 +1,5 @@
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 type SentinelState = 'above' | 'visible' | 'below';
 

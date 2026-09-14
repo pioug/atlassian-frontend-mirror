@@ -12,6 +12,10 @@ test.describe('React UFO: isTabThrottled detection', () => {
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'basic';
+			viewport: { width: number; height: number };
+			__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 		});
 
 		test('should report isTabThrottled as false when page loads normally without throttling', async ({
@@ -43,6 +47,10 @@ test.describe('React UFO: isTabThrottled detection', () => {
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'interactions-simple-button';
+			viewport: { width: number; height: number };
+			__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 		});
 
 		test('should report isTabThrottled for press interactions as well', async ({
@@ -87,6 +95,10 @@ test.describe('React UFO: isTabThrottled detection - throttled tab scenario with
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'interactions-simple-button';
+			viewport: { width: number; height: number };
+			__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 		});
 
 		test('should report isTabThrottled as true when throttle measurements indicate throttling', async ({
@@ -146,6 +158,10 @@ test.describe('React UFO: isTabThrottled detection - throttled tab scenario with
 				width: 1920,
 				height: 1080,
 			},
+		} satisfies {
+			examplePage: 'basic';
+			viewport: { width: number; height: number };
+			__exampleDependency?: typeof import('../../examples/01-basic.tsx');
 		});
 
 		test('should report isTabThrottled as false when no throttling is detected', async ({

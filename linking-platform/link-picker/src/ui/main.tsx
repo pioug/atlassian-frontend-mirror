@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { LazySuspense } from 'react-loosely-lazy';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { token } from '@atlaskit/tokens';
 
 import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';

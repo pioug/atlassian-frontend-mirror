@@ -57,9 +57,6 @@
 			"path": "../emoji/tsconfig.app.json"
 		},
 		{
-			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
@@ -70,6 +67,9 @@
 		},
 		{
 			"path": "../../design-system/motion/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

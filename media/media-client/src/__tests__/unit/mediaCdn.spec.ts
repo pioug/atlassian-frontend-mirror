@@ -1,8 +1,12 @@
-import { mapToMediaCdnUrl, isCDNEnabled } from '../../utils/mediaCdn';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
 import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 import { isGCPtenant as isGCPtenantInStaging } from '@atlaskit/media-common/mediaEnvUtils';
+
+import { isCDNEnabled } from '../../utils/isCDNEnabled';
+import { mapToMediaCdnUrl } from '../../utils/mapToMediaCdnUrl';
+import { mapToSeedBasedCdnUrl } from '../../utils/mapToSeedBasedCdnUrl';
 
 jest.mock('@atlaskit/atlassian-context/is-isolated-cloud', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context/is-isolated-cloud'),
@@ -212,4 +216,60 @@ describe('mediaCdn', () => {
 			});
 		},
 	);
+});
+
+describe('mapToSeedBasedCdnUrl', () => {
+	const watermarkedSeededUrl =
+		'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/file-id/image?token=cdn-token&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy%2Bvalue&Key-Pair-Id=key&Signature=signature%2Bvalue';
+
+	it('inserts supported image params before the watermark anchor', () => {
+		expect(
+			mapToSeedBasedCdnUrl(watermarkedSeededUrl, {
+				width: 100,
+				height: 200,
+				mode: 'crop',
+				collection: 'ignored-collection',
+				source: 'ignored-source',
+				ssr: 'server',
+			}),
+		).toBe(
+			'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/file-id/image?token=cdn-token&width=100&height=200&mode=crop&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy%2Bvalue&Key-Pair-Id=key&Signature=signature%2Bvalue',
+		);
+	});
+
+	it('preserves the signed watermark suffix byte-for-byte', () => {
+		const result = mapToSeedBasedCdnUrl(watermarkedSeededUrl, { height: 200 });
+
+		expect(result.slice(result.indexOf('&wm-ari='))).toBe(
+			watermarkedSeededUrl.slice(watermarkedSeededUrl.indexOf('&wm-ari=')),
+		);
+	});
+
+	it('inserts supported image params before a watermark that is the first query parameter', () => {
+		const firstParameterWatermarkedUrl =
+			'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/file-id/image?wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy%2Bvalue&Key-Pair-Id=key&Signature=signature%2Bvalue';
+
+		expect(mapToSeedBasedCdnUrl(firstParameterWatermarkedUrl, { width: 100 })).toBe(
+			'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/file-id/image?width=100&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy%2Bvalue&Key-Pair-Id=key&Signature=signature%2Bvalue',
+		);
+	});
+
+	it('appends image params to a non-watermarked signed URL', () => {
+		const seededUrl =
+			'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/file-id/image?token=cdn-token&Policy=policy%2Bvalue&Key-Pair-Id=key&Signature=signature%2Bvalue';
+
+		expect(mapToSeedBasedCdnUrl(seededUrl, { width: 100, upscale: false })).toBe(
+			`${seededUrl}&width=100&upscale=false`,
+		);
+	});
+
+	it('returns the seeded URL unchanged when there are no supported image params', () => {
+		expect(
+			mapToSeedBasedCdnUrl(watermarkedSeededUrl, {
+				collection: 'collection',
+				source: 'ssr-server',
+				ssr: 'server',
+			}),
+		).toBe(watermarkedSeededUrl);
+	});
 });

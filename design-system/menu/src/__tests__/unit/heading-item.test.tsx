@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { HeadingItem } from '../../index';
+import HeadingItem from '../../menu-item/heading-item';
 
 const testId = 'heading-item';
 const headingLevel = 3;

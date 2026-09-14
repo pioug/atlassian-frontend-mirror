@@ -1,5 +1,30 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll
 
+## 3.2.0
+
+### Minor Changes
+
+- [`bd2c5b0112185`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd2c5b0112185) -
+  Remove stale API report artifacts from published Platform packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [`689e7d79849f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/689e7d79849f3) -
+  Imports from the package root are deprecated and will be removed in a future release. Migrate to
+  dedicated entry-point imports to reduce upgrade friction.
+
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,7 +1,9 @@
 import * as mocks from './image-placer.mock';
 import { mockLoadImage, mockLoadImageError, unMockLoadImage } from '@atlaskit/media-test-helpers';
 
-import { type FileInfo, Rectangle, Bounds } from '@atlaskit/media-ui';
+import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
+import { Rectangle } from '@atlaskit/media-ui/rectangle';
+import { Bounds } from '@atlaskit/media-ui/bounds';
 
 import {
 	applyOrientation,
@@ -11,6 +13,19 @@ import {
 	type PreviewInfo,
 	type ViewInfo,
 } from '../../image-placer/imageProcessor';
+
+// The source (imageProcessor.ts) imports loadImage/getOrientation from the
+// `@atlaskit/media-ui/*` subpaths (Volt debarrel), but `mockLoadImage` only mocks the
+// `@atlaskit/media-ui` barrel. Bridge the subpath modules to the same mocked functions so
+// `initialiseImagePreview`'s awaited loadImage resolves instead of hanging. Mirrors
+// image-placerSpec.tsx.
+jest.mock('@atlaskit/media-ui/loadImage', () => ({
+	loadImage: jest.requireMock('@atlaskit/media-ui').loadImage,
+}));
+
+jest.mock('@atlaskit/media-ui/imageMetaData/getOrientation', () => ({
+	getOrientation: jest.requireMock('@atlaskit/media-ui').getOrientation,
+}));
 
 describe('Image Placer Image Processing', () => {
 	let originalCSS: any;

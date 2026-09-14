@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 // The full list of languages that can potentially be supported is found in
 // https://prismjs.com/#supported-languages
 
@@ -441,6 +442,9 @@ export const SUPPORTED_LANGUAGES = [
 	},
 ] as const;
 
+/**
+ * @deprecated Use `import { CODE_BLOCK_SELECTOR } from '@atlaskit/code/constants'` instead.
+ */
 export { CODE_BLOCK_SELECTOR } from './internal/theme/constants';
 
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];

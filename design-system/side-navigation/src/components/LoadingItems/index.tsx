@@ -6,7 +6,8 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import FadeIn from '@atlaskit/motion/fade-in';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
 
@@ -67,7 +68,7 @@ const enteringStyles = css({
  *
  * @deprecated `@atlaskit/side-navigation` is deprecated. Use `@atlaskit/navigation-system` instead.
  */
-const LoadingItems: ({
+export const LoadingItems: ({
 	children,
 	isLoading,
 	fallback,
@@ -99,5 +100,3 @@ const LoadingItems: ({
 		</ExitingPersistence>
 	);
 };
-
-export default LoadingItems;

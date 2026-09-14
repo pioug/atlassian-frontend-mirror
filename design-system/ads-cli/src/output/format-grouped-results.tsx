@@ -5,6 +5,7 @@
  * groups are skipped, so one command surfaces whatever kinds match, grouped by kind.
  */
 
+import { CLI_BIN_NAME } from '../commands/cli-metadata';
 import type { RowKind } from '../commands/types';
 
 import { formatCompactResults } from './format-results';
@@ -15,9 +16,11 @@ import { formatCompactResults } from './format-results';
 export const formatGroupedResults = ({
 	groups,
 	totalCount,
+	invocation = CLI_BIN_NAME,
 }: {
 	groups: Record<string, unknown[]>;
 	totalCount: number;
+	invocation?: string;
 }): string => {
 	// Fixed display order, with human-friendly section titles.
 	const sections: Array<{ kind: RowKind; title: string }> = [
@@ -37,7 +40,12 @@ export const formatGroupedResults = ({
 		// Reuse the single-kind compact renderer with drill-in follow-ups enabled (this is the
 		// unified `search` view), then strip its own "Results (n):" header and following blank
 		// line so the grouped output uses the section title instead.
-		const rendered = formatCompactResults({ kind, data: entries, showFollowUp: true });
+		const rendered = formatCompactResults({
+			kind,
+			data: entries,
+			showFollowUp: true,
+			invocation,
+		});
 		const body = rendered ? rendered.split('\n').slice(2).join('\n') : '';
 		blocks.push('', `${title} (${entries.length}):`, '', body);
 	}

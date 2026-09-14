@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { type BooleanType } from '@atlaskit/linking-types';
+import type { BooleanType } from '@atlaskit/linking-types/datasource';
 
 import TextRenderType from '../text';
 

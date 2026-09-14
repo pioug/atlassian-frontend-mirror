@@ -86,7 +86,47 @@ it('should extract the expected additional non_nestable_block_content specs', ()
 
 it('should extract the expected additional panel specs', () => {
 	const validatorSpecs = createSpec();
-	expect(extractAllowedContent(validatorSpecs, { type: 'panel' })).toEqual([]);
+	// panel_c1 (props: content) and panel_c1_root_only (props: content + breakout marks) are
+	// table-allowing variants of panel, surfaced as additional candidates so a panel node can be
+	// validated against them where they're allowed (doc root / synced block / layout column).
+	// Both are `stage0: true` in the schema, so a caller validating full ADF declines them and one
+	// validating stage-0 accepts them.
+	expect(extractAllowedContent(validatorSpecs, { type: 'panel' })).toEqual([
+		[
+			[
+				'panel',
+				{
+					meta: { stage0: true },
+					props: {
+						content: expect.any(Object),
+					},
+				},
+			],
+		],
+		[
+			[
+				'panel',
+				{
+					meta: { stage0: true },
+					props: {
+						content: expect.any(Object),
+						marks: expect.any(Object),
+					},
+				},
+			],
+		],
+		[
+			[
+				'panel',
+				{
+					meta: { stage0: true },
+					props: {
+						marks: expect.any(Object),
+					},
+				},
+			],
+		],
+	]);
 });
 
 it('should extract the expected additional listItem specs', () => {
@@ -133,6 +173,7 @@ it('should extract the expected additional layoutSection specs', () => {
 			[
 				'layoutSection',
 				{
+					meta: { stage0: true },
 					props: {
 						content: expect.any(Object),
 						marks: expect.any(Object),

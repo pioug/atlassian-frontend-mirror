@@ -1,6 +1,6 @@
 import { createTag } from '../create-tag';
 import type { NodeSerializerOpts } from '../interfaces';
-import { N40, N300 } from '@atlaskit/adf-schema';
+import { N40, N300 } from '@atlaskit/adf-schema/colors';
 import { createClassName } from '../styles/util';
 
 const className = createClassName('blockquote');

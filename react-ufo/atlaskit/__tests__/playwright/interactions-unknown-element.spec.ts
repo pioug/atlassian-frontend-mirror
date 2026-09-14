@@ -6,6 +6,9 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: Interactions Unknown Element name', () => {
 	test.use({
 		examplePage: 'interactions-simple-button',
+	} satisfies {
+		examplePage: 'interactions-simple-button';
+		__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 	});
 	test('get interactions unknownElementName', async ({
 		page,
@@ -24,7 +27,7 @@ test.describe('ReactUFO: Interactions Unknown Element name', () => {
 			'button#test-button2',
 		);
 		expect(reactUFOPayload!.attributes.properties.interactionMetrics.unknownElementHierarchy).toBe(
-			'UFOSegment[name=buttons-container]',
+			'UFOSegment[name=buttons-container] > SsrRenderProfiler',
 		);
 	});
 });

@@ -3,13 +3,15 @@ import React, { type MouseEventHandler, useCallback, useEffect, useRef } from 'r
 import { bind } from 'bind-event-listener';
 
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
-import { MenuGroup, Section } from '@atlaskit/menu';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
+import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation';
+import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import AvatarGroupItem from './avatar-group-item';

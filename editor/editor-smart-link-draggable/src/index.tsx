@@ -9,14 +9,13 @@ import { css } from '@compiled/react';
 import ReactDOM from 'react-dom';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { extractSmartLinkTitle } from '@atlaskit/link-extractors';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { extractSmartLinkTitle } from '@atlaskit/link-extractors/extract-smart-link-title';
+import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { isSafeUrl } from '@atlaskit/linking-common/url';
-import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/pointer-outside-of-preview';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { getObjectIconUrl } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
@@ -354,7 +353,7 @@ export function SmartLinkDraggable({
 	isChangeboardTarget,
 	children,
 }: PropsWithChildren<SmartLinkDraggableProps>): JSX.Element {
-	if (!url || !isSafeUrl(url) || !fg('cc_drag_and_drop_smart_link_from_content_to_tree')) {
+	if (!url || !isSafeUrl(url)) {
 		return <React.Fragment>{children}</React.Fragment>;
 	}
 

@@ -77,6 +77,7 @@ Each group file in `src/actions/groups/` exports a **discriminated union payload
 | `evaluation.ts` | `EvaluationEventPayload` | Batch evaluation events (dataset CRUD, job lifecycle, results viewed) |
 | `create-flow.ts` | `CreateFlowEventPayload` | Create agent funnel steps |
 | `add-tools-prompt.ts` | `AddToolsPromptEventPayload` | Add tools prompt modal events |
+| `value-calculator.ts` | `ValueCalculatorEventPayload` | Agent Insights value calculator funnel |
 
 The combined `EventPayload` type (exported from `types.ts`) is a union of all these payload types.
 

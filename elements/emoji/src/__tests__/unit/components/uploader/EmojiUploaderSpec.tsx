@@ -2,7 +2,7 @@ import React from 'react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -15,20 +15,18 @@ import {
 	pngDataURL,
 	pngFileUploadData,
 } from '../../_test-data';
-import EmojiUploader, { type Props } from '../../../../components/uploader/EmojiUploader';
 import { uploadPreviewTestId } from '../../../../components/common/EmojiUploadPreview';
+import EmojiUploader, { type Props } from '../../../../components/uploader/EmojiUploader';
 import {
 	uploadEmojiComponentTestId,
 	uploadEmojiNameInputTestId,
 } from '../../../../components/common/EmojiUploadPicker';
-import {
-	selectedFileEvent,
-	uploadCancelButton,
-	uploadConfirmButton,
-	uploadFailedEvent,
-	uploadSucceededEvent,
-} from '../../../../util/analytics';
 import { messages } from '../../../../components/i18n';
+import { selectedFileEvent } from '../../../../util/analytics/selectedFileEvent';
+import { uploadCancelButton } from '../../../../util/analytics/uploadCancelButton';
+import { uploadConfirmButton } from '../../../../util/analytics/uploadConfirmButton';
+import { uploadFailedEvent } from '../../../../util/analytics/uploadFailedEvent';
+import { uploadSucceededEvent } from '../../../../util/analytics/uploadSucceededEvent';
 import { renderWithIntl } from '../../_testing-library';
 
 const sampleEmoji = {

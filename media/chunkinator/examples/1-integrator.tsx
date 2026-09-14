@@ -2,7 +2,8 @@ import React, { type ChangeEvent, useState } from 'react';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { smallImage } from '@atlaskit/media-common/test-helpers';
-import { chunkinator, type Chunk, type ChunkinatorFile } from '../src';
+import { chunkinator } from '../src/chunkinator';
+import { type Chunk, type ChunkinatorFile } from '../src/domain';
 import {
 	transformAuthHeaders,
 	createAuthSession,
